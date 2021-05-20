@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;use DB;
+use Illuminate\Support\ServiceProvider;
+
+use DB;
 use View;
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,7 +24,11 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        $siteDetails = DB::table('settings')->first();		View::composer('Front/layout/header', function($view) use($siteDetails) {		$view->with('siteDetails',$siteDetails);		});		View::composer('Front/layout/footer', function($view) use($siteDetails) {		$view->with('siteDetails',$siteDetails);		});
+    { 
+        $siteDetails = DB::table('settings')->first();		
+        View::composer('Front/layout/header', function($view) use($siteDetails) {		
+            $view->with('siteDetails',$siteDetails);		});		
+            View::composer('Front/layout/footer', function($view) use($siteDetails) {		
+                $view->with('siteDetails',$siteDetails);		});
     }
 }

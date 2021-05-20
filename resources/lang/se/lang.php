@@ -40,6 +40,7 @@
      'change_password_menu'=>'Ändra lösenord',
      'logout_label'=>'Logga ut',
      'buy_now_btn'=>'Köp nu',
+     'search_placeholder'=>'Sök',
  
 
  ]

@@ -39,7 +39,7 @@
      'change_password_menu'=>'Change Password',
      'logout_label'=>'Logout',
      'buy_now_btn'=>'Buy Now',
-     // ''=>'',
+     'search_placeholder'=>'Search',
      // ''=>'',
      // ''=>'',
      // ''=>'',

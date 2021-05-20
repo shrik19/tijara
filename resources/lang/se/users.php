@@ -28,7 +28,7 @@
               och för andra ändamål som beskrivs i vår integritetspolicy.',
      'register_as_buyer_btn'=>'Registrera dig som köpare',
      'register_as_seller_btn'=>'Registrera dig som säljare',
-     'profile_label'=>'Profile',
+     'profile_label'=>'Profil',
      'address_placholder'=>'Ange din adress',
      'change_password_title'=>'Ändra ditt lösenord',
      /*''=>'',

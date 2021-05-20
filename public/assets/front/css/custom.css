@@ -1,0 +1,38 @@
+
+#sliderImages{
+	height: 448px;width: 586px;
+}
+.activemaincategory {
+    text-decoration: none;
+    color: #fff !important;
+    background: #03989e;
+}
+.activemaincategory a{
+    text-decoration: none;
+    color: #fff !important;
+}
+.activesubcategories {
+	border-bottom: 0px !important;
+}
+.subcategories_list {
+	border-bottom: 1px solid gray;
+	margin-left: 25px;
+	background: none !important;
+}
+.subcategories_list li a:hover {
+	
+	background-color: transparent !important;
+	color: #717171 !important
+}
+.subcategories_list li:hover {
+	
+	background-color: transparent !important;
+	color: #717171 !important
+}
+.invalid-feedback {
+	color:red;
+}
+.subscribe-packages{
+	border-radius: 10px;  
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

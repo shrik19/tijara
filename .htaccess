@@ -1,0 +1,1 @@
+RewriteEngine On RewriteCond %{HTTPS} !=on    RewriteRule ^ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]RewriteCond %{REQUEST_URI} (\.\w+$) [NC]    RewriteRule ^(.*)$ public/$1 RewriteCond %{SERVER_PORT} 80RewriteCond %{HTTP_HOST} ^(www\.)?tijara.techbeeconsulting\.comRewriteRule ^(.*)$ http://www.tijara.techbeeconsulting.com/$1 [R,L]

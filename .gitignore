@@ -1,0 +1,24 @@
+/vendor/
+node_modules/
+
+# Laravel 4 specific
+bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+public/storage
+public/hot
+
+storage/*.key
+.env
+tests/
+tijara.zip
+tijara_code.zip
+unzipper.php
+vendor.zip
+webpack.mix.js
+
+
+
+
+

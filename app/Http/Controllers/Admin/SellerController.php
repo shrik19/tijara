@@ -150,24 +150,24 @@ class SellerController extends Controller
                 $store_name = (!empty($recordDetailsVal['store_name'])) ? $recordDetailsVal['store_name'] : '-';
                 $city = (!empty($recordDetailsVal['city'])) ? $recordDetailsVal['city'] : '-';
                 $whereFindUs = (!empty($recordDetailsVal['where_find_us'])) ? $recordDetailsVal['where_find_us'] : '-';
-                $showPackges =  '<a href="'.route('adminSellerShowPackages', base64_encode($id)).'" title="show packages" class="btn btn-icon btn-info"><i class="fas fa-history"></i> </a>&nbsp;&nbsp;'; 
+                $showPackges =  '<a href="'.route('adminSellerShowPackages', base64_encode($id)).'" title="'.__('users.show_ackages_thead').'" class="btn btn-icon btn-info"><i class="fas fa-history"></i> </a>&nbsp;&nbsp;'; 
 
 
                 if ($recordDetailsVal['is_verified'] == 1) {
-                    $is_verified = '<a href="javascript:void(0)" class="btn btn-icon btn-success" title="Verified Seller"><i class="fas fa-circle"></i> </a>';
+                    $is_verified = '<a href="javascript:void(0)" class="btn btn-icon btn-success" title="'.__('users.verified_seller_title').'"><i class="fas fa-circle"></i> </a>';
                  } else { 
-                    $is_verified = '<a href="javascript:void(0)"  class="btn btn-icon btn-danger" title="Pending Seller"><i class="fas fa-circle"></i> </a>';
+                    $is_verified = '<a href="javascript:void(0)"  class="btn btn-icon btn-danger" title="'.__('users.pending_seller_title').'"><i class="fas fa-circle"></i> </a>';
                 }
 
                 if ($recordDetailsVal['status'] == 'active') {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSellerChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSellerChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
                  } else { 
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSellerChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSellerChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
               
-                $action = '<a href="'.route('adminSellerEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('adminSellerEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSellerDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSellerDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
             
                 $arr[] = [$fname, $lname, $store_name, $city, $whereFindUs, $showPackges, $is_verified, $status, $action];
             }
@@ -218,17 +218,16 @@ class SellerController extends Controller
         ];
 
         $messages = [
-            'fname.required'         => 'Please fill in your First Name',
-            'lname.required'         => 'Please fill in your Last Name',
-            'fname.regex'            => 'Please input alphabet characters only',
-            'lname.regex'            => 'Please input alphabet characters only',
-            'email.required'         => 'Please fill in your Email',
-            'email.unique'           => 'Please enter different email , its already taken.',
-            'email.regex'            => 'Please enter Valid Email.',
-           // 'paypal_email.required'         => 'Please fill in your Paypal Email',
-            'paypal_email.unique'    => 'Please enter different Paypal email , its already taken.',
-            'paypal_email.regex'     => 'Please enter Valid Paypal Email.',
-            'description.max'        => 'Maximum 500 characters allowed',
+            'fname.required'         => trans('errors.fill_in_first_name_err'),
+            'lname.required'         => trans('errors.fill_in_last_name_err'),
+            'fname.regex'            => trans('errors.input_alphabet_err'),
+            'lname.regex'            => trans('errors.input_alphabet_err'),
+            'email.required'         => trans('errors.fill_in_email_err'),
+            'email.unique'           => trans('errors.unique_email_err'),
+            'email.regex'            => trans('errors.valid_email_err'),
+            'paypal_email.unique'    => trans('errors.unique_paypal_email_err'),
+            'paypal_email.regex'     => trans('errors.valid_paypal_email_err'),
+            'description.max'        => trans('errors.max_char_err'),
             /*'phone_number.required'  => 'Please fill in your Phone Number',
             'address.required'       => 'Please fill in your address',
             'postcode.required'      => 'Please fill in your postcode',
@@ -326,7 +325,7 @@ class SellerController extends Controller
             }
 
             if($fileError == 1) {
-                Session::flash('error', trans('error.invalid_files_err'));
+                Session::flash('error', trans('errors.invalid_files_err'));
                 return redirect()->back();
             }
         } 
@@ -341,7 +340,7 @@ class SellerController extends Controller
      */
     public function edit($id) {
         if(empty($id)) {
-            Session::flash('error', trans('error.refresh_your_page_err'));
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
 
@@ -354,7 +353,7 @@ class SellerController extends Controller
         $imagedetails=  UserMain::where('id', $id)->with(['getImages'])->first();
 
         if(empty($details)) {
-            Session::flash('error', trans('error.refresh_your_page_err'));
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();   
          }
 
@@ -374,7 +373,7 @@ class SellerController extends Controller
      */
     public function update(Request $request, $id) {
     	if(empty($id)) {
-            Session::flash('error', trans('error.refresh_your_page_err'));
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
         
@@ -396,14 +395,17 @@ class SellerController extends Controller
         ];
 
         $messages = [
-            'fname.required'         => 'Please fill in your First Name',
-            'lname.required'         => 'Please fill in your Last Name',
-            'fname.regex'            => 'Please input alphabet characters only',
-            'lname.regex'            => 'Please input alphabet characters only',
-            'email.required'         => 'Please fill in your Email',
-            'email.unique'           => 'Please enter different email , its already taken.',
-            'email.regex'            => 'Please enter Valid Email.',
-            'description.max'        => 'Maximum 500 characters allowed',
+            'fname.required'         => trans('errors.fill_in_first_name_err'),
+            'lname.required'         => trans('errors.fill_in_last_name_err'),
+            'fname.regex'            => trans('errors.input_alphabet_err'),
+            'lname.regex'            => trans('errors.input_alphabet_err'),
+            'email.required'         => trans('errors.fill_in_email_err'),
+
+            'email.unique'           => trans('errors.unique_email_err'),
+            'email.regex'            => trans('errors.valid_email_err'),
+            'paypal_email.unique'    => trans('errors.unique_paypal_email_err'),
+            'paypal_email.regex'     => trans('errors.valid_paypal_email_err'),
+            'description.max'        => trans('errors.max_char_err'),
             //'paypal_email.required'  => 'Please fill in your Paypal Email',
             /*'paypal_email.unique'    => 'Please enter different Paypal email , its already taken.',
             'paypal_email.regex'     => 'Please enter Valid Paypal Email.',
@@ -506,7 +508,7 @@ class SellerController extends Controller
 
             if($fileError == 1)
             {
-                Session::flash('error', trans('error.invalid_files_err'));
+                Session::flash('error', trans('errors.invalid_files_err'));
                 return redirect()->back();
             }
         }           
@@ -522,7 +524,7 @@ class SellerController extends Controller
      */
     public function changeStatus($id, $status)  {
         if(empty($id)) {
-            Session::flash('error', trans('error.refresh_your_page_err'));
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminCustomer'));
         }
         $id = base64_decode($id);
@@ -532,7 +534,7 @@ class SellerController extends Controller
             Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
          } else  {
-            Session::flash('error', trans('error.something_wrong_err'));
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -543,7 +545,7 @@ class SellerController extends Controller
      */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', trans('error.refresh_your_page_err'));
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminSeller'));
         }
 
@@ -555,7 +557,7 @@ class SellerController extends Controller
            Session::flash('success', trans('messages.record_deleted_success'));
                 return redirect()->back();  
         } else {
-            Session::flash('error', trans('error.something_wrong_err'));
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -566,7 +568,7 @@ class SellerController extends Controller
     */
      public function deleteImage($id) {
         if(empty($id))  {
-            Session::flash('error', trans('error.refresh_your_page_err'));
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminSeller'));
         }
         $id = base64_decode($id);
@@ -587,7 +589,7 @@ class SellerController extends Controller
         } 
         else 
         {
-            Session::flash('error', trans('error.something_wrong_err'));
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -604,7 +606,7 @@ class SellerController extends Controller
         }
        
         if(!empty($storeDtails[0]['store_name'])){
-            $messages ="Please enter different Store Name, its already taken.";
+            $messages =trans('messages.store_name_alreay_taken');
              return $messages;
         }
        
@@ -616,7 +618,7 @@ class SellerController extends Controller
     function showpackages($id){
 
         if(empty($id)) {
-            Session::flash('error', trans('error.refresh_your_page_err'));
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
 

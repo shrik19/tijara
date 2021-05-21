@@ -14,13 +14,14 @@
      'no_cancel_message'=>'No, cancel',
      'you_want_to_change_status_message'=>'You want to change the status?',
      'yes_change_it_message'=>'Yes, change it!',
+     'buyer_save_success'=>'Buyer details Inserted successfully!',
+     'buyer_update_success'=>'Buyer details Updated successfully!',
+     'store_name_alreay_taken'=>'Please enter different Store Name, its already taken.',
+     'category_update_success'=>'Category details updated successfully!',
+     'category_save_success'=>'Category Inserted successfully!',
+     'subcat_save_success'=>'Subcategory Inserted successfully!',
+     'subcat_update_success'=>'Subcategory Updated successfully!',
     /* ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
      ''=>'',*/
  ]
 ?>

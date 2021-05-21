@@ -81,7 +81,24 @@
 $('#categories').select2({
 		placeholder:"select"
 		});
-
+var select_attribute_value="{{ __('lang.select_label')}}  {{ __('lang.attribute_value_label')}}";
+var required_field_error="{{ __('lang.required_field_error')}}";
+var attribute_saved="{{ __('lang.attribute_saved')}}";
+var fill_in_email_err="{{ __('errors.fill_in_email_err')}}";
+var fill_in_password_err="{{ __('errors.fill_in_password_err')}}";
+var fill_in_confirm_password_err="{{ __('errors.fill_in_confirm_password_err')}}";
+var fill_in_first_name_err="{{ __('errors.fill_in_first_name_err')}}";
+var fill_in_last_name_err="{{ __('errors.fill_in_last_name_err')}}";
+var fill_in_phone_number_err="{{ __('errors.fill_in_phone_number_err')}}";
+var fill_in_address_err="{{ __('errors.fill_in_address_err')}}";
+var fill_in_postal_code_err="{{ __('errors.fill_in_postal_code_err')}}";
+var password_min_6_char="{{ __('errors.password_min_6_char')}}";
+var password_not_matched="{{ __('errors.password_not_matched')}}";
+var are_you_sure_message="{{ __('messages.are_you_sure_message')}}";
+var yes_delete_it_message="{{ __('messages.yes_delete_it_message')}}";
+var no_cancel_message="{{ __('messages.no_cancel_message')}}";
+var alert_delete_record_message="{{ __('messages.alert_delete_record_message')}}";
+var invalid_files_err="{{ __('errors.invalid_files_err')}}";
 </script>
         <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 

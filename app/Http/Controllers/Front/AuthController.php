@@ -114,9 +114,10 @@ class AuthController extends Controller
                         /*get role id*/
                         $getRoleId = DB::table('users')
                             ->where('id', $user_id)->first();
-                        session_start();
+                        //session_start();
                         $currentUser=array('role_id'=>$getRoleId->role_id,'name'=>$getRoleId->fname.' '.$getRoleId->lname);
-                        $_SESSION['currentUser']=$currentUser;
+                        //$_SESSION['currentUser']=$currentUser;
+                        session($currentUser);
                         if($getRoleId->role_id==2){
                             return redirect(route('frontSellerProfile'));
                         }else{
@@ -264,6 +265,7 @@ class AuthController extends Controller
      */
     public function sellerProfile($edit = '')
     {
+        
         $data['pageTitle'] = 'Seller Profile';
         if(!Auth::guard('user')->id())
         {

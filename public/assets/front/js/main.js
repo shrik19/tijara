@@ -26,8 +26,10 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.attribute_tr').find('.remove_attribute_btn').remove();
     $trNew.find('.clone_tr').remove();
     $trNew.find('.select_attribute').val('');
-    $trNew.find('.select_attribute_value').html('<option value="">Select Attribute Value</option>');
+    $trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
     $trNew.find('tr.attribute_tr:gt(0)').remove();
+    $trNew.find('img').remove();
+    $trNew.find('.remove_image').remove();
     if($trNew.find('.add_attribute_group_td').find('.remove_variant_btn').length<=0)
     $trNew.find('.add_attribute_group_td').append("<a href='javascript:void(0);'  variant_id='"+variant_id+"'  class='fas fa-trash remove_variant_btn' title='Remove Variant'  ></a>");
     //$trNew.find('.plus_attribute_tr').html("<a href='javascript:void(0);'  variant_id='"+variant_id+"'  class='fas fa-trash remove_attribute_btn' title='Remove Attribute'  ></a>");
@@ -52,7 +54,7 @@ $('#variant_table').on('change', '.variant_image', function () {
         var validExtensions = ["jpg","jpeg","gif","png"];
         var file = $(this).val().split('.').pop(); 
         if (validExtensions.indexOf(file) == -1) {
-                alert("Only formats are allowed : "+validExtensions.join(', '));
+                alert(invalid_files_err);
                 $(this).val('');
                 return false;
         }
@@ -152,7 +154,7 @@ $('#variant_table').on('click', '.close_modal', function () {
         $(this).remove();
     });   
     $('.modal[variant_id="'+variant_id+'"]').find('tr.attribute_tr:gt(0)').remove();
-    $('.modal[variant_id="'+variant_id+'"]').find('.select_attribute_value').html('<option value="">Select Attribute Value</option>');
+    $('.modal[variant_id="'+variant_id+'"]').find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
    // $('.modal[variant_id="'+variant_id+'"]').modal('hide');
 }); 
 $('#variant_table').on('click', '.save_attribute_group', function () {
@@ -161,7 +163,7 @@ $('#variant_table').on('click', '.save_attribute_group', function () {
     var variant_id  =   $(this).attr('variant_id');
     
    
-    alert('Attribute group saved successfully');
+    alert(attribute_saved);
     $('.modal[variant_id="'+variant_id+'"]').modal('hide');
     var toPutHtml   =   '';
     $('.modal[variant_id="'+variant_id+'"]').find( "select.select_attribute" ).each(function() {
@@ -183,7 +185,7 @@ $('#variant_table').on('click', '.plus_attribute', function () {
     attribute_number++;
     $trNew = $trLast.clone();
     
-    $trNew.find('.select_attribute_value').html('<option value="">Select Attribute Value</option>');
+    $trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
     $trNew.find('select').val('');
     $trNew.attr('attribute_number',attribute_number);
     $trNew.addClass('clone_tr');
@@ -209,13 +211,13 @@ $(".frontloginbtn").click(function(e){
 
   if(email == '')
   {
-    $("#err_email").html('Please provide email address!').show();
+    $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
   else if(!email_pattern.test(email))
   {
-    $("#err_email").html('Please enter valid email address!').show();
+    $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
@@ -227,7 +229,7 @@ $(".frontloginbtn").click(function(e){
 
   if(password == '')
   {
-    $("#err_password").html('Please enter your password!').show();
+    $("#err_password").html(fill_in_password_err).show();
     $("#err_password").parent().addClass('jt-error');
     error = 1;
   }
@@ -266,7 +268,7 @@ $(".saveproduct").click(function(e){
   
   if(title == '')
   {
-    $("#err_title").html('Please provide Product title').show();
+    $("#err_title").html(required_field_error).show();
     $("#err_title").parent().addClass('jt-error');
     error = 1;
   }
@@ -277,7 +279,7 @@ $(".saveproduct").click(function(e){
   }
   $( ".variant_field" ).each(function() {
       if($(this).val()=='') {
-          $(this).next('.invalid-feedback').html('This field is required');
+          $(this).next('.invalid-feedback').html(required_field_error);
           error = 1;
       }
       else
@@ -307,7 +309,7 @@ $(".frontregisterbtn").click(function(e){
 
   if(fname == '')
   {
-    $("#err_fname").html('Please provide First name!').show();
+    $("#err_fname").html(fill_in_first_name_err).show();
     $("#err_fname").parent().addClass('jt-error');
     error = 1;
   }
@@ -318,7 +320,7 @@ $(".frontregisterbtn").click(function(e){
   }
   if(lname == '')
   {
-    $("#err_lname").html('Please provide Last name!').show();
+    $("#err_lname").html(fill_in_last_name_err).show();
     $("#err_lname").parent().addClass('jt-error');
     error = 1;
   }
@@ -328,13 +330,13 @@ $(".frontregisterbtn").click(function(e){
   }
   if(email == '')
   {
-    $("#err_email").html('Please provide email address!').show();
+    $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
   else if(!email_pattern.test(email))
   {
-    $("#err_email").html('Please enter valid email address!').show();
+    $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
@@ -346,13 +348,13 @@ $(".frontregisterbtn").click(function(e){
 
   if(password == '')
   {
-    $("#err_password").html('Please enter your password!').show();
+    $("#err_password").html(fill_in_password_err).show();
     $("#err_password").parent().addClass('jt-error');
     error = 1;
   }
   else if((password).length<6)
   {
-    $("#err_password").html('Minumum 6 characters required!').show();
+    $("#err_password").html(password_min_6_char).show();
     $("#err_password").parent().addClass('jt-error');
     error = 1;
   }
@@ -362,7 +364,7 @@ $(".frontregisterbtn").click(function(e){
     $("#err_password").html('').hide();  
   } 
   if(password!=cpassword) {
-	  $("#err_cpassword").html('Password not matched').show();
+	  $("#err_cpassword").html(password_not_matched).show();
       $("#err_cpassword").parent().addClass('jt-error');
      error = 1;
   }
@@ -391,13 +393,13 @@ $(".ResetPasswordBtn").click(function(e){
 
   if(password == '')
   {
-    $("#err_password").html('Please enter your password!').show();
+    $("#err_password").html(fill_in_password_err).show();
     $("#err_password").parent().addClass('jt-error');
     error = 1;
   }
   else if((password).length<6)
   {
-    $("#err_password").html('Minumum 6 characters required!').show();
+    $("#err_password").html(password_min_6_char).show();
     $("#err_password").parent().addClass('jt-error');
     error = 1;
   }
@@ -407,7 +409,7 @@ $(".ResetPasswordBtn").click(function(e){
     $("#err_password").html('').hide();  
   } 
   if(password!=cpassword) {
-    $("#err_cpassword").html('Password not matched').show();
+    $("#err_cpassword").html(password_not_matched).show();
       $("#err_cpassword").parent().addClass('jt-error');
      error = 1;
   }
@@ -439,7 +441,7 @@ $(".update-buyer-profile").click(function(e){
 
   if(fname == '')
   {
-    $("#err_fname").html('Please provide First name!').show();
+    $("#err_fname").html(fill_in_first_name_err).show();
     $("#err_fname").parent().addClass('jt-error');
     error = 1;
   }
@@ -450,7 +452,7 @@ $(".update-buyer-profile").click(function(e){
   }
   if(lname == '')
   {
-    $("#err_lname").html('Please provide Last name!').show();
+    $("#err_lname").html(fill_in_last_name_err).show();
     $("#err_lname").parent().addClass('jt-error');
     error = 1;
   }
@@ -460,13 +462,13 @@ $(".update-buyer-profile").click(function(e){
   }
   if(email == '')
   {
-    $("#err_email").html('Please provide email address!').show();
+    $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
   else if(!email_pattern.test(email))
   {
-    $("#err_email").html('Please enter valid email address!').show();
+    $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
@@ -502,7 +504,7 @@ $(".seller-profile-update").click(function(e){
 
   if(fname == '')
   {
-    $("#err_fname").html('Please provide First name!').show();
+    $("#err_fname").html(fill_in_first_name_err).show();
     $("#err_fname").parent().addClass('jt-error');
     error = 1;
   }
@@ -513,7 +515,7 @@ $(".seller-profile-update").click(function(e){
   }
   if(lname == '')
   {
-    $("#err_lname").html('Please provide Last name!').show();
+    $("#err_lname").html(fill_in_last_name_err).show();
     $("#err_lname").parent().addClass('jt-error');
     error = 1;
   }
@@ -523,13 +525,13 @@ $(".seller-profile-update").click(function(e){
   }
   if(email == '')
   {
-    $("#err_email").html('Please provide email address!').show();
+    $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
   else if(!email_pattern.test(email))
   {
-    $("#err_email").html('Please enter valid email address!').show();
+    $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
@@ -576,16 +578,16 @@ $(".cloned-danger").html('')
 
 
 function ConfirmDeleteFunction(url, id = false) {
-    var message = 'You will not be able to recover this record again!';
+    var message = alert_delete_record_message;
       
   swal({
-      title: 'Are you sure?',
+      title: are_you_sure_message,
         text: message,
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel',
+        confirmButtonText: yes_delete_it_message,
+        cancelButtonText: no_cancel_message,
         closeOnConfirm: true,
         closeOnCancel: true
     },
@@ -600,16 +602,16 @@ function ConfirmDeleteFunction(url, id = false) {
 }
 
 function ConfirmDeleteFunction1(url, id = false) {
-    var message = 'You will not be able to recover this record again!';
+    var message = alert_delete_record_message;
       
   swal({
-      title: 'Are you sure?',
+      title: are_you_sure_message,
         text: message,
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel',
+        confirmButtonText: yes_delete_it_message,
+        cancelButtonText: no_cancel_message,
         closeOnConfirm: true,
         closeOnCancel: true
     },

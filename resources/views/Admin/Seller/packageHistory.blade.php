@@ -44,9 +44,9 @@
 			                if($curdate > $exp_date)
 			                {
 			                    //echo '<span class="status expired">Expired</span>';
-			                    $status = '<a href="javascript:void(0)"  class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
+			                    $status = '<a href="javascript:void(0)"  class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
 			                }else{
-			                	$status = '<a href="javascript:void(0)"  class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
+			                	$status = '<a href="javascript:void(0)"  class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
 			                }
                         ?>
 
@@ -55,7 +55,9 @@
                   <?php    $i++;
                     } 
                     }else{ ?>
-                    	  <td colspan="5" class="text-center">No Records Found.</td>
+                    	  <td colspan="5" class="text-center">
+                        {{ __('lang.datatables.sEmptyTable')}}
+                        </td>
                    <?php  } ?>
 
                   </tbody>

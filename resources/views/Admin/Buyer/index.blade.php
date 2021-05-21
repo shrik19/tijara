@@ -51,7 +51,21 @@
     "serverSide": true,
     "paging": true,
     "searching": true,
-
+    "language": {
+      "sSearch": "<?php echo __('lang.datatables.search');?>",
+      "sInfo": "<?php echo __('lang.datatables.sInfo');?>",
+      "sLengthMenu": "<?php echo __('lang.datatables.sLengthMenu');?>",
+      "sInfoEmpty": "<?php echo __('lang.datatables.sInfoEmpty');?>",
+      "sLoadingRecords": "<?php echo __('lang.datatables.sLoadingRecords');?>",
+      "sProcessing": "<?php echo __('lang.datatables.sProcessing');?>",      
+      "sZeroRecords": "<?php echo __('lang.datatables.sZeroRecords');?>",
+      "oPaginate": {
+            "sFirst":    "<?php echo __('lang.datatables.first');?>",
+            "sLast":    "<?php echo __('lang.datatables.last');?>",
+            "sNext":    "<?php echo __('lang.datatables.next');?>",
+            "sPrevious": "<?php echo __('lang.datatables.previous');?>",
+        },
+    },
     "ajax": {
       headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
       url : '{{route("adminBuyersGetRecords")}}',

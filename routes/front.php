@@ -36,7 +36,6 @@ Route::post('/store','Front\ProductController@store')->name('frontProductStore')
 Route::any('/getRecords','Front\ProductController@getRecords')->name('frontProductGetRecords');	    
 Route::get('/saveproduct/{id}','Front\ProductController@productform')->name('frontProductEdit');	    	    
 Route::get('/delete/{id}','Front\ProductController@delete')->name('frontProductDelete');	    
-Route::get('/changeStatus/{id}/{status}','Front\ProductController@changeStatus')->name('frontProductChangeStatus');	  
 Route::post('/upload-variant-image','Front\ProductController@uploadVariantImage')->name('uploadVariantImage');
 });	/*end Product Management  */
 
@@ -53,20 +52,15 @@ Route::group(['prefix'=>'product-attributes'], function() {
     Route::get('/getattributevaluebyattributeid','Front\ProductAttributesController@getattributevaluebyattributeid')->name('getattributevaluebyattributeid');
 });
 
-/* Service Management  */ 
-  Route::group(['prefix'=>'seller-services'], function() {      
-    Route::get('/','Front\ServicesController@index')->name('frontSellerServices');  
-    Route::any('/getRecords','Front\ServicesController@getRecords')->name('frontServiceGetRecords');
-
-
-    Route::get('/saveservice','Front\ServicesController@serviceform')->name('frontServiceCreate');     
-    Route::post('/store','Front\ServicesController@store')->name('frontServiceStore');     
-         
-    Route::get('/saveproduct/{id}','Front\ServicesController@productform')->name('frontServiceEdit');            
-    Route::get('/delete/{id}','Front\ServicesController@delete')->name('frontServiceDelete');      
-    Route::get('/changeStatus/{id}/{status}','Front\ServicesController@changeStatus')->name('frontServiceChangeStatus');     
-  });
- /*end Service Management  */
+/* Product Management  */	
+Route::group(['prefix'=>'manage-services'], function() {	    
+Route::get('/','Front\ServiceController@index')->name('manageFrontServices');	    
+Route::get('/saveservice','Front\ServiceController@serviceform')->name('frontServiceCreate');	    
+Route::post('/store','Front\ServiceController@store')->name('frontServiceStore');	    
+Route::any('/getRecords','Front\ServiceController@getRecords')->name('frontServiceGetRecords');	    
+Route::get('/saveservice/{id}','Front\ServiceController@serviceform')->name('frontServiceEdit');	    	    
+Route::get('/delete/{id}','Front\ServiceController@delete')->name('frontServiceDelete');	    
+});	/*end Product Management  */
 
 Route::get('/clear-cache', function() {
    $exitCode = Artisan::call('cache:clear');

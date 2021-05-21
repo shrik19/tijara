@@ -23,11 +23,11 @@
 		<div class="card-header row">
 		<div class="col-md-10">
 		    
-		  <h2>Your Products</h2>
+		  <h2>{{ __('lang.your_products_label')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
-		  <a href="{{route('frontProductCreate')}}" title="Add Product" class="btn btn-black btn-sm debg_color login_btn" ><span>Add Product</span> </a>
+		  <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
 			</div>
 		</div>
 
@@ -38,14 +38,14 @@
 			  <table class="table table-striped" id="productTable">
 				<thead>
 				  <tr>
-				  <th data-orderable="false">Image</th>
-				  <th>Product</th>
-				  <th>SKU</th>
-				  <th>Price</th>
-				  <th data-orderable="false">Categories</th> 
-				  <th>Sort order</th>
-				  <th>Dated</th>
-				  <th data-orderable="false">Action</th>
+				  <th data-orderable="false">{{ __('lang.image_label')}}</th>
+				  <th>{{ __('lang.product_label')}}</th>
+				  <th>{{ __('lang.sku_label')}}</th>
+				  <th>{{ __('lang.price_label')}}</th>
+				  <th data-orderable="false">{{ __('lang.category_label')}}</th> 
+				  <th>{{ __('lang.sort_order_label')}}</th>
+				  <th>{{ __('lang.dated_label')}}</th>
+				  <th data-orderable="false">{{ __('lang.action_label')}}</th>
 				  </tr>
 				</thead>
 				  <tbody id="result">
@@ -74,6 +74,21 @@
     "serverSide": true,
     "paging": true,
     "searching": true,
+    "language": {
+        "sSearch": "<?php echo __('lang.datatables.search');?>",
+        "sInfo": "<?php echo __('lang.datatables.sInfo');?>",
+        "sLengthMenu": "<?php echo __('lang.datatables.sLengthMenu');?>",
+        "sInfoEmpty": "<?php echo __('lang.datatables.sInfoEmpty');?>",
+        "sLoadingRecords": "<?php echo __('lang.datatables.sLoadingRecords');?>",
+        "sProcessing": "<?php echo __('lang.datatables.sProcessing');?>",      
+        "sZeroRecords": "<?php echo __('lang.datatables.sZeroRecords');?>",
+        "oPaginate": {
+              "sFirst":    "<?php echo __('lang.datatables.first');?>",
+              "sLast":    "<?php echo __('lang.datatables.last');?>",
+              "sNext":    "<?php echo __('lang.datatables.next');?>",
+              "sPrevious": "<?php echo __('lang.datatables.previous');?>",
+          },
+        },
     columnDefs: [
           {
               targets: [1,2],
@@ -93,9 +108,9 @@
   });
 
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
-  '<option value="">Select Status</option>'+
-  '<option value="active">Active</option>'+
-  '<option value="block">Block</option>'+
+  '<option value="">{{ __("lang.status_label")}}</option>'+
+  '<option value="active">{{ __("lang.active_label")}}</option>'+
+  '<option value="block">{{ __("lang.block_label")}}</option>'+
   '</select></div>').appendTo("#productTable_filter");
   
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="selectsubcategory" name="subcategory">'+

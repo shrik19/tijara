@@ -126,9 +126,9 @@ class ProductController extends Controller
 			$categoriesArray[$category->category_id]['subcategories'][$category->id]=	$category->subcategory_name;
 		}
 		
-		$categoriesHtml					=	'<option value="">Select Category</option>';
+		$categoriesHtml					=	'<option value="">'.trans('lang.category_label').'</option>';
 		
-		$subCategoriesHtml				=	'<option value="">Select SubCategory</option>';
+		$subCategoriesHtml				=	'<option value="">'.trans('lang.subcategory_label').'</option>';
 		
 		foreach($categoriesArray as $category_id=>$category) {
 			if($category['mainCategory']!='')
@@ -315,23 +315,12 @@ class ProductController extends Controller
                     }
                 }
                 $categoriesData =   rtrim($categoriesData,', ');
-                if ($recordDetailsVal['status'] == 'active') {
-
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('frontProductChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
-
-                 } else { 
-
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('frontProductChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
-
-                 }
-
-              
-
-                $action = '<a href="'.route('frontProductEdit', base64_encode($id)).'" title="Edit" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                
+                $action = '<a href="'.route('frontProductEdit', base64_encode($id)).'" title="'.trans('lang.edit_label').'" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
 
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontProductDelete', base64_encode($id)).'\');"  title="Delete" class=""><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontProductDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_label').'" class=""><i class="fas fa-trash"></i></a>';
 
             
 

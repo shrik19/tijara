@@ -24,7 +24,7 @@
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
-		  <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span>Back to listing</span> </a>
+		  <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span>{{ __('lang.back_to_list_label')}}</span> </a>
 			</div>
         <hr class="heading_line"/>
          @include ('Front.alert_messages')
@@ -52,7 +52,7 @@
         <div class="login_box">       
           <div class="form-group">
               <label>{{ __('lang.category_label')}}</label>
-              <select class="select2 form-control login_input" name="categories[]" id="categories" multiple placeholder="Select" tabindex="3">
+              <select class="select2 form-control login_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
                 <option></option>
                 @foreach($categories as $cat_id=>$category)
                 <optgroup label="{{$category['maincategory']}}">
@@ -92,7 +92,7 @@
 			
           <div class="form-group">
             <label>{{ __('lang.status_label')}} </label>
-            <select class="select2 form-control login_input" name="status" id="status"  placeholder="Select" tabindex="8" >
+            <select class="select2 form-control login_input" name="status" id="status"  placeholder="" tabindex="8" >
               <option value="active">{{ __('lang.active_label')}}</option>
               <option value="block">{{ __('lang.block_label')}}</option>
               </select>
@@ -150,7 +150,7 @@
                 <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}">
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image variant_image" name="image[0]" placeholder="{{ __('lang.image_label')}}">
+                <td><input type="file" class="form-control login_input image variant_image" name="image[0]"   placeholder="{{ __('lang.image_label')}}">
                 <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="{{ __('lang.action_label')}}">
                 
                 <span class="invalid-feedback" id="err_image" ></span></td>
@@ -183,7 +183,7 @@
                                         <td>
                                        
                                             <select class="form-control select_attribute" name="attribute[0][0]">
-                                              <option value="">{{ __('lang.select_label')}}</option>
+                                              <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
                                           
                                                 @foreach ($attributesToSelect as $attr)
                                                   <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
@@ -194,13 +194,13 @@
                                        <td>
                                        
                                             <select selected_attribute_value="" class="form-control select_attribute_value" name="attribute_value[0][0]">
-                                              <option value="">{{ __('lang.select_label')}}</option>
+                                              <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
                                                 
                                             </select>
                                            
                                         </td>
                                         <td   class="plus_attribute_tr">
-                                            <button variant_id="0" type="button" id="plus_attribute" class="fa fa_plus plus_attribute" title="{{ __('lang.add_attribute_btn')}}"  >+</button>
+                                            <button variant_id="0" type="button" id="plus_attribute" class="fa fa_plus plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"  >+</button>
                                           </td>
                                       </tr>
                         <!-- </div> -->

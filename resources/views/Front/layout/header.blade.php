@@ -44,9 +44,11 @@
                  
                   <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
                   <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
-                  <?php session_start(); if(isset($_SESSION['currentUser']) && $_SESSION['currentUser']['role_id']==2) { ?> 
+                  @if(session('role_id')==2)
+                    <li><a href="{{route('manageFrontServices')}}">Manage Services</a></li>
                     <li><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
-                  <?php } ?>
+                    
+                  @endif
                   <li><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
                   <li><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
                 </ul>

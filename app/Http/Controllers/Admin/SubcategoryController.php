@@ -28,10 +28,10 @@ class SubcategoryController extends Controller
      */
     public function index(Request $request) {
         $data = [];
-        $data['pageTitle']              = 'Subcategory';
-        $data['current_module_name']    = 'Subcategory';
+        $data['pageTitle']              = trans('users.subcategory_title');
+        $data['current_module_name']    = trans('users.subcategory_title');
         $data['current_id']             = $request->id;
-        $data['module_name']            = 'Subcategory';
+        $data['module_name']            = trans('users.subcategory_title');
         $data['module_url']             = route('adminSubcategory',$request->id);
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
@@ -101,20 +101,20 @@ class SubcategoryController extends Controller
                 $sequence_no = (!empty($recordDetailsVal['sequence_no'])) ? $recordDetailsVal['sequence_no'] : '-';
                 
                 if ($recordDetailsVal['status'] == 'active') {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSubcategoryChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSubcategoryChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
                 } else {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSubcategoryChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSubcategoryChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
                 
-                $action = '<a href="javascript:void(0)"  category_name="'.$Category_Name.'" Subcategory_Name="'.$Subcategory.'"  sequence_no="'.$sequence_no.'"  id="'.$recordDetailsVal['id'].'" title="Edit" class="btn btn-icon btn-success savesubcategory"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="javascript:void(0)"  category_name="'.$Category_Name.'" Subcategory_Name="'.$Subcategory.'"  sequence_no="'.$sequence_no.'"  id="'.$recordDetailsVal['id'].'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success savesubcategory"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSubcategoryDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSubcategoryDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
                 
 			    $arr[] = ['',$Category_Name, $Subcategory, $sequence_no,$status, $action];
 			}
         }
         else {
-            $arr[] = ['','', '', '', '', 'No Records Found', '', '', '', ''];
+            $arr[] = ['','', '', '', '', trans('lang.datatables.sEmptyTable'), '', '', '', ''];
         }
     	
     	
@@ -149,11 +149,11 @@ class SubcategoryController extends Controller
             ];
         }
         $messages = [
-            'category_name.required'         => 'Please fill in Category Name',
-            'subcategory_name.required'      => 'Please fill in Sub Category Name',
-            'subcategory_name.regex'         => 'Please input alphabet characters only',
-            'sequence_no'                    => 'Please fill in Sequence Number',
-            'subcategory_name.unique'        => 'Please enter different SubCategory, its already taken.',
+            'category_name.required'         => trans('errors.category_name_req'),
+            'subcategory_name.required'      => trans('errors.subcategory_name_req'),
+            'subcategory_name.regex'         => trans('errors.input_alphabet_err'),
+            'sequence_no'                    => trans('errors.sequence_number_err'),
+            'subcategory_name.unique'        => trans('errors.unique_subcategory_name'),
         ];
      
         $validator = validator::make($request->all(), $rules, $messages);
@@ -169,7 +169,7 @@ class SubcategoryController extends Controller
                                'sequence_no'      => trim($request->input('sequence_no')),
                             ];
                 Subcategories::where('id', '=', $id)->update($arrUpdate);
-                Session::flash('success', 'SubCategory Updated successfully!');
+                Session::flash('success', trans('messages.subcat_update_success'));
             }else{
                
                  $arrInsertSubcategory = [
@@ -179,7 +179,7 @@ class SubcategoryController extends Controller
                 ];
             
                 Subcategories::create($arrInsertSubcategory); 
-                Session::flash('success', 'SubCategory Inserted successfully!');
+                Session::flash('success', trans('messages.subcat_save_success'));
             }
                           
         }
@@ -194,7 +194,7 @@ class SubcategoryController extends Controller
      */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminCategory'));
         }
         $id = base64_decode($id);
@@ -205,15 +205,15 @@ class SubcategoryController extends Controller
             if ($categories->delete()) 
 			{
 			    ProductCategory::where('subcategory_id', $id)->update(['category_id' => 0,'subcategory_id' => 0]);
-                Session::flash('success', 'Record deleted successfully!');
+                Session::flash('success',  trans('messages.record_deleted_success'));
                 return redirect()->back();
             } else {
-                Session::flash('error', 'Oops! Something went wrong!');
+                Session::flash('error', trans('errors.something_wrong_err'));
                 return redirect()->back();
             }
         } 
         else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -224,17 +224,17 @@ class SubcategoryController extends Controller
     public function changeStatus($id, $status) {
         if(empty($id)) {
 			
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminSubcategory'));
         }
         $id = base64_decode($id);
 
         $result = Subcategories::where('id', $id)->update(['status' => $status]);
         if ($result) {
-            Session::flash('success', 'Status updated successfully!');
+            Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
         } else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }

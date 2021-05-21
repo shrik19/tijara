@@ -30,9 +30,9 @@ use File;
     */
     public function index() {
         $data = [];
-        $data['pageTitle']              = 'Buyers';
-        $data['current_module_name']    = 'Buyers';
-        $data['module_name']            = 'Buyers';
+        $data['pageTitle']              = trans('users.buyers_title');
+        $data['current_module_name']    = trans('users.buyers_title');
+        $data['module_name']            = trans('users.buyers_title');
         $data['module_url']             = route('adminBuyers');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
@@ -153,20 +153,20 @@ use File;
                 $whereFindUs = (!empty($recordDetailsVal['where_find_us'])) ? $recordDetailsVal['where_find_us'] : '-';
 
                 if ($recordDetailsVal['status'] == 'active') {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBuyersChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBuyersChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
                 } else {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBuyersChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBuyersChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
 
-                $action = '<a href="'.route('adminBuyersEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('adminBuyersEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\'customer\',\''.route('adminBuyersDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\'customer\',\''.route('adminBuyersDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
                 $arr[] = [$fname, $lname, $email, $whereFindUs, $status, $action];
             }
         } 
         else {
-            $arr[] = ['', '', 'No Records Found', '', '', ''];
+            $arr[] = ['', '', trans('lang.datatables.sEmptyTable'), '', '', ''];
         }
 
         $json_arr = [
@@ -183,9 +183,10 @@ use File;
     public function create() {
         $citiesdetails =[];
         $citiesdetails = City::where('is_deleted', '!=','1')->where('status','=','active')->orderby('cities.name')->get()->toArray();
-        $data['pageTitle']              = 'Add Buyers';
-        $data['current_module_name']    = 'Add';
-        $data['module_name']            = 'Buyer';
+        $data['pageTitle']              = trans('users.add_buyers_btn');
+        $data['current_module_name']    = trans('users.add_title');
+        $data['module_name']            = trans('users.buyers_title');
+        $data['info']                   = trans('users.add_buyer_details');
         $data['module_url']             = route('adminBuyers');
         $data['citiesdetails']          = $citiesdetails;
 
@@ -198,7 +199,7 @@ use File;
     */
     public function edit($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
 
@@ -210,16 +211,17 @@ use File;
         $citiesdetails = City::where('is_deleted', '!=','1')->where('status','=','active')->orderby('cities.name')->get();
 
         if(empty($details)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();   
         }
 
-        $data['pageTitle']              = 'Edit Buyer';
-        $data['current_module_name']    = 'Edit';
-        $data['module_name']            = 'Buyer';
-        $data['module_url']             = route('adminBuyers');;
-        $data['buyerDetails']          = $details;    
-        $data['citiesdetails']           = $citiesdetails;   
+        $data['pageTitle']              = trans('users.edit_buyer_title');
+        $data['current_module_name']    = trans('users.edit_title');
+        $data['module_name']            = trans('users.buyers_title');
+        $data['info']                   = trans('users.edit_buyer_details');
+        $data['module_url']             = route('adminBuyers');
+        $data['buyerDetails']           = $details;    
+        $data['citiesdetails']          = $citiesdetails;   
 
         return view('Admin/Buyer/create', $data);
     }
@@ -250,14 +252,14 @@ use File;
         }
    
         $messages = [
-            'fname.required'         => 'Please fill in your First Name',
-            'fname.regex'            => 'Please input alphabet characters only',
-            'lname.required'         => 'Please fill in your Last Name',
-            'lname.regex'            => 'Please input alphabet characters only',
-            'email.required'         => 'Please fill in your Email',
-            'email.unique'           => 'Please enter different email , its already taken.',
-            'email.regex'            => 'Please enter Valid Email.',
-            'profile.required'       => 'Please Upload Buyer Profile',
+            'fname.required'         => trans('errors.fill_in_first_name_err'),
+            'fname.regex'            => trans('errors.input_alphabet_err'),
+            'lname.required'         => trans('errors.fill_in_last_name_err'),
+            'lname.regex'            => trans('errors.input_alphabet_err'),
+            'email.required'         => trans('errors.fill_in_email_err'),
+            'email.unique'           => trans('errors.unique_email_err'),
+            'email.regex'            => trans('errors.valid_email_err'),
+            'profile.required'       => trans('errors.upload_buyer_profile'),
             /*'phone_number.required'  => 'Please fill in your Phone Number',
             'address.required'       => 'Please fill in your address',
             'postcode.required'      => 'Please fill in your postcode',
@@ -346,7 +348,7 @@ use File;
 
                 if($fileError == 1)
                 {
-                    Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                    Session::flash('error', trans('errors.invalid_files_err'));
                     return redirect()->back();
                 }
             } else{
@@ -371,10 +373,10 @@ use File;
 
         if(!empty($id)){
             UserMain::where('id', '=', $id)->update($arrBuyerInsert);
-            Session::flash('success', 'Buyer details Updated successfully!');
+            Session::flash('success', trans('messages.buyer_update_success'));
         }else{
             UserMain::create($arrBuyerInsert);
-            Session::flash('success', 'Buyer details Inserted successfully!');
+            Session::flash('success', trans('messages.buyer_save_success'));
         }
 
         return redirect(route('adminBuyers'));
@@ -387,7 +389,7 @@ use File;
     */
     public function changeStatus($id, $status) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminCustomer'));
         }
 
@@ -395,10 +397,10 @@ use File;
         $result = UserMain::where('id', $id)->update(['status' => $status]);
 
         if ($result) {
-            Session::flash('success', 'Status updated successfully!');
+            Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
         } else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -409,7 +411,7 @@ use File;
     */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminBuyers'));
         }
 
@@ -417,11 +419,11 @@ use File;
         $result = UserMain::find($id);
         if (!empty($result)) {
             $user = UserMain::where('id', $id)->update(['is_deleted' =>1]);
-            Session::flash('success', 'Record deleted successfully!');
+            Session::flash('success', trans('messages.record_deleted_success'));
             return redirect()->back();
         } 
         else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }

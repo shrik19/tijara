@@ -2,7 +2,7 @@
 @section('middlecontent')
 <div class="section-body">
   <h2 class="section-title">{{$current_module_name}}</h2>
-  <p class="section-lead">Add Service Category details.</p>
+  <p class="section-lead">{{ __('users.add_service_cat_details_info')}}</p>
 
   <div class="row">
     <div class="col-12 col-md-8 col-lg-8">
@@ -13,27 +13,27 @@
             {{ csrf_field() }}
 
             <div class="form-group">
-              <label>Name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Category Name" value="{{ old('name') }}" onblur="allLetter(this)" />
+              <label>{{ __('users.name_label')}} <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('users.name_label')}}" value="{{ old('name') }}" onblur="allLetter(this)" />
               <div class="text-danger err-letter">{{ ($errors->has('name')) ? $errors->first('name') : '' }}</div>
             </div>
 
             <div class="form-group">
-              <label>Sequence Number <span class="text-danger">*</span></label>
-              <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder=" Sequence Number" value="{{ old('sequence_no')}}" tabindex="3"/>
+              <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ old('sequence_no')}}" tabindex="3"/>
               <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
             </div>
             
             <div class="form-group">
-              <label>Description</label>
+              <label>{{ __('users.description_label')}}</label>
               <textarea class="form-control description" name="description" id="description" spellcheck="true" > <?php if(!empty($categoryDetails['description'])){ echo $categoryDetails['description']; }?></textarea>
               <div class="text-danger">{{ ($errors->has('description')) ? $errors->first('description') : '' }}</div>
             </div>
 
             <div class="box-footer">
                <span class="pull-right">
-                 <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i> Save</button>&nbsp;&nbsp;
-                  <a href="{{$module_url}}" class="btn btn-icon icon-left btn-danger" tabindex="16"><i class="fas fa-times"></i> Cancel</a>
+                 <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i> {{ __('lang.save_btn')}}</button>&nbsp;&nbsp;
+                  <a href="{{$module_url}}" class="btn btn-icon icon-left btn-danger" tabindex="16"><i class="fas fa-times"></i> {{ __('lang.cancel_btn')}}</a>
                </span>
             </div>
 
@@ -58,7 +58,7 @@
       return true;
     }
     else {
-      $('.err-letter').text('Please input alphabet characters only');
+      $('.err-letter').text("{{ __('errors.input_alphabet_err')}}");
       return false;
     }
   }

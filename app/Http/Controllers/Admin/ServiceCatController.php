@@ -26,9 +26,9 @@ class ServiceCatController extends Controller
      */
     public function index() {
         $data = [];
-        $data['pageTitle']              = 'Service Category';
-        $data['current_module_name']    = 'Service Category';
-        $data['module_name']            = 'Service Category';
+        $data['pageTitle']              = trans('users.service_category_title');
+        $data['current_module_name']    = trans('users.service_category_title');
+        $data['module_name']            = trans('users.service_category_title');
         $data['module_url']             = route('adminServiceCat');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
@@ -87,16 +87,16 @@ class ServiceCatController extends Controller
             	$subCategoryCount  = (!empty($recordDetailsVal['get_sub_cat'])) ? '<a style="margin-left:42px;" href="'.route('adminServiceSubcat', base64_encode($id)).'">'.count($recordDetailsVal['get_sub_cat']).'</a>' : '<span style="margin-left:42px;">0</span>';
                
                 if ($recordDetailsVal['status'] == 'active') {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminServiceCatChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminServiceCatChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
                 } else {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminServiceCatChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminServiceCatChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
                 
-                $AddSubCategory = '<a style="margin-left:38px;" href="javascript:void(0);" category_id="'.$id.'" category_name="'.$Category_Name.'" Subcategory_Name="" id="0" class="btn btn-icon btn-warning savesubcategory" title="Add sub category" id="'.$id.'"><i class="fa fa-plus"></i> </a>';
+                $AddSubCategory = '<a style="margin-left:38px;" href="javascript:void(0);" category_id="'.$id.'" category_name="'.$Category_Name.'" Subcategory_Name="" id="0" class="btn btn-icon btn-warning savesubcategory" title="'.__('users.add_subcategory_title').'" id="'.$id.'"><i class="fa fa-plus"></i> </a>';
                 
-                $action = '<a href="'.route('adminServiceCatEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('adminServiceCatEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminServiceCatDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminServiceCatDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
                 
 			    $arr[] = ['',$Category_Name, $sequence_no,$subCategoryCount, $status, $AddSubCategory, $action];
 			}
@@ -119,9 +119,9 @@ class ServiceCatController extends Controller
     /*function to open service category form*/
     public function create()
     {
-        $data['pageTitle']              = 'Add Service Category';
-        $data['current_module_name']    = 'Add';
-        $data['module_name']            = 'Service Category';
+        $data['pageTitle']              = trans('users.add_Service_category_title');
+        $data['current_module_name']    = trans('users.add_title');
+        $data['module_name']            = trans('users.service_category_title');
         $data['module_url']             = route('adminServiceCat');
         return view('Admin/ServiceCategory/create', $data);
     }
@@ -132,14 +132,15 @@ class ServiceCatController extends Controller
     public function store(Request $request) {
 	
         $rules = [
-            'name'          => 'required|regex:/^[\pL\s\-]+$/u|unique:servicecategories,category_name',
+            'name'          => 'required|regex:/^[\pL\s\-]+$/u|unique:ServiceCategories,category_name',
             'sequence_no'   => 'required',
         ];
+
         $messages = [
-            'name.required'         => 'Please fill in Category Name',
-            'name.regex'    => 'Please input alphabet characters only',
-            'sequence_no'   => 'Please fill in Sequence Number',
-            'name.unique'           => 'Please enter different Category , its already taken.',
+            'name.required' => trans('errors.category_name_req'),
+            'name.regex'    => trans('errors.input_alphabet_err'), 
+            'sequence_no'   => trans('errors.sequence_number_err'),
+            'name.unique'   => trans('errors.enter_diff_cat_err'),
         ];
         
         $validator = validator::make($request->all(), $rules, $messages);
@@ -156,7 +157,7 @@ class ServiceCatController extends Controller
                                     ];
         ServiceCategories::create($arrInsertServiceCategories);                   
         
-        Session::flash('success', 'Category Inserted successfully!');
+        Session::flash('success', trans('messages.category_save_success'));
         return redirect(route('adminServiceCat'));
     }
      /**
@@ -165,7 +166,7 @@ class ServiceCatController extends Controller
      */
     public function edit($id) {
        if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
         $data = $details = [];
@@ -175,9 +176,9 @@ class ServiceCatController extends Controller
 		
         $details = ServiceCategories::where('id', $id)->first()->toArray();
         
-		$data['pageTitle']              = 'Edit Service Category';
-        $data['current_module_name']    = 'Edit';
-        $data['module_name']            = 'Service Category';
+		$data['pageTitle']              = trans('users.edit_Service_category_title');
+        $data['current_module_name']    = trans('users.edit_title');
+        $data['module_name']            = trans('users.service_category_title');
         $data['module_url']             = route('adminCategory');
 		$data['categoryDetails']          = $details;       
         return view('Admin/ServiceCategory/edit', $data);
@@ -189,21 +190,21 @@ class ServiceCatController extends Controller
      */
     public function update(Request $request, $id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
         
         $id = base64_decode($id);
                  
         $rules = [
-            'name' => 'required|regex:/^[\pL\s\-]+$/u|unique:servicecategories,category_name,'.$id,
+            'name' => 'required|regex:/^[\pL\s\-]+$/u|unique:ServiceCategories,category_name,'.$id,
             'sequence_no'   => 'required',
         ];
         $messages = [
-            'name.required'         => 'Please fill in Category Name',
-            'name.regex'    => 'Please input alphabet characters only', 
-            'sequence_no'   => 'Please fill in Sequence Number',
-            'name.unique'           => 'Please enter different Category , its already taken.',
+            'name.required' => trans('errors.category_name_req'),
+            'name.regex'    => trans('errors.input_alphabet_err'), 
+            'sequence_no'   => trans('errors.sequence_number_err'),
+            'name.unique'   => trans('errors.enter_diff_cat_err'),
         ];
         $validator = validator::make($request->all(), $rules, $messages);
         if($validator->fails()) 
@@ -218,7 +219,7 @@ class ServiceCatController extends Controller
                             
         ServiceCategories::where('id', '=', $id)->update($arrUpdateCategory);  
         
-        Session::flash('success', 'Category details updated successfully!');
+        Session::flash('success', trans('messages.category_update_success'));
         return redirect(route('adminServiceCat'));
     }
     
@@ -228,7 +229,7 @@ class ServiceCatController extends Controller
      */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminCategory'));
         }
         $id = base64_decode($id);
@@ -239,15 +240,15 @@ class ServiceCatController extends Controller
             if ($ServiceCategories->delete()) 
 			{
                 $delSubCategories = serviceSubcategories::where('category_id',$id)->delete();
-                Session::flash('success', 'Record deleted successfully!');
+                Session::flash('success', trans('messages.record_deleted_success'));
                 return redirect()->back();
             } else {
-                Session::flash('error', 'Oops! Something went wrong!');
+                Session::flash('error', trans('errors.something_wrong_err'));
                 return redirect()->back();
             }
         } 
         else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -258,17 +259,17 @@ class ServiceCatController extends Controller
      */
     public function changeStatus($id, $status) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminCategory'));
         }
         $id = base64_decode($id);
 
         $result = ServiceCategories::where('id', $id)->update(['status' => $status]);
         if ($result) {
-            Session::flash('success', 'Status updated successfully!');
+            Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
         } else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }

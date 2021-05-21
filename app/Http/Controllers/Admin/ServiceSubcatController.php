@@ -48,33 +48,33 @@ class ServiceSubcatController extends Controller
         $status='';
 		$category_id=base64_decode($request->id);
 	
-		$categoryDetails = ServiceCategories::select('serviceCategories.category_name')->where('id','=',$category_id)->get()->first();
+		$categoryDetails = ServiceCategories::select('ServiceCategories.category_name')->where('id','=',$category_id)->get()->first();
 	
-		$SubcategoryDetails = serviceSubcategories::select('servicesubcategories.*')->where('category_id','=',$category_id);
+		$SubcategoryDetails = serviceSubcategories::select('serviceSubcategories.*')->where('category_id','=',$category_id);
 		
 		
 		
 		if(!empty($request['search']['value']))
         {
-            $SubcategoryDetails = $SubcategoryDetails->where('servicesubcategories.subcategory_name', 'LIKE', '%'.$request['search']['value'].'%');
+            $SubcategoryDetails = $SubcategoryDetails->where('serviceSubcategories.subcategory_name', 'LIKE', '%'.$request['search']['value'].'%');
            
         }
         
         if (!empty($request['status']) && !empty($request['search']['value'])) {
-            $SubcategoryDetails = $SubcategoryDetails->where('servicesubcategories.status', '=', $request['status']);
+            $SubcategoryDetails = $SubcategoryDetails->where('serviceSubcategories.status', '=', $request['status']);
         }
         else if(!empty($request['status'])) {
-            $SubcategoryDetails = $SubcategoryDetails->where('servicesubcategories.status', '=', $request['status']);
+            $SubcategoryDetails = $SubcategoryDetails->where('serviceSubcategories.status', '=', $request['status']);
         }
 
         if (!empty($request['order'])) {
-            $column = 'servicesubcategories.id';
+            $column = 'serviceSubcategories.id';
             $order = 'desc';
             $order_arr = [  
-                            '0' =>  'servicesubcategories.id',
-                            '1' =>  'servicesubcategories.category_id',
-                            '2' =>  'servicesubcategories.subcategory_name',
-                            '3' =>  'servicesubcategories.sequence_no',
+                            '0' =>  'serviceSubcategories.id',
+                            '1' =>  'serviceSubcategories.category_id',
+                            '2' =>  'serviceSubcategories.subcategory_name',
+                            '3' =>  'serviceSubcategories.sequence_no',
                          ];
             $column_index = $request['order'][0]['column'];
             if($column_index!=0) {
@@ -140,7 +140,7 @@ class ServiceSubcatController extends Controller
 
         $rules = [
             'category_name'    => 'required',
-            'subcategory_name' => 'required|regex:/^[\pL\s\-]+$/u|unique:servicesubcategories,subcategory_name',
+            'subcategory_name' => 'required|regex:/^[\pL\s\-]+$/u|unique:serviceSubcategories,subcategory_name',
             'sequence_no'      => 'required',
         ];
         $messages = [
@@ -197,9 +197,9 @@ class ServiceSubcatController extends Controller
         $data['id'] = $id;
         $id = base64_decode($id);
         
-        $details = serviceSubcategories::where('servicesubcategories.id', $id)
-        ->Join('servicecategories', 'servicesubcategories.category_id', '=', 'servicecategories.id')
-        ->select('servicesubcategories.*','servicecategories.id','servicecategories.category_name')->first();
+        $details = serviceSubcategories::where('serviceSubcategories.id', $id)
+        ->Join('ServiceCategories', 'serviceSubcategories.category_id', '=', 'ServiceCategories.id')
+        ->select('serviceSubcategories.*','ServiceCategories.id','ServiceCategories.category_name')->first();
      
         $data['pageTitle']              = 'Edit Service SubCategory';
         $data['current_module_name']    = 'Edit';
@@ -225,7 +225,7 @@ class ServiceSubcatController extends Controller
         $id = base64_decode($id);
  
         $rules = [
-            'subcategory_name' => 'required|regex:/^[\pL\s\-]+$/u|unique:servicesubcategories,subcategory_name,'.$id,
+            'subcategory_name' => 'required|regex:/^[\pL\s\-]+$/u|unique:serviceSubcategories,subcategory_name,'.$id,
             'sequence_no'      => 'required',
         ];
         $messages = [

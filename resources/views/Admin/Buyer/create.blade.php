@@ -2,7 +2,7 @@
 @section('middlecontent')
 <div class="section-body">
   <h2 class="section-title">{{$pageTitle}}</h2>
-  <p class="section-lead">Add Buyer details.</p>
+  <p class="section-lead">{{$info}}</p>
   <form method="POST" action="{{route('adminBuyersStoreUpdate')}}"
   enctype="multipart/form-data" class="needs-validation" novalidate="">
 
@@ -15,76 +15,76 @@
 
         <div class="card-body">
           <div class="form-group">
-            <label>First Name <span class="text-danger">*</span></label> 
+            <label>{{ __('users.first_name_label')}}  <span class="text-danger">*</span></label> 
             <input type="text" class="form-control" name="fname" id="fname" required tabindex="1" value="{{ !empty($buyerDetails[0]->fname) ?  $buyerDetails[0]->fname :  old('fname') }}" onblur="allLetter(this)">
             <div class="invalid-feedback">
-              Please fill in your First Name
+              {{ __('errors.fill_in_first_name_err')}}
             </div>
             <div class="text-danger err-letter">{{$errors->first('fname')}}</div>
           </div>
 
           <div class="form-group">
-            <label>Last Name <span class="text-danger">*</span></label>
+            <label>{{ __('users.last_name_label')}} <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="lname" id="lname" required tabindex="2" value="{{ !empty($buyerDetails[0]->lname) ?  $buyerDetails[0]->lname :  old('lname') }}" onblur="allLetterLname(this)">
             <div class="invalid-feedback">
-              Please fill in your Last Name
+              {{ __('errors.fill_in_last_name_err')}}
             </div>
             <div class="text-danger errlast_name">{{$errors->first('lname')}}</div>
           </div>
 
           <div class="form-group">
-            <label>Email <span class="text-danger">*</span></label>
+            <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="email" id="email" required tabindex="3" value="{{ !empty($buyerDetails[0]->email) ? $buyerDetails[0]->email : old('email')}}">
             <div class="invalid-feedback">
-              Please fill in your Email
+              {{ __('errors.fill_in_email_err')}}
             </div>
             <div class="text-danger">{{$errors->first('email')}}</div>
           </div>
 
 
           <div class="form-group">
-            <label>Phone Number </label>
+            <label>{{ __('users.phone_number_label')}} </label>
             <div class="input-group">
               <span style="margin-top: 10px;" class="col-md-2">+46</span><input type="text" class="col-md-10 form-control phone-number" name="phone_number" id="phone_number" tabindex="4" value="{{ !empty($buyerDetails[0]->phone_number) ? $buyerDetails[0]->phone_number : old('phone_number')}}">
               <div class="invalid-feedback">
-                Please fill in your Phone Number
+                {{ __('errors.fill_in_phone_number_err')}}
               </div>
             </div>
             <div class="text-danger">{{$errors->first('phone_number')}}</div>
           </div>
 
           <div class="form-group">
-            <label>Address</label>
+            <label>{{ __('users.address_label')}}</label>
             <textarea class="form-control" id="address" name="address" rows="5" cols="30" style="height:auto" tabindex="5" value="{{old('address')}}"><?php if(!empty($buyerDetails[0]->address)){ echo $buyerDetails[0]->address; }?></textarea>
             <div class="invalid-feedback">
-              Please fill in your Address
+              {{ __('errors.fill_in_address_err')}}
             </div>
             <div class="text-danger">{{$errors->first('address')}}</div>
           </div>
 
           <div class="form-group">
-            <label>Postal Code</label>
+            <label>{{ __('users.postal_code_label')}}</label>
             <input type="text" class="form-control" name="postcode" id="postcode" tabindex="6" value="{{ !empty($buyerDetails[0]->postcode) ?  $buyerDetails[0]->postcode : old('postcode') }}">
             <div class="invalid-feedback">
-              Please fill in your Address
+              {{ __('errors.fill_in_postal_code_err')}}
             </div>
             <div class="text-danger">{{$errors->first('address')}}</div>
           </div>
 
           <div class="form-group">
-            <label>City</label>
+            <label>{{ __('users.city_label')}}</label>
             <input type="text" class="form-control" name="city" id="city" tabindex="6" value="{{ !empty($buyerDetails[0]->city) ?  $buyerDetails[0]->city : old('city') }}">
             <div class="invalid-feedback">
-              Please fill in your City
+              {{ __('errors.fill_in_city_err')}}
             </div>
             <div class="text-danger">{{$errors->first('city')}}</div>
           </div>
 
           <div class="form-group">
-            <label>Swish Number </label>
+            <label>{{ __('users.swish_number_label')}} </label>
             <input type="text" class="form-control" name="swish_number" id="swish_number" tabindex="8" value="{{ !empty($buyerDetails[0]->swish_number) ?  $buyerDetails[0]->swish_number : old('swish_number')}}">
             <div class="invalid-feedback">
-              Please fill in Swish Number
+              {{ __('errors.fill_in_swish_number_err')}}
             </div>
             <div class="text-danger">{{$errors->first('swish_number')}}</div>
           </div>
@@ -96,7 +96,7 @@
       <div class="card">
         <div class="card-body">
           <div class="form-group increment cloned">
-            <label>Profile</label>
+            <label>{{ __('users.profile_label')}}</label>
             @php
             if(!empty($buyerDetails[0]->profile))
             {
@@ -127,12 +127,12 @@
         
         <div class="col-12 text-right">
         <?php if(!empty($buyerDetails[0]->id)){ ?>
-          <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i> Update</button>&nbsp;&nbsp;
+          <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i> {{ __('lang.update_btn')}}</button>&nbsp;&nbsp;
         <?php  }else{ ?>
 
-          <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i> Save</button>&nbsp;&nbsp;
+          <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i> {{ __('lang.save_btn')}}</button>&nbsp;&nbsp;
         <?php } ?>
-          <a href="{{route('adminBuyers')}}" class="btn btn-icon icon-left btn-danger" tabindex="16"><i class="fas fa-times"></i> Cancel</a>
+          <a href="{{route('adminBuyers')}}" class="btn btn-icon icon-left btn-danger" tabindex="16"><i class="fas fa-times"></i> {{ __('lang.cancel_btn')}}</a>
         </div>
       </div>
     </div>

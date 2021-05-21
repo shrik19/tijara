@@ -8,8 +8,8 @@
 @include('Admin.alert_messages')
 <div class="card">
 <div class="card-header">
-<h4>All Buyers List</h4>
-<a href="{{route('adminBuyersCreate')}}" title="Add Buyers" class="btn btn-icon btn-success" style="margin-left:650px;"><span>Add Buyers</span> </a>
+<h4>{{ __('users.all_buyers_list')}}</h4>
+<a href="{{route('adminBuyersCreate')}}" title="{{ __('users.add_buyers_btn')}}" class="btn btn-icon btn-success" style="margin-left:586px;"><span>{{ __('users.add_buyers_btn')}}</span> </a>
 </div>
 <div class="card-body">
 <form id="vendorMultipleAction" action="" method="post">
@@ -18,12 +18,12 @@
 <table class="table table-striped" id="buyersTable">
 <thead>
 <tr>
-<th>First Name</th>
-<th>Last Name</th>
-<th>Email</th>
-<th>Where Find Us</th>
-<th data-orderable="false">Status</th>
-<th data-orderable="false">Action</th>
+<th>{{ __('users.first_name_label')}}</th>
+<th>{{ __('users.last_name_label')}}</th>
+<th>{{ __('users.email_label')}}</th>
+<th>{{ __('users.where_find_us_thead')}}</th>
+<th data-orderable="false">{{ __('lang.status_label')}}</th>
+<th data-orderable="false">{{ __('lang.action_thead')}}</th>
 </tr>
 </thead>
 <tbody id="result">
@@ -64,16 +64,17 @@
   });
 
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
-  '<option value="">Select Status</option>'+
-  '<option value="active">Active</option>'+
-  '<option value="block">Inactive</option>'+
+  '<option value="">{{ __("lang.select_status_ddl")}}</option>'+
+  '<option value="active">{{ __("lang.active_label")}}</option>'+
+  '<option value="block">{{ __("lang.inactive_label")}}</option>'+
   '</select></div>').appendTo("#buyersTable_length");
 
   $('<span class="col-md-2 export btn export-btn">'+
-  'Export</span></div>').appendTo("#buyersTable_filter");
+  '{{ __("lang.export_btn")}}</span></div>').appendTo("#buyersTable_wrapper dataTables_filter");
 
   $(".dataTables_filter label").addClass("pull-right");
   $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');
+
 
   $('#status').change(function(){
     dataTable.draw();

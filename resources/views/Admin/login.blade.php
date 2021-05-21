@@ -28,7 +28,7 @@
             </div>
             @include('Admin.alert_messages')
             <div class="card card-primary">
-              <div class="card-header" style="display:inline-block;min-height:fit-content;text-align:center;"><h6>Sign in to start your session</h6></div>
+              <div class="card-header" style="display:inline-block;min-height:fit-content;text-align:center;"><h6>{{ __('lang.sign_in_start_session_label')}}</h6></div>
               <div class="card-body">
                 <form method="POST" action="{{route('adminDoLogin')}}" class="needs-validation" novalidate="">
                   @csrf
@@ -43,7 +43,7 @@
                     <input id="email" type="email" class="form-control" name="email" tabindex="1" required value="{{ old('email') }}">
                     </div>
                     <div class="invalid-feedback">
-                      Please fill in your email
+                      {{ __('errors.fill_in_email_err')}}
                     </div>
                     <div class="text-danger">{{$errors->first('email')}}</div>
                   </div>
@@ -66,7 +66,7 @@
                       <input type="password" class="form-control pwstrength" id="password" name="password" tabindex="2" required data-indicator="pwindicator">
                     </div>
                     <div class="invalid-feedback">
-                      please fill in your password
+                      {{ __('errors.fill_in_password_err')}}
                     </div>
                     <div class="text-danger">{{$errors->first('password')}}</div>
                   </div>
@@ -74,14 +74,12 @@
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" name="remember" class="custom-control-input" tabindex="4" id="remember-me" value="1">
-                      <label class="custom-control-label" for="remember-me">Remember Me</label>
+                      <label class="custom-control-label" for="remember-me">{{ __('users.remember_label')}}</label>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="5">
-                      Login
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="5">{{ __('lang.login_btn')}}</button>
                   </div>
                 </form>
                 

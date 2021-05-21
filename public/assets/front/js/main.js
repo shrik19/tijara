@@ -43,6 +43,53 @@ $( ".number" ).each(function() {
     $this.val($this.val().replace(/[^\d.]/g, ''));        
     });
 });   
+
+$('#variant_table').on('change', '.variant_image', function () {
+    
+        var fileUpload  = $(this)[0];
+        var elm         =   $(this);
+        
+        var validExtensions = ["jpg","jpeg","gif","png"];
+        var file = $(this).val().split('.').pop(); 
+        if (validExtensions.indexOf(file) == -1) {
+                alert("Only formats are allowed : "+validExtensions.join(', '));
+                $(this).val('');
+                return false;
+        }
+    
+        var formData = new FormData();
+    
+        if (fileUpload.files.length > 0) {
+            
+               formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+    
+                $.ajax({
+                    headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+                      url: siteUrl+'/manage-products/upload-variant-image',
+                      type: 'POST',
+                      data: formData,
+                      processData: false,
+                      contentType: false,
+                
+                      success: function(data) {
+                       elm.parent('td').find('.previous_image').val(data);
+                       elm.parent('td').find('img').remove();
+                       elm.parent('td').find('.remove_image').remove();
+                       elm.parent('td').append('<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="40" height="40">'+
+                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>')
+                      }
+                      
+                });
+        }
+    
+        
+    
+});    
+$('#variant_table').on('click', '.remove_image', function () {
+    $(this).prev('img').prev('input').val('');
+    $(this).prev('img').remove();
+    $(this).remove();
+});    
 $('#variant_table').on('click', '.add_attribute_group_btn', function () {
 
     var variant_id  =   $(this).attr('variant_id');

@@ -11,10 +11,20 @@
 <div class="container">
   <!-- Example row of columns -->
   <div class="row">
+      @if($subscribedError)
+	    <div class="alert alert-danger">{{$subscribedError}}</div>
+	    @endif
       <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
           @csrf
     <div class="">
-      <h2>Save Product Details</h2>
+      <div class="col-md-10">
+		    
+		  <h2>Save product details</h2>
+		  <hr class="heading_line"/>
+		  </div>
+		  <div class="col-md-1">
+		  <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span>Back to listing</span> </a>
+			</div>
       <hr class="heading_line"/>
       @include ('Front.alert_messages')
       <div class="col-md-6">
@@ -89,7 +99,7 @@
             </select>
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
-          <button class="btn btn-black debg_color login_btn saveproduct">Update</button>
+          
           
         </div>
       </div>
@@ -142,12 +152,13 @@
                 <span class="invalid-feedback" id="err_price" ></span></td>
                 <td><input type="text" class="form-control login_input quantity number variant_field" value="{{$variant['quantity']}}" name="quantity[{{$variant_key}}]" placeholder="Quantity">
                 <span class="invalid-feedback" id="err_quantity" ></span></td>
-                <td><input type="file" class="form-control login_input image"  name="image[{{$variant_key}}]" placeholder="Image">
+                <td><input type="file" class="form-control login_input image variant_image"  name="image[{{$variant_key}}]" placeholder="Image">
                 <span class="invalid-feedback" id="err_image" ></span>
-                    <input type="hidden" class="form-control login_input previous_image"  name="previous_image[{{$variant_key}}]" placeholder="Image">
+                    <input type="hidden" class="form-control login_input previous_image" value="{{$variant['image']}}"  name="previous_image[{{$variant_key}}]" placeholder="Image">
                 
                 @if($variant['image']!='')
                 <img src="{{url('/')}}/uploads/ProductImages/{{$variant['image']}}" width="40" height="40">
+                <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
                 @endif
                 </td>
                 <td class="add_attribute_group_td" id="add_attribute_group_td_{{$variant_key}}">
@@ -290,7 +301,7 @@
                 <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="Quantity">
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image" name="image[0]" placeholder="Image">
+                <td><input type="file" class="form-control login_input image variant_image" name="image[0]" placeholder="Image">
                 <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="Image">
                 
                 <span class="invalid-feedback" id="err_image" ></span></td>
@@ -367,7 +378,14 @@
           <div class="all_saved_attributes" ></div>
           </div>
         </div>
-      </div>
+      
+      <div class="login_box">
+          <button type="submit"  class="btn btn-black debg_color login_btn saveproduct" tabindex="9">{{ __('lang.save_btn')}}</button>
+           
+          <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
+          </div>
+          
+          </div>
   </div>
 </form>
   </div>

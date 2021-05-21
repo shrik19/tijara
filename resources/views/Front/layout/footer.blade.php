@@ -30,34 +30,33 @@
         </div>
         <div class="col-md-offset-1 col-md-2">
           <div class="ft_page_links">
-          <h3>Information</h3>
+          <h3>{{ __('lang.information_label')}}</h3>
           <ul>
-            <li><a href="">About Us </a></li>
-            <li><a href=""> Checkout </a></li>
-            <li><a href="">Contact </a></li>
-            <li><a href=""> Service </a></li>
+            <li><a href="">{{ __('lang.about_us_label')}} </a></li>
+            <li><a href="">{{ __('lang.checkout_label')}}</a></li>
+            <li><a href="">{{ __('lang.contact_label')}}</a></li>
+            <li><a href="">{{ __('lang.service_label')}}</a></li>
           </ul>
         </div>
       </div>
       <div class="col-md-2">
         <div class="ft_page_links">
-        <h3>My Account</h3>
+        <h3>{{ __('lang.my_account_title')}}</h3>
         <ul>
-          <li><a href="">My Account</a></li>
-          <li><a href=""> Contact </a></li>
-          <li><a href="">Shopping Cart </a></li>
-          <li><a href=""> Shop </a></li>
+          <li><a href="">{{ __('lang.my_account_title')}}</a></li>
+          <li><a href="">{{ __('lang.contact_label')}} </a></li>
+          <li><a href="">{{ __('lang.shopping_cart_label')}} </a></li>
+          <li><a href="">{{ __('lang.shop_label')}}</a></li>
         </ul>
       </div>
     </div>
     <div class="col-md-4">
       <div class="ft_page_links">
-        <h3>Join Our Newsletter Now</h3>
-        <p>Get E-mail updates about our latest Shop and
-          special offers.</p>
+        <h3>{{ __('lang.join_our_newsletter_now_label')}}</h3>
+        <p>{{ __('lang.get_e-mail_updates_label')}}</p>
           <div class="sub_box">
-            <input type="text" placeholder="Enter you Mail "/>
-            <button type="button" class="btn sub_btn">SUBSCRIBE</button> 
+            <input type="text" placeholder="{{ __('lang.enter_mail_placeholder')}} "/>
+            <button type="button" class="btn sub_btn">{{ __('lang.subscribe_label')}}</button> 
           </div>
       </div>
     </div>
@@ -66,7 +65,7 @@
     </div>
     <div class="clearfix"></div>
       <div class="ft_copyright">
-        <p>© Copyright 2021 <span class="de_col">Tijara</span>. | All Right Reserved</p>
+        <p>© {{ __('lang.copyright_label')}} {{date('Y')}} <span class="de_col">{{config('constants.PROJECT_NAME')}}</span>. | {{ __('lang.all_right_reserved_label')}}</p>
       </div>
     </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

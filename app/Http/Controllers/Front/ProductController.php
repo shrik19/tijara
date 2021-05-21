@@ -59,7 +59,8 @@ class ProductController extends Controller
 
     function __construct() {
 
-    	
+    
+    	//$data['CurrentUser']   =   UserMain::where('id',Auth::guard('user')->id())->first();
 
     }
 
@@ -74,7 +75,8 @@ class ProductController extends Controller
      */
 
     public function index() {
-        
+        $data = [];
+        $data['subscribedError']   =    '';
         if(!Auth::guard('user')->id()) {
             return redirect(route('frontLogin'));
         }
@@ -91,12 +93,12 @@ class ProductController extends Controller
                         
             if(count($isSubscribed)<=0) 
             {
-                Session::flash('error', 'You must subscribe package to manage products');
-            
-                return redirect(route('frontSellerPackages'));
+               
+                $data['subscribedError'] = 'Only products can show on site with active subscription';
+                //return redirect(route('frontSellerPackages'));
             }
         }
-        $data = [];
+        
 
         $data['pageTitle']              = 'Products';
 
@@ -162,15 +164,17 @@ class ProductController extends Controller
     public function getRecords(Request $request) {
 
 	if(!empty($request['category']) || !empty($request['subcategory'])) {
-        $ProductsDetails = Products::Leftjoin('category_products', 'products.id', '=', 'category_products.product_id')											
-											->select(['products.*'])
+        $ProductsDetails = Products::Leftjoin('category_products', 'products.id', '=', 'category_products.product_id')	
+                                            ->Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
+											->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])
 											->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id());
 
          
 	}
 	else {
-		$ProductsDetails = Products::select(['products.*'])
-											->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id());
+		$ProductsDetails = Products::Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
+		                    ->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])
+							->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id());
 	}
 		if(!empty($request['search']['value'])) {
 
@@ -218,13 +222,7 @@ class ProductController extends Controller
 
        
 
-        if (!empty($request['status']) && !empty($request['search']['value'])) {
-
-            $ProductsDetails = $ProductsDetails->Where('products.status', '=', $request['status']);
-
-        }
-
-        else if(!empty($request['status'])) {
+        if(!empty($request['status'])) {
 
             $ProductsDetails = $ProductsDetails->Where('products.status', '=', $request['status']);
 
@@ -242,17 +240,23 @@ class ProductController extends Controller
 				$ProductsDetails = $ProductsDetails->Where('category_products.subcategory_id', '=', $request['subcategory']);
 
 			}
-			$ProductsDetails = $ProductsDetails->groupBy('category_products.product_id');
+			
 		}
+		$ProductsDetails = $ProductsDetails->groupBy('products.id');
         if(isset($request['order'][0])){
 
             $postedorder=$request['order'][0];
 
            
-			if($postedorder['column']==0) $orderby='products.title';
+			if($postedorder['column']<=1) $orderby='products.title';
 
-			if($postedorder['column']==1) $orderby='products.created_at';
+			if($postedorder['column']==2) $orderby='variant_product.sku';
+			
+			if($postedorder['column']==3) $orderby='variant_product.price';
             
+            if($postedorder['column']==5) $orderby='products.sort_order';
+            
+            if($postedorder['column']==6) $orderby='products.created_at';
 
             $orderorder=$postedorder['dir'];
 
@@ -286,8 +290,31 @@ class ProductController extends Controller
                
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
 
-                
 
+                if(!empty($recordDetailsVal['image'])) {
+                    
+                    $image  =   url('/').'/uploads/ProductImages/resized/'.$recordDetailsVal['image'];
+                }
+                else
+                    $image  =     url('/').'/uploads/ProductImages/resized/no-image.png';
+                
+                $image      =   '<img src="'.$image.'" width="70" height="70">';
+                
+                $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['updated_at']));
+                
+                $categories =   Products::Leftjoin('category_products', 'products.id', '=', 'category_products.product_id')	
+                                            ->Leftjoin('subcategories', 'subcategories.id', '=', 'category_products.subcategory_id')	
+											->select(['subcategories.subcategory_name'])
+											->where('products.is_deleted','!=',1)->where('products.id',$recordDetailsVal['id'])->get();
+
+                $categoriesData=    '';
+                
+                if(!empty($categories)) {
+                    foreach($categories as $category){
+                        $categoriesData .=   $category->subcategory_name.', ';
+                    }
+                }
+                $categoriesData =   rtrim($categoriesData,', ');
                 if ($recordDetailsVal['status'] == 'active') {
 
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('frontProductChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
@@ -308,7 +335,7 @@ class ProductController extends Controller
 
             
 
-                $arr[] = [ $title,   $sort_order, $action];
+                $arr[] = [ $image, $title, $recordDetailsVal['sku'],'Kr'.$recordDetailsVal['price'],$categoriesData,  $sort_order, $dated, $action];
 
             }
 
@@ -346,6 +373,7 @@ class ProductController extends Controller
 
     public function productform($id='') {
 
+    $data['subscribedError']   =    '';
     if(!Auth::guard('user')->id()) {
             return redirect(route('frontLogin'));
         }
@@ -362,9 +390,8 @@ class ProductController extends Controller
                         ->get();
                         
             if(count($isSubscribed)<=0) {
-                Session::flash('error', 'You must subscribe package to manage products');
-            
-                return redirect(route('frontSellerPackages'));
+                
+                $data['subscribedError']   =    'You must subscribe package to manage products';
             }
         }
                     
@@ -395,7 +422,7 @@ class ProductController extends Controller
 			$data['product_id']			=	$product_id;
 			$data['product']			=	Products::where('id',$product_id)->first();
             
-            //$data['AttributesValues']   =   AttributesValues::get();
+            //$data['AttributesValues']  =   AttributesValues::get();
           
 			$selectedCategories			=	ProductCategory::where('product_id',$product_id)->get();
 			$selectedCategoriesArray	=	array();
@@ -405,17 +432,17 @@ class ProductController extends Controller
 			
 			$data['selectedCategories']	=	$selectedCategoriesArray;
 			
-		//	$data['VariantProduct']         =   VariantProduct::where('product_id',$product_id)->orderBy('id','asc')->get();
+		//	$data['VariantProduct']     =   VariantProduct::where('product_id',$product_id)->orderBy('id','asc')->get();
 				
-			$VariantProductAttribute=   VariantProductAttribute::Leftjoin('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
+			$VariantProductAttribute    =   VariantProductAttribute::Leftjoin('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 			                                    ->Leftjoin('variant_product', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 			                                    ->Leftjoin('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
 			                                    ->select(['attributes.name','attributes_values.attribute_values','variant_product.*','variant_product_attribute.*'])
 			                                    ->where('variant_product.product_id',$product_id)->orderBy('variant_product.id','asc')->orderBy('variant_product_attribute.id','asc')->get();
 			
-			$VariantProductAttributeArr    =   array();
+			$VariantProductAttributeArr  =   array();
 			
-			$i                  =   0;
+			$i                           =   0;
 			foreach($VariantProductAttribute as $variant) {
 			    $VariantProductAttributeArr[$variant->variant_id]['variant_id']           =   $variant->variant_id;
 			    $VariantProductAttributeArr[$variant->variant_id]['sku']                  =   $variant->sku;
@@ -446,7 +473,7 @@ class ProductController extends Controller
 
 
 
-
+    
     public function store(Request $request) {
        // echo'<pre>';print_r($_POST);exit;
         $rules = [ 
@@ -508,7 +535,7 @@ class ProductController extends Controller
 		            $producVariant['weight']    =   $_POST['weight'][$variant_key];
 		            $producVariant['quantity']  =   $_POST['quantity'][$variant_key]; 
 		            //echo $variant_key; echo $_FILES['image']['name'][$variant_key];exit;
-		            if(isset($request->file('image')[$variant_key])){
+		           /* if(isset($request->file('image')[$variant_key])){
 
                         $fileError = 0;
                         $image=$request->file('image')[$variant_key];
@@ -640,7 +667,8 @@ class ProductController extends Controller
                     } 
 
 
-                    elseif(isset($_POST['previous_image'][$variant_key]) && $_POST['previous_image'][$variant_key]!='') {
+                    else*/
+                    if(isset($_POST['previous_image'][$variant_key]) ) {
                         $producVariant['image'] =   $_POST['previous_image'][$variant_key];
                     }
 		            $variant_id=VariantProduct::create($producVariant)->id;
@@ -685,6 +713,138 @@ class ProductController extends Controller
 
 
 
+    public function uploadVariantImage (Request $request){
+        
+         if(($request->file('fileUpload'))){
+
+                        $fileError = 0;
+                        $image=$request->file('fileUpload');
+                        
+            
+                           
+                     {
+            
+                            $name=$image->getClientOriginalName();
+            
+                            $fileExt  = strtolower($image->getClientOriginalExtension());
+            
+            
+            
+                            if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+            
+                                $fileName = 'product-'.date('YmdHis').'.'.$fileExt;
+            
+                                $image->move(public_path().'/uploads/ProductImages/', $fileName);  // your folder path
+            
+            
+            
+                                $path = public_path().'/uploads/ProductImages/'.$fileName;
+            
+                                $mime = getimagesize($path);
+            
+            
+            
+                                if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+            
+                                if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+            
+                                if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+            
+                                if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+            
+            
+            
+                                $old_x = imageSX($src_img);
+            
+                                $old_y = imageSY($src_img);
+            
+            
+            
+                                $newWidth = 300;
+            
+                                $newHeight = 300;
+            
+            
+            
+                                if($old_x > $old_y) {
+            
+                                    $thumb_w    =   $newWidth;
+            
+                                    $thumb_h    =   $old_y/$old_x*$newWidth;
+            
+                                }
+            
+            
+            
+                                if($old_x < $old_y) {
+            
+                                    $thumb_w    =   $old_x/$old_y*$newHeight;
+            
+                                    $thumb_h    =   $newHeight;
+            
+                                }
+            
+            
+            
+                                if($old_x == $old_y) {
+            
+                                    $thumb_w    =   $newWidth;
+            
+                                    $thumb_h    =   $newHeight;
+            
+                                }
+            
+            
+            
+                                $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
+            
+                                imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+            
+                                // New save location
+            
+                                $new_thumb_loc = public_path().'/uploads/ProductImages/resized/' . $fileName;
+            
+            
+            
+                                if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+            
+                                if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+            
+                                if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+            
+                                if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+            
+            
+            
+                                imagedestroy($dst_img);
+            
+                                imagedestroy($src_img);
+            
+            
+            
+                            } else {
+            
+                                    $fileError = 1;
+            
+                            }
+            
+                        }
+            
+            
+            
+                        if($fileError == 1) {
+            
+                            //Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+            
+                            //return redirect()->back();
+            
+                        }
+                        //$producVariant['image']=$fileName;
+                        echo $fileName;
+                    } 
+
+
+    }
     /**
 
      * Edit record details

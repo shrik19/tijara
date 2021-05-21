@@ -31,9 +31,9 @@ class SellerController extends Controller
      */
     public function index() {
         $data = [];
-        $data['pageTitle']              = 'Seller';
-        $data['current_module_name']    = 'Seller';
-        $data['module_name']            = 'Seller';
+        $data['pageTitle']              = trans('users.sellers_title');
+        $data['current_module_name']    = trans('users.sellers_title');
+        $data['module_name']            = trans('users.sellers_title');
         $data['module_url']             = route('adminSeller');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
@@ -173,7 +173,7 @@ class SellerController extends Controller
             }
         } 
         else {
-            $arr[] = ['',  '', '', 'No Records Found', '', '', '', '',''];
+            $arr[] = ['',  '', '', trans('lang.datatables.sEmptyTable'), '', '', '', '',''];
         }
 
         $json_arr = [
@@ -189,9 +189,9 @@ class SellerController extends Controller
      /* function to open Seller create form */
     public function create() {
     
-        $data['pageTitle']              = 'Add Seller';
-        $data['current_module_name']    = 'Add';
-        $data['module_name']            = 'Seller';
+        $data['pageTitle']              = trans('users.add_seller_btn');
+        $data['current_module_name']    = trans('users.add_title');
+        $data['module_name']            = trans('users.sellers_title');
         $data['module_url']             = route('adminSeller');
       
         return view('Admin/Seller/create', $data);
@@ -326,12 +326,12 @@ class SellerController extends Controller
             }
 
             if($fileError == 1) {
-                Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                Session::flash('error', trans('error.invalid_files_err'));
                 return redirect()->back();
             }
         } 
 
-        Session::flash('success', 'Seller details Inserted successfully!');
+        Session::flash('success', trans('messages.seller_save_success'));
         return redirect(route('adminSeller')); 
     }
 
@@ -341,7 +341,7 @@ class SellerController extends Controller
      */
     public function edit($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('error.refresh_your_page_err'));
             return redirect()->back();
         }
 
@@ -354,13 +354,13 @@ class SellerController extends Controller
         $imagedetails=  UserMain::where('id', $id)->with(['getImages'])->first();
 
         if(empty($details)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('error.refresh_your_page_err'));
             return redirect()->back();   
          }
 
-        $data['pageTitle']              = 'Edit Seller';
-        $data['current_module_name']    = 'Edit';
-        $data['module_name']            = 'Seller';
+        $data['pageTitle']              = trans('users.edit_seller_title');
+        $data['current_module_name']    = trans('users.add_seller_btn');
+        $data['module_name']            = trans('users.sellers_title');
         $data['module_url']             = route('adminSeller');
         $data['sellerDetails']          = $details;
         $data['imagedetails']           =  $imagedetails;
@@ -374,7 +374,7 @@ class SellerController extends Controller
      */
     public function update(Request $request, $id) {
     	if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('error.refresh_your_page_err'));
             return redirect()->back();
         }
         
@@ -506,11 +506,11 @@ class SellerController extends Controller
 
             if($fileError == 1)
             {
-                Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                Session::flash('error', trans('error.invalid_files_err'));
                 return redirect()->back();
             }
         }           
-            Session::flash('success', 'Seller details updated successfully!');
+            Session::flash('success', trans('messages.seller_update_success'));
             return redirect(route('adminSeller'));
         }
     }
@@ -522,17 +522,17 @@ class SellerController extends Controller
      */
     public function changeStatus($id, $status)  {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('error.refresh_your_page_err'));
             return redirect(route('adminCustomer'));
         }
         $id = base64_decode($id);
 
         $result = UserMain::where('id', $id)->update(['status' => $status]);
         if ($result) {
-            Session::flash('success', 'Status updated successfully!');
+            Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
          } else  {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('error.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -543,7 +543,7 @@ class SellerController extends Controller
      */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('error.refresh_your_page_err'));
             return redirect(route('adminSeller'));
         }
 
@@ -552,10 +552,10 @@ class SellerController extends Controller
 
         if (!empty($result)) {
            $seller = UserMain::where('id', $id)->update(['is_deleted' =>1]);
-           Session::flash('success', 'Record deleted successfully!');
+           Session::flash('success', trans('messages.record_deleted_success'));
                 return redirect()->back();  
         } else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('error.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -566,7 +566,7 @@ class SellerController extends Controller
     */
      public function deleteImage($id) {
         if(empty($id))  {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('error.refresh_your_page_err'));
             return redirect(route('adminSeller'));
         }
         $id = base64_decode($id);
@@ -576,18 +576,18 @@ class SellerController extends Controller
         {
             if ($result->delete()) 
             {
-                Session::flash('success', 'Selected Image deleted successfully!');
+                Session::flash('success', trans('messages.image_deleted_success'));
                 return redirect()->back();
             } 
             else 
             {
-                Session::flash('error', 'Oops! Something went wrong!');
+                Session::flash('error', trans('error.something_wrong_err'));
                 return redirect()->back();
             }
         } 
         else 
         {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('error.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -616,7 +616,7 @@ class SellerController extends Controller
     function showpackages($id){
 
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('error.refresh_your_page_err'));
             return redirect()->back();
         }
 
@@ -628,9 +628,9 @@ class SellerController extends Controller
         ->select('user_packages.*','packages.id','packages.title','users.id','users.fname','users.lname')->get();
 
         $data = [];
-        $data['pageTitle']              = 'Package History';
-        $data['current_module_name']    = 'Package History';
-        $data['module_name']            = 'Package History';
+        $data['pageTitle']              = trans('users.package_history_title');
+        $data['current_module_name']    = trans('users.package_history_title');
+        $data['module_name']            = trans('users.package_history_title');
         $data['module_url']             = route('adminSeller');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';

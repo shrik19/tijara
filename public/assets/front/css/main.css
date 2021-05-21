@@ -347,3 +347,9 @@ overflow: hidden;}
         }
         .mid_banner{display: none;}
 }
+
+.slider_content div {
+    font-size: 20px;
+    color: #151511;
+    line-height: 30px;
+}

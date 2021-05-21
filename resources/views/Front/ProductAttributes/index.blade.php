@@ -14,7 +14,9 @@
   <div class="row">
     <div class="">
       <div class="col-md-12">
-			
+			@if($subscribedError)
+	    <div class="alert alert-danger">{{$subscribedError}}</div>
+	    @endif
 	  @include('Front.alert_messages')
 	  <div class="card">
 		<div class="card-header row">

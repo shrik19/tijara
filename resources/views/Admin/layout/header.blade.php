@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{{url('/')}}/assets/admin/css/style.css">
   <link rel="stylesheet" href="{{url('/')}}/assets/admin/css/components.css">
   <link rel="stylesheet" href="{{url('/')}}/assets/css/sweetalert.css">
-  
+
   <!-- General JS Scripts -->
   <script src="{{url('/')}}/assets/admin/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
   <script src="{{url('/')}}/assets/admin/js/popper.min.js" crossorigin="anonymous"></script>
@@ -30,19 +30,20 @@
   <script src="{{url('/')}}/assets/admin/js/stisla.js"></script>
   <script src="{{url('/')}}/assets/js/sweetalert.js"></script>
   <script src="{{url('/')}}/assets/js/jquery.mask.min.js"></script>
-  
+
+  <script src="{{url('/')}}/assets/admin/js/admin.js"></script>
   
   <script type="text/javascript">
     function ConfirmDeleteFunction(url, id = false) {
-	var message = 'You will not be able to recover this record again!';
+	var message = "{{ __('messages.alert_delete_record_message')}}";
 	swal({
-      title: 'Are you sure?',
+      title: "{{ __('messages.are_you_sure_message')}}",
         text: message,
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel',
+        confirmButtonText: "{{ __('messages.yes_delete_it_message')}}",
+        cancelButtonText: "{{ __('messages.no_cancel_message')}}",
         closeOnConfirm: true,
         closeOnCancel: true
     },
@@ -61,13 +62,13 @@
    
       
   swal({
-      title: 'Are you sure?',
+      title: "{{ __('messages.are_you_sure_message')}}",
         text: message,
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel',
+        confirmButtonText: "{{ __('messages.yes_delete_it_message')}}",
+        cancelButtonText: "{{ __('messages.no_cancel_message')}}",
         closeOnConfirm: true,
         closeOnCancel: true
     },
@@ -82,15 +83,16 @@
   }
   
   function ConfirmStatusFunction(url, id = false) {
-	var message = 'You want to change the status?';
+	var message = "{{ __('messages.you_want_to_change_status_message')}}";
 	swal({
-      title: 'Are you sure?',
+      title: "{{ __('messages.are_you_sure_message')}}",
         text: message,
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-success",
-        confirmButtonText: 'Yes, change it!',
-        cancelButtonText: 'No, cancel',
+        //cancelButtonClass:"btn-danger",
+        confirmButtonText: "{{ __('messages.yes_change_it_message')}}",
+        cancelButtonText: "{{ __('messages.no_cancel_message')}}",
         closeOnConfirm: true,
         closeOnCancel: true
     },
@@ -245,20 +247,20 @@
           </li> -->
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="image" src="{{url('/')}}/assets/admin/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, {{ ucfirst(Auth::guard('admin')->user()->first_name) }} {{ ucfirst(Auth::guard('admin')->user()->last_name) }}</div></a>
+            <div class="d-sm-none d-lg-inline-block">{{ __('lang.hi')}}, {{ ucfirst(Auth::guard('admin')->user()->first_name) }} {{ ucfirst(Auth::guard('admin')->user()->last_name) }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <!-- <a href="#" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a> -->
               <a href="{{route('adminChangePassword')}}" class="dropdown-item has-icon">
-                <i class="fas fa-lock"></i> Change Password
+                <i class="fas fa-lock"></i> {{ __('lang.change_password_menu')}} 
               </a>
               <!--<a href="features-settings.html" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
               </a> -->
               <div class="dropdown-divider"></div>
               <a href="{{route('adminLogout')}}" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-sign-out-alt"></i> {{ __('lang.logout_label')}} 
               </a>
             </div>
           </li>

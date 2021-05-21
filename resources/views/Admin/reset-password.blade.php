@@ -25,36 +25,36 @@
             </div>
             @include('Admin.alert_messages')
             <div class="card card-primary">
-              <div class="card-header" style="display:inline-block;min-height:fit-content;text-align:center;"><h6>Reset your Password</h6></div>
+              <div class="card-header" style="display:inline-block;min-height:fit-content;text-align:center;"><h6>{{ __('users.reset_password_btn_label')}}</h6></div>
               <div class="card-body">
                 <form method="POST" action="{{route('ProcessResetPassword')}}" class="needs-validation" novalidate="">
                   @csrf
 
                 <div class="form-group">
-                  <label>Email</label>
+                  <label>{{ __('users.email_label')}}</label>
                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required value="{{ old('email') }}">
                   <div class="text-danger">{{$errors->first('email')}}</div>
                 </div>
 
                 <div class="form-group">
-                  <label>Password</label>
+                  <label>{{ __('users.password_label')}}</label>
                   <input type="password" class="form-control" name="password" required tabindex="1">
                   <div class="invalid-feedback">
-                    Please fill in your new password
+                     {{ __('errors.fill_in_password_err')}}
                   </div>
                   <div class="text-danger">{{$errors->first('password')}}</div>
                 </div>
 
                 <div class="form-group">
-                  <label>Confirm Password</label>
+                  <label>{{ __('users.password_confirmation_label')}}</label>
                   <input type="password" class="form-control" name="password_confirmation" required tabindex="2">
                   <div class="invalid-feedback">
-                    Please fill in your confirm password
+                    {{ __('errors.fill_in_confirm_password_err')}}
                   </div>
                   <div class="text-danger">{{$errors->first('password_confirmation')}}</div>
                 </div>
                 <div class="card-footer text-right">
-                <button type="submit" class="btn btn-primary" tabindex="3">Submit</button>
+                <button type="submit" class="btn btn-primary" tabindex="3">{{ __('lang.save_btn')}}</button>
               </div>
               </form>
               </div>

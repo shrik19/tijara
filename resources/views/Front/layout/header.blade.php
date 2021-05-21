@@ -35,7 +35,7 @@
           <div class="col-md-8">
             <div class="top_login">
               <div class="pull-right">				
-                @if(Auth::guard('user')->id())
+                @if(Auth::guard('user')->id()) 
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><i class="fa fa-user"></i>{{ __('lang.my_account_title')}}</h3></a>
                 <ul class="dropdown-menu">
                     
@@ -44,13 +44,15 @@
                  
                   <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
                   <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
-                  <li><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
+                  <?php session_start(); if(isset($_SESSION['currentUser']) && $_SESSION['currentUser']['role_id']==2) { ?> 
+                    <li><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
+                  <?php } ?>
                   <li><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
                   <li><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
                 </ul>
 
                 @else					
-                <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="Login"> Login{{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>				
+                <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>				
                 @endif
                 
               </div>

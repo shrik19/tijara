@@ -8,7 +8,7 @@
       @include('Admin.alert_messages')
       <div class="card">
         <div class="card-header">
-          <h4>All Packge History <?php if(count($details) !=0){ echo "of ".@$details[0]['fname']; }?></h4>
+          <h4>{{ __('users.all_packge_history_title')}}  @if(count($details) !=0) {{ __('users.of')}} {{@$details[0]['fname']}} @endif  </h4>
         </div>
 
         <div class="card-body">
@@ -18,11 +18,11 @@
               <table class="table table-striped" id="packageHistTable">
                 <thead>
                   <tr>
-                  <th data-orderable="false">sr no.</th>
-                  <th>Package Name</th>
-                  <th>Satrt Date</th>
-                  <th>End Date</th>
-                  <th data-orderable="false">Status</th>
+                  <th data-orderable="false">{{ __('users.sr_no_thead')}}</th>
+                  <th>{{ __('users.package_name_thead')}}</th>
+                  <th>{{ __('users.start_date_thead')}}</th>
+                  <th>{{ __('users.end_date_thead')}}</th>
+                  <th data-orderable="false">{{ __('lang.status_label')}}</th>
                   </tr>
                 </thead>
                   <tbody id="result">

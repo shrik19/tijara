@@ -138,8 +138,8 @@ class AuthController extends Controller
     public function changePassword() {
         $data = $siteSetting = [];
 
-        $data['pageTitle'] = 'Change Password';
-        $data['module_name'] = 'Change Password';
+        $data['pageTitle'] = trans('lang.change_password_menu');
+        $data['module_name'] = trans('lang.change_password_menu');
         $data['current_module_name'] = '';
         $data['module_url'] = route('adminChangePassword');
         return view('Admin/change_password', $data);

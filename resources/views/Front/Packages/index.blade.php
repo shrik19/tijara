@@ -27,7 +27,7 @@
 					  <tbody>
 					  	<tr>
 					  		<td class="package-tbl">Description</td>
-					  		<td>{{$row->description}}</td>
+					  		<td><?php echo $row->description; ?></td>
 					    </tr>
 					    <tr>
 					  		<td class="package-tbl">Amount</td>
@@ -74,7 +74,7 @@
 				<div class="panel panel-default subscribe-packages">
 				<div class="panel-heading">{{$data['title']}}</div>
 				<div class="panel-body">
-					<p>Description : {{strip_tags( $data['description'])}}</p>
+					<p>Description : <?php echo $row->description; ?></p>
 					<p>Amount : {{$data['amount']}}</p>
 					<p>Validity Days : {{$data['validity_days']}} Days.</p>
 

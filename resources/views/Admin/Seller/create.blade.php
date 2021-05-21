@@ -2,7 +2,7 @@
 @section('middlecontent')
 <div class="section-body">
   <h2 class="section-title">{{$pageTitle}}</h2>
-  <p class="section-lead">Add Seller Details</p>
+  <p class="section-lead">{{ __('users.add_seller_details_title')}}</p>
   <form method="POST" action="{{route('adminSellerStore')}}" class="needs-validation"  enctype="multipart/form-data" novalidate="">
     @csrf
     <div class="row">
@@ -10,84 +10,84 @@
         <div class="card">
           <div class="card-body">
             <div class="form-group">
-              <label>Contact First Name <span class="text-danger">*</span></label>
+              <label>{{ __('users.contact_first_name_label')}} <span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="fname" id="fname" required tabindex="1" value="{{ old('fname')}}" >
               <div class="invalid-feedback">
-                Please fill in First Name
+                {{ __('errors.fill_in_first_name_err')}}
               </div>
               <div class="text-danger">{{$errors->first('fname')}}</div>
             </div>
 
             <div class="form-group">
-              <label>Contact Last Name <span class="text-danger">*</span></label>
+              <label>{{ __('users.contact_last_name_label')}} <span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="lname" id="lname" required tabindex="2" value="{{ old('lname')}}">
               <div class="invalid-feedback">
-                Please fill in Last Name
+                {{ __('errors.fill_in_last_name_err')}}
               </div>
               <div class="text-danger">{{$errors->first('lname')}}</div>
             </div>
 
             <div class="form-group">
-              <label>Contact Email <span class="text-danger">*</span></label>
+              <label>{{ __('users.contact_email_label')}}<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="email" id="email" required tabindex="3" value="{{ old('email')}}">
               <div class="invalid-feedback">
-              Please fill in Email
+              {{ __('errors.fill_in_email_err')}}
               </div>
               <div class="text-danger">{{$errors->first('email')}}</div>
             </div>
 
             <div class="form-group">
-              <label>Contact Phone Number </label>
+              <label>{{ __('users.contact_phone_number_label')}} </label>
               <div class="input-group">
               <span style="margin-top: 10px;" class="col-md-2">+46</span> <input type="text" class="col-md-10 form-control phone-number" name="phone_number" id="phone_number" tabindex="4" value="{{ old('phone_number')}}">
               <div class="invalid-feedback">
-                 Please fill in Phone Number
+                {{ __('errors.fill_in_phone_number_err')}}
               </div>
               </div>
               <div class="text-danger">{{$errors->first('phone_number')}}</div>
             </div>
 
             <div class="form-group">
-              <label>Address</label>
+              <label>{{ __('users.address_label')}}</label>
               <textarea class="form-control" id="address" name="address" rows="5" cols="30" style="height:auto" tabindex="5" value="{{ old('address')}}"></textarea>
               <div class="invalid-feedback">
-                Please fill in your Address
+                {{ __('errors.fill_in_address_err')}}
               </div>
               <div class="text-danger">{{$errors->first('address')}}</div>
             </div>
 
             <div class="form-group">
-              <label>Postal Code</label>
+              <label>{{ __('users.postal_code_label')}}</label>
               <input type="text" class="form-control" name="postcode" id="postcode" tabindex="6" value="{{ old('postcode')}}">
               <div class="invalid-feedback">
-                Please fill in your Address
+                {{ __('errors.fill_in_postal_code_err')}}
               </div>
               <div class="text-danger">{{$errors->first('postcode')}}</div>
             </div>
 
             <div class="form-group">
-              <label>City </label>
+              <label>{{ __('users.city_label')}}</label>
               <input type="text" class="form-control" name="city" id="city" tabindex="7" value="{{ old('city')}}">
               <div class="invalid-feedback">
-                Please fill in your City
+                {{ __('errors.fill_in_city_err')}}
               </div>
               <div class="text-danger">{{$errors->first('city')}}</div>
             </div>
 
             <div class="form-group">
-              <label>Swish Number </label>
+              <label>{{ __('users.swish_number_label')}}</label>
               <input type="text" class="form-control" name="swish_number" id="swish_number" tabindex="8" value="{{ old('swish_number')}}">
               <div class="invalid-feedback">
-                Please fill in your Swish Number
+                {{ __('errors.fill_in_swish_number_err')}}
               </div>
               <div class="text-danger">{{$errors->first('swish_number')}}</div>
             </div>
 
             <div class="form-group">
-              <label>Store Name</label>
+              <label>{{ __('users.store_name_label')}}</label>
               <input type="text" class="form-control" name="store_name" id="store_name" tabindex="9" value="{{ old('store_name') }}" onblur="checkStoreName(this)">
               <div class="invalid-feedback">
-                Please fill in your Store Name
+                {{ __('errors.fill_in_store_name_err')}}
               </div>
               <div class="text-danger">{{$errors->first('store_name')}}</div>
             </div>
@@ -101,12 +101,12 @@
           <div class="card-body">
 
             <div class="form-group">
-              <label>Paypal Email Address</label>
+              <label>{{ __('users.paypal_email_address_label')}}</label>
               <input type="text" class="form-control" name="paypal_email" id="paypal_email" tabindex="10" value="{{ old('paypal_email')}}">
               <div class="invalid-feedback">
-                Please fill in your Email
+                {{ __('errors.paypal_email_address_err')}}
               </div>
-              <div class="text-danger">{{$errors->first('email')}}</div>
+              <div class="text-danger">{{$errors->first('paypal_email')}}</div>
             </div>
 
             <!-- <div class="form-group">
@@ -119,13 +119,13 @@
             </div> -->
 
             <div class="form-group">
-              <label>Description</label>
+              <label>{{ __('users.description_label')}}</label>
               <textarea class="form-control description" name="description" id="description" spellcheck="true" tabindex="4"></textarea>
               <div class="text-danger">{{ ($errors->has('description')) ? $errors->first('description') : '' }}</div>
             </div>
 
             <div class="form-group increment cloned">
-              <label>Seller Image(s)</label>
+              <label>{{ __('users.seller_image(s)_label')}}</label>
               @php
               if(!empty($imagedetails['getImages']))
               {
@@ -146,7 +146,7 @@
               <input type="file" name="sellerimages[]"  tabindex="11" class="form-control">
 
               <div class="input-group-btn text-right"> 
-                <button class="btn btn-success add-image" type="button"><i class="fas fa-plus"></i> Add More</button>
+                <button class="btn btn-success add-image" type="button"><i class="fas fa-plus"></i>{{ __('users.add_more_btn')}}</button>
               </div>
             </div>
 
@@ -154,7 +154,7 @@
               <div class="form-group cloned" style="margin-top:10px">
                 <input type="file" name="sellerimages[]" class="form-control">
                 <div class="input-group-btn text-right"> 
-                  <button class="btn btn-danger remove-image" type="button"><i class="fas fa-trash-alt"></i> Remove</button>
+                  <button class="btn btn-danger remove-image" type="button"><i class="fas fa-trash-alt"></i> {{ __('users.remove_btn')}}</button>
                 </div>
               </div>
             </div>
@@ -162,8 +162,8 @@
           </div>
         </div>
         <div class="col-12 text-right">
-          <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i> Save</button>&nbsp;&nbsp;
-          <a href="{{route('adminSeller')}}" class="btn btn-icon icon-left btn-danger" tabindex="16"><i class="fas fa-times"></i> Cancel</a>
+          <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i>{{ __('lang.save_btn')}}</button>&nbsp;&nbsp;
+          <a href="{{route('adminSeller')}}" class="btn btn-icon icon-left btn-danger" tabindex="16"><i class="fas fa-times"></i>{{ __('lang.cancel_btn')}}</a>
         </div>
       </div>
     </div>
@@ -180,7 +180,7 @@
       var cloned_images = $(".cloned:visible").length;
 
       if((existing_images + cloned_images) >= 5) {
-        $(".cloned-danger").html('Max 5 images are allowed for Seller.');
+        $(".cloned-danger").html("{{ __('users.max_images_restriction_seller')}}");
         return false;
       }
 

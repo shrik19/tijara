@@ -30,10 +30,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="slider_content">
-                                <h3>Shop is fun</h3>
-                                <h2 class="de_col">BROWSE OUR <br>
-                                {{$data['title']}}</h2>
-                                <p>{{$data['description']}}</p>
+                                <h3>{{$data['title']}}</h3>
+                                <?php echo $data['description']; ?>
                                 <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >Buy Now</button>  
                             </div>
                         </div>
@@ -79,11 +77,9 @@
                         <li>
                     
                             <div class="product_img">
-							@if(!empty($product['image']))
-                                <img src="{{url('/')}}/assets/front/img/{{$product['image']}}">
-							$else
-								<img src="{{url('/')}}/assets/front/img/product_img.png">
-							@endif
+							
+								<img src="{{url('/')}}/uploads/ProductImages/resized/{{$product['image']}}">
+							
                             </div>
                             <div class="product_info">
                              <h5>{{$product['category_name']}}</h5>  
@@ -117,7 +113,7 @@
                 <div class="sale_details">
                     <h2>{{$banner->subtitle}}</h2>
                     <h3>{{$banner->title}}</h3>
-                    <p>{{$banner->description}}</p>
+                    <p><?php echo $data['description']; ?></p>
                     <button type="button" class="btn sale_btn" onclick="document.location='{{$banner['redirect_link']}}'">Shop Now</button>
                 </div>
             </div>
@@ -142,11 +138,7 @@
                         <li>
                     
                             <div class="product_img">
-							@if(!empty($product['image']))
-                                <img src="{{url('/')}}/assets/front/img/{{$product['image']}}">
-							@else
-								<img src="{{url('/')}}/assets/front/img/product_img.png">
-							@endif
+							<img src="{{url('/')}}/uploads/ProductImages/resized/{{$product['image']}}">
                             </div>
                             <div class="product_info">
                              <h5>{{$product['category_name']}}</h5>  

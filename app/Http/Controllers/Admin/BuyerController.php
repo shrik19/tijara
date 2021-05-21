@@ -166,7 +166,7 @@ use File;
             }
         } 
         else {
-            $arr[] = ['', '', 'No Records Found', '', '', ];
+            $arr[] = ['', '', 'No Records Found', '', '', ''];
         }
 
         $json_arr = [

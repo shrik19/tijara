@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Categories;
 use App\Models\Subcategories;
+use App\Models\ProductCategory;
 /*Uses*/
 use Session;
 use Validator;
@@ -240,6 +241,7 @@ class CategoryController extends Controller
    
             if ($categories->delete()) 
 			{
+			    ProductCategory::where('category_id', $id)->update(['category_id' => 0,'subcategory_id' => 0]);
                 Session::flash('success', 'Record deleted successfully!');
                 return redirect()->back();
             } else {

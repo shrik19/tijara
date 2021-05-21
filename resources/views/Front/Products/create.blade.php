@@ -10,11 +10,22 @@
 </div>
 <div class="container">
   <!-- Example row of columns -->
+   @if($subscribedError)
+	    <div class="alert alert-danger">{{$subscribedError}}</div>
+	    @endif
   <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
             @csrf
   <div class="row">
     <div class="">
-	<h2>{{ __('lang.product_form_label')}}</h2>
+	
+	<div class="col-md-10">
+		    
+		  <h2>{{ __('lang.product_form_label')}}</h2>
+		  <hr class="heading_line"/>
+		  </div>
+		  <div class="col-md-1">
+		  <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span>Back to listing</span> </a>
+			</div>
         <hr class="heading_line"/>
          @include ('Front.alert_messages')
       <div class="col-md-6">
@@ -88,9 +99,6 @@
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
 
-          <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn saveproduct" tabindex="9">{{ __('lang.save_btn')}}</button>
-           
-          <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
           
         </div>
       </div>
@@ -142,7 +150,7 @@
                 <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}">
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image" name="image[0]" placeholder="{{ __('lang.image_label')}}">
+                <td><input type="file" class="form-control login_input image variant_image" name="image[0]" placeholder="{{ __('lang.image_label')}}">
                 <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="{{ __('lang.action_label')}}">
                 
                 <span class="invalid-feedback" id="err_image" ></span></td>
@@ -218,8 +226,15 @@
             </table>
           <div class="all_saved_attributes" ></div>
           </div>
+          
+          
         </div>
       </div>
+      <div class="login_box">
+          <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn saveproduct" tabindex="9">{{ __('lang.save_btn')}}</button>
+           
+          <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
+          </div>
   </div>
 
   </form>

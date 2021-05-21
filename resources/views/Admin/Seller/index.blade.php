@@ -8,8 +8,8 @@
       @include('Admin.alert_messages')
       <div class="card">
         <div class="card-header">
-          <h4>All Seller List</h4>
-          <a href="{{route('adminSellerCreate')}}" title="Add Seller" class="btn btn-icon btn-success" style="margin-left:650px;"><span>Add Seller</span> </a>
+          <h4>{{ __('users.all_seller_list')}}</h4>
+          <a href="{{route('adminSellerCreate')}}" title="{{ __('users.add_seller_btn')}}" class="btn btn-icon btn-success" style="margin-left:650px;"><span>{{ __('users.add_seller_btn')}}</span> </a>
         </div>
 
         <div class="card-body">
@@ -19,15 +19,15 @@
               <table class="table table-striped" id="sellerTable">
                 <thead>
                   <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Store Name</th>
-                  <th>City</th>
-                  <th>Where Find Us</th>
-                  <th>show Packages</th>
-                  <th>Is Verified</th>
-                  <th data-orderable="false">Status</th>
-                  <th data-orderable="false">Action</th>
+                  <th>{{ __('users.first_name_label')}}</th>
+                  <th>{{ __('users.last_name_label')}}</th>
+                  <th>{{ __('users.store_name_label')}}</th>
+                  <th>{{ __('users.city_label')}}</th>
+                  <th>{{ __('users.where_find_us_thead')}}</th>
+                  <th data-orderable="false">{{ __('users.show_ackages_thead')}}</th>
+                  <th data-orderable="false">{{ __('users.is_verified_thead')}}</th>
+                  <th data-orderable="false">{{ __('lang.status_thead')}}</th>
+                  <th data-orderable="false">{{ __('lang.action_thead')}}</th>
                   </tr>
                 </thead>
                   <tbody id="result">
@@ -51,6 +51,23 @@
     "serverSide": true,
     "paging": true,
     "searching": true,
+    
+    "language": {
+      "sSearch": "<?php echo __('lang.datatables.search');?>",
+      "sInfo": "<?php echo __('lang.datatables.sInfo');?>",
+      "sLengthMenu": "<?php echo __('lang.datatables.sLengthMenu');?>",
+      "sInfoEmpty": "<?php echo __('lang.datatables.sInfoEmpty');?>",
+      "sLoadingRecords": "<?php echo __('lang.datatables.sLoadingRecords');?>",
+      "sProcessing": "<?php echo __('lang.datatables.sProcessing');?>",      
+      "sZeroRecords": "<?php echo __('lang.datatables.sZeroRecords');?>",
+      "oPaginate": {
+            "sFirst":    "<?php echo __('lang.datatables.first');?>",
+            "sLast":    "<?php echo __('lang.datatables.last');?>",
+            "sNext":    "<?php echo __('lang.datatables.next');?>",
+            "sPrevious": "<?php echo __('lang.datatables.previous');?>",
+        },
+        
+    },
     columnDefs: [
           {
               targets: [4,5],
@@ -68,13 +85,13 @@
   });
 
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
-  '<option value="">Select Status</option>'+
-  '<option value="active">Active</option>'+
-  '<option value="block">Inactive</option>'+
+  '<option value="">{{ __("lang.select_status_ddl")}}</option>'+
+  '<option value="active">{{ __("lang.active_label")}}</option>'+
+  '<option value="block">{{ __("lang.inactive_label")}}</option>'+
   '</select></div>').appendTo("#sellerTable_length");
 
   $('<span class="export btn button export-btn">'+
-  'Export</span></div>').appendTo("#sellerTable_wrapper .dataTables_filter");
+  '{{ __("lang.export_btn")}}</span></div>').appendTo("#sellerTable_wrapper .dataTables_filter");
 
   $(".dataTables_filter label").addClass("pull-right");
   $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');

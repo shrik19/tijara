@@ -12,6 +12,9 @@
   <!-- Example row of columns -->
   <div class="row">
     <div class="">
+        @if($subscribedError)
+	    <div class="alert alert-danger">{{$subscribedError}}</div>
+	    @endif
       <div class="col-md-3"></div> 
       <div class="col-md-6">
         <h2>Create Product Attributes</h2>

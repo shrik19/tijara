@@ -14,11 +14,15 @@
   <div class="row">
     <div class="">
       <div class="col-md-12">
-			
+		@if($subscribedError)
+	    <div class="alert alert-danger">{{$subscribedError}}</div>
+	    @endif
 	  @include('Front.alert_messages')
+	   
 	  <div class="card">
 		<div class="card-header row">
 		<div class="col-md-10">
+		    
 		  <h2>Your Products</h2>
 		  <hr class="heading_line"/>
 		  </div>
@@ -34,11 +38,13 @@
 			  <table class="table table-striped" id="productTable">
 				<thead>
 				  <tr>
-				  
+				  <th data-orderable="false">Image</th>
 				  <th>Product</th>
-				 
-				             
-				  <th >Sort order</th>
+				  <th>SKU</th>
+				  <th>Price</th>
+				  <th data-orderable="false">Categories</th> 
+				  <th>Sort order</th>
+				  <th>Dated</th>
 				  <th data-orderable="false">Action</th>
 				  </tr>
 				</thead>
@@ -89,7 +95,7 @@
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
   '<option value="">Select Status</option>'+
   '<option value="active">Active</option>'+
-  '<option value="block">Inactive</option>'+
+  '<option value="block">Block</option>'+
   '</select></div>').appendTo("#productTable_filter");
   
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="selectsubcategory" name="subcategory">'+

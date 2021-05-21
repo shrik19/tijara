@@ -28,7 +28,6 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	Route::get('/change-password', 'AuthController@changePassword')->name('adminChangePassword');
 	Route::post('/change-password-store', 'AuthController@changePasswordStore')->name('adminChangePasswordStore');
 
-
 	 /* Category  */
 	Route::group(['prefix'=>'category'], function() {
 	    Route::get('/','CategoryController@index')->name('adminCategory');

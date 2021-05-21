@@ -18,6 +18,8 @@ Route::get('/front-logout','Front\AuthController@logout')->name('frontLogout');
 Route::get('/buyer-register','Front\AuthController@buyer_register')->name('buyer_register');
 Route::get('/seller-register','Front\AuthController@seller_register')->name('seller_register');
 Route::post('/do-register','Front\AuthController@doRegister')->name('do-register');
+Route::get('/register-success','Front\AuthController@register_success')->name('frontRegisterSuccess');
+
 
 /*forgot password*/
 Route::post('/forgot-password','Front\AuthController@forgotPassword')->name('frontForgotPassword');
@@ -34,7 +36,8 @@ Route::post('/store','Front\ProductController@store')->name('frontProductStore')
 Route::any('/getRecords','Front\ProductController@getRecords')->name('frontProductGetRecords');	    
 Route::get('/saveproduct/{id}','Front\ProductController@productform')->name('frontProductEdit');	    	    
 Route::get('/delete/{id}','Front\ProductController@delete')->name('frontProductDelete');	    
-Route::get('/changeStatus/{id}/{status}','Front\ProductController@changeStatus')->name('frontProductChangeStatus');	   	
+Route::get('/changeStatus/{id}/{status}','Front\ProductController@changeStatus')->name('frontProductChangeStatus');	  
+Route::post('/upload-variant-image','Front\ProductController@uploadVariantImage')->name('uploadVariantImage');
 });	/*end Product Management  */
 
 /* product Attributes */

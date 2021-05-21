@@ -35,7 +35,7 @@ class ProductAttributesController extends Controller
         $data['module_url']             = route('frontAttributeGetRecords');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
-        
+        $data['subscribedError']        =   '';
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
         if($User->role_id==2) {
             $currentDate = date('Y-m-d H:i:s');
@@ -48,9 +48,7 @@ class ProductAttributesController extends Controller
                         ->get();
                         
             if(count($isSubscribed)<=0) {
-                Session::flash('error', 'You must subscribe package to manage product attributes');
-            
-                return redirect(route('frontSellerPackages'));
+                $data['subscribedError']   =    'You must subscribe package to manage products & attributes';
             }
         }
         
@@ -126,6 +124,7 @@ class ProductAttributesController extends Controller
     public function create()
     {
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
+        $data['subscribedError']   =    '';
         if($User->role_id==2) {
             $currentDate = date('Y-m-d H:i:s');
             $isSubscribed = DB::table('user_packages')
@@ -137,9 +136,7 @@ class ProductAttributesController extends Controller
                         ->get();
                         
             if(count($isSubscribed)<=0) {
-                Session::flash('error', 'You must subscribe package to manage product attributes');
-            
-                return redirect(route('frontSellerPackages'));
+               $data['subscribedError']   =    'You must subscribe package to manage products and attributes';
             }
         }
         $data['pageTitle']              = 'Add Attributes';
@@ -182,7 +179,8 @@ class ProductAttributesController extends Controller
      * @param  $id = User Id
      */
     public function edit($id) {
-        
+        $data = $details = $valueDetails=[];
+        $data['subscribedError']   =    '';
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
         if($User->role_id==2) {
             $currentDate = date('Y-m-d H:i:s');
@@ -195,14 +193,14 @@ class ProductAttributesController extends Controller
                         ->get();
                         
             if(count($isSubscribed)<=0) {
-                return redirect(route('frontSellerPackages'));
+                $data['subscribedError']   =    'You must subscribe package to manage products and attributes';
             }
         }
        if(empty($id)) {
             Session::flash('error', 'Something went wrong. Refresh your page.');
             return redirect()->back();
         }
-        $data = $details = $valueDetails=[];
+        
          
         $data['id'] = $id;
         $id = base64_decode($id);
@@ -311,6 +309,7 @@ class ProductAttributesController extends Controller
 		{
             if ($attribute->delete()) 
 			{
+			    DB::table('variant_product_attribute')->where('attribute_id', $id)->delete();
                 Session::flash('success', 'Record deleted successfully!');
                 return redirect()->back();
             } else {
@@ -333,6 +332,7 @@ class ProductAttributesController extends Controller
         {
             if ($attributeValue->delete()) 
             {
+               DB::table('variant_product_attribute')->where('attribute_value_id', $id)->delete(); 
                 return "record deleted";
             } else {
                 return 'Oops! Something went wrong!';

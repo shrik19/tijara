@@ -114,7 +114,9 @@ class AuthController extends Controller
                         /*get role id*/
                         $getRoleId = DB::table('users')
                             ->where('id', $user_id)->first();
-                        
+                        session_start();
+                        $currentUser=array('role_id'=>$getRoleId->role_id,'name'=>$getRoleId->fname.' '.$getRoleId->lname);
+                        $_SESSION['currentUser']=$currentUser;
                         if($getRoleId->role_id==2){
                             return redirect(route('frontSellerProfile'));
                         }else{
@@ -238,8 +240,8 @@ class AuthController extends Controller
 				// 	$message->from('developer@techbeeconsulting.com','Tijara');
 				// });
 		
-                Session::flash('success', 'Registration successfull!');
-                return redirect(route('frontHome'));
+                //Session::flash('success', 'Registration successfull!');
+                return redirect(route('frontRegisterSuccess'));
             }
             else
             {
@@ -250,6 +252,10 @@ class AuthController extends Controller
 
     }
 
+    public function register_success()
+    {
+        return view('Front/register_success');
+    }
 
     /**
      * Show the Seller Profile Page.
@@ -269,6 +275,7 @@ class AuthController extends Controller
         if(count($details) == 0){
              return redirect(route('frontHome'));
         }
+        
         $imagedetails=  UserMain::where('id', $user_id)->with(['getImages'])->first();
 
         $data['id'] = $user_id;
@@ -462,6 +469,7 @@ class AuthController extends Controller
         if(count($details)==0){
             return redirect(route('frontHome'));
         }
+        
         $data['id'] = $user_id;
         $data['registertype']='Buyer';
         $data['role_id']    = 1;
@@ -877,6 +885,10 @@ class AuthController extends Controller
         if(!Auth::guard('user')->id())
         {
             return redirect(route('frontHome'));
+        }
+        $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
+        if($User->role_id!=2) {
+            return redirect(route('frontUserProfile'));
         }
 
         $user_id = Auth::guard('user')->id();

@@ -5,7 +5,7 @@
    <button class="close" data-dismiss="alert">
       <span>&times;</span>
    </button>
-   <strong>Success!</strong> {{Session::get('success')}}
+   <strong>{{ __('messages.success')}}</strong> {{Session::get('success')}}
    </div>
 </div>
 @endif
@@ -15,7 +15,7 @@
    <button class="close" data-dismiss="alert">
       <span>&times;</span>
    </button>
-   <strong>Error!</strong> {{Session::get('error')}}
+   <strong>{{ __('errors.error')}}</strong> {{Session::get('error')}}
    </div>
 </div>
 @endif
@@ -25,7 +25,7 @@
    <button class="close" data-dismiss="alert">
       <span>&times;</span>
    </button>
-   <strong>Warning!</strong> {{Session::get('warning')}}
+   <strong>{{ __('errors.warning')}}</strong> {{Session::get('warning')}}
    </div>
 </div>
 @endif

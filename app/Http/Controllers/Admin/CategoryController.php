@@ -27,9 +27,9 @@ class CategoryController extends Controller
      */
     public function index() {
         $data = [];
-        $data['pageTitle']              = 'Product Category';
-        $data['current_module_name']    = 'Product Category';
-        $data['module_name']            = 'Product Category';
+        $data['pageTitle']              = trans('users.product_category');
+        $data['current_module_name']    = trans('users.product_category');
+        $data['module_name']            = trans('users.product_category');
         $data['module_url']             = route('adminCategory');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
@@ -120,7 +120,7 @@ class CategoryController extends Controller
     /*function to open category open form*/
     public function create()
     {
-        $data['pageTitle']              = trans('users.add_product_category_title');'Add Product Category';
+        $data['pageTitle']              = trans('users.add_product_category_title');
         $data['current_module_name']    = trans('users.add_title');
         $data['module_name']            = trans('users.product_category');
         $data['module_url']             = route('adminCategory');

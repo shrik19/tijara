@@ -34,10 +34,34 @@
      'unique_subcategory_name'=>'Please enter different SubCategory, its already taken.',
      'password_min_6_char'=>'Minimum 6 characters are required',
      'password_not_matched'=>'Password not matched',
-     // ''=>'',    
-     // ''=>'',
-     // ''=>'',
+     'fill_in_slider_title_err'=>'Please fill in Slider Title',    
+     'upload_slider_image_err'=>'Please Upload Slider Image',
+     'image_exceed_max_limit_err'=>'Slider image exceed the maximum upload limit',
+     'fill_in_slider_link_err'=>'Please fill in Slider link',    
+     'fill_in_slider_description_err'=>'Please fill in Slider description',
+     'fill_in_slider_seq_no_err'=>'Please fill in Slider Sequence Number',
+     'fill_in_valid_slider_link_err' =>'Please fill in valid Slider link',
+     'fill_in_banner_title_err'=>'Please fill in Banner Title',
+     'fill_in_banner_link_err'=>'Please fill in Banner Link',
+     'fill_in_valid_banner_link_err'=>'Please fill in valid Banner link',    
+     'select_page_err'=>'Please Select page',
+     'upload_banner_image_err'=>'Please Uplaod Banner Image',
+     'banner_image_exceed_max_limit_err'=>'Banner image exceed the maximum upload limit',    
+     'fill_in_title'=>'Please fill in Title',
+     'fill_in_amount'=>'Please fill in amount',
+     'fill_in_validity_days'=>'Please fill in validity for days',
+     'select_status_err'=>'Please select Status',
+     'select_recurring_payment_err'=>'Please select Recurring payment',
 
+     'fill_in_site_title_err'=>'Fill in Site Title',
+     'fill_in_footer_address_err'=>'Fill in Footer Address',
+     'upload_header_logo_err'=>'Upload Header Logo',
+     'upload_footer_logo_err'=>'Upload Footer Logo',
+    /*Auth*/ 
+     'account_blocked_contact_admin_err'=>'Your account is blocked, contact the admin!',
+     'invalid_email_password_err'=>'Invalid email or password!',
+     'pwd_and_confirm_pwd_same_err'=>'Password and Confirm Password must be same!',
+    
  
 
  ]

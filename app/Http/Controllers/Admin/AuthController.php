@@ -37,7 +37,7 @@ class AuthController extends Controller
             return redirect(route('adminDashboard'));
         }
         
-        $data['pageTitle'] = 'Login';
+        $data['pageTitle'] = trans('lang.login_btn');
         
         return view('Admin/login')->with($data);
     }
@@ -65,9 +65,9 @@ class AuthController extends Controller
             'password' => 'required',
         ];
         $messages = [
-            'email.required'     => 'Please enter Email!',
-            'email.email'        => 'Please enter valid Email!',
-            'password.required'       => 'Please enter Password!',
+            'email.required'     => trans('errors.fill_in_email_err'),
+            'email.email'        => trans('errors.valid_email_err'),
+            'password.required'  => trans('errors.fill_in_password_err'),
         ];
 
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
@@ -100,7 +100,7 @@ class AuthController extends Controller
             if ($res) {
                 $user = Auth::guard('admin')->user();
                 if($user->status=='block') {
-                    return redirect(route('adminLogout', ['error','Your account is blocked, contact the admin!']));
+                    return redirect(route('adminLogout', ['error',trans('errors.account_blocked_contact_admin_err')]));
                 }
                 else
                 {
@@ -112,7 +112,7 @@ class AuthController extends Controller
             else {
                 /*increament login attempt*/
                 $this->incrementLoginAttempts($request);
-                Session::flash('error', 'Invalid email or password!');
+                Session::flash('error', trans('errors.invalid_email_password_err'));
                 return redirect()->back()->withInput();
             }
         }
@@ -125,10 +125,10 @@ class AuthController extends Controller
         
         $data = $siteSetting = [];
 
-        $data['pageTitle'] = 'Dashboard';
-        $data['module_name'] = 'Summary';
+        $data['pageTitle']           = trans('lang.dashboard_menu');
+        $data['module_name']         = trans('lang.summary_menu');
         $data['current_module_name'] = '';
-        $data['module_url'] = route('adminDashboard');
+        $data['module_url']          = route('adminDashboard');
         return view('Admin/dashboard', $data);
     }
 
@@ -151,14 +151,14 @@ class AuthController extends Controller
     public function changePasswordStore(Request $request) {
 
         $rules = [
-            'password' => 'required|confirmed',
+            'password'              => 'required|confirmed',
             'password_confirmation' => 'required',
 
         ];
         $messages = [
-            'password.required'                    => 'Please enter Password!',
-            'password.confirmed'                   => 'Password and Confirm Password must be same!',
-            'password_confirmation.required'       => 'Please enter Confirm Password!',
+            'password.required'              => trans('errors.fill_in_password_err'),
+            'password.confirmed'             => trans('errors.pwd_and_confirm_pwd_same_err'),
+            'password_confirmation.required' => trans('errors.fill_in_confirm_password_err'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -174,7 +174,7 @@ class AuthController extends Controller
             $arrUpdate = ['password'=>bcrypt($request->input('password'))];
             Admin::where('id', $user_id)->update($arrUpdate);
 
-            Session::Flash('success', 'Password changed successfully!');
+            Session::Flash('success', trans('messages.pwd_changed_success'));
             return redirect(route('adminChangePassword'));
         }
     }

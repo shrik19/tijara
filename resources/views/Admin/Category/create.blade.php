@@ -14,13 +14,13 @@
 
             <div class="form-group">
               <label>{{ __('users.name_label')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Category Name{{ __('users.category_name_thead')}}" value="{{ old('name') }}" onblur="allLetter(this)" />
+              <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('users.category_name_thead')}}" value="{{ old('name') }}" onblur="allLetter(this)" />
               <div class="text-danger err-letter">{{ ($errors->has('name')) ? $errors->first('name') : '' }}</div>
             </div>
 
             <div class="form-group">
               <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
-              <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder=" Sequence Number{{ __('users.category_name_thead')}}" value="{{ old('sequence_no')}}" tabindex="3"/>
+              <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder="{{ __('users.category_name_thead')}}" value="{{ old('sequence_no')}}" tabindex="3"/>
               <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
             </div>
 

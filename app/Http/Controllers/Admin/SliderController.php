@@ -26,9 +26,9 @@ class SliderController extends Controller
      */
     public function index() {
         $data = [];
-        $data['pageTitle']              = 'Slider';
-        $data['current_module_name']    = 'Slider';
-        $data['module_name']            = 'Slider';
+        $data['pageTitle']              = trans('users.slider_title');
+        $data['current_module_name']    = trans('users.slider_title');
+        $data['module_name']            = trans('users.slider_title');
         $data['module_url']             = route('adminSlider');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
@@ -99,20 +99,20 @@ class SliderController extends Controller
                 $sequence_no = (!empty($recordDetailsVal['sequence_no'])) ? $recordDetailsVal['sequence_no'] : '-';
 
                 if ($recordDetailsVal['status'] == 'active') {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSliderChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSliderChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
                 } else {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSliderChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSliderChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
                 
-                $action = '<a href="'.route('adminSliderEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('adminSliderEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSliderDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSliderDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
                 
 			    $arr[] = ['', $sliderImage, $title, $link, $sequence_no,$status, $action];
 			}
         }
         else {
-            $arr[] = ['','','No Records Found', '', '', ''];
+            $arr[] = ['','',trans('lang.datatables.sEmptyTable'), '', '', ''];
         }
     	
     	$json_arr = [
@@ -128,9 +128,9 @@ class SliderController extends Controller
     /* function to open slider form */
     public function create()
     {
-        $data['pageTitle']              = 'Create Slider';
-        $data['current_module_name']    = 'Create';
-        $data['module_name']            = 'Create Slider';
+        $data['pageTitle']              = trans('users.add_slider_btn');
+        $data['current_module_name']    = trans('users.add_title');
+        $data['module_name']            = trans('users.add_slider_btn');
         $data['module_url']             = route('adminSlider');
         return view('Admin/Slider/create', $data);
     }
@@ -147,14 +147,14 @@ class SliderController extends Controller
             'sequence_no'   => 'required',
         ];
         $messages = [
-            'title.required'         => 'Please fill in Slider Title',
-            'slider_image.required'  => 'Please Upload Slider Image',
-            'slider_image.max'       => 'Slider image exceed the maximum upload limit',
+            'title.required'         => trans('users.fill_in_slider_title_err'),
+            'slider_image.required'  => trans('users.upload_slider_image_err'),
+            'slider_image.max'       => trans('users.image_exceed_max_limit_err'),
             //'slider_image.mimes'     =>  'Only jpeg,png,jpg,gif,and svg file type allowed',
-            'link.required'          => 'Please fill in Slider link',
-            'link.regex'             => 'Please fill in valid Slider link',
-            'description.required'   => 'Please fill in Slider description',
-            'sequence_no'             => 'Please fill in Slider Sequence Number',
+            'link.required'          => trans('users.fill_in_slider_link_err'),
+            'link.regex'             => trans('users.fill_in_valid_slider_link_err'),
+            'description.required'   => trans('users.fill_in_slider_description_err'),
+            'sequence_no.required'             => trans('users.fill_in_slider_seq_no_err'),
         ];
         
         $validator = validator::make($request->all(), $rules, $messages);
@@ -179,7 +179,7 @@ class SliderController extends Controller
                            ];
         Sliders::create($arrInsertSlider);                   
         
-        Session::flash('success', 'Slider Details Inserted Successfully!');
+        Session::flash('success', trans('messages.slider_save_success'));
         return redirect(route('adminSlider'));
     }
 
@@ -189,7 +189,7 @@ class SliderController extends Controller
      */
     public function edit($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
         $data = $details = [];
@@ -199,9 +199,9 @@ class SliderController extends Controller
 		
         $details = Sliders::where('id', $id)->first()->toArray();
         
-		$data['pageTitle']              = 'Edit Slider';
-        $data['current_module_name']    = 'Edit';
-        $data['module_name']            = 'Slider';
+		$data['pageTitle']              = trans('users.edit_slider_title');
+        $data['current_module_name']    = trans('users.edit_title');
+        $data['module_name']            = trans('users.slider_title');
         $data['module_url']             = route('adminSlider');
 		$data['sliderDetails']          = $details;
             
@@ -214,7 +214,7 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
         
@@ -228,13 +228,13 @@ class SliderController extends Controller
         ];
 
         $messages = [
-            'title.required'         => 'Please fill in Slider Title',
-            'link.required'          => 'Please fill in Slider link',
-            'link.regex'             => 'Please fill in valid Slider link',
-            'description.required'   => 'Please fill in Slider description',
-            'slider_image.max'       => 'Slider image exceed the maximum upload limit',
-            //'slider_image.mimes'     =>  'Only jpeg,png,jpg,gif,and svg file type allowed'
-            'sequence_no.required'         => 'Please fill in Slider Sequence Number',
+            'title.required'         => trans('errors.fill_in_slider_title_err'),
+            'link.required'          => trans('errors.fill_in_slider_link_err'),
+            'link.regex'             => trans('errors.fill_in_valid_slider_link_err'),
+            'description.required'   => trans('errors.fill_in_slider_description_err'),
+            'slider_image.max'       => trans('errors.image_exceed_max_limit_err'),
+            //'slider_image.mimes'     =>  'Only jpeg,png,jpg,gif,and svg file type allowed',
+            'sequence_no.required'             => trans('users.fill_in_slider_seq_no_err'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -299,7 +299,7 @@ class SliderController extends Controller
                             
         Sliders::where('id', '=', $id)->update($arrUpdateSlider);  
         
-        Session::flash('success', 'Slider details updated successfully!');
+        Session::flash('success', trans('messages.slider_update_success'));
         return redirect(route('adminSlider'));
     }
     
@@ -309,7 +309,7 @@ class SliderController extends Controller
      */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminSlider'));
         }
         $id = base64_decode($id);
@@ -319,15 +319,15 @@ class SliderController extends Controller
 		{
             if ($sliders->delete()) 
 			{
-                Session::flash('success', 'Record deleted successfully!');
+                Session::flash('success', trans('messages.record_deleted_success'));
                 return redirect()->back();
             } else {
-                Session::flash('error', 'Oops! Something went wrong!');
+                Session::flash('error', trans('errors.something_wrong_err'));
                 return redirect()->back();
             }
         } 
         else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error',trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -338,17 +338,17 @@ class SliderController extends Controller
      */
     public function changeStatus($id, $status) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminSlider'));
         }
         $id = base64_decode($id);
 
         $result = Sliders::where('id', $id)->update(['status' => $status]);
         if ($result) {
-            Session::flash('success', 'Status updated successfully!');
+            Session::flash('success',  trans('messages.status_updated_success'));
             return redirect()->back();
         } else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }

@@ -8,8 +8,8 @@
       @include('Admin.alert_messages')
       <div class="card">
         <div class="card-header">
-          <h4>All Slider List</h4>
-           <a href="{{route('adminSliderCreate')}}" title="Add Slider" class="btn btn-icon btn-success" style="margin-left:700px;"><span>Add Slider</span> </a>
+          <h4>{{ __('users.all_slider_list')}}</h4>
+           <a href="{{route('adminSliderCreate')}}" title="{{ __('users.add_slider_btn')}}" class="btn btn-icon btn-success" style="margin-left:542px;"><span>{{ __('users.add_slider_btn')}}</span> </a>
         </div>
        
         <div class="card-body">
@@ -20,12 +20,12 @@
                 <thead>
                   <tr>
                     <th data-orderable="false">&nbsp;</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Link </th>
-                    <th>Assignment </th>
-                    <th data-orderable="false">Status</th>
-                    <th data-orderable="false">Action</th>
+                    <th>{{ __('users.image_thead')}}</th>
+                    <th>{{ __('users.title_thead')}}</th>
+                    <th>{{ __('users.link_thead')}} </th>
+                    <th>{{ __('users.assignment_thead')}} </th>
+                    <th data-orderable="false">{{ __('lang.status_label')}}</th>
+                    <th data-orderable="false">{{ __('lang.action_thead')}}</th>
                   </tr>
                 </thead>
                 <tbody id="result">
@@ -50,6 +50,22 @@
       "serverSide": true,
       "paging": true,
       "searching": false,
+
+      "language": {
+        "sSearch": "<?php echo __('lang.datatables.search');?>",
+        "sInfo": "<?php echo __('lang.datatables.sInfo');?>",
+        "sLengthMenu": "<?php echo __('lang.datatables.sLengthMenu');?>",
+        "sInfoEmpty": "<?php echo __('lang.datatables.sInfoEmpty');?>",
+        "sLoadingRecords": "<?php echo __('lang.datatables.sLoadingRecords');?>",
+        "sProcessing": "<?php echo __('lang.datatables.sProcessing');?>",      
+        "sZeroRecords": "<?php echo __('lang.datatables.sZeroRecords');?>",
+        "oPaginate": {
+              "sFirst":    "<?php echo __('lang.datatables.first');?>",
+              "sLast":    "<?php echo __('lang.datatables.last');?>",
+              "sNext":    "<?php echo __('lang.datatables.next');?>",
+              "sPrevious": "<?php echo __('lang.datatables.previous');?>",
+          },
+      },
       "ajax": {
         headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
         url : '{{route("adminSliderGetRecords")}}',

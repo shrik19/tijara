@@ -21,10 +21,11 @@ class SettingController extends Controller
 
     /*function to open category open form*/
     public function create() {
-        $data['pageTitle']              = 'Add Setting';
-        $data['current_module_name']    = 'Add';
-        $data['module_name']            = 'Settings';
-        $data['module_url']             = route('adminSettingCreate');		$data['sitedata']				= Settings::get();
+        $data['pageTitle']              = trans('users.add_setting_title');
+        $data['current_module_name']    = trans('users.add_title');
+        $data['module_name']            = trans('users.settings_title');
+        $data['module_url']             = route('adminSettingCreate');		
+        $data['sitedata']				= Settings::get();
         return view('Admin/Setting/create', $data);
     }
     
@@ -40,10 +41,10 @@ class SettingController extends Controller
 //            'footer_logo'      => 'required',
         ];
         $messages = [
-            'site_title.required'      => 'Please fill in Site Tittle',
-            'footer_address.required'  => 'Please fill in Footer Address',
-            'header_logo.required'     => 'Please Upload Header Logo',
-            'footer_logo.required'     => 'Please Upload Footer Logo',
+            'site_title.required'      => trans('errors.fill_in_site_title_err'),
+            'footer_address.required'  => trans('errors.fill_in_footer_address_err'),
+            'header_logo.required'     => trans('errors.upload_header_logo_err'),
+            'footer_logo.required'     => trans('errors.upload_footer_logo_err'),
         ];
         
         $validator = validator::make($request->all(), $rules, $messages);
@@ -51,13 +52,18 @@ class SettingController extends Controller
         {
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
-        }		 $arrInsertSettings = [                                'site_title'  =>trim($request->input('site_title')),                                'footer_address' =>trim($request->input('footer_address')),                                                                                               ];
+        }		 
+
+        $arrInsertSettings = [                                
+                                'site_title'  =>trim($request->input('site_title')),          
+                                'footer_address' =>trim($request->input('footer_address')),                                                                    ];
         if($request->hasfile('header_logo')){
             $image = $request->file('header_logo');
             $imageName = time().'_'.rand().'.' . $image->extension();
             $image->move(public_path('uploads/Images'), $imageName);
 
-            $path = public_path().'/uploads/Images/'.$imageName;			$arrInsertSettings[] = ['header_logo' => $imageName];
+            $path = public_path().'/uploads/Images/'.$imageName;			
+            $arrInsertSettings[] = ['header_logo' => $imageName];
         }
      
         if($request->hasfile('footer_logo')){
@@ -65,14 +71,15 @@ class SettingController extends Controller
             $footerLogo = time().'_'.rand().'.' . $footer_logo->extension();
             $footer_logo->move(public_path('uploads/Images'), $footerLogo);
 
-            $path = public_path().'/uploads/Images/'.$footerLogo;			$arrInsertSettings[]=['footer_logo' => $footerLogo];
+            $path = public_path().'/uploads/Images/'.$footerLogo;			
+            $arrInsertSettings[]=['footer_logo' => $footerLogo];
         }
 
        
 
         Settings::create($arrInsertSettings);                   
         
-        Session::flash('success', 'Details Inserted successfully!');
+        Session::flash('success', trans('messages.settings_save_success'));
         return redirect(route('adminSettingCreate'));
     }
 }

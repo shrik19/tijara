@@ -33,10 +33,10 @@
         <li class="nav-item dropdown">
           <a href="{{route('adminBanner')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.banners_menu')}}</span></a>
         </li> 
-
+<!--
         <li class="nav-item dropdown">
           <a href="{{route('adminCity')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('users.city_label')}}</span></a>
-        </li>
+        </li> -->
 
         <li class="nav-item dropdown">
           <a href="{{route('adminSeller')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.sellers_menu')}}</span></a>

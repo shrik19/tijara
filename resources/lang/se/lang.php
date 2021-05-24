@@ -76,7 +76,7 @@
      'sign_in_start_session_label'=>'Logga in för att starta din session',
      'hi'=>'Hej',
      /*admin sidebar menus*/
-     'dashboard_menu'=>'instrumentbräda',
+     'dashboard_menu'=>'Instrumentbräda',
      'summary_menu'=>'Sammanfattning',
      'managements_menu'=>'Ledningar',
      'buyer_menu'=>'Köpare',

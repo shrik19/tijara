@@ -102,7 +102,7 @@ class ServiceCatController extends Controller
 			}
         }
         else {
-            $arr[] = ['','','No Records Found', '', '', ''];
+            $arr[] = ['','','',trans('lang.datatables.sEmptyTable'), '', '', ''];
         }
     	
     	

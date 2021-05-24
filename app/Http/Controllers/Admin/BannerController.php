@@ -28,9 +28,9 @@ class BannerController extends Controller
      */
     public function index() {
         $data = [];
-        $data['pageTitle']              = 'Banner';
-        $data['current_module_name']    = 'Banner';
-        $data['module_name']            = 'Banner';
+        $data['pageTitle']              = trans('users.banner_title');
+        $data['current_module_name']    = trans('users.banner_title');
+        $data['module_name']            = trans('users.banner_title');
         $data['module_url']             = route('adminBanner');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
@@ -92,20 +92,20 @@ class BannerController extends Controller
                 $Image = (!empty($recordDetailsVal['get_slider'])) ? '<img src="'.url('/').'/uploads/Banner/'.$recordDetailsVal['get_slider'][0]['image'].'" style="width:100px;" />' : '-';
             
                 if ($recordDetailsVal['status'] == 'active') {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBannerChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBannerChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
                 } else {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBannerChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBannerChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
 
-                $action = '<a href="'.route('adminBannerEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('adminBannerEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminBannerDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminBannerDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
                 $arr[] = [$Image, $title,$redirect_link,$display_on_page,$status,$action];
             }
         } 
         else {
-            $arr[] = ['', '', '', 'No Records Found','',  '', '', '', ''];
+            $arr[] = ['', '', trans('lang.datatables.sEmptyTable'), '', '',  ''];
         }
 
         $json_arr = [
@@ -130,12 +130,12 @@ class BannerController extends Controller
         ];
 
         $messages = [
-            'title.required'                 => 'Please fill Title',
-            'redirect_link.required'         => 'Please fill Link ',
-            'redirect_link.regex'            => 'Please fill in valid Banner link',
-            'display_on_page.required'       => 'Please Select Type',
-            'image.required'                 => 'Please Uplaod Image',
-            'image.max'                      => 'Slider image exceed the maximum upload limit',
+            'title.required'                 => trans('errors.fill_in_banner_title_err'),
+            'redirect_link.required'         => trans('errors.fill_in_banner_link_err'),
+            'redirect_link.regex'            => trans('errors.fill_in_valid_banner_link_err'),
+            'display_on_page.required'       => trans('errors.select_page_err'),
+            'image.required'                 => trans('errors.upload_banner_image_err'),
+            'image.max'                      => trans('errors.banner_image_exceed_max_limit_err'),
            // 'image.mimes'                    =>  'Only jpeg, png, jpg, gif,and svg file type allowed',
         ];
 
@@ -215,11 +215,11 @@ class BannerController extends Controller
             }
 
             if($fileError == 1) {
-                Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                Session::flash('error', trans('errors.invalid_files_err'));
                 return redirect()->back();
             }
         
-            Session::flash('success', 'Banner details saved successfully!');
+            Session::flash('success', trans('messages.banner_save_success'));
             return redirect(route('adminBanner'));
         }
     }
@@ -228,9 +228,9 @@ class BannerController extends Controller
     /* function to open banner create form*/
     public function addnew() {   
         $data = $details = [];
-        $data['pageTitle']              = 'Add Banner';
-        $data['current_module_name']    = 'Add';
-        $data['module_name']            = 'Banner';
+        $data['pageTitle']              = trans('users.add_banner_btn');
+        $data['current_module_name']    = trans('users.add_title');
+        $data['module_name']            = trans('users.banner_title');
         $data['module_url']             = route('adminBanner');    
         return view('Admin/Banner/addnew', $data);
     }
@@ -241,7 +241,7 @@ class BannerController extends Controller
      */
     public function edit($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error',trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
  
@@ -251,14 +251,14 @@ class BannerController extends Controller
         $details= Banner::get_slider($id);
 
         if(empty($details)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();   
         }
 
-        $data['pageTitle']              = 'Edit Banner';
-        $data['current_module_name']    = 'Edit';
-        $data['module_name']            = 'Banner';
-        $data['module_url']             = route('adminBanner');;
+        $data['pageTitle']              = trans('users.edit_banner_title');
+        $data['current_module_name']    = trans('users.edit_title');
+        $data['module_name']            = trans('users.banner_title');
+        $data['module_url']             = route('adminBanner');
         $data['sliderData']          = $details;
                
         return view('Admin/Banner/edit', $data);
@@ -270,7 +270,7 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id) {
     	if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
         
@@ -284,12 +284,12 @@ class BannerController extends Controller
         ];
 
         $messages = [
-            'title.required'           => 'Please fill in Title',
-            'redirect_link.required'   => 'Please fill in Link',
-            'redirect_link.regex'      => 'Please fill in valid Banner link',
-            'display_on_page.required' => 'Please select display on page',
-            'image.max'       => 'Slider image exceed the maximum upload limit',
-            //'image.mimes'     =>  'Only jpeg,png,jpg,gif,and svg file type allowed',
+            'title.required'                 => trans('errors.fill_in_banner_title_err'),
+            'redirect_link.required'         => trans('errors.fill_in_banner_link_err'),
+            'redirect_link.regex'            => trans('errors.fill_in_valid_banner_link_err'),
+            'display_on_page.required'       => trans('errors.select_page_err'),
+            'image.required'                 => trans('errors.upload_banner_image_err'),
+            'image.max'                      => trans('errors.banner_image_exceed_max_limit_err'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -375,12 +375,12 @@ class BannerController extends Controller
 
                 if($fileError == 1)
                 {
-                    Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                    Session::flash('error', trans('errors.invalid_files_err'));
                     return redirect()->back();
                 }
             }           
             
-            Session::flash('success', 'Banner details updated successfully!');
+            Session::flash('success', trans('messages.banner_update_success'));
             return redirect(route('adminBanner'));
         }
     }
@@ -392,17 +392,17 @@ class BannerController extends Controller
      */
     public function changeStatus($id, $status) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminBanner'));
         }
         $id = base64_decode($id);
 
         $result = Banner::where('id', $id)->update(['status' => $status]);
         if ($result) {
-            Session::flash('success', 'Status updated successfully!');
+            Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
         } else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -413,7 +413,7 @@ class BannerController extends Controller
      */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminBanner'));
         }
         $id = base64_decode($id);
@@ -421,11 +421,11 @@ class BannerController extends Controller
         $result = Banner::find($id);
         if (!empty($result)) {
             $delete = Banner::where('id', $id)->update(['is_deleted' =>1]);
-            Session::flash('success', 'Record deleted successfully!');
+            Session::flash('success', trans('messages.record_deleted_success'));
             return redirect()->back();
         } 
         else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }  

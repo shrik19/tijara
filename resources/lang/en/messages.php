@@ -21,7 +21,17 @@
      'category_save_success'=>'Category Inserted successfully!',
      'subcat_save_success'=>'Subcategory Inserted successfully!',
      'subcat_update_success'=>'Subcategory Updated successfully!',
-    /* ''=>'',
-     ''=>'',*/
+     'slider_save_success'=>'Slider Details Inserted Successfully!',
+     'slider_update_success'=>'Slider details updated successfully!',
+     'banner_save_success'=>'Banner details saved successfully!',
+     'banner_update_success'=>'Banner details updated successfully!',
+     'package_save_success'=>'Package details saved successfully!',
+     'package_update_success'=>'Package details updated successfully!',
+     'settings_save_success'=>'Details Inserted successfully!',
+     'pwd_changed_success' => 'Password changed successfully!',
+     // ''=>'',
+     // ''=>'',
+     // ''=>'',
+     // ''=>'',
  ]
 ?>

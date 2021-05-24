@@ -28,66 +28,15 @@ class PackageController extends Controller
     */
     public function index() {
         $data = [];
-        $data['pageTitle']              = 'Package';
-        $data['current_module_name']    = 'Package';
-        $data['module_name']            = 'Package';
+        $data['pageTitle']              = trans('users.Package_title');
+        $data['current_module_name']    = trans('users.Package_title');
+        $data['module_name']            = trans('users.Package_title');
         $data['module_url']             = route('adminPackage');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
 
         return view('Admin/Package/index', $data);
     }
-
-    /*function to excel export package details*/
-    public function exportdata(Request $request) {           
-        $SellerDetails = UserMain::select('users.*')->where('role_id','=',2)->where('is_deleted','!=',1);
-
-        if(!empty($request->search))
-        {
-            $field = ['users.fname','users.lname','users.store_name','users.city_id'];
-            $namefield = ['users.fname','users.lname','users.store_name','users.city_id'];
-            $search=($request->search);
-
-            $SellerDetails = $SellerDetails->Where(function ($query) use($search, $field,$namefield) {
-                if (strpos($search, ' ') !== false){
-                    $s=explode(' ',$search);
-                    foreach($s as $val) {
-                        for ($i = 0; $i < count($namefield); $i++){
-                            $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
-                        }  
-                    }
-                }
-                else {
-                    for ($i = 0; $i < count($field); $i++){
-                        $query->orwhere($field[$i], 'like',  '%' . $search .'%');
-                    }  
-                }				 
-
-            }); 
-        }
-
-        if(!empty($request->status)) {
-        $SellerDetails = $SellerDetails->Where('users.status', '=', $request->status);
-        }
-        $recordDetails = $SellerDetails->get(['users.fname','users.lname','users.store_name','users.city_id']);
-
-        $filename = "SellerFromTijara.csv";
-
-        $handle = fopen('SellerDetails/'.$filename, 'w+');
-        fputcsv($handle, array('First name','Last name','Store Name','City','Status'));
-
-        foreach($recordDetails as $row) {
-        $city_name = DB::table('cities')->where('id', '=', $row->city_id)->get();
-        $city_name = $city_name[0]->name;
-        $city = (!empty($city_name)) ? $city_name : '-';
-        fputcsv($handle, array($row->fname,$row->lname,$row->store_name,$city,$row->status));
-        }
-
-        fclose($handle);
-        return $filename;
-
-    }
-
 
     /**
     * [getRecords for package list.This is a ajax function for dynamic datatables list]
@@ -149,18 +98,18 @@ class PackageController extends Controller
 
 
                  if ($recordDetailsVal['status'] == 'active') {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminPackageChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminPackageChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
                 } else {
-                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminPackageChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminPackageChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
 
-                $action = '<a href="'.route('adminPackageEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminPackageDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action = '<a href="'.route('adminPackageEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminPackageDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
                 $arr[] = [$title, $description, $amount, $valid_days,$dated,$status, $action];
             }
         } 
         else {
-            $arr[] = ['',  '', '', 'No Records Found', '', '',''];
+            $arr[] = ['',  '', '', trans('lang.datatables.sEmptyTable'), '', '',''];
         }
 
         $json_arr = [
@@ -175,9 +124,9 @@ class PackageController extends Controller
 
     /* function to open package create form */
     public function create() {
-        $data['pageTitle']              = 'Add Package';
-        $data['current_module_name']    = 'Add';
-        $data['module_name']            = 'Package';
+        $data['pageTitle']              = trans('users.add_package_btn');
+        $data['current_module_name']    = trans('users.add_title');
+        $data['module_name']            = trans('users.Package_title');
         $data['module_url']             = route('adminPackage');
         return view('Admin/Package/create', $data);
     }
@@ -193,10 +142,10 @@ class PackageController extends Controller
         //'status'            => 'required',
         ];
         $messages = [
-            'title.required'              => 'Please fill in Title',
+            'title.required'              => trans('errors.fill_in_title'),
             //'description.required'        => 'Please fill in Description',
-            'amount.required'             => 'Please fill in amount',
-            'validity_days.required'      => 'Please fill in validity for days',
+            'amount.required'             => trans('errors.fill_in_amount'),
+            'validity_days.required'      => trans('errors.fill_in_validity_days'),
             //'recurring_payment.required'  => ' Please select Recurring payment',
             //'status.required'             => 'Please select Status',
         ];
@@ -217,7 +166,7 @@ class PackageController extends Controller
         ];
 
         $id = Package::create($arrPackageInsert)->id;
-        Session::flash('success', 'Package details Inserted successfully!');
+        Session::flash('success', trans('messages.package_save_success'));
         return redirect(route('adminPackage'));
     }
     /**
@@ -226,7 +175,7 @@ class PackageController extends Controller
     */
     public function edit($id) {
         if(empty($id))  {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
 
@@ -236,13 +185,13 @@ class PackageController extends Controller
         $details = Package::where('Id', $id)->first();
 
         if(empty($details)){
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();   
         }
 
-        $data['pageTitle']              = 'Edit Package';
-        $data['current_module_name']    = 'Edit';
-        $data['module_name']            = 'Package';
+        $data['pageTitle']              = trans('users.edit_package_title');
+        $data['current_module_name']    = trans('users.edit_title');
+        $data['module_name']            = trans('users.Package_title');
         $data['module_url']             = route('adminPackage');
         $data['PackageDetails']         = $details;
 
@@ -255,7 +204,7 @@ class PackageController extends Controller
     */
     public function update(Request $request, $id){
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
 
@@ -271,10 +220,10 @@ class PackageController extends Controller
         ];
 
         $messages = [
-            'title.required'               => 'Please fill in Title',
-            //'description.required'         => 'Please fill in Description',
-            'amount.required'              => 'Please fill in amount',
-            'validity_days.required'       => 'Please fill in validity for days',
+            'title.required'              => trans('errors.fill_in_title'),
+            //'description.required'        => 'Please fill in Description',
+            'amount.required'             => trans('errors.fill_in_amount'),
+            'validity_days.required'      => trans('errors.fill_in_validity_days'),
             /*'recurring_payment.required'   => ' Please select Recurring payment',
             'status.required'              => 'Please select Status',*/
         ];
@@ -296,7 +245,7 @@ class PackageController extends Controller
             ];
 
             Package::where('id', '=', $id)->update($arrPackageUpdate);  
-            Session::flash('success', 'Package details updated successfully!');
+            Session::flash('success', trans('messages.package_update_success'));
             return redirect(route('adminPackage'));
         }
     }
@@ -307,7 +256,7 @@ class PackageController extends Controller
     */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminPackage'));
         }
 
@@ -316,10 +265,10 @@ class PackageController extends Controller
 
         if (!empty($result)){
             $Package = Package::where('id', $id)->update(['is_deleted' =>1]);
-            Session::flash('success', 'Record deleted successfully!');
+            Session::flash('success', trans('messages.record_deleted_success'));
             return redirect()->back();
         } else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -330,17 +279,17 @@ class PackageController extends Controller
      */
     public function changeStatus($id, $status) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminPackage'));
         }
         $id = base64_decode($id);
 
         $result = Package::where('id', $id)->update(['status' => $status]);
         if ($result) {
-            Session::flash('success', 'Status updated successfully!');
+            Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
         } else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }

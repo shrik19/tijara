@@ -8,8 +8,8 @@
       @include('Admin.alert_messages')
       <div class="card">
         <div class="card-header">
-          <h4>Add Package List</h4>
-          <a href="{{route('adminPackageCreate')}}" title="Add Package" class="btn btn-icon btn-success" style="margin-left:650px;"><span>Add Package</span> </a>
+          <h4>{{ __('users.all_package_list')}}</h4>
+          <a href="{{route('adminPackageCreate')}}" title="{{ __('users.add_package_btn')}}" class="btn btn-icon btn-success" style="margin-left:650px;"><span>{{ __('users.add_package_btn')}}</span> </a>
         </div>
         <div class="card-body">
           <form id="vendorMultipleAction" action="" method="post">
@@ -18,13 +18,13 @@
             <table class="table table-striped" id="packageTable">
             <thead>
               <tr>
-                <th>Package</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Valid days</th>
-                <th>Dated</th>
-                <th data-orderable="false">Status</th>
-                <th data-orderable="false">Action</th>
+                <th>{{ __('users.Package_title')}}</th>
+                <th>{{ __('users.description_label')}}</th>
+                <th>{{ __('users.amount_thead')}}</th>
+                <th>{{ __('users.valid_days_thead')}}</th>
+                <th>{{ __('users.dated_thead')}}</th>
+                <th data-orderable="false">{{ __('lang.status_label')}}</th>
+                <th data-orderable="false">{{ __('lang.action_thead')}}</th>
               </tr>
             </thead>
             <tbody id="result">
@@ -48,6 +48,22 @@
     "serverSide": true,
     "paging": true,
     "searching": true,
+
+    "language": {
+        "sSearch": "<?php echo __('lang.datatables.search');?>",
+        "sInfo": "<?php echo __('lang.datatables.sInfo');?>",
+        "sLengthMenu": "<?php echo __('lang.datatables.sLengthMenu');?>",
+        "sInfoEmpty": "<?php echo __('lang.datatables.sInfoEmpty');?>",
+        "sLoadingRecords": "<?php echo __('lang.datatables.sLoadingRecords');?>",
+        "sProcessing": "<?php echo __('lang.datatables.sProcessing');?>",      
+        "sZeroRecords": "<?php echo __('lang.datatables.sZeroRecords');?>",
+        "oPaginate": {
+              "sFirst":    "<?php echo __('lang.datatables.first');?>",
+              "sLast":    "<?php echo __('lang.datatables.last');?>",
+              "sNext":    "<?php echo __('lang.datatables.next');?>",
+              "sPrevious": "<?php echo __('lang.datatables.previous');?>",
+          },
+      },
     "ajax": {
       headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
       url : '{{route("adminPackageGetRecords")}}',
@@ -65,7 +81,7 @@
     dataTable.draw();
   });
 
-  $('.export').click(function(){
+  /*$('.export').click(function(){
       $('#exportval').val(1);
       dataTable.draw();
       $('#exportval').val('0');
@@ -79,6 +95,6 @@
         }
      });
 
-  });
+  }); */
 </script>
 @endsection('middlecontent')

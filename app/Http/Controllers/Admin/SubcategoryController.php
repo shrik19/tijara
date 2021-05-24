@@ -152,7 +152,7 @@ class SubcategoryController extends Controller
             'category_name.required'         => trans('errors.category_name_req'),
             'subcategory_name.required'      => trans('errors.subcategory_name_req'),
             'subcategory_name.regex'         => trans('errors.input_alphabet_err'),
-            'sequence_no'                    => trans('errors.sequence_number_err'),
+            'sequence_no.required'                    => trans('errors.sequence_number_err'),
             'subcategory_name.unique'        => trans('errors.unique_subcategory_name'),
         ];
      

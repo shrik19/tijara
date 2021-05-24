@@ -20,11 +20,11 @@
 	
 	<div class="col-md-10">
 		    
-		  <h2>{{ __('lang.service_form_label')}}</h2>
+		  <h2>{{ __('servicelang.service_form_label')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
-		  <a href="{{route('manageFrontServices')}}" title="" class=" " ><span>Back to listing</span> </a>
+		  <a href="{{route('manageFrontServices')}}" title="" class=" " ><span>{{ __('lang.back_to_list_label')}}</span> </a>
 			</div>
         <hr class="heading_line"/>
          @include ('Front.alert_messages')
@@ -36,8 +36,8 @@
             <input type="hidden" name="service_id" value="{{$service_id}}">
 
             <div class="form-group">
-              <label>{{ __('lang.service_title_label')}} <span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('lang.service_title_label')}} " value="{{old('title')}}" tabindex="1">
+              <label>{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
+              <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}} " value="{{old('title')}}" tabindex="1">
               <span class="invalid-feedback" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
             </div>
 
@@ -79,7 +79,7 @@
       <div class="col-md-6">  
         <div class="login_box">       
             <div class="form-group">
-              <label>{{ __('lang.service_description_label')}}  <span class="de_col"></span></label>
+              <label>{{ __('servicelang.service_description_label')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="description" id="description" placeholder="{{ __('lang.service_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
             </div>

@@ -110,7 +110,14 @@
      ''=>'',
      ''=>'',
      ''=>'',*/
-
-    
+    'your_active_package'=>'Your active package',
+    'description_label'=>'Description',
+    'amount_label'=>'Amount',
+    'validity_label'=>'Validity days',
+    'purchased_date_label'=>'Purchased date',
+    'expiry_date_label'=>'Expiry date',
+    'not_activated_label'=>'Yet not activated',
+    'subscribe_btn'=>'Subscribe',
+    'subscribe_package_label'=>'Subscribe packages',
  ]
 ?>

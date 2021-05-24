@@ -17,7 +17,7 @@
 	    @endif
       <div class="col-md-3"></div> 
       <div class="col-md-6">
-        <h2>Create Product Attributes</h2>
+        <h2>{{ __('lang.attribute_form_label')}}</h2>
         <hr class="heading_line"/>
         <div class="login_box">
         <form method="POST" action="{{route('frontAttributeUpdate', $id)}}" class="needs-validation" novalidate="">
@@ -25,18 +25,18 @@
           @csrf
 
           <div class="form-group">
-            <label>Attribute Name <span class="de_col">*</span></label>
+            <label>{{ __('lang.attribute_label')}} <span class="de_col">*</span></label>
             <input type="text" class="form-control login_input" name="name" id="name" required tabindex="1" value="{{ (old('name')) ?  old('name') : $attributesDetails['name']}}">
             <span class="invalid-feedback" id="err_fname">@if($errors->has('name')) {{ $errors->first('name') }}@endif </span>
           </div>
 
           <div class="form-group">
-            <label>Type <span class="de_col">*</span></label>
+            <label>{{ __('lang.type_label')}} <span class="de_col">*</span></label>
             <select class="form-control login_input" id="type" name="type">
-              <option value="">Select Type</option>
-              <option value="radio"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='radio')) {{ 'selected' }} @endif>Radio</option>  
-              <option value="dropdown"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='dropdown')) {{ 'selected' }} @endif>Drop-Down</option>
-              <option value="textbox" @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='textbox')) {{ 'selected' }} @endif>Textbox</option>
+              <option value="">{{ __('lang.select_label')}}</option>
+              <option value="radio"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='radio')) {{ 'selected' }} @endif>{{ __('lang.radio_label')}}</option>  
+              <option value="dropdown"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='dropdown')) {{ 'selected' }} @endif>{{ __('lang.dropdown_label')}}</option>
+              <option value="textbox" @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='textbox')) {{ 'selected' }} @endif>{{ __('lang.textbox_label')}}</option>
             </select>
             <span class="invalid-feedback" id="err_fname">@if($errors->has('type')) {{ $errors->first('type') }}@endif </span>
           </div>
@@ -44,7 +44,7 @@
           <!--  edit values -->
           @if(!empty($segment) && $segment=='edit')
           <div class="form-group">
-            <label>Attribute Values <span class="de_col">*</span></label>
+            <label>{{ __('lang.type_label')}} <span class="de_col">*</span></label>
             <div class="field_wrapper">
               @if(!empty($attributesValues) && count($attributesValues) !=0)
                 @foreach ($attributesValues as $key=>$values)

@@ -332,7 +332,7 @@ class ProductController extends Controller
 
         else {
 
-            $arr[] = [ '', 'No Records Found',  ''];
+            $arr[] = [ '', trans('lang.datatables.sEmptyTable'),  ''];
 
         }
 
@@ -472,9 +472,9 @@ class ProductController extends Controller
         ];
 
         $messages = [
-            'title.required'         => 'Please fill in Products name',           
-            'title.regex'            => 'Please input alphabet characters only',
-            'description.max'        => 'Maximum 500 characters allowed',
+            'title.required'         =>  trans('lang.required_field_error'),           
+            'title.regex'            => trans('lang.required_field_error'),     
+            'description.max'        => trans('lang.max_1000_char'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -694,7 +694,7 @@ class ProductController extends Controller
 
         
 
-        Session::flash('success', 'Products details Inserted successfully!');
+        Session::flash('success', trans('lang.product_saved_success'));
 
         return redirect(route('manageFrontProducts')); 
 
@@ -928,13 +928,13 @@ class ProductController extends Controller
 
         if ($result) {
 
-            Session::flash('success', 'Status updated successfully!');
+            Session::flash('success', trans('lang.status_updated_successfullly'));
 
             return redirect()->back();
 
          } else  {
 
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('lang.something_went_wrong'));
 
             return redirect()->back();
 
@@ -974,13 +974,13 @@ class ProductController extends Controller
 
            $product = Products::where('id', $id)->update(['is_deleted' =>1]);
 
-           Session::flash('success', 'Record deleted successfully!');
+           Session::flash('success', trans('lang.record_delete'));
 
                 return redirect()->back();  
 
         } else {
 
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('lang.something_went_wrong'));
 
             return redirect()->back();
 
@@ -1022,7 +1022,7 @@ class ProductController extends Controller
 
             {
 
-                Session::flash('success', 'Selected Image deleted successfully!');
+                Session::flash('success',trans('lang.record_delete') );
 
                 return redirect()->back();
 
@@ -1032,7 +1032,7 @@ class ProductController extends Controller
 
             {
 
-                Session::flash('error', 'Oops! Something went wrong!');
+                Session::flash('error', trans('lang.something_went_wrong'));
 
                 return redirect()->back();
 

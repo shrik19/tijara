@@ -200,7 +200,7 @@ class AuthController extends Controller
             'email.email'                       => trans('errors.valid_email_err'),
             'password.required'                 => trans('errors.fill_in_password_err'),
             'password.min'                      => trans('errors.password_min_6_char'),
-            'password.confirmed'                => trans('errors.password_not_matched')
+            'password.confirmed'                => trans('errors.password_not_matched'),
             'password_confirmation.required'    => trans('errors.fill_in_confirm_password_err'),
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -724,7 +724,7 @@ class AuthController extends Controller
     {
         $site_details          = Settings::first();
        // $data['siteDetails']   = $site_details;
-        $data['pageTitle'] = trans('lang.forgot_password_title')
+        $data['pageTitle'] = trans('lang.forgot_password_title');
         
         $user = DB::table('users')->where('email', '=', $request->input('forgot_email'))
             ->first();//Check if the user exists

@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class serviceSubcategories extends Model
+class ServiceSubcategories extends Model
 {
     protected $table 	= 'serviceSubcategories';
-    protected $fillable = ['subcategory_name','category_id'];
+    protected $fillable = ['subcategory_name','category_id','sequence_no'];
 }

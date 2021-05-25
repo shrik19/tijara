@@ -74,6 +74,7 @@ Route::get('/clear-config', function() {
 Route::group(['middleware'=>['front-login']],function()
 { 
 	Route::get('/seller-profile/{edit?}', 'Front\AuthController@sellerProfile')->name('frontSellerProfile');
+   Route::any('/seller-personal-page', 'Front\AuthController@seller_personal_page')->name('frontSellerPersonalPage');
 	Route::post('/seller-profile-update', 'Front\AuthController@sellerProfileUpdate')->name('frontSellerProfileUpdate');
 	Route::get('/delete-image/{id}','Front\AuthController@deleteImage')->name('SellerImageDelete');
 	Route::get('/buyer-profile/{edit?}', 'Front\AuthController@buyerProfile')->name('frontBuyerProfile');

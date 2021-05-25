@@ -95,21 +95,7 @@
      'service_category_list'=>'Service Category List',
      'add_service_cat_details_info'=>'Add Service Category details.',
      'edit_service_cat_details_info'=>'Edit Service Category details.',
-  /*   ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',*/
+      //package
     'your_active_package'=>'Your active package',
     'description_label'=>'Description',
     'amount_label'=>'Amount',
@@ -119,5 +105,12 @@
     'not_activated_label'=>'Yet not activated',
     'subscribe_btn'=>'Subscribe',
     'subscribe_package_label'=>'Subscribe packages',
+
+    //seller personal page
+    'seller_header_img_label'=>'Header Image',
+    'seller_logo_label'=>'Logo',
+    'seller_personal_form_label'=>'Seller Personal Info',
+    'seller_personal_info_saved'=>'Your Personal info saved successfully',
+    'seller_personal_page_menu'=>'Personal Page',
  ]
 ?>

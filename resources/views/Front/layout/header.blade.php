@@ -46,6 +46,7 @@
                   <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
                   @if(session('role_id')==2)
                     <li><a href="{{route('manageFrontServices')}}">{{ __('lang.manage_services_menu')}}</a></li>
+                    <li><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
                     <li><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
                     
                   @endif

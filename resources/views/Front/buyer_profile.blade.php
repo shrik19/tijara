@@ -12,13 +12,14 @@
   <div class="row">
     <div class="col-md-12">
     @include ('Front.alert_messages')
+    <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
+            @csrf
       <div class="col-md-6">
         <h2>{{$registertype}} {{ __('users.profile_update_title')}}</h2>
         <hr class="heading_line"/>
         
         <div class="login_box">
-          <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
-            @csrf
+          
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <div class="form-group">
               <label>{{ __('users.first_name_label')}} <span class="de_col">*</span></label>
@@ -64,7 +65,7 @@
             </div>
            
         </div>
-      </div>
+      
 
        <div class="col-md-6">
         <h2>&nbsp;</h2>
@@ -103,10 +104,13 @@
             </div>
             <button class="btn btn-black debg_color login_btn update-buyer-profile">{{ __('lang.update_btn')}}</button>
             <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
-          </form>           
+                    
         </div>
+      
       </div>
+      
     </div>
+    </form>
   </div>
 </div> <!-- /container -->
 

@@ -13,6 +13,7 @@ use App\Models\UserMain;
 use App\Models\SellerImages;
 use App\Models\Package;
 use App\Models\UserPackages;
+use App\Models\SellerPersonalPage;
 
 /*Uses*/
 use Socialite;
@@ -421,6 +422,191 @@ class AuthController extends Controller
 
     }
 
+    
+    /**
+     * Show the Seller Profile Page.
+     *
+     * @return null
+     */
+    public function seller_personal_page(Request $request)
+    {
+        
+        
+        if(!Auth::guard('user')->id())
+        {
+            return redirect(route('frontHome'));
+        }
+        $user_id = Auth::guard('user')->id();
+        
+        $details=SellerPersonalPage::where('user_id',$user_id)->first();
+         $toUpdateData  =   array();
+        if($request->hasfile('header_img'))
+            {
+                if(!empty($details->header_img)){
+                  
+                    $image_path = public_path("/uploads/Seller/".$details->header_img);
+                    $resized_image_path = public_path("/uploads/Seller/".$details->header_img);
+                    if (File::exists($image_path)) {
+                        File::delete($image_path);
+                    }
+
+                    if (File::exists($resized_image_path)) {
+                        File::delete($resized_image_path);
+                    }
+                }
+
+                $fileError = 0;
+                $image = $request->file('header_img');
+                $name=$image->getClientOriginalName();
+                $fileExt  = strtolower($image->getClientOriginalExtension());
+                if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+                    $fileName = 'header_'.date('YmdHis').'.'.$fileExt;
+                    $toUpdateData['header_img']=$fileName;
+                    $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
+                    $path = public_path().'/uploads/Seller/'.$fileName;
+                    $mime = getimagesize($path);
+
+                    if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+                    if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+                    if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+                    if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+
+                    $old_x = imageSX($src_img);
+                    $old_y = imageSY($src_img);
+
+                    $newWidth = 300;
+                    $newHeight = 300;
+
+                    if($old_x > $old_y){
+                        $thumb_w    =   $newWidth;
+                        $thumb_h    =   $old_y/$old_x*$newWidth;
+                    }
+
+                    if($old_x < $old_y){
+                        $thumb_w    =   $old_x/$old_y*$newHeight;
+                        $thumb_h    =   $newHeight;
+                    }
+
+                    if($old_x == $old_y){
+                        $thumb_w    =   $newWidth;
+                        $thumb_h    =   $newHeight;
+                    }
+
+                    $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
+                    imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+
+                    // New save location
+                    $new_thumb_loc = public_path().'/uploads/Seller/resized/' . $fileName;
+
+                    if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+                    if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                    if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                    if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                    imagedestroy($dst_img);
+                    imagedestroy($src_img);
+                }
+                else {
+                    $fileError = 1;
+                }
+
+                if($fileError == 1)
+                {
+                    Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                    return redirect()->back();
+                }
+            }
+        
+            if($request->hasfile('logo'))
+            {
+                if(!empty($details->logo)){
+                  
+                    $image_path = public_path("/uploads/Seller/".$details->logo);
+                    $resized_image_path = public_path("/uploads/Seller/".$details->logo);
+                    if (File::exists($image_path)) {
+                        File::delete($image_path);
+                    }
+
+                    if (File::exists($resized_image_path)) {
+                        File::delete($resized_image_path);
+                    }
+                }
+
+                $fileError = 0;
+                $image = $request->file('logo');
+                $name=$image->getClientOriginalName();
+                $fileExt  = strtolower($image->getClientOriginalExtension());
+                if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+                    $fileName = 'logo_'.date('YmdHis').'.'.$fileExt;
+                    $toUpdateData['logo']=$fileName;
+                    $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
+                    $path = public_path().'/uploads/Seller/'.$fileName;
+                    $mime = getimagesize($path);
+
+                    if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+                    if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+                    if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+                    if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+
+                    $old_x = imageSX($src_img);
+                    $old_y = imageSY($src_img);
+
+                    $newWidth = 300;
+                    $newHeight = 300;
+
+                    if($old_x > $old_y){
+                        $thumb_w    =   $newWidth;
+                        $thumb_h    =   $old_y/$old_x*$newWidth;
+                    }
+
+                    if($old_x < $old_y){
+                        $thumb_w    =   $old_x/$old_y*$newHeight;
+                        $thumb_h    =   $newHeight;
+                    }
+
+                    if($old_x == $old_y){
+                        $thumb_w    =   $newWidth;
+                        $thumb_h    =   $newHeight;
+                    }
+
+                    $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
+                    imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+
+                    // New save location
+                    $new_thumb_loc = public_path().'/uploads/Seller/resized/' . $fileName;
+
+                    if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+                    if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                    if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                    if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                    imagedestroy($dst_img);
+                    imagedestroy($src_img);
+                }
+                else {
+                    $fileError = 1;
+                }
+
+                if($fileError == 1)
+                {
+                    Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                    return redirect()->back();
+                }
+            }
+            if(!empty($toUpdateData)) {
+                if(!empty($details))
+                    SellerPersonalPage::where('user_id',$user_id)->update($toUpdateData);
+                else
+                {
+                    $toUpdateData['user_id']=$user_id;
+                    SellerPersonalPage::insert($toUpdateData);
+                }
+                Session::flash('success', trans('users.seller_personal_info_saved'));
+                    return redirect()->back();
+            }
+        $data['details']=$details;
+        return view('Front/seller_personal_page', $data);
+    }
 
     /* funtion to seller delete image 
     @param : $id

@@ -149,7 +149,10 @@
      'add_site_content_info'=>'Lägg till Sidans Innehåll.',
      /*dashboard*/
      'welcome_to_admin_heading'=>'Välkommen till Admin',
-     ''=>'',
+
+     /*front start*/
+     'seller_profile_title'=>'Säljar Profil',
+     'buyer_profile_title'=>'Köpare Profil',
      ''=>'',
      // ''=>'',
      // ''=>'',

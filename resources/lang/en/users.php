@@ -147,7 +147,6 @@
      'add_site_content_info'=>'Add Site Content.',
      /*dashboard*/
      'welcome_to_admin_heading'=>'Welcome to Admin',
-
      /*auth*/
     'your_active_package'=>'Your active package',
     'description_label'=>'Description',
@@ -158,6 +157,10 @@
     'not_activated_label'=>'Yet not activated',
     'subscribe_btn'=>'Subscribe',
     'subscribe_package_label'=>'Subscribe packages',
+     /*front start*/
+     'seller_profile_title'=>'Seller Profile',
+     'buyer_profile_title'=>'Buyer Profile',
+    
 
  ]
 ?>

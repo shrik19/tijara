@@ -125,6 +125,11 @@
         "sZeroRecords"=> "No Matching Records Found..",
         "sEmptyTable"     => "No Records Found",
     ],
+
+
+    /*front start*/
+     'sign_up_title'=>'Sign Up',
+     'forgot_password_title'=>'Forgot Password',
      // 'entries'=>'entries',
      // ''=>'',
      // ''=>'',

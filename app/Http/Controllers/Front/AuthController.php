@@ -76,9 +76,9 @@ class AuthController extends Controller
             'password'          =>  'required',
         ];
         $messages = [
-            'email.required'            => 'Please provide email address!',
-            'email.email'               => 'Please enter valid email address!',
-            'password.required'         => 'Please enter your password!',
+            'email.required'            => trans('errors.fill_in_email_err'),
+            'email.email'               => trans('errors.valid_email_err'),
+            'password.required'         => trans('errors.fill_in_password_err'),
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 		
@@ -126,13 +126,13 @@ class AuthController extends Controller
                     }
                     else
                     {
-                        Session::flash('error', 'Invalid login details. Please Try again.');
+                        Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
                         return redirect()->back();
                     }
                 }
                 else
                 {
-                    Session::flash('error', 'Your account is currently blocked. Please contact Admin.');
+                    Session::flash('error', trans('errors.account_blocked_contact_admin_err'));
                     return redirect()->back();
                 }
                 
@@ -140,7 +140,7 @@ class AuthController extends Controller
             }
             else
             {
-                Session::flash('error', 'Invalid login details. Please Try again.');
+                Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
                 return redirect()->back();
             }
         }
@@ -161,8 +161,8 @@ class AuthController extends Controller
 		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();  
 		$data['banner'] 	= $banner;
 		$data['role_id'] 	= 1;
-		$data['registertype']='Buyer';
-        $data['pageTitle'] = 'Sign Up';
+		$data['registertype'] = trans('users.buyers_title');
+        $data['pageTitle']    = trans('lang.sign_up_title');
 		
 		
         if(Auth::guard('user')->id()) {
@@ -174,9 +174,9 @@ class AuthController extends Controller
     {
 		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();  
 		$data['banner'] 	= $banner;
-		$data['registertype']='Seller';
+		$data['registertype']= trans('users.sellers_title');
 		$data['role_id'] 	= 2;
-        $data['pageTitle'] = 'Sign Up';
+        $data['pageTitle'] = trans('lang.sign_up_title');
 		
 		
         if(Auth::guard('user')->id()) {
@@ -195,14 +195,13 @@ class AuthController extends Controller
             'password_confirmation'   =>  'required',
         ];
         $messages = [
-            'email.required'                    => 'Please provide email address!',
-            'email.unique'                      => 'Please enter different email , its already taken.',
-            'email.email'                       => 'Please enter valid email address!',
-            'password.required'                 => 'Please enter your password!',
-            'password.min'                      => 'Password should be minimum 6 characters in length!',
-            'password.confirmed'                => 'Password and Confirm password not matching!',
-            'password_confirmation.required'    => 'Please enter your confirm password!',
-
+            'email.required'                    => trans('errors.fill_in_email_err'),
+            'email.unique'                      => trans('errors.unique_email_err'),
+            'email.email'                       => trans('errors.valid_email_err'),
+            'password.required'                 => trans('errors.fill_in_password_err'),
+            'password.min'                      => trans('errors.password_min_6_char'),
+            'password.confirmed'                => trans('errors.password_not_matched')
+            'password_confirmation.required'    => trans('errors.fill_in_confirm_password_err'),
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()) {
@@ -246,7 +245,7 @@ class AuthController extends Controller
             }
             else
             {
-                Session::flash('error', 'Invalid login details. Please Try again.');
+                Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
                 return redirect()->back();
             }
         }
@@ -266,7 +265,7 @@ class AuthController extends Controller
     public function sellerProfile($edit = '')
     {
         
-        $data['pageTitle'] = 'Seller Profile';
+        $data['pageTitle'] = trans('users.seller_profile_title');
         if(!Auth::guard('user')->id())
         {
             return redirect(route('frontHome'));
@@ -281,8 +280,8 @@ class AuthController extends Controller
         $imagedetails=  UserMain::where('id', $user_id)->with(['getImages'])->first();
 
         $data['id'] = $user_id;
-        $data['registertype']='Seller';
-        $data['role_id']    = 2;
+        $data['registertype'] =  trans('users.sellers_title');
+        $data['role_id']      = 2;
         
         $data['sellerDetails']          = $details;
         $data['imagedetails']           =  $imagedetails;
@@ -306,16 +305,16 @@ class AuthController extends Controller
         ];
 
         $messages = [
-            'fname.required'         => 'Please fill in your First Name',
-            'lname.required'         => 'Please fill in your Last Name',
-            'fname.regex'            => 'Please input alphabet characters only',
-            'lname.regex'            => 'Please input alphabet characters only',
-            'email.required'         => 'Please fill in your Email',
-            'email.unique'           => 'Please enter different email , its already taken.',
-            'email.regex'            => 'Please enter Valid Email.',
-            'paypal_email.unique'    => 'Please enter different Paypal email , its already taken.',
-            'paypal_email.regex'     => 'Please enter Valid Paypal Email.',
-            'description.max'        => 'Maximum 500 characters allowed',
+            'fname.required'         => trans('errors.fill_in_first_name_err'),
+            'lname.required'         => trans('errors.fill_in_last_name_err'),
+            'fname.regex'            => trans('errors.input_alphabet_err'),
+            'lname.regex'            => trans('errors.input_alphabet_err'),
+            'email.required'         => trans('errors.fill_in_email_err'),
+            'email.unique'           => trans('errors.unique_email_err'),
+            'email.regex'            => trans('errors.valid_email_err'),
+            'paypal_email.unique'    => trans('errors.unique_paypal_email_err'),
+            'paypal_email.regex'     => trans('errors.valid_paypal_email_err'),
+            'description.max'        => trans('errors.max_char_err'),
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()) {
@@ -409,13 +408,13 @@ class AuthController extends Controller
 
             if($fileError == 1)
             {
-                Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                Session::flash('error', trans('errors.invalid_files_err'));
                 return redirect()->back();
             }
         }
             
 
-            Session::flash('success', 'Seller profile updated successfully!');
+            Session::flash('success', trans('messages.status_updated_success'));
             return redirect(route('frontSellerProfile'));
         }
 
@@ -427,7 +426,7 @@ class AuthController extends Controller
     */
      public function deleteImage($id) {
         if(empty($id))  {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('frontHome'));
         }
         $id = base64_decode($id);
@@ -437,18 +436,18 @@ class AuthController extends Controller
         {
             if ($result->delete()) 
             {
-                Session::flash('success', 'Selected Image deleted successfully!');
+                Session::flash('success', trans('errors.selected_img_del_success_err'));
                 return redirect()->back();
             } 
             else 
             {
-                Session::flash('error', 'Oops! Something went wrong!');
+                Session::flash('error', trans('errors.something_wrong_err'));
                 return redirect()->back();
             }
         } 
         else 
         {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
     }
@@ -460,7 +459,7 @@ class AuthController extends Controller
      */
     public function buyerProfile($edit = '')
     {
-        $data['pageTitle'] = 'Buyer Profile';
+        $data['pageTitle'] = trans('users.buyer_profile_title');
         if(!Auth::guard('user')->id())
         {
             return redirect(route('frontHome'));
@@ -473,7 +472,7 @@ class AuthController extends Controller
         }
         
         $data['id'] = $user_id;
-        $data['registertype']='Buyer';
+        $data['registertype']= trans('users.buyers_title');
         $data['role_id']    = 1;
         
         $data['buyerDetails']          = $details;
@@ -494,14 +493,14 @@ class AuthController extends Controller
         ];
 
         $messages = [
-            'fname.required'         => 'Please fill in your First Name',
-            'fname.regex'            => 'Please input alphabet characters only',
-            'lname.required'         => 'Please fill in your Last Name',
-            'lname.regex'            => 'Please input alphabet characters only',
-            'email.required'         => 'Please fill in your Email',
-            'email.unique'           => 'Please enter different email , its already taken.',
-            'email.regex'            => 'Please enter Valid Email.',
-            'profile.required'       => 'Please Upload Buyer Profile',
+            'fname.required'         => trans('errors.fill_in_first_name_err'),
+            'fname.regex'            => trans('errors.input_alphabet_err'),
+            'lname.required'         => trans('errors.fill_in_last_name_err'),
+            'lname.regex'            => trans('errors.input_alphabet_err'),
+            'email.required'         => trans('errors.fill_in_email_err'),
+            'email.unique'           => trans('errors.unique_email_err'),
+            'email.regex'            => trans('errors.valid_email_err'),
+            'profile.required'       => trans('errors.upload_buyer_profile'),
         ];
 
         $fileName ='';
@@ -584,7 +583,7 @@ class AuthController extends Controller
 
                 if($fileError == 1)
                 {
-                    Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+                    Session::flash('error', trans('errors.invalid_files_err'));
                     return redirect()->back();
                 }
             } else{
@@ -610,7 +609,7 @@ class AuthController extends Controller
 
 
             UserMain::where('id', '=', $user_id)->update($arrBuyerInsert);
-            Session::flash('success', 'Buyer profile updated successfully!');
+            Session::flash('success', trans('messages.buyer_update_success'));
             return redirect(route('frontBuyerProfile'));
         
     }
@@ -633,12 +632,12 @@ class AuthController extends Controller
             'billing_postcode'   =>  'required',
         ];
         $messages = [
-            'billing_address.required'    => 'Please enter Billing address!',
-            'billing_street.required'     => 'Please enter Billing street!',
-            'billing_province.required'   => 'Please select Billing province!',
-			'billing_city.required'   	  => 'Please select Billing city!',
-            'billing_suburb.required'     => 'Please enter Billing suburb!',
-            'billing_postcode.required'   => 'Please enter Billing postcode!',
+            'billing_address.required'    => trans('errors.billing_address_req_err'),
+            'billing_street.required'     => trans('errors.billing_street_req_err'),
+            'billing_province.required'   => trans('errors.billing_province_req_err'),
+			'billing_city.required'   	  => trans('errors.billing_city_req_err'),
+            'billing_suburb.required'     => trans('errors.billing_suburb_req_err'),
+            'billing_postcode.required'   => trans('errors.billing_postcode_req_err'),
 
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -686,11 +685,11 @@ class AuthController extends Controller
                 }
                
                     
-                Session::flash('success', 'Personal billing details updated successfully!');
+                Session::flash('success', trans('messages.billing_update_success'));
                 return redirect(route('frontPersonalProfile'));
             }
             else {
-                Session::flash('error', 'Enter city name correctly');
+                Session::flash('error', trans('errors.incorrect_city_name_err'));
                 return redirect(route('frontPersonalProfile'));
             }
         }
@@ -725,13 +724,13 @@ class AuthController extends Controller
     {
         $site_details          = Settings::first();
        // $data['siteDetails']   = $site_details;
-        $data['pageTitle'] = 'Forgot Password';
+        $data['pageTitle'] = trans('lang.forgot_password_title')
         
         $user = DB::table('users')->where('email', '=', $request->input('forgot_email'))
             ->first();//Check if the user exists
         if (empty($user->id)) 
         {
-            return redirect()->back()->withErrors(['email' => trans('User does not exist')]);
+            return redirect()->back()->withErrors(['email' => trans('errors.user_not_exist_err')]);
         }
         
         $token = $this->getRandom(60);
@@ -748,8 +747,7 @@ class AuthController extends Controller
         
         $arrMailData = ['name' => $name,'email' => $email,'url' => $url, 'siteDetails'  =>$site_details];
         Mail::send('emails/forgot_password', $arrMailData, function($message) use ($email,$name) {
-            $message->to($email, $name)->subject
-                ('Tijara - Forgot Password');
+            $message->to($email, $name)->subject('Tijara - Forgot Password');
             $message->from('developer@techbeeconsulting.com','Tijara');
         });
         

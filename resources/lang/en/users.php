@@ -148,6 +148,9 @@
      /*dashboard*/
      'welcome_to_admin_heading'=>'Welcome to Admin',
      /*auth*/
+
+      //package
+
     'your_active_package'=>'Your active package',
     'description_label'=>'Description',
     'amount_label'=>'Amount',
@@ -161,6 +164,15 @@
      'seller_profile_title'=>'Seller Profile',
      'buyer_profile_title'=>'Buyer Profile',
     
+
+
+
+    //seller personal page
+    'seller_header_img_label'=>'Header Image',
+    'seller_logo_label'=>'Logo',
+    'seller_personal_form_label'=>'Seller Personal Info',
+    'seller_personal_info_saved'=>'Your Personal info saved successfully',
+    'seller_personal_page_menu'=>'Personal Page',
 
  ]
 ?>

@@ -11,6 +11,8 @@
   <!-- Example row of columns -->
   <div class="row">
     <div class="col-md-12">
+    <form id="seller-profile-form" action="{{route('frontSellerProfileUpdate')}}" method="post" enctype="multipart/form-data">
+            @csrf
       @include ('Front.alert_messages')
       <div class="col-md-6">
         <h2>{{$registertype}} {{ __('users.profile_update_title')}}</h2>
@@ -18,8 +20,7 @@
          
         <div class="login_box">
           
-          <form id="seller-profile-form" action="{{route('frontSellerProfileUpdate')}}" method="post" enctype="multipart/form-data">
-            @csrf
+          
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <div class="form-group">
               <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label>
@@ -138,9 +139,10 @@
 
             <button class="btn btn-black debg_color seller-profile-update login_btn">{{ __('lang.update_btn')}}</button>
              <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16">{{ __('lang.cancel_btn')}}</a>
-          </form>
+          
         </div>
       </div>
+      </form>
     </div>
   </div>
 </div> <!-- /container -->

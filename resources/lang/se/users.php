@@ -95,6 +95,7 @@
      'service_category_list'=>'Service Kategori Lista',
      'add_service_cat_details_info'=>'Lägg till information om service kategori.',
      'edit_service_cat_details_info'=>'Redigera information om service kategori.',
+
      'all_service_subcategory_list'=>'Alla Service Underkategori Lista',
      'service_subcategory_title'=>'Service Underkategori',
      'edit_service_subcat_title'=>'Redigera Service Underkategori',
@@ -153,30 +154,7 @@
      /*front start*/
      'seller_profile_title'=>'Säljar Profil',
      'buyer_profile_title'=>'Köpare Profil',
-     ''=>'',
-     // ''=>'',
-     // ''=>'',
-     // ''=>'',
-    /* ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',*/
+   
      'your_active_package'=>'Ditt aktiva paket',
     'description_label'=>'Beskrivning',
     'amount_label'=>'Belopp',
@@ -186,5 +164,25 @@
     'not_activated_label'=>'Ändå inte aktiverad',
     'subscribe_btn'=>'Prenumerera',
     'subscribe_package_label'=>'Prenumerera på paket',
+
+    
+        //package
+        'your_active_package'=>'Ditt aktiva paket',
+        'description_label'=>'Beskrivning',
+        'amount_label'=>'Belopp',
+        'validity_label'=>'Giltighetsdagar',
+        'purchased_date_label'=>'Inköpt datum',
+        'expiry_date_label'=>'Utgångsdatum',
+        'not_activated_label'=>'Ändå inte aktiverad',
+        'subscribe_btn'=>'Prenumerera',
+        'subscribe_package_label'=>'Prenumerera på paket',
+        
+        //seller personal page
+    'seller_header_img_label'=>'Rubrikbild',
+    'seller_logo_label'=>'Logotyp',
+    'seller_personal_form_label'=>'Säljarens personliga information',
+    'seller_personal_info_saved'=>'Din personliga information sparades',
+    'seller_personal_page_menu'=>'Personlig sida',
+
  ]
 ?>

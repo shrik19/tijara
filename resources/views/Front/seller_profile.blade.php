@@ -64,16 +64,24 @@
               }
               @endphp
               @if (count($imagedetails['getImages']) < 5)
-              <input type="file" name="sellerimages[]" class="form-control" multiple="multiple">
+              <!-- <input type="file" name="sellerimages[]" class="form-control" multiple="multiple"> -->
+              <div class="upload-btn-wrapper">
+              <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> {{ __('users.upload_file_input')}}</button>
+             <input type="file" name="sellerimages[]" class="form-control" multiple="multiple">
+            </div>
               <div class="input-group-btn text-right"> 
-                <button class="btn gray_color add-image" type="button"><i class="fas fa-plus"></i> Add More</button>
+                <button class="btn gray_color add-image" type="button"><i class="fas fa-plus"></i> {{ __('users.add_more_btn')}}</button>
               </div>
               @endif
             </div>
 
             <div class="clone hide" style="display:none;" >
               <div class="form-group cloned" style="margin-top:10px">
-              <input type="file" name="sellerimages[]" class="form-control" multiple="multiple">
+              <!-- <input type="file" name="sellerimages[]" class="form-control" multiple="multiple"> -->
+              <div class="upload-btn-wrapper">
+              <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> {{ __('users.upload_file_input')}}</button>
+             <input type="file" name="sellerimages[]" class="form-control" multiple="multiple">
+            </div>
               <div class="input-group-btn text-right"> 
                 <button class="btn btn-danger remove-image" type="button"><i class="fas fa-trash-alt"></i> </button>
               </div>

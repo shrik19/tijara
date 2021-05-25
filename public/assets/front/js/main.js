@@ -563,7 +563,7 @@ $(".add-image").click(function(){
   var cloned_images = $(".cloned:visible").length;
 
   if((existing_images + cloned_images) >= 5) {
-    $(".cloned-danger").html('Max 5 images are allowed for Agent.');
+    $(".cloned-danger").html(max_files_restriction_seller);
     return false;
   }
   var html = $(".clone").html();

@@ -282,13 +282,15 @@ use File;
                 if(!empty($id)){
                   
                     $image_path = public_path("/uploads/Buyer/".$buyerDetails->profile);
-                    $resized_image_path = public_path("/uploads/Buyer/".$buyerDetails->profile);
+
+                    $resized_image_path = public_path("/uploads/Buyer/resized/".$buyerDetails->profile);
                     if (File::exists($image_path)) {
-                        File::delete($image_path);
+                       //   echo "in".$image_path;exit;
+                        unlink($image_path);
                     }
 
                     if (File::exists($resized_image_path)) {
-                        File::delete($resized_image_path);
+                        unlink($resized_image_path);
                     }
                 }
 
@@ -298,8 +300,9 @@ use File;
                 $fileExt  = strtolower($image->getClientOriginalExtension());
                 if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
                     $fileName = 'Buyer_'.date('YmdHis').'.'.$fileExt;
-                    $image->move(public_path().'/uploads/Buyer/', $fileName);  // your folder path
-                    $path = public_path().'/uploads/Buyer/'.$fileName;
+                    $path =$image->move(public_path().'/uploads/Buyer/', $fileName);  // your folder path
+                    /* $new_thumb_loc = public_path().'/uploads/Buyer/resized/' . $fileName;
+                    $path = public_path().'/uploads/Buyer/'.$fileName;*/
                     $mime = getimagesize($path);
 
                     if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }

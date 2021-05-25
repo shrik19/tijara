@@ -69,5 +69,7 @@
      'billing_suburb_req_err'     => 'Ange Fakturer Ingsförort!',
      'billing_postcode_req_err'   => 'Ange Fakturer Ingskod!',
      'user_not_exist_err'=>'Användare finns inte',
+     'invalid_pwd_reset_link_err'  =>'Ogiltig länk för återställning av lösenord, försök igen.',
+     'pwd_reset_token_exp_err'=>'Lösenordsåterställningstoken har upphört, försök igen.',
  ]
 ?>

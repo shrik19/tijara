@@ -90,7 +90,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Forgot Password</h4>
+        <h4 class="modal-title">{{ __('lang.forgot_password_title')}}</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -99,8 +99,8 @@
           <form class="jt-forgot-form" id="jt-forgot-form" action="{{route('frontForgotPassword')}}" method="POST">
             @csrf
             <div class="form-group">
-              <label>Email <span class="de_col">*</span></label>
-              <input type="text" class="form-control" id="forgot_email" name="forgot_email" placeholder="Enter Email" style="width: 47%;">
+              <label>{{ __('users.email_label')}} <span class="de_col">*</span></label>
+              <input type="text" class="form-control" id="forgot_email" name="forgot_email" placeholder="{{ __('users.email_label')}}" style="width: 47%;">
               <div class="invalid-feedback" id="err_forgot_email">{{ ($errors->has('forgot_email')) ? $errors->first('forgot_email') : '' }}</div>
             </div>
           </form>
@@ -108,7 +108,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" onclick="checkForgotForm();" class="btn btn-black debg_color login_btn">Submit</button>
+        <button type="button" onclick="checkForgotForm();" class="btn btn-black debg_color login_btn">{{ __('lang.submit_btn')}}</button>
       </div>
     </div>
   </div>
@@ -125,13 +125,13 @@ function checkForgotForm(event)
 
   if(email == '')
   {
-    $("#err_forgot_email").html('Please provide email address!').show();
+    $("#err_forgot_email").html("{{ __('errors.fill_in_email_err')}}").show();
     $("#err_forgot_email").parent().addClass('jt-error');
     error = 1;
   }
   else if(!email_pattern.test(email))
   {
-    $("#err_forgot_email").html('Please enter valid email address!').show();
+    $("#err_forgot_email").html("{{ __('errors.valid_email_err')}}").show();
     $("#err_forgot_email").parent().addClass('jt-error');
     error = 1;
   }

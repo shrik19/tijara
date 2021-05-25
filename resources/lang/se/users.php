@@ -149,11 +149,21 @@
      'add_site_content_info'=>'Lägg till Sidans Innehåll.',
      /*dashboard*/
      'welcome_to_admin_heading'=>'Välkommen till Admin',
-
-     /*front start*/
+    'your_active_package'=>'Ditt aktiva paket',
+    'description_label'=>'Beskrivning',
+    'amount_label'=>'Belopp',
+    'validity_label'=>'Giltighetsdagar',
+    'purchased_date_label'=>'Inköpt datum',
+    'expiry_date_label'=>'Utgångsdatum',
+    'not_activated_label'=>'Ändå inte aktiverad',
+    'subscribe_btn'=>'Prenumerera',
+    'subscribe_package_label'=>'Prenumerera på paket',
+    /*front start*/
      'seller_profile_title'=>'Säljar Profil',
      'buyer_profile_title'=>'Köpare Profil',
-     ''=>'',
+     'seller_packages_title'=>'Säljar Paket',
+     'upload_file_input'=>'Ladda upp en fil',
+    // ''=>'',
      // ''=>'',
      // ''=>'',
      // ''=>'',
@@ -177,14 +187,5 @@
      ''=>'',
      ''=>'',
      ''=>'',*/
-     'your_active_package'=>'Ditt aktiva paket',
-    'description_label'=>'Beskrivning',
-    'amount_label'=>'Belopp',
-    'validity_label'=>'Giltighetsdagar',
-    'purchased_date_label'=>'Inköpt datum',
-    'expiry_date_label'=>'Utgångsdatum',
-    'not_activated_label'=>'Ändå inte aktiverad',
-    'subscribe_btn'=>'Prenumerera',
-    'subscribe_package_label'=>'Prenumerera på paket',
  ]
 ?>

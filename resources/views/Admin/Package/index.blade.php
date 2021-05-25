@@ -81,20 +81,9 @@
     dataTable.draw();
   });
 
-  /*$('.export').click(function(){
-      $('#exportval').val(1);
-      dataTable.draw();
-      $('#exportval').val('0');
-      $.ajax({
-        url: "{{url('/')}}"+'/admin/seller/exportdata/?status='+$('#status').val()+'&search='+$('#packageTable_filter').find('input').val(),
-        type: 'get',
-        data: { },
-        success: function(output){
-          url="{{url('/')}}"+'/SellerDetails/SellerFromTijara.csv';
-          window.open(url,"_self")    
-        }
-     });
+$('.nav-link').click( function() {
+    document.getElementById("packageTable").removeAttribute("style");
+}); 
 
-  }); */
 </script>
 @endsection('middlecontent')

@@ -179,5 +179,9 @@ $(document).on("click",".savesubcategorydata",function(event) {
       return false;
     }
   }
+
+$('.nav-link').click( function() {
+  document.getElementById("subcategoryTable").removeAttribute("style");
+});
 </script>
 @endsection('middlecontent')

@@ -75,6 +75,10 @@
         type:'post',
       }
   });
+
+$('.nav-link').click( function() {
+  document.getElementById("sliderTable").removeAttribute("style");
+});
   /*code for filter*/
  /* $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
       '<option value="">Select Status</option>'+

@@ -115,5 +115,9 @@
     });
   });
 
+$('.nav-link').click( function() {
+  document.getElementById("sellerTable").removeAttribute("style");
+});
+  
 </script>
 @endsection('middlecontent')

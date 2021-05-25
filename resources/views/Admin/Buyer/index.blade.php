@@ -111,6 +111,9 @@
     });
   });
 
+$('.nav-link').click( function() {
+  document.getElementById("buyersTable").removeAttribute("style");
+});
 </script>
 
 @endsection('middlecontent')

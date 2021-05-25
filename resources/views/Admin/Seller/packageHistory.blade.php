@@ -75,8 +75,8 @@
 <script src="{{url('/')}}/assets/admin/js/dataTables.buttons.min.js"></script>
 <script src="{{url('/')}}/assets/admin/js/buttons.html5.min.js"></script>
 <script type="text/javascript">
- 
-
-  
+  $('.nav-link').click( function() {
+    document.getElementById("packageHistTable").removeAttribute("style");
+  }); 
 </script>
 @endsection('middlecontent')

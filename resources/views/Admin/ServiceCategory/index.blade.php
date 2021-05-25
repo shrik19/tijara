@@ -172,5 +172,9 @@
       return false;
     }
   }
+
+$('.nav-link').click( function() {
+  document.getElementById("categoryTable").removeAttribute("style");
+});
 </script>
 @endsection('middlecontent')

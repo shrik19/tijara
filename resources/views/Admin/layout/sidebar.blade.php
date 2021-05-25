@@ -1,8 +1,8 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="{{route('adminDashboard')}}">TIJARA</a>
-      <!-- <a href="{{route('adminDashboard')}}"> <img src="{{url('/')}}/assets/img/logo.jpeg" alt="{{config('constants.PROJECT_NAME')}}" width="100" class="shadow-light"></a> -->
+    <!--   <a href="{{route('adminDashboard')}}">TIJARA</a> -->
+      <a href="{{route('adminDashboard')}}"> <img src="{{url('/')}}/assets/img/logo.png" alt="{{config('constants.PROJECT_NAME')}}" width="100" class="shadow-light"></a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
       <a href="{{route('adminDashboard')}}">TIJARA</a>

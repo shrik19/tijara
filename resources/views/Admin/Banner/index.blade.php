@@ -41,11 +41,7 @@
 </div>
 
 
-
-
 <span content="{{ csrf_token() }}" class="csrf_token"></span>
-
-
 <span content="{{ csrf_token() }}" class="csrf_token"></span>
 <script src="{{url('/')}}/assets/admin/js/jquery.dataTables.min.js"></script>
 <script src="{{url('/')}}/assets/admin/js/dataTables.bootstrap4.min.js"></script>
@@ -101,7 +97,9 @@
   });
 
  
-
+$('.nav-link').click( function() {
+  document.getElementById("bannerTable").removeAttribute("style");
+});
 
 
 

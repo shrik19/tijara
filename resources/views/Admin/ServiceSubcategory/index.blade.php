@@ -172,12 +172,12 @@
             }else{
               alert('{{ __("errors.subcategory_name_req")}}');
             }
-           
-              
-            
             }); 
 
-
+            
+$('.nav-link').click( function() {
+  document.getElementById("subcategoryTable").removeAttribute("style");
+});
  
 </script>
 @endsection('middlecontent')

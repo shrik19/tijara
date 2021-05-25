@@ -116,9 +116,9 @@ class ServiceController extends Controller
 			$categoriesArray[$category->category_id]['subcategories'][$category->id]=	$category->subcategory_name;
 		}
 		
-		$categoriesHtml					=	'<option value="">Select Category</option>';
+		$categoriesHtml					=	'<option value="">'.trans('lang.category_label').'</option>';
 		
-		$subCategoriesHtml				=	'<option value="">Select SubCategory</option>';
+		$subCategoriesHtml				=	'<option value="">'.trans('lang.subcategory_label').'</option>';
 		
 		foreach($categoriesArray as $category_id=>$category) {
 			if($category['mainCategory']!='')
@@ -307,7 +307,7 @@ class ServiceController extends Controller
 
         else {
 
-            $arr[] = [ '','','No Records Found',  '','',''];
+            $arr[] = [ '','',trans('lang.datatables.sEmptyTable'),  '','',''];
 
         }
 
@@ -418,9 +418,9 @@ class ServiceController extends Controller
         ];
 
         $messages = [
-            'title.required'         => 'Please fill in Services name',           
-            'title.regex'            => 'Please input alphabet characters only',
-            'description.max'        => 'Maximum 1000 characters allowed',
+            'title.required'         => trans('lang.required_field_error'),           
+            'title.regex'            =>trans('lang.required_field_error'),     
+            'description.max'        => trans('lang.max_1000_char'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -470,7 +470,7 @@ class ServiceController extends Controller
 
         
 
-        Session::flash('success', 'Services details Inserted successfully!');
+        Session::flash('success',trans('servicelang.service_saved_success'));
 
         return redirect(route('manageFrontServices')); 
 
@@ -508,13 +508,13 @@ class ServiceController extends Controller
 
            $service = Services::where('id', $id)->update(['is_deleted' =>1]);
 
-           Session::flash('success', 'Record deleted successfully!');
+           Session::flash('success', trans('lang.record_delete'));
 
                 return redirect()->back();  
 
         } else {
 
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('lang.something_went_wrong'));
 
             return redirect()->back();
 

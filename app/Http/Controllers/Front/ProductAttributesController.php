@@ -107,7 +107,7 @@ class ProductAttributesController extends Controller
 			}
         }
         else {
-            $arr[] = ['', 'No Records Found', ''];
+            $arr[] = ['', trans('lang.datatables.sEmptyTable'), ''];
         }
     	
     	
@@ -156,8 +156,8 @@ class ProductAttributesController extends Controller
             'type' => 'required'
         ];
         $messages = [
-            'name.required'         => 'Please fill in Attributes Name',
-            'type.required'            => 'Please Select Attribute Type',
+            'name.required'         => trans('lang.required_field_error'),
+            'type.required'            => trans('lang.required_field_error'),
         ];
         $validator = validator::make($request->all(), $rules, $messages);
         if($validator->fails()) 
@@ -251,9 +251,9 @@ class ProductAttributesController extends Controller
 
         ];
         $messages = [
-            'name.required'             => 'Please fill in Name',
-            'type.required'             => 'Please Select Type',
-			'attribute_values.required' => 'Please fill in Values',
+            'name.required'             => trans('lang.required_field_error'),
+            'type.required'             => trans('lang.required_field_error'),
+			'attribute_values.required' => trans('lang.required_field_error'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -289,7 +289,7 @@ class ProductAttributesController extends Controller
                 }
            }
 
-        Session::flash('success', 'Product Attributes updated successfully!');
+        Session::flash('success', trans('lang.attribute_saved_success'));
         return redirect(route('frontProductAttributes'));
     }
     
@@ -299,7 +299,7 @@ class ProductAttributesController extends Controller
      */
     public function delete($id) {
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('lang.something_went_wrong'));
             return redirect(route('frontProductAttributes'));
         }
         $id = base64_decode($id);
@@ -310,15 +310,15 @@ class ProductAttributesController extends Controller
             if ($attribute->delete()) 
 			{
 			    DB::table('variant_product_attribute')->where('attribute_id', $id)->delete();
-                Session::flash('success', 'Record deleted successfully!');
+                Session::flash('success', trans('lang.record_delete'));
                 return redirect()->back();
             } else {
-                Session::flash('error', 'Oops! Something went wrong!');
+                Session::flash('error', trans('lang.something_went_wrong'));
                 return redirect()->back();
             }
         } 
         else {
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('lang.something_went_wrong'));
             return redirect()->back();
         }
     }

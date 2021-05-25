@@ -21,11 +21,11 @@
 	  <div class="card">
 		<div class="card-header row">
 		<div class="col-md-10">
-		  <h2>Products Attributes</h2>
+		  <h2>{{ __('lang.manage_attributes_menu')}} </h2>
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
-		  <a href="{{route('frontAttributeCreate')}}" title="Add Product Attribute" class="btn btn-black btn-sm debg_color login_btn" ><span>Add Attribute</span> </a>
+		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
 			</div>
 		</div>
 
@@ -37,8 +37,8 @@
                 <thead>
                   <tr>
                     <th data-orderable="false">&nbsp;</th>
-                    <th>Attribute Name</th>
-                    <th data-orderable="false">Action</th>
+                    <th>{{ __('lang.attribute_label')}}</th>
+                    <th data-orderable="false">{{ __('lang.action_label')}}</th>
                   </tr>
                 </thead>
                 <tbody id="result">
@@ -67,7 +67,21 @@
     "serverSide": true,
     "paging": true,
     "searching": true,
-  
+    "language": {
+        "sSearch": "<?php echo __('lang.datatables.search');?>",
+        "sInfo": "<?php echo __('lang.datatables.sInfo');?>",
+        "sLengthMenu": "<?php echo __('lang.datatables.sLengthMenu');?>",
+        "sInfoEmpty": "<?php echo __('lang.datatables.sInfoEmpty');?>",
+        "sLoadingRecords": "<?php echo __('lang.datatables.sLoadingRecords');?>",
+        "sProcessing": "<?php echo __('lang.datatables.sProcessing');?>",      
+        "sZeroRecords": "<?php echo __('lang.datatables.sZeroRecords');?>",
+        "oPaginate": {
+              "sFirst":    "<?php echo __('lang.datatables.first');?>",
+              "sLast":    "<?php echo __('lang.datatables.last');?>",
+              "sNext":    "<?php echo __('lang.datatables.next');?>",
+              "sPrevious": "<?php echo __('lang.datatables.previous');?>",
+          },
+        },
     "ajax": {
           headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
           url : '{{route("frontAttributeGetRecords")}}',

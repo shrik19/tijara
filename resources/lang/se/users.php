@@ -174,7 +174,14 @@
      ''=>'',
      ''=>'',
      ''=>'',*/
-
-    
+     'your_active_package'=>'Ditt aktiva paket',
+    'description_label'=>'Beskrivning',
+    'amount_label'=>'Belopp',
+    'validity_label'=>'Giltighetsdagar',
+    'purchased_date_label'=>'Inköpt datum',
+    'expiry_date_label'=>'Utgångsdatum',
+    'not_activated_label'=>'Ändå inte aktiverad',
+    'subscribe_btn'=>'Prenumerera',
+    'subscribe_package_label'=>'Prenumerera på paket',
  ]
 ?>

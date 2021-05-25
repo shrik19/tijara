@@ -118,8 +118,8 @@
                 </div>
             </div>
             @if(!empty($banner->image))
-            <div class="com-md-6">
-              <img class="img-fluid mid_banner" src="{{url('/')}}/uploads/Banner/{{$banner->image}}" style="height: 499px;width:565px;"/>
+            <div class="col-md-6">
+              <img class="img-fluid mid_banner" src="{{url('/')}}/uploads/Banner/{{$banner->image}}" style="height: 412px"/>
             </div>
             @endif
         </div>

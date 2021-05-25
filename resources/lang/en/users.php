@@ -148,9 +148,9 @@
      /*dashboard*/
      'welcome_to_admin_heading'=>'Welcome to Admin',
 
-     /*auth*/
-     ''=>'',
-     ''=>'',
+     /*front start*/
+     'seller_profile_title'=>'Seller Profile',
+     'buyer_profile_title'=>'Buyer Profile',
      // ''=>'',
      // ''=>'',
      // ''=>'',

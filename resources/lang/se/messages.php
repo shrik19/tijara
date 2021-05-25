@@ -29,6 +29,7 @@
      'package_update_success'=>'Paket Detaljer Uppdaterad Framgångsrikt!',
      'settings_save_success'=>'Detaljer Spara Framgångsrikt!',
      'pwd_changed_success' => 'Lösenordet har ändrats!',
+     'billing_update_success'=>'Personlig faktureringsinformation uppdaterades framgångsrikt!',
     /* ''=>'',
      ''=>'',
      ''=>'',

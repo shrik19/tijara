@@ -115,5 +115,9 @@
         "sEmptyTable"     => "Tabellen innehåller inga data",
     ],
 
+    /*front start*/
+     'sign_up_title'=>'Bli Medlem',
+     'forgot_password_title' =>'Glömt ditt lösenord',
+
  ]
 ?>

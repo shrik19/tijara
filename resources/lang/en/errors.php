@@ -32,8 +32,8 @@
      'upload_buyer_profile'=>'Please Upload Buyer Profile',
      'subcategory_name_req'=>'Please fill in Subcategory Name',
      'unique_subcategory_name'=>'Please enter different SubCategory, its already taken.',
-     'password_min_6_char'=>'Minimum 6 characters are required',
-     'password_not_matched'=>'Password not matched',
+     'password_min_6_char'=>'Password should be minimum 6 characters in length!',
+     'password_not_matched'=>'Password and Confirm password not matching!',
      'fill_in_slider_title_err'=>'Please fill in Slider Title',    
      'upload_slider_image_err'=>'Please Upload Slider Image',
      'image_exceed_max_limit_err'=>'Slider image exceed the maximum upload limit',
@@ -61,8 +61,17 @@
      'account_blocked_contact_admin_err'=>'Your account is blocked, contact the admin!',
      'invalid_email_password_err'=>'Invalid email or password!',
      'pwd_and_confirm_pwd_same_err'=>'Password and Confirm Password must be same!',
-    
- 
+     'invalid_credentials_try_again_err'=>'Invalid login details. Please Try again.',
+     'selected_img_del_success_err'=>'Selected Image deleted successfully!',
+     'billing_address_req_err'    => 'Please enter Billing address!',
+     'billing_street_req_err'     => 'Please enter Billing street!',
+     'billing_province_req_err'   => 'Please select Billing province!',
+     'billing_city_req_err'        => 'Please select Billing city!',
+     'billing_suburb_req_err'     => 'Please enter Billing suburb!',
+     'billing_postcode_req_err'   => 'Please enter Billing postcode!',
+     'incorrect_city_name_err'     =>'Enter city name correctly',
+     'user_not_exist_err'=>'User does not exist',
+     
 
  ]
 ?>

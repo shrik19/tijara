@@ -92,9 +92,9 @@
 
             <!-- <input type="file" name="profile" class="form-control" value="{{old('profile')}}"> -->
             <div class="upload-btn-wrapper">
-            <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> Upload a file</button>
+            <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> {{ __('users.upload_file_input')}}</button>
             <input type="file" name="profile" class="form-control" value="{{old('profile')}}" />
-          </div>
+            </div>
             
             <div class="text-danger">{{$errors->first('filename')}}</div>
             <div class="input-group-btn text-right"> 

@@ -30,9 +30,20 @@
      'settings_save_success'=>'Details Inserted successfully!',
      'pwd_changed_success' => 'Password changed successfully!',
      'billing_update_success'=>'Personal billing details updated successfully!',
-    // ''=>'',
-     // ''=>'',
-     // ''=>'',
-     // ''=>'',
+     'reset_pwd_email_sent_success'=>'Reset Password email sent successfully.',
+     'pwd_reset_success'=>'Password reset successfully.',
+     'package_subscribe_success'=>'Package Subscribe successfully!'
+     'thank_you_joined_us_msg'=>"Thanks for signing up – we're so thrilled you've joined us!",
+     'how_to_shopping_msg'=>"Want to get shopping? Here's how:",
+     'SHOP'=>'SHOP',
+     'browse_product_add_to_cart_msg'=>'Browse your favourite Products and add them to your shopping cart',
+     'SHARE'=>'SHARE',
+     'spread_with_friends_family_msg'=>'Spread the word with friends and family – the quicker the sells, the faster we deliver!',
+     'PAY'=>'PAY',
+     'secure_payment_msg'=>'Payment is 100% safe &amp; secure!',
+     'DELIVERED'=>'DELIVERED',
+     'deliver_directly_to_your_door_msg'=>"We'll deliver directly to your door, or select the click &amp; collect option",
+     'bag_our_most_popular_products'=>'Bag our most popular products:',
+     
  ]
 ?>

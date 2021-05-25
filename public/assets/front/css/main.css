@@ -28,6 +28,13 @@ header{
 .debg_color{
     background-color: #03989e;
 }
+.gray_color{
+    background-color: #A0A0A0;
+    color: #fff;
+}
+.package-tbl{
+        font-weight: bold;
+}
 .top_line{height: 6px; width: 100%; float: left;background-color: #03989e; margin: 0;padding: 0;}
 .top_login{margin: 0;padding: 0;position: relative;}
 

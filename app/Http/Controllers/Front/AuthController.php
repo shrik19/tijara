@@ -705,11 +705,11 @@ class AuthController extends Controller
                     $image_path = public_path("/uploads/Buyer/".$buyerDetails->profile);
                     $resized_image_path = public_path("/uploads/Buyer/".$buyerDetails->profile);
                     if (File::exists($image_path)) {
-                        File::delete($image_path);
+                        unlink($image_path);
                     }
 
                     if (File::exists($resized_image_path)) {
-                        File::delete($resized_image_path);
+                        unlink($resized_image_path);
                     }
                 }
 
@@ -933,11 +933,11 @@ class AuthController extends Controller
         
         $arrMailData = ['name' => $name,'email' => $email,'url' => $url, 'siteDetails'  =>$site_details];
         Mail::send('emails/forgot_password', $arrMailData, function($message) use ($email,$name) {
-            $message->to($email, $name)->subject('Tijara - Forgot Password');
-            $message->from('developer@techbeeconsulting.com','Tijara');
+            $message->to($email, $name)->subject(trans('lang.welcome') .' - '. trans('lang.forgot_password_title'));
+            $message->from('developer@techbeeconsulting.com',trans('lang.welcome'));
         });
         
-        Session::flash('success', 'Reset Password email sent successfully.');
+        Session::flash('success', trans('messages.reset_pwd_email_sent_success'));
         return redirect(route('frontLogin'));
     }
 
@@ -945,12 +945,12 @@ class AuthController extends Controller
     {
         $site_details          = Settings::first();
         $data['siteDetails']   = $site_details;
-        $data['pageTitle'] = 'Reset Password';
+        $data['pageTitle']     = trans('messages.reset_password_btn_label');
         $tokenData = DB::table('password_resets')
         ->where('token', $token)->first();// Redirect the user back to the password reset request form if the token is invalid
         if (!$tokenData) 
         {
-            Session::flash('error', 'Invalid password reset link, please try again.');
+            Session::flash('error', trans('errors.invalid_pwd_reset_link_err'));
             return redirect(route('frontLogin'));
         }
         
@@ -980,12 +980,12 @@ class AuthController extends Controller
         ->where('token', $request->token)->first();// Redirect the user back to the password reset request form if the token is invalid
         if (!$tokenData) 
         {
-            Session::flash('error', 'Password reset token expired, please try again.');
+            Session::flash('error', trans('errors.pwd_reset_token_exp_err'));
             return redirect(route('frontLogin'));
         }
 
         $user = User::where('email', $tokenData->email)->first();
-        if (!$user) return redirect()->back()->withErrors(['email' => 'User not found']);//Hash and update the new password
+        if (!$user) return redirect()->back()->withErrors(['email' => trans('errors.user_not_exist_err')]);//Hash and update the new password
         $user->password = \Hash::make($password);
         $user->update(); //or $user->save();
 
@@ -996,7 +996,7 @@ class AuthController extends Controller
         DB::table('password_resets')->where('email', $user->email)
         ->delete();
 
-        Session::flash('success', 'Password reset successfully.');
+        Session::flash('success', trans('messages.pwd_reset_success'));
         return redirect(route('frontHome'));
 
     }
@@ -1018,10 +1018,10 @@ class AuthController extends Controller
      */
     public function changePassword() {
 
-        $site_details          = Settings::first();
-        $data['module_url'] = route('frontChangePassword');
-        $data['pageTitle'] = 'Change Password';
-        $data['module_url'] = route('frontChangePassword');
+        $site_details        = Settings::first();
+        $data['module_url']  = route('frontChangePassword');
+        $data['pageTitle']   = trans('users.change_password_title');
+        $data['module_url']  = route('frontChangePassword');
         return view('Front/change_password', $data);
     }
 
@@ -1036,9 +1036,9 @@ class AuthController extends Controller
             'password_confirmation' => 'required',
         ];
         $messages = [
-            'password.required'                    => 'Please enter Password!',
-            'password.confirmed'                   => 'Password and Confirm Password must be same!',
-            'password_confirmation.required'       => 'Please enter Confirm Password!',
+            'password.required'                    => trans('errors.fill_in_password_err'),
+            'password.confirmed'                   => trans('errors.password_not_matched'),
+            'password_confirmation.required'       => trans('errors.fill_in_confirm_password_err'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -1054,7 +1054,7 @@ class AuthController extends Controller
             $arrUpdate = ['password'=>bcrypt($request->input('password'))];
             User::where('id', $user_id)->update($arrUpdate);
 
-            Session::Flash('success', 'Password changed successfully!');
+            Session::Flash('success', trans('messages.pwd_changed_success'));
             return redirect(route('frontChangePassword'));
         }
     }
@@ -1067,7 +1067,7 @@ class AuthController extends Controller
      */
     public function sellerPackages()
     {
-        $data['pageTitle'] = 'Seller Packages';
+        $data['pageTitle'] = trans('users.seller_packages_title');
         if(!Auth::guard('user')->id())
         {
             return redirect(route('frontHome'));
@@ -1111,7 +1111,7 @@ class AuthController extends Controller
         
 
         $data['user_id']           = $user_id;
-        $data['title']             =  'Subscribe Packages';
+        $data['title']             = trans('users.subscribe_package_label');
         $data['packageDetails']    = $details;
         $data['subscribedPackage'] = $is_subscriber;
         $data['ramainingDays']     = $date_diff;
@@ -1152,7 +1152,7 @@ class AuthController extends Controller
 
         UserPackages::create($arrInsertPackage);                   
         
-        Session::flash('success', 'Package Subscribe successfully!');
+        Session::flash('success', trans('messages.package_subscribe_success'));
         return $this->sellerPackages();
     }
     

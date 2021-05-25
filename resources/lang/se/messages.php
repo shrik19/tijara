@@ -30,10 +30,20 @@
      'settings_save_success'=>'Detaljer Spara Framgångsrikt!',
      'pwd_changed_success' => 'Lösenordet har ändrats!',
      'billing_update_success'=>'Personlig faktureringsinformation uppdaterades framgångsrikt!',
-    /* ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',
-     ''=>'',*/
+     'reset_pwd_email_sent_success'=>'Återställ lösenordets e-postmeddelande skickat.',
+     'pwd_reset_success'=>'Lösenordet har återställts',
+     'package_subscribe_success'=>'Paketet Prenumerera framgångsrikt!',
+     'thank_you_joined_us_msg'=>"Tack för att du registrerade dig - vi är så glada att du har gått med oss!",
+     'how_to_shopping_msg'=>"Vill du shoppa? Här är hur:",
+     'SHOP'=>'AFFÄR',
+     'browse_product_add_to_cart_msg'=>'Bläddra bland dina favoritprodukter och lägg till dem i din kundvagn',
+      'SHARE'=>'DELA MED SIG',
+      'spread_with_friends_family_msg'=>'Sprid ordet med vänner och familj - ju snabbare säljer, desto snabbare levererar vi!',
+     'PAY'=>'BETALA',
+     'secure_payment_msg'=>'Betalningen är 100% säker & amp; säkra!',
+     'DELIVERED'=>'LEVERERAD',
+     'deliver_directly_to_your_door_msg'=>"Vi levererar direkt till din dörr eller väljer klick & amp; samla alternativ",
+     'bag_our_most_popular_products'=>'Bag our most popular products:',
+ 
  ]
 ?>

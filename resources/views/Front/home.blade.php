@@ -32,7 +32,7 @@
                             <div class="slider_content">
                                 <h3>{{$data['title']}}</h3>
                                 <?php echo $data['description']; ?>
-                                <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >Buy Now</button>  
+                                <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >{{ __('lang.buy_now_btn')}}</button>  
                             </div>
                         </div>
                         </div>
@@ -51,7 +51,7 @@
       <div class="row">
         <div class="col-md-3">
             <div class="category_list_box"  id="accordion">
-                <h2 class="de_col">Categories</h2>
+                <h2 class="de_col">{{ __('lang.categories_head')}}</h2>
                 <ul class="category_list">
 				@php $i=0; @endphp
 				@foreach($Categories as $Category=>$subcategories) 
@@ -69,8 +69,8 @@
         </div>
         <div class="col-md-9">             
                 <div class="product_container">
-                    <h4>Popular Items in the market</h4>
-                    <h2>Trending Product</h2>
+                    <h4>{{ __('lang.popular_items_in_market_head')}}</h4>
+                    <h2>{{ __('lang.trending_product_head')}}</h2>
                     <hr class="heading_line"/>
                     <ul class="product_details">
 					@foreach($TrendingProducts as $product)
@@ -114,7 +114,7 @@
                     <h2>{{$banner->subtitle}}</h2>
                     <h3>{{$banner->title}}</h3>
                     <p><?php echo $data['description']; ?></p>
-                    <button type="button" class="btn sale_btn" onclick="document.location='{{$banner['redirect_link']}}'">Shop Now</button>
+                    <button type="button" class="btn sale_btn" onclick="document.location='{{$banner['redirect_link']}}'">{{ __('lang.shop_now_btn')}}</button>
                 </div>
             </div>
             @if(!empty($banner->image))
@@ -131,8 +131,8 @@
     <div class="container">
         <div class="row">
             <div class="best_seller_container">
-                <h3>Popular Items in the market</h3>
-                <h2>Best Seller</h2>
+                <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
+                <h2>{{ __('lang.best_seller_head')}}</h2>
                 <ul class="product_details best_seller">
 					@foreach($TrendingProducts as $product)
                         <li>
@@ -159,7 +159,7 @@
 				 </ul>
             </div>
             <div class="best_seller_container">
-                <h3>Follow Us On</h3>
+                <h3>{{ __('lang.follow_us_on_head')}}</h3>
                 <h2>Instagram</h2>
                 <div class="social_img_section">
                     <ul class="instagram_imgs">
@@ -172,8 +172,8 @@
                 </div>
             </div>
             <div class="best_seller_container">
-                <h3>3 Steps</h3>
-                <h2>How it works</h2>
+                <h3>{{ __('lang.3_steps_head')}}</h3>
+                <h2>{{ __('lang.how_it_works_head')}}</h2>
                 <div class="steps_section">
                     <div class="curve_img_1">
                         <img src="{{url('/')}}/assets/front/img/steps_bg_1.png"/>
@@ -182,7 +182,7 @@
                         <li>
                             <div class="steps_details">
                                 <img class="img-fluid" src="{{url('/')}}/assets/front/img/step1_icon.png"/>
-                                <h3>Step-1</h3>
+                                <h3>{{ __('lang.step_1_head')}}</h3>
                                 <p>
                                     Aliquam venenatis mi sit amet velit sagittis molestie. Pellentesque varius viverra libero, at congue lorem aliquet in. Sed sed quam a turpis ultrices elementum. Aenean erat sapien, suscipit consequat porta et, elementum nec enim.
                                 </p>
@@ -191,7 +191,7 @@
                         <li>
                             <div class="steps_details">
                                 <img class="img-fluid" src="{{url('/')}}/assets/front/img/step2_icon.png"/>
-                                <h3>Step-2</h3>
+                                <h3>{{ __('lang.step_2_head')}}</h3>
                                 <p>
                                     Aliquam venenatis mi sit amet velit sagittis molestie. Pellentesque varius viverra libero, at congue lorem aliquet in. Sed sed quam a turpis ultrices elementum. Aenean erat sapien, suscipit consequat porta et, elementum nec enim.
                                 </p>
@@ -200,7 +200,7 @@
                         <li>
                             <div class="steps_details">
                                 <img class="img-fluid" src="{{url('/')}}/assets/front/img/step3_icon.png"/>
-                                <h3>Step-3</h3>
+                                <h3>{{ __('lang.step_3_head')}}</h3>
                                 <p>
                                     Aliquam venenatis mi sit amet velit sagittis molestie. Pellentesque varius viverra libero, at congue lorem aliquet in. Sed sed quam a turpis ultrices elementum. Aenean erat sapien, suscipit consequat porta et, elementum nec enim.
                                 </p>
@@ -221,8 +221,8 @@
     <div class="container">
         <div class="row">
             <div class="best_seller_container">
-                <h3>Popular Item inthe market</h3>
-                <h2>Who we are</h2>
+                <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
+                <h2>{{ __('lang.who_we_are_head')}}</h2>
                 <div class="col-md-4">
                     <div class="artical_section">
                         <img class="img-fluid" src="{{url('/')}}/assets/front/img/popular_img1.png"/>
@@ -232,7 +232,7 @@
                                 Tangel Case R&D Tax Credits</h4>
                                 <p>In a recent Tax Court case, Tangel v. Commissioner, T.C. Memo. 2021-1...
                                 </p>
-                            <a href="" class="btn learn_more">Learn More</a>
+                            <a href="" class="btn learn_more">{{ __('lang.learn_more_btn')}}</a>
                         </div>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
                                 Tangel Case R&D Tax Credits</h4>
                                 <p>In a recent Tax Court case, Tangel v. Commissioner, T.C. Memo. 2021-1...
                                 </p>
-                            <a href="" class="btn learn_more">Learn More</a>
+                            <a href="" class="btn learn_more">{{ __('lang.learn_more_btn')}}</a>
                         </div>
                     </div>
                 </div>
@@ -258,7 +258,7 @@
                                 Tangel Case R&D Tax Credits</h4>
                                 <p>In a recent Tax Court case, Tangel v. Commissioner, T.C. Memo. 2021-1...
                                 </p>
-                            <a href="" class="btn learn_more">Learn More</a>
+                            <a href="" class="btn learn_more">{{ __('lang.learn_more_btn')}}</a>
                         </div>
                     </div>
                 </div>

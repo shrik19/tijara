@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Jointly</title>
+<title>{{ __('lang.welcome')}}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -62,17 +62,17 @@ td {
       <td><table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:630px; margin:0 auto; padding:0 15px;">
           <tbody>
             <tr>
-              <td style="text-align:center;"><img src="{{url('/')}}/assets/img/jointly-logo-icon.png" alt="Jointly" style="margin:-64px auto 0 auto; vertical-align:bottom"></td>
+              <td style="text-align:center;"><img src="{{url('/')}}/assets/img/logo.png" alt="{{ __('lang.welcome')}}" style="margin:-64px auto 0 auto; vertical-align:bottom"></td>
             </tr>
             <tr>
-              <td style="text-align:center;"><h2 style="color:#73064a; font-size:21px; line-height:31px; margin: 20px 0;">Hi {{$name}}, Thanks for signing up – we're so thrilled you've joined us! <span style="color:#fd6964;">Want to get shopping? Here's how:</span></h2></td>
+              <td style="text-align:center;"><h2 style="color:#73064a; font-size:21px; line-height:31px; margin: 20px 0;">{{ __('lang.hi')}} {{$name}}, {{ __('messages.thank_you_joined_us_msg')}} <span style="color:#fd6964;">{{ __('messages.how_to_shopping_msg')}}</span></h2></td>
             </tr>
             <tr>
-              <td style="text-align:center;"><p style="margin:17px 0 20px 0; font-weight:600; color:#73064a;"><span style="color:#fd6964; text-transform:uppercase;">SHOP</span> Browse your favourite baskets and add them to your shopping cart</p>
-                <p style="margin:17px 0 20px 0; font-weight:600; color:#73064a;"><span style="color:#fd6964; text-transform:uppercase;">SHARE</span> Spread the word with friends &amp; family – the quicker the basket sells, the faster we deliver!</p>
-                <p style="margin:17px 0 20px 0; font-weight:600; color:#73064a;"><span style="color:#fd6964; text-transform:uppercase;">PAY</span> Payment is 100% safe &amp; secure!</p>
-                <p style="margin:17px 0 20px 0; font-weight:600; color:#73064a;"><span style="color:#fd6964; text-transform:uppercase;">DELIVERED</span> We'll deliver directly to your door, or select the click &amp; collect option</p>
-                <p style="font-size:21px; line-height:31px; font-weight:bold; color:#73064a; text-align:center; margin:20px 0; text-transform:uppercase;">Bag our most popular baskets:</p></td>
+              <td style="text-align:center;"><p style="margin:17px 0 20px 0; font-weight:600; color:#73064a;"><span style="color:#fd6964; text-transform:uppercase;">{{ __('messages.SHOP')}}</span> {{ __('messages.browse_product_add_to_cart_msg')}}</p>
+                <p style="margin:17px 0 20px 0; font-weight:600; color:#73064a;"><span style="color:#fd6964; text-transform:uppercase;">{{ __('messages.SHARE')}}</span> {{ __('messages.spread_with_friends_family_msg')}}</p>
+                <p style="margin:17px 0 20px 0; font-weight:600; color:#73064a;"><span style="color:#fd6964; text-transform:uppercase;">{{ __('messages.PAY')}}</span> {{ __('messages.secure_payment_msg')}}</p>
+                <p style="margin:17px 0 20px 0; font-weight:600; color:#73064a;"><span style="color:#fd6964; text-transform:uppercase;">{{ __('messages.DELIVERED')}}</span> {{ __('messages.deliver_directly_to_your_door_msg')}}</p>
+                <p style="font-size:21px; line-height:31px; font-weight:bold; color:#73064a; text-align:center; margin:20px 0; text-transform:uppercase;">{{ __('messages.bag_our_most_popular_products')}}</p></td>
             </tr>
             <tr>
               <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="two-col" style="margin-bottom:20px;">
@@ -103,23 +103,7 @@ td {
                   </tbody>
                 </table></td>
             </tr>
-            <tr>
-              <td style="background-color:#fd6964; border-radius:7px; padding:30px; color:#fff;"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="two-col">
-                  <tbody>
-                    <tr>
-                      <td style="vertical-align:middle; text-align:center;"><p style="margin:0; font-size:20px; color:#fff; text-transform:uppercase;">WANT TO SEE MORE?</p></td>
-                      <td style="vertical-align:middle; text-align:center;"><a href="{{route('frontShowAll')}}" style="text-transform:uppercase; display:inline-block; margin:0 auto; text-align:center; background-color: #73064a; text-decoration:none; color:#fff; padding:5px 20px; border-radius:20px; font-size:15px; font-weight: 600; white-space: nowrap;" class="white-on-hover">SHOP ALL DEALS</a></td>
-                    </tr>
-                  </tbody>
-                </table></td>
-            </tr>
-            <tr>
-              <td style="text-align:center"><p style="margin:25px 0; color:#73064a;">Sharing is caring: Don't forget to share your faves!</p></td>
-            </tr>
-            <tr>
-              <td style="text-align:center"><p style="color:#73064a;"><span style="color:#fd6964;">Happy shopping, the,</span> <span style="text-transform:uppercase;">JOINTLY</span> <span style="color:#fd6964; text-transform:uppercase;">TEAM</span></p>
-                <p style="margin:0 0 30px 0; color:#73064a; font-size:12px;">Ps, have an exciting product or deal you want featured on JOINTLY? <a href="{{route('frontVendorProfile')}}"><span style="color:#fd6964;">ADD A VENDOR PROFILE</span></a></p></td>
-            </tr>
+
             <tr> </tr>
           </tbody>
         </table></td>
@@ -128,8 +112,8 @@ td {
       <td style="background-color:#fd6964; padding:15px 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:630px; margin:0 auto; padding:0 15px;" class="two-col">
           <tbody>
             <tr>
-              <td style="text-align:left;"><img src="{{url('/')}}/assets/img/jointly-white-logo.png" alt="Jointly Logo" style="vertical-align:middle;"></td>
-              <td style="text-align:right;"><a href="https://www.instagram.com/jointly.co.za/" target="_blank" style="display:inline-block; margin-right:10px;"><img src="{{url('/')}}/assets/img/instagram-icon.png" alt="Instagram" style="vertical-align:middle;"></a> <a href="https://www.facebook.com/jointly.co.za" target="_blank" style="display:inline-block; margin-right:10px;"><img src="{{url('/')}}/assets/img/facebook-icon.png" alt="Facebook" style="vertical-align:middle;"></a> <a href="https://twitter.com/jointlycoza" target="_blank" style="display:inline-block;"><img src="{{url('/')}}/assets/img/twitter-icon.png" alt="Twitter" style="vertical-align:middle;"></a></td>
+              <td style="text-align:left;"><img src="https://tijara.techbeeconsulting.com/uploads/img/1620728258_187920862.png" alt="{{ __('lang.tijara_logo_alt')}}" style="vertical-align:middle;"></td>
+            <td style="text-align:right;"><a href="#" target="_blank" style="display:inline-block; margin-right:10px;"><img src="{{url('/')}}/assets/img/instagram-icon.png" alt="Instagram" style="vertical-align:middle;"></a> <a href="#" target="_blank" style="display:inline-block; margin-right:10px;"><img src="{{url('/')}}/assets/img/facebook-icon.png" alt="Facebook" style="vertical-align:middle;"></a> <a href="#" target="_blank" style="display:inline-block;"><img src="{{url('/')}}/assets/img/twitter-icon.png" alt="Twitter" style="vertical-align:middle;"></a></td>
             </tr>
           </tbody>
         </table></td>

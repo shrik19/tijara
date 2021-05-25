@@ -70,7 +70,9 @@
      'billing_suburb_req_err'     => 'Please enter Billing suburb!',
      'billing_postcode_req_err'   => 'Please enter Billing postcode!',
      'incorrect_city_name_err'     =>'Enter city name correctly',
-     'user_not_exist_err'=>'User does not exist',
+     'user_not_exist_err'          =>'User does not exist',
+     'invalid_pwd_reset_link_err'  =>'Invalid password reset link, please try again.',
+     'pwd_reset_token_exp_err'=>'Password reset token expired, please try again.',
      
 
  ]

@@ -58,7 +58,7 @@
      'edit_seller_details_title'=>'Edit Seller Details',
      'yes'=>'Yes',
      'no'=>'No',
-     'max_images_restriction_seller'=>'Max 5 bilder är tillåtna för säljaren.',
+     'max_images_restriction_seller'=>'Max 5 images are allowed for Seller.',
      'all_packge_history_title'=>'All Packge History',
      'of'=>'of',
      'sr_no_thead'=>'Sr no.',
@@ -161,8 +161,10 @@
     'subscribe_btn'=>'Subscribe',
     'subscribe_package_label'=>'Subscribe packages',
      /*front start*/
-     'seller_profile_title'=>'Seller Profile',
-     'buyer_profile_title'=>'Buyer Profile',
+    'seller_profile_title'=>'Seller Profile',
+    'buyer_profile_title'=>'Buyer Profile',
+    'seller_packages_title'=>'Seller Packages',
+    'upload_file_input'=>'Upload a file',
     
 
 

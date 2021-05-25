@@ -16,7 +16,7 @@
         <div class="card-body">
           <div class="form-group">
             <label>{{ __('users.first_name_label')}}  <span class="text-danger">*</span></label> 
-            <input type="text" class="form-control" name="fname" id="fname" required tabindex="1" value="{{ !empty($buyerDetails[0]->fname) ?  $buyerDetails[0]->fname :  old('fname') }}" onblur="allLetter(this)">
+            <input type="text" class="form-control" name="fname" id="fname" tabindex="1" value="{{ !empty($buyerDetails[0]->fname) ?  $buyerDetails[0]->fname :  old('fname') }}" onblur="allLetter(this)">
             <div class="invalid-feedback">
               {{ __('errors.fill_in_first_name_err')}}
             </div>
@@ -25,7 +25,7 @@
 
           <div class="form-group">
             <label>{{ __('users.last_name_label')}} <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="lname" id="lname" required tabindex="2" value="{{ !empty($buyerDetails[0]->lname) ?  $buyerDetails[0]->lname :  old('lname') }}" onblur="allLetterLname(this)">
+            <input type="text" class="form-control" name="lname" id="lname" tabindex="2" value="{{ !empty($buyerDetails[0]->lname) ?  $buyerDetails[0]->lname :  old('lname') }}" onblur="allLetterLname(this)">
             <div class="invalid-feedback">
               {{ __('errors.fill_in_last_name_err')}}
             </div>
@@ -34,7 +34,7 @@
 
           <div class="form-group">
             <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="email" id="email" required tabindex="3" value="{{ !empty($buyerDetails[0]->email) ? $buyerDetails[0]->email : old('email')}}">
+            <input type="text" class="form-control" name="email" id="email" tabindex="3" value="{{ !empty($buyerDetails[0]->email) ? $buyerDetails[0]->email : old('email')}}">
             <div class="invalid-feedback">
               {{ __('errors.fill_in_email_err')}}
             </div>
@@ -96,7 +96,7 @@
       <div class="card">
         <div class="card-body">
           <div class="form-group increment cloned">
-            <label>{{ __('users.profile_label')}}</label>
+            <label>{{ __('users.profile_label')}}</label><br>
             @php
             if(!empty($buyerDetails[0]->profile))
             {
@@ -108,7 +108,10 @@
             @endphp
 
             <input type="file" name="profile" class="form-control" value="{{old('profile')}}">
-            
+           <!--  <div class="upload-btn-wrapper">
+            <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> {{ __('users.upload_file_input')}}</button>
+            <input type="file" name="profile" class="form-control" value="{{old('profile')}}" />
+           </div> -->
             <div class="text-danger">{{$errors->first('filename')}}</div>
             <div class="input-group-btn text-right"> 
             </div>

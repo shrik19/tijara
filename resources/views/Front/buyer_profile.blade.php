@@ -65,6 +65,7 @@
             </div>
            
         </div>
+      </div>
       
 
        <div class="col-md-6">
@@ -101,7 +102,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+            <div class="form-group">
               <label>{{ __('users.where_did_you_find_us_label')}} </label>
               <input type="text" class="form-control login_input" name="find_us" id="find_us" placeholder="{{ __('users.where_did_you_find_us_label')}}" value="{{ (old('where_find_us')) ? old('where_find_us') : $buyerDetails[0]->where_find_us}}">
               <span class="invalid-feedback" id="err_find_us">@if($errors->has('find_us')) {{ $errors->first('find_us') }}@endif</span>
@@ -113,7 +114,7 @@
       
       </div>
       
-    </div>
+   <!--  </div> -->
     </form>
   </div>
 </div> <!-- /container -->

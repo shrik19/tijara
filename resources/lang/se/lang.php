@@ -35,6 +35,7 @@
      'product_title_label'=>'Titel',
      'product_label'=>'Produkt',
      'product_form_label'=>'Spara produktinformation',
+     'product_edit_form_label'=>'Redigera produktinformation',
      'product_description_label'=>'Beskrivning',
      'category_label'=>'Kategori',
      'subcategory_label'=>'Underkategori',
@@ -70,6 +71,7 @@
      'change_password_menu'=>'Ändra lösenord',
      'logout_label'=>'Logga ut',
      'buy_now_btn'=>'Köp nu',
+     'browse_now_btn'=>'Bläddra nu',
      'search_placeholder'=>'Sök',
      /*footer*/
      'information_label'=>'Information',
@@ -136,6 +138,7 @@
      'request_to_reset_pwd_msg'=>'Vi har nyligen fått en begäran om att återställa ditt Tijara-lösenord.',
      'click_here_reset_pwd'=>'Klicka här för att återställa ditt lösenord',
      'RESET_PASSWORD'=>'ÅTERSTÄLL LÖSENORD',
+     'reset_btn' => 'Återställa',
      'not_req_for_reset_pwd_msg'=>"Begärde inte denna ändring? Snälla skicka ett mail till oss ",
      'cross_check_req'=>'så att vi kan dubbelkontrollera att ditt konto är säkert.',
      'regards_title'=>'Hälsningar,',
@@ -161,6 +164,8 @@
      'step_3_head'=>'Steg 3',
      'who_we_are_head'=>'Vilka vi är',
      'learn_more_btn'=>'Läs mer',
+     'edit_attribute_tittle' => 'Redigera attribut',
+     'product_attribute_title' => 'Produkt attribut',
 
  ]
 ?>

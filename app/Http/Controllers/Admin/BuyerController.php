@@ -78,7 +78,7 @@ use File;
 
         $filename = "BuyesfromTijara.csv";
         $handle = fopen('BuyerDetails/'.$filename, 'w+');
-        fputcsv($handle, array('First name','Last name','Email','Phone number','Address','City','Swish Number','Post Code','Where Find Us','Status'));
+        fputcsv($handle, array(trans('users.first_name_label'),trans('users.last_name_label'),trans('users.email_label'),trans('users.phone_number_label'),trans('users.address_label'),trans('users.city_label'),trans('users.swish_number_label'),trans('users.postal_code_label'),trans('users.where_find_us_thead'),trans('lang.status_thead')));
 
         foreach($recordDetails as $row) {
          
@@ -160,7 +160,7 @@ use File;
 
                 $action = '<a href="'.route('adminBuyersEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\'customer\',\''.route('adminBuyersDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminBuyersDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
                 $arr[] = [$fname, $lname, $email, $whereFindUs, $status, $action];
             }
@@ -246,7 +246,7 @@ use File;
                 'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
                 'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
                 'email'         => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,email',
-                'profile'       =>'required',
+                //'profile'       =>'required',
             ];
             
         }
@@ -259,7 +259,7 @@ use File;
             'email.required'         => trans('errors.fill_in_email_err'),
             'email.unique'           => trans('errors.unique_email_err'),
             'email.regex'            => trans('errors.valid_email_err'),
-            'profile.required'       => trans('errors.upload_buyer_profile'),
+            //'profile.required'       => trans('errors.upload_buyer_profile'),
             /*'phone_number.required'  => 'Please fill in your Phone Number',
             'address.required'       => 'Please fill in your address',
             'postcode.required'      => 'Please fill in your postcode',
@@ -279,13 +279,14 @@ use File;
             $buyerDetails = UserMain::find($id);
             if($request->hasfile('profile'))
             {
+               
                 if(!empty($id)){
-                  
+                 
                     $image_path = public_path("/uploads/Buyer/".$buyerDetails->profile);
-
+ 
                     $resized_image_path = public_path("/uploads/Buyer/resized/".$buyerDetails->profile);
+
                     if (File::exists($image_path)) {
-                       //   echo "in".$image_path;exit;
                         unlink($image_path);
                     }
 
@@ -298,13 +299,16 @@ use File;
                 $image = $request->file('profile');
                 $name=$image->getClientOriginalName();
                 $fileExt  = strtolower($image->getClientOriginalExtension());
-                if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
-                    $fileName = 'Buyer_'.date('YmdHis').'.'.$fileExt;
-                    $path =$image->move(public_path().'/uploads/Buyer/', $fileName);  // your folder path
-                    /* $new_thumb_loc = public_path().'/uploads/Buyer/resized/' . $fileName;
-                    $path = public_path().'/uploads/Buyer/'.$fileName;*/
-                    $mime = getimagesize($path);
 
+                if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+
+                    $fileName = 'Buyer_'.date('YmdHis').'.'.$fileExt;
+                    $path =$image->move(public_path().'/uploads/Buyer/', $fileName);
+                      // your folder path
+
+                    /* $new_thumb_loc = public_path().'/uploads/Buyer/resized/' . $fileName;*/
+                    //$path = public_path().'/uploads/Buyer/'.$fileName;
+                    $mime = getimagesize($path);
                     if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
                     if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
                     if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
@@ -336,7 +340,7 @@ use File;
 
                     // New save location
                     $new_thumb_loc = public_path().'/uploads/Buyer/resized/' . $fileName;
-
+ 
                     if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
                     if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
                     if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
@@ -356,10 +360,9 @@ use File;
                 }
             } else{
                 if(!empty($id)){
-                $fileName = $buyerDetails->profile;  
-            }
-        }     
-
+                    $fileName = $buyerDetails->profile; 
+                }
+            }     
 
         $arrBuyerInsert = [
                 'role_id'      => 1,
@@ -371,7 +374,7 @@ use File;
                 'city'         => trim($request->input('city')),
                 'swish_number' => trim($request->input('swish_number')),
                 'postcode'     => trim($request->input('postcode')),
-                'profile'      => $fileName
+                'profile'      => $fileName,
             ];
 
         if(!empty($id)){
@@ -393,7 +396,7 @@ use File;
     public function changeStatus($id, $status) {
         if(empty($id)) {
             Session::flash('error', trans('errors.refresh_your_page_err'));
-            return redirect(route('adminCustomer'));
+            return redirect(route('adminBuyers'));
         }
 
         $id = base64_decode($id);

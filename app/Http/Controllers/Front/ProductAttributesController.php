@@ -29,9 +29,9 @@ class ProductAttributesController extends Controller
      */
     public function index() {
         $data = [];
-        $data['pageTitle']              = 'Product Attributes';
-        $data['current_module_name']    = 'Product Attributes';
-        $data['module_name']            = 'Product Attributes';
+        $data['pageTitle']              = trans('lang.product_attribute_title')
+        $data['current_module_name']    = trans('lang.product_attribute_title')
+        $data['module_name']            = trans('lang.product_attribute_title')
         $data['module_url']             = route('frontAttributeGetRecords');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
@@ -48,7 +48,7 @@ class ProductAttributesController extends Controller
                         ->get();
                         
             if(count($isSubscribed)<=0) {
-                $data['subscribedError']   =    'You must subscribe package to manage products & attributes';
+                $data['subscribedError']   =   trans('messages.subscribe_package_to_manage_prod_attri');
             }
         }
         
@@ -97,9 +97,9 @@ class ProductAttributesController extends Controller
 			    $id = $recordDetailsVal['id'];
 			    $name = (!empty($recordDetailsVal['name'])) ? $recordDetailsVal['name'] : '-';
                
-                $action = '<a href="'.route('frontAttributeEdit', base64_encode($id)).'" title="Edit" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('frontAttributeEdit', base64_encode($id)).'" title="'.trans('lang.edit_label').'" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontAttributeDelete', base64_encode($id)).'\');"  title="Delete" class=""><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontAttributeDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';
 
         
                 
@@ -136,7 +136,7 @@ class ProductAttributesController extends Controller
                         ->get();
                         
             if(count($isSubscribed)<=0) {
-               $data['subscribedError']   =    'You must subscribe package to manage products and attributes';
+               $data['subscribedError']   =    trans('messages.subscribe_package_to_manage_prod_attri');
             }
         }
         $data['pageTitle']              = 'Add Attributes';
@@ -193,11 +193,11 @@ class ProductAttributesController extends Controller
                         ->get();
                         
             if(count($isSubscribed)<=0) {
-                $data['subscribedError']   =    'You must subscribe package to manage products and attributes';
+                $data['subscribedError']   =   trans('messages.subscribe_package_to_manage_prod_attri');
             }
         }
        if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
         
@@ -223,9 +223,9 @@ class ProductAttributesController extends Controller
              $data['segment']          = $segment;
         }
 
-		$data['pageTitle']              = 'Edit Attribute';
-        $data['current_module_name']    = 'Edit';
-        $data['module_name']            = 'Product Attribute';
+		$data['pageTitle']              = trans('lang.edit_attribute_tittle');
+        $data['current_module_name']    = trans('lang.edit_label');
+        $data['module_name']            =  trans('lang.product_attribute_title');
         $data['module_url']             = route('frontProductAttributes');
 	    $data['attributesDetails']      = $details;
     
@@ -238,7 +238,7 @@ class ProductAttributesController extends Controller
      */
     public function update(Request $request, $id) { 
         if(empty($id)) {
-            Session::flash('error', 'Something went wrong. Refresh your page.');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
         
@@ -333,9 +333,9 @@ class ProductAttributesController extends Controller
             if ($attributeValue->delete()) 
             {
                DB::table('variant_product_attribute')->where('attribute_value_id', $id)->delete(); 
-                return "record deleted";
+                return trans('lang.record_delete');
             } else {
-                return 'Oops! Something went wrong!';
+                return trans('lang.something_went_wrong');
             }
         }
     }
@@ -344,7 +344,7 @@ class ProductAttributesController extends Controller
         $attribute_id = $request->input('attribute_id');
        
         $attributeValue = AttributesValues::where('attribute_id',$attribute_id)->get();
-        $html   =   '<option value="">Select Attribute Value</option>';
+        $html   =   '<option value="">trans("lang.attribute_value_label")</option>';
         if (!empty($attributeValue)) 
         {
             

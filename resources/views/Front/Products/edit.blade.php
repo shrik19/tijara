@@ -19,7 +19,7 @@
     <div class="">
       <div class="col-md-10">
 		    
-		  <h2>Save product details</h2>
+		  <h2>{{ __('lang.product_edit_form_label')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
@@ -32,14 +32,14 @@
           
           <input type="hidden" name="product_id" value="{{$product_id}}">
           <div class="form-group">
-          <label>Title <span class="de_col">*</span></label>
-          <input type="text" class="form-control login_input" name="title" id="title" placeholder="Title" value="{{ (old('title')) ?  old('title') : $product->title}}">
+          <label>{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
+          <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('lang.product_title_label')}}" value="{{ (old('title')) ?  old('title') : $product->title}}">
           <span class="invalid-feedback" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
           </div>
 
           <div class="form-group">
-          <label>Description <span class="de_col"></span></label>
-          <textarea class="form-control login_input" name="description" id="description" placeholder="Description" value="">{{ (old('description')) ?  old('description') : $product->description}}</textarea>
+          <label>{{ __('lang.product_description_label')}} <span class="de_col"></span></label>
+          <textarea class="form-control login_input" name="description" id="description" placeholder="{{ __('lang.product_description_label')}}" value="">{{ (old('description')) ?  old('description') : $product->description}}</textarea>
           <span class="invalid-feedback" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
           </div>
         </div>
@@ -48,7 +48,7 @@
       <div class="col-md-6">
         <div class="login_box">
           <div class="form-group">
-            <label>Category</label>
+            <label>{{ __('lang.category_label')}}</label>
             <select class="select2 form-control login_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" >
               <option></option>
             @foreach($categories as $cat_id=>$category)
@@ -68,34 +68,34 @@
           </div>
 
           <div class="form-group">
-            <label>Meta Title <span class="de_col"></span></label>
-            <input type="text" class="form-control login_input" name="meta_title" id="meta_title" placeholder="Meta title" value="{{(old('meta_title')) ?  old('meta_title') : $product->meta_title}}">
+            <label>{{ __('lang.meta_title_label')}} <span class="de_col"></span></label>
+            <input type="text" class="form-control login_input" name="meta_title" id="meta_title" placeholder="{{ __('lang.meta_title_label')}}" value="{{(old('meta_title')) ?  old('meta_title') : $product->meta_title}}">
             <span class="invalid-feedback" id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
           </div>
 
           <div class="form-group">
-            <label>Meta Description <span class="de_col"></span></label>
-            <input type="text" class="form-control login_input" name="meta_description" id="meta_description" placeholder="Meta description" value="{{(old('meta_description')) ?  old('meta_description') : $product->meta_description}}">
+            <label>{{ __('lang.meta_desc_label')}} <span class="de_col"></span></label>
+            <input type="text" class="form-control login_input" name="meta_description" id="meta_description" placeholder="{{ __('lang.meta_desc_label')}}" value="{{(old('meta_description')) ?  old('meta_description') : $product->meta_description}}">
             <span class="invalid-feedback" id="err_meta_description" >@if($errors->has('meta_description')) {{ $errors->first('meta_description') }}@endif </span>
           </div>
 
           <div class="form-group">
-            <label>Meta keyword (Comma Separated) <span class="de_col"></span></label>
-            <input type="text" class="form-control login_input" name="meta_keyword" id="meta_keyword" placeholder="Meta keyword" value="{{(old('meta_keyword')) ?  old('meta_keyword') : $product->meta_keyword}}">
+            <label>{{ __('lang.meta_keyword_label')}} <span class="de_col"></span></label>
+            <input type="text" class="form-control login_input" name="meta_keyword" id="meta_keyword" placeholder="{{ __('lang.meta_keyword_label')}}" value="{{(old('meta_keyword')) ?  old('meta_keyword') : $product->meta_keyword}}">
             <span class="invalid-feedback" id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
           </div>
 
           <div class="form-group">
-            <label>Sort Order<span class="de_col"></span></label>
-            <input type="tel" class="form-control login_input" name="sort_order" id="sort_order" placeholder="Sort order" value="{{(old('sort_order')) ?  old('sort_order') : $product->sort_order}}">
+            <label>{{ __('lang.sort_order_label')}}<span class="de_col"></span></label>
+            <input type="tel" class="form-control login_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $product->sort_order}}">
             <span class="invalid-feedback" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
           </div>
 
           <div class="form-group">
-            <label>Status</label>
-            <select class="select2 form-control login_input" name="status" id="status"  placeholder="Select" >
-              <option @if($product->status=='active') selected="selected" @endif value="active">Active</option>
-              <option @if($product->status=='block') selected="selected" @endif value="block">Block</option>
+            <label>{{ __('lang.status_label')}}</label>
+            <select class="select2 form-control login_input" name="status" id="status"  placeholder="{{ __('lang.select_status_ddl')}}" >
+              <option @if($product->status=='active') selected="selected" @endif value="active">{{ __('lang.active_label')}}</option>
+              <option @if($product->status=='block') selected="selected" @endif value="block">{{ __('lang.block_label')}}</option>
             </select>
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
@@ -107,7 +107,7 @@
     <div class="row">
       
       <div class="col-md-8">
-		  <h2>Variant Product Details</h2>
+		  <h2>{{ __('lang.product_variant_title')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
@@ -115,14 +115,11 @@
 			</div>
      
       <div class="col-md-12">
-        <div class="login_box">
-
-         
+        <div class="login_box">         
           <div class="table-responsive">
             <table class="table table-striped" id="variant_table">
             <thead>
               <tr>
-                
                 <th>{{ __('lang.sku_label')}}</th>
                 <th>{{ __('lang.weight_label')}}</th>         
                 <th>{{ __('lang.price_label')}}</th>
@@ -292,29 +289,29 @@
                     <input type="text" class="form-control login_input variant_name" name="variant_name[0]" placeholder="Variant name">
                 </td>
                -->
-                <td> <input type="text" class="form-control login_input sku variant_field" name="sku[0]" placeholder="SKU">
+                <td> <input type="text" class="form-control login_input sku variant_field" name="sku[0]" placeholder="{{ __('lang.sku_label')}}">
                 <span class="invalid-feedback" id="err_sku" ></span></td>
-                <td><input type="text" class="form-control login_input weight number variant_field" name="weight[0]" placeholder="Weight">
+                <td><input type="text" class="form-control login_input weight number variant_field" name="weight[0]" placeholder="{{ __('lang.weight_label')}}">
                 <span class="invalid-feedback" id="err_weight" ></span></td>
-                <td><input type="text" class="form-control login_input price number variant_field" name="price[0]" placeholder="Price">
+                <td><input type="text" class="form-control login_input price number variant_field" name="price[0]" placeholder="{{ __('lang.price_label')}}">
                 <span class="invalid-feedback" id="err_price" ></span></td>
-                <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="Quantity">
+                <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}">
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image variant_image" name="image[0]" placeholder="Image">
-                <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="Image">
+                <td><input type="file" class="form-control login_input image variant_image" name="image[0]" placeholder="{{ __('lang.image_label')}}">
+                <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="{{ __('lang.image_label')}}">
                 
                 <span class="invalid-feedback" id="err_image" ></span></td>
                 <td class="add_attribute_group_td" id="add_attribute_group_td_0">
                     
-                  <button type="button" variant_id="0"  class="fa fa_plus add_attribute_group_btn" title="Add Group"  >+</button>
+                  <button type="button" variant_id="0"  class="fa fa_plus add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"  >+</button>
                   <div class="added_attributes" variant_id="0"></div>
                     <!-- attribute Modal -->
                         <div class="modal fade " variant_id="0"  id="attribute-modal">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h4 class="modal-title">Add Attribute group</h4>
+                                <h4 class="modal-title">{{ __('lang.add_attr_group_label')}}</h4>
                                
                               </div>
                         
@@ -322,9 +319,9 @@
                                 <table class="table table-striped" id="attribute_table">
                                     <thead>
                                       <tr>
-                                        <th>Attribute</th>
+                                        <th>{{ __('lang.attribute_label')}}</th>
                                         
-                                        <th>Value</th>
+                                        <th>{{ __('lang.attribute_value_label')}}</th>
                                         <th>+</th>
                                       </tr>
                                     </thead>
@@ -334,7 +331,7 @@
                                         <td>
                                        
                                             <select class="form-control select_attribute" name="attribute[0][0]">
-                                              <option value="">Select Attribute</option>
+                                              <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
                                           
                                                 @foreach ($attributesToSelect as $attr)
                                                   <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
@@ -345,13 +342,13 @@
                                        <td>
                                        
                                             <select selected_attribute_value="" class="form-control select_attribute_value" name="attribute_value[0][0]">
-                                              <option value="">Select Attribute Value</option>
+                                              <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}e</option>
                                                 
                                             </select>
                                            
                                         </td>
                                         <td   class="plus_attribute_tr">
-                                            <button variant_id="0" type="button" id="plus_attribute" class="fa fa_plus plus_attribute" title="Add Attribute"  >+</button>
+                                            <button variant_id="0" type="button" id="plus_attribute" class="fa fa_plus plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"  >+</button>
                                           </td>
                                       </tr>
                         <!-- </div> -->
@@ -360,8 +357,8 @@
                               </div>
                         
                               <div class="modal-footer">
-                                <button type="button" variant_id="0"   class="btn btn-black debg_color login_btn save_attribute_group">Save</button>
-                                <button type="button" variant_id="0"   class="close_modal">Reset</button>
+                                <button type="button" variant_id="0"   class="btn btn-black debg_color login_btn save_attribute_group">{{ __('lang.save_btn')}}</button>
+                                <button type="button" variant_id="0"   class="close_modal">{{ __('lang.reset_btn')}}</button>
                               </div>
                             </div>
                           </div>

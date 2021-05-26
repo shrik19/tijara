@@ -157,7 +157,7 @@
       return true;
     }
     else {
-      $('.err-letter').text('Please input alphabet characters only');
+      $('.err-letter').text("{{ __('errors.input_alphabet_err')}}");
       return false;
     }
   }
@@ -170,7 +170,7 @@
       return true;
     }
     else {
-      $('.errlast_name').text('Please input alphabet characters only');
+      $('.errlast_name').text("{{ __('errors.input_alphabet_err')}}");
       return false;
     }
   }

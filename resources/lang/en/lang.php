@@ -25,7 +25,7 @@
      'edit_label'=>'Edit',
      'remove_label'=>'Remove',
      'required_field_error'=>'This field is required',
-     'max_1000_char'=>'Maximum 1000 characters are allowed',
+     'max_1000_char'=>'Maximum 1500 characters are allowed',
      'something_went_wrong'=>'Something went wrong',
      'record_delete'=>'Record deleted successfully',
      'status_updated_successfullly'=>'Status updated successfully',
@@ -37,6 +37,7 @@
      'attribute_saved'=>'Attribute group saved successfully',
      'product_label'=>'Product',
      'product_form_label'=>'Save Product Details',
+     'product_edit_form_label'=>'Edit Product Details',
      'product_description_label'=>'Description',
      'category_label'=>'Category',
      'subcategory_label'=>'Subcategory',
@@ -69,6 +70,7 @@
      'change_password_menu'=>'Change Password',
      'logout_label'=>'Logout',
      'buy_now_btn'=>'Buy Now',
+     'browse_now_btn'=>'Browse Now',
      'search_placeholder'=>'Search',
      /*footer front*/
      'information_label'=>'Information',
@@ -135,6 +137,7 @@
      'request_to_reset_pwd_msg'=>'We got a recent request to reset your Tijara password.',
      'click_here_reset_pwd'=>'Click here to reset your password',
      'RESET_PASSWORD'=>'RESET PASSWORD',
+     'reset_btn' => 'Reset',
      'not_req_for_reset_pwd_msg'=>"Didn't request this change? Please pop us a mail at ",
      'cross_check_req'=>'so we can double check that your account is safe and secure.',
      'regards_title'=>'Regards,',
@@ -160,7 +163,8 @@
      'Step_3_head'=>'Step-3',
      'who_we_are_head'=>'Who we are',
      'learn_more_btn'=>'Learn More',
-
+     'edit_attribute_tittle' => 'Edit Attribute',
+     'product_attribute_title' => 'Product Attribute',
      
  ]
 ?>

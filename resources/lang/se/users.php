@@ -74,7 +74,7 @@
      'category_name_thead'=>'Kategori Namn',
      'sequence_no_thead'=>'Sekvens nummer',
      'subcategory_count_thead'=>'Underkategori Räkna',
-     'add_subcategory_title'=>'Lägg till Subcategory',
+     'add_subcategory_title'=>'Lägg till Underkategori',
      'subcategory_name_label'=>'Underkategori Namn',
      'sequence_number_label'=>'Sekvens nummer',
      'add_product_category_title'=>'Lägg till Produkt Kategori',
@@ -110,7 +110,7 @@
      'link_thead'=>'Länk',
      'assignment_thead'=>'Uppdrag',
      'edit_slider_title'=>'Redigera Skjutreglaget',
-     'slider_title'=>'skjutreglaget',
+     'slider_title'=>'Skjutreglaget',
      'edit_slider_titile'=>'Redigera reglaget',
     /* banner */
      'display_on_page_title'=>'Visa på sidan',
@@ -191,10 +191,7 @@
     'seller_personal_form_label'=>'Säljarens personliga information',
     'seller_personal_info_saved'=>'Din personliga information sparades',
     'seller_personal_page_menu'=>'Personlig sida',
-
-
      'seller_packages_title'=>'Säljar Paket',
      'upload_file_input'=>'Ladda upp en fil',
-    
  ]
 ?>

@@ -114,7 +114,7 @@ class SubcategoryController extends Controller
 			}
         }
         else {
-            $arr[] = ['','', '', '', '', trans('lang.datatables.sEmptyTable'), '', '', '', ''];
+            $arr[] = ['','',trans('lang.datatables.sEmptyTable'),'', '', ''];
         }
     	
     	

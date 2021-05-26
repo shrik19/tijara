@@ -320,7 +320,7 @@ class ProductController extends Controller
 
 
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontProductDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_label').'" class=""><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontProductDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';
 
             
 
@@ -332,7 +332,7 @@ class ProductController extends Controller
 
         else {
 
-            $arr[] = [ '', trans('lang.datatables.sEmptyTable'),  ''];
+            $arr[] = [ '', '', '', '', trans('lang.datatables.sEmptyTable'), '', '', ''];
 
         }
 
@@ -422,7 +422,9 @@ class ProductController extends Controller
 			$data['selectedCategories']	=	$selectedCategoriesArray;
 			
 		//	$data['VariantProduct']     =   VariantProduct::where('product_id',$product_id)->orderBy('id','asc')->get();
-				
+			//DB::enableQueryLog();
+
+
 			$VariantProductAttribute    =   VariantProductAttribute::Leftjoin('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 			                                    ->Leftjoin('variant_product', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 			                                    ->Leftjoin('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
@@ -430,7 +432,7 @@ class ProductController extends Controller
 			                                    ->where('variant_product.product_id',$product_id)->orderBy('variant_product.id','asc')->orderBy('variant_product_attribute.id','asc')->get();
 			
 			$VariantProductAttributeArr  =   array();
-			
+
 			$i                           =   0;
 			foreach($VariantProductAttribute as $variant) {
 			    $VariantProductAttributeArr[$variant->variant_id]['variant_id']           =   $variant->variant_id;
@@ -467,7 +469,7 @@ class ProductController extends Controller
        // echo'<pre>';print_r($_POST);exit;
         $rules = [ 
             'title'         => 'required',
-            'description'   => 'nullable|max:500',
+            'description'   => 'nullable|max:1500',
             'sort_order'		=>'numeric',        
         ];
 

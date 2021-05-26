@@ -438,10 +438,18 @@ $(".update-buyer-profile").click(function(e){
  
   let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
   let error = 0;
+  let letters = /^[A-Za-z ]+$/;
+    
 
   if(fname == '')
   {
     $("#err_fname").html(fill_in_first_name_err).show();
+    $("#err_fname").parent().addClass('jt-error');
+    error = 1;
+  }
+  else if(!fname.match(letters))
+  {
+    $("#err_fname").html(input_alphabet_err).show();
     $("#err_fname").parent().addClass('jt-error');
     error = 1;
   }
@@ -450,9 +458,16 @@ $(".update-buyer-profile").click(function(e){
     $("#err_fname").html('').show();
   
   }
+
   if(lname == '')
   {
     $("#err_lname").html(fill_in_last_name_err).show();
+    $("#err_lname").parent().addClass('jt-error');
+    error = 1;
+  }
+  else if(!lname.match(letters))
+  {
+    $("#err_lname").html(input_alphabet_err).show();
     $("#err_lname").parent().addClass('jt-error');
     error = 1;
   }

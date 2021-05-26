@@ -100,6 +100,7 @@ var no_cancel_message="{{ __('messages.no_cancel_message')}}";
 var alert_delete_record_message="{{ __('messages.alert_delete_record_message')}}";
 var invalid_files_err="{{ __('errors.invalid_files_err')}}";
 var max_files_restriction_seller="{{ __('users.max_images_restriction_seller')}}";
+var input_alphabet_err = "{{ __('errors.input_alphabet_err')}}";
 </script>
         <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 

@@ -44,6 +44,7 @@
      'DELIVERED'=>'DELIVERED',
      'deliver_directly_to_your_door_msg'=>"We'll deliver directly to your door, or select the click &amp; collect option",
      'bag_our_most_popular_products'=>'Bag our most popular products:',
+     'subscribe_package_to_manage_prod_attri'=>'You must subscribe package to manage products and attributes'
      
  ]
 ?>

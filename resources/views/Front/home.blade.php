@@ -32,7 +32,7 @@
                             <div class="slider_content">
                                 <h3>{{$data['title']}}</h3>
                                 <?php echo $data['description']; ?>
-                                <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >{{ __('lang.buy_now_btn')}}</button>  
+                                <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >{{ __('lang.browse_now_btn')}}</button>  
                             </div>
                         </div>
                         </div>
@@ -111,8 +111,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="sale_details">
-                    <h2>{{$banner->subtitle}}</h2>
-                    <h3>{{$banner->title}}</h3>
+                    <h2>@if(!empty($banner->subtitle)){{$banner->subtitle}}@endif</h2>
+                    <h3>@if(!empty($banner->title)){{$banner->title}}@endif</h3>
                     <p><?php echo $data['description']; ?></p>
                     <button type="button" class="btn sale_btn" onclick="document.location='{{$banner['redirect_link']}}'">{{ __('lang.shop_now_btn')}}</button>
                 </div>

@@ -147,14 +147,14 @@ class SliderController extends Controller
             'sequence_no'   => 'required',
         ];
         $messages = [
-            'title.required'         => trans('users.fill_in_slider_title_err'),
-            'slider_image.required'  => trans('users.upload_slider_image_err'),
-            'slider_image.max'       => trans('users.image_exceed_max_limit_err'),
+            'title.required'         => trans('errors.fill_in_slider_title_err'),
+            'slider_image.required'  => trans('errors.upload_slider_image_err'),
+            'slider_image.max'       => trans('errors.image_exceed_max_limit_err'),
             //'slider_image.mimes'     =>  'Only jpeg,png,jpg,gif,and svg file type allowed',
-            'link.required'          => trans('users.fill_in_slider_link_err'),
-            'link.regex'             => trans('users.fill_in_valid_slider_link_err'),
-            'description.required'   => trans('users.fill_in_slider_description_err'),
-            'sequence_no.required'             => trans('users.fill_in_slider_seq_no_err'),
+            'link.required'          => trans('errors.fill_in_slider_link_err'),
+            'link.regex'             => trans('errors.fill_in_valid_slider_link_err'),
+            'description.required'   => trans('errors.fill_in_slider_description_err'),
+            'sequence_no.required'   => trans('errors.fill_in_slider_seq_no_err'),
         ];
         
         $validator = validator::make($request->all(), $rules, $messages);
@@ -234,7 +234,7 @@ class SliderController extends Controller
             'description.required'   => trans('errors.fill_in_slider_description_err'),
             'slider_image.max'       => trans('errors.image_exceed_max_limit_err'),
             //'slider_image.mimes'     =>  'Only jpeg,png,jpg,gif,and svg file type allowed',
-            'sequence_no.required'             => trans('users.fill_in_slider_seq_no_err'),
+            'sequence_no.required'   => trans('errors.fill_in_slider_seq_no_err'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);

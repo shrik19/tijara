@@ -121,8 +121,7 @@
           <div class="table-responsive">
             <table class="table table-striped" id="variant_table">
             <thead>
-              <tr>
-                
+              <tr>                
                 <th>{{ __('lang.sku_label')}}</th>
                 <th>{{ __('lang.weight_label')}}</th>         
                 <th>{{ __('lang.price_label')}}</th>
@@ -210,7 +209,7 @@
                         
                               <div class="modal-footer">
                                 <button type="button" variant_id="0"   class="btn btn-black debg_color login_btn save_attribute_group">{{ __('lang.save_btn')}}</button>
-                                <button type="button" variant_id="0"   class="close_modal">{{ __('lang.cancel_btn')}}</button>
+                                <button type="button" variant_id="0"   class="close_modal">{{ __('lang.reset_btn')}}</button>
                               </div>
                             </div>
                           </div>

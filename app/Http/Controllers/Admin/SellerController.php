@@ -76,7 +76,7 @@ class SellerController extends Controller
         $filename = "SellerFromTijara.csv";
        
         $handle = fopen('SellerDetails/'.$filename, 'w+');
-        fputcsv($handle, array('First name','Last name','Store Name','City','Where Find Us','Status'));
+        fputcsv($handle, array(trans('users.first_name_label'),trans('users.last_name_label'),trans('users.store_name_label'),trans('users.city_label'),trans('users.where_find_us_thead'),trans('lang.status_thead')));
    
         foreach($recordDetails as $row) {
             fputcsv($handle, array($row->fname,$row->lname,$row->store_name,$row->city,$row->where_find_us,$row->status));
@@ -567,15 +567,24 @@ class SellerController extends Controller
     @param : $id
     */
      public function deleteImage($id) {
+
         if(empty($id))  {
             Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminSeller'));
         }
         $id = base64_decode($id);
-        $result = sellerimages::find($id);
-        
+        $result = Sellerimages::find($id);
+    
         if (!empty($result)) 
         {
+
+            $image_path = public_path("/uploads/SellerImages/".$result['image']);
+ 
+           // $resized_image_path = public_path("/uploads/SellerImages/resized/".$result->image);
+
+            if (File::exists($image_path)) {
+                unlink($image_path);
+            }
             if ($result->delete()) 
             {
                 Session::flash('success', trans('messages.image_deleted_success'));

@@ -133,7 +133,7 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::get('/','BuyerController@index')->name('adminBuyers');
 		Route::any('/getRecords','BuyerController@getRecords')->name('adminBuyersGetRecords');
 		Route::get('/create','BuyerController@create')->name('adminBuyersCreate');
-		Route::post('/Storeupdate','BuyerController@StoreUpdate')->name('adminBuyersStoreUpdate');
+		Route::post('/storeupdate','BuyerController@StoreUpdate')->name('adminBuyersStoreUpdate');
 		Route::get('/edit/{id}','BuyerController@edit')->name('adminBuyersEdit');
 		Route::post('/updateBuyer/{id}','BuyerController@update')->name('adminBuyersUpdate');
 		Route::get('/changeStatus/{id}/{status}','BuyerController@changeStatus')->name('adminBuyersChangeStatus');

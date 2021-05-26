@@ -105,8 +105,20 @@
     $(document).on("click",".savesubcategorydata",function(event) {
        //savecategoryform
         if($('#savesubcategorymodal').find('.subcategory_name').val()!='') {
-            $('.savecategoryform').submit();          
-        } else alert('{{ __("errors.subcategory_name_req")}}');
+          let subcatname   = $("#subcategory_name").val();
+          let sequence_no   = $("#sequence_no").val();
+          if(subcatname == '')
+          {
+            alert('{{ __("errors.subcategory_name_req")}}');
+            return false;
+          }
+          else if(sequence_no == ''){
+            alert('{{ __("errors.sequence_number_err")}}');
+            return false;
+          }else{
+             $('.savecategoryform').submit();
+          }         
+        } 
     }); 
       
      var dataTable = $('#categoryTable').DataTable({

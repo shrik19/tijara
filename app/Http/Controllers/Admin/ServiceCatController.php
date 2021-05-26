@@ -139,7 +139,7 @@ class ServiceCatController extends Controller
         $messages = [
             'name.required' => trans('errors.category_name_req'),
             'name.regex'    => trans('errors.input_alphabet_err'), 
-            'sequence_no'   => trans('errors.sequence_number_err'),
+            'sequence_no.required'   => trans('errors.sequence_number_err'),
             'name.unique'   => trans('errors.enter_diff_cat_err'),
         ];
         
@@ -203,7 +203,7 @@ class ServiceCatController extends Controller
         $messages = [
             'name.required' => trans('errors.category_name_req'),
             'name.regex'    => trans('errors.input_alphabet_err'), 
-            'sequence_no'   => trans('errors.sequence_number_err'),
+            'sequence_no.required'   => trans('errors.sequence_number_err'),
             'name.unique'   => trans('errors.enter_diff_cat_err'),
         ];
         $validator = validator::make($request->all(), $rules, $messages);

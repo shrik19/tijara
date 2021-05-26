@@ -45,6 +45,7 @@
      'deliver_directly_to_your_door_msg'=>"Vi levererar direkt till din dörr eller väljer klick & amp; samla alternativ",
      'bag_our_most_popular_products'=>'Bag our most popular products:',
      'subscribe_package_to_manage_prod_attri'=>'Du måste prenumerera på paketet för att hantera produkter och attribut',
+     'products_with_active_subscription'=>'Endast produkter kan visas på webbplatsen med aktiv prenumeration',
  
  ]
 ?>

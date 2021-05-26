@@ -61,6 +61,7 @@
      'product_variant_title'=>'Variant Product Details',
      'product_required_error'=>'Please provide Product title',
      'product_saved_success'=>'Products details Inserted successfully!',
+     'products_title'=>'Products',
      /*header front*/
      'my_account_title'=>'My Account',
      'manage_products_menu'=>'Manage products',

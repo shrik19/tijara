@@ -59,6 +59,7 @@
      'product_variant_title'=>'Variant Produktinformation',
      'product_required_error'=>'Vänligen ange produkttitel',
      'product_saved_success'=>'Produktinformation Infogad framgångsrikt!',
+     'products_title'=>'Produkter',
      'something_went_wrong'=>'Något gick fel',
      'record_delete'=>'Spelet har tagits bort',
      'status_updated_successfullly'=>'Status uppdaterades',
@@ -110,8 +111,6 @@
      'export_btn'=>'Exportera',
      'delete_title'=>'Radera',
      
-     // ''=>'',
-     // ''=>'',
      'datatables' =>
     [
         'search'          => 'Sök:',

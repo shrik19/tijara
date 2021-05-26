@@ -94,17 +94,17 @@ class ProductController extends Controller
             if(count($isSubscribed)<=0) 
             {
                
-                $data['subscribedError'] = 'Only products can show on site with active subscription';
+                $data['subscribedError'] = trans('messages.products_with_active_subscription');
                 //return redirect(route('frontSellerPackages'));
             }
         }
         
 
-        $data['pageTitle']              = 'Products';
+        $data['pageTitle']              = trans('lang.products_title');
 
-        $data['current_module_name']    = 'Products';
+        $data['current_module_name']    = trans('lang.products_title');
 
-        $data['module_name']            = 'Products';
+        $data['module_name']            = trans('lang.products_title');
 
         $data['module_url']             = route('manageFrontProducts');
 
@@ -380,7 +380,7 @@ class ProductController extends Controller
                         
             if(count($isSubscribed)<=0) {
                 
-                $data['subscribedError']   =    'You must subscribe package to manage products';
+                $data['subscribedError']   =    trans('messages.subscribe_package_to_manage_prod_attri');
             }
         }
                     
@@ -916,7 +916,7 @@ class ProductController extends Controller
 
         if(empty($id)) {
 
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
 
             return redirect(route('frontCustomer'));
 
@@ -936,7 +936,7 @@ class ProductController extends Controller
 
          } else  {
 
-            Session::flash('error', trans('lang.something_went_wrong'));
+            Session::flash('error', trans('errors.something_went_wrong'));
 
             return redirect()->back();
 
@@ -958,7 +958,7 @@ class ProductController extends Controller
 
         if(empty($id)) {
 
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
 
             return redirect(route('frontProduct'));
 
@@ -982,7 +982,7 @@ class ProductController extends Controller
 
         } else {
 
-            Session::flash('error', trans('lang.something_went_wrong'));
+            Session::flash('error', trans('errors.something_went_wrong'));
 
             return redirect()->back();
 
@@ -1004,7 +1004,7 @@ class ProductController extends Controller
 
         if(empty($id))  {
 
-            Session::flash('error', 'Something went wrong. Reload your page!');
+            Session::flash('error', trans('errors.refresh_your_page_err'));
 
             return redirect(route('frontProduct'));
 
@@ -1034,7 +1034,7 @@ class ProductController extends Controller
 
             {
 
-                Session::flash('error', trans('lang.something_went_wrong'));
+                Session::flash('error', trans('errors.something_went_wrong'));
 
                 return redirect()->back();
 
@@ -1046,7 +1046,7 @@ class ProductController extends Controller
 
         {
 
-            Session::flash('error', 'Oops! Something went wrong!');
+            Session::flash('error', trans('errors.something_went_wrong'));
 
             return redirect()->back();
 

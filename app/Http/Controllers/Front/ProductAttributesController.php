@@ -29,9 +29,9 @@ class ProductAttributesController extends Controller
      */
     public function index() {
         $data = [];
-        $data['pageTitle']              = trans('lang.product_attribute_title')
-        $data['current_module_name']    = trans('lang.product_attribute_title')
-        $data['module_name']            = trans('lang.product_attribute_title')
+        $data['pageTitle']              = trans('lang.product_attribute_title');
+        $data['current_module_name']    = trans('lang.product_attribute_title');
+        $data['module_name']            = trans('lang.product_attribute_title');
         $data['module_url']             = route('frontAttributeGetRecords');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';

@@ -99,6 +99,7 @@ class SubcategoryController extends Controller
 			   
 			    $Subcategory = (!empty($recordDetailsVal['subcategory_name'])) ? $recordDetailsVal['subcategory_name'] : '-';
                 $sequence_no = (!empty($recordDetailsVal['sequence_no'])) ? $recordDetailsVal['sequence_no'] : '-';
+                $subcategory_slug = (!empty($recordDetailsVal['subcategory_slug'])) ? $recordDetailsVal['subcategory_slug'] : '-';
                 
                 if ($recordDetailsVal['status'] == 'active') {
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSubcategoryChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
@@ -106,7 +107,7 @@ class SubcategoryController extends Controller
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSubcategoryChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
                 
-                $action = '<a href="javascript:void(0)"  category_name="'.$Category_Name.'" Subcategory_Name="'.$Subcategory.'"  sequence_no="'.$sequence_no.'"  id="'.$recordDetailsVal['id'].'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success savesubcategory"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="javascript:void(0)"  category_name="'.$Category_Name.'" Subcategory_Name="'.$Subcategory.'"  sequence_no="'.$sequence_no.'" subcategory_slug="'.$subcategory_slug.'"  id="'.$recordDetailsVal['id'].'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success savesubcategory"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
                 $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSubcategoryDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
                 
@@ -137,23 +138,29 @@ class SubcategoryController extends Controller
         $rules = [];
         if(!empty($id)){
             $rules = [ 
-                'subcategory_name' => 'required|regex:/^[\pL\s\-]+$/u|unique:subcategories,subcategory_name,'.$id,
+                'subcategory_name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:subcategories,subcategory_name,'.$id,
                 'category_name'    => 'required',
                 'sequence_no'      => 'required',
+                'subcategory_slug' => 'required|regex:/^[0-9a-z-]+$/u|unique:subcategories,subcategory_slug,'.$id,
             ];
         }else{
             $rules = [
-                'subcategory_name' => 'required|regex:/^[\pL\s\-]+$/u|unique:subcategories,subcategory_name',
+                'subcategory_name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:subcategories,subcategory_name',
                 'category_name'    => 'required',
                 'sequence_no'      => 'required',
+                'subcategory_slug' => 'required|regex:/^[0-9a-z-]+$/u|unique:subcategories,subcategory_slug',
+                
             ];
         }
         $messages = [
             'category_name.required'         => trans('errors.category_name_req'),
             'subcategory_name.required'      => trans('errors.subcategory_name_req'),
             'subcategory_name.regex'         => trans('errors.input_alphabet_err'),
-            'sequence_no.required'                    => trans('errors.sequence_number_err'),
+            'sequence_no.required'           => trans('errors.sequence_number_err'),
             'subcategory_name.unique'        => trans('errors.unique_subcategory_name'),
+            'subcategory_slug.required'  => trans('errors.subcategory_slug_req'),
+            'subcategory_slug.regex'     => trans('errors.input_aphanum_dash_err'),
+            'subcategory_slug.unique'    => trans('messages.category_slug_already_taken'),
         ];
      
         $validator = validator::make($request->all(), $rules, $messages);
@@ -165,23 +172,25 @@ class SubcategoryController extends Controller
             
             if(!empty($id)){
                 
-                 $arrUpdate = ['subcategory_name' => trim($request->input('subcategory_name')),
-                               'sequence_no'      => trim($request->input('sequence_no')),
-                            ];
+                $arrUpdate = [
+                    'subcategory_name' => trim($request->input('subcategory_name')),
+                    'sequence_no'      => trim($request->input('sequence_no')),
+                    'subcategory_slug' => trim($request->input('subcategory_slug')),
+                ];
                 Subcategories::where('id', '=', $id)->update($arrUpdate);
                 Session::flash('success', trans('messages.subcat_update_success'));
             }else{
                
-                 $arrInsertSubcategory = [
-                    'subcategory_name' => trim($request->input('subcategory_name')),
-                    'category_id' => trim($request->input('hid_subCategory')),
-                    'sequence_no' => trim($request->input('sequence_no')),
+                $arrInsertSubcategory = [
+                    'subcategory_name'   => trim($request->input('subcategory_name')),
+                    'category_id'        => trim($request->input('hid_subCategory')),
+                    'sequence_no'        => trim($request->input('sequence_no')),
+                    'subcategory_slug'   => trim($request->input('subcategory_slug')),
                 ];
             
                 Subcategories::create($arrInsertSubcategory); 
                 Session::flash('success', trans('messages.subcat_save_success'));
-            }
-                          
+            }               
         }
         
         return redirect()->back();
@@ -237,5 +246,26 @@ class SubcategoryController extends Controller
             Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
+    }
+
+       /* function to check for unique slug name
+    * @param:storename
+    */
+    function checkUniqueSlugName(Request $request){
+        $slug_name = $request->slug_name;
+        $id = base64_decode($request->id);
+        if(!empty($id)){
+            $data =  Subcategories::where('subcategory_slug', $slug_name)->where('id','!=',$id)->get();
+        } else{
+            $data =  Subcategories::where('subcategory_slug', $slug_name)->get();
+        }
+
+       $messages = '';
+        if(!empty($data[0]['subcategory_slug'])){
+            $messages =trans('messages.category_slug_already_taken');
+            
+             return $messages;
+        }
+       
     }
 }

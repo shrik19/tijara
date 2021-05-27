@@ -23,7 +23,7 @@
 
                <div class="form-group">
                   <label>{{ __('users.subcategory_name_label')}} <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="subcategory_name" id="subcategory_name" tabindex="1" value="{{ (old('subcategory_name')) ?  old('subcategory_name') : $categoryDetails['subcategory_name']}}" onblur="allLetter(this)">
+                  <input type="text" class="form-control" name="subcategory_name" id="subcategory_name" tabindex="1" value="{{ (old('subcategory_name')) ?  old('subcategory_name') : $categoryDetails['subcategory_name']}}" onblur="convertToSlug(this)" >
                   <div class="invalid-feedback">
                      {{ __('errors.subcategory_name_req')}}
                   </div>
@@ -39,6 +39,15 @@
                 <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
               </div>
 
+              <div class="form-group">
+                <label>{{ __('users.subcategory_slug_label')}} <span class="text-danger">*</span></label>
+                <input type="text" class="form-control slug-name subcategory_slug" id="subcategory_slug" name="subcategory_slug" value="{{ (old('subcategory_slug')) ?  old('subcategory_slug') : $categoryDetails['subcategory_slug']}}" tabindex="3" onblur="checkUniqueSlugName()"/>
+                <div class="invalid-feedback">
+                     {{ __('errors.subcategory_slug_req')}}
+                  </div>
+                <div class="text-danger slug-name-err">{{ ($errors->has('subcategory_slug')) ? $errors->first('subcategory_slug') : '' }}</div>
+              </div>
+
             </div>
          </div>
       </div>
@@ -51,17 +60,30 @@
    </form>
 </div>
 <script type="text/javascript">
-    /*function to validate letters for sub category*/
-  function allLetter(inputtxt){ 
-    var letters = /^[A-Za-z ]+$/;
-    if(inputtxt.value.match(letters)){
-      $('.err-letter').text('');
-      return true;
+    
+  /*function to check unique Slug name
+  * @param : Slug name
+  */
+  function checkUniqueSlugName(inputText){
+    if(inputText == undefined){
+      var slug_name = $("#subcategory_slug").val()
+    }else{
+      var slug_name= inputText;
     }
-    else {
-      $('.err-letter').text("{{ __('errors.input_alphabet_err')}}");
-      return false;
-    }
+    
+     $.ajax({
+      url: "{{url('/')}}"+'/admin/ServiceSubcategory/check-slugname/?slug_name='+slug_name,
+      type: 'get',
+      data: { },
+      success: function(output){
+        if(output !=''){
+          $('.slug-name-err').text(output);
+        }else{
+           $('.slug-name-err').text('');
+        }
+      }
+    });
   }
+  
 </script>
 @endsection('middlecontent')

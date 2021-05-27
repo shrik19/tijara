@@ -7,6 +7,7 @@ app/storage/
 
 # Laravel 5 & Lumen specific
 public/storage
+public/uploads/
 public/hot
 
 storage/*.key
@@ -17,6 +18,7 @@ tijara_code.zip
 unzipper.php
 vendor.zip
 webpack.mix.js
+
 
 
 

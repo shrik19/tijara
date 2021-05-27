@@ -11,7 +11,11 @@
       </footer>
     </div>
   </div>
-
+<script type="text/javascript">
+  /*translation*/
+  var input_letter_no_err="{{ __('errors.input_letter_no_err')}}";
+  var category_name_req="{{ __('errors.category_name_req')}}";
+</script>
   <script src="{{url('/')}}/assets/admin/js/prism.js"></script>
   
   <!-- Template JS File -->

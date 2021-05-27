@@ -86,6 +86,8 @@
      'update_subcategory_title'=>'Update Subcategory',
      'all_subcategory_list'=>'All Subcategory List',
      'subcategory_title'=>'Subcategory',
+     'category_slug_label'=>'Category Slug',
+     'subcategory_slug_label'=>'Subcategory Slug',
 
      /*service category and subcat */
      'service_category_title'=>'Service Category',
@@ -149,8 +151,7 @@
      'welcome_to_admin_heading'=>'Welcome to Admin',
      /*auth*/
 
-      //package
-
+    //package
     'your_active_package'=>'Your active package',
     'description_label'=>'Description',
     'amount_label'=>'Amount',
@@ -166,9 +167,6 @@
     'seller_packages_title'=>'Seller Packages',
     'upload_file_input'=>'Upload a file',
     
-
-
-
     //seller personal page
     'seller_header_img_label'=>'Header Image',
     'seller_logo_label'=>'Logo',

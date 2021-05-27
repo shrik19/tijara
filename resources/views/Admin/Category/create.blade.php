@@ -9,19 +9,25 @@
       <div class="card">
         <div class="card-body">
           <!-- form start -->
-          <form class="form-horizontal" method="post" name="frmCreateActivity" id="frmCreateActivity" action="{{route('adminCategoryStore')}}" >
+          <form class="form-horizontal" method="post" name="frmCreateActivity" id="product_cat_form" action="{{route('adminCategoryStore')}}" >
             {{ csrf_field() }}
 
             <div class="form-group">
               <label>{{ __('users.name_label')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('users.category_name_thead')}}" value="{{ old('name') }}" onblur="allLetter(this)" />
+              <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('users.category_name_thead')}}" value="{{ old('name') }}" onblur="convertToSlug(this)" />
               <div class="text-danger err-letter">{{ ($errors->has('name')) ? $errors->first('name') : '' }}</div>
             </div>
 
             <div class="form-group">
               <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
-              <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder="{{ __('users.category_name_thead')}}" value="{{ old('sequence_no')}}" tabindex="3"/>
-              <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
+              <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ old('sequence_no')}}" tabindex="3"/>
+              <div class="text-danger err-seqno">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
+            </div>
+
+            <div class="form-group">
+              <label>{{ __('users.category_slug_label')}} <span class="text-danger">*</span></label>
+              <input type="text" class="form-control slug-name" id="category_slug" name="category_slug" placeholder="{{ __('users.category_slug_label')}}" value="{{ old('category_slug')}}" tabindex="3" onblur="checkUniqueSlugName()"/>
+              <div class="text-danger slug-name-err">{{ ($errors->has('category_slug')) ? $errors->first('category_slug') : '' }}</div>
             </div>
 
             <div class="form-group">
@@ -31,7 +37,7 @@
             
             <div class="box-footer">
                <span class="pull-right">
-                <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i>{{ __('lang.save_btn')}}</button>&nbsp;&nbsp;
+                <button type="submit" class="btn btn-icon icon-left btn-success product_cat_btn" tabindex="15"><i class="fas fa-check"></i>{{ __('lang.save_btn')}}</button>&nbsp;&nbsp;
                 <a href="{{$module_url}}" class="btn btn-icon icon-left btn-danger" tabindex="16"><i class="fas fa-times"></i>{{ __('lang.cancel_btn')}}</a>
                </span>
             </div>
@@ -49,17 +55,29 @@
     $('.description').richText();
   });
 
-   /*function to validate letters for category*/
-  function allLetter(inputtxt){ 
-    var letters = /^[A-Za-z ]+$/;
-    if(inputtxt.value.match(letters)){
-      $('.err-letter').text('');
-      return true;
+  /*function to check unique Slug name
+  * @param : Slug name
+  */
+  function checkUniqueSlugName(inputText){
+
+    if(inputText == undefined){
+      var slug_name = $("#category_slug").val()
+    }else{
+      var slug_name= inputText;
     }
-    else {
-      $('.err-letter').text("{{ __('errors.input_alphabet_err')}}");
-      return false;
-    }
+    
+     $.ajax({
+      url: "{{url('/')}}"+'/admin/category/check-slugname/?slug_name='+slug_name,
+      type: 'get',
+      data: { },
+      success: function(output){
+        if(output !=''){
+          $('.slug-name-err').text(output);
+        }else{
+           $('.slug-name-err').text('');
+        }
+      }
+    });
   }
 </script>
 @endsection('middlecontent')

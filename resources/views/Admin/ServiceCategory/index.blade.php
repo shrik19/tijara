@@ -60,7 +60,7 @@
 
             <div class="form-group">
               <label>{{ __('users.subcategory_name_label')}} <span class="text-danger">*</span></label>
-              <input type="text" name="subcategory_name"  placeholder="{{ __('users.subcategory_name_label')}}" class="form-control subcategory_name" onblur="allLetter(this)" >
+              <input type="text" name="subcategory_name"  placeholder="{{ __('users.subcategory_name_label')}}" class="form-control subcategory_name" onblur="convertToSlug(this)" >
                <div class="text-danger err-letter">{{ ($errors->has('subcategory_name')) ? $errors->first('subcategory_name') : '' }}</div>
             </div>
 
@@ -70,6 +70,13 @@
               <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ old('sequence_no')}}" tabindex="3" onblur="validate_seqNo(this)" />
               <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
             </div>
+
+            <div class="form-group">
+              <label>{{ __('users.subcategory_slug_label')}} <span class="text-danger">*</span></label>
+              <input type="text" class="form-control slug-name" id="subcategory_slug" name="subcategory_slug" placeholder="{{ __('users.subcategory_slug_label')}}" value="{{ old('subcategory_slug')}}" tabindex="3" onblur="checkUniqueSlugName()"/>
+              <div class="text-danger slug-name-err">{{ ($errors->has('csubategory_slug')) ? $errors->first('subcategory_slug') : '' }}</div>
+            </div>
+
 
             </form>
             </div>
@@ -171,20 +178,33 @@
     dataTable.draw();
   });
 
-  
+/*function to check unique Slug name
+  * @param : Slug name
+  */
+  function checkUniqueSlugName(inputText){
 
-  /*function to validate letters for sub category*/
-  function allLetter(inputtxt){ 
-    var letters = /^[A-Za-z ]+$/;
-    if(inputtxt.value.match(letters)){
-      return true;
+    if(inputText != ''){
+      var slug_name = $("#subcategory_slug").val()
+    }else{
+      var slug_name= inputText;
     }
-    else {
-      alert('{{ __("errors.input_alphabet_err")}}');
-      return false;
-    }
+
+     $.ajax({
+      url: "{{url('/')}}"+'/admin/ServiceSubcategory/check-slugname/?slug_name='+slug_name,
+      type: 'get',
+      data: { },
+      success: function(output){
+
+        if(output !=''){
+          $('.slug-name-err').text(output);
+         // return false;
+        }else{
+           $('.slug-name-err').text('');
+        }
+      }
+    });
   }
-
+  
 $('.nav-link').click( function() {
   document.getElementById("categoryTable").removeAttribute("style");
 });

@@ -21,7 +21,12 @@
      'select_is_verified'=>'Välj är verifierad',
      'paypal_email_address_err'=>'Fyll i Paypal e-postadress', 
      'category_name_req'=>'Vänligen fyll i kategori namn',
+     'category_slug_req'=>'Vänligen fyll i kategori Slug',
+     'subcategory_slug_req'=>'Vänligen fyll i Underkategori Slug',
      'input_alphabet_err'=>'Ange endast alfabetets tecken',
+     'input_letter_no_err'=>'Ange alfabetets tecken och endast nummer',
+     'input_aphanum_dash_err'=>'Ange endast små bokstäver, siffror och bindestreck
+',
      'sequence_number_err'=>'Fyll i sekvensnummer',    
      'enter_diff_cat_err'=>'Vänligen ange en annan kategori, den har redan tagits.', 
      'unique_email_err'=>'Ange ett annat e-postmeddelande, det har redan tagits.',

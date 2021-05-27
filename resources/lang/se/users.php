@@ -86,7 +86,8 @@
      'update_subcategory_title'=>'Uppdatering Underkategori',
      'all_subcategory_list'=>'Alla Underkategori Lista',
      'subcategory_title'=>'Underkategori',
-
+     'category_slug_label'=>'Kategori Slug',
+     'subcategory_slug_label'=>'Underkategori Slug',
       /*service category and subcat */
      'service_category_title'=>'Service Kategori',
      'add_Service_category_title'=>'Lägg till Service Kategori',

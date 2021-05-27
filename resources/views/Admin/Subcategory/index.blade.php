@@ -61,7 +61,7 @@
 
             <div class="form-group">
               <label>{{ __('users.subcategory_name_label')}} <span class="text-danger">*</span></label>
-              <input type="text" name="subcategory_name" class="form-control subcategory_name"  required onblur="allLetter(this)">
+              <input type="text" name="subcategory_name" class="form-control subcategory_name"   onblur="convertToSlug(this)">
                <div class="text-danger err-letter">{{ ($errors->has('subcategory_name')) ? $errors->first('subcategory_name') : '' }}</div>
             </div> 
 
@@ -70,6 +70,12 @@
               <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" tabindex="3"/>
               <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
             </div>
+
+            <div class="form-group">
+              <label>{{ __('users.subcategory_slug_label')}} <span class="text-danger">*</span></label>
+              <input type="text" class="form-control slug-name subcategory_slug" id="subcategory_slug" name="subcategory_slug" placeholder="{{ __('users.subcategory_slug_label')}}" tabindex="3" onblur="checkUniqueSlugName()" />
+              <div class="text-danger slug-name-err">{{ ($errors->has('subcategory_slug')) ? $errors->first('subcategory_slug') : '' }}</div>
+            </div>          
             
           </form>
          </div>
@@ -150,6 +156,7 @@ $(document).on("click",".savesubcategory",function(event) {
   $('#savesubcategorymodal').find('.category_name').val($(this).attr('category_name'));
   $('#savesubcategorymodal').find('.subcategory_name').val($(this).attr('subcategory_name'));
   $('#savesubcategorymodal').find('.sequence_no').val($(this).attr('sequence_no'));
+  $('#savesubcategorymodal').find('.subcategory_slug').val($(this).attr('subcategory_slug'));
 
   $('#savesubcategorymodal').modal('show');
   $('.modal-backdrop').attr('style','position: relative;');
@@ -162,6 +169,7 @@ $(document).on("click",".savesubcategorydata",function(event) {
   if($('#savesubcategorymodal').find('.subcategory_name').val()!='') {
     let subcatname   = $("#subcategory_name").val();
     let sequence_no   = $("#sequence_no").val();
+    let subcategory_slug   = $("#subcategory_slug").val();
 
     if(subcatname == '')
     {
@@ -171,27 +179,42 @@ $(document).on("click",".savesubcategorydata",function(event) {
     else if(sequence_no == ''){
       alert('{{ __("errors.sequence_number_err")}}');
       return false;
-    }else{
+    } else if(subcategory_slug == ''){
+      alert('{{ __("errors.subcategory_slug_req")}}');
+      return false;
+    }
+    else{
        $('.savecategoryform').submit();
     }
   }
 
 }); 
 
+  /*function to check unique Slug name
+  * @param : Slug name
+  */
+  function checkUniqueSlugName(inputText){
 
-/*function to validate letters for sub category*/
-  function allLetter(inputtxt){ 
-    var letters = /^[A-Za-z ]+$/;
-    if(inputtxt.value.match(letters)){
-      $('.err-letter').text('');
-      return true;
+    if(inputText == undefined){
+      var slug_name = $("#subcategory_slug").val()
+    }else{
+      var slug_name= inputText;
     }
-    else {
-      $('.err-letter').text('{{ __("errors.input_alphabet_err")}}');
-      return false;
-    }
+    
+     $.ajax({
+      url: "{{url('/')}}"+'/admin/subcategory/check-slugname/?slug_name='+slug_name,
+      type: 'get',
+      data: { },
+      success: function(output){
+        if(output !=''){
+          $('.slug-name-err').text(output);
+        }else{
+           $('.slug-name-err').text('');
+        }
+      }
+    });
   }
-
+  
 $('.nav-link').click( function() {
   document.getElementById("subcategoryTable").removeAttribute("style");
 });

@@ -133,14 +133,20 @@ class CategoryController extends Controller
     public function store(Request $request) {		
           
         $rules = [
-            'name'          => 'required|regex:/^[\pL\s\-]+$/u|unique:categories,category_name',
+            'name'    => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:categories,category_name',
+            'name'    => 'required|unique:categories,category_name',
             'sequence_no'   => 'required',
+            'category_slug' => 'required|regex:/^[0-9a-z-]+$/u|unique:categories,category_slug',
         ];
+
         $messages = [
-            'name.required'         => trans('errors.category_name_req'),
-            'name.regex'            => trans('errors.input_alphabet_err'),
-            'sequence_no.required'           => trans('errors.sequence_number_err'),
-            'name.unique'           => trans('errors.enter_diff_cat_err'),
+            'name.required'           => trans('errors.category_name_req'),
+            'name.regex'              => trans('errors.input_letter_no_err'),
+            'name.unique'             => trans('errors.enter_diff_cat_err'),
+            'sequence_no.required'    => trans('errors.sequence_number_err'),
+            'category_slug.required'  => trans('errors.category_slug_req'),
+            'category_slug.regex'     => trans('errors.input_aphanum_dash_err'),
+            'category_slug.unique'    => trans('messages.category_slug_already_taken'),
         ];
         
         $validator = validator::make($request->all(), $rules, $messages);
@@ -154,6 +160,7 @@ class CategoryController extends Controller
                                 'category_name' => trim($request->input('name')),
                                 'description' =>trim($request->input('description')),
                                 'sequence_no' => trim($request->input('sequence_no')),
+                                'category_slug' => trim($request->input('category_slug')),
                                ];
 
         Categories::create($arrInsertCategories);                   
@@ -176,6 +183,7 @@ class CategoryController extends Controller
         $data['id'] = $id;
         $id = base64_decode($id);
         $details = Categories::where('id', $id)->first()->toArray();
+
 		$data['pageTitle']              = trans('users.edit_product_category_title');
         $data['current_module_name']    = trans('users.edit_title');
         $data['module_name']            = trans('users.product_category');
@@ -196,8 +204,9 @@ class CategoryController extends Controller
         
         $id = base64_decode($id);
         $rules = [
-            'name' => 'required|regex:/^[\pL\s\-]+$/u|unique:categories,category_name,'.$id,
+            'name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:categories,category_name,'.$id,
             'sequence_no'   => 'required',
+            'category_slug' => 'required|regex:/^[0-9a-z-]+$/u|unique:categories,category_slug,'.$id,
         ];
        
         $messages = [
@@ -205,6 +214,9 @@ class CategoryController extends Controller
             'name.regex'            => trans('errors.input_alphabet_err'),
             'sequence_no.required'           => trans('errors.sequence_number_err'),
             'name.unique'           => trans('errors.enter_diff_cat_err'),
+            'category_slug.required'  => trans('errors.category_slug_req'),
+            'category_slug.regex'     => trans('errors.input_aphanum_dash_err'),
+            'category_slug.unique'    => trans('messages.category_slug_already_taken'),
         ];
         $validator = validator::make($request->all(), $rules, $messages);
         if($validator->fails()) 
@@ -216,6 +228,7 @@ class CategoryController extends Controller
         $arrUpdateCategory = ['category_name' => trim($request->input('name')),
                               'description'   => trim($request->input('description')),
                               'sequence_no'   => trim($request->input('sequence_no')),
+                              'category_slug' => trim($request->input('category_slug')),
                             ];
                             
         Categories::where('id', '=', $id)->update($arrUpdateCategory);  
@@ -275,5 +288,25 @@ class CategoryController extends Controller
             Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
+    }
+
+    /* function to check for unique slug name
+    * @param:storename
+    */
+    function checkUniqueSlugName(Request $request){
+        $slug_name = $request->slug_name;
+        $id = base64_decode($request->id);
+     
+        if(!empty($id)){
+            $data =  Categories::where('category_slug', $slug_name)->where('id','!=',$id)->get();
+        } else{
+            $data =  Categories::where('category_slug', $slug_name)->get();
+        }
+       $messages = '';
+        if(!empty($data[0]['category_slug'])){
+            $messages =trans('messages.category_slug_already_taken');
+             return $messages;
+        }
+       
     }
 }

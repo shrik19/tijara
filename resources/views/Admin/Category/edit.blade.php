@@ -12,7 +12,7 @@
             <div class="card-body">
                <div class="form-group">
                   <label>{{ __('users.category_name_thead')}} <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" name="name" id="name" tabindex="1" value="{{ (old('name')) ?  old('name') : $categoryDetails['category_name']}}" onblur="allLetter(this)">
+                  <input type="text" class="form-control" name="name" id="name" tabindex="1" value="{{ (old('name')) ?  old('name') : $categoryDetails['category_name']}}" onblur="convertToSlug(this)">
                   <div class="invalid-feedback">
                     {{ __('errors.category_name_req')}}
                   </div>
@@ -21,12 +21,23 @@
 
                <div class="form-group">
                 <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
-                <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ (old('sequence_no')) ?  old('sequence_no') : $categoryDetails['sequence_no']}}" tabindex="3"/>
+                <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ (old('sequence_no')) ?  old('sequence_no') : $categoryDetails['sequence_no']}}" tabindex="2"/>
                 <div class="invalid-feedback">
                     {{ __('errors.sequence_number_err')}}
                   </div>
                 <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
               </div>
+
+              <div class="form-group">
+                <label>{{ __('users.category_slug_label')}} <span class="text-danger">*</span></label>
+                <input type="text" class="form-control slug-name" id="category_slug" name="category_slug" placeholder="{{ __('users.category_slug_label')}}" value="{{ (old('category_slug')) ?  old('category_slug') : $categoryDetails['category_slug']}}" tabindex="3" onblur="checkUniqueSlugName()"/>
+                <div class="invalid-feedback">
+                    {{ __('errors.category_slug_req')}}
+                  </div>
+                <div class="text-danger slug-name-err">{{ ($errors->has('category_slug')) ? $errors->first('category_slug') : '' }}</div>
+              </div>
+
+              
               
                <div class="form-group">
                  <label>{{ __('users.description_label')}} </label>
@@ -51,17 +62,32 @@
     $('.description').richText();
   });
 
-  /*function to validate letters for category name*/
-  function allLetter(inputtxt){ 
-    var letters = /^[A-Za-z ]+$/;
-    if(inputtxt.value.match(letters)){
-      $('.err-letter').text('');
-      return true;
+  /*function to check unique Slug name
+  * @param : Slug name
+  */
+  function checkUniqueSlugName(inputText){
+
+    if(inputText == undefined){
+      var slug_name = $("#category_slug").val()
+    }else{
+      var slug_name= inputText;
     }
-    else {
-      $('.err-letter').text("{{ __('errors.input_alphabet_err')}}");
-      return false;
-    }
+    
+     $.ajax({
+      url: "{{url('/')}}"+'/admin/category/check-slugname/?slug_name='+slug_name,
+      type: 'get',
+      data: { 
+        id : "<?php echo $id; ?>",
+      },
+      success: function(output){
+        if(output !=''){
+          $('.slug-name-err').text(output);
+        }else{
+           $('.slug-name-err').text('');
+        }
+          //alert(output)
+        }
+    });
   }
 </script>
 @endsection('middlecontent')

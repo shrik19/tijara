@@ -137,8 +137,9 @@ class ServiceSubcatController extends Controller
 
         $rules = [
             'category_name'    => 'required',
-            'subcategory_name' => 'required|regex:/^[\pL\s\-]+$/u|unique:serviceSubcategories,subcategory_name',
+            'subcategory_name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:serviceSubcategories,subcategory_name',
             'sequence_no'      => 'required',
+           'subcategory_slug' => 'required|regex:/^[0-9a-z-]+$/u|unique:subcategories,subcategory_slug',
         ];
         $messages = [
             'category_name.required'         => trans('errors.category_name_req'),
@@ -168,6 +169,7 @@ class ServiceSubcatController extends Controller
                     'subcategory_name' => trim($request->input('subcategory_name')),
                     'category_id' => trim($request->input('hid_subCategory')),
                     'sequence_no' => trim($request->input('sequence_no')),
+                    'subcategory_slug' => trim($request->input('subcategory_slug')),
                 ];
             
                 serviceSubcategories::create($arrInsertSubcategory); 
@@ -222,14 +224,18 @@ class ServiceSubcatController extends Controller
         $id = base64_decode($id);
  
         $rules = [
-            'subcategory_name' => 'required|regex:/^[\pL\s\-]+$/u|unique:serviceSubcategories,subcategory_name,'.$id,
+            'subcategory_name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:serviceSubcategories,subcategory_name,'.$id,
             'sequence_no'      => 'required',
+            'subcategory_slug' => 'required|regex:/^[0-9a-z-]+$/u|unique:subcategories,subcategory_slug',
         ];
         $messages = [
             'subcategory_name.required' => trans('errors.subcategory_name_req'),
             'subcategory_name.regex'    => trans('errors.input_alphabet_err'),
             'sequence_no.required'               => trans('errors.sequence_number_err'),
             'subcategory_name.unique'   => trans('errors.unique_subcategory_name'),
+            'subcategory_slug.required'  => trans('errors.subcategory_slug_req'),
+            'subcategory_slug.regex'     => trans('errors.input_aphanum_dash_err'),
+            'subcategory_slug.unique'    => trans('messages.category_slug_already_taken'),
         ];
         $validator = validator::make($request->all(), $rules, $messages);
         if($validator->fails()) 
@@ -241,6 +247,7 @@ class ServiceSubcatController extends Controller
         $arrUpdateCategory = ['subcategory_name' => trim($request->input('subcategory_name')),
                               'category_id' => trim($request->input('hid_subCategory')),
                               'sequence_no' => trim($request->input('sequence_no')),
+                              'subcategory_slug'   => trim($request->input('subcategory_slug')),
                             ];
                             
         serviceSubcategories::where('id', '=', $id)->update($arrUpdateCategory);  
@@ -298,5 +305,25 @@ class ServiceSubcatController extends Controller
             Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }
+    }
+
+     /* function to check for unique slug name
+    * @param:storename
+    */
+    function checkUniqueSlugName(Request $request){
+        $slug_name = $request->slug_name;
+        $id = base64_decode($request->id);
+     
+        if(!empty($id)){
+            $data =  serviceSubcategories::where('subcategory_slug', $slug_name)->where('id','!=',$id)->get();
+        } else{
+            $data =  serviceSubcategories::where('subcategory_slug', $slug_name)->get();
+        }
+       $messages = '';
+        if(!empty($data[0]['subcategory_slug'])){
+            $messages =trans('messages.category_slug_already_taken');
+             return $messages;
+        }
+       
     }
 }

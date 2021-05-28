@@ -54,20 +54,20 @@
               @csrf
             <div class="form-group">
               <label>{{ __('users.category_name_thead')}}</label>
-			  <input type="hidden" class="form-control category_id"  name="hid_subCategory" value="" readonly>
+			  <input type="hidden" class="form-control category_id"  name="hid_subCategory" id="hid_subCategory" value="" readonly>
               <input type="text" name="category_name" class="form-control category_name" value="" readonly>
             </div>
 
             <div class="form-group">
               <label>{{ __('users.subcategory_name_label')}} <span class="text-danger">*</span></label>
-              <input type="text" name="subcategory_name"  placeholder="{{ __('users.subcategory_name_label')}}" class="form-control subcategory_name" onblur="convertToSlug(this)" >
+              <input type="text" name="subcategory_name"  placeholder="{{ __('users.subcategory_name_label')}}" class="form-control subcategory_name" id="subcategory_name" onblur="convertToSlug(this)" >
                <div class="text-danger err-letter">{{ ($errors->has('subcategory_name')) ? $errors->first('subcategory_name') : '' }}</div>
             </div>
 
 
             <div class="form-group">
               <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
-              <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ old('sequence_no')}}" tabindex="3" onblur="validate_seqNo(this)" />
+              <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" id="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ old('sequence_no')}}" tabindex="3" onblur="validate_seqNo(this)" />
               <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
             </div>
 
@@ -110,10 +110,27 @@
     }); 
     
     $(document).on("click",".savesubcategorydata",function(event) {
-       //savecategoryform
-        if($('#savesubcategorymodal').find('.subcategory_name').val()!='') {
           let subcatname   = $("#subcategory_name").val();
           let sequence_no   = $("#sequence_no").val();
+          let error =null;
+          
+          //ajax call to check subcategory name is unique or not
+          $.ajax({
+          url: "{{url('/')}}"+'/admin/ServiceSubcategory/check-unique-subcat/?subcat_name='+subcatname,
+          type: 'get',
+          async: false,
+          data: { },
+          success: function(output){
+            if(output !=''){
+               error = 1;
+              $('.err-letter').text(output);
+            }else{
+               $('.err-letter').text('');
+            }
+          }
+          });
+       //savecategoryform
+        if($('#savesubcategorymodal').find('.subcategory_name').val()!='') {
           if(subcatname == '')
           {
             alert('{{ __("errors.subcategory_name_req")}}');
@@ -122,7 +139,12 @@
           else if(sequence_no == ''){
             alert('{{ __("errors.sequence_number_err")}}');
             return false;
-          }else{
+          }else if(error == 1){
+           // alert('{{ __("errors.unique_subcategory_name")}}');
+            event.preventDefault();
+            return false;
+          }
+          else{
              $('.savecategoryform').submit();
           }         
         } 

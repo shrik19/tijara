@@ -323,7 +323,29 @@ class ServiceSubcatController extends Controller
         if(!empty($data[0]['subcategory_slug'])){
             $messages =trans('messages.category_slug_already_taken');
              return $messages;
+        }  
+    }
+
+
+    /* function to check for unique subcategory name
+    * @param:storename
+    */
+    function checkUniqueSubcat(Request $request){
+        $subcat_name = $request->subcat_name;
+        $id = $request->id;
+        if(!empty($id)){
+            $data =  serviceSubcategories::where('subcategory_name', $subcat_name)->where('id','!=',$id)->get();
+    
+        } else{
+            $data =  serviceSubcategories::where('subcategory_name', $subcat_name)->get();
         }
-       
+
+       $messages = '';
+       if(count($data) != 0){
+            if(!empty($data[0]['subcategory_name'])){
+                $messages =trans('errors.unique_subcategory_name');
+                return $messages;
+            }
+       }       
     }
 }

@@ -110,6 +110,25 @@
     
     $(document).on("click",".savesubcategorydata",function(event) {
 
+      //ajax call to check subcategory name is unique or not
+      let subcatname   = $("#subcategory_name").val();
+      let error =null;
+      
+      $.ajax({
+      url: "{{url('/')}}"+'/admin/subcategory/check-unique-subcat/?subcat_name='+subcatname,
+      type: 'get',
+      async: false,
+      data: { },
+      success: function(output){
+        if(output !=''){
+           error = 1;
+          $('.err-letter').text(output);
+        }else{
+           $('.err-letter').text('');
+        }
+      }
+      });
+      
        //savecategoryform
         if($('#savesubcategorymodal').find('.subcategory_name').val()!='') {
           let subcatname   = $("#subcategory_name").val();
@@ -124,10 +143,19 @@
             alert('{{ __("errors.sequence_number_err")}}');
             event.preventDefault();
             return false;
-          }else{
+          }
+          else if(error == 1){
+           // alert('{{ __("errors.unique_subcategory_name")}}');
+            event.preventDefault();
+            return false;
+          } 
+          else{
              $('.savecategoryform').submit();
           }
         }
+
+
+
         
     }); 
    

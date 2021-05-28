@@ -55,19 +55,19 @@
               @csrf
             <div class="form-group">
               <label>{{ __('users.category_name_thead')}}</label>
-              <input type="hidden" class="form-control id" value="" name="id" readonly>
+              <input type="hidden" class="form-control id" value="" name="id" id="id" readonly>
               <input type="text" class="form-control category_name" name="category_name" value="" readonly>
             </div>
 
             <div class="form-group">
               <label>{{ __('users.subcategory_name_label')}} <span class="text-danger">*</span></label>
-              <input type="text" name="subcategory_name" class="form-control subcategory_name"   onblur="convertToSlug(this)">
+              <input type="text" name="subcategory_name" class="form-control subcategory_name"   onblur="convertToSlug(this)" id="subcategory_name">
                <div class="text-danger err-letter">{{ ($errors->has('subcategory_name')) ? $errors->first('subcategory_name') : '' }}</div>
             </div> 
 
             <div class="form-group">
               <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
-              <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" tabindex="3"/>
+              <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" id="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" tabindex="3"/>
               <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
             </div>
 
@@ -168,14 +168,39 @@ $(document).on("click",".savesubcategorydata",function(event) {
   //savecategoryform
   if($('#savesubcategorymodal').find('.subcategory_name').val()!='') {
     let subcatname   = $("#subcategory_name").val();
+    let id   = $("#id").val();
     let sequence_no   = $("#sequence_no").val();
     let subcategory_slug   = $("#subcategory_slug").val();
+    let error =null;
+
+    //ajax call to check subcategory name is unique or not
+    $.ajax({
+      url: "{{url('/')}}"+'/admin/subcategory/check-unique-subcat/?subcat_name='+subcatname,
+      type: 'get',
+      async: false,
+      data: {
+         id : id,
+       },
+      success: function(output){
+        if(output !=''){
+          error = 1;
+        $('.err-letter').text(output);
+        }else{
+          $('.err-letter').text('');
+        }
+      }
+    });
 
     if(subcatname == '')
     {
       alert('{{ __("errors.subcategory_name_req")}}');
       return false;
     }
+    else if(error == 1){
+     // alert('{{ __("errors.unique_subcategory_name")}}');
+      event.preventDefault();
+      return false;
+    } 
     else if(sequence_no == ''){
       alert('{{ __("errors.sequence_number_err")}}');
       return false;

@@ -45,6 +45,7 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	  /*  SubCategory */
 	Route::group(['prefix'=>'subcategory'], function() {
 		Route::get('/check-slugname/','SubcategoryController@checkUniqueSlugName')->name('adminSubcategoryUniqueSlug');
+		Route::get('/check-unique-subcat/','SubcategoryController@checkUniqueSubcat')->name('adminSubcategoryUniqueSubcat');
 	    Route::get('/{id}','SubcategoryController@index')->name('adminSubcategory');
 	    Route::any('/getRecords/{id}','SubcategoryController@getRecords')->name('adminSubcategoryGetRecords'); 
 	    Route::get('/edit/{id}','CategoryController@edit')->name('adminCategoryEdit');
@@ -71,11 +72,11 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	
 	  /*Service  SubCategory */
 	Route::group(['prefix'=>'ServiceSubcategory'], function() {
+		
+		Route::get('/check-unique-subcat/','ServiceSubcatController@checkUniqueSubcat')->name('adminServiceSubcatUniqueSubcat');
 		Route::get('/check-slugname/','ServiceSubcatController@checkUniqueSlugName')->name('adminServiceSubcatUniqueSlug');
 	    Route::get('/{id}','ServiceSubcatController@index')->name('adminServiceSubcat');
 	    Route::any('/getRecords/{id}','ServiceSubcatController@getRecords')->name('adminServiceSubcatGetRecords');
-	    
-
  		Route::get('/edit/{id}','ServiceSubcatController@edit')->name('adminServiceSubCatEdit');
 	    Route::post('/update/{id}','ServiceSubcatController@update')->name('adminServiceSubcatUpdate');
 	    Route::get('/delete/{id}','ServiceSubcatController@delete')->name('adminServiceSubcatDelete');

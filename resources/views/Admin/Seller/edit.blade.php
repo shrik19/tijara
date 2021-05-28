@@ -137,9 +137,11 @@
                 {
                   $path = public_path().'/uploads/SellerImages/'.$image['image'];
                   if (file_exists($path)) {
-                  echo '<div style="margin-left:20px;" class="col-md-4 existing-images"><img src="'.url('/').'/uploads/SellerImages/'.$image['image'].'" style="width:140px;height:140px;"><div style="margin-top:10px;margin-bottom:20px;"><a href="javascript:void(0)" onclick="return ConfirmDeleteFunction1(\''.route('SellerImageDelete', base64_encode($image['id'])).'\');"  title="'. __('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a></div></div>';
+                  echo '<div style="margin-left:20px;" class="col-md-4 existing-images"><img src="'.url('/').'/uploads/SellerImages/'.$image['image'].'" style="width:140px;height:140px;"><div style="margin-top:10px;margin-bottom:20px;"><a href="javascript:void(0)" onclick="return ConfirmDeleteFunction1(\''.url('/').'/admin/seller/delete-image/', base64_encode($image['id']).'\');"  title="'. __('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a></div></div>';
                   }
                 }
+              
+
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }

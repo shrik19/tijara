@@ -248,7 +248,7 @@ class SubcategoryController extends Controller
         }
     }
 
-       /* function to check for unique slug name
+    /* function to check for unique slug name
     * @param:storename
     */
     function checkUniqueSlugName(Request $request){
@@ -267,5 +267,28 @@ class SubcategoryController extends Controller
              return $messages;
         }
        
+    }
+
+    /* function to check for unique subcategory name
+    * @param:storename
+    */
+    function checkUniqueSubcat(Request $request){
+        $subcat_name = $request->subcat_name;
+        $id = $request->id;
+
+        if(!empty($id)){
+            $data =  Subcategories::where('subcategory_name', $subcat_name)->where('id','!=',$id)->get();
+    
+        } else{
+            $data =  Subcategories::where('subcategory_name', $subcat_name)->get();
+        }
+
+       $messages = '';
+       if(count($data) != 0){
+            if(!empty($data[0]['subcategory_name'])){
+                $messages =trans('errors.unique_subcategory_name');
+                return $messages;
+            }
+       }       
     }
 }

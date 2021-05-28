@@ -15,6 +15,7 @@ use Session;
 use flash;
 use Validator;
 use DB;
+use File;
 
 class SellerController extends Controller
 {
@@ -566,8 +567,7 @@ class SellerController extends Controller
     /* funtion to delete image on edit form 
     @param : $id
     */
-     public function deleteImage($id) {
-
+    public function deleteImage($id) {
         if(empty($id))  {
             Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminSeller'));
@@ -579,11 +579,15 @@ class SellerController extends Controller
         {
 
             $image_path = public_path("/uploads/SellerImages/".$result['image']);
- 
-           // $resized_image_path = public_path("/uploads/SellerImages/resized/".$result->image);
+           
+            $resized_image_path = public_path("/uploads/SellerImages/resized/".$result->image);
 
             if (File::exists($image_path)) {
                 unlink($image_path);
+            }
+            
+            if (File::exists($image_path)) {
+                unlink($resized_image_path);
             }
             if ($result->delete()) 
             {

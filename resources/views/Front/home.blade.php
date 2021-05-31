@@ -50,22 +50,7 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-3">
-            <div class="category_list_box"  id="accordion">
-                <h2 class="de_col">{{ __('lang.categories_head')}}</h2>
-                <ul class="category_list">
-				@php $i=0; @endphp
-				@foreach($Categories as $Category=>$subcategories) 
-				@php $i++; @endphp 
-                       <li class="expandCollapseSubcategory <?php if($i==1) echo'activemaincategory';?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category}}</a></li> 
-					   
-					   <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse <?php if($i==1) echo'in activesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
-						@foreach($subcategories as $subcategory) 
-						<li style="list-style: none;" ><a href="#">{{$subcategory}}</a></li> 
-						@endforeach
-					   </ul>
-                 @endforeach       
-                </ul>
-            </div>
+            @include('Front.categories_sidebar')
         </div>
         <div class="col-md-9">             
                 <div class="product_container">
@@ -74,28 +59,7 @@
                     <hr class="heading_line"/>
                     <ul class="product_details">
 					@foreach($TrendingProducts as $product)
-                        <li>
-                    
-                            <div class="product_img">
-							
-								<img src="{{url('/')}}/uploads/ProductImages/resized/{{$product['image']}}">
-							
-                            </div>
-                            <div class="product_info">
-                             <h5>{{$product['category_name']}}</h5>  
-                             <h4>{{$product['title']}}</h4>
-                             @if(!empty($product['sell_price']))
-                                <h6>$ {{$product['sell_price']}}</h6> 
-                             @endif
-                            </div>
-                             <div class="buy_now_hover_details">
-                                <ul>
-                                    <li><a href=""><i class="fa fa-search"></i></a></li>
-                                    <li><a href=""><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-                                    <li><a href=""><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                        </li>
+                        @include('Front.products_widget')
 						@endforeach
                        </ul>
                 </div>
@@ -134,27 +98,8 @@
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
                 <h2>{{ __('lang.best_seller_head')}}</h2>
                 <ul class="product_details best_seller">
-					@foreach($TrendingProducts as $product)
-                        <li>
-                    
-                            <div class="product_img">
-							<img src="{{url('/')}}/uploads/ProductImages/resized/{{$product['image']}}">
-                            </div>
-                            <div class="product_info">
-                             <h5>{{$product['category_name']}}</h5>  
-                             <h4>{{$product['title']}}</h4>
-                            @if(!empty($product['sell_price']))
-                                <h6>$ {{$product['sell_price']}}</h6> 
-                            @endif
-                            </div>
-                             <div class="buy_now_hover_details">
-                                <ul>
-                                    <li><a href=""><i class="fa fa-search"></i></a></li>
-                                    <li><a href=""><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-                                    <li><a href=""><i class="far fa-heart"></i></a></li>
-                                </ul>
-                            </div>
-                        </li>
+					@foreach($PopularProducts as $product)
+                    @include('Front.products_widget')
 					@endforeach
 				 </ul>
             </div>

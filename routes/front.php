@@ -11,7 +11,11 @@
 |
 */
 
-Route::get('/', 'Front\HomeController@index')->name('frontHome');
+Route::get('/', 'Front\FrontController@index')->name('frontHome');
+Route::get('/products/','Front\FrontController@productListing')->name('productListing');
+Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListing');
+Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListing');
+Route::get('/product/{product_slug}','Front\FrontController@productDetails')->name('productDetails');
 Route::any('/front-login','Front\AuthController@login')->name('frontLogin');
 Route::post('/validate-login','Front\AuthController@doLogin')->name('doLogin');
 Route::get('/front-logout','Front\AuthController@logout')->name('frontLogout');

@@ -18,6 +18,7 @@
      'buyer_update_success'=>'Buyer details Updated successfully!',
      'store_name_already_taken'=>'Please enter different Store Name, its already taken.',
      'category_slug_already_taken'=>'Please enter different Slug name, its already used.',
+     'product_slug_already_taken'=>'Please enter different Slug name, its already used.',
      'category_update_success'=>'Category details updated successfully!',
      'category_save_success'=>'Category Inserted successfully!',
      'subcat_save_success'=>'Subcategory Inserted successfully!',
@@ -33,7 +34,7 @@
      'billing_update_success'=>'Personal billing details updated successfully!',
      'reset_pwd_email_sent_success'=>'Reset Password email sent successfully.',
      'pwd_reset_success'=>'Password reset successfully.',
-     'package_subscribe_success'=>'Package Subscribe successfully!'
+     'package_subscribe_success'=>'Package Subscribe successfully!',
      'thank_you_joined_us_msg'=>"Thanks for signing up – we're so thrilled you've joined us!",
      'how_to_shopping_msg'=>"Want to get shopping? Here's how:",
      'SHOP'=>'SHOP',

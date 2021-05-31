@@ -18,6 +18,7 @@
      'buyer_update_success'=>'Köpare information Uppdaterad framgångsrikt!',
      'store_name_already_taken'=>'Ange ett annat butiksnamn, det har redan tagits.',
      'category_slug_already_taken'=>'Ange ett annat Slug-namn, det är redan använt.',
+     
      'category_update_success'=>'Kategori detaljer uppdaterade!',
      'category_save_success'=>'Kategori information Infogad framgångsrikt!!',
      'subcat_save_success'=>'Underkategori information Infogad framgångsrikt!',

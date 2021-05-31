@@ -33,8 +33,14 @@
           <input type="hidden" name="product_id" value="{{$product_id}}">
           <div class="form-group">
           <label>{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
-          <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('lang.product_title_label')}}" value="{{ (old('title')) ?  old('title') : $product->title}}">
+          <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('lang.product_title_label')}}" value="{{ (old('title')) ?  old('title') : $product->title}}" onblur="convertToSlug(this)">
           <span class="invalid-feedback" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+          </div>
+
+          <div class="form-group">
+          <label>{{ __('lang.product_slug_label')}} <span class="de_col">*</span></label>
+          <input type="text" class="form-control login_input slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}}" value="{{ (old('product_slug')) ?  old('product_slug') : $product->product_slug}}" onblur="checkUniqueSlugName()">
+          <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
           </div>
 
           <div class="form-group">
@@ -432,5 +438,30 @@
     });
   var siteUrl="{{url('/')}}";
 </script>
+<script type="text/javascript">
+  /*function to check unique Slug name
+  * @param : Slug name
+  */
+  function checkUniqueSlugName(inputText){
+    if(inputText == undefined){
+      var slug_name = $("#product_slug").val()
+    }else{
+      var slug_name= inputText;
+    }
+    
+     $.ajax({
+      url: "{{url('/')}}"+'/manage-products/check-slugname/?slug_name='+slug_name,
+      type: 'get',
+      data: { },
+      success: function(output){
+        if(output !=''){
+          $('.slug-name-err').text(output);
+        }else{
+           $('.slug-name-err').text('');
+        }
+      }
+    });
+  }
 
+</script>
 @endsection

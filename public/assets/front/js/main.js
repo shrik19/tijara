@@ -1,4 +1,14 @@
 
+/*function convertToSlug by its name*/
+function convertToSlug(inputtxt){ 
+ // allLetterNumber(inputtxt);
+    var slug = inputtxt.value.toLowerCase().replace(/ /g,'-').replace(/[^\w-][^,]+,\s[^,]+/g,'');
+    $('.slug-name').val(slug);
+    //function to check slug name is unique or not
+    checkUniqueSlugName(slug);
+    
+}
+
 $(".add_new_variant_btn").click(function(){
     
     var $tableBody = $('#variant_table').find("tbody"),
@@ -589,8 +599,6 @@ $("body").on("click",".remove-image",function(){
 $(this).parents(".form-group").remove();
 $(".cloned-danger").html('')
 });
-
-
 
 function ConfirmDeleteFunction(url, id = false) {
     var message = alert_delete_record_message;

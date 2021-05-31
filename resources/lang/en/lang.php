@@ -34,6 +34,7 @@
      'your_products_label'=>'Your Products',
      'add_product'=>'Add new product',
      'product_title_label'=>'Title',
+     'product_slug_label'=>'Product Slug',
      'attribute_saved'=>'Attribute group saved successfully',
      'product_label'=>'Product',
      'product_form_label'=>'Save Product Details',

@@ -33,6 +33,7 @@
      'attribute_saved'=>'Attributgruppen har sparats',
      'required_message'=> 'Detta fält krävs',
      'product_title_label'=>'Titel',
+     'product_slug_label'=>'Produkt Slug',
      'product_label'=>'Produkt',
      'product_form_label'=>'Spara produktinformation',
      'product_edit_form_label'=>'Redigera produktinformation',

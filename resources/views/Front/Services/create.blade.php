@@ -37,8 +37,14 @@
 
             <div class="form-group">
               <label>{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}} " value="{{old('title')}}" tabindex="1">
+              <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
               <span class="invalid-feedback" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+            </div>
+
+            <div class="form-group">
+              <label>{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
+              <input type="text" class="form-control login_input slug-name" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{old('service_slug')}}" tabindex="1" onblur="checkUniqueSlugName()">
+              <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('service_slug')) {{ $errors->first('service_slug') }}@endif </span>
             </div>
 
             <div class="form-group">
@@ -98,4 +104,30 @@
   </form>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
+<script type="text/javascript">
+  /*function to check unique Slug name
+  * @param : Slug name
+  */
+  function checkUniqueSlugName(inputText){
+    if(inputText == undefined){
+      var slug_name = $("#service_slug").val()
+    }else{
+      var slug_name= inputText;
+    }
+    
+     $.ajax({
+      url: "{{url('/')}}"+'/manage-services/check-slugname/?slug_name='+slug_name,
+      type: 'get',
+      data: { },
+      success: function(output){
+        if(output !=''){
+          $('.slug-name-err').text(output);
+        }else{
+           $('.slug-name-err').text('');
+        }
+      }
+    });
+  }
+
+</script>
 @endsection

@@ -37,6 +37,7 @@ Route::any('/getRecords','Front\ProductController@getRecords')->name('frontProdu
 Route::get('/saveproduct/{id}','Front\ProductController@productform')->name('frontProductEdit');	    	    
 Route::get('/delete/{id}','Front\ProductController@delete')->name('frontProductDelete');	    
 Route::post('/upload-variant-image','Front\ProductController@uploadVariantImage')->name('uploadVariantImage');
+Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->name('frontProductCheckUniqueSlug');
 });	/*end Product Management  */
 
 /* product Attributes */
@@ -59,7 +60,8 @@ Route::get('/saveservice','Front\ServiceController@serviceform')->name('frontSer
 Route::post('/store','Front\ServiceController@store')->name('frontServiceStore');	    
 Route::any('/getRecords','Front\ServiceController@getRecords')->name('frontServiceGetRecords');	    
 Route::get('/saveservice/{id}','Front\ServiceController@serviceform')->name('frontServiceEdit');	    	    
-Route::get('/delete/{id}','Front\ServiceController@delete')->name('frontServiceDelete');	    
+Route::get('/delete/{id}','Front\ServiceController@delete')->name('frontServiceDelete');	 
+Route::get('/check-slugname','Front\ServiceController@checkUniqueSlugName')->name('frontServiceCheckUniqueSlug');   
 });	/*end Product Management  */
 
 Route::get('/clear-cache', function() {

@@ -22,6 +22,8 @@
      'paypal_email_address_err'=>'Fyll i Paypal e-postadress', 
      'category_name_req'=>'Vänligen fyll i kategori namn',
      'category_slug_req'=>'Vänligen fyll i kategori Slug',
+     'product_slug_req' => 'Vänligen fyll i Produkt Slug',
+     'service_slug_req' => 'Vänligen fyll i Tjänst Slug',
      'subcategory_slug_req'=>'Vänligen fyll i Underkategori Slug',
      'input_alphabet_err'=>'Ange endast alfabetets tecken',
      'input_letter_no_err'=>'Ange alfabetets tecken och endast nummer',

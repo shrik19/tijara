@@ -22,6 +22,8 @@
      'paypal_email_address_err'=>'Please fill in Paypal Email Address', 
      'category_name_req'=>'Please fill in Category Name',
      'category_slug_req'=>'Please fill in Category Slug',
+     'product_slug_req' => 'Please fill in Product Slug',
+     'service_slug_req' => 'Please fill in Service Slug',
      'subcategory_slug_req'=>'Please fill in Subcategory Slug',
      'input_alphabet_err'=>'Please input alphabet characters only',
      'input_letter_no_err'=>'Please input alphabet characters and Number only',

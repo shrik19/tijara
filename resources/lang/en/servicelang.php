@@ -5,6 +5,7 @@
      'your_services_label'=>'Your Services',
      'add_service'=>'Add new service',
      'service_title_label'=>'Title',
+     'service_slug_label' => "Service Slug",
      'service_label'=>'Service',
      'service_form_label'=>'Save Service Details',
      'service_description_label'=>'Description',

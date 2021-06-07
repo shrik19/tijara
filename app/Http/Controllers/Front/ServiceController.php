@@ -14,7 +14,7 @@ use App\Models\City;
 
 use App\Models\UserPackages;
 
-use App\Models\ServiceCategories;
+use App\Models\servicecategories;
 
 use App\Models\ServiceSubcategories;
 
@@ -103,9 +103,9 @@ class ServiceController extends Controller
         $data['currentModule']          = '';
 
 		$CategoriesAndSubcategories		= Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id')
-											->Leftjoin('ServiceCategories', 'ServiceCategories.id', '=', 'category_services.category_id')
+											->Leftjoin('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
 											->Leftjoin('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')
-											->select(['ServiceCategories.category_name','serviceSubcategories.id','serviceSubcategories.category_id','serviceSubcategories.subcategory_name'])
+											->select(['servicecategories.category_name','serviceSubcategories.id','serviceSubcategories.category_id','serviceSubcategories.subcategory_name'])
 											->where('services.is_deleted','!=',1)->where('services.user_id',Auth::guard('user')->id())
 											->groupBy('serviceSubcategories.id')->orderBy('servicecategories.sequence_no')->get();
 		
@@ -368,7 +368,7 @@ class ServiceController extends Controller
 
         $data['module_url']             = route('manageFrontServices');		
 		
-		$categories						=  ServiceCategories::Leftjoin('serviceSubcategories', 'ServiceCategories.id', '=', 'serviceSubcategories.category_id')
+		$categories						=  servicecategories::Leftjoin('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 											->select('*')->get();
 											
 		$categoriesArray				=	array();
@@ -580,11 +580,11 @@ class ServiceController extends Controller
 			 
 			 foreach($request->input('categories') as $subcategory) {
 				 $category	=	ServiceSubcategories::where('id',$subcategory)->first();
-				 $serviceCategories['service_id']	=	$id;
-				 $serviceCategories['category_id']	=	$category->category_id;
-				 $serviceCategories['subcategory_id']	=	$category->id;
+				 $servicecategories['service_id']	=	$id;
+				 $servicecategories['category_id']	=	$category->category_id;
+				 $servicecategories['subcategory_id']	=	$category->id;
 				 
-				 ServiceCategory::create($serviceCategories);
+				 ServiceCategory::create($servicecategories);
 				 
 			 }
 		 }

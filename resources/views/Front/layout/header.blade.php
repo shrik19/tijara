@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/custom.css">
   <!-- end custom css for custom chnages -->
   <script src="{{url('/')}}/assets/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+  <script> var siteUrl="{{url('/')}}";</script>
 </head>
 <body>
   <header>

@@ -73,8 +73,8 @@
             </div> 
             <button type="button" class="btn btn-success add_button" title="Add field"  style="float:right;margin-top: 20px;margin-left: 20px;font-size: 20px;">+</button>
           @endif
-          <button class="btn btn-black debg_color login_btn">Update</button>
-          <a href="{{route('frontProductAttributes')}}" class="btn btn-black gray_color login_btn" tabindex="16"> Cancel</a>
+          <button class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
+          <a href="{{route('frontProductAttributes')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
 
         </form>
         </div>

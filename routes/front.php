@@ -12,10 +12,14 @@
 */
 
 Route::get('/', 'Front\FrontController@index')->name('frontHome');
-Route::get('/products/','Front\FrontController@productListing')->name('productListing');
-Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListing');
-Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListing');
+Route::get('/get_product_listing/','Front\FrontController@getProductsyParameter')->name('getProductsyParameter');
+Route::get('/products/','Front\FrontController@productListing')->name('AllproductListing');
+Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
+Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');
 Route::get('/product/{product_slug}','Front\FrontController@productDetails')->name('productDetails');
+Route::get('/product/{category_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategory');
+Route::get('/product/{category_slug}/{subcategory_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategorySubcategory');
+Route::any('/get_product_attribute_details','Front\FrontController@getProductAttributeDetails')->name('getProductAttributeDetails');
 Route::any('/front-login','Front\AuthController@login')->name('frontLogin');
 Route::post('/validate-login','Front\AuthController@doLogin')->name('doLogin');
 Route::get('/front-logout','Front\AuthController@logout')->name('frontLogout');

@@ -9,16 +9,15 @@
         <div class="col-md-3">
             @include('Front.categories_sidebar')
         </div>
-        <div class="col-md-9">             
+        <div class="col-md-9">  
+            <span class="current_category" style="display:none;">{{$category_slug}}</span>
+            <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>           
                 <div class="product_container">
                     <h4>{{ __('lang.popular_items_in_market_head')}}</h4>
                     <h2>{{ __('lang.trending_product_head')}}</h2>
                     <hr class="heading_line"/>
-                    <ul class="product_details">
-					@foreach($Products as $product)
-                    @include('Front.products_widget')
-						@endforeach
-                       </ul>
+                   <span class="product_listings"></span>
+                    
                 </div>
         </div>
     </div>

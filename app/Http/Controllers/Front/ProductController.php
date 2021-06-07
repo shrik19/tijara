@@ -98,7 +98,14 @@ class ProductController extends Controller
                 //return redirect(route('frontSellerPackages'));
             }
         }
-        
+        else {
+            $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
+            if(!empty($checkProductExistOfBuyer)) {
+                return redirect(route('frontProductEdit',$checkProductExistOfBuyer->id));
+            }
+            else
+                return redirect(route('frontProductCreate'));
+        }
 
         $data['pageTitle']              = trans('lang.products_title');
 
@@ -285,7 +292,7 @@ class ProductController extends Controller
                 $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
 
                 
-				$title = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
+				$title = (!empty($recordDetailsVal['title'])) ? substr($recordDetailsVal['title'], 0, 50) : '-';
 
                
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
@@ -585,6 +592,7 @@ class ProductController extends Controller
             'description'   => 'nullable|max:1500',
             'sort_order'		=>'numeric',      
             'product_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:products,product_slug',  
+
         ];
 
         $messages = [
@@ -629,10 +637,18 @@ class ProductController extends Controller
 
 		if($request->input('product_id')==0) {
 			$id = Products::create($arrProducts)->id;
+
+            //unique product code
+            $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            Products::where('id', $id)->update(['product_code'=>substr(str_shuffle($string),0, 4).$id]);
+
+
 		} else {
 			$id		= $request->input('product_id');
 			Products::where('id', $request->input('product_id'))->where('user_id', Auth::guard('user')->id())->update($arrProducts);
 		}
+
+        
 		DB::table('variant_product')->where('product_id', $id)->delete();
 		DB::table('variant_product_attribute')->where('product_id', $id)->delete();
 		
@@ -646,140 +662,7 @@ class ProductController extends Controller
 		            $producVariant['sku']       =   $_POST['sku'][$variant_key];
 		            $producVariant['weight']    =   $_POST['weight'][$variant_key];
 		            $producVariant['quantity']  =   $_POST['quantity'][$variant_key]; 
-		            //echo $variant_key; echo $_FILES['image']['name'][$variant_key];exit;
-		           /* if(isset($request->file('image')[$variant_key])){
-
-                        $fileError = 0;
-                        $image=$request->file('image')[$variant_key];
-                        
-            
-                           
-                     {
-            
-                            $name=$image->getClientOriginalName();
-            
-                            $fileExt  = strtolower($image->getClientOriginalExtension());
-            
-            
-            
-                            if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
-            
-                                $fileName = 'product'.$id.'_'.date('YmdHis').'_'.$order.'.'.$fileExt;
-            
-                                $image->move(public_path().'/uploads/ProductImages/', $fileName);  // your folder path
-            
-            
-            
-                                $path = public_path().'/uploads/ProductImages/'.$fileName;
-            
-                                $mime = getimagesize($path);
-            
-            
-            
-                                if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
-            
-                                if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
-            
-                                if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
-            
-                                if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
-            
-            
-            
-                                $old_x = imageSX($src_img);
-            
-                                $old_y = imageSY($src_img);
-            
-            
-            
-                                $newWidth = 300;
-            
-                                $newHeight = 300;
-            
-            
-            
-                                if($old_x > $old_y) {
-            
-                                    $thumb_w    =   $newWidth;
-            
-                                    $thumb_h    =   $old_y/$old_x*$newWidth;
-            
-                                }
-            
-            
-            
-                                if($old_x < $old_y) {
-            
-                                    $thumb_w    =   $old_x/$old_y*$newHeight;
-            
-                                    $thumb_h    =   $newHeight;
-            
-                                }
-            
-            
-            
-                                if($old_x == $old_y) {
-            
-                                    $thumb_w    =   $newWidth;
-            
-                                    $thumb_h    =   $newHeight;
-            
-                                }
-            
-            
-            
-                                $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
-            
-                                imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
-            
-                                // New save location
-            
-                                $new_thumb_loc = public_path().'/uploads/ProductImages/resized/' . $fileName;
-            
-            
-            
-                                if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
-            
-                                if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-            
-                                if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-            
-                                if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-            
-            
-            
-                                imagedestroy($dst_img);
-            
-                                imagedestroy($src_img);
-            
-            
-                                $order++;
-            
-            
-            
-                            } else {
-            
-                                    $fileError = 1;
-            
-                            }
-            
-                        }
-            
-            
-            
-                        if($fileError == 1) {
-            
-                            //Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
-            
-                            //return redirect()->back();
-            
-                        }
-                        $producVariant['image']=$fileName;
-            
-                    } 
-
-
-                    else*/
+		            
                     if(isset($_POST['previous_image'][$variant_key]) ) {
                         $producVariant['image'] =   $_POST['previous_image'][$variant_key];
                     }
@@ -825,7 +708,7 @@ class ProductController extends Controller
 
 
 
-    public function uploadVariantImage (Request $request){
+    public function uploadVariantImage(Request $request){
         
          if(($request->file('fileUpload'))){
 
@@ -963,64 +846,7 @@ class ProductController extends Controller
 
      * @param  $id = User Id
 
-     
-
-    public function edit($id) {
-
-        if(empty($id)) {
-
-            Session::flash('error', 'Something went wrong. Refresh your page.');
-
-            return redirect()->back();
-
-        }
-
-
-
-        $data = $details = [];
-
-         
-
-        $data['id'] = $id;
-
-        $id = base64_decode($id);
-
-        $details=Products::get_Products($id);
-
-
-
-        $imagedetails=  Products::where('id', $id)->with(['getImages'])->first();
-
-
-
-        if(empty($details)) {
-
-            Session::flash('error', 'Something went wrong. Refresh your page.');
-
-            return redirect()->back();   
-
-         }
-
-
-
-        $data['pageTitle']              = 'Edit Products';
-
-        $data['current_module_name']    = 'Edit';
-
-        $data['module_name']            = 'Products';
-
-        $data['module_url']             = route('frontProduct');
-
-        $data['productDetails']          = $details;
-
-        $data['imagedetails']           =  $imagedetails;
-
-
-
-        return view('Front/Products/edit', $data);
-
-    }
-
+    
 */
 
     

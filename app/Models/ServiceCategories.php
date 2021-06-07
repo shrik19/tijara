@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceCategories extends Model
 {
-    protected $table 	= 'ServiceCategories';
+    protected $table 	= 'servicecategories';
     protected $fillable = ['id','category_name','sequence_no','description','category_slug'];
     
     public function getSubCat(){

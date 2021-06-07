@@ -66,7 +66,7 @@ class FrontController extends Controller
 		return $CategoriesArray;
 	}
 	//get popular products
-	function getPopularProducts(Request $request) {
+	function getPopularProducts($category_slug='',$subcategory_slug='') {
 			
 		$PopularProducts 	= Products::join('order_products', 'products.id', '=', 'order_products.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -87,10 +87,10 @@ class FrontController extends Controller
 			foreach($PopularProducts as $Product) {
 
 				$product_link	=	url('/').'product';
-				if($request->category_slug!='') 
-				$product_link	.=	'/'.$request->category_slug;
-				if($request->subcategory_slug!='') 
-				$product_link	.=	'/'.$request->subcategory_slug;
+				if($category_slug!='') 
+				$product_link	.=	'/'.$category_slug;
+				if($subcategory_slug!='') 
+				$product_link	.=	'/'.$subcategory_slug;
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
@@ -100,7 +100,7 @@ class FrontController extends Controller
 								return $PopularProducts;
 	}
 	// get trending products
-	function getTrendingProducts(Request $request) {
+	function getTrendingProducts($category_slug='',$subcategory_slug='') {
 		$TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')			
@@ -117,10 +117,10 @@ class FrontController extends Controller
 		if(count($TrendingProducts)>0) {
 			foreach($TrendingProducts as $Product) {
 				$product_link	=	url('/').'product';
-				if($request->category_slug!='') 
-				$product_link	.=	'/'.$request->category_slug;
-				if($request->subcategory_slug!='') 
-				$product_link	.=	'/'.$request->subcategory_slug;
+				if($category_slug!='') 
+				$product_link	.=	'/'.$category_slug;
+				if($subcategory_slug!='') 
+				$product_link	.=	'/'.$subcategory_slug;
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
@@ -182,7 +182,7 @@ class FrontController extends Controller
         
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 		
-		$data['PopularProducts']	= $this->getPopularProducts();
+		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
 		//$data['Products']			= $Products;
 		
 		$data['category_slug']		=	'';

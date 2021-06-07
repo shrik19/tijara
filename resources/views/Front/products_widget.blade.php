@@ -9,7 +9,7 @@
         </div>
         <div class="product_info">
             <h5>{{$product['category_name']}}</h5>  
-            <h4>{{$product->product_link}}@php echo substr($product->title, 0, 50) @endphp</h4>
+            <h4>@php echo substr($product->title, 0, 50) @endphp</h4>
             @if(!empty($product->price))
             <h6>$ {{$product->price}}</h6> 
             @endif

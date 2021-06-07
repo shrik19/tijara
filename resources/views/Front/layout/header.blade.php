@@ -29,7 +29,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <a class="navbar-brand" href="#"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" height="70"/></a>
+            <a class="navbar-brand" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" height="70"/></a>
           </div>
 
           <div class="col-md-8">

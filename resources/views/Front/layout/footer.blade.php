@@ -74,6 +74,7 @@
 <script type="text/javascript" src="{{url('/')}}/assets/front/js/select2.full.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{url('/')}}/assets/front/css/select2.css"> 
 <script>
+  var siteUrl = "{{url('/')}}";
   $(document).ready(function() {
     if($('#description').length>0)
     $('#description').richText();
@@ -113,6 +114,7 @@ var input_alphabet_err = "{{ __('errors.input_alphabet_err')}}";
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
+
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
             e=o.createElement(i);r=o.getElementsByTagName(i)[0];

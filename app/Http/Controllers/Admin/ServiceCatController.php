@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Servicecategories;
+use App\Models\servicecategories;
 use App\Models\ServiceSubcategories;
 /*Uses*/
 use Session;
@@ -43,28 +43,28 @@ class ServiceCatController extends Controller
      */
     public function getRecords(Request $request) {
         
-    	$categoryDetails = Servicecategories::select('id','category_name','sequence_no','description','status')->with('getSubCat');
+    	$categoryDetails = servicecategories::select('id','category_name','sequence_no','description','status')->with('getSubCat');
     	$recordsTotal = $categoryDetails->count();  
     
     	if(!empty($request['search']['value']))
         {
-            $categoryDetails = $categoryDetails->where('Servicecategories.category_name', 'LIKE', '%'.$request['search']['value'].'%');
+            $categoryDetails = $categoryDetails->where('servicecategories.category_name', 'LIKE', '%'.$request['search']['value'].'%');
         }
         
         if (!empty($request['status']) && !empty($request['search']['value'])) {
-            $categoryDetails = $categoryDetails->where('Servicecategories.status', '=', $request['status']);
+            $categoryDetails = $categoryDetails->where('servicecategories.status', '=', $request['status']);
         }
         else if(!empty($request['status'])) {
-            $categoryDetails = $categoryDetails->where('Servicecategories.status', '=', $request['status']);
+            $categoryDetails = $categoryDetails->where('servicecategories.status', '=', $request['status']);
         }
         
         if (!empty($request['order'])) {
-            $column = 'Servicecategories.id';
+            $column = 'servicecategories.id';
             $order = 'desc';
             $order_arr = [  
-                            '0' =>  'Servicecategories.id',
-                            '1' =>  'Servicecategories.category_name',
-                            '2' =>  'Servicecategories.sequence_no',
+                            '0' =>  'servicecategories.id',
+                            '1' =>  'servicecategories.category_name',
+                            '2' =>  'servicecategories.sequence_no',
                          ];
             $column_index = $request['order'][0]['column'];
             if($column_index!=0) {
@@ -252,9 +252,9 @@ class ServiceCatController extends Controller
          }
 
         $rules = [
-            'name'          => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:Servicecategories,category_name',
+            'name'          => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:servicecategories,category_name',
             'sequence_no'   => 'required',
-            'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:Servicecategories,category_slug',
+            'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:servicecategories,category_slug',
         ];
 
         $messages = [
@@ -274,13 +274,13 @@ class ServiceCatController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
         
-        $arrInsertServicecategories = [
+        $arrInsertservicecategories = [
             'category_name' => trim($request->input('name')),
             'description'   =>trim($request->input('description')),
             'sequence_no'   => trim($request->input('sequence_no')),
             'category_slug' => trim(strtolower($slug)),
         ];
-        Servicecategories::create($arrInsertServicecategories);                   
+        servicecategories::create($arrInsertservicecategories);                   
         
         Session::flash('success', trans('messages.category_save_success'));
         return redirect(route('adminServiceCat'));
@@ -299,7 +299,7 @@ class ServiceCatController extends Controller
         $data['id'] = $id;
         $id = base64_decode($id);
 		
-        $details = Servicecategories::where('id', $id)->first()->toArray();
+        $details = servicecategories::where('id', $id)->first()->toArray();
         
 		$data['pageTitle']              = trans('users.edit_Service_category_title');
         $data['current_module_name']    = trans('users.edit_title');
@@ -332,9 +332,9 @@ class ServiceCatController extends Controller
         }
 
         $rules = [
-            'name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:Servicecategories,category_name,'.$id,
+            'name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:servicecategories,category_name,'.$id,
             'sequence_no'   => 'required',
-            'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:Servicecategories,category_slug,'.$id,
+            'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:servicecategories,category_slug,'.$id,
         ];
         $messages = [
             'name.required' => trans('errors.category_name_req'),
@@ -359,7 +359,7 @@ class ServiceCatController extends Controller
             'category_slug' => trim(strtolower($slug)),
         ];
                             
-        Servicecategories::where('id', '=', $id)->update($arrUpdateCategory);  
+        servicecategories::where('id', '=', $id)->update($arrUpdateCategory);  
         
         Session::flash('success', trans('messages.category_update_success'));
         return redirect(route('adminServiceCat'));
@@ -376,10 +376,10 @@ class ServiceCatController extends Controller
         }
         $id = base64_decode($id);
         
-        $Servicecategories = Servicecategories::find($id);
-        if (!empty($Servicecategories)) 
+        $servicecategories = servicecategories::find($id);
+        if (!empty($servicecategories)) 
 		{
-            if ($Servicecategories->delete()) 
+            if ($servicecategories->delete()) 
 			{
                 $delSubCategories = serviceSubcategories::where('category_id',$id)->delete();
                 Session::flash('success', trans('messages.record_deleted_success'));
@@ -406,7 +406,7 @@ class ServiceCatController extends Controller
         }
         $id = base64_decode($id);
 
-        $result = Servicecategories::where('id', $id)->update(['status' => $status]);
+        $result = servicecategories::where('id', $id)->update(['status' => $status]);
         if ($result) {
             Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
@@ -430,9 +430,9 @@ class ServiceCatController extends Controller
         }
      
         if(!empty($id)){
-            $data =  Servicecategories::where('category_slug', $slug)->where('id','!=',$id)->get();
+            $data =  servicecategories::where('category_slug', $slug)->where('id','!=',$id)->get();
         } else{
-            $data =  Servicecategories::where('category_slug', $slug)->get();
+            $data =  servicecategories::where('category_slug', $slug)->get();
         }
        $messages = '';
         if(!empty($data[0]['category_slug'])){

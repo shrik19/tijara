@@ -75,12 +75,15 @@
 <link rel="stylesheet" type="text/css" href="{{url('/')}}/assets/front/css/select2.css"> 
 <script>
   $(document).ready(function() {
+    if($('#description').length>0)
     $('#description').richText();
   });
-
-$('#categories').select2({
+if($('#categories').length>0) {
+  $('#categories').select2({
 		placeholder:"select"
 		});
+}
+
 var select_attribute_value="{{ __('lang.select_label')}}  {{ __('lang.attribute_value_label')}}";
 var required_field_error="{{ __('lang.required_field_error')}}";
 var attribute_saved="{{ __('lang.attribute_saved')}}";

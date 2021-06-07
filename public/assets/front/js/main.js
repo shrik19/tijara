@@ -196,6 +196,9 @@ $('#variant_table').on('click', '.plus_attribute', function () {
     $trNew = $trLast.clone();
     
     $trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
+    
+    //$trNew.find('option[value="'+$trLast.find('.select_attribute').val()+'"]').remove();
+    $trNew.find('option:hidden').show();
     $trNew.find('select').val('');
     $trNew.attr('attribute_number',attribute_number);
     $trNew.addClass('clone_tr');
@@ -211,6 +214,7 @@ $(".expandCollapseSubcategory").click(function(){
   id=$(this).attr('href');
   $(id).toggleClass("activesubcategories");
 });
+//$('.activemaincategory').trigger('click');
 $(".frontloginbtn").click(function(e){
 	e.preventDefault();
   let email     = $("#email-address").val();
@@ -295,6 +299,12 @@ $(".saveproduct").click(function(e){
       else
       $(this).next('.invalid-feedback').html('');
   });  
+  $( ".add_attribute_group_td" ).each(function() {
+    if($(this).find('.added_attributes_each_div').length<=0) {
+        $(this).find('.added_attributes').html('<span style="color:red;">'+required_field_error+'</span>');
+        error = 1;
+    }
+});
   if(error == 1)
   {
     return false;
@@ -647,3 +657,47 @@ function ConfirmDeleteFunction1(url, id = false) {
       }
     });
 }
+
+if($('.product_listings').length>0) {
+  var page = 1;
+  get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text());
+  $(document).on('click', '.pagination a', function(event){
+      event.preventDefault(); 
+      var page = $(this).attr('href').split('page=')[1];
+      get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text());
+   });
+
+  
+}
+function get_product_listing(page,category_slug='',subcategory_slug='') {
+
+  $.ajax({
+    url:siteUrl+"/get_product_listing?page="+page+"&category_slug="+category_slug+"&subcategory_slug="+subcategory_slug,
+    success:function(data)
+    {
+     $('.product_listings').html(data);
+    }
+   });
+}
+
+
+//product details jquery start
+$('input.product_checkbox_attribute').on('change', function() {
+  $(this).parent().parent().find('input.product_checkbox_attribute').not(this).prop('checked', false);
+  if ($(this).is(':checked')) { 
+    var attribute_value_id  = $(this).attr('id');
+    $.ajax({ 
+      url: siteUrl+'/get_product_attribute_details',
+       data: {attribute_value_id: attribute_value_id},
+       type: 'get',
+       success: function(output) { 
+        var arrayval = jQuery.parseJSON(output);
+        $('img.product-thumb-image.'+arrayval.image).trigger('click');
+        //$('product-main-price')
+        $.each(arrayval.attributes, function(key,value) {
+          //console.log(value);
+        }); 
+       }
+  });
+  }
+});

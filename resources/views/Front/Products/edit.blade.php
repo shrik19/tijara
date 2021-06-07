@@ -213,7 +213,7 @@
                                                     @if($attribute['attribute_id']==$attr->id)
                                                   <option selected="selected" value="{{ $attr->id }}"  >{{ $attr->name }}</option>
                                                   @else
-                                                  <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
+                                                  <option style="display:none;" value="{{ $attr->id }}"  >{{ $attr->name }}</option>
                                                   @endif
                                                 @endforeach
                                             </select>

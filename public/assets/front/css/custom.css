@@ -2,7 +2,7 @@
 #sliderImages{
 	height: 448px;width: 586px;
 }
-.activemaincategory {
+.activemaincategory, .activesubcategory {
     text-decoration: none;
     color: #fff !important;
     background: #03989e;

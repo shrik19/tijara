@@ -107,7 +107,7 @@ class ServiceController extends Controller
 											->Leftjoin('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')
 											->select(['ServiceCategories.category_name','serviceSubcategories.id','serviceSubcategories.category_id','serviceSubcategories.subcategory_name'])
 											->where('services.is_deleted','!=',1)->where('services.user_id',Auth::guard('user')->id())
-											->groupBy('serviceSubcategories.id')->orderBy('ServiceCategories.sequence_no')->get();
+											->groupBy('serviceSubcategories.id')->orderBy('servicecategories.sequence_no')->get();
 		
 		$categoriesArray				=	array();
 		foreach($CategoriesAndSubcategories as $category) {

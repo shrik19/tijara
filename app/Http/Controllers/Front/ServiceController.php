@@ -16,7 +16,7 @@ use App\Models\UserPackages;
 
 use App\Models\servicecategories;
 
-use App\Models\servicesubcategories;
+use App\Models\serviceSubcategories;
 
 use App\Models\ServiceCategory;
 
@@ -579,7 +579,7 @@ class ServiceController extends Controller
          if(!empty($request->input('categories'))) {
 			 
 			 foreach($request->input('categories') as $subcategory) {
-				 $category	=	servicesubcategories::where('id',$subcategory)->first();
+				 $category	=	serviceSubcategories::where('id',$subcategory)->first();
 				 $servicecategories['service_id']	=	$id;
 				 $servicecategories['category_id']	=	$category->category_id;
 				 $servicecategories['subcategory_id']	=	$category->id;

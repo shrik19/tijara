@@ -16,7 +16,7 @@ use App\Models\UserPackages;
 
 use App\Models\servicecategories;
 
-use App\Models\ServiceSubcategories;
+use App\Models\servicesubcategories;
 
 use App\Models\ServiceCategory;
 
@@ -104,10 +104,10 @@ class ServiceController extends Controller
 
 		$CategoriesAndSubcategories		= Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id')
 											->Leftjoin('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-											->Leftjoin('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')
-											->select(['servicecategories.category_name','serviceSubcategories.id','serviceSubcategories.category_id','serviceSubcategories.subcategory_name'])
+											->Leftjoin('servicesubcategories', 'servicesubcategories.id', '=', 'category_services.subcategory_id')
+											->select(['servicecategories.category_name','servicesubcategories.id','servicesubcategories.category_id','servicesubcategories.subcategory_name'])
 											->where('services.is_deleted','!=',1)->where('services.user_id',Auth::guard('user')->id())
-											->groupBy('serviceSubcategories.id')->orderBy('servicecategories.sequence_no')->get();
+											->groupBy('servicesubcategories.id')->orderBy('servicecategories.sequence_no')->get();
 		
 		$categoriesArray				=	array();
 		foreach($CategoriesAndSubcategories as $category) {
@@ -278,8 +278,8 @@ class ServiceController extends Controller
                 $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['updated_at']));
                 
                 $categories =   Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id')	
-                                            ->Leftjoin('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')	
-											->select(['serviceSubcategories.subcategory_name'])
+                                            ->Leftjoin('servicesubcategories', 'servicesubcategories.id', '=', 'category_services.subcategory_id')	
+											->select(['servicesubcategories.subcategory_name'])
 											->where('category_services.service_id',$recordDetailsVal['id'])->get();
 
                 $categoriesData=    '';
@@ -368,7 +368,7 @@ class ServiceController extends Controller
 
         $data['module_url']             = route('manageFrontServices');		
 		
-		$categories						=  servicecategories::Leftjoin('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+		$categories						=  servicecategories::Leftjoin('servicesubcategories', 'servicecategories.id', '=', 'servicesubcategories.category_id')
 											->select('*')->get();
 											
 		$categoriesArray				=	array();
@@ -579,7 +579,7 @@ class ServiceController extends Controller
          if(!empty($request->input('categories'))) {
 			 
 			 foreach($request->input('categories') as $subcategory) {
-				 $category	=	ServiceSubcategories::where('id',$subcategory)->first();
+				 $category	=	servicesubcategories::where('id',$subcategory)->first();
 				 $servicecategories['service_id']	=	$id;
 				 $servicecategories['category_id']	=	$category->category_id;
 				 $servicecategories['subcategory_id']	=	$category->id;

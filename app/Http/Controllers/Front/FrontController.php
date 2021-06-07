@@ -66,7 +66,7 @@ class FrontController extends Controller
 		return $CategoriesArray;
 	}
 	//get popular products
-	function getPopularProducts() {
+	function getPopularProducts(Request $request) {
 			
 		$PopularProducts 	= Products::join('order_products', 'products.id', '=', 'order_products.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -100,7 +100,7 @@ class FrontController extends Controller
 								return $PopularProducts;
 	}
 	// get trending products
-	function getTrendingProducts() {
+	function getTrendingProducts(Request $request) {
 		$TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')			

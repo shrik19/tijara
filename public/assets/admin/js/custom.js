@@ -18,7 +18,7 @@ function isNumber(evt) {
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){ 
 	allLetterNumber(inputtxt);
-    var slug = inputtxt.value.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
+    var slug = inputtxt.value.toLowerCase().replace(/ /g,'-').replace(/[^\w-][^,]+,\s[^,]+/g,'');
     $('.slug-name').val(slug);
     //function to check slug name is unique or not
     checkUniqueSlugName(slug);
@@ -27,7 +27,7 @@ function convertToSlug(inputtxt){
 
 /*function to validate letters for category*/
   function allLetterNumber(inputtxt){ 
-    var letters = /^[0-9a-zA-Z ]+$/;
+    var letters = /^[0-9a-zA-Z[^,]+,\s[^,] ]+$/;
     if(inputtxt.value.match(letters)){
       $('.err-letter').text('');
       return true;

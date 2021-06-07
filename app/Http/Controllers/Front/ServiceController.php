@@ -104,10 +104,10 @@ class ServiceController extends Controller
 
 		$CategoriesAndSubcategories		= Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id')
 											->Leftjoin('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-											->Leftjoin('servicesubcategories', 'servicesubcategories.id', '=', 'category_services.subcategory_id')
-											->select(['servicecategories.category_name','servicesubcategories.id','servicesubcategories.category_id','servicesubcategories.subcategory_name'])
+											->Leftjoin('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')
+											->select(['servicecategories.category_name','serviceSubcategories.id','serviceSubcategories.category_id','serviceSubcategories.subcategory_name'])
 											->where('services.is_deleted','!=',1)->where('services.user_id',Auth::guard('user')->id())
-											->groupBy('servicesubcategories.id')->orderBy('servicecategories.sequence_no')->get();
+											->groupBy('serviceSubcategories.id')->orderBy('servicecategories.sequence_no')->get();
 		
 		$categoriesArray				=	array();
 		foreach($CategoriesAndSubcategories as $category) {
@@ -278,8 +278,8 @@ class ServiceController extends Controller
                 $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['updated_at']));
                 
                 $categories =   Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id')	
-                                            ->Leftjoin('servicesubcategories', 'servicesubcategories.id', '=', 'category_services.subcategory_id')	
-											->select(['servicesubcategories.subcategory_name'])
+                                            ->Leftjoin('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')	
+											->select(['serviceSubcategories.subcategory_name'])
 											->where('category_services.service_id',$recordDetailsVal['id'])->get();
 
                 $categoriesData=    '';
@@ -368,7 +368,7 @@ class ServiceController extends Controller
 
         $data['module_url']             = route('manageFrontServices');		
 		
-		$categories						=  servicecategories::Leftjoin('servicesubcategories', 'servicecategories.id', '=', 'servicesubcategories.category_id')
+		$categories						=  servicecategories::Leftjoin('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 											->select('*')->get();
 											
 		$categoriesArray				=	array();

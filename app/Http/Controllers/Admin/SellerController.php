@@ -16,6 +16,7 @@ use flash;
 use Validator;
 use DB;
 use File;
+use Mail;
 
 class SellerController extends Controller
 {
@@ -512,7 +513,25 @@ class SellerController extends Controller
                 Session::flash('error', trans('errors.invalid_files_err'));
                 return redirect()->back();
             }
-        }           
+        }
+
+            $sellerData = UserMain::where('id', '=', $id)->first();
+            if($sellerData['confirm_email_sent'] == 0 && $request->input('is_verified'))
+            {
+                $email = trim($request->input('email'));
+                $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
+                
+                $arrMailData = ['name' => $name];
+
+                Mail::send('emails/seller_registration_confirm', $arrMailData, function($message) use ($email,$name) {
+                    $message->to($email, $name)->subject
+                        ('Tijara - Registration confirmed.');
+                    $message->from('developer@techbeeconsulting.com','Tijara');
+                });
+
+                UserMain::where('id', '=', $id)->update(array('confirm_email_sent' => '1')); 
+            }
+
             Session::flash('success', trans('messages.seller_update_success'));
             return redirect(route('adminSeller'));
         }

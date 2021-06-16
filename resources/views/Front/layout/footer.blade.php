@@ -32,7 +32,7 @@
           <div class="ft_page_links">
           <h3>{{ __('lang.information_label')}}</h3>
           <ul>
-            <li><a href="">{{ __('lang.about_us_label')}} </a></li>
+            <li><a href="{{route('frontCmsPage', array('om-oss'))}}">{{ __('lang.about_us_label')}} </a></li>
             <li><a href="">{{ __('lang.checkout_label')}}</a></li>
             <li><a href="">{{ __('lang.contact_label')}}</a></li>
             <li><a href="">{{ __('lang.service_label')}}</a></li>

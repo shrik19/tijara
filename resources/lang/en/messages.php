@@ -48,6 +48,9 @@
      'bag_our_most_popular_products'=>'Bag our most popular products:',
      'subscribe_package_to_manage_prod_attri'=>'You must subscribe package to manage products and attributes',
      'products_with_active_subscription'=>'Only products can show on site with active subscription',
+
+     'page_save_success'=>'Page details saved successfully!',
+     'page_update_success'=>'Page details updated successfully!',
      
  ]
 ?>

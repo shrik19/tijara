@@ -80,6 +80,6 @@
      'invalid_pwd_reset_link_err'  =>'Invalid password reset link, please try again.',
      'pwd_reset_token_exp_err'=>'Password reset token expired, please try again.',
      
-
+     'fill_in_page_content' => 'Please enter page contents.',
  ]
 ?>

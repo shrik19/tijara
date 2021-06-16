@@ -230,16 +230,22 @@ class AuthController extends Controller
             if(Auth::guard('user')->loginUsingId($user_id)) 
             {
 				
-				$email = trim($request->input('email'));
-				$name  = trim($request->input('fname')).' '.trim($request->input('lname'));
-				
-				$arrMailData = ['name' => $name, 'email' => $email];
-				
-				// Mail::send('emails/user_registration', $arrMailData, function($message) use ($email,$name) {
-				// 	$message->to($email, $name)->subject
-				// 		('Tijara - User Registrations');
-				// 	$message->from('developer@techbeeconsulting.com','Tijara');
-				// });
+				if($request->input('role_id') == 2)
+                {
+                    $email = trim($request->input('email'));
+                    $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
+                    
+                    $admin_email = 'cooldhirajsonar@gmail.com';
+                    $admin_name  = 'Tijara Admin';
+                    
+                    $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($user_id))];
+
+    				Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+    					$message->to($admin_email, $admin_name)->subject
+    						('Tijara - New Seller Registrations');
+    					$message->from('developer@techbeeconsulting.com','Tijara');
+    				});
+                }
 		
                 //Session::flash('success', 'Registration successfull!');
                 return redirect(route('frontRegisterSuccess'));

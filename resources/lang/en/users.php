@@ -174,5 +174,14 @@
     'seller_personal_info_saved'=>'Your Personal info saved successfully',
     'seller_personal_page_menu'=>'Personal Page',
 
+    // Backend CMS Page
+    'cms_page_title'=>'Page',
+    'slug_title'    => 'Page Slug',
+    'all_page_list'=>'All Page List',
+    'add_page_details_title'=>'Add Page Details',
+    'edit_page_details_title'=>'Edit Page Details',
+    'edit_page_title'=>'Edit Page',
+    'page_created_title'=> 'Date Created',
+    'add_page_btn' => 'Add Page',
  ]
 ?>

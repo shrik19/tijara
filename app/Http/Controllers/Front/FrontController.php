@@ -10,6 +10,7 @@ use App\Models\Banner;
 use App\Models\Categories;
 use App\Models\Products;
 use App\Models\Settings;
+use App\Models\Page;
 use App\Models\ VariantProductAttribute;
 
 use DB;
@@ -336,6 +337,17 @@ class FrontController extends Controller
 		
 
 		return json_encode($json_arr);
+	}
+
+	public function cmsPage($page_slug)
+	{
+
+        $details 			= Page::where('slug', $page_slug)->first();
+		$data['details'] 	= $details;
+		$data['page_slug']		=	$page_slug;
+		$data['pageTitle'] 	= $details['title'];
+
+        return view('Front/pages', $data);
 	}
    
 }

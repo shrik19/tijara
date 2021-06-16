@@ -102,6 +102,7 @@
      'banners_menu'=>'Banners',
      'sellers_menu'=>'Sellers',
      'packages_menu'=>'Packages',
+     'pages_menu'=>'Pages',
      'setting_menu'=>'Setting',
      'status_thead'=>'Status',
      'action_thead'=>'Action',

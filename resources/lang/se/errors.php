@@ -78,5 +78,7 @@
      'user_not_exist_err'=>'Användare finns inte',
      'invalid_pwd_reset_link_err'  =>'Ogiltig länk för återställning av lösenord, försök igen.',
      'pwd_reset_token_exp_err'=>'Lösenordsåterställningstoken har upphört, försök igen.',
+
+     'fill_in_page_content' => 'Ange sidans innehåll.',
  ]
 ?>

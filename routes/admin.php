@@ -190,6 +190,18 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::get('/changeStatus/{id}/{status}','PackageController@changeStatus')->name('adminPackageChangeStatus');
 	});
 
+	/*Pages*/
+	Route::group(['prefix'=>'pages'], function() {
+		Route::get('/','PageController@index')->name('adminPage');
+		Route::any('/getRecords','PageController@getRecords')->name('adminPageGetRecords');
+		Route::get('/create','PageController@create')->name('adminPageCreate');
+		Route::post('/store','PageController@store')->name('adminPageStore');
+		Route::get('/edit/{id}','PageController@edit')->name('adminPageEdit');
+		Route::any('/update/{id}','PageController@update')->name('adminPageUpdate');
+		Route::get('/delete/{id}','PageController@delete')->name('adminPageDelete');
+	    Route::get('/changeStatus/{id}/{status}','PageController@changeStatus')->name('adminPageChangeStatus');
+	});
+
 	/*setting*/
 	Route::group(['prefix'=>'setting'], function() {
 		Route::get('/create','SettingController@create')->name('adminSettingCreate');

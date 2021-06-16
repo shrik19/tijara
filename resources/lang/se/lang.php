@@ -103,6 +103,7 @@
      'banners_menu'=>'Banderoller',
      'sellers_menu'=>'Säljare',
      'packages_menu'=>'Paket',
+     'pages_menu'=>'Sidor',
      'setting_menu'=>'Miljö',
      'status_thead'=>'Status',
      'action_thead'=>'Handling',

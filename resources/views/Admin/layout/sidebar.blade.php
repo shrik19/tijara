@@ -47,6 +47,10 @@
         </li>  
 
         <li class="nav-item dropdown">
+          <a href="{{route('adminPage')}}" class="nav-link"><i class="fas fa-copy"></i> <span>{{ __('lang.pages_menu')}} </span></a>
+        </li> 
+
+        <li class="nav-item dropdown">
           <a href="{{route('adminSettingCreate')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.setting_menu')}} </span></a>
         </li>  
 

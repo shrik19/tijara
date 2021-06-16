@@ -194,5 +194,16 @@
     'seller_personal_page_menu'=>'Personlig sida',
      'seller_packages_title'=>'Säljar Paket',
      'upload_file_input'=>'Ladda upp en fil',
+
+    // Backend CMS Page
+    'cms_page_title'=>'Sida',
+    'slug_title'    => 'Sidans slug',
+    'all_page_list'=>'Alla sidlistor',
+    'add_page_details_title'=>'Lägg till sidinformation',
+    'edit_page_details_title'=>'Redigera sidinformation',
+    'edit_page_title'=>'Redigera sida',
+    'page_created_title'=> 'Skapat datum',
+    'add_page_btn' => 'Lägg till sida',
+
  ]
 ?>

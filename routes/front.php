@@ -35,6 +35,9 @@ Route::get('/password/reset/{token?}','Front\AuthController@showResetPassword')-
 Route::post('/reset-password','Front\AuthController@resetPassword')->name('frontResetPassword');
 /*end forgot password*/
 
+/*CMS Pages*/
+Route::get('/page/{page_slug}','Front\FrontController@cmsPage')->name('frontCmsPage');
+
 
 /* Product Management  */	
 Route::group(['prefix'=>'manage-products'], function() {	    

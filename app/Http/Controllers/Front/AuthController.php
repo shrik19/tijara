@@ -235,7 +235,7 @@ class AuthController extends Controller
                     $email = trim($request->input('email'));
                     $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
                     
-                    $admin_email = 'cooldhirajsonar@gmail.com';
+                    $admin_email = 'shrik.techbee@gmail.com';
                     $admin_name  = 'Tijara Admin';
                     
                     $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($user_id))];

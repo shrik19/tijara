@@ -1,5 +1,5 @@
 <?php
-     
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'Front\FrontController@index')->name('frontHome');
-Route::get('/get_product_listing/','Front\FrontController@getProductsyParameter')->name('getProductsyParameter');
+Route::any('/get_product_listing/','Front\FrontController@getProductsyParameter')->name('getProductsyParameter');
 Route::get('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
 Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');
@@ -39,14 +39,14 @@ Route::post('/reset-password','Front\AuthController@resetPassword')->name('front
 Route::get('/page/{page_slug}','Front\FrontController@cmsPage')->name('frontCmsPage');
 
 
-/* Product Management  */	
-Route::group(['prefix'=>'manage-products'], function() {	    
-Route::get('/','Front\ProductController@index')->name('manageFrontProducts');	    
-Route::get('/saveproduct','Front\ProductController@productform')->name('frontProductCreate');	    
-Route::post('/store','Front\ProductController@store')->name('frontProductStore');	    
-Route::any('/getRecords','Front\ProductController@getRecords')->name('frontProductGetRecords');	    
-Route::get('/saveproduct/{id}','Front\ProductController@productform')->name('frontProductEdit');	    	    
-Route::get('/delete/{id}','Front\ProductController@delete')->name('frontProductDelete');	    
+/* Product Management  */
+Route::group(['prefix'=>'manage-products'], function() {
+Route::get('/','Front\ProductController@index')->name('manageFrontProducts');
+Route::get('/saveproduct','Front\ProductController@productform')->name('frontProductCreate');
+Route::post('/store','Front\ProductController@store')->name('frontProductStore');
+Route::any('/getRecords','Front\ProductController@getRecords')->name('frontProductGetRecords');
+Route::get('/saveproduct/{id}','Front\ProductController@productform')->name('frontProductEdit');
+Route::get('/delete/{id}','Front\ProductController@delete')->name('frontProductDelete');
 Route::post('/upload-variant-image','Front\ProductController@uploadVariantImage')->name('uploadVariantImage');
 Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->name('frontProductCheckUniqueSlug');
 });	/*end Product Management  */
@@ -64,15 +64,15 @@ Route::group(['prefix'=>'product-attributes'], function() {
     Route::get('/getattributevaluebyattributeid','Front\ProductAttributesController@getattributevaluebyattributeid')->name('getattributevaluebyattributeid');
 });
 
-/* Product Management  */	
-Route::group(['prefix'=>'manage-services'], function() {	    
-Route::get('/','Front\ServiceController@index')->name('manageFrontServices');	    
-Route::get('/saveservice','Front\ServiceController@serviceform')->name('frontServiceCreate');	    
-Route::post('/store','Front\ServiceController@store')->name('frontServiceStore');	    
-Route::any('/getRecords','Front\ServiceController@getRecords')->name('frontServiceGetRecords');	    
-Route::get('/saveservice/{id}','Front\ServiceController@serviceform')->name('frontServiceEdit');	    	    
-Route::get('/delete/{id}','Front\ServiceController@delete')->name('frontServiceDelete');	 
-Route::get('/check-slugname','Front\ServiceController@checkUniqueSlugName')->name('frontServiceCheckUniqueSlug');   
+/* Product Management  */
+Route::group(['prefix'=>'manage-services'], function() {
+Route::get('/','Front\ServiceController@index')->name('manageFrontServices');
+Route::get('/saveservice','Front\ServiceController@serviceform')->name('frontServiceCreate');
+Route::post('/store','Front\ServiceController@store')->name('frontServiceStore');
+Route::any('/getRecords','Front\ServiceController@getRecords')->name('frontServiceGetRecords');
+Route::get('/saveservice/{id}','Front\ServiceController@serviceform')->name('frontServiceEdit');
+Route::get('/delete/{id}','Front\ServiceController@delete')->name('frontServiceDelete');
+Route::get('/check-slugname','Front\ServiceController@checkUniqueSlugName')->name('frontServiceCheckUniqueSlug');
 });	/*end Product Management  */
 
 Route::get('/clear-cache', function() {
@@ -85,7 +85,7 @@ Route::get('/clear-config', function() {
 });
 
 Route::group(['middleware'=>['front-login']],function()
-{ 
+{
 	Route::get('/seller-profile/{edit?}', 'Front\AuthController@sellerProfile')->name('frontSellerProfile');
    Route::any('/seller-personal-page', 'Front\AuthController@seller_personal_page')->name('frontSellerPersonalPage');
 	Route::post('/seller-profile-update', 'Front\AuthController@sellerProfileUpdate')->name('frontSellerProfileUpdate');

@@ -25,7 +25,7 @@
               <li><a href="#"><img src="{{url('/')}}/assets/front/img/fb_icon.png"/></a></li>
               <li><a href="#"><img src="{{url('/')}}/assets/front/img/tw_icon.png"/></a></li>
               <li><a href="#"><img src="{{url('/')}}/assets/front/img/instgram_icon.png"/></a></li>
-              <li><a href="#"><img src="{{url('/')}}/assets/front/img/pi_icon.png"/></a></li>              
+              <li><a href="#"><img src="{{url('/')}}/assets/front/img/pi_icon.png"/></a></li>
             </ul>
         </div>
         <div class="col-md-offset-1 col-md-2">
@@ -56,12 +56,12 @@
         <p>{{ __('lang.get_e-mail_updates_label')}}</p>
           <div class="sub_box">
             <input type="text" placeholder="{{ __('lang.enter_mail_placeholder')}} "/>
-            <button type="button" class="btn sub_btn">{{ __('lang.subscribe_label')}}</button> 
+            <button type="button" class="btn sub_btn">{{ __('lang.subscribe_label')}}</button>
           </div>
       </div>
     </div>
       </div>
-      
+
     </div>
     <div class="clearfix"></div>
       <div class="ft_copyright">
@@ -72,7 +72,7 @@
 	<link rel="stylesheet" href="{{url('/')}}/assets/front/css/richtext.min.css">
 <script src="{{url('/')}}/assets/front/js/jquery.richtext.js"></script>
 <script type="text/javascript" src="{{url('/')}}/assets/front/js/select2.full.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{{url('/')}}/assets/front/css/select2.css"> 
+<link rel="stylesheet" type="text/css" href="{{url('/')}}/assets/front/css/select2.css">
 <script>
   var siteUrl = "{{url('/')}}";
   $(document).ready(function() {
@@ -106,9 +106,9 @@ var invalid_files_err="{{ __('errors.invalid_files_err')}}";
 var max_files_restriction_seller="{{ __('users.max_images_restriction_seller')}}";
 var input_alphabet_err = "{{ __('errors.input_alphabet_err')}}";
 </script>
-        <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <!-- <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 
-        <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>
+        <!-- <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script> -->
 
         <script src="{{url('/')}}/assets/front/js/main.js"></script>
 

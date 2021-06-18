@@ -21,7 +21,7 @@ use App\Models\UserPackages;
 use App\Models\Categories;
 
 use App\Models\Subcategories;
- 
+
 
 /*Uses*/
 
@@ -49,7 +49,7 @@ class ProductController extends Controller
 
     function __construct() {
 
-    	
+
 
     }
 
@@ -85,17 +85,17 @@ class ProductController extends Controller
 
     }
 
-    
 
-    public function exportdata(Request $request) {           
+
+    public function exportdata(Request $request) {
 
         $ProductsDetails = Products::select('products.*')->where('is_deleted','!=',1);
 
-         
+
 
         if(!empty($request->search)) {
 
-			
+
 
             $field = ['products.title','products.description'];
 
@@ -103,7 +103,7 @@ class ProductController extends Controller
 
             $search=($request->search);
 
-            
+
 
             $ProductsDetails = $ProductsDetails->Where(function ($query) use($search, $field,$namefield) {
 
@@ -117,7 +117,7 @@ class ProductController extends Controller
 
                             $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
 
-                        }  
+                        }
 
                     }
 
@@ -129,15 +129,15 @@ class ProductController extends Controller
 
                         $query->orwhere($field[$i], 'like',  '%' . $search .'%');
 
-                    }  
+                    }
 
-                }				 
+                }
 
-            }); 
+            });
 
         }
 
-       
+
 
         if(!empty($request->status)) {
 
@@ -149,17 +149,17 @@ class ProductController extends Controller
 
         $recordDetails = $ProductsDetails->get(['products.title','products.sell_price','products.list_price','products.description','products.sort_order']);
 
-           
+
 
         $filename = "ProductsFromTijara.csv";
 
-       
+
 
         $handle = fopen('ProductsDetails/'.$filename, 'w+');
 
         fputcsv($handle, array('Seller','Products','Description','Categories','Sell Price','List Price','Sort Order','Status'));
 
-   
+
 
         foreach($recordDetails as $row) {
 
@@ -167,7 +167,7 @@ class ProductController extends Controller
 
         }
 
-    
+
 
         fclose($handle);
 
@@ -194,11 +194,11 @@ class ProductController extends Controller
         $ProductsDetails = Products::Leftjoin('users', 'users.id', '=', 'products.user_id')->select(['products.*','users.fname','users.lname'])
 						->where('products.is_deleted','!=',1)->where('users.is_deleted','!=',1);
 
-         
+
 
 		if(!empty($request['search']['value'])) {
 
-			
+
 
           $field = ['users.fname','users.lname','products.title','products.description'];
 
@@ -206,7 +206,7 @@ class ProductController extends Controller
 
           $search=($request['search']['value']);
 
-            
+
 
             $ProductsDetails = $ProductsDetails->Where(function ($query) use($search, $field,$namefield) {
 
@@ -220,7 +220,7 @@ class ProductController extends Controller
 
                             $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
 
-                        }  
+                        }
 
                     }
 
@@ -232,15 +232,15 @@ class ProductController extends Controller
 
                         $query->orwhere($field[$i], 'like',  '%' . $search .'%');
 
-                    }  
+                    }
 
-                }				 
+                }
 
-            }); 
+            });
 
         }
 
-       
+
 
         if (!empty($request['status']) && !empty($request['search']['value'])) {
 
@@ -259,17 +259,17 @@ class ProductController extends Controller
             $postedorder=$request['order'][0];
 
             if($postedorder['column']==0) $orderby='users.fname';
-			
+
 			if($postedorder['column']==1) $orderby='products.title';
 
             if($postedorder['column']==2) $orderby='products.sell_price';
 
-            if($postedorder['column']==3) $orderby='products.list_price';            
+            if($postedorder['column']==3) $orderby='products.list_price';
 
             if($postedorder['column']==4) $orderby='products.sort_order';
 
 			if($postedorder['column']==5) $orderby='products.created_at';
-            
+
 
             $orderorder=$postedorder['dir'];
 
@@ -277,7 +277,7 @@ class ProductController extends Controller
 
         }
 
-       
+
 
         $recordsTotal = $ProductsDetails->count();
 
@@ -289,7 +289,7 @@ class ProductController extends Controller
 
             $recordDetails = $recordDetails->toArray();
 
-            foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal) 
+            foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal)
 
             {
 
@@ -298,7 +298,7 @@ class ProductController extends Controller
                 $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
 
                 $uname = (!empty($recordDetailsVal['fname'])) ? $recordDetailsVal['fname'].' '.$recordDetailsVal['lname'] : '-';
-				
+
 				$title = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
 
                 $sell_price = (!empty($recordDetailsVal['sell_price'])) ? $recordDetailsVal['sell_price'] : '-';
@@ -307,19 +307,19 @@ class ProductController extends Controller
 
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
 
-                
+
 
                 if ($recordDetailsVal['status'] == 'active') {
 
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminProductChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="Block"><i class="fa fa-unlock"></i> </a>';
 
-                 } else { 
+                 } else {
 
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminProductChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="Active"><i class="fa fa-lock"></i> </a>';
 
                  }
 
-              
+
 
                 $action = '<a href="'.route('adminProductEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
@@ -327,13 +327,13 @@ class ProductController extends Controller
 
                 $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminProductDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
-            
+
 
                 $arr[] = [$uname, $title, $sell_price, $list_price, $sort_order, $status, $action];
 
             }
 
-        } 
+        }
 
         else {
 
@@ -355,7 +355,7 @@ class ProductController extends Controller
 
         ];
 
-        
+
 
         return json_encode($json_arr);
 
@@ -367,7 +367,7 @@ class ProductController extends Controller
 
     public function create() {
 
-    
+
 
         $data['pageTitle']              = 'Add Products';
 
@@ -376,12 +376,12 @@ class ProductController extends Controller
         $data['module_name']            = 'Products';
 
         $data['module_url']             = route('adminProduct');
-		
+
 		$data['users']					=  UserMain::select(['users.id','users.role_id','users.fname','users.lname'])->where('is_deleted','!=',1)->get();
-      
+
 		$categories						=  Categories::Leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
 											->select('*')->get();
-											
+
 		$categoriesArray				=	array();
 		foreach($categories as $category) {
 			$categoriesArray[$category->category_id]['maincategory']	=	$category->category_name;
@@ -398,18 +398,18 @@ class ProductController extends Controller
 
     public function store(Request $request) {
 
-  
 
-        $rules = [ 
+
+        $rules = [
 
             'title'         => 'required|regex:/^[\pL\s\-]+$/u',
 
             'sell_price'         => 'numeric',
 			'list_price'         => 'required|numeric',
-           
+
             'description'   => 'nullable|max:500',
 
-           
+
 
            /* 'phone_number'  => 'required',
 
@@ -441,7 +441,7 @@ class ProductController extends Controller
 
             'description.max'        => 'Maximum 500 characters allowed',
 
-            
+
 
         ];
 
@@ -457,21 +457,21 @@ class ProductController extends Controller
 
         }
 
-          
+
 
         $arrProductsInsert = [
 
-               
+
 
                 'title'        => trim($request->input('title')),
 
-                'sell_price'        => trim($request->input('sell_price')),       
+                'sell_price'        => trim($request->input('sell_price')),
 
 				'list_price'   => trim($request->input('list_price')),
 
                 'description'         => trim($request->input('description')),
 
-               
+
 
             ];
 
@@ -479,9 +479,9 @@ class ProductController extends Controller
 
         $id = Products::create($arrProductsInsert)->id;
 
-         
 
-   
+
+
 
         if($request->hasfile('productimages')){
 
@@ -489,7 +489,7 @@ class ProductController extends Controller
 
             $order = (ProductsImages::where('user_id','=',$id)->count())+1;
 
-               
+
 
             foreach($request->file('productimages') as $image) {
 
@@ -617,13 +617,13 @@ class ProductController extends Controller
 
             }
 
-        } 
+        }
 
 
 
         Session::flash('success', 'Products details Inserted successfully!');
 
-        return redirect(route('adminProduct')); 
+        return redirect(route('adminProduct'));
 
     }
 
@@ -651,7 +651,7 @@ class ProductController extends Controller
 
         $data = $details = [];
 
-         
+
 
         $data['id'] = $id;
 
@@ -669,7 +669,7 @@ class ProductController extends Controller
 
             Session::flash('error', 'Something went wrong. Refresh your page.');
 
-            return redirect()->back();   
+            return redirect()->back();
 
          }
 
@@ -695,13 +695,13 @@ class ProductController extends Controller
 
 
 
-    
+
 
     /**
 
      * Change status for Record [active/block].
 
-     * @param  $id = Id, $status = active/block 
+     * @param  $id = Id, $status = active/block
 
      */
 
@@ -771,7 +771,7 @@ class ProductController extends Controller
 
            Session::flash('success', 'Record deleted successfully!');
 
-                return redirect()->back();  
+                return redirect()->back();
 
         } else {
 
@@ -787,7 +787,7 @@ class ProductController extends Controller
 
 
 
-    /* funtion to delete image on edit form 
+    /* funtion to delete image on edit form
 
     @param : $id
 
@@ -807,13 +807,13 @@ class ProductController extends Controller
 
         $result = productimages::find($id);
 
-        
 
-        if (!empty($result)) 
+
+        if (!empty($result))
 
         {
 
-            if ($result->delete()) 
+            if ($result->delete())
 
             {
 
@@ -821,9 +821,9 @@ class ProductController extends Controller
 
                 return redirect()->back();
 
-            } 
+            }
 
-            else 
+            else
 
             {
 
@@ -833,9 +833,9 @@ class ProductController extends Controller
 
             }
 
-        } 
+        }
 
-        else 
+        else
 
         {
 
@@ -851,4 +851,3 @@ class ProductController extends Controller
 
 
 }
-

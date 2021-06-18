@@ -1,6 +1,6 @@
 <?php
 
- return [ 
+ return [
      'welcome' => 'Tijara',
      'message'=> 'Tijara',
      'sort_order_label'=>'Sorteringsordning',
@@ -14,7 +14,7 @@
      'back_to_login_btn'=>'Tillbaka till login?',
      'login_btn'=>'Logga in',
      'update_btn'=>'uppdatering',
-     'select_label'=>'Välj',  
+     'select_label'=>'Välj',
      'type_label'=>'Typ',
      'radio_label'=>'Radio',
      'dropdown_label'=>'Falla ner',
@@ -112,7 +112,7 @@
      'select_status_ddl'=>'Välj Status',
      'export_btn'=>'Exportera',
      'delete_title'=>'Radera',
-     
+
      'datatables' =>
     [
         'search'          => 'Sök:',
@@ -124,7 +124,7 @@
         'entries'         =>'poster',
         'sInfo'           => "Visar _START_ till _END_ av totalt _TOTAL_ rader",
         'sLengthMenu'     => "Visa _MENU_ rader",
-        "sInfoEmpty"      => "Visar 0 till 0 av totalt 0 rader",    
+        "sInfoEmpty"      => "Visar 0 till 0 av totalt 0 rader",
         "sLoadingRecords" => "Laddar …",
         "sProcessing"     => "Bearbetar …",
         "sZeroRecords"    => "Hittade inga matchande resultat",
@@ -167,6 +167,17 @@
      'learn_more_btn'=>'Läs mer',
      'edit_attribute_tittle' => 'Redigera attribut',
      'product_attribute_title' => 'Produkt attribut',
+
+     'sellers_head'=>'Säljare',
+     'price_filter_head'=>'Filtrera efter pris',
+     'sort_by'=>'Sortera efter',
+     'sort_by_name'=>'Namn',
+     'sort_by_price'=>'Pris',
+     'sort_by_option'=>'Välj alternativ',
+
+     'sort_by_order'=>'Sorteringsordning',
+     'sort_by_asc'=>'Stigande',
+     'sort_by_desc'=>'Nedåtgående',
 
  ]
 ?>

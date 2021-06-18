@@ -1,5 +1,5 @@
 <?php
- return [ 
+ return [
      'welcome' => 'Tijara',
      'message'=> 'Tijara',
      'required_message'=> 'This field is required',
@@ -114,7 +114,7 @@
      'sSearch' => 'Search:',
      'datatables' =>
     [
-        
+
         'search' => 'Search:',
         'first'=>'First',
         'last'=>'Last',
@@ -168,6 +168,17 @@
      'learn_more_btn'=>'Learn More',
      'edit_attribute_tittle' => 'Edit Attribute',
      'product_attribute_title' => 'Product Attribute',
-     
+
+     'sellers_head'=>'Sellers',
+     'price_filter_head'=>'Filter by price',
+     'sort_by'=>'Sort By',
+     'sort_by_name'=>'Name',
+     'sort_by_price'=>'Price',
+     'sort_by_option'=>'Select Option',
+
+     'sort_by_order'=>'Sort Order',
+     'sort_by_asc'=>'Ascending',
+     'sort_by_desc'=>'Descending',
+
  ]
 ?>

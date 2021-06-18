@@ -1,3 +1,6 @@
+@php
+  //dd(Request::path());
+@endphp
 <div class="category_list_box"  id="accordion">
         <h2 class="de_col">{{ __('lang.categories_head')}}</h2>
         <ul class="category_list">
@@ -19,7 +22,7 @@
             @endforeach
         </ul>
         <div>&nbsp;</div>
-
+        @if(Request::path() != "/" )
         <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
         <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
         <style>
@@ -41,5 +44,5 @@
         <!-- Seller Listing -->
         <h2 class="de_col">{{ __('lang.sellers_head')}}</h2>
         <span class="seller_list_content"></span>
-
+        @endif
 </div>

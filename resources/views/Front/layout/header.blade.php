@@ -79,9 +79,9 @@
                 </div>
                 <div class=" form-group cart_details">
                   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
-                  <div class="cart_count">
+                  <!-- <div class="cart_count">
                     <span>3</span>
-                  </div>
+                  </div> -->
                 </div>
                 <button type="submit" class=" btn buy_now_btn debg_color">{{ __('lang.buy_now_btn')}}</button>
               </form>

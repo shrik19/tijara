@@ -198,7 +198,7 @@ class FrontController extends Controller
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-							  ->select(['products.*','categories.category_name','variant_product.image'])
+							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price'])
 							  ->where('products.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active');
@@ -248,6 +248,7 @@ class FrontController extends Controller
 		//$data['ProductsTotal'] = $Products->count();
 
 		$Products 			= $Products->paginate(config('constants.Products_limits'));
+    //dd($Products);
     //dd(DB::getQueryLog());
 		if(count($Products)>0) {
 			foreach($Products as $Product) {
@@ -260,10 +261,19 @@ class FrontController extends Controller
 				$product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
 
 				$Product->product_link	=	$product_link;
+
+        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+        $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+
+        $data['Products']	= $Products;
 			}
 		}
+    else {
+      $data['Products']	= 'Inga produkter tillgängliga.';
+    }
 
-		$data['Products']	= $Products;
+    //dd(is_object($data['Products']));
+
     $Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter);
     $sellerData = '';
     if(!empty($Sellers))

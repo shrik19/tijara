@@ -61,7 +61,7 @@ header{
 .header_left_container{padding-bottom: 20px;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}
-.cart_count{ 
+.cart_count{
     background-color: #03989e;  height: 16px; width: 16px;border-radius: 50%; color: #fff;position: absolute;
     top: -7px;
     right: 16px;
@@ -188,7 +188,8 @@ overflow: hidden;}
 .buy_now_hover_details{position: absolute; top: 120px; display: none;}
 .buy_now_hover_details li{padding: 20px; width: 20%;}
 .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #5dc9ff; text-align: center; padding: 15px; font-size: 16px; }
-.product_img:hover ~ .buy_now_hover_details{display: block;}
+/*.product_img:hover ~ .buy_now_hover_details{display: block;}*/
+.product_data:hover ~ .buy_now_hover_details{display: block;}
 
 .product_img{text-align: center;background-color: #e5e5e5; display: block;}
 .product_img:hover ~ .product_info h4{font-size: 22px; color: #03989e;; font-weight: bold; }
@@ -207,7 +208,7 @@ overflow: hidden;}
 .instagram_imgs li{float: left;width: 20%;}
 .steps_section{position: relative;    height: 300px;
     margin: 29px 0;}
-    
+
 .curve_img_1{position: absolute; top:0; left: 0px;}
 .curve_img_2{position: absolute; right: 0;top: 0;}
 .steps_box{list-style: none;}
@@ -272,7 +273,7 @@ overflow: hidden;}
     display: inline-block;
     height: auto;
     margin: 12px ;
-    width: 20%; 
+    width: 20%;
     border:1px solid #dadada;
 }
 #carousel-custom .carousel-indicators li img {
@@ -291,7 +292,7 @@ overflow: hidden;}
 .product_details_section{    padding-top: 80px;
     float: left;
     width: 100%; background-color: #f3f3f3;}
-.star-rating {   
+.star-rating {
     display: flex;
     flex-direction: row-reverse;
     font-size: 2em;
@@ -301,22 +302,22 @@ overflow: hidden;}
     width: 5em;
     margin-left: 15px;
   }
-  
+
   .star-rating input {
     display:none;
   }
-  
+
   .star-rating label {
     color:#ccc;
     cursor: pointer;
     padding: 0 0.1em;
     font-size: 25px;
   }
-  
+
   .star-rating :checked ~ label {
     color:#f90;
   }
-  
+
   .star-rating label:hover,
   .star-rating label:hover ~ label {
     color:#fc0;
@@ -355,7 +356,7 @@ overflow: hidden;}
     overflow: hidden;
     display: inline-block;
   }
-  
+
   .uploadbtn {
     border: 1px solid #dadada;
     color: #515151;
@@ -365,7 +366,7 @@ overflow: hidden;}
     font-size: 15px;
     font-weight: 300;
   }
-  
+
   .upload-btn-wrapper input[type=file] {
     font-size: 100px;
     position: absolute;
@@ -443,12 +444,12 @@ overflow: hidden;}
         .best_seller li {
             width: 94%;
         }
-        
+
         .instagram_imgs img{width: 100%;}
         .best_seller_container{padding: 15px;}
         .product_details li {
             width: 95%;
-    
+
         }
         .buy_now_hover_details{position: absolute; top: 120px; display: none;     left: 11%;}
 .buy_now_hover_details li{padding: 20px; width: 20%;}
@@ -528,23 +529,23 @@ overflow: hidden;}
         .product_details_info h2:after{display: none;}
         .product_details_info h2 {
             font-size: 30px;
-         
+
         }
         .product_details_info h3 {
             font-size: 18px;
-         
+
         }
         .star-rating label {
-     
+
             font-size: 21px;
         }
         .star-rating {
-          
+
             width: 4em;
-         
+
         }
         .product_details_info p {
             font-size: 15px;
         }
-        
+
 }

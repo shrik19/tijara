@@ -19,7 +19,7 @@ class ServiceSubcatController extends Controller
 	 * Define abjects of models, services.
 	 */
     function __construct() {
-    	
+
     }
 
     /**
@@ -35,10 +35,10 @@ class ServiceSubcatController extends Controller
         $data['module_url']             = route('adminServiceSubcat',$request->id);
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
-        
+
         return view('Admin/ServiceSubcategory/index', $data);
     }
-    
+
     /**
      * [getRecords for sub category list.This is a ajax function for dynamic datatables list]
      * @param  Request $request [sent filters if applied any]
@@ -47,19 +47,19 @@ class ServiceSubcatController extends Controller
     public function getRecords(Request $request) {
         $status='';
 		$category_id=base64_decode($request->id);
-	
-		$categoryDetails = ServiceCategories::select('ServiceCategories.category_name')->where('id','=',$category_id)->get()->first();
-	
+
+		$categoryDetails = servicecategories::select('ServiceCategories.category_name')->where('id','=',$category_id)->get()->first();
+
 		$SubcategoryDetails = serviceSubcategories::select('serviceSubcategories.*')->where('category_id','=',$category_id);
-		
-		
-		
+
+
+
 		if(!empty($request['search']['value']))
         {
             $SubcategoryDetails = $SubcategoryDetails->where('serviceSubcategories.subcategory_name', 'LIKE', '%'.$request['search']['value'].'%');
-           
+
         }
-        
+
         if (!empty($request['status']) && !empty($request['search']['value'])) {
             $SubcategoryDetails = $SubcategoryDetails->where('serviceSubcategories.status', '=', $request['status']);
         }
@@ -70,7 +70,7 @@ class ServiceSubcatController extends Controller
         if (!empty($request['order'])) {
             $column = 'serviceSubcategories.id';
             $order = 'desc';
-            $order_arr = [  
+            $order_arr = [
                             '0' =>  'serviceSubcategories.id',
                             '1' =>  'serviceSubcategories.category_id',
                             '2' =>  'serviceSubcategories.subcategory_name',
@@ -79,28 +79,28 @@ class ServiceSubcatController extends Controller
             $column_index = $request['order'][0]['column'];
             if($column_index!=0) {
                $column = $order_arr[$column_index];
-               $order = $request['order'][0]['dir']; 
+               $order = $request['order'][0]['dir'];
             }
             $SubcategoryDetails = $SubcategoryDetails->orderBy($column,$order);
         }
 
-    	
+
         $recordsTotal = $SubcategoryDetails->count();
         $recordDetails = $SubcategoryDetails->offset($request->input('start'))->limit($request->input('length'))->get();
-        
+
         $arr = [];
         if (count($recordDetails) > 0) {
             $recordDetails = $recordDetails->toArray();
-            foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal) 
+            foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal)
 			{
 			    $action = $status = '-';
 			    $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
 			    $Category_Name = (!empty($categoryDetails->category_name)) ? $categoryDetails->category_name : '-';
-			  
+
 			    $Subcategory = (!empty($recordDetailsVal['subcategory_name'])) ? $recordDetailsVal['subcategory_name'] : '-';
 
                 $sequence_no = (!empty($recordDetailsVal['sequence_no'])) ? $recordDetailsVal['sequence_no'] : '-';
-                
+
                 if ($recordDetailsVal['status'] == 'active') {
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminServiceSubcatChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
                 } else {
@@ -110,32 +110,32 @@ class ServiceSubcatController extends Controller
                 $action = '<a href="'.route('adminServiceSubCatEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
                 $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminServiceSubcatDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
-                
+
 			    $arr[] = ['',$Category_Name, $Subcategory, $sequence_no,$status, $action];
 			}
         }
         else {
             $arr[] = ['','', trans('lang.datatables.sEmptyTable'),'', '', ''];
         }
-    	
-    	
+
+
     	$json_arr = [
             'draw' => $request->input('draw'),
             'recordsTotal' => $recordsTotal,
             'recordsFiltered' => $recordsTotal,
             'data' => ($arr),
         ];
-    
+
         return json_encode($json_arr);
     }
-    
+
 
 /*
  Function to remove accent from string
  @param:string
 */
     public function php_cleanAccents($string){
-       
+
         if ( !preg_match('/[\x80-\xff]/', $string) )
         return $string;
 
@@ -237,7 +237,7 @@ class ServiceSubcatController extends Controller
         );
 
         $string = strtr($string, $chars);
-        return $string;  
+        return $string;
     }
 
      /**
@@ -267,39 +267,39 @@ class ServiceSubcatController extends Controller
             'sequence_no.required'               => trans('errors.sequence_number_err'),
             'subcategory_name.unique'   => trans('errors.unique_subcategory_name'),
         ];
-     
+
         $validator = validator::make($request->all(), $rules, $messages);
-        if($validator->fails()) 
+        if($validator->fails())
         {
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }else{
-            
+
             /*if(!empty($id)){
-                
+
                  $arrUpdate = ['subcategory_name' => trim($request->input('subcategory_name')),
                                 'sequence_no' => trim($request->input('sequence_no')),
                              ];
                 serviceSubcategories::where('id', '=', $id)->update($arrUpdate);
                 Session::flash('success', 'SubCategory Updated successfully!');
             }else{*/
-               
+
                  $arrInsertSubcategory = [
                     'subcategory_name' => trim($request->input('subcategory_name')),
                     'category_id' => trim($request->input('hid_subCategory')),
                     'sequence_no' => trim($request->input('sequence_no')),
                     'subcategory_slug' => trim(strtolower($slug)),
                 ];
-            
-                serviceSubcategories::create($arrInsertSubcategory); 
+
+                serviceSubcategories::create($arrInsertSubcategory);
                 Session::flash('success', trans('messages.subcat_save_success'));
            // }
-                          
+
         }
-        
+
         return redirect()->back();
     }
-    
+
 
     /**
      * Edit record details
@@ -311,24 +311,24 @@ class ServiceSubcatController extends Controller
             return redirect()->back();
         }
         $data = $details = [];
-         
+
         $data['id'] = $id;
         $id = base64_decode($id);
-        
+
         $details = serviceSubcategories::where('serviceSubcategories.id', $id)
-        ->Join('ServiceCategories', 'serviceSubcategories.category_id', '=', 'ServiceCategories.id')
+        ->Join('servicecategories', 'serviceSubcategories.category_id', '=', 'servicecategories.id')
         ->select('serviceSubcategories.*','ServiceCategories.id','ServiceCategories.category_name')->first();
-     
+
         $data['pageTitle']              = trans('users.edit_service_subcat_title');
         $data['current_module_name']    = trans('users.edit_title');
         $data['module_name']            = trans('users.service_subcategory_title');
         $data['module_url']             = route('adminServiceSubcat',$details['id']);
         $data['categoryDetails']        = $details;
-      
-               
+
+
         return view('Admin/ServiceSubcategory/edit', $data);
     }
-    
+
 
     /**
      * Update vendor details
@@ -339,9 +339,9 @@ class ServiceSubcatController extends Controller
             Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect()->back();
         }
-        
+
         $id = base64_decode($id);
-        
+
         $subcategory_slug = $request->input('subcategory_slug');
          $is_accents = preg_match('/^[\p{L}-]*$/u', $subcategory_slug);
          if($is_accents ==1){
@@ -349,7 +349,7 @@ class ServiceSubcatController extends Controller
          }else{
             $slug = $request->input('subcategory_slug');
          }
-         
+
         $rules = [
             'subcategory_name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:serviceSubcategories,subcategory_name,'.$id,
             'sequence_no'      => 'required',
@@ -365,24 +365,24 @@ class ServiceSubcatController extends Controller
             'subcategory_slug.unique'    => trans('messages.category_slug_already_taken'),
         ];
         $validator = validator::make($request->all(), $rules, $messages);
-        if($validator->fails()) 
+        if($validator->fails())
         {
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
-        
+
         $arrUpdateCategory = ['subcategory_name' => trim($request->input('subcategory_name')),
                               'category_id' => trim($request->input('hid_subCategory')),
                               'sequence_no' => trim($request->input('sequence_no')),
                               'subcategory_slug'   => trim(strtolower($slug)),
                             ];
-                            
-        serviceSubcategories::where('id', '=', $id)->update($arrUpdateCategory);  
-        
+
+        serviceSubcategories::where('id', '=', $id)->update($arrUpdateCategory);
+
         Session::flash('success', trans('messages.subcat_update_success'));
         return redirect(route('adminServiceSubcat',base64_encode($request->input('hid_subCategory'))));
     }
-    
+
 
       /**
      * Delete Record
@@ -394,11 +394,11 @@ class ServiceSubcatController extends Controller
             return redirect(route('adminCategory'));
         }
         $id = base64_decode($id);
-        
+
         $categories = serviceSubcategories::find($id);
-        if (!empty($categories)) 
+        if (!empty($categories))
 		{
-            if ($categories->delete()) 
+            if ($categories->delete())
 			{
                 Session::flash('success',  trans('messages.record_deleted_success'));
                 return redirect()->back();
@@ -406,7 +406,7 @@ class ServiceSubcatController extends Controller
                 Session::flash('error', trans('errors.something_wrong_err'));
                 return redirect()->back();
             }
-        } 
+        }
         else {
             Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
@@ -414,11 +414,11 @@ class ServiceSubcatController extends Controller
     }
     /**
      * Change status for Record [active/block].
-     * @param  $id = Id, $status = active/block 
+     * @param  $id = Id, $status = active/block
      */
     public function changeStatus($id, $status) {
         if(empty($id)) {
-			
+
             Session::flash('error', trans('errors.refresh_your_page_err'));
             return redirect(route('adminSubcategory'));
         }
@@ -440,7 +440,7 @@ class ServiceSubcatController extends Controller
     function checkUniqueSlugName(Request $request){
         $slug_name = $request->slug_name;
         $id = base64_decode($request->id);
-        
+
         $is_accents = preg_match('/^[\p{L}-]*$/u', $slug_name);
         if($is_accents ==1){
             $slug =   $this->php_cleanAccents($slug_name);
@@ -457,7 +457,7 @@ class ServiceSubcatController extends Controller
         if(!empty($data[0]['subcategory_slug'])){
             $messages =trans('messages.category_slug_already_taken');
              return $messages;
-        }  
+        }
     }
 
 
@@ -469,7 +469,7 @@ class ServiceSubcatController extends Controller
         $id = $request->id;
         if(!empty($id)){
             $data =  serviceSubcategories::where('subcategory_name', $subcat_name)->where('id','!=',$id)->get();
-    
+
         } else{
             $data =  serviceSubcategories::where('subcategory_name', $subcat_name)->get();
         }
@@ -480,6 +480,6 @@ class ServiceSubcatController extends Controller
                 $messages =trans('errors.unique_subcategory_name');
                 return $messages;
             }
-       }       
+       }
     }
 }

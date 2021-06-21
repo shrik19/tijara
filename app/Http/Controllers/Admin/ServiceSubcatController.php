@@ -48,7 +48,7 @@ class ServiceSubcatController extends Controller
         $status='';
 		$category_id=base64_decode($request->id);
 
-		$categoryDetails = servicecategories::select('ServiceCategories.category_name')->where('id','=',$category_id)->get()->first();
+		$categoryDetails = servicecategories::select('servicecategories.category_name')->where('id','=',$category_id)->get()->first();
 
 		$SubcategoryDetails = serviceSubcategories::select('serviceSubcategories.*')->where('category_id','=',$category_id);
 

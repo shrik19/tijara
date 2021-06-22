@@ -53,31 +53,29 @@
             <div class="container">
             <form action="{{route('adminSubcategoryStore')}}"  enctype="multipart/form-data" method="post" class="savecategoryform">
               @csrf
-              <div class="form-group">
-                <label>{{ __('users.category_name_thead')}}</label>
-  			        <input type="hidden" class="form-control category_id"  name="hid_subCategory" value="" readonly>
-                <input type="text" name="category_name" class="form-control category_name" value="" readonly>
-              </div>
+                <div class="form-group">
+                  <label>{{ __('users.category_name_thead')}}</label>
+    			        <input type="hidden" class="form-control category_id"  name="hid_subCategory" value="" readonly>
+                  <input type="text" name="category_name" class="form-control category_name" value="" readonly>
+                </div>
+
+                <div class="form-group">
+                  <label>{{ __('users.subcategory_name_label')}} <span class="text-danger">*</span></label>
+                  <input type="text" name="subcategory_name"  placeholder="{{ __('users.subcategory_name_label')}}" class="form-control subcategory_name" onblur="convertToSlug(this)" id="subcategory_name">
+                  <div class="text-danger err-letter">{{ ($errors->has('subcategory_name')) ? $errors->first('subcategory_name') : '' }}</div>
+                </div>
+
+                <div class="form-group">
+                  <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="" tabindex="3"/>
+                  <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
+                </div>
 
               <div class="form-group">
-                <label>{{ __('users.subcategory_name_label')}} <span class="text-danger">*</span></label>
-                <input type="text" name="subcategory_name"  placeholder="{{ __('users.subcategory_name_label')}}" class="form-control subcategory_name" onblur="convertToSlug(this)" id="subcategory_name">
-                <div class="text-danger err-letter">{{ ($errors->has('subcategory_name')) ? $errors->first('subcategory_name') : '' }}</div>
+                <label>{{ __('users.subcategory_slug_label')}} <span class="text-danger">*</span></label>
+                <input type="text" class="form-control slug-name" id="subcategory_slug" name="subcategory_slug" placeholder="{{ __('users.subcategory_slug_label')}}" value="{{ old('subcategory_slug')}}" tabindex="3" onblur="checkUniqueSlugName()"/>
+                <div class="text-danger slug-name-err">{{ ($errors->has('csubategory_slug')) ? $errors->first('subcategory_slug') : '' }}</div>
               </div>
-
-              <div class="form-group">
-                <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
-                <input type="number" class="form-control" id="sequence_no" name="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ old('sequence_no')}}" tabindex="3"/>
-                <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
-              </div>
-
-            <div class="form-group">
-              <label>{{ __('users.subcategory_slug_label')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control slug-name" id="subcategory_slug" name="subcategory_slug" placeholder="{{ __('users.subcategory_slug_label')}}" value="{{ old('subcategory_slug')}}" tabindex="3" onblur="checkUniqueSlugName()"/>
-              <div class="text-danger slug-name-err">{{ ($errors->has('csubategory_slug')) ? $errors->first('subcategory_slug') : '' }}</div>
-            </div>
-
-
             </form>
             </div>
         </div>
@@ -103,7 +101,7 @@
         $('#savesubcategorymodal').find('.category_name').val($(this).attr('category_name'));
         $('#savesubcategorymodal').find('.category_id').val($(this).attr('category_id'));
         $('#savesubcategorymodal').find('.subcategory_name').val($(this).attr('subcategory_name'));
-        
+        $('#savesubcategorymodal').find('.sequence_no').val($(this).attr('sequence_no'));      
         $('#savesubcategorymodal').modal('show');
         $('.modal-backdrop').attr('style','position: relative;');
     }); 

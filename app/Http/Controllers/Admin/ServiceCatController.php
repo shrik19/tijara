@@ -26,12 +26,15 @@ class ServiceCatController extends Controller
      */
     public function index() {
         $data = [];
+        $max_seq_no ='';
+        $max_seq_no = ServiceCategories::max('sequence_no');
         $data['pageTitle']              = trans('users.service_category_title');
         $data['current_module_name']    = trans('users.service_category_title');
         $data['module_name']            = trans('users.service_category_title');
         $data['module_url']             = route('adminServiceCat');
         $data['recordsTotal']           = 0;
         $data['currentModule']          = '';
+        $data['max_seq_no']            = $max_seq_no + 1;
         
         return view('Admin/ServiceCategory/index', $data);
     }
@@ -91,8 +94,12 @@ class ServiceCatController extends Controller
                 } else {
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminServiceCatChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
+
+                $max_seq_no ='';
+                $max_seq_no = ServiceSubcategories::where("category_id",$id)->max('sequence_no');
+                $seq_no = $max_seq_no + 1;
                 
-                $AddSubCategory = '<a style="margin-left:38px;" href="javascript:void(0);" category_id="'.$id.'" category_name="'.$Category_Name.'" Subcategory_Name="" id="0" class="btn btn-icon btn-warning savesubcategory" title="'.__('users.add_subcategory_title').'" id="'.$id.'"><i class="fa fa-plus"></i> </a>';
+                $AddSubCategory = '<a style="margin-left:38px;" href="javascript:void(0);" category_id="'.$id.'" sequence_no="'.$seq_no.'" category_name="'.$Category_Name.'" Subcategory_Name="" id="0" class="btn btn-icon btn-warning savesubcategory" title="'.__('users.add_subcategory_title').'" id="'.$id.'"><i class="fa fa-plus"></i> </a>';
                 
                 $action = '<a href="'.route('adminServiceCatEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
@@ -118,11 +125,15 @@ class ServiceCatController extends Controller
     
     /*function to open service category form*/
     public function create()
-    {
+    {   
+        $max_seq_no ='';
+        $max_seq_no = ServiceCategories::max('sequence_no');
         $data['pageTitle']              = trans('users.add_Service_category_title');
         $data['current_module_name']    = trans('users.add_title');
         $data['module_name']            = trans('users.service_category_title');
         $data['module_url']             = route('adminServiceCat');
+        $data['max_seq_no']            = $max_seq_no + 1;
+
         return view('Admin/ServiceCategory/create', $data);
     }
     

@@ -12,6 +12,7 @@ use App\Models\ProductCategory;
 /*Uses*/
 use Session;
 use Validator;
+use DB;
 
 class SubcategoryController extends Controller
 {

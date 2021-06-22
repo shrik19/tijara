@@ -67,7 +67,7 @@
 
             <div class="form-group">
               <label>{{ __('users.sequence_number_label')}} <span class="text-danger">*</span></label>
-              <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" id="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ old('sequence_no')}}" tabindex="3" onblur="validate_seqNo(this)" />
+              <input type="number" class="form-control sequence_no" id="sequence_no" name="sequence_no" id="sequence_no" placeholder="{{ __('users.sequence_number_label')}}" value="{{ ($max_seq_no ?  $max_seq_no : '')}}" tabindex="3"  />
               <div class="text-danger">{{ ($errors->has('sequence_no')) ? $errors->first('sequence_no') : '' }}</div>
             </div>
 
@@ -104,7 +104,7 @@
         $('#savesubcategorymodal').find('.category_name').val($(this).attr('category_name'));
         $('#savesubcategorymodal').find('.category_id').val($(this).attr('category_id'));
         $('#savesubcategorymodal').find('.subcategory_name').val($(this).attr('subcategory_name'));
-        
+        $('#savesubcategorymodal').find('.sequence_no').val($(this).attr('sequence_no'));
         $('#savesubcategorymodal').modal('show');
         $('.modal-backdrop').attr('style','position: relative;');
     }); 

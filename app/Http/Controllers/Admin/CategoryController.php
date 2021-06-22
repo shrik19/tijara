@@ -27,6 +27,7 @@ class CategoryController extends Controller
      */
     public function index() {
         $data = [];
+        
         $data['pageTitle']              = trans('users.product_category');
         $data['current_module_name']    = trans('users.product_category');
         $data['module_name']            = trans('users.product_category');
@@ -93,8 +94,11 @@ class CategoryController extends Controller
                 } else {
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminCategoryChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
                 }
-                
-                $AddSubCategory = '<a style="margin-left:38px;" href="javascript:void(0);" category_id="'.$id.'" category_name="'.$Category_Name.'" Subcategory_Name="" id="0" class="btn btn-icon btn-warning savesubcategory" title="'.__('users.add_subcategory_title').'" id="'.$id.'"><i class="fa fa-plus"></i> </a>';
+
+                $max_seq_no ='';
+                $max_seq_no = Subcategories::where("category_id",$id)->max('sequence_no');
+                $seq_no = $max_seq_no + 1;
+                $AddSubCategory = '<a style="margin-left:38px;" href="javascript:void(0);" category_id="'.$id.'" sequence_no="'.$seq_no.'" category_name="'.$Category_Name.'" Subcategory_Name="" id="0" class="btn btn-icon btn-warning savesubcategory" title="'.__('users.add_subcategory_title').'" id="'.$id.'"><i class="fa fa-plus"></i> </a>';
                 
                 $action = '<a href="'.route('adminCategoryEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
@@ -104,7 +108,7 @@ class CategoryController extends Controller
 			}
         }
         else {
-            $arr[] = ['','',trans('lang.datatables.sEmptyTable'), '', '', ''];
+            $arr[] = ['','', '', trans('lang.datatables.sEmptyTable'), '', '', ''];
         }
     	
     	$json_arr = [
@@ -120,10 +124,15 @@ class CategoryController extends Controller
     /*function to open category open form*/
     public function create()
     {
+        $max_seq_no ='';
+        $max_seq_no = Categories::max('sequence_no');
+    
         $data['pageTitle']              = trans('users.add_product_category_title');
         $data['current_module_name']    = trans('users.add_title');
         $data['module_name']            = trans('users.product_category');
         $data['module_url']             = route('adminCategory');
+        $data['max_seq_no']            = $max_seq_no + 1;
+
         return view('Admin/Category/create', $data);
     }
 
@@ -429,9 +438,22 @@ class CategoryController extends Controller
         if(count($data) != 0){
             if(!empty($data[0]['category_slug'])){
                 $messages =trans('messages.category_slug_already_taken');
-                 return $messages;
+                return $messages;
             }
         }
        
-    }
+    }    
+
+   /* function getMaxSeqNo(Request $request){
+        echo "here";exit;
+        $id = $request->id;
+        if(empty($id)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect()->back();
+        } 
+
+        $max_seq_no ='';
+        $max_seq_no = Subcategories::max('sequence_no')->where("id",'=',$id);
+        echo $max_seq_no + 1;
+    }*/
 }

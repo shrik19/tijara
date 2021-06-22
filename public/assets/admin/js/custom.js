@@ -22,12 +22,11 @@ function convertToSlug(inputtxt){
     $('.slug-name').val(slug);
     //function to check slug name is unique or not
     checkUniqueSlugName(slug);
-    
 }
 
 /*function to validate letters for category*/
   function allLetterNumber(inputtxt){ 
-    var letters = /^[a-zA-Z ]*$/;
+    var letters = /^[0-9a-zA-Z ]*$/;
     if(inputtxt.value.match(letters)){
       $('.err-letter').text('');
       return true;

@@ -50,7 +50,7 @@ class ServiceSubcatController extends Controller
 
 		$categoryDetails = servicecategories::select('servicecategories.category_name')->where('id','=',$category_id)->get()->first();
 
-		$SubcategoryDetails = serviceSubcategories::select('serviceSubcategories.*')->where('category_id','=',$category_id);
+		$SubcategoryDetails = ServiceSubcategories::select('serviceSubcategories.*')->where('category_id','=',$category_id);
 
 
 

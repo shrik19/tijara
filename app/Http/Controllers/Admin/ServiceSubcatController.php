@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\ServiceCategories;
-use App\Models\serviceSubcategories;
+use App\Models\ServiceSubcategories;
 
 /*Uses*/
 use Session;
@@ -50,7 +50,7 @@ class ServiceSubcatController extends Controller
 
 		$categoryDetails = servicecategories::select('servicecategories.category_name')->where('id','=',$category_id)->get()->first();
 
-		$SubcategoryDetails = ServiceSubcategories::select('serviceSubcategories.*')->where('category_id','=',$category_id);
+		$SubcategoryDetails = serviceSubcategories::select('serviceSubcategories.*')->where('category_id','=',$category_id);
 
 
 

@@ -26,7 +26,7 @@ function convertToSlug(inputtxt){
 
 /*function to validate letters for category*/
   function allLetterNumber(inputtxt){ 
-    var letters = /^[0-9a-zA-Z ]*$/;
+    var letters = /^[0-9a-zA-ZäöåÄÖÅ ]*$/;
     if(inputtxt.value.match(letters)){
       $('.err-letter').text('');
       return true;

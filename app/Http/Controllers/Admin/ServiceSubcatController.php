@@ -317,7 +317,7 @@ class ServiceSubcatController extends Controller
 
         $details = serviceSubcategories::where('serviceSubcategories.id', $id)
         ->Join('servicecategories', 'serviceSubcategories.category_id', '=', 'servicecategories.id')
-        ->select('serviceSubcategories.*','servicecategories.id','ServiceCategories.category_name')->first();
+        ->select('serviceSubcategories.*','servicecategories.id','servicecategories.category_name')->first();
 
         $data['pageTitle']              = trans('users.edit_service_subcat_title');
         $data['current_module_name']    = trans('users.edit_title');

@@ -251,12 +251,10 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-   
     var slug_name= inputText;
-    
     var slug;
-
-    $.ajax({
+    var slug;
+     $.ajax({
       url: "{{url('/')}}"+'/manage-products/check-slugname/?slug_name='+slug_name,
       type: 'get',
       async: false,

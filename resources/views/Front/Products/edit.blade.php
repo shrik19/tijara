@@ -395,7 +395,6 @@
 
   </div> <!-- /container -->
 
-<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
    var addButton = $('.add_button'); //Add button selector
    var wrapper = $('.field_wrapper'); //Input field wrapper

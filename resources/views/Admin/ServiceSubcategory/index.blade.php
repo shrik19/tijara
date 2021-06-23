@@ -174,7 +174,7 @@
             }
             }); 
 
-            
+
 $('.nav-link').click( function() {
   document.getElementById("subcategoryTable").removeAttribute("style");
 });

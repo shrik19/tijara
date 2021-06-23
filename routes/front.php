@@ -10,6 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    // return what you want
+});
+Route::get('/config-cache', function() {
+    $exitCode = Artisan::call('config:cache');
+    return '<h1>Clear Config cleared</h1>';
+});
 
 Route::get('/', 'Front\FrontController@index')->name('frontHome');
 Route::any('/get_product_listing/','Front\FrontController@getProductsyParameter')->name('getProductsyParameter');

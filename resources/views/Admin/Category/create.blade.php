@@ -59,12 +59,7 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-
-    if(inputText == undefined){
-      var slug_name = $("#category_slug").val()
-    }else{
-      var slug_name= inputText;
-    }
+    var slug_name= inputText;
     var slug;
      $.ajax({
       url: "{{url('/')}}"+'/admin/category/check-slugname/?slug_name='+slug_name,

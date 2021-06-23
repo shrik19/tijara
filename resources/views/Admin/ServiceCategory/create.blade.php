@@ -26,7 +26,7 @@
             
             <div class="form-group">
               <label>{{ __('users.category_slug_label')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control slug-name" id="category_slug" name="category_slug" placeholder="{{ __('users.category_slug_label')}}" value="{{ old('category_slug')}}" tabindex="3" onblur="checkUniqueSlugName()"/>
+              <input type="text" class="form-control slug-name" id="category_slug" name="category_slug" placeholder="{{ __('users.category_slug_label')}}" value="{{ old('category_slug')}}" tabindex="3" readonly="readonly" />
               <div class="text-danger slug-name-err">{{ ($errors->has('category_slug')) ? $errors->first('category_slug') : '' }}</div>
             </div>
             
@@ -60,25 +60,18 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-
-    if(inputText == undefined){
-      var slug_name = $("#category_slug").val()
-    }else{
-      var slug_name= inputText;
-    }
-    
+     var slug_name= inputText;   
+     var slug; 
      $.ajax({
       url: "{{url('/')}}"+'/admin/ServiceCategory/check-slugname/?slug_name='+slug_name,
       type: 'get',
+      async: false,
       data: { },
       success: function(output){
-        if(output !=''){
-          $('.slug-name-err').text(output);
-        }else{
-           $('.slug-name-err').text('');
-        }
+        slug = output;
       }
     });
+     return slug;
   }
 </script>
 @endsection('middlecontent')

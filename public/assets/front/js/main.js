@@ -2,10 +2,12 @@
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){
  // allLetterNumber(inputtxt);
-    var slug = inputtxt.value.toLowerCase().replace(/ /g,'-').replace(/[^\w-][^,]+,\s[^,]+/g,'');
-    $('.slug-name').val(slug);
+    var slug = inputtxt.value;
+    //replace space with hypen
+    slug = inputtxt.value.toLowerCase();
     //function to check slug name is unique or not
-    checkUniqueSlugName(slug);
+    slug = checkUniqueSlugName(slug);
+    $('.slug-name').val(slug);
 
 }
 
@@ -105,8 +107,8 @@ $('#variant_table').on('click', '.remove_image', function () {
 $('#variant_table').on('click', '.add_attribute_group_btn', function () {
 
     var variant_id  =   $(this).attr('variant_id');
+     jQuery.noConflict();
     $('.modal[variant_id="'+variant_id+'"]').modal('show');
-
 });
 
  $('#variant_table').on('click', '.remove_variant_btn', function () {

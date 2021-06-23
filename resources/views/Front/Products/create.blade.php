@@ -43,7 +43,7 @@
 
             <div class="form-group">
               <label>{{ __('lang.product_slug_label')}} <span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}} " value="{{old('product_slug')}}" tabindex="1" onblur="checkUniqueSlugName()">
+              <input type="text" class="form-control login_input slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}} " value="{{old('product_slug')}}" tabindex="1" readonly="readonly">
               <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
             </div>
 
@@ -255,19 +255,19 @@
     }else{
       var slug_name= inputText;
     }
-  
+    
+    var slug;
      $.ajax({
       url: "{{url('/')}}"+'/manage-products/check-slugname/?slug_name='+slug_name,
       type: 'get',
+      async: false,
       data: { },
       success: function(output){
-        if(output !=''){
-          $('.slug-name-err').text(output);
-        }else{
-           $('.slug-name-err').text('');
-        }
+        slug = output;
       }
     });
+
+    return slug;
   }
 
 </script>

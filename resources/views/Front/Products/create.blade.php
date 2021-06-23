@@ -250,12 +250,8 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-    if(inputText == undefined){
-      var slug_name = $("#product_slug").val()
-    }else{
-      var slug_name= inputText;
-    }
     
+    var slug_name= inputText;
     var slug;
      $.ajax({
       url: "{{url('/')}}"+'/manage-products/check-slugname/?slug_name='+slug_name,

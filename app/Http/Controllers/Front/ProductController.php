@@ -32,6 +32,7 @@ use App\Models\ VariantProduct;
 
 use App\Models\Package;
 
+use App\CommonLibrary;
 
 /*Uses*/
 
@@ -1005,24 +1006,34 @@ class ProductController extends Controller
     * @param:storename
     */
     function checkUniqueSlugName(Request $request){
+
         $slug_name = $request->slug_name;
-        $is_accents = preg_match('/^[\p{L}-]*$/u', $slug_name);
-        if($is_accents ==1){
-            $slug =   $this->php_cleanAccents($slug_name);
-        }else{
-            $slug = $slug_name;
-        }
         $id = base64_decode($request->id);
+        // Clean up multiple dashes or whitespaces
+        $slug_trim = trim(preg_replace('/\s+/', ' ', $slug_name));
+        // Convert whitespaces and underscore to dash
+        $slug_hypen = preg_replace("/[\s_]/", "-", $slug_trim);  
+        $slug =   CommonLibrary::php_cleanAccents($slug_hypen);
      
         if(!empty($id)){
             $data =  Products::where('product_slug', $slug)->where('id','!=',$id)->get();
         } else{
             $data =  Products::where('product_slug', $slug)->get();
         }
-       $messages = '';
+
+       $unique_slug =1;
         if(!empty($data[0]['product_slug'])){
-            $messages =trans('messages.category_slug_already_taken');
-             return $messages;
+            do{
+                    $slug = $slug."-".$unique_slug;
+                    if(!empty($id)){
+                        $data =  Products::where('product_slug', $slug)->where('id','!=',$id)->get();
+                    } else{
+                        $data =  Products::where('product_slug', $slug)->get();
+                    }
+                }while(!empty($data[0]['product_slug']));
+                return $slug;
+        }else{
+            return $slug;
         }
        
     }

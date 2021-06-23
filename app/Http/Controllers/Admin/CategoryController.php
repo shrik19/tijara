@@ -341,7 +341,6 @@ class CategoryController extends Controller
                     }
                 }while(!empty($data[0]['category_slug']));
                  return $slug;
-              
             }
         }else{
             return $slug;

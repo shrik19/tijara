@@ -223,7 +223,6 @@
        slug = output;
       }
     });
-
     return slug;
   }
 

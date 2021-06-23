@@ -143,13 +143,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request) {		
         $category_slug = $request->input('category_slug');
-         $is_accents = preg_match('/^[\p{L}-]*$/u', $category_slug);
-         if($is_accents ==1){
-            //$slug =   $this->php_cleanAccents($category_slug);
-            $slug =   CommonLibrary::php_cleanAccents($category_slug);
-         }else{
-            $slug = $request->input('category_slug');
-         }
+        $slug =   CommonLibrary::php_cleanAccents($category_slug);
         $rules = [
             'name'    => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:categories,category_name',
             'name'    => 'required|unique:categories,category_name',

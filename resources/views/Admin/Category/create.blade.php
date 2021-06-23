@@ -26,7 +26,7 @@
 
             <div class="form-group">
               <label>{{ __('users.category_slug_label')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control slug-name" id="category_slug" name="category_slug" placeholder="{{ __('users.category_slug_label')}}" value="{{ old('category_slug')}}" tabindex="3" onblur="checkUniqueSlugName()"/>
+              <input type="text" class="form-control slug-name" id="category_slug" name="category_slug" placeholder="{{ __('users.category_slug_label')}}" value="{{ old('category_slug')}}" tabindex="3" readonly="readonly" />
               <div class="text-danger slug-name-err">{{ ($errors->has('category_slug')) ? $errors->first('category_slug') : '' }}</div>
             </div>
 
@@ -55,7 +55,7 @@
     $('.description').richText();
   });
 
-  /*function to check unique Slug name
+  /*function to clean Slug name if any swedish character
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
@@ -65,19 +65,19 @@
     }else{
       var slug_name= inputText;
     }
-    
+    var slug;
      $.ajax({
       url: "{{url('/')}}"+'/admin/category/check-slugname/?slug_name='+slug_name,
       type: 'get',
+      async: false,
       data: { },
       success: function(output){
-        if(output !=''){
-          $('.slug-name-err').text(output);
-        }else{
-           $('.slug-name-err').text('');
-        }
+        slug = output;
       }
     });
+
+    return slug;
   }
+
 </script>
 @endsection('middlecontent')

@@ -212,28 +212,22 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-
-    if(inputText != ''){
-      var slug_name = $("#subcategory_slug").val()
-    }else{
-      var slug_name= inputText;
-    }
-
+    var slug_name = inputText;
+    var slug;
      $.ajax({
       url: "{{url('/')}}"+'/admin/subcategory/check-slugname/?slug_name='+slug_name,
       type: 'get',
+      async: false,
       data: { },
       success: function(output){
-
-        if(output !=''){
-          $('.slug-name-err').text(output);
-         // return false;
-        }else{
-           $('.slug-name-err').text('');
-        }
+       slug = output;
       }
     });
+
+    return slug;
   }
+
+  
 
 $('.nav-link').click( function() {
   document.getElementById("categoryTable").removeAttribute("style");

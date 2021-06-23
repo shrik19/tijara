@@ -30,7 +30,7 @@
 
               <div class="form-group">
                 <label>{{ __('users.category_slug_label')}} <span class="text-danger">*</span></label>
-                <input type="text" class="form-control slug-name" id="category_slug" name="category_slug" placeholder="{{ __('users.category_slug_label')}}" value="{{ (old('category_slug')) ?  old('category_slug') : $categoryDetails['category_slug']}}" tabindex="3" onblur="checkUniqueSlugName()"/>
+                <input type="text" class="form-control slug-name" id="category_slug" name="category_slug" placeholder="{{ __('users.category_slug_label')}}" value="{{ (old('category_slug')) ?  old('category_slug') : $categoryDetails['category_slug']}}" tabindex="3"  readonly="readonly" />
                 <div class="invalid-feedback">
                     {{ __('errors.category_slug_req')}}
                   </div>
@@ -62,32 +62,24 @@
     $('.description').richText();
   });
 
-  /*function to check unique Slug name
+   /*function to clean Slug name if any swedish character
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-
-    if(inputText == undefined){
-      var slug_name = $("#category_slug").val()
-    }else{
-      var slug_name= inputText;
-    }
-    
+ 
+    var slug_name= inputText;
+    var slug;
      $.ajax({
       url: "{{url('/')}}"+'/admin/category/check-slugname/?slug_name='+slug_name,
       type: 'get',
-      data: { 
-        id : "<?php echo $id; ?>",
-      },
+      async: false,
+      data: { },
       success: function(output){
-        if(output !=''){
-          $('.slug-name-err').text(output);
-        }else{
-           $('.slug-name-err').text('');
-        }
-          //alert(output)
-        }
+        slug = output;
+      }
     });
+
+    return slug;
   }
 </script>
 @endsection('middlecontent')

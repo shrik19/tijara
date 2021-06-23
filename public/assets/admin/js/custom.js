@@ -17,11 +17,14 @@ function isNumber(evt) {
 }
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){ 
-	allLetterNumber(inputtxt);
-    var slug = inputtxt.value.toLowerCase().replace(/ /g,'-').replace(/[^\w-][^,]+,\s[^,]+/g,'');
-    $('.slug-name').val(slug);
+	  allLetterNumber(inputtxt);
+    var slug = inputtxt.value;
+    //replace space with hypen
+    slug = inputtxt.value.toLowerCase();
+    // slug  = slug.trim();
     //function to check slug name is unique or not
-    checkUniqueSlugName(slug);
+    slug = checkUniqueSlugName(slug);
+    $('.slug-name').val(slug);
 }
 
 /*function to validate letters for category*/
@@ -36,6 +39,9 @@ function convertToSlug(inputtxt){
       return false;
     }
   }
+
+
+
 //product category form validation
 /*$(".product_cat_btn").click(function(e){
 //  e.preventDefault();

@@ -45,6 +45,8 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	  /*  SubCategory */
 	Route::group(['prefix'=>'subcategory'], function() {
 		Route::get('/check-slugname/','SubcategoryController@checkUniqueSlugName')->name('adminSubcategoryUniqueSlug');
+		/*Route::get('/clean-slug/','SubcategoryController@php_cleanAccents')->name('adminSubcategoryCleanSlug');*/
+
 		Route::get('/check-unique-subcat/','SubcategoryController@checkUniqueSubcat')->name('adminSubcategoryUniqueSubcat');
 	    Route::get('/{id}','SubcategoryController@index')->name('adminSubcategory');
 	    Route::any('/getRecords/{id}','SubcategoryController@getRecords')->name('adminSubcategoryGetRecords'); 

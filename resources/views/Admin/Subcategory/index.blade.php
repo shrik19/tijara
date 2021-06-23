@@ -73,7 +73,7 @@
 
             <div class="form-group">
               <label>{{ __('users.subcategory_slug_label')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control slug-name subcategory_slug" id="subcategory_slug" name="subcategory_slug" placeholder="{{ __('users.subcategory_slug_label')}}" tabindex="3" onblur="checkUniqueSlugName()" />
+              <input type="text" class="form-control slug-name subcategory_slug" id="subcategory_slug" name="subcategory_slug" placeholder="{{ __('users.subcategory_slug_label')}}" tabindex="3" readonly="readonly" />
               <div class="text-danger slug-name-err">{{ ($errors->has('subcategory_slug')) ? $errors->first('subcategory_slug') : '' }}</div>
             </div>          
             
@@ -220,24 +220,19 @@ $(document).on("click",".savesubcategorydata",function(event) {
   */
   function checkUniqueSlugName(inputText){
 
-    if(inputText == undefined){
-      var slug_name = $("#subcategory_slug").val()
-    }else{
-      var slug_name= inputText;
-    }
-    
+    var slug_name= inputText; 
+    var slug;   
      $.ajax({
       url: "{{url('/')}}"+'/admin/subcategory/check-slugname/?slug_name='+slug_name,
       type: 'get',
+      async: false,
       data: { },
       success: function(output){
-        if(output !=''){
-          $('.slug-name-err').text(output);
-        }else{
-           $('.slug-name-err').text('');
-        }
+        slug = output;
       }
     });
+
+    return slug;
   }
   
 $('.nav-link').click( function() {

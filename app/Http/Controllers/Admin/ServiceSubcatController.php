@@ -319,6 +319,7 @@ class ServiceSubcatController extends Controller
     function checkUniqueSlugName(Request $request){
         $slug_name = $request->slug_name;
         $id = base64_decode($request->id);
+
         // Clean up multiple dashes or whitespaces
         $slug_trim = trim(preg_replace('/\s+/', ' ', $slug_name));
         // Convert whitespaces and underscore to dash
@@ -336,11 +337,11 @@ class ServiceSubcatController extends Controller
             do{
                 $slug = $slug."-".$unique_slug;
                 if(!empty($id)){
-                    $data =  ServiceCategories::where('category_slug', $slug)->where('id','!=',$id)->get();
+                    $data =  serviceSubcategories::where('subcategory_slug', $slug)->where('id','!=',$id)->get();
                 } else{
-                    $data =  ServiceCategories::where('category_slug', $slug)->get();
+                    $data =  serviceSubcategories::where('subcategory_slug', $slug)->get();
                 }
-            }while(!empty($data[0]['category_slug']));
+            }while(!empty($data[0]['subcategory_slug']));
              return $slug;
         }else{
             return $slug;

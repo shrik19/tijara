@@ -71,6 +71,7 @@
      $.ajax({
       url: "{{url('/')}}"+'/admin/ServiceSubcategory/check-slugname/?slug_name='+slug_name,
       type: 'get',
+      async: false,
       data: { },
       success: function(output){
         slug = output;

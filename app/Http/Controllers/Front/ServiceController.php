@@ -14,7 +14,7 @@ use App\Models\City;
 
 use App\Models\UserPackages;
 
-use App\Models\servicecategories;
+use App\Models\ServiceCategories;
 
 use App\Models\serviceSubcategories;
 

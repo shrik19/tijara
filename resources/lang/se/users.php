@@ -1,5 +1,5 @@
 <?php
- return [ 
+ return [
      'profile_update_title' => 'Profil uppdatering',
      'sellers_title'=>'Säljare',
      'first_name_label'=> 'Förnamn',
@@ -163,7 +163,7 @@
     /*front start*/
      'seller_profile_title'=>'Säljar Profil',
      'buyer_profile_title'=>'Köpare Profil',
-   
+
      'your_active_package'=>'Ditt aktiva paket',
     'description_label'=>'Beskrivning',
     'amount_label'=>'Belopp',
@@ -174,7 +174,7 @@
     'subscribe_btn'=>'Prenumerera',
     'subscribe_package_label'=>'Prenumerera på paket',
 
-    
+
         //package
         'your_active_package'=>'Ditt aktiva paket',
         'description_label'=>'Beskrivning',
@@ -185,7 +185,7 @@
         'not_activated_label'=>'Ändå inte aktiverad',
         'subscribe_btn'=>'Prenumerera',
         'subscribe_package_label'=>'Prenumerera på paket',
-        
+
         //seller personal page
     'seller_header_img_label'=>'Rubrikbild',
     'seller_logo_label'=>'Logotyp',
@@ -204,6 +204,9 @@
     'edit_page_title'=>'Redigera sida',
     'page_created_title'=> 'Skapat datum',
     'add_page_btn' => 'Lägg till sida',
+
+    'page_title_en' => 'Titel (engelska)',
+    'description_label_en'=>'Beskrivning (engelska)',
 
  ]
 ?>

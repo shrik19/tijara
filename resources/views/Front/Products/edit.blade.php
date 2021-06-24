@@ -1,5 +1,11 @@
 @extends('Front.layout.template')
 @section('middlecontent')
+<style>
+  .login_box
+  {
+    width:100% !important;
+  }
+</style>
 
 <div class="containerfluid">
 <div class="col-md-6 hor_strip debg_color">
@@ -16,20 +22,20 @@
 	    @endif
       <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
           @csrf
-    <div class="">
+
       <div class="col-md-10">
-		    
+
 		  <h2>{{ __('lang.product_edit_form_label')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
-		  <div class="col-md-1">
-		  <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span>{{ __('lang.back_to_list_label')}}</span> </a>
+		  <div class="col-md-2 text-right" style="margin-top:30px;">
+		  <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
 			</div>
-      <hr class="heading_line"/>
+
       @include ('Front.alert_messages')
       <div class="col-md-6">
         <div class="login_box">
-          
+
           <input type="hidden" name="product_id" value="{{$product_id}}">
           <div class="form-group">
           <label>{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
@@ -60,7 +66,7 @@
             @foreach($categories as $cat_id=>$category)
               <optgroup label="{{$category['maincategory']}}">
               <!--<option value="{{$cat_id}}">{{$category['maincategory']}}</option>-->
-              @foreach($category['subcategories'] as $subcat_id=>$subcategory)	
+              @foreach($category['subcategories'] as $subcat_id=>$subcategory)
               @if(in_array($subcat_id,$selectedCategories))
               <option selected="selected" value="{{$subcat_id}}">{{$subcategory}}</option>
               @else
@@ -105,29 +111,29 @@
             </select>
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
-          
-          
+
+
         </div>
       </div>
     </div>
     <div class="row">
-      
+
       <div class="col-md-8">
 		  <h2>{{ __('lang.product_variant_title')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
-		  <div class="col-md-1">
+		  <div class="col-md-4 text-right">
 		  <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
 			</div>
-     
+
       <div class="col-md-12">
-        <div class="login_box">         
+        <div class="login_box">
           <div class="table-responsive">
             <table class="table table-striped" id="variant_table">
             <thead>
               <tr>
                 <th>{{ __('lang.sku_label')}}</th>
-                <th>{{ __('lang.weight_label')}}</th>         
+                <th>{{ __('lang.weight_label')}}</th>
                 <th>{{ __('lang.price_label')}}</th>
                 <th>{{ __('lang.qty_label')}}</th>
                 <th>{{ __('lang.image_label')}}</th>
@@ -142,8 +148,8 @@
               @php $v++; $variant_key++; @endphp
               <tr class="variant_tr" id="variant_tr" variant_id="{{$variant_key}}" >
                <!-- <td>
-               
-               
+
+
                     <input type="hidden" class="form-control login_input variant_name" name="variant_name[{{$variant_key}}]" value="" placeholder="Variant name">
                 </td>
                -->
@@ -158,22 +164,27 @@
                 <td><input type="file" class="form-control login_input image variant_image"   name="image[{{$variant_key}}]" placeholder="{{ __('lang.image_label')}}">
                 <span class="invalid-feedback" id="err_image" ></span>
                     <input type="hidden" class="form-control login_input previous_image" value="{{$variant['image']}}"  name="previous_image[{{$variant_key}}]" placeholder="{{ __('lang.image_label')}}">
-                
+
                 @if($variant['image']!='')
-                <img src="{{url('/')}}/uploads/ProductImages/{{$variant['image']}}" width="40" height="40">
-                <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
+                <img src="{{url('/')}}/uploads/ProductImages/{{$variant['image']}}" width="40" height="40" style="margin:10px;">
+                &nbsp;&nbsp;<a href="javascript:void(0);" class="remove_image btn btn-danger btn-xs"><i class="fa fa-times"></i></a>
                 @endif
                 </td>
-                <td class="add_attribute_group_td" id="add_attribute_group_td_{{$variant_key}}">
-                    
-                  <button type="button" variant_id="{{$variant_key}}"  class="fa fa_plus add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"  >+</button>
+                <td class="add_attribute_group_td" id="add_attribute_group_td_{{$variant_key}}" style="vertical-align:middle;">
+
+                  <!-- <button type="button" variant_id="{{$variant_key}}"  class="fa fa_plus add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"  >+</button> -->
+                  <span class="variantButtonGroup">
+                  <button type="button" variant_id="{{$variant_key}}" class="btn btn-success btn-xs add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"><i class="fa fa-plus"></i></button>
+                  @if($v>1) <a href="javascript:void(0);" variant_id="{{$variant_key}}"  class="btn btn-danger btn-xs remove_variant_btn" title="{{ __('lang.remove_label')}} {{ __('lang.variant')}}"><i class="fas fa-trash"></i></a>
+                  @endif
+                  </span>
                   <div class="added_attributes" variant_id="{{$variant_key}}">
-                      
+
                       @foreach($variant['attributes'] as $attribute)
                         <div class="added_attributes_each_div">
-                            
+
                             <b>{{$attribute['name']}}</b>:{{$attribute['attribute_values']}}
-                            
+
                             </div>
                       @endforeach
                   </div>
@@ -183,15 +194,15 @@
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h4 class="modal-title">{{ __('lang.add_attr_group_label')}}</h4>
-                               
+
                               </div>
-                        
+
                               <div class="modal-body">
                                 <table class="table table-striped" id="attribute_table">
                                     <thead>
                                       <tr>
                                         <th>{{ __('lang.attribute_label')}}</th>
-                                        
+
                                         <th>{{ __('lang.attribute_value_label')}}</th>
                                         <th>+</th>
                                       </tr>
@@ -199,16 +210,16 @@
                                     <tbody class="field_wrapper">
                                         @php $i=0; @endphp
                                         @foreach($variant['attributes'] as $attr_key=>$attribute)
-                                        
+
                                         @php $i++;  @endphp
                                       <!-- <div > -->
-                                      
+
                                       <tr class="attribute_tr" id="attribute_tr_{{$variant_key}}" attribute_number="{{$attr_key}}">
                                         <td>
-                                       
+
                                             <select class="form-control select_attribute preselected_attribute" id="{{$attribute['id']}}" name="attribute[{{$variant_key}}][{{$attr_key}}]">
                                               <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
-                                          
+
                                                 @foreach ($attributesToSelect as $attr)
                                                     @if($attribute['attribute_id']==$attr->id)
                                                   <option selected="selected" value="{{ $attr->id }}"  >{{ $attr->name }}</option>
@@ -217,62 +228,62 @@
                                                   @endif
                                                 @endforeach
                                             </select>
-                                           
+
                                         </td>
                                        <td>
-                                       
+
                                             <select selected_attribute_value="{{$attribute['attribute_value_id']}}" class="{{$attribute['id']}} form-control select_attribute_value" name="attribute_value[{{$variant_key}}][{{$attr_key}}]">
                                               <option value="">{{ __('lang.select_label')}}  {{ __('lang.attribute_value_label')}}</option>
-                                                
+
                                             </select>
-                                           
+
                                         </td>
                                         <td   class="plus_attribute_tr">
                                            @if($i==1)
-                                            <button variant_id="{{$variant_key}}" type="button" id="plus_attribute" class="fa fa_plus plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"  >+</button>
-                                          
+                                            <button variant_id="{{$variant_key}}" type="button" id="plus_attribute" class="btn btn-success btn-xs plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"><i class="fa fa-plus"></i></button>
+
                                           @endif
-                                          @if($i>1) 
-                                          <a href="javascript:void(0);"  variant_id="{{$variant_key}}"  class="fas fa-trash remove_attribute_btn" title="{{ __('lang.remove_label')}}  {{ __('lang.attribute_label')}}"  ></a>
+                                          @if($i>1)
+                                          <a href="javascript:void(0);"  variant_id="{{$variant_key}}"  class="btn btn-danger btn-xs remove_attribute_btn" title="{{ __('lang.remove_label')}}  {{ __('lang.attribute_label')}}"  ><i class="fa fa-times"></i></a>
                                             @endif
                                           </td>
                                       </tr>
-                                      
-                                      
-                                     
+
+
+
                                     <!-- </div> -->
                                     @endforeach
-                                     @if($i==0) 
-                                      
+                                     @if($i==0)
+
                                         <tr class="attribute_tr" id="attribute_tr_0" attribute_number="0">
                                         <td>
-                                       
+
                                             <select class="form-control select_attribute" name="attribute[{{$variant_key}}][0]">
                                               <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
-                                          
+
                                                 @foreach ($attributesToSelect as $attr)
                                                   <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
                                                 @endforeach
                                             </select>
-                                           
+
                                         </td>
                                        <td>
-                                       
+
                                             <select selected_attribute_value="" class="form-control select_attribute_value" name="attribute_value[{{$variant_key}}][0]">
                                               <option value="">{{ __('lang.select_label')}}  {{ __('lang.attribute_value_label')}}</option>
-                                                
+
                                             </select>
-                                           
+
                                         </td>
                                         <td   class="plus_attribute_tr">
-                                            <button variant_id="{{$variant_key}}" type="button" id="plus_attribute" class="fa fa_plus plus_attribute" title=" {{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"  >+</button>
+                                            <button variant_id="{{$variant_key}}" type="button" id="plus_attribute" class="btn btn-success btn-xs plus_attribute" title=" {{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"  ><i class="fa fa-plus"></i></button>
                                           </td>
                                       </tr>
                                       @endif
                                     </tbody>
                                 </table>
                               </div>
-                        
+
                               <div class="modal-footer">
                                 <button type="button" variant_id="{{$variant_key}}"   class="btn btn-black debg_color login_btn save_attribute_group">{{ __('lang.save_btn')}}</button>
                                 <button type="button" variant_id="{{$variant_key}}"   class="close_modal">{{ __('lang.cancel_btn')}}</button>
@@ -280,18 +291,17 @@
                             </div>
                           </div>
                         </div>
-                        
+
                         <!-- End attribute modal -->
-                    @if($v>1) <a href="javascript:void(0);"  variant_id="{{$variant_key}}"  class="fas fa-trash remove_variant_btn" title="{{ __('lang.remove_label')}} {{ __('lang.variant')}}"  ></a>
-                    @endif
+
                 </td>
               </tr>
               @endforeach
               @else
               <tr class="variant_tr" id="variant_tr" variant_id="0" >
                 <!--<td>
-               
-               
+
+
                     <input type="text" class="form-control login_input variant_name" name="variant_name[0]" placeholder="Variant name">
                 </td>
                -->
@@ -306,11 +316,14 @@
                 </td>
                 <td><input type="file" class="form-control login_input image variant_image" name="image[0]" placeholder="{{ __('lang.image_label')}}">
                 <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="{{ __('lang.image_label')}}">
-                
+
                 <span class="invalid-feedback" id="err_image" ></span></td>
-                <td class="add_attribute_group_td" id="add_attribute_group_td_0">
-                    
-                  <button type="button" variant_id="0"  class="fa fa_plus add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"  >+</button>
+                <td class="add_attribute_group_td" id="add_attribute_group_td_0" style="vertical-align:middle;">
+
+                  <!-- <button type="button" variant_id="0"  class="fa fa_plus add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"  >+</button> -->
+                  <span class="variantButtonGroup">
+                  <button type="button" variant_id="0" class="btn btn-success btn-xs add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"><i class="fa fa-plus"></i></button>
+                </span>
                   <div class="added_attributes" variant_id="0"></div>
                     <!-- attribute Modal -->
                         <div class="modal fade " variant_id="0"  id="attribute-modal">
@@ -318,15 +331,15 @@
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h4 class="modal-title">{{ __('lang.add_attr_group_label')}}</h4>
-                               
+
                               </div>
-                        
+
                               <div class="modal-body">
                                 <table class="table table-striped" id="attribute_table">
                                     <thead>
                                       <tr>
                                         <th>{{ __('lang.attribute_label')}}</th>
-                                        
+
                                         <th>{{ __('lang.attribute_value_label')}}</th>
                                         <th>+</th>
                                       </tr>
@@ -335,33 +348,33 @@
                                       <!-- <div > -->
                                       <tr class="attribute_tr" id="attribute_tr_0" attribute_number="0">
                                         <td>
-                                       
+
                                             <select class="form-control select_attribute" name="attribute[0][0]">
                                               <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
-                                          
+
                                                 @foreach ($attributesToSelect as $attr)
                                                   <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
                                                 @endforeach
                                             </select>
-                                           
+
                                         </td>
                                        <td>
-                                       
+
                                             <select selected_attribute_value="" class="form-control select_attribute_value" name="attribute_value[0][0]">
                                               <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}e</option>
-                                                
+
                                             </select>
-                                           
+
                                         </td>
                                         <td   class="plus_attribute_tr">
-                                            <button variant_id="0" type="button" id="plus_attribute" class="fa fa_plus plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"  >+</button>
+                                            <button variant_id="0" type="button" id="plus_attribute" class="btn btn-success btn-xs plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"  ><i class="fa fa-plus"></i></button>
                                           </td>
                                       </tr>
                         <!-- </div> -->
                                     </tbody>
                                 </table>
                               </div>
-                        
+
                               <div class="modal-footer">
                                 <button type="button" variant_id="0"   class="btn btn-black debg_color login_btn save_attribute_group">{{ __('lang.save_btn')}}</button>
                                 <button type="button" variant_id="0"   class="close_modal">{{ __('lang.reset_btn')}}</button>
@@ -369,7 +382,7 @@
                             </div>
                           </div>
                         </div>
-                        
+
                         <!-- End attribute modal -->
 
                 </td>
@@ -381,13 +394,15 @@
           <div class="all_saved_attributes" ></div>
           </div>
         </div>
-      
-      <div class="login_box">
-          <button type="submit"  class="btn btn-black debg_color login_btn saveproduct" tabindex="9">{{ __('lang.save_btn')}}</button>
-           
-          <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
+
+          <div class="col-md-12">&nbsp;</div>
+          <div class="col-md-12 text-center">
+            <button type="submit"  class="btn btn-black debg_color login_btn saveproduct" tabindex="9">{{ __('lang.save_btn')}}</button>
+
+            <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
           </div>
-          
+
+
           </div>
   </div>
 </form>
@@ -398,20 +413,20 @@
 <script type="text/javascript">
    var addButton = $('.add_button'); //Add button selector
    var wrapper = $('.field_wrapper'); //Input field wrapper
-   var valueHTML = '<tr><td><input type="text" class="form-control login_input" name="attribute_values[]" id="attribute_values" required  value="" ></td><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td><button type="button" class="btn btn-danger remove_button" title="Remove Values"  style="float:right;margin-top:-40px;">X</button></td></tr>'; //New input field html 
+   var valueHTML = '<tr><td><input type="text" class="form-control login_input" name="attribute_values[]" id="attribute_values" required  value="" ></td><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td><button type="button" class="btn btn-danger remove_button" title="Remove Values"  style="float:right;margin-top:-40px;">X</button></td></tr>'; //New input field html
 
    var x = 1; //Initial field counter is 1
    //Once add button is clicked
-  
+
    $(wrapper).on('click', '.remove_button', function(e){
 
-      var textbox_value = $(this).prev().prev().attr("id");  
+      var textbox_value = $(this).prev().prev().attr("id");
       if(textbox_value){
-         
+
          var split = textbox_value.split("_");
          id = split[2];
          if(id !== null && id !== '') {
-        
+
          $.ajax({
             url: "{{url('/')}}"+'/product-attributes/deleteAttributeValue',
             type: 'POST',
@@ -425,7 +440,7 @@
                $("#remove_button_"+id).fadeOut('slow');
 
 
-            } 
+            }
           });
        }
       }else{

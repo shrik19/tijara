@@ -30,7 +30,7 @@ use File;
 
 class AuthController extends Controller
 {
-    
+
     function __construct() {
         $site_details          = Settings::first();
         $data['siteDetails']   = $site_details;
@@ -41,10 +41,11 @@ class AuthController extends Controller
      */
     public function login()
     {
+
         $site_details          = Settings::first();
         $data['siteDetails']   = $site_details;
 
-		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Login')->first();  
+		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Login')->first();
 		$data['banner'] 	= $banner;
         $data['pageTitle'] = 'Sign In';
 		$data['tijara_front_login']	=	'';
@@ -60,18 +61,18 @@ class AuthController extends Controller
                 setcookie('tijara_front_password', '', time() + (86400 * 30), "/");
                 setcookie('tijara_remember_me', '', time() + (86400 * 30), "/");
         }
-		
+
         if(Auth::guard('user')->id()) {
             return redirect(route('frontHome'));
         }
         return view('Front/login', $data);
     }
 
-    
-	
+
+
     public function doLogin(Request $request)
     {
-		
+
         $rules = [
             'email'             => 'required|email',
             'password'          =>  'required',
@@ -82,23 +83,23 @@ class AuthController extends Controller
             'password.required'         => trans('errors.fill_in_password_err'),
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
-		
-		
+
+
 
         if($validator->fails()) {
             $error_messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($error_messages);
         }
-        else 
+        else
         {
-			
+
             if(Auth::guard('user')->attempt(['email' => $request->input('email'),'password' => $request->input('password')]))
             {
                 $checkUser   = User::select('id','status')->where('email','=', trim($request->input('email')))->get();
-				
+
                 if($checkUser[0]['status'] == 'active')
                 {
-                    if(Auth::guard('user')->loginUsingId($checkUser[0]['id'])) 
+                    if(Auth::guard('user')->loginUsingId($checkUser[0]['id']))
                     {
                         //Session::flash('success', 'Login successfull.');
 						if($request->input('remember')) {
@@ -136,8 +137,8 @@ class AuthController extends Controller
                     Session::flash('error', trans('errors.account_blocked_contact_admin_err'));
                     return redirect()->back();
                 }
-                
-                
+
+
             }
             else
             {
@@ -155,17 +156,17 @@ class AuthController extends Controller
             return redirect(route('frontBuyerProfile'));
         if($User->role_id=='2')
             return redirect(route('frontSellerProfile'));
-        
+
     }
 	public function buyer_register()
     {
-		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();  
+		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();
 		$data['banner'] 	= $banner;
 		$data['role_id'] 	= 1;
 		$data['registertype'] = trans('users.buyers_title');
         $data['pageTitle']    = trans('lang.sign_up_title');
-		
-		
+
+
         if(Auth::guard('user')->id()) {
             return redirect(route('frontHome'));
         }
@@ -173,19 +174,19 @@ class AuthController extends Controller
     }
 	public function seller_register()
     {
-		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();  
+		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();
 		$data['banner'] 	= $banner;
 		$data['registertype']= trans('users.sellers_title');
 		$data['role_id'] 	= 2;
         $data['pageTitle'] = trans('lang.sign_up_title');
-		
-		
+
+
         if(Auth::guard('user')->id()) {
             return redirect(route('frontHome'));
         }
         return view('Front/register', $data);
     }
-   
+
     public function doRegister(Request $request)
     {
         $rules = [
@@ -206,14 +207,14 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()) {
-            $messages = $validator->messages(); 
+            $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
-        else 
+        else
         {
             $arrInsert =array();
             $arrInsert = ['fname'=>trim($request->input('fname')),
-                          'lname'=>trim($request->input('lname')),						  
+                          'lname'=>trim($request->input('lname')),
                           'email' => trim($request->input('email')),
                           'password' => bcrypt(trim($request->input('password'))),
                           'status' => 'active',
@@ -224,29 +225,30 @@ class AuthController extends Controller
             if($request->input('role_id') == 2){
                 $arrInsert['is_verified'] = 0;
             }
-                      
+
             $user_id = User::create($arrInsert)->id;
-			
-            if(Auth::guard('user')->loginUsingId($user_id)) 
+
+            if(Auth::guard('user')->loginUsingId($user_id))
             {
-				
+
 				if($request->input('role_id') == 2)
                 {
                     $email = trim($request->input('email'));
                     $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
-                    
+
                     $admin_email = 'shrik.techbee@gmail.com';
                     $admin_name  = 'Tijara Admin';
-                    
+                    //$admin_email = 'cooldhirajsonar@gmail.com';
+
                     $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($user_id))];
 
-    				Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
-    					$message->to($admin_email, $admin_name)->subject
-    						('Tijara - New Seller Registrations');
-    					$message->from('developer@techbeeconsulting.com','Tijara');
-    				});
+            				Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+            					$message->to($admin_email, $admin_name)->subject
+            						('Tijara - New Seller Registrations');
+            					$message->from('developer@techbeeconsulting.com','Tijara');
+            				});
                 }
-		
+
                 //Session::flash('success', 'Registration successfull!');
                 return redirect(route('frontRegisterSuccess'));
             }
@@ -271,7 +273,7 @@ class AuthController extends Controller
      */
     public function sellerProfile($edit = '')
     {
-        
+
         $data['pageTitle'] = trans('users.seller_profile_title');
         if(!Auth::guard('user')->id())
         {
@@ -283,13 +285,13 @@ class AuthController extends Controller
         if(count($details) == 0){
              return redirect(route('frontHome'));
         }
-        
+
         $imagedetails=  UserMain::where('id', $user_id)->with(['getImages'])->first();
 
         $data['id'] = $user_id;
         $data['registertype'] =  trans('users.sellers_title');
         $data['role_id']      = 2;
-        
+
         $data['sellerDetails']          = $details;
         $data['imagedetails']           =  $imagedetails;
         return view('Front/seller_profile', $data);
@@ -301,9 +303,9 @@ class AuthController extends Controller
 
     public function sellerProfileUpdate(Request $request)
     {
-         
+
         $user_id = Auth::guard('user')->id();
-        $rules = [ 
+        $rules = [
             'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'email'         => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
@@ -328,13 +330,13 @@ class AuthController extends Controller
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
-        else 
+        else
         {
-            
+
             $arrUpdate = [
                 'role_id'      => 2,
                 'fname'        => trim($request->input('fname')),
-                'lname'        => trim($request->input('lname')),  
+                'lname'        => trim($request->input('lname')),
                 'email'        => trim($request->input('email')),
                 'phone_number' => trim($request->input('phone_number')),
                 'address'      => trim($request->input('address')),
@@ -351,9 +353,9 @@ class AuthController extends Controller
             if($request->hasfile('sellerimages')) {
             $fileError = 0;
             $order = (sellerImages::where('user_id','=',$user_id)->count())+1;
-       
+
             foreach($request->file('sellerimages') as $image) {
-                 
+
                 $name=$image->getClientOriginalName();
                 $fileExt  = strtolower($image->getClientOriginalExtension());
 
@@ -404,7 +406,7 @@ class AuthController extends Controller
                     imagedestroy($src_img);
 
                     $arrInsert = ['user_id'=>$user_id,'image'=>$fileName,'image_order'=>$order];
-                    
+
                     sellerimages::insert($arrInsert);
                     $order++;
                 }
@@ -419,7 +421,7 @@ class AuthController extends Controller
                 return redirect()->back();
             }
         }
-            
+
 
             Session::flash('success', trans('messages.status_updated_success'));
             return redirect(route('frontSellerProfile'));
@@ -427,7 +429,7 @@ class AuthController extends Controller
 
     }
 
-    
+
     /**
      * Show the Seller Profile Page.
      *
@@ -435,20 +437,20 @@ class AuthController extends Controller
      */
     public function seller_personal_page(Request $request)
     {
-        
-        
+
+
         if(!Auth::guard('user')->id())
         {
             return redirect(route('frontHome'));
         }
         $user_id = Auth::guard('user')->id();
-        
+
         $details=SellerPersonalPage::where('user_id',$user_id)->first();
          $toUpdateData  =   array();
         if($request->hasfile('header_img'))
             {
                 if(!empty($details->header_img)){
-                  
+
                     $image_path = public_path("/uploads/Seller/".$details->header_img);
                     $resized_image_path = public_path("/uploads/Seller/".$details->header_img);
                     if (File::exists($image_path)) {
@@ -521,11 +523,11 @@ class AuthController extends Controller
                     return redirect()->back();
                 }
             }
-        
+
             if($request->hasfile('logo'))
             {
                 if(!empty($details->logo)){
-                  
+
                     $image_path = public_path("/uploads/Seller/".$details->logo);
                     $resized_image_path = public_path("/uploads/Seller/".$details->logo);
                     if (File::exists($image_path)) {
@@ -613,7 +615,7 @@ class AuthController extends Controller
         return view('Front/seller_personal_page', $data);
     }
 
-    /* funtion to seller delete image 
+    /* funtion to seller delete image
     @param : $id
     */
      public function deleteImage($id) {
@@ -623,21 +625,21 @@ class AuthController extends Controller
         }
         $id = base64_decode($id);
         $result = sellerimages::find($id);
-        
-        if (!empty($result)) 
+
+        if (!empty($result))
         {
-            if ($result->delete()) 
+            if ($result->delete())
             {
                 Session::flash('success', trans('errors.selected_img_del_success_err'));
                 return redirect()->back();
-            } 
-            else 
+            }
+            else
             {
                 Session::flash('error', trans('errors.something_wrong_err'));
                 return redirect()->back();
             }
-        } 
-        else 
+        }
+        else
         {
             Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
@@ -662,11 +664,11 @@ class AuthController extends Controller
         if(count($details)==0){
             return redirect(route('frontHome'));
         }
-        
+
         $data['id'] = $user_id;
         $data['registertype']= trans('users.buyers_title');
         $data['role_id']    = 1;
-        
+
         $data['buyerDetails']          = $details;
         return view('Front/buyer_profile', $data);
     }
@@ -678,7 +680,7 @@ class AuthController extends Controller
     {
 
         $user_id = Auth::guard('user')->id();
-        $rules = [ 
+        $rules = [
             'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'email'        => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,email,'.$user_id,
@@ -697,17 +699,17 @@ class AuthController extends Controller
 
         $fileName ='';
         $validator = validator::make($request->all(), $rules, $messages);
-        if($validator->fails()) 
+        if($validator->fails())
         {
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
-        }else 
+        }else
         {
             $buyerDetails = UserMain::find($user_id);
             if($request->hasfile('profile'))
             {
                 if(!empty($buyerDetails->profile)){
-                  
+
                     $image_path = public_path("/uploads/Buyer/".$buyerDetails->profile);
                     $resized_image_path = public_path("/uploads/Buyer/".$buyerDetails->profile);
                     if (File::exists($image_path)) {
@@ -780,15 +782,15 @@ class AuthController extends Controller
                 }
             } else{
                 if(!empty($buyerDetails->profile)){
-                    $fileName = $buyerDetails->profile;  
+                    $fileName = $buyerDetails->profile;
                 }
             }
-        }   
+        }
 
         $arrBuyerInsert = [
                 'role_id'      => 1,
                 'fname'        => trim($request->input('fname')),
-                'lname'        => trim($request->input('lname')),  
+                'lname'        => trim($request->input('lname')),
                 'email'        => trim($request->input('email')),
                 'phone_number' => trim($request->input('phone_number')),
                 'address'      => trim($request->input('address')),
@@ -803,7 +805,7 @@ class AuthController extends Controller
             UserMain::where('id', '=', $user_id)->update($arrBuyerInsert);
             Session::flash('success', trans('messages.buyer_update_success'));
             return redirect(route('frontBuyerProfile'));
-        
+
     }
 
 
@@ -837,7 +839,7 @@ class AuthController extends Controller
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
-        else 
+        else
         {
             $citiesdetails = Cities::select('name')->where('name','=',trim($request->input('shipping_city')))->get();
             if($citiesdetails->count()>0) {
@@ -859,10 +861,10 @@ class AuthController extends Controller
                     $arrData['user_id'] = $user_id;
                     UsersAddress::create($arrData);
                 }
-                
-                
+
+
                 $checksAddress = UsersAddress::where('user_id','=',$user_id)->where('shipping_address','=',null)->first();
-               
+
                 if(!empty($checksAddress->id))
                 {
                      $sarrData = [
@@ -875,8 +877,8 @@ class AuthController extends Controller
                            ];
                     UsersAddress::where('id','=',$checksAddress->id)->update($sarrData);
                 }
-               
-                    
+
+
                 Session::flash('success', trans('messages.billing_update_success'));
                 return redirect(route('frontPersonalProfile'));
             }
@@ -887,7 +889,7 @@ class AuthController extends Controller
         }
     }
 
- 
+
      /** Logout user */
      public function logout($type='',$msg='',Request $request)
      {
@@ -895,7 +897,7 @@ class AuthController extends Controller
         {
             Auth::guard('user')->logout();
         }
-       
+
         $request->session()->forget('email');
         $request->session()->flush();
          if(!empty($msg)) {
@@ -906,7 +908,7 @@ class AuthController extends Controller
                  \Session::flash('error', $msg);
              }
          }
- 
+
          return redirect(route('frontHome'));
      }
 
@@ -917,14 +919,14 @@ class AuthController extends Controller
         $site_details          = Settings::first();
        // $data['siteDetails']   = $site_details;
         $data['pageTitle'] = trans('lang.forgot_password_title');
-        
+
         $user = DB::table('users')->where('email', '=', $request->input('forgot_email'))
             ->first();//Check if the user exists
-        if (empty($user->id)) 
+        if (empty($user->id))
         {
             return redirect()->back()->withErrors(['email' => trans('errors.user_not_exist_err')]);
         }
-        
+
         $token = $this->getRandom(60);
         //Create Password Reset Token
         DB::table('password_resets')->insert([
@@ -932,17 +934,17 @@ class AuthController extends Controller
             'token' => $token,
             'created_at' => date('Y-m-d H:i:s')
         ]);//Get the token just created above
-        
+
         $email = $user->email;
         $name = $user->fname;
         $url = route('frontshowResetPassword',[$token]);
-        
+
         $arrMailData = ['name' => $name,'email' => $email,'url' => $url, 'siteDetails'  =>$site_details];
         Mail::send('emails/forgot_password', $arrMailData, function($message) use ($email,$name) {
             $message->to($email, $name)->subject(trans('lang.welcome') .' - '. trans('lang.forgot_password_title'));
             $message->from('developer@techbeeconsulting.com',trans('lang.welcome'));
         });
-        
+
         Session::flash('success', trans('messages.reset_pwd_email_sent_success'));
         return redirect(route('frontLogin'));
     }
@@ -954,12 +956,12 @@ class AuthController extends Controller
         $data['pageTitle']     = trans('messages.reset_password_btn_label');
         $tokenData = DB::table('password_resets')
         ->where('token', $token)->first();// Redirect the user back to the password reset request form if the token is invalid
-        if (!$tokenData) 
+        if (!$tokenData)
         {
             Session::flash('error', trans('errors.invalid_pwd_reset_link_err'));
             return redirect(route('frontLogin'));
         }
-        
+
         $data['token'] = $token;
         return view('Front/reset_password', $data);
     }
@@ -975,7 +977,7 @@ class AuthController extends Controller
             'token' => 'required' ]);
 
         //check if payload is valid before moving on
-        if ($validator->fails()) 
+        if ($validator->fails())
         {
             $error_messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($error_messages);
@@ -984,7 +986,7 @@ class AuthController extends Controller
         $password = $request->password;// Validate the token
         $tokenData = DB::table('password_resets')
         ->where('token', $request->token)->first();// Redirect the user back to the password reset request form if the token is invalid
-        if (!$tokenData) 
+        if (!$tokenData)
         {
             Session::flash('error', trans('errors.pwd_reset_token_exp_err'));
             return redirect(route('frontLogin'));
@@ -1007,18 +1009,18 @@ class AuthController extends Controller
 
     }
 
-    private function getRandom($n) { 
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
-        $randomString = ''; 
-      
-        for ($i = 0; $i < $n; $i++) { 
-            $index = rand(0, strlen($characters) - 1); 
-            $randomString .= $characters[$index]; 
-        } 
-      
-        return $randomString; 
-    } 
-    
+    private function getRandom($n) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < $n; $i++) {
+            $index = rand(0, strlen($characters) - 1);
+            $randomString .= $characters[$index];
+        }
+
+        return $randomString;
+    }
+
       /**
      * Function for Change Password
      */
@@ -1048,15 +1050,15 @@ class AuthController extends Controller
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
-        if($validator->fails()) 
+        if($validator->fails())
         {
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
-        else 
+        else
         {
             $user_id = \Auth::guard('user')->id();
-           
+
             $arrUpdate = ['password'=>bcrypt($request->input('password'))];
             User::where('id', $user_id)->update($arrUpdate);
 
@@ -1090,7 +1092,7 @@ class AuthController extends Controller
         }
         $data = $details = $is_subscriber = $date_diff = $ExpiredDate= [];
         $currentDate = date('Y-m-d H:i:s');
-    
+
         $is_subscriber = DB::table('user_packages')
                     ->join('packages', 'packages.id', '=', 'user_packages.package_id')
                     ->where('packages.is_deleted','!=',1)
@@ -1106,15 +1108,15 @@ class AuthController extends Controller
             $date1 = strtotime($currentDate);
             $date2 = strtotime($ExpiredDate);
             $diff = $date2 - $date1;
-            $date_diff = round($diff / 86400); 
+            $date_diff = round($diff / 86400);
         }
-        
 
-       
+
+
         if(count($is_subscriber) == 0 || $date_diff <= 30){
             $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
         }
-        
+
 
         $data['user_id']           = $user_id;
         $data['title']             = trans('users.subscribe_package_label');
@@ -1122,13 +1124,13 @@ class AuthController extends Controller
         $data['subscribedPackage'] = $is_subscriber;
         $data['ramainingDays']     = $date_diff;
         $data['expiryDate']        = $ExpiredDate;
-      
+
         return view('Front/Packages/index', $data);
     }
 
     public function subscribePackage(Request $request){
 
-        $user_id       = $request->input('user_id'); 
+        $user_id       = $request->input('user_id');
         $package_id    = $request->input('p_id');
         $validity_days = $request->input('validity_days');
         $currentDate = date('Y-m-d H:i:s');
@@ -1139,7 +1141,7 @@ class AuthController extends Controller
                     ->where('end_date','>=',$currentDate)
                     ->select('user_packages.*')
                     ->get();
-                    
+
         if(count($is_activePackage) != 0){
             $start_date = $is_activePackage[0]->end_date;
             $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
@@ -1148,7 +1150,7 @@ class AuthController extends Controller
             $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
         }
 
-        $arrInsertPackage = [ 
+        $arrInsertPackage = [
                               'user_id'    =>$user_id,
                               'package_id' => $package_id,
                               'status'     => 'active',
@@ -1156,10 +1158,10 @@ class AuthController extends Controller
                               'end_date'   => $ExpiredDate,
                             ];
 
-        UserPackages::create($arrInsertPackage);                   
-        
+        UserPackages::create($arrInsertPackage);
+
         Session::flash('success', trans('messages.package_subscribe_success'));
         return $this->sellerPackages();
     }
-    
+
 }

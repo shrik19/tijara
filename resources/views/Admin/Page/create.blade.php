@@ -20,12 +20,31 @@
           </div>
 
           <div class="form-group">
-            <label>{{ __('users.description_label')}}</label>
+            <label>{{ __('users.description_label')}}<span class="text-danger">*</span></label>
              <textarea class="form-control description" name="description" id="description" spellcheck="true" required ></textarea>
              <div class="invalid-feedback">
              {{ __('errors.fill_in_page_content')}}
             </div>
             <div class="text-danger">{{$errors->first('description')}}</div>
+          </div>
+
+
+          <div class="form-group">
+            <label>{{ __('users.page_title_en')}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="title_en" id="title_en" required tabindex="1" value="">
+            <div class="invalid-feedback">
+             {{ __('errors.fill_in_title_en')}}
+            </div>
+            <div class="text-danger">{{$errors->first('title_en')}}</div>
+          </div>
+
+          <div class="form-group">
+            <label>{{ __('users.description_label_en')}}<span class="text-danger">*</span></label>
+             <textarea class="form-control description_en" name="description_en" id="description_en" spellcheck="true" required ></textarea>
+             <div class="invalid-feedback">
+             {{ __('errors.fill_in_page_content_en')}}
+            </div>
+            <div class="text-danger">{{$errors->first('description_en')}}</div>
           </div>
 
           <div class="form-group">
@@ -55,6 +74,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('.description').richText();
-  }); 
+      $('.description_en').richText();
+  });
 </script>
 @endsection('middlecontent')

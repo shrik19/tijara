@@ -1,6 +1,11 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style>
+  .login_box
+  {
+    width:100% !important;
+  }
+</style>
 <div class="containerfluid">
 <div class="col-md-6 hor_strip debg_color">
 </div>
@@ -16,20 +21,20 @@
       @endif
       <form id="service-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
           @csrf
-    <div class="">
+
       <div class="col-md-10">
-        
+
       <h2>{{ __('servicelang.service_form_label')}}</h2>
       <hr class="heading_line"/>
       </div>
-      <div class="col-md-1">
-      <a href="{{route('manageFrontServices')}}" title="" class=" " ><span>{{ __('lang.back_to_list_label')}}</span> </a>
+      <div class="col-md-2 text-right" style="margin-top:30px;">
+      <a href="{{route('manageFrontServices')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
       </div>
       <hr class="heading_line"/>
       @include ('Front.alert_messages')
       <div class="col-md-6">
         <div class="login_box">
-          
+
           <input type="hidden" name="service_id" value="{{$service_id}}" id="service_id">
           <div class="form-group">
           <label>{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
@@ -50,7 +55,7 @@
             @foreach($categories as $cat_id=>$category)
               <optgroup label="{{$category['maincategory']}}">
               <!--<option value="{{$cat_id}}">{{$category['maincategory']}}</option>-->
-              @foreach($category['subcategories'] as $subcat_id=>$subcategory)  
+              @foreach($category['subcategories'] as $subcat_id=>$subcategory)
               @if(in_array($subcat_id,$selectedCategories))
               <option selected="selected" value="{{$subcat_id}}">{{$subcategory}}</option>
               @else
@@ -63,7 +68,7 @@
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
           </div>
 
-         
+
 
           <div class="form-group">
             <label>{{ __('lang.sort_order_label')}}<span class="de_col"></span></label>
@@ -79,15 +84,15 @@
             </select>
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
-          
-          
+
+
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="login_box">
-          
-          
+
+
           <div class="form-group">
               <label>{{ __('servicelang.service_description_label')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="description" id="description" placeholder="{{ __('servicelang.service_description_label')}} " value="">{{ (old('description')) ?  old('description') : $service->description}}</textarea>
@@ -96,17 +101,18 @@
         </div>
       </div>
     </div>
-    
-      <div class="col-md-12">
-        
-      <div class="login_box">
+
+      <div class="col-md-12">&nbsp;</div>
+      <div class="col-md-12 text-center">
+
+
           <button type="submit"  class="btn btn-black debg_color login_btn saveservice" tabindex="9">{{ __('lang.save_btn')}}</button>
-           
+
           <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
+
+
           </div>
-          
-          </div>
-  
+
 </form>
   </div>
 
@@ -114,7 +120,7 @@
 
 
 <script type="text/javascript">
-   
+
   var siteUrl="{{url('/')}}";
 </script>
 <script type="text/javascript">
@@ -122,10 +128,10 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-    
+
     var slug_name= inputText;
     var slug;
-    var id = $("#service_id").val();    
+    var id = $("#service_id").val();
     $.ajax({
       url: "{{url('/')}}"+'/manage-services/check-slugname/?slug_name='+slug_name,
       type: 'get',

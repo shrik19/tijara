@@ -1,5 +1,5 @@
 <?php
- return [ 
+ return [
      'profile_update_title' => 'Profile Update',
      'sellers_title'=>'Seller',
      'first_name_label'=> 'First name',
@@ -23,8 +23,8 @@
      'login_label'=>'Login',
      'register_title'=>'Register',
      'password_sent_static_content'=>'A password will be sent to your email address.',
-     'privacy_policy_login_page'=>'Your personal data will be used to support your experience 
-              throughout this website, to manage access to your account, 
+     'privacy_policy_login_page'=>'Your personal data will be used to support your experience
+              throughout this website, to manage access to your account,
               and for other purposes described in our privacy policy.',
      'register_as_buyer_btn'=>'Register as Buyer',
      'register_as_seller_btn'=>'Register as Seller',
@@ -166,7 +166,7 @@
     'buyer_profile_title'=>'Buyer Profile',
     'seller_packages_title'=>'Seller Packages',
     'upload_file_input'=>'Upload a file',
-    
+
     //seller personal page
     'seller_header_img_label'=>'Header Image',
     'seller_logo_label'=>'Logo',
@@ -183,5 +183,8 @@
     'edit_page_title'=>'Edit Page',
     'page_created_title'=> 'Date Created',
     'add_page_btn' => 'Add Page',
+
+    'page_title_en' => 'Title (English)',
+    'description_label_en'=>'Description (English)',
  ]
 ?>

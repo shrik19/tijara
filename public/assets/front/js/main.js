@@ -43,7 +43,7 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('img').remove();
     $trNew.find('.remove_image').remove();
     if($trNew.find('.add_attribute_group_td').find('.remove_variant_btn').length<=0)
-    $trNew.find('.add_attribute_group_td').append("<a href='javascript:void(0);'  variant_id='"+variant_id+"'  class='fas fa-trash remove_variant_btn' title='Remove Variant'  ></a>");
+    $trNew.find('.add_attribute_group_td').find('.variantButtonGroup').append("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>");
     //$trNew.find('.plus_attribute_tr').html("<a href='javascript:void(0);'  variant_id='"+variant_id+"'  class='fas fa-trash remove_attribute_btn' title='Remove Attribute'  ></a>");
     $trNew.find('.select_attribute').removeClass('preselected_attribute').attr('id','0').attr('name','attribute['+variant_id+'][0]');
     $trNew.find('.select_attribute_value').removeClass('preselected_attribute').attr('name','attribute_value['+variant_id+'][0]');
@@ -89,8 +89,8 @@ $('#variant_table').on('change', '.variant_image', function () {
                        elm.parent('td').find('.previous_image').val(data);
                        elm.parent('td').find('img').remove();
                        elm.parent('td').find('.remove_image').remove();
-                       elm.parent('td').append('<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="40" height="40">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>')
+                       elm.parent('td').append('<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="40" height="40" style="margin:10px;">'+
+                                            '<a href="javascript:void(0);" class="remove_image btn btn-danger btn-xs"><i class="fa fa-times"></i></a>')
                       }
 
                 });
@@ -113,7 +113,7 @@ $('#variant_table').on('click', '.add_attribute_group_btn', function () {
 
  $('#variant_table').on('click', '.remove_variant_btn', function () {
      if (!confirm('Are you sure you want to remove Variant?')) return false;
-     $(this).parent('td').parent('tr').remove();
+     $(this).parent('span').parent('td').parent('tr').remove();
  });
   $('#variant_table').on('click', '.remove_attribute_btn', function () {
 
@@ -204,7 +204,7 @@ $('#variant_table').on('click', '.plus_attribute', function () {
     $trNew.find('select').val('');
     $trNew.attr('attribute_number',attribute_number);
     $trNew.addClass('clone_tr');
-    $trNew.find('.plus_attribute_tr').html('<a href="javascript:void(0);"  variant_id="'+variant_id+'"  class="fas fa-trash remove_attribute_btn" title="Remove Attribute"  ></a>');
+    $trNew.find('.plus_attribute_tr').html('<a href="javascript:void(0);"  variant_id="'+variant_id+'" class="btn btn-danger btn-xs remove_attribute_btn" title="Remove Attribute"><i class="fa fa-times"></i></a>');
     $trNew.find('.select_attribute').attr('name','attribute['+variant_id+']['+attribute_number+']');
     $trNew.find('.select_attribute_value').attr('name','attribute_value['+variant_id+']['+attribute_number+']');
 

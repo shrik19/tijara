@@ -60,15 +60,15 @@ class PageController extends Controller
                     foreach($s as $val) {
                         for ($i = 0; $i < count($namefield); $i++){
                             $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
-                        }  
+                        }
                     }
                 }
                 else {
                     for ($i = 0; $i < count($field); $i++){
                         $query->orwhere($field[$i], 'like',  '%' . $search .'%');
-                    }  
-                }				 
-            }); 
+                    }
+                }
+            });
         }
 
         if(isset($request['order'][0]))
@@ -82,13 +82,13 @@ class PageController extends Controller
         }
 
         $recordsTotal = $PageDetails->count();
-        
+
         $recordDetails = $PageDetails->offset($request->input('start'))->limit($request->input('length'))->get();
         $arr = [];
-        
+
         if (count($recordDetails) > 0) {
             $recordDetails = $recordDetails->toArray();
-            foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal) 
+            foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal)
             {
                 $action = $status = $image = '-';
                 $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
@@ -107,7 +107,7 @@ class PageController extends Controller
                 $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminPageDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
                 $arr[] = [$title, $slug, $dated, $status, $action];
             }
-        } 
+        }
         else {
             $arr[] = ['', '', trans('lang.datatables.sEmptyTable'), '', ''];
         }
@@ -133,13 +133,18 @@ class PageController extends Controller
 
     /*function to save package details*/
     public function store(Request $request) {
+      
         $rules = [
         'title'             => 'required',
         'description'       => 'required',
+        'title_en'             => 'required',
+        'description_en'       => 'required',
         ];
         $messages = [
             'title.required'              => trans('errors.fill_in_title'),
             'description.required'        => trans('errors.fill_in_page_content'),
+            'title_en.required'              => trans('errors.fill_in_title_en'),
+            'description_en.required'        => trans('errors.fill_in_page_content_en'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -149,13 +154,17 @@ class PageController extends Controller
         }
 
         $slug = $this->slugify(trim($request->input('title')));
+        $slug_en = $this->slugify(trim($request->input('title_en')));
         $created_at = date('Y-m-d H:i:s');
         $userId = Auth::guard('admin')->id();
-        
+
         $arrPackageInsert = [
             'title'             => trim($request->input('title')),
             'slug'              => $slug,
-            'contents'          => trim($request->input('description')),  
+            'contents'          => trim($request->input('description')),
+            'title_en'          => trim($request->input('title_en')),
+            'slug_en'           => $slug_en,
+            'contents_en'       => trim($request->input('description_en')),
             'status'            => trim($request->input('status')),
             'created_by'        => $userId,
             'updated_by'        => $userId,
@@ -185,7 +194,7 @@ class PageController extends Controller
 
         if(empty($details)){
             Session::flash('error', trans('errors.refresh_your_page_err'));
-            return redirect()->back();   
+            return redirect()->back();
         }
 
         $data['pageTitle']              = trans('users.edit_page_title');
@@ -210,13 +219,16 @@ class PageController extends Controller
         $id = base64_decode($id);
 
         $rules = [
-            'title'             => 'required',
-            'description'       => 'required',
+        'title'             => 'required',
+        'description'       => 'required',
+        'title_en'             => 'required',
+        'description_en'       => 'required',
         ];
-
         $messages = [
             'title.required'              => trans('errors.fill_in_title'),
             'description.required'        => trans('errors.fill_in_page_content'),
+            'title_en.required'              => trans('errors.fill_in_title_en'),
+            'description_en.required'        => trans('errors.fill_in_page_content_en'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -224,19 +236,21 @@ class PageController extends Controller
         if($validator->fails()) {
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
-        } else 
+        } else
         {
             $updated_at = date('Y-m-d H:i:s');
             $userId = Auth::guard('admin')->id();
             $arrPackageUpdate = [
                 'title'              => trim($request->input('title')),
-                'contents'           => trim($request->input('description')),   
+                'contents'           => trim($request->input('description')),
+                'title_en'           => trim($request->input('title_en')),
+                'contents_en'        => trim($request->input('description_en')),
                 'status'             => trim($request->input('status')),
                 'updated_by'         => $userId,
                 'updated_at'         => $updated_at,
             ];
 
-            Page::where('id', '=', $id)->update($arrPackageUpdate);  
+            Page::where('id', '=', $id)->update($arrPackageUpdate);
             Session::flash('success', trans('messages.page_update_success'));
             return redirect(route('adminPage'));
         }
@@ -269,7 +283,7 @@ class PageController extends Controller
 
      /**
      * Change status for Record [active/block].
-     * @param  $id = Id, $status = active/block 
+     * @param  $id = Id, $status = active/block
      */
     public function changeStatus($id, $status) {
         if(empty($id)) {

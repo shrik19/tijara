@@ -21,11 +21,29 @@
             <div class="form-group">
               <label>{{ __('users.description_label')}}</label>
            <!--    <textarea class="form-control" id="description" name="description" rows="2" cols="30" style="height:auto" tabindex="2" required><?php if(!empty($PageDetails['description'])){ echo $PageDetails['description']; }?></textarea> -->
-               <textarea class="form-control description" name="description" id="description" spellcheck="true" ><?php if(!empty($PageDetails['contents'])){ echo $PageDetails['contents']; }?></textarea>
+               <textarea class="form-control description" name="description" id="description" spellcheck="true" required><?php if(!empty($PageDetails['contents'])){ echo $PageDetails['contents']; }?></textarea>
                <div class="invalid-feedback">
                {{ __('errors.fill_in_page_content')}}
               </div>
               <div class="text-danger">{{$errors->first('description')}}</div>
+            </div>
+
+            <div class="form-group">
+              <label>{{ __('users.page_title_en')}}<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="title_en" id="title_en" required tabindex="1" value="{{ (old('title_en')) ?  old('title_en') : $PageDetails['title_en']}}">
+              <div class="invalid-feedback">
+               {{ __('errors.fill_in_title_en')}}
+              </div>
+              <div class="text-danger">{{$errors->first('title_en')}}</div>
+            </div>
+
+            <div class="form-group">
+              <label>{{ __('users.description_label_en')}}<span class="text-danger">*</span></label>
+               <textarea class="form-control description_en" name="description_en" id="description_en" spellcheck="true" required > <?php if(!empty($PageDetails['contents_en'])){ echo $PageDetails['contents_en']; }?></textarea>
+               <div class="invalid-feedback">
+               {{ __('errors.fill_in_page_content_en')}}
+              </div>
+              <div class="text-danger">{{$errors->first('description_en')}}</div>
             </div>
 
             <div class="form-group">
@@ -55,6 +73,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('.description').richText();
-  }); 
+    $('.description_en').richText();
+  });
 </script>
 @endsection('middlecontent')

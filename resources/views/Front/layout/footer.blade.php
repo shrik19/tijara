@@ -28,25 +28,46 @@
               <li><a href="#"><img src="{{url('/')}}/assets/front/img/pi_icon.png"/></a></li>
             </ul>
         </div>
+        @php
+          $allPages = getCustomPages();
+        @endphp
         <div class="col-md-offset-1 col-md-2">
           <div class="ft_page_links">
           <h3>{{ __('lang.information_label')}}</h3>
+          @if(!empty($allPages))
           <ul>
-            <li><a href="{{route('frontCmsPage', array('om-oss'))}}">{{ __('lang.about_us_label')}} </a></li>
+            @foreach($allPages as $page)
+              @php
+                  $pageName = '';
+                  $pageUrl  = '';
+                  if(Config::get('app.locale') == 'se')
+                  {
+                    $pageName = $page['title'];
+                    $pageUrl  = route('frontCmsPage', array($page['slug']));
+                  }
+                  else
+                  {
+                    $pageName = $page['title_en'];
+                    $pageUrl  = route('frontCmsPage', array($page['slug_en']));
+                  }
+              @endphp
+              <li><a href="{{ $pageUrl }}">{{ $pageName }} </a></li>
+            @endforeach
+            <!-- <li><a href="">{{ __('lang.about_us_label')}} </a></li>
             <li><a href="">{{ __('lang.checkout_label')}}</a></li>
             <li><a href="">{{ __('lang.contact_label')}}</a></li>
-            <li><a href="">{{ __('lang.service_label')}}</a></li>
+            <li><a href="">{{ __('lang.service_label')}}</a></li> -->
           </ul>
+          @endif
         </div>
       </div>
       <div class="col-md-2">
         <div class="ft_page_links">
         <h3>{{ __('lang.my_account_title')}}</h3>
         <ul>
-          <li><a href="">{{ __('lang.my_account_title')}}</a></li>
-          <li><a href="">{{ __('lang.contact_label')}} </a></li>
-          <li><a href="">{{ __('lang.shopping_cart_label')}} </a></li>
-          <li><a href="">{{ __('lang.shop_label')}}</a></li>
+          <li><a href="{{route('frontUserProfile')}}">{{ __('lang.my_account_title')}}</a></li>
+          <li><a href="javascript:void(0)">{{ __('lang.contact_label')}} </a></li>
+          <li><a href="{{route('AllproductListing')}}">{{ __('lang.shopping_cart_label')}} </a></li>
         </ul>
       </div>
     </div>

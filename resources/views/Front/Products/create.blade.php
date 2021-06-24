@@ -146,16 +146,16 @@
                     <input type="text" class="form-control login_input variant_name" name="variant_name[0]" placeholder="Variant name">
                 </td>
                -->
-                <td> <input type="text" class="form-control login_input sku variant_field" name="sku[0]" placeholder="{{ __('lang.sku_label')}}">
+                <td> <input type="text" class="form-control login_input sku variant_field" name="sku[0]" placeholder="{{ __('lang.sku_label')}}" value="{{ old('sku.0')}}">
                 <span class="invalid-feedback" id="err_sku" ></span></td>
-                <td><input type="text" class="form-control login_input weight number variant_field" name="weight[0]" placeholder="{{ __('lang.weight_label')}}">
+                <td><input type="text" class="form-control login_input weight number variant_field" name="weight[0]" placeholder="{{ __('lang.weight_label')}}" value="{{ old('weight.0')}}">
                 <span class="invalid-feedback" id="err_weight" ></span></td>
-                <td><input type="text" class="form-control login_input price number variant_field" name="price[0]" placeholder="{{ __('lang.price_label')}}">
+                <td><input type="text" class="form-control login_input price number variant_field" name="price[0]" placeholder="{{ __('lang.price_label')}}" value="{{ old('price.0')}}">
                 <span class="invalid-feedback" id="err_price" ></span></td>
-                <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}">
+                <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}" value="{{ old('quantity.0')}}">
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image variant_image" name="image[0]"   placeholder="{{ __('lang.image_label')}}">
+                <td><input type="file" class="form-control login_input image variant_image" name="image[0]"   placeholder="{{ __('lang.image_label')}}" value="">
                 <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="{{ __('lang.action_label')}}">
                 
                 <span class="invalid-feedback" id="err_image" ></span></td>

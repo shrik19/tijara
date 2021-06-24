@@ -121,20 +121,42 @@ $('#variant_table').on('click', '.add_attribute_group_btn', function () {
  });
 //$( ".select_attribute" ).each(function() {
     $('#variant_table').on('change', '.select_attribute', function () {
-
         select_attribute =$(this).val();
         elm              =$(this);
-        $.ajax({
-            url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
-             data: {attribute_id: select_attribute},
-             type: 'get',
-             success: function(output) {
-                          elm.parent('td').parent('tr').find('.select_attribute_value').html(output);
-                      }
-        });
+        var val = $(this).val();
+        var thisSelect  = $(this);
+        $( ".select_attribute" ).each(function() {
+          $(this).removeClass('active');
+        }); 
 
-    //
-});
+        thisSelect.addClass('active');
+        
+        var error = 0;
+        if(val!='') {
+          $( ".select_attribute:not(.active)" ).each(function() {
+            if($(this).val()==val)
+            {
+              alert('attribute selected');
+              error=1;
+              thisSelect.val('').trigger('change');
+              thisSelect.parent('td').next('td').find('select').html('<option value="">Select</option>');
+              thisSelect.val('');
+            }
+          }); 
+        }
+
+      if(error == 0){
+        $.ajax({
+              url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+               data: {attribute_id: select_attribute},
+               type: 'get',
+               success: function(output) {
+                            elm.parent('td').parent('tr').find('.select_attribute_value').html(output);
+                        }
+        });
+      }
+    });
+
 $( ".preselected_attribute" ).each(function() {
 
         select_attribute =$(this).val();
@@ -188,13 +210,12 @@ $('#variant_table').on('click', '.save_attribute_group', function () {
     });
 });
 $('#variant_table').on('click', '.plus_attribute', function () {
-
-
-    var variant_id  =   $(this).attr('variant_id');
-    var $tableBody = $('.modal[variant_id="'+variant_id+'"]').find("tbody"),
+    var variant_id  =   $(this).attr('variant_id');    
+    var $tableBody = $('.modal[variant_id="'+variant_id+'"]').find("tbody");
     $trLast = $tableBody.find("tr:last");
     attribute_number    =   $trLast.attr('attribute_number');
     attribute_number++;
+   // variant_id++
     $trNew = $trLast.clone();
 
     $trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
@@ -203,14 +224,17 @@ $('#variant_table').on('click', '.plus_attribute', function () {
     $trNew.find('option:hidden').show();
     $trNew.find('select').val('');
     $trNew.attr('attribute_number',attribute_number);
+    //$trNew.attr('id',"attribute_tr_"+variant_id);
     $trNew.addClass('clone_tr');
     $trNew.find('.plus_attribute_tr').html('<a href="javascript:void(0);"  variant_id="'+variant_id+'" class="btn btn-danger btn-xs remove_attribute_btn" title="Remove Attribute"><i class="fa fa-times"></i></a>');
     $trNew.find('.select_attribute').attr('name','attribute['+variant_id+']['+attribute_number+']');
     $trNew.find('.select_attribute_value').attr('name','attribute_value['+variant_id+']['+attribute_number+']');
 
     $trLast.after($trNew);
-
 });
+
+
+
 $(".expandCollapseSubcategory").click(function(){
   $(this).toggleClass("activemaincategory");
   id=$(this).attr('href');

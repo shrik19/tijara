@@ -12,25 +12,25 @@
   <!-- Example row of columns -->
   <div class="row">
       @if($subscribedError)
-	    <div class="alert alert-danger">{{$subscribedError}}</div>
-	    @endif
+      <div class="alert alert-danger">{{$subscribedError}}</div>
+      @endif
       <form id="service-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
           @csrf
     <div class="">
       <div class="col-md-10">
-		    
-		  <h2>{{ __('servicelang.service_form_label')}}</h2>
-		  <hr class="heading_line"/>
-		  </div>
-		  <div class="col-md-1">
-		  <a href="{{route('manageFrontServices')}}" title="" class=" " ><span>{{ __('lang.back_to_list_label')}}</span> </a>
-			</div>
+        
+      <h2>{{ __('servicelang.service_form_label')}}</h2>
+      <hr class="heading_line"/>
+      </div>
+      <div class="col-md-1">
+      <a href="{{route('manageFrontServices')}}" title="" class=" " ><span>{{ __('lang.back_to_list_label')}}</span> </a>
+      </div>
       <hr class="heading_line"/>
       @include ('Front.alert_messages')
       <div class="col-md-6">
         <div class="login_box">
           
-          <input type="hidden" name="service_id" value="{{$service_id}}">
+          <input type="hidden" name="service_id" value="{{$service_id}}" id="service_id">
           <div class="form-group">
           <label>{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
           <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}}" value="{{ (old('title')) ?  old('title') : $service->title}}" onblur="convertToSlug(this)">
@@ -50,7 +50,7 @@
             @foreach($categories as $cat_id=>$category)
               <optgroup label="{{$category['maincategory']}}">
               <!--<option value="{{$cat_id}}">{{$category['maincategory']}}</option>-->
-              @foreach($category['subcategories'] as $subcat_id=>$subcategory)	
+              @foreach($category['subcategories'] as $subcat_id=>$subcategory)  
               @if(in_array($subcat_id,$selectedCategories))
               <option selected="selected" value="{{$subcat_id}}">{{$subcategory}}</option>
               @else
@@ -122,24 +122,21 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-    if(inputText == undefined){
-      var slug_name = $("#service_slug").val()
-    }else{
-      var slug_name= inputText;
-    }
     
-     $.ajax({
+    var slug_name= inputText;
+    var slug;
+    var id = $("#service_id").val();    
+    $.ajax({
       url: "{{url('/')}}"+'/manage-services/check-slugname/?slug_name='+slug_name,
       type: 'get',
-      data: { },
+      async: false,
+      data: {id:id },
       success: function(output){
-        if(output !=''){
-          $('.slug-name-err').text(output);
-        }else{
-           $('.slug-name-err').text('');
-        }
+        slug = output;
       }
     });
+
+    return slug;
   }
 
 </script>

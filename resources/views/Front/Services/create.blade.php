@@ -11,21 +11,21 @@
 <div class="container">
   <!-- Example row of columns -->
    @if($subscribedError)
-	    <div class="alert alert-danger">{{$subscribedError}}</div>
-	    @endif
+      <div class="alert alert-danger">{{$subscribedError}}</div>
+      @endif
   <form id="service-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
             @csrf
   <div class="row">
     <div class="">
-	
-	<div class="col-md-10">
-		    
-		  <h2>{{ __('servicelang.service_form_label')}}</h2>
-		  <hr class="heading_line"/>
-		  </div>
-		  <div class="col-md-1">
-		  <a href="{{route('manageFrontServices')}}" title="" class=" " ><span>{{ __('lang.back_to_list_label')}}</span> </a>
-			</div>
+  
+  <div class="col-md-10">
+        
+      <h2>{{ __('servicelang.service_form_label')}}</h2>
+      <hr class="heading_line"/>
+      </div>
+      <div class="col-md-1">
+      <a href="{{route('manageFrontServices')}}" title="" class=" " ><span>{{ __('lang.back_to_list_label')}}</span> </a>
+      </div>
         <hr class="heading_line"/>
          @include ('Front.alert_messages')
       <div class="col-md-6">
@@ -43,7 +43,7 @@
 
             <div class="form-group">
               <label>{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input slug-name" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{old('service_slug')}}" tabindex="1" onblur="checkUniqueSlugName()">
+              <input type="text" class="form-control login_input slug-name" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{old('service_slug')}}" tabindex="1" readonly="readonly">
               <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('service_slug')) {{ $errors->first('service_slug') }}@endif </span>
             </div>
 
@@ -54,7 +54,7 @@
                 @foreach($categories as $cat_id=>$category)
                 <optgroup label="{{$category['maincategory']}}">
                 <!--<option value="{{$cat_id}}">{{$category['maincategory']}}</option>-->
-                @foreach($category['subcategories'] as $subcat_id=>$subcategory)			  
+                @foreach($category['subcategories'] as $subcat_id=>$subcategory)        
                   <option value="{{$subcat_id}}">{{$subcategory}}</option>
                 @endforeach
                 </optgroup>
@@ -64,12 +64,12 @@
           </div>
          
            
-    		  <div class="form-group">
+          <div class="form-group">
               <label>{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
               <input type="tel" class="form-control login_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{old('sort_order')}}" tabindex="7">
               <span class="invalid-feedback" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
           </div>
-			
+      
           <div class="form-group">
             <label>{{ __('lang.status_label')}} </label>
             <select class="select2 form-control login_input" name="status" id="status"  placeholder="Select" tabindex="8" >
@@ -79,7 +79,7 @@
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
 
-      		
+          
         </div>
       </div>
       <div class="col-md-6">  
@@ -109,24 +109,20 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
-    if(inputText == undefined){
-      var slug_name = $("#service_slug").val()
-    }else{
-      var slug_name= inputText;
-    }
-    
-     $.ajax({
+
+    var slug_name= inputText;
+    var slug;
+    $.ajax({
       url: "{{url('/')}}"+'/manage-services/check-slugname/?slug_name='+slug_name,
       type: 'get',
+      async: false,
       data: { },
       success: function(output){
-        if(output !=''){
-          $('.slug-name-err').text(output);
-        }else{
-           $('.slug-name-err').text('');
-        }
+        slug = output;
       }
     });
+
+    return slug;
   }
 
 </script>

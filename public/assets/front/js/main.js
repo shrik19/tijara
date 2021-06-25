@@ -147,7 +147,7 @@ $('#variant_table').on('click', '.add_attribute_group_btn', function () {
               alert('attribute selected');
               error=1;
               thisSelect.val('').trigger('change');
-              thisSelect.parent('td').next('td').find('select').html('<option value="">select</option>');
+              thisSelect.parent('td').next('td').find('select').html('<option value="">'+select_attribute_value+'</option>');
               thisSelect.val('');
             }
           }); 

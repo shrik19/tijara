@@ -23,6 +23,7 @@ $(".add_new_variant_btn").click(function(){
     $trNew.attr('variant_id',variant_id);
     $trNew.find(':text').val('');
     $trNew.find('.previous_image').val('');
+    $trNew.find('.variant_image').val('');
     $trNew.find('.variant_name').attr('name','variant_name['+variant_id+']');
     $trNew.find('.sku').attr('name','sku['+variant_id+']');
     $trNew.find('.weight').attr('name','weight['+variant_id+']');

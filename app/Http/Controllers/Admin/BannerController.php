@@ -157,7 +157,7 @@ class BannerController extends Controller
                 $fileExt  = strtolower($image->getClientOriginalExtension());
 
                 if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
-                    $fileName = 'Banner'.date('YmdHis').'_'.$fileExt;
+                    $fileName = 'Banner'.date('YmdHis').'.'.$fileExt;
                     $image->move(public_path().'/uploads/Banner/', $fileName);  // your folder path
 
                     $path = public_path().'/uploads/Banner/'.$fileName;
@@ -315,7 +315,7 @@ class BannerController extends Controller
                 $fileExt  = strtolower($image->getClientOriginalExtension());
                     
                 if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
-                    $fileName = 'slider'.$id.'_'.date('YmdHis').'_'.$fileExt;
+                    $fileName = 'slider'.$id.'_'.date('YmdHis').'.'.$fileExt;
                     $image->move(public_path().'/uploads/Banner/', $fileName);  // your folder path
 
                     $path = public_path().'/uploads/Banner/'.$fileName;

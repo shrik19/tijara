@@ -1,4 +1,5 @@
 
+
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){
    // allLetterNumber(inputtxt);
@@ -17,6 +18,7 @@ $(".add_new_variant_btn").click(function(){
     $trLast = $tableBody.find("tr.variant_tr:last");
     variant_id=$trLast.attr('variant_id');
     variant_id++;
+
     $trNew = $trLast.clone();
     $trNew.attr('variant_id',variant_id);
     $trNew.find(':text').val('');
@@ -34,6 +36,8 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.modal').attr('variant_id',variant_id);
     $trNew.find('.plus_attribute').attr('variant_id',variant_id);
     $trNew.find('.save_attribute_group').attr('variant_id',variant_id);
+    $trNew.find('.select_attribute').attr('variant_id',variant_id);
+    $trNew.find('.modal').addClass('modalVariant_'+variant_id);
     $trNew.find('.close_modal').attr('variant_id',variant_id);
     $trNew.find('.attribute_tr').find('.remove_attribute_btn').remove();
     $trNew.find('.clone_tr').remove();
@@ -124,22 +128,26 @@ $('#variant_table').on('click', '.add_attribute_group_btn', function () {
         select_attribute =$(this).val();
         elm              =$(this);
         var val = $(this).val();
+
         var thisSelect  = $(this);
         $( ".select_attribute" ).each(function() {
           $(this).removeClass('active');
         }); 
 
         thisSelect.addClass('active');
-        
+
         var error = 0;
         if(val!='') {
-          $( ".select_attribute:not(.active)" ).each(function() {
+          var variant_id  =   $(this).attr('variant_id');
+          alert(variant_id)
+          $('.modal[variant_id="'+variant_id+'"]').find( "select.select_attribute:not(.active)" ).each(function() {
+         
             if($(this).val()==val)
             {
               alert('attribute selected');
               error=1;
               thisSelect.val('').trigger('change');
-              thisSelect.parent('td').next('td').find('select').html('<option value="">Select</option>');
+              thisSelect.parent('td').next('td').find('select').html('<option value="">select</option>');
               thisSelect.val('');
             }
           }); 
@@ -242,7 +250,7 @@ $(".expandCollapseSubcategory").click(function(){
 });
 //$('.activemaincategory').trigger('click');
 $(".frontloginbtn").click(function(e){
-	e.preventDefault();
+  e.preventDefault();
   let email     = $("#email-address").val();
   let password  = $("#password").val();
 
@@ -300,10 +308,10 @@ $('input#sort_order').keyup(function(e)
 });
 
 $(".saveproduct").click(function(e){
-	e.preventDefault();
-  let title  		= $("#title").val();
-  let sort_order  	= $("#sort_order").val();
-  let error 		= 0;
+  e.preventDefault();
+  let title     = $("#title").val();
+  let sort_order    = $("#sort_order").val();
+  let error     = 0;
 
 
   if(title == '')
@@ -314,7 +322,7 @@ $(".saveproduct").click(function(e){
   }
   else
   {
-	  $("#err_title").html('').show();
+    $("#err_title").html('').show();
 
   }
   $( ".variant_field" ).each(function() {
@@ -343,9 +351,9 @@ $(".saveproduct").click(function(e){
 
   });
 $(".frontregisterbtn").click(function(e){
-	e.preventDefault();
-  let fname  	= $("#fname").val();
-  let lname  	= $("#lname").val();
+  e.preventDefault();
+  let fname   = $("#fname").val();
+  let lname   = $("#lname").val();
 
   let email     = $("#email").val();
   let password  = $("#password").val();
@@ -361,7 +369,7 @@ $(".frontregisterbtn").click(function(e){
   }
   else
   {
-	  $("#err_fname").html('').show();
+    $("#err_fname").html('').show();
 
   }
   if(lname == '')
@@ -372,7 +380,7 @@ $(".frontregisterbtn").click(function(e){
   }
   else
   {
-	  $("#err_lname").html('');
+    $("#err_lname").html('');
   }
   if(email == '')
   {
@@ -410,13 +418,13 @@ $(".frontregisterbtn").click(function(e){
     $("#err_password").html('').hide();
   }
   if(password!=cpassword) {
-	  $("#err_cpassword").html(password_not_matched).show();
+    $("#err_cpassword").html(password_not_matched).show();
       $("#err_cpassword").parent().addClass('jt-error');
      error = 1;
   }
   else
   {
-	  $("#err_cpassword").html('');
+    $("#err_cpassword").html('');
   }
   if(error == 1)
   {

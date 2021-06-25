@@ -339,6 +339,11 @@ class ServiceController extends Controller
     public function serviceform($id='') {
 
     $data['subscribedError']   =    '';
+
+    $max_seq_no ='';
+    $max_seq_no = Services::max('sort_order');
+    $data['max_seq_no'] = $max_seq_no + 1;
+
     if(!Auth::guard('user')->id()) {
             return redirect(route('frontLogin'));
         }

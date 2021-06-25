@@ -369,6 +369,10 @@ class ProductController extends Controller
     public function productform($id='') {
 
     $data['subscribedError']   =    '';
+    $max_seq_no ='';
+    $max_seq_no = Products::max('sort_order');
+    $data['max_seq_no'] = $max_seq_no + 1;
+
     if(!Auth::guard('user')->id()) {
             return redirect(route('frontLogin'));
         }
@@ -412,6 +416,7 @@ class ProductController extends Controller
 		}
 		$data['categories']				=	$categoriesArray;
 	    $data['attributesToSelect'] =   Attributes::where('user_id',Auth::guard('user')->id())->get(); 
+
 		if($id) {
 			$product_id					=	base64_decode($id);
 			$data['product_id']			=	$product_id;
@@ -465,9 +470,8 @@ class ProductController extends Controller
     
     public function store(Request $request) {
         
-         $product_slug = $request->input('product_slug');
-         $slug =   CommonLibrary::php_cleanAccents($product_slug);
-        
+        $product_slug = $request->input('product_slug');
+        $slug =   CommonLibrary::php_cleanAccents($product_slug);
         $rules = [ 
             'title'         => 'required',
             'description'   => 'nullable|max:1500',

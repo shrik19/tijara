@@ -217,14 +217,14 @@
                                       <tr class="attribute_tr" id="attribute_tr_{{$variant_key}}" attribute_number="{{$attr_key}}">
                                         <td>
 
-                                            <select class="form-control select_attribute preselected_attribute" id="{{$attribute['id']}}" name="attribute[{{$variant_key}}][{{$attr_key}}]">
+                                            <select class="form-control select_attribute preselected_attribute" id="{{$attribute['id']}}" name="attribute[{{$variant_key}}][{{$attr_key}}]" variant_id="{{$variant_key}}" >
                                               <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                                 @foreach ($attributesToSelect as $attr)
                                                     @if($attribute['attribute_id']==$attr->id)
                                                   <option selected="selected" value="{{ $attr->id }}"  >{{ $attr->name }}</option>
                                                   @else
-                                                  <option style="display:none;" value="{{ $attr->id }}"  >{{ $attr->name }}</option>
+                                                  <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
                                                   @endif
                                                 @endforeach
                                             </select>
@@ -459,12 +459,13 @@
   function checkUniqueSlugName(inputText){
     var slug_name= inputText;
     var slug;
+    var id = $("#product_id").val();
 
      $.ajax({
       url: "{{url('/')}}"+'/manage-products/check-slugname/?slug_name='+slug_name,
       type: 'get',
       async: false,
-      data: { },
+      data: {id:id},
       success: function(output){
         slug = output;
       }

@@ -139,7 +139,6 @@ $('#variant_table').on('click', '.add_attribute_group_btn', function () {
         var error = 0;
         if(val!='') {
           var variant_id  =   $(this).attr('variant_id');
-          alert(variant_id)
           $('.modal[variant_id="'+variant_id+'"]').find( "select.select_attribute:not(.active)" ).each(function() {
          
             if($(this).val()==val)

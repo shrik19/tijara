@@ -148,6 +148,81 @@ class CartController extends Controller
     public function showCart()
     {
       $data = [];
+      $orderDetails = [];
+      $user_id = Auth::guard('user')->id();
+      $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
+      if(!empty($checkExisting))
+      {
+          $OrderId = $checkExisting[0]['id'];
+          $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
+          if(!empty($checkExistingOrderProduct))
+          {
+              foreach($checkExistingOrderProduct as $details)
+              {
+                  //$orderDetails[] = $details;
+
+                  $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+              							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+              							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+              							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+              							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+              							  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+              							  ->where('products.status','=','active')
+              							  ->where('categories.status','=','active')
+              							  ->where('subcategories.status','=','active')
+                              ->where('products.id','=',$details['product_id'])
+                              ->where('variant_product.id','=',$details['variant_id'])
+              							  ->orderBy('products.id', 'DESC')
+              							  ->orderBy('variant_product.id', 'ASC')
+              							  ->groupBy('products.id')
+              							  ->offset(0)->limit(config('constants.Products_limits'))->get();
+                              //dd(DB::getQueryLog());
+
+                              //dd(count($TrendingProducts));
+              		if(count($TrendingProducts)>0) {
+              			foreach($TrendingProducts as $Product)
+                    {
+                      $productCategories = $this->getProductCategories($Product->id);
+                      //dd($productCategories);
+
+              				$product_link	=	url('/').'/product';
+
+              				$product_link	.=	'/'.$productCategories[0]['category_slug'];
+                      $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+
+                      $product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
+
+              				$Product->product_link	=	$product_link;
+
+                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                      $Product->quantity = $details['quantity'];
+                      $orderDetails[] = $Product;
+              			}
+              		}
+              }
+          }
+      }
+
+
+      $data['details'] = $orderDetails;
+      $data['subTotal'] = $checkExisting[0]['sub_total'];
+      $data['Total'] = $checkExisting[0]['total'];
+
       return view('Front/shopping_cart', $data);
+    }
+
+    function getProductCategories($productId)
+    {
+      $productCategories = [];
+      if(!empty($productId))
+      {
+        $productCategories = ProductCategory::join('categories', 'categories.id', '=', 'category_products.category_id')
+                           ->join('subcategories', 'subcategories.id', '=', 'category_products.subcategory_id')
+                           ->select(['category_products.*','categories.category_name', 'categories.category_slug', 'subcategories.subcategory_name', 'subcategories.subcategory_slug'])
+                           ->where('category_products.product_id','=',$productId)
+                           ->get()->toArray();
+      }
+      return $productCategories;
     }
 }

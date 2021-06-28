@@ -189,5 +189,6 @@
      'shopping_cart_subtotal' => 'Delsumma',
      'shopping_cart_shipping' => 'Frakt',
      'shopping_cart_total' => 'Total',
+     'shopping_cart_no_records' => 'Inga poster tillgängliga.',
  ]
 ?>

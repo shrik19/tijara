@@ -77,17 +77,19 @@
                   <input type="text" class="form-control search_now_input" placeholder="{{ __('lang.search_placeholder')}}" name="search">
                   <button class="search_icon_btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
-                <div class=" form-group cart_details">
-                  <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
-                  @php
-                    $productCnt = getOrderProducts(Auth::guard('user')->id());
-                  @endphp
-                  @if($productCnt > 0)
-                  <div class="cart_count">
-                    <span>{{$productCnt}}</span>
+                <a @if(Auth::guard('user')->id() && session('role_id')==1) href="{{route('frontShowCart')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
+                  <div class="form-group cart_details">
+                    <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
+                    @php
+                      $productCnt = getOrderProducts(Auth::guard('user')->id());
+                    @endphp
+                    @if($productCnt > 0)
+                    <div class="cart_count">
+                      <span>{{$productCnt}}</span>
+                    </div>
+                    @endif
                   </div>
-                  @endif
-                </div>
+                </a>
                 <button type="submit" class=" btn buy_now_btn debg_color">{{ __('lang.buy_now_btn')}}</button>
               </form>
             </div>

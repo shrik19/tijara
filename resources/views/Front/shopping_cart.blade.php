@@ -140,65 +140,55 @@ a {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if(!empty($details))
+                                    @foreach($details as $product)
                                     <tr>
                                         <td>
                                             <figure class="itemside align-items-center">
-                                                <div class="aside"><img src="https://i.imgur.com/1eq5kmC.png" class="img-sm"></div>
-                                                <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">Tshirt with round nect</a>
-                                                    <p class="text-muted small">SIZE: L <br> Brand: MAXTRA</p>
+                                                <div class="aside">
+                                                    @if($product['image'])
+                                                      <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" class="img-sm">
+                                                    @else
+                                                      <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="img-sm">
+                                                    @endif
+                                                </div>
+                                                <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">{{ $product->title }}</a>
+                                                    <!-- <p class="text-muted small">SIZE: L <br> Brand: MAXTRA</p> -->
                                                 </figcaption>
                                             </figure>
                                         </td>
-                                        <td> <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select> </td>
+                                        <td> <input type="text" value="{{ $product->quantity }}" /><!-- <select class="form-control">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                                <option>13</option>
+                                                <option>14</option>
+                                                <option>15</option>
+                                            </select>--> </td>
                                         <td>
-                                            <div class="price-wrap"> <var class="price">$10.00</var> <small class="text-muted"> $9.20 each </small> </div>
+                                            <div class="price-wrap"> <var class="price">{{$product->price}} kr</var>
+                                              <!-- <small class="text-muted"> $9.20 each </small>  -->
+                                            </div>
                                         </td>
-                                        <td class="text-right d-none d-md-block"> <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"> <i class="fa fa-heart"></i></a> <a href="" class="btn btn-light" data-abc="true"> Remove</a> </td>
+                                        <td class="text-right d-none d-md-block">
+                                          <!-- <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"> <i class="fa fa-heart"></i></a>  -->
+                                          <a href="" class="btn btn-light" data-abc="true"> Remove</a> </td>
                                     </tr>
+                                    @endforeach
+                                    @else
                                     <tr>
-                                        <td>
-                                            <figure class="itemside align-items-center">
-                                                <div class="aside"><img src="https://i.imgur.com/hqiAldf.jpg" class="img-sm"></div>
-                                                <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">Flower Formal T-shirt</a>
-                                                    <p class="text-muted small">SIZE: L <br> Brand: ADDA </p>
-                                                </figcaption>
-                                            </figure>
-                                        </td>
-                                        <td> <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select> </td>
-                                        <td>
-                                            <div class="price-wrap"> <var class="price">$15</var> <small class="text-muted"> $12 each </small> </div>
-                                        </td>
-                                        <td class="text-right d-none d-md-block"> <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"> <i class="fa fa-heart"></i></a> <a href="" class="btn btn-light btn-round" data-abc="true"> Remove</a> </td>
+                                        <td colspan="4">{{ __('lang.shopping_cart_no_records')}}</td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <figure class="itemside align-items-center">
-                                                <div class="aside"><img src="https://i.imgur.com/UwvU0cT.jpg" class="img-sm"></div>
-                                                <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">Printed White Tshirt</a>
-                                                    <p class="small text-muted">SIZE:M <br> Brand: Cantabil</p>
-                                                </figcaption>
-                                            </figure>
-                                        </td>
-                                        <td> <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                            </select> </td>
-                                        <td>
-                                            <div class="price-wrap"> <var class="price">$9</var> <small class="text-muted"> $6 each</small> </div>
-                                        </td>
-                                        <td class="text-right d-none d-md-block"> <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip" data-abc="true"> <i class="fa fa-heart"></i></a> <a href="" class="btn btn-light btn-round" data-abc="true"> Remove</a> </td>
-                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -218,17 +208,17 @@ a {
                         <div class="card-body">
                             <dl class="dlist-align">
                                 <dt>{{ __('lang.shopping_cart_subtotal')}}:</dt>
-                                <dd class="text-right ml-3">$69.97</dd>
+                                <dd class="text-right ml-3">{{$product->subTotal}} kr</dd>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>{{ __('lang.shopping_cart_shipping')}}:</dt>
-                                <dd class="text-right text-danger ml-3">- $10.00</dd>
+                                <dd class="text-right text-danger ml-3">0.00 kr</dd>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>{{ __('lang.shopping_cart_total')}}:</dt>
-                                <dd class="text-right text-dark b ml-3"><strong>$59.97</strong></dd>
+                                <dd class="text-right text-dark b ml-3"><strong>{{$product->Total}} kr</strong></dd>
                             </dl>
-                            <hr> <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> {{ __('lang.shopping_cart_checkout')}} </a> <a href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">{{ __('lang.shopping_cart_continue')}}</a>
+                            <hr> <a href="javascript:void(0);" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> {{ __('lang.shopping_cart_checkout')}} </a> <a href="{{route('frontHome')}}" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">{{ __('lang.shopping_cart_continue')}}</a>
                         </div>
                     </div>
                 </aside>

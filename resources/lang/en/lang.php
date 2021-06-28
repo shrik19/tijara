@@ -190,5 +190,6 @@
      'shopping_cart_subtotal' => 'Subtotal',
      'shopping_cart_shipping' => 'Shipping',
      'shopping_cart_total' => 'Total',
+     'shopping_cart_no_records' => 'No records available.',
  ]
 ?>

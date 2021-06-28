@@ -84,14 +84,16 @@ td {
         </table></td>
     </tr>
     <tr>
-      <td style="background-color:#fd6964; padding:15px 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:630px; margin:0 auto; padding:0 15px;" class="two-col">
+      <td style="background-color:#fd6964; padding:15px 0;">&nbsp;
+				<!-- <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:630px; margin:0 auto; padding:0 15px;" class="two-col">
           <tbody>
             <tr>
               <td style="text-align:left;"><img src="https://tijara.techbeeconsulting.com/uploads/img/1620728258_187920862.png" alt="{{ __('lang.tijara_logo_alt')}}" style="vertical-align:middle;"></td>
             <td style="text-align:right;"><a href="#" target="_blank" style="display:inline-block; margin-right:10px;"><img src="{{url('/')}}/assets/img/instagram-icon.png" alt="Instagram" style="vertical-align:middle;"></a> <a href="#" target="_blank" style="display:inline-block; margin-right:10px;"><img src="{{url('/')}}/assets/img/facebook-icon.png" alt="Facebook" style="vertical-align:middle;"></a> <a href="#" target="_blank" style="display:inline-block;"><img src="{{url('/')}}/assets/img/twitter-icon.png" alt="Twitter" style="vertical-align:middle;"></a></td>
             </tr>
           </tbody>
-        </table></td>
+        </table> -->
+			</td>
     </tr>
   </tbody>
 </table>

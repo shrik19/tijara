@@ -208,7 +208,7 @@ a {
                         <div class="card-body">
                             <dl class="dlist-align">
                                 <dt>{{ __('lang.shopping_cart_subtotal')}}:</dt>
-                                <dd class="text-right ml-3">{{$product->subTotal}} kr</dd>
+                                <dd class="text-right ml-3">{{$subTotal}} kr</dd>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>{{ __('lang.shopping_cart_shipping')}}:</dt>
@@ -216,7 +216,7 @@ a {
                             </dl>
                             <dl class="dlist-align">
                                 <dt>{{ __('lang.shopping_cart_total')}}:</dt>
-                                <dd class="text-right text-dark b ml-3"><strong>{{$product->Total}} kr</strong></dd>
+                                <dd class="text-right text-dark b ml-3"><strong>{{$Total}} kr</strong></dd>
                             </dl>
                             <hr> <a href="javascript:void(0);" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> {{ __('lang.shopping_cart_checkout')}} </a> <a href="{{route('frontHome')}}" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">{{ __('lang.shopping_cart_continue')}}</a>
                         </div>

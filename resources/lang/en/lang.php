@@ -180,5 +180,15 @@
      'sort_by_asc'=>'Ascending',
      'sort_by_desc'=>'Descending',
 
+     'shopping_cart' => 'Shopping Cart',
+     'shopping_cart_product' => 'Product',
+     'shopping_cart_quantity' => 'Quantity',
+     'shopping_cart_price' => 'Price',
+     'shopping_cart_remove' => 'Remove',
+     'shopping_cart_checkout' => 'Checkout',
+     'shopping_cart_continue' => 'Continue Shopping',
+     'shopping_cart_subtotal' => 'Subtotal',
+     'shopping_cart_shipping' => 'Shipping',
+     'shopping_cart_total' => 'Total',
  ]
 ?>

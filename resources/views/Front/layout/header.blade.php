@@ -79,9 +79,14 @@
                 </div>
                 <div class=" form-group cart_details">
                   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
-                  <!-- <div class="cart_count">
-                    <span>3</span>
-                  </div> -->
+                  @php
+                    $productCnt = getOrderProducts(Auth::guard('user')->id());
+                  @endphp
+                  @if($productCnt > 0)
+                  <div class="cart_count">
+                    <span>{{$productCnt}}</span>
+                  </div>
+                  @endif
                 </div>
                 <button type="submit" class=" btn buy_now_btn debg_color">{{ __('lang.buy_now_btn')}}</button>
               </form>

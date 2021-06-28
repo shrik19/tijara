@@ -115,4 +115,5 @@ Route::group(['middleware'=>['front-login']],function()
   Route::post('/change-password-store', 'Front\AuthController@changePasswordStore')->name('frontChangePasswordStore');
 
   Route::post('/add-to-cart','Front\CartController@addToCart')->name('frontAddToCart');
+  Route::get('/show-cart','Front\CartController@showCart')->name('frontShowCart');
 });

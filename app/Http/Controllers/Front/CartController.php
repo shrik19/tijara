@@ -47,14 +47,81 @@ class CartController extends Controller
         							  ->where('products.status','=','active')
         							  ->get()->toArray();
 
-              $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
-
               $subTotal = 0;
               $shippingTotal = 0;
               $total = 0;
               $created_at = date('Y-m-d H:i:s');
               //Create Temp order
-              $arrOrderInsert = [
+              $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
+              if(!empty($checkExisting))
+              {
+                  $OrderId = $checkExisting[0]['id'];
+              }
+              else
+              {
+                $subTotal = $Products[0]['price'];
+                $total = $subTotal+$shippingTotal;
+
+                $arrOrderInsert = [
+                    'user_id'             => $user_id,
+                    'sub_total'           => $subTotal,
+                    'shipping_total'      => $shippingTotal,
+                    'total'               => $total,
+                    'payment_details'     => NULL,
+                    'payment_status'      => NULL,
+                    'order_status'        => 'PENDING',
+                    'created_at'          => $created_at,
+                ];
+
+                $OrderId = TmpOrders::create($arrOrderInsert)->id;
+              }
+
+              //Create Temp Order Details
+              $checkExistingProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->where('product_id','=',$Products[0]['id'])->where('variant_id','=',$productVariant)->where('variant_attribute_id','=',$Products[0]['variant_attribute_id'])->get()->toArray();
+              if(!empty($checkExistingProduct))
+              {
+                  $OrderDetailsId = $checkExistingProduct[0]['id'];
+                  $quantity  = ($checkExistingProduct[0]['quantity'] + $productQuntity);
+                  $price     = $Products[0]['price'];
+                  $arrOrderDetailsUpdate = [
+                      'price'                => $price,
+                      'quantity'             => $quantity,
+                      'updated_at'           => $created_at,
+                  ];
+
+                  $OrderDetailsId = TmpOrdersDetails::where('id',$OrderDetailsId)->update($arrOrderDetailsUpdate);
+              }
+              else
+              {
+                $arrOrderDetailsInsert = [
+                    'order_id'             => $OrderId,
+                    'user_id'              => $user_id,
+                    'product_id'           => $Products[0]['id'],
+                    'variant_id'           => $productVariant,
+                    'variant_attribute_id' => $Products[0]['variant_attribute_id'],
+                    'price'                => $Products[0]['price'],
+                    'quantity'             => $productQuntity,
+                    'shipping_type'        => NULL,
+                    'shipping_amount'      => '0.00',
+                    'status'               => 'PENDING',
+                    'created_at'           => $created_at,
+                ];
+
+                $OrderDetailsId = TmpOrdersDetails::create($arrOrderDetailsInsert)->id;
+              }
+
+              //Update Order Totals
+              $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
+              if(!empty($checkExistingOrderProduct))
+              {
+                  foreach($checkExistingOrderProduct as $details)
+                  {
+                      $subTotal += $details['price'] * $details['quantity'];
+                  }
+              }
+
+              $total = $subTotal+$shippingTotal;
+              $arrOrderUpdate = [
                   'user_id'             => $user_id,
                   'sub_total'           => $subTotal,
                   'shipping_total'      => $shippingTotal,
@@ -62,28 +129,12 @@ class CartController extends Controller
                   'payment_details'     => NULL,
                   'payment_status'      => NULL,
                   'order_status'        => 'PENDING',
-                  'created_at'          => $created_at,
+                  'updated_at'          => $created_at,
               ];
 
-              $OrderId = TmpOrders::create($arrOrderInsert)->id;
-
-              //Create Temp Order Details
-              $arrOrderDetailsInsert = [
-                  'order_id'             => $OrderId,
-                  'user_id'              => $user_id,
-                  'product_id'           => $Products[0]['id'],
-                  'variant_id'           => $productVariant,
-                  'variant_attribute_id' => $Products[0]['variant_attribute_id'],
-                  'price'                => $Products[0]['price'],
-                  'quantity'             => $productQuntity,
-                  'shipping_type'        => NULL,
-                  'shipping_amount'      => '0.00',
-                  'status'               => 'PENDING',
-                  'created_at'           => $created_at,
-              ];
-
-              $OrderDetailsId = TmpOrdersDetails::create($arrOrderDetailsInsert)->id;
+              TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
             }
+
         }
         else
         {
@@ -92,5 +143,11 @@ class CartController extends Controller
         }
         echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg));
         exit;
+    }
+
+    public function showCart()
+    {
+      $data = [];
+      return view('Front/shopping_cart', $data);
     }
 }

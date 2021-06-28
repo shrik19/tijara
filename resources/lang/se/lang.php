@@ -179,5 +179,15 @@
      'sort_by_asc'=>'Stigande',
      'sort_by_desc'=>'Nedåtgående',
 
+     'shopping_cart' => 'Kundvagn',
+     'shopping_cart_product' => 'Produkt',
+     'shopping_cart_quantity' => 'Kvantitet',
+     'shopping_cart_price' => 'Pris',
+     'shopping_cart_remove' => 'Avlägsna',
+     'shopping_cart_checkout' => 'Kolla upp',
+     'shopping_cart_continue' => 'Fortsätt handla',
+     'shopping_cart_subtotal' => 'Delsumma',
+     'shopping_cart_shipping' => 'Frakt',
+     'shopping_cart_total' => 'Total',
  ]
 ?>

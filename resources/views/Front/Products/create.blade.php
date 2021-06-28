@@ -97,7 +97,7 @@
 
     		  <div class="form-group">
               <label>{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
-              <input type="tel" class="form-control login_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{old('sort_order')}}" tabindex="7">
+              <input type="tel" class="form-control login_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
               <span class="invalid-feedback" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
           </div>
 
@@ -143,24 +143,123 @@
             </thead>
             <tbody class="field_wrapper">
               <!-- <div > -->
+   
+            <?php
 
-              <tr class="variant_tr" id="variant_tr" variant_id="0" >
+            if(!empty(old('sku'))){
+              for($i=0;$i<=count(array(old('sku')));$i++) { ?>
+
+           
+              <tr class="variant_tr" id="variant_tr" variant_id="<?php echo $i;?>">
                 <!--<td>
 
 
                     <input type="text" class="form-control login_input variant_name" name="variant_name[0]" placeholder="Variant name">
                 </td>
                -->
-                <td> <input type="text" class="form-control login_input sku variant_field" name="sku[0]" placeholder="{{ __('lang.sku_label')}}">
+                <td> <input type="text" class="form-control login_input sku variant_field" name="sku[<?php echo $i;?>]" placeholder="{{ __('lang.sku_label')}}" value='{{ old("sku.$i")}}'>
                 <span class="invalid-feedback" id="err_sku" ></span></td>
-                <td><input type="text" class="form-control login_input weight number variant_field" name="weight[0]" placeholder="{{ __('lang.weight_label')}}">
+                <td><input type="text" class="form-control login_input weight number variant_field" name="weight[<?php echo $i;?>]" placeholder="{{ __('lang.weight_label')}}" value='{{ old("weight.$i")}}'>
                 <span class="invalid-feedback" id="err_weight" ></span></td>
-                <td><input type="text" class="form-control login_input price number variant_field" name="price[0]" placeholder="{{ __('lang.price_label')}}">
+                <td><input type="text" class="form-control login_input price number variant_field" name="price[<?php echo $i;?>]" placeholder="{{ __('lang.price_label')}}" value='{{ old("price.$i")}}'>
                 <span class="invalid-feedback" id="err_price" ></span></td>
-                <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}">
+                <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[<?php echo $i;?>]" placeholder="{{ __('lang.qty_label')}}" value='{{ old("quantity.$i")}}'>
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image variant_image" name="image[0]"   placeholder="{{ __('lang.image_label')}}">
+                <td><input type="file" class="form-control login_input image variant_image" name="image[<?php echo $i;?>]"   placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}'>
+                <input type="hidden" class="form-control login_input previous_image"  name="previous_image[<?php echo $i;?>]" placeholder="{{ __('lang.action_label')}}">
+
+                <span class="invalid-feedback" id="err_image" ></span></td>
+                <td class="add_attribute_group_td" id="add_attribute_group_td_0" style="vertical-align:middle;">
+
+                  <!-- <button type="button" variant_id="0"  class="fa fa_plus add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"  >+</button> -->
+                  <span class="variantButtonGroup">
+                  <button type="button" variant_id="<?php echo $i;?>" class="btn btn-success btn-xs add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"><i class="fa fa-plus"></i></button>
+                </span>
+                  <div class="added_attributes" variant_id="<?php echo $i;?>"></div>
+                    <!-- attribute Modal -->
+                        <div class="modal fade " variant_id="<?php echo $i;?>"  id="attribute-modal">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title">{{ __('lang.add_attr_group_label')}}</h4>
+
+                              </div>
+
+                              <div class="modal-body">
+                                <table class="table table-striped" id="attribute_table">
+                                    <thead>
+                                      <tr>
+                                        <th>{{ __('lang.attribute_label')}}</th>
+
+                                        <th>{{ __('lang.attribute_value_label')}}</th>
+                                        <th>+</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="field_wrapper">
+                                      <!-- <div > -->
+                                      <tr class="attribute_tr" id="attribute_tr_<?php echo $i;?>" attribute_number="<?php echo $i;?>">
+                                        <td>
+
+                                            <select class="form-control select_attribute" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
+                                              <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
+
+                                                @foreach ($attributesToSelect as $attr)
+                                                  <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
+                                                @endforeach
+                                            </select>
+
+                                        </td>
+                                       <td>
+
+                                            <select selected_attribute_value="" class="form-control select_attribute_value" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]">
+                                              <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
+
+                                            </select>
+
+                                        </td>
+                                        <td   class="plus_attribute_tr">
+                                            <button variant_id="<?php echo $i;?>" type="button" id="plus_attribute" class="btn btn-success btn-xs plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"><i class="fa fa_plus">+</i></button>
+                                          </td>
+                                      </tr>
+                        <!-- </div> -->
+                                    </tbody>
+                                </table>
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="button" variant_id="<?php echo $i;?>"   class="btn btn-black debg_color login_btn save_attribute_group">{{ __('lang.save_btn')}}</button>
+                                <button type="button" variant_id="<?php echo $i;?>"   class="close_modal">{{ __('lang.reset_btn')}}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- End attribute modal -->
+
+                </td>
+              </tr>
+<?php }
+
+            }else{ ?>
+
+              <tr class="variant_tr" id="variant_tr" variant_id="0">
+                <!--<td>
+
+
+                    <input type="text" class="form-control login_input variant_name" name="variant_name[0]" placeholder="Variant name">
+                </td>
+               -->
+                <td> <input type="text" class="form-control login_input sku variant_field" name="sku[0]" placeholder="{{ __('lang.sku_label')}}" value="{{ old('sku.0')}}">
+                <span class="invalid-feedback" id="err_sku" ></span></td>
+                <td><input type="text" class="form-control login_input weight number variant_field" name="weight[0]" placeholder="{{ __('lang.weight_label')}}" value="{{ old('weight.0')}}">
+                <span class="invalid-feedback" id="err_weight" ></span></td>
+                <td><input type="text" class="form-control login_input price number variant_field" name="price[0]" placeholder="{{ __('lang.price_label')}}" value="{{ old('price.0')}}">
+                <span class="invalid-feedback" id="err_price" ></span></td>
+                <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}" value="{{ old('quantity.0')}}">
+                <span class="invalid-feedback" id="err_quantity" ></span>
+                </td>
+                <td><input type="file" class="form-control login_input image variant_image" name="image[0]"   placeholder="{{ __('lang.image_label')}}" value="">
                 <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="{{ __('lang.action_label')}}">
 
                 <span class="invalid-feedback" id="err_image" ></span></td>
@@ -195,7 +294,7 @@
                                       <tr class="attribute_tr" id="attribute_tr_0" attribute_number="0">
                                         <td>
 
-                                            <select class="form-control select_attribute" name="attribute[0][0]">
+                                            <select class="form-control select_attribute" name="attribute[0][0]" variant_id="0">
                                               <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                                 @foreach ($attributesToSelect as $attr)
@@ -213,7 +312,7 @@
 
                                         </td>
                                         <td   class="plus_attribute_tr">
-                                            <button variant_id="0" type="button" id="plus_attribute" class="btn btn-success btn-xs plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"><i class="fa fa_plus"></i></button>
+                                            <button variant_id="0" type="button" id="plus_attribute" class="btn btn-success btn-xs plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"><i class="fa fa_plus">+</i></button>
                                           </td>
                                       </tr>
                         <!-- </div> -->
@@ -233,6 +332,10 @@
 
                 </td>
               </tr>
+
+            <?php }
+
+            ?>
 
 <!-- </div> -->
             </tbody>

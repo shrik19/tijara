@@ -71,7 +71,7 @@
 
           <div class="form-group">
               <label>{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
-              <input type="tel" class="form-control login_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{old('sort_order')}}" tabindex="7">
+              <input type="tel" class="form-control login_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
               <span class="invalid-feedback" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
           </div>
 

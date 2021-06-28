@@ -40,7 +40,7 @@
         </style>
         <h2 class="de_col">{{ __('lang.price_filter_head')}}</h2>
         <!-- <br /><b>€ 10</b> -->
-        <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="1000" data-slider-step="10" data-slider-value="[0,1000]"/>
+        <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="40000" data-slider-step="500" data-slider-value="[0,40000]"/>
         <!-- <b>€ 1000</b> -->
         <div>&nbsp;</div>
         <!-- Seller Listing -->

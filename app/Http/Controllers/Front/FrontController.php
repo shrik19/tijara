@@ -451,6 +451,7 @@ class FrontController extends Controller
 				$ProductAttributes[$val['attribute_id']]['attribute_name']=$val['attribute_name'];
 				$ProductAttributes[$val['attribute_id']]['attribute_type']=$val['attribute_type'];
 				$ProductAttributes[$val['attribute_id']]['attribute_values'][$val['attribute_value_id']]=$val['attribute_value'];
+        $ProductAttributes[$val['attribute_id']]['variant_values'][$val['attribute_value_id']]=$variant_id;
 			}
 		}
 		//echo'<pre>';print_r($variantData);echo'<pre>';print_r($ProductAttributes);exit;
@@ -461,7 +462,7 @@ class FrontController extends Controller
 		$data['variantData']	= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;
 		$data['ProductImages']	= $ProductImages;
-
+      //dd($data);
         return view('Front/product_details', $data);
     }
     public function getProductAttributeDetails(Request $request) {

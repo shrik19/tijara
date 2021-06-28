@@ -83,6 +83,12 @@ Route::get('/delete/{id}','Front\ServiceController@delete')->name('frontServiceD
 Route::get('/check-slugname','Front\ServiceController@checkUniqueSlugName')->name('frontServiceCheckUniqueSlug');
 });	/*end Product Management  */
 
+
+/* Cart Routes */
+
+/* end Cart Routes */
+
+
 Route::get('/clear-cache', function() {
    $exitCode = Artisan::call('cache:clear');
    // return what you want
@@ -107,4 +113,6 @@ Route::group(['middleware'=>['front-login']],function()
   // change password
   Route::get('/change-password', 'Front\AuthController@changePassword')->name('frontChangePassword');
   Route::post('/change-password-store', 'Front\AuthController@changePasswordStore')->name('frontChangePasswordStore');
+
+  Route::post('/add-to-cart','Front\CartController@addToCart')->name('frontAddToCart');
 });

@@ -133,7 +133,7 @@ $('#variant_table').on('click', '.add_attribute_group_btn', function () {
         var thisSelect  = $(this);
         $( ".select_attribute" ).each(function() {
           $(this).removeClass('active');
-        }); 
+        });
 
         thisSelect.addClass('active');
 
@@ -141,7 +141,7 @@ $('#variant_table').on('click', '.add_attribute_group_btn', function () {
         if(val!='') {
           var variant_id  =   $(this).attr('variant_id');
           $('.modal[variant_id="'+variant_id+'"]').find( "select.select_attribute:not(.active)" ).each(function() {
-         
+
             if($(this).val()==val)
             {
               alert('attribute selected');
@@ -150,7 +150,7 @@ $('#variant_table').on('click', '.add_attribute_group_btn', function () {
               thisSelect.parent('td').next('td').find('select').html('<option value="">'+select_attribute_value+'</option>');
               thisSelect.val('');
             }
-          }); 
+          });
         }
 
       if(error == 0){
@@ -218,7 +218,7 @@ $('#variant_table').on('click', '.save_attribute_group', function () {
     });
 });
 $('#variant_table').on('click', '.plus_attribute', function () {
-    var variant_id  =   $(this).attr('variant_id');    
+    var variant_id  =   $(this).attr('variant_id');
     var $tableBody = $('.modal[variant_id="'+variant_id+'"]').find("tbody");
     $trLast = $tableBody.find("tr:last");
     attribute_number    =   $trLast.attr('attribute_number');
@@ -719,6 +719,32 @@ function get_product_listing(page,category_slug='',subcategory_slug='',sellers =
       var responseObj = $.parseJSON(data);
       $('.product_listings').html(responseObj.products);
       $('.seller_list_content').html(responseObj.sellers);
+    }
+   });
+}
+
+function addToCart(product_variant)
+{
+  var product_quantity = $("#product_quantity_"+product_variant).val();
+  $.ajax({
+    url:siteUrl+"/add-to-cart",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'product_variant': product_variant, 'product_quantity' : product_quantity},
+    success:function(data)
+    {
+      var responseObj = $.parseJSON(data);
+      if(responseObj.status == 1)
+      {
+          location.reload();
+      }
+      else
+      {
+        alert(responseObj.msg);
+      }
+
     }
    });
 }

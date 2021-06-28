@@ -23,8 +23,8 @@ class WebMiddleware
         $vendor = Auth::guard('vendor')->user();
         if($user!=null || $vendor!=null) {}
         else {
-            Session::flash('error', 'Please login as User/Buyer first to access the page!');
-            return redirect(route('frontHome'));
+            Session::flash('error', trans('errors.login_required'));
+            return redirect(route('frontLogin'));
         }
 
         return $next($request);

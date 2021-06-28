@@ -82,5 +82,8 @@
      'fill_in_page_content' => 'Ange sidans innehåll.',
      'fill_in_title_en'=>'Vänligen fyll i titeln (engelska)',
      'fill_in_page_content_en'=>'Vänligen ange sidans innehåll (engelska)',
+
+     'login_required' => 'Logga in som köpare / säljare först för att komma åt sidorna.',
+     'login_buyer_required' => 'Logga in som köpare först för att komma åt sidorna.',
  ]
 ?>

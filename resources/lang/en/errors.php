@@ -83,5 +83,8 @@
      'fill_in_page_content' => 'Please enter page contents.',
      'fill_in_title_en'=>'Please fill in Title (English)',
      'fill_in_page_content_en'=>'Please enter page contents (English)',
+
+     'login_required' => 'Please login as Buyer/Seller first to access the pages.',
+     'login_buyer_required' => 'Please login as Buyer first to access the pages.',
  ]
 ?>

@@ -234,7 +234,7 @@ class FrontController extends Controller
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price'])
+							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id'])
 							  ->where('products.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active');
@@ -297,8 +297,10 @@ class FrontController extends Controller
         $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
-        $data['Products']	= $Products;
+
 			}
+      $data['Products']	= $Products;
+      //dd($Products);
 		}
     else {
       $data['Products']	= 'Inga produkter tillgängliga.';

@@ -135,7 +135,7 @@ class FrontController extends Controller
 								->join('category_products', 'products.id', '=', 'category_products.product_id')
 								->join('categories', 'categories.id', '=', 'category_products.category_id')
 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-								->select(['products.*',DB::raw("count(order_products.id) as totalOrderedProducts"),'variant_product.image'])
+								->select(['products.*',DB::raw("count(order_products.id) as totalOrderedProducts"),'variant_product.image','variant_product.price'])
 								->where('products.status','=','active')
 								->where('categories.status','=','active')
 							  	->where('subcategories.status','=','active')
@@ -166,6 +166,9 @@ class FrontController extends Controller
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
+        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+        $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+
 				$Product->product_link	=	$product_link;
 			}
 		}
@@ -179,7 +182,7 @@ class FrontController extends Controller
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-							  ->select(['products.*','categories.category_name', 'variant_product.image'])
+							  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price'])
 							  ->where('products.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
@@ -215,6 +218,9 @@ class FrontController extends Controller
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
 				$Product->product_link	=	$product_link;
+
+        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+        $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 			}
 		}
 							  return $TrendingProducts;
@@ -269,11 +275,7 @@ class FrontController extends Controller
         $Products	=	$Products->orderBy('products.sort_order', 'ASC')->orderBy('variant_product.id', 'ASC');
       }
 
-
-
-
-
-		$Products			=	$Products->groupBy('products.id');
+	  $Products			=	$Products->groupBy('products.id');
 
 		//$data['ProductsTotal'] = $Products->count();
 

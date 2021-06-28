@@ -153,6 +153,9 @@ class CartController extends Controller
       $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
       if(!empty($checkExisting))
       {
+        $data['subTotal'] = $checkExisting[0]['sub_total'];
+        $data['Total'] = $checkExisting[0]['total'];
+
           $OrderId = $checkExisting[0]['id'];
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
           if(!empty($checkExistingOrderProduct))
@@ -203,11 +206,14 @@ class CartController extends Controller
               }
           }
       }
+      else {
+        $data['subTotal'] = 0.00;
+        $data['Total'] = 0.00;
 
+      }
 
       $data['details'] = $orderDetails;
-      $data['subTotal'] = $checkExisting[0]['sub_total'];
-      $data['Total'] = $checkExisting[0]['total'];
+
 
       return view('Front/shopping_cart', $data);
     }

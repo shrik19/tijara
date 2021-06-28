@@ -1,10 +1,10 @@
 <li>
   <div class="product_data">
-    <div class="product_img">
+    <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;">
       @if($product['image'])
-          <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}">
+          <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" style="width:100%;">
       @else
-          <img width="240" src="{{url('/')}}/uploads/ProductImages/resized/no-image.png">
+          <img width="240" src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" style="width:100%;">
       @endif
     </div>
     <div class="product_info">

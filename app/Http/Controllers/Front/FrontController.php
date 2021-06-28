@@ -13,6 +13,7 @@ use App\Models\Products;
 use App\Models\Settings;
 use App\Models\Page;
 use App\Models\VariantProductAttribute;
+use App\Models\ProductCategory;
 
 use App\Models\UserMain;
 
@@ -145,12 +146,23 @@ class FrontController extends Controller
 
 		if(count($PopularProducts)>0) {
 			foreach($PopularProducts as $Product) {
+        $productCategories = $this->getProductCategories($Product->id);
 
-				$product_link	=	url('/').'product';
+				$product_link	=	url('/').'/product';
 				if($category_slug!='')
-				$product_link	.=	'/'.$category_slug;
+        {
+				      $product_link	.=	'/'.$category_slug;
+        }
+        else {
+          $product_link	.=	'/'.$productCategories[0]['category_slug'];
+        }
 				if($subcategory_slug!='')
-				$product_link	.=	'/'.$subcategory_slug;
+        {
+				      $product_link	.=	'/'.$subcategory_slug;
+        }
+        else {
+          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+        }
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
@@ -161,12 +173,13 @@ class FrontController extends Controller
 	}
 	// get trending products
 	function getTrendingProducts($category_slug='',$subcategory_slug='') {
+    //DB::enableQueryLog();
 		$TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-							  ->select(['products.*','categories.category_name','variant_product.image'])
+							  ->select(['products.*','categories.category_name', 'variant_product.image'])
 							  ->where('products.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
@@ -174,13 +187,30 @@ class FrontController extends Controller
 							  ->orderBy('variant_product.id', 'ASC')
 							  ->groupBy('products.id')
 							  ->offset(0)->limit(config('constants.Products_limits'))->get();
+                //dd(DB::getQueryLog());
+
+                //dd(count($TrendingProducts));
 		if(count($TrendingProducts)>0) {
 			foreach($TrendingProducts as $Product) {
-				$product_link	=	url('/').'product';
+        $productCategories = $this->getProductCategories($Product->id);
+        //dd($productCategories);
+
+				$product_link	=	url('/').'/product';
+
 				if($category_slug!='')
-				$product_link	.=	'/'.$category_slug;
+        {
+				    $product_link	.=	'/'.$category_slug;
+        }
+        else {
+          $product_link	.=	'/'.$productCategories[0]['category_slug'];
+        }
 				if($subcategory_slug!='')
-				$product_link	.=	'/'.$subcategory_slug;
+        {
+				      $product_link	.=	'/'.$subcategory_slug;
+        }
+        else {
+          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+        }
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
@@ -470,11 +500,25 @@ class FrontController extends Controller
 	{
 
         $details 			= Page::where('slug', $page_slug)->first();
-		$data['details'] 	= $details;
-		$data['page_slug']		=	$page_slug;
-		$data['pageTitle'] 	= $details['title'];
+    		$data['details'] 	= $details;
+    		$data['page_slug']		=	$page_slug;
+    		$data['pageTitle'] 	= $details['title'];
 
         return view('Front/pages', $data);
 	}
+
+  function getProductCategories($productId)
+  {
+    $productCategories = [];
+    if(!empty($productId))
+    {
+      $productCategories = ProductCategory::join('categories', 'categories.id', '=', 'category_products.category_id')
+                         ->join('subcategories', 'subcategories.id', '=', 'category_products.subcategory_id')
+                         ->select(['category_products.*','categories.category_name', 'categories.category_slug', 'subcategories.subcategory_name', 'subcategories.subcategory_slug'])
+                         ->where('category_products.product_id','=',$productId)
+                         ->get()->toArray();
+    }
+    return $productCategories;
+  }
 
 }

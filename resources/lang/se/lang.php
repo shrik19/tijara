@@ -179,6 +179,7 @@
      'sort_by_asc'=>'Stigande',
      'sort_by_desc'=>'Nedåtgående',
 
+     'shopping_cart_added' => 'Produkten har lagts till.',
      'shopping_cart' => 'Kundvagn',
      'shopping_cart_product' => 'Produkt',
      'shopping_cart_quantity' => 'Kvantitet',
@@ -190,5 +191,9 @@
      'shopping_cart_shipping' => 'Frakt',
      'shopping_cart_total' => 'Total',
      'shopping_cart_no_records' => 'Inga poster tillgängliga.',
+     'shopping_cart_confirm_remove' => 'Är du säker på att du vill ta bort vald produkt?',
+     'shopping_cart_removed' => 'Produkten har tagits bort.',
+     'shopping_cart_already_removed' => 'Produkten har redan tagits bort från kundvagnen.',
+     'shopping_cart_updated' => 'Produktkvantiteten har uppdaterats.'
  ]
 ?>

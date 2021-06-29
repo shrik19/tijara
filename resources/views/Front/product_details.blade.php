@@ -67,12 +67,12 @@
                           <div class="col-md-6 col-xs-6">
                             <div class="quantity_box">
                                 <h3>{{$attribute['attribute_name']}} : </h3>
-
+                                    <input type="hidden" id="variant_type" name="variant_type" value="{{$attribute['attribute_type']}}">
                                     @if($attribute['attribute_type']=='radio')
                                     <ul class="select_product_color {{$attribute_id}}">
                                         @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
                                         <div class="squaredThree">
-                                            <input  style="background-color:{{$attribute_value}};" type="checkbox" class="product_checkbox_attribute" name="optionsRadios" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}"  >
+                                            <input style="background-color:{{$attribute_value}};" type="checkbox" class="product_checkbox_attribute" name="optionsRadios" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}"  >
                                             <span class="custom-control-indicator"></span>
                                             <label style="background-color:{{$attribute_value}};" for="{{$attribute_value_id}}">{{$attribute_value}} </label>
                                         </div>
@@ -80,16 +80,16 @@
                                         @endforeach
                                     </ul>
                                     @elseif($attribute['attribute_type']=='dropdown')
-                                    <select class=" {{$attribute_id}}">
+                                    <select id="select_product_variant" class="{{$attribute_id}}">
                                         <option value="">{{ __('lang.select_label')}}</option>
                                     @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
-                                        <option   value="{{$attribute_value_id}}"> {{$attribute_value}} </option>
+                                        <option value="{{$attribute_value_id}}" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}"> {{$attribute_value}} </option>
                                         @endforeach
                                     </select>
                                     @elseif($attribute['attribute_type']=='textbox')
                                     <div class="inputattributes {{$attribute_id}}">
                                     @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
-                                        <input  type="text"  value="{{$attribute_value_id}}"> {{$attribute_value}}
+                                        <input type="text" value="{{$attribute_value_id}}" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}"> {{$attribute_value}}
                                         @endforeach
                                     </div>
                                     @endif
@@ -116,7 +116,11 @@
                                     <option value="3"></option>
                                     <option value="4"></option>
                                     <option value="5"></option>
-
+                                    <option value="6"></option>
+                                    <option value="7"></option>
+                                    <option value="8"></option>
+                                    <option value="9"></option>
+                                    <option value="10"></option>
                                     </datalist>
                               </div>
                           </div>
@@ -153,6 +157,50 @@
 </section>
 
 <script type="text/javascript">
+function addtoCartFromProduct()
+{
+    var product_quantity = $("#product_quantity").val();
+    var variant = $(".product_checkbox_attribute:checked").attr('data-variant');
+    if($("#variant_type").val() == 'radio')
+    {
+        variant = $(".product_checkbox_attribute:checked").attr('data-variant');
+    }
+    else if($("#variant_type").val() == 'dropdown') {
+        variant = $("#select_product_variant option:selected").attr('data-variant');
+    }
+    if(product_quantity == '')
+    {
+        alert('Please select quantity.');
+        return false;
+    }
+    else if(variant === undefined) {
+      alert('Please select Variant.');
+      return false;
+    }
 
+    $.ajax({
+      url:siteUrl+"/add-to-cart",
+      headers: {
+        'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+      },
+      type: 'post',
+      data : {'product_variant': variant, 'product_quantity' : product_quantity},
+      success:function(data)
+      {
+        var responseObj = $.parseJSON(data);
+        if(responseObj.status == 1)
+        {
+            //alert(responseObj.msg);
+            location.reload();
+        }
+        else
+        {
+          alert(responseObj.msg);
+          window.location.href = "/front-login";
+        }
+
+      }
+     });
+}
 </script>
 @endsection

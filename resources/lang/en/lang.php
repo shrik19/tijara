@@ -180,6 +180,7 @@
      'sort_by_asc'=>'Ascending',
      'sort_by_desc'=>'Descending',
 
+     'shopping_cart_added' => 'Product added successfully.',
      'shopping_cart' => 'Shopping Cart',
      'shopping_cart_product' => 'Product',
      'shopping_cart_quantity' => 'Quantity',
@@ -191,5 +192,10 @@
      'shopping_cart_shipping' => 'Shipping',
      'shopping_cart_total' => 'Total',
      'shopping_cart_no_records' => 'No records available.',
+     'shopping_cart_confirm_remove' => 'Are you sure, you want to remove selected product?',
+     'shopping_cart_removed' => 'Product removed Successfully.',
+     'shopping_cart_already_removed' => 'Product already removed from Cart.',
+     'shopping_cart_updated' => 'Product quantity updated successfully.'
+
  ]
 ?>

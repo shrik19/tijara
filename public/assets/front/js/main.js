@@ -743,48 +743,14 @@ function addToCart(product_variant)
       else
       {
         alert(responseObj.msg);
+        window.location.href = "/front-login";
       }
 
     }
    });
 }
 
-function addtoCartFromProduct()
-{
-    var product_quantity = $("#product_quantity").val();
-    var variant = $(".product_checkbox_attribute:checked").attr('data-variant');
-    if(product_quantity == '')
-    {
-        alert('Please select quantity.');
-        return false;
-    }
-    else if(variant === undefined) {
-      alert('Please select Variant.');
-      return false;
-    }
 
-    $.ajax({
-      url:siteUrl+"/add-to-cart",
-      headers: {
-        'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-      },
-      type: 'post',
-      data : {'product_variant': variant, 'product_quantity' : product_quantity},
-      success:function(data)
-      {
-        var responseObj = $.parseJSON(data);
-        if(responseObj.status == 1)
-        {
-            location.reload();
-        }
-        else
-        {
-          alert(responseObj.msg);
-        }
-
-      }
-     });
-}
 
 //product details jquery start
 $('input.product_checkbox_attribute').on('change', function() {

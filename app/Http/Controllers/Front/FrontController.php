@@ -136,10 +136,12 @@ class FrontController extends Controller
 								->join('category_products', 'products.id', '=', 'category_products.product_id')
 								->join('categories', 'categories.id', '=', 'category_products.category_id')
 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                ->join('users', 'products.user_id', '=', 'users.id')
 								->select(['products.*',DB::raw("count(order_products.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id'])
 								->where('products.status','=','active')
 								->where('categories.status','=','active')
-							  	->where('subcategories.status','=','active')
+							  ->where('subcategories.status','=','active')
+                ->where('users.status','=','active')
 								->orderBy('totalOrderedProducts', 'DESC')
 								->orderBy('variant_product.id', 'ASC')
 								->groupBy('products.id')
@@ -182,9 +184,11 @@ class FrontController extends Controller
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+                ->join('users', 'products.user_id', '=', 'users.id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
 							  ->where('products.status','=','active')
+                ->where('users.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
 							  ->orderBy('products.id', 'DESC')
@@ -235,10 +239,12 @@ class FrontController extends Controller
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                ->join('users', 'products.user_id', '=', 'users.id')
 							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id'])
 							  ->where('products.status','=','active')
 							  ->where('categories.status','=','active')
-							  ->where('subcategories.status','=','active');
+							  ->where('subcategories.status','=','active')
+                ->where('users.status','=','active');
 			if($request->category_slug !='') {
         $category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
         $Products	=	$Products->where('category_products.category_id','=',$category['id']);

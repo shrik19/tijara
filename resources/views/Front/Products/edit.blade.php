@@ -16,12 +16,13 @@
 </div>
 <div class="container">
   <!-- Example row of columns -->
+    <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
+          @csrf
   <div class="row">
       @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
-      <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
-          @csrf
+    
 
       <div class="col-md-10">
 
@@ -145,7 +146,7 @@
               @if(count($VariantProductAttributeArr)>0)
               @php $v=0; $variant_key=0; @endphp
               @foreach($VariantProductAttributeArr as $variant_key1=>$variant)
-              @php $v++; $variant_key++; @endphp
+              @php $v++; @endphp
               <tr class="variant_tr" id="variant_tr" variant_id="{{$variant_key}}" >
                <!-- <td>
 
@@ -296,6 +297,7 @@
 
                 </td>
               </tr>
+              @php $variant_key++; @endphp
               @endforeach
               @else
               <tr class="variant_tr" id="variant_tr" variant_id="0" >
@@ -405,9 +407,9 @@
 
           </div>
   </div>
-</form>
-  </div>
 
+  </div>
+</form>
   </div> <!-- /container -->
 
 <script type="text/javascript">

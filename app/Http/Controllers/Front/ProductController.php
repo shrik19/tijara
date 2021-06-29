@@ -476,7 +476,7 @@ class ProductController extends Controller
             'title'         => 'required',
             'description'   => 'nullable|max:1500',
             'sort_order'		=>'numeric',      
-            'product_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:products,product_slug',  
+            'product_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u',  
 
         ];
 
@@ -486,7 +486,6 @@ class ProductController extends Controller
             'description.max'        => trans('lang.max_1000_char'),
             'product_slug.required'  => trans('errors.product_slug_req'),
             'product_slug.regex'     => trans('errors.input_aphanum_dash_err'),
-            'product_slug.unique'    => trans('messages.category_slug_already_taken'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -536,11 +535,13 @@ class ProductController extends Controller
         
 		DB::table('variant_product')->where('product_id', $id)->delete();
 		DB::table('variant_product_attribute')->where('product_id', $id)->delete();
-		
-		
+
+		$producVariant=[];
 		if(!empty($request->input('sku'))) {
+            
 		           $order = 0; 
 		    foreach($request->input('sku') as $variant_key=>$variant) {
+               
 		        if($variant!='' && $_POST['price'][$variant_key]!='' && $_POST['quantity'][$variant_key]!='') {
 		            $producVariant['product_id']=   $id;
 		            $producVariant['price']     =   $_POST['price'][$variant_key];
@@ -551,6 +552,7 @@ class ProductController extends Controller
                     if(isset($_POST['previous_image'][$variant_key]) ) {
                         $producVariant['image'] =   $_POST['previous_image'][$variant_key];
                     }
+
 		            $variant_id=VariantProduct::create($producVariant)->id;
 		            foreach($_POST['attribute'][$variant_key] as $attr_key=>$attribute) {
 		                if($_POST['attribute'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
@@ -559,12 +561,15 @@ class ProductController extends Controller
     		                $productVariantAttr['variant_id']   =   $variant_id;
     		                $productVariantAttr['attribute_id'] =   $_POST['attribute'][$variant_key][$attr_key];
     		                $productVariantAttr['attribute_value_id'] =   $_POST['attribute_value'][$variant_key][$attr_key];
+                            // echo "<pre>";
+                            // print_r($productVariantAttr);exit;
     		                VariantProductAttribute::create($productVariantAttr);
 		                }
 		                
 		            }
 		        }
 		    }
+
 		}
 		ProductCategory::where('product_id', $id)->delete();
 			 

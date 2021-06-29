@@ -1,4 +1,4 @@
-<li style="min-height:480px;">
+<li style="min-height:500px;">
   <div class="product_data">
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;">
       @if($product['image'])

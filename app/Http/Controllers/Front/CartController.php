@@ -59,8 +59,8 @@ class CartController extends Controller
               }
               else
               {
-                $subTotal = $Products[0]['price'];
-                $total = $subTotal+$shippingTotal;
+                //$subTotal = $Products[0]['price'];
+                //$total = $subTotal+$shippingTotal;
 
                 $arrOrderInsert = [
                     'user_id'             => $user_id,

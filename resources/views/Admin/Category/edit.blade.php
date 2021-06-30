@@ -13,6 +13,7 @@
                <div class="form-group">
                   <label>{{ __('users.category_name_thead')}} <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" name="name" id="name" tabindex="1" value="{{ (old('name')) ?  old('name') : $categoryDetails['category_name']}}" onblur="convertToSlug(this)">
+                   <input type="hidden" class="form-control" name="h_id" id="h_id" tabindex="1" value="{{ $id }}" onblur="convertToSlug(this)">
                   <div class="invalid-feedback">
                     {{ __('errors.category_name_req')}}
                   </div>
@@ -66,14 +67,15 @@
   * @param : Slug name
   */
   function checkUniqueSlugName(inputText){
- 
+    
     var slug_name= inputText;
+    var id = $("#h_id").val();
     var slug;
      $.ajax({
       url: "{{url('/')}}"+'/admin/category/check-slugname/?slug_name='+slug_name,
       type: 'get',
       async: false,
-      data: { },
+      data: {id:id},
       success: function(output){
         slug = output;
       }

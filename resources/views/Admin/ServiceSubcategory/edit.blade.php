@@ -11,7 +11,7 @@
          <div class="card">
             <div class="card-body">
                <div class="form-group">
-                  <label>{{ __('users.category_name_thead')}}</label>
+                  <label>{{ __('users.category_name_thead') }} </label>
                   <input type="text" class="form-control" name="name" id="name" tabindex="1" value="{{ (old('name')) ?  old('name') : $categoryDetails['category_name']}}" readonly>
                   <input type="hidden" class="form-control" name="hid_subCategory" id="hid_subCategory" tabindex="1" value="{{ (old('hid_subCategory')) ?  old('hid_subCategory') : $categoryDetails['id']}}">
 
@@ -24,6 +24,7 @@
                <div class="form-group">
                   <label>{{ __('users.subcategory_name_label')}} <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" name="subcategory_name" id="subcategory_name" tabindex="1" value="{{ (old('subcategory_name')) ?  old('subcategory_name') : $categoryDetails['subcategory_name']}}" onblur="convertToSlug(this)" >
+                   <input type="hidden" name="hid" id="hid"  value="{{ $id }}">
                   <div class="invalid-feedback">
                      {{ __('errors.subcategory_name_req')}}
                   </div>
@@ -66,13 +67,14 @@
   */
   function checkUniqueSlugName(inputText){
     var slug_name= inputText;   
+    var id = $("#hid").val();
     var slug; 
     
      $.ajax({
       url: "{{url('/')}}"+'/admin/ServiceSubcategory/check-slugname/?slug_name='+slug_name,
       type: 'get',
       async: false,
-      data: { },
+      data: { id:id},
       success: function(output){
         slug = output;
       }

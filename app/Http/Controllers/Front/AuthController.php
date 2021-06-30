@@ -1099,6 +1099,7 @@ class AuthController extends Controller
                     ->where('user_packages.end_date','>=',$currentDate)
                     ->where('user_id','=',$user_id)
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status')
+                    ->orderByRaw('user_packages.id ASC')
                     ->get();
 
         if(count($is_subscriber) != 0){

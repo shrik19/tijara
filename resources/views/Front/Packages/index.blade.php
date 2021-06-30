@@ -39,11 +39,16 @@
 					    </tr>
 					    <tr>
 					  		<td class="package-tbl">{{ __('users.purchased_date_label')}}</td>
-					  		<td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
+					  		@if($row->start_date >= date('Y-m-d H:i:s'))
+					  			<td>{{date('l, d F Y',strtotime($row->start_date. '+1 days'))}}</td>
+					  			
+					  		@else
+					  			<td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
+					  		@endif
 					    </tr>
 					    <tr>
 					  		<td class="package-tbl">{{ __('users.expiry_date_label')}}</td>
-					  		<td>{{date('l, d F Y',strtotime($expiryDate))}}</td>
+					  		<td>{{date('l, d F Y',strtotime($row->end_date))}}</td>
 					    </tr>
 					    <tr>
 					    	<td class="package-tbl">{{ __('lang.status_label')}}</td>
@@ -74,7 +79,7 @@
 				<div class="panel panel-default subscribe-packages">
 				<div class="panel-heading">{{$data['title']}}</div>
 				<div class="panel-body">
-					<p>{{ __('users.description_label')}} : <?php echo $row->description; ?></p>
+					<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
 					<p>{{ __('users.amount_label')}} : {{$data['amount']}}</p>
 					<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} .</p>
 

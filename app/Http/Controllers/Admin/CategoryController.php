@@ -308,6 +308,7 @@ class CategoryController extends Controller
 
         $slug_name = $request->slug_name;
         $id = base64_decode($request->id);
+        
         // Clean up multiple dashes or whitespaces
         $slug_trim = trim(preg_replace('/\s+/', ' ', $slug_name));
         // Convert whitespaces and underscore to dash

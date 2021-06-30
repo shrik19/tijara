@@ -333,17 +333,20 @@ class ServiceSubcatController extends Controller
         }
 
         $unique_slug =1;
-        if(!empty($data[0]['subcategory_slug'])){
-            do{
-                $slug = $slug."-".$unique_slug;
-                if(!empty($id)){
-                    $data =  serviceSubcategories::where('subcategory_slug', $slug)->where('id','!=',$id)->get();
-                } else{
-                    $data =  serviceSubcategories::where('subcategory_slug', $slug)->get();
-                }
-            }while(!empty($data[0]['subcategory_slug']));
-             return $slug;
+        if(count($data) > 0){
+            if(!empty($data[0]['subcategory_slug'])){
+                do{
+                    $slug = $slug."-".$unique_slug;
+                    if(!empty($id)){
+                        $data =  serviceSubcategories::where('subcategory_slug', $slug)->where('id','!=',$id)->get();
+                    } else{
+                        $data =  serviceSubcategories::where('subcategory_slug', $slug)->get();
+                    }
+                }while(!empty($data[0]['subcategory_slug']));
+                 return $slug;
+            }
         }else{
+            echo $slug;exit;
             return $slug;
         }
     }

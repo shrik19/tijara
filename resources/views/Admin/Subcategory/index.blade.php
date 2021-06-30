@@ -221,12 +221,13 @@ $(document).on("click",".savesubcategorydata",function(event) {
   function checkUniqueSlugName(inputText){
 
     var slug_name= inputText; 
+    var id   = $("#id").val();
     var slug;   
      $.ajax({
       url: "{{url('/')}}"+'/admin/subcategory/check-slugname/?slug_name='+slug_name,
       type: 'get',
       async: false,
-      data: { },
+      data: {id:id },
       success: function(output){
         slug = output;
       }

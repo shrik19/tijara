@@ -22,7 +22,7 @@
 	      	 <div class="col-md-4">
 				<div class="panel panel-default subscribe-packages">
 				<div class="panel-heading package-tbl">{{$row->title}}</div>
-				<div class="panel-body">
+				<div class="panel-body"  style="height: 315px!important;">
 					<table class="table" style="border: 0px;">
 					  <tbody>
 					  	<tr>
@@ -78,7 +78,7 @@
 	      	 <div class="col-md-4">
 				<div class="panel panel-default subscribe-packages">
 				<div class="panel-heading">{{$data['title']}}</div>
-				<div class="panel-body">
+				<div class="panel-body" style="height: 315px!important;">
 					<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
 					<p>{{ __('users.amount_label')}} : {{$data['amount']}}</p>
 					<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} .</p>

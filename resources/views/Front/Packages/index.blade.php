@@ -15,6 +15,11 @@
       <!-- html for seller subscribe packages -->
        @if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
       <div class="col-md-12">
+      		@if(!empty($package_exp_msg))
+      		<div class="alert alert-danger" role="alert">
+			  {{$package_exp_msg}}
+			</div>
+			@endif
       	    <h2>{{ __('users.your_active_package')}}</h2>
         	<hr class="heading_line"/>
 	      	@foreach($subscribedPackage as $row)

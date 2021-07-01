@@ -161,6 +161,7 @@
     'not_activated_label'=>'Yet not activated',
     'subscribe_btn'=>'Subscribe',
     'subscribe_package_label'=>'Subscribe packages',
+    'package_exp_message'=>"Subscribe new package before validity ends. see package Subscription option here.",
      /*front start*/
     'seller_profile_title'=>'Seller Profile',
     'buyer_profile_title'=>'Buyer Profile',

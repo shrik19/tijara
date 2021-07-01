@@ -160,6 +160,7 @@
     'not_activated_label'=>'Ändå inte aktiverad',
     'subscribe_btn'=>'Prenumerera',
     'subscribe_package_label'=>'Prenumerera på paket',
+    'package_exp_message'=>"Prenumerera på nytt paket innan giltigheten upphör. se paketet Prenumerationsalternativ här.",
     /*front start*/
      'seller_profile_title'=>'Säljar Profil',
      'buyer_profile_title'=>'Köpare Profil',

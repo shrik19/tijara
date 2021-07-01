@@ -287,6 +287,32 @@ class AuthController extends Controller
         }
 
         $imagedetails=  UserMain::where('id', $user_id)->with(['getImages'])->first();
+        /*check if  seller package expiry and show alert if less than 30 day is remaining to expire*/
+        $currentDate = date('Y-m-d H:i:s');
+        $is_subscriber = DB::table('user_packages')
+                    ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+                    ->where('packages.is_deleted','!=',1)
+                    ->where('user_packages.end_date','>=',$currentDate)
+                    ->where('user_id','=',$user_id)
+                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status')
+                    ->orderByRaw('user_packages.id ASC')
+                    ->get();
+
+        $date_diff='';
+
+        if(count($is_subscriber) != 0){
+           //calculate expiry date
+            $ExpiredDate = date('Y-m-d H:i:s', strtotime($is_subscriber[0]->start_date.'+'.$is_subscriber[0]->validity_days.' days'));
+            /*calculate days remailning for package expiry*/
+            $date1 = strtotime($currentDate);
+            $date2 = strtotime($ExpiredDate);
+            $diff = $date2 - $date1;
+            $date_diff = round($diff / 86400);
+        }
+
+        if(!empty($date_diff) && $date_diff <= 30){
+            $data['package_exp_msg'] =  trans('users.package_exp_message');
+        }
 
         $data['id'] = $user_id;
         $data['registertype'] =  trans('users.sellers_title');
@@ -350,79 +376,6 @@ class AuthController extends Controller
             ];
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);
-            if($request->hasfile('sellerimages')) {
-            $fileError = 0;
-            $order = (sellerImages::where('user_id','=',$user_id)->count())+1;
-
-            foreach($request->file('sellerimages') as $image) {
-
-                $name=$image->getClientOriginalName();
-                $fileExt  = strtolower($image->getClientOriginalExtension());
-
-                if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
-                    $fileName = 'Seller'.$user_id.'_'.date('YmdHis').'_'.$order.'.'.$fileExt;
-                    $image->move(public_path().'/uploads/SellerImages/', $fileName);  // your folder path
-                    $path = public_path().'/uploads/SellerImages/'.$fileName;
-                    $mime = getimagesize($path);
-
-                    if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
-                    if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
-                    if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
-                    if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
-
-                    $old_x = imageSX($src_img);
-                    $old_y = imageSY($src_img);
-
-                    $newWidth = 300;
-                    $newHeight = 300;
-
-                    if($old_x > $old_y){
-                        $thumb_w    =   $newWidth;
-                        $thumb_h    =   $old_y/$old_x*$newWidth;
-                    }
-
-                    if($old_x < $old_y) {
-                        $thumb_w    =   $old_x/$old_y*$newHeight;
-                        $thumb_h    =   $newHeight;
-                    }
-
-                    if($old_x == $old_y) {
-                        $thumb_w    =   $newWidth;
-                        $thumb_h    =   $newHeight;
-                    }
-
-                    $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
-                    imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
-
-                    // New save location
-                    $new_thumb_loc = public_path().'/uploads/SellerImages/resized/' . $fileName;
-
-                    if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
-                    if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-                    if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-                    if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-
-                    imagedestroy($dst_img);
-                    imagedestroy($src_img);
-
-                    $arrInsert = ['user_id'=>$user_id,'image'=>$fileName,'image_order'=>$order];
-
-                    sellerimages::insert($arrInsert);
-                    $order++;
-                }
-                else {
-                    $fileError = 1;
-                }
-            }
-
-            if($fileError == 1)
-            {
-                Session::flash('error', trans('errors.invalid_files_err'));
-                return redirect()->back();
-            }
-        }
-
-
             Session::flash('success', trans('messages.status_updated_success'));
             return redirect(route('frontSellerProfile'));
         }
@@ -1116,6 +1069,7 @@ class AuthController extends Controller
 
         if(count($is_subscriber) == 0 || $date_diff <= 30){
             $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
+            $data['package_exp_msg'] = trans('users.package_exp_message');
         }
 
 

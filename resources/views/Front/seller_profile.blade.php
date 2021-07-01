@@ -11,6 +11,11 @@
   <!-- Example row of columns -->
   <div class="row">
     <div class="col-md-12">
+      @if(!empty($package_exp_msg))
+          <div class="alert alert-danger" role="alert">
+            <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>
+          </div>
+      @endif
     <form id="seller-profile-form" action="{{route('frontSellerProfileUpdate')}}" method="post" enctype="multipart/form-data">
             @csrf
       @include ('Front.alert_messages')
@@ -45,52 +50,6 @@
               <textarea class="form-control" name="description" id="description" placeholder="{{ __('users.description_label')}}" value="">{{ (old('description')) ?  old('description') : $sellerDetails[0]->description}}</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
             </div>
-
-            <div class="form-group increment cloned">
-              <label>{{ __('users.seller_image(s)_label')}}</label>
-              @php
-              if(!empty($imagedetails['getImages']))
-              {
-                echo '<div class="row">';
-
-                foreach($imagedetails['getImages'] as $image)
-                {
-                  $path = public_path().'/uploads/SellerImages/'.$image['image'];
-                  if (file_exists($path)) {
-                  echo '<div style="margin-left:20px;" class="col-md-4 existing-images"><img src="'.url('/').'/uploads/SellerImages/'.$image['image'].'" style="width:140px;height:140px;"><div style="margin-top:10px;margin-bottom:20px;"><a href="javascript:void(0)" onclick="return ConfirmDeleteFunction1(\''.route('SellerImageDelete', base64_encode($image['id'])).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a></div></div>';
-                  }
-                }
-                echo '</div>';
-                echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
-              }
-              @endphp
-              @if (count($imagedetails['getImages']) < 5)
-              <!-- <input type="file" name="sellerimages[]" class="form-control" multiple="multiple"> -->
-              <div class="upload-btn-wrapper">
-              <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> {{ __('users.upload_file_input')}}</button>
-             <input type="file" name="sellerimages[]" class="form-control" multiple="multiple">
-            </div>
-              <div class="input-group-btn text-right"> 
-                <button class="btn gray_color add-image" type="button"><i class="fas fa-plus"></i> {{ __('users.add_more_btn')}}</button>
-              </div>
-              @endif
-            </div>
-
-            <div class="clone hide" style="display:none;" >
-              <div class="form-group cloned" style="margin-top:10px">
-              <!-- <input type="file" name="sellerimages[]" class="form-control" multiple="multiple"> -->
-              <div class="upload-btn-wrapper">
-              <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> {{ __('users.upload_file_input')}}</button>
-             <input type="file" name="sellerimages[]" class="form-control" multiple="multiple">
-            </div>
-              <div class="input-group-btn text-right"> 
-                <button class="btn btn-danger remove-image" type="button"><i class="fas fa-trash-alt"></i> </button>
-              </div>
-              </div>
-            </div>
-
-            <div class="text-danger cloned-danger">{{$errors->first('sellerimages')}}</div>
-          
         </div>
       </div>
       <div class="col-md-6">
@@ -145,18 +104,20 @@
               <span class="invalid-feedback" id="err_paypal_email">@if($errors->has('paypal_email')) {{ $errors->first('paypal_email') }}@endif</span>
             </div>
 
-            <button class="btn btn-black debg_color seller-profile-update login_btn">{{ __('lang.update_btn')}}</button>
-             <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16">{{ __('lang.cancel_btn')}}</a>
+            
           
         </div>
       </div>
+        <div style="text-align: center">
+          <button class="btn btn-black debg_color seller-profile-update login_btn">{{ __('lang.update_btn')}}</button>
+          <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16">{{ __('lang.cancel_btn')}}</a>
+        </div>
       </form>
     </div>
   </div>
 </div> <!-- /container -->
 
 
-<script src="{{url('/')}}/assets/admin/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script>
 
 
@@ -181,6 +142,8 @@
   $(document).ready(function () {
     $('#phone_number').mask('00 000 00000');
   });
+
+   
 
 </script>
 <!-- Template CSS -->

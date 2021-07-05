@@ -88,11 +88,14 @@
 					<p>{{ __('users.amount_label')}} : {{$data['amount']}}</p>
 					<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} .</p>
 
-					<form method="POST" action="{{route('frontSubscribePackage')}}" class="needs-validation" novalidate="">
+					<!-- <form method="POST" action="{{route('frontSubscribePackage')}}" class="needs-validation" novalidate=""> -->
+					<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">
 						 {{ csrf_field() }}
 					 	<input type="hidden" name="user_id" value="{{$user_id}}">
 					 	<input type="hidden" name="p_id" value="{{$data['id']}}">
+					 	<input type="hidden" name="p_name" value="{{$data['title']}}">
 					 	<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
+					 	<input type="hidden" name="amount" value="{{$data['amount']}}">
 					 	
 					 	<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
 					 </form>

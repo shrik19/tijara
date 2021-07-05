@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Front;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -1083,8 +1084,265 @@ class AuthController extends Controller
         return view('Front/Packages/index', $data);
     }
 
-    public function subscribePackage(Request $request){
+    public function klarnaPayment(Request $request){
+        $username = env('KLORNA_USERNAME');
+        $password = env('KLORNA_PASSWORD');
+        /*create order*/
+        $user_id       = $request->input('user_id');
+        $amount    = $request->input('amount');
+        $validity_days = $request->input('validity_days');
+        $package_id    = $request->input('p_id');
+        $package_name = $request->input('p_name');
 
+        $url = env('BASE_API_URL');
+        //$url = "https://api.playground.klarna.com/checkout/v3/orders";
+        $data = array("purchase_country"=> "SE",
+            "purchase_currency"=> "SEK",
+          "locale"=> "en-SE",
+          "order_amount"=> $amount,
+          "order_tax_amount"=> 0,
+
+        );
+        $data['order_lines'] = [array(
+                 "type"=> "physical",
+                  "reference"=> $package_id,
+                  "name"=> $package_name,
+                  "quantity"=>1,
+                  "quantity_unit"=> "pcs",
+                  "unit_price"=> $amount,
+                  "tax_rate"=> 0,
+                  "total_amount"=> $amount,
+                  "total_discount_amount"=> 0,
+                  "total_tax_amount"=> 0
+        )];
+       
+        $data['merchant_urls'] =array(
+                 "terms"=>  url("/"),
+                 "checkout"=> url("/")."/package_callback?order_id={checkout.order.id}",
+                 "confirmation"=> url("/")."/package_callback?order_id={checkout.order.id}",
+                 "push"=> url("/")."/push_notification?order_id={checkout.order.id}",
+        );
+   
+
+        $data = json_encode($data);
+        $data =str_replace("\/\/", "//", $data);
+        $data =str_replace("\/", "/", $data);
+           
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $result = curl_exec($ch);
+ 
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+        }
+        curl_close($ch);
+
+        if (isset($error_msg)) {
+          echo $error_msg;exit;
+        }
+      
+        $response = json_decode($result);
+   /*     echo "<pre>";
+        print_r($response);exit;*/
+        $order_id = $response->order_id;
+        $order_status = $response->status;
+        $currentDate = date('Y-m-d H:i:s');
+        $html_data=[];
+
+        $is_activePackage = DB::table('user_packages')
+                    ->where('status','=','active')
+                    ->where('user_id','=',$user_id)
+                    ->where('end_date','>=',$currentDate)
+                    ->select('user_packages.*')
+                    ->get();
+
+        if(count($is_activePackage) != 0){
+            $start_date = $is_activePackage[0]->end_date;
+            $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
+        }else{
+            $start_date = date("Y-m-d H:i:s");
+            $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
+        }
+
+        $arrInsertPackage = [
+                              'user_id'    =>$user_id,
+                              'package_id' => $package_id,
+                              'status'     => 'pending',
+                              'start_date' => $start_date,
+                              'end_date'   => $ExpiredDate,
+                              'order_id'   => $order_id,
+                              'payment_status'=>$order_status,
+                            ];
+         
+        UserPackages::create($arrInsertPackage);
+
+        $html_data["html_snippet"] = $response->html_snippet;
+
+       // $data["payment_method_categories"] = $response->payment_method_categories[0]->identifier;
+        return view('Front/Packages/payment_integration',$html_data); 
+       
+    }
+
+
+     public function packageCallback(Request $request){
+        $order_id = $request->order_id;
+        $username = env('KLORNA_USERNAME');
+        $password = env('KLORNA_PASSWORD');
+
+      /*  $url ="https://api.playground.klarna.com/checkout/v3/orders/d1d90381-3cda-6a89-a22c-33f1ed95eb9e";*/
+        $url = env('BASE_API_URL')."/".$order_id;
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+     
+        $result = curl_exec($ch);
+ 
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+        }
+        curl_close($ch);
+
+        if (isset($error_msg)) {
+          echo $error_msg;exit;
+        }
+      
+        $response = json_decode($result);
+        //  echo "<pre>";
+        // print_r($response);exit;
+
+        $order_id     =  $response->order_id;
+        $order_status = $response->status;
+   /*     if($order_status == 'checkout_complete'){
+            // request to Klarna saying that you’ve acknowledged the order.
+            $ack_url  = "https://api.playground.klarna.com/ordermanagement/v1/orders/$order_id/acknowledge";
+            //echo $ack_url;exit;
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL,$ack_url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+
+            $response = curl_exec($curl);
+     
+            if (curl_errno($curl)) {
+                $error_msg = curl_error($curl);
+            }
+            curl_close($curl);
+
+            if (isset($error_msg)) {
+              echo $error_msg;exit;
+            }
+          
+            echo "<pre>-->";print_r($response);exit;
+        }*/
+        $data=[];
+        $data["html_snippet"] = $response->html_snippet;
+        return view('Front/Packages/payment_confirm',$data); 
+    }
+
+
+     public function pushNotification(Request $request){
+        /*echo "<pre>";
+        print_r($_GET);exit;*/
+       Storage::put('attempt1.txt',"123");
+
+       /*get order from klarm by order id*/
+        $order_id = $request->order_id;
+        $username = env('KLORNA_USERNAME');
+        $password = env('KLORNA_PASSWORD');
+        $url = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id;
+        
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+     
+        $res = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+        }
+        curl_close($ch);
+
+        if (isset($error_msg)) {
+          echo $error_msg;exit;
+        }
+
+        // request to Klarna saying that you’ve acknowledged the order.
+        $ack_url  = "https://api.playground.klarna.com/ordermanagement/v1/orders/$order_id/acknowledge";
+        //echo $ack_url;exit;
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL,$ack_url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+
+        $response = curl_exec($curl);
+ 
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+        }
+        curl_close($curl);
+
+        if (isset($error_msg)) {
+          echo $error_msg;exit;
+        }
+      
+        $currentDate = date('Y-m-d H:i:s');
+
+        $is_activePackage = DB::table('user_packages')
+                    ->where('status','=','active')
+                    ->where('user_id','=',$user_id)
+                    ->where('end_date','>=',$currentDate)
+                    ->select('user_packages.*')
+                    ->get();
+
+        if(count($is_activePackage) != 0){
+            $start_date = $is_activePackage[0]->end_date;
+            $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
+        }else{
+            $start_date = date("Y-m-d H:i:s");
+            $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
+        }
+
+        $arrUpdatePackage = [
+                              'status'     => 'active',
+                              'start_date' => $start_date,
+                              'end_date'   => $ExpiredDate,
+                              'payment_status' =>"checkout_complete",
+                              'payment_response' => $response,
+                            ];
+
+        UserPackages::where('order_id', '=', $order_id)->update($arrUpdatePackage);  
+        
+     //   DB::update('update user_packages set order_status = ?,status=? where order_id = ?',["checkout_complete","active",$order_id]);
+        Session::flash('success', trans('messages.package_subscribe_success'));
+        return $this->sellerPackages();
+
+    }
+
+    public function subscribePackage(Request $request){
+   
         $user_id       = $request->input('user_id');
         $package_id    = $request->input('p_id');
         $validity_days = $request->input('validity_days');

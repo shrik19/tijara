@@ -108,7 +108,11 @@ Route::group(['middleware'=>['front-login']],function()
 	Route::post('/buyer-profile-update', 'Front\AuthController@buyerProfileUpdate')->name('frontBuyerProfileUpdate');
 	Route::get('/seller-packages', 'Front\AuthController@sellerPackages')->name('frontSellerPackages');
 	Route::get('/profile', 'Front\AuthController@userProfile')->name('frontUserProfile');
+  Route::post('/klarna-payment', 'Front\AuthController@klarnaPayment')->name('frontklarnaPayment');
    Route::post('/subscribe-package', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
+
+  Route::any('/package_callback', 'Front\AuthController@packageCallback')->name('frontPackageCallback');
+  Route::any('/push_notification', 'Front\AuthController@pushNotification')->name('frontPushNotification');
 	//Route::get('/subscribe-package/{user_id}/{p_id}/{v_days}', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
   // change password
   Route::get('/change-password', 'Front\AuthController@changePassword')->name('frontChangePassword');

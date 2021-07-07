@@ -98,6 +98,8 @@ Route::get('/clear-config', function() {
    // return what you want
 });
 
+Route::any('/push_notification', 'Front\AuthController@pushNotification')->name('frontPushNotification');
+
 Route::group(['middleware'=>['front-login']],function()
 {
 	Route::get('/seller-profile/{edit?}', 'Front\AuthController@sellerProfile')->name('frontSellerProfile');
@@ -112,7 +114,7 @@ Route::group(['middleware'=>['front-login']],function()
    Route::post('/subscribe-package', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
 
   Route::any('/package_callback', 'Front\AuthController@packageCallback')->name('frontPackageCallback');
-  Route::any('/push_notification', 'Front\AuthController@pushNotification')->name('frontPushNotification');
+ // Route::any('/push_notification', 'Front\AuthController@pushNotification')->name('frontPushNotification');
 	//Route::get('/subscribe-package/{user_id}/{p_id}/{v_days}', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
   // change password
   Route::get('/change-password', 'Front\AuthController@changePassword')->name('frontChangePassword');

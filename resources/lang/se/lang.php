@@ -21,9 +21,11 @@
      'textbox_label'=>'Textruta',
      'dated_label'=>'Daterad',
      'back_to_list_label'=>'Tillbaka till listan',
+     'try_again_btn'=>'Försök igen',
      'add_label'=>'Lägg till',
      'edit_label'=>'Redigera',
      'remove_label'=>'Avlägsna',
+     'pending_label'=>'I väntan på',
      'required_field_error'=>'Detta fält krävs',
      'max_1000_char'=>'Maximalt 1000 tecken är tillåtna',
      /*product*/

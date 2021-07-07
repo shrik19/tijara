@@ -45,7 +45,7 @@
 					    <tr>
 					  		<td class="package-tbl">{{ __('users.purchased_date_label')}}</td>
 					  		@if($row->start_date >= date('Y-m-d H:i:s'))
-					  			<td>{{date('l, d F Y',strtotime($row->start_date. '+1 days'))}}</td>
+					  			<td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
 					  			
 					  		@else
 					  			<td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
@@ -57,10 +57,11 @@
 					    </tr>
 					    <tr>
 					    	<td class="package-tbl">{{ __('lang.status_label')}}</td>
-					    	@if($row->start_date >= date('Y-m-d H:i:s') )
+					    	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="CAPTURED"  )
 					  			<td><a href="javascript:void(0)" class="btn btn-warning "> {{ __('users.not_activated_label')}}</a></td>
+					  		@elseif(($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="checkout_incomplete"))
+					  		<td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a></td>
 					  		@else
-					  			
 					  			<td><a href="javascript:void(0)" class="btn btn-success "> {{ __('lang.active_label')}} </a></td>
 					  		@endif
 					    </tr>
@@ -95,8 +96,7 @@
 					 	<input type="hidden" name="p_id" value="{{$data['id']}}">
 					 	<input type="hidden" name="p_name" value="{{$data['title']}}">
 					 	<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
-					 	<input type="hidden" name="amount" value="{{$data['amount']}}">
-					 	
+					 	<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
 					 	<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
 					 </form>
 				</div>

@@ -1155,8 +1155,6 @@ class AuthController extends Controller
            return view('Front/Packages/payment_error',$blade_data); 
         }
       
-        
-
         $order_id = $response->order_id;
         $order_status = $response->status;
         $currentDate = date('Y-m-d H:i:s');
@@ -1330,9 +1328,8 @@ class AuthController extends Controller
             /*get validity days for package by package id*/
             /*$get_validity_days = DB::table('packages')
                     ->where('id','=',$is_activePackage[0]->package_id)
-                    ->get();*/
-                  
-            $validity_days = $get_validity_days[0]->validity_days;
+                    ->get();
+            $validity_days = $get_validity_days[0]->validity_days;*/
             $start_date = date('Y-m-d H:i:s', strtotime($is_activePackage[0]->end_date.'+ 1 days'));  
             $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$package_details->validity_days.' days'));
         }else{

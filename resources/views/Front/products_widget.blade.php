@@ -6,7 +6,7 @@
       @else
           <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" style="width:100%;">
       @endif
-      <div class="buy_now_hover_details" style="height:308px !important;">
+      <div class="buy_now_hover_details" style="height:280px !important;">
           <ul>
               <li><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
               <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToCart('{{$product->variant_id}}');" @else onclick="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif><i class="glyphicon glyphicon-shopping-cart"></i></a></li>

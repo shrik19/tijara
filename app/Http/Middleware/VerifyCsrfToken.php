@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'user-cart-return','user-cart-notify'
+        'user-cart-return','user-cart-notify','push_notification'
     ];
 }

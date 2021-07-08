@@ -50,12 +50,7 @@
               <textarea class="form-control" name="description" id="description" placeholder="{{ __('users.description_label')}}" value="">{{ (old('description')) ?  old('description') : $sellerDetails[0]->description}}</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
             </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <h2>&nbsp;</h2>
-        <br>
-        <div class="login_box">
+
             <div class="form-group">
               <label>{{ __('users.phone_number_label')}}</label>
               <!-- <span style="margin-top: 10px;" class="col-md-2">+46</span> -->
@@ -63,11 +58,20 @@
               <span class="invalid-feedback" id="err_phone_number">@if($errors->has('phone_number')) {{ $errors->first('phone_number') }}@endif</span>
             </div>
 
-            <div class="form-group">
+            
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2>&nbsp;</h2>
+        <br>
+        <div class="login_box">
+              
+             <div class="form-group">
               <label>{{ __('users.address_label')}}</label>
                 <textarea class="form-control" id="address" name="address" rows="5" cols="30" style="height:auto" tabindex="5"><?php if(!empty($sellerDetails[0]->address)){ echo $sellerDetails[0]->address; }?></textarea>
               <span class="invalid-feedback" id="err_address">@if($errors->has('address')) {{ $errors->first('address') }}@endif</span>
             </div> 
+
              <div class="form-group">
               <label>{{ __('users.postal_code_label')}}</label>
               <input type="text" class="form-control login_input" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="{{ (old('postcode')) ? old('postcode') : $sellerDetails[0]->postcode}}">
@@ -104,7 +108,24 @@
               <span class="invalid-feedback" id="err_paypal_email">@if($errors->has('paypal_email')) {{ $errors->first('paypal_email') }}@endif</span>
             </div>
 
-            
+            <label>
+             {{ __('users.free_shipping_label')}}
+              <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($sellerDetails[0]->free_shipping ==  "free_shipping"){ echo "checked"; } ?>>
+            </label>
+
+            <div class="form-group" id="shipping_method_ddl_div">
+              <label>{{ __('users.shipping_method_label')}}</label>
+             <select class="form-control login_input" name="shipping_method_ddl" id="shipping_method_ddl">
+               <option value="">{{ __('users.select_shipping_method')}}</option>
+               <option  <?php if($sellerDetails[0]->shipping_method ==  trans('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
+               <option <?php if($sellerDetails[0]->shipping_method ==  trans('users.prcentage_shipping_charges')){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
+             </select>
+            </div>
+
+            <div class="form-group" id="shipping_charges_div">
+              <label>{{ __('users.shipping_charges_label')}}</label>
+              <input type="text" class="form-control login_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $sellerDetails[0]->shipping_charges}}">
+            </div>
           
         </div>
       </div>

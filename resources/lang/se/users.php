@@ -67,6 +67,12 @@
      'end_date_thead'=>'Slutet Datum',
      'verified_seller_title'=>'Verifierad säljare',
      'pending_seller_title'=>'Väntande säljare',
+     'free_shipping_label' => 'Gratis frakt',
+     'shipping_method_label' => 'Frakt metod',
+     'select_shipping_method' => 'Välj fraktmetod',
+     'flat_shipping_charges'=>'Platta fraktkostnader',
+     'prcentage_shipping_charges'=>'Andel fraktkostnader',
+     'shipping_charges_label' => "Fraktkostnader",
 
     /*product category */
      'all_category_list'=>'Alla Kategori Lista',

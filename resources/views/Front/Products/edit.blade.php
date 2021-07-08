@@ -113,6 +113,20 @@
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
 
+          <div class="form-group" id="shipping_method_ddl_div">
+              <label>{{ __('users.shipping_method_label')}}</label>
+             <select class="form-control login_input" name="shipping_method_ddl" id="shipping_method_ddl">
+               <option value="">{{ __('users.select_shipping_method')}}</option>
+               <option  <?php if($product->shipping_method ==  trans('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
+               <option <?php if($product->shipping_method ==  trans('users.prcentage_shipping_charges')){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
+             </select>
+            </div>
+
+            <div class="form-group" id="shipping_charges_div">
+              <label>{{ __('users.shipping_charges_label')}}</label>
+              <input type="text" class="form-control login_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $product->shipping_charges}}">
+            </div>
+
 
         </div>
       </div>

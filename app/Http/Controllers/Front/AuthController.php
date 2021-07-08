@@ -374,6 +374,9 @@ class AuthController extends Controller
                 'paypal_email' => trim($request->input('paypal_email')),
                 'description'  => trim($request->input('description')),
                 'where_find_us'=> trim($request->input('find_us')),
+                'free_shipping'    => trim($request->input('free_shipping')),
+                'shipping_method'  => trim($request->input('shipping_method_ddl')),
+                'shipping_charges' => trim($request->input('shipping_charges')),
             ];
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);

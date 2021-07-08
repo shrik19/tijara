@@ -67,6 +67,12 @@
      'end_date_thead'=>'End Date',
      'verified_seller_title'=>'Verified Seller',
      'pending_seller_title'=>'Pending Seller',
+     'free_shipping_label' => 'Free Shipping',
+     'shipping_method_label' => 'Shipping method',
+     'select_shipping_method' => 'Select Shipping Method',
+     'flat_shipping_charges'=>'Flat Shipping Charges',
+     'prcentage_shipping_charges'=>'Percentage Shipping Charges',
+     'shipping_charges_label' => "Shipping Charges",
 
      /*product category and subcat */
      'all_category_list'=>'All Category List',

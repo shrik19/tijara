@@ -772,3 +772,17 @@ $('input.product_checkbox_attribute').on('change', function() {
   });
   }
 });
+$( document ).ready(function() {
+    hideShippingMethod();
+});
+/*seller profile free shipping checkbox selected then hide payment method option*/
+function hideShippingMethod(){
+  if($('#free_shipping_chk').is(":checked"))  {
+    $("#shipping_method_ddl_div").hide();
+    $("#shipping_charges_div").hide();
+  } 
+  else{
+    $("#shipping_method_ddl_div").show();
+    $("#shipping_charges_div").show();
+  }    
+}

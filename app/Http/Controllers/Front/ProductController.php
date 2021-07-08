@@ -506,6 +506,10 @@ class ProductController extends Controller
                 'meta_title'        => trim($request->input('meta_title')),       
 
 				'meta_description'  => trim($request->input('meta_description')),
+
+                'shipping_method'   =>  trim($request->input('shipping_method_ddl')),  
+
+                'shipping_charges'  =>  trim($request->input('shipping_charges')),  
 				
 				'meta_keyword'  	=> trim($request->input('meta_keyword')),
 

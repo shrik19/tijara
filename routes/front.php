@@ -21,7 +21,7 @@ Route::get('/config-cache', function() {
 
 Route::get('/', 'Front\FrontController@index')->name('frontHome');
 Route::any('/get_product_listing/','Front\FrontController@getProductsyParameter')->name('getProductsyParameter');
-Route::get('/products/','Front\FrontController@productListing')->name('AllproductListing');
+Route::any('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
 Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');
 Route::get('/product/{product_slug}','Front\FrontController@productDetails')->name('productDetails');
@@ -35,7 +35,6 @@ Route::get('/buyer-register','Front\AuthController@buyer_register')->name('buyer
 Route::get('/seller-register','Front\AuthController@seller_register')->name('seller_register');
 Route::post('/do-register','Front\AuthController@doRegister')->name('do-register');
 Route::get('/register-success','Front\AuthController@register_success')->name('frontRegisterSuccess');
-
 
 /*forgot password*/
 Route::post('/forgot-password','Front\AuthController@forgotPassword')->name('frontForgotPassword');

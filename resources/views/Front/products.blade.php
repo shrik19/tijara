@@ -14,6 +14,7 @@
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
             <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
+            <span class="current_search_string" style="display:none;">{{$search_string}}</span>
             <div class="product_container">
                 <div class="row">
                   <div class="col-md-6">
@@ -79,6 +80,7 @@ function getListing()
   var price_filter = $('#price_filter').val();
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
+  var search_string = (".current_search_string");
 
   $.ajax({
     url:siteUrl+"/get_product_listing",
@@ -86,7 +88,7 @@ function getListing()
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter, 'sort_order' : sort_by_order, 'sort_by' : sort_by },
+    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
     success:function(data)
     {
      //$('.product_listings').html(data);

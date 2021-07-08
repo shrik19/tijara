@@ -71,7 +71,8 @@
 
 
               <div class="clearfix"></div>
-              <form class="navbar-form navbar-right header_left_container" role="form">
+                <form method="POST" action="{{route('AllproductListing')}}" class="navbar-form navbar-right header_left_container" role="form">
+                  @csrf
                 <div class=" form-group search_now_input_box">
                   <!-- <input type="text" placeholder="Email" class="form-control search_now_input"> -->
                   <input type="text" class="form-control search_now_input" placeholder="{{ __('lang.search_placeholder')}}" name="search">
@@ -90,7 +91,7 @@
                     </div>
                     @endif
                   </div>
-                <button type="submit" class=" btn buy_now_btn debg_color">{{ __('lang.buy_now_btn')}}</button>
+                <button type="button" class=" btn buy_now_btn debg_color">{{ __('lang.buy_now_btn')}}</button>
               </form>
             </div>
           </div>

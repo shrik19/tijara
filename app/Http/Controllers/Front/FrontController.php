@@ -265,6 +265,11 @@ class FrontController extends Controller
         $tmpPrice = explode(',',$request->price_filter);
         $Products	=	$Products->whereBetween('variant_product.price',$tmpPrice);
       }
+      if($request->search_string != '')
+      {
+        $Products	=	$Products->where('products.title', 'like', '%' . $request->search_string . '%');
+      }
+
 
       if($request->sort_order != '' && $request->sort_by != '')
       {
@@ -343,8 +348,9 @@ class FrontController extends Controller
 		//return view('Front/products_list', $data);
 	}
     /* function to display products page*/
-    public function productListing($category_slug='',$subcategory_slug='')
+    public function productListing($category_slug='',$subcategory_slug='',Request $request)
     {
+
         $data['pageTitle'] 	= 'Home';
 
 		    $data['Categories'] = $this->getCategorySubcategoryList()	;
@@ -355,12 +361,16 @@ class FrontController extends Controller
     		$data['category_slug']		=	'';
     		$data['subcategory_slug']	=	'';
         $data['seller_id']		=	'';
+        $data['search_string']		=	'';
 
     		if($category_slug!='')
     			$data['category_slug']	= $category_slug;
 
     	  if($subcategory_slug!='')
     			$data['subcategory_slug']	= $subcategory_slug;
+
+        if(!empty($request->search))
+        	$data['search_string']	= $request->search;
 
         //$data['Sellers'] = $this->getSellersList($category_slug,$subcategory_slug);
 

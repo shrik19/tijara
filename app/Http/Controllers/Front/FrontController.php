@@ -72,7 +72,7 @@ class FrontController extends Controller
 	}
 
   //get category & subcategory listings
-	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '') {
+	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',  $search_string = '') {
     $today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
                 ->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
@@ -111,6 +111,10 @@ class FrontController extends Controller
       {
         $tmpPrice 		  =  explode(',',$price_filter);
         $sellerProducts	=	$sellerProducts->whereBetween('variant_product.price',$tmpPrice);
+      }
+      if($search_string !='')
+      {
+        $sellerProducts	=	$sellerProducts->where('products.title','like','%'.$search_string.'%');
       }
 
       $sellerProducts	= $sellerProducts->groupBy('variant_product_attribute.product_id')->get();
@@ -320,7 +324,7 @@ class FrontController extends Controller
 
     //dd(is_object($data['Products']));
 
-    $Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter);
+    $Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->search_string);
     $sellerData = '';
     if(!empty($Sellers))
     {

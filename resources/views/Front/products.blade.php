@@ -42,7 +42,7 @@
                     </div>
                   </div>
                 </div>
-                <span class="product_listings"></span>
+                <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
         </div>
     </div>

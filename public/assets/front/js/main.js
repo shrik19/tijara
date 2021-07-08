@@ -780,9 +780,20 @@ function hideShippingMethod(){
   if($('#free_shipping_chk').is(":checked"))  {
     $("#shipping_method_ddl_div").hide();
     $("#shipping_charges_div").hide();
-  }
+    $("#shipping_method_ddl").val('');
+    $("#shipping_charges").val('');
+  } 
   else{
     $("#shipping_method_ddl_div").show();
     $("#shipping_charges_div").show();
   }
 }
+
+const regex = /[^\d.]|\.(?=.*\.)/g;
+const subst='';
+
+$('#shipping_charges').keyup(function(){
+  const str=this.value;
+  const result = str.replace(regex, subst);
+  this.value=result;
+});

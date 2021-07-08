@@ -186,6 +186,12 @@ overflow: hidden;}
 .product_info h4{font-size: 22px; color: #515151; font-weight: bold; }
 .product_info h6{font-size: 20px; color: #515151; }
 .b.product_img{position: relative;}
+.product_img{position: relative;     
+    background-color: #e5e5e5;
+    height: 280px;
+    display: table-cell!important;
+    vertical-align: middle;
+}
 .buy_now_hover_details{position: absolute; top: 0px;  height: 100%;
     width: 100%;
     opacity: 0;

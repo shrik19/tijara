@@ -11,21 +11,21 @@
                     @php $i=0; @endphp
                     <div class="carousel-inner" role="listbox">
                     @foreach($ProductImages as $image)
-                        @php $i++; @endphp
                         @if($image['image']!='')
-                        <div class="item @if($i==1) active @endif">
+                        <div class="item @if($i==0) active @endif">
 
                             <img defaultUrl="{{url('/')}}/uploads/ProductImages/" src="{{url('/')}}/uploads/ProductImages/{{$image['image']}}" alt="..." class="img-responsive product-main-image">
 
                         </div>
                         @endif
+                        @php $i++; @endphp
                       @endforeach
 
                     </div>
                     @php $i=0; @endphp
                     <ol class="carousel-indicators visible-sm-block hidden-xs-block visible-md-block visible-lg-block thumbnails_slider">
                     @foreach($ProductImages as $image)
-                    @php $i++; @endphp
+                   
                         @if($image['image']!='')
                               <li data-target="#carousel-custom" data-slide-to="@php echo $i @endphp" class=" @if($i==1) active @else img-responsive @endif">
 
@@ -33,6 +33,7 @@
 
                               </li>
                             @endif
+                            @php $i++; @endphp
                     @endforeach
 
                             </ol>

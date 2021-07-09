@@ -244,7 +244,7 @@
                                         <div class="funkyradio">
                                         @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
                                           <div class="squaredThree funkyradio-success">
-                                              <input style="background-color:{{$attribute_value}};" class="product_checkbox_attribute" type="radio" name="optionsRadios" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" />
+                                              <input style="background-color:{{$attribute_value}};" class="product_checkbox_attribute" type="radio" name="optionsRadios_{{$attribute['attribute_name']}}" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" />
                                               <span class="custom-control-indicator"></span>
                                               <label for="{{$attribute_value_id}}" style="background-color:{{$attribute_value}};"> {{$attribute_value}} </label>
                                           </div>

@@ -51,6 +51,8 @@
 
      'page_save_success'=>'Page details saved successfully!',
      'page_update_success'=>'Page details updated successfully!',
+     'package_subscribe_success' => "Package Subscribe Successfully.!",
+     'payment_in_process'=>'Payment in Process...',
      
  ]
 ?>

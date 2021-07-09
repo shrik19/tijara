@@ -47,10 +47,10 @@
      'bag_our_most_popular_products'=>'Bag our most popular products:',
      'subscribe_package_to_manage_prod_attri'=>'Du måste prenumerera på paketet för att hantera produkter och attribut',
      'products_with_active_subscription'=>'Endast produkter kan visas på webbplatsen med aktiv prenumeration',
-
-
      'page_save_success'=>'Sidinformation sparades framgångsrikt!',
      'page_update_success'=>'Sidinformation har uppdaterats!',
+     'package_subscribe_success' => "Paketprenumeration lyckades.!",
+      'payment_in_process'=>'Betalning pågår...',
  
  ]
 ?>

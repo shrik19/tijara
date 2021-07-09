@@ -36,7 +36,7 @@
 					    </tr>
 					    <tr>
 					  		<td class="package-tbl">{{ __('users.amount_label')}}</td>
-					  		<td> {{$row->amount}}</td>
+					  		<td> {{$row->amount}} kr</td>
 					    </tr>
 					    <tr>
 					  		<td class="package-tbl">{{ __('users.validity_label')}}</td>
@@ -60,7 +60,8 @@
 					    	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="CAPTURED"  )
 					  			<td><a href="javascript:void(0)" class="btn btn-warning "> {{ __('users.not_activated_label')}}</a></td>
 					  		@elseif(($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="checkout_incomplete"))
-					  		<td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a></td>
+					  		<td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a>
+					  			<p> {{ __('messages.payment_in_process')}}</p></td>
 					  		@else
 					  			<td><a href="javascript:void(0)" class="btn btn-success "> {{ __('lang.active_label')}} </a></td>
 					  		@endif
@@ -86,8 +87,8 @@
 				<div class="panel-heading">{{$data['title']}}</div>
 				<div class="panel-body" style="max-height: 215px;overflow: auto;">
 					<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
-					<p>{{ __('users.amount_label')}} : {{$data['amount']}}</p>
-					<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} .</p>
+					<p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
+					<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>
 
 					<!-- <form method="POST" action="{{route('frontSubscribePackage')}}" class="needs-validation" novalidate=""> -->
 					<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">

@@ -1,47 +1,98 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
+<style>
+.show {
+  width: 400px;
+  height: 400px;
+}
+
+.small-img {
+  width: 350px;
+  height: 70px;
+  margin-top: 10px;
+  position: relative;
+  left: 25px;
+}
+
+.small-img .icon-left, .small-img .icon-right {
+  width: 12px;
+  height: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+
+.small-img .icon-left { transform: rotate(180deg) }
+
+.small-img .icon-right { right: 0; }
+
+.small-img .icon-left:hover, .small-img .icon-right:hover { opacity: .5; }
+
+.small-container {
+  width: 310px;
+  height: 70px;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.small-container div {
+  width: 800%;
+  position: relative;
+}
+
+.small-container .show-small-img {
+  width: 70px;
+  height: 70px;
+  margin-right: 6px;
+  cursor: pointer;
+  float: left;
+}
+
+.small-container .show-small-img:last-of-type { margin-right: 0; }
+</style>
+
+<script src="{{url('/')}}/assets/front/js/zoom-image.js"></script>
+
 <section class="product_details_section">
     <div class="container">
+
         <div class="row">
             <div class="col-md-6">
-                <div id="carousel-custom" class="carousel slide" data-ride="carousel">
-                    <!-- Wrapper for slides -->
-                    @if(!empty($ProductImages))
-                    @php $i=0; @endphp
-                    <div class="carousel-inner" role="listbox">
-                    @foreach($ProductImages as $image)
-                        @if($image['image']!='')
-                        <div class="item @if($i==0) active @endif">
+            <!-- Primary carousel image -->
+            @if(!empty($ProductImages))
+                @foreach($ProductImages as $image)
+            <div class="show" href="{{url('/')}}/uploads/ProductImages/{{$image['image']}}">
+              
+                  <img src="{{url('/')}}/uploads/ProductImages/{{$image['image']}}" id="show-img">
+                
+            </div>
+            @php break; @endphp
+            @endforeach
+            @endif 
 
-                            <img defaultUrl="{{url('/')}}/uploads/ProductImages/" src="{{url('/')}}/uploads/ProductImages/{{$image['image']}}" alt="..." class="img-responsive product-main-image">
+            <!-- Secondary carousel image thumbnail gallery -->
 
-                        </div>
-                        @endif
-                        @php $i++; @endphp
-                      @endforeach
+            <div class="small-img">
+              <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
+              <div class="small-container">
+                <div id="small-img-roll">
+                @if(!empty($ProductImages))
+                  @foreach($ProductImages as $image)
+                    <img src="{{url('/')}}/uploads/ProductImages/{{$image['image']}}" class="show-small-img" alt="">
+                  @endforeach
+                @endif
+                </div>
+              </div>
+              <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+            </div>
 
-                    </div>
-                    @php $i=0; @endphp
-                    <ol class="carousel-indicators visible-sm-block hidden-xs-block visible-md-block visible-lg-block thumbnails_slider">
-                    @foreach($ProductImages as $image)
-                   
-                        @if($image['image']!='')
-                              <li data-target="#carousel-custom" data-slide-to="@php echo $i @endphp" class=" @if($i==1) active @else img-responsive @endif">
-
-                                <img  src="{{url('/')}}/uploads/ProductImages/resized/{{$image['image']}}" alt="..." class="img-responsive product-thumb-image {{$image['image']}}">
-
-                              </li>
-                            @endif
-                            @php $i++; @endphp
-                    @endforeach
-
-                            </ol>
-
-                  @endif
-
-
-                  </div>
+                
             </div>
             <div class="col-md-6">
                 <div class="product_details_info">
@@ -203,5 +254,66 @@ function addtoCartFromProduct()
       }
      });
 }
+
+//Initialize product gallery
+
+$('.show').zoomImage();
+
+$('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
+$('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');
+$('.show-small-img').click(function () {
+  $('#show-img').attr('src', $(this).attr('src'))
+  $('#big-img').attr('src', $(this).attr('src'))
+  $(this).attr('alt', 'now').siblings().removeAttr('alt')
+  $(this).css({'border': 'solid 1px #951b25', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
+  if ($('#small-img-roll').children().length > 4) {
+    if ($(this).index() >= 3 && $(this).index() < $('#small-img-roll').children().length - 1){
+      $('#small-img-roll').css('left', -($(this).index() - 2) * 76 + 'px')
+    } else if ($(this).index() == $('#small-img-roll').children().length - 1) {
+      $('#small-img-roll').css('left', -($('#small-img-roll').children().length - 4) * 76 + 'px')
+    } else {
+      $('#small-img-roll').css('left', '0')
+    }
+  }
+});
+
+//Enable the next button
+
+$('#next-img').click(function (){
+  $('#show-img').attr('src', $(".show-small-img[alt='now']").next().attr('src'))
+  $('#big-img').attr('src', $(".show-small-img[alt='now']").next().attr('src'))
+  $(".show-small-img[alt='now']").next().css({'border': 'solid 1px #951b25', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
+  $(".show-small-img[alt='now']").next().attr('alt', 'now').siblings().removeAttr('alt')
+  if ($('#small-img-roll').children().length > 4) {
+    if ($(".show-small-img[alt='now']").index() >= 3 && $(".show-small-img[alt='now']").index() < $('#small-img-roll').children().length - 1){
+      $('#small-img-roll').css('left', -($(".show-small-img[alt='now']").index() - 2) * 76 + 'px')
+    } else if ($(".show-small-img[alt='now']").index() == $('#small-img-roll').children().length - 1) {
+      $('#small-img-roll').css('left', -($('#small-img-roll').children().length - 4) * 76 + 'px')
+    } else {
+      $('#small-img-roll').css('left', '0')
+    }
+  }
+});
+
+//Enable the previous button
+
+$('#prev-img').click(function (){
+  $('#show-img').attr('src', $(".show-small-img[alt='now']").prev().attr('src'))
+  $('#big-img').attr('src', $(".show-small-img[alt='now']").prev().attr('src'))
+  $(".show-small-img[alt='now']").prev().css({'border': 'solid 1px #951b25', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
+  $(".show-small-img[alt='now']").prev().attr('alt', 'now').siblings().removeAttr('alt')
+  if ($('#small-img-roll').children().length > 4) {
+    if ($(".show-small-img[alt='now']").index() >= 3 && $(".show-small-img[alt='now']").index() < $('#small-img-roll').children().length - 1){
+      $('#small-img-roll').css('left', -($(".show-small-img[alt='now']").index() - 2) * 76 + 'px')
+    } else if ($(".show-small-img[alt='now']").index() == $('#small-img-roll').children().length - 1) {
+      $('#small-img-roll').css('left', -($('#small-img-roll').children().length - 4) * 76 + 'px')
+    } else {
+      $('#small-img-roll').css('left', '0')
+    }
+  }
+});
+
+$("#show-img").next('div').next('div').css('z-index','999');
+
 </script>
 @endsection

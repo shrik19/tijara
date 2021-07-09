@@ -482,7 +482,7 @@ class FrontController extends Controller
 		$data['variantData']	= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;
 		$data['ProductImages']	= $ProductImages;
-      //dd($data);
+      	//dd($data['ProductImages']);
         return view('Front/product_details', $data);
     }
     public function getProductAttributeDetails(Request $request) {

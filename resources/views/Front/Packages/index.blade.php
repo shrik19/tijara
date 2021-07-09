@@ -61,7 +61,7 @@
 					  			<td><a href="javascript:void(0)" class="btn btn-warning "> {{ __('users.not_activated_label')}}</a></td>
 					  		@elseif(($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="checkout_incomplete"))
 					  		<td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a></td>
-					  		@else
+					  		@elseif(($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="CAPTURED"))
 					  			<td><a href="javascript:void(0)" class="btn btn-success "> {{ __('lang.active_label')}} </a></td>
 					  		@endif
 					    </tr>

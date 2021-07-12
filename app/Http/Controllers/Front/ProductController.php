@@ -102,7 +102,7 @@ class ProductController extends Controller
         else {
             $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
             if(!empty($checkProductExistOfBuyer)) {
-                return redirect(route('frontProductEdit',$checkProductExistOfBuyer->id));
+                return redirect(route('frontProductEdit',base64_encode($checkProductExistOfBuyer->id)));
             }
             else
                 return redirect(route('frontProductCreate'));
@@ -170,7 +170,7 @@ class ProductController extends Controller
      */
 
     public function getRecords(Request $request) {
-
+        DB::enableQueryLog();
 	if(!empty($request['category']) || !empty($request['subcategory'])) {
         $ProductsDetails = Products::Leftjoin('category_products', 'products.id', '=', 'category_products.product_id')	
                                             ->Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -251,6 +251,7 @@ class ProductController extends Controller
 			
 		}
 		$ProductsDetails = $ProductsDetails->groupBy('products.id');
+        $recordsTotal = $ProductsDetails->get()->count();
         if(isset($request['order'][0])){
 
             $postedorder=$request['order'][0];
@@ -272,12 +273,17 @@ class ProductController extends Controller
 
         }
 
-       
 		
-        $recordsTotal = $ProductsDetails->count();
-
+       
+       // $recordsTotal = 14;
         $recordDetails = $ProductsDetails->offset($request->input('start'))->limit($request->input('length'))->get();
+  // echo "<pre>";
+  // print_r($ProductsDetails);exit;
 
+    // and then you can get query log
+      //  echo "-->";
+
+  // dd(DB::getQueryLog());
         $arr = [];
 
         if (count($recordDetails) > 0) {
@@ -299,7 +305,7 @@ class ProductController extends Controller
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
 
 
-                if(!empty($recordDetailsVal['image'])) {
+               if(!empty($recordDetailsVal['image'])) {
                     $imagesParts    =   explode(',',$recordDetailsVal['image']);
                     
                     $image  =   url('/').'/uploads/ProductImages/resized/'.$imagesParts[0];

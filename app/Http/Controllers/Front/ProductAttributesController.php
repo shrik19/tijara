@@ -153,13 +153,14 @@ class ProductAttributesController extends Controller
     public function store(Request $request) {
     
         $rules = [
-            'name' => 'required|unique:attributes,name',
+            'name' => 'required',
+            //'name' => 'required|unique:attributes,name',
             'type' => 'required'
         ];
         $messages = [
             'name.required'         => trans('lang.required_field_error'),
             'type.required'         => trans('lang.required_field_error'),
-            'name.unique'           => trans('errors.unique_attr_name_err'),
+            //'name.unique'           => trans('errors.unique_attr_name_err'),
         ];
         $validator = validator::make($request->all(), $rules, $messages);
         if($validator->fails()) 
@@ -247,7 +248,8 @@ class ProductAttributesController extends Controller
         $id = base64_decode($id);
       
         $rules = [
-            'name'             => 'required|unique:attributes,name,'.$id,
+            //'name'             => 'required|unique:attributes,name,'.$id,
+            'name'             => 'required',
             'type'             => 'required',
 			'attribute_values' => 'required',
 
@@ -256,7 +258,7 @@ class ProductAttributesController extends Controller
             'name.required'             => trans('lang.required_field_error'),
             'type.required'             => trans('lang.required_field_error'),
 			'attribute_values.required' => trans('lang.required_field_error'),
-            'name.unique'           => trans('errors.unique_attr_name_err'),
+            //'name.unique'           => trans('errors.unique_attr_name_err'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);

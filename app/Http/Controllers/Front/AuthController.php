@@ -1102,7 +1102,7 @@ class AuthController extends Controller
         $password = env('KLORNA_PASSWORD');
         
         $user_id       = $request->input('user_id');
-        $amount    = $request->input('amount');
+        $amount         = $request->input('amount');
         $validity_days = $request->input('validity_days');
         $package_id    = $request->input('p_id');
         $package_name = $request->input('p_name');
@@ -1349,14 +1349,19 @@ class AuthController extends Controller
             $validity_days = $get_validity_days[0]->validity_days;*/
             $start_date = date('Y-m-d H:i:s', strtotime($is_activePackage[0]->end_date.'+ 1 days'));  
             $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$package_details->validity_days.' days'));
+            $status='block';
         }else{
             $start_date = date("Y-m-d H:i:s");
             $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$package_details->validity_days.' days'));
+            if($order_status == "CAPTURED")
+                $status='active';
+            else
+                $status='block';
        }
 
         if($order_status == "CAPTURED"){
             $arrUpdatePackage = [
-                              'status'     => 'active',
+                              'status'     => $status,
                               'start_date' => $start_date,
                               'end_date'   => $ExpiredDate,
                               'payment_status' => $order_status,

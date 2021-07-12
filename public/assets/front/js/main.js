@@ -1,5 +1,5 @@
 
-$.noConflict(); 
+//$.noConflict(); 
 
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){
@@ -113,7 +113,7 @@ $('#variant_table').on('click', '.remove_image', function () {
 $('#variant_table').on('click', '.add_attribute_group_btn', function () {
 
     var variant_id  =   $(this).attr('variant_id');
-     jQuery.noConflict();
+    // jQuery.noConflict();
     $('.modal[variant_id="'+variant_id+'"]').modal('show');
 });
 

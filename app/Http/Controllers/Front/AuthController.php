@@ -1102,7 +1102,7 @@ class AuthController extends Controller
         $password = env('KLORNA_PASSWORD');
         
         $user_id       = $request->input('user_id');
-        $amount    = $request->input('amount')*1;
+        $amount    = $request->input('amount');
         $validity_days = $request->input('validity_days');
         $package_id    = $request->input('p_id');
         $package_name = $request->input('p_name');

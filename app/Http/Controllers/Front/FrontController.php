@@ -12,6 +12,9 @@ use App\Models\Subcategories;
 use App\Models\Products;
 use App\Models\Settings;
 use App\Models\Page;
+use App\Models\Attributes;
+use App\Models\AttributesValues;
+use App\Models\VariantProduct;
 use App\Models\VariantProductAttribute;
 use App\Models\ProductCategory;
 
@@ -188,50 +191,68 @@ class FrontController extends Controller
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                ->join('users', 'products.user_id', '=', 'users.id')
+                			  ->join('users', 'products.user_id', '=', 'users.id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-							  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id']) //
 							  ->where('products.status','=','active')
-                ->where('users.status','=','active')
+                			  ->where('users.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
 							  ->orderBy('products.id', 'DESC')
-							  ->orderBy('variant_product.id', 'ASC')
+							  //->orderBy('variant_id', 'ASC')
 							  ->groupBy('products.id')
 							  ->offset(0)->limit(config('constants.Products_limits'))->get();
                 //dd(DB::getQueryLog());
 
                 //dd(count($TrendingProducts));
-		if(count($TrendingProducts)>0) {
-			foreach($TrendingProducts as $Product) {
-        $productCategories = $this->getProductCategories($Product->id);
-        //dd($productCategories);
+		if(count($TrendingProducts)>0) 
+		{
+		foreach($TrendingProducts as &$Product) 
+		{
+        	$productCategories = $this->getProductCategories($Product->id);
+        	//dd($productCategories);
 
-				$product_link	=	url('/').'/product';
+			$product_link	=	url('/').'/product';
 
-				if($category_slug!='')
-        {
-				    $product_link	.=	'/'.$category_slug;
-        }
-        else {
-          $product_link	.=	'/'.$productCategories[0]['category_slug'];
-        }
-				if($subcategory_slug!='')
-        {
-				      $product_link	.=	'/'.$subcategory_slug;
-        }
-        else {
-          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
-        }
-
-				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
-
-				$Product->product_link	=	$product_link;
-
-        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
-        $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+			if($category_slug!='')
+			{
+				$product_link	.=	'/'.$category_slug;
 			}
+			else {
+				$product_link	.=	'/'.$productCategories[0]['category_slug'];
+			}
+			
+			if($subcategory_slug!='')
+			{
+				$product_link	.=	'/'.$subcategory_slug;
+			}
+			else 
+			{
+				$product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+			}
+
+			$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
+			$Product->product_link	=	$product_link;
+
+			$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+			$Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+
+			// $variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+			// foreach($variantProduct as $vp)
+			// {
+			// 	$Product->image = $vp->image;
+			// 	$Product->price = $vp->price;
+			// 	$Product->variant_id = $vp->variant_id;
+			// }
+
 		}
+
+			
+
+			//dd($Product);
+		}
+
+		//dd($TrendingProducts);
 							  return $TrendingProducts;
 	}
 
@@ -383,20 +404,28 @@ class FrontController extends Controller
 
 	//function for product details page
 
-    public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') {
-
-
-		$Products 			=  Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
-										->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-										->join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
-										->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
-										->join('category_products', 'products.id', '=', 'category_products.product_id')
+	public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') 
+	{
+		$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 										->join('categories', 'categories.id', '=', 'category_products.category_id')
 										->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-										->select(['products.*','variant_product.*','variant_product_attribute.*','products.id as product_id','attributes.name','attributes.type','attributes_values.attribute_values','variant_product_attribute.attribute_value_id'])
-							  			->where('products.status','=','active')
+										->select(['products.*','products.id as product_id'])
+										->where('products.status','=','active')
 										->where('categories.status','=','active')
-							  			->where('subcategories.status','=','active');
+										->where('subcategories.status','=','active');
+										
+							  			
+		// $Products 			=  Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
+		// 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+		// 								->join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
+		// 								->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+		// 								->join('category_products', 'products.id', '=', 'category_products.product_id')
+		// 								->join('categories', 'categories.id', '=', 'category_products.category_id')
+		// 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+		// 								->select(['products.*','variant_product.*','variant_product_attribute.*','products.id as product_id','attributes.name','attributes.type','attributes_values.attribute_values','variant_product_attribute.attribute_value_id'])
+		// 					  			->where('products.status','=','active')
+		// 								->where('categories.status','=','active')
+		// 					  			->where('subcategories.status','=','active');
 
 		if($first_parameter!='' && $second_parameter!='' && $third_parameter!='' && strpos($third_parameter, '-P-') !== false){
 
@@ -438,7 +467,8 @@ class FrontController extends Controller
 				return redirect(route('AllproductListing'));
 			$Products		=	$Products->where('products.product_slug','=',$product_parts[0])->where('products.product_code','=',$product_parts[1]);
 		}
-		$Products			=	$Products->get();
+		$Products			=	$Products->get();// ->groupBy('products.id')
+		
 
 		if(isset($product_slug) && count($Products)<=0) {
 			$product_parts	=	explode('-P-',$product_slug);
@@ -453,36 +483,68 @@ class FrontController extends Controller
 			if(count($Products)<=0)
 			return redirect(route('AllproductListing'));
 		}
+
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();
-		foreach($Products as $Product) {
+		
+		$Product = $Products[0];
 
-			$variantData[$Product->variant_id]['sku']			=	$Product->sku;
-			$variantData[$Product->variant_id]['price']			=	$Product->price;
-			$variantData[$Product->variant_id]['weight']		=	$Product->weight;
-			$variantData[$Product->variant_id]['quantity']		=	$Product->quantity;
+		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();
+		
+		foreach($ProductVariants as $variant)
+		{
+			$variantData[$variant->id]['id']			=	$variant->id;
+			$variantData[$variant->id]['sku']			=	$variant->sku;
+			$variantData[$variant->id]['price']			=	$variant->price;
+			$variantData[$variant->id]['weight']		=	$variant->weight;
+			$variantData[$variant->id]['quantity']		=	$variant->quantity;
+			$variantData[$variant->id]['images']		=	[$variant->image];
 
-			$variantData[$Product->variant_id]['attributes'][]	=	array('attribute_id'=>$Product->attribute_id,'attribute_name'=>$Product->name,'attribute_type'=>$Product->type,'attribute_value'=>$Product->attribute_values,'attribute_value_id'=>$Product->attribute_value_id);
-			$ProductImages[$Product->variant_id]['image']		=	$Product->image;
-
-		}
-
-		foreach($variantData as $variant_id=>$variant) {
-			foreach($variant['attributes'] as $val) {
-				$ProductAttributes[$val['attribute_id']]['attribute_name']=$val['attribute_name'];
-				$ProductAttributes[$val['attribute_id']]['attribute_type']=$val['attribute_type'];
-				$ProductAttributes[$val['attribute_id']]['attribute_values'][$val['attribute_value_id']]=$val['attribute_value'];
-        $ProductAttributes[$val['attribute_id']]['variant_values'][$val['attribute_value_id']]=$variant_id;
+			$variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
+											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+											 ->where([['variant_id','=',$variant->id],['product_id','=',$Product->id]])->get();
+			//dd($variantAttrs);								 
+			foreach($variantAttrs as $variantAttr)
+			{
+				$variantData[$variant->id]['attr'][$variantAttr->name] = $variantAttr->attribute_values;
+				$variantData[$variant->id]['attributes'][] = $variantAttr;
+				
+				$ProductAttributes[$variantAttr->attribute_id]['attribute_name']=$variantAttr->name;
+				$ProductAttributes[$variantAttr->attribute_id]['attribute_type']=$variantAttr->type;
+				$ProductAttributes[$variantAttr->attribute_id]['attribute_values'][$variantAttr->attribute_value_id]=$variantAttr->attribute_values;
+        		$ProductAttributes[$variantAttr->attribute_id]['variant_values'][$variantAttr->attribute_value_id]=$variant->id;
 			}
+
 		}
+		//dd($ProductAttributes);
+		// foreach($Products as $Product) 
+		// {
+			
+		// 	$variantData[$Product->variant_id]['sku']			=	$Product->sku;
+		// 	$variantData[$Product->variant_id]['price']			=	$Product->price;
+		// 	$variantData[$Product->variant_id]['weight']		=	$Product->weight;
+		// 	$variantData[$Product->variant_id]['quantity']		=	$Product->quantity;
+
+		// 	$variantData[$Product->variant_id]['attributes'][]	=	array('attribute_id'=>$Product->attribute_id,'attribute_name'=>$Product->name,'attribute_type'=>$Product->type,'attribute_value'=>$Product->attribute_values,'attribute_value_id'=>$Product->attribute_value_id);
+		// 	$ProductImages[$Product->variant_id]['image']		=	$Product->image;
+
+		// }
+
+		// foreach($variantData as $variant_id=>$variant) {
+		// 	foreach($variant['attributes'] as $val) {
+		// 		$ProductAttributes[$val['attribute_id']]['attribute_name']=$val['attribute_name'];
+		// 		$ProductAttributes[$val['attribute_id']]['attribute_type']=$val['attribute_type'];
+		// 		$ProductAttributes[$val['attribute_id']]['attribute_values'][$val['attribute_value_id']]=$val['attribute_value'];
+        // 		$ProductAttributes[$val['attribute_id']]['variant_values'][$val['attribute_value_id']]=$variant_id;
+		// 	}
+		// }
 		//echo'<pre>';print_r($variantData);echo'<pre>';print_r($ProductAttributes);exit;
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 
-		$data['PopularProducts']= $this->getPopularProducts();
-		$data['Product']		= $Products[0];
-		$data['variantData']	= $variantData;
+		$data['PopularProducts']	= $this->getPopularProducts();
+		$data['Product']			= $Product;
+		$data['variantData']		= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;
-		$data['ProductImages']	= $ProductImages;
-      	//dd($data['ProductImages']);
+		//dd($data['variantData']);
         return view('Front/product_details', $data);
     }
     public function getProductAttributeDetails(Request $request) {

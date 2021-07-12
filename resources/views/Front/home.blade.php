@@ -46,6 +46,7 @@
  <!-- end slider section -->
 
 <section class="product_section">
+    
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
@@ -54,6 +55,7 @@
         </div>
         <div class="col-md-9">             
                 <div class="product_container">
+                <div class="loader"></div>
                     <h4>{{ __('lang.popular_items_in_market_head')}}</h4>
                     <h2>{{ __('lang.trending_product_head')}}</h2>
                     <hr class="heading_line"/>

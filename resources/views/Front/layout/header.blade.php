@@ -17,14 +17,41 @@
 
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
+  <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
   <!-- added custom css for custom chnages -->
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/custom.css">
-
+  <style>
+   .loader{
+    position: absolute;
+    top:0px;
+    right:0px;
+    width:100%;
+    height:100%;
+    background-color:#eceaea;
+    background-image:url('{{url('/')}}/assets/front/img/ajax-loader.gif');
+    background-size: 50px;
+    background-repeat:no-repeat;
+    background-position:center;
+    z-index:10000000;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    display:none;
+}
+</style>
    <!-- end custom css for custom chnages -->
   <script src="{{url('/')}}/assets/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-  <script> var siteUrl="{{url('/')}}";</script>
+  <script type="text/javascript"> 
+    var siteUrl="{{url('/')}}";
+    var product_add_success     = "{{trans('messages.product_add_success')}}";
+    var product_update_success  = "{{trans('messages.product_update_success')}}";
+    var product_remove_success  = "{{trans('messages.product_remove_success')}}";
+    var product_remove_confirm  = "{{trans('lang.shopping_cart_confirm_remove')}}";
+    var product_qty_error       = "{{trans('messages.product_qty_error')}}";
+    var product_variant_error   = "{{trans('messages.product_variant_error')}}";
+  </script>
   <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
   <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>
+  <script src="{{url('/')}}/assets/front/js/jquery-confirm.min.js"></script>
 
 </head>
 <body>

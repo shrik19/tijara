@@ -27,17 +27,6 @@
         @if(Request::path() != "/" )
         <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
         <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
-        <style>
-          .slider-horizontal > .bs-tooltip-top
-          {
-            opacity: 1 !important;
-            z-index: 1000 !important;
-          }
-          .slider .tooltip.bs-tooltip-top
-          {
-            margin-top: -30px !important;
-          }
-        </style>
         <h2 class="de_col">{{ __('lang.price_filter_head')}}</h2>
         <!-- <br /><b>€ 10</b> -->
         <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>

@@ -1,217 +1,39 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
-<style>
-.show {
-  width: 400px;
-  height: 400px;
-}
-
-.small-img {
-  width: 350px;
-  height: 70px;
-  margin-top: 10px;
-  position: relative;
-  left: 25px;
-}
-
-.small-img .icon-left, .small-img .icon-right {
-  width: 12px;
-  height: 24px;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
-}
-
-.small-img .icon-left { transform: rotate(180deg) }
-
-.small-img .icon-right { right: 0; }
-
-.small-img .icon-left:hover, .small-img .icon-right:hover { opacity: .5; }
-
-.small-container {
-  width: 310px;
-  height: 70px;
-  overflow: hidden;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-}
-
-.small-container div {
-  width: 800%;
-  position: relative;
-}
-
-.small-container .show-small-img {
-  width: 70px;
-  height: 70px;
-  margin-right: 6px;
-  cursor: pointer;
-  float: left;
-}
-
-.small-container .show-small-img:last-of-type { margin-right: 0; }
-
-.btn span.glyphicon {    			
-	opacity: 0;				
-}
-.btn.active span.glyphicon {				
-	opacity: 1;				
-}
-
-
-.funkyradio div {
-  clear: both;
-  overflow: hidden;
-}
-
-.funkyradio label {
-  width: 100%;
-  border-radius: 3px;
-  border: 1px solid #D1D3D4;
-  font-weight: normal;
-}
-
-.funkyradio input[type="radio"]:empty,
-.funkyradio input[type="checkbox"]:empty {
-  display: none;
-}
-
-.funkyradio input[type="radio"]:empty ~ label,
-.funkyradio input[type="checkbox"]:empty ~ label {
-  position: relative;
-  line-height: 2.5em;
-  text-indent: 3.25em;
-  /*margin-top: 2em;*/
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.funkyradio input[type="radio"]:empty ~ label:before,
-.funkyradio input[type="checkbox"]:empty ~ label:before {
-  position: absolute;
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  content: '';
-  width: 2.5em;
-  background: #D1D3D4;
-  border-radius: 3px 0 0 3px;
-}
-
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
-  color: #888;
-}
-
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
-  content: '\2714';
-  text-indent: .9em;
-  color: #C2C2C2;
-}
-
-.funkyradio input[type="radio"]:checked ~ label,
-.funkyradio input[type="checkbox"]:checked ~ label {
-  color: #777;
-}
-
-.funkyradio input[type="radio"]:checked ~ label:before,
-.funkyradio input[type="checkbox"]:checked ~ label:before {
-  content: '\2714';
-  text-indent: .9em;
-  color: #333;
-  background-color: #ccc;
-}
-
-.funkyradio input[type="radio"]:focus ~ label:before,
-.funkyradio input[type="checkbox"]:focus ~ label:before {
-  box-shadow: 0 0 0 3px #999;
-}
-
-.funkyradio-default input[type="radio"]:checked ~ label:before,
-.funkyradio-default input[type="checkbox"]:checked ~ label:before {
-  color: #333;
-  background-color: #ccc;
-}
-
-.funkyradio-primary input[type="radio"]:checked ~ label:before,
-.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #337ab7;
-}
-
-.funkyradio-success input[type="radio"]:checked ~ label:before,
-.funkyradio-success input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #5cb85c;
-}
-
-.funkyradio-danger input[type="radio"]:checked ~ label:before,
-.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #d9534f;
-}
-
-.funkyradio-warning input[type="radio"]:checked ~ label:before,
-.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #f0ad4e;
-}
-
-.funkyradio-info input[type="radio"]:checked ~ label:before,
-.funkyradio-info input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #5bc0de;
-}
-
-</style>
-
 <script src="{{url('/')}}/assets/front/js/zoom-image.js"></script>
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/icheck-bootstrap.min.css">
 
 <section class="product_details_section">
+    <div class="loader"></div>
     <div class="container">
 
         <div class="row">
             <div class="col-md-6">
-            <!-- Primary carousel image -->
-            @if(!empty($ProductImages))
-                @foreach($ProductImages as $image)
-            <div class="show" href="{{url('/')}}/uploads/ProductImages/{{$image['image']}}">
-              
-                  <img src="{{url('/')}}/uploads/ProductImages/{{$image['image']}}" id="show-img">
-                
-            </div>
-            @php break; @endphp
-            @endforeach
-            @endif 
+              <!-- Primary carousel image -->
+              @if(!empty($variantData))
+                @php
+                $first = reset($variantData);
+                @endphp
+              @endif
 
-            <!-- Secondary carousel image thumbnail gallery -->
-
-            <div class="small-img">
-              <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
-              <div class="small-container">
-                <div id="small-img-roll">
-                @if(!empty($ProductImages))
-                  @foreach($ProductImages as $image)
-                    <img src="{{url('/')}}/uploads/ProductImages/{{$image['image']}}" class="show-small-img" alt="">
-                  @endforeach
-                @endif
-                </div>
+              <div class="show" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
+                <img src="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}" id="show-img">
               </div>
-              <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+              
+              <!-- Secondary carousel image thumbnail gallery -->
+              <div class="small-img">
+                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
+                <div class="small-container">
+                  <div id="small-img-roll">
+                    @foreach($first['images'] as $image)
+                      <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" class="show-small-img" alt="">
+                    @endforeach
+                  </div>
+                </div>
+                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+              </div>
             </div>
 
-                
-            </div>
             <div class="col-md-6">
                 <div class="product_details_info">
                     <h2>{{$Product->title}}</h2>
@@ -232,30 +54,52 @@
                         <?php echo $Product->description; ?>
                       </p>
                       <div class="row">
-
-                         @foreach($ProductAttributes as $attribute_id=>$attribute)
-                          <div class="col-md-6 col-xs-6">
-                            <div class="quantity_box">
-                                <h3>{{$attribute['attribute_name']}} : </h3>
+                      <!-- <div class="col-md-12">
+                          <div class="radio icheck-success icheck-inline">
+                              <input type="radio" id="success12" name="success" />
+                              <label for="success12">success 1</label>
+                          </div>
+                          <div class="radio icheck-success icheck-inline">
+                              <input type="radio" checked id="success22" name="success" />
+                              <label for="success22">success 2</label>
+                          </div>
+                      </div> -->
+                         @foreach($ProductAttributes as $attribute_id => $attribute)
+                          <div class="col-md-12">
+                            <div class="quantity_box" style="margin-bottom:0px !important;">
+                              <div class="row">
+                                <div class="col-xs-5 col-md-4">
+                              <h3>{{ucwords($attribute['attribute_name'])}} : </h3> &nbsp;&nbsp;
+                                </div>
+                                <div class="col-xs-5 col-md-8">
                                     <input type="hidden" id="variant_type" name="variant_type" value="{{$attribute['attribute_type']}}">
                                     @if($attribute['attribute_type']=='radio')
-                                    <ul class="select_product_color {{$attribute_id}}">
-                                       
-                                        <div class="funkyradio">
-                                        @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
-                                          <div class="squaredThree funkyradio-success">
-                                              <input style="background-color:{{$attribute_value}};" class="product_checkbox_attribute" type="radio" name="optionsRadios_{{$attribute['attribute_name']}}" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" />
-                                              <span class="custom-control-indicator"></span>
-                                              <label for="{{$attribute_value_id}}" style="background-color:{{$attribute_value}};"> {{$attribute_value}} </label>
-                                          </div>
-                                          @endforeach
-                                        </div>  
-                                    </ul>
+                                      @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
+                                        @php
+                                          $checked = '';
+                                          if(!empty($first['attr'][$attribute['attribute_name']]) && $first['attr'][$attribute['attribute_name']] == $attribute_value)
+                                          {
+                                            $checked = 'checked="checked"';
+                                          }
+                                        @endphp
+                                        <div class="radio icheck-success icheck-inline" style="margin-top:10px !important;">
+                                            <input type="radio" name="optionsRadios_{{$attribute['attribute_name']}}" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" {{$checked}} />
+                                            <label for="{{$attribute_value_id}}">{{$attribute_value}}</label>
+                                        </div>
+                                      @endforeach
+                                    
                                     @elseif($attribute['attribute_type']=='dropdown')
-                                    <select id="select_product_variant" class="{{$attribute_id}} form-control">
+                                    <select id="select_product_variant" class="{{$attribute_id}} form-control" style="width: 80%;display: inline-block;margin-top: 5px;">
                                         <option value="">{{ __('lang.select_label')}}</option>
                                     @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
-                                        <option value="{{$attribute_value_id}}" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}"> {{$attribute_value}} </option>
+                                      @php
+                                          $selected = '';
+                                          if(!empty($first['attr'][$attribute['attribute_name']]) && $first['attr'][$attribute['attribute_name']] == $attribute_value)
+                                          {
+                                            $selected = 'selected="selected"';
+                                          }
+                                        @endphp
+                                        <option value="{{$attribute_value_id}}" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" {{$selected}}> {{$attribute_value}} </option>
                                         @endforeach
                                     </select>
                                     @elseif($attribute['attribute_type']=='textbox')
@@ -265,6 +109,8 @@
                                         @endforeach
                                     </div>
                                     @endif
+                                </div>
+                              </div>    
 
                             </div>
                         </div>
@@ -272,16 +118,16 @@
 
                         </div>
                         <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                              <div class="quantity_box">
-                                <h3>Quantity:</h3>
+                        <div class="col-xs-6 col-md-5"  >
+                              <div class="quantity_box" style="margin-top:28px;">
+                                <h3>Quantity:</h3>&nbsp;&nbsp;
                                 <!-- <select class="drop_down_select pull-right">
                                       <option>1</option>
                                       <option>2</option>
                                       <option>3</option>
                                       <option>4</option>
                                   </select> -->
-                                  <input class="drop_down_select " list="quantities" id="product_quantity" >
+                                  <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
                                     <option value="1"></option>
                                     <option value="2"></option>
@@ -297,12 +143,21 @@
                               </div>
                           </div>
 
-                        <div class="col-md-6 col-xs-6">
-                            <div class="quantity_box marging_0">
-                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif> Add To Cart  <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
+                        <div class="col-xs-6 col-md-7">
+                            <div class="quantity_box">
+                               <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
+                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> Add To Cart  <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
                             </div>
                         </div>
                       </div>
+
+                      <div class="row">
+                          <div class="col-xs-12 col-md-6">    
+                          <div class="quantity_box">              
+                            <h3>{{ __('lang.shopping_cart_price')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;">{{ number_format($first['price'],2) }} kr</span>
+                          </div>
+                          </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -332,23 +187,20 @@
 function addtoCartFromProduct()
 {
     var product_quantity = $("#product_quantity").val();
-    var variant = $(".product_checkbox_attribute:checked").attr('data-variant');
-    if($("#variant_type").val() == 'radio')
-    {
-        variant = $(".product_checkbox_attribute:checked").attr('data-variant');
-    }
-    else if($("#variant_type").val() == 'dropdown') {
-        variant = $("#select_product_variant option:selected").attr('data-variant');
-    }
+    var variant = $("#product_variant_id").val();
+    
     if(product_quantity == '')
     {
-        alert('Please select quantity.');
-        return false;
-    }
-    else if(variant === undefined) {
-      alert('Please select Variant.');
+      showErrorMessage(product_qty_error);
       return false;
     }
+    else if(variant === undefined) 
+    {
+      showErrorMessage(product_variant_error);
+      return false;
+    }
+
+    $(".loader").show();
 
     $.ajax({
       url:siteUrl+"/add-to-cart",
@@ -359,16 +211,22 @@ function addtoCartFromProduct()
       data : {'product_variant': variant, 'product_quantity' : product_quantity},
       success:function(data)
       {
+        $(".loader").hide();
         var responseObj = $.parseJSON(data);
         if(responseObj.status == 1)
         {
-            //alert(responseObj.msg);
-            location.reload();
+          showSuccessMessage(product_add_success,'reload');
         }
         else
         {
-          alert(responseObj.msg);
-          window.location.href = "/front-login";
+          if(responseObj.is_login_err == 0)
+          {
+            showErrorMessage(responseObj.msg);
+          }
+          else
+          {
+            showErrorMessage(responseObj.msg,'/front-login');
+          }
         }
 
       }

@@ -24,7 +24,7 @@ Route::any('/get_product_listing/','Front\FrontController@getProductsyParameter'
 Route::any('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
 Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');
-Route::get('/product/{product_slug}','Front\FrontController@productDetails')->name('productDetails');
+Route::any('/product/{product_slug}','Front\FrontController@productDetails')->name('productDetails');
 Route::get('/product/{category_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategory');
 Route::get('/product/{category_slug}/{subcategory_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategorySubcategory');
 Route::any('/get_product_attribute_details','Front\FrontController@getProductAttributeDetails')->name('getProductAttributeDetails');
@@ -124,3 +124,5 @@ Route::post('/add-to-cart','Front\CartController@addToCart')->name('frontAddToCa
 Route::get('/show-cart','Front\CartController@showCart')->name('frontShowCart');
 Route::post('/remove-from-cart','Front\CartController@removeCartProduct')->name('frontRemoveCartProduct');
 Route::post('/update-cart','Front\CartController@updateCartProduct')->name('frontUpdateCartProduct');
+
+Route::any('/checkout','Front\CartController@showCheckout')->name('frontShowCheckout');

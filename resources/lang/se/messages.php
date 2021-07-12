@@ -49,8 +49,14 @@
      'products_with_active_subscription'=>'Endast produkter kan visas på webbplatsen med aktiv prenumeration',
 
 
-     'page_save_success'=>'Sidinformation sparades framgångsrikt!',
-     'page_update_success'=>'Sidinformation har uppdaterats!',
- 
+     'page_save_success'=>'Sidinformation sparades framgångsrikt.',
+     'page_update_success'=>'Sidinformation har uppdaterats.',
+
+
+     'product_add_success' => 'Produkten har lagts till i kundvagnen.',
+     'product_update_success' => 'Produkten har uppdaterats i kundvagnen.',
+     'product_remove_success' => 'Produkten har tagits bort från kundvagnen.',
+     'product_qty_error' => 'Välj produktkvantitet.',
+     'product_variant_error' => 'Välj produktalternativ.',
  ]
 ?>

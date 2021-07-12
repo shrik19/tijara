@@ -49,8 +49,14 @@
      'subscribe_package_to_manage_prod_attri'=>'You must subscribe package to manage products and attributes',
      'products_with_active_subscription'=>'Only products can show on site with active subscription',
 
-     'page_save_success'=>'Page details saved successfully!',
-     'page_update_success'=>'Page details updated successfully!',
+     'page_save_success'=>'Page details saved successfully.',
+     'page_update_success'=>'Page details updated successfully.',
+
+     'product_add_success' => 'Product added to cart successfully.',
+     'product_update_success' => 'Product updated in cart successfully.',
+     'product_remove_success' => 'Product removed from cart successfully.',
+     'product_qty_error' => 'Please select Product Quantity.',
+     'product_variant_error' => 'Please select Product Option.',
      
  ]
 ?>

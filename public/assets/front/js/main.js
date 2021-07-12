@@ -1,4 +1,5 @@
 
+$.noConflict(); 
 
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){
@@ -726,6 +727,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',sellers =
 function addToCart(product_variant)
 {
   var product_quantity = $("#product_quantity_"+product_variant).val();
+  $(".loader").show();
   $.ajax({
     url:siteUrl+"/add-to-cart",
     headers: {
@@ -735,15 +737,22 @@ function addToCart(product_variant)
     data : {'product_variant': product_variant, 'product_quantity' : product_quantity},
     success:function(data)
     {
+      $(".loader").hide();
       var responseObj = $.parseJSON(data);
       if(responseObj.status == 1)
       {
-          location.reload();
+          showSuccessMessage(product_add_success,'reload');
       }
       else
       {
-        alert(responseObj.msg);
-        window.location.href = "/front-login";
+        if(responseObj.is_login_err == 0)
+        {
+          showErrorMessage(responseObj.msg);
+        }
+        else
+        {
+          showErrorMessage(responseObj.msg,'/front-login');
+        }
       }
 
     }
@@ -797,3 +806,132 @@ $('#shipping_charges').keyup(function(){
   const result = str.replace(regex, subst);
   this.value=result;
 });
+
+
+function removeCartProduct(OrderDetailsId)
+{
+  $.confirm({
+      title: 'Confirm!',
+      content: product_remove_confirm,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          okay: function () {
+            $(".loader").show();
+            $.ajax({
+              url:siteUrl+"/remove-from-cart",
+              headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              },
+              type: 'post',
+              data : {'OrderDetailsId': OrderDetailsId},
+              success:function(data)
+              {
+                $(".loader").hide();
+                var responseObj = $.parseJSON(data);
+                if(responseObj.status == 1)
+                {
+                    showSuccessMessage(responseObj.msg,'reload');
+                }
+                else
+                {
+                    showErrorMessage(responseObj.msg,'/front-login');
+                }
+        
+              }
+            });
+          },
+          cancel: function () {
+            
+          },
+      }
+  });
+
+}
+
+function updateCart(OrderDetailsId)
+{
+  var quantity = $("#quantity_"+OrderDetailsId).val();
+  $(".loader").show();
+  $.ajax({
+    url:siteUrl+"/update-cart",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'OrderDetailsId': OrderDetailsId, 'quantity' : quantity},
+    success:function(data)
+    {
+      $(".loader").hide();
+      var responseObj = $.parseJSON(data);
+      if(responseObj.status == 1)
+      {
+          showSuccessMessage(responseObj.msg,'reload');
+      }
+      else
+      {
+        showErrorMessage(responseObj.msg,'/front-login');
+      }
+
+    }
+   });
+}
+
+function showErrorMessage(strContent,redirect_url = '')
+{
+    
+    $.alert({
+      title: 'Oops!',
+      content: strContent,
+      type: 'red',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-times-circle",
+      buttons: {
+        okay: function () {
+            if(redirect_url != '')
+            {
+              if(redirect_url == 'reload')
+              {
+                location.reload(true);
+              }
+              else
+              {
+                window.location.href = redirect_url;
+              }
+            }
+        },
+      }
+    });
+}
+
+
+function showSuccessMessage(strContent,redirect_url = '')
+{
+    
+    $.alert({
+      title: 'Success!',
+      content: strContent,
+      type: 'green',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-check-circle",
+      buttons: {
+        okay: function () {
+          if(redirect_url != '')
+          {
+            if(redirect_url == 'reload')
+            {
+              location.reload(true);
+            }
+            else
+            {
+              window.location.href = redirect_url;
+            }
+          }
+        },
+      }
+    });
+}

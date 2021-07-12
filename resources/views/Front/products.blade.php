@@ -80,7 +80,7 @@ function getListing()
   var price_filter = $('#price_filter').val();
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
-  var search_string = (".current_search_string");
+  var search_string = $(".current_search_string").text();
 
   $.ajax({
     url:siteUrl+"/get_product_listing",

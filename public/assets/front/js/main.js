@@ -1,5 +1,5 @@
 
-//$.noConflict(); 
+$.noConflict(); 
 
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){

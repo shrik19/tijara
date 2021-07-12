@@ -16,7 +16,7 @@
                 @endphp
               @endif
 
-              <div class="show" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
+              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
                 <img src="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}" id="show-img">
               </div>
               
@@ -235,7 +235,7 @@ function addtoCartFromProduct()
 
 //Initialize product gallery
 
-$('.show').zoomImage();
+$('.show-custom').zoomImage();
 
 $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
 $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');

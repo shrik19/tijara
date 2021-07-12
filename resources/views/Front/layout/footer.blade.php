@@ -89,7 +89,7 @@
         <p>© {{ __('lang.copyright_label')}} {{date('Y')}} <span class="de_col">{{config('constants.PROJECT_NAME')}}</span>. | {{ __('lang.all_right_reserved_label')}}</p>
       </div>
     </footer>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
 	<link rel="stylesheet" href="{{url('/')}}/assets/front/css/richtext.min.css">
 <script src="{{url('/')}}/assets/front/js/jquery.richtext.js"></script>
 <script type="text/javascript" src="{{url('/')}}/assets/front/js/select2.full.min.js"></script>

@@ -224,6 +224,10 @@ class CartController extends Controller
         {
           $is_added = 0;
           $is_login_err = 1;
+          if(session('role_id') != 1)
+          {
+            $is_login_err = 0;
+          }
           $txt_msg = trans('errors.login_buyer_required');
         }
         echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));

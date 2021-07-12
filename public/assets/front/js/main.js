@@ -1,5 +1,5 @@
 
-$.noConflict(); 
+//$.noConflict(); 
 
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){
@@ -704,6 +704,9 @@ if($('.product_listings').length>0) {
 
 
 }
+
+
+
 function get_product_listing(page,category_slug='',subcategory_slug='',sellers ='',price='', search_string='') {
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
@@ -882,7 +885,7 @@ function updateCart(OrderDetailsId)
 function showErrorMessage(strContent,redirect_url = '')
 {
     
-    $.alert({
+  $.alert({
       title: 'Oops!',
       content: strContent,
       type: 'red',
@@ -911,7 +914,7 @@ function showErrorMessage(strContent,redirect_url = '')
 function showSuccessMessage(strContent,redirect_url = '')
 {
     
-    $.alert({
+  $.alert({
       title: 'Success!',
       content: strContent,
       type: 'green',

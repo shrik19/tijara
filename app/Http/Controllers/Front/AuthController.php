@@ -1367,13 +1367,13 @@ class AuthController extends Controller
 
 */
        $check_exist_order = DB::table('user_packages')
-                    ->where('id','=',$order_id)
+                    ->where('order_id','=',$order_id)
                     ->first();
         if(!empty($check_exist_order)) {
             //normal flow here
             if( $order_status == "CAPTURED"){
-            $status='active';
-        }
+                $status='active';
+            }
         else
             $status='block';
             $arrUpdatePackage = [

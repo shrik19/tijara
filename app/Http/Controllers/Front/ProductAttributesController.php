@@ -62,7 +62,8 @@ class ProductAttributesController extends Controller
      */
     public function getRecords(Request $request) {
 
-    	$attributeDetails = Attributes::select('id','name')->where('user_id',Auth::guard('user')->id());
+    	//$attributeDetails = Attributes::select('id','name')->where('user_id',Auth::guard('user')->id());
+        $attributeDetails = Attributes::select('id','name');
       
     	$recordsTotal = $attributeDetails->count();
     	
@@ -150,14 +151,15 @@ class ProductAttributesController extends Controller
      * insert country details
      */
     public function store(Request $request) {
-      
+    
         $rules = [
-            'name' => 'required',
+            'name' => 'required|unique:attributes,name',
             'type' => 'required'
         ];
         $messages = [
             'name.required'         => trans('lang.required_field_error'),
-            'type.required'            => trans('lang.required_field_error'),
+            'type.required'         => trans('lang.required_field_error'),
+            'name.unique'           => trans('errors.unique_attr_name_err'),
         ];
         $validator = validator::make($request->all(), $rules, $messages);
         if($validator->fails()) 
@@ -168,7 +170,7 @@ class ProductAttributesController extends Controller
         
         $arrInsertAttribute = ['name' => trim($request->input('name')),
                               'type' => trim($request->input('type')),
-                              'user_id'=> Auth::guard('user')->id(),
+                              //'user_id'=> Auth::guard('user')->id(),
                             ];
 
         $id = Attributes::create($arrInsertAttribute)->id; 
@@ -212,7 +214,7 @@ class ProductAttributesController extends Controller
             $valueDetails = DB::table('attributes as attribute')
                     ->join('attributes_values as val','attribute.id','=','val.attribute_id')
                     ->where('attribute.id',$id)
-                    ->where('attribute.user_id',Auth::guard('user')->id())
+                   // ->where('attribute.user_id',Auth::guard('user')->id())
                     ->select('attribute.*','val.*')
                     ->get();
             $data['attributesValues']          = $valueDetails;
@@ -243,9 +245,9 @@ class ProductAttributesController extends Controller
         }
         
         $id = base64_decode($id);
-        
+      
         $rules = [
-            'name'             => 'required',
+            'name'             => 'required|unique:attributes,name,'.$id,
             'type'             => 'required',
 			'attribute_values' => 'required',
 
@@ -254,6 +256,7 @@ class ProductAttributesController extends Controller
             'name.required'             => trans('lang.required_field_error'),
             'type.required'             => trans('lang.required_field_error'),
 			'attribute_values.required' => trans('lang.required_field_error'),
+            'name.unique'           => trans('errors.unique_attr_name_err'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);

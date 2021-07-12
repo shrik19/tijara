@@ -22,7 +22,7 @@ $(".add_new_variant_btn").click(function(){
     $trNew = $trLast.clone();
     $trNew.attr('variant_id',variant_id);
     $trNew.find(':text').val('');
-    $trNew.find('.previous_image').val('');
+    $trNew.find('.hidden_images').val('');
     $trNew.find('.variant_image').val('');
     $trNew.find('.variant_name').attr('name','variant_name['+variant_id+']');
     $trNew.find('.sku').attr('name','sku['+variant_id+']');
@@ -30,9 +30,10 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.price').attr('name','price['+variant_id+']');
     $trNew.find('.quantity').attr('name','quantity['+variant_id+']');
     $trNew.find('.image').attr('name','image['+variant_id+']');
-    $trNew.find('.previous_image').attr('name','previous_image['+variant_id+']');
+    $trNew.find('.hidden_images').attr('name','hidden_images['+variant_id+']');
     $trNew.find('.add_attribute_group_btn').attr('variant_id',variant_id);
     $trNew.find('.added_attributes').attr('variant_id',variant_id);
+    $trNew.find('.variant_image').attr('variant_id',variant_id);
     $trNew.find('.added_attributes').html('');
     $trNew.find('.modal').attr('variant_id',variant_id);
     $trNew.find('.plus_attribute').attr('variant_id',variant_id);
@@ -67,7 +68,8 @@ $('#variant_table').on('change', '.variant_image', function () {
 
         var fileUpload  = $(this)[0];
         var elm         =   $(this);
-
+        var variant_id  = $(this).attr('variant_id');
+        
         var validExtensions = ["jpg","jpeg","gif","png"];
         var file = $(this).val().split('.').pop();
         if (validExtensions.indexOf(file) == -1) {
@@ -91,11 +93,9 @@ $('#variant_table').on('change', '.variant_image', function () {
                       contentType: false,
 
                       success: function(data) {
-                       elm.parent('td').find('.previous_image').val(data);
-                       elm.parent('td').find('img').remove();
-                       elm.parent('td').find('.remove_image').remove();
-                       elm.parent('td').append('<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="40" height="40" style="margin:10px;">'+
-                                            '<a href="javascript:void(0);" class="remove_image btn btn-danger btn-xs"><i class="fa fa-times"></i></a>')
+                       elm.parent('td').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]"">'+
+                          '<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="40" height="40">'+
+                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>');     
                       }
 
                 });
@@ -105,7 +105,7 @@ $('#variant_table').on('change', '.variant_image', function () {
 
 });
 $('#variant_table').on('click', '.remove_image', function () {
-    $(this).prev('img').prev('input').val('');
+    $(this).prev('img').prev('input').remove();
     $(this).prev('img').remove();
     $(this).remove();
 });

@@ -176,13 +176,18 @@
                 <span class="invalid-feedback" id="err_price" ></span></td>
                 <td><input type="text" class="form-control login_input quantity number variant_field" value="{{$variant['quantity']}}" name="quantity[{{$variant_key}}]" placeholder="{{ __('lang.qty_label')}}">
                 <span class="invalid-feedback" id="err_quantity" ></span></td>
-                <td><input type="file" class="form-control login_input image variant_image"   name="image[{{$variant_key}}]" placeholder="{{ __('lang.image_label')}}">
+                <td><input type="file" class="form-control login_input image variant_image"   name="image[{{$variant_key}}]" placeholder="{{ __('lang.image_label')}}" variant_id="{{$variant_key}}">
                 <span class="invalid-feedback" id="err_image" ></span>
-                    <input type="hidden" class="form-control login_input previous_image" value="{{$variant['image']}}"  name="previous_image[{{$variant_key}}]" placeholder="{{ __('lang.image_label')}}">
-
                 @if($variant['image']!='')
-                <img src="{{url('/')}}/uploads/ProductImages/{{$variant['image']}}" width="40" height="40" style="margin:10px;">
-                &nbsp;&nbsp;<a href="javascript:void(0);" class="remove_image btn btn-danger btn-xs"><i class="fa fa-times"></i></a>
+                  @php $images  = explode(',',$variant['image']);
+                  @endphp
+                  @foreach($images as $image)
+                              <input type="hidden" class="form-control login_input hidden_images" value="{{$image}}"  name="hidden_images[{{$variant_key}}][]" placeholder="{{ __('lang.image_label')}}">
+                          
+                          
+                    <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" width="40" height="40">
+                    <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
+                    @endforeach
                 @endif
                 </td>
                 <td class="add_attribute_group_td" id="add_attribute_group_td_{{$variant_key}}" style="vertical-align:middle;">
@@ -330,9 +335,8 @@
                 <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}">
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image variant_image" name="image[0]" placeholder="{{ __('lang.image_label')}}">
-                <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="{{ __('lang.image_label')}}">
-
+                <td><input type="file" class="form-control login_input image variant_image" name="image[0]" placeholder="{{ __('lang.image_label')}}" variant_id="0">
+               
                 <span class="invalid-feedback" id="err_image" ></span></td>
                 <td class="add_attribute_group_td" id="add_attribute_group_td_0" style="vertical-align:middle;">
 

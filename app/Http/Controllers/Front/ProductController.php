@@ -415,7 +415,8 @@ class ProductController extends Controller
 			$categoriesArray[$category->category_id]['subcategories'][$category->id]=	$category->subcategory_name;
 		}
 		$data['categories']				=	$categoriesArray;
-	    $data['attributesToSelect'] =   Attributes::where('user_id',Auth::guard('user')->id())->get(); 
+	    //$data['attributesToSelect'] =   Attributes::where('user_id',Auth::guard('user')->id())->get(); 
+        $data['attributesToSelect'] =   Attributes::select('*')->get(); 
 
 		if($id) {
 			$product_id					=	base64_decode($id);
@@ -553,8 +554,11 @@ class ProductController extends Controller
 		            $producVariant['weight']    =   $_POST['weight'][$variant_key];
 		            $producVariant['quantity']  =   $_POST['quantity'][$variant_key]; 
 		            
-                    if(isset($_POST['previous_image'][$variant_key]) ) {
-                        $producVariant['image'] =   $_POST['previous_image'][$variant_key];
+                   if(isset($_POST['hidden_images'][$variant_key]) && !empty($_POST['hidden_images'][$variant_key]) ) {
+                        $producVariant['image'] =   '';
+                        foreach($_POST['hidden_images'][$variant_key] as $img)
+                            $producVariant['image'].=   $img.',';
+                        $producVariant['image'] =   rtrim($producVariant['image'],',');
                     }
 
 		            $variant_id=VariantProduct::create($producVariant)->id;

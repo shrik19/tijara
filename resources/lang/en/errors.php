@@ -87,5 +87,6 @@
      'login_required' => 'Please login as Buyer/Seller first to access the pages.',
      'login_buyer_required' => 'Please login as Buyer first to access the pages.',
      'payment_failed_err'=>'Something went wrong. Please try again later',
+     'unique_attr_name_err'=>'Please enter different attribute, its already added',
  ]
 ?>

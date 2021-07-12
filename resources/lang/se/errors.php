@@ -86,5 +86,6 @@
      'login_required' => 'Logga in som köpare / säljare först för att komma åt sidorna.',
      'login_buyer_required' => 'Logga in som köpare först för att komma åt sidorna.',
      'payment_failed_err' => 'Något gick fel. Vänligen försök igen senare',
+     'unique_attr_name_err'=>'Ange ett annat attribut, det har redan lagts till',
  ]
 ?>

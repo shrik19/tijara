@@ -110,6 +110,7 @@ $('#variant_table').on('click', '.remove_image', function () {
     $(this).prev('img').remove();
     $(this).remove();
 });
+
 $('#variant_table').on('click', '.add_attribute_group_btn', function () {
 
     var variant_id  =   $(this).attr('variant_id');

@@ -296,7 +296,7 @@ class AuthController extends Controller
                     ->where('user_packages.end_date','>=',$currentDate)
                     ->where('user_id','=',$user_id)
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status')
-                    ->orderByRaw('user_packages.id ASC')
+                    ->orderByRaw('user_packages.id DESC')
                     ->get();
 
         $date_diff='';
@@ -1073,9 +1073,19 @@ class AuthController extends Controller
 
         if(count($is_subscriber) == 0 || $date_diff <= 30){
             $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
-            $data['package_exp_msg'] = trans('users.package_exp_message');
         }
 
+        $show_exp_message=   DB::table('user_packages')
+                    ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+                    ->where('packages.is_deleted','!=',1)
+                    ->where('user_packages.end_date','>=',$currentDate)
+                    ->where('user_id','=',$user_id)
+                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
+                    ->orderByRaw('user_packages.id DESC')
+                    ->get();
+         if(count($show_exp_message) == 0 ){
+            $data['package_exp_msg'] = trans('users.package_exp_message');
+        }
 
         $data['user_id']           = $user_id;
         $data['title']             = trans('users.subscribe_package_label');
@@ -1092,7 +1102,7 @@ class AuthController extends Controller
         $password = env('KLORNA_PASSWORD');
         
         $user_id       = $request->input('user_id');
-        $amount    = $request->input('amount');
+        $amount    = $request->input('amount')*1;
         $validity_days = $request->input('validity_days');
         $package_id    = $request->input('p_id');
         $package_name = $request->input('p_name');
@@ -1235,7 +1245,11 @@ class AuthController extends Controller
         $order_status = $response->status;
         $data=[];
         $data["html_snippet"] = $response->html_snippet;
-        return view('Front/Packages/payment_confirm',$data); 
+        //return view('Front/Packages/payment_confirm',$data); 
+
+        Session::Flash('success', trans('messages.package_subscribe_success'));
+        return redirect(route('frontSellerPackages'));
+        //return view('Front/Packages/seller-packages',$data); 
     }
 
     /*push notification request from Klarna*/

@@ -58,5 +58,10 @@
      'product_remove_success' => 'Produkten har tagits bort från kundvagnen.',
      'product_qty_error' => 'Välj produktkvantitet.',
      'product_variant_error' => 'Välj produktalternativ.',
+     'page_save_success'=>'Sidinformation sparades framgångsrikt!',
+     'page_update_success'=>'Sidinformation har uppdaterats!',
+     'package_subscribe_success' => "Paketprenumeration lyckades.!",
+      'payment_in_process'=>'Betalning pågår...',
+ 
  ]
 ?>

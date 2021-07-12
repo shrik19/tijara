@@ -57,6 +57,10 @@
      'product_remove_success' => 'Product removed from cart successfully.',
      'product_qty_error' => 'Please select Product Quantity.',
      'product_variant_error' => 'Please select Product Option.',
+     'page_save_success'=>'Page details saved successfully!',
+     'page_update_success'=>'Page details updated successfully!',
+     'package_subscribe_success' => "Package Subscribe Successfully.!",
+     'payment_in_process'=>'Payment in Process...',
      
  ]
 ?>

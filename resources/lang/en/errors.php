@@ -88,5 +88,6 @@
      'login_buyer_required' => 'Please login as Buyer first to access the pages.',
      'payment_failed_err'=>'Something went wrong. Please try again later',
      'same_seller_product_err' => 'Products from different sellers are not allowed for Order please select products from same seller.',
+     'unique_attr_name_err'=>'Please enter different attribute, its already added',
  ]
 ?>

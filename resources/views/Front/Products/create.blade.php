@@ -180,8 +180,7 @@
                 <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[<?php echo $i;?>]" placeholder="{{ __('lang.qty_label')}}" value='{{ old("quantity.$i")}}'>
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image variant_image" name="image[<?php echo $i;?>]"   placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}'>
-                <input type="hidden" class="form-control login_input previous_image"  name="previous_image[<?php echo $i;?>]" placeholder="{{ __('lang.action_label')}}">
+                <td><input type="file" class="form-control login_input image variant_image" name="image[<?php echo $i;?>]"   placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' variant_id="0">
 
                 <span class="invalid-feedback" id="err_image" ></span></td>
                 <td class="add_attribute_group_td" id="add_attribute_group_td_0" style="vertical-align:middle;">
@@ -273,8 +272,8 @@
                 <td><input type="text" class="form-control login_input quantity number variant_field" name="quantity[0]" placeholder="{{ __('lang.qty_label')}}" value="{{ old('quantity.0')}}">
                 <span class="invalid-feedback" id="err_quantity" ></span>
                 </td>
-                <td><input type="file" class="form-control login_input image variant_image" name="image[0]"   placeholder="{{ __('lang.image_label')}}" value="">
-                <input type="hidden" class="form-control login_input previous_image"  name="previous_image[0]" placeholder="{{ __('lang.action_label')}}">
+                <td><input type="file" class="form-control login_input image variant_image" name="image[0]"   placeholder="{{ __('lang.image_label')}}" value="" variant_id="0">
+               
 
                 <span class="invalid-feedback" id="err_image" ></span></td>
                 <td class="add_attribute_group_td" id="add_attribute_group_td_0" style="vertical-align:middle;">

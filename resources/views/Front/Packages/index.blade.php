@@ -59,12 +59,12 @@
 					    	<td class="package-tbl">{{ __('lang.status_label')}}</td>
 					    	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="CAPTURED" )
 					  			<td><a href="javascript:void(0)" class="btn btn-warning "> {{ __('users.not_activated_label')}}</a></td>
-					  		@elseif(( $row->payment_status=="checkout_incomplete"))
+					  		@elseif($row->payment_status=="checkout_incomplete")
 					  		<td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a>
 					  			<p style="font-weight: bold;margin-top: 20px;margin-left:-108px;color: green"> {{ __('messages.payment_in_process')}}</p>
 					  			<a href="" class="btn btn-info"> Reload</a>
 					  		</td>
-					  		@elseif($row->status=="active"))
+					  		@elseif($row->status=="active")
 					  			<td><a href="javascript:void(0)" class="btn btn-success "> {{ __('lang.active_label')}} </a></td>
 					  		@endif
 					    </tr>

@@ -1078,13 +1078,21 @@ class AuthController extends Controller
         $show_exp_message=   DB::table('user_packages')
                     ->join('packages', 'packages.id', '=', 'user_packages.package_id')
                     ->where('packages.is_deleted','!=',1)
-                    ->where('user_packages.end_date','>=',$currentDate)
+                   // ->where('user_packages.end_date','>=',$currentDate)
+                    ->where('user_packages.status','=','active')
                     ->where('user_id','=',$user_id)
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
-                    ->orderByRaw('user_packages.id DESC')
+                    ->orderByRaw('user_packages.id')
                     ->get();
-         if(count($show_exp_message) == 0 ){
-            $data['package_exp_msg'] = trans('users.package_exp_message');
+         if(count($show_exp_message) == 0  ){
+
+            $data['package_exp_msg'] = trans('messages.products_with_active_subscription');
+        }
+        else {
+            foreach($show_exp_message as $v) {
+                if($v->end_date >= $currentDate)
+                    $data['package_exp_msg'] = trans('users.package_exp_message');
+            }
         }
 
         $data['user_id']           = $user_id;

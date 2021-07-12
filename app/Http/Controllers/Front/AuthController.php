@@ -1183,7 +1183,7 @@ class AuthController extends Controller
 
         /*check package already activated*/
         $is_activePackage = DB::table('user_packages')
-                    ->where('status','=','active')
+                    //->where('status','=','active')
                     ->where('user_id','=',$user_id)
                     ->where('end_date','>=',$currentDate)
                     ->select('user_packages.*')
@@ -1341,8 +1341,8 @@ class AuthController extends Controller
         //check package is already active or not
         $currentDate = date('Y-m-d H:i:s');
         $is_activePackage = DB::table('user_packages')
-                    ->where('status','=','active')
-                    ->where('payment_status','=',"CAPTURED")
+                   // ->where('status','=','active')
+                   // ->where('payment_status','=',"CAPTURED")
                     ->where('user_id','=',$package_details->user_id)
                     ->where('end_date','>=',$currentDate)
                     ->select('user_packages.*')

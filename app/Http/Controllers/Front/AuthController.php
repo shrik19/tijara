@@ -1340,6 +1340,8 @@ class AuthController extends Controller
         
         //check package is already active or not
         $currentDate = date('Y-m-d H:i:s');
+        
+/*
         $is_activePackage = DB::table('user_packages')
                    // ->where('status','=','active')
                    // ->where('payment_status','=',"CAPTURED")
@@ -1350,11 +1352,7 @@ class AuthController extends Controller
                     ->get();
 
         if(count($is_activePackage) > 0){
-            /*get validity days for package by package id*/
-            /*$get_validity_days = DB::table('packages')
-                    ->where('id','=',$is_activePackage[0]->package_id)
-                    ->get();
-            $validity_days = $get_validity_days[0]->validity_days;*/
+            
             $start_date = date('Y-m-d H:i:s', strtotime($is_activePackage[0]->end_date.'+ 1 days'));  
             $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$package_details->validity_days.' days'));
             $status='block';
@@ -1367,17 +1365,29 @@ class AuthController extends Controller
                 $status='block';
        }
 
-        if($order_status == "CAPTURED"){
+*/
+       $check_exist_order = DB::table('user_packages')
+                    ->where('id','=',$order_id)
+                    ->first();
+        if(!empty($check_exist_order)) {
+            //normal flow here
+            if( $order_status == "CAPTURED"){
+            $status='active';
+        }
+        else
+            $status='block';
             $arrUpdatePackage = [
                               'status'     => $status,
-                              'start_date' => $start_date,
-                              'end_date'   => $ExpiredDate,
+                              //'start_date' => $start_date,
+                              //'end_date'   => $ExpiredDate,
                               'payment_status' => $order_status,
                               'payment_response' => $res,
                             ];
 
-            UserPackages::where('order_id', '=', $order_id)->update($arrUpdatePackage); 
+            UserPackages::where('order_id', '=', $order_id)->update($arrUpdatePackage);
         }
+         //else recurring flow with insert new record
+        
 
     }
 }

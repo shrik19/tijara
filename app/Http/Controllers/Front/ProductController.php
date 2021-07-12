@@ -300,8 +300,9 @@ class ProductController extends Controller
 
 
                 if(!empty($recordDetailsVal['image'])) {
+                    $imagesParts    =   explode(',',$recordDetailsVal['image']);
                     
-                    $image  =   url('/').'/uploads/ProductImages/resized/'.$recordDetailsVal['image'];
+                    $image  =   url('/').'/uploads/ProductImages/resized/'.$imagesParts[0];
                 }
                 else
                     $image  =     url('/').'/uploads/ProductImages/resized/no-image.png';

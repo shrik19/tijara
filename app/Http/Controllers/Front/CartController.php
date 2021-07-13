@@ -372,7 +372,7 @@ class CartController extends Controller
                         $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
                         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
                         $Product->quantity = $details['quantity'];
-
+                        $Product->image    = explode(',',$Product->image)[0];
                         $details['product'] = $Product;
                         $orderDetails[] = $details;
                 			}

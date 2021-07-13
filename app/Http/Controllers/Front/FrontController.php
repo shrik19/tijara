@@ -203,7 +203,7 @@ class FrontController extends Controller
 							  ->groupBy('products.id')
 							  ->offset(0)->limit(config('constants.Products_limits'))->get();
                 //dd(DB::getQueryLog());
-
+		//dd($TrendingProducts);
                 //dd(count($TrendingProducts));
 		if(count($TrendingProducts)>0) 
 		{
@@ -237,13 +237,13 @@ class FrontController extends Controller
 			$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
 			$Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
-			// $variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->orderBy('variant_id', 'ASC')->limit(1)->get();
-			// foreach($variantProduct as $vp)
-			// {
-			// 	$Product->image = $vp->image;
-			// 	$Product->price = $vp->price;
-			// 	$Product->variant_id = $vp->variant_id;
-			// }
+			$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+			foreach($variantProduct as $vp)
+			{
+				$Product->image = explode(",",$vp->image)[0];
+				$Product->price = $vp->price;
+				$Product->variant_id = $vp->variant_id;
+			}
 
 		}
 
@@ -334,6 +334,13 @@ class FrontController extends Controller
         $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
+			$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+				foreach($variantProduct as $vp)
+				{
+					$Product->image = explode(",",$vp->image)[0];
+					$Product->price = $vp->price;
+					$Product->variant_id = $vp->variant_id;
+				}
 
 			}
       $data['Products']	= $Products;
@@ -497,7 +504,7 @@ class FrontController extends Controller
 			$variantData[$variant->id]['price']			=	$variant->price;
 			$variantData[$variant->id]['weight']		=	$variant->weight;
 			$variantData[$variant->id]['quantity']		=	$variant->quantity;
-			$variantData[$variant->id]['images']		=	[$variant->image];
+			$variantData[$variant->id]['images']		=	explode(',',$variant->image);//[];
 
 			$variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
@@ -607,6 +614,42 @@ class FrontController extends Controller
                          ->get()->toArray();
     }
     return $productCategories;
+  }
+
+
+  function getProductOptions(Request $request)
+  {
+	$attribute_id = $request->attribute_id;
+	$attribute_value = $request->attribute_value;
+	$product_id = $request->product_id;
+
+	$attributeDetails = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
+											->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+											->join('variant_product', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+											->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*','variant_product.*')
+											->where([['variant_product_attribute.attribute_id','=',$attribute_id],['attribute_value_id','=',$attribute_value],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
+	
+	$otherAttributeDetails = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+	->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
+	->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();	
+
+				
+	if(!empty($otherAttributeDetails))
+	{
+		$getOtherAvailableOptions = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+		->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
+		->where([['variant_product_attribute.variant_id','<>',$attributeDetails[0]['variant_id']],['variant_product_attribute.attribute_id','=',$otherAttributeDetails[0]['attribute_id']],
+		['variant_product_attribute.attribute_value_id','=',$otherAttributeDetails[0]['attribute_value_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
+	}
+	else if(empty($getOtherAvailableOptions))
+	{
+		$getOtherAvailableOptions = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+		->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
+		->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
+	}
+
+	echo json_encode(['other_option' => $getOtherAvailableOptions, 'current_variant' => $attributeDetails[0]]);
+	exit;
   }
 
 }

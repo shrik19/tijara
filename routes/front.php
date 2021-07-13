@@ -125,4 +125,6 @@ Route::get('/show-cart','Front\CartController@showCart')->name('frontShowCart');
 Route::post('/remove-from-cart','Front\CartController@removeCartProduct')->name('frontRemoveCartProduct');
 Route::post('/update-cart','Front\CartController@updateCartProduct')->name('frontUpdateCartProduct');
 
+Route::post('/get-product-options','Front\FrontController@getProductOptions')->name('frontProductOptions');
+
 Route::any('/checkout','Front\CartController@showCheckout')->name('frontShowCheckout');

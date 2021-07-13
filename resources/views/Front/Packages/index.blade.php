@@ -62,7 +62,7 @@
 					  		@elseif($row->payment_status=="checkout_incomplete")
 					  		<td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a>
 					  			<p style="font-weight: bold;margin-top: 20px;margin-left:-108px;color: green"> {{ __('messages.payment_in_process')}}</p>
-					  			<a href="" class="btn btn-info"> Reload</a>
+					  			<a href="" class="btn btn-info" style="margin-left: 114px;margin-top: -60px"> Reload</a>
 					  		</td>
 					  		@elseif($row->status=="active")
 					  			<td><a href="javascript:void(0)" class="btn btn-success "> {{ __('lang.active_label')}} </a></td>

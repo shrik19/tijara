@@ -157,7 +157,20 @@ class CartController extends Controller
                       //Get Seller Shipping Informations
                       $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
 
-                      if(empty($SellerShippingData['free_shipping']))
+                      if(!empty($Products[0]['shipping_method']) && !empty($Products[0]['shipping_charges']))
+                      {
+                        if($Products[0]['shipping_method'] == trans('users.flat_shipping_charges'))
+                        {
+                          $product_shipping_type = 'flat';
+                          $product_shipping_amount = (float)$Products[0]['shipping_charges'];
+                        }
+                        else if($Products[0]['shipping_method'] == trans('users.prcentage_shipping_charges'))
+                        {
+                          $product_shipping_type = 'percentage';
+                          $product_shipping_amount =((float)$Products[0]['price'] * $Products[0]['shipping_charges']) / 100;
+                        }
+                      }
+                      else if(empty($SellerShippingData['free_shipping']))
                       {
                           if(!empty($SellerShippingData['shipping_method']) && !empty($SellerShippingData['shipping_charges']))
                           {
@@ -171,19 +184,6 @@ class CartController extends Controller
                                 $product_shipping_type = 'percentage';
                                 $product_shipping_amount = ((float)$Products[0]['price'] * $SellerShippingData['shipping_charges']) / 100;
                               }
-                          }
-                          elseif(!empty($Products[0]['shipping_method']) && !empty($Products[0]['shipping_charges']))
-                          {
-                            if($Products[0]['shipping_method'] == trans('users.flat_shipping_charges'))
-                            {
-                              $product_shipping_type = 'flat';
-                              $product_shipping_amount = (float)$Products[0]['shipping_charges'];
-                            }
-                            else if($Products[0]['shipping_method'] == trans('users.prcentage_shipping_charges'))
-                            {
-                              $product_shipping_type = 'percentage';
-                              $product_shipping_amount =((float)$Products[0]['price'] * $Products[0]['shipping_charges']) / 100;
-                            }
                           }
                       }
                       else
@@ -258,10 +258,30 @@ class CartController extends Controller
           {
               foreach($checkExistingOrderProduct as $details)
               {
+                  $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
+                  if(empty($checkVariant))
+                  {
+                    $tmpOrderDetails = TmpOrdersDetails::find($details['id']);
+                    $tmpOrderDetails->delete();
+                    continue;
+                  }
                   //Get Seller Shipping Informations
                   $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
 
-                  if(empty($SellerShippingData['free_shipping']))
+                  if(!empty($details['shipping_method']) && !empty($details['shipping_charges']))
+                  {
+                    if($details['shipping_method'] == trans('users.flat_shipping_charges'))
+                    {
+                      $product_shipping_type = 'flat';
+                      $product_shipping_amount = $details['shipping_charges'];
+                    }
+                    else if($details['shipping_method'] == trans('users.prcentage_shipping_charges'))
+                    {
+                      $product_shipping_type = 'percentage';
+                      $product_shipping_amount = ((float)$details['price'] * $details['shipping_charges']) / 100;
+                    }
+                  }
+                  else if(empty($SellerShippingData['free_shipping']))
                   {
                       if(!empty($SellerShippingData['shipping_method']) && !empty($SellerShippingData['shipping_charges']))
                       {
@@ -275,19 +295,6 @@ class CartController extends Controller
                             $product_shipping_type = 'percentage';
                             $product_shipping_amount = ((float)$details['price'] * $SellerShippingData['shipping_charges']) / 100;
                           }
-                      }
-                      elseif(!empty($details['shipping_method']) && !empty($details['shipping_charges']))
-                      {
-                        if($details['shipping_method'] == trans('users.flat_shipping_charges'))
-                        {
-                          $product_shipping_type = 'flat';
-                          $product_shipping_amount = $details['shipping_charges'];
-                        }
-                        else if($details['shipping_method'] == trans('users.prcentage_shipping_charges'))
-                        {
-                          $product_shipping_type = 'percentage';
-                          $product_shipping_amount = ((float)$details['price'] * $details['shipping_charges']) / 100;
-                        }
                       }
                   }
                   else
@@ -305,21 +312,21 @@ class CartController extends Controller
                   $subTotal += $details['price'] * $details['quantity'];
                   $shippingTotal += $product_shipping_amount;
               }
+
+              $total = $subTotal+$shippingTotal;
+
+              $arrOrderUpdate = [
+                  'user_id'             => $user_id,
+                  'sub_total'           => $subTotal,
+                  'shipping_total'      => $shippingTotal,
+                  'total'               => $total,
+                  'payment_details'     => NULL,
+                  'payment_status'      => NULL,
+                  'order_status'        => 'PENDING',
+              ];
+    
+              TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
           }
-
-          $total = $subTotal+$shippingTotal;
-
-          $arrOrderUpdate = [
-              'user_id'             => $user_id,
-              'sub_total'           => $subTotal,
-              'shipping_total'      => $shippingTotal,
-              'total'               => $total,
-              'payment_details'     => NULL,
-              'payment_status'      => NULL,
-              'order_status'        => 'PENDING',
-          ];
-
-          TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
 
           $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
 
@@ -327,60 +334,72 @@ class CartController extends Controller
           $data['Total'] = $checkExisting[0]['total'];
           $data['shippingTotal'] = $checkExisting[0]['shipping_total'];
 
-            $OrderId = $checkExisting[0]['id'];
-            $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
-            if(!empty($checkExistingOrderProduct))
-            {
-                foreach($checkExistingOrderProduct as $details)
-                {
-                    //$orderDetails[] = $details;
+          $OrderId = $checkExisting[0]['id'];
+          $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
+          if(!empty($checkExistingOrderProduct))
+          {
+              foreach($checkExistingOrderProduct as $details)
+              {
+                  //$orderDetails[] = $details;
 
-                    $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-                							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-                							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-                							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-                                //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
-                							  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
-                							  ->where('products.status','=','active')
-                							  ->where('categories.status','=','active')
-                							  ->where('subcategories.status','=','active')
-                                ->where('products.id','=',$details['product_id'])
-                                ->where('variant_product.id','=',$details['variant_id'])
-                							  ->orderBy('products.id', 'DESC')
-                							  ->orderBy('variant_product.id', 'ASC')
-                							  ->groupBy('products.id')
-                							  ->offset(0)->limit(config('constants.Products_limits'))->get();
-                                //dd(DB::getQueryLog());
+                  $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                              ->join('categories', 'categories.id', '=', 'category_products.category_id')
+                              ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                              ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+                              ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                              //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
+                              ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+                              ->where('products.status','=','active')
+                              ->where('categories.status','=','active')
+                              ->where('subcategories.status','=','active')
+                              ->where('products.id','=',$details['product_id'])
+                              ->where('variant_product.id','=',$details['variant_id'])
+                              ->orderBy('products.id', 'DESC')
+                              ->orderBy('variant_product.id', 'ASC')
+                              ->groupBy('products.id')
+                              ->offset(0)->limit(config('constants.Products_limits'))->get();
+                              //dd(DB::getQueryLog());
 
-                                //dd(count($TrendingProducts));
-                		if(count($TrendingProducts)>0) {
-                			foreach($TrendingProducts as $Product)
-                      {
-                        $productCategories = $this->getProductCategories($Product->id);
-                        //dd($productCategories);
+                              //dd(count($TrendingProducts));
+                  if(count($TrendingProducts)>0) {
+                    foreach($TrendingProducts as $Product)
+                    {
+                      $productCategories = $this->getProductCategories($Product->id);
+                      //dd($productCategories);
 
-                				$product_link	=	url('/').'/product';
+                      $product_link	=	url('/').'/product';
 
-                				$product_link	.=	'/'.$productCategories[0]['category_slug'];
-                        $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+                      $product_link	.=	'/'.$productCategories[0]['category_slug'];
+                      $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
 
-                        $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+                      $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
 
-                				$Product->product_link	=	$product_link;
+                      $Product->product_link	=	$product_link;
 
-                        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
-                        $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
-                        $Product->quantity = $details['quantity'];
-                        $Product->image    = explode(',',$Product->image)[0];
-                        $details['product'] = $Product;
-                        $orderDetails[] = $details;
-                			}
-                		}
-                }
-            }
+                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                      $Product->quantity = $details['quantity'];
+                      $Product->image    = explode(',',$Product->image)[0];
+                      $details['product'] = $Product;
+                      $orderDetails[] = $details;
+                    }
+                  }
+              }
+          }
+          else
+          {
+            $orderDetails = [];
+            $data['subTotal'] = 0.00;
+            $data['Total'] = 0.00;
+            $data['shippingTotal'] = 0.00;
+
+            $tmpOrder = TmpOrders::find($OrderId);
+            $tmpOrder->delete();
+            
+          }
         }
-        else {
+        else 
+        {
           $data['subTotal'] = 0.00;
           $data['Total'] = 0.00;
           $data['shippingTotal'] = 0.00;

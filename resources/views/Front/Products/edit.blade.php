@@ -168,7 +168,8 @@
                     <input type="hidden" class="form-control login_input variant_name" name="variant_name[{{$variant_key}}]" value="" placeholder="Variant name">
                 </td>
                -->
-                <td> <input type="text" class="form-control login_input sku variant_field" value="{{$variant['sku']}}" name="sku[{{$variant_key}}]" placeholder="{{ __('lang.sku_label')}}">
+                <td> <input type="hidden" class="variant_id form-control login_input variant_field" value="{{$variant_key1}}" name="variant_id[{{$variant_key}}]" >
+                  <input type="text" class="form-control login_input sku variant_field" value="{{$variant['sku']}}" name="sku[{{$variant_key}}]" placeholder="{{ __('lang.sku_label')}}">
                 <span class="invalid-feedback" id="err_sku" ></span></td>
                 <td><input type="text" class="form-control login_input weight number variant_field" value="{{$variant['weight']}}" name="weight[{{$variant_key}}]" placeholder="{{ __('lang.weight_label')}}">
                 <span class="invalid-feedback" id="err_weight" ></span></td>
@@ -236,7 +237,7 @@
 
                                       <tr class="attribute_tr" id="attribute_tr_{{$variant_key}}" attribute_number="{{$attr_key}}">
                                         <td>
-
+                                            <input type="hidden" value="{{$attribute['id']}}" class="variant_attribute_id" name="variant_attribute_id[{{$variant_key}}][{{$attr_key}}]">
                                             <select class="form-control select_attribute preselected_attribute" id="{{$attribute['id']}}" name="attribute[{{$variant_key}}][{{$attr_key}}]" variant_id="{{$variant_key}}" >
                                               <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 

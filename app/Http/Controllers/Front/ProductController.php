@@ -465,6 +465,7 @@ class ProductController extends Controller
 			                                                                    'attribute_value_id'=>$variant->attribute_value_id);
 			    $i++;
 			}
+           // echo'<pre>';print_r($VariantProductAttributeArr);exit;
 			$data['VariantProductAttributeArr']         =   $VariantProductAttributeArr;
 			return view('Front/Products/edit', $data);
 		}
@@ -545,8 +546,8 @@ class ProductController extends Controller
 		}
 
         
-		DB::table('variant_product')->where('product_id', $id)->delete();
-		DB::table('variant_product_attribute')->where('product_id', $id)->delete();
+		//DB::table('variant_product')->where('product_id', $id)->delete();
+		//DB::table('variant_product_attribute')->where('product_id', $id)->delete();
 
 		$producVariant=[];
 		if(!empty($request->input('sku'))) {
@@ -554,6 +555,8 @@ class ProductController extends Controller
 		           $order = 0; 
 		    foreach($request->input('sku') as $variant_key=>$variant) {
                
+               
+
 		        if($variant!='' && $_POST['price'][$variant_key]!='' && $_POST['quantity'][$variant_key]!='') {
 		            $producVariant['product_id']=   $id;
 		            $producVariant['price']     =   $_POST['price'][$variant_key];
@@ -567,18 +570,40 @@ class ProductController extends Controller
                             $producVariant['image'].=   $img.',';
                         $producVariant['image'] =   rtrim($producVariant['image'],',');
                     }
+                    if(isset($_POST['variant_id'][$variant_key])) {
 
-		            $variant_id=VariantProduct::create($producVariant)->id;
+                        $checkVariantExist   =   DB::table('variant_product')->where('id', $_POST['variant_id'][$variant_key])->first();
+
+                        if(!empty($checkVariantExist)) {
+                                VariantProduct::where('id', $checkVariantExist->id)->update($producVariant);
+                                $variant_id=$checkVariantExist->id;
+                        }
+                        else
+                          $variant_id=VariantProduct::create($producVariant)->id;
+                    }
+                    
+                    else
+		              $variant_id=VariantProduct::create($producVariant)->id;
+
 		            foreach($_POST['attribute'][$variant_key] as $attr_key=>$attribute) {
+                       
 		                if($_POST['attribute'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
 		                {
 		                    $productVariantAttr['product_id']   =   $id;
     		                $productVariantAttr['variant_id']   =   $variant_id;
     		                $productVariantAttr['attribute_id'] =   $_POST['attribute'][$variant_key][$attr_key];
     		                $productVariantAttr['attribute_value_id'] =   $_POST['attribute_value'][$variant_key][$attr_key];
-                            // echo "<pre>";
-                            // print_r($productVariantAttr);exit;
-    		                VariantProductAttribute::create($productVariantAttr);
+                            if(isset($_POST['variant_attribute_id'][$variant_key][$attr_key])) {
+                                $checkRecordExist   =   VariantProductAttribute::where('id', $_POST['variant_attribute_id'][$variant_key][$attr_key])->first();
+
+                            if(!empty($checkRecordExist)) {
+                                VariantProductAttribute::where('id', $checkRecordExist->id)->update($productVariantAttr);
+                            }
+                            else
+                              VariantProductAttribute::create($productVariantAttr);
+                            } 
+                             else
+                              VariantProductAttribute::create($productVariantAttr);
 		                }
 		                
 		            }

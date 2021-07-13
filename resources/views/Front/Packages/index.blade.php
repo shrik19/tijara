@@ -13,13 +13,15 @@
         </br>
       @include ('Front.alert_messages')
       <!-- html for seller subscribe packages -->
-       @if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
-      <div class="col-md-12">
-      		@if(!empty($package_exp_msg))
-      		<div class="alert alert-danger" role="alert">
-			  {{$package_exp_msg}}
-			</div>
-			@endif
+       
+    <div class="col-md-12">
+  		@if(!empty($package_exp_msg))
+  		<div class="alert alert-danger" role="alert">
+		  {{$package_exp_msg}}
+		</div>
+		@endif
+		
+		@if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
       	    <h2>{{ __('users.your_active_package')}}</h2>
         	<hr class="heading_line"/>
 	      	@foreach($subscribedPackage as $row)
@@ -75,9 +77,9 @@
 				</div>
 			</div>
 			@endforeach
-		
-	   </div>
-	   @endif
+		@endif
+	</div>
+	  
 
 	@if(count($packageDetails) != 0 && !empty($packageDetails))
       <div class="col-md-12">

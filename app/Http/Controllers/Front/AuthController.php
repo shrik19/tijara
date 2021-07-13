@@ -290,13 +290,13 @@ class AuthController extends Controller
         $imagedetails=  UserMain::where('id', $user_id)->with(['getImages'])->first();
         /*check if  seller package expiry and show alert if less than 30 day is remaining to expire*/
         $currentDate = date('Y-m-d H:i:s');
-        $is_subscriber = DB::table('user_packages')
+        /*$is_subscriber = DB::table('user_packages')
                     ->join('packages', 'packages.id', '=', 'user_packages.package_id')
                     ->where('packages.is_deleted','!=',1)
                     ->where('user_packages.end_date','>=',$currentDate)
                     ->where('user_id','=',$user_id)
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status')
-                    ->orderByRaw('user_packages.id DESC')
+                    ->orderByRaw('user_packages.id')
                     ->get();
 
         $date_diff='';
@@ -304,7 +304,7 @@ class AuthController extends Controller
         if(count($is_subscriber) != 0){
            //calculate expiry date
             $ExpiredDate = date('Y-m-d H:i:s', strtotime($is_subscriber[0]->start_date.'+'.$is_subscriber[0]->validity_days.' days'));
-            /*calculate days remailning for package expiry*/
+            
             $date1 = strtotime($currentDate);
             $date2 = strtotime($ExpiredDate);
             $diff = $date2 - $date1;
@@ -313,6 +313,26 @@ class AuthController extends Controller
 
         if(!empty($date_diff) && $date_diff <= 30){
             $data['package_exp_msg'] =  trans('users.package_exp_message');
+        }*/
+
+        $show_exp_message=   DB::table('user_packages')
+                    ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+                    ->where('packages.is_deleted','!=',1)
+                   // ->where('user_packages.end_date','>=',$currentDate)
+                    ->where('user_packages.status','=','active')
+                    ->where('user_id','=',$user_id)
+                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
+                    ->orderByRaw('user_packages.id')
+                    ->get();
+        if(count($show_exp_message) == 0  ){
+  
+            $data['package_exp_msg'] = trans('messages.products_with_active_subscription');
+        }
+        else {
+            foreach($show_exp_message as $v) {
+                if($v->end_date >= $currentDate)
+                    $data['package_exp_msg'] = trans('users.package_exp_message');
+            }
         }
 
         $data['id'] = $user_id;
@@ -1074,7 +1094,7 @@ class AuthController extends Controller
         if(count($is_subscriber) == 0 || $date_diff <= 30){
             $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
         }
-
+   
         $show_exp_message=   DB::table('user_packages')
                     ->join('packages', 'packages.id', '=', 'user_packages.package_id')
                     ->where('packages.is_deleted','!=',1)
@@ -1084,8 +1104,9 @@ class AuthController extends Controller
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
                     ->orderByRaw('user_packages.id')
                     ->get();
+                    
          if(count($show_exp_message) == 0  ){
-
+  
             $data['package_exp_msg'] = trans('messages.products_with_active_subscription');
         }
         else {

@@ -128,3 +128,5 @@ Route::post('/update-cart','Front\CartController@updateCartProduct')->name('fron
 Route::post('/get-product-options','Front\FrontController@getProductOptions')->name('frontProductOptions');
 
 Route::any('/checkout','Front\CartController@showCheckout')->name('frontShowCheckout');
+Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name('frontCheckoutCallback');
+Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');

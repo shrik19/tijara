@@ -88,5 +88,8 @@
      'payment_failed_err' => 'Något gick fel. Vänligen försök igen senare',
      'same_seller_product_err' => 'Produkter från olika säljare är inte tillåtna för beställning, välj produkter från samma säljare.',
      'unique_attr_name_err'=>'Ange ett annat attribut, det har redan lagts till',
+
+     'order_amount_mismatched' => 'Oöverensstämmelse mellan orderbelopp under utcheckningen.',
+     'not_authorize_order' => 'Du har inte behörighet till denna sida.',
  ]
 ?>

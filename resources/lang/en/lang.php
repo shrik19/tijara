@@ -197,7 +197,10 @@
      'shopping_cart_confirm_remove' => 'Are you sure, you want to remove selected product?',
      'shopping_cart_removed' => 'Product removed Successfully.',
      'shopping_cart_already_removed' => 'Product already removed from Cart.',
-     'shopping_cart_updated' => 'Product quantity updated successfully.'
+     'shopping_cart_updated' => 'Product quantity updated successfully.',
 
- ]
+     'msg_order_success' => 'Your order placed successfully, please check order by clicking below button.',
+     'txt_order_success_btn' => 'Check Order',
+
+ ]  
 ?>

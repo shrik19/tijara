@@ -196,6 +196,9 @@
      'shopping_cart_confirm_remove' => 'Är du säker på att du vill ta bort vald produkt?',
      'shopping_cart_removed' => 'Produkten har tagits bort.',
      'shopping_cart_already_removed' => 'Produkten har redan tagits bort från kundvagnen.',
-     'shopping_cart_updated' => 'Produktkvantiteten har uppdaterats.'
+     'shopping_cart_updated' => 'Produktkvantiteten har uppdaterats.',
+
+     'msg_order_success' => 'Din beställning har lyckats. Kontrollera beställningen genom att klicka på knappen nedan.',
+     'txt_order_success_btn' => 'Kontrollera ordning',
  ]
 ?>

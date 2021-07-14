@@ -89,5 +89,8 @@
      'payment_failed_err'=>'Something went wrong. Please try again later',
      'same_seller_product_err' => 'Products from different sellers are not allowed for Order please select products from same seller.',
      'unique_attr_name_err'=>'Please enter different attribute, its already added',
+
+     'order_amount_mismatched' => 'Order amount mismatch during checkout.',
+     'not_authorize_order' => 'You are not authorized to this Page.',
  ]
 ?>

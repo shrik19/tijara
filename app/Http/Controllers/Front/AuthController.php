@@ -1144,27 +1144,39 @@ class AuthController extends Controller
         $package_id    = $request->input('p_id');
         $package_name = $request->input('p_name');
 
+        $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
+        $billing_address= [];
+        $billing_address['given_name'] = $UserData['fname'];
+        $billing_address['family_name'] = $UserData['lname'];
+        $billing_address['email'] = $UserData['email'];
+        $billing_address['street_address'] = $UserData['address'];
+        $billing_address['postal_code'] = $UserData['postcode'];
+        $billing_address['city'] = $UserData['city'];
+        $billing_address['phone'] = $UserData['phone_number'];
+
         /*klarna api to create order*/
         $url = env('BASE_API_URL');
         //$url = "https://api.playground.klarna.com/checkout/v3/orders";
         $data = array("purchase_country"=> "SE",
           "purchase_currency"=> "SEK",
           "locale"=> "en-SE",
-          "order_amount"=> $amount,
-          "order_tax_amount"=> 0,
+          "order_amount"=> (int)ceil($amount),
+          "order_tax_amount"=> 0,          
+          "billing_address"       => $billing_address,
         );
         $data['order_lines'] = [array(
-                 "type"=> "physical",
-                  "reference"=> $package_id,
-                  "name"=> $package_name,
-                  "quantity"=>1,
-                  "quantity_unit"=> "pcs",
-                  "unit_price"=> $amount,
-                  "tax_rate"=> 0,
-                  "total_amount"=> $amount,
-                  "total_discount_amount"=> 0,
-                  "total_tax_amount"=> 0
+                 "type"             => "physical",
+                  "reference"       => $package_id,
+                  "name"            => $package_name,
+                  "quantity"        => 1,
+                  "quantity_unit"   => "pcs",
+                  "unit_price"      => (int)ceil($amount),
+                  "tax_rate"        => 0,
+                  "total_amount"    => (int)ceil($amount),
+                  "total_discount_amount" => 0,
+                  "total_tax_amount"      => 0,
         )];
+
        
         $data['merchant_urls'] =array(
                  "terms"=>  url("/"),
@@ -1178,7 +1190,7 @@ class AuthController extends Controller
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-           
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -1301,6 +1313,27 @@ class AuthController extends Controller
                         ->join('packages', 'packages.id', '=', 'user_packages.package_id')
                         ->where('user_packages.order_id','=',$order_id)
                         ->first();
+
+        /*acknowledged the order by calling this API.*/
+         $ack_url = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id."/acknowledge";        
+    
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL,$ack_url);        
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+        
+        $res = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+        }
+        curl_close($curl);
+
+
 
         /*capture order after push request recieved from klarna*/
         $capture_url  = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id."/captures";

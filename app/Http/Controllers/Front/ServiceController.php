@@ -235,13 +235,12 @@ class ServiceController extends Controller
         if(isset($request['order'][0])){
 
             $postedorder=$request['order'][0];
-
            
             if($postedorder['column']==0) $orderby='services.title';
             
-            if($postedorder['column']==1) $orderby='services.sort_order';
+            if($postedorder['column']==2) $orderby='services.sort_order';
             
-            if($postedorder['column']==2) $orderby='services.created_at';
+            if($postedorder['column']==3) $orderby='services.created_at';
 
             $orderorder=$postedorder['dir'];
 
@@ -308,7 +307,7 @@ class ServiceController extends Controller
 
         else {
 
-            $arr[] = [ '','',trans('lang.datatables.sEmptyTable'),  '','',''];
+            $arr[] = [ '',trans('lang.datatables.sEmptyTable'), '', '',''];
 
         }
 

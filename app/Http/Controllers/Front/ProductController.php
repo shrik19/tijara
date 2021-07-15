@@ -483,7 +483,7 @@ class ProductController extends Controller
         $slug =   CommonLibrary::php_cleanAccents($product_slug);
         $rules = [ 
             'title'         => 'required',
-            'description'   => 'nullable|max:1500',
+            'description'   => 'nullable|max:3000',
             'sort_order'		=>'numeric',      
             'product_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u',  
 

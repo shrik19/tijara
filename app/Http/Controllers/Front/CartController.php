@@ -1016,47 +1016,56 @@ class CartController extends Controller
   {
     /*get order from klarm by order id*/
      $order_id = $request->order_id;
+     $checkExisting = Orders::where('klarna_order_reference','=',$order_id)->first()->toArray();
+     $currentDate = date('Y-m-d H:i:s');
+
      $username = env('KLORNA_USERNAME');
      $password = env('KLORNA_PASSWORD');
-
-     $checkExisting = Orders::where('klarna_order_reference','=',$order_id)->first()->toArray();
+     
      $Total = (float)ceil($checkExisting['total']);
 
-     /*capture order after push request recieved from klarna*/
-     $capture_url  = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id."/captures";
+    //  /*capture order after push request recieved from klarna*/
+    //  $capture_url  = env('ORDER_MANAGEMENT_URL').$order_id."/captures";
 
-     $data = <<<DATA
-             {
-                 "captured_amount" : $Total
-             }
-         DATA;
+    //  $data = <<<DATA
+    //          {
+    //              "captured_amount" : $Total
+    //          }
+    //      DATA;
 
-     $curl = curl_init();
-     curl_setopt($curl, CURLOPT_URL,$capture_url);
-     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-     curl_setopt($curl, CURLOPT_POST, true);
-     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-     curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
-     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    //  $curl = curl_init();
+    //  curl_setopt($curl, CURLOPT_URL,$capture_url);
+    //  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    //  curl_setopt($curl, CURLOPT_POST, true);
+    //  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    //  curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    //  curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    //  curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+    //  curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-     $response = curl_exec($curl);
+    //  $response = curl_exec($curl);
 
-     if (curl_errno($curl)) {
-         $error_msg = curl_error($curl);
-     }
-     curl_close($curl);
+    //  if (curl_errno($curl)) {
+    //      $error_msg = curl_error($curl);
+    //  }
+    //  curl_close($curl);
 
-     if (isset($error_msg)) {
-       //echo $error_msg;
-        $data['error_messages']=trans('errors.payment_failed_err');
-        return view('Front/payment_error',$data); 
-     }
+    //  if (isset($error_msg)) {
+    //    //echo $error_msg;
+    //     $arrOrderUpdate = [
+    //       'payment_details' => json_encode($response),
+    //       'payment_status' => 'DECLINED',
+    //       'order_status' => 'PENDING',
+    //       'order_complete_at' => '',
+    //       'updated_at' => $currentDate,
+    //     ];
 
+    //     Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+    //     exit;
+    // }
 
      /* api call to get order details*/
-     $url = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id;        
+     $url = env('ORDER_MANAGEMENT_URL').$order_id;        
  
      $ch = curl_init();
      curl_setopt($ch, CURLOPT_URL,$url);
@@ -1074,17 +1083,24 @@ class CartController extends Controller
      curl_close($ch);
 
      if (isset($error_msg)) {
-       //echo $error_msg;
-       $data['error_messages']=trans('errors.payment_failed_err');
-       return view('Front/payment_error',$data); 
-     }
+      //echo $error_msg;
+       $arrOrderUpdate = [
+         'payment_details' => json_encode($response),
+         'payment_status' => 'FAILED',
+         'order_status' => 'PENDING',
+         'order_complete_at' => '',
+         'updated_at' => $currentDate,
+       ];
+
+       Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+       exit;
+   }
 
      $response = json_decode($res);
      $order_status = $response->status;
      
      /*create file to check push request recieved or not*/
-     $checkExisting = Orders::where('klarna_order_reference','=',$order_id)->first()->toArray();
-     $currentDate = date('Y-m-d H:i:s');
+     
      if($order_status == 'CAPTURED')
      {
        
@@ -1113,6 +1129,8 @@ class CartController extends Controller
 
         Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
       }
+
+      exit;
 
  }
 }

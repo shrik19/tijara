@@ -130,4 +130,4 @@ Route::post('/get-product-options','Front\FrontController@getProductOptions')->n
 
 Route::any('/checkout','Front\CartController@showCheckout')->name('frontShowCheckout');
 Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name('frontCheckoutCallback');
-Route::any('/checkout_complete', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');
+Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');

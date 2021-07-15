@@ -1019,7 +1019,7 @@ class CartController extends Controller
      $username = env('KLORNA_USERNAME');
      $password = env('KLORNA_PASSWORD');
 
-     $checkExisting = TmpOrders::where('klarna_order_reference','=',$order_id)->first()->toArray();
+     $checkExisting = Orders::where('klarna_order_reference','=',$order_id)->first()->toArray();
      $Total = (float)ceil($checkExisting['total']);
 
      /*capture order after push request recieved from klarna*/
@@ -1089,7 +1089,7 @@ class CartController extends Controller
      {
        
         $Total = (float)ceil($checkExisting['total']);
-        $paymentDetails = ['captures' => $response->captures, 'klarna_reference' => $responseklarna_reference];
+        $paymentDetails = ['captures' => $response->captures, 'klarna_reference' => $response->klarna_reference];
         
         //START : Create Order
         $arrOrderUpdate = [
@@ -1099,7 +1099,7 @@ class CartController extends Controller
                             'order_complete_at' => '',
                             'updated_at' => $currentDate,
                           ];
-        $NewOrderId = Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
       }
       else
       {
@@ -1110,6 +1110,8 @@ class CartController extends Controller
           'order_complete_at' => '',
           'updated_at' => $currentDate,
         ];
+
+        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
       }
 
  }

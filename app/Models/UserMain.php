@@ -7,7 +7,7 @@ use DB;
 class UserMain extends Model
 {
     protected $table 	= 'users';
-    protected $fillable = ['role_id','fname','lname','email','paypal_email','phone_number','address','store_name','city','swish_number','postcode','profile','description','where_find_us','is_verified','free_shipping','shipping_method','shipping_charges'];
+    protected $fillable = ['role_id','fname','lname','email','paypal_email','phone_number','address','store_name','city','swish_number','postcode','profile','description','where_find_us','is_verified','free_shipping','shipping_method','shipping_charges','klarna_username','klarna_password'];
 
     /* function to get buyers*/
      public static function get_buyers($id){

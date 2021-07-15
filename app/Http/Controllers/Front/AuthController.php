@@ -357,7 +357,9 @@ class AuthController extends Controller
             'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'email'         => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
             'paypal_email'  => 'nullable|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
-            'description'   => 'nullable|max:500',
+            'description'     => 'nullable|max:500',
+            'klarna_username' =>'required',
+            'klarna_password' =>'required|min:6',
         ];
 
         $messages = [
@@ -371,7 +373,11 @@ class AuthController extends Controller
             'paypal_email.unique'    => trans('errors.unique_paypal_email_err'),
             'paypal_email.regex'     => trans('errors.valid_paypal_email_err'),
             'description.max'        => trans('errors.max_char_err'),
+            'klarna_username.required'         => trans('errors.fill_in_klarna_username_err'),
+            'klarna_password.required'         => trans('errors.fill_in_klarna_password_err'),
+            'klarna_password.min'         => trans('errors.password_min_6_char'),
         ];
+
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()) {
             $messages = $validator->messages();
@@ -397,6 +403,8 @@ class AuthController extends Controller
                 'free_shipping'    => trim($request->input('free_shipping')),
                 'shipping_method'  => trim($request->input('shipping_method_ddl')),
                 'shipping_charges' => trim($request->input('shipping_charges')),
+                'klarna_username'  => trim($request->input('klarna_username')),
+                'klarna_password' => bcrypt(trim($request->input('klarna_password'))),
             ];
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);

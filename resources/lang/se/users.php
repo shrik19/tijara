@@ -214,6 +214,8 @@
 
     'page_title_en' => 'Titel (engelska)',
     'description_label_en'=>'Beskrivning (engelska)',
+    'klarna_username_label'=>'Klarna-användarnamn',
+    'klarna_password_label' => 'Klarna-lösenord',
 
  ]
 ?>

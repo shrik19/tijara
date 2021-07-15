@@ -91,5 +91,7 @@
 
      'order_amount_mismatched' => 'Oöverensstämmelse mellan orderbelopp under utcheckningen.',
      'not_authorize_order' => 'Du har inte behörighet till denna sida.',
+     'fill_in_klarna_username_err' => 'Fyll i ditt Klarna-användarnamn',
+     'fill_in_klarna_password_err' => 'Fyll i ditt Klarna-lösenord',
  ]
 ?>

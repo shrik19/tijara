@@ -92,5 +92,7 @@
 
      'order_amount_mismatched' => 'Order amount mismatch during checkout.',
      'not_authorize_order' => 'You are not authorized to this Page.',
+     'fill_in_klarna_username_err' => 'Please fill in your Klarna Username',
+     'fill_in_klarna_password_err' => 'Please fill in your Klarna password',
  ]
 ?>

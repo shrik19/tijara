@@ -58,6 +58,17 @@
               <span class="invalid-feedback" id="err_phone_number">@if($errors->has('phone_number')) {{ $errors->first('phone_number') }}@endif</span>
             </div>
 
+            <div class="form-group">
+              <label>{{ __('users.address_label')}}</label>
+                <textarea class="form-control" id="address" name="address" rows="5" cols="30" style="height:auto" tabindex="5"><?php if(!empty($sellerDetails[0]->address)){ echo $sellerDetails[0]->address; }?></textarea>
+              <span class="invalid-feedback" id="err_address">@if($errors->has('address')) {{ $errors->first('address') }}@endif</span>
+            </div> 
+
+            <div class="form-group">
+              <label>{{ __('users.postal_code_label')}}</label>
+              <input type="text" class="form-control login_input" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="{{ (old('postcode')) ? old('postcode') : $sellerDetails[0]->postcode}}">
+              <span class="invalid-feedback" id="err_address">@if($errors->has('postcode')) {{ $errors->first('postcode') }}@endif</span>
+            </div>
             
         </div>
       </div>
@@ -65,18 +76,6 @@
         <h2>&nbsp;</h2>
         <br>
         <div class="login_box">
-              
-             <div class="form-group">
-              <label>{{ __('users.address_label')}}</label>
-                <textarea class="form-control" id="address" name="address" rows="5" cols="30" style="height:auto" tabindex="5"><?php if(!empty($sellerDetails[0]->address)){ echo $sellerDetails[0]->address; }?></textarea>
-              <span class="invalid-feedback" id="err_address">@if($errors->has('address')) {{ $errors->first('address') }}@endif</span>
-            </div> 
-
-             <div class="form-group">
-              <label>{{ __('users.postal_code_label')}}</label>
-              <input type="text" class="form-control login_input" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="{{ (old('postcode')) ? old('postcode') : $sellerDetails[0]->postcode}}">
-              <span class="invalid-feedback" id="err_address">@if($errors->has('postcode')) {{ $errors->first('postcode') }}@endif</span>
-            </div>
 
             <div class="form-group">
               <label>{{ __('users.city_label')}}</label>
@@ -125,6 +124,18 @@
             <div class="form-group" id="shipping_charges_div">
               <label>{{ __('users.shipping_charges_label')}}</label>
               <input type="text" class="form-control login_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $sellerDetails[0]->shipping_charges}}">
+            </div>
+
+            <div class="form-group">
+              <label>{{ __('users.klarna_username_label')}}</label>
+              <input type="text" class="form-control login_input" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : $sellerDetails[0]->klarna_username}}">
+              <span class="invalid-feedback">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
+            </div>
+
+            <div class="form-group">
+              <label>{{ __('users.klarna_password_label')}}</label>
+              <input type="password" class="form-control login_input" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : $sellerDetails[0]->klarna_password}}">
+              <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
             </div>
           
         </div>

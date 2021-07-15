@@ -28,6 +28,8 @@ use Validator;
 use Session;
 use Flash;
 use Mail;
+use Log;
+use File;
 
 class CartController extends Controller
 {
@@ -903,104 +905,32 @@ class CartController extends Controller
       
       $order_id     =  $response->order_id;
       $order_status = $response->status;
+      
       if($order_status == 'checkout_complete')
       {
-        $orderLines = $response->order_lines;
-        $billing_address = $response->billing_address;
-        $shipping_address = $response->shipping_address;
-
-        $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
-
-        $order_amount = (float)$response->order_amount;
-        $TmpOrderId   = $response->merchant_data;
-        $orderCompleteAt = $response->completed_at;
-
-        $checkExisting = TmpOrders::where('id','=',$TmpOrderId)->where('klarna_order_reference','=',$order_id)->first()->toArray();
-        $Total = (float)ceil($checkExisting['total']);
-
-        if($order_amount != $Total)
-        {
-          $data['error_messages']=trans('errors.order_amount_mismatched');
-          return view('Front/payment_error',$data);
-        }
-        else
-        {
-          $paymentDetails = ['order_id' => $order_id,'status' => $order_status,'started_at' => $response->started_at, 'completed_at' => $response->completed_at,'merchant_data' => $response->merchant_data];
-          $currentDate = date('Y-m-d H:i:s');
-          //START : Create Order
-          $arrOrderInsert = [
-                              'user_id'     => $checkExisting['user_id'],
-                              'address'     => json_encode($address),
-                              'order_lines' => json_encode($orderLines),
-                              'sub_total'   => $checkExisting['sub_total'],
-                              'shipping_total' => $checkExisting['shipping_total'],
-                              'total' => $checkExisting['total'],
-                              'payment_details' => json_encode($paymentDetails),
-                              'payment_status' => $order_status,
-                              'order_status' => 'PENDING',
-                              'order_complete_at' => $orderCompleteAt,
-                              'created_at' => $currentDate,
-                              'updated_at' => $currentDate
-
-                            ];
-          $NewOrderId = Orders::create($arrOrderInsert)->id;
-          $temp_orders = TmpOrders::find($checkExisting['id']);
-          $temp_orders->delete();
-          //END : Create Order
-          //START : Create Order Details.
-          $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$TmpOrderId)->where('user_id','=',$checkExisting['user_id'])->get()->toArray();
-          if(!empty($checkExistingOrderProduct))
-          {
-            foreach($checkExistingOrderProduct as $details)
-            {
-              $arrOrderDetailsInsert = [
-                'order_id'     => $NewOrderId,
-                'user_id'     => $checkExisting['user_id'],
-                'product_id' => $details['product_id'],
-                'variant_id'   => $details['variant_id'],
-                'variant_attribute_id' => $details['variant_attribute_id'],
-                'price' => $details['price'],
-                'quantity' => $details['quantity'],
-                'shipping_type' => $details['shipping_type'],
-                'shipping_amount' => $details['shipping_amount'],
-                'status' => $details['status'],
-                'created_at' => $currentDate,
-                'updated_at' => $currentDate
-
-              ];
-
-              OrdersDetails::create($arrOrderDetailsInsert)->id;
-
-              $temp_orders_details = TmpOrdersDetails::find($details['id']);
-              $temp_orders_details->delete();
-            }
-          }
-          //END : Create Order Details.
-        }
-
-        return redirect(route('frontCheckoutSuccess',['id' => base64_encode($NewOrderId)]));
+        return redirect(route('frontCheckoutSuccess'));
       }
   }
 
-  public function showCheckoutSuccess($id)
+  public function showCheckoutSuccess()
   {
     $data = [];
     $user_id = Auth::guard('user')->id();
     if($user_id && session('role_id') == 1)
     {
-      $OrderId = base64_decode($id);
-      $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
+      // $OrderId = base64_decode($id);
+      // $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
 
-      if($checkOrder['user_id'] != $user_id)
-      {
-        Session::flash('error', trans('errors.not_authorize_order'));
-        return redirect(route('frontHome'));
-      }
-      else
-      {
-          $data['OrderId'] = $OrderId;
+      // if($checkOrder['user_id'] != $user_id)
+      // {
+      //   Session::flash('error', trans('errors.not_authorize_order'));
+      //   return redirect(route('frontHome'));
+      // }
+      // else
+      // {
+          //$data['OrderId'] = $OrderId;
           return view('Front/order_success', $data);
-      }
+          //}
     }
     else
     {
@@ -1008,4 +938,161 @@ class CartController extends Controller
       return redirect(route('frontLogin'));
     }
   }
+
+  /*push notification request from Klarna*/
+  public function pushNotification(Request $request)
+  {
+    /*get order from klarm by order id*/
+     $order_id = $request->order_id;
+     $username = env('KLORNA_USERNAME');
+     $password = env('KLORNA_PASSWORD');
+
+     $checkExisting = TmpOrders::where('klarna_order_reference','=',$order_id)->first()->toArray();
+     $Total = (float)ceil($checkExisting['total']);
+
+     /*capture order after push request recieved from klarna*/
+     $capture_url  = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id."/captures";
+
+     $data = <<<DATA
+             {
+                 "captured_amount" : $Total
+             }
+         DATA;
+
+     $curl = curl_init();
+     curl_setopt($curl, CURLOPT_URL,$capture_url);
+     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+     curl_setopt($curl, CURLOPT_POST, true);
+     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+     curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+     $response = curl_exec($curl);
+
+     if (curl_errno($curl)) {
+         $error_msg = curl_error($curl);
+     }
+     curl_close($curl);
+
+     if (isset($error_msg)) {
+       //echo $error_msg;
+        $data['error_messages']=trans('errors.payment_failed_err');
+        return view('Front/payment_error',$data); 
+     }
+
+
+     /* api call to get order details*/
+     $url = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id;        
+ 
+     $ch = curl_init();
+     curl_setopt($ch, CURLOPT_URL,$url);
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+     curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+     
+     $res = curl_exec($ch);
+
+     if (curl_errno($ch)) {
+         $error_msg = curl_error($ch);
+     }
+     curl_close($ch);
+
+     if (isset($error_msg)) {
+       //echo $error_msg;
+       $data['error_messages']=trans('errors.payment_failed_err');
+       return view('Front/payment_error',$data); 
+     }
+
+     $response = json_decode($res);
+     //dd($result);
+     $order_status = $result->status;
+     //"CAPTURED"
+     //order_lines
+     //klarna_reference
+     //captures
+     //merchant_data
+     /*create file to check push request recieved or not*/
+     
+
+     if($order_status == 'CAPTURED')
+     {
+      $orderLines = $response->order_lines;
+      $billing_address = $response->billing_address;
+      $shipping_address = $response->shipping_address;
+
+      $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
+
+      $order_amount = (float)$response->captured_amount;
+      $TmpOrderId   = $response->merchant_data;
+      $orderCompleteAt = $response->created_at;
+
+      $checkExisting = TmpOrders::where('id','=',$TmpOrderId)->where('klarna_order_reference','=',$order_id)->first()->toArray();
+      $Total = (float)ceil($checkExisting['total']);
+
+      if($order_amount != $Total)
+      {
+        $data['error_messages']=trans('errors.order_amount_mismatched');
+        return view('Front/payment_error',$data);
+      }
+      else
+      {
+        $paymentDetails = ['order_id' => $order_id,'klarna_reference' => $response->klarna_reference,'captures' => $response->captures];
+        $currentDate = date('Y-m-d H:i:s');
+        //START : Create Order
+        $arrOrderInsert = [
+                            'user_id'     => $checkExisting['user_id'],
+                            'address'     => json_encode($address),
+                            'order_lines' => json_encode($orderLines),
+                            'sub_total'   => $checkExisting['sub_total'],
+                            'shipping_total' => $checkExisting['shipping_total'],
+                            'total' => $checkExisting['total'],
+                            'payment_details' => json_encode($paymentDetails),
+                            'payment_status' => $order_status,
+                            'order_status' => 'PENDING',
+                            'order_complete_at' => $orderCompleteAt,
+                            'created_at' => $currentDate,
+                            'updated_at' => $currentDate
+
+                          ];
+        $NewOrderId = Orders::create($arrOrderInsert)->id;
+        $temp_orders = TmpOrders::find($checkExisting['id']);
+        $temp_orders->delete();
+        //END : Create Order
+        //START : Create Order Details.
+        $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$TmpOrderId)->where('user_id','=',$checkExisting['user_id'])->get()->toArray();
+        if(!empty($checkExistingOrderProduct))
+        {
+          foreach($checkExistingOrderProduct as $details)
+          {
+            $arrOrderDetailsInsert = [
+              'order_id'     => $NewOrderId,
+              'user_id'     => $checkExisting['user_id'],
+              'product_id' => $details['product_id'],
+              'variant_id'   => $details['variant_id'],
+              'variant_attribute_id' => $details['variant_attribute_id'],
+              'price' => $details['price'],
+              'quantity' => $details['quantity'],
+              'shipping_type' => $details['shipping_type'],
+              'shipping_amount' => $details['shipping_amount'],
+              'status' => $details['status'],
+              'created_at' => $currentDate,
+              'updated_at' => $currentDate
+
+            ];
+
+            OrdersDetails::create($arrOrderDetailsInsert)->id;
+
+            $temp_orders_details = TmpOrdersDetails::find($details['id']);
+            $temp_orders_details->delete();
+          }
+        }
+        //END : Create Order Details.
+      }
+    } 
+
+ }
 }

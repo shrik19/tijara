@@ -506,7 +506,7 @@ class ProductController extends Controller
               // echo "<pre>";print_r($messages);exit;
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
-//echo "<no err>";exit;
+
         $arrProducts = [
 
                 'title'        		=> trim(ucfirst($request->input('title'))),

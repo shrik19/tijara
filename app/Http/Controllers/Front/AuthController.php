@@ -238,8 +238,8 @@ class AuthController extends Controller
                     $email = trim($request->input('email'));
                     $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
 
-                    $admin_email = 'shrik.techbee@gmail.com';
-                    $admin_name  = 'Tijara Admin';
+                    $admin_email = env('ADMIN_EMAIL');
+                    $admin_name  = env('ADMIN_NAME');
                     //$admin_email = 'cooldhirajsonar@gmail.com';
 
                     $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($user_id))];
@@ -247,7 +247,7 @@ class AuthController extends Controller
             				Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
             					$message->to($admin_email, $admin_name)->subject
             						('Tijara - New Seller Registrations');
-            					$message->from('developer@techbeeconsulting.com','Tijara');
+            					$message->from( env('FROM_MAIL'),'Tijara');
             				});
                 }
 

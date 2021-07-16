@@ -230,7 +230,7 @@ class AuthController extends Controller
 
             $user_id = User::create($arrInsert)->id;
 
-            if(Auth::guard('user')->loginUsingId($user_id))
+           // if(Auth::guard('user')->loginUsingId($user_id))
             {
 
 				if($request->input('role_id') == 2)
@@ -254,11 +254,11 @@ class AuthController extends Controller
                 //Session::flash('success', 'Registration successfull!');
                 return redirect(route('frontRegisterSuccess'));
             }
-            else
+            /*else
             {
                 Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
                 return redirect()->back();
-            }
+            }*/
         }
 
     }

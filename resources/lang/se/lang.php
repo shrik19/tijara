@@ -151,7 +151,7 @@
      'tijara_logo_alt'=>'Tijara Logotyp',
      'facebook_alt'=>'Facebook',
      'register_successful_title'=> 'Registrera Framgångsrikt',
-     'account_register_success'=>'Ditt konto har registrerats.',
+     'account_register_success'=>'Tack för din registrering. din profil är under granskning för aktiveringsändamål.',
      'click_here_btn'=>'Klicka här',
      'go_to_your_profile_msg'=>'för att gå till din profil',
      'home_title'=>'Hem',

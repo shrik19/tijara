@@ -152,7 +152,7 @@
      'tijara_logo_alt'=>'Tijara Logo',
      'facebook_alt'=>'Facebook',
      'register_successful_title'=>'Register Successful',
-     'account_register_success'=>'Your account is successfully register.',
+     'account_register_success'=>'Thank you for registration. your profile is under review process for activation purpose.',
      'click_here_btn'=>'Click here',
      'go_to_your_profile_msg'=>'to go to your profile',
      'home_title'=>'Home',
@@ -213,5 +213,6 @@
      'txt_order_status' => 'Order Status',
      'txt_date' => 'Order Date',
      'txt_seller_order' => 'All Orders',
+
  ]  
 ?>

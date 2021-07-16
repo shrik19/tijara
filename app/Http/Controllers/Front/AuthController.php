@@ -246,7 +246,7 @@ class AuthController extends Controller
 
             				Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
             					$message->to($admin_email, $admin_name)->subject
-            						('Tijara - New Seller Registrations');
+            						(trans('users.admin_email_subject'));
             					$message->from( env('FROM_MAIL'),'Tijara');
             				});
                 }

@@ -126,7 +126,10 @@ class ProductController extends Controller
 											->select(['categories.category_name','subcategories.id','subcategories.category_id','subcategories.subcategory_name'])
 											->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id())
 											->groupBy('subcategories.id')->orderBy('categories.sequence_no')->get();
-		
+                 //  DB::enableQueryLog();
+    // and then you can get query log
+ //   dd(DB::getQueryLog());
+
 		$categoriesArray				=	array();
 		foreach($CategoriesAndSubcategories as $category) {
 			$categoriesArray[$category->category_id]['mainCategory']	=	$category->category_name;
@@ -141,16 +144,15 @@ class ProductController extends Controller
 		foreach($categoriesArray as $category_id=>$category) {
 			if($category['mainCategory']!='')
 			$categoriesHtml				.=	'<option value="'.$category_id.'">'.$category['mainCategory'].'</option>';
-			
+		
 			foreach($category['subcategories'] as $subcategory_id=>$subcategory) {
 				if($subcategory!='')
-				$subCategoriesHtml		.=	'<option class="subcatclass" style="display:none;" id="subcat'.$category_id.'" value="'.$subcategory_id.'">'.$subcategory.'</option>';
+				$subCategoriesHtml		.=	'<option class="subcatclass subcat'.$category_id.'" style="display:none;" id="subcat'.$category_id.'" value="'.$subcategory_id.'">'.$subcategory.'</option>';
 			}
 		}
-		
+  
 		$data['categoriesHtml']        	= $categoriesHtml;
 		$data['subCategoriesHtml']     	= $subCategoriesHtml;
-		
 		
         return view('Front/Products/index', $data);
 
@@ -170,20 +172,25 @@ class ProductController extends Controller
      */
 
     public function getRecords(Request $request) {
-        DB::enableQueryLog();
+            DB::enableQueryLog();
 	if(!empty($request['category']) || !empty($request['subcategory'])) {
+    
         $ProductsDetails = Products::Leftjoin('category_products', 'products.id', '=', 'category_products.product_id')	
                                             ->Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
 											->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])
 											->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id());
+                                            
 
-         
+       
 	}
 	else {
 		$ProductsDetails = Products::Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
 		                    ->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])
 							->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id());
 	}
+  
+    // and then you can get query log
+
 		if(!empty($request['search']['value'])) {
 
 			
@@ -277,13 +284,7 @@ class ProductController extends Controller
        
        // $recordsTotal = 14;
         $recordDetails = $ProductsDetails->offset($request->input('start'))->limit($request->input('length'))->get();
-  // echo "<pre>";
-  // print_r($ProductsDetails);exit;
 
-    // and then you can get query log
-      //  echo "-->";
-
-  // dd(DB::getQueryLog());
         $arr = [];
 
         if (count($recordDetails) > 0) {

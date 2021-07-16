@@ -141,8 +141,8 @@
 		  $(this).hide();
 		});
 	  
-	  $("#subcat"+id).each(function() {
-		  $(this).show();
+	  $(".subcat"+id).each(function() {
+      $(this).show();
 		});
     dataTable.draw();
   });

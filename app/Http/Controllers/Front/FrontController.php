@@ -98,7 +98,8 @@ class FrontController extends Controller
                                 ->join('category_products', 'products.id', '=', 'category_products.product_id')
                                 ->join('categories', 'categories.id', '=', 'category_products.category_id')
                                 ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-                                ->select('products.id')->where('products.user_id','=', $seller['id'])->where('products.status','=','active')
+								->select('products.id')->where('products.user_id','=', $seller['id'])->where('products.status','=','active')
+								->where('products.is_deleted','=','0')
                                 ->where('categories.status','=','active')
                                 ->where('subcategories.status','=','active');
       if($category_slug !='')
@@ -147,6 +148,7 @@ class FrontController extends Controller
                 ->join('users', 'products.user_id', '=', 'users.id')
 								->select(['products.*',DB::raw("count(order_products.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id'])
 								->where('products.status','=','active')
+								->where('products.is_deleted','=','0')
 								->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
                 ->where('users.status','=','active')
@@ -196,6 +198,7 @@ class FrontController extends Controller
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id']) //
 							  ->where('products.status','=','active')
+							  ->where('products.is_deleted','=','0')
                 			  ->where('users.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
@@ -268,6 +271,7 @@ class FrontController extends Controller
                 ->join('users', 'products.user_id', '=', 'users.id')
 							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id'])
 							  ->where('products.status','=','active')
+							  ->where('products.is_deleted','=','0')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
                 ->where('users.status','=','active');
@@ -471,6 +475,7 @@ class FrontController extends Controller
 										->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 										->select(['products.*','products.id as product_id'])
 										->where('products.status','=','active')
+										->where('products.is_deleted','=','0')
 										->where('categories.status','=','active')
 										->where('subcategories.status','=','active');
 										

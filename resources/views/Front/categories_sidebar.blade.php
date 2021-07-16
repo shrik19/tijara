@@ -17,7 +17,7 @@
 
                 <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
                 @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
-                <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}">{{ $subcategory['subcategory_name'] }}</a></li>
+                <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
                 @endforeach
                 </ul>
                 @endif
@@ -25,15 +25,17 @@
         </ul>
         <div>&nbsp;</div>
         @if(Request::path() != "/" )
-        <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
-        <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
-        <h2 class="de_col">{{ __('lang.price_filter_head')}}</h2>
-        <!-- <br /><b>€ 10</b> -->
-        <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
-        <!-- <b>€ 1000</b> -->
-        <div>&nbsp;</div>
-        <!-- Seller Listing -->
-        <h2 class="de_col">{{ __('lang.sellers_head')}}</h2>
-        <span class="seller_list_content"></span>
+          <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
+          <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
+          <h2 class="de_col">{{ __('lang.price_filter_head')}}</h2>
+          <!-- <br /><b>€ 10</b> -->
+          <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
+          <!-- <b>€ 1000</b> -->
+          <div>&nbsp;</div>
+          @if(empty($is_seller))
+          <!-- Seller Listing -->
+          <h2 class="de_col">{{ __('lang.sellers_head')}}</h2>
+          <span class="seller_list_content"></span>
+          @endif
         @endif
 </div>

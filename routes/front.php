@@ -20,7 +20,8 @@ Route::get('/config-cache', function() {
 });
 
 Route::get('/', 'Front\FrontController@index')->name('frontHome');
-Route::any('/get_product_listing/','Front\FrontController@getProductsyParameter')->name('getProductsyParameter');
+Route::any('/get_product_listing/','Front\FrontController@getProductsyParameter')->name('getProductsyParameter'); 
+Route::get('/seller/{seller_name}/{seller_id}/products/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
 Route::any('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
 Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');

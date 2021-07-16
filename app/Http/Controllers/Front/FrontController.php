@@ -369,8 +369,16 @@ class FrontController extends Controller
         if(in_array($SellerId, $tmpSeller))
         {
             $strChecked = 'checked="checked"';
-        }
-        $sellerData .= '<li><a href="javascript:void(0);"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;'.$Seller['name'].' ( '.$Seller['product_cnt'].' )</a></li>';
+		}
+
+		$tmpSellerData = UserMain::where('id',$SellerId)->first()->toArray();
+		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+		$seller_name = str_replace( array( '\'', '"', 
+		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+		$seller_name = str_replace(" ", '-', $seller_name);
+		$seller_name = strtolower($seller_name);
+		
+        $sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$Seller['name'].' ( '.$Seller['product_cnt'].' )</span></a></li>';
       }
       $sellerData .= '</ul>';
     }
@@ -408,6 +416,31 @@ class FrontController extends Controller
         //$data['Sellers'] = $this->getSellersList($category_slug,$subcategory_slug);
 
         return view('Front/products', $data);
+	}
+	
+	/* function to display products page*/
+    public function sellerProductListing($seller_name ='', $seller_id = '', $category_slug = null, $subcategory_slug= null, Request $request)
+    {
+        $data['pageTitle'] 	= 'Sellers Products';
+		$data['Categories'] = $this->getCategorySubcategoryList()	;
+		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
+    	$data['category_slug']		=	'';
+		$data['subcategory_slug']	=	'';
+		$data['link_seller_name']		=	$seller_name;
+		$id = base64_decode($seller_id);
+		$data['seller_id']			=	$id;
+		
+		$Seller = UserMain::where('id',$id)->first()->toArray();
+		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+		
+    	if($category_slug!='')
+    		$data['category_slug']	= $category_slug;
+
+    	if($subcategory_slug!='')
+    		$data['subcategory_slug']	= $subcategory_slug;
+
+		$data['is_seller'] = 1;
+        return view('Front/seller-products', $data);
     }
 
 	//function for product details page
@@ -552,6 +585,19 @@ class FrontController extends Controller
 		$data['Product']			= $Product;
 		$data['variantData']		= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;
+
+		$tmpSellerData = UserMain::where('id',$Product['user_id'])->first()->toArray();
+		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+		$data['seller_name'] = $seller_name;
+
+		$seller_name = str_replace( array( '\'', '"', 
+		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+		$seller_name = str_replace(" ", '-', $seller_name);
+		$seller_name = strtolower($seller_name);
+		
+		$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Product['user_id'])]);
+		$data['seller_link'] = $sellerLink;
+		
 		//dd($data['variantData']);
         return view('Front/product_details', $data);
     }

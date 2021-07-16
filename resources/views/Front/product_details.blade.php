@@ -37,7 +37,7 @@
             <div class="col-md-6">
                 <div class="product_details_info">
                     <h2>{{$Product->title}}</h2>
-                    <h3  class="product_price"></h3>
+                    <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4>
                     <div class="star-rating">
                         <input type="radio" id="5-stars" name="rating" value="5" />
                         <label for="5-stars" class="star"><i class="fas fa-star"></i></label>

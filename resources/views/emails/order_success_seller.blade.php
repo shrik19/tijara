@@ -71,7 +71,10 @@ td {
                 <td style="text-align:center;"><p style="margin:17px 0 35px 0;font-weight:600;color:#03989e;">Ny beställning gjord. Nedan är länken för att kontrollera orderinformation. </p></td>
               </tr>
               <tr>
-                <td><a href="{{ $order_details_link }}">{{ $order_details_link }}</a></td>
+                <td style="text-align:center;"><a href="{{ $order_details_link }}">{{ $order_details_link }}</a></td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">&nbsp;</td>
               </tr>
             <tr> </tr>
           </tbody>

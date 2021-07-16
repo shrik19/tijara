@@ -1128,7 +1128,7 @@ class CartController extends Controller
                           ];
         Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
 
-        $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('id','=',$checkExisting['id'])->get()->toArray();
+        $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('orders.id','=',$checkExisting['id'])->get()->toArray();
 
         //START : Send success email to User.
           $email = trim($GetOrder[0]['email']);

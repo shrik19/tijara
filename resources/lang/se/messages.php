@@ -62,6 +62,13 @@
      'page_update_success'=>'Sidinformation har uppdaterats!',
      'package_subscribe_success' => "Paketprenumeration lyckades.!",
       'payment_in_process'=>'Betalning pågår...',
+
+      'wishlist_add_success' => 'Produkten har lagts till i önskelistan.',
+      'wishlist_empty' => 'Din önskelista är tom.',
+      'wishlist_product_exists' => 'Produkten finns redan i önskelistan.',
+      'txt_wishlist' => 'Önskelista',
+      'wishlist_product_remove' => 'Är du säker på att du vill ta bort produkten från Önskelistan?',
+      'wishlist_product_remove_success' => 'Produkten har tagits bort från önskelistan.',
  
  ]
 ?>

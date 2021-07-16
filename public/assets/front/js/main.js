@@ -773,6 +773,77 @@ function addToCart(product_variant)
 }
 
 
+function addToWishlist(product_variant)
+{
+  var product_quantity = $("#product_quantity_"+product_variant).val();
+  $(".loader").show();
+  $.ajax({
+    url:siteUrl+"/add-to-wishlist",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'product_variant': product_variant, 'product_quantity' : product_quantity},
+    success:function(data)
+    {
+      $(".loader").hide();
+      var responseObj = $.parseJSON(data);
+      if(responseObj.status == 1)
+      {
+          showSuccessMessage(wishlist_add_success,'reload');
+      }
+      else
+      {
+        if(responseObj.is_login_err == 0)
+        {
+          showErrorMessage(responseObj.msg);
+        }
+        else
+        {
+          showErrorMessage(responseObj.msg,'/front-login');
+        }
+      }
+
+    }
+   });
+}
+
+
+function addToCartWishlist(product_variant)
+{
+  var product_quantity = 1;
+  $(".loader").show();
+  $.ajax({
+    url:siteUrl+"/add-to-cart",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'product_variant': product_variant, 'product_quantity' : product_quantity, 'from_wishlist' : 1},
+    success:function(data)
+    {
+      $(".loader").hide();
+      var responseObj = $.parseJSON(data);
+      if(responseObj.status == 1)
+      {
+          showSuccessMessage(product_add_success,'reload');
+      }
+      else
+      {
+        if(responseObj.is_login_err == 0)
+        {
+          showErrorMessage(responseObj.msg);
+        }
+        else
+        {
+          showErrorMessage(responseObj.msg,'/front-login');
+        }
+      }
+
+    }
+   });
+}
+
 
 //product details jquery start
 $('input.product_checkbox_attribute').on('change', function() {
@@ -847,6 +918,49 @@ function removeCartProduct(OrderDetailsId)
                 if(responseObj.status == 1)
                 {
                     showSuccessMessage(responseObj.msg,'reload');
+                }
+                else
+                {
+                    showErrorMessage(responseObj.msg,'/front-login');
+                }
+        
+              }
+            });
+          },
+          cancel: function () {
+            
+          },
+      }
+  });
+
+}
+
+function removeWishlistProduct(OrderDetailsId)
+{
+  $.confirm({
+      title: 'Confirm!',
+      content: wishlist_product_remove,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          okay: function () {
+            $(".loader").show();
+            $.ajax({
+              url:siteUrl+"/remove-from-wishlist",
+              headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              },
+              type: 'post',
+              data : {'OrderDetailsId': OrderDetailsId},
+              success:function(data)
+              {
+                $(".loader").hide();
+                var responseObj = $.parseJSON(data);
+                if(responseObj.status == 1)
+                {
+                    showSuccessMessage(wishlist_product_remove_success,'reload');
                 }
                 else
                 {

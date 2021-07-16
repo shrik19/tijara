@@ -48,6 +48,9 @@
     var product_remove_confirm  = "{{trans('lang.shopping_cart_confirm_remove')}}";
     var product_qty_error       = "{{trans('messages.product_qty_error')}}";
     var product_variant_error   = "{{trans('messages.product_variant_error')}}";
+    var wishlist_add_success    = "{{trans('messages.wishlist_add_success')}}";
+    var wishlist_product_remove = "{{trans('messages.wishlist_product_remove')}}";
+    var wishlist_product_remove_success = "{{trans('messages.wishlist_product_remove_success')}}";
   </script>
   <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
   <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>
@@ -118,6 +121,20 @@
                     </div>
                     @endif
                   </div>
+
+                  <div class="form-group cart_details" style="padding-left:0px;">
+                    <a @if(Auth::guard('user')->id() && session('role_id')==1) href="{{route('frontShowWishlist')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
+                        <i class="glyphicon glyphicon-heart" style="font-size:20px;"></i>
+                      </a>
+                      @php
+                        $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
+                      @endphp
+                      @if($productWishlistCnt > 0)
+                      <div class="cart_count">
+                        <span>{{$productWishlistCnt}}</span>
+                      </div>
+                      @endif
+                  </div> 
                 <button type="button" class=" btn buy_now_btn debg_color" onclick="location.href='{{route('AllproductListing')}}';">{{ __('lang.buy_now_btn')}}</button>
               </form>
             </div>

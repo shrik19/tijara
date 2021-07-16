@@ -62,5 +62,11 @@
      'package_subscribe_success' => "Package Subscribe Successfully.!",
      'payment_in_process'=>'Payment in Process...',
      
+     'wishlist_add_success' => 'Product added to wishlist successfully.',
+     'wishlist_empty' => 'Your wishlist is Empty.',
+     'wishlist_product_exists' => 'Product already exists in Wishlist.',
+     'txt_wishlist' => 'Wishlist',
+     'wishlist_product_remove' => 'Are you sure, you want to remove product from Wishlist?',
+     'wishlist_product_remove_success' => 'Product removed successfully from Wishlist.',
  ]
 ?>

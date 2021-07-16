@@ -19,7 +19,7 @@ use App\Models\TmpOrders;
 use App\Models\TmpOrdersDetails;
 use App\Models\Orders;
 use App\Models\OrdersDetails;
-
+use App\Models\Wishlist;
 use App\Models\UserMain;
 
 use DB;
@@ -43,6 +43,18 @@ class CartController extends Controller
         {
           $productVariant = $request->product_variant;
           $productQuntity = $request->product_quantity;
+          if(!empty($request->from_wishlist) && $request->from_wishlist == 1)
+          {
+            $wishlistId = Wishlist::where([['user_id','=',$user_id],['variant_id','=',$productVariant]])->first();
+            if(!empty($wishlistId))
+            {
+              $tmpWishlist = $wishlistId->toArray();
+              $tmpWishlistDetails = Wishlist::find($tmpWishlist['id']);
+              $tmpWishlistDetails->delete();
+            }
+            
+          }
+
           if(!empty($productVariant))
           {
               $Products = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
@@ -1024,45 +1036,45 @@ class CartController extends Controller
      
      $Total = (float)ceil($checkExisting['total']);
 
-    //  /*capture order after push request recieved from klarna*/
-    //  $capture_url  = env('ORDER_MANAGEMENT_URL').$order_id."/captures";
+     /*capture order after push request recieved from klarna*/
+     $capture_url  = env('ORDER_MANAGEMENT_URL').$order_id."/captures";
 
-    //  $data = <<<DATA
-    //          {
-    //              "captured_amount" : $Total
-    //          }
-    //      DATA;
+     $data = <<<DATA
+             {
+                 "captured_amount" : $Total
+             }
+         DATA;
 
-    //  $curl = curl_init();
-    //  curl_setopt($curl, CURLOPT_URL,$capture_url);
-    //  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    //  curl_setopt($curl, CURLOPT_POST, true);
-    //  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    //  curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    //  curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    //  curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
-    //  curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+     $curl = curl_init();
+     curl_setopt($curl, CURLOPT_URL,$capture_url);
+     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+     curl_setopt($curl, CURLOPT_POST, true);
+     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+     curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-    //  $response = curl_exec($curl);
+     $response = curl_exec($curl);
 
-    //  if (curl_errno($curl)) {
-    //      $error_msg = curl_error($curl);
-    //  }
-    //  curl_close($curl);
+     if (curl_errno($curl)) {
+         $error_msg = curl_error($curl);
+     }
+     curl_close($curl);
 
-    //  if (isset($error_msg)) {
-    //    //echo $error_msg;
-    //     $arrOrderUpdate = [
-    //       'payment_details' => json_encode($response),
-    //       'payment_status' => 'DECLINED',
-    //       'order_status' => 'PENDING',
-    //       'order_complete_at' => '',
-    //       'updated_at' => $currentDate,
-    //     ];
+     if (isset($error_msg)) {
+       //echo $error_msg;
+        $arrOrderUpdate = [
+          'payment_details' => json_encode($response),
+          'payment_status' => 'DECLINED',
+          'order_status' => 'PENDING',
+          'order_complete_at' => '',
+          'updated_at' => $currentDate,
+        ];
 
-    //     Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
-    //     exit;
-    // }
+        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+        exit;
+    }
 
      /* api call to get order details*/
      $url = env('ORDER_MANAGEMENT_URL').$order_id;        
@@ -1103,7 +1115,6 @@ class CartController extends Controller
      
      if($order_status == 'CAPTURED')
      {
-       
         $Total = (float)ceil($checkExisting['total']);
         $paymentDetails = ['captures' => $response->captures, 'klarna_reference' => $response->klarna_reference];
         
@@ -1116,6 +1127,44 @@ class CartController extends Controller
                             'updated_at' => $currentDate,
                           ];
         Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+
+        $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('id','=',$checkExisting['id'])->get()->toArray();
+
+        //START : Send success email to User.
+          $email = trim($GetOrder[0]['email']);
+          $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
+
+          $arrMailData = ['name' => $name, 'email' => $email, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
+
+          Mail::send('emails/order_success', $arrMailData, function($message) use ($email,$name) {
+              $message->to($email, $name)->subject
+                  ('Tijara - Order successfull.');
+              $message->from('developer@techbeeconsulting.com','Tijara');
+          });
+        //END : Send success email to User.
+
+
+        $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
+
+        $GetSeller = UserMain::select('users.fname','users.lname','users.email')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
+
+        //START : Send success email to Seller.
+          $emailSeller = trim($GetSeller['email']);
+          $nameSeller  = trim($GetSeller['fname']).' '.trim($GetSeller['lname']);
+
+          $admin_email = 'shrik.techbee@gmail.com';
+          $admin_name  = 'Tijara Admin';
+          
+          $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
+
+          Mail::send('emails/order_success', $arrMailData, function($message) use ($emailSeller,$nameSeller,$admin_email,$admin_name) {
+              $message->to($emailSeller, $nameSeller)->cc($admin_email,$admin_name)->subject
+                  ('Tijara - New Order placed');
+              $message->from('developer@techbeeconsulting.com','Tijara');
+          });
+        //END : Send success email to Seller.
+
+
       }
       else
       {
@@ -1133,4 +1182,174 @@ class CartController extends Controller
       exit;
 
  }
+
+
+
+ public function showWishlist()
+    {
+      $data = [];
+      $wishlistDetails = [];
+      $user_id = Auth::guard('user')->id();
+      if($user_id)
+      {
+        $getWishlist = Wishlist::where('user_id','=',$user_id)->get()->toArray();
+        if(!empty($getWishlist))
+        {
+          foreach($getWishlist as $details)
+          {
+              $wishlistProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                          ->join('categories', 'categories.id', '=', 'category_products.category_id')
+                          ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                          ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+                          ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                          //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
+                          ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+                          ->where('products.status','=','active')
+                          ->where('categories.status','=','active')
+                          ->where('subcategories.status','=','active')
+                          ->where('products.id','=',$details['product_id'])
+                          ->where('variant_product.id','=',$details['variant_id'])
+                          ->orderBy('products.id', 'DESC')
+                          ->orderBy('variant_product.id', 'ASC')
+                          ->groupBy('products.id')
+                          ->get();
+                          //dd(DB::getQueryLog());
+
+                          //dd(count($TrendingProducts));
+              if(count($wishlistProducts)>0) 
+              {
+                foreach($wishlistProducts as $Product)
+                {
+                  $productCategories = $this->getProductCategories($Product->id);
+                  //dd($productCategories);
+
+                  $product_link	=	url('/').'/product';
+
+                  $product_link	.=	'/'.$productCategories[0]['category_slug'];
+                  $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+
+                  $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+
+                  $Product->product_link	=	$product_link;
+
+                  $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+                  $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                  $Product->quantity = 1;
+                  $Product->image    = explode(',',$Product->image)[0];
+                  $details['product'] = $Product;
+                  $wishlistDetails[] = $details;
+                }
+              }
+          }
+        }
+                
+        $data['details'] = $wishlistDetails;
+        
+        return view('Front/wishlist', $data);
+      }
+      else {
+          Session::flash('error', trans('errors.login_buyer_required'));
+          return redirect(route('frontLogin'));
+      }
+    }
+
+
+    public function addToWishlist(Request $request)
+    {
+        $user_id = Auth::guard('user')->id();
+        $is_added = 1;
+        $is_login_err = 0;
+        $txt_msg = '';
+        if($user_id && session('role_id') == 1)
+        {
+          $productVariant = $request->product_variant;
+          $productQuntity = $request->product_quantity;
+          if(!empty($productVariant))
+          {
+              $Product = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
+        							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+        							  ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
+                        ->where('variant_product.id','=', $productVariant)
+        							  ->where('products.status','=','active')
+        							  ->get()->toArray();
+              //dd($Product);
+              //Create Temp order
+              $checkExisting = Wishlist::where([['user_id','=',$user_id],['product_id','=',$Product[0]['id']],['variant_id','=',$productVariant]])->first();
+              if(!empty($checkExisting))
+              {
+                $is_added = 0;
+                $is_login_err = 0;
+                $txt_msg = trans('message.wishlist_product_exists');
+              }
+              else
+              {
+                $variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
+											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+                       ->where([['variant_id','=',$productVariant],['product_id','=',$Product[0]['id']]])->get();
+                
+                $attrIds = '';  
+                foreach($variantAttrs as $variantAttr)
+                {
+                  if($attrIds == '')
+                  {
+                    $attrIds = $variantAttr->name.' : '.$variantAttr->attribute_values;
+                  }
+                  else
+                  {
+                    $attrIds.= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
+                  }
+                }   
+
+                $created_at = date('Y-m-d H:i:s');
+                $arrOrderInsert = [
+                    'user_id'             => $user_id,
+                    'product_id'          => $Product[0]['id'],
+                    'variant_id'          => $productVariant,
+                    'variant_attribute_id'=> '['.$attrIds.']',
+                    'created_at'          => $created_at,
+                    'updated_at'          => $created_at,
+                ];
+
+                $Id = Wishlist::create($arrOrderInsert)->id;
+              }
+            }
+        }
+        else
+        {
+          $is_added = 0;
+          $is_login_err = 1;
+          if(session('role_id') != 1)
+          {
+            $is_login_err = 0;
+          }
+          $txt_msg = trans('errors.login_buyer_required');
+        }
+        echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+        exit;
+    }
+
+
+    function removeWishlistProduct(Request $request)
+    {
+      $user_id = Auth::guard('user')->id();
+        $is_removed = 1;
+        $txt_msg =  '';
+        if($user_id && session('role_id') == 1)
+        {
+            $OrderDetailsId = $request->OrderDetailsId;
+            $ExistingOrder = Wishlist::where('id',$OrderDetailsId)->get()->toArray();
+            
+            foreach($ExistingOrder as $orderDetails)
+            {
+              Wishlist::where('id',$OrderDetailsId)->delete();
+            }
+        }
+        else
+        {
+          $is_removed = 0;
+          $txt_msg = trans('errors.login_buyer_required');
+        }
+        echo json_encode(array('status'=>$is_removed,'msg'=>$txt_msg));
+        exit;
+    }
 }

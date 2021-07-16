@@ -237,7 +237,7 @@ class FrontController extends Controller
 			$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
 			$Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
-			$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+			$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
 			foreach($variantProduct as $vp)
 			{
 				$Product->image = explode(",",$vp->image)[0];
@@ -295,16 +295,17 @@ class FrontController extends Controller
         $Products	=	$Products->where('products.title', 'like', '%' . $request->search_string . '%');
       }
 
-
+	  //echo '<pre>';print_r($request->sort_order); print_r($request->sort_by); echo '</pre>';
+	  //dd('STOP');
       if($request->sort_order != '' && $request->sort_by != '')
       {
           if($request->sort_by == 'name')
           {
-              $Products	=	$Products->orderBy('products.title', $request->sort_order);
+              $Products	=	$Products->orderBy('products.title', strtoupper($request->sort_order));
           }
           else if($request->sort_by == 'price')
           {
-              $Products	=	$Products->orderBy('variant_product.price', $request->sort_order);
+              $Products	=	$Products->orderBy('variant_product.price', strtoupper($request->sort_order));
           }
       }
       else
@@ -331,10 +332,10 @@ class FrontController extends Controller
 
 				$Product->product_link	=	$product_link;
 
-        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
-        $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+				$Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
-			$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
 				foreach($variantProduct as $vp)
 				{
 					$Product->image = explode(",",$vp->image)[0];

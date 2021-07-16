@@ -2,6 +2,7 @@
 use App\Models\Page;
 use App\Models\TmpOrdersDetails;
 use App\Models\VariantProduct;
+use App\Models\Wishlist;
 
 /** Get all Custom Pages. */
 function getCustomPages()
@@ -29,4 +30,24 @@ function getOrderProducts($userId)
     }
   }
   return count($allOrderProducts);
+}
+
+function getWishlistProducts($userId)
+{
+  $allWishlistProducts = Wishlist::where('user_id','=',$userId)->get()->toArray();
+  if(!empty($allWishlistProducts))
+  {
+    foreach($allWishlistProducts as $key => $details)
+    {
+      $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
+      if(empty($checkVariant))
+      {
+        $tmpWishlistDetails = Wishlist::find($details['id']);
+        $tmpWishlistDetails->delete();
+
+        unset($allWishlistProducts[$key]);
+      }
+    }
+  }
+  return count($allWishlistProducts);
 }

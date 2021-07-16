@@ -90,7 +90,6 @@
                                     
                                     @elseif($attribute['attribute_type']=='dropdown')
                                     <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown" style="width: 80%;display: inline-block;margin-top: 5px;" onchange="showAvailableOptions('{{$attribute_id}}', this.value)">
-                                        <option value="">{{ __('lang.select_label')}}</option>
                                     @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
                                       @php
                                           $selected = '';

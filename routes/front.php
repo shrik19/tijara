@@ -126,6 +126,11 @@ Route::get('/show-cart','Front\CartController@showCart')->name('frontShowCart');
 Route::post('/remove-from-cart','Front\CartController@removeCartProduct')->name('frontRemoveCartProduct');
 Route::post('/update-cart','Front\CartController@updateCartProduct')->name('frontUpdateCartProduct');
 
+Route::post('/add-to-wishlist','Front\CartController@addToWishlist')->name('frontAddToWishlist');
+Route::get('/wishlist','Front\CartController@showWishlist')->name('frontShowWishlist');
+Route::post('/remove-from-wishlist','Front\CartController@removeWishlistProduct')->name('frontRemoveWishlistProduct');
+
+
 Route::post('/get-product-options','Front\FrontController@getProductOptions')->name('frontProductOptions');
 
 Route::any('/checkout','Front\CartController@showCheckout')->name('frontShowCheckout');

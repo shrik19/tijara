@@ -214,13 +214,14 @@ class AuthController extends Controller
         else
         {
             $arrInsert =array();
-            $arrInsert = ['fname'=>trim($request->input('fname')),
-                          'lname'=>trim($request->input('lname')),
-                          'email' => trim($request->input('email')),
-                          'password' => bcrypt(trim($request->input('password'))),
-                          'status' => 'active',
-                          'role_id' => $request->input('role_id'),
-                          'profile' =>'profile.png',
+            $arrInsert = ['fname'         =>trim($request->input('fname')),
+                          'lname'         =>trim($request->input('lname')),
+                          'email'         => trim($request->input('email')),
+                          'password'      => bcrypt(trim($request->input('password'))),
+                          'status'        => 'active',
+                          'role_id'       => $request->input('role_id'),
+                          'profile'       =>'profile.png',
+                          'where_find_us' =>trim($request->input('find_us')),
                         ];
 
             if($request->input('role_id') == 2){

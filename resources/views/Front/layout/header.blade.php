@@ -76,8 +76,9 @@
                 <ul class="dropdown-menu">
 
                   <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
-
-
+                  
+                  
+                  <li><a href="{{route('frontAllOrders')}}">@if(session('role_id')==1) {{ __('lang.manage_orders_menu')}} @else {{ __('lang.txt_seller_order')}} @endif</a></li>
                   <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
                   <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
                   @if(session('role_id')==2)

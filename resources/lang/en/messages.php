@@ -68,5 +68,13 @@
      'txt_wishlist' => 'Wishlist',
      'wishlist_product_remove' => 'Are you sure, you want to remove product from Wishlist?',
      'wishlist_product_remove_success' => 'Product removed successfully from Wishlist.',
+
+     'txt_order_details' => 'Order Details',
+     'txt_order_details_print' => 'Print',
+     'txt_billing_address' => 'Billing Address',
+     'txt_shipping_address' => 'Shipping Address',
+     'txt_seller' => 'Seller',
+     'txt_payment_status' => 'Payment Status',
+     'txt_order_status' => 'Order Status',
  ]
 ?>

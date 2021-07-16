@@ -69,6 +69,7 @@
      'image_deleted_success'=>'Den valda bilden har tagits bort',
      /*header*/
      'my_account_title'=>'Mitt konto',
+     'manage_orders_menu'=>'Mina beställningar',
      'manage_products_menu'=>'Hantera produkter',
      'manage_attributes_menu'=>'Hantera attribut',
      'packages_menu'=>'Paket',
@@ -200,5 +201,16 @@
 
      'msg_order_success' => 'Din beställning har lyckats. Kontrollera beställningen genom att klicka på knappen nedan.',
      'txt_order_success_btn' => 'Kontrollera ordning',
+
+     'txt_view' => 'Visa beställning',
+     'txt_order_number' => 'Ordernummer',
+     'txt_name' => 'Namn',
+     'txt_subtotal' => 'Delsumma',
+     'txt_shipping' => 'Frakt',
+     'txt_total' => 'Total',
+     'txt_payment_status' => 'Betalningsstatus',
+     'txt_order_status' => 'Orderstatus',
+     'txt_date' => 'Orderdatum',
+     'txt_seller_order' => 'Alla beställningar',
  ]
 ?>

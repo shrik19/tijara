@@ -67,6 +67,7 @@
      'products_title'=>'Products',
      /*header front*/
      'my_account_title'=>'My Account',
+     'manage_orders_menu'=>'My Orders',
      'manage_products_menu'=>'Manage products',
      'manage_services_menu'=>'Manage services',
      'manage_attributes_menu'=>'Manage attributes',
@@ -202,5 +203,15 @@
      'msg_order_success' => 'Your order placed successfully, please check order by clicking below button.',
      'txt_order_success_btn' => 'Check Order',
 
+     'txt_view' => 'View Order',
+     'txt_order_number' => 'Order Number',
+     'txt_name' => 'Name',
+     'txt_subtotal' => 'Subtotal',
+     'txt_shipping' => 'Shipping',
+     'txt_total' => 'Total',
+     'txt_payment_status' => 'Payment Status',
+     'txt_order_status' => 'Order Status',
+     'txt_date' => 'Order Date',
+     'txt_seller_order' => 'All Orders',
  ]  
 ?>

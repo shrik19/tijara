@@ -69,6 +69,14 @@
       'txt_wishlist' => 'Önskelista',
       'wishlist_product_remove' => 'Är du säker på att du vill ta bort produkten från Önskelistan?',
       'wishlist_product_remove_success' => 'Produkten har tagits bort från önskelistan.',
+      
+      'txt_order_details' => 'Orderdetaljer',
+      'txt_order_details_print' => 'Skriva ut',
+      'txt_billing_address' => 'Fakturaadress',
+     'txt_shipping_address' => 'Leveransadress',
+     'txt_seller' => 'Säljare',
+     'txt_payment_status' => 'Betalningsstatus',
+     'txt_order_status' => 'Orderstatus',
  
  ]
 ?>

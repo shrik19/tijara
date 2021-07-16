@@ -373,7 +373,7 @@ class CartController extends Controller
                               ->orderBy('products.id', 'DESC')
                               ->orderBy('variant_product.id', 'ASC')
                               ->groupBy('products.id')
-                              ->offset(0)->limit(config('constants.Products_limits'))->get();
+                              ->get();
                               //dd(DB::getQueryLog());
 
                               //dd(count($TrendingProducts));
@@ -1352,4 +1352,281 @@ class CartController extends Controller
         echo json_encode(array('status'=>$is_removed,'msg'=>$txt_msg));
         exit;
     }
+
+
+    function showOrderDetails($id)
+    {
+      $user_id = Auth::guard('user')->id();
+      $is_seller = 0;
+      $orderDetails = [];
+      if($user_id)
+      {
+        $userRole = session('role_id');
+        if($userRole == 2)
+        {
+          $is_seller = 1;
+        }
+        
+        $OrderId = base64_decode($id);
+        $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
+        if(!empty($checkOrder))
+        {
+          $data['subTotal'] = $checkOrder['sub_total'];
+          $data['Total'] = $checkOrder['total'];
+          $data['shippingTotal'] = $checkOrder['shipping_total'];
+
+          if($is_seller == 0 && $checkOrder['user_id'] != $user_id) 
+          {
+            Session::flash('error', trans('errors.not_authorize_order'));
+            return redirect(route('frontHome'));
+          }
+          else
+          {
+              $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
+              if(!empty($checkExistingOrderProduct))
+              {
+                  foreach($checkExistingOrderProduct as $details)
+                  {
+                      $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                                  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+                                  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                                  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+                                  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                                  //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
+                                  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+                                  ->where('products.status','=','active')
+                                  ->where('categories.status','=','active')
+                                  ->where('subcategories.status','=','active')
+                                  ->where('products.id','=',$details['product_id'])
+                                  ->where('variant_product.id','=',$details['variant_id'])
+                                  ->orderBy('products.id', 'DESC')
+                                  ->orderBy('variant_product.id', 'ASC')
+                                  ->groupBy('products.id')
+                                  ->get();
+                        
+                      if(count($TrendingProducts)>0) 
+                      {
+                        foreach($TrendingProducts as $Product)
+                        {
+                          if($is_seller == 1 && $Product->user_id != $user_id) 
+                          {
+                            Session::flash('error', trans('errors.not_authorize_order'));
+                            return redirect(route('frontHome'));
+                            exit;
+                          }
+
+                          $productCategories = $this->getProductCategories($Product->id);
+                          //dd($productCategories);
+
+                          $product_link	=	url('/').'/product';
+
+                          $product_link	.=	'/'.$productCategories[0]['category_slug'];
+                          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+
+                          $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+
+                          $Product->product_link	=	$product_link;
+
+                          $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+                          $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                          
+                          $data['seller_name'] = $Product->seller;
+                          $sellerLink = route('sellerProductListingByCategory',['seller_name' => $Product->seller, 'seller_id' => base64_encode($Product->user_id)]);
+                          $data['seller_link'] = $sellerLink;
+                          
+                          $Product->quantity = $details['quantity'];
+                          $Product->image    = explode(',',$Product->image)[0];
+                          $details['product'] = $Product;
+                          $orderDetails[] = $details;
+                        }
+                      }
+                  }
+              }
+              
+          }
+
+          $data['details'] = $orderDetails;
+          $data['order'] = $checkOrder;
+          $address = json_decode($checkOrder['address'],true);
+          
+          $data['billingAddress'] = json_decode($address['billing'],true);
+          $data['shippingAddress'] = json_decode($address['shipping'],true);
+          return view('Front/order_details', $data);
+        }
+      }
+      else 
+      {
+          Session::flash('error', trans('errors.login_buyer_required'));
+          return redirect(route('frontLogin'));
+      }
+    }
+
+    public function showAllOrders(Request $request)
+    {
+      $user_id = Auth::guard('user')->id();
+      $is_seller = 0;
+      $orderDetails = [];
+      if($user_id)
+      {
+        $userRole = session('role_id');
+        if($userRole == 2)
+        {
+          $is_seller = 1;
+        }
+
+        $data['is_seller'] = $is_seller;
+        $data['user_id'] = $user_id;
+
+        return view('Front/all_orders', $data);
+      }
+      else 
+      {
+          Session::flash('error', trans('errors.login_buyer_required'));
+          return redirect(route('frontLogin'));
+      }
+    }
+
+    /**
+
+     * [getRecords for product list.This is a ajax function for dynamic datatables list]
+
+     * @param  Request $request [sent filters if applied any]
+
+     * @return [JSON]           [users list in json format]
+
+     */
+
+    public function getRecords(Request $request) 
+    {
+      
+      if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
+      {
+          $orders = Orders::join('users','users.id','=','orders.user_id')->join('orders_details','orders_details.order_id','=','orders.id')->join('products','products.id','=','orders_details.product_id')->select('orders.*','users.fname','users.lname','users.email')->where('products.user_id','=',$request['user_id']);
+      }
+      else 
+      {
+          $orders = Orders::join('users','users.id','=','orders.user_id')->select('orders.*','users.fname','users.lname','users.email')->where('user_id','=',$request['user_id']);
+      }
+      if(!empty($request['search']['value'])) 
+      {
+            $field = ['users.fname','user.lname','users.email','orders.order_status'];
+            $namefield = ['users.fname','user.lname','users.email','orders.order_status'];
+            $search=($request['search']['value']);
+            
+            $orders = $orders->Where(function ($query) use($search, $field,$namefield) 
+            { 
+                if(strpos($search, ' ') !== false)
+                {
+                      $s=explode(' ',$search);
+                      foreach($s as $val) {
+                          for ($i = 0; $i < count($namefield); $i++){
+                              $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
+                          }  
+                      }
+                  }
+                  else 
+                  {
+                    for ($i = 0; $i < count($field); $i++){
+                        $query->orwhere($field[$i], 'like',  '%' . $search .'%');
+                  }  
+
+                }				 
+              }); 
+      }
+
+        
+
+        if(!empty($request['status'])) 
+        {
+
+            $orders = $orders->Where('orders.order_status', '=', $request['status']);
+
+        }
+      
+        
+          $recordsTotal = $orders->get()->count();
+          // if(isset($request['order'][0])){
+
+          //     $postedorder=$request['order'][0];
+          //     if($postedorder['column']<=1) $orderby='products.title';
+          //     if($postedorder['column']==2) $orderby='variant_product.sku';
+          //     if($postedorder['column']==3) $orderby='variant_product.price';
+          //     if($postedorder['column']==5) $orderby='products.sort_order';
+          //     if($postedorder['column']==6) $orderby='products.created_at';
+          //     $orderorder=$postedorder['dir'];
+              
+
+          // }
+          $orders = $orders->orderby('orders.id', 'DESC');
+
+      
+        
+     
+          $recordDetails = $orders->offset($request->input('start'))->limit($request->input('length'))->get();
+    
+          $arr = [];
+
+          if (count($recordDetails) > 0) {
+
+              $recordDetails = $recordDetails->toArray();
+              foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal) 
+              {
+                  $action = $status = $image = '-';
+                  $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
+                  $user = (!empty($recordDetailsVal['fname'])) ? $recordDetailsVal['fname'].' '.$recordDetailsVal['lname'] : '-';
+                  $subtotal = (!empty($recordDetailsVal['sub_total'])) ? number_format($recordDetailsVal['sub_total'],2) : '-';
+                  $shipping_total = (!empty($recordDetailsVal['shipping_total'])) ? number_format($recordDetailsVal['shipping_total'],2) : '-';
+                  $total = (!empty($recordDetailsVal['total'])) ? number_format($recordDetailsVal['total'],2) : '-';
+                  $payment_status = (!empty($recordDetailsVal['payment_status'])) ? $recordDetailsVal['payment_status'] : '-';
+                  $order_status = (!empty($recordDetailsVal['order_status'])) ? $recordDetailsVal['order_status'] : '-';
+                  $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
+                  
+                  $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i class="fas fa-eye"></i> </a>&nbsp;&nbsp;';
+
+                  if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
+                  {
+                    $arr[] = [ '#'.$id, $user, $subtotal.' kr', $shipping_total.' kr',$total.' kr',  $payment_status, $order_status, $dated, $action];
+                  }
+                  else
+                  {
+                    $arr[] = [ '#'.$id, $subtotal.' kr', $shipping_total.' kr',$total.' kr',  $payment_status, $order_status, $dated, $action];
+                  }
+                    
+
+              }
+
+          } 
+
+          else {
+
+            if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
+            {
+              $arr[] = [ '', '', '', '', trans('lang.datatables.sEmptyTable'), '', '', '', ''];
+            }
+            else
+            {
+              $arr[] = [ '', '', '', '', trans('lang.datatables.sEmptyTable'), '', '', ''];
+            }
+
+          }
+
+
+
+          $json_arr = [
+
+              'draw'            => $request->input('draw'),
+
+              'recordsTotal'    => $recordsTotal,
+
+              'recordsFiltered' => $recordsTotal,
+
+              'data'            => ($arr),
+
+          ];
+
+      
+
+      return json_encode($json_arr);
+
+  }
 }

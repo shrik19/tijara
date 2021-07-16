@@ -48,6 +48,7 @@
 
             <div class="form-group">
               <label>{{ __('lang.product_slug_label')}} <span class="de_col">*</span></label>
+              <p style="color:#000;font-size: 12px;">(This is the part of a URL which identifies a product on a website in an easy to read form)</p>
               <input type="text" class="form-control login_input slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}} " value="{{old('product_slug')}}" tabindex="1" readonly="readonly">
               <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
             </div>

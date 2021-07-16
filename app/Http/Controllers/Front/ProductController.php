@@ -613,8 +613,12 @@ class ProductController extends Controller
 
 		}
 		ProductCategory::where('product_id', $id)->delete();
-			 
-         if(!empty($request->input('categories'))) {
+
+		if(empty($request->input('categories'))) {	
+             $category  =   Subcategories::where('subcategory_name','Uncategorized')->first();
+            $request->input('categories')[]=  $category->id;
+        } 
+        if(!empty($request->input('categories'))) {
 			 
 			 foreach($request->input('categories') as $subcategory) {
 				 $category	=	Subcategories::where('id',$subcategory)->first();
@@ -625,8 +629,7 @@ class ProductController extends Controller
 				 ProductCategory::create($producCategories);
 				 
 			 }
-		 }
-
+		 } 
    
 
         

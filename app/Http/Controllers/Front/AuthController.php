@@ -357,7 +357,7 @@ class AuthController extends Controller
             'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'email'         => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
             'paypal_email'  => 'nullable|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
-            'description'     => 'nullable|max:500',
+            'description'     => 'nullable|max:3000',
             'klarna_username' =>'required',
             'klarna_password' =>'required|min:6',
         ];

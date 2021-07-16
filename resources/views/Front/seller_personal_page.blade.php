@@ -64,7 +64,7 @@
           </div>
 
           
-            <button class="btn btn-black debg_color login_btn update-buyer-profile">{{ __('lang.update_btn')}}</button>
+            <button class="btn btn-black debg_color login_btn">{{ __('lang.update_btn')}}</button>
             <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
                  
         </div>

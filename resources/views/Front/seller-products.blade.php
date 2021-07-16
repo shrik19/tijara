@@ -17,10 +17,23 @@
             
             <div class="product_container">
                 <div class="row">
-                  <div class="col-md-6">
-                    <h2>{{ $seller_name }}</h2>
-                    <hr class="heading_line"/>
+                  <div class="col-md-12 text-center">
+                  @if(!empty($logo)) <img src="{{$logo}}" alt="Logo" style="width:100px;height:100px;" />&nbsp;&nbsp;@endif<h2>{{ $seller_name }}</h2>
                   </div>
+                  @if(!empty($header_image))
+                  <div class="col-md-12">
+                    <img src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
+                  </div>
+                  @endif
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                  @if(!empty($description))
+                  <div class="col-md-12 text-center">
+                    {!! $description !!}
+                  </div>
+                  @endif
+                </div>
+                <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>

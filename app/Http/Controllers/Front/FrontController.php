@@ -17,6 +17,7 @@ use App\Models\AttributesValues;
 use App\Models\VariantProduct;
 use App\Models\VariantProductAttribute;
 use App\Models\ProductCategory;
+use App\Models\SellerPersonalPage;
 
 use App\Models\UserMain;
 
@@ -432,6 +433,24 @@ class FrontController extends Controller
 		
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+		$data['description']		= 	$Seller['description'];
+		
+		$data['header_image']       = '';
+		$data['logo']       = '';
+		$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
+		if(!empty($sellerImages))
+		{
+			$sellerImages = $sellerImages->toArray();
+			
+			if(!empty($sellerImages['header_img']))
+			{
+				$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
+			}
+			if(!empty($sellerImages['logo']))
+			{
+				$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
+			}
+		}
 		
     	if($category_slug!='')
     		$data['category_slug']	= $category_slug;

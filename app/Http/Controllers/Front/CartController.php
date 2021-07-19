@@ -1545,7 +1545,7 @@ class CartController extends Controller
         }
       
         
-          $recordsTotal = $orders->groupBy('Orders.id')->get()->count();
+          $recordsTotal = $orders->groupBy('orders.id')->get()->count();
           // if(isset($request['order'][0])){
 
           //     $postedorder=$request['order'][0];
@@ -1558,7 +1558,7 @@ class CartController extends Controller
               
 
           // }
-          $orders = $orders->orderby('orders.id', 'DESC');
+          $orders = $orders->groupBy('orders.id')->orderby('orders.id', 'DESC');
 
       
         

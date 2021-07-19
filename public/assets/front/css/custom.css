@@ -2,29 +2,31 @@
 #sliderImages{
 	height: 448px;width: 586px;
 }
-.activemaincategory, .activesubcategory {
+.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeservicesubcategory {
     text-decoration: none;
     color: #fff !important;
     background: #03989e;
 }
-.activemaincategory a{
+.activemaincategory a,.activeservicemaincategory a{
     text-decoration: none;
     color: #fff !important;
 }
-.activesubcategories {
+.activesubcategories,.activeservicesubcategories {
 	border-bottom: 0px !important;
 }
-.subcategories_list {
+
+
+.subcategories_list, .service_subcategories_list {
 	border-bottom: 1px solid gray;
 	margin-left: 25px;
 	background: none !important;
 }
-.subcategories_list li a:hover {
+.subcategories_list li a:hover,.service_subcategories_list li a:hover {
 	
 	background-color: transparent !important;
 	color: #717171 !important
 }
-.subcategories_list li:hover {
+.subcategories_list li:hover,.service_subcategories_list li:hover {
 	
 	background-color: transparent !important;
 	color: #717171 !important

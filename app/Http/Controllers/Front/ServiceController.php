@@ -332,6 +332,138 @@ class ServiceController extends Controller
     }
 
 
+    public function uploadServiceImage(Request $request){
+        
+        if(($request->file('fileUpload'))){
+
+                       $fileError = 0;
+                       $image=$request->file('fileUpload');
+                       
+           
+                          
+                    {
+           
+                           $name=$image->getClientOriginalName();
+           
+                           $fileExt  = strtolower($image->getClientOriginalExtension());
+           
+           
+           
+                           if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+           
+                               $fileName = 'service-'.date('YmdHis').'.'.$fileExt;
+           
+                               $image->move(public_path().'/uploads/ServiceImages/', $fileName);  // your folder path
+           
+           
+           
+                               $path = public_path().'/uploads/ServiceImages/'.$fileName;
+           
+                               $mime = getimagesize($path);
+           
+           
+           
+                               if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+           
+                               if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+           
+                               if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+           
+                               if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+           
+           
+           
+                               $old_x = imageSX($src_img);
+           
+                               $old_y = imageSY($src_img);
+           
+           
+           
+                               $newWidth = 300;
+           
+                               $newHeight = 300;
+           
+           
+           
+                               if($old_x > $old_y) {
+           
+                                   $thumb_w    =   $newWidth;
+           
+                                   $thumb_h    =   $old_y/$old_x*$newWidth;
+           
+                               }
+           
+           
+           
+                               if($old_x < $old_y) {
+           
+                                   $thumb_w    =   $old_x/$old_y*$newHeight;
+           
+                                   $thumb_h    =   $newHeight;
+           
+                               }
+           
+           
+           
+                               if($old_x == $old_y) {
+           
+                                   $thumb_w    =   $newWidth;
+           
+                                   $thumb_h    =   $newHeight;
+           
+                               }
+           
+           
+           
+                               $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
+           
+                               imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+           
+                               // New save location
+           
+                               $new_thumb_loc = public_path().'/uploads/ServiceImages/resized/' . $fileName;
+           
+           
+           
+                               if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+           
+                               if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+           
+                               if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+           
+                               if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+           
+           
+           
+                               imagedestroy($dst_img);
+           
+                               imagedestroy($src_img);
+           
+           
+           
+                           } else {
+           
+                                   $fileError = 1;
+           
+                           }
+           
+                       }
+           
+           
+           
+                       if($fileError == 1) {
+           
+                           //Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+           
+                           //return redirect()->back();
+           
+                       }
+                       //$producVariant['image']=$fileName;
+                       echo $fileName;
+                   } 
+
+
+   }
 
      /* function to open Services create form */
 
@@ -466,7 +598,12 @@ class ServiceController extends Controller
                 'user_id'           =>  Auth::guard('user')->id()
             ];
 
-
+            if(isset($_POST['hidden_images']) && !empty($_POST['hidden_images']) ) {
+                $arrServices['images'] =   '';
+                foreach($_POST['hidden_images'] as $img)
+                    $arrServices['images'].=   $img.',';
+                $arrServices['images'] =   rtrim($arrServices['images'],',');
+            }
         if($request->input('service_id')==0) {
             $id = Services::create($arrServices)->id;
         } else {

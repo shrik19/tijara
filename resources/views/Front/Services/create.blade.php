@@ -84,6 +84,12 @@
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
 
+          <div class="form-group">
+            <label>{{ __('lang.images')}} </label>
+            <input type="file" class="form-control login_input image service_image" >
+            <div class="images"></div>
+          </div>
+
 
         </div>
       </div>

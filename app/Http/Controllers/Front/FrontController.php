@@ -9,6 +9,10 @@ use App\Models\Sliders;
 use App\Models\Banner;
 use App\Models\Categories;
 use App\Models\Subcategories;
+
+use App\Models\ServiceCategories;
+use App\Models\ServiceSubcategories;
+
 use App\Models\Products;
 use App\Models\Settings;
 use App\Models\Page;
@@ -50,6 +54,7 @@ class FrontController extends Controller
 		$data['subcategory_slug']	=	'';
 
 		$data['Categories']    	= $this->getCategorySubcategoryList()	;
+		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
 		$data['TrendingProducts']= $this->getTrendingProducts();
 		$data['PopularProducts']= $this->getPopularProducts();
         return view('Front/home', $data);
@@ -63,6 +68,26 @@ class FrontController extends Controller
 								->where('categories.status','=','active')
 								->orderBy('categories.sequence_no')
 								->orderBy('subcategories.sequence_no')
+								->get()
+								->toArray();
+		$CategoriesArray	=	array();
+		foreach($Categories as $category) {
+			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
+			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
+			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
+		}
+
+		return $CategoriesArray;
+	}
+
+	//get category & subcategory listings
+	function getServiceCategorySubcategoryList() {
+		$Categories 		= ServiceCategories::join('servicesubcategories', 'servicecategories.id', '=', 'servicesubcategories.category_id')
+								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','servicesubcategories.subcategory_name','servicesubcategories.subcategory_slug')
+								->where('servicesubcategories.status','=','active')
+								->where('servicecategories.status','=','active')
+								->orderBy('servicecategories.sequence_no')
+								->orderBy('servicesubcategories.sequence_no')
 								->get()
 								->toArray();
 		$CategoriesArray	=	array();
@@ -292,13 +317,13 @@ class FrontController extends Controller
 							  ->where('users.status','=','active')
 							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
 			if($request->category_slug !='') {
-        $category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
-        $Products	=	$Products->where('category_products.category_id','=',$category['id']);
+				$category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
+				$Products	=	$Products->where('category_products.category_id','=',$category['id']);
 				//$Products	=	$Products->where('categories.category_slug','=',$request->category_slug);
 			}
 			if($request->subcategory_slug !='') {
-        $subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
-        $Products	=	$Products->where('category_products.subcategory_id','=',$subcategory['id']);
+				$subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
+				$Products	=	$Products->where('category_products.subcategory_id','=',$subcategory['id']);
 				//$Products	=	$Products->where('subcategories.subcategory_slug','=',$request->subcategory_slug);
 			}
       if($request->sellers != '')
@@ -419,7 +444,7 @@ class FrontController extends Controller
 
     		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
     		//$data['Products']			= $Products;
-
+			$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
     		$data['category_slug']		=	'';
     		$data['subcategory_slug']	=	'';
         $data['seller_id']		=	'';

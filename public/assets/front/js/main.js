@@ -100,7 +100,7 @@ $('#variant_table').on('change', '.variant_image', function () {
                       contentType: false,
 
                       success: function(data) {
-                       elm.parent('td').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]"">'+
+                       elm.parent('td').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
                           '<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="40" height="40">'+
                                             '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>');     
                       }
@@ -111,7 +111,7 @@ $('#variant_table').on('change', '.variant_image', function () {
 
 
 });
-$('#variant_table').on('click', '.remove_image', function () {
+$('body').on('click', '.remove_image', function () {
     $(this).prev('img').prev('input').remove();
     $(this).prev('img').remove();
     $(this).remove();
@@ -256,6 +256,11 @@ $(".expandCollapseSubcategory").click(function(){
   $(this).toggleClass("activemaincategory");
   id=$(this).attr('href');
   $(id).toggleClass("activesubcategories");
+});
+$(".expandCollapseServiceSubcategory").click(function(){
+  $(this).toggleClass("activeservicemaincategory");
+  id=$(this).attr('href');
+  $(id).toggleClass("activeservicesubcategories");
 });
 //$('.activemaincategory').trigger('click');
 $(".frontloginbtn").click(function(e){
@@ -1065,3 +1070,43 @@ function showSuccessMessage(strContent,redirect_url = '')
       }
     });
 }
+
+$('body').on('change', '.service_image', function () {
+
+  var fileUpload  = $(this)[0];
+  var elm         =   $(this);
+  
+  var validExtensions = ["jpg","jpeg","gif","png"];
+  var file = $(this).val().split('.').pop();
+  if (validExtensions.indexOf(file) == -1) {
+          alert(invalid_files_err);
+          $(this).val('');
+          return false;
+  }
+
+  var formData = new FormData();
+
+  if (fileUpload.files.length > 0) {
+
+         formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+
+          $.ajax({
+              headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+                url: siteUrl+'/manage-services/upload-image',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+
+                success: function(data) {
+                 elm.next('div.images').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
+                    '<img src="'+siteUrl+'/uploads/ServiceImages/'+data+'" width="40" height="40">'+
+                                      '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>');     
+                }
+
+          });
+  }
+
+
+
+});

@@ -405,7 +405,7 @@ class AuthController extends Controller
                 'shipping_method'  => trim($request->input('shipping_method_ddl')),
                 'shipping_charges' => trim($request->input('shipping_charges')),
                 'klarna_username'  => trim($request->input('klarna_username')),
-                'klarna_password' => bcrypt(trim($request->input('klarna_password'))),
+                'klarna_password' => base64_encode(trim($request->input('klarna_password'))),
             ];
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);
@@ -1316,7 +1316,7 @@ class AuthController extends Controller
                         ->first();
 
         /*acknowledged the order by calling this API.*/
-         $ack_url = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id."/acknowledge";        
+       /*  $ack_url = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id."/acknowledge";        
     
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL,$ack_url);        
@@ -1333,7 +1333,7 @@ class AuthController extends Controller
             $error_msg = curl_error($curl);
         }
         curl_close($curl);
-
+*/
 
 
         /*capture order after push request recieved from klarna*/

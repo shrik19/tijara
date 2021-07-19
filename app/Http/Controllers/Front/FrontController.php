@@ -79,12 +79,12 @@ class FrontController extends Controller
 	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',  $search_string = '') {
     $today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
-                ->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
-                ->where('users.role_id','=','2')
-                ->where('users.status','=','active')
-                ->where('user_packages.status','=','active')
+								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
+								->where('users.role_id','=','2')
+								->where('users.status','=','active')
+								->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
-                ->where('user_packages.end_date','>=', $today)
+								->where('user_packages.end_date','>=', $today)
 								->orderBy('users.id')
 								->get()
 								->toArray();
@@ -138,20 +138,22 @@ class FrontController extends Controller
 
 	//get popular products
 	function getPopularProducts($category_slug='',$subcategory_slug='') {
-
+		$currentDate = date('Y-m-d H:i:s');
 		$PopularProducts 	= Products::join('order_products', 'products.id', '=', 'order_products.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 								->join('category_products', 'products.id', '=', 'category_products.product_id')
 								->join('categories', 'categories.id', '=', 'category_products.category_id')
 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-                ->join('users', 'products.user_id', '=', 'users.id')
+								->join('users', 'products.user_id', '=', 'users.id')
+								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
 								->select(['products.*',DB::raw("count(order_products.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id'])
 								->where('products.status','=','active')
 								->where('products.is_deleted','=','0')
 								->where('categories.status','=','active')
-							  ->where('subcategories.status','=','active')
-                ->where('users.status','=','active')
+							  	->where('subcategories.status','=','active')
+								->where('users.status','=','active')
+								->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 								->orderBy('totalOrderedProducts', 'DESC')
 								->orderBy('variant_product.id', 'ASC')
 								->groupBy('products.id')
@@ -189,12 +191,14 @@ class FrontController extends Controller
 	}
 	// get trending products
 	function getTrendingProducts($category_slug='',$subcategory_slug='') {
-    //DB::enableQueryLog();
+	//DB::enableQueryLog();
+		$currentDate = date('Y-m-d H:i:s');
 		$TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                			  ->join('users', 'products.user_id', '=', 'users.id')
+							  ->join('users', 'products.user_id', '=', 'users.id')
+							  ->join('user_packages', 'user_packages.user_id', '=', 'users.id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id']) //
 							  ->where('products.status','=','active')
@@ -202,6 +206,7 @@ class FrontController extends Controller
                 			  ->where('users.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
+							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 							  ->orderBy('products.id', 'DESC')
 							  //->orderBy('variant_id', 'ASC')
 							  ->groupBy('products.id')
@@ -262,19 +267,22 @@ class FrontController extends Controller
 
 	//function to get products list by provided parameters
 	public function getProductsyParameter(Request $request) {
-    //DB::enableQueryLog();
+	//DB::enableQueryLog();
+		$currentDate = date('Y-m-d H:i:s');
 		$Products 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-                ->join('users', 'products.user_id', '=', 'users.id')
+							  ->join('users', 'products.user_id', '=', 'users.id')
+							  ->join('user_packages', 'user_packages.user_id', '=', 'users.id')
 							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id'])
 							  ->where('products.status','=','active')
 							  ->where('products.is_deleted','=','0')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
-                ->where('users.status','=','active');
+							  ->where('users.status','=','active')
+							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
 			if($request->category_slug !='') {
         $category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
         $Products	=	$Products->where('category_products.category_id','=',$category['id']);

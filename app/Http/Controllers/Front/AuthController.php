@@ -42,7 +42,6 @@ class AuthController extends Controller
      */
     public function login()
     {
-
         $site_details          = Settings::first();
         $data['siteDetails']   = $site_details;
 
@@ -62,7 +61,7 @@ class AuthController extends Controller
                 setcookie('tijara_front_password', '', time() + (86400 * 30), "/");
                 setcookie('tijara_remember_me', '', time() + (86400 * 30), "/");
         }
-
+//echo Auth::guard('user')->id();exit;
         if(Auth::guard('user')->id()) {
             return redirect(route('frontHome'));
         }
@@ -85,7 +84,14 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
+        $checkUser   = User::select('id','status','role_id','is_verified')->where('email','=', trim($request->input('email')))->get();
 
+        if($checkUser[0]['role_id'] == 2 && $checkUser[0]['is_verified'] == 0){
+
+            Session::flash('error', trans('errors.account_blocked_contact_admin_err'));
+            // return redirect(route('frontLogin'));
+            return redirect()->back();
+        }
 
         if($validator->fails()) {
             $error_messages = $validator->messages();
@@ -96,27 +102,30 @@ class AuthController extends Controller
 
             if(Auth::guard('user')->attempt(['email' => $request->input('email'),'password' => $request->input('password')]))
             {
-                $checkUser   = User::select('id','status')->where('email','=', trim($request->input('email')))->get();
+                
+               
+               // if($checkUser[0]['status'] == 'active'){
+                if($checkUser[0]['is_verified'] == 1){
 
-                if($checkUser[0]['status'] == 'active')
-                {
-                    if(Auth::guard('user')->loginUsingId($checkUser[0]['id']))
-                    {
+                    if(Auth::guard('user')->loginUsingId($checkUser[0]['id'])){
+
                         //Session::flash('success', 'Login successfull.');
-						if($request->input('remember')) {
-							setcookie('tijara_front_login', $request->input('email'), time() + (86400 * 30), "/");
-							setcookie('tijara_front_password', $request->input('password'), time() + (86400 * 30), "/");
-							setcookie('tijara_remember_me', 1, time() + (86400 * 30), "/");
-						}
-						else {
-							setcookie('tijara_front_login', '', time() + (86400 * 30), "/");
-							setcookie('tijara_front_password', '', time() + (86400 * 30), "/");
-							setcookie('tijara_remember_me', '', time() + (86400 * 30), "/");
-						}
+                        if($request->input('remember')) {
+                            setcookie('tijara_front_login', $request->input('email'), time() + (86400 * 30), "/");
+                            setcookie('tijara_front_password', $request->input('password'), time() + (86400 * 30), "/");
+                            setcookie('tijara_remember_me', 1, time() + (86400 * 30), "/");
+                        }
+                        else {
+                            setcookie('tijara_front_login', '', time() + (86400 * 30), "/");
+                            setcookie('tijara_front_password', '', time() + (86400 * 30), "/");
+                            setcookie('tijara_remember_me', '', time() + (86400 * 30), "/");
+                        }
                         $user_id = Auth::guard('user')->id();
                         /*get role id*/
                         $getRoleId = DB::table('users')
                             ->where('id', $user_id)->first();
+
+
                         //session_start();
                         $currentUser=array('role_id'=>$getRoleId->role_id,'name'=>$getRoleId->fname.' '.$getRoleId->lname);
                         //$_SESSION['currentUser']=$currentUser;
@@ -138,7 +147,7 @@ class AuthController extends Controller
                     Session::flash('error', trans('errors.account_blocked_contact_admin_err'));
                     return redirect()->back();
                 }
-
+                
 
             }
             else
@@ -224,10 +233,10 @@ class AuthController extends Controller
                           'where_find_us' =>trim($request->input('find_us')),
                         ];
 
-            if($request->input('role_id') == 2){
-                $arrInsert['is_verified'] = 0;
+            if($request->input('role_id') == 1){
+                $arrInsert['is_verified'] = 1;
             }
-
+            
             $user_id = User::create($arrInsert)->id;
 
            // if(Auth::guard('user')->loginUsingId($user_id))

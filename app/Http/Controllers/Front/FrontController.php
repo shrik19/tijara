@@ -185,6 +185,14 @@ class FrontController extends Controller
         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
 				$Product->product_link	=	$product_link;
+
+				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+				foreach($variantProduct as $vp)
+				{
+					$Product->image = explode(",",$vp->image)[0];
+					$Product->price = $vp->price;
+					$Product->variant_id = $vp->variant_id;
+				}
 			}
 		}
 								return $PopularProducts;

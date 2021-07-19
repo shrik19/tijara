@@ -21,6 +21,7 @@ function convertToSlug(inputtxt){
     var slug = inputtxt.value;
     //replace space with hypen
     slug = inputtxt.value.toLowerCase();
+    slug = slug.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
     // slug  = slug.trim();
     //function to check slug name is unique or not
     slug = checkUniqueSlugName(slug);

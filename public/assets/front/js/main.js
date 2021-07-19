@@ -8,7 +8,9 @@ function convertToSlug(inputtxt){
     //replace space with hypen
     slug = inputtxt.value.toLowerCase();
     //replace special character with -
-   // slug = slug.replace(/[^\w\s]/gi, '-')
+    slug = slug.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+
+    //slug = slug.replace(/[^\w\s]/gi, '-')
     //function to check slug name is unique or not
     slug = checkUniqueSlugName(slug);
     $('.slug-name').val(slug);

@@ -139,7 +139,7 @@ class FrontController extends Controller
 	//get popular products
 	function getPopularProducts($category_slug='',$subcategory_slug='') {
 		$currentDate = date('Y-m-d H:i:s');
-		$PopularProducts 	= Products::join('order_products', 'products.id', '=', 'order_products.product_id')
+		$PopularProducts 	= Products::join('orders_details', 'products.id', '=', 'orders_details.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 								->join('category_products', 'products.id', '=', 'category_products.product_id')
@@ -147,7 +147,7 @@ class FrontController extends Controller
 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->join('users', 'products.user_id', '=', 'users.id')
 								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
-								->select(['products.*',DB::raw("count(order_products.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+								->select(['products.*',DB::raw("count(orders_details.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id'])
 								->where('products.status','=','active')
 								->where('products.is_deleted','=','0')
 								->where('categories.status','=','active')

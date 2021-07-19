@@ -19,14 +19,11 @@
 	   
 	  <div class="card">
 		<div class="card-header row">
-		<div class="col-md-10">
+		<div class="col-md-11">
 		    
-		  <h2>{{ __('lang.your_products_label')}}</h2>
+		  <h2>{{ __('lang.txt_seller_order')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
-		  <div class="col-md-1">
-		  <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
-			</div>
 		</div>
 
 		<div class="card-body">
@@ -111,7 +108,9 @@
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
   '<option value="">{{ __("lang.status_label")}}</option>'+
   '<option value="PENDING">PENDING</option>'+
-  '<option value="SUCCESS">SUCCESS</option>'+
+  '<option value="SHIPPED">SHIPPED</option>'+
+  '<option value="COMPLETE">COMPLETE</option>'+
+  '<option value="CANCELLED">CANCELLED</option>'+
   '</select></div>').appendTo("#productTable_filter");  
   
   $(".dataTables_filter label").addClass("pull-right");

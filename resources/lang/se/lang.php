@@ -212,5 +212,7 @@
      'txt_order_status' => 'Orderstatus',
      'txt_date' => 'Orderdatum',
      'txt_seller_order' => 'Alla beställningar',
+     'order_status_confirm' => 'Är du säker på att du vill ändra status på Order?',
+     'order_status_success' => 'Orderstatus har ändrats.',
  ]
 ?>

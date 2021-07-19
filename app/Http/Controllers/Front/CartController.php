@@ -1447,6 +1447,7 @@ class CartController extends Controller
 
           $data['details'] = $orderDetails;
           $data['order'] = $checkOrder;
+          $data['is_seller'] = $is_seller;
           $address = json_decode($checkOrder['address'],true);
           
           $data['billingAddress'] = json_decode($address['billing'],true);
@@ -1509,8 +1510,8 @@ class CartController extends Controller
       }
       if(!empty($request['search']['value'])) 
       {
-            $field = ['users.fname','user.lname','users.email','orders.order_status'];
-            $namefield = ['users.fname','user.lname','users.email','orders.order_status'];
+            $field = ['users.fname','users.lname','users.email','orders.order_status'];
+            $namefield = ['users.fname','users.lname','users.email','orders.order_status'];
             $search=($request['search']['value']);
             
             $orders = $orders->Where(function ($query) use($search, $field,$namefield) 
@@ -1544,7 +1545,7 @@ class CartController extends Controller
         }
       
         
-          $recordsTotal = $orders->get()->count();
+          $recordsTotal = $orders->groupBy('Orders.id')->get()->count();
           // if(isset($request['order'][0])){
 
           //     $postedorder=$request['order'][0];
@@ -1628,5 +1629,32 @@ class CartController extends Controller
 
       return json_encode($json_arr);
 
+  }
+
+  function changeOrderStatus(Request $request)
+  {
+    $user_id = Auth::guard('user')->id();
+    $is_updated = 1;
+    $is_login_err = 0;
+    $txt_msg =  trans('lang.order_status_success');;
+    if($user_id && session('role_id') == 2)
+    {
+        $OrderId = $request->order_id;
+        $OrderStatus = $request->order_status;
+        $arrOrderUpdate = [
+          'order_status'    => $OrderStatus,
+          'updated_at'      => date('Y-m-d H:i:s'),
+      ];
+
+      Orders::where('id',$OrderId)->update($arrOrderUpdate);
+    }
+    else
+    {
+      $is_updated = 0;
+      $is_login_err = 1;
+      $txt_msg = trans('errors.login_seller_required');
+    }
+    echo json_encode(array('status'=>$is_updated,'msg'=>$txt_msg,'is_login_err' => $is_login_err));
+    exit;
   }
 }

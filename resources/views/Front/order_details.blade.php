@@ -99,7 +99,18 @@
                         <span style="font-size:16px;">
                             {{ __('messages.txt_seller')}} : <a href="{{$seller_link}}">{{ $seller_name }}</a><br />
                             {{ __('messages.txt_payment_status')}} : {{ $order['payment_status'] }} <br />
-                            {{ __('messages.txt_order_status')}} : {{ $order['order_status'] }}
+                            {{ __('messages.txt_order_status')}} : 
+                            @if($is_seller) 
+                            <select name="order_status" id="order_status" class="form-control" style="width: 50%;display: inline-block;">
+                                <option value="PENDING" @if($order['order_status'] == 'PENDING') selected="selected" @endif>PENDING</option>
+                                <option value="SHIPPED" @if($order['order_status'] == 'SHIPPED') selected="selected" @endif>SHIPPED</option>
+                                <option value="COMPLETE" @if($order['order_status'] == 'COMPLETE') selected="selected" @endif>COMPLETE</option>
+                                <option value="CANCELLED" @if($order['order_status'] == 'CANCELLED') selected="selected" @endif>CANCELLED</option>
+
+                            </select> 
+                            @else 
+                                {{ $order['order_status'] }} 
+                            @endif
                         </span> 
                         </td>
                         <td>   </td>
@@ -136,6 +147,63 @@
         newWin.document.write('<html><body onload="window.print()">'+divToPrint.html()+'</body></html>');
         newWin.document.close();
         setTimeout(function(){newWin.close();},10);
+    }
+
+    if($("#order_status").length)
+    {
+        $("#order_status").change(function()
+        {
+            var order_status = $(this).val();
+            var order_id = "{{ $order['id'] }}";
+            
+            $.confirm({
+                title: 'Confirm!',
+                content: "{{ __('lang.order_status_confirm')}}",
+                type: 'orange',
+                typeAnimated: true,
+                columnClass: 'medium',
+                icon: 'fas fa-exclamation-triangle',
+                buttons: {
+                    okay: function () 
+                    {
+                        $(".loader").show();
+
+                        $.ajax({
+                        url:siteUrl+"/change-order-status",
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                        },
+                        type: 'post',
+                        data : {'order_status': order_status, 'order_id' : order_id},
+                        success:function(data)
+                        {
+                            $(".loader").hide();
+                            var responseObj = $.parseJSON(data);
+                            if(responseObj.status == 1)
+                            {
+                                showSuccessMessage(responseObj.msg);
+                            }
+                            else
+                            {
+                                if(responseObj.is_login_err == 0)
+                                {
+                                    showErrorMessage(responseObj.msg);
+                                }
+                                else
+                                {
+                                    showErrorMessage(responseObj.msg,'/front-login');
+                                }
+                            }
+
+                        }
+                        });
+                    },
+                    cancel: function () {
+                        
+                    },
+                }
+            });
+        });
     }
 </script>
 @endsection

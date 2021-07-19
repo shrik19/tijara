@@ -102,9 +102,12 @@ class ProductController extends Controller
         else {
             $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
             if(!empty($checkProductExistOfBuyer)) {
+                Session::flash('success', trans('lang.product_saved_success'));
+
                 return redirect(route('frontProductEdit',base64_encode($checkProductExistOfBuyer->id)));
             }
             else
+                Session::flash('success', trans('lang.product_saved_success'));
                 return redirect(route('frontProductCreate'));
         }
 
@@ -615,8 +618,13 @@ class ProductController extends Controller
 		ProductCategory::where('product_id', $id)->delete();
 
 		if(empty($request->input('categories'))) {	
+           // echo "in";exit;
              $category  =   Subcategories::where('subcategory_name','Uncategorized')->first();
             $request->input('categories')[]=  $category->id;
+            $producCategories['product_id']    =   $id;
+            $producCategories['category_id']   =   $category->category_id;
+            $producCategories['subcategory_id']    =   $category->id;
+            ProductCategory::create($producCategories);
         } 
         if(!empty($request->input('categories'))) {
 			 
@@ -625,14 +633,12 @@ class ProductController extends Controller
 				 $producCategories['product_id']	=	$id;
 				 $producCategories['category_id']	=	$category->category_id;
 				 $producCategories['subcategory_id']	=	$category->id;
-				 
 				 ProductCategory::create($producCategories);
 				 
 			 }
 		 } 
    
 
-        
 
         Session::flash('success', trans('lang.product_saved_success'));
 

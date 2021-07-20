@@ -84,7 +84,24 @@
             </select>
             <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
           </div>
-
+          <div class="form-group">
+            <label>{{ __('lang.images')}} </label>
+            <input type="file" class="form-control login_input image service_image" >
+            <div class="images">
+            @php
+            $images = explode(',',$service->images);
+            @endphp
+            @if(!empty($images))
+              @foreach($images as $image)
+                @if($image!='')
+                  <input type="hidden" class="form-control login_input hidden_images" value="{{$image}}"  name="hidden_images[]">
+                  <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="40" height="40">
+                  <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
+                @endif
+              @endforeach
+            @endif
+            </div>
+          </div>
 
         </div>
       </div>

@@ -32,6 +32,7 @@
      'record_delete'=>'Record deleted successfully',
      'status_updated_successfullly'=>'Status updated successfully',
      'image_deleted_success'=>'Selected Image deleted successfully!',
+     'images'   =>  'Image(s)',
      /*Product*/
      'your_products_label'=>'Your Products',
      'add_product'=>'Add new product',
@@ -157,6 +158,7 @@
      'go_to_your_profile_msg'=>'to go to your profile',
      'home_title'=>'Home',
      'categories_head'=>'Categories',
+     'service_categories_head'=>'Service categories',
      'popular_items_in_market_head'=>'Popular Items in the market',
      'trending_product_head'=>'Trending Product',
      'shop_now_btn'=>'Shop Now',

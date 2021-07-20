@@ -170,7 +170,8 @@
      'learn_more_btn'=>'Läs mer',
      'edit_attribute_tittle' => 'Redigera attribut',
      'product_attribute_title' => 'Produkt attribut',
-
+     'service_categories_head'   =>'Servicekategorier',
+     'images'   =>  'Image(s)',
      'sellers_head'=>'Säljare',
      'price_filter_head'=>'Filtrera efter pris',
      'sort_by'=>'Sortera efter',

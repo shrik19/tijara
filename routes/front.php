@@ -80,6 +80,8 @@ Route::post('/store','Front\ServiceController@store')->name('frontServiceStore')
 Route::any('/getRecords','Front\ServiceController@getRecords')->name('frontServiceGetRecords');
 Route::get('/saveservice/{id}','Front\ServiceController@serviceform')->name('frontServiceEdit');
 Route::get('/delete/{id}','Front\ServiceController@delete')->name('frontServiceDelete');
+Route::post('/upload-image','Front\ServiceController@uploadServiceImage')->name('uploadServiceImage');
+
 Route::get('/check-slugname','Front\ServiceController@checkUniqueSlugName')->name('frontServiceCheckUniqueSlug');
 });	/*end Product Management  */
 

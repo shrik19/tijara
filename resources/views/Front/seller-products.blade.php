@@ -8,7 +8,7 @@
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
         <div class="col-md-3">
-            @include('Front.categories_sidebar')
+            @include('Front.products_sidebar')
         </div>
         <div class="col-md-9">
             <span class="current_category" style="display:none;">{{$category_slug}}</span>

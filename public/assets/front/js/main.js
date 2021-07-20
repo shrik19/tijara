@@ -745,6 +745,46 @@ function get_product_listing(page,category_slug='',subcategory_slug='',sellers =
    });
 }
 
+if($('.service_listings').length>0) {
+  var page = 1;
+  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $(".current_search_string").text());
+  $(document).on('click', '.pagination a', function(event){
+      event.preventDefault();
+      var page = $(this).attr('href').split('page=')[1];
+      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $(".current_search_string").text());
+   });
+
+
+}
+
+
+
+function get_service_listing(page,category_slug='',subcategory_slug='',sellers ='',price='', search_string='') {
+  var sort_by_order = $("#sort_by_order").val();
+  var sort_by = $("#sort_by").val();
+
+  $.ajax({
+    url:siteUrl+"/get_service_listing",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'page': page, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
+    success:function(data)
+    {
+      var responseObj = $.parseJSON(data);
+      
+      $('.service_listings').html(responseObj.services);
+      $('.seller_list_content').html(responseObj.sellers);
+
+      if($("#search_string").length && search_string != '')
+      {
+        $("#search_string").val(search_string);
+      }
+    }
+   });
+}
+
 function addToCart(product_variant)
 {
   var product_quantity = $("#product_quantity_"+product_variant).val();

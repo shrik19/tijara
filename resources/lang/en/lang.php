@@ -32,7 +32,16 @@
      'record_delete'=>'Record deleted successfully',
      'status_updated_successfullly'=>'Status updated successfully',
      'image_deleted_success'=>'Selected Image deleted successfully!',
+
      'images'   =>  'Image(s)',
+     'trending_service_head' =>  'Trending services',
+     'sendRequest' =>   'Send Request',
+     'newRequestReceived'=>'New service request received',
+     'customer'=>'Customer',
+     'service'=>'Service',
+     'message'=>'Message',
+     'messageRequired'=> 'Message Required',
+     'serviceRequestSent'  =>   'Service request sent',
      /*Product*/
      'your_products_label'=>'Your Products',
      'add_product'=>'Add new product',

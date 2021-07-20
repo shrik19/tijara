@@ -20,8 +20,10 @@ Route::get('/config-cache', function() {
 });
 
 Route::get('/', 'Front\FrontController@index')->name('frontHome');
-Route::any('/get_product_listing/','Front\FrontController@getProductsyParameter')->name('getProductsyParameter'); 
+
+//products
 Route::get('/seller/{seller_name}/{seller_id}/products/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
+Route::any('/get_product_listing/','Front\FrontController@getProductsByParameter')->name('getProductsyParameter'); 
 Route::any('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
 Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');
@@ -29,6 +31,20 @@ Route::any('/product/{product_slug}','Front\FrontController@productDetails')->na
 Route::get('/product/{category_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategory');
 Route::get('/product/{category_slug}/{subcategory_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategorySubcategory');
 Route::any('/get_product_attribute_details','Front\FrontController@getProductAttributeDetails')->name('getProductAttributeDetails');
+
+//services
+Route::get('/seller/{seller_name}/{seller_id}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');
+Route::any('/get_service_listing/','Front\FrontController@getServicesByParameter')->name('getServicesyParameter'); 
+Route::any('/services/','Front\FrontController@serviceListing')->name('AllserviceListing');
+Route::get('/services/{category_slug}','Front\FrontController@serviceListing')->name('serviceListingByCategory');
+Route::get('/services/{category_slug}/{subcategory_slug}','Front\FrontController@serviceListing')->name('serviceListingBySubcategory');
+Route::any('/service/{service_slug}','Front\FrontController@serviceDetails')->name('serviceDetails');
+Route::get('/service/{category_slug}/{service_slug}','Front\FrontController@serviceDetails')->name('serviceDetailsWithCategory');
+Route::get('/service/{category_slug}/{subcategory_slug}/{service_slug}','Front\FrontController@serviceDetails')->name('serviceDetailsWithCategorySubcategory');
+Route::post('/send-service-request','Front\FrontController@sendServiceRequest')->name('sendServiceRequest');
+
+
+//auth
 Route::any('/front-login','Front\AuthController@login')->name('frontLogin');
 Route::post('/validate-login','Front\AuthController@doLogin')->name('doLogin');
 Route::get('/front-logout','Front\AuthController@logout')->name('frontLogout');

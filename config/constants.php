@@ -18,4 +18,5 @@ return [
  #'PAYGATEID' => '1038008100011',
  #'PAYGATESECRET' => 'ZtjR4tACuaQWscDbTkylhxEf',
  'Products_limits'=>'20',
+ 'Services_limits'=>'20',
 ];

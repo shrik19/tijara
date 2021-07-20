@@ -51,7 +51,7 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-3">
-            @include('Front.categories_sidebar')
+            @include('Front.products_sidebar')
         </div>
         <div class="col-md-9">             
                 <div class="product_container">

@@ -470,6 +470,7 @@ class FrontController extends Controller
         $data['pageTitle'] 	= 'Sellers Products';
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
+		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
     	$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
 		$data['link_seller_name']		=	$seller_name;

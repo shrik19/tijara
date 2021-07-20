@@ -22,6 +22,8 @@ use App\Models\ServiceCategory;
 
 use App\Models\Package;
 
+use App\Models\ServiceRequest;
+
 use App\CommonLibrary;
 
 /*Uses*/
@@ -719,6 +721,144 @@ class ServiceController extends Controller
             return $slug;
         }
     }
+
+
+
+    public function showAllServiceRequest(Request $request)
+    {
+      $user_id = Auth::guard('user')->id();
+      $is_seller = 0;
+      $orderDetails = [];
+      if($user_id)
+      {
+        $userRole = session('role_id');
+        if($userRole == 2)
+        {
+          $is_seller = 1;
+        }
+
+        $data['is_seller'] = $is_seller;
+        $data['user_id'] = $user_id;
+
+        return view('Front/all_service_request', $data);
+      }
+      else 
+      {
+          Session::flash('error', trans('errors.login_buyer_required'));
+          return redirect(route('frontLogin'));
+      }
+    }
+
+    public function getAllServiceRequest(Request $request) 
+    {
+   
+      if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
+      {
+          //seller
+          $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description')->where('services.user_id','=',$request['user_id']);
+      }
+      else 
+      {
+        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description')->where('service_requests.user_id','=',$request['user_id']);
+      }
+
+      if(!empty($request['search']['value'])) 
+      {
+            $field = ['users.fname','users.lname','users.email','services.title','service_requests.message'];
+            $namefield = ['users.fname','users.lname','users.email','services.title','service_requests.message'];
+            $search=($request['search']['value']);
+            
+            $serviceRequest = $serviceRequest->Where(function ($query) use($search, $field,$namefield) 
+            { 
+                if(strpos($search, ' ') !== false)
+                {
+                      $s=explode(' ',$search);
+                      foreach($s as $val) {
+                          for ($i = 0; $i < count($namefield); $i++){
+                              $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
+                          }  
+                      }
+                  }
+                  else 
+                  {
+                    for ($i = 0; $i < count($field); $i++){
+                        $query->orwhere($field[$i], 'like',  '%' . $search .'%');
+                  }  
+
+                }        
+              }); 
+      }
+
+             
+        
+          $recordsTotal = $serviceRequest->groupBy('service_requests.id')->get()->count();
+      
+          $serviceRequest = $serviceRequest->groupBy('service_requests.id')->orderby('service_requests.id', 'DESC');
+
+      
+        
+     
+          $recordDetails = $serviceRequest->offset($request->input('start'))->limit($request->input('length'))->get();
+
+          $arr = [];
+
+          if (count($recordDetails) > 0) {
+
+              $recordDetails = $recordDetails->toArray();
+              foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal) 
+              {
+                  $action = $status = $image = '-';
+                  $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
+                  $user = (!empty($recordDetailsVal['fname'])) ? $recordDetailsVal['fname'].' '.$recordDetailsVal['lname'] : '-';
+                  $serviceName = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
+                  $message = (!empty($recordDetailsVal['message'])) ? $recordDetailsVal['message'] : '-';
+                  $description = (!empty($recordDetailsVal['description'])) ? substr(strip_tags($recordDetailsVal['description']), 0, 110) : '-';
+                  $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
+
+                   $action = '<a style="margin-left:38px;" href="javascript:void(0);" user_name="'.$user.'" serviceName="'.$serviceName.'" message="'.$message.'" dated="'.$dated.'" id="'.$id.'" class="serviceReqDetails" title="'.$serviceName.'" id="'.$id.'" description="'.$description.'" message="'.$message.'">Request Details</a>';
+                  if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
+                  {
+                    $arr[] = [ '#'.$id, $user, $serviceName,$message, $dated, $action];
+                  }
+                  else
+                  {
+                    $arr[] = [ '#'.$id, $serviceName,$message, $dated, $action];
+                  }
+                
+              }
+
+          } 
+
+          else {
+
+            if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
+            {
+              $arr[] = [ '', '', '',  trans('lang.datatables.sEmptyTable'), '', ''];
+            }
+            else
+            {
+              $arr[] = [ '', '', '', trans('lang.datatables.sEmptyTable'), ''];
+            }
+
+          }
+
+
+
+          $json_arr = [
+
+              'draw'            => $request->input('draw'),
+
+              'recordsTotal'    => $recordsTotal,
+
+              'recordsFiltered' => $recordsTotal,
+
+              'data'            => ($arr),
+
+          ];
+
+      return json_encode($json_arr);
+
+  }
 
 }
 

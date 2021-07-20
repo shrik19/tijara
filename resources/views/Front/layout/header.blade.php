@@ -79,6 +79,9 @@
                   
                   
                   <li><a href="{{route('frontAllOrders')}}">@if(session('role_id')==1) {{ __('lang.manage_orders_menu')}} @else {{ __('lang.txt_seller_order')}} @endif</a></li>
+
+                  <li><a href="{{route('frontAllServiceRequest')}}">@if(session('role_id')==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
+
                   <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
                   <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
                   @if(session('role_id')==2)

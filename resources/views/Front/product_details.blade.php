@@ -117,12 +117,12 @@
 
                         </div>
                         <div class="row">
-                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">Reset Options</a></div>
+                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options)}}</a></div>
                         </div>
                         <div class="row">
                         <div class="col-xs-6 col-md-5"  >
                               <div class="quantity_box" style="margin-top:28px;">
-                                <h3>Quantity:</h3>&nbsp;&nbsp;
+                                <h3>{{ __('lang.shopping_cart_quantity)}}:</h3>&nbsp;&nbsp;
                                 <!-- <select class="drop_down_select pull-right">
                                       <option>1</option>
                                       <option>2</option>
@@ -148,7 +148,7 @@
                         <div class="col-xs-6 col-md-7">
                             <div class="quantity_box">
                                <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
-                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> Add To Cart  <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
+                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart)}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
                             </div>
                         </div>
                       </div>

@@ -160,3 +160,6 @@ Route::any('/all-orders', 'Front\CartController@showAllOrders')->name('frontAllO
 Route::any('/order-details/{id}', 'Front\CartController@showOrderDetails')->name('frontShowOrderDetails');
 Route::any('/getOrderRecords','Front\CartController@getRecords')->name('frontOrdersGetRecords');
 Route::post('/change-order-status','Front\CartController@changeOrderStatus')->name('frontChangeOrderStatus');
+
+Route::any('/all-service-request', 'Front\ServiceController@showAllServiceRequest')->name('frontAllServiceRequest');
+Route::any('/getAllServiceRequest','Front\ServiceController@getAllServiceRequest')->name('frontServiceRequestGetRecords');

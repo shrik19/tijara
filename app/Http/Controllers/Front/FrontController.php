@@ -169,8 +169,8 @@ class FrontController extends Controller
 				  $sellerServices	=	array();
 
 				  $sellerServices = Services::
-											join('category_Services', 'Services.id', '=', 'category_Services.Service_id')
-											->join('servicecategories', 'servicecategories.id', '=', 'category_Services.category_id')
+											join('category_services', 'Services.id', '=', 'category_services.Service_id')
+											->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
 											->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 											->select('Services.id')->where('Services.user_id','=', $seller['id'])->where('Services.status','=','active')
 											->where('Services.is_deleted','=','0')
@@ -179,12 +179,12 @@ class FrontController extends Controller
 				  if($category_slug !='')
 				  {
 					$category 		=  ServiceCategories::select('id')->where('category_slug','=',$category_slug)->first();
-					$sellerServices	=	$sellerServices->where('category_Services.category_id','=',$category['id']);
+					$sellerServices	=	$sellerServices->where('category_services.category_id','=',$category['id']);
 				  }
 				  if($subcategory_slug !='')
 				  {
 					$subcategory 		=  ServiceSubcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
-					$sellerServices	=	$sellerServices->where('category_Services.subcategory_id','=',$subcategory['id']);
+					$sellerServices	=	$sellerServices->where('category_services.subcategory_id','=',$subcategory['id']);
 				  }
 				  
 				  if($search_string !='')

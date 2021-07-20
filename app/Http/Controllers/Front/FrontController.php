@@ -10,6 +10,7 @@ use App\Models\Banner;
 use App\Models\Categories;
 use App\Models\Subcategories;
 
+use App\Models\Services;
 use App\Models\ServiceCategories;
 use App\Models\ServiceSubcategories;
 
@@ -21,6 +22,7 @@ use App\Models\AttributesValues;
 use App\Models\VariantProduct;
 use App\Models\VariantProductAttribute;
 use App\Models\ProductCategory;
+use App\Models\ServiceCategory;
 use App\Models\SellerPersonalPage;
 
 use App\Models\UserMain;
@@ -100,9 +102,9 @@ class FrontController extends Controller
 		return $CategoriesArray;
 	}
 
-  //get category & subcategory listings
-	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',  $search_string = '') {
-    $today          = date('Y-m-d H:i:s');
+  //get seller listings
+	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',  $search_string = '',$productsServices='') {
+    	$today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
 								->where('users.role_id','=','2')
@@ -115,51 +117,96 @@ class FrontController extends Controller
 								->toArray();
 
 		$SellersArray	=	array();
-		foreach($Sellers as $seller) {
-      $productCnt = 0;
+		if($productsServices=='products') {
+			
+			foreach($Sellers as $seller) {
+				  $productCnt = 0;
 
-      $sellerProducts = Products::join('variant_product_attribute', 'products.id', '=', 'variant_product_attribute.product_id')
-                                ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                                ->join('category_products', 'products.id', '=', 'category_products.product_id')
-                                ->join('categories', 'categories.id', '=', 'category_products.category_id')
-                                ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-								->select('products.id')->where('products.user_id','=', $seller['id'])->where('products.status','=','active')
-								->where('products.is_deleted','=','0')
-                                ->where('categories.status','=','active')
-                                ->where('subcategories.status','=','active');
-      if($category_slug !='')
-      {
-        $category 		=  Categories::select('id')->where('category_slug','=',$category_slug)->first();
-        $sellerProducts	=	$sellerProducts->where('category_products.category_id','=',$category['id']);
-      }
-      if($subcategory_slug !='')
-      {
-        $subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
-        $sellerProducts	=	$sellerProducts->where('category_products.subcategory_id','=',$subcategory['id']);
-      }
-      if($price_filter !='')
-      {
-        $tmpPrice 		  =  explode(',',$price_filter);
-        $sellerProducts	=	$sellerProducts->whereBetween('variant_product.price',$tmpPrice);
-      }
-      if($search_string !='')
-      {
-        $sellerProducts	=	$sellerProducts->where('products.title','like','%'.$search_string.'%');
-      }
+				  $sellerProducts = Products::join('variant_product_attribute', 'products.id', '=', 'variant_product_attribute.product_id')
+											->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+											->join('category_products', 'products.id', '=', 'category_products.product_id')
+											->join('categories', 'categories.id', '=', 'category_products.category_id')
+											->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+											->select('products.id')->where('products.user_id','=', $seller['id'])->where('products.status','=','active')
+											->where('products.is_deleted','=','0')
+											->where('categories.status','=','active')
+											->where('subcategories.status','=','active');
+				  if($category_slug !='')
+				  {
+					$category 		=  Categories::select('id')->where('category_slug','=',$category_slug)->first();
+					$sellerProducts	=	$sellerProducts->where('category_products.category_id','=',$category['id']);
+				  }
+				  if($subcategory_slug !='')
+				  {
+					$subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
+					$sellerProducts	=	$sellerProducts->where('category_products.subcategory_id','=',$subcategory['id']);
+				  }
+				  if($price_filter !='')
+				  {
+					$tmpPrice 		  =  explode(',',$price_filter);
+					$sellerProducts	=	$sellerProducts->whereBetween('variant_product.price',$tmpPrice);
+				  }
+				  if($search_string !='')
+				  {
+					$sellerProducts	=	$sellerProducts->where('products.title','like','%'.$search_string.'%');
+				  }
 
-      $sellerProducts	= $sellerProducts->groupBy('variant_product_attribute.product_id')->get();
+				  $sellerProducts	= $sellerProducts->groupBy('variant_product_attribute.product_id')->get();
 
-      if(!empty($sellerProducts))
-      {
-        $productCnt = count($sellerProducts);
-      }
-			$SellersArray[$seller['id']]['product_cnt']= $productCnt;
-      $SellersArray[$seller['id']]['name']= $seller['fname'].' '.$seller['lname'];
-      $SellersArray[$seller['id']]['package']= $seller['package_id'];
+				  if(!empty($sellerProducts))
+				  {
+					$productCnt = count($sellerProducts);
+				  }
+				$SellersArray[$seller['id']]['product_cnt']= $productCnt;
+				  $SellersArray[$seller['id']]['name']= $seller['fname'].' '.$seller['lname'];
+				  $SellersArray[$seller['id']]['package']= $seller['package_id'];
+			}
+		}
+		else {
+			foreach($Sellers as $seller) {
+				  $ServiceCnt = 0;
+
+				  $sellerServices	=	array();
+
+				  $sellerServices = Services::
+											join('category_Services', 'Services.id', '=', 'category_Services.Service_id')
+											->join('servicecategories', 'servicecategories.id', '=', 'category_Services.category_id')
+											->join('ServiceSubcategories', 'servicecategories.id', '=', 'ServiceSubcategories.category_id')
+											->select('Services.id')->where('Services.user_id','=', $seller['id'])->where('Services.status','=','active')
+											->where('Services.is_deleted','=','0')
+											->where('servicecategories.status','=','active')
+											->where('ServiceSubcategories.status','=','active');
+				  if($category_slug !='')
+				  {
+					$category 		=  ServiceCategories::select('id')->where('category_slug','=',$category_slug)->first();
+					$sellerServices	=	$sellerServices->where('category_Services.category_id','=',$category['id']);
+				  }
+				  if($subcategory_slug !='')
+				  {
+					$subcategory 		=  ServiceSubcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
+					$sellerServices	=	$sellerServices->where('category_Services.subcategory_id','=',$subcategory['id']);
+				  }
+				  
+				  if($search_string !='')
+				  {
+					$sellerServices	=	$sellerServices->where('Services.title','like','%'.$search_string.'%');
+				  }
+
+				  $sellerServices	=	$sellerServices->get();
+				  
+				  if(!empty($sellerServices))
+				  {					  
+					$ServiceCnt = count($sellerServices);
+				  }
+				$SellersArray[$seller['id']]['service_cnt']= $ServiceCnt;
+				  $SellersArray[$seller['id']]['name']= $seller['fname'].' '.$seller['lname'];
+				  $SellersArray[$seller['id']]['package']= $seller['package_id'];
+			}
 		}
 
 		return $SellersArray;
 	}
+
 
 	//get popular products
 	function getPopularProducts($category_slug='',$subcategory_slug='') {
@@ -299,8 +346,8 @@ class FrontController extends Controller
 	}
 
 	//function to get products list by provided parameters
-	public function getProductsyParameter(Request $request) {
-	//DB::enableQueryLog();
+	public function getProductsByParameter(Request $request) {
+	
 		$currentDate = date('Y-m-d H:i:s');
 		$Products 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
@@ -326,46 +373,46 @@ class FrontController extends Controller
 				$Products	=	$Products->where('category_products.subcategory_id','=',$subcategory['id']);
 				//$Products	=	$Products->where('subcategories.subcategory_slug','=',$request->subcategory_slug);
 			}
-      if($request->sellers != '')
-      {
-        $tmpSeller = explode(',',$request->sellers);
-        $Products	=	$Products->whereIn('products.user_id',$tmpSeller);
-      }
-      if($request->price_filter != '')
-      {
-        $tmpPrice = explode(',',$request->price_filter);
-        $Products	=	$Products->whereBetween('variant_product.price',$tmpPrice);
-      }
-      if($request->search_string != '')
-      {
-        $Products	=	$Products->where('products.title', 'like', '%' . $request->search_string . '%');
-      }
+			if($request->sellers != '')
+			{
+				$tmpSeller = explode(',',$request->sellers);
+				$Products	=	$Products->whereIn('products.user_id',$tmpSeller);
+			}
+			if($request->price_filter != '')
+			{
+				$tmpPrice = explode(',',$request->price_filter);
+				$Products	=	$Products->whereBetween('variant_product.price',$tmpPrice);
+			}
+			if($request->search_string != '')
+			{
+				$Products	=	$Products->where('products.title', 'like', '%' . $request->search_string . '%');
+			}
 
-	  //echo '<pre>';print_r($request->sort_order); print_r($request->sort_by); echo '</pre>';
-	  //dd('STOP');
-      if($request->sort_order != '' && $request->sort_by != '')
-      {
-          if($request->sort_by == 'name')
-          {
-              $Products	=	$Products->orderBy('products.title', strtoupper($request->sort_order));
-          }
-          else if($request->sort_by == 'price')
-          {
-              $Products	=	$Products->orderBy('variant_product.price', strtoupper($request->sort_order));
-          }
-      }
-      else
-      {
-        $Products	=	$Products->orderBy('products.sort_order', 'ASC')->orderBy('variant_product.id', 'ASC');
-      }
+			//echo '<pre>';print_r($request->sort_order); print_r($request->sort_by); echo '</pre>';
+			//dd('STOP');
+			if($request->sort_order != '' && $request->sort_by != '')
+			{
+				if($request->sort_by == 'name')
+				{
+					$Products	=	$Products->orderBy('products.title', strtoupper($request->sort_order));
+				}
+				else if($request->sort_by == 'price')
+				{
+					$Products	=	$Products->orderBy('variant_product.price', strtoupper($request->sort_order));
+				}
+			}
+			else
+			{
+				$Products	=	$Products->orderBy('products.sort_order', 'ASC')->orderBy('variant_product.id', 'ASC');
+			}
 
-	  $Products			=	$Products->groupBy('products.id');
+	  		$Products			=	$Products->groupBy('products.id');
 
 		//$data['ProductsTotal'] = $Products->count();
 
 		$Products 			= $Products->paginate(config('constants.Products_limits'));
-    //dd($Products);
-    //dd(DB::getQueryLog());
+		//dd($Products);
+		//dd(DB::getQueryLog());
 		if(count($Products)>0) {
 			foreach($Products as $Product) {
 				$product_link	=	url('/').'/product';
@@ -390,48 +437,48 @@ class FrontController extends Controller
 				}
 
 			}
-      $data['Products']	= $Products;
+     		 $data['Products']	= $Products;
       //dd($Products);
 		}
-    else {
-      $data['Products']	= 'Inga produkter tillgängliga.';
-    }
-
-    //dd(is_object($data['Products']));
-
-    $Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->search_string);
-    $sellerData = '';
-    if(!empty($Sellers))
-    {
-      $tmpSeller = array();
-      if($request->sellers != '')
-      {
-        $tmpSeller = explode(',',$request->sellers);
-      }
-      $sellerData = '<ul class="category_list">';
-      foreach($Sellers as $SellerId => $Seller)
-      {
-        $strChecked = '';
-        if(in_array($SellerId, $tmpSeller))
-        {
-            $strChecked = 'checked="checked"';
+		else {
+		$data['Products']	= 'Inga produkter tillgängliga.';
 		}
 
-		$tmpSellerData = UserMain::where('id',$SellerId)->first()->toArray();
-		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
-		$seller_name = str_replace( array( '\'', '"', 
-		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
-		$seller_name = str_replace(" ", '-', $seller_name);
-		$seller_name = strtolower($seller_name);
-		
-        $sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$Seller['name'].' ( '.$Seller['product_cnt'].' )</span></a></li>';
-      }
-      $sellerData .= '</ul>';
-    }
+		//dd(is_object($data['Products']));
 
-    $productListing = view('Front/products_list', $data)->render();
-		echo json_encode(array('products'=>$productListing,'sellers'=>$sellerData));
-    exit;
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->search_string,'products');
+		$sellerData = '';
+		if(!empty($Sellers))
+		{
+			$tmpSeller = array();
+			if($request->sellers != '')
+			{
+				$tmpSeller = explode(',',$request->sellers);
+			}
+			$sellerData = '<ul class="category_list">';
+			foreach($Sellers as $SellerId => $Seller)
+			{
+				$strChecked = '';
+				if(in_array($SellerId, $tmpSeller))
+				{
+					$strChecked = 'checked="checked"';
+				}
+
+				$tmpSellerData = UserMain::where('id',$SellerId)->first()->toArray();
+				$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+				$seller_name = str_replace( array( '\'', '"', 
+				',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+				$seller_name = str_replace(" ", '-', $seller_name);
+				$seller_name = strtolower($seller_name);
+				
+				$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$Seller['name'].' ( '.$Seller['product_cnt'].' )</span></a></li>';
+			}
+			$sellerData .= '</ul>';
+		}
+
+		$productListing = view('Front/products_list', $data)->render();
+			echo json_encode(array('products'=>$productListing,'sellers'=>$sellerData));
+		exit;
 		//return view('Front/products_list', $data);
 	}
     /* function to display products page*/
@@ -765,4 +812,402 @@ class FrontController extends Controller
 	exit;
   }
 
+  //services functions
+
+  //function to get services list by provided parameters
+	public function getServicesByParameter(Request $request) {
+	
+		DB::enableQueryLog();
+		$currentDate = date('Y-m-d H:i:s');
+		$Services 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
+							  ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+							  ->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')							  				  
+							  ->join('users', 'services.user_id', '=', 'users.id')
+							  ->join('user_packages', 'user_packages.user_id', '=', 'users.id')
+							  ->select(['services.*','servicecategories.category_name'])
+							  ->where('services.status','=','active')
+							  ->where('services.is_deleted','=','0')
+							  ->where('servicecategories.status','=','active')
+							  ->where('serviceSubcategories.status','=','active')
+							  ->where('users.status','=','active')
+							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+			if($request->category_slug !='') {
+				$category 		=  ServiceCategories::select('id')->where('category_slug','=',$request->category_slug)->first();
+				$Services	=	$Services->where('category_services.category_id','=',$category['id']);
+				//$Services	=	$Services->where('servicecategories.category_slug','=',$request->category_slug);
+			}
+			if($request->subcategory_slug !='') {
+				$subcategory 		=  serviceSubcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
+				$Services	=	$Services->where('category_services.subcategory_id','=',$subcategory['id']);
+				//$Services	=	$Services->where('serviceSubcategories.subcategory_slug','=',$request->subcategory_slug);
+			}
+			if($request->sellers != '')
+			{
+				$tmpSeller = explode(',',$request->sellers);
+				$Services	=	$Services->whereIn('services.user_id',$tmpSeller);
+			}
+			
+			if($request->search_string != '')
+			{
+				$Services	=	$Services->where('services.title', 'like', '%' . $request->search_string . '%');
+			}
+
+			if($request->sort_order != '' && $request->sort_by != '')
+			{
+				if($request->sort_by == 'name')
+				{
+					$Services	=	$Services->orderBy('services.title', strtoupper($request->sort_order));
+				}
+				
+			}
+			else
+			{
+				$Services	=	$Services->orderBy('services.sort_order', 'ASC');
+			}
+
+	  		$Services			=	$Services->groupBy('services.id');
+
+		//$data['ServicesTotal'] = $Services->count();
+
+		$Services 			= $Services->paginate(config('constants.Services_limits'));
+		//dd($Services);
+		//print_r(DB::getQueryLog());
+		//exit;
+		if(count($Services)>0) {
+			foreach($Services as $Service) {
+				$service_link	=	url('/').'/service';
+				if($request->category_slug!='')
+				$service_link	.=	'/'.$request->category_slug;
+				if($request->subcategory_slug!='')
+				$service_link	.=	'/'.$request->subcategory_slug;
+
+				$service_link	.=	'/'.$Service->service_slug.'-S-'.$Service->service_code;
+
+				$Service->service_link	=	$service_link;
+
+				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Service->user_id)->first()->toArray();
+				$Service->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+
+				$Service->image = explode(",",$Service->images)[0];
+				//echo'<pre>';print_r($Service);
+			}
+			//exit;
+     		 $data['Services']	= $Services;
+      
+		}
+		else {
+		$data['Services']	= trans('lang.noServicesFound');
+		}
+
+		//dd(is_object($data['Services']));
+
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->search_string,'services');
+		$sellerData = '';
+		if(!empty($Sellers))
+		{
+			$tmpSeller = array();
+			if($request->sellers != '')
+			{
+				$tmpSeller = explode(',',$request->sellers);
+			}
+			$sellerData = '<ul class="category_list">';
+			foreach($Sellers as $SellerId => $Seller)
+			{
+				$strChecked = '';
+				if(in_array($SellerId, $tmpSeller))
+				{
+					$strChecked = 'checked="checked"';
+				}
+
+				$tmpSellerData = UserMain::where('id',$SellerId)->first()->toArray();
+				$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+				$seller_name = str_replace( array( '\'', '"', 
+				',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+				$seller_name = str_replace(" ", '-', $seller_name);
+				$seller_name = strtolower($seller_name);
+				
+				$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$Seller['name'].' ( '.$Seller['service_cnt'].' )</span></a></li>';
+			}
+			$sellerData .= '</ul>';
+		}
+
+		$serviceListing = view('Front/services_list', $data)->render();
+			echo json_encode(array('services'=>$serviceListing,'sellers'=>$sellerData));
+		exit;
+		//return view('Front/services_list', $data);
+	}
+
+	 /* function to display services page*/
+	 public function serviceListing($category_slug='',$subcategory_slug='',Request $request)
+	 {
+ 
+			 $data['pageTitle'] 	= 'Home';
+ 
+			 $data['Categories'] = $this->getCategorySubcategoryList()	;
+ 
+			 $data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
+			 //$data['Services']			= $Services;
+			 $data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
+			 $data['category_slug']		=	'';
+			 $data['subcategory_slug']	=	'';
+			$data['seller_id']		=	'';
+			$data['search_string']		=	'';
+ 
+			 if($category_slug!='')
+				 $data['category_slug']	= $category_slug;
+ 
+		   if($subcategory_slug!='')
+				 $data['subcategory_slug']	= $subcategory_slug;
+ 
+		 if(!empty($request->search))
+			 $data['search_string']	= $request->search;
+ 
+		 
+		 return view('Front/services', $data);
+	 }
+
+	 //function for service details page
+
+	public function serviceDetails($first_parameter='',$second_parameter='',$third_parameter='') 
+	{
+		$Services 			=  Services::join('category_services', 'services.id', '=', 'category_services.service_id')
+										->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+										->join('ServiceSubcategories', 'servicecategories.id', '=', 'ServiceSubcategories.category_id')
+										->select(['services.*','services.id as service_id'])
+										->where('services.status','=','active')
+										->where('services.is_deleted','=','0')
+										->where('servicecategories.status','=','active')
+										->where('ServiceSubcategories.status','=','active');
+										
+							  			
+		
+		if($first_parameter!='' && $second_parameter!='' && $third_parameter!='' && strpos($third_parameter, '-S-') !== false){
+
+			$category_slug	=	$first_parameter;
+			$subcategory_slug=	$second_parameter;
+			$service_slug	=	$third_parameter;
+		}
+		if($first_parameter=='' || $second_parameter=='' || $third_parameter=='') {
+
+			if(strpos($first_parameter, '-S-') !== false)
+				$service_slug	=	$first_parameter;
+
+			else if(strpos($second_parameter, '-S-') !== false)
+				$service_slug	=	$second_parameter;
+
+			else if(strpos($third_parameter, '-S-') !== false)
+				$service_slug	=	$third_parameter;
+
+
+		}
+
+		if($first_parameter=='' && $second_parameter=='' && $third_parameter=='') {
+			return redirect(route('AllserviceListing'));
+		}
+		if(!isset($service_slug)) {
+			return redirect(route('AllserviceListing'));
+		}
+		if(isset($category_slug) && $category_slug!='') {
+
+			$Services		=	$Services->where('servicecategories.category_slug','=',$category_slug);
+		}
+		if(isset($subcategory_slug) && $subcategory_slug!='') {
+			$Services		=	$Services->where('ServiceSubcategories.subcategory_slug','=',$subcategory_slug);
+		}
+		if(isset($service_slug) && $service_slug!='') {
+
+			$service_parts	=	explode('-S-',$service_slug);
+			if(!isset($service_parts[0]) || !isset($service_parts[1]))
+				return redirect(route('AllserviceListing'));
+			$Services		=	$Services->where('services.service_slug','=',$service_parts[0])->where('services.service_code','=',$service_parts[1]);
+		}
+		$Services			=	$Services->get();// ->groupBy('services.id')
+		
+
+		if(isset($service_slug) && count($Services)<=0) {
+			$service_parts	=	explode('-S-',$service_slug);
+			$Services		=	Services::where('services.status','=','active');
+			if(isset($service_parts[0]))
+				$Services	=	$Services->where('services.service_slug','=',$service_parts[0]);
+			if(isset($service_parts[1]))
+				$Services	=	$Services->Orwhere('services.service_code','=',$service_parts[1]);
+
+			$Services		=	$Services->first();
+			return redirect('/service/'.$Services->service_slug.'-S-'.$Services->service_code);
+			if(count($Services)<=0)
+			return redirect(route('AllserviceListing'));
+		}
+
+		$variantData		=	$ServiceImages	=	$ServiceAttributes	=	array();
+		
+		$Service = $Services[0];
+
+		
+		$data['Categories'] = $this->getCategorySubcategoryList()	;
+
+		$data['PopularServices']	= $this->getPopularServices();
+		$data['Service']			= $Service;
+		$tmpSellerData = UserMain::where('id',$Service['user_id'])->first()->toArray();
+		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+		$data['seller_name'] = $seller_name;
+
+		$seller_name = str_replace( array( '\'', '"', 
+		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+		$seller_name = str_replace(" ", '-', $seller_name);
+		$seller_name = strtolower($seller_name);
+		
+		$sellerLink = route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Service['user_id'])]);
+		$data['seller_link'] = $sellerLink;
+		
+		//dd($data['variantData']);
+        return view('Front/service_details', $data);
+    }
+	
+	//get popular services
+	function getPopularServices($category_slug='',$subcategory_slug='') {
+		$currentDate = date('Y-m-d H:i:s');
+		$PopularServices 	= Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')								
+								->join('category_services', 'services.id', '=', 'category_services.service_id')
+								->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+								->join('ServiceSubcategories', 'servicecategories.id', '=', 'ServiceSubcategories.category_id')
+								->join('users', 'services.user_id', '=', 'users.id')
+								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
+								->select(['services.*',DB::raw("count(service_requests.id) as totalOrderedServices")])
+								->where('services.status','=','active')
+								->where('services.is_deleted','=','0')
+								->where('servicecategories.status','=','active')
+							  	->where('ServiceSubcategories.status','=','active')
+								->where('users.status','=','active')
+								->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+								->orderBy('totalOrderedServices', 'DESC')
+								->groupBy('services.id')
+								->offset(0)->limit(config('constants.Services_limits'))->get();
+
+		if(count($PopularServices)>0) {
+			foreach($PopularServices as $Service) {
+				$serviceCategories = $this->getServiceCategories($Service->id);
+
+				$service_link	=	url('/').'/service';
+				if($category_slug!='')
+				{
+				 $service_link	.=	'/'.$category_slug;
+				}
+				else {
+				  $service_link	.=	'/'.$serviceCategories[0]['category_slug'];
+				}
+				if($subcategory_slug!='')
+				{
+							  $service_link	.=	'/'.$subcategory_slug;
+				}
+				else {
+				  $service_link	.=	'/'.$serviceCategories[0]['subcategory_slug'];
+				}
+
+				$service_link	.=	$Service->service_slug.'-S-'.$Service->service_code;
+
+				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Service->user_id)->first()->toArray();
+				$Service->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+
+				$Service->service_link	=	$service_link;
+
+				$Service->image = explode(",",$Service->images)[0];
+			}
+		}
+								return $PopularServices;
+	}
+	/* function to display services page*/
+    public function sellerServiceListing($seller_name ='', $seller_id = '', $category_slug = null, $subcategory_slug= null, Request $request)
+    {
+        $data['pageTitle'] 	= 'Sellers Services';
+		$data['Categories'] = $this->getCategorySubcategoryList()	;
+		$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
+		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
+    	$data['category_slug']		=	'';
+		$data['subcategory_slug']	=	'';
+		$data['link_seller_name']		=	$seller_name;
+		$id = base64_decode($seller_id);
+		$data['seller_id']			=	$id;
+		
+		$Seller = UserMain::where('id',$id)->first()->toArray();
+		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+		$data['description']		= 	$Seller['description'];
+		
+		$data['header_image']       = '';
+		$data['logo']       = '';
+		$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
+		if(!empty($sellerImages))
+		{
+			$sellerImages = $sellerImages->toArray();
+			
+			if(!empty($sellerImages['header_img']))
+			{
+				$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
+			}
+			if(!empty($sellerImages['logo']))
+			{
+				$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
+			}
+		}
+		
+    	if($category_slug!='')
+    		$data['category_slug']	= $category_slug;
+
+    	if($subcategory_slug!='')
+    		$data['subcategory_slug']	= $subcategory_slug;
+
+		$data['is_seller'] = 1;
+        return view('Front/seller-services', $data);
+    }
+
+	/*function to send a service request*/
+    public function sendServiceRequest(Request $request)
+    {
+        
+        $request_id	=	DB::table('service_requests')->insertGetId([
+            'message' => $request->input('message'),
+            'user_id' => Auth::guard('user')->id(),
+			'service_id'=>$request->input('service_id'),
+            'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
+		$service_request = Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')
+							->join('users', 'users.id', '=', 'services.user_id')							
+							->where('service_requests.id', '=', $request_id)->first();
+        
+       
+		$user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
+		$customername = $user->fname;
+
+		
+
+		$service	=	$service_request->title;
+		$email		=	$service_request->email;
+		$servicemessage	=	$request->input('message');
+		$seller	=	$service_request->fname;
+		//echo'<pre>';print_r($request);exit;
+        $arrMailData = ['customername' => $customername, 'seller' => $seller, 'service' => $service, 'servicemessage' => $servicemessage];
+
+		Mail::send('emails/service_request_success_seller', $arrMailData, function($message) use ($email,$seller) {
+			$message->to($email, $seller)->subject
+				(trans('lang.newRequestReceived'));
+			$message->from(env('MAIL_USERNAME'),env('APP_NAME'));
+		});
+
+        echo 1;
+        exit;
+    }
+	function getServiceCategories($serviceId)
+	{
+		$serviceCategories = [];
+		if(!empty($serviceId))
+		{
+		$serviceCategories = ServiceCategory::join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+							->join('ServiceSubcategories', 'ServiceSubcategories.id', '=', 'category_services.subcategory_id')
+							->select(['category_services.*','servicecategories.category_name', 'servicecategories.category_slug', 'ServiceSubcategories.subcategory_name', 'ServiceSubcategories.subcategory_slug'])
+							->where('category_services.service_id','=',$serviceId)
+							->get()->toArray();
+		}
+		return $serviceCategories;
+	}
 }

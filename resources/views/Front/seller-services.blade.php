@@ -8,19 +8,32 @@
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
         <div class="col-md-3">
-            @include('Front.products_sidebar')
+            @include('Front.services_sidebar')
         </div>
         <div class="col-md-9">
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
             <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
-            <span class="current_search_string" style="display:none;">{{$search_string}}</span>
+            
             <div class="product_container">
                 <div class="row">
-                  <div class="col-md-6">
-                    <h2>{{ __('lang.trending_product_head')}}</h2>
-                    <hr class="heading_line"/>
+                  <div class="col-md-12 text-center">
+                  @if(!empty($logo)) <img src="{{$logo}}" alt="Logo" style="width:100px;height:100px;" />&nbsp;&nbsp;@endif<h2>{{ $seller_name }}</h2>
                   </div>
+                  @if(!empty($header_image))
+                  <div class="col-md-12">
+                    <img src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
+                  </div>
+                  @endif
+                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                  @if(!empty($description))
+                  <div class="col-md-12 text-center">
+                    {!! $description !!}
+                  </div>
+                  @endif
+                </div>
+                <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                <div class="row">
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
@@ -37,37 +50,17 @@
                       <select class="form-control" name="sort_by" id="sort_by" onchange="getListing()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                           <option value="name">{{ __('lang.sort_by_name')}}</option>
-                          <option value="price">{{ __('lang.sort_by_price')}}</option>
                       </select>
                     </div>
                   </div>
                 </div>
-                <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+                <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
         </div>
     </div>
 
 
     </div> <!-- /container -->
-</section>
-
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="best_seller_container">
-                <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
-                <h2>{{ __('lang.best_seller_head')}}</h2>
-                <ul class="product_details best_seller">
-					@foreach($PopularProducts as $product)
-                    @include('Front.products_widget')
-					@endforeach
-				 </ul>
-            </div>
-
-
-
-        </div>
-    </div>
 </section>
 
 <script type="text/javascript">
@@ -83,7 +76,7 @@ function getListing()
   var search_string = $(".current_search_string").text();
 
   $.ajax({
-    url:siteUrl+"/get_product_listing",
+    url:siteUrl+"/get_service_listing",
     headers: {
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
@@ -93,16 +86,12 @@ function getListing()
     {
      //$('.product_listings').html(data);
      var responseObj = $.parseJSON(data);
-     $('.product_listings').html(responseObj.products);
+     $('.service_listings').html(responseObj.services);
      $('.seller_list_content').html(responseObj.sellers);
     }
    });
 }
 
-var price_filter = $("#price_filter").slider({});
-price_filter.on('slideStop',function(){
-    getListing();
-});
 
 function selectSellers()
 {

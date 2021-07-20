@@ -178,7 +178,7 @@
      'sort_by_name'=>'Namn',
      'sort_by_price'=>'Pris',
      'sort_by_option'=>'Välj alternativ',
-
+     'trending_service_head' =>  'Trendiga tjänster',
      'sort_by_order'=>'Sorteringsordning',
      'sort_by_asc'=>'Stigande',
      'sort_by_desc'=>'Nedåtgående',
@@ -215,5 +215,12 @@
      'txt_seller_order' => 'Alla beställningar',
      'order_status_confirm' => 'Är du säker på att du vill ändra status på Order?',
      'order_status_success' => 'Orderstatus har ändrats.',
+
+     'sendRequest' =>   'Skicka förfrågan',
+     'newRequestReceived'=>'Ny serviceförfrågan mottagen',
+     'customer'=>'Kund',
+     'service'=>'Service',
+     'message'=>'Meddelande',
+     'messageRequired'=>'Meddelande krävs',
  ]
 ?>

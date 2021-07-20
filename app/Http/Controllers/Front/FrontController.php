@@ -12,7 +12,7 @@ use App\Models\Subcategories;
 
 use App\Models\Services;
 use App\Models\ServiceCategories;
-use App\Models\ServiceSubcategories;
+use App\Models\serviceSubcategories;
 
 use App\Models\Products;
 use App\Models\Settings;
@@ -171,11 +171,11 @@ class FrontController extends Controller
 				  $sellerServices = Services::
 											join('category_Services', 'Services.id', '=', 'category_Services.Service_id')
 											->join('servicecategories', 'servicecategories.id', '=', 'category_Services.category_id')
-											->join('ServiceSubcategories', 'servicecategories.id', '=', 'ServiceSubcategories.category_id')
+											->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 											->select('Services.id')->where('Services.user_id','=', $seller['id'])->where('Services.status','=','active')
 											->where('Services.is_deleted','=','0')
 											->where('servicecategories.status','=','active')
-											->where('ServiceSubcategories.status','=','active');
+											->where('serviceSubcategories.status','=','active');
 				  if($category_slug !='')
 				  {
 					$category 		=  ServiceCategories::select('id')->where('category_slug','=',$category_slug)->first();
@@ -183,7 +183,7 @@ class FrontController extends Controller
 				  }
 				  if($subcategory_slug !='')
 				  {
-					$subcategory 		=  ServiceSubcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
+					$subcategory 		=  serviceSubcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
 					$sellerServices	=	$sellerServices->where('category_Services.subcategory_id','=',$subcategory['id']);
 				  }
 				  
@@ -972,12 +972,12 @@ class FrontController extends Controller
 	{
 		$Services 			=  Services::join('category_services', 'services.id', '=', 'category_services.service_id')
 										->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-										->join('ServiceSubcategories', 'servicecategories.id', '=', 'ServiceSubcategories.category_id')
+										->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 										->select(['services.*','services.id as service_id'])
 										->where('services.status','=','active')
 										->where('services.is_deleted','=','0')
 										->where('servicecategories.status','=','active')
-										->where('ServiceSubcategories.status','=','active');
+										->where('serviceSubcategories.status','=','active');
 										
 							  			
 		
@@ -1012,7 +1012,7 @@ class FrontController extends Controller
 			$Services		=	$Services->where('servicecategories.category_slug','=',$category_slug);
 		}
 		if(isset($subcategory_slug) && $subcategory_slug!='') {
-			$Services		=	$Services->where('ServiceSubcategories.subcategory_slug','=',$subcategory_slug);
+			$Services		=	$Services->where('serviceSubcategories.subcategory_slug','=',$subcategory_slug);
 		}
 		if(isset($service_slug) && $service_slug!='') {
 
@@ -1069,14 +1069,14 @@ class FrontController extends Controller
 		$PopularServices 	= Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')								
 								->join('category_services', 'services.id', '=', 'category_services.service_id')
 								->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-								->join('ServiceSubcategories', 'servicecategories.id', '=', 'ServiceSubcategories.category_id')
+								->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 								->join('users', 'services.user_id', '=', 'users.id')
 								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
 								->select(['services.*',DB::raw("count(service_requests.id) as totalOrderedServices")])
 								->where('services.status','=','active')
 								->where('services.is_deleted','=','0')
 								->where('servicecategories.status','=','active')
-							  	->where('ServiceSubcategories.status','=','active')
+							  	->where('serviceSubcategories.status','=','active')
 								->where('users.status','=','active')
 								->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 								->orderBy('totalOrderedServices', 'DESC')
@@ -1203,8 +1203,8 @@ class FrontController extends Controller
 		if(!empty($serviceId))
 		{
 		$serviceCategories = ServiceCategory::join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-							->join('ServiceSubcategories', 'ServiceSubcategories.id', '=', 'category_services.subcategory_id')
-							->select(['category_services.*','servicecategories.category_name', 'servicecategories.category_slug', 'ServiceSubcategories.subcategory_name', 'ServiceSubcategories.subcategory_slug'])
+							->join('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')
+							->select(['category_services.*','servicecategories.category_name', 'servicecategories.category_slug', 'serviceSubcategories.subcategory_name', 'serviceSubcategories.subcategory_slug'])
 							->where('category_services.service_id','=',$serviceId)
 							->get()->toArray();
 		}

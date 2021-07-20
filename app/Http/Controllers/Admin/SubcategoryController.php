@@ -135,9 +135,9 @@ class SubcategoryController extends Controller
      * save sub category deatils details
      */
     public function subCategoryStore(Request $request) {
-
         $subcategory_slug = $request->input('subcategory_slug');
-         $is_accents = preg_match('/^[\p{L}-]*$/u', $subcategory_slug);
+        $is_accents = preg_match('/^[\p{L}-]*$/u', $subcategory_slug);
+        
          if($is_accents ==1){
              $slug = CommonLibrary::php_cleanAccents($subcategory_slug);
          }else{
@@ -268,8 +268,10 @@ class SubcategoryController extends Controller
         // Clean up multiple dashes or whitespaces
         $slug_trim = trim(preg_replace('/\s+/', ' ', $slug_name));
         // Convert whitespaces and underscore to dash
-        $slug_hypen = preg_replace("/[\s_]/", "-", $slug_trim);  
-        $slug =   CommonLibrary::php_cleanAccents($slug_hypen);
+        $slug_hypen = preg_replace("/[\s_]/", "-", $slug_trim); 
+        $slug_p = str_replace("-p-", '', $slug_hypen); 
+        $slug_s = str_replace("-s-", '', $slug_p); 
+        $slug =   CommonLibrary::php_cleanAccents($slug_s);
        
         if(!empty($id)){
             $data =  Subcategories::where('subcategory_slug', $slug)->where('id','!=',$id)->get();

@@ -316,8 +316,10 @@ class ServiceCatController extends Controller
         // Clean up multiple dashes or whitespaces
         $slug_trim = trim(preg_replace('/\s+/', ' ', $slug_name));
         // Convert whitespaces and underscore to dash
-        $slug_hypen = preg_replace("/[\s_]/", "-", $slug_trim);       
-        $slug =   CommonLibrary::php_cleanAccents($slug_hypen);
+        $slug_hypen = preg_replace("/[\s_]/", "-", $slug_trim); 
+        $slug_p = str_replace("-p-", '', $slug_hypen); 
+        $slug_s = str_replace("-s-", '', $slug_p);       
+        $slug =   CommonLibrary::php_cleanAccents($slug_s);
 
         if(!empty($id)){
             $data =  ServiceCategories::where('category_slug', $slug)->where('id','!=',$id)->get();

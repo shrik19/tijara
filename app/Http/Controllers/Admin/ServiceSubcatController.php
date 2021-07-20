@@ -137,7 +137,7 @@ class ServiceSubcatController extends Controller
     public function subCategoryStore(Request $request) {
         $id=$request->id;
         $subcategory_slug = $request->input('subcategory_slug');
-        $slug = CommonLibrary::php_cleanAccents($subcategory_slug);
+        $slug = CommonLibrary::php_cleanAccents($slug_s);
 
         $rules = [
             'category_name'    => 'required',
@@ -324,7 +324,9 @@ class ServiceSubcatController extends Controller
         $slug_trim = trim(preg_replace('/\s+/', ' ', $slug_name));
         // Convert whitespaces and underscore to dash
         $slug_hypen = preg_replace("/[\s_]/", "-", $slug_trim);       
-        $slug =   CommonLibrary::php_cleanAccents($slug_hypen);
+        $slug_p = str_replace("-p-", '', $slug_hypen); 
+        $slug_s = str_replace("-s-", '', $slug_p);   
+        $slug =   CommonLibrary::php_cleanAccents($slug_s);
 
         if(!empty($id)){
             $data =  serviceSubcategories::where('subcategory_slug', $slug)->where('id','!=',$id)->get();

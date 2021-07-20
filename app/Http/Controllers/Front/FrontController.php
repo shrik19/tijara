@@ -12,7 +12,7 @@ use App\Models\Subcategories;
 
 use App\Models\Services;
 use App\Models\ServiceCategories;
-use App\Models\serviceSubcategories;
+use App\Models\ServiceSubcategories;
 
 use App\Models\Products;
 use App\Models\Settings;
@@ -183,7 +183,7 @@ class FrontController extends Controller
 				  }
 				  if($subcategory_slug !='')
 				  {
-					$subcategory 		=  serviceSubcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
+					$subcategory 		=  ServiceSubcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
 					$sellerServices	=	$sellerServices->where('category_Services.subcategory_id','=',$subcategory['id']);
 				  }
 				  
@@ -837,7 +837,7 @@ class FrontController extends Controller
 				//$Services	=	$Services->where('servicecategories.category_slug','=',$request->category_slug);
 			}
 			if($request->subcategory_slug !='') {
-				$subcategory 		=  serviceSubcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
+				$subcategory 		=  ServiceSubcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
 				$Services	=	$Services->where('category_services.subcategory_id','=',$subcategory['id']);
 				//$Services	=	$Services->where('serviceSubcategories.subcategory_slug','=',$request->subcategory_slug);
 			}

@@ -606,6 +606,9 @@ class ServiceController extends Controller
             }
         if($request->input('service_id')==0) {
             $id = Services::create($arrServices)->id;
+            //unique product code
+            $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            Services::where('id', $id)->update(['service_code'=>substr(str_shuffle($string),0, 4).$id]);
         } else {
             $id     = $request->input('service_id');
             Services::where('id', $request->input('service_id'))->where('user_id', Auth::guard('user')->id())->update($arrServices);

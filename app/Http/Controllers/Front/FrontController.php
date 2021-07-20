@@ -169,11 +169,11 @@ class FrontController extends Controller
 				  $sellerServices	=	array();
 
 				  $sellerServices = Services::
-											join('category_services', 'Services.id', '=', 'category_services.Service_id')
+											join('category_services', 'services.id', '=', 'category_services.Service_id')
 											->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
 											->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
-											->select('Services.id')->where('Services.user_id','=', $seller['id'])->where('Services.status','=','active')
-											->where('Services.is_deleted','=','0')
+											->select('services.id')->where('services.user_id','=', $seller['id'])->where('services.status','=','active')
+											->where('services.is_deleted','=','0')
 											->where('servicecategories.status','=','active')
 											->where('serviceSubcategories.status','=','active');
 				  if($category_slug !='')
@@ -189,7 +189,7 @@ class FrontController extends Controller
 				  
 				  if($search_string !='')
 				  {
-					$sellerServices	=	$sellerServices->where('Services.title','like','%'.$search_string.'%');
+					$sellerServices	=	$sellerServices->where('services.title','like','%'.$search_string.'%');
 				  }
 
 				  $sellerServices	=	$sellerServices->get();

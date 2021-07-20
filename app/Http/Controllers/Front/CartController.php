@@ -690,6 +690,8 @@ class CartController extends Controller
         }
 
         //Get Orders Details to Show.
+        $username = '';
+        $password = '';
 
         $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
         $param['Total'] = $checkExisting[0]['total'];
@@ -707,8 +709,9 @@ class CartController extends Controller
                           ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                           ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
                           ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                          ->join('users', 'users.id', '=', 'products.user_id')
                           //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
-                          ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+                          ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id','users.klarna_username','users.klarna_password'])
                           ->where('products.status','=','active')
                           ->where('categories.status','=','active')
                           ->where('subcategories.status','=','active')
@@ -721,9 +724,16 @@ class CartController extends Controller
                           //dd(DB::getQueryLog());
 
                           //dd(count($TrendingProducts));
+                         
               if(count($TrendingProducts)>0) {
                 foreach($TrendingProducts as $Product)
                 {
+
+                  if(empty($username) && empty($password))
+                  {
+                    $username = $Product->klarna_username;
+                    $password = base64_decode($Product->klarna_password);
+                  }
                   $productCategories = $this->getProductCategories($Product->id);
                   //dd($productCategories);
 
@@ -753,9 +763,7 @@ class CartController extends Controller
         $param['details'] = $orderDetails;
       //dd($orderDetails);
 
-        $username = env('KLORNA_USERNAME');
-        $password = env('KLORNA_PASSWORD');
-
+      
         $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
         $billing_address= [];
         $billing_address['given_name'] = $UserData['fname'];
@@ -884,8 +892,24 @@ class CartController extends Controller
     public function checkoutCallback(Request $request)
     {
       $order_id = $request->order_id;
-      $username = env('KLORNA_USERNAME');
-      $password = env('KLORNA_PASSWORD');
+      //$username = env('KLORNA_USERNAME');
+      //$password = env('KLORNA_PASSWORD');
+      $username = '';
+      $password = '';
+      $getTmpOrder = TmpOrders::where('klarna_order_reference','=',$order_id)->first()->toArray();
+      if(!empty($getTmpOrder))
+      {
+        $getExistingOrderSeller = TmpOrdersDetails::join('products','products.id','=','temp_orders_details.product_id')->join('users', 'users.id', '=', 'products.user_id')->select(['users.klarna_username','users.klarna_password'])->where('order_id','=',$getTmpOrder['id'])->where('temp_orders_details.user_id','=',$getTmpOrder['user_id'])->offset(0)->limit(1)->get()->toArray();
+        if(!empty($getExistingOrderSeller))
+        {
+          foreach($getExistingOrderSeller as $sellerDetails)
+          {
+            $username = $sellerDetails['klarna_username'];
+            $password = base64_decode($sellerDetails['klarna_password']);
+          }
+        }
+      }
+      
       /*klarna api call to read order*/
     
       $url = env('BASE_API_URL')."/".$order_id;
@@ -1027,12 +1051,27 @@ class CartController extends Controller
   public function pushNotification(Request $request)
   {
     /*get order from klarm by order id*/
-     $order_id = $request->order_id;
-     $checkExisting = Orders::where('klarna_order_reference','=',$order_id)->first()->toArray();
-     $currentDate = date('Y-m-d H:i:s');
+    $order_id = $request->order_id;
+    $currentDate = date('Y-m-d H:i:s');
 
-     $username = env('KLORNA_USERNAME');
-     $password = env('KLORNA_PASSWORD');
+    $username = '';
+    $password = '';
+    $checkExisting = Orders::where('klarna_order_reference','=',$order_id)->first()->toArray();
+    if(!empty($checkExisting))
+    {
+      $getExistingOrderSeller = OrdersDetails::join('products','products.id','=','orders_details.product_id')->join('users', 'users.id', '=', 'products.user_id')->select(['users.klarna_username','users.klarna_password'])->where('order_id','=',$checkExisting['id'])->where('orders_details.user_id','=',$checkExisting['user_id'])->offset(0)->limit(1)->get()->toArray();
+      if(!empty($getExistingOrderSeller))
+      {
+        foreach($getExistingOrderSeller as $sellerDetails)
+        {
+          $username = $sellerDetails['klarna_username'];
+          $password = base64_decode($sellerDetails['klarna_password']);
+        }
+      }
+    }
+
+     //$username = env('KLORNA_USERNAME');
+     //$password = env('KLORNA_PASSWORD');
      
      $Total = (float)ceil($checkExisting['total']);
 

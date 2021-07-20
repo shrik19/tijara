@@ -82,12 +82,12 @@ class FrontController extends Controller
 
 	//get category & subcategory listings
 	function getServiceCategorySubcategoryList() {
-		$Categories 		= ServiceCategories::join('servicesubcategories', 'servicecategories.id', '=', 'servicesubcategories.category_id')
-								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','servicesubcategories.subcategory_name','servicesubcategories.subcategory_slug')
-								->where('servicesubcategories.status','=','active')
+		$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','serviceSubcategories.subcategory_name','serviceSubcategories.subcategory_slug')
+								->where('serviceSubcategories.status','=','active')
 								->where('servicecategories.status','=','active')
 								->orderBy('servicecategories.sequence_no')
-								->orderBy('servicesubcategories.sequence_no')
+								->orderBy('serviceSubcategories.sequence_no')
 								->get()
 								->toArray();
 		$CategoriesArray	=	array();

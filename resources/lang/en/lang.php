@@ -217,6 +217,7 @@
      'txt_seller_order' => 'All Orders',
      'order_status_confirm' => 'Are you sure, you want to change the status of Order?',
      'order_status_success' => 'Order status changed Successfully.',
-
+     'noProductsFound' => 'Product not found.',
+     'noServicesFound'=> 'Service not found',
  ]  
 ?>

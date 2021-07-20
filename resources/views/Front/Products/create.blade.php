@@ -189,6 +189,7 @@
                   <!-- <button type="button" variant_id="0"  class="fa fa_plus add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"  >+</button> -->
                   <span class="variantButtonGroup">
                   <button type="button" variant_id="<?php echo $i;?>" class="btn btn-success btn-xs add_attribute_group_btn" title="{{ __('lang.add_attr_group_label')}}"><i class="fa fa-plus"></i></button>
+                  <a href="javascript:void(0);" variant_id="<?php echo $i;?>"  class="btn btn-danger btn-xs remove_variant_btn" title="{{ __('lang.remove_label')}} {{ __('lang.variant')}}"><i class="fas fa-trash"></i></a>
                 </span>
                   <div class="added_attributes" variant_id="<?php echo $i;?>"></div>
                     <!-- attribute Modal -->
@@ -233,7 +234,8 @@
 
                                         </td>
                                         <td   class="plus_attribute_tr">
-                                            <button variant_id="<?php echo $i;?>" type="button" id="plus_attribute" class="btn btn-success btn-xs plus_attribute" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"><i class="fa fa_plus">+</i></button>
+                                            <button variant_id="<?php echo $i;?>" type="button" id="plus_attribute" class="btn btn-success btn-xs plus_attribute here" title="{{ __('lang.add_label')}} {{ __('lang.attribute_label')}}"><i class="fa fa_plus">+</i></button>
+                                             
                                           </td>
                                       </tr>
                         <!-- </div> -->

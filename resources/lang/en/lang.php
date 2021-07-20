@@ -219,5 +219,13 @@
      'order_status_success' => 'Order status changed Successfully.',
      'noProductsFound' => 'Product not found.',
      'noServicesFound'=> 'Service not found',
+     'my_service_request' => 'My Service Request',
+     'all_service_request' => 'All Service Request',
+     'service_no_head' => 'Service Number',
+     'sevice_name_head' => 'Service Name',
+     'message_head' => 'Message',
+     'cust_label' =>'Customer',
+     'service_req_details' => 'Service Request Details',
+
  ]  
 ?>

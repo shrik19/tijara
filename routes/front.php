@@ -167,6 +167,7 @@ Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess'
 
 Route::any('/all-orders', 'Front\CartController@showAllOrders')->name('frontAllOrders');
 Route::any('/order-details/{id}', 'Front\CartController@showOrderDetails')->name('frontShowOrderDetails');
+Route::any('/download-order-details/{id}', 'Front\CartController@downloadOrderDetails')->name('frontDownloadOrderDetails');
 Route::any('/getOrderRecords','Front\CartController@getRecords')->name('frontOrdersGetRecords');
 Route::post('/change-order-status','Front\CartController@changeOrderStatus')->name('frontChangeOrderStatus');
 

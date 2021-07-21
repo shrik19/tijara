@@ -95,6 +95,21 @@
       </div>
       <div class="col-md-6">
         <div class="login_box">
+        <div class="form-group">
+            <label>{{ __('lang.price_type')}} </label>
+            <select class="select2 form-control price_type" name="price_type" id="price_type"  placeholder="" tabindex="8" >
+              <option value="{{ __('lang.per_hour')}}">{{ __('lang.per_hour')}}</option>
+              <option value="{{ __('lang.fixed_price')}}">{{ __('lang.fixed_price')}}</option>
+              <option value="{{ __('lang.start_from')}}">{{ __('lang.start_from')}}</option>
+              
+              </select>
+            <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+          </div>
+          <div class="form-group">
+              <label>{{ __('lang.service_price')}} <span class="de_col">*</span></label>
+              <input type="tel" class="form-control service_price" name="service_price" id="service_price" placeholder="{{ __('lang.service_price')}}" value="{{(old('service_price')) ?  old('service_price') :''}}" tabindex="7">
+              <span class="invalid-feedback" id="service_price" >@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
+          </div>
             <div class="form-group">
               <label>{{ __('servicelang.service_description_label')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="description" id="description" placeholder="{{ __('lang.service_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>

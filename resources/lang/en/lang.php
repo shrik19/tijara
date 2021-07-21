@@ -228,6 +228,7 @@
      'order_status_success' => 'Order status changed Successfully.',
      'noProductsFound' => 'Product not found.',
      'noServicesFound'=> 'Service not found',
+
      'my_service_request' => 'My Service Request',
      'all_service_request' => 'All Service Request',
      'service_no_head' => 'Service Number',
@@ -240,5 +241,13 @@
 
 
      'msg_product_success' => 'Checkout process complete, your product will be listed soon once payment confirmed.',
+
+     'service_time'=>'Service time',
+     'price_type'=>'Price type',
+     'per_hour'=>'Per hour',
+     'fixed_price'=>'Fixed Price',
+     'start_from'=>'Start from',
+     'service_price'=>'Price',
+
  ]  
 ?>

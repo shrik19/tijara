@@ -105,7 +105,14 @@
 
 
               <div class="clearfix"></div>
-                <form method="POST" action="{{route('AllproductListing')}}" class="navbar-form navbar-right header_left_container" role="form">
+              @php
+              $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+              if (strpos($url,'service') !== false) 
+                $formUrl = route('AllserviceListing');
+              else
+                $formUrl  = route('AllproductListing');
+              @endphp
+                <form method="POST" action="{{$formUrl}}" class="navbar-form navbar-right header_left_container" role="form">
                   @csrf
                 <div class=" form-group search_now_input_box">
                   <!-- <input type="text" placeholder="Email" class="form-control search_now_input"> -->

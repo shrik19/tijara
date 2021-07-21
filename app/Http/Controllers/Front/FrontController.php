@@ -1180,18 +1180,18 @@ class FrontController extends Controller
 	/*function to send a service request*/
     public function sendServiceRequest(Request $request)
     {
-        
+        $service_time	=	$request->input('service_time');//str_replace('/','-',$request->input('service_time'));
         $request_id	=	DB::table('service_requests')->insertGetId([
             'message' => $request->input('message'),
             'user_id' => Auth::guard('user')->id(),
 			'service_id'=>$request->input('service_id'),
+			'service_time'=>date('Y-m-d H:i:s',strtotime($service_time)),
             'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
         ]);
-
-		$service_request = Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')
-							->join('users', 'users.id', '=', 'services.user_id')							
-							->where('service_requests.id', '=', $request_id)->first();
+		
+		$service_request = Services::join('users', 'users.id', '=', 'services.user_id')							
+							->where('services.id', '=', $request->input('service_id'))->first();
         
        
 		$user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
@@ -1202,9 +1202,11 @@ class FrontController extends Controller
 		$service	=	$service_request->title;
 		$email		=	$service_request->email;
 		$servicemessage	=	$request->input('message');
+		$service_time	=	date('Y-m-d H:i:s',strtotime($service_time));
 		$seller	=	$service_request->fname;
 		//echo'<pre>';print_r($request);exit;
-        $arrMailData = ['customername' => $customername, 'seller' => $seller, 'service' => $service, 'servicemessage' => $servicemessage];
+        $arrMailData = ['customername' => $customername, 'seller' => $seller, 'service' => $service,
+		'service_time'=>$service_time, 'servicemessage' => $servicemessage,'phone_number'=>$user->phone_number];
 
 		Mail::send('emails/service_request_success_seller', $arrMailData, function($message) use ($email,$seller) {
 			$message->to($email, $seller)->subject

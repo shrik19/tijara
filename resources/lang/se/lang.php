@@ -225,6 +225,7 @@
      'message'=>'Meddelande',
      'messageRequired'=>'Meddelande krävs',
      'serviceRequestSent'=>'Serviceförfrågan skickad',
+
      'order_status_success' => 'Orderstatus har ändrats.',
      'noProductsFound' => 'Produkten hittades inte.',
      'noServicesFound'=> 'Tjänsten hittades inte',
@@ -239,5 +240,13 @@
      'reset_options' => 'Återställ alternativ',
 
      'msg_product_success' => 'Kassan är klar, din produkt kommer snart att listas när betalningen har bekräftats.',
+
+     'service_time'=>'Servicetid',
+     'price_type'=>'Pristyp',
+     'per_hour'=>'Per timme',
+     'fixed_price'=>'Fast pris',
+     'start_from'=>'Börja från',
+     'service_price'=>'Pris',
+
  ]
 ?>

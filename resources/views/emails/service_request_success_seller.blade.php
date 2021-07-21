@@ -71,8 +71,19 @@ td {
                 <td style="text-align:center;"><p style="margin:17px 0 35px 0;font-weight:600;color:#03989e;">{{ __('lang.newRequestReceived')}} </p></td>
               </tr>
               <tr>
-                <td style="text-align:center;">{{ __('lang.customer')}}: {{ $customername }}</td>
+                <td style="text-align:center;">{{ __('lang.customer')}}: {{ $customername }} / {{ $phone_number }}</td>
+                
+              </tr>
+              <tr>
                 <td style="text-align:center;">{{ __('lang.service')}}: {{ $service }}</td>
+                
+              </tr>
+              <tr>
+                <td style="text-align:center;">{{ __('lang.service_time')}}: {{ $service_time }}</td>
+                
+              </tr>
+              <tr>
+                
                 <td style="text-align:center;">{{ __('lang.message')}}: {{ $servicemessage }}</td>
               </tr>
               <tr>

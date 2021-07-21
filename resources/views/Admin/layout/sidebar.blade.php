@@ -51,6 +51,10 @@
         </li> 
 
         <li class="nav-item dropdown">
+          <a href="{{route('adminOrder')}}" class="nav-link"><i class="fas fa-file-invoice"></i> <span>{{ __('users.order_title')}} </span></a>
+        </li>
+
+        <li class="nav-item dropdown">
           <a href="{{route('adminSettingCreate')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.setting_menu')}} </span></a>
         </li>  
 

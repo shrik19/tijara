@@ -52,11 +52,18 @@ Route::group(['prefix'=>'manage-products'], function() {
 Route::get('/','Front\ProductController@index')->name('manageFrontProducts');
 Route::get('/saveproduct','Front\ProductController@productform')->name('frontProductCreate');
 Route::post('/store','Front\ProductController@store')->name('frontProductStore');
+Route::post('/buyer-store','Front\ProductController@buyerStore')->name('frontBuyerProductStore');
 Route::any('/getRecords','Front\ProductController@getRecords')->name('frontProductGetRecords');
 Route::get('/saveproduct/{id}','Front\ProductController@productform')->name('frontProductEdit');
 Route::get('/delete/{id}','Front\ProductController@delete')->name('frontProductDelete');
 Route::post('/upload-variant-image','Front\ProductController@uploadVariantImage')->name('uploadVariantImage');
 Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->name('frontProductCheckUniqueSlug');
+
+Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
+Route::any('/checkout_callback', 'Front\ProductController@checkoutCallback')->name('frontProductCheckoutCallback');
+Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
+
+
 });	/*end Product Management  */
 
 /* product Attributes */
@@ -102,6 +109,8 @@ Route::get('/clear-config', function() {
 
 Route::any('/push_notification', 'Front\AuthController@pushNotification')->name('frontPushNotification');
 Route::any('/checkout_push_notification', 'Front\CartController@pushNotification')->name('frontCheckoutPushNotification');
+Route::any('/product_push_notification', 'Front\ProductController@pushNotification')->name('frontProductPushNotification');
+
 
 Route::group(['middleware'=>['front-login']],function()
 {
@@ -144,3 +153,6 @@ Route::any('/all-orders', 'Front\CartController@showAllOrders')->name('frontAllO
 Route::any('/order-details/{id}', 'Front\CartController@showOrderDetails')->name('frontShowOrderDetails');
 Route::any('/getOrderRecords','Front\CartController@getRecords')->name('frontOrdersGetRecords');
 Route::post('/change-order-status','Front\CartController@changeOrderStatus')->name('frontChangeOrderStatus');
+
+Route::any('/product-checkout','Front\CartController@showBuyerCheckout')->name('frontShowBuyerCheckout');
+

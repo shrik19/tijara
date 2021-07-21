@@ -94,5 +94,8 @@
      'fill_in_klarna_username_err' => 'Fyll i ditt Klarna-användarnamn',
      'fill_in_klarna_password_err' => 'Fyll i ditt Klarna-lösenord',
      'login_seller_required' => 'Logga in som säljare först för att komma åt sidorna.',
+
+     'seller_credentials_err' => 'Säljarens klarna-uppgifter saknas.',
+     'same_buyer_product_err' => 'Du får inte lägga till dina egna produkter.',
  ]
 ?>

@@ -217,5 +217,7 @@
      'order_status_success' => 'Orderstatus har ändrats.',
      'noProductsFound' => 'Produkten hittades inte.',
      'noServicesFound'=> 'Tjänsten hittades inte',
+
+     'msg_product_success' => 'Kassan är klar, din produkt kommer snart att listas när betalningen har bekräftats.',
  ]
 ?>

@@ -196,5 +196,9 @@
     'klarna_username_label'=>'Klarna Username',
     'klarna_password_label' => 'Klarna Password',
     'admin_email_subject' => 'Tijara - New Seller Registrations',
+
+    //Backend Orders
+    'order_title' => 'Orders',
+    
  ]
 ?>

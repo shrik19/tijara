@@ -164,6 +164,7 @@ class FrontController extends Controller
 	//get popular products
 	function getPopularProducts($category_slug='',$subcategory_slug='') {
 		$currentDate = date('Y-m-d H:i:s');
+		//DB::enableQueryLog();
 		$PopularProducts 	= Products::join('orders_details', 'products.id', '=', 'orders_details.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
@@ -171,19 +172,24 @@ class FrontController extends Controller
 								->join('categories', 'categories.id', '=', 'category_products.category_id')
 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->join('users', 'products.user_id', '=', 'users.id')
-								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
-								->select(['products.*',DB::raw("count(orders_details.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+								//->join('user_packages', 'user_packages.user_id', '=', 'users.id')//DB::raw("DATEDIFF(products.created_at, '".$currentDate."') AS posted_days")
+								->select(['products.*',DB::raw("DATEDIFF('".$currentDate."', products.sold_date) as sold_days"), DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") , DB::raw("count(orders_details.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id'])
 								->where('products.status','=','active')
 								->where('products.is_deleted','=','0')
 								->where('categories.status','=','active')
 							  	->where('subcategories.status','=','active')
 								->where('users.status','=','active')
-								->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+								->when( "users.role_id" == 2 , function ($query) use ($currentDate) {
+									return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+								}, function ($query) use ($currentDate) {
+									return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+								})
+								//->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 								->orderBy('totalOrderedProducts', 'DESC')
 								->orderBy('variant_product.id', 'ASC')
 								->groupBy('products.id')
 								->offset(0)->limit(config('constants.Products_limits'))->get();
-
+		//dd(DB::getQueryLog());								
 		if(count($PopularProducts)>0) {
 			foreach($PopularProducts as $Product) {
         $productCategories = $this->getProductCategories($Product->id);
@@ -220,6 +226,8 @@ class FrontController extends Controller
 				}
 			}
 		}
+
+		//dd($PopularProducts);
 								return $PopularProducts;
 	}
 	// get trending products
@@ -231,7 +239,7 @@ class FrontController extends Controller
 							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')
-							  ->join('user_packages', 'user_packages.user_id', '=', 'users.id')
+							  //->join('user_packages', 'user_packages.user_id', '=', 'users.id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id']) //
 							  ->where('products.status','=','active')
@@ -239,7 +247,12 @@ class FrontController extends Controller
                 			  ->where('users.status','=','active')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
-							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+							  ->when( "users.role_id" == 2 , function ($query) {
+									return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+							   }, function ($query) use ($currentDate) {
+								return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+							})
+							  //->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 							  ->orderBy('products.id', 'DESC')
 							  //->orderBy('variant_id', 'ASC')
 							  ->groupBy('products.id')
@@ -308,14 +321,19 @@ class FrontController extends Controller
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')
-							  ->join('user_packages', 'user_packages.user_id', '=', 'users.id')
+							  //->join('user_packages', 'user_packages.user_id', '=', 'users.id')
 							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id'])
 							  ->where('products.status','=','active')
 							  ->where('products.is_deleted','=','0')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
 							  ->where('users.status','=','active')
-							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+							  ->when( "users.role_id" == 2 , function ($query) {
+									return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+							  }, function ($query) use ($currentDate) {
+								return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+							});
+							  //
 			if($request->category_slug !='') {
 				$category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
 				$Products	=	$Products->where('category_products.category_id','=',$category['id']);

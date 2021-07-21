@@ -219,5 +219,7 @@
      'order_status_success' => 'Order status changed Successfully.',
      'noProductsFound' => 'Product not found.',
      'noServicesFound'=> 'Service not found',
+
+     'msg_product_success' => 'Checkout process complete, your product will be listed soon once payment confirmed.',
  ]  
 ?>

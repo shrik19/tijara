@@ -218,5 +218,7 @@
     'klarna_password_label' => 'Klarna-lösenord',
     'admin_email_subject' => 'Tijara - Nya säljarregistreringar',
 
+    //Backend Orders
+    'order_title' => 'Order',
  ]
 ?>

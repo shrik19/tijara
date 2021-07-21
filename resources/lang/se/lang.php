@@ -237,5 +237,7 @@
      'service_req_details' => 'Information om serviceförfrågan',
      'add_to_cart' => 'Lägg till i kundvagn',
      'reset_options' => 'Återställ alternativ',
+
+     'msg_product_success' => 'Kassan är klar, din produkt kommer snart att listas när betalningen har bekräftats.',
  ]
 ?>

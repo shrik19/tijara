@@ -31,6 +31,8 @@ use App\Models\ VariantProductAttribute;
 use App\Models\ VariantProduct;
 
 use App\Models\Package;
+use App\Models\AdminOrders;
+use App\Models\TmpAdminOrders;
 
 use App\CommonLibrary;
 
@@ -100,14 +102,16 @@ class ProductController extends Controller
             }
         }
         else {
+            
             $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
+            
             if(!empty($checkProductExistOfBuyer)) {
                 Session::flash('success', trans('lang.product_saved_success'));
 
                 return redirect(route('frontProductEdit',base64_encode($checkProductExistOfBuyer->id)));
             }
             else
-                Session::flash('success', trans('lang.product_saved_success'));
+                //Session::flash('success', trans('lang.product_saved_success'));
                 return redirect(route('frontProductCreate'));
         }
 
@@ -377,19 +381,24 @@ class ProductController extends Controller
 
      /* function to open Products create form */
 
-    public function productform($id='') {
+    public function productform($id='') 
+    {
 
-    $data['subscribedError']   =    '';
-    $max_seq_no ='';
-    $max_seq_no = Products::max('sort_order');
-    $data['max_seq_no'] = $max_seq_no + 1;
+        $data['subscribedError']   =    '';
+        $max_seq_no ='';
+        $max_seq_no = Products::max('sort_order');
+        $data['max_seq_no'] = $max_seq_no + 1;
+        $is_seller = 0;
 
-    if(!Auth::guard('user')->id()) {
-            return redirect(route('frontLogin'));
+        if(!Auth::guard('user')->id()) 
+        {
+                return redirect(route('frontLogin'));
         }
         $currentDate = date('Y-m-d H:i:s');
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
-        if($User->role_id==2) {
+        if($User->role_id==2) 
+        {
+            $is_seller = 1;
             $currentDate = date('Y-m-d H:i:s');
             $isSubscribed = DB::table('user_packages')
                         ->join('packages', 'packages.id', '=', 'user_packages.package_id')
@@ -404,8 +413,13 @@ class ProductController extends Controller
                 $data['subscribedError']   =    trans('messages.subscribe_package_to_manage_prod_attri');
             }
         }
+        else
+        {
+            $is_seller = 0;
+        }
                     
-       
+        $data['is_seller']              = $is_seller;
+        
         $data['pageTitle']              = 'Save Product';
 
         $data['current_module_name']    = 'Save';
@@ -485,6 +499,7 @@ class ProductController extends Controller
         
         $product_slug = $request->input('product_slug');
         $slug =   CommonLibrary::php_cleanAccents($product_slug);
+
         $rules = [ 
             'title'         => 'required',
             'description'   => 'nullable|max:3000',
@@ -646,6 +661,557 @@ class ProductController extends Controller
 
     }
 
+
+    public function showCheckout(Request $request) {
+        
+        $product_slug = $request->input('product_slug');
+        $slug =   CommonLibrary::php_cleanAccents($product_slug);
+        $rules = [ 
+            'title'         => 'required',
+            'description'   => 'nullable|max:3000',
+            'sort_order'		=>'numeric',      
+            'product_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u',  
+
+        ];
+
+        $messages = [
+            'title.required'         =>  trans('lang.required_field_error'),           
+            'title.regex'            => trans('lang.required_field_error'),     
+            'description.max'        => trans('lang.max_1000_char'),
+            'product_slug.required'  => trans('errors.product_slug_req'),
+            'product_slug.regex'     => trans('errors.input_aphanum_dash_err'),
+        ];
+
+        $validator = validator::make($request->all(), $rules, $messages);
+
+        if($validator->fails())  {
+         
+            $messages = $validator->messages();
+              // echo "<pre>";print_r($messages);exit;
+            return redirect()->back()->withInput($request->all())->withErrors($messages);
+        }
+        else
+        {
+            $username = env('KLORNA_USERNAME');
+            $password = env('KLORNA_PASSWORD');
+            $productPostAmount = env('PRODUCT_POST_AMOUNT');
+            $url = env('BASE_API_URL');
+
+            $user_id = Auth::guard('user')->id();
+            $productData = $request->all();
+            unset($productData['image']);
+            unset($productData['_token']);
+            $currentDate = date('Y-m-d H:i:s');
+            
+            $arrInsertOrder = [
+                'user_id' => $user_id,
+                'total' => $productPostAmount,
+                'product_details' => json_encode($productData),
+                'order_status' => 'PENDING',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ];
+            $orderId = TmpAdminOrders::create($arrInsertOrder)->id;
+
+            
+            $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
+            $billing_address= [];
+            $billing_address['given_name'] = $UserData['fname'];
+            $billing_address['family_name'] = $UserData['lname'];
+            $billing_address['email'] = $UserData['email'];
+            $billing_address['street_address'] = $UserData['address'];
+            $billing_address['postal_code'] = $UserData['postcode'];
+            $billing_address['city'] = $UserData['city'];
+            $billing_address['phone'] = $UserData['phone_number'];
+
+            /*klarna api to create order*/
+            
+        
+            //$url = "https://api.playground.klarna.com/checkout/v3/orders";
+            $data = array("purchase_country"=> "SE",
+            "purchase_currency"=> "SEK",
+            "locale"=> "en-SE",
+            "order_amount"=> (int)ceil($productPostAmount),
+            "order_tax_amount"=> 0,
+            "billing_address" => $billing_address,
+            );
+            
+            $arrOrderDetails[] = array(
+                "type"=> "physical",
+                "name"=> 'Buyer Product Posting Cost',
+                "quantity"=>1,
+                "quantity_unit"=> "pcs",
+                "unit_price"=> (int)ceil($productPostAmount),
+                "tax_rate"=> 0,
+                "total_amount"=> (int)ceil($productPostAmount),
+                "total_discount_amount"=> 0,
+                "total_tax_amount"=> 0,
+            );
+            
+            
+            $data['order_lines'] = $arrOrderDetails;
+        
+            $data['merchant_urls'] =array(
+                    "terms"=>  url("/"),
+                    "checkout"=> url("/")."/manage-products/checkout_callback?order_id={checkout.order.id}",
+                    "confirmation"=> url("/")."/manage-products/checkout_callback?order_id={checkout.order.id}",
+                    "push"=> url("/")."/product_push_notification?order_id={checkout.order.id}",
+                
+            );
+
+            $data['merchant_data'] = $orderId;
+            $data['options']= ['allow_separate_shipping_address' => true,'color_button' => '#03989e','color_button_text' => '#ffffff'];
+
+            $data = json_encode($data);
+            $data =str_replace("\/\/", "//", $data);
+            $data =str_replace("\/", "/", $data);
+            
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            $result = curl_exec($ch);
+    
+            if (curl_errno($ch)) {
+                $error_msg = curl_error($ch);
+            }
+            curl_close($ch);
+
+            $response = json_decode($result);
+            
+            if(!empty($response->error_messages))
+            {
+                $cnt_err = count($response->error_messages);
+            }
+            
+            if (isset($error_msg) || @$cnt_err ) 
+            {
+                $blade_data['error_messages']= trans('errors.payment_failed_err');
+                return view('Front/payment_error',$blade_data); 
+            }
+        
+            $order_id = $response->order_id;
+            if(empty($order_id))
+            {
+                $blade_data['error_messages']= trans('errors.seller_credentials_err');
+                return view('Front/payment_error',$blade_data); 
+            }
+
+            $order_status = $response->status;
+            
+            $arrUpdateOrder = [
+                'klarna_order_reference'  => $order_id,
+            ];
+
+            TmpAdminOrders::where('id',$orderId)->update($arrUpdateOrder);
+
+            $param["html_snippet"] = $response->html_snippet;
+            return view('Front/checkout', $param);
+        }
+    }
+
+    /* function for klarna payment callback*/
+    public function checkoutCallback(Request $request)
+    {
+      $order_id = $request->order_id;
+      $username = env('KLORNA_USERNAME');
+      $password = env('KLORNA_PASSWORD');
+      
+      /*klarna api call to read order*/
+    
+      $url = env('BASE_API_URL')."/".$order_id;
+      /*  $url ="https://api.playground.klarna.com/checkout/v3/orders/d1d90381-3cda-6a89-a22c-33f1ed95eb9e";*/
+      
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL,$url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+      curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+   
+      $result = curl_exec($ch);
+
+      if (curl_errno($ch)) 
+      {
+        $error_msg = curl_error($ch);
+      }
+      curl_close($ch);
+
+      if (isset($error_msg)) 
+      {
+        $data['error_messages']=trans('errors.payment_failed_err');
+        return view('Front/payment_error',$data); 
+      }
+    
+      $response = json_decode($result);
+      
+      $order_id     =  $response->order_id;
+      $order_status = $response->status;
+      
+      if($order_status == 'checkout_complete')
+      {
+        $orderLines = $response->order_lines;
+        $billing_address = $response->billing_address;
+        $shipping_address = $response->shipping_address;
+
+        $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
+
+        $order_amount = (float)$response->order_amount;
+        $TmpOrderId   = $response->merchant_data;
+        //$orderCompleteAt = $response->complete_at;
+
+        $checkExisting = TmpAdminOrders::where('id','=',$TmpOrderId)->where('klarna_order_reference','=',$order_id)->first()->toArray();
+        $Total = (float)ceil($checkExisting['total']);
+        if($order_amount != $Total)
+        {
+          $data['error_messages']=trans('errors.order_amount_mismatched');
+          return view('Front/payment_error',$data);
+        }
+        
+        return redirect(route('frontProductCheckoutSuccess',['id' => base64_encode($checkExisting['id'])]));
+      }
+  }
+
+
+  public function showCheckoutSuccess($id)
+  {
+    $data = [];
+    $user_id = Auth::guard('user')->id();
+    if($user_id && session('role_id') == 1)
+    {
+      $OrderId = base64_decode($id);
+      $checkOrder = TmpAdminOrders::where('id','=',$OrderId)->first()->toArray();
+
+      if($checkOrder['user_id'] != $user_id)
+      {
+        Session::flash('error', trans('errors.not_authorize_order'));
+        return redirect(route('frontHome'));
+      }
+      else
+      {
+          $data['OrderId'] = $OrderId;
+          return view('Front/Products/order_success', $data);
+      }
+    }
+    else
+    {
+      Session::flash('error', trans('errors.login_buyer_required'));
+      return redirect(route('frontLogin'));
+    }
+  }
+
+   /*push notification request from Klarna*/
+   public function pushNotification(Request $request)
+   {
+      
+    /*get order from klarm by order id*/
+    $order_id = $request->order_id;
+    $currentDate = date('Y-m-d H:i:s');
+
+    $username = '';
+    $password = '';
+    $checkExisting = TmpAdminOrders::where('klarna_order_reference','=',$order_id)->first()->toArray();
+    $ProductData = json_decode($checkExisting['product_details'],true);
+    $user_id = $checkExisting['user_id'];
+    
+    $currentDate = date('Y-m-d H:i:s');
+    //START : Create Order
+    $arrOrderInsert = [
+                        'user_id'     => $user_id,
+                        'address'     => '',
+                        'order_lines' => '',
+                        'total' => $checkExisting['total'],
+                        'payment_details' => '',
+                        'payment_status' => '',
+                        'order_status' => 'PENDING',
+                        'created_at' => $currentDate,
+                        'updated_at' => $currentDate,
+                        'klarna_order_reference' => $checkExisting['klarna_order_reference'],
+                    ];
+    $NewOrderId = AdminOrders::create($arrOrderInsert)->id;
+    $temp_orders = TmpAdminOrders::find($checkExisting['id']);
+    $temp_orders->delete();
+     
+    $username = env('KLORNA_USERNAME');
+    $password = env('KLORNA_PASSWORD');
+
+    $Total = (float)ceil($checkExisting['total']);
+
+    /*capture order after push request recieved from klarna*/
+    $capture_url  = env('ORDER_MANAGEMENT_URL').$order_id."/captures";
+
+    $data = <<<DATA
+            {
+                "captured_amount" : $Total
+            }
+        DATA;
+ 
+      $curl = curl_init();
+      curl_setopt($curl, CURLOPT_URL,$capture_url);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($curl, CURLOPT_POST, true);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+      curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+      curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+ 
+      $response = curl_exec($curl);
+ 
+      if (curl_errno($curl)) {
+          $error_msg = curl_error($curl);
+      }
+      curl_close($curl);
+ 
+      if (isset($error_msg)) {
+        //echo $error_msg;
+         $arrOrderUpdate = [
+           'payment_details' => json_encode($response),
+           'payment_status' => 'DECLINED',
+           'order_status' => 'PENDING',
+           'updated_at' => $currentDate,
+         ];
+ 
+         AdminOrders::where('id',$NewOrderId)->update($arrOrderUpdate);
+         exit;
+     }
+ 
+      /* api call to get order details*/
+      $url = env('ORDER_MANAGEMENT_URL').$order_id;        
+  
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL,$url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+      curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+      
+      $res = curl_exec($ch);
+ 
+      if (curl_errno($ch)) {
+          $error_msg = curl_error($ch);
+      }
+      curl_close($ch);
+ 
+      if (isset($error_msg)) {
+       //echo $error_msg;
+        $arrOrderUpdate = [
+          'payment_details' => json_encode($response),
+          'payment_status' => 'FAILED',
+          'order_status' => 'PENDING',
+          'updated_at' => $currentDate,
+        ];
+ 
+        AdminOrders::where('id',$NewOrderId)->update($arrOrderUpdate);
+        exit;
+    }
+ 
+      $response = json_decode($res);
+      $order_status = $response->status;
+      
+      /*create file to check push request recieved or not*/
+      
+      if($order_status == 'CAPTURED')
+      {
+        $orderLines = $response->order_lines;
+        $billing_address = $response->billing_address;
+        $shipping_address = $response->shipping_address;
+
+        $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
+
+         $Total = (float)ceil($checkExisting['total']);
+         $paymentDetails = ['captures' => $response->captures, 'klarna_reference' => $response->klarna_reference];
+         
+         $slug =   CommonLibrary::php_cleanAccents($ProductData['product_slug']);
+         //Create Product
+         $arrProducts = [
+            'title'        		=> trim(ucfirst($ProductData['title'])),
+            'product_slug'      => trim(strtolower($slug)),
+            'meta_title'        => trim($ProductData['meta_title']),       
+            'meta_description'  => trim($ProductData['meta_description']),
+            'shipping_method'   =>  trim($ProductData['shipping_method_ddl']),  
+            'shipping_charges'  =>  trim($ProductData['shipping_charges']),  
+            'meta_keyword'  	=> trim($ProductData['meta_keyword']),
+            'description'       => trim($ProductData['description']),
+            'status'       		=> trim($ProductData['status']),
+            'sort_order'       	=> trim($ProductData['sort_order']),
+            'user_id'			=>	$user_id,
+            'is_buyer_product'  => '1',
+        ];
+        
+        $id = Products::create($arrProducts)->id;
+        //unique product code
+        $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $product_code = substr(str_shuffle($string),0, 4).$id;
+        Products::where('id', $id)->update(['product_code'=>$product_code]);
+
+        //START : Update Order
+        $arrOrderUpdate = [
+            'address'     => json_encode($address),
+            'order_lines' => json_encode($orderLines),
+             'payment_details' => json_encode($paymentDetails),
+             'payment_status' => $order_status,
+             'order_status' => 'COMPLETE',
+             'updated_at' => $currentDate,
+             'product_id' => $id,
+           ];
+        AdminOrders::where('id',$NewOrderId)->update($arrOrderUpdate);
+
+        $producVariant=[];
+        if(!empty($ProductData['sku'])) 
+        {
+            $order = 0; 
+            foreach($ProductData['sku'] as $variant_key=>$variant) 
+            {
+                if($variant!='' && $ProductData['price'][$variant_key]!='' && $ProductData['quantity'][$variant_key]!='') 
+                {
+		            $producVariant['product_id']=   $id;
+		            $producVariant['price']     =   $ProductData['price'][$variant_key];
+		            $producVariant['sku']       =   $ProductData['sku'][$variant_key];
+		            $producVariant['weight']    =   $ProductData['weight'][$variant_key];
+		            $producVariant['quantity']  =   $ProductData['quantity'][$variant_key]; 
+		            
+                   if(isset($ProductData['hidden_images'][$variant_key]) && !empty($ProductData['hidden_images'][$variant_key]) ) {
+                        $producVariant['image'] =   '';
+                        foreach($ProductData['hidden_images'][$variant_key] as $img)
+                            $producVariant['image'].=   $img.',';
+                        $producVariant['image'] =   rtrim($producVariant['image'],',');
+                    }
+                    if(isset($ProductData['variant_id'][$variant_key])) {
+
+                        $checkVariantExist   =   DB::table('variant_product')->where('id', $ProductData['variant_id'][$variant_key])->first();
+
+                        if(!empty($checkVariantExist)) {
+                                VariantProduct::where('id', $checkVariantExist->id)->update($producVariant);
+                                $variant_id=$checkVariantExist->id;
+                        }
+                        else
+                          $variant_id=VariantProduct::create($producVariant)->id;
+                    }
+                    
+                    else
+		              $variant_id=VariantProduct::create($producVariant)->id;
+
+		            foreach($ProductData['attribute'][$variant_key] as $attr_key=>$attribute) {
+                       
+		                if($ProductData['attribute'][$variant_key][$attr_key]!='' && $ProductData['attribute_value'][$variant_key][$attr_key])
+		                {
+		                    $productVariantAttr['product_id']   =   $id;
+    		                $productVariantAttr['variant_id']   =   $variant_id;
+    		                $productVariantAttr['attribute_id'] =   $ProductData['attribute'][$variant_key][$attr_key];
+    		                $productVariantAttr['attribute_value_id'] =   $ProductData['attribute_value'][$variant_key][$attr_key];
+                            if(isset($ProductData['variant_attribute_id'][$variant_key][$attr_key])) {
+                                $checkRecordExist   =   VariantProductAttribute::where('id', $ProductData['variant_attribute_id'][$variant_key][$attr_key])->first();
+
+                            if(!empty($checkRecordExist)) {
+                                VariantProductAttribute::where('id', $checkRecordExist->id)->update($productVariantAttr);
+                            }
+                            else
+                              VariantProductAttribute::create($productVariantAttr);
+                            } 
+                             else
+                              VariantProductAttribute::create($productVariantAttr);
+		                }
+		                
+		            }
+		        }
+		    }
+
+        }
+        
+        ProductCategory::where('product_id', $id)->delete();
+        $categorySlug = '';
+        $subCategorySlug = '';
+        if(empty($ProductData['categories'])) 
+        {	
+           // echo "in";exit;
+            $category  =   Subcategories::where('subcategory_name','Uncategorized')->first();
+            $ProductData['categories'][]        =  $category->id;
+            $producCategories['product_id']     =   $id;
+            $producCategories['category_id']    =   $category->category_id;
+            $producCategories['subcategory_id'] =   $category->id;
+            $subCategorySlug = $category->subcategory_slug;
+            ProductCategory::create($producCategories);
+
+            $mainCategory = Categories::where('id',$category->category_id)->first();
+            $categorySlug = $mainCategory->category_slug;
+
+        } 
+        if(!empty($ProductData['categories'])) 
+        {
+			 
+			 foreach($ProductData['categories'] as $subcategory) {
+				 $category	=	Subcategories::where('id',$subcategory)->first();
+				 $producCategories['product_id']	=	$id;
+				 $producCategories['category_id']	=	$category->category_id;
+                 $producCategories['subcategory_id']	=	$category->id;
+                 $subCategorySlug = $category->subcategory_slug;
+                 ProductCategory::create($producCategories);
+                 
+                 $mainCategory = Categories::where('id',$category->category_id)->first();
+                 $categorySlug = $mainCategory->category_slug;
+				 
+			 }
+         } 
+         
+        $product_link	=	url('/').'/product';
+		$product_link	.=	'/'.$categorySlug;
+        $product_link	.=	'/'.$subCategorySlug;
+        $product_link	.=	$slug.'-P-'.$product_code;
+
+ 
+        $GetOrder = AdminOrders::join('users', 'users.id', '=', 'admin_orders.user_id')->select('users.fname','users.lname','users.email','admin_orders.*')->where('admin_orders.id','=',$NewOrderId)->get()->toArray();
+
+        //START : Send success email to User.
+        $email = trim($GetOrder[0]['email']);
+        $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
+
+        $arrMailData = ['name' => $name, 'email' => $email, 'product_details_link' => $product_link];
+
+        Mail::send('emails/product_success', $arrMailData, function($message) use ($email,$name) {
+            $message->to($email, $name)->subject
+                ('Tijara - Product Posted successfully.');
+            $message->from('developer@techbeeconsulting.com','Tijara');
+        });
+        //END : Send success email to User.
+
+
+        //START : Send success email to Admin.
+        $admin_email = 'shrik.techbee@gmail.com';
+        $admin_name  = 'Tijara Admin';
+        
+        $arrMailData = ['product_details_link' => $product_link];
+
+        Mail::send('emails/product_success_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+            $message->to($admin_email, $admin_name)->subject
+                ('Tijara - New Product Posted.');
+            $message->from('developer@techbeeconsulting.com','Tijara');
+        });
+        //END : Send success email to Seller.
+    }
+    else
+    {
+        $arrOrderUpdate = [
+        'payment_details' => json_encode($response),
+        'payment_status' => $order_status,
+        'order_status' => 'PENDING',
+        'order_complete_at' => '',
+        'updated_at' => $currentDate,
+        ];
+
+        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+    }
+
+    exit;
+ 
+  }
 
 
     public function uploadVariantImage(Request $request){

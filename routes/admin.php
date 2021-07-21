@@ -204,6 +204,14 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	    Route::get('/changeStatus/{id}/{status}','PageController@changeStatus')->name('adminPageChangeStatus');
 	});
 
+	/*Orders*/
+	Route::group(['prefix'=>'orders'], function() {
+		Route::get('/','OrderController@index')->name('adminOrder');
+		Route::any('/getRecords','OrderController@getRecords')->name('adminOrderGetRecords');
+		Route::get('/view/{id}','OrderController@view')->name('adminOrderView');
+	});
+
+
 	/*setting*/
 	Route::group(['prefix'=>'setting'], function() {
 		Route::get('/create','SettingController@create')->name('adminSettingCreate');

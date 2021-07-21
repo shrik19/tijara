@@ -109,7 +109,7 @@
                             <span class="glyphicon glyphicon-shopping-cart"></span> {{ __('lang.shopping_cart_continue')}}
                         </button></td>
                         <td>
-                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick="location.href='{{route('frontShowCheckout')}}'">
+                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" @if($is_buyer_product) onclick="location.href='{{route('frontShowBuyerCheckout')}}'" @else  onclick="location.href='{{route('frontShowCheckout')}}'" @endif>
                         {{ __('lang.shopping_cart_checkout')}} <span class="glyphicon glyphicon-play"></span>
                         </button></td>
                     </tr>

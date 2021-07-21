@@ -8,6 +8,6 @@ class Products extends Model
 {
     protected $table 	= 'products';
 
-    protected $fillable = ['id','title','meta_title','meta_description','meta_keyword','description','status','sort_order','user_id','is_deleted','product_slug','product_code','shipping_method','shipping_charges'];
+    protected $fillable = ['id','title','meta_title','meta_description','meta_keyword','description','status','sort_order','user_id','is_deleted','product_slug','product_code','shipping_method','shipping_charges','is_buyer_product','is_sold','sold_date'];
 
 }

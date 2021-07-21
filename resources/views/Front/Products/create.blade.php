@@ -18,7 +18,11 @@
    @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
+  @if($is_seller)    
   <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
+  @else
+  <form id="product-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
+  @endif
             @csrf
   <div class="row">
 

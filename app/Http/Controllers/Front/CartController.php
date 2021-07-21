@@ -62,7 +62,15 @@ class CartController extends Controller
         							  ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
                         ->where('variant_product.id','=', $productVariant)
         							  ->where('products.status','=','active')
-        							  ->get()->toArray();
+                        ->get()->toArray();
+              
+              if($user_id == $Products[0]['user_id'])
+              {
+                $is_added = 0;
+                $txt_msg = trans('errors.same_buyer_product_err');
+                echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                exit;
+              }                        
               
               $checkExistingOrderDetails = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id','temp_orders_details.product_id'])->where('temp_orders_details.user_id','=',$user_id)->limit(1)->get()->toArray();
               if(!empty($checkExistingOrderDetails))
@@ -255,6 +263,7 @@ class CartController extends Controller
       $data = [];
       $orderDetails = [];
       $user_id = Auth::guard('user')->id();
+      $is_buyer_product = 0;
       if($user_id)
       {
         $checkExisting = TmpOrders::select('id')->where('user_id','=',$user_id)->get()->toArray();
@@ -392,7 +401,11 @@ class CartController extends Controller
 
                       $Product->product_link	=	$product_link;
 
-                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      if($SellerData['role_id'] == 1)
+                      {
+                        $is_buyer_product = 1;
+                      }
                       $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
                       $Product->quantity = $details['quantity'];
                       $Product->image    = explode(',',$Product->image)[0];
@@ -422,7 +435,7 @@ class CartController extends Controller
         }
         //dd($orderDetails);
         $data['details'] = $orderDetails;
-
+        $data['is_buyer_product'] = $is_buyer_product;
 
         return view('Front/shopping_cart', $data);
       }
@@ -864,8 +877,14 @@ class CartController extends Controller
            $blade_data['error_messages']= trans('errors.payment_failed_err');
            return view('Front/payment_error',$blade_data); 
         }
-      
+        
+        if(empty($response->order_id))
+        {
+          $blade_data['error_messages']= trans('errors.seller_credentials_err');
+          return view('Front/payment_error',$blade_data); 
+        }
         $order_id = $response->order_id;
+        
         $order_status = $response->status;
         $currentDate = date('Y-m-d H:i:s');
         
@@ -1222,7 +1241,145 @@ class CartController extends Controller
 
  }
 
+ /* function for klarna payment callback*/
+ public function showBuyerCheckout()
+ {
+    $TmpOrderId = '';
+    $user_id = Auth::guard('user')->id();
+    if($user_id && session('role_id') == 1)
+    {
+      $checkOrder = TmpOrders::where('user_id','=',$user_id)->first();
+      if(empty($checkOrder))
+      {
+        return redirect(route('frontShowCart'));
+      }
+      else
+      {
+        $checkOrder = $checkOrder->toArray();
+        $TmpOrderId = $checkOrder['id'];
+      }
+    }
+    else
+    {
+      Session::flash('error', trans('errors.login_buyer_required'));
+      return redirect(route('frontLogin'));
+    }
 
+        $checkExisting = TmpOrders::where('id','=',$TmpOrderId)->first()->toArray();
+        $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
+        $billing_address= [];
+        $billing_address['given_name'] = $UserData['fname'];
+        $billing_address['family_name'] = $UserData['lname'];
+        $billing_address['email'] = $UserData['email'];
+        $billing_address['street_address'] = $UserData['address'];
+        $billing_address['postal_code'] = $UserData['postcode'];
+        $billing_address['city'] = $UserData['city'];
+        $billing_address['phone'] = $UserData['phone_number'];
+        
+        
+        $arrOrderDetails = [];
+        $checkExistingOrderProduct = TmpOrdersDetails::join('products','products.id', '=', 'temp_orders_details.product_id')->select('products.title','temp_orders_details.*')->where('order_id','=',$TmpOrderId)->where('temp_orders_details.user_id','=',$checkExisting['user_id'])->get()->toArray();
+        if(!empty($checkExistingOrderProduct))
+        {
+          
+            foreach($checkExistingOrderProduct as $orderProduct)
+            {
+              $arrOrderDetails[] = array(
+                "type"=> "physical",
+                "reference"=> $orderProduct['product_id'],
+                "name"=> $orderProduct['title'].' '.$orderProduct['variant_attribute_id'],
+                "quantity"=>$orderProduct['quantity'],
+                "quantity_unit"=> "pcs",
+                "unit_price"=> (int)ceil($orderProduct['price']),
+                "tax_rate"=> 0,
+                "total_amount"=> (int)ceil($orderProduct['price'] * $orderProduct['quantity']),
+                "total_discount_amount"=> 0,
+                "total_tax_amount"=> 0,
+              );
+            }
+          }
+    
+     $orderLines = $arrOrderDetails;
+     $shipping_address = $billing_address;
+
+     $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
+
+       $currentDate = date('Y-m-d H:i:s');
+       //START : Create Order
+       $arrOrderInsert = [
+                           'user_id'     => $checkExisting['user_id'],
+                           'address'     => json_encode($address),
+                           'order_lines' => json_encode($orderLines),
+                           'sub_total'   => $checkExisting['sub_total'],
+                           'shipping_total' => $checkExisting['shipping_total'],
+                           'total' => $checkExisting['total'],
+                           'payment_details' => '',
+                           'payment_status' => 'MANUAL',
+                           'order_status' => 'PENDING',
+                           'order_complete_at' => '',
+                           'created_at' => $currentDate,
+                           'updated_at' => $currentDate,
+                           'klarna_order_reference' => $checkExisting['klarna_order_reference'],
+                         ];
+     $NewOrderId = Orders::create($arrOrderInsert)->id;
+     $temp_orders = TmpOrders::find($checkExisting['id']);
+     $temp_orders->delete();
+     //END : Create Order
+     //START : Create Order Details.
+     $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$TmpOrderId)->where('user_id','=',$checkExisting['user_id'])->get()->toArray();
+     if(!empty($checkExistingOrderProduct))
+     {
+       foreach($checkExistingOrderProduct as $details)
+       {
+         $arrOrderDetailsInsert = [
+           'order_id'     => $NewOrderId,
+           'user_id'     => $checkExisting['user_id'],
+           'product_id' => $details['product_id'],
+           'variant_id'   => $details['variant_id'],
+           'variant_attribute_id' => $details['variant_attribute_id'],
+           'price' => $details['price'],
+           'quantity' => $details['quantity'],
+           'shipping_type' => $details['shipping_type'],
+           'shipping_amount' => $details['shipping_amount'],
+           'status' => $details['status'],
+           'created_at' => $currentDate,
+           'updated_at' => $currentDate
+
+         ];
+
+         OrdersDetails::create($arrOrderDetailsInsert)->id;
+
+         $temp_orders_details = TmpOrdersDetails::find($details['id']);
+         $temp_orders_details->delete();
+       }
+     }
+     //END : Create Order Details.
+
+     
+     $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$NewOrderId)->offset(0)->limit(1)->get()->toArray();
+
+     $GetSeller = UserMain::select('users.fname','users.lname','users.email')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
+
+     //START : Send success email to Seller.
+       $emailSeller = trim($GetSeller['email']);
+       $nameSeller  = trim($GetSeller['fname']).' '.trim($GetSeller['lname']);
+
+       $admin_email = 'shrik.techbee@gmail.com';
+       $admin_name  = 'Tijara Admin';
+       
+       $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($NewOrderId)];
+
+       Mail::send('emails/order_buyer_success', $arrMailData, function($message) use ($emailSeller,$nameSeller) {
+           $message->to($emailSeller, $nameSeller)->subject
+               ('Tijara - Order placed for your Product.');
+           $message->from('developer@techbeeconsulting.com','Tijara');
+       });
+     //END : Send success email to Seller.
+   
+
+     return redirect(route('frontCheckoutSuccess',['id' => base64_encode($NewOrderId)]));
+   
+}
 
  public function showWishlist()
     {
@@ -1397,6 +1554,7 @@ class CartController extends Controller
     {
       $user_id = Auth::guard('user')->id();
       $is_seller = 0;
+      $is_buyer_order = 0;
       $orderDetails = [];
       if($user_id)
       {
@@ -1408,13 +1566,25 @@ class CartController extends Controller
         
         $OrderId = base64_decode($id);
         $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
+        $checkExistingOrderProduct = OrdersDetails::join('products','products.id','=','orders_details.product_id')->select('products.user_id as product_user')->where('order_id','=',$OrderId)->limit(1)->get()->toArray();
+        if(!empty($checkExistingOrderProduct))
+        {
+            foreach($checkExistingOrderProduct as $details)
+            {
+              if($details['product_user'] == $user_id)
+              {
+                $is_buyer_order = 1;
+              }
+            }
+        }
+
         if(!empty($checkOrder))
         {
           $data['subTotal'] = $checkOrder['sub_total'];
           $data['Total'] = $checkOrder['total'];
           $data['shippingTotal'] = $checkOrder['shipping_total'];
 
-          if($is_seller == 0 && $checkOrder['user_id'] != $user_id) 
+          if($is_seller == 0 && $checkOrder['user_id'] != $user_id && $is_buyer_order == 0) 
           {
             Session::flash('error', trans('errors.not_authorize_order'));
             return redirect(route('frontHome'));
@@ -1477,6 +1647,22 @@ class CartController extends Controller
                           $Product->image    = explode(',',$Product->image)[0];
                           $details['product'] = $Product;
                           $orderDetails[] = $details;
+
+                          if($is_buyer_order == 1)
+                          {
+                            $CheckIfAlreadyMarked = Products::where('id',$Product->id)->first();
+                            if(!empty($CheckIfAlreadyMarked))
+                            {
+                              $CheckIfAlreadyMarked = $CheckIfAlreadyMarked->toArray();
+                              if($CheckIfAlreadyMarked['is_sold'] == '0')
+                              { 
+                                $arrUpdateProduct = ['is_sold' => '1', 'sold_date' => date('Y-m-d H:i:s')];
+                                Products::where('id',$Product->id)->update($arrUpdateProduct);
+                              }
+                              
+                            }
+                            
+                          }
                         }
                       }
                   }
@@ -1487,6 +1673,7 @@ class CartController extends Controller
           $data['details'] = $orderDetails;
           $data['order'] = $checkOrder;
           $data['is_seller'] = $is_seller;
+          $data['is_buyer_order'] = $is_buyer_order;
           $address = json_decode($checkOrder['address'],true);
           
           $data['billingAddress'] = json_decode($address['billing'],true);
@@ -1675,10 +1862,26 @@ class CartController extends Controller
     $user_id = Auth::guard('user')->id();
     $is_updated = 1;
     $is_login_err = 0;
-    $txt_msg =  trans('lang.order_status_success');;
-    if($user_id && session('role_id') == 2)
+    $txt_msg =  trans('lang.order_status_success');
+    $is_buyer_order = 0;
+
+    $OrderId = $request->order_id;
+    $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
+    $checkExistingOrderProduct = OrdersDetails::join('products','products.id','=','orders_details.product_id')->select('products.user_id as product_user')->where('order_id','=',$OrderId)->limit(1)->get()->toArray();
+    if(!empty($checkExistingOrderProduct))
     {
-        $OrderId = $request->order_id;
+        foreach($checkExistingOrderProduct as $details)
+        {
+          if($details['product_user'] == $user_id)
+          {
+            $is_buyer_order = 1;
+          }
+        }
+    }
+
+    if($user_id && (session('role_id') == 2 || $is_buyer_order == 1))
+    {
+        
         $OrderStatus = $request->order_status;
         $arrOrderUpdate = [
           'order_status'    => $OrderStatus,

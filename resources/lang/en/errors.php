@@ -95,5 +95,8 @@
      'fill_in_klarna_username_err' => 'Please fill in your Klarna Username',
      'fill_in_klarna_password_err' => 'Please fill in your Klarna password',
      'login_seller_required' => 'Please login as Seller first to access the pages.',
+
+     'seller_credentials_err' => 'Sellers credentials are Missing.',
+     'same_buyer_product_err' => 'You are not allowed to add your own Products.',
  ]
 ?>

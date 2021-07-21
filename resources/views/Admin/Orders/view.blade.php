@@ -1,15 +1,6 @@
-@extends('Front.layout.template')
-@section('middlecontent')
-
-<style>
-  .btn span.glyphicon {
-    opacity: 1;
-}
-</style>
-
-
-<section class="product_details_section">
-<div class="loader"></div>
+  @extends('Admin.layout.template')
+  @section('middlecontent')
+<div class="section-body">
 <div class="container printdiv">
     <div class="row">
         <div class="col-sm-12 col-md-12">
@@ -100,7 +91,7 @@
                             {{ __('messages.txt_seller')}} : <a href="{{$seller_link}}">{{ $seller_name }}</a><br />
                             {{ __('messages.txt_payment_status')}} : {{ $order['payment_status'] }} <br />
                             {{ __('messages.txt_order_status')}} : 
-                            @if($is_seller || $is_buyer_order) 
+                            @if($is_seller) 
                             <select name="order_status" id="order_status" class="form-control" style="width: 50%;display: inline-block;">
                                 <option value="PENDING" @if($order['order_status'] == 'PENDING') selected="selected" @endif>PENDING</option>
                                 <option value="SHIPPED" @if($order['order_status'] == 'SHIPPED') selected="selected" @endif>SHIPPED</option>
@@ -131,13 +122,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-right">
-            <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick="printDiv();">{{ __('messages.txt_order_details_print')}} <span class="glyphicon glyphicon-print"></span></button>
+            <button type="button" class="btn btn-danger" style="font-size:18px;" onclick="printDiv();">{{ __('messages.txt_order_details_print')}} <span class="glyphicon glyphicon-print"></span></button>
         </div>
     </div>
     <div class="col-md-12">&nbsp;</div>
 </div>
+</div>
 
-</section>
 <script type="text/javascript">
     function printDiv() 
     {
@@ -206,4 +197,4 @@
         });
     }
 </script>
-@endsection
+@endsection('middlecontent')

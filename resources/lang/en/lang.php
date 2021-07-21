@@ -238,5 +238,7 @@
      'add_to_cart' => 'Add To Cart',
      'reset_options' => 'Reset Options',
 
+
+     'msg_product_success' => 'Checkout process complete, your product will be listed soon once payment confirmed.',
  ]  
 ?>

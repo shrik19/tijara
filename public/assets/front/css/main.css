@@ -35,6 +35,52 @@ header{
 .package-tbl{
         font-weight: bold;
 }
+/*FAQ page css*/
+h1 {
+  font-size: clamp(20px, 4vw, 30px);
+  line-height: 1.2;
+  margin-bottom: 40px;
+  margin-top: 150px;
+}
+main {
+  max-width: 520px;
+  margin: 0 auto;
+}
+summary {
+  font-size: 18px;
+  font-weight: 600;
+  background-color: #03989e;
+  color: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  outline: none;
+  border-radius: 0.25rem;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+p { text-align: left; }
+details[open] summary ~ * {
+  animation: sweep .5s ease-in-out;
+}
+@keyframes sweep {
+  0%    {opacity: 0; margin-top: -10px}
+  100%  {opacity: 1; margin-top: 0px}
+}
+details > summary::after {
+  position: absolute;
+  content: "+";
+  right: 20px;
+}
+details[open] > summary::after {
+  position: absolute;
+  content: "-";
+  right: 20px;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+/*end FAQ page css*/
 .top_line{height: 6px; width: 100%; float: left;background-color: #03989e; margin: 0;padding: 0;}
 .top_login{margin: 0;padding: 0;position: relative;}
 

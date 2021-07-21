@@ -117,12 +117,12 @@
 
                         </div>
                         <div class="row">
-                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options)}}</a></div>
+                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options')}}</a></div>
                         </div>
                         <div class="row">
                         <div class="col-xs-6 col-md-5"  >
                               <div class="quantity_box" style="margin-top:28px;">
-                                <h3>{{ __('lang.shopping_cart_quantity')}}:</h3>&nbsp;&nbsp;
+                                <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
                                 <!-- <select class="drop_down_select pull-right">
                                       <option>1</option>
                                       <option>2</option>

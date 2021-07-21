@@ -95,7 +95,7 @@
               @foreach($images as $image)
                 @if($image!='')
                   <input type="hidden" class="form-control login_input hidden_images" value="{{$image}}"  name="hidden_images[]">
-                  <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="40" height="40">
+                  <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="70" height="70">
                   <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
                 @endif
               @endforeach
@@ -108,7 +108,21 @@
 
       <div class="col-md-6">
         <div class="login_box">
-
+        <div class="form-group">
+            <label>{{ __('lang.price_type')}} </label>
+            <select class="select2 form-control price_type" name="price_type" id="price_type"  placeholder="" tabindex="8" >
+              <option @if($service->price_type==('lang.per_hour')) selected="selected" @endif value="{{ __('lang.per_hour')}}">{{ __('lang.per_hour')}}</option>
+              <option @if($service->price_type==('lang.fixed_price')) selected="selected" @endif value="{{ __('lang.fixed_price')}}">{{ __('lang.fixed_price')}}</option>
+              <option @if($service->price_type==('lang.start_from')) selected="selected" @endif value="{{ __('lang.start_from')}}">{{ __('lang.start_from')}}</option>
+              
+              </select>
+            <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+          </div>
+          <div class="form-group">
+              <label>{{ __('lang.service_price')}} <span class="de_col">*</span></label>
+              <input type="tel" class="form-control service_price" name="service_price" id="service_price" placeholder="{{ __('lang.service_price')}}" value="{{$service->service_price}}" tabindex="7">
+              <span class="invalid-feedback" id="service_price" >@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
+          </div>
 
           <div class="form-group">
               <label>{{ __('servicelang.service_description_label')}}  <span class="de_col"></span></label>

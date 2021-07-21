@@ -43,20 +43,13 @@
                 <div class="product_details_info">
                     <h2>{{$Service->title}}</h2>
                     <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4>
-                    <div class="star-rating">
-                        <input type="radio" id="5-stars" name="rating" value="5" />
-                        <label for="5-stars" class="star"><i class="fas fa-star"></i></label>
-                        <input type="radio" id="4-stars" name="rating" value="4" />
-                        <label for="4-stars" class="star"><i class="fas fa-star"></i></label>
-                        <input type="radio" id="3-stars" name="rating" value="3" />
-                        <label for="3-stars" class="star"><i class="fas fa-star"></i></label>
-                        <input type="radio" id="2-stars" name="rating" value="2" />
-                        <label for="2-stars" class="star"><i class="fas fa-star"></i></label>
-                        <input type="radio" id="1-star" name="rating" value="1" />
-                        <label for="1-star" class="star"><i class="fas fa-star"></i></label>
-                      </div>
+                   
                       <p>
                         <?php echo $Service->description; ?>
+                      </p>
+
+                      <p>
+                        <?php echo $Service->price_type; ?>: <?php echo $Service->service_price; ?> KR 
                       </p>
                      
                         <div class="row">
@@ -66,10 +59,19 @@
                         
 
                         <div class="col-xs-6 col-md-7">
-                          <textarea class="form-control message" placeholder="{{ __('lang.message')}}"></textarea>
-                            <div class="quantity_box">
-                               <button type="button" class="btn " @if(Auth::guard('user')->id()) onclick="sendServiceRequest();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> {{ __('lang.sendRequest')}}  </button>
-                            </div>
+                        <div class="form-group">
+                            <label>{{ __('lang.service_time')}}</label>
+                            <input type="text" id="datetimepicker1" class="service_time form-control" placeholder="{{ __('lang.service_time')}}">
+                          </div>
+                          <div class="form-group">
+                            <label>{{ __('lang.message')}}</label>
+                            <textarea rows="10" cols="50" class="form-control message" placeholder="{{ __('lang.message')}}"></textarea>
+                            
+                          </div>
+                         
+                          <div class="quantity_box">
+                              <button type="button" class="btn btn-success" @if(Auth::guard('user')->id()) onclick="sendServiceRequest();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> {{ __('lang.sendRequest')}}  </button>
+                          </div>
                         </div>
                       </div>
 
@@ -114,7 +116,7 @@ function sendServiceRequest()
         'X-CSRF-Token': $('meta[name="_token"]').attr('content')
       },
       type: 'post',
-      data : {'service_id': {{$Service->id}},'seller_id': {{$Service->user_id}},'message':$('.message').val()},
+      data : {'service_id': {{$Service->id}},'seller_id': {{$Service->user_id}},'message':$('.message').val(),'service_time':$('.service_time').val()},
       success:function(data)
       {
         $(".loader").hide();

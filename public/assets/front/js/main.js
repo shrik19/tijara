@@ -1140,7 +1140,7 @@ $('body').on('change', '.service_image', function () {
 
                 success: function(data) {
                  elm.next('div.images').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
-                    '<img src="'+siteUrl+'/uploads/ServiceImages/'+data+'" width="40" height="40">'+
+                    '<img src="'+siteUrl+'/uploads/ServiceImages/'+data+'" width="70" height="70">'+
                                       '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>');     
                 }
 

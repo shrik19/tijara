@@ -557,16 +557,14 @@ class ServiceController extends Controller
             'title'         => 'required',
             'description'   => 'nullable|max:1000',
             'sort_order'        =>'numeric',
-            'service_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug',         
+            'service_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug',     
+            'service_price'         => 'required',    
         ];
         if($request->input('service_id')==0) {
-            $rules = [ 
-            'service_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug',         
-            ];
+            $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug';    
+            
         }else{
-            $rules = [ 
-                'service_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug,'.$id,   
-            ];
+            $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug,'.$id;
         }
 
         $messages = [
@@ -594,6 +592,10 @@ class ServiceController extends Controller
                 'description'       => trim($request->input('description')),
 
                 'status'            => trim($request->input('status')),
+
+                'price_type'            => trim($request->input('price_type')),
+
+                'service_price'            => trim($request->input('service_price')),
                 
                 'sort_order'        => trim($request->input('sort_order')),
                

@@ -143,5 +143,47 @@ var input_alphabet_err = "{{ __('errors.input_alphabet_err')}}";
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>
+        
+        @php
+        $showDatetimepicker = 0;
+              $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+              if (strpos($url,'-S-') !== false) 
+                $showDatetimepicker = 1;
+             
+              @endphp
+        @if($showDatetimepicker==1)
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+       
+      
+        <script type="text/javascript">//<![CDATA[
+
+
+        $(function () {
+                      $('#datetimepicker1').datetimepicker({
+                        format : 'DD-MM-YYYY hh:mm A' ,
+                        useCurrent: false,
+                        showTodayButton: true,
+                        showClear: true,
+                        toolbarPlacement: 'bottom',
+                        sideBySide: true,
+                        minDate:new Date(),
+                        icons: {
+                            time: "fa fa-clock-o",
+                            date: "fa fa-calendar",
+                            up: "fa fa-arrow-up",
+                            down: "fa fa-arrow-down",
+                            previous: "fa fa-chevron-left",
+                            next: "fa fa-chevron-right",
+                            today: "fa fa-clock-o",
+                            clear: "fa fa-trash-o"
+                        }
+                    })
+                  });
+
+
+        //]]></script>
+      @endif
     </body>
 </html>

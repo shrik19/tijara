@@ -8,7 +8,9 @@
       @endif
       <div class="buy_now_hover_details" style="height:280px !important;">
           <ul>
-              <li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>
+              <li style="
+    margin-left: 30%;
+"><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>
           </ul>
       </div>
     </div>

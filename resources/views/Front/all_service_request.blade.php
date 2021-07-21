@@ -89,6 +89,11 @@
 <!-- General JS Scripts -->
 <script src="{{url('/')}}/assets/js/sweetalert.js"></script>
 <script type="text/javascript">
+  
+$( document ).ready(function() {
+   jQuery.noConflict();
+   $(".serviceReqDetails").css({"margin-left": ""});
+});
   var dataTable = $('#productTable').DataTable({
     "processing": true,
     "serverSide": true,

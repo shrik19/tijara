@@ -148,7 +148,7 @@
                         <div class="col-xs-6 col-md-7">
                             <div class="quantity_box">
                                <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
-                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart)}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
+                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
                             </div>
                         </div>
                       </div>

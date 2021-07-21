@@ -122,7 +122,7 @@
                         <div class="row">
                         <div class="col-xs-6 col-md-5"  >
                               <div class="quantity_box" style="margin-top:28px;">
-                                <h3>{{ __('lang.shopping_cart_quantity)}}:</h3>&nbsp;&nbsp;
+                                <h3>{{ __('lang.shopping_cart_quantity')}}:</h3>&nbsp;&nbsp;
                                 <!-- <select class="drop_down_select pull-right">
                                       <option>1</option>
                                       <option>2</option>

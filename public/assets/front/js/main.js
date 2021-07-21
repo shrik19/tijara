@@ -16,6 +16,21 @@ function convertToSlug(inputtxt){
 
 }
 
+var acc = document.getElementsByClassName("accordion-faq");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+
 $(".add_new_variant_btn").click(function(){
 
     var $tableBody = $('#variant_table').find("tbody"),

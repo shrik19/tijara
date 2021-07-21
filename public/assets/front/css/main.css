@@ -36,12 +36,6 @@ header{
         font-weight: bold;
 }
 /*FAQ page css*/
-h1 {
-  font-size: clamp(20px, 4vw, 30px);
-  line-height: 1.2;
-  margin-bottom: 40px;
-  margin-top: 150px;
-}
 main {
   max-width: 800px;
   margin: 0 auto;
@@ -52,37 +46,37 @@ summary {
   background-color: #03989e;
   color: #fff;
   padding: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 10px;
   outline: none;
   border-radius: 0.25rem;
   text-align: left;
   cursor: pointer;
   position: relative;
 }
-.faq__content{
-    margin-bottom: 15px;
+
+.active, .accordion:hover {
+  background-color: #03989e;
 }
+
+.panel {
+  padding: 0 18px;
+  max-height: 0;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
 }
-p { text-align: left; }
-details[open] summary ~ * {
-  animation: sweep .5s ease-in-out;
-}
-@keyframes sweep {
-  0%    {opacity: 0; margin-top: -10px}
-  100%  {opacity: 1; margin-top: 0px}
-}
-details > summary::after {
+
+ summary::after {
   position: absolute;
   content: "+";
   right: 20px;
+
 }
-details[open] > summary::after {
+
+summary.active::after {
   position: absolute;
   content: "-";
   right: 20px;
-}
-details > summary::-webkit-details-marker {
-  display: none;
 }
 /*end FAQ page css*/
 .top_line{height: 6px; width: 100%; float: left;background-color: #03989e; margin: 0;padding: 0;}

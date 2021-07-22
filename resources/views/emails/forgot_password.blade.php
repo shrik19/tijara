@@ -56,7 +56,7 @@ td {
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tbody>
       <tr>
-        <td style="height:173px; background-color:#03989e;"></td>
+        <td style="height:60px; background-color:#03989e;"></td>
       </tr>
       <tr>
         <td>

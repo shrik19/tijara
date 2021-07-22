@@ -86,7 +86,7 @@ class AuthController extends Controller
 
         $checkUser   = User::select('id','status','role_id','is_verified')->where('email','=', trim($request->input('email')))->get();
 
-        if(empty($checkUser))
+        if(!isset($checkUser[0]))
         {
             Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
                 return redirect()->back();

@@ -757,11 +757,11 @@ class ServiceController extends Controller
       if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
       {
           //seller
-          $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description')->where('services.user_id','=',$request['user_id']);
+          $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description','services.price_type','services.service_price','service_requests.service_time')->where('services.user_id','=',$request['user_id']);
       }
       else 
       {
-        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description')->where('service_requests.user_id','=',$request['user_id']);
+        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description','services.price_type','services.service_price','service_requests.service_time')->where('service_requests.user_id','=',$request['user_id']);
       }
 
       if(!empty($request['search']['value'])) 
@@ -816,8 +816,10 @@ class ServiceController extends Controller
                   $message = (!empty($recordDetailsVal['message'])) ? $recordDetailsVal['message'] : '-';
                   $description = (!empty($recordDetailsVal['description'])) ? substr(strip_tags($recordDetailsVal['description']), 0, 110) : '-';
                   $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
-
-                   $action = '<a style="margin-left:38px;" href="javascript:void(0);" user_name="'.$user.'" serviceName="'.$serviceName.'" message="'.$message.'" dated="'.$dated.'" id="'.$id.'" class="serviceReqDetails" title="'.$serviceName.'" id="'.$id.'" description="'.$description.'" message="'.$message.'">Request Details</a>';
+                  $service_time  = (!empty($recordDetailsVal['service_time'])) ? $recordDetailsVal['service_time'] : '-';
+                  $service_price = (!empty($recordDetailsVal['service_price'])) ? $recordDetailsVal['service_price'] : '-';
+                  $price_type    = (!empty($recordDetailsVal['price_type'])) ? $recordDetailsVal['price_type'] : '-';
+                   $action = '<a style="margin-left:38px;" href="javascript:void(0);" user_name="'.$user.'" serviceName="'.$serviceName.'" message="'.$message.'" dated="'.$dated.'" id="'.$id.'" class="serviceReqDetails" title="'.$serviceName.'" id="'.$id.'" description="'.$description.'" message="'.$message.'" service_time="'.$service_time.'"  service_price="'.$service_price.'"  price_type="'.$price_type.'" >Request Details</a>';
                   if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
                   {
                     $arr[] = [ '#'.$id, $user, $serviceName,$message, $dated, $action];

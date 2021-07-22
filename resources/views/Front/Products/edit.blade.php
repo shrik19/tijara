@@ -117,8 +117,8 @@
               <label>{{ __('users.shipping_method_label')}}</label>
              <select class="form-control login_input" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
-               <option  <?php if($product->shipping_method ==  trans('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
-               <option <?php if($product->shipping_method ==  trans('users.prcentage_shipping_charges')){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
+               <option  value="flat_shipping_charges" <?php if($product->shipping_method ==  "flat_shipping_charges"){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
+               <option value="percentage_shipping_charges" <?php if($product->shipping_method ==  "percentage_shipping_charges"){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
              </select>
             </div>
 

@@ -100,7 +100,7 @@ class ProductAttributesController extends Controller
                
                 $action = '<a href="'.route('frontAttributeEdit', base64_encode($id)).'" title="'.trans('lang.edit_label').'" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontAttributeDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';
+               /* $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontAttributeDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';*/
 
         
                 

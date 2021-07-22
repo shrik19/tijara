@@ -776,7 +776,12 @@ class CartController extends Controller
       }
         $param['details'] = $orderDetails;
       //dd($orderDetails);
-
+      
+      if(empty($username) || empty($password))
+        {
+          $blade_data['error_messages']= trans('errors.seller_credentials_err');
+          return view('Front/payment_error',$blade_data); 
+        }
       
         $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
         $billing_address= [];
@@ -850,7 +855,7 @@ class CartController extends Controller
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-           
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -861,14 +866,19 @@ class CartController extends Controller
         curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $result = curl_exec($ch);
- 
+         
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);
         }
         curl_close($ch);
-
+        
         $response = json_decode($result);
-        //dd($response);
+        
+        if(empty($response))
+        {
+          $blade_data['error_messages']= 'Något gick fel, kontakta admin.';
+           return view('Front/payment_error',$blade_data); 
+        }
         if(!empty($response->error_messages))
         {
           $cnt_err = count($response->error_messages);
@@ -879,11 +889,7 @@ class CartController extends Controller
            return view('Front/payment_error',$blade_data); 
         }
         
-        if(empty($response->order_id))
-        {
-          $blade_data['error_messages']= trans('errors.seller_credentials_err');
-          return view('Front/payment_error',$blade_data); 
-        }
+        
         $order_id = $response->order_id;
         
         $order_status = $response->status;

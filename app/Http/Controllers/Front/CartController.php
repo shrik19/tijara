@@ -40,7 +40,7 @@ class CartController extends Controller
         $is_added = 1;
         $is_login_err = 0;
         $txt_msg = trans('lang.shopping_cart_added');
-        if($user_id && session('role_id') == 1)
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
         {
           $productVariant = $request->product_variant;
           $productQuntity = $request->product_quantity;
@@ -263,7 +263,7 @@ class CartController extends Controller
         {
           $is_added = 0;
           $is_login_err = 1;
-          if(session('role_id') != 1)
+          if(Auth::guard('user')->getUser()->role_id != 1)
           {
             $is_login_err = 0;
           }
@@ -479,7 +479,7 @@ class CartController extends Controller
         $user_id = Auth::guard('user')->id();
         $is_removed = 1;
         $txt_msg =  trans('lang.shopping_cart_removed');;
-        if($user_id && session('role_id') == 1)
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
         {
             $OrderDetailsId = $request->OrderDetailsId;
             $ExistingOrder = TmpOrdersDetails::where('id',$OrderDetailsId)->get()->toArray();
@@ -543,7 +543,7 @@ class CartController extends Controller
       $is_updated = 1;
       $txt_msg =  trans('lang.shopping_cart_updated');
       $is_login_err = 0;
-      if($user_id && session('role_id') == 1)
+      if($user_id && Auth::guard('user')->getUser()->role_id == 1)
       {
           $OrderDetailsId = $request->OrderDetailsId;
           $Quantity = $request->quantity;
@@ -625,7 +625,7 @@ class CartController extends Controller
     {
       $data = [];
       $user_id = Auth::guard('user')->id();
-      if($user_id && session('role_id') == 1)
+      if($user_id && Auth::guard('user')->getUser()->role_id == 1)
       {
         $checkExisting = TmpOrders::select('id')->where('user_id','=',$user_id)->get()->toArray();
         if(empty($checkExisting))
@@ -1075,7 +1075,7 @@ class CartController extends Controller
   {
     $data = [];
     $user_id = Auth::guard('user')->id();
-    if($user_id && session('role_id') == 1)
+    if($user_id && Auth::guard('user')->getUser()->role_id == 1)
     {
       $OrderId = base64_decode($id);
       $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
@@ -1299,7 +1299,7 @@ class CartController extends Controller
  {
     $TmpOrderId = '';
     $user_id = Auth::guard('user')->id();
-    if($user_id && session('role_id') == 1)
+    if($user_id && Auth::guard('user')->getUser()->role_id == 1)
     {
       $checkOrder = TmpOrders::where('user_id','=',$user_id)->first();
       if(empty($checkOrder))
@@ -1509,7 +1509,7 @@ class CartController extends Controller
         $is_added = 1;
         $is_login_err = 0;
         $txt_msg = '';
-        if($user_id && session('role_id') == 1)
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
         {
           $productVariant = $request->product_variant;
           $productQuntity = $request->product_quantity;
@@ -1567,7 +1567,7 @@ class CartController extends Controller
         {
           $is_added = 0;
           $is_login_err = 1;
-          if(session('role_id') != 1)
+          if(Auth::guard('user')->getUser()->role_id != 1)
           {
             $is_login_err = 0;
           }
@@ -1583,7 +1583,7 @@ class CartController extends Controller
       $user_id = Auth::guard('user')->id();
         $is_removed = 1;
         $txt_msg =  '';
-        if($user_id && session('role_id') == 1)
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
         {
             $OrderDetailsId = $request->OrderDetailsId;
             $ExistingOrder = Wishlist::where('id',$OrderDetailsId)->get()->toArray();
@@ -1611,7 +1611,7 @@ class CartController extends Controller
       $orderDetails = [];
       if($user_id)
       {
-        $userRole = session('role_id');
+        $userRole = Auth::guard('user')->getUser()->role_id;
         if($userRole == 2)
         {
           $is_seller = 1;
@@ -1749,7 +1749,7 @@ class CartController extends Controller
       $orderDetails = [];
       if($user_id)
       {
-        $userRole = session('role_id');
+        $userRole = Auth::guard('user')->getUser()->role_id;
         if($userRole == 2)
         {
           $is_seller = 1;
@@ -1888,7 +1888,7 @@ class CartController extends Controller
       $orderDetails = [];
       if($user_id)
       {
-        $userRole = session('role_id');
+        $userRole = Auth::guard('user')->getUser()->role_id;
         if($userRole == 2)
         {
           $is_seller = 1;
@@ -2072,9 +2072,8 @@ class CartController extends Controller
         }
     }
 
-    if($user_id && (session('role_id') == 2 || $is_buyer_order == 1))
-    {
-        
+    if($user_id && (Auth::guard('user')->getUser()->role_id == 2 || $is_buyer_order == 1))
+    {        
         $OrderStatus = $request->order_status;
         $arrOrderUpdate = [
           'order_status'    => $OrderStatus,

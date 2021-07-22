@@ -60,7 +60,7 @@ class CartController extends Controller
           {
               $Products = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
         							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-        							  ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
+        							  ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product.quantity','variant_product_attribute.id as variant_attribute_id'])
                         ->where('variant_product.id','=', $productVariant)
         							  ->where('products.status','=','active')
                         ->get()->toArray();
@@ -71,7 +71,7 @@ class CartController extends Controller
                 $txt_msg = trans('errors.same_buyer_product_err');
                 echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
                 exit;
-              }                        
+              }  
               
               $checkExistingOrderDetails = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id','temp_orders_details.product_id'])->where('temp_orders_details.user_id','=',$user_id)->limit(1)->get()->toArray();
               if(!empty($checkExistingOrderDetails))
@@ -127,6 +127,13 @@ class CartController extends Controller
                   $OrderDetailsId = $checkExistingProduct[0]['id'];
                   $quantity  = ($checkExistingProduct[0]['quantity'] + $productQuntity);
                   $price     = $Products[0]['price'];
+                  if($quantity > $Products[0]['quantity'])
+                  {
+                    $is_added = 0;
+                    $txt_msg = trans('errors.quantity_err').$Products[0]['quantity'].')';
+                    echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                    exit;
+                  } 
                   $arrOrderDetailsUpdate = [
                       'price'                => $price,
                       'quantity'             => $quantity,
@@ -139,6 +146,13 @@ class CartController extends Controller
               }
               else
               {
+                if($productQuntity > $Products[0]['quantity'])
+                  {
+                    $is_added = 0;
+                    $txt_msg = trans('errors.quantity_err').$Products[0]['quantity'].')';
+                    echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                    exit;
+                  } 
                 $variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
                        ->where([['variant_id','=',$productVariant],['product_id','=',$Products[0]['id']]])->get();
@@ -527,7 +541,8 @@ class CartController extends Controller
     {
       $user_id = Auth::guard('user')->id();
       $is_updated = 1;
-      $txt_msg =  trans('lang.shopping_cart_updated');;
+      $txt_msg =  trans('lang.shopping_cart_updated');
+      $is_login_err = 0;
       if($user_id && session('role_id') == 1)
       {
           $OrderDetailsId = $request->OrderDetailsId;
@@ -540,10 +555,19 @@ class CartController extends Controller
             $OrderId = $orderDetails['order_id'];
             $Products = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
                       ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-                      ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
+                      ->select(['products.*','variant_product.price','variant_product.quantity','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
                       ->where('variant_product.id','=', $orderDetails['variant_id'])
                       ->where('products.status','=','active')
                       ->get()->toArray();
+
+            if($Quantity > $Products[0]['quantity'])
+            {
+              $is_updated = 0;
+              $is_login_err = 0;
+              $txt_msg = trans('errors.quantity_err').$Products[0]['quantity'].')';
+              echo json_encode(array('status'=>$is_updated,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+              exit;
+            }           
 
             $price     = $Products[0]['price'];
             $arrOrderDetailsUpdate = [
@@ -590,9 +614,10 @@ class CartController extends Controller
       else
       {
         $is_updated = 0;
+        $is_login_err = 1;
         $txt_msg = trans('errors.login_buyer_required');
       }
-      echo json_encode(array('status'=>$is_updated,'msg'=>$txt_msg));
+      echo json_encode(array('status'=>$is_updated,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
       exit;
     }
 
@@ -1228,6 +1253,27 @@ class CartController extends Controller
               $message->from('developer@techbeeconsulting.com','Tijara');
           });
         //END : Send success email to Seller.
+
+        $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
+        if(!empty($OrderProducts))
+        {
+          foreach($OrderProducts as $orderDetails)
+          {
+              $getVariant = VariantProduct::where([['id','=',$orderDetails['variant_id']],['product_id','=',$orderDetails['product_id']]])->first();
+              if(!empty($getVariant))
+              {
+                $getVariant = $getVariant->toArray();
+                $remainingQty = $getVariant['quantity'] - $orderDetails['quantity'];
+                if($remainingQty < 0)
+                {
+                  $remainingQty = 0;
+                }
+
+                $arrUpdate = ['quantity' => $remainingQty];
+                VariantProduct::where([['id','=',$getVariant['id']],['product_id','=',$orderDetails['product_id']]])->update($arrUpdate);
+              }
+          }
+        }
 
 
       }

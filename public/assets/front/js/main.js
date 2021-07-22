@@ -1062,7 +1062,14 @@ function updateCart(OrderDetailsId)
       }
       else
       {
-        showErrorMessage(responseObj.msg,'/front-login');
+        if(responseObj.is_login_err)
+        {
+          showErrorMessage(responseObj.msg,'/front-login');
+        }
+        else
+        {
+          showErrorMessage(responseObj.msg,'reload');
+        }
       }
 
     }

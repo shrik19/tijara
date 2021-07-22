@@ -98,5 +98,6 @@
 
      'seller_credentials_err' => 'Sellers credentials are Missing.',
      'same_buyer_product_err' => 'You are not allowed to add your own Products.',
+     'quantity_err' => 'Selected quantity not available for the product. (Available : ',
  ]
 ?>

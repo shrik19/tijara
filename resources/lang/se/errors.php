@@ -97,5 +97,6 @@
 
      'seller_credentials_err' => 'Säljarens klarna-uppgifter saknas.',
      'same_buyer_product_err' => 'Du får inte lägga till dina egna produkter.',
+     'quantity_err' => 'Vald mängd som inte är tillgänglig för produkten. (Tillgängligt :',
  ]
 ?>

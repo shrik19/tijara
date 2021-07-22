@@ -74,6 +74,12 @@
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.sevice_name_head')}} :</td><td class="title" style="padding-left: 10px;"></td></tr>
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_label')}} {{ __('lang.product_description_label')}} :</td><td class="description" style="padding-left: 10px;"></td></tr>
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.cust_label')}} {{ __('lang.message_head')}} :</td><td class="message" style="padding-left: 10px;"></td></tr>
+
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_price')}} :</td><td class="service_price" style="padding-left: 10px;"></td></tr>
+
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.price_type')}} :</td><td class="price_type" style="padding-left: 10px;"></td></tr>
+
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_time')}} :</td><td class="service_time" style="padding-left: 10px;"></td></tr>
           </table>
         </div>
               
@@ -140,6 +146,10 @@ $( document ).ready(function() {
         $('#serviceReqDetailsmodal').find('.title').text($(this).attr('title'));
         $('#serviceReqDetailsmodal').find('.description').text($(this).attr('description'));
         $('#serviceReqDetailsmodal').find('.message').text($(this).attr('message'));
+        $('#serviceReqDetailsmodal').find('.service_time').text($(this).attr('service_time'));
+        $('#serviceReqDetailsmodal').find('.price_type').text($(this).attr('price_type'));
+        $('#serviceReqDetailsmodal').find('.service_price').text($(this).attr('service_price'));
+
         $('#serviceReqDetailsmodal').modal('show');
         //$('.modal-backdrop').attr('style','position: relative;');
     }); 

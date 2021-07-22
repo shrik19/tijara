@@ -54,7 +54,7 @@ summary {
   position: relative;
 }
 
-.active, .accordion:hover {
+.active-faq, .accordion:hover {
   background-color: #03989e;
 }
 

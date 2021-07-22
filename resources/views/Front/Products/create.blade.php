@@ -119,8 +119,8 @@
             <label>{{ __('users.shipping_method_label')}}</label>
              <select class="form-control login_input" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
-               <option>{{ __('users.flat_shipping_charges')}}</option>
-               <option>{{ __('users.prcentage_shipping_charges')}}</option>
+               <option value="Platta fraktkostnader">{{ __('users.flat_shipping_charges')}}</option>
+               <option value="Andel fraktkostnader">{{ __('users.prcentage_shipping_charges')}}</option>
              </select>
           </div>
 

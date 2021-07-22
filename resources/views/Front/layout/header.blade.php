@@ -78,13 +78,13 @@
                   <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
                   
                   
-                  <li><a href="{{route('frontAllOrders')}}">@if(session('role_id')==1) {{ __('lang.manage_orders_menu')}} @else {{ __('lang.txt_seller_order')}} @endif</a></li>
+                  <li><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('lang.txt_seller_order')}} @endif</a></li>
 
-                  <li><a href="{{route('frontAllServiceRequest')}}">@if(session('role_id')==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
+                  <li><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
 
                   <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
                   <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
-                  @if(session('role_id')==2)
+                  @if(Auth::guard('user')->getUser()->role_id==2)
                     <li><a href="{{route('manageFrontServices')}}">{{ __('lang.manage_services_menu')}}</a></li>
                     <li><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
                     <li><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
@@ -120,7 +120,7 @@
                   <button class="search_icon_btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
                   <div class="form-group cart_details">
-                    <a @if(Auth::guard('user')->id() && session('role_id')==1) href="{{route('frontShowCart')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
+                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
                       <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
                     </a>
                     @php
@@ -134,7 +134,7 @@
                   </div>
 
                   <div class="form-group cart_details" style="padding-left:0px;">
-                    <a @if(Auth::guard('user')->id() && session('role_id')==1) href="{{route('frontShowWishlist')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
+                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
                         <i class="glyphicon glyphicon-heart" style="font-size:20px;"></i>
                       </a>
                       @php

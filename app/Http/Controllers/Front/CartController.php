@@ -1259,7 +1259,7 @@ class CartController extends Controller
         {
           foreach($OrderProducts as $orderDetails)
           {
-              $getVariant = VariantProduct::where([['id','=',$orderDetails['variant_id']],['product_id','=',$orderDetails['variant_id']]])->first();
+              $getVariant = VariantProduct::where([['id','=',$orderDetails['variant_id']],['product_id','=',$orderDetails['product_id']]])->first();
               if(!empty($getVariant))
               {
                 $getVariant = $getVariant->toArray();
@@ -1270,7 +1270,7 @@ class CartController extends Controller
                 }
 
                 $arrUpdate = ['quantity' => $remainingQty];
-                VariantProduct::where([['id','=',$getVariant['id']],['product_id','=',$orderDetails['variant_id']]])->update($arrUpdate);
+                VariantProduct::where([['id','=',$getVariant['id']],['product_id','=',$orderDetails['product_id']]])->update($arrUpdate);
               }
           }
         }

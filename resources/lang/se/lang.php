@@ -177,6 +177,7 @@
      'sort_by'=>'Sortera efter',
      'sort_by_name'=>'Namn',
      'sort_by_price'=>'Pris',
+     'sort_by_rating' => 'Betyg',
      'sort_by_option'=>'Välj alternativ',
      'trending_service_head' =>  'Trendiga tjänster',
      'sort_by_order'=>'Sorteringsordning',
@@ -247,6 +248,12 @@
      'fixed_price'=>'Fast pris',
      'start_from'=>'Börja från',
      'service_price'=>'Pris',
+
+     'txt_average_rating' => 'Genomsnittligt betyg',
+     'txt_your_comments' => 'Era kommentarer',
+     'txt_comments' => 'Kommentarer',
+     'txt_comments_err' => 'Ange dina kommentarer.',
+     'txt_comments_success' => 'Produktrecension har lagts till.',
 
  ]
 ?>

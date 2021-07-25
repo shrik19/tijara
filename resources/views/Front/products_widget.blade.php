@@ -16,6 +16,15 @@
     </div>
     <div class="product_info">
         <h5>{{$product['category_name']}}</h5>
+        <div class="star-rating" style="font-size:unset;">
+          <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5</option>
+          </select>
+        </div>  
         <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
         <h6>{{$product->price}} kr</h6>

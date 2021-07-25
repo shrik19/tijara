@@ -99,5 +99,8 @@
      'seller_credentials_err' => 'Sellers credentials are Missing.',
      'same_buyer_product_err' => 'You are not allowed to add your own Products.',
      'quantity_err' => 'Selected quantity not available for the product. (Available : ',
+
+     'product_review_error' => 'You already given review to Product.',
+     'product_review_not_error' => 'You are not allowed to rate this product, as you don\'t have order for the Product.',
  ]
 ?>

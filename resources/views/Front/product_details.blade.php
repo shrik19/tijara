@@ -3,6 +3,9 @@
 <script src="{{url('/')}}/assets/front/js/zoom-image.js"></script>
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/icheck-bootstrap.min.css">
 
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
+<script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
+
 <section class="product_details_section">
     <div class="loader"></div>
     <div class="container">
@@ -38,8 +41,15 @@
                 <div class="product_details_info">
                     <h2>{{$Product->title}}</h2>
                     <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4>
-                    <div class="star-rating">
-                        <input type="radio" id="5-stars" name="rating" value="5" />
+                    <div class="star-rating" style="font-size:unset;">
+                    <select class='rating' id='rating_{{$Product->id}}' data-id='rating_{{$Product->id}}'>
+                      <option value="1" >1</option>
+                      <option value="2" >2</option>
+                      <option value="3" >3</option>
+                      <option value="4" >4</option>
+                      <option value="5" >5</option>
+                    </select>
+                        <!-- <input type="radio" id="5-stars" name="rating" value="5" />
                         <label for="5-stars" class="star"><i class="fas fa-star"></i></label>
                         <input type="radio" id="4-stars" name="rating" value="4" />
                         <label for="4-stars" class="star"><i class="fas fa-star"></i></label>
@@ -48,8 +58,11 @@
                         <input type="radio" id="2-stars" name="rating" value="2" />
                         <label for="2-stars" class="star"><i class="fas fa-star"></i></label>
                         <input type="radio" id="1-star" name="rating" value="1" />
-                        <label for="1-star" class="star"><i class="fas fa-star"></i></label>
+                        <label for="1-star" class="star"><i class="fas fa-star"></i></label> -->
                       </div>
+                      <div style='clear: both;'></div>
+                      <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Product->id}}'>{{$Product->rating}}</span></div>
+
                       <p>
                         <?php echo $Product->description; ?>
                       </p>
@@ -186,6 +199,88 @@
 </section>
 
 <script type="text/javascript">
+  
+  $('#rating_{{$Product->id}}').barrating({
+  theme: 'fontawesome-stars',
+  initialRating: '{{$Product->rating}}',
+  onSelect: function(value, text, event) {
+
+   // Get element id by data-id attribute
+   var el = this;
+   var el_id = el.$elem.data('id');
+
+   // rating was selected by a user
+   if (typeof(event) !== 'undefined') {
+ 
+     $.confirm({
+        title: '{{ __('lang.txt_your_comments')}}',
+        content: '' +
+        '<form action="" class="formName">' +
+        '<div class="form-group">' +
+        '<label>{{ __('lang.txt_comments')}}</label>' +
+        '<textarea class="name form-control" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}" required></textarea>' +
+        '</div>' +
+        '</form>',
+        buttons: {
+            formSubmit: {
+                text: 'Submit',
+                btnClass: 'btn-blue',
+                action: function () {
+                    var comments = this.$content.find('.name').val();
+                    if(!comments){
+                      showErrorMessage('{{ __('lang.txt_comments_err')}}');
+                      return false;
+                    }
+                    $(".loader").show();
+                    $.ajax({
+                    url:siteUrl+"/add-review",
+                    headers: {
+                      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                    },
+                    type: 'post',
+                    data : {'rating': value, 'product_id' : '{{$Product->id}}', 'comments' : comments},
+                    success:function(data)
+                    {
+                      $(".loader").hide();
+                      var responseObj = $.parseJSON(data);
+                      if(responseObj.status == 1)
+                      {
+                        showSuccessMessage(product_add_success,'reload');
+                      }
+                      else
+                      {
+                        if(responseObj.is_login_err == 0)
+                        {
+                          showErrorMessage(responseObj.msg);
+                        }
+                        else
+                        {
+                          showErrorMessage(responseObj.msg,'/front-login');
+                        }
+                      }
+
+                    }
+                  });
+                }
+            },
+            cancel: function () {
+                //close
+            },
+        },
+        onContentReady: function () {
+            // bind to events
+            var jc = this;
+            this.$content.find('form').on('submit', function (e) {
+                // if the user submits the form by pressing enter in the field.
+                e.preventDefault();
+                jc.$$formSubmit.trigger('click'); // reference the button and click it
+            });
+        }
+    });
+   }
+  }
+ });      
+
 function addtoCartFromProduct()
 {
     var product_quantity = $("#product_quantity").val();

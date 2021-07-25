@@ -263,7 +263,7 @@ class CartController extends Controller
         {
           $is_added = 0;
           $is_login_err = 1;
-          if(Auth::guard('user')->getUser()->role_id != 1)
+          if($user_id && Auth::guard('user')->getUser()->role_id != 1)
           {
             $is_login_err = 0;
           }
@@ -1567,7 +1567,7 @@ class CartController extends Controller
         {
           $is_added = 0;
           $is_login_err = 1;
-          if(Auth::guard('user')->getUser()->role_id != 1)
+          if($user_id && Auth::guard('user')->getUser()->role_id != 1)
           {
             $is_login_err = 0;
           }

@@ -26,6 +26,9 @@ use App\Models\ServiceCategory;
 use App\Models\SellerPersonalPage;
 
 use App\Models\UserMain;
+use App\Models\ProductReview;
+use App\Models\Orders;
+use App\Models\OrdersDetails;
 
 use DB;
 use Auth;
@@ -424,6 +427,10 @@ class FrontController extends Controller
 				else if($request->sort_by == 'price')
 				{
 					$Products	=	$Products->orderBy('variant_product.price', strtoupper($request->sort_order));
+				}
+				else if($request->sort_by == 'rating')
+				{
+					$Products	=	$Products->orderBy('products.rating', strtoupper($request->sort_order));
 				}
 			}
 			else
@@ -1236,5 +1243,79 @@ class FrontController extends Controller
 							->get()->toArray();
 		}
 		return $serviceCategories;
+	}
+
+	public function addReview(Request $request)
+	{
+		$user_id = Auth::guard('user')->id();
+        $is_added = 1;
+        $is_login_err = 0;
+        $txt_msg = trans('lang.txt_comments_success');
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
+        {
+			$rating = $request->rating;
+			$product_id = $request->product_id;
+			$comments = $request->comments;
+			$checkExistsOrder = OrdersDetails::where([['user_id','=',$user_id],['product_id','=',$product_id]])->get()->toArray();
+			if(empty($checkExistsOrder))
+			{
+				$is_added = 0;
+                $txt_msg = trans('errors.product_review_not_error');
+                echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                exit;
+			}
+
+			$checkExists = ProductReview::where([['user_id','=',$user_id],['product_id','=',$product_id]])->get()->toArray();
+			if(!empty($checkExists))
+			{
+				$is_added = 0;
+                $txt_msg = trans('errors.product_review_error');
+                echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                exit;
+			}
+			else
+			{
+				
+				$currentDate = date('Y-m-d H:i:s');
+				$arrInsert = [
+								'product_id' => $product_id,
+								'user_id' => $user_id,
+								'comments' => $comments,
+								'rating' => $rating,
+								'is_approved' => '1',
+								'created_at' => $currentDate,
+								'updated_at' => $currentDate,
+							 ];
+
+				ProductReview::create($arrInsert);
+
+				$getAllratings = ProductReview::where([['product_id','=',$product_id]]);
+
+				$ratingCnt 	 = $getAllratings->count();
+				$totalRating = $getAllratings->sum('rating');
+						 
+				$avgRating 	 = 0.00;
+				if(!empty($ratingCnt))
+				{
+					$avgRating = ($totalRating / $ratingCnt);
+					$avgRating = number_format($avgRating,2);
+					$arrUpdate = ['rating' => $avgRating,'rating_count' => $ratingCnt];
+					Products::where('id',$product_id)->update($arrUpdate);
+				}
+			}
+
+		}
+		else
+        {
+          $is_added = 0;
+          $is_login_err = 1;
+          if($user_id && Auth::guard('user')->getUser()->role_id != 1)
+          {
+            $is_login_err = 0;
+          }
+          $txt_msg = trans('errors.login_buyer_required');
+        }
+        echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+        exit;
 	}
 }

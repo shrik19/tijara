@@ -188,6 +188,7 @@
      'sort_by'=>'Sort By',
      'sort_by_name'=>'Name',
      'sort_by_price'=>'Price',
+     'sort_by_rating' => 'Ratings',
      'sort_by_option'=>'Select Option',
 
      'sort_by_order'=>'Sort Order',
@@ -248,6 +249,12 @@
      'fixed_price'=>'Fixed Price',
      'start_from'=>'Start from',
      'service_price'=>'Price',
+
+     'txt_average_rating' => 'Average Rating',
+     'txt_your_comments' => 'Your Comments',
+     'txt_comments' => 'Comments',
+     'txt_comments_err' => 'Please enter your Comments.',
+     'txt_comments_success' => 'Product review added Successfully.',
 
  ]  
 ?>

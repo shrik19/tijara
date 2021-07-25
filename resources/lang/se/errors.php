@@ -98,5 +98,8 @@
      'seller_credentials_err' => 'Säljarens klarna-uppgifter saknas.',
      'same_buyer_product_err' => 'Du får inte lägga till dina egna produkter.',
      'quantity_err' => 'Vald mängd som inte är tillgänglig för produkten. (Tillgängligt :',
+
+     'product_review_error' => 'Du har redan granskat Produkten.',
+     'product_review_not_error' => 'Du har inte tillåtelse att betygsätta den här produkten, eftersom du inte har någon order på produkten.',
  ]
 ?>

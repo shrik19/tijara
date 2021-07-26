@@ -757,6 +757,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',sellers =
         $("#search_string").val(search_string);
       }
 
+      
       $(".product_rating").each(function(){
         var currentRating = $(this).data('rating');
         
@@ -765,6 +766,9 @@ function get_product_listing(page,category_slug='',subcategory_slug='',sellers =
           initialRating: currentRating,
           onSelect: function(value, text, event) {
 
+            console.log(is_login);
+            if(is_login == 1)
+            {
             // Get element id by data-id attribute
             var el = this;
             var el_id = el.$elem.data('id');
@@ -840,6 +844,11 @@ function get_product_listing(page,category_slug='',subcategory_slug='',sellers =
                      });
                  }
              });
+            }
+            }
+            else
+            {
+              showErrorMessage(login_buyer_required);
             }
            }
           

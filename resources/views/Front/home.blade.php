@@ -226,6 +226,7 @@
           initialRating: currentRating,
           onSelect: function(value, text, event) {
 
+            @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
             // Get element id by data-id attribute
             var el = this;
             var el_id = el.$elem.data('id');
@@ -302,6 +303,9 @@
                  }
              });
             }
+            @else
+                showErrorMessage("{{ __('errors.login_buyer_required')}}");
+            @endif
            }
           
          });

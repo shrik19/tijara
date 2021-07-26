@@ -54,6 +54,14 @@
     var txt_your_comments = "{{ __('lang.txt_your_comments')}}";
     var txt_comments = "{{ __('lang.txt_comments')}}";
     var txt_comments_err = "{{ __('lang.txt_comments_err')}}";
+    var login_buyer_required = "{{ __('errors.login_buyer_required')}}";
+    var is_login = 0;
+    @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
+    is_login = 1;
+    @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2)
+    is_login = 2;
+    @endif
+
   </script>
   <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
   <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>

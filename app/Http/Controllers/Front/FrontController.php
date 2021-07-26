@@ -31,6 +31,11 @@ use App\Models\Orders;
 use App\Models\OrdersDetails;
 use Vinkla\Instagram\Instagram;
 
+
+use IlluminateHttpRequest;
+use AppHttpRequests;
+use GuzzleHttp\Client;
+
 use DB;
 use Auth;
 use Validator;
@@ -54,18 +59,25 @@ class FrontController extends Controller
 
 	   
 	    /*code to access instagram images*/
-	    $instagram = new Instagram(config('services.instagram_api.token')); // new Instagram('xxxxx.xxx.xxxxxxxxxxxxxxx') access token can be directly used here.
+	    /*$instagram = new Instagram(config('services.instagram_api.token')); // new Instagram('xxxxx.xxx.xxxxxxxxxxxxxxx') access token can be directly used here.
  
 		$ig_images = [];
         foreach($instagram->get('techbee.nashik') as $insta_details) {
             $ig_images[] = $insta_details->images->standard_resolution->url;
-        }
+        }*/
 
 /*        $ig_images = collect($instagram->get('techbee.nashik'))->map(function ($each) {
                 return $each->images->standard_resolution->url;
             });*/
 
- 
+  		//$client = new GuzzleHttpClient;
+		$client = new Client();
+
+	    $url = sprintf('https://www.instagram.com/%s/media', 'techbee.nashik');
+
+        $response = $client->get($url);
+
+        $items = json_decode((string) $response->getBody(), true)['items'];
 
 
         $data['pageTitle'] 		= 'Home';
@@ -74,7 +86,7 @@ class FrontController extends Controller
         $data['banner'] 	   	= $banner;
 		$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
-		$data['ig_images']			= $ig_images;
+		$data['ig_images']			= $items;
 
 
 		$data['Categories']    	= $this->getCategorySubcategoryList()	;

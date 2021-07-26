@@ -113,9 +113,18 @@
                 <h2>Instagram</h2>
                 <div class="social_img_section">
                     <ul class="instagram_imgs">
-                       @foreach($ig_images as $image)
+                      <!--  @foreach($ig_images as $image)
                             <li><img class="img-fluid" src="{{$image}}"></li>
-                        @endforeach
+                        @endforeach -->
+
+                        
+                        @if(!empty($items))
+
+                     @foreach($items as $key => $item)
+ <li><img class="img-fluid" src="{{ $item['images']['standard_resolution']['url'] }}"></li>
+                     
+                     @endforeach
+                     @endif
 
                     </ul>
                 </div>

@@ -113,11 +113,10 @@
                 <h2>Instagram</h2>
                 <div class="social_img_section">
                     <ul class="instagram_imgs">
-                        <li><img class="img-fluid" src="{{url('/')}}/assets/front/img/inst_img1.png"></li>
-                        <li><img class="img-fluid" src="{{url('/')}}/assets/front/img/inst_img2.png"></li>
-                        <li><img class="img-fluid" src="{{url('/')}}/assets/front/img/inst_img1.png"></li>
-                        <li><img class="img-fluid" src="{{url('/')}}/assets/front/img/inst_img2.png"></li>
-                        <li><img class="img-fluid" src="{{url('/')}}/assets/front/img/inst_img1.png"></li>
+                       @foreach($ig_images as $image)
+                            <li><img class="img-fluid" src="{{$image}}"></li>
+                        @endforeach
+
                     </ul>
                 </div>
             </div>

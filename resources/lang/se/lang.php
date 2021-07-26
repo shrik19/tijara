@@ -248,6 +248,7 @@
      'fixed_price'=>'Fast pris',
      'start_from'=>'Börja från',
      'service_price'=>'Pris',
+     'request_date' => 'Datum för begäran',
 
      'txt_average_rating' => 'Genomsnittligt betyg',
      'txt_your_comments' => 'Era kommentarer',

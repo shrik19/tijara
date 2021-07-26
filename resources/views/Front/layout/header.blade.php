@@ -81,40 +81,7 @@
 
           <div class="col-md-8">
             <div class="top_login">
-              <div class="pull-right">
-                @if(Auth::guard('user')->id())
-                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><i class="fa fa-user"></i>{{ __('lang.my_account_title')}}</h3></a>
-                <ul class="dropdown-menu">
-
-                  <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
-                  
-                  
-                  <li><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('lang.txt_seller_order')}} @endif</a></li>
-
-                  <li><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
-
-                  <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
-                  <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
-                  @if(Auth::guard('user')->getUser()->role_id==2)
-                    <li><a href="{{route('manageFrontServices')}}">{{ __('lang.manage_services_menu')}}</a></li>
-                    <li><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
-                    <li><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
-
-                  @endif
-                  <li><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
-                  <li><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
-                </ul>
-
-                @else
-                <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
-                @endif
-
-              </div>
-
-
-
-
-
+              
               <div class="clearfix"></div>
               @php
               $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
@@ -145,7 +112,7 @@
                   </div>
 
                   <div class="form-group cart_details" style="padding-left:0px;">
-                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
+                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @else href="{{route('frontLogin')}}" @endif>
                         <i class="glyphicon glyphicon-heart" style="font-size:20px;"></i>
                       </a>
                       @php
@@ -157,7 +124,46 @@
                       </div>
                       @endif
                   </div> 
-                <button type="button" class=" btn buy_now_btn debg_color" onclick="location.href='{{route('AllproductListing')}}';">{{ __('lang.buy_now_btn')}}</button>
+
+                  <div class="pull-right">
+                @if(Auth::guard('user')->id())
+                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><i class="fa fa-user"></i>{{ __('lang.my_account_title')}}</h3></a>
+                <ul class="dropdown-menu">
+
+                  <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
+                  
+                  
+                  <li><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('lang.txt_seller_order')}} @endif</a></li>
+
+                  <li><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
+
+                  @php
+                      $isPackagesubcribed = checkPackageSubscribe(Auth::guard('user')->id());
+                  @endphp
+
+                  @if($isPackagesubcribed !=0)
+                      <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
+                      <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
+                  @endif
+
+                  
+                  @if(Auth::guard('user')->getUser()->role_id==2)
+                    <li><a href="{{route('manageFrontServices')}}">{{ __('lang.manage_services_menu')}}</a></li>
+                    <li><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
+                    <li><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
+
+                  @endif
+                  <li><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
+                  <li><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
+                </ul>
+
+                @else
+                <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
+                @endif
+
+              </div>
+
+                <!-- <button type="button" class=" btn buy_now_btn debg_color" onclick="location.href='{{route('AllproductListing')}}';">{{ __('lang.buy_now_btn')}}</button> -->
               </form>
             </div>
           </div>

@@ -174,5 +174,6 @@ Route::post('/change-order-status','Front\CartController@changeOrderStatus')->na
 
 Route::any('/all-service-request', 'Front\ServiceController@showAllServiceRequest')->name('frontAllServiceRequest');
 Route::any('/getAllServiceRequest','Front\ServiceController@getAllServiceRequest')->name('frontServiceRequestGetRecords');
+Route::get('/deleteServiceRequest/{id}','Front\ServiceController@deleteServiceRequest')->name('frontServiceRequestDel');
 Route::any('/product-checkout','Front\CartController@showBuyerCheckout')->name('frontShowBuyerCheckout');
 

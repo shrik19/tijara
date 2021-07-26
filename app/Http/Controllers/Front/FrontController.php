@@ -56,8 +56,6 @@ class FrontController extends Controller
 
        // $sliders = Sliders::with(['getImages'])->limit(9)->orderBy('id', 'DESC')->get()->toArray();
 	    $site_details		= Settings::first();
-
-
   		//$client = new GuzzleHttpClient;
 		$client = new Client();
 

@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceRequest extends Model
 {
     protected $table = 'service_requests';
-    protected $fillable = ['id','user_id','service_id','message','created_at','updated_at'];
+    protected $fillable = ['id','user_id','service_id','message','is_deleted','created_at','updated_at'];
 
 }

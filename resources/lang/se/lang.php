@@ -247,6 +247,7 @@
      'fixed_price'=>'Fast pris',
      'start_from'=>'Börja från',
      'service_price'=>'Pris',
+     'request_date' => 'Datum för begäran',
 
  ]
 ?>

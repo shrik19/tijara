@@ -725,7 +725,6 @@ class ServiceController extends Controller
     }
 
 
-
     public function showAllServiceRequest(Request $request)
     {
       $user_id = Auth::guard('user')->id();
@@ -737,10 +736,31 @@ class ServiceController extends Controller
         if($userRole == 2)
         {
           $is_seller = 1;
-        }
+        }  
 
-        $data['is_seller'] = $is_seller;
-        $data['user_id'] = $user_id;
+        /*month year filter*/
+        $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
+        $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control'>";
+        $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";  
+        for ($i = 0; $i <= 12; ++$i) {
+            $time = strtotime(sprintf('+%d months', $i));
+            $label = date('F ', $time);
+            $value = date('m', $time);
+
+            $time_year = strtotime(sprintf('-%d years', $i));
+            $value_year = date('Y', $time);
+            $label_year = date('Y ', $time);
+            $selected = ( $value==$month &&  $value_year== $year ) ? ' selected=true' : '';
+            $month_year = $value."-".$value_year;
+            $monthYearDropdown    .=  "<option  value='".$month_year."' >$label $label_year</option>";
+        }
+           
+        $monthYearDropdown    .= "</select>";
+
+        $data['monthYearHtml']     = $monthYearDropdown;
+        $data['is_seller']         = $is_seller;
+        $data['user_id']           = $user_id;
 
         return view('Front/all_service_request', $data);
       }
@@ -753,15 +773,14 @@ class ServiceController extends Controller
 
     public function getAllServiceRequest(Request $request) 
     {
-   
       if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
       {
           //seller
-          $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description','services.price_type','services.service_price','service_requests.service_time')->where('services.user_id','=',$request['user_id']);
+          $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description','services.price_type','services.service_price','service_requests.service_time')->where('service_requests.is_deleted','!=',1)->where('services.user_id','=',$request['user_id']);
       }
       else 
       {
-        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description','services.price_type','services.service_price','service_requests.service_time')->where('service_requests.user_id','=',$request['user_id']);
+        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description','services.price_type','services.service_price','service_requests.service_time')->where('service_requests.is_deleted','!=',1)->where('service_requests.user_id','=',$request['user_id']);
       }
 
       if(!empty($request['search']['value'])) 
@@ -789,9 +808,15 @@ class ServiceController extends Controller
 
                 }        
               }); 
-      }
+      }               
 
-             
+        if(!empty($request['monthYear'])) {
+              
+          $month_year_explod =explode("-",$request['monthYear']);
+           
+          $serviceRequest = $serviceRequest->whereMonth('service_requests.service_time', '=', $month_year_explod[0])->whereYear('service_requests.service_time',$month_year_explod[1]);
+
+        }
         
           $recordsTotal = $serviceRequest->groupBy('service_requests.id')->get()->count();
       
@@ -819,13 +844,17 @@ class ServiceController extends Controller
                   $service_time  = (!empty($recordDetailsVal['service_time'])) ? $recordDetailsVal['service_time'] : '-';
                   $service_price = (!empty($recordDetailsVal['service_price'])) ? $recordDetailsVal['service_price'] : '-';
                   $price_type    = (!empty($recordDetailsVal['price_type'])) ? $recordDetailsVal['price_type'] : '-';
-                   $action = '<a style="margin-left:38px;" href="javascript:void(0);" user_name="'.$user.'" serviceName="'.$serviceName.'" message="'.$message.'" dated="'.$dated.'" id="'.$id.'" class="serviceReqDetails" title="'.$serviceName.'" id="'.$id.'" description="'.$description.'" message="'.$message.'" service_time="'.$service_time.'"  service_price="'.$service_price.'"  price_type="'.$price_type.'" >Request Details</a>';
+                   $action = '<a style="margin-left:38px;" href="javascript:void(0);" user_name="'.$user.'" serviceName="'.$serviceName.'" message="'.$message.'" dated="'.$dated.'" id="'.$id.'" class="serviceReqDetails btn btn-info" title="'.$serviceName.'" id="'.$id.'" description="'.$description.'" message="'.$message.'" service_time="'.$service_time.'"  service_price="'.$service_price.'"  price_type="'.$price_type.'">Request Details</a>&nbsp&nbsp&nbsp';
+
+                 
+
                   if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
                   {
                     $arr[] = [ '#'.$id, $user, $serviceName,$message, $dated, $action];
                   }
                   else
                   {
+                    $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontServiceRequestDel', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class="btn btn-danger">'.trans('lang.cancel_btn').'</a>';
                     $arr[] = [ '#'.$id, $serviceName,$message, $dated, $action];
                   }
                 
@@ -864,5 +893,30 @@ class ServiceController extends Controller
 
   }
 
+   /**
+     * Delete service request 
+     * @param  $id = Id
+     */
+
+    public function deleteServiceRequest($id) {
+
+      if(empty($id)) {
+        Session::flash('error', 'Something went wrong. Reload your page!');
+        return redirect(route('frontAllServiceRequest'));
+      }
+
+      $id = base64_decode($id);
+      $result = ServiceRequest::find($id);
+
+      if (!empty($result)) {
+        $service = ServiceRequest::where('id', $id)->update(['is_deleted' =>1]);
+        Session::flash('success', trans('lang.record_delete'));
+        return redirect()->back();  
+      } else {
+        Session::flash('error', trans('lang.something_went_wrong'));
+        return redirect()->back();
+      }
+    }
 }
+
 

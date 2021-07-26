@@ -14,7 +14,7 @@
   <div class="row">
     <div class="">
       <div class="col-md-12">
-		 
+
 	  @include('Front.alert_messages')
 	   
 	  <div class="card">
@@ -39,7 +39,7 @@
           @endif
           <th data-orderable="false">{{ __('lang.sevice_name_head')}}</th>
 				  <th data-orderable="false">{{ __('lang.message_head')}}</th>
-				  <th data-orderable="false">{{ __('lang.txt_date')}}</th>
+				  <th data-orderable="false">{{ __('lang.request_date')}}</th>
 				  <th data-orderable="false">{{ __('lang.action_label')}}</th>
 				  </tr>
 				</thead>
@@ -100,6 +100,7 @@ $( document ).ready(function() {
    jQuery.noConflict();
    $(".serviceReqDetails").css({"margin-left": ""});
 });
+
   var dataTable = $('#productTable').DataTable({
     "processing": true,
     "serverSide": true,
@@ -130,12 +131,26 @@ $( document ).ready(function() {
       headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
       url : '{{route("frontServiceRequestGetRecords")}}',
       'data': function(data){
-        data.status = $("#status").val();
+        data.monthYear = $("#monthYear").val();
         data.is_seller = "{{$is_seller}}"
         data.user_id = "{{$user_id}}"
       },
        type:'post',
     },
+  });
+
+  $("<div class='form-group col-md-4' style='float:right;'>"+
+  
+  "<?php echo $monthYearHtml; ?>"+
+  "</div>").appendTo("#productTable_length");
+
+  $(".dataTables_filter label").addClass("pull-right");
+  $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');
+
+  $('#monthYear').change(function(){
+
+    dataTable.draw();
+    
   });
 
   $(document).on("click",".serviceReqDetails",function(event) {      

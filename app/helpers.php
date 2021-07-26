@@ -51,3 +51,17 @@ function getWishlistProducts($userId)
   }
   return count($allWishlistProducts);
 }
+
+function checkPackageSubscribe($userId)
+{
+  $is_subscribe_package=   DB::table('user_packages')
+    ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+    ->where('packages.is_deleted','!=',1)
+    ->where('user_packages.status','=','active')
+    ->where('user_id','=',$userId)
+    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
+    ->orderByRaw('user_packages.id')
+    ->get();
+                   
+    return count($is_subscribe_package);
+}

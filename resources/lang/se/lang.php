@@ -255,6 +255,7 @@
      'txt_comments' => 'Kommentarer',
      'txt_comments_err' => 'Ange dina kommentarer.',
      'txt_comments_success' => 'Produktrecension har lagts till.',
+     'featured_seller_head'=>'Utvalda Butker',
 
  ]
 ?>

@@ -220,5 +220,6 @@
 
     //Backend Orders
     'order_title' => 'Order',
+    'is_featured' => "Är Presenterade",
  ]
 ?>

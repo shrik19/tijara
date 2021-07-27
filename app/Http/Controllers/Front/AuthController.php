@@ -482,8 +482,8 @@ class AuthController extends Controller
                     $old_x = imageSX($src_img);
                     $old_y = imageSY($src_img);
 
-                    $newWidth = 300;
-                    $newHeight = 300;
+                    $newWidth = 200;
+                    $newHeight = 200;
 
                     if($old_x > $old_y){
                         $thumb_w    =   $newWidth;

@@ -61,10 +61,29 @@ class FrontController extends Controller
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
 		$data['TrendingProducts']= $this->getTrendingProducts();
 		$data['PopularProducts']= $this->getPopularProducts();
+		$data['FeaturedSellers']= $this->getFeaturedSellers();
         return view('Front/home', $data);
     }
 
-
+    /*Function to get treding seller*/
+    function getFeaturedSellers(){
+    	$today          = date('Y-m-d H:i:s');
+    	$featuredSellers 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
+    							->join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
+								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id','users.store_name','users.description','seller_personal_page.logo')
+								->where('users.role_id','=','2')
+								->where('users.is_featured','=','1')
+								->where('users.is_verified','=','1')
+								->where('users.status','=','active')
+								->where('user_packages.status','=','active')
+								->where('user_packages.start_date','<=', $today)
+								->where('user_packages.end_date','>=', $today)
+								->orderBy('users.id')
+								->limit(3)
+								->get();
+			
+		return $featuredSellers;			
+    }
 	//get category & subcategory listings
 	function getCategorySubcategoryList() {
 		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')

@@ -440,6 +440,7 @@ class SellerController extends Controller
                             'paypal_email' => trim($request->input('paypal_email')),
                             'description'  => trim($request->input('description')),
                             'is_verified'  => trim($request->input('is_verified')),
+                            'is_featured'  => trim($request->input('is_featured')),
                         ];
             UserMain::where('id', '=', $id)->update($arrUpdate);   
             

@@ -74,6 +74,59 @@
       
     </div> <!-- /container -->  
 </section>
+<!-- Featured seller section start -->
+ 
+<section class="featured-seller">
+    <div class="container">
+        <h2>{{ __('lang.featured_seller_head')}}</h2>
+    </div>
+    <div class="featured-banner">
+    <div class="container">
+        <div class="row featured_seller_container">
+        <!--     <div class=""> -->
+               
+                @if(!empty($FeaturedSellers))
+                    @foreach($FeaturedSellers as $fea_seller)
+                   
+                    <div class="col-md-4 feature_seller">
+                        <div class="featured_seller_section"  >
+                            <img class="img-fluid" src="{{url('/')}}/uploads/Seller/resized/<?php echo $fea_seller['logo'];?>" />
+                        </div>
+                    </div>
+                    @endforeach
+                @endif
+               <!--  <div class="col-md-4">
+                    <div class="artical_section">
+                        <img class="img-fluid" src="{{url('/')}}/assets/front/img/popular_img1.png"/>
+                        <div class="aritacl_details">
+                            <h5>Feb 12, 2021</h5>
+                            <h4>Funded R&D – Rights – 
+                                Tangel Case R&D Tax Credits</h4>
+                                <p>In a recent Tax Court case, Tangel v. Commissioner, T.C. Memo. 2021-1...
+                                </p>
+                            <a href="" class="btn learn_more">{{ __('lang.learn_more_btn')}}</a>
+                        </div>
+                    </div>
+                </div> -->
+              <!--   <div class="col-md-4">
+                    <div class="artical_section">
+                        <img class="img-fluid" src="{{url('/')}}/assets/front/img/popular_img1.png"/>
+                        <div class="aritacl_details">
+                            <h5>Feb 12, 2021</h5>
+                            <h4>Funded R&D – Rights – 
+                                Tangel Case R&D Tax Credits</h4>
+                                <p>In a recent Tax Court case, Tangel v. Commissioner, T.C. Memo. 2021-1...
+                                </p>
+                            <a href="" class="btn learn_more">{{ __('lang.learn_more_btn')}}</a>
+                        </div>
+                    </div>
+                </div> -->
+          <!--   </div> -->
+        </div>
+    </div>
+</div>
+</section>
+<!-- enf Featured seller section start -->
 <!-- banner section -->
 <section class="sale_section">
     <div class="container">
@@ -212,7 +265,7 @@
             </div>
         </div>
     </div>
-<!--     <div id="instafeed"></div> -->
+
 </section>
 <script type="text/javascript">
 

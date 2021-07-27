@@ -199,6 +199,7 @@
 
     //Backend Orders
     'order_title' => 'Orders',
+    'is_featured' => 'Is Featured',
     
  ]
 ?>

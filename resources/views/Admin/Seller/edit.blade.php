@@ -180,6 +180,13 @@
               <div class="text-danger">{{$errors->first('is_verified')}}</div>
             </div>
 
+            <div class="form-group">
+            <label>
+             {{ __('users.is_featured')}} </label>
+              <input type="checkbox" name="is_featured" id="is_featured" value="1" <?php if($sellerDetails[0]->is_featured ==  "1"){ echo "checked"; } ?>>
+           </div>
+
+
           </div>
         </div>
         

@@ -112,23 +112,12 @@
                 <h3>{{ __('lang.follow_us_on_head')}}</h3>
                 <h2>Instagram</h2>
                 <div class="social_img_section">
-                    <ul class="instagram_imgs">
-                      <!--  @foreach($ig_images as $image)
-                            <li><img class="img-fluid" src="{{$image}}"></li>
-                        @endforeach -->
-
-                        
-                        @if(!empty($items))
-
-                     @foreach($items as $key => $item)
- <li><img class="img-fluid" src="{{ $item['images']['standard_resolution']['url'] }}"></li>
-                     
-                     @endforeach
-                     @endif
+                    <ul class="instagram_imgs" id="instafeed">
 
                     </ul>
                 </div>
             </div>
+
             <div class="best_seller_container">
                 <h3>{{ __('lang.3_steps_head')}}</h3>
                 <h2>{{ __('lang.how_it_works_head')}}</h2>
@@ -223,6 +212,7 @@
             </div>
         </div>
     </div>
+<!--     <div id="instafeed"></div> -->
 </section>
 <script type="text/javascript">
 
@@ -318,6 +308,19 @@
           
          });
       });
+
+</script>
+
+<script src="{{url('/')}}/assets/front/js/instafeed/dist/instafeed.min.js"></script>
+
+<script type="text/javascript">
+    var access_token = "<?php echo env('INSTA_ACCESS_TOKEN') ?>";
+    var feed = new Instafeed({
+     
+      accessToken: access_token
+    });
+    feed.run();
+
 
 </script>
 @endsection

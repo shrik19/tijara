@@ -29,12 +29,6 @@ use App\Models\UserMain;
 use App\Models\ProductReview;
 use App\Models\Orders;
 use App\Models\OrdersDetails;
-use Vinkla\Instagram\Instagram;
-
-
-use IlluminateHttpRequest;
-use AppHttpRequests;
-use GuzzleHttp\Client;
 
 use DB;
 use Auth;
@@ -53,27 +47,15 @@ class FrontController extends Controller
         $SliderDetails 		=  Sliders::select('id','title','sliderImage','description','link','status')->where('status','=','active')->orderBy('sequence_no')->get();
         $banner 			=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Home')->first();
 
-
        // $sliders = Sliders::with(['getImages'])->limit(9)->orderBy('id', 'DESC')->get()->toArray();
 	    $site_details		= Settings::first();
-  		//$client = new GuzzleHttpClient;
-		$client = new Client();
-
-	    $url = sprintf('https://www.instagram.com/%s/media', 'techbee.nashik');
-
-        $response = $client->get($url);
-
-        $items = json_decode((string) $response->getBody(), true)['items'];
-
-
+ 
         $data['pageTitle'] 		= 'Home';
         //$data['siteDetails'] 	= $site_details;
 		$data['SliderDetails']  = $SliderDetails;
         $data['banner'] 	   	= $banner;
 		$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
-		$data['ig_images']			= $items;
-
 
 		$data['Categories']    	= $this->getCategorySubcategoryList()	;
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
@@ -81,6 +63,7 @@ class FrontController extends Controller
 		$data['PopularProducts']= $this->getPopularProducts();
         return view('Front/home', $data);
     }
+
 
 	//get category & subcategory listings
 	function getCategorySubcategoryList() {

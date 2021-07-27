@@ -35,6 +35,11 @@ header{
 .package-tbl{
         font-weight: bold;
 }
+
+#instafeed img.img-fluid {
+    width: 100%;
+    height: auto;
+}
 /*FAQ page css*/
 main {
   max-width: 800px;

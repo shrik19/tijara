@@ -39,8 +39,4 @@ return [
     'client_secret' => env('GOOGLE_APP_SECRET'),
     'redirect' => env('GOOGLE_REDIRECT'),
     ],
-
-    'instagram_api' => [
-        'token' => 'IGQVJXcWxqQU1xNGN0R0gwSDZAteVJjN3djdXVaQjNUOExtUHlVUVJ3aHNBaTJrczhFNWY0Y1J2NzFTWHdmOVk5dnZABVUhHWWRjT3ZAJZAXVLbEtCZAmt6RWhrdVdGS0pwV1JSdFdmRGRTUHE2U0xVQmNSagZDZD', // paste your access token inside quotes
-    ],
 ];

@@ -128,7 +128,7 @@
                   <div class="pull-right">
                 @if(Auth::guard('user')->id())
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><i class="fa fa-user"></i>{{ __('lang.my_account_title')}}</h3></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="margin-top: 50px;">
 
                   <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
                   

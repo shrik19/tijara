@@ -78,7 +78,7 @@ class FrontController extends Controller
 								->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today)
-								->orderBy('users.id')
+								->orderBy('users.id', 'DESC')
 								->limit(3)
 								->get();
 			

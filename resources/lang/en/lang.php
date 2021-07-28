@@ -257,6 +257,7 @@
      'txt_comments_err' => 'Please enter your Comments.',
      'txt_comments_success' => 'Product review added Successfully.',
      'featured_seller_head'=>'Selected Stores',
+     'popular_services_head' => 'Popular Services',
 
  ]  
 ?>

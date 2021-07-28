@@ -95,38 +95,38 @@
                     </div>
                     @endforeach
                 @endif
-               <!--  <div class="col-md-4">
-                    <div class="artical_section">
-                        <img class="img-fluid" src="{{url('/')}}/assets/front/img/popular_img1.png"/>
-                        <div class="aritacl_details">
-                            <h5>Feb 12, 2021</h5>
-                            <h4>Funded R&D – Rights – 
-                                Tangel Case R&D Tax Credits</h4>
-                                <p>In a recent Tax Court case, Tangel v. Commissioner, T.C. Memo. 2021-1...
-                                </p>
-                            <a href="" class="btn learn_more">{{ __('lang.learn_more_btn')}}</a>
-                        </div>
-                    </div>
-                </div> -->
-              <!--   <div class="col-md-4">
-                    <div class="artical_section">
-                        <img class="img-fluid" src="{{url('/')}}/assets/front/img/popular_img1.png"/>
-                        <div class="aritacl_details">
-                            <h5>Feb 12, 2021</h5>
-                            <h4>Funded R&D – Rights – 
-                                Tangel Case R&D Tax Credits</h4>
-                                <p>In a recent Tax Court case, Tangel v. Commissioner, T.C. Memo. 2021-1...
-                                </p>
-                            <a href="" class="btn learn_more">{{ __('lang.learn_more_btn')}}</a>
-                        </div>
-                    </div>
-                </div> -->
-          <!--   </div> -->
         </div>
     </div>
 </div>
 </section>
 <!-- enf Featured seller section start -->
+
+<!-- popular services section start -->
+<section class="product_section">
+    
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+       
+        <div class="col-md-12">             
+                <div class="product_container">
+                <div class="loader"></div>
+                    <h2>{{ __('lang.popular_services_head')}}</h2>
+                    <hr class="heading_line"/>
+                    <ul class="product_details">
+                    @foreach($PopularServices as $service)
+                        @include('Front.services_widget')
+                    @endforeach
+                    </ul>
+                </div>
+        </div>
+    </div>
+
+      
+    </div> <!-- /container -->  
+</section>
+
+<!-- popular services section end -->
 <!-- banner section -->
 <section class="sale_section">
     <div class="container">

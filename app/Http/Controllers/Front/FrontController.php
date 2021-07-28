@@ -62,6 +62,7 @@ class FrontController extends Controller
 		$data['TrendingProducts']= $this->getTrendingProducts();
 		$data['PopularProducts']= $this->getPopularProducts();
 		$data['FeaturedSellers']= $this->getFeaturedSellers();
+		$data['PopularServices']= $this->getPopularServices();
         return view('Front/home', $data);
     }
 

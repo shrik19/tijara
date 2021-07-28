@@ -76,7 +76,7 @@ function getCategorySubcategoryList() {
                 ->where('categories.status','=','active')
                 ->orderBy('categories.sequence_no')
                 ->orderBy('subcategories.sequence_no')
-                ->limit(10)
+                ->limit(12)
                 ->get()
                 ->toArray();
     $CategoriesArray  = array();

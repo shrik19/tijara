@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
-         
+    
  <!-- Carousel Default -->
 <div class="slider_cotnainer_section">
     <div class="container">

@@ -3,6 +3,8 @@ use App\Models\Page;
 use App\Models\TmpOrdersDetails;
 use App\Models\VariantProduct;
 use App\Models\Wishlist;
+use App\Models\Categories;
+use App\Models\UserMain;
 
 /** Get all Custom Pages. */
 function getCustomPages()
@@ -64,4 +66,36 @@ function checkPackageSubscribe($userId)
     ->get();
                    
     return count($is_subscribe_package);
+}
+
+/*function to get categoried and subcategories in subheader menus*/
+function getCategorySubcategoryList() {
+    $Categories     = Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                ->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
+                ->where('subcategories.status','=','active')
+                ->where('categories.status','=','active')
+                ->orderBy('categories.sequence_no')
+                ->orderBy('subcategories.sequence_no')
+                ->limit(10)
+                ->get()
+                ->toArray();
+    $CategoriesArray  = array();
+    foreach($Categories as $category) {
+      $CategoriesArray[$category['id']]['category_name']= $category['category_name'];
+      $CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
+      $CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
+    }
+
+    return $CategoriesArray;
+  }
+
+/*function to get seller to add in link if login as seller*/
+function get_link_seller_name($SellerId){
+  $tmpSellerData = UserMain::where('id',$SellerId)->first()->toArray();
+  $seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+  $seller_name = str_replace( array( '\'', '"', 
+  ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+  $seller_name = str_replace(" ", '-', $seller_name);
+  $seller_name = strtolower($seller_name);
+  return $seller_name;
 }

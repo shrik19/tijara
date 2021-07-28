@@ -37,6 +37,7 @@
     filter: alpha(opacity=40);
     display:none;
 }
+
 </style>
    <!-- end custom css for custom chnages -->
   <script src="{{url('/')}}/assets/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -172,3 +173,44 @@
     </nav>
   </header>
   <div class="clearfix"></div>
+
+ <?php 
+    $Categories = getCategorySubcategoryList();
+    $category_slug    = '';
+    $subcategory_slug = '';
+    $is_seller = '';
+    if(!empty(Auth::guard('user')->id())){
+      if(Auth::guard('user')->getUser()->role_id==2){
+       $seller_id = Auth::guard('user')->id();
+       $link_seller_name = get_link_seller_name($seller_id);
+       $is_seller=1;
+     }
+    }
+   
+
+  ?>
+@if(!empty($Categories))
+<nav style="margin-top: 50px">
+  <ul class="nav">
+        @php $i=0; @endphp
+        @foreach($Categories as $CategoryId=>$Category)
+        @php $i++;
+        $cls='';
+        if($category_slug==$Category['category_slug'])
+        $cls  =       'activemaincategory';
+        else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';
+         @endphp
+                @if(!empty($Categories[$CategoryId]['subcategory']))
+                <li class="expandCollapseSubcategory <?php echo $cls; ?>" href="#subcategories<?php echo $i; ?>" ><a href="#">{{$Category['category_name']}}</a>
+
+                <ul id="subcategories<?php echo $i; ?>" class="subcategories_list   <?php if($cls!='') echo'in activesubcategories'; ?>" >
+                  @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
+                  <li><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
+                  @endforeach
+                </ul>
+                </li>
+                @endif
+            @endforeach
+        </ul>
+</nav>
+@endif

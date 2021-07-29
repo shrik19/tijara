@@ -52,6 +52,8 @@
     var wishlist_add_success    = "{{trans('messages.wishlist_add_success')}}";
     var wishlist_product_remove = "{{trans('messages.wishlist_product_remove')}}";
     var wishlist_product_remove_success = "{{trans('messages.wishlist_product_remove_success')}}";
+  
+    var wishlist_service_remove_success = "{{trans('messages.wishlist_service_remove_success')}}";
     var txt_your_comments = "{{ __('lang.txt_your_comments')}}";
     var txt_comments = "{{ __('lang.txt_comments')}}";
     var txt_comments_err = "{{ __('lang.txt_comments_err')}}";

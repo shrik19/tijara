@@ -66,8 +66,10 @@
      'wishlist_empty' => 'Your wishlist is Empty.',
      'wishlist_product_exists' => 'Product already exists in Wishlist.',
      'txt_wishlist' => 'Wishlist',
-     'wishlist_product_remove' => 'Are you sure, you want to remove product from Wishlist?',
+     'wishlist_product_remove' => 'Are you sure, you want to remove from Wishlist?',
      'wishlist_product_remove_success' => 'Product removed successfully from Wishlist.',
+     'wishlist_service_remove' => 'Are you sure, you want to remove product from Wishlist?',
+     'wishlist_service_remove_success' => 'Service removed successfully from Wishlist.',
 
      'txt_order_details' => 'Order Details',
      'txt_order_details_print' => 'Print',
@@ -76,5 +78,8 @@
      'txt_seller' => 'Seller',
      'txt_payment_status' => 'Payment Status',
      'txt_order_status' => 'Order Status',
+     'service_wishlist_add_success' => 'Tjänsten läggs till i önskelistan',
+     'wishlist_service_exists' => 'Service already added in wishlist',
+     'wishlist_product_exists' => 'Product already added in wishlist',
  ]
 ?>

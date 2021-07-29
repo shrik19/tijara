@@ -83,7 +83,7 @@
      'about_us_label'=>'Om oss',
      'checkout_label'=>'Kolla upp',
      'contact_label'=>'Kontakt',
-     'service_label'=>'Service',
+     'service_label'=>'Tjänsten',
      'shopping_cart_label'=>'Kundvagn',
      'shop_label'=>'affär',
      'join_our_newsletter_now_label'=>'Gå med i vårt nyhetsbrev nu',

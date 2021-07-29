@@ -67,8 +67,10 @@
       'wishlist_empty' => 'Din önskelista är tom.',
       'wishlist_product_exists' => 'Produkten finns redan i önskelistan.',
       'txt_wishlist' => 'Önskelista',
-      'wishlist_product_remove' => 'Är du säker på att du vill ta bort produkten från Önskelistan?',
+      'wishlist_product_remove' => 'Är du säker på att du vill ta bort från Önskelista?',
       'wishlist_product_remove_success' => 'Produkten har tagits bort från önskelistan.',
+      'wishlist_service_remove' => 'Är du säker på att du vill ta bort tjänsten från Önskelistan?',
+      'wishlist_service_remove_success' => 'Tjänsten har tagits bort från önskelistan.',
       
       'txt_order_details' => 'Orderdetaljer',
       'txt_order_details_print' => 'Skriva ut',
@@ -77,6 +79,8 @@
      'txt_seller' => 'Säljare',
      'txt_payment_status' => 'Betalningsstatus',
      'txt_order_status' => 'Orderstatus',
+     'wishlist_service_exists' => 'Tjänsten har redan lagts till i önskelistan',
+     'wishlist_product_exists' => 'Produkten har redan lagts till i önskelistan',
  
  ]
 ?>

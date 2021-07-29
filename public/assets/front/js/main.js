@@ -969,6 +969,42 @@ function addToWishlist(product_variant)
    });
 }
 
+function addToWishlistServices(service_id)
+{
+ 
+  $(".loader").show();
+  $.ajax({
+    url:siteUrl+"/add-to-wishlist",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'service_id': service_id},
+    success:function(data)
+    {
+      $(".loader").hide();
+      var responseObj = $.parseJSON(data);
+      if(responseObj.status == 1)
+      {
+          showSuccessMessage(service_fav_succ,'reload');
+      }
+      else
+      {
+        if(responseObj.is_login_err == 0)
+        {
+          showErrorMessage(responseObj.msg);
+        }
+        else
+        {
+          showErrorMessage(responseObj.msg,'/front-login');
+        }
+      }
+
+    }
+   });
+}
+
+
 
 function addToCartWishlist(product_variant)
 {
@@ -1121,7 +1157,7 @@ function removeWishlistProduct(OrderDetailsId)
                 var responseObj = $.parseJSON(data);
                 if(responseObj.status == 1)
                 {
-                    showSuccessMessage(wishlist_product_remove_success,'reload');
+                    showSuccessMessage(responseObj.wishlist_remove,'reload');
                 }
                 else
                 {

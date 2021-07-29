@@ -369,7 +369,6 @@
 <script type="text/javascript">
     var access_token = "<?php echo env('INSTA_ACCESS_TOKEN') ?>";
     var feed = new Instafeed({
-     
       accessToken: access_token
     });
     feed.run();

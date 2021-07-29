@@ -36,18 +36,22 @@ function getOrderProducts($userId)
 
 function getWishlistProducts($userId)
 {
+
   $allWishlistProducts = Wishlist::where('user_id','=',$userId)->get()->toArray();
+
   if(!empty($allWishlistProducts))
   {
     foreach($allWishlistProducts as $key => $details)
     {
-      $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
-      if(empty($checkVariant))
-      {
-        $tmpWishlistDetails = Wishlist::find($details['id']);
-        $tmpWishlistDetails->delete();
+      if(!empty($details['product_id'])){
+        $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
+        if(empty($checkVariant))
+        {
+          $tmpWishlistDetails = Wishlist::find($details['id']);
+          $tmpWishlistDetails->delete();
 
-        unset($allWishlistProducts[$key]);
+          unset($allWishlistProducts[$key]);
+        }
       }
     }
   }

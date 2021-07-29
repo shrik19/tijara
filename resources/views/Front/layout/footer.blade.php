@@ -126,6 +126,10 @@ var alert_delete_record_message="{{ __('messages.alert_delete_record_message')}}
 var invalid_files_err="{{ __('errors.invalid_files_err')}}";
 var max_files_restriction_seller="{{ __('users.max_images_restriction_seller')}}";
 var input_alphabet_err = "{{ __('errors.input_alphabet_err')}}";
+var service_fav_succ = "{{ __('messages.service_wishlist_add_success')}}";
+var wishlist_service_exists = "{{ __('messages.wishlist_service_exists')}}";
+var wishlist_product_exists = "{{ __('messages.wishlist_product_exists')}}";
+
 </script>
         <!-- <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

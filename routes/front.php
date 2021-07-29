@@ -162,6 +162,8 @@ Route::post('/remove-from-wishlist','Front\CartController@removeWishlistProduct'
 Route::post('/get-product-options','Front\FrontController@getProductOptions')->name('frontProductOptions');
 Route::post('/add-review','Front\FrontController@addReview')->name('frontAddReview');
 
+Route::post('/add-service-review','Front\FrontController@addServiceReview')->name('frontAddServiceReview');
+
 Route::any('/checkout','Front\CartController@showCheckout')->name('frontShowCheckout');
 Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name('frontCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');

@@ -101,5 +101,8 @@
 
      'product_review_error' => 'Du har redan granskat Produkten.',
      'product_review_not_error' => 'Du har inte tillåtelse att betygsätta den här produkten, eftersom du inte har någon order på produkten.',
+
+     'service_review_error' => 'Du har redan granskat Tjänst.',
+     'service_review_not_error' => 'Du har inte tillåtelse att betygsätta den här produkten, eftersom du inte har någon order på Tjänst.',
  ]
 ?>

@@ -81,6 +81,7 @@
      'txt_order_status' => 'Orderstatus',
      'wishlist_service_exists' => 'Tjänsten har redan lagts till i önskelistan',
      'wishlist_product_exists' => 'Produkten har redan lagts till i önskelistan',
+     'review_add_success' => 'Granskningen har lagts till för tjänsten.',
  
  ]
 ?>

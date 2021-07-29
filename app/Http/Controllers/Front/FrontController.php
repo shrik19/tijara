@@ -29,6 +29,8 @@ use App\Models\UserMain;
 use App\Models\ProductReview;
 use App\Models\Orders;
 use App\Models\OrdersDetails;
+use App\Models\ServiceRequest;
+use App\Models\ServiceReview;
 
 use DB;
 use Auth;
@@ -1321,6 +1323,81 @@ class FrontController extends Controller
 					$avgRating = number_format($avgRating,2);
 					$arrUpdate = ['rating' => $avgRating,'rating_count' => $ratingCnt];
 					Products::where('id',$product_id)->update($arrUpdate);
+				}
+			}
+
+		}
+		else
+        {
+          $is_added = 0;
+          $is_login_err = 1;
+          if($user_id && Auth::guard('user')->getUser()->role_id != 1)
+          {
+            $is_login_err = 0;
+          }
+          $txt_msg = trans('errors.login_buyer_required');
+        }
+        echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+        exit;
+	}
+
+	/*function to add service review*/
+	public function addServiceReview(Request $request)
+	{
+		$user_id = Auth::guard('user')->id();
+        $is_added = 1;
+        $is_login_err = 0;
+        $txt_msg = trans('lang.txt_comments_success');
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
+        {
+			$rating = $request->rating;
+			$service_id = $request->service_id;
+			$comments = $request->comments;
+			$checkExistsServiceReq = ServiceRequest::where([['user_id','=',$user_id],['service_id','=',$service_id]])->get()->toArray();
+			if(empty($checkExistsServiceReq))
+			{
+				$is_added = 0;
+                $txt_msg = trans('errors.service_review_not_error');
+                echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                exit;
+			}
+
+			$checkExists = ServiceReview::where([['user_id','=',$user_id],['service_id','=',$service_id]])->get()->toArray();
+			if(!empty($checkExists))
+			{
+				$is_added = 0;
+                $txt_msg = trans('errors.service_review_error');
+                echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                exit;
+			}
+			else
+			{
+				
+				$currentDate = date('Y-m-d H:i:s');
+				$arrInsert = [
+								'service_id' => $service_id,
+								'user_id' => $user_id,
+								'comments' => $comments,
+								'rating' => $rating,
+								'is_approved' => '1',
+								'created_at' => $currentDate,
+								'updated_at' => $currentDate,
+							 ];
+
+				ServiceReview::create($arrInsert);
+
+				$getAllratings = ServiceReview::where([['service_id','=',$service_id]]);
+
+				$ratingCnt 	 = $getAllratings->count();
+				$totalRating = $getAllratings->sum('rating');
+						 
+				$avgRating 	 = 0.00;
+				if(!empty($ratingCnt))
+				{
+					$avgRating = ($totalRating / $ratingCnt);
+					$avgRating = number_format($avgRating,2);
+					$arrUpdate = ['rating' => $avgRating,'rating_count' => $ratingCnt];
+					Services::where('id',$service_id)->update($arrUpdate);
 				}
 			}
 

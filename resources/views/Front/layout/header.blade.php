@@ -58,6 +58,7 @@
     var txt_comments = "{{ __('lang.txt_comments')}}";
     var txt_comments_err = "{{ __('lang.txt_comments_err')}}";
     var login_buyer_required = "{{ __('errors.login_buyer_required')}}";
+    var review_add_success = "{{ __('messages.review_add_success')}}";
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
     is_login = 1;

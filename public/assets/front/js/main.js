@@ -872,6 +872,34 @@ if($('.service_listings').length>0) {
 
 
 
+// function get_service_listing(page,category_slug='',subcategory_slug='',sellers ='',price='', search_string='') {
+//   var sort_by_order = $("#sort_by_order").val();
+//   var sort_by = $("#sort_by").val();
+
+//   $.ajax({
+//     url:siteUrl+"/get_service_listing",
+//     headers: {
+//       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+//     },
+//     type: 'post',
+//     data : {'page': page, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
+//     success:function(data)
+//     {
+//       var responseObj = $.parseJSON(data);
+      
+//       $('.service_listings').html(responseObj.services);
+//       $('.seller_list_content').html(responseObj.sellers);
+
+//       if($("#search_string").length && search_string != '')
+//       {
+//         $("#search_string").val(search_string);
+//       }
+//     }
+//    });
+// }
+
+
+
 function get_service_listing(page,category_slug='',subcategory_slug='',sellers ='',price='', search_string='') {
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
@@ -894,9 +922,110 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
       {
         $("#search_string").val(search_string);
       }
+
+      /*service rating*/
+       $(".service_rating").each(function(){
+        var currentRating = $(this).data('rating');
+        
+        $(this).barrating({
+          theme: 'fontawesome-stars',
+          initialRating: currentRating,
+          onSelect: function(value, text, event) {
+
+            console.log(is_login);
+            if(is_login == 1)
+            {
+            // Get element id by data-id attribute
+            var el = this;
+            var el_id = el.$elem.data('id');
+            
+            // rating was selected by a user
+            if (typeof(event) !== 'undefined') {
+              
+              var split_id = el_id.split("_");
+              var service_id = split_id[1]; // postid
+
+              $.confirm({
+                 title: txt_your_comments,
+                 content: '' +
+                 '<form action="" class="formName">' +
+                 '<div class="form-group">' +
+                 '<label>'+txt_comments+'</label>' +
+                 '<textarea class="name form-control" rows="3" cols="20" placeholder="'+txt_comments+'" required></textarea>' +
+                 '</div>' +
+                 '</form>',
+                 buttons: {
+                     formSubmit: {
+                         text: 'Submit',
+                         btnClass: 'btn-blue',
+                         action: function () {
+                             var comments = this.$content.find('.name').val();
+                             if(!comments){
+                               showErrorMessage(txt_comments_err);
+                               return false;
+                             }
+                             $(".loader").show();
+                             $.ajax({
+                             url:siteUrl+"/add-service-review",
+                             headers: {
+                               'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                             },
+                             type: 'post',
+                             data : {'rating': value, 'service_id' : service_id, 'comments' : comments},
+                             success:function(data)
+                             {
+                               $(".loader").hide();
+                               var responseObj = $.parseJSON(data);
+                               if(responseObj.status == 1)
+                               {
+                                 showSuccessMessage(review_add_success,'reload');
+                               }
+                               else
+                               {
+                                 if(responseObj.is_login_err == 0)
+                                 {
+                                   showErrorMessage(responseObj.msg);
+                                 }
+                                 else
+                                 {
+                                   showErrorMessage(responseObj.msg,'/front-login');
+                                 }
+                               }
+         
+                             }
+                           });
+                         }
+                     },
+                     cancel: function () {
+                         //close
+                     },
+                 },
+                 onContentReady: function () {
+                     // bind to events
+                     var jc = this;
+                     this.$content.find('form').on('submit', function (e) {
+                         // if the user submits the form by pressing enter in the field.
+                         e.preventDefault();
+                         jc.$$formSubmit.trigger('click'); // reference the button and click it
+                     });
+                 }
+             });
+            }
+            }
+            else
+            {
+              showErrorMessage(login_buyer_required);
+            }
+           }
+          
+         });
+      });
+
+
     }
    });
 }
+
 
 function addToCart(product_variant)
 {

@@ -102,5 +102,8 @@
 
      'product_review_error' => 'You already given review to Product.',
      'product_review_not_error' => 'You are not allowed to rate this product, as you don\'t have order for the Product.',
+
+     'service_review_error' => 'You already given review to This Service.',
+     'service_review_not_error' => 'You are not allowed to rate this Service, as you don\'t have Booking for the Service.',
  ]
 ?>

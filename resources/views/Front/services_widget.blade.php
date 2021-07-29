@@ -13,7 +13,17 @@
           </ul>
       </div>
     </div>
-    <div class="product_info">
+    <div class="service_info">
+        <div class="star-rating" style="font-size:unset;">
+          <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5</option>
+          </select>
+        </div> 
+
         <h5>{{$service['category_name']}}</h5>
         <a href="{{$service->service_link}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
         @if(!empty($service->price))

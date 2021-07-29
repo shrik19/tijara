@@ -108,7 +108,7 @@
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
                         </div></td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($reqService['service']->service_price,2) }} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format((float)$reqService['service']->service_price,2) }} kr</strong></td>
                         <td class="col-sm-1 col-md-1 text-right">
                      <!--    <button class="btn btn-success" onclick="addToCartWishlist('{{ $reqService['id'] }}')" title="Add"><i class="glyphicon glyphicon-shopping-cart"></i></button> -->
                         <a href="{{$reqService['service']->service_link}}" class="btn btn-success">{{ __('lang.sendRequest')}}</i></a>

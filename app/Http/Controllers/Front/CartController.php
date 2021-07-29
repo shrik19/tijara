@@ -482,8 +482,8 @@ class CartController extends Controller
       if(!empty($serviceId))
       {
         $serviceCategories = ServiceCategory::join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-                           ->join('servicesubcategories', 'servicesubcategories.id', '=', 'category_services.subcategory_id')
-                           ->select(['category_services.*','servicecategories.category_name', 'servicecategories.category_slug', 'servicesubcategories.subcategory_name', 'servicesubcategories.subcategory_slug'])
+                           ->join('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')
+                           ->select(['category_services.*','servicecategories.category_name', 'servicecategories.category_slug', 'serviceSubcategories.subcategory_name', 'serviceSubcategories.subcategory_slug'])
                            ->where('category_services.service_id','=',$serviceId)
                            ->get()->toArray();
 
@@ -1519,11 +1519,11 @@ class CartController extends Controller
 
                $wishlistServices  = Services::join('category_services', 'services.id', '=', 'category_services.service_id')
                           ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-                          ->join('servicesubcategories', 'servicecategories.id', '=', 'servicesubcategories.category_id')
+                          ->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
                           ->select(['services.*','servicecategories.category_name'])
                           ->where('services.status','=','active')
                           ->where('servicecategories.status','=','active')
-                          ->where('servicesubcategories.status','=','active')
+                          ->where('serviceSubcategories.status','=','active')
                           ->where('services.id','=',$serviceDetails['service_id'])
                           ->orderBy('services.id', 'DESC')
                           ->groupBy('services.id')

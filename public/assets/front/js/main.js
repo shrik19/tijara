@@ -123,8 +123,6 @@ $('#variant_table').on('change', '.variant_image', function () {
                 });
         }
 
-
-
 });
 $('body').on('click', '.remove_image', function () {
     $(this).prev('img').prev('input').remove();

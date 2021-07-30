@@ -82,5 +82,6 @@
      'wishlist_service_exists' => 'Service already added in wishlist',
      'wishlist_product_exists' => 'Product already added in wishlist',
      'review_add_success' => 'Review added successfully for service.',
+     'store_name_alreay_taken' => "Store name already taken.",
  ]
 ?>

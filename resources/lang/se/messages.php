@@ -82,6 +82,7 @@
      'wishlist_service_exists' => 'Tjänsten har redan lagts till i önskelistan',
      'wishlist_product_exists' => 'Produkten har redan lagts till i önskelistan',
      'review_add_success' => 'Granskningen har lagts till för tjänsten.',
+     'store_name_alreay_taken' => "Butiksnamnet har redan tagits.",
  
  ]
 ?>

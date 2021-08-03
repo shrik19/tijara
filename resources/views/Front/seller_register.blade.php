@@ -12,478 +12,230 @@
 </div>
 <!-- multistep seller registration wizard start here -->
 <style type="text/css">
-	* {
-    margin: 0;
-    padding: 0
-}
-
-html {
-    height: 100%
-}
-
-
-
-#msform {
-    text-align: center;
-    position: relative;
-    margin-top: 20px
-}
-
-#msform fieldset .form-card {
-    background: white;
-    border: 0 none;
-    border-radius: 0px;
-    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-    padding: 20px 40px 30px 40px;
-    box-sizing: border-box;
-    width: 94%;
-    margin: 0 3% 20px 3%;
-    position: relative
-}
-
-#msform fieldset {
-    background: white;
-    border: 0 none;
-    border-radius: 0.5rem;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-    position: relative
-}
-
-#msform fieldset:not(:first-of-type) {
-    display: none
-}
-
-#msform fieldset .form-card {
-    text-align: left;
-    color: #9E9E9E
-}
-
-#msform input,
-#msform textarea {
-    padding: 0px 8px 4px 8px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    border-radius: 0px;
-    margin-bottom: 25px;
-    margin-top: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    color: #2C3E50;
-    font-size: 16px;
-    letter-spacing: 1px
-}
-
-#msform input:focus,
-#msform textarea:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: none;
-    font-weight: bold;
-    border-bottom: 2px solid skyblue;
-    outline-width: 0
-}
-
-#msform .action-button {
-    width: 100px;
-    background: skyblue;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px
-}
-
-#msform .action-button:hover,
-#msform .action-button:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue
-}
-
-#msform .action-button-previous {
-    width: 100px;
-    background: #616161;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px
-}
-
-#msform .action-button-previous:hover,
-#msform .action-button-previous:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
-}
-
-select.list-dt {
-    border: none;
-    outline: 0;
-    border-bottom: 1px solid #ccc;
-    padding: 2px 5px 3px 5px;
-    margin: 2px
-}
-
-select.list-dt:focus {
-    border-bottom: 2px solid skyblue
-}
-
-.card {
-    z-index: 0;
-    border: none;
-    border-radius: 0.5rem;
-    position: relative
-}
-
-.fs-title {
-    font-size: 25px;
-    color: #2C3E50;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-align: left
-}
-
-#progressbar {
-    margin-bottom: 30px;
-    overflow: hidden;
-    color: lightgrey
-}
-
-#progressbar .active {
-    color: #000000
-}
-
-#progressbar li {
-    list-style-type: none;
-    font-size: 12px;
-    width: 25%;
-    float: left;
-    position: relative
-}
-
-#progressbar #account:before {
-    font-family: FontAwesome;
-    content: "\f023"
-}
-
-#progressbar #personal:before {
-    font-family: FontAwesome;
-    content: "\f007"
-}
-
-#progressbar #payment:before {
-    font-family: FontAwesome;
-    content: "\f09d"
-}
-
-#progressbar #confirm:before {
-    font-family: FontAwesome;
-    content: "\f00c"
-}
-
-#progressbar li:before {
-    width: 50px;
-    height: 50px;
-    line-height: 45px;
-    display: block;
-    font-size: 18px;
-    color: #ffffff;
-    background: lightgray;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-    padding: 2px
-}
-
-#progressbar li:after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background: lightgray;
+    .loader-seller {
     position: absolute;
-    left: 0;
-    top: 25px;
-    z-index: -1
-}
-
-#progressbar li.active:before,
-#progressbar li.active:after {
-    background: skyblue
-}
-
-.radio-group {
-    position: relative;
-    margin-bottom: 25px
-}
-
-.radio {
-    display: inline-block;
-    width: 204;
-    height: 104;
-    border-radius: 0;
-    background: lightblue;
-    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-    cursor: pointer;
-    margin: 8px 2px
-}
-
-.radio:hover {
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3)
-}
-
-.radio.selected {
-    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
-}
-
-.fit-image {
+    top: 0px;
+    right: 0px;
     width: 100%;
-    object-fit: cover
+    height: 100%;
+    background-color: #eceaea;
+    background-image: url(http://localhost:8000/assets/front/img/ajax-loader.gif);
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10000000;
+    opacity: 0.4;
 }
 </style>
 <!-- MultiStep Form -->
 <div class="container">
-		<div class="container-fluid" id="grad1">
-    		<div class="row justify-content-center mt-0">
-                <h2><strong>Sälj med Tijara</strong></h2>
-                
-                <div class="row">
-                    <div class="col-md-12 mx-0">
-                        <div id="msform">
-                            <!-- progressbar -->
-                            <ul id="progressbar">
-                                <li class="active" id="account"><strong>Registrering</strong></li>
-                                <li id="personal"><strong>Välj paket</strong></li>
-                                <li id="payment"><strong>Hur du får betalt</strong></li>
-                                <li id="confirm"><strong>Din butikssida</strong></li>
-                            </ul> <!-- fieldsets -->
-                 
-                            <?php
-                                $session_user=Session::get('seller_register_form_id');
-                             ?>
-                             @if(empty($session_user))
-                            <fieldset>
-                                <div class="form-card">
-                                    <form id="sellerRegisterForm" action="{{route('frontNewSellerRegister')}}" method="post">
-                                        @csrf
-                                	<input type="hidden" name="role_id" id="role_id" value="{{$role_id}}">
-                                    <input type="email" name="email" id="email" placeholder="Email Id" /> 
-                                    <span class="invalid-feedback" id="err_email" style="">@if($errors->has('email')) {{ $errors->first('email') }}@endif</span>
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+    <h2><strong>
+    @if(!empty(Session::get('StepsHeadingTitle'))){{Session::get('StepsHeadingTitle')}} @else {{$headingTitle}} @endif
+    </strong></h2>
 
-                                    <input type="password" name="password" id="password" placeholder="Password" />
-                                    <span class="invalid-feedback" id="err_password" style="">@if($errors->has('password')) {{ $errors->first('password') }}@endif</span>
+        <div class="row"> 
+        <div class="col-md-12 mx-0">
+            <div id="msform">
+            <div class="loader-seller" style="display:none;"></div>
+                <!-- progressbar -->
+                <ul id="progressbar">
+                    <li class="active" id="account"><strong>{{ __('users.step_one_head')}}</strong></li>
+                    <li id="personal"><strong>{{ __('users.step_two_head')}}</strong></li>
+                    <li id="payment"><strong>{{ __('users.step_three_head')}}</strong></li>
+                    <li id="confirm"><strong>{{ __('users.step_four_head')}}</strong></li>
+                </ul> 
+                <?php
+                    $email = $password= $role_id = $cpassword ='';
+                    $email=Session::get('new_seller_email');
+                    $password=Session::get('new_seller_password');
+                    $role_id =Session::get('new_seller_role_id');
+                    $cpassword =Session::get('new_seller_cpassword');
 
-                                    <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" />
-                                    <span class="invalid-feedback" id="err_cpassword" style="">@if($errors->has('password_confirmation')) {{ $errors->first('password_confirmation') }}@endif</span>
-                                    </form>
-                                </div> 
+                    if(!empty(Session::get('next_step'))){
+                        $next_step =Session::get('next_step');
+                    }else{
+                        $next_step = $next_step;
+                    }
+                    
+                 ?>
+                      
+                <input type="hidden" name="" id="current_step_button" value="{{$next_step}}">
+                <!-- fieldsets -->
+                <fieldset>
+                    <div class="form-card">
+                        <form id="sellerRegisterForm" action="{{route('frontNewSellerRegister')}}" method="post">
+                            @csrf
+                    	<input type="hidden" name="role_id" id="role_id" value="{{$role_id}}">
+                        <label>{{ __('users.email_label')}}<span class="de_col">*</span></label>
+                        <input type="email" name="email" id="email" placeholder="{{ __('users.email_label')}}" value="{{$email}}"/> 
+                        <span class="invalid-feedback" id="err_email"></span><br>
 
-                                <input type="button" name="next" class="next action-button" value="Next Step" id="first-step"  />
-                            </fieldset>
+                        <label>{{ __('users.password_label')}}<span class="de_col">*</span></label>
+                        <input type="password" name="password" id="password" placeholder="{{ __('users.password_label')}}"  value="{{$password}}"/>
+                        <span class="invalid-feedback" id="err_password" style=""></span><br>
+
+                        <label>{{ __('users.password_confirmation_label')}}<span class="de_col">*</span></label>
+                        <input type="password" name="password_confirmation" id="password_confirmation" placeholder="{{ __('users.password_confirmation_label')}}" value="{{$cpassword}}" />
+                        <span class="invalid-feedback" id="err_cpassword"></span>
+                        </form>
+                    </div> 
+
+                    <input type="button" name="next" class="next action-button 2" value="{{ __('users.next_step_btn')}}" id="first-step"  />
+                </fieldset>
+          
+             
+                <fieldset>
+                    <div class="form-card">
+                        @include ('Front.alert_messages')              
+                          <div class="col-md-12 package-html">
+                            <h2>{{ __('users.subscribe_package_label')}} </h2>
+                            <hr class="heading_line"/>
+                                @foreach($packageDetails as $data)
+                                <div class="col-md-4">
+                                    <div class="panel panel-default subscribe-packages">
+                                    <div class="panel-heading">{{$data['title']}}</div>
+                                    <div class="panel-body" style="max-height: 215px;overflow: auto;">
+                                        <p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
+                                        <p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
+                                        <p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>
+                                        <form  action="" class="needs-validation" novalidate="" id="klarna_form">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="user_id" value="" id="user_id">
+                                            <input type="hidden" name="p_id" value="{{$data['id']}}" id="p_id">
+                                            <input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name">
+                                            <input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days">
+                                            <input type="hidden" name="amount" value="{{$data['amount']}}" id="amount">     
+                                            <button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                           </div>
+
+                        <div id="html_snippet" class="klarna_html"></div>  
+                    </div> 
                         
-                            <fieldset>
-                                <div class="form-card">
-                                    @include ('Front.alert_messages')
+                    <input type="button" name="previous" class="previous action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
+                    <input type="button" name="next" class="next action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
+                </fieldset> 
+                            
+                       
+                <fieldset>
+                    <div class="form-card">
+                        <form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
+                            <input type="text" name="fname" id="fname" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}}">
+                            <span class="invalid-feedback" id="err_fname"></span>
 
-                                    @if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
-                                    <div class="col-md-12">
-                                        
-                                        
-                                        
-                                            <h2>{{ __('users.your_active_package')}}</h2>
-                                            <hr class="heading_line"/>
-                                            @foreach($subscribedPackage as $row)
-                                            
-                                             <div class="col-md-4">
-                                                <div class="panel panel-default subscribe-packages">
-                                                <div class="panel-heading package-tbl">{{$row->title}}</div>
-                                                <div class="panel-body"  style="">
-                                                    <table class="table" style="border: 0px;min-height: 315px;overflow: auto;">
-                                                      <tbody>
-                                                        <tr>
-                                                            <td class="package-tbl">{{ __('users.description_label')}}</td>
-                                                            <td><?php echo $row->description; ?></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="package-tbl">{{ __('users.amount_label')}}</td>
-                                                            <td> {{$row->amount}} kr</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="package-tbl">{{ __('users.validity_label')}}</td>
-                                                            <td>{{$row->validity_days}} Days.</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="package-tbl">{{ __('users.purchased_date_label')}}</td>
-                                                            @if($row->start_date >= date('Y-m-d H:i:s'))
-                                                                <td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
-                                                                
-                                                            @else
-                                                                <td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
-                                                            @endif
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="package-tbl">{{ __('users.expiry_date_label')}}</td>
-                                                            <td>{{date('l, d F Y',strtotime($row->end_date))}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="package-tbl">{{ __('lang.status_label')}}</td>
-                                                            @if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="CAPTURED" )
-                                                                <td><a href="javascript:void(0)" class="btn btn-warning "> {{ __('users.not_activated_label')}}</a></td>
-                                                            @elseif($row->payment_status=="checkout_incomplete")
-                                                            <td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a>
-                                                                <p style="font-weight: bold;margin-top: 20px;margin-left:-108px;color: green"> {{ __('messages.payment_in_process')}}</p>
-                                                                <a href="" class="btn btn-info" style="margin-left: 114px;margin-top: -60px"> Reload</a>
-                                                            </td>
-                                                            @elseif($row->status=="active")
-                                                                <td><a href="javascript:void(0)" class="btn btn-success "> {{ __('lang.active_label')}} </a></td>
-                                                            @endif
-                                                        </tr>
-                                                        
-                                                      </tbody>
-                                                    </table>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            @endforeach
-                                     
+                            <input type="text" name="lname" id="lname" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}}">
+                            <span class="invalid-feedback" id="err_lname"></span>
+
+                            <textarea  id="address" name="address" rows="5" cols="30"  tabindex="5"></textarea> 
+                            <input type="text" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="">
+                            
+                        </form>                          
+                    </div> 
+                    <!--<input type="button" name="previous" class="previous action-button-previous" value="{{ __('users.prev_step_btn')}}" /> -->
+                    <input type="button" name="next" class="next action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>
+                </fieldset>
+
+   
+                <fieldset>
+                    <div class="form-card">
+                        <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data" id="seller_personal_info">
+                            @csrf
+                        	<div style="display: flex;">
+                                <input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}}">
+                        	    <input type="button" name="check-store-unique" onclick="checkStoreName()" value="Verify" /> 
+                        	</div> <span class="invalid-feedback" id="err_store_name"></span>
+
+                        	<div class="form-group increment cloned">
+        			            <label>{{ __('users.seller_header_img_label')}}</label>
+                                 <div class="col-md-4 seller_banner_upload">
+                                 
                                     </div>
-                                         @else 
-              
-                                      <div class="col-md-12">
-                                        <h2>{{ __('users.subscribe_package_label')}} </h2>
-                                        <hr class="heading_line"/>
-                                            @foreach($packageDetails as $data)
-                                             <div class="col-md-4">
-                                                <div class="panel panel-default subscribe-packages">
-                                                <div class="panel-heading">{{$data['title']}}</div>
-                                                <div class="panel-body" style="max-height: 215px;overflow: auto;">
-                                                    <p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
-                                                    <p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
-                                                    <p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>
-                                                    <form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="" id="klarna_form">
-                                                    {{ csrf_field() }}
-                                                        <input type="hidden" name="user_id" value="" id="user_id">
-                                                        <input type="hidden" name="p_id" value="{{$data['id']}}" id="p_id">
-                                                        <input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name">
-                                                        <input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days">
-                                                        <input type="hidden" name="amount" value="{{$data['amount']}}" id="amount">     
-                                                        <button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
-                                    </form>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            @endforeach
-                                       </div>
-                                       @endif
-                                </div> 
-                                <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
-                                <input type="button" name="next" class="next action-button" value="Next Step" id="second-step" />
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title">Tijara Bas</h2> 
-                                    <form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
-                                        <input type="text" name="fname" id="fname" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}}">
-                                        <span class="invalid-feedback" id="err_fname"></span>
+                               
+                                <div class="row"><div class="col-md-12">&nbsp;</div></div>
+        			           
 
-                                        <input type="text" name="lname" id="lname" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}}">
-                                        <span class="invalid-feedback" id="err_lname"></span>
+        			            <input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
+        			              
+        			            <span class="invalid-feedback" id="err_seller_banner_img"></span>
+        			            <div class="input-group-btn text-right"> 
+        			            </div>
+    			            </div>
 
-                                        <textarea  id="address" name="address" rows="5" cols="30"  tabindex="5"></textarea> 
-                                        <input type="text" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="">
-                                      <!--   <input type="text" name="swish_number" id="swish_number" placeholder="{{ __('users.swish_number_label')}}" value="">
-                                        <input type="text" name="paypal_email" id="paypal_email" placeholder="{{ __('users.paypal_email_address_label')}}" value="">      -->    
-                                    </form>                          
-                                </div> 
-                                <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
-                                <input type="button" name="next" class="next action-button" value="Next Step" id="third-step"/>
-                            </fieldset>
-                                @endif
-                            <fieldset>
-                                <div class="form-card">
-                                    <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data" id="seller_personal_info">
-                                     @csrf
-                                	<div style="display: flex;"><input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}}">
-                                	  <input type="button" name="check-store-unique" onclick="checkStoreName()" value="Verify" /> 
-                                	</div> <span class="invalid-feedback" id="err_store_name"></span>
+        			        <div class="form-group increment cloned">
+        			            <label>{{ __('users.seller_logo_label')}}</label>
+                                <div class="col-md-4 seller_logo_upload"></div>
+                                <div class="row"><div class="col-md-12">&nbsp;</div></div>
+        			            <input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
+                                <span class="invalid-feedback" id="err_seller_logo_img"></span>
+        			            
+        			            <div class="input-group-btn text-right"> 
+        			            </div>
+        			       </div>
+    			            <div  style="display: flex;">
+    			          		<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value="">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> <a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="javascript:void(0)">{{ __('users.store_terms')}}</a>
+    			      		</div>
 
-                                	  <div class="form-group increment cloned">
-						            <label>{{ __('users.seller_header_img_label')}}</label>
-						            @php
-						            if(!empty($details->header_img))
-						            {
-						              echo '<div class="row">';
-						              echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width:200px;height:200px;"></div>';
-						              echo '</div>';
-						              echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
-						            }
-						            @endphp
-
-						            <input type="file" name="header_img" id="seller_banner_img" class="form-control" value="">
-						              
-						            <span class="invalid-feedback" id="err_seller_banner_img"></span>
-						            <div class="input-group-btn text-right"> 
-						            </div>
-						          </div>
-           
-						          <div class="form-group increment cloned">
-						            <label>{{ __('users.seller_logo_label')}}</label>
-						            @php
-						            if(!empty($details->logo))
-						            {
-						              echo '<div class="row">';
-						              echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" style="width:200px;height:200px;"></div>';
-						              echo '</div>';
-						              echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
-						            }
-						            @endphp
-
-						            <input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
-                                     <span class="invalid-feedback" id="err_seller_logo_img"></span>
-						            
-						            <div class="input-group-btn text-right"> 
-						            </div>
-						          </div>
-						          <div  style="display: flex;">
-						          		<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value="">Jag har tagit del av och godkänner Tijaras <a href="javascript:void(0)">Användarvillkor</a> <a href="javascript:void(0)">Integritetspolicy</a> samt <a href="javascript:void(0)">Butiksvillkor</a>
-						      		</div>
-
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
-                                	<input type="submit" name="next" class="next action-button" value="Slutför" id="last-step"/>
-                                </form>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title text-center">Success !</h2> <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image"> </div>
-                                    </div> <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-7 text-center">
-                                            <h5>You Have Successfully Signed Up</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
+                        	<input type="submit" name="next" class="next action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
+                    </form>
                     </div>
-                </div>
+                </fieldset>
+                
+            </div>
+        </div>
+        </div>
     </div>
 </div>
 </div>
 
 <script type="text/javascript">
 $(document).ready(function(){
+    if($('#current_step_button').val() != 1){
+        var curr_step=  $('input#current_step_button').val();
+     alert(curr_step);
+        $( "fieldset" ).each(function() {
+          $( this ).css({
+                    'display': 'none',
+                    'position': 'relative'
+                    });
+        });
+        $( "li" ).each(function() {
+         $( this ).removeClass('active');
+       });
+ 
+        //setTimeout(function(){ $('input.'+curr_step).trigger('click')}, 500);
+        current_fs = $('input.'+curr_step).parent();
+        next_fs = $('input.'+curr_step).parent().next();
 
+        //Add Class Active
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+
+        //show the next fieldset
+        next_fs.show();
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+        step: function(now) {
+        // for making fielset appear animation
+        opacity = 1 - now;
+
+        current_fs.css({
+        'display': 'none',
+        'position': 'relative'
+        });
+        next_fs.css({'opacity': opacity});
+        },
+        duration: 600
+        });
+    }
 
 /*function to save first form data and validate it before save*/
-/*    $('#first-step').click(function(e) {  
+    $('#first-step').click(function(e) {  
 
         e.preventDefault();
     
@@ -544,6 +296,7 @@ $(document).ready(function(){
         }
         else
         {
+            $(".loader-seller").css("display","block");
             //save form data on validation success
             $.ajax({
                 headers: {
@@ -552,12 +305,12 @@ $(document).ready(function(){
                 url: "{{url('/')}}"+'/new-seller-register',
                 type: 'post',
                 async: false,
-                data:{email:email, password:password, cpassword:password_confirmation,role_id:role_id},
+                data:{email:email, password:password, password_confirmation:password_confirmation,role_id:role_id},
                 success: function(data){
+                       $(".loader-seller").css("display","none");
                     if(data.success=="Got Simple Ajax Request"){
                         console.log(data.success);
-                        console.log("first step complete"); 
-                        $("#user_id").val(data.user_id);                   
+                        console.log("first step complete");              
                     }else{
                         alert(data.error_msg.email);
                         error=1;
@@ -595,11 +348,11 @@ $(document).ready(function(){
             }); 
         } 
 });
-*/
+
 
 /*second step*/
-/*
-$('#second-step').click(function(e) { 
+
+$('#btnsubscribePackage').click(function(e) { 
     e.preventDefault();
     
     let user_id  = $("#user_id").val();
@@ -607,12 +360,10 @@ $('#second-step').click(function(e) {
     let p_name  = $("#p_name").val();
     let validity_days = $("#validity_days").val(); 
     let amount = $("#amount").val();
+
+
     let err = 0;
-        if(user_id == '')
-        {
-            alert("something wrong try again");
-            err = 1;
-        }else if(p_id == ''){
+        if(p_id == ''){
 
         }
         else if(p_name=='')
@@ -633,7 +384,32 @@ $('#second-step').click(function(e) {
         }
 
         if(err == 0){
-            $('#klarna_form').submit();
+   
+             $.ajax({
+                headers: {
+                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                         },
+                url: "{{url('/')}}"+'/klarna-payment',
+                type: 'post',
+                async: false,
+                data:{amount:amount, validity_days:validity_days, p_id:p_id,p_name:p_name},
+                success: function(data){
+
+                       $(".loader").hide();
+                    if(data.success=="package subscribed"){
+                        console.log(data.success);
+                        console.log("second step complete");  
+                        $(".package-html").hide();
+                        $(".klarna_html").html(data.html_snippet).show();
+                                   
+                    }else{
+                        alert(data.error_msg);
+                        error=1;
+                    }
+                }
+            });
+
+            ////$('#klarna_form').submit();
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
 
@@ -662,10 +438,10 @@ $('#second-step').click(function(e) {
             });
             });
         }
-});*/
+});
 
 /*third step*/
-/*$('#third-step').click(function(e) {  
+$('#third-step').click(function(e) {  
      
     e.preventDefault();
 
@@ -702,6 +478,7 @@ $('#second-step').click(function(e) {
   }
   else
   {
+    $(".loader-seller").css("display","block");
     $.ajax({
                 headers: {
                             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
@@ -712,6 +489,7 @@ $('#second-step').click(function(e) {
                 data:{fname:fname, lname:lname, address:address,postcode:postcode},
                 success: function(data){
                     if(data.success=="third step success"){
+                        $(".loader-seller").css("display","none");
                         console.log(data.success);
                         console.log("third step complete"); 
                         third_step_err = 0;                   
@@ -753,51 +531,14 @@ $('#second-step').click(function(e) {
                 duration: 600
             }); 
         }         
-});*/
+});
 
 /*last step*/
 $('#last-step').click(function(e) {  
-     
+
     e.preventDefault();
     let store_name     = $("#store_name").val();
-    let header_img  = $("#seller_banner_img").val();   
-    let seller_logo     = $("#seller_logo_img").val();
-    let last_step_err = 0;
-    if(store_name == '')
-    {
-        $("#err_store_name").html(fill_in_first_name_err).show();
-        $("#err_store_name").parent().addClass('jt-error');
-        last_step_err = 1;
-    }
-    else
-    {
-        $("#err_store_name").html('');
-    }
-
-    if(header_img == '')
-    {
-        $("#err_seller_banner_img").html("please upload banner image").show();
-        $("#err_seller_banner_img").parent().addClass('jt-error');
-     
-        last_step_err = 1;
-    }
-    else
-    {
-        $("#err_seller_banner_img").html('');
-    }
-    
-    if(seller_logo == '')
-    {
-        $("#err_seller_logo_img").html("please upload your business logo").show();
-        $("#err_seller_logo_img").parent().addClass('jt-error');
-        last_step_err = 1;
-    }
-    else
-    {
-        $("#err_seller_logo_img").html('');
-    }
-
-    
+   
     if($("#chk_privacy_policy").is(':checked')){
        last_step_err = 0;
     } else {
@@ -811,22 +552,13 @@ $('#last-step').click(function(e) {
     }
     else 
     {
-/*          var file_data = $('#seller_banner_img').prop('file')[0]; */  
-          //alert(file_data);return
-  /*  var form_data = new FormData();                  
-    form_data.append('file', file_data);
-    console.log(form_data);return*/
-        //save form data on validation success
-          // var formData = new FormData();
-        /*  formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);*/
-//         var formData = new FormData($('#seller-personal-form')[0]);
-// formData.append('store_name', store_name);
-// formData.append('header_img', $('input[type=file]')[0].files[0]);
+    let logo_image   = $("#logo_image").val();
+    let banner_image = $("#banner_image").val();
+    let store_name   = $("#store_name").val();
 
-// formData.append('header_img', $('input[type=file]')[1].files[1]);
-var formData = new FormData(this);
-console.log(formData);
-//console.log(formData);return
+    let chk_privacy_policy   = $("#chk_privacy_policy").val();
+            $(".loader-seller").css("display","block");
+
             $.ajax({
                 headers: {
                             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
@@ -834,29 +566,24 @@ console.log(formData);
                 url: "{{url('/')}}"+'/seller-info-page',
                 type: 'post',
                 async: false,
-                data:{formData},
-                contentType: false,
-                processData: false,
-                cache:false,
+                data:{banner_image:banner_image,logo_image:logo_image,store_name:store_name},
+            
                 success: function(data){
+                    $(".loader-seller").css("display","none");
                     if(data.success=="last step success"){
                         console.log(data.success);
                         console.log("last step success"); 
-                        console.log(data.details);                  
+                        window.location = "{{ route('frontRegisterSuccess') }}";
+
+                           
+
                     }
                 }
             });
-        }
-  
-    if(last_step_err == 0){
-        // alert("in");
-        // $(this).attr('type','submit').trigger('click');
- /**/
-     
-    }
-  
+        }  
 });
 
+/*function to upload seller banner image*/
 $('body').on('change', '#seller_banner_img', function () {
 
   var fileUpload  = $(this)[0];
@@ -864,13 +591,38 @@ $('body').on('change', '#seller_banner_img', function () {
   
   var validExtensions = ["jpg","jpeg","gif","png"];
   var file = $(this).val().split('.').pop();
-  if (validExtensions.indexOf(file) == -1) {
+
+    if (validExtensions.indexOf(file) == -1) {
           alert(invalid_files_err);
           $(this).val('');
           return false;
-}
+
+    }else{
+
+        var formData = new FormData();
+        if (fileUpload.files.length > 0) {
+
+               formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+
+                $.ajax({
+                    headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+                      url: siteUrl+'/upload-seller-banner-image',
+                      type: 'POST',
+                      data: formData,
+                      processData: false,
+                      contentType: false,
+
+                      success: function(data) {
+                       $('.seller_banner_upload').html('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="banner_image" id="banner_image">'+
+                          '<img src="'+siteUrl+'/uploads/Seller/resized/'+data+'" style="width:200px;height:200px;">'+
+                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>'); 
+                      }
+                });
+        }
+    }
 });
 
+/*function to upload seller logo image*/
 $('body').on('change', '#seller_logo_img', function () {
 
   var fileUpload  = $(this)[0];
@@ -882,62 +634,67 @@ $('body').on('change', '#seller_logo_img', function () {
           alert(invalid_files_err);
           $(this).val('');
           return false;
+}else{
+
+    var formData = new FormData();
+
+        if (fileUpload.files.length > 0) {
+
+               formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+
+                $.ajax({
+                    headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+                      url: siteUrl+'/upload-seller-logo-image',
+                      type: 'POST',
+                      data: formData,
+                      processData: false,
+                      contentType: false,
+
+                      success: function(data) {
+                       $('.seller_logo_upload').html('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="logo_image" id="logo_image">'+
+                          '<img src="'+siteUrl+'/uploads/Seller/resized/'+data+'" style="width:200px;height:200px;">'+
+                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>'); 
+                                        
+                      }
+
+                });
+        }
 }
 });
-/*
-var current_fs, next_fs, previous_fs; //fieldsets
-var opacity;
 
-$(".next").click(function(){
-current_fs = $(this).parent();
-next_fs = $(this).parent().next();
 
-//Add Class Active
-$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-//show the next fieldset
-next_fs.show();
-//hide the current fieldset with style
-current_fs.animate({opacity: 0}, {
-step: function(now) {
-// for making fielset appear animation
-opacity = 1 - now;
-
-current_fs.css({
-'display': 'none',
-'position': 'relative'
-});
-next_fs.css({'opacity': opacity});
-},
-duration: 600
-});
-});
-*/
+/*function for previous button click*/
 $(".previous").click(function(){
+    if($(this).hasClass("package-previous")){
+         if($(".klarna_html").is(":visible")){
+            $(".package-html").show();
+            $(".klarna_html").hide();
+            return 1;
+         }
+    }
+    current_fs = $(this).parent();
+    previous_fs = $(this).parent().prev();
 
-current_fs = $(this).parent();
-previous_fs = $(this).parent().prev();
+    //Remove class active
+    $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
-//Remove class active
-$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+    //show the previous fieldset
+    previous_fs.show();
 
-//show the previous fieldset
-previous_fs.show();
+    //hide the current fieldset with style
+    current_fs.animate({opacity: 0}, {
+        step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
 
-//hide the current fieldset with style
-current_fs.animate({opacity: 0}, {
-step: function(now) {
-// for making fielset appear animation
-opacity = 1 - now;
-
-current_fs.css({
-'display': 'none',
-'position': 'relative'
-});
-previous_fs.css({'opacity': opacity});
-},
-duration: 600
-});
+            current_fs.css({
+            'display': 'none',
+            'position': 'relative'
+            });
+            previous_fs.css({'opacity': opacity});
+        },
+        duration: 600
+    });
 });
 
 $('.radio-group .radio').click(function(){
@@ -950,14 +707,12 @@ return false;
 })
 
 });
-/*first step validation and save*/
-	
 
 
 /*function to check unique store name
 * @param : store name
 */
-  function checkStoreName(){
+function checkStoreName(){
 
     var store_name= $("#store_name").val();
     if(store_name!=''){
@@ -969,7 +724,7 @@ return false;
             if(output !=''){
              alert(output);
             }else{
-                alert("store name is verified");
+                alert(store_name_is_verified);
             }
             }
         });

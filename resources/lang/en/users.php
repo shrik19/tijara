@@ -200,6 +200,22 @@
     //Backend Orders
     'order_title' => 'Orders',
     'is_featured' => 'Is Featured',
-    
+    'sell_with_tijara_head' => 'Sell ​​with Tijara',
+    'next_step_btn' => 'Next',
+    'prev_step_btn' => 'Previous',
+    'step_one_head'  => 'Registration',
+    'step_two_head'  => 'Select package',
+    'step_three_head'  => 'How to get paid',
+    'step_four_head'  => 'Your store page',
+    'third_step_title' => 'Tijara Bas',
+    'read_and_approve_chk' => 'I have read and approve of Tijaras',
+    'terms_of_use' => 'Terms of use',
+    'privacy_policy' => 'Privacy Policy',
+    'store_terms' => 'Store terms',
+    'and_chk' => 'and',
+    'finish_btn' => 'Finish',
+    'verify_btn' => 'Verify',
+    'store_name_is_verified' => 'Store name is verified',
+    'please_enter_store_name' => 'Please enter store name',
  ]
 ?>

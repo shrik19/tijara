@@ -221,5 +221,22 @@
     //Backend Orders
     'order_title' => 'Order',
     'is_featured' => "Är Presenterade",
+    'sell_with_tijara_head' => 'Sälj med Tijara',
+    'next_step_btn' => 'Nästa',
+    'prev_step_btn' => 'Tidigare',
+    'step_one_head'  => 'Registrering',
+    'step_two_head'  => 'Välj paket',
+    'step_three_head'  => 'Hur du får betalt',
+    'step_four_head'  => 'Din butikssida',
+    'third_step_title' => 'Tijara Bas',
+    'read_and_approve_chk' => 'Jag har tagit del av och godkänner Tijaras',
+    'terms_of_use' => 'Användarvillkor',
+    'privacy_policy' => 'Integritetspolicy',
+    'store_terms' => 'Butiksvillkor',
+    'and_chk' => 'samt',
+    'finish_btn' => 'Slutför',
+    'verify_btn' => 'Kontrollera',
+    'store_name_is_verified' => 'Butiksnamn är verifierat',
+    'please_enter_store_name' => 'Ange butiksnamn',
  ]
 ?>

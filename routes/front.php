@@ -63,13 +63,15 @@ Route::post('/reset-password','Front\AuthController@resetPassword')->name('front
 
 /*seller registration*/
 Route::any('/new-seller-register','Front\AuthController@newsellerRegister')->name('frontNewSellerRegister');
-Route::post('/klarna-payment', 'Front\AuthController@klarnaPayment')->name('frontklarnaPayment');
+Route::any('/klarna-payment', 'Front\AuthController@klarnaPayment')->name('frontklarnaPayment');
 Route::post('/subscribe-package', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
 
 Route::any('/package_callback', 'Front\AuthController@packageCallback')->name('frontPackageCallback');
-  Route::get('/seller-packages', 'Front\AuthController@sellerPackages')->name('frontSellerPackages');
+Route::get('/seller-packages', 'Front\AuthController@sellerPackages')->name('frontSellerPackages');
 
-  Route::any('/third-step-seller-register','Front\AuthController@thirdStepsellerRegister')->name('frontThirdStepSellerRegister');
+Route::any('/third-step-seller-register','Front\AuthController@thirdStepsellerRegister')->name('frontThirdStepSellerRegister');
+Route::post('/upload-seller-banner-image','Front\AuthController@uploadSellerBannerImage')->name('uploadSellerBannerImage');
+Route::post('/upload-seller-logo-image','Front\AuthController@uploadSellerLogoImage')->name('uploadSellerLogoImage');
 Route::any('/seller-info-page', 'Front\AuthController@seller_info_page')->name('frontSellerInfoPage');
 /*end seller registration*/
 /*CMS Pages*/

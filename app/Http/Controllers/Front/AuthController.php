@@ -211,7 +211,9 @@ class AuthController extends Controller
 		$data['banner'] 	       = $banner;
 		$data['registertype']      = trans('users.sellers_title');
 		$data['role_id'] 	       = 2;
+        $data['next_step']         = 1;
         $data['pageTitle']         = trans('lang.sign_up_title');
+        $data['headingTitle']      = trans('users.sell_with_tijara_head');
 
 
         if(Auth::guard('user')->id()) {
@@ -219,6 +221,7 @@ class AuthController extends Controller
         }
 
         return view('Front/seller_register', $data);
+
     }
 
     public function doRegister(Request $request)
@@ -298,6 +301,7 @@ class AuthController extends Controller
 
      public function newsellerRegister(Request $request)
     {
+
         $rules = [
             'email'      => 'required|email|unique:users,email',          
         ];
@@ -311,49 +315,34 @@ class AuthController extends Controller
         if($validator->fails()) {
 
             $messages = $validator->messages();
-                /* echo "<pre>";
-            print_r($messages['email']);exit;*/
              return response()->json(['error_msg'=>$messages]);
-           // return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
         else
         {
-            $arrInsert =array();
-            $arrInsert = [
-                          'email'         => trim($request->input('email')),
-                          'password'      => bcrypt(trim($request->input('password'))),
-                          'status'        => 'active',
-                          'role_id'       => $request->input('role_id'),
-                        ];
 
-            $user_id = User::create($arrInsert)->id;
-            Session::put('seller_register_form_id', $user_id);
+            $data = [];
+            $email = trim($request->input('email'));
+            //$password = bcrypt(trim($request->input('password')));
+            $password = trim($request->input('password'));
+            $status = 'active';
+            $role_id = 2;
+            $cpassword = trim($request->input('password_confirmation'));
 
-            if($request->input('role_id') == 2)
-            {
-                $email = trim($request->input('email'));
-                $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
-
-                $admin_email = env('ADMIN_EMAIL');
-                $admin_name  = env('ADMIN_NAME');
-
-                $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($user_id))];
-
-                        Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
-                            $message->to($admin_email, $admin_name)->subject
-                                (trans('users.admin_email_subject'));
-                            $message->from( env('FROM_MAIL'),'Tijara');
-                        });
-            }
-
-           // return redirect(route('frontRegisterSuccess'));
-            return response()->json(['success'=>'Got Simple Ajax Request','user_id'=>$user_id]);
+            Session::put('new_seller_email', $email);
+            Session::put('new_seller_password', $password);
+            Session::put('new_seller_cpassword', $cpassword);
+            Session::put('new_seller_status', $status);
+            Session::put('new_seller_role_id', $role_id);
+            Session::put('next_step', 2);
+       
+            return response()->json(['success'=>'Got Simple Ajax Request']);
         }   
     }
 
     /*function to save third step seller registration form values*/
     public function thirdStepsellerRegister(Request $request){
-        $session_user_id = Session::get('seller_register_form_id');
+     
+        $session_user_id = Session::get('new_seller_user_id');
 
         $arrUpdate = [
                 'fname'        => trim($request->input('fname')),
@@ -363,6 +352,12 @@ class AuthController extends Controller
             ];
 
         UserMain::where('id','=',$session_user_id)->update($arrUpdate);
+        Session::put('new_seller_fname');
+        Session::put('new_seller_lname');
+        Session::forget('next_step');
+        Session::forget('StepsHeadingTitle');
+        Session::put('next_step',4);
+        Session::put('StepsHeadingTitle',trans('users.sell_with_tijara_head'));
         return response()->json(['success'=>'third step success']);
     }
 
@@ -706,190 +701,219 @@ class AuthController extends Controller
 
 
     /**
-     * Show the Seller Profile Page.
+     * function to save last step data of seller registration procee and remove all session variable.
      *
      * @return null
      */
     public function seller_info_page(Request $request)
     {
 
-
-    
-        //$user_id = Auth::guard('user')->id();
-        $session_user_id = Session::get('seller_register_form_id');
+        $session_user_id = Session::get('new_seller_user_id');
+        $UpdateStore  =   array();
+        $UpdateStore = [
+                'store_name'      => trim($request->input('store_name')),
+        ];
+         if(!empty($UpdateStore)) {
+                UserMain::where('id',$session_user_id)->update($UpdateStore);
+        }
 
         $details=SellerPersonalPage::where('user_id',$session_user_id)->first();
-         $toUpdateData  =   array();
-         echo "here".$request->file('header_img');
-        if($request->hasfile('header_img'))
+
+        $toUpdateData  =   array();
+        $toUpdateData = [
+                'user_id'      => $session_user_id,
+                'header_img'        => trim($request->input('banner_image')),
+                'logo'        => trim($request->input('logo_image')),
+        ];
+    
+        if(!empty($toUpdateData)) {
+            if(!empty($details)){
+                SellerPersonalPage::where('user_id',$session_user_id)->update($toUpdateData);
+            }
+            else
             {
-                echo "in";exit;
-                if(!empty($details->header_img)){
-
-                    $image_path = public_path("/uploads/Seller/".$details->header_img);
-                    $resized_image_path = public_path("/uploads/Seller/".$details->header_img);
-                    if (File::exists($image_path)) {
-                        File::delete($image_path);
-                    }
-
-                    if (File::exists($resized_image_path)) {
-                        File::delete($resized_image_path);
-                    }
-                }
-
-                $fileError = 0;
-                $image = $request->file('header_img');
-                $name=$image->getClientOriginalName();
-                $fileExt  = strtolower($image->getClientOriginalExtension());
-                if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
-                    $fileName = 'header_'.date('YmdHis').'.'.$fileExt;
-                    $toUpdateData['header_img']=$fileName;
-                    $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
-                    $path = public_path().'/uploads/Seller/'.$fileName;
-                    $mime = getimagesize($path);
-
-                    if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
-                    if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
-                    if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
-                    if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
-
-                    $old_x = imageSX($src_img);
-                    $old_y = imageSY($src_img);
-
-                    $newWidth = 200;
-                    $newHeight = 200;
-
-                    if($old_x > $old_y){
-                        $thumb_w    =   $newWidth;
-                        $thumb_h    =   $old_y/$old_x*$newWidth;
-                    }
-
-                    if($old_x < $old_y){
-                        $thumb_w    =   $old_x/$old_y*$newHeight;
-                        $thumb_h    =   $newHeight;
-                    }
-
-                    if($old_x == $old_y){
-                        $thumb_w    =   $newWidth;
-                        $thumb_h    =   $newHeight;
-                    }
-
-                    $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
-                    imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
-
-                    // New save location
-                    $new_thumb_loc = public_path().'/uploads/Seller/resized/' . $fileName;
-
-                    if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
-                    if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-                    if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-                    if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-
-                    imagedestroy($dst_img);
-                    imagedestroy($src_img);
-                }
-                else {
-                    $fileError = 1;
-                }
-
-                if($fileError == 1)
-                {
-                    Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
-                    return redirect()->back();
-                }
+                $toUpdateData['user_id']=$session_user_id;
+                SellerPersonalPage::insert($toUpdateData);
             }
-exit;
-            if($request->hasfile('logo'))
-            {
-                if(!empty($details->logo)){
+        }
 
-                    $image_path = public_path("/uploads/Seller/".$details->logo);
-                    $resized_image_path = public_path("/uploads/Seller/".$details->logo);
-                    if (File::exists($image_path)) {
-                        File::delete($image_path);
-                    }
+        $email =   Session::get('new_seller_email');
+        $name  = Session::get('new_seller_fname').' '.Session::get('new_seller_lname');
 
-                    if (File::exists($resized_image_path)) {
-                        File::delete($resized_image_path);
-                    }
-                }
+        $admin_email = env('ADMIN_EMAIL');
+        $admin_name  = env('ADMIN_NAME');
+                    //$admin_email = 'cooldhirajsonar@gmail.com';
 
-                $fileError = 0;
-                $image = $request->file('logo');
-                $name=$image->getClientOriginalName();
-                $fileExt  = strtolower($image->getClientOriginalExtension());
-                if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
-                    $fileName = 'logo_'.date('YmdHis').'.'.$fileExt;
-                    $toUpdateData['logo']=$fileName;
-                    $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
-                    $path = public_path().'/uploads/Seller/'.$fileName;
-                    $mime = getimagesize($path);
+        $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($session_user_id))];
 
-                    if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
-                    if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
-                    if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
-                    if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+            Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+            $message->to($admin_email, $admin_name)->subject
+                (trans('users.admin_email_subject'));
+            $message->from( env('FROM_MAIL'),'Tijara');
+        });
 
-                    $old_x = imageSX($src_img);
-                    $old_y = imageSY($src_img);
 
-                    $newWidth = 300;
-                    $newHeight = 300;
-
-                    if($old_x > $old_y){
-                        $thumb_w    =   $newWidth;
-                        $thumb_h    =   $old_y/$old_x*$newWidth;
-                    }
-
-                    if($old_x < $old_y){
-                        $thumb_w    =   $old_x/$old_y*$newHeight;
-                        $thumb_h    =   $newHeight;
-                    }
-
-                    if($old_x == $old_y){
-                        $thumb_w    =   $newWidth;
-                        $thumb_h    =   $newHeight;
-                    }
-
-                    $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
-                    imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
-
-                    // New save location
-                    $new_thumb_loc = public_path().'/uploads/Seller/resized/' . $fileName;
-
-                    if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
-                    if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-                    if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-                    if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
-
-                    imagedestroy($dst_img);
-                    imagedestroy($src_img);
-                }
-                else {
-                    $fileError = 1;
-                }
-
-                if($fileError == 1)
-                {
-                    Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
-                    return redirect()->back();
-                }
-            }
-            if(!empty($toUpdateData)) {
-                if(!empty($details))
-                    SellerPersonalPage::where('user_id',$session_user_id)->update($toUpdateData);
-                else
-                {
-                    $toUpdateData['user_id']=$session_user_id;
-                    SellerPersonalPage::insert($toUpdateData);
-                }
-                Session::flash('success', trans('users.seller_personal_info_saved'));
-                    return redirect()->back();
-            }
-        $data['details']=$details;
-        return response()->json(['success'=>'last step success','details'=>$data]);
-       // return view('Front/seller_personal_page', $data);
+        Session::forget('new_seller_user_id');
+        Session::forget('new_seller_email');
+        Session::forget('new_seller_fname');
+        Session::forget('new_seller_lname');
+        Session::forget('new_seller_password');
+        Session::forget('new_seller_cpassword');
+        Session::forget('new_seller_status');
+        Session::forget('new_seller_role_id');
+        Session::forget('next_step');
+        Session::forget('seller_register_form_id');
+        return response()->json(['success'=>'last step success']);
     }
+
+
+    /**
+     * function to upload seller banner image.
+     *
+     * @return null
+     */
+    public function uploadSellerBannerImage(Request $request){
+     
+        if(($request->file('fileUpload'))){
+
+            $fileError = 0;
+            $image=$request->file('fileUpload');
+            $name=$image->getClientOriginalName();
+            $fileExt  = strtolower($image->getClientOriginalExtension());
+            
+            if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+                $fileName = 'seller-banner-'.date('YmdHis').'.'.$fileExt;
+                $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
+                $path = public_path().'/uploads/Seller/'.$fileName;
+                $mime = getimagesize($path);
+            
+                if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+                if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+                if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+                if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+            
+                $old_x = imageSX($src_img);
+                $old_y = imageSY($src_img);
+                $newWidth = 300;
+                $newHeight = 300;
+            
+                if($old_x > $old_y) {
+                    $thumb_w    =   $newWidth;
+                    $thumb_h    =   $old_y/$old_x*$newWidth;
+                }
+            
+                if($old_x < $old_y) {
+                    $thumb_w    =   $old_x/$old_y*$newHeight;
+                    $thumb_h    =   $newHeight;
+                }
+            
+                if($old_x == $old_y) {
+                    $thumb_w    =   $newWidth;
+                    $thumb_h    =   $newHeight;
+                }
+            
+                $dst_img  =  ImageCreateTrueColor($thumb_w,$thumb_h);
+                imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+                // New save location
+                $new_thumb_loc = public_path().'/uploads/Seller/resized/' . $fileName;
+            
+                if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+
+                if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                imagedestroy($dst_img);
+                imagedestroy($src_img);
+
+            } else {
+
+                $fileError = 1;
+            }
+            
+            if($fileError == 1) {
+            
+                            
+                }
+                       
+            echo $fileName;
+        } 
+    }
+
+    /**
+     * function to upload seller logo image.
+     *
+     * @return null
+     */
+    public function uploadSellerLogoImage(Request $request){
+     
+        if(($request->file('fileUpload'))){
+
+            $fileError = 0;
+            $image=$request->file('fileUpload');
+            $name=$image->getClientOriginalName();
+            $fileExt  = strtolower($image->getClientOriginalExtension());
+            
+            if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+                $fileName = 'seller-logo-'.date('YmdHis').'.'.$fileExt;
+                $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
+                $path = public_path().'/uploads/Seller/'.$fileName;
+                $mime = getimagesize($path);
+            
+                if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+                if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+                if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+                if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+            
+                $old_x = imageSX($src_img);
+                $old_y = imageSY($src_img);
+                $newWidth = 300;
+                $newHeight = 300;
+            
+                if($old_x > $old_y) {
+                    $thumb_w    =   $newWidth;
+                    $thumb_h    =   $old_y/$old_x*$newWidth;
+                }
+            
+                if($old_x < $old_y) {
+                    $thumb_w    =   $old_x/$old_y*$newHeight;
+                    $thumb_h    =   $newHeight;
+                }
+            
+                if($old_x == $old_y) {
+                    $thumb_w    =   $newWidth;
+                    $thumb_h    =   $newHeight;
+                }
+            
+                $dst_img  =  ImageCreateTrueColor($thumb_w,$thumb_h);
+                imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+                // New save location
+                $new_thumb_loc = public_path().'/uploads/Seller/resized/' . $fileName;
+            
+                if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+
+                if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                imagedestroy($dst_img);
+                imagedestroy($src_img);
+
+            } else {
+
+                $fileError = 1;
+            }
+            
+            if($fileError == 1) {
+                
+                }
+                        //$producVariant['image']=$fileName;
+                        echo $fileName;
+        } 
+    }
+
 
     /* funtion to seller delete image
     @param : $id
@@ -1351,7 +1375,6 @@ exit;
      */
     public function sellerPackages()
     {
-
         $data['pageTitle'] = trans('users.seller_packages_title');
         if(!Auth::guard('user')->id())
         {
@@ -1423,13 +1446,15 @@ exit;
         $data['ramainingDays']     = $date_diff;
         $data['expiryDate']        = $ExpiredDate;
 
+
         return view('Front/Packages/index', $data);
+        
     }
 
     public function klarnaPayment(Request $request){
         $username = env('KLORNA_USERNAME');
         $password = env('KLORNA_PASSWORD');
-        
+ 
         $user_id       = $request->input('user_id');
         $amount         = $request->input('amount');
         $validity_days = $request->input('validity_days');
@@ -1471,7 +1496,7 @@ exit;
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-
+        $error_msg ='';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -1485,19 +1510,21 @@ exit;
  
         if (curl_errno($ch)) {
             $error_msg = curl_error($ch);
+
         }
         curl_close($ch);
 
         $response = json_decode($result);
+
         if(!empty($response->error_messages)){
             $cnt_err = count($response->error_messages);
         }
-        
-        if (isset($error_msg) || @$cnt_err ) {
+
+        if(!empty($error_msg) || @$cnt_err ) {
            $blade_data['error_messages']= trans('errors.payment_failed_err');
            return view('Front/Packages/payment_error',$blade_data); 
         }
-      
+  
         $order_id = $response->order_id;
         $order_status = $response->status;
         $currentDate = date('Y-m-d H:i:s');
@@ -1521,7 +1548,8 @@ exit;
           
         }
 
-        $arrInsertPackage = [
+        if(Auth::guard('user')->id()) {
+            $arrInsertPackage = [
                               'user_id'    =>$user_id,
                               'package_id' => $package_id,
                               'status'     => "block",
@@ -1530,11 +1558,25 @@ exit;
                               'order_id'   => $order_id,
                               'payment_status' =>$order_status,
                             ];
-         
-        UserPackages::create($arrInsertPackage);
 
-        $html_data["html_snippet"] = $response->html_snippet;
-        return view('Front/Packages/payment_integration',$html_data); 
+            UserPackages::create($arrInsertPackage);
+            $html_data["html_snippet"] = $response->html_snippet;
+            return view('Front/Packages/payment_integration',$html_data); 
+        }else{
+
+        
+            Session::put('new_seller_package_id', $package_id);
+            Session::put('new_seller_package_status', 'block');
+            Session::put('new_seller_package_start_date', $start_date);
+            Session::put('new_seller_package_end_date', $ExpiredDate);
+            Session::put('new_seller_package_order_id', $order_id);
+            Session::put('new_seller_package_payment_status', $order_status);
+
+            $html_snippet = $response->html_snippet;
+      
+            return response()->json(['success'=>'package subscribed','html_snippet'=>$html_snippet,'error_msg'=>$error_msg]);
+           
+        }
        
     }
 
@@ -1544,7 +1586,7 @@ exit;
         $username = env('KLORNA_USERNAME');
         $password = env('KLORNA_PASSWORD');
         /*klarna api call to read order*/
-      
+     
         $url = env('BASE_API_URL')."/".$order_id;
         /*  $url ="https://api.playground.klarna.com/checkout/v3/orders/d1d90381-3cda-6a89-a22c-33f1ed95eb9e";*/
         
@@ -1573,12 +1615,45 @@ exit;
         
         $order_id     =  $response->order_id;
         $order_status = $response->status;
+
         $data=[];
         $data["html_snippet"] = $response->html_snippet;
         //return view('Front/Packages/payment_confirm',$data); 
 
-        Session::Flash('success', trans('messages.package_subscribe_success'));
-        return redirect(route('frontSellerPackages'));
+       
+
+
+        if(Auth::guard('user')->id()) {
+            Session::Flash('success', trans('messages.package_subscribe_success'));
+            return redirect(route('frontSellerPackages'));
+        }else{
+            Session::forget('next_step');
+             $arrInsert = [
+                          'email'         => Session::get('new_seller_email'),
+                          'password'      => bcrypt(Session::get('new_seller_password')),
+                          'status'        => Session::get('new_seller_status'),
+                          'role_id'       => Session::get('new_seller_role_id'),
+                        ];
+
+
+            $user_id = User::create($arrInsert)->id; 
+            Session::put('new_seller_user_id',$user_id);
+            $arrInsertPackage = [
+                              'user_id'    => $user_id,
+                              'package_id' => Session::get('new_seller_package_id'),
+                              'status'     => "block",
+                              'start_date' => Session::get('new_seller_package_start_date'),
+                              'end_date'   => Session::get('new_seller_package_end_date'),
+                              'order_id'   => Session::get('new_seller_package_order_id'),
+                              'payment_status' => Session::get('new_seller_package_payment_status'),
+                            ];
+
+            UserPackages::create($arrInsertPackage);
+            Session::put('next_step', 3);
+            Session::put('StepsHeadingTitle', trans('users.third_step_title'));
+            return redirect(route('seller_register'));
+            //return $this->view('Front/seller_register',$data); 
+        }
        // $this->newsellerRegister();
         //return view('Front/Packages/seller-packages',$data); 
     }
@@ -1589,7 +1664,6 @@ exit;
         $order_id = $request->order_id;
         $username = env('KLORNA_USERNAME');
         $password = env('KLORNA_PASSWORD');
-
 
         $package_details = DB::table('user_packages')
                         ->join('packages', 'packages.id', '=', 'user_packages.package_id')

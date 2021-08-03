@@ -92,7 +92,7 @@
                                             <input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name">
                                             <input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days">
                                             <input type="hidden" name="amount" value="{{$data['amount']}}" id="amount">     
-                                            <button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
+                                            <button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn btnsubscribePackage">{{ __('users.subscribe_btn')}}</button>
                                         </form>
                                     </div>
                                     </div>
@@ -342,7 +342,7 @@ $(document).ready(function(){
 
 /*second step*/
 
-$('#btnsubscribePackage').click(function(e) { 
+$('.btnsubscribePackage').click(function(e) { 
     e.preventDefault();
     
     let user_id  = $("#user_id").val();

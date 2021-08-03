@@ -11,22 +11,7 @@
 @endif
 </div>
 <!-- multistep seller registration wizard start here -->
-<style type="text/css">
-    .loader-seller {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: #eceaea;
-    background-image: url(http://localhost:8000/assets/front/img/ajax-loader.gif);
-    background-size: 50px;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 10000000;
-    opacity: 0.4;
-}
-</style>
+
 <!-- MultiStep Form -->
 <div class="container">
 <div class="container-fluid" id="grad1">
@@ -197,16 +182,16 @@
 $(document).ready(function(){
     if($('#current_step_button').val() != 1){
         var curr_step=  $('input#current_step_button').val();
-     alert(curr_step);
+
         $( "fieldset" ).each(function() {
           $( this ).css({
                     'display': 'none',
                     'position': 'relative'
                     });
         });
-        $( "li" ).each(function() {
-         $( this ).removeClass('active');
-       });
+        //$( "li" ).each(function() {
+       //  $( this ).removeClass('active');
+      // });
  
         //setTimeout(function(){ $('input.'+curr_step).trigger('click')}, 500);
         current_fs = $('input.'+curr_step).parent();
@@ -214,8 +199,13 @@ $(document).ready(function(){
 
         //Add Class Active
         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-
+        if(curr_step==3){
+             $("#progressbar li").eq($("fieldset").index(current_fs)).addClass("active");
+        }
+        if(curr_step==4){
+             current_fs_prev = $('input.'+curr_step).parent().prev();
+            $("#progressbar li").eq($("fieldset").index(current_fs_prev)).addClass("active");
+        }
         //show the next fieldset
         next_fs.show();
         //hide the current fieldset with style
@@ -307,7 +297,7 @@ $(document).ready(function(){
                 async: false,
                 data:{email:email, password:password, password_confirmation:password_confirmation,role_id:role_id},
                 success: function(data){
-                       $(".loader-seller").css("display","none");
+                    $(".loader-seller").css("display","none");
                     if(data.success=="Got Simple Ajax Request"){
                         console.log(data.success);
                         console.log("first step complete");              
@@ -401,7 +391,7 @@ $('#btnsubscribePackage').click(function(e) {
                         console.log("second step complete");  
                         $(".package-html").hide();
                         $(".klarna_html").html(data.html_snippet).show();
-                                   
+                        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     }else{
                         alert(data.error_msg);
                         error=1;
@@ -558,7 +548,6 @@ $('#last-step').click(function(e) {
 
     let chk_privacy_policy   = $("#chk_privacy_policy").val();
             $(".loader-seller").css("display","block");
-
             $.ajax({
                 headers: {
                             'X-CSRF-Token': $('meta[name="_token"]').attr('content')

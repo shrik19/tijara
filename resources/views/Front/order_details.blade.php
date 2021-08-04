@@ -12,7 +12,10 @@
 <div class="loader"></div>
 <div class="container printdiv">
     <div class="row">
-        <div class="col-sm-12 col-md-12">
+    <div class="col-md-2">
+      @include ('Front.layout.sidebar_menu')
+    </div>
+        <div class="col-sm-12 col-md-10">
             <div class="row">
                 <div class="col-md-12">
                 <h2>{{ __('messages.txt_order_details')}} - #{{ $order['id'] }}</h2>

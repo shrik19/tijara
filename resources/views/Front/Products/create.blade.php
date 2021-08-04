@@ -18,6 +18,10 @@
    @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
+      <div class="col-md-2">
+        @include ('Front.layout.sidebar_menu')
+      </div>
+      <div class="col-md-10">
   @if($is_seller)    
   <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
   @else
@@ -382,6 +386,7 @@
   </div>
 
   </form>
+            </div>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 

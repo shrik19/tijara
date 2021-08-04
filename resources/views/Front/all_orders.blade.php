@@ -12,8 +12,10 @@
   <!-- Example row of columns -->
   
   <div class="row">
-    <div class="">
-      <div class="col-md-12">
+  <div class="col-md-2">
+        @include ('Front.layout.sidebar_menu')
+      </div>
+      <div class="col-md-10">
 		 
 	  @include('Front.alert_messages')
 	   
@@ -53,8 +55,7 @@
 		  </form>  
 		</div>
 	  </div>
-				
-	  </div> 
+		
     </div>
   </div>
 </div> <!-- /container -->

@@ -11,8 +11,11 @@
 <div class="container">
     <!-- Example row of columns -->
     <div class="row">
-      <div class="">
-        <div class="col-md-3"></div>
+    <div class="col-md-2">
+        @include ('Front.layout.sidebar_menu')
+      </div>
+        
+        <div class="col-md-1"></div>
         <div class="col-md-6">
           @include ('Front.alert_messages')
           <h2>{{ __('users.change_password_title')}} </h2>
@@ -38,7 +41,7 @@
             </form>
           </div>
         </div>
-      </div>
+     
     </div>
 </div> <!-- /container -->
 

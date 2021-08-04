@@ -15,6 +15,10 @@
 
 </div>
 <div class="container">
+<div class="col-md-2">
+        @include ('Front.layout.sidebar_menu')
+      </div>
+      <div class="col-md-10">
   <!-- Example row of columns -->
     <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
           @csrf
@@ -429,6 +433,7 @@
 
   </div>
 </form>
+</div>
   </div> <!-- /container -->
 
 <script type="text/javascript">

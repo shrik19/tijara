@@ -77,7 +77,9 @@
                           <div class="col-md-12 package-html">
                             <h2>{{ __('users.subscribe_package_label')}} </h2>
                             <hr class="heading_line"/>
+                            <?php $i=1; ?>
                                 @foreach($packageDetails as $data)
+                                
                                 <div class="col-md-4">
                                     <div class="panel panel-default subscribe-packages">
                                     <div class="panel-heading">{{$data['title']}}</div>
@@ -87,16 +89,17 @@
                                         <p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>
                                         <form  action="" class="needs-validation" novalidate="" id="klarna_form">
                                             {{ csrf_field() }}
-                                            <input type="hidden" name="user_id" value="" id="user_id">
-                                            <input type="hidden" name="p_id" value="{{$data['id']}}" id="p_id">
-                                            <input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name">
-                                            <input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days">
-                                            <input type="hidden" name="amount" value="{{$data['amount']}}" id="amount">     
-                                            <button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn btnsubscribePackage">{{ __('users.subscribe_btn')}}</button>
+                                            <input type="hidden" name="user_id" value="" id="user_id" class="user_id">
+                                            <input type="hidden" name="p_id" value="{{$data['id']}}" id="p_id_{{$i}}" class="p_id">
+                                            <input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name_{{$i}}" class="p_name">
+                                            <input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days_{{$i}}" class="validity_days">
+                                            <input type="hidden" name="amount" value="{{$data['amount']}}" id="amount_{{$i}}" class="amount">     
+                                            <button type="button" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn btnsubscribePackage" onclick='subscribe_package("{{$i}}")'>{{ __('users.subscribe_btn')}}</button>
                                         </form>
                                     </div>
                                     </div>
                                 </div>
+                                <?php $i++; ?>
                                 @endforeach
                            </div>
 
@@ -179,6 +182,94 @@
 </div>
 
 <script type="text/javascript">
+    function subscribe_package(i){
+      
+         
+    
+    let user_id  = $("#user_id").val();
+    let p_id     = $("#p_id_"+i).val();
+    let p_name  = $("#p_name_"+i).val();
+    let validity_days = $("#validity_days_"+i).val(); 
+    let amount = $("#amount_"+i).val();
+
+
+        let err = 0;
+        if(p_id == ''){
+
+        }
+        else if(p_name=='')
+        {
+            alert("something wrong try again");
+            err = 1;
+        }
+        else if(validity_days==''){
+            alert("something wrong try again");
+            err = 1;
+        }
+        else if(amount == '')
+        {
+            alert("something wrong try again");
+            err = 1;
+        }else{
+            err=0;
+        }
+
+        if(err == 0){
+   
+             $.ajax({
+                headers: {
+                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                         },
+                url: "{{url('/')}}"+'/klarna-payment',
+                type: 'post',
+                async: false,
+                data:{amount:amount, validity_days:validity_days, p_id:p_id,p_name:p_name},
+                success: function(data){
+
+                       $(".loader").hide();
+                    if(data.success=="package subscribed"){
+                        console.log(data.success);
+                        console.log("second step complete");  
+                        $(".package-html").hide();
+                        $(".klarna_html").html(data.html_snippet).show();
+                        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                    }else{
+                        alert(data.error_msg);
+                        error=1;
+                    }
+                }
+            });
+
+            ////$('#klarna_form').submit();
+            var current_fs, next_fs, previous_fs; //fieldsets
+            var opacity;
+
+            $(".next").click(function(){
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+            step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+
+            current_fs.css({
+            'display': 'none',
+            'position': 'relative'
+            });
+            next_fs.css({'opacity': opacity});
+            },
+            duration: 600
+            });
+            });
+        }
+    }
 $(document).ready(function(){
     if($('#current_step_button').val() != 1){
         var curr_step=  $('input#current_step_button').val();
@@ -342,93 +433,9 @@ $(document).ready(function(){
 
 /*second step*/
 
-$('.btnsubscribePackage').click(function(e) { 
-    e.preventDefault();
-    
-    let user_id  = $("#user_id").val();
-    let p_id     = $("#p_id").val();
-    let p_name  = $("#p_name").val();
-    let validity_days = $("#validity_days").val(); 
-    let amount = $("#amount").val();
+//$('.btnsubscribePackage').click(function(e) { 
 
-
-    let err = 0;
-        if(p_id == ''){
-
-        }
-        else if(p_name=='')
-        {
-            alert("something wrong try again");
-            err = 1;
-        }
-        else if(validity_days==''){
-            alert("something wrong try again");
-            err = 1;
-        }
-        else if(amount == '')
-        {
-            alert("something wrong try again");
-            err = 1;
-        }else{
-            err=0;
-        }
-
-        if(err == 0){
-   
-             $.ajax({
-                headers: {
-                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                         },
-                url: "{{url('/')}}"+'/klarna-payment',
-                type: 'post',
-                async: false,
-                data:{amount:amount, validity_days:validity_days, p_id:p_id,p_name:p_name},
-                success: function(data){
-
-                       $(".loader").hide();
-                    if(data.success=="package subscribed"){
-                        console.log(data.success);
-                        console.log("second step complete");  
-                        $(".package-html").hide();
-                        $(".klarna_html").html(data.html_snippet).show();
-                        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-                    }else{
-                        alert(data.error_msg);
-                        error=1;
-                    }
-                }
-            });
-
-            ////$('#klarna_form').submit();
-            var current_fs, next_fs, previous_fs; //fieldsets
-            var opacity;
-
-            $(".next").click(function(){
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-
-            //Add Class Active
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({opacity: 0}, {
-            step: function(now) {
-            // for making fielset appear animation
-            opacity = 1 - now;
-
-            current_fs.css({
-            'display': 'none',
-            'position': 'relative'
-            });
-            next_fs.css({'opacity': opacity});
-            },
-            duration: 600
-            });
-            });
-        }
-});
+//});
 
 /*third step*/
 $('#third-step').click(function(e) {  

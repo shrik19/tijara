@@ -1454,7 +1454,7 @@ class AuthController extends Controller
     public function klarnaPayment(Request $request){
         $username = env('KLORNA_USERNAME');
         $password = env('KLORNA_PASSWORD');
- 
+
         $user_id       = $request->input('user_id');
         $amount         = $request->input('amount');
         $validity_days = $request->input('validity_days');

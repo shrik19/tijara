@@ -259,5 +259,17 @@
      'featured_seller_head'=>'Selected Stores',
      'popular_services_head' => 'Popular Services',
 
+
+     'store_information'    =>  'Store information',
+     'store_policy'         =>  'Store policy',
+     'store_name'           =>  'Store name',
+     'return_policy'        =>  'Return policy',
+     'shipping_policy'      =>  'Shipping policy',
+     'other_information'    =>  'Other information',
+
+     'product_form_step1'   =>  'Step 1 - Product description',
+     'product_form_step2'   =>  'Step 2 - Product details',
+     'product_form_step3'   =>  'Step 3 - Shipping',
+
  ]  
 ?>

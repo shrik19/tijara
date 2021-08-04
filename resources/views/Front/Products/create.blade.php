@@ -41,38 +41,23 @@
       </div>
 
          @include ('Front.alert_messages')
-      <div class="col-md-6">
+      <div class="col-md-12">
 
         <div class="login_box">
 
-
+            <h2 class="col-md-12">{{ __('lang.product_form_step1')}}</h2>
             <input type="hidden" name="product_id" value="{{$product_id}}">
 
-            <div class="form-group">
-              <label>{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('lang.product_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
+            <div class="form-group col-md-12">
+              <label class="col-md-3">{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
+              <input type="text" class="col-md-6 login_input" name="title" id="title" placeholder="{{ __('lang.product_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
               <span class="invalid-feedback" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
             </div>
 
-            <div class="form-group">
-              <label>{{ __('lang.product_slug_label')}} <span class="de_col">*</span></label>
-              <p style="color:#000;font-size: 12px;">(This is the part of a URL which identifies a product on a website in an easy to read form)</p>
-              <input type="text" class="form-control login_input slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}} " value="{{old('product_slug')}}" tabindex="1" readonly="readonly">
-              <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
-            </div>
-
-      			<div class="form-group">
-              <label>{{ __('lang.product_description_label')}}  <span class="de_col"></span></label>
-              <textarea class="form-control login_input" name="description" id="description" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
-              <span class="invalid-feedback" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
-            </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="login_box">
-          <div class="form-group">
-              <label>{{ __('lang.category_label')}}</label>
-              <select class="select2 form-control login_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
+            
+            <div class="form-group col-md-12">
+              <label class="col-md-3" >{{ __('lang.category_label')}}</label>
+              <select class="select2 col-md-6 login_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
                 <option></option>
                 @foreach($categories as $cat_id=>$category)
                 <optgroup label="{{$category['maincategory']}}">
@@ -84,59 +69,73 @@
                 @endforeach
               </select>
               <span class="invalid-feedback" id="err_find_us" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
-          </div>
+            </div>
 
-          <div class="form-group">
-            <label>{{ __('lang.meta_title_label')}} <span class="de_col"></span></label>
-            <input type="text" class="form-control login_input" name="meta_title" id="meta_title" placeholder="{{ __('lang.meta_title_label')}}" value="{{old('meta_title')}}" tabindex="4">
-            <span class="invalid-feedback" id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
-          </div>
+            <div class="form-group col-md-12" style="display:none;">
+              <label class="col-md-6">{{ __('lang.product_slug_label')}} <span class="de_col">*</span></label>
+              <p style="color:#000;font-size: 12px;">(This is the part of a URL which identifies a product on a website in an easy to read form)</p>
+              <input type="text" class="col-md-6 form-control login_input slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}} " value="{{old('product_slug')}}" tabindex="1" readonly="readonly">
+              <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
+            </div>
 
-    			<div class="form-group">
-            <label>{{ __('lang.meta_desc_label')}} <span class="de_col"></span></label>
-            <input type="text" class="form-control login_input" name="meta_description" id="meta_description" placeholder="{{ __('lang.meta_desc_label')}}" value="{{old('meta_description')}}" tabindex="5">
-            <span class="invalid-feedback" id="err_meta_description" >@if($errors->has('meta_description')) {{ $errors->first('meta_description') }}@endif </span>
-          </div>
+            <div class="form-group col-md-12" >
+              <label class="col-md-3">{{ __('lang.meta_title_label')}} <span class="de_col"></span></label>
+              <input type="text" class="col-md-6 login_input" name="meta_title" id="meta_title" placeholder="{{ __('lang.meta_title_label')}}" value="{{old('meta_title')}}" tabindex="4">
+              <span class="invalid-feedback" id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
+            </div>
 
-    			<div class="form-group">
-            <label>{{ __('lang.meta_keyword_label')}}  <span class="de_col"></span></label>
-            <input type="text" class="form-control login_input" name="meta_keyword" id="meta_keyword" placeholder="{{ __('lang.meta_keyword_label')}}" value="{{old('meta_keyword')}}" tabindex="6">
-            <span class="invalid-feedback" id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
-          </div>
+            <div class="form-group col-md-12">
+              <label class="col-md-3">{{ __('lang.meta_desc_label')}} <span class="de_col"></span></label>
+              <input type="text" class="col-md-6 login_input" name="meta_description" id="meta_description" placeholder="{{ __('lang.meta_desc_label')}}" value="{{old('meta_description')}}" tabindex="5">
+              <span class="invalid-feedback" id="err_meta_description" >@if($errors->has('meta_description')) {{ $errors->first('meta_description') }}@endif </span>
+            </div>
 
-    		  <div class="form-group">
-              <label>{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
-              <input type="tel" class="form-control login_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
+            <div class="form-group col-md-12">
+              <label class="col-md-3">{{ __('lang.meta_keyword_label')}}  <span class="de_col"></span></label>
+              <input type="text" class="col-md-6 login_input" name="meta_keyword" id="meta_keyword" placeholder="{{ __('lang.meta_keyword_label')}}" value="{{old('meta_keyword')}}" tabindex="6">
+              <span class="invalid-feedback" id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
+            </div>
+            <div class="form-group  col-md-12">
+              <label class="col-md-3">{{ __('lang.status_label')}} </label>
+              <select class="select2 col-md-6 login_input" name="status" id="status"  placeholder="" tabindex="8" >
+                <option value="active">{{ __('lang.active_label')}}</option>
+                <option value="block">{{ __('lang.block_label')}}</option>
+                </select>
+              <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+            </div>
+
+            <div class="form-group  col-md-12"  style="display:none;">
+              <label class="col-md-3">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
+              <input type="tel" class="col-md-6 login_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
               <span class="invalid-feedback" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
-          </div>
+            </div>
+            <label class="col-md-3">{{ __('lang.product_description_label')}}  <span class="de_col"></span></label>
+              
+      			<div class="form-group col-md-6">
+              <textarea class="col-md-6 login_input" name="description" id="description" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
+              <span class="invalid-feedback" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+            </div>
 
-          <div class="form-group">
-            <label>{{ __('lang.status_label')}} </label>
-            <select class="select2 form-control login_input" name="status" id="status"  placeholder="" tabindex="8" >
-              <option value="active">{{ __('lang.active_label')}}</option>
-              <option value="block">{{ __('lang.block_label')}}</option>
+            <h2 class="col-md-12">{{ __('lang.product_form_step2')}}</h2>
+
+            <h2 class="col-md-12">{{ __('lang.product_form_step3')}}</h2>
+
+            <div class="form-group col-md-12" id="shipping_method_ddl_div">
+              <label class="col-md-3">{{ __('users.shipping_method_label')}}</label>
+              <select class="col-md-6 login_input" name="shipping_method_ddl" id="shipping_method_ddl">
+                <option value="">{{ __('users.select_shipping_method')}}</option>
+                <option value="Platta fraktkostnader">{{ __('users.flat_shipping_charges')}}</option>
+                <option value="Andel fraktkostnader">{{ __('users.prcentage_shipping_charges')}}</option>
               </select>
-            <span class="invalid-feedback" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
-          </div>
+            </div>
 
-          <div class="form-group" id="shipping_method_ddl_div">
-            <label>{{ __('users.shipping_method_label')}}</label>
-             <select class="form-control login_input" name="shipping_method_ddl" id="shipping_method_ddl">
-               <option value="">{{ __('users.select_shipping_method')}}</option>
-               <option value="Platta fraktkostnader">{{ __('users.flat_shipping_charges')}}</option>
-               <option value="Andel fraktkostnader">{{ __('users.prcentage_shipping_charges')}}</option>
-             </select>
-          </div>
-
-          <div class="form-group" id="shipping_charges_div">
-            <label>{{ __('users.shipping_charges_label')}}</label>
-            <input type="text" class="form-control login_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) }}">
-          </div>
-
-
+            <div class="form-group col-md-12" id="shipping_charges_div">
+              <label class="col-md-3">{{ __('users.shipping_charges_label')}}</label>
+              <input type="text" class="col-md-6 login_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) }}">
+            </div>
         </div>
       </div>
-
+      
   </div>
   <div class="row">
 

@@ -1,7 +1,10 @@
 <?php
  return [
-     'profile_update_title' => 'Profile Update',
+     'profile_update_title' => 'Settings',
      'sellers_title'=>'Seller',
+     'contact_person'=> 'Contact Person',
+     'shipping_setting'=>'Shipping',
+     'payment_setting'  =>  'Payment setting',
      'first_name_label'=> 'First name',
      'last_name_label' => 'Last name',
      'email_label'=> 'Email',
@@ -28,7 +31,7 @@
               and for other purposes described in our privacy policy.',
      'register_as_buyer_btn'=>'Register as Buyer',
      'register_as_seller_btn'=>'Register as Seller',
-     'profile_label'=>'Profile',
+     'profile_label'=>'Settings',
      'address_placholder'=>'Enter your address',
      'change_password_title'=>'Change Your Password',
      'reset_password_btn_label'=>'Reset Your Password',

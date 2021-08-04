@@ -1,7 +1,10 @@
 <?php
  return [
-     'profile_update_title' => 'Profil uppdatering',
+     'profile_update_title' => 'Inställningar',
      'sellers_title'=>'Säljare',
+     'contact_person'   =>  'Kontaktuppgifter',
+     'shipping_setting'=>'Fraktinställningar',
+     'payment_setting'  =>  'Betalningsinställningar',
      'first_name_label'=> 'Förnamn',
      'last_name_label' => 'Efternamn',
      'email_label'=> 'E-post',
@@ -28,7 +31,7 @@
               och för andra ändamål som beskrivs i vår integritetspolicy.',
      'register_as_buyer_btn'=>'Registrera dig som köpare',
      'register_as_seller_btn'=>'Registrera dig som säljare',
-     'profile_label'=>'Profil',
+     'profile_label'=>'Inställningar',
      'address_placholder'=>'Ange din adress',
      'change_password_title'=>'Ändra ditt lösenord',
      'reset_password_btn_label'=>'Återställ lösenord',

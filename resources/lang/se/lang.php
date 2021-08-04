@@ -258,5 +258,16 @@
      'featured_seller_head'=>'Utvalda Butker',
      'popular_services_head' => 'Populära tjänster',
 
+
+     'store_information'    =>  'Butiksinformation',
+     'store_policy'         =>  'Butikspolicy',
+     'store_name'           =>  'Butiksnamn',
+     'return_policy'        =>  'Returpolicy',
+     'shipping_policy'      =>  'Fraktpolicy',
+     'other_information'    =>  'Övrig information',
+
+     'product_form_step1'   =>  'Steg 1 - Produktbeskrivning',
+     'product_form_step2'   =>  'Steg 2 - Produktdetaljer',
+     'product_form_step3'   =>  'Steg 3- Frakt',
  ]
 ?>

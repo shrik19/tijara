@@ -130,6 +130,9 @@ var service_fav_succ = "{{ __('messages.service_wishlist_add_success')}}";
 var wishlist_service_exists = "{{ __('messages.wishlist_service_exists')}}";
 var wishlist_product_exists = "{{ __('messages.wishlist_product_exists')}}";
 var store_name_is_verified = "{{ __('users.store_name_is_verified')}}";
+var select_package_to_subscribe = "{{ __('errors.select_package_to_subscribe')}}";
+var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
+var please_enter_store_name = "{{ __('errors.please_enter_store_name')}}";
 </script>
         <!-- <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

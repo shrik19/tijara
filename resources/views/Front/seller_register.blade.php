@@ -108,6 +108,7 @@
                         
                     <input type="button" name="previous" class="previous action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
                     <input type="button" name="next" class="next action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
+
                 </fieldset> 
                             
                        
@@ -270,6 +271,7 @@
             });
         }
     }
+
 $(document).ready(function(){
     if($('#current_step_button').val() != 1){
         var curr_step=  $('input#current_step_button').val();
@@ -433,9 +435,21 @@ $(document).ready(function(){
 
 /*second step*/
 
-//$('.btnsubscribePackage').click(function(e) { 
+$('#second-step').click(function(e) { 
 
-//});
+    let user_id  = $("#user_id").val();
+    var err = 0
+    if(user_id == ''){
+        alert(select_package_to_subscribe);
+        err = 1;
+    }
+    
+        if(err == 0){
+            return true
+        }else{
+            return false
+        }
+});
 
 /*third step*/
 $('#third-step').click(function(e) {  
@@ -539,7 +553,7 @@ $('#last-step').click(function(e) {
     if($("#chk_privacy_policy").is(':checked')){
        last_step_err = 0;
     } else {
-        alert("please check privacy policy");
+        alert(please_check_privacy_policy);
         last_step_err = 1;
 
     }
@@ -726,7 +740,7 @@ function checkStoreName(){
         });
     }else{
 
-     alert("please enter store name")
+     alert(please_enter_store_name)
     }
 }
 

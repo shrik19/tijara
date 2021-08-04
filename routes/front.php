@@ -94,6 +94,8 @@ Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProdu
 Route::any('/checkout_callback', 'Front\ProductController@checkoutCallback')->name('frontProductCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
 
+Route::get('/buyer-products','Front\ProductController@listBuyerProduct')->name('manageBuyerProducts');
+
 
 });	/*end Product Management  */
 

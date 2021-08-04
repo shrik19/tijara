@@ -141,6 +141,10 @@
 
                   <li><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
 
+                  @if(Auth::guard('user')->getUser()->role_id==1)
+                  <li><a href="{{route('manageBuyerProducts')}}"> {{ __('lang.manage_products_menu')}}</a></li>
+                  @endif
+
                   @php
                       $isPackagesubcribed = checkPackageSubscribe(Auth::guard('user')->id());
                   @endphp

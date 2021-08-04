@@ -257,6 +257,7 @@
      'txt_comments_success' => 'Produktrecension har lagts till.',
      'featured_seller_head'=>'Utvalda Butker',
      'popular_services_head' => 'Populära tjänster',
+     'remove_title' => 'Ta bort',
 
  ]
 ?>

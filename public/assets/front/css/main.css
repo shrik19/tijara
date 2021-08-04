@@ -472,6 +472,22 @@ nav ul {
   right: 10px; 
 }
 /*end css for subheader menus*/
+ /*start css for buyer product grid*/
+.buyer-price{
+    font-weight: bold;color: #03989e;font-size: 20px;
+  }
+
+  .buyer-product-title{
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .remove-btn-col{
+    background-color: #ef5350;
+  }
+  .buyer-product-img{
+    height:180px;width:286px;
+  }
+  /*end css for buyer product grid*/
 .top_line{height: 6px; width: 100%; float: left;background-color: #03989e; margin: 0;padding: 0;}
 .top_login{margin: 0;padding: 0;position: relative;}
 

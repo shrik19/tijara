@@ -103,16 +103,16 @@ class ProductController extends Controller
         }
         else {
             
-            $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
+           /* $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
             
             if(!empty($checkProductExistOfBuyer)) {
                 Session::flash('success', trans('lang.product_saved_success'));
 
                 return redirect(route('frontProductEdit',base64_encode($checkProductExistOfBuyer->id)));
             }
-            else
+            else */
                 //Session::flash('success', trans('lang.product_saved_success'));
-                return redirect(route('frontProductCreate'));
+            return redirect(route('manageBuyerProducts'));
         }
 
         $data['pageTitle']              = trans('lang.products_title');
@@ -1543,6 +1543,84 @@ class ProductController extends Controller
             return $slug;
         }
        
+    }
+
+    /*function show buyer products*/
+    public function listBuyerProduct() {
+
+        $data = [];
+        $data['subscribedError']   =    '';
+        if(!Auth::guard('user')->id()) {
+            return redirect(route('frontLogin'));
+        }
+        $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
+        //$buyerProducts   =   Products::where('user_id',Auth::guard('user')->id())->get();
+        $buyerProducts = Products::Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
+                            ->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])
+                            ->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id())->groupBy('products.id')->get();
+       /* $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
+            
+        if(!empty($checkProductExistOfBuyer)) {
+            Session::flash('success', trans('lang.product_saved_success'));
+
+            return redirect(route('frontProductEdit',base64_encode($checkProductExistOfBuyer->id)));
+        }
+        else{
+            //Session::flash('success', trans('lang.product_saved_success'));
+            return redirect(route('frontProductCreate'));
+    
+        }
+         */      
+
+        $data['pageTitle']              = trans('lang.products_title');
+
+        $data['current_module_name']    = trans('lang.products_title');
+
+        $data['module_name']            = trans('lang.products_title');
+
+        $data['module_url']             = route('manageFrontProducts');
+
+        $data['recordsTotal']           = 0;
+
+        $data['currentModule']          = '';
+        $data['buyerProducts']          = $buyerProducts;
+
+      /*  $CategoriesAndSubcategories     = Products::Leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
+                                            ->Leftjoin('categories', 'categories.id', '=', 'category_products.category_id')
+                                            ->Leftjoin('subcategories', 'subcategories.id', '=', 'category_products.subcategory_id')
+                                            ->select(['categories.category_name','subcategories.id','subcategories.category_id','subcategories.subcategory_name'])
+                                            ->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id())
+                                            ->groupBy('subcategories.id')->orderBy('categories.sequence_no')->get();
+                 //  DB::enableQueryLog();
+    // and then you can get query log
+ //   dd(DB::getQueryLog());
+
+        $categoriesArray                =   array();
+        foreach($CategoriesAndSubcategories as $category) {
+            $categoriesArray[$category->category_id]['mainCategory']    =   $category->category_name;
+            
+            $categoriesArray[$category->category_id]['subcategories'][$category->id]=   $category->subcategory_name;
+        }
+        
+        $categoriesHtml                 =   '<option value="">'.trans('lang.category_label').'</option>';
+        
+        $subCategoriesHtml              =   '<option value="">'.trans('lang.subcategory_label').'</option>';
+        
+        foreach($categoriesArray as $category_id=>$category) {
+            if($category['mainCategory']!='')
+            $categoriesHtml             .=  '<option value="'.$category_id.'">'.$category['mainCategory'].'</option>';
+        
+            foreach($category['subcategories'] as $subcategory_id=>$subcategory) {
+                if($subcategory!='')
+                $subCategoriesHtml      .=  '<option class="subcatclass subcat'.$category_id.'" style="display:none;" id="subcat'.$category_id.'" value="'.$subcategory_id.'">'.$subcategory.'</option>';
+            }
+        }
+  
+        $data['categoriesHtml']         = $categoriesHtml;
+        $data['subCategoriesHtml']      = $subCategoriesHtml;
+        */
+        return view('Front/Products/listBuyerProducts', $data);
+
     }
 
 

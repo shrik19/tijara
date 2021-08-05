@@ -721,11 +721,11 @@ function ConfirmDeleteFunction1(url, id = false) {
 
 if($('.product_listings').length>0) {
   var page = 1;
-  get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $(".current_search_string").text());
+  get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text());
   $(document).on('click', '.pagination a', function(event){
       event.preventDefault();
       var page = $(this).attr('href').split('page=')[1];
-      get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $(".current_search_string").text());
+      get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text());
    });
 
 
@@ -733,7 +733,7 @@ if($('.product_listings').length>0) {
 
 
 
-function get_product_listing(page,category_slug='',subcategory_slug='',sellers ='',price='', search_string='') {
+function get_product_listing(page,category_slug='',subcategory_slug='',sellers ='',price='',city='', search_string='') {
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
 
@@ -743,7 +743,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',sellers =
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': page, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
+    data : {'page': page, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price,'city_filter' : city, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
     success:function(data)
     {
       var responseObj = $.parseJSON(data);
@@ -858,11 +858,11 @@ function get_product_listing(page,category_slug='',subcategory_slug='',sellers =
 
 if($('.service_listings').length>0) {
   var page = 1;
-  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $(".current_search_string").text());
+  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text());
   $(document).on('click', '.pagination a', function(event){
       event.preventDefault();
       var page = $(this).attr('href').split('page=')[1];
-      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $(".current_search_string").text());
+      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text());
    });
 
 
@@ -898,7 +898,7 @@ if($('.service_listings').length>0) {
 
 
 
-function get_service_listing(page,category_slug='',subcategory_slug='',sellers ='',price='', search_string='') {
+function get_service_listing(page,category_slug='',subcategory_slug='',sellers ='',price='',city='', search_string='') {
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
 
@@ -908,7 +908,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': page, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
+    data : {'page': page, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price,'city_filter' : city, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
     success:function(data)
     {
       var responseObj = $.parseJSON(data);

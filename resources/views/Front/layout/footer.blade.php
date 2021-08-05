@@ -1,4 +1,3 @@
-    <hr>
     <footer>
       <div class="ft_top_container">
         <div class="container">

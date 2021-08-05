@@ -917,6 +917,11 @@ class FrontController extends Controller
 				$Services	=	$Services->where('services.title', 'like', '%' . $request->search_string . '%');
 			}
 
+			if($request->city != '')
+			{
+				$Services	=	$Services->where('users.city', 'like', '%' . $request->city . '%');
+			}
+
 			if($request->sort_order != '' && $request->sort_by != '')
 			{
 				if($request->sort_by == 'name')
@@ -1440,7 +1445,7 @@ class FrontController extends Controller
         ->get();
         $output='';
         if(count($data) > 0){
-          $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+          $output = '<ul class="dropdown-menu" style="display:block; position:relative;width:100%">';
 	      foreach($data as $row)
 	      {
 	       $output .= '

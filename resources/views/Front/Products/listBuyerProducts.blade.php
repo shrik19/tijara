@@ -15,26 +15,25 @@
   <div class="row">
     <div class="">
       <div class="col-md-12">
-		@if($subscribedError)
-	    <div class="alert alert-danger">{{$subscribedError}}</div>
-	    @endif
-	  @include('Front.alert_messages')
-	   
-	  <div class="card">
-		<div class="card-header row">
-		<div class="col-md-10">
-		    
-		  <h2>{{ __('lang.your_products_label')}}</h2>
-		  <hr class="heading_line"/>
-		  </div>
-		  <div class="col-md-1">
-		  <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
-			</div>
-		</div>
+    @if($subscribedError)
+      <div class="alert alert-danger">{{$subscribedError}}</div>
+      @endif
+    @include('Front.alert_messages')
+     
+    <div class="card">
+    <div class="card-header row">
+    <div class="col-md-10">
+        
+      <h2>{{ __('lang.your_products_label')}}</h2>
+      <hr class="heading_line"/>
+      </div>
+      <div class="col-md-1">
+      <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
+      </div>
+    </div>
 
-		<div class="card-body">
-		  <div class="row">
-        <div class="col-sm-12">
+    <div class="card-body">
+      <div class="row">
           @if(!empty($buyerProducts))
           <?php 
               
@@ -60,13 +59,13 @@
                 
           ?> 
             <div class="col-sm-3">
-              <div class="card" style="width: 18rem;">
+              <div class="card">
               <img class="card-img-top buyer-product-img" src="{{$image}}" >
               <div class="card-body">
                 <h5 class="card-title">{{$dated}}</h5>
                 <p class="card-text buyer-product-title">{{$title}}</p>
                  <p class="card-text buyer-price">{{$price}}</p>
-                 <div style="display: flex;">
+                 <div class="buyer-button">
                   <a href="{{route('frontProductEdit', base64_encode($id))}}" class="btn btn-black btn-sm debg_color login_btn" title="{{ __('lang.edit_label')}}">{{ __('lang.edit_label')}}</a>
                   
 
@@ -81,13 +80,12 @@
           @else
           <div>No product found</div>
           @endif
-        </div>
       </div>
 
-		</div>
-	  </div>
-				
-	  </div> 
+    </div>
+    </div>
+        
+    </div> 
     </div>
   </div>
 </div> <!-- /container -->

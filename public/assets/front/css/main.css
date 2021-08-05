@@ -485,8 +485,20 @@ nav ul {
     background-color: #ef5350;
   }
   .buyer-product-img{
-    height:180px;width:286px;
+    height:auto;
+  width:100%;
+  border: 2px solid #ccc;
   }
+  .buyer-button a {
+    margin: 8px auto;
+    min-width: 180px;
+    border-radius: 7px;
+  }
+  
+  .buyer-product-title {
+    min-height: 58px;
+  }
+
   /*end css for buyer product grid*/
 .top_line{height: 6px; width: 100%; float: left;background-color: #03989e; margin: 0;padding: 0;}
 .top_login{margin: 0;padding: 0;position: relative;}

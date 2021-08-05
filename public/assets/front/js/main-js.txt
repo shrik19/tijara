@@ -16,20 +16,6 @@ function convertToSlug(inputtxt){
 
 }
 
-function checkUniqueSlugName(inputText){
-  var slug_name= inputText;
-  var slug;
-   $.ajax({
-    url: siteUrl+'/manage-products/check-slugname/?slug_name='+slug_name,
-    type: 'get',
-    async: false,
-    data: { },
-    success: function(output){
-      slug = output;
-    }
-  });
-  return slug;
-}
 var acc = document.getElementsByClassName("accordion-faq");
 var i;
 
@@ -47,15 +33,14 @@ for (i = 0; i < acc.length; i++) {
 
 $(".add_new_variant_btn").click(function(){
 
-    
-    $trLast = $("div.variant_tr:last");
+    var $tableBody = $('#variant_table').find("tbody"),
+    $trLast = $tableBody.find("tr.variant_tr:last");
     variant_id=$trLast.attr('variant_id');
     variant_id++;
 
     $trNew = $trLast.clone();
     $trNew.attr('variant_id',variant_id);
     $trNew.find(':text').val('');
-    $trNew.find('.number').val('');
     $trNew.find('.hidden_images').val('');
     $trNew.find('.variant_image').val('');
     $trNew.find('.variant_name').attr('name','variant_name['+variant_id+']');
@@ -70,8 +55,13 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.added_attributes').attr('variant_id',variant_id);
     $trNew.find('.variant_image').attr('variant_id',variant_id);
     $trNew.find('.added_attributes').html('');
-    $trNew.find('.selected_images').html('');
+    $trNew.find('.modal').attr('variant_id',variant_id);
+    $trNew.find('.plus_attribute').attr('variant_id',variant_id);
+    $trNew.find('.save_attribute_group').attr('variant_id',variant_id);
     $trNew.find('.select_attribute').attr('variant_id',variant_id);
+    $trNew.find('.modal').addClass('modalVariant_'+variant_id);
+    $trNew.find('.close_modal').attr('variant_id',variant_id);
+    $trNew.find('.attribute_tr').find('.remove_attribute_btn').remove();
     $trNew.find('.clone_tr').remove();
     $trNew.find('.select_attribute').val('');
     $trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
@@ -79,7 +69,8 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('img').remove();
     $trNew.find('.remove_image').remove();
     if($trNew.find('.add_attribute_group_td').find('.remove_variant_btn').length<=0)
-    $trNew.find('.remove_variant_div').html("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>");
+    $trNew.find('.add_attribute_group_td').find('.variantButtonGroup').append("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>");
+    //$trNew.find('.plus_attribute_tr').html("<a href='javascript:void(0);'  variant_id='"+variant_id+"'  class='fas fa-trash remove_attribute_btn' title='Remove Attribute'  ></a>");
     $trNew.find('.variant_attribute_id').attr('value','').attr('name','variant_attribute_id['+variant_id+'][0]');
     $trNew.find('.select_attribute').removeClass('preselected_attribute').attr('id','0').attr('name','attribute['+variant_id+'][0]');
     $trNew.find('.select_attribute_value').removeClass('preselected_attribute').attr('name','attribute_value['+variant_id+'][0]');
@@ -124,9 +115,9 @@ $('#variant_table').on('change', '.variant_image', function () {
                       contentType: false,
 
                       success: function(data) {
-                       elm.parent('div').next('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
+                       elm.parent('td').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
                           '<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="40" height="40">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
+                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>');     
                       }
 
                 });
@@ -140,11 +131,21 @@ $('body').on('click', '.remove_image', function () {
     $(this).prev('img').remove();
     $(this).remove();
 });
+$('#variant_table').on('click', '.add_attribute_group_btn', function () {
 
+    var variant_id  =   $(this).attr('variant_id');
+    // jQuery.noConflict();
+    //jQuery.noConflict();
+    $('.modal[variant_id="'+variant_id+'"]').modal('show');
+});
 
  $('#variant_table').on('click', '.remove_variant_btn', function () {
      if (!confirm('Are you sure you want to remove Variant?')) return false;
-     $(this).parent('div').parent('div').remove();
+     $(this).parent('span').parent('td').parent('tr').remove();
+ });
+  $('#variant_table').on('click', '.remove_attribute_btn', function () {
+
+     $(this).parent('td').parent('tr').remove();
  });
 //$( ".select_attribute" ).each(function() {
     $('#variant_table').on('change', '.select_attribute', function () {
@@ -160,9 +161,9 @@ $('body').on('click', '.remove_image', function () {
         thisSelect.addClass('active');
 
         var error = 0;
-        /*if(val!='') {
+        if(val!='') {
           var variant_id  =   $(this).attr('variant_id');
-          $('div[variant_id="'+variant_id+'"]').find( "select.select_attribute:not(.active)" ).each(function() {
+          $('.modal[variant_id="'+variant_id+'"]').find( "select.select_attribute:not(.active)" ).each(function() {
 
             if($(this).val()==val)
             {
@@ -174,14 +175,14 @@ $('body').on('click', '.remove_image', function () {
             }
           });
         }
-*/
+
       if(error == 0){
         $.ajax({
               url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
                data: {attribute_id: select_attribute},
                type: 'get',
                success: function(output) {
-                            elm.parent('div').find('.select_attribute_value').html(output);
+                            elm.parent('td').parent('tr').find('.select_attribute_value').html(output);
                         }
         });
       }
@@ -207,6 +208,61 @@ $( ".preselected_attribute" ).each(function() {
             });
 
     //
+});
+
+$('#variant_table').on('click', '.close_modal', function () {
+
+    var variant_id  =   $(this).attr('variant_id');
+    $('.modal[variant_id="'+variant_id+'"]').find('.select_attribute').val('');
+    $('.modal[variant_id="'+variant_id+'"]').find('.select_attribute_value').val('');
+    $('.modal[variant_id="'+variant_id+'"]').find( ".clone_tr" ).each(function() {
+        $(this).remove();
+    });
+    $('.modal[variant_id="'+variant_id+'"]').find('tr.attribute_tr:gt(0)').remove();
+    $('.modal[variant_id="'+variant_id+'"]').find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
+   // $('.modal[variant_id="'+variant_id+'"]').modal('hide');
+});
+$('#variant_table').on('click', '.save_attribute_group', function () {
+
+
+    var variant_id  =   $(this).attr('variant_id');
+
+
+    alert(attribute_saved);
+    $('.modal[variant_id="'+variant_id+'"]').modal('hide');
+    var toPutHtml   =   '';
+    $('.modal[variant_id="'+variant_id+'"]').find( "select.select_attribute" ).each(function() {
+        if($(this).val()!='' && $(this).parent('td').next('td').find('select').val()!='') {
+            select_attribute        =   $(this).find('option:selected').text();
+            select_attribute_value  =   $(this).parent('td').next('td').find('option:selected').text();
+            toPutHtml+='<div class="added_attributes_each_div"><b>'+select_attribute+'</b>:'+select_attribute_value+'</div>';
+        }
+        $('.added_attributes[variant_id="'+variant_id+'"]').html(toPutHtml);
+    });
+});
+$('#variant_table').on('click', '.plus_attribute', function () {
+    var variant_id  =   $(this).attr('variant_id');
+    var $tableBody = $('.modal[variant_id="'+variant_id+'"]').find("tbody");
+    $trLast = $tableBody.find("tr:last");
+    attribute_number    =   $trLast.attr('attribute_number');
+    attribute_number++;
+   // variant_id++
+    $trNew = $trLast.clone();
+
+    $trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
+
+    //$trNew.find('option[value="'+$trLast.find('.select_attribute').val()+'"]').remove();
+    $trNew.find('option:hidden').show();
+    $trNew.find('select').val('');
+    $trNew.attr('attribute_number',attribute_number);
+    //$trNew.attr('id',"attribute_tr_"+variant_id);
+    $trNew.addClass('clone_tr');
+    $trNew.find('.plus_attribute_tr').html('<a href="javascript:void(0);"  variant_id="'+variant_id+'" class="btn btn-danger btn-xs remove_attribute_btn" title="Remove Attribute"><i class="fa fa-times"></i></a>');
+    $trNew.find('.variant_attribute_id').val('').attr('name','variant_attribute_id['+variant_id+']['+attribute_number+']');
+    $trNew.find('.select_attribute').attr('name','attribute['+variant_id+']['+attribute_number+']');
+    $trNew.find('.select_attribute_value').attr('name','attribute_value['+variant_id+']['+attribute_number+']');
+
+    $trLast.after($trNew);
 });
 
 

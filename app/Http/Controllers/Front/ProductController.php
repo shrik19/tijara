@@ -497,6 +497,7 @@ class ProductController extends Controller
     
     public function store(Request $request) {
         
+        //echo'<pre>';print_r($_POST);exit;
         $product_slug = $request->input('product_slug');
         $slug =   CommonLibrary::php_cleanAccents($product_slug);
 

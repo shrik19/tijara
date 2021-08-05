@@ -45,7 +45,8 @@ Route::post('/send-service-request','Front\FrontController@sendServiceRequest')-
 
 
 //auth
-Route::any('/front-login','Front\AuthController@login')->name('frontLogin');
+Route::any('/front-login/buyer','Front\AuthController@login')->name('frontLogin');
+Route::any('/front-login/seller','Front\AuthController@login')->name('frontLoginSeller');
 Route::post('/validate-login','Front\AuthController@doLogin')->name('doLogin');
 Route::get('/front-logout','Front\AuthController@logout')->name('frontLogout');
 Route::get('/buyer-register','Front\AuthController@buyer_register')->name('buyer_register');

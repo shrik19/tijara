@@ -546,18 +546,93 @@ nav ul {
 .gray_bg_color{
     background-color: #dbdbdb;
 }
+.containerfluid{margin-top: 71px;}
+
+/*
+** Login page
+*/
+	.login_container .left-section {
+		padding: 0;
+	}
+	
+	.login_container .right-section .form-section {
+    padding-top: 10%;
+}
+	
+	.login_banner {
+		padding: 10% 10% 10% 14%;
+		background-repeat: no-repeat !important;
+		background-size: cover !important;
+		background-position: 80% 10% !important;
+	}
+	
+	.login_banner-header h1 {
+		color: #ffffff;
+		font-size: 50px;
+		font-weight: bold;
+	}
+	
+	.right-section h2 {
+		font-weight: bold;
+		font-size: 36px;
+		color: #000;
+		margin-bottom: 40px;
+	}
+	
+	#sign-in-form input.form-control {
+		border-radius: 5px;
+		box-shadow: 0px 0px 0px 2px #ddd;
+		border: 1px solid #ddd;
+		height: 50px;
+		font-size: 16px;
+	}
+
+	#sign-in-form input:focus {
+		border-bottom: 4px solid gray;
+	}
+	
+	.tijara-login-button button, .tijara-signup-button a {
+		width: 100%;
+		border-radius: 5px;
+		color: #000;
+		font-weight: bold;
+		padding: 10px;
+		font-size: 18px;
+		margin: 7px 0px;
+	}
+	
+	.seller-link-section {
+		margin-top: 15px;
+	}
+	
+	.seller-link-section a,
+	.remember-section a {
+		color: #03989e;
+		font-weight: 600;
+	}
+	
+	.login_banner-footer {
+		margin-top: 90%;
+	}
+	
+	.login_banner-footer h2 {
+		color: #ffffff;
+		margin-right: 15px;
+	}
+
+/*
 .login_btn{    margin: 11px 12px 20px 0;
     padding: 5px 33px;
     border-radius: 0;
     color: #fff;
     font-size: 18px;
 }
-.containerfluid{margin-top: 71px;}
 .login_container{margin-top: 30px;float: left;}
 .login_banner{width: 100%; float: left;}
 .login_box label{color: #515151; font-size: 14px; font-weight: 300;}
 .login_box .login_input{height: 50px; border:1px solid #dedede; border-radius: 0;}
 .login_box p{color: #515152; font-size: 14px;}
+.login_box{width: 96%; float: left; background-color: #f8f8f8;border: 1px solid #dedede; padding:20px;}*/
 .heading_line{      margin: 0;
     background-color: #03989e;
     width: 59px;
@@ -596,7 +671,7 @@ nav ul {
         padding: 12px 0 0 0;
     }
 
-.login_box{width: 96%; float: left; background-color: #f8f8f8;border: 1px solid #dedede; padding:20px;}
+
 .slider_cotnainer_section{margin-top: 38px;  background-image: url("../img/slider_bg.png"); background-repeat: no-repeat; background-origin: content-box; background-position: center;width: 100%; height: 500px;    background-size: 100%;
 overflow: hidden;}
 .sale_section{

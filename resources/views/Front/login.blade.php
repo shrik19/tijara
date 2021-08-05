@@ -17,71 +17,83 @@
     font-size: 30px;
 }
 </style>
-<div class="containerfluid">
-  <div class="col-md-6 hor_strip debg_color">
-  </div>
-  <div class="col-md-6 hor_strip gray_bg_color">
-  </div>
-  @if(!empty($banner->image))
-  <img class="login_banner" src="{{url('/')}}/uploads/Banner/{{$banner->image}}" />
-  @endif
-</div>
-<div class="container">
-  <!-- Example row of columns -->
-  <div class="row">
-    <div class="login_container">
-      <div class="col-md-6">
-        <h2>{{ __('users.login_label')}}</h2>
-        <hr class="login_heading_line"/>
-        <div class="login_box">
-		    @include ('Front.alert_messages')
-		
-          <form id="sign-in-form" action="{{url('/')}}/validate-login" method="post">
-		      @csrf
-            <div class="form-group">
-              <label>{{ __('users.email_label')}} <span class="de_col">*</span></label>
-              <input id="email-address" type="text" value="{{$tijara_front_login}}" class="form-control login_input" name="email" placeholder="{{ __('users.email_label')}}">
-			  <span class="invalid-feedback" id="err_email" style="display: none;"></span>
-            </div>
+<div class="container-fluid">
+	<!-- Example row of columns -->
+	<div class="row">
+		<div class="login_container">
+			<div class="col-md-4 left-section" >
+				@if(Request::segment(2)=='buyer')
+					<div class="login_banner" style="background: #03989e;">
+					<div class="login_banner-header">
+						<h1>Sveriges första kulturella marknadsplats</h1>
+					</div>
+					<div class="login_banner-footer text-right">
+						<img src="{{url('/')}}/uploads/Images/tijara-image.png" />
+					</div> 
+					</div>
+				@endif
+				@if(Request::segment(2)=='seller')
+					<div class="login_banner" style="background-image: url({{url('/')}}/uploads/Banner/{{$banner->image}});">
+						<div class="login_banner-header">
+							<h1>Sveriges första kulturella marknadsplats</h1>
+						</div>
+						<div class="login_banner-footer text-right">
+							<h2>Säljare</h2>
+							<img src="{{url('/')}}/uploads/Images/tijara-image.png" />
+						</div> 
+					</div>
+				@endif
+			</div>
 
-            <div class="form-group">
-              <label>{{ __('users.password_label')}}</label>
-              <input id="password" type="password" value="{{$tijara_front_password}}" class="form-control login_input" name="password" placeholder="{{ __('users.password_label')}}">
-			  <span class="invalid-feedback" id="err_password" style="display: none;"></span>
-            </div>
+			<div class="col-md-8 right-section">
+				<div class="col-md-3"></div>
+				<div class="col-md-6 form-section">
+					<h2>{{ __('users.login_label')}}</h2>
 
-            <button  class="btn btn-black debg_color login_btn frontloginbtn" >{{ __('lang.login_btn')}}</button>
-            <label>
-              <input type="checkbox" checked="checked" name="remember"> {{ __('users.remember_label')}}
-            </label>
+					@include ('Front.alert_messages')
 
-          </form>
-         <!--  <a href="" class="de_col">Lost your password?</a> -->
-        <!--   <div class="input-group-append">  --><a href="javascript:void(0);" data-toggle="modal" data-target="#jt-forgot-modal" class="input-group-text de_col">{{ __('users.lost_your_password_label')}}</a> <!-- </div> -->
-        </div>
-      </div>
+					<form id="sign-in-form" action="{{url('/')}}/validate-login" method="post">
+						@csrf
+						<div class="form-group">
+							<label>{{ __('users.email_label')}} <span class="de_col">*</span></label>
+							<input id="email-address" type="text" value="{{$tijara_front_login}}" class="form-control login_input" name="email" placeholder="{{ __('users.email_label')}}">
+							<span class="invalid-feedback" id="err_email" style="display: none;"></span>
+						</div>
 
-      <div class="col-md-6">
-        <h2>{{ __('users.register_title')}}</h2>
-        <hr class="heading_line"/>
-        <div class="login_box">
-          <form>
-            <!--<div class="form-group">
-              <label>Email address <span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input" placeholder="Email Address">
-            </div>-->
-            <div class="form-group">
-              <p>{{ __('users.password_sent_static_content')}}<br><br>
-              {{ __('users.privacy_policy_login_page')}}
-              </p>
-            </div>
-            <a href="{{url('/')}}/buyer-register" class="btn btn-black debg_color login_btn">{{ __('users.register_as_buyer_btn')}}</a>
-			<a  href="{{url('/')}}/seller-register" class="btn btn-black debg_color login_btn">{{ __('users.register_as_seller_btn')}}</a>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+						<div class="form-group">
+							<label>{{ __('users.password_label')}}</label>
+							<input id="password" type="password" value="{{$tijara_front_password}}" class="form-control login_input" name="password" placeholder="{{ __('users.password_label')}}">
+							<span class="invalid-feedback" id="err_password" style="display: none;"></span>
+						</div>
+						<div class="remember-section row">
+							<div class="col-md-6 text-left">
+								<a href="javascript:void(0);" data-toggle="modal" data-target="#jt-forgot-modal" class="input-group-text de_col">{{ __('users.lost_your_password_label')}}</a>
+							</div>
+							<div class="col-md-6 text-right">
+								<input type="checkbox" checked="checked" name="remember"> {{ __('users.remember_label')}}
+							</div>
+						</div>						
+						<div class="button-section">
+							<div class="tijara-login-button">
+								<button  class="btn btn-black debg_color login_btn frontloginbtn" >{{ __('lang.login_btn')}}</button>
+							</div>
+							<div class="tijara-signup-button">
+								<a href="@if(Request::segment(2)=='buyer'){{route('buyer_register')}} @else {{route('seller_register')}} @endif" title="{{ __('users.create_account_btn')}}" class="btn btn-black gray_color login_btn" ><span>{{ __('users.create_account_btn')}}</span> </a>
+							</div>
+						</div>					
+					</form>
+					
+					@if(Request::segment(2)=='buyer')
+						<div class="seller-link-section">
+							<a href="{{route('seller_register')}}" title="{{ __('users.register_as_seller')}}" class="" ><span>{{ __('users.register_as_seller')}}</span> </a><br>
+							<a href="{{route('frontLoginSeller')}}" title="{{ __('users.login_as_seller')}}" class="" ><span>{{ __('users.login_as_seller')}}</span> </a>
+						</div>
+					@endif
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
+	</div>
 </div> <!-- /container -->
 
 

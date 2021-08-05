@@ -238,5 +238,9 @@
     'verify_btn' => 'Kontrollera',
     'store_name_is_verified' => 'Butiksnamn är verifierat',
     'please_enter_store_name' => 'Ange butiksnamn',
+	'buyer_login_banner_title' => 'Sveriges första kulturella marknadsplats',
+    'create_account_btn' => 'Skapa konto',
+    'register_as_seller' => 'Registrera dig som säljare',
+    'login_as_seller' => 'Logga in som säljare',
  ]
 ?>

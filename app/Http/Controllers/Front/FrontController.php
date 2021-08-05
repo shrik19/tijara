@@ -128,7 +128,7 @@ class FrontController extends Controller
 	}
 
   //get seller listings
-	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',  $search_string = '',$productsServices='') {
+	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',$city_filter = '',  $search_string = '',$productsServices='') {
     	$today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
@@ -136,10 +136,15 @@ class FrontController extends Controller
 								->where('users.status','=','active')
 								->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
-								->where('user_packages.end_date','>=', $today)
-								->orderBy('users.id')
-								->get()
-								->toArray();
+								->where('user_packages.end_date','>=', $today);
+								
+		if($city_filter != ''){
+			$Sellers	=	$Sellers->where('users.city','like', '%' .$city_filter.'%');
+		}
+			
+		$Sellers	=   $Sellers->orderBy('users.id')
+						->get()
+						->toArray();
 
 		$SellersArray	=	array();
 		if($productsServices=='products') {
@@ -433,6 +438,12 @@ class FrontController extends Controller
 				$tmpPrice = explode(',',$request->price_filter);
 				$Products	=	$Products->whereBetween('variant_product.price',$tmpPrice);
 			}
+
+			if($request->city_filter != '')
+			{
+				$Products	=	$Products->where('users.city', 'like', '%' . $request->city_filter . '%');
+			}
+
 			if($request->search_string != '')
 			{
 				$Products	=	$Products->where('products.title', 'like', '%' . $request->search_string . '%');
@@ -500,7 +511,7 @@ class FrontController extends Controller
 
 		//dd(is_object($data['Products']));
 
-		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->search_string,'products');
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products');
 		$sellerData = '';
 		if(!empty($Sellers))
 		{
@@ -1415,4 +1426,31 @@ class FrontController extends Controller
         echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
         exit;
 	}
+
+
+	public function getCity(Request $request) {
+
+     if($request->get('query'))
+     {
+      $query = $request->get('query');
+
+      $data = DB::table('users')
+        ->where('city', 'LIKE', "%{$query}%")
+        ->groupBy('city')
+        ->get();
+        $output='';
+        if(count($data) > 0){
+          $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+	      foreach($data as $row)
+	      {
+	       $output .= '
+	       <li><a href="#">'.$row->city.'</a></li>
+	       ';
+	      }
+	      $output .= '</ul>';
+        }
+      
+      echo $output;
+     }
+    }
 }

@@ -32,6 +32,9 @@
           <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
           <!-- <b>€ 1000</b> -->
           <div>&nbsp;</div>
+              <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="Enter City Name" />
+          <div id="cityList"></div>
+          <div>&nbsp;</div>
           @if(empty($is_seller))
           <!-- Seller Listing -->
           <h2 class="de_col">{{ __('lang.sellers_head')}}</h2>
@@ -67,3 +70,32 @@
         <div>&nbsp;</div>
         
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  /*search by city */
+ $('#city_name').keyup(function(){ 
+        var query = $(this).val();
+       
+        if(query != '')
+        {
+         var _token = $('input[name="_token"]').val();
+         $.ajax({
+          url:"{{ route('getCity') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+           $('#cityList').fadeIn();  
+                    $('#cityList').html(data);
+          }
+         });
+        }
+    });
+
+
+   $(document).on('click', 'li', function(){  
+        $('#city_name').val($(this).text());  
+        $('#cityList').fadeOut();  
+    });  
+
+});
+</script>

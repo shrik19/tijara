@@ -81,6 +81,7 @@ function getListing()
   var subcategory_slug = $('.current_subcategory').text();
   var sellers = $('.current_sellers').text();
   var price_filter = $('#price_filter').val();
+  var city_filter = $('#city_name').val();
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   var search_string = $(".current_search_string").text();
@@ -91,7 +92,7 @@ function getListing()
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
+    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter,'city_filter' : city_filter,  'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
     success:function(data)
     {
      //$('.product_listings').html(data);
@@ -199,6 +200,10 @@ function getListing()
 var price_filter = $("#price_filter").slider({});
 price_filter.on('slideStop',function(){
     getListing();
+});
+
+$('#city_name').blur(function(){ 
+  getListing();
 });
 
 function selectSellers()

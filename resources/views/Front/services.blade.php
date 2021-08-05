@@ -79,6 +79,7 @@ function getListing()
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   var search_string = $(".current_search_string").text();
+  var city_filter = $('#city_name').val();
 
   $.ajax({
     url:siteUrl+"/get_service_listing",
@@ -86,7 +87,7 @@ function getListing()
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers,  'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
+    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers,  'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string, 'city_filter':city_filter },
     success:function(data)
     {
       //$('.product_listings').html(data);
@@ -119,5 +120,38 @@ function selectSellers()
 
 }
 
+$(document).ready(function(){
+  /*search by city */
+ $('#city_name').keyup(function(){ 
+        var query = $(this).val();
+       
+        if(query != '')
+        {
+         var _token = $('input[name="_token"]').val();
+         $.ajax({
+          url:"{{ route('getCity') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+           $('#cityList').fadeIn();  
+                    $('#cityList').html(data);
+          }
+         });
+        }
+    });
+
+
+   $(document).on('click', 'li', function(){  
+        $('#city_name').val($(this).text());  
+        $('#cityList').fadeOut();  
+    }); 
+
+    $('#city_name').blur(function(){ 
+      getListing();
+    }); 
+
+});
+
 </script>
+
 @endsection

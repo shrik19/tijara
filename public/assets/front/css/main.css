@@ -568,13 +568,13 @@ nav ul {
 	
 	.login_banner-header h1 {
 		color: #ffffff;
-		font-size: 50px;
+		font-size: 40px;
 		font-weight: bold;
 	}
 	
 	.right-section h2 {
 		font-weight: bold;
-		font-size: 36px;
+		font-size: 30px;
 		color: #000;
 		margin-bottom: 40px;
 	}
@@ -583,8 +583,8 @@ nav ul {
 		border-radius: 5px;
 		box-shadow: 0px 0px 0px 2px #ddd;
 		border: 1px solid #ddd;
-		height: 50px;
-		font-size: 16px;
+		height: 40px;
+		font-size: 14px;
 	}
 
 	#sign-in-form input:focus {
@@ -612,7 +612,7 @@ nav ul {
 	}
 	
 	.login_banner-footer {
-		margin-top: 90%;
+		margin-top: 95%;
 	}
 	
 	.login_banner-footer h2 {

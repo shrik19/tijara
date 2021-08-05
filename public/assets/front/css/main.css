@@ -485,7 +485,7 @@ nav ul {
     background-color: #ef5350;
   }
   .buyer-product-img{
-    height:auto;
+    height:220px;
   width:100%;
   border: 2px solid #ccc;
   }
@@ -498,7 +498,9 @@ nav ul {
   .buyer-product-title {
     min-height: 58px;
   }
-
+  .product-card{
+    margin-bottom: 15px;
+  }
   /*end css for buyer product grid*/
 .top_line{height: 6px; width: 100%; float: left;background-color: #03989e; margin: 0;padding: 0;}
 .top_login{margin: 0;padding: 0;position: relative;}

@@ -59,7 +59,7 @@
                 
           ?> 
             <div class="col-sm-3">
-              <div class="card">
+              <div class="card product-card">
               <img class="card-img-top buyer-product-img" src="{{$image}}" >
               <div class="card-body">
                 <h5 class="card-title">{{$dated}}</h5>

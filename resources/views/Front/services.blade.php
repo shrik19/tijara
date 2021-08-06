@@ -79,7 +79,7 @@ function getListing()
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   var search_string = $(".current_search_string").text();
-  var city_filter = $('#city_name').val();
+  var city_filter = $('#service_city').val();
 
   $.ajax({
     url:siteUrl+"/get_service_listing",
@@ -142,11 +142,11 @@ $(document).ready(function(){
 
 
    $(document).on('click', 'li', function(){  
-        $('#city_name').val($(this).text());  
+        $('#service_city').val($(this).text());  
         $('#cityList').fadeOut();  
     }); 
 
-    $('#city_name').blur(function(){ 
+   $("#service_city").on("input", function() { 
       getListing();
     }); 
 

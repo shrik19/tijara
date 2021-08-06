@@ -10,14 +10,17 @@
 <div class="container">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-12">
+  <div class="col-md-2">
+      @include ('Front.layout.sidebar_menu')
+    </div>
+    <div class="col-md-10">
     @include ('Front.alert_messages')
      
         <h2> {{ __('users.seller_personal_form_label')}}</h2>
         <hr class="heading_line"/>
         <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data">
             @csrf
-            <div class="col-md-3"></div> 
+            <div class="col-md-1"></div> 
        <div class="col-md-6">
         <h2>&nbsp;</h2>
         <br>

@@ -1,4 +1,4 @@
-    <footer>
+<footer>
       <div class="ft_top_container">
         <div class="container">
         <ul class="client_logos">

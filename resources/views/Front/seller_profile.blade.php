@@ -10,7 +10,10 @@
 <div class="container">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-2">
+      @include ('Front.layout.sidebar_menu')
+    </div>
+    <div class="col-md-10">
       @if(!empty($package_exp_msg))
           <div class="alert alert-danger" role="alert">
             <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>

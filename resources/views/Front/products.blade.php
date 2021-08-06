@@ -202,10 +202,10 @@ price_filter.on('slideStop',function(){
     getListing();
 });
 
-$('#city_name').blur(function(){ 
+$("#city_name").on("input", function() {
   getListing();
 });
-
+ 
 function selectSellers()
 {
     var Sellers = '';

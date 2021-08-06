@@ -28,7 +28,7 @@
         </ul>
         <div>&nbsp;</div>
         
-        <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="Enter City Name" />
+        <input type="text" name="city_name" id="service_city" class="form-control input-lg" placeholder="Enter City Name" />
         <div id="cityList"></div>
         <div>&nbsp;</div>
         

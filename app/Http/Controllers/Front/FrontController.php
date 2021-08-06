@@ -917,9 +917,9 @@ class FrontController extends Controller
 				$Services	=	$Services->where('services.title', 'like', '%' . $request->search_string . '%');
 			}
 
-			if($request->city != '')
+			if($request->city_filter != '')
 			{
-				$Services	=	$Services->where('users.city', 'like', '%' . $request->city . '%');
+				$Services	=	$Services->where('users.city', 'like', '%' . $request->city_filter . '%');
 			}
 
 			if($request->sort_order != '' && $request->sort_by != '')
@@ -941,8 +941,8 @@ class FrontController extends Controller
 
 		$Services 			= $Services->paginate(config('constants.Services_limits'));
 		//dd($Services);
-		//print_r(DB::getQueryLog());
-		//exit;
+		// print_r(DB::getQueryLog());
+		// exit;
 		if(count($Services)>0) {
 			foreach($Services as $Service) {
 				$service_link	=	url('/').'/service';
@@ -971,7 +971,7 @@ class FrontController extends Controller
 
 		//dd(is_object($data['Services']));
 
-		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->search_string,'services');
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'services');
 		$sellerData = '';
 		if(!empty($Sellers))
 		{

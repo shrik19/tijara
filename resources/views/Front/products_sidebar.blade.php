@@ -84,8 +84,8 @@ $(document).ready(function(){
           method:"POST",
           data:{query:query, _token:_token},
           success:function(data){
-           $('#cityList').fadeIn();  
-                    $('#cityList').html(data);
+            $('#cityList').fadeIn();  
+            $('#cityList').html(data);
           }
          });
         }

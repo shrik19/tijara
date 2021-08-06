@@ -46,7 +46,7 @@
      'meta_desc_label'=>'Meta beskrivning',
      'meta_keyword_label'=>'Meta-nyckelord (kommaseparerad)',
      'add_variant_btn'=>'Lägg till ny variant',
-
+     'product_discount_label'=>'Rabatt',
      'sku_label'=>'SKU',
      'sku_placeholder'=>'Unik kod för varje för varje enskild produkt',
      'weight_label'=>'Vikt',

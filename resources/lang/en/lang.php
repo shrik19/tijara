@@ -246,7 +246,7 @@
      'add_to_cart' => 'Add To Cart',
      'reset_options' => 'Reset Options',
 
-
+    'product_discount_label'    =>  'Discount',
      'msg_product_success' => 'Checkout process complete, your product will be listed soon once payment confirmed.',
 
      'service_time'=>'Service time',

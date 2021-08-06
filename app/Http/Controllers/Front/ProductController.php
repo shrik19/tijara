@@ -546,6 +546,8 @@ class ProductController extends Controller
 
 				'status'       		=> trim($request->input('status')),
 				
+                'discount'       	=> trim($request->input('discount')),
+
 				'sort_order'       	=> trim($request->input('sort_order')),
                
 				'user_id'			=>	Auth::guard('user')->id()

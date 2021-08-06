@@ -2,29 +2,47 @@
 @section('middlecontent')
 
 
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
+<script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
  <!-- Carousel Default -->
 <section class="product_section">
+  @if(!empty($header_image))
+      <img src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
+    @endif
     <div class="container">
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
         <div class="col-md-3">
+          <div style="display: flex">
+             @if(!empty($logo)) 
+             <img src="{{$logo}}" alt="Logo" style="width:100px;height:100px;" />&nbsp;&nbsp;@endif
+              <h2>{{ $seller_name }}</h2>
+              <p style="margin-top: 60px;margin-left: -115px;">{{ $city_name }}</p>
+              <div class="star-rating" style="font-size:unset;margin-top: 80px;margin-left: -64px;pointer-events: none;">
+                <select class='rating service_rating' data-rating="{{$totalRating}}">
+                  <option value="1" >1</option>
+                  <option value="2" >2</option>
+                  <option value="3" >3</option>
+                  <option value="4" >4</option>
+                  <option value="5" >5</option>
+                </select>
+              </div>
+            
+            </div>
+             <h2> {{ __('users.butiks_info_title')}}</h2>
+
             @include('Front.services_sidebar')
         </div>
         <div class="col-md-9">
+           <div style="text-align: center">
+            <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.products_title')}}" class="@if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.service_label')}}  </a>
+          </div>
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
             <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
             
             <div class="product_container">
                 <div class="row">
-                  <div class="col-md-12 text-center">
-                  @if(!empty($logo)) <img src="{{$logo}}" alt="Logo" style="width:100px;height:100px;" />&nbsp;&nbsp;@endif<h2>{{ $seller_name }}</h2>
-                  </div>
-                  @if(!empty($header_image))
-                  <div class="col-md-12">
-                    <img src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
-                  </div>
-                  @endif
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                   @if(!empty($description))
                   <div class="col-md-12 text-center">

@@ -579,6 +579,7 @@ class FrontController extends Controller
 	/* function to display products page*/
     public function sellerProductListing($seller_name ='', $seller_id = '', $category_slug = null, $subcategory_slug= null, Request $request)
     {
+    	$data = [];
         $data['pageTitle'] 	= 'Sellers Products';
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
@@ -592,7 +593,8 @@ class FrontController extends Controller
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
 		$data['description']		= 	$Seller['description'];
-		
+		$data['city_name']		    =	$Seller['city'];
+		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
 		$data['header_image']       = '';
 		$data['logo']       = '';
 		$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
@@ -609,7 +611,30 @@ class FrontController extends Controller
 				$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
 			}
 		}
+
+		$avgProductRating 	 = 0.00;
+		$getAllProductRatings = ProductReview::join('products','product_review.product_id','products.id','')->select(['products.id','product_review.rating as product_rating'])->where('products.user_id','=',$id)->get();
+
+	// and then you can get query log
+	
 		
+		$productsRatingCnt 	 = $getAllProductRatings->count();
+		$totalProductRating = $getAllProductRatings->sum('product_rating');
+		$avgProductRating = ($totalProductRating / $productsRatingCnt);
+		$avgProductRating = number_format($avgProductRating,2);		
+
+
+		$avgServiceRating 	 = 0.00;
+		DB::enableQueryLog();
+		$getAllServiceRatings = ServiceReview::join('services','service_review.service_id','services.id','')->select(['services.id','service_review.rating as service_rating'])->where('services.user_id','=',$id)->get();
+
+		$ServicesRatingCnt 	 = $getAllServiceRatings->count();
+		$totalServiceRating = $getAllServiceRatings->sum('service_rating');
+		$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+		$avgServiceRating = number_format($avgServiceRating,2);	
+		
+		$data['totalRating'] = ($avgProductRating + $avgServiceRating)/2;
+
     	if($category_slug!='')
     		$data['category_slug']	= $category_slug;
 
@@ -1200,6 +1225,8 @@ class FrontController extends Controller
 		
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+		$data['city_name']		    =	$Seller['city'];
+		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
 		$data['description']		= 	$Seller['description'];
 		
 		$data['header_image']       = '';
@@ -1219,6 +1246,24 @@ class FrontController extends Controller
 			}
 		}
 		
+		$avgProductRating 	 = 0.00;
+		$getAllProductRratings = Products::where('user_id','=',$id)->get();
+		$productsRatingCnt 	 = $getAllProductRratings->count();
+		$totalProductRating = $getAllProductRratings->sum('rating');
+		$avgProductRating = ($totalProductRating / $productsRatingCnt);
+		$avgProductRating = number_format($avgProductRating,2);		
+
+
+		$avgServiceRating 	 = 0.00;
+		$getAllServiceRratings = Services::where('user_id','=',$id)->get();
+		$ServicesRatingCnt 	 = $getAllServiceRratings->count();
+		$totalServiceRating = $getAllServiceRratings->sum('rating');
+		$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+		$avgServiceRating = number_format($avgServiceRating,2);	
+		
+		$data['totalRating'] = ($avgProductRating + $avgServiceRating)/2;
+		
+
     	if($category_slug!='')
     		$data['category_slug']	= $category_slug;
 

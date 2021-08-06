@@ -370,6 +370,15 @@ select.list-dt:focus {
     opacity: 0.4;
 }
 /*end seller registration*/
+/*seller store page css*/
+ .store-active-btn{
+    color: #000;
+  }
+
+  .store-inactive-btn{
+    color: #A0A0A0;
+  }
+/*end seller store page css*/
 /*css for subheader menus*/
 nav {    
   display: block;

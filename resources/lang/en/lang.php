@@ -98,7 +98,7 @@
      'about_us_label'=>'About Us',
      'checkout_label'=>'Checkout',
      'contact_label'=>'Contact',
-     'service_label'=>'Service',
+     'service_label'=>'Tjänster',
      'shopping_cart_label'=>'Shopping Cart',
      'shop_label'=>'Shop',
      'join_our_newsletter_now_label'=>'Join Our Newsletter Now',

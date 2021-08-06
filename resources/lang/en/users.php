@@ -225,5 +225,6 @@
     'register_as_seller' => 'Register as a seller',
     'login_as_seller' => 'Login as seller',
     'already_have_account' => 'Do you already have an account?',
+    'butiks_info_title' => 'Store info',
  ]
 ?>

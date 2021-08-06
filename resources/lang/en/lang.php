@@ -58,17 +58,23 @@
      'meta_desc_label'=>'Meta Description',
      'meta_keyword_label'=>'Meta keyword (Comma Separated)',
      'add_variant_btn'=>'Add new Variant',
+
      'sku_label'=>'SKU',
+     'sku_placeholder'=>'Unique code for each for each individual product',
      'weight_label'=>'Weight',
+     'weight_placeholder'=>'Weight (Gram)',
      'price_label'=>'Price',
+     'price_placeholder'=>'Price SEK',
      'qty_label'=>'Qty',
      'image_label'=>'Image',
+
      'action_label'=>'Action',
      'add_attr_group_label'=>'Add Group',
      'attribute_label'=>'Attribute',
      'attribute_form_label'=>'Save Attribute Details',
      'attribute_saved_success'=>'Attribute saved successfully',
      'add_attribute'=>'Add new Attribute',
+     'select_attribute_label'   =>  'Characteristics',
      'attribute_value_label'=>'Value',
      'variant'=>'Variant',
      'product_variant_title'=>'Variant Product Details',
@@ -259,6 +265,18 @@
      'featured_seller_head'=>'Selected Stores',
      'popular_services_head' => 'Popular Services',
      'remove_title' => 'remove';
+
+
+     'store_information'    =>  'Store information',
+     'store_policy'         =>  'Store policy',
+     'store_name'           =>  'Store name',
+     'return_policy'        =>  'Return policy',
+     'shipping_policy'      =>  'Shipping policy',
+     'other_information'    =>  'Other information',
+
+     'product_form_step1'   =>  'Step 1 - Product description',
+     'product_form_step2'   =>  'Step 2 - Product details',
+     'product_form_step3'   =>  'Step 3 - Shipping',
 
  ]  
 ?>

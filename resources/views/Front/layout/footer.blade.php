@@ -1,5 +1,4 @@
-<footer>
-      <div class="ft_top_container">
+<div class="ft_top_container">
         <div class="container">
         <ul class="client_logos">
           <li><img src="{{url('/')}}/assets/front/img/client_logo1.png"/></li>

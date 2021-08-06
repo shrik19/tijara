@@ -455,8 +455,8 @@ class AuthController extends Controller
             'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'email'         => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
-            'paypal_email'  => 'nullable|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
-            'description'     => 'nullable|max:3000',
+          //  'paypal_email'  => 'nullable|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
+          //  'description'     => 'nullable|max:3000',
             'klarna_username' =>'required',
             'klarna_password' =>'required|min:6',
         ];
@@ -493,12 +493,12 @@ class AuthController extends Controller
                 'phone_number' => trim($request->input('phone_number')),
                 'address'      => trim($request->input('address')),
                 'city'         => trim($request->input('city')),
-                'swish_number' => trim($request->input('swish_number')),
+              //  'swish_number' => trim($request->input('swish_number')),
                 'postcode'     => trim($request->input('postcode')),
                 'store_name'   => trim($request->input('store_name')),
                 'paypal_email' => trim($request->input('paypal_email')),
-                'description'  => trim($request->input('description')),
-                'where_find_us'=> trim($request->input('find_us')),
+              //  'description'  => trim($request->input('description')),
+              //  'where_find_us'=> trim($request->input('find_us')),
                 'free_shipping'    => trim($request->input('free_shipping')),
                 'shipping_method'  => trim($request->input('shipping_method_ddl')),
                 'shipping_charges' => trim($request->input('shipping_charges')),
@@ -530,7 +530,26 @@ class AuthController extends Controller
         $user_id = Auth::guard('user')->id();
 
         $details=SellerPersonalPage::where('user_id',$user_id)->first();
-         $toUpdateData  =   array();
+        
+        $toUpdateData  =   array();
+        if($request->input('store_information'))
+            $toUpdateData['store_information']  =   trim($request->input('store_information'));
+        
+        if($request->input('store_policy'))
+            $toUpdateData['store_policy']  =   trim($request->input('store_policy'));
+        
+        if($request->input('store_name'))
+            $toUpdateData['store_name']  =   trim($request->input('store_name'));
+        
+        if($request->input('return_policy'))
+            $toUpdateData['return_policy']  =   trim($request->input('return_policy'));
+        
+        if($request->input('shipping_policy'))
+            $toUpdateData['shipping_policy']  =   trim($request->input('shipping_policy'));
+            
+        if($request->input('other_information'))
+            $toUpdateData['other_information']  =   trim($request->input('other_information'));
+            
         if($request->hasfile('header_img'))
             {
                 if(!empty($details->header_img)){

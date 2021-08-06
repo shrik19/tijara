@@ -46,13 +46,18 @@
      'meta_desc_label'=>'Meta beskrivning',
      'meta_keyword_label'=>'Meta-nyckelord (kommaseparerad)',
      'add_variant_btn'=>'Lägg till ny variant',
+
      'sku_label'=>'SKU',
+     'sku_placeholder'=>'Unik kod för varje för varje enskild produkt',
      'weight_label'=>'Vikt',
+     'weight_placeholder'=>'Vikt (gram)',
      'price_label'=>'Pris',
+     'price_placeholder'=>'Pris (SEK)',
      'qty_label'=>'Kvantitet',
      'image_label'=>'Bild',
      'action_label'=>'Handling',
      'add_attr_group_label'=>'Lägg till grupp',
+     'select_attribute_label'=>'Egenskaper',
      'attribute_label'=>'Attribut',
      'attribute_form_label'=>'Spara attributinformation',
      'attribute_saved_success'=>'Attributet har sparats',
@@ -259,5 +264,16 @@
      'popular_services_head' => 'Populära tjänster',
      'remove_title' => 'Ta bort',
 
+
+     'store_information'    =>  'Butiksinformation',
+     'store_policy'         =>  'Butikspolicy',
+     'store_name'           =>  'Butiksnamn',
+     'return_policy'        =>  'Returpolicy',
+     'shipping_policy'      =>  'Fraktpolicy',
+     'other_information'    =>  'Övrig information',
+
+     'product_form_step1'   =>  'Steg 1 - Produktbeskrivning',
+     'product_form_step2'   =>  'Steg 2 - Produktdetaljer',
+     'product_form_step3'   =>  'Steg 3- Frakt',
  ]
 ?>

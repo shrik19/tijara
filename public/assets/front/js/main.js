@@ -353,15 +353,7 @@ $(".frontregisterbtn").click(function(e){
   {
     $("#err_lname").html('');
   }*/
-  if($("#chk_privacy_policy").is(':checked')){
-     error = 0;
-  } else {
-      alert(please_check_privacy_policy);
-      error = 1;
-
-  }
-
-
+  
   if(email == '')
   {
     $("#err_email").html(fill_in_email_err).show();
@@ -406,6 +398,15 @@ $(".frontregisterbtn").click(function(e){
   {
     $("#err_cpassword").html('');
   }
+
+  if($("#chk_privacy_policy").is(':checked')){
+     error = 0;
+  } else {
+      alert(please_check_privacy_policy);
+      error = 1;
+
+  }
+
   if(error == 1)
   {
     return false;

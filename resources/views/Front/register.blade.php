@@ -20,7 +20,7 @@
 
         <hr class="heading_line"/>
         <p>{{ __('users.already_have_account')}}
-          <a href="{{url('/')}}/front-login" class="de_col">{{ __('users.login_label')}}</a>
+          <a href="{{url('/')}}/front-login/buyer" class="de_col">{{ __('users.login_label')}}</a>
         </p> 
         <div class="login_box">
           <form id="sign-up-form" action="{{url('/')}}/do-register" method="post">

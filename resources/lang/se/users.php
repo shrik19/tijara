@@ -246,5 +246,6 @@
     'register_as_seller' => 'Registrera dig som säljare',
     'login_as_seller' => 'Logga in som säljare',
     'already_have_account' => 'Har du redan ett konto?',
+    'butiks_info_title' => 'Butiksinfo',
  ]
 ?>

@@ -264,7 +264,7 @@
      'txt_comments_success' => 'Product review added Successfully.',
      'featured_seller_head'=>'Selected Stores',
      'popular_services_head' => 'Popular Services',
-     'remove_title' => 'remove';
+     'remove_title' => 'remove',
 
 
      'store_information'    =>  'Store information',

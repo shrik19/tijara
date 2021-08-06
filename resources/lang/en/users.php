@@ -220,7 +220,7 @@
     'verify_btn' => 'Verify',
     'store_name_is_verified' => 'Store name is verified',
     'please_enter_store_name' => 'Please enter store name',
-	'buyer_login_banner_title' => 'Sweden'/'s first cultural marketplace',
+	'buyer_login_banner_title' => "Sweden'/'s first cultural marketplace",
     'create_account_btn' => 'Create Account',
     'register_as_seller' => 'Register as a seller',
     'login_as_seller' => 'Login as seller',

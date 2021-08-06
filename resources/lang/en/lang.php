@@ -265,6 +265,8 @@
      'featured_seller_head'=>'Selected Stores',
      'popular_services_head' => 'Popular Services',
      'remove_title' => 'remove',
+
+
      'store_information'    =>  'Store information',
      'store_policy'         =>  'Store policy',
      'store_name'           =>  'Store name',

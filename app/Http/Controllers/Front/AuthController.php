@@ -224,12 +224,11 @@ class AuthController extends Controller
 
     }
 
+    /* function to register as a buyer*/
     public function doRegister(Request $request)
     {
         $rules = [
             'email'      => 'required|email|unique:users,email',
-            'fname'   =>  'required|string',
-            'lname'   =>  'required|string',
             'password'   =>  'required|confirmed|min:6',
             'password_confirmation'   =>  'required',
         ];
@@ -250,14 +249,11 @@ class AuthController extends Controller
         else
         {
             $arrInsert =array();
-            $arrInsert = ['fname'         =>trim($request->input('fname')),
-                          'lname'         =>trim($request->input('lname')),
+            $arrInsert = [
                           'email'         => trim($request->input('email')),
                           'password'      => bcrypt(trim($request->input('password'))),
                           'status'        => 'active',
                           'role_id'       => $request->input('role_id'),
-                          'profile'       =>'profile.png',
-                          'where_find_us' =>trim($request->input('find_us')),
                         ];
 
             if($request->input('role_id') == 1){
@@ -266,35 +262,8 @@ class AuthController extends Controller
             
             $user_id = User::create($arrInsert)->id;
 
-           // if(Auth::guard('user')->loginUsingId($user_id))
-            {
-
-				if($request->input('role_id') == 2)
-                {
-                    $email = trim($request->input('email'));
-                    $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
-
-                    $admin_email = env('ADMIN_EMAIL');
-                    $admin_name  = env('ADMIN_NAME');
-                    //$admin_email = 'cooldhirajsonar@gmail.com';
-
-                    $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($user_id))];
-
-            				Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
-            					$message->to($admin_email, $admin_name)->subject
-            						(trans('users.admin_email_subject'));
-            					$message->from( env('FROM_MAIL'),'Tijara');
-            				});
-                }
-
-                //Session::flash('success', 'Registration successfull!');
-                return redirect(route('frontRegisterSuccess'));
-            }
-            /*else
-            {
-                Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
-                return redirect()->back();
-            }*/
+            //Session::flash('success', 'Registration successfull!');
+            return redirect(route('frontRegisterSuccess'));
         }
 
     }

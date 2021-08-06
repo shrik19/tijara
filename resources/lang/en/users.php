@@ -224,5 +224,6 @@
     'create_account_btn' => 'Create Account',
     'register_as_seller' => 'Register as a seller',
     'login_as_seller' => 'Login as seller',
+    'already_have_account' => 'Do you already have an account?',
  ]
 ?>

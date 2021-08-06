@@ -83,6 +83,8 @@
      'wishlist_product_exists' => 'Produkten har redan lagts till i önskelistan',
      'review_add_success' => 'Granskningen har lagts till för tjänsten.',
      'store_name_alreay_taken' => "Butiksnamnet har redan tagits.",
+     'buyer_product_msg' => 'Annonser får endast vara uppe på Tijaras annonser i max 30 dagar. Efter att tiden har gått ut kommer din annons tas bort. Om du fortfarande vill att din annons ska vara kvar på Tojjara annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort annonsen själv. Om du har frågor kontakta Tijara kundservice.',
+    'Obs_head' => 'Obs!',
  
  ]
 ?>

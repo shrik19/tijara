@@ -86,6 +86,12 @@
     </div>
         
     </div> 
+    <div class="col-md-12">
+      <div class="buyer-prod-msg">
+        <h1 class="buyer-prod-head">{{__('messages.Obs_head')}}</h1>
+        <p  class="buyer-prod-content">{{__('messages.buyer_product_msg')}}</p>
+      </div>
+    </div>
     </div>
   </div>
 </div> <!-- /container -->

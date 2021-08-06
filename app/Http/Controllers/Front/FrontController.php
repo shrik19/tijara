@@ -639,7 +639,7 @@ class FrontController extends Controller
 			$avgServiceRating = number_format($avgServiceRating,2);	
 		}
 		$ratingSum = $avgProductRating + $avgServiceRating;
-		$totalRating = 0.00
+		$totalRating = 0.00;
 		if($ratingSum>0){
 			$totalRating = $ratingSum/2;
 		}

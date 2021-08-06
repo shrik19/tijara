@@ -619,22 +619,31 @@ class FrontController extends Controller
 	
 		
 		$productsRatingCnt 	 = $getAllProductRatings->count();
-		$totalProductRating = $getAllProductRatings->sum('product_rating');
-		$avgProductRating = ($totalProductRating / $productsRatingCnt);
-		$avgProductRating = number_format($avgProductRating,2);		
+		if($productsRatingCnt>0){
+			$totalProductRating = $getAllProductRatings->sum('product_rating');
+			$avgProductRating = ($totalProductRating / $productsRatingCnt);
+			$avgProductRating = number_format($avgProductRating,2);	
+		}
+			
 
 
 		$avgServiceRating 	 = 0.00;
-		DB::enableQueryLog();
+		
 		$getAllServiceRatings = ServiceReview::join('services','service_review.service_id','services.id','')->select(['services.id','service_review.rating as service_rating'])->where('services.user_id','=',$id)->get();
 
 		$ServicesRatingCnt 	 = $getAllServiceRatings->count();
-		$totalServiceRating = $getAllServiceRatings->sum('service_rating');
-		$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
-		$avgServiceRating = number_format($avgServiceRating,2);	
-		
-		$data['totalRating'] = ($avgProductRating + $avgServiceRating)/2;
 
+		if($ServicesRatingCnt>0){
+			$totalServiceRating = $getAllServiceRatings->sum('service_rating');
+			$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+			$avgServiceRating = number_format($avgServiceRating,2);	
+		}
+		$ratingSum = $avgProductRating + $avgServiceRating;
+		$totalRating = 0.00
+		if($ratingSum>0){
+			$totalRating = $ratingSum/2;
+		}
+		
     	if($category_slug!='')
     		$data['category_slug']	= $category_slug;
 
@@ -642,6 +651,7 @@ class FrontController extends Controller
     		$data['subcategory_slug']	= $subcategory_slug;
 
 		$data['is_seller'] = 1;
+		$data['totalRating']  = $totalRating;
         return view('Front/seller-products', $data);
     }
 

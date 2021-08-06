@@ -323,8 +323,8 @@ $(".saveproduct").click(function(e){
   });
 $(".frontregisterbtn").click(function(e){
   e.preventDefault();
-  let fname   = $("#fname").val();
-  let lname   = $("#lname").val();
+ // let fname   = $("#fname").val();
+ // let lname   = $("#lname").val();
 
   let email     = $("#email").val();
   let password  = $("#password").val();
@@ -332,7 +332,7 @@ $(".frontregisterbtn").click(function(e){
   let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
   let error = 0;
 
-  if(fname == '')
+  /*if(fname == '')
   {
     $("#err_fname").html(fill_in_first_name_err).show();
     $("#err_fname").parent().addClass('jt-error');
@@ -352,7 +352,16 @@ $(".frontregisterbtn").click(function(e){
   else
   {
     $("#err_lname").html('');
+  }*/
+  if($("#chk_privacy_policy").is(':checked')){
+     error = 0;
+  } else {
+      alert(please_check_privacy_policy);
+      error = 1;
+
   }
+
+
   if(email == '')
   {
     $("#err_email").html(fill_in_email_err).show();

@@ -23,9 +23,8 @@
       </div>
       <div class="col-md-10">
   
-  
-  <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
-  
+      <form id="product-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
+    
             @csrf
   <div class="row">
 

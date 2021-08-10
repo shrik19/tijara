@@ -31,6 +31,7 @@ use App\Models\Orders;
 use App\Models\OrdersDetails;
 use App\Models\ServiceRequest;
 use App\Models\ServiceReview;
+use App\Models\BuyerProducts;
 
 use DB;
 use Auth;
@@ -662,25 +663,14 @@ class FrontController extends Controller
 		$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 										->join('categories', 'categories.id', '=', 'category_products.category_id')
 										->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-										->select(['products.*','products.id as product_id'])
+										->select(['products.*','products.id as product_id','categories.id as catId'])
 										->where('products.status','=','active')
 										->where('products.is_deleted','=','0')
 										->where('categories.status','=','active')
 										->where('subcategories.status','=','active');
 										
 							  			
-		// $Products 			=  Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
-		// 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-		// 								->join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
-		// 								->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
-		// 								->join('category_products', 'products.id', '=', 'category_products.product_id')
-		// 								->join('categories', 'categories.id', '=', 'category_products.category_id')
-		// 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-		// 								->select(['products.*','variant_product.*','variant_product_attribute.*','products.id as product_id','attributes.name','attributes.type','attributes_values.attribute_values','variant_product_attribute.attribute_value_id'])
-		// 					  			->where('products.status','=','active')
-		// 								->where('categories.status','=','active')
-		// 					  			->where('subcategories.status','=','active');
-
+	
 		if($first_parameter!='' && $second_parameter!='' && $third_parameter!='' && strpos($third_parameter, '-P-') !== false){
 
 			$category_slug	=	$first_parameter;
@@ -769,31 +759,9 @@ class FrontController extends Controller
 			}
 
 		}
-		//dd($ProductAttributes);
-		// foreach($Products as $Product) 
-		// {
-			
-		// 	$variantData[$Product->variant_id]['sku']			=	$Product->sku;
-		// 	$variantData[$Product->variant_id]['price']			=	$Product->price;
-		// 	$variantData[$Product->variant_id]['weight']		=	$Product->weight;
-		// 	$variantData[$Product->variant_id]['quantity']		=	$Product->quantity;
-
-		// 	$variantData[$Product->variant_id]['attributes'][]	=	array('attribute_id'=>$Product->attribute_id,'attribute_name'=>$Product->name,'attribute_type'=>$Product->type,'attribute_value'=>$Product->attribute_values,'attribute_value_id'=>$Product->attribute_value_id);
-		// 	$ProductImages[$Product->variant_id]['image']		=	$Product->image;
-
-		// }
-
-		// foreach($variantData as $variant_id=>$variant) {
-		// 	foreach($variant['attributes'] as $val) {
-		// 		$ProductAttributes[$val['attribute_id']]['attribute_name']=$val['attribute_name'];
-		// 		$ProductAttributes[$val['attribute_id']]['attribute_type']=$val['attribute_type'];
-		// 		$ProductAttributes[$val['attribute_id']]['attribute_values'][$val['attribute_value_id']]=$val['attribute_value'];
-        // 		$ProductAttributes[$val['attribute_id']]['variant_values'][$val['attribute_value_id']]=$variant_id;
-		// 	}
-		// }
-		//echo'<pre>';print_r($variantData);echo'<pre>';print_r($ProductAttributes);exit;
+		
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
-
+		
 		$data['PopularProducts']	= $this->getPopularProducts();
 		$data['Product']			= $Product;
 		$data['variantData']		= $variantData;
@@ -812,7 +780,33 @@ class FrontController extends Controller
 		$data['seller_link'] = $sellerLink;
 		
 		//dd($data['variantData']);
-        return view('Front/product_details', $data);
+		if($tmpSellerData['role_id']==2)
+        	return view('Front/seller_product_details', $data);
+		else {
+			
+			$similarProducts	=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+									->join('categories', 'categories.id', '=', 'category_products.category_id')
+									->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+									->select(['products.*','products.id as product_id','categories.id as catId'])
+									->where('products.status','=','active')
+									->where('products.is_deleted','=','0')
+									->where('categories.status','=','active')
+									->where('subcategories.status','=','active');
+									;
+			if(isset($category_slug) && $category_slug!='') {
+
+				$similarProducts=	$similarProducts->where('categories.category_slug','=',$category_slug);
+			}
+			else {
+				$similarProducts=	$similarProducts->where('categories.id','=',$Product->catId);
+			
+			}
+			$similarProducts	=	$similarProducts->where('products.id!=',$Product->id);
+			$data['similarProducts']	=	$similarProducts;
+			$data['buyer_product_details']	=	BuyerProducts::where('product_id',$Product->id)->first();
+			return view('Front/buyer_product_details', $data);
+		}
+			
     }
     public function getProductAttributeDetails(Request $request) {
 		$getVariantIds			=	VariantProductAttribute::where('variant_product_attribute.attribute_value_id','=',$request->attribute_value_id)->orderBy('id','asc')->get(['variant_id']);

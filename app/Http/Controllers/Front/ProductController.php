@@ -33,6 +33,7 @@ use App\Models\ VariantProduct;
 use App\Models\Package;
 use App\Models\AdminOrders;
 use App\Models\TmpAdminOrders;
+use App\Models\BuyerProducts;
 
 use App\CommonLibrary;
 
@@ -447,6 +448,7 @@ class ProductController extends Controller
 			$product_id					=	base64_decode($id);
 			$data['product_id']			=	$product_id;
 			$data['product']			=	Products::where('id',$product_id)->first();
+            $data['buyerProduct']		=	BuyerProducts::where('product_id',$product_id)->first();
             
             //$data['AttributesValues']  =   AttributesValues::get();
           
@@ -485,12 +487,18 @@ class ProductController extends Controller
 			}
            // echo'<pre>';print_r($VariantProductAttributeArr);exit;
 			$data['VariantProductAttributeArr']         =   $VariantProductAttributeArr;
-			return view('Front/Products/edit', $data);
+            if($User->role_id==2) 
+			    return view('Front/Products/seller-edit', $data);
+            else
+                return view('Front/Products/buyer-edit', $data);
 		}
 		else {
 			$data['product_id']			=	0;
 			$data['VariantProduct']     =   array();
-			return view('Front/Products/create', $data);
+            if($User->role_id==2) 
+			    return view('Front/Products/seller-create', $data);
+            else
+                return view('Front/Products/buyer-create', $data);
 		}
     }
 
@@ -571,6 +579,18 @@ class ProductController extends Controller
 		//DB::table('variant_product')->where('product_id', $id)->delete();
 		//DB::table('variant_product_attribute')->where('product_id', $id)->delete();
 
+        if(!empty($request->input('user_name'))) {
+            BuyerProducts::where('product_id',$id)->delete();
+            $buyerProductArray['product_id']=$id;
+            $buyerProductArray['user_id']=Auth::guard('user')->id();
+            $buyerProductArray['user_name']=$request->input('user_name');
+            $buyerProductArray['user_email']=$request->input('user_email');
+            $buyerProductArray['user_phone_no']=$request->input('user_phone_no');
+            $buyerProductArray['country']=$request->input('country');
+            $buyerProductArray['location']=$request->input('location');
+            //$buyerProductArray['price']=$request->input('price');
+            BuyerProducts::create($buyerProductArray);
+        }
 		$producVariant=[];
 		if(!empty($request->input('sku'))) {
             
@@ -700,6 +720,7 @@ class ProductController extends Controller
             $productPostAmount = env('PRODUCT_POST_AMOUNT');
             $url = env('BASE_API_URL');
 
+            //echo '=='.env('APP_URL');exit;
             $user_id = Auth::guard('user')->id();
             $productData = $request->all();
             unset($productData['image']);

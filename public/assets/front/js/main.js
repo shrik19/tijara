@@ -198,6 +198,10 @@ $( ".preselected_attribute" ).each(function() {
 
                           $('.select_attribute_value.'+id).html(output);
 
+                          if($('.select_attribute_value.'+id).hasClass('buyer-product')) {
+                            $('.select_attribute_value.'+id).attr('selected_attribute_value',$('.select_attribute_value.'+id).find('option:eq(1)').val());
+                            //$('.select_attribute_value.'+id).val($('.select_attribute_value.'+id).find('option:eq(1)').val());
+                          }
                           $('.select_attribute_value.'+id).val($('.select_attribute_value.'+id).attr('selected_attribute_value'));
                            //alert( $('.select_attribute_value.'+id).attr('selected_attribute_value'));
 
@@ -296,7 +300,7 @@ $(".saveproduct").click(function(e){
     $("#err_title").html('').show();
 
   }
-  $( ".variant_field" ).each(function() {
+  $( ".variant_field:visible" ).each(function() {
       if($(this).val()=='') {
           $(this).next('.invalid-feedback').html(required_field_error);
           error = 1;

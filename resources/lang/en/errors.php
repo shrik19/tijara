@@ -102,5 +102,10 @@
 
      'product_review_error' => 'You already given review to Product.',
      'product_review_not_error' => 'You are not allowed to rate this product, as you don\'t have order for the Product.',
+      
+     'fill_in_subject'=>'Please fill in Subject.',
+     'fill_in_email_content' => 'Please enter Email contents.',
+     'fill_in_subject_en'=>'Please fill in Subject (English).',
+     'fill_in_email_content_en'=>'Please enter Email contents (English).',
  ]
 ?>

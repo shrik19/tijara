@@ -8,8 +8,8 @@
       @include('Admin.alert_messages')
       <div class="card">
         <div class="card-header">
-          <h4>{{ __('users.all_page_list')}}</h4>
-          <a href="{{route('adminPageCreate')}}" title="{{ __('users.add_page_btn')}}" class="btn btn-icon btn-success" style="margin-left:650px;"><span>{{ __('users.add_page_btn')}}</span> </a>
+          <h4>{{ __('users.all_email_list')}}</h4>
+          <a href="{{route('adminEmailCreate')}}" title="{{ __('users.add_email_btn')}}" class="btn btn-icon btn-success" style="margin-left:650px;"><span>{{ __('users.add_email_btn')}}</span> </a>
         </div>
         <div class="card-body">
           <form id="vendorMultipleAction" action="" method="post">
@@ -18,9 +18,9 @@
             <table class="table table-striped" id="pageTable">
             <thead>
               <tr>
-                <th>{{ __('users.cms_page_title')}}</th>
-                <th>{{ __('users.slug_title')}}</th>
-                <th>{{ __('users.page_created_title')}}</th>
+                <th>{{ __('users.email_title')}}</th>
+                <th>{{ __('users.email_subject')}}</th>
+                <th>{{ __('users.email_created_title')}}</th>
                 <th data-orderable="false">{{ __('lang.status_label')}}</th>
                 <th data-orderable="false">{{ __('lang.action_thead')}}</th>
               </tr>
@@ -64,7 +64,7 @@
       },
     "ajax": {
       headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
-      url : '{{route("adminPageGetRecords")}}',
+      url : '{{route("adminEmailGetRecords")}}',
       'data': function(data){
         data.status = $("#status").val();
       },

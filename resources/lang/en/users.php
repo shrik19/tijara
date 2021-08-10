@@ -199,6 +199,20 @@
 
     //Backend Orders
     'order_title' => 'Orders',
+
+    // Backend Emails
+    'email_title'=>'Email',
+    'email_subject'=>'Email Subject',
+    'content_label' => 'Email Contents',
+    'all_email_list'=>'All Email List',
+    'add_email_details_title'=>'Add Email Details',
+    'edit_email_details_title'=>'Edit Email Details',
+    'edit_email_title'=>'Edit Email',
+    'email_created_title'=> 'Date Created',
+    'add_email_btn' => 'Add Email',
+
+    'email_subject_en' => 'Email Subject (English)',
+    'content_label_en'=>'Email Contents (English)',
     
  ]
 ?>

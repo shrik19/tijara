@@ -108,6 +108,7 @@
      'packages_menu'=>'Paket',
      'pages_menu'=>'Sidor',
      'setting_menu'=>'Miljö',
+     'email_menu'=>'E-post',
      'status_thead'=>'Status',
      'action_thead'=>'Handling',
      'active_label' =>'Aktiva',

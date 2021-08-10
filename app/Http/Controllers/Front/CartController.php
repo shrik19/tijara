@@ -1224,13 +1224,28 @@ class CartController extends Controller
           $email = trim($GetOrder[0]['email']);
           $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
-          $arrMailData = ['name' => $name, 'email' => $email, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
+          // $arrMailData = ['name' => $name, 'email' => $email, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
 
-          Mail::send('emails/order_success', $arrMailData, function($message) use ($email,$name) {
+          // Mail::send('emails/order_success', $arrMailData, function($message) use ($email,$name) {
+          //     $message->to($email, $name)->subject
+          //         ('Tijara - Order successfull.');
+          //     $message->from('developer@techbeeconsulting.com','Tijara');
+          // });
+
+          $GetEmailContents = getEmailContents('Order Success');
+          $subject = $GetEmailContents['subject'];
+          $contents = $GetEmailContents['contents'];
+          $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
+          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$name,$email,url('/'),$url],$contents);
+
+          $arrMailData = ['email_body' => $contents];
+
+          Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
               $message->to($email, $name)->subject
-                  ('Tijara - Order successfull.');
-              $message->from('developer@techbeeconsulting.com','Tijara');
+                  ($subject);
+              $message->from( env('FROM_MAIL'),'Tijara');
           });
+
         //END : Send success email to User.
 
 
@@ -1245,12 +1260,26 @@ class CartController extends Controller
           $admin_email = 'shrik.techbee@gmail.com';
           $admin_name  = 'Tijara Admin';
           
-          $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
+          // $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
 
-          Mail::send('emails/order_success', $arrMailData, function($message) use ($emailSeller,$nameSeller,$admin_email,$admin_name) {
+          // Mail::send('emails/order_success', $arrMailData, function($message) use ($emailSeller,$nameSeller,$admin_email,$admin_name) {
+          //     $message->to($emailSeller, $nameSeller)->cc($admin_email,$admin_name)->subject
+          //         ('Tijara - New Order placed');
+          //     $message->from('developer@techbeeconsulting.com','Tijara');
+          // });
+
+          $GetEmailContents = getEmailContents('Order Success');
+          $subject = $GetEmailContents['subject'];
+          $contents = $GetEmailContents['contents'];
+          $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
+          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$nameSeller,$emailSeller,url('/'),$url],$contents);
+
+          $arrMailData = ['email_body' => $contents];
+
+          Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($emailSeller,$nameSeller,$admin_email,$admin_name,$subject) {
               $message->to($emailSeller, $nameSeller)->cc($admin_email,$admin_name)->subject
-                  ('Tijara - New Order placed');
-              $message->from('developer@techbeeconsulting.com','Tijara');
+                  ($subject);
+              $message->from( env('FROM_MAIL'),'Tijara');
           });
         //END : Send success email to Seller.
 
@@ -1420,13 +1449,26 @@ class CartController extends Controller
        $admin_email = 'shrik.techbee@gmail.com';
        $admin_name  = 'Tijara Admin';
        
-       $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($NewOrderId)];
+      //  $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($NewOrderId)];
 
-       Mail::send('emails/order_buyer_success', $arrMailData, function($message) use ($emailSeller,$nameSeller) {
-           $message->to($emailSeller, $nameSeller)->subject
-               ('Tijara - Order placed for your Product.');
-           $message->from('developer@techbeeconsulting.com','Tijara');
-       });
+      //  Mail::send('emails/order_buyer_success', $arrMailData, function($message) use ($emailSeller,$nameSeller) {
+      //      $message->to($emailSeller, $nameSeller)->subject
+      //          ('Tijara - Order placed for your Product.');
+      //      $message->from('developer@techbeeconsulting.com','Tijara');
+      //  });
+      $GetEmailContents = getEmailContents('Seller Order Success');
+      $subject = $GetEmailContents['subject'];
+      $contents = $GetEmailContents['contents'];
+      $url = url('/').'/order-details/'.base64_encode($NewOrderId);
+      $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$nameSeller,$emailSeller,url('/'),$url],$contents);
+
+      $arrMailData = ['email_body' => $contents];
+
+      Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($emailSeller,$nameSeller,$admin_email,$admin_name,$subject) {
+          $message->to($emailSeller, $nameSeller)->cc($admin_email,$admin_name)->subject
+              ($subject);
+          $message->from( env('FROM_MAIL'),'Tijara');
+      });
      //END : Send success email to Seller.
    
 

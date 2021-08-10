@@ -220,5 +220,19 @@
 
     //Backend Orders
     'order_title' => 'Order',
+
+    // Backend Emails
+    'email_title'=>'E-post',
+    'email_subject'=>'E-postämne',
+    'content_label' => 'E-postinnehåll',
+    'all_email_list'=>'Alla e-postlistor',
+    'add_email_details_title'=>'Lägg till e-postinformation',
+    'edit_email_details_title'=>'Redigera e-postdetaljer',
+    'edit_email_title'=>'Redigera e-post',
+    'email_created_title'=> 'Skapat datum',
+    'add_email_btn' => 'Lägg till e-post',
+
+    'email_subject_en' => 'E-postämne (engelska)',
+    'content_label_en'=>'E-postinnehåll (engelska)',
  ]
 ?>

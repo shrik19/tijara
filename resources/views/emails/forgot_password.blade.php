@@ -63,7 +63,7 @@ td {
           <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:630px; margin:0 auto; padding:0 15px;">
             <tbody>
               <tr>
-                <td style="text-align:center;"><!-- <img src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" alt="Tijara" style="margin:-64px auto 0 auto; vertical-align:bottom"> --><img src="https://tijara.techbeeconsulting.com/uploads/img/1620728258_187920862.png" alt="Tijara" style="margin:-64px auto 0 auto; vertical-align:bottom"></td>
+                <td style="text-align:center;"><img src="https://tijara.techbeeconsulting.com/uploads/img/1620728258_187920862.png" alt="Tijara" style="margin:-64px auto 0 auto; vertical-align:bottom"></td>
               </tr>
               <tr>
                 <td style="text-align:center;"><h2 style="color:#000; font-size:26px; line-height:36px; margin-top: 40px;">{{ __('lang.hi')}} {{$name}}!</h2></td>

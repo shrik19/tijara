@@ -101,5 +101,10 @@
 
      'product_review_error' => 'Du har redan granskat Produkten.',
      'product_review_not_error' => 'Du har inte tillåtelse att betygsätta den här produkten, eftersom du inte har någon order på produkten.',
+
+     'fill_in_subject'=>'Vänligen fyll i ämne.',
+     'fill_in_email_content' => 'Ange e-postinnehåll.',
+     'fill_in_subject_en'=>'Fyll i ämnet (engelska).',
+     'fill_in_email_content_en'=>'Ange e-postinnehåll (engelska).',
  ]
 ?>

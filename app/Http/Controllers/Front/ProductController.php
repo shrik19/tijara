@@ -1173,13 +1173,28 @@ class ProductController extends Controller
         $email = trim($GetOrder[0]['email']);
         $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
-        $arrMailData = ['name' => $name, 'email' => $email, 'product_details_link' => $product_link];
+        // $arrMailData = ['name' => $name, 'email' => $email, 'product_details_link' => $product_link];
 
-        Mail::send('emails/product_success', $arrMailData, function($message) use ($email,$name) {
+        // Mail::send('emails/product_success', $arrMailData, function($message) use ($email,$name) {
+        //     $message->to($email, $name)->subject
+        //         ('Tijara - Product Posted successfully.');
+        //     $message->from('developer@techbeeconsulting.com','Tijara');
+        // });
+
+        $GetEmailContents = getEmailContents('Product Published');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+        
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$name,$email,url('/'),$product_link],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
             $message->to($email, $name)->subject
-                ('Tijara - Product Posted successfully.');
-            $message->from('developer@techbeeconsulting.com','Tijara');
+                ($subject);
+            $message->from( env('FROM_MAIL'),'Tijara');
         });
+        
         //END : Send success email to User.
 
 
@@ -1187,12 +1202,26 @@ class ProductController extends Controller
         $admin_email = 'shrik.techbee@gmail.com';
         $admin_name  = 'Tijara Admin';
         
-        $arrMailData = ['product_details_link' => $product_link];
+        // $arrMailData = ['product_details_link' => $product_link];
 
-        Mail::send('emails/product_success_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+        // Mail::send('emails/product_success_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+        //     $message->to($admin_email, $admin_name)->subject
+        //         ('Tijara - New Product Posted.');
+        //     $message->from('developer@techbeeconsulting.com','Tijara');
+        // });
+
+        $GetEmailContents = getEmailContents('Product Published Admin');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+        
+        $contents = str_replace(['##SITE_URL##','##LINK##'],[url('/'),$product_link],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
             $message->to($admin_email, $admin_name)->subject
-                ('Tijara - New Product Posted.');
-            $message->from('developer@techbeeconsulting.com','Tijara');
+                ($subject);
+            $message->from( env('FROM_MAIL'),'Tijara');
         });
         //END : Send success email to Seller.
     }

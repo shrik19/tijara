@@ -117,6 +117,7 @@
      'packages_menu'=>'Packages',
      'pages_menu'=>'Pages',
      'setting_menu'=>'Setting',
+     'email_menu'=>'Emails',
      'status_thead'=>'Status',
      'action_thead'=>'Action',
      'active_label' =>'Active',

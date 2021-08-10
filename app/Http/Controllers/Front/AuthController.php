@@ -255,15 +255,29 @@ class AuthController extends Controller
 
                     $admin_email = env('ADMIN_EMAIL');
                     $admin_name  = env('ADMIN_NAME');
-                    //$admin_email = 'cooldhirajsonar@gmail.com';
+                    $admin_email = 'cooldhirajsonar@gmail.com';
 
-                    $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($user_id))];
+                    
 
-            				Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
-            					$message->to($admin_email, $admin_name)->subject
-            						(trans('users.admin_email_subject'));
-            					$message->from( env('FROM_MAIL'),'Tijara');
-            				});
+                    $GetEmailContents = getEmailContents('Seller Register Admin');
+                    $subject = $GetEmailContents['subject'];
+                    $contents = $GetEmailContents['contents'];
+
+                    $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##'],[$name,$email,url('/'),route('adminSellerEdit', base64_encode($user_id))],$contents);
+
+                    $arrMailData = ['email_body' => $contents];
+
+                    // Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+                    //     $message->to($admin_email, $admin_name)->subject
+                    //         (trans('users.admin_email_subject'));
+                    //     $message->from( env('FROM_MAIL'),'Tijara');
+                    // });
+
+                    Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
+                         $message->to($admin_email, $admin_name)->subject
+                             ($subject);
+                         $message->from( env('FROM_MAIL'),'Tijara');
+                     });
                 }
 
                 //Session::flash('success', 'Registration successfull!');
@@ -940,11 +954,25 @@ class AuthController extends Controller
         $name = $user->fname;
         $url = route('frontshowResetPassword',[$token]);
 
-        $arrMailData = ['name' => $name,'email' => $email,'url' => $url, 'siteDetails'  =>$site_details];
-        Mail::send('emails/forgot_password', $arrMailData, function($message) use ($email,$name) {
-            $message->to($email, $name)->subject(trans('lang.welcome') .' - '. trans('lang.forgot_password_title'));
-            $message->from('developer@techbeeconsulting.com',trans('lang.welcome'));
-        });
+        // $arrMailData = ['name' => $name,'email' => $email,'url' => $url, 'siteDetails'  =>$site_details];
+        // Mail::send('emails/forgot_password', $arrMailData, function($message) use ($email,$name) {
+        //     $message->to($email, $name)->subject(trans('lang.welcome') .' - '. trans('lang.forgot_password_title'));
+        //     $message->from('developer@techbeeconsulting.com',trans('lang.welcome'));
+        // });
+
+        $GetEmailContents = getEmailContents('Forgot Password');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],[$name,$email,url('/'),$url,env('FROM_MAIL')],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
+             $message->to($email, $name)->subject
+                 ($subject);
+             $message->from( env('FROM_MAIL'),'Tijara');
+         });
 
         Session::flash('success', trans('messages.reset_pwd_email_sent_success'));
         return redirect(route('frontLogin'));

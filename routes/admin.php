@@ -211,6 +211,18 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::get('/view/{id}','OrderController@view')->name('adminOrderView');
 	});
 
+	/*Emails*/
+	Route::group(['prefix'=>'emails'], function() {
+		Route::get('/','EmailController@index')->name('adminEmail');
+		Route::any('/getRecords','EmailController@getRecords')->name('adminEmailGetRecords');
+		Route::get('/create','EmailController@create')->name('adminEmailCreate');
+		Route::post('/store','EmailController@store')->name('adminEmailStore');
+		Route::get('/edit/{id}','EmailController@edit')->name('adminEmailEdit');
+		Route::any('/update/{id}','EmailController@update')->name('adminEmailUpdate');
+		Route::get('/delete/{id}','EmailController@delete')->name('adminEmailDelete');
+	    Route::get('/changeStatus/{id}/{status}','EmailController@changeStatus')->name('adminEmailChangeStatus');
+	});
+
 
 	/*setting*/
 	Route::group(['prefix'=>'setting'], function() {

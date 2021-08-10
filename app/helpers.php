@@ -3,6 +3,7 @@ use App\Models\Page;
 use App\Models\TmpOrdersDetails;
 use App\Models\VariantProduct;
 use App\Models\Wishlist;
+use App\Models\Emails;
 
 /** Get all Custom Pages. */
 function getCustomPages()
@@ -64,4 +65,10 @@ function checkPackageSubscribe($userId)
     ->get();
                    
     return count($is_subscribe_package);
+}
+
+function getEmailContents($title)
+{
+  $emailContent = Emails::where('title','=',$title)->first()->toArray();
+  return $emailContent;
 }

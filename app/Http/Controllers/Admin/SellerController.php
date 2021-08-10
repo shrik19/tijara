@@ -520,13 +520,28 @@ class SellerController extends Controller
             {
                 $email = trim($request->input('email'));
                 $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
-                
-                $arrMailData = ['name' => $name];
 
-                Mail::send('emails/seller_registration_confirm', $arrMailData, function($message) use ($email,$name) {
+                $GetEmailContents = getEmailContents('Seller Register Confirm');
+                $subject = $GetEmailContents['subject'];
+                $contents = $GetEmailContents['contents'];
+
+                
+                $contents = str_replace(['##NAME##','##LINK##','##SITE_URL##'],[$name,route('frontLogin'),url('/')],$contents);
+
+                $arrMailData = ['email_body' => $contents];
+                
+                //$arrMailData = ['name' => $name];
+
+                // Mail::send('emails/seller_registration_confirm', $arrMailData, function($message) use ($email,$name) {
+                //     $message->to($email, $name)->subject
+                //         ('Tijara - Registration confirmed.');
+                //     $message->from('developer@techbeeconsulting.com','Tijara');
+                // });
+
+                Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
                     $message->to($email, $name)->subject
-                        ('Tijara - Registration confirmed.');
-                    $message->from('developer@techbeeconsulting.com','Tijara');
+                        ($subject);
+                    $message->from(env('FROM_MAIL'),'Tijara');
                 });
 
                 UserMain::where('id', '=', $id)->update(array('confirm_email_sent' => '1')); 

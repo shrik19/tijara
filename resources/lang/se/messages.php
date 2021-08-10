@@ -77,6 +77,8 @@
      'txt_seller' => 'Säljare',
      'txt_payment_status' => 'Betalningsstatus',
      'txt_order_status' => 'Orderstatus',
- 
+
+     'email_save_success'=>'E-postuppgifterna har sparats.',
+     'email_update_success'=>'E-postuppgifterna har uppdaterats.',
  ]
 ?>

@@ -76,5 +76,8 @@
      'txt_seller' => 'Seller',
      'txt_payment_status' => 'Payment Status',
      'txt_order_status' => 'Order Status',
+
+     'email_save_success'=>'Email details saved successfully.',
+     'email_update_success'=>'Email details updated successfully.',
  ]
 ?>

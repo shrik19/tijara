@@ -1219,14 +1219,28 @@ class FrontController extends Controller
 		$service_time	=	date('Y-m-d H:i:s',strtotime($service_time));
 		$seller	=	$service_request->fname;
 		//echo'<pre>';print_r($request);exit;
-        $arrMailData = ['customername' => $customername, 'seller' => $seller, 'service' => $service,
-		'service_time'=>$service_time, 'servicemessage' => $servicemessage,'phone_number'=>$user->phone_number];
+        // $arrMailData = ['customername' => $customername, 'seller' => $seller, 'service' => $service,
+		// 'service_time'=>$service_time, 'servicemessage' => $servicemessage,'phone_number'=>$user->phone_number];
 
-		Mail::send('emails/service_request_success_seller', $arrMailData, function($message) use ($email,$seller) {
-			$message->to($email, $seller)->subject
-				(trans('lang.newRequestReceived'));
-			$message->from(env('MAIL_USERNAME'),env('APP_NAME'));
-		});
+		// Mail::send('emails/service_request_success_seller', $arrMailData, function($message) use ($email,$seller) {
+		// 	$message->to($email, $seller)->subject
+		// 		(trans('lang.newRequestReceived'));
+		// 	$message->from(env('MAIL_USERNAME'),env('APP_NAME'));
+		// });
+
+		$GetEmailContents = getEmailContents('Service Request');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+        
+        $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##','##SERVICEMESSAGE##','##PHONE##','##SITE_URL##'],[$customername,$seller,$service,$service_time,$servicemessage,$$user->phone_number,url('/')],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$seller,$subject) {
+            $message->to($email, $seller)->subject
+                ($subject);
+            $message->from( env('FROM_MAIL'),'Tijara');
+        });
 
         echo 1;
         exit;

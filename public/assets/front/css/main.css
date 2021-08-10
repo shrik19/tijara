@@ -130,7 +130,7 @@ html {
 }
 
 
-
+/*
 #msform {
     text-align: center;
     position: relative;
@@ -159,11 +159,11 @@ html {
     padding-bottom: 20px;
     position: relative
 }
-
+*/
 #msform fieldset:not(:first-of-type) {
     display: none
 }
-
+/*
 #msform fieldset .form-card {
     text-align: left;
     color: #9E9E9E
@@ -229,6 +229,7 @@ html {
 #msform .action-button-previous:focus {
     box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
 }
+*/
 
 select.list-dt {
     border: none;
@@ -573,27 +574,55 @@ nav ul {
 .containerfluid{margin-top: 71px;}
 
 /*
-** Login page
+** Login and registration page
 */
-	.login_container .left-section {
+	.login_container .left-section,
+	.register_container	.left-section,
+	.seller_register_container .left-section {
 		padding: 0;
 	}
 	
-	.login_container .right-section .form-section {
-    padding-top: 10%;
-}
+	.login_container .right-section .form-section, 
+	.register_container .right-section .form-section {
+		padding-top: 10%;
+	}
 	
-	.login_banner {
+	
+	.seller_register_container .seller_register_first #sellerRegisterForm,
+    .seller_register_container .seller_register_third #third-step-form,
+	.seller_register_container .seller_register_fourth  #seller-personal-form {
+		margin: 0 auto;
+		width: 51%;
+		padding-top: 5%;
+	}
+		
+	.login_banner,
+	.register_banner{
+		min-height: 800px;
 		padding: 10% 10% 10% 14%;
 		background-repeat: no-repeat !important;
 		background-size: cover !important;
 		background-position: 80% 10% !important;
 	}
 	
-	.login_banner-header h1 {
+	.login_banner-header h1,
+	.register_banner-header h1{
 		color: #ffffff;
 		font-size: 40px;
 		font-weight: bold;
+	}
+	
+	.login_banner-footer,
+	.register_banner-footer{
+		bottom: 50px;
+		right: 50px;
+		position: absolute;
+	}
+	
+	.login_banner-footer h2,
+	.register_banner-footer h2 {
+		color: #ffffff;
+		margin-right: 15px;
 	}
 	
 	.right-section h2 {
@@ -603,26 +632,75 @@ nav ul {
 		margin-bottom: 40px;
 	}
 	
-	#sign-in-form input.form-control {
+	#sign-in-form input.form-control,
+	#sign-up-form input.form-control,
+	#sellerRegisterForm input.form-control,
+	#third-step-form input.form-control,
+	#seller-personal-form input.form-control{
 		border-radius: 5px;
 		box-shadow: 0px 0px 0px 2px #ddd;
 		border: 1px solid #ddd;
-		height: 40px;
+		height: 45px;
+		font-size: 14px;
+	}
+	
+	#third-step-form input.form-control{
+		margin-bottom: 25px;
+	}
+	
+	#third-step-form textarea.form-control{
+		border-radius: 5px;
+		box-shadow: 0px 0px 0px 2px #ddd;
+		border: 1px solid #ddd;
+		margin-bottom: 25px;
 		font-size: 14px;
 	}
 
-	#sign-in-form input:focus {
+	#sign-in-form input:focus,
+	#sign-up-form input:focus,
+	#sellerRegisterForm input:focus,
+	#third-step-form input:focus,
+	#seller-personal-form input:focus{
 		border-bottom: 4px solid gray;
 	}
 	
-	.tijara-login-button button, .tijara-signup-button a {
+	#third-step-form textarea:focus {
+		border-bottom: 4px solid gray;
+	}
+	
+	.tijara-login-button button, 
+	.tijara-signup-button a,
+	.tijara-register-button button	{
 		width: 100%;
 		border-radius: 5px;
-		color: #000;
+		color: #000000;
 		font-weight: bold;
 		padding: 10px;
 		font-size: 18px;
 		margin: 7px 0px;
+	}
+	
+	.seller_register_container .seller_register_first input[type=button],
+	.seller_register_container .seller_register_third input[type=button],
+	.seller_register_container .seller_register_fourth input[type=button],
+	.seller_register_container .seller_register_fourth input[type=submit]{
+		margin: 10% 5% 2% 0;
+		color: #FFFFFF;
+		float: right;
+		font-weight: bold;
+		padding: 10px 40px;
+		font-size: 18px;
+	}
+	
+	.seller_register_container .seller_register_second input[type=button] {
+		color: #FFFFFF;
+		font-weight: bold;
+		padding: 10px 40px;
+		font-size: 18px;
+	}
+	
+	.seller_register_container .seller_register_fourth input[type=button]{
+		margin: 0;
 	}
 	
 	.seller-link-section {
@@ -635,14 +713,70 @@ nav ul {
 		font-weight: 600;
 	}
 	
-	.login_banner-footer {
-		margin-top: 95%;
+	
+	#sign-up-form .remember-section,
+	#seller-personal-form .remember-section {
+		margin: 10px 0;
 	}
 	
-	.login_banner-footer h2 {
-		color: #ffffff;
-		margin-right: 15px;
+	#sign-up-form .remember-section span.remember-text, 
+	#seller-personal-form .remember-section span.remember-text {
+		margin-left: 6px;
+		font-weight: 600;
 	}
+	
+	.seller_register_container .register_banner {
+		min-height: 900px;
+	}
+	
+	.seller_register_container .seller_register_second .packages-section {
+		margin-bottom: 3%;
+	}
+		
+	.seller_register_container .seller_register_second .packages-heading {
+		border-radius: 10px;
+		text-align: center;
+		margin-bottom: 5%;
+		padding: 10% 5%;
+		color: #ffffff;
+	}
+	
+	.seller_register_container .seller_register_second .packages-section:nth-child(odd) .packages-heading {
+		background: #acdfab;
+		border: 1px solid #acdfab;
+	}
+	.seller_register_container .seller_register_second .packages-section:nth-child(even) .packages-heading {
+		background: #81cccf;
+		border: 1px solid #81cccf;
+	}
+	
+	.seller_register_container .seller_register_second .packages-price {
+		font-size: 18px;
+	}
+	
+	.seller_register_container .seller_register_second .packages-description {
+		min-height: 70px;
+	}
+	
+	.seller_register_container .seller_register_second button{
+		border-radius: 5px;
+		color: #ffffff;
+		font-weight: bold;
+		padding: 10px;
+		font-size: 18px;
+		margin: 10px;
+		margin-bottom: 2%;
+	}
+	
+	.seller_register_container .seller_register_second input[type=button]:nth-child(odd) {
+		float: right;
+		margin-right: 4%;
+	}
+	.seller_register_container .seller_register_second input[type=button]:nth-child(even) {
+		float: left;
+		margin-left: 4%;
+	}
+	
 
 .heading_line{      margin: 0;
     background-color: #03989e;
@@ -1120,5 +1254,10 @@ overflow: hidden;}
         .product_details_info p {
             font-size: 15px;
         }
+		.seller_register_container .seller_register_first #sellerRegisterForm,
+		.seller_register_container .seller_register_third #third-step-form,
+		.seller_register_container .seller_register_fourth  #seller-personal-form {
+			width: 100%;
+		}
 
 }

@@ -129,6 +129,17 @@ class CartController extends Controller
                   $OrderDetailsId = $checkExistingProduct[0]['id'];
                   $quantity  = ($checkExistingProduct[0]['quantity'] + $productQuntity);
                   $price     = $Products[0]['price'];
+
+                  if(!empty($Products[0]['discount']))
+                  {
+                    $discount = number_format((($Products[0]['price'] * $Products[0]['discount']) / 100),2,'.','');
+                    $discount_price = $Products[0]['price'] - $discount;
+                  }
+                  else
+                  {
+                    $discount_price = $price;
+                  }		
+                  
                   if($quantity > $Products[0]['quantity'])
                   {
                     $is_added = 0;
@@ -137,7 +148,7 @@ class CartController extends Controller
                     exit;
                   } 
                   $arrOrderDetailsUpdate = [
-                      'price'                => $price,
+                      'price'                => $discount_price,
                       'quantity'             => $quantity,
                       'shipping_type'        => $product_shipping_type,
                       'shipping_amount'      => $product_shipping_amount,
@@ -170,7 +181,17 @@ class CartController extends Controller
                   {
                     $attrIds.= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
                   }
-                }                   
+                }  
+                
+                  if(!empty($Products[0]['discount']))
+                  {
+                    $discount = number_format((($Products[0]['price'] * $Products[0]['discount']) / 100),2,'.','');
+                    $discount_price = $Products[0]['price'] - $discount;
+                  }
+                  else
+                  {
+                    $discount_price = $Products[0]['price'];
+                  }	
                        
                 $arrOrderDetailsInsert = [
                     'order_id'             => $OrderId,
@@ -178,7 +199,7 @@ class CartController extends Controller
                     'product_id'           => $Products[0]['id'],
                     'variant_id'           => $productVariant,
                     'variant_attribute_id' => '['.$attrIds.']',
-                    'price'                => $Products[0]['price'],
+                    'price'                => $discount_price,
                     'quantity'             => $productQuntity,
                     'shipping_type'        => $product_shipping_type,
                     'shipping_amount'      => $product_shipping_amount,
@@ -587,8 +608,17 @@ class CartController extends Controller
             }           
 
             $price     = $Products[0]['price'];
+            if(!empty($Products[0]['discount']))
+            {
+              $discount = number_format((($Products[0]['price'] * $Products[0]['discount']) / 100),2,'.','');
+              $discount_price = $Products[0]['price'] - $discount;
+            }
+            else
+            {
+              $discount_price = $price;
+            }	
             $arrOrderDetailsUpdate = [
-                'price'                => $price,
+                'price'                => $discount_price,
                 'quantity'             => $Quantity,
                 'updated_at'           => $created_at,
             ];
@@ -753,6 +783,8 @@ class CartController extends Controller
         $param['Total'] = $checkExisting[0]['total'];
         
         $OrderId = $checkExisting[0]['id'];
+
+        
         $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
         if(!empty($checkExistingOrderProduct))
         {
@@ -780,11 +812,11 @@ class CartController extends Controller
                           //dd(DB::getQueryLog());
 
                           //dd(count($TrendingProducts));
-                         
+                                 
               if(count($TrendingProducts)>0) {
                 foreach($TrendingProducts as $Product)
                 {
-
+                  
                   if(empty($username) && empty($password))
                   {
                     $username = $Product->klarna_username;
@@ -908,6 +940,8 @@ class CartController extends Controller
         curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $result = curl_exec($ch);
+
+        //dd($password);
          
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);

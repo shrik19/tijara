@@ -78,9 +78,9 @@
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                         <span id="quantity_{{ $orderProduct['id'] }}" > {{ $orderProduct['quantity'] }} </span>
                         </td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($orderProduct['product']->price,2) }} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($orderProduct['price'],2) }} kr</strong></td>
                         <td class="col-sm-1 col-md-1 text-right"><strong>{{ number_format($orderProduct['shipping_amount'],2)}} kr</strong></td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(($orderProduct['product']->price * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</strong></td>
                     </tr>
                   @endforeach
                     <tr>

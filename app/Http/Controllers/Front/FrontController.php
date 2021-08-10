@@ -341,6 +341,15 @@ class FrontController extends Controller
 					$Product->image = explode(",",$vp->image)[0];
 					$Product->price = $vp->price;
 					$Product->variant_id = $vp->variant_id;
+					if(!empty($Product->discount))
+					{
+						$discount = number_format((($Product->price * $Product->discount) / 100),2,'.','');
+						$Product->discount_price = $Product->price - $discount;
+					}
+					else
+					{
+						$Product->discount_price = 0;
+					}
 				}
 			}
 		}
@@ -415,6 +424,15 @@ class FrontController extends Controller
 				$Product->image = explode(",",$vp->image)[0];
 				$Product->price = $vp->price;
 				$Product->variant_id = $vp->variant_id;
+				if(!empty($Product->discount))
+				{
+					$discount = number_format((($Product->price * $Product->discount) / 100),2,'.','');
+					$Product->discount_price = $Product->price - $discount;
+				}
+				else
+				{
+					$Product->discount_price = 0;
+				}
 			}
 
 		}
@@ -541,6 +559,15 @@ class FrontController extends Controller
 					$Product->image = explode(",",$vp->image)[0];
 					$Product->price = $vp->price;
 					$Product->variant_id = $vp->variant_id;
+					if(!empty($Product->discount))
+					{
+						$discount = number_format((($Product->price * $Product->discount) / 100),2,'.','');
+						$Product->discount_price = $Product->price - $discount;
+					}
+					else
+					{
+						$Product->discount_price = 0;
+					}
 				}
 
 			}
@@ -806,6 +833,14 @@ class FrontController extends Controller
 			$variantData[$variant->id]['id']			=	$variant->id;
 			$variantData[$variant->id]['sku']			=	$variant->sku;
 			$variantData[$variant->id]['price']			=	$variant->price;
+			$discount_price = 0;
+			if(!empty($Product->discount))
+			{
+				$discount = number_format((($variant->price * $Product->discount) / 100),2,'.','');
+				$discount_price = $variant->price - $discount;
+			}
+			
+			$variantData[$variant->id]['discount_price']			=	$discount_price;
 			$variantData[$variant->id]['weight']		=	$variant->weight;
 			$variantData[$variant->id]['quantity']		=	$variant->quantity;
 			$variantData[$variant->id]['images']		=	explode(',',$variant->image);//[];
@@ -943,8 +978,20 @@ class FrontController extends Controller
 	$attributeDetails = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 											->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
 											->join('variant_product', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-											->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*','variant_product.*')
+											->join('products', 'variant_product.product_id', '=', 'products.id')
+											->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*','variant_product.*','products.discount')
 											->where([['variant_product_attribute.attribute_id','=',$attribute_id],['attribute_value_id','=',$attribute_value],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
+	if(!empty($attributeDetails[0]['discount']))
+	{
+		$discount = number_format((($attributeDetails[0]['price'] * $attributeDetails[0]['discount']) / 100),2,'.','');
+		$discount_price = $attributeDetails[0]['price'] - $discount;
+	}
+	else
+	{
+		$discount_price = 0;
+	}		
+	
+	$attributeDetails[0]['discount_price'] = $discount_price;
 	
 	$otherAttributeDetails = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
 	->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')

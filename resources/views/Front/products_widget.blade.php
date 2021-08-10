@@ -27,7 +27,10 @@
         </div>  
         <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
-        <h6>{{$product->price}} kr</h6>
+        <h6><span @if(!empty($product->discount_price)) style="text-decoration: line-through;" @endif>{{$product->price}} kr</span>@if(!empty($product->discount_price)) &nbsp;&nbsp;{{$product->discount_price}} kr @endif</h6>
+          
+          
+          
         @endif
         <h6>{{$product->seller}}</h6>
         <input type="hidden" name="product_quantity_{{$product->variant_id}}" id="product_quantity_{{$product->variant_id}}" value="1">

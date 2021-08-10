@@ -169,7 +169,7 @@
                       <div class="row">
                           <div class="col-xs-12 col-md-6">    
                           <div class="quantity_box">              
-                            <h3>{{ __('lang.shopping_cart_price')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price">{{ number_format($first['price'],2) }} kr</span>
+                            <h3>{{ __('lang.shopping_cart_price')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span> 
                           </div>
                           </div>
                         </div>
@@ -440,7 +440,16 @@ function showAvailableOptions(attribute_id,attribute_value)
       $(".show-custom").find('div').not(':first').css('z-index','999');
 
       $("#product_variant_id").val(responseObj.current_variant.id);
-      $("#product_variant_price").html(number_format(responseObj.current_variant.price,2)+'  kr');
+      if(responseObj.current_variant.discount_price)
+      {
+        $("#product_variant_price").html('<span style="text-decoration: line-through;">'+number_format(responseObj.current_variant.price,2)+'  kr</span> &nbsp;&nbsp;'+ number_format(responseObj.current_variant.discount_price,2)+'  kr');
+        
+      }
+      else
+      {
+        $("#product_variant_price").html(number_format(responseObj.current_variant.price,2)+'  kr');
+      }
+      
       
       var optionLength = responseObj.other_option.length;
       $(responseObj.other_option).each(function(key,option)

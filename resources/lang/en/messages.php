@@ -66,8 +66,10 @@
      'wishlist_empty' => 'Your wishlist is Empty.',
      'wishlist_product_exists' => 'Product already exists in Wishlist.',
      'txt_wishlist' => 'Wishlist',
-     'wishlist_product_remove' => 'Are you sure, you want to remove product from Wishlist?',
+     'wishlist_product_remove' => 'Are you sure, you want to remove from Wishlist?',
      'wishlist_product_remove_success' => 'Product removed successfully from Wishlist.',
+     'wishlist_service_remove' => 'Are you sure, you want to remove product from Wishlist?',
+     'wishlist_service_remove_success' => 'Service removed successfully from Wishlist.',
 
      'txt_order_details' => 'Order Details',
      'txt_order_details_print' => 'Print',
@@ -79,5 +81,13 @@
 
      'email_save_success'=>'Email details saved successfully.',
      'email_update_success'=>'Email details updated successfully.',
+     'service_wishlist_add_success' => 'Tjänsten läggs till i önskelistan',
+     'wishlist_service_exists' => 'Service already added in wishlist',
+     'wishlist_product_exists' => 'Product already added in wishlist',
+     'review_add_success' => 'Review added successfully for service.',
+     'store_name_alreay_taken' => "Store name already taken.",
+     'buyer_product_msg' => 'Ads may only be on Tijaras ads for a maximum of 30 days. After the time has passed expired, your ad will be deleted. If you still want your ad to stay
+on Tojjara ads, you can post the ad again. You can delete at any time the ad itself. If you have any questions, please contact Tijara customer service.',
+     'Obs_head' => 'Obs!',
  ]
 ?>

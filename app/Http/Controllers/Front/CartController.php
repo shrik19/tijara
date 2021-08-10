@@ -21,6 +21,8 @@ use App\Models\Orders;
 use App\Models\OrdersDetails;
 use App\Models\Wishlist;
 use App\Models\UserMain;
+use App\Models\Services;
+use App\Models\ServiceCategory;
 
 use DB;
 use Auth;
@@ -472,6 +474,21 @@ class CartController extends Controller
                            ->get()->toArray();
       }
       return $productCategories;
+    }
+
+    function getServiceCategories($serviceId)
+    {
+      $serviceCategories = [];
+      if(!empty($serviceId))
+      {
+        $serviceCategories = ServiceCategory::join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+                           ->join('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')
+                           ->select(['category_services.*','servicecategories.category_name', 'servicecategories.category_slug', 'serviceSubcategories.subcategory_name', 'serviceSubcategories.subcategory_slug'])
+                           ->where('category_services.service_id','=',$serviceId)
+                           ->get()->toArray();
+
+      }
+      return $serviceCategories;
     }
 
     public function removeCartProduct(Request $request)
@@ -1479,11 +1496,12 @@ class CartController extends Controller
  public function showWishlist()
     {
       $data = [];
-      $wishlistDetails = [];
+      $wishlistDetails =   $wishlistServiceDetails = [];
       $user_id = Auth::guard('user')->id();
       if($user_id)
       {
         $getWishlist = Wishlist::where('user_id','=',$user_id)->get()->toArray();
+        
         if(!empty($getWishlist))
         {
           foreach($getWishlist as $details)
@@ -1533,8 +1551,54 @@ class CartController extends Controller
               }
           }
         }
-                
+          
+        /*service wishlist table*/ 
+        $getServiceWishlist = Wishlist::where('user_id','=',$user_id)->where('service_id','!=','')->get()->toArray();
+        if(!empty($getServiceWishlist))
+        {
+          foreach($getServiceWishlist as $serviceDetails)
+          {
+
+               $wishlistServices  = Services::join('category_services', 'services.id', '=', 'category_services.service_id')
+                          ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+                          ->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+                          ->select(['services.*','servicecategories.category_name'])
+                          ->where('services.status','=','active')
+                          ->where('servicecategories.status','=','active')
+                          ->where('serviceSubcategories.status','=','active')
+                          ->where('services.id','=',$serviceDetails['service_id'])
+                          ->orderBy('services.id', 'DESC')
+                          ->groupBy('services.id')
+                          ->get();
+
+                           if(count($wishlistServices)>0) 
+                          {
+                            foreach($wishlistServices as $Service)
+                            {
+                              $serviceCategories = $this->getServiceCategories($Service->id);
+
+                              $service_link = url('/').'/service';
+
+                              $service_link .=  '/'.$serviceCategories[0]['category_slug'];
+                              $service_link .=  '/'.$serviceCategories[0]['subcategory_slug'];
+
+                              $service_link .=  '/'.$Service->service_slug.'-S-'.$Service->service_code;
+                              
+                              $Service->service_link  = $service_link;
+
+                              $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Service->user_id)->first()->toArray();
+                              $Service->seller  = $SellerData['fname'].' '.$SellerData['lname'];
+                              $Service->quantity = 1;
+                              $Service->images    = explode(',',$Service->images)[0];
+                              $serviceDetails['service'] = $Service;
+                              $wishlistServiceDetails[] = $serviceDetails;
+                            }
+                          }
+          }
+        }
+
         $data['details'] = $wishlistDetails;
+        $data['detailsService'] = $wishlistServiceDetails;
         
         return view('Front/wishlist', $data);
       }
@@ -1553,57 +1617,87 @@ class CartController extends Controller
         $txt_msg = '';
         if($user_id && Auth::guard('user')->getUser()->role_id == 1)
         {
-          $productVariant = $request->product_variant;
-          $productQuntity = $request->product_quantity;
-          if(!empty($productVariant))
+
+          if(!empty($request->product_variant))
           {
-              $Product = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
-        							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-        							  ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
-                        ->where('variant_product.id','=', $productVariant)
-        							  ->where('products.status','=','active')
-        							  ->get()->toArray();
-              //dd($Product);
-              //Create Temp order
-              $checkExisting = Wishlist::where([['user_id','=',$user_id],['product_id','=',$Product[0]['id']],['variant_id','=',$productVariant]])->first();
-              if(!empty($checkExisting))
-              {
-                $is_added = 0;
-                $is_login_err = 0;
-                $txt_msg = trans('message.wishlist_product_exists');
-              }
-              else
-              {
-                $variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
-											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
-                       ->where([['variant_id','=',$productVariant],['product_id','=',$Product[0]['id']]])->get();
-                
-                $attrIds = '';  
-                foreach($variantAttrs as $variantAttr)
+            $productVariant = $request->product_variant;
+            $productQuntity = $request->product_quantity;
+            if(!empty($productVariant))
+            {
+                $Product = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
+          							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+          							  ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
+                          ->where('variant_product.id','=', $productVariant)
+          							  ->where('products.status','=','active')
+          							  ->get()->toArray();
+                //dd($Product);
+                //Create Temp order
+                $checkExisting = Wishlist::where([['user_id','=',$user_id],['product_id','=',$Product[0]['id']],['variant_id','=',$productVariant]])->first();
+                if(!empty($checkExisting))
                 {
-                  if($attrIds == '')
+                  $is_added = 0;
+                  $is_login_err = 0;
+                  $txt_msg = trans('messages.wishlist_product_exists');
+                }
+                else
+                {
+                  $variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
+  											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+                         ->where([['variant_id','=',$productVariant],['product_id','=',$Product[0]['id']]])->get();
+                  
+                  $attrIds = '';  
+                  foreach($variantAttrs as $variantAttr)
                   {
-                    $attrIds = $variantAttr->name.' : '.$variantAttr->attribute_values;
-                  }
-                  else
-                  {
-                    $attrIds.= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
-                  }
-                }   
+                    if($attrIds == '')
+                    {
+                      $attrIds = $variantAttr->name.' : '.$variantAttr->attribute_values;
+                    }
+                    else
+                    {
+                      $attrIds.= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
+                    }
+                  }   
 
-                $created_at = date('Y-m-d H:i:s');
-                $arrOrderInsert = [
-                    'user_id'             => $user_id,
-                    'product_id'          => $Product[0]['id'],
-                    'variant_id'          => $productVariant,
-                    'variant_attribute_id'=> '['.$attrIds.']',
-                    'created_at'          => $created_at,
-                    'updated_at'          => $created_at,
-                ];
+                  $created_at = date('Y-m-d H:i:s');
+                  $arrOrderInsert = [
+                      'user_id'             => $user_id,
+                      'product_id'          => $Product[0]['id'],
+                      'variant_id'          => $productVariant,
+                      'variant_attribute_id'=> '['.$attrIds.']',
+                      'created_at'          => $created_at,
+                      'updated_at'          => $created_at,
+                  ];
 
-                $Id = Wishlist::create($arrOrderInsert)->id;
+                  $Id = Wishlist::create($arrOrderInsert)->id;
+                }
               }
+          }else{
+            if(!empty($request->service_id))
+            {
+              /*code for service wishlist*/
+              $service_id = $request->service_id;
+              $service_exist = Wishlist::where([['user_id','=',$user_id],['service_id','=',$service_id]])->first();
+                if(!empty($service_exist))
+                {
+                  $is_added = 0;
+                  $is_login_err = 0;
+                  $txt_msg = trans('messages.wishlist_service_exists');
+                }
+                else
+                {         DB::enableQueryLog();
+                  //add service to wishlist
+                  $curr_date = date('Y-m-d H:i:s');
+                  $arrServiceInsert = [
+                      'user_id'             => trim($user_id),
+                      'service_id'          => trim($service_id),
+                      'created_at'          => trim($curr_date),
+                      'updated_at'          => trim($curr_date),
+                  ];
+
+                  DB::table('wishlist')->insert($arrServiceInsert);
+                }
             }
+          }
         }
         else
         {
@@ -1629,7 +1723,12 @@ class CartController extends Controller
         {
             $OrderDetailsId = $request->OrderDetailsId;
             $ExistingOrder = Wishlist::where('id',$OrderDetailsId)->get()->toArray();
-            
+          
+            if(!empty($ExistingOrder[0]['service_id'])){
+              $wishlist_remove_success=trans('messages.wishlist_service_remove_success');
+            }else{
+              $wishlist_remove_success=trans('messages.wishlist_product_remove_success');
+            }
             foreach($ExistingOrder as $orderDetails)
             {
               Wishlist::where('id',$OrderDetailsId)->delete();
@@ -1640,7 +1739,7 @@ class CartController extends Controller
           $is_removed = 0;
           $txt_msg = trans('errors.login_buyer_required');
         }
-        echo json_encode(array('status'=>$is_removed,'msg'=>$txt_msg));
+        echo json_encode(array('status'=>$is_removed,'msg'=>$txt_msg,'wishlist_remove'=>$wishlist_remove_success));
         exit;
     }
 

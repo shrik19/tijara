@@ -29,6 +29,9 @@ use App\Models\UserMain;
 use App\Models\ProductReview;
 use App\Models\Orders;
 use App\Models\OrdersDetails;
+use App\Models\ServiceRequest;
+use App\Models\ServiceReview;
+use App\Models\ContactStore;
 
 use DB;
 use Auth;
@@ -61,13 +64,48 @@ class FrontController extends Controller
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
 		$data['TrendingProducts']= $this->getTrendingProducts();
 		$data['PopularProducts']= $this->getPopularProducts();
+		$data['FeaturedSellers']= $this->getFeaturedSellers();
+		$data['PopularServices']= $this->getPopularServices();
         return view('Front/home', $data);
     }
 
-
+    /*Function to get treding seller*/
+    function getFeaturedSellers(){
+    	$today          = date('Y-m-d H:i:s');
+    	$featuredSellers 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
+    							->join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
+								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id','users.store_name','users.description','seller_personal_page.logo')
+								->where('users.role_id','=','2')
+								->where('users.is_featured','=','1')
+								->where('users.is_verified','=','1')
+								->where('users.status','=','active')
+								->where('user_packages.status','=','active')
+								->where('user_packages.start_date','<=', $today)
+								->where('user_packages.end_date','>=', $today)
+								->orderBy('users.id', 'DESC')
+								->limit(3)
+								->get();
+			
+		return $featuredSellers;			
+    }
 	//get category & subcategory listings
-	function getCategorySubcategoryList() {
-		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+	function getCategorySubcategoryList($seller_id='') {
+		if(!empty($seller_id)){
+			$seller_id=base64_decode($seller_id);
+			$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+			->join('category_products','category_products.category_id','=','categories.id')
+			->join('products','products.id','=','category_products.product_id')
+								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
+								->where('subcategories.status','=','active')
+								->where('categories.status','=','active')
+								->where('products.user_id','=',$seller_id)
+								->orderBy('categories.sequence_no')
+								->orderBy('subcategories.sequence_no')
+								->groupBy('subcategories.subcategory_name')
+								->get()
+								->toArray();
+		}else{
+			$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
 								->where('subcategories.status','=','active')
 								->where('categories.status','=','active')
@@ -75,6 +113,8 @@ class FrontController extends Controller
 								->orderBy('subcategories.sequence_no')
 								->get()
 								->toArray();
+		}
+		
 		$CategoriesArray	=	array();
 		foreach($Categories as $category) {
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
@@ -86,8 +126,25 @@ class FrontController extends Controller
 	}
 
 	//get category & subcategory listings
-	function getServiceCategorySubcategoryList() {
-		$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+	function getServiceCategorySubcategoryList($seller_id='') {
+		if(!empty($seller_id)){
+			$seller_id=base64_decode($seller_id);
+
+			$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+							->join('category_services','category_services.category_id','=','servicecategories.id')
+							->join('services','services.id','=','category_services.service_id')
+								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','serviceSubcategories.subcategory_name','serviceSubcategories.subcategory_slug')
+								->where('serviceSubcategories.status','=','active')
+								->where('servicecategories.status','=','active')
+								->where('services.user_id','=',$seller_id)
+								->orderBy('servicecategories.sequence_no')
+								->orderBy('serviceSubcategories.sequence_no')
+								->groupBy('serviceSubcategories.subcategory_name')
+								->get()
+								->toArray();
+
+		}else{
+			$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','serviceSubcategories.subcategory_name','serviceSubcategories.subcategory_slug')
 								->where('serviceSubcategories.status','=','active')
 								->where('servicecategories.status','=','active')
@@ -95,6 +152,8 @@ class FrontController extends Controller
 								->orderBy('serviceSubcategories.sequence_no')
 								->get()
 								->toArray();
+		}
+
 		$CategoriesArray	=	array();
 		foreach($Categories as $category) {
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
@@ -106,7 +165,7 @@ class FrontController extends Controller
 	}
 
   //get seller listings
-	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',  $search_string = '',$productsServices='') {
+	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',$city_filter = '',  $search_string = '',$productsServices='') {
     	$today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
@@ -114,10 +173,15 @@ class FrontController extends Controller
 								->where('users.status','=','active')
 								->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
-								->where('user_packages.end_date','>=', $today)
-								->orderBy('users.id')
-								->get()
-								->toArray();
+								->where('user_packages.end_date','>=', $today);
+								
+		if($city_filter != ''){
+			$Sellers	=	$Sellers->where('users.city','like', '%' .$city_filter.'%');
+		}
+			
+		$Sellers	=   $Sellers->orderBy('users.id')
+						->get()
+						->toArray();
 
 		$SellersArray	=	array();
 		if($productsServices=='products') {
@@ -411,9 +475,20 @@ class FrontController extends Controller
 				$tmpPrice = explode(',',$request->price_filter);
 				$Products	=	$Products->whereBetween('variant_product.price',$tmpPrice);
 			}
+
+			if($request->city_filter != '')
+			{
+				$Products	=	$Products->where('users.city', 'like', '%' . $request->city_filter . '%');
+			}
+
 			if($request->search_string != '')
 			{
 				$Products	=	$Products->where('products.title', 'like', '%' . $request->search_string . '%');
+			}
+
+			if($request->search_seller_product != '')
+			{
+				$Products	=	$Products->where('products.title', 'like', '%' . $request->search_seller_product . '%')->where('products.user_id','=',$request->sellers);
 			}
 
 			//echo '<pre>';print_r($request->sort_order); print_r($request->sort_by); echo '</pre>';
@@ -478,7 +553,7 @@ class FrontController extends Controller
 
 		//dd(is_object($data['Products']));
 
-		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->search_string,'products');
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products');
 		$sellerData = '';
 		if(!empty($Sellers))
 		{
@@ -518,7 +593,6 @@ class FrontController extends Controller
     {
 
         $data['pageTitle'] 	= 'Home';
-
 		    $data['Categories'] = $this->getCategorySubcategoryList()	;
 
     		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
@@ -546,8 +620,15 @@ class FrontController extends Controller
 	/* function to display products page*/
     public function sellerProductListing($seller_name ='', $seller_id = '', $category_slug = null, $subcategory_slug= null, Request $request)
     {
+    	$data = [];
         $data['pageTitle'] 	= 'Sellers Products';
-		$data['Categories'] = $this->getCategorySubcategoryList()	;
+
+		if($request->segment(4)=='products'){
+			$data['Categories'] = $this->getCategorySubcategoryList($seller_id);
+		}else{
+			$data['Categories'] = $this->getCategorySubcategoryList();
+		}
+		
 		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
     	$data['category_slug']		=	'';
@@ -559,7 +640,9 @@ class FrontController extends Controller
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
 		$data['description']		= 	$Seller['description'];
-		
+		$data['city_name']		    =	$Seller['city'];
+		$data['seller_email']       =   $Seller['email'];
+		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
 		$data['header_image']       = '';
 		$data['logo']       = '';
 		$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
@@ -576,6 +659,38 @@ class FrontController extends Controller
 				$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
 			}
 		}
+
+		$avgProductRating 	 = 0.00;
+		$getAllProductRatings = ProductReview::join('products','product_review.product_id','products.id','')->select(['products.id','product_review.rating as product_rating'])->where('products.user_id','=',$id)->get();
+
+	// and then you can get query log
+	
+		
+		$productsRatingCnt 	 = $getAllProductRatings->count();
+		if($productsRatingCnt>0){
+			$totalProductRating = $getAllProductRatings->sum('product_rating');
+			$avgProductRating = ($totalProductRating / $productsRatingCnt);
+			$avgProductRating = number_format($avgProductRating,2);	
+		}
+			
+
+
+		$avgServiceRating 	 = 0.00;
+		
+		$getAllServiceRatings = ServiceReview::join('services','service_review.service_id','services.id','')->select(['services.id','service_review.rating as service_rating'])->where('services.user_id','=',$id)->get();
+
+		$ServicesRatingCnt 	 = $getAllServiceRatings->count();
+
+		if($ServicesRatingCnt>0){
+			$totalServiceRating = $getAllServiceRatings->sum('service_rating');
+			$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+			$avgServiceRating = number_format($avgServiceRating,2);	
+		}
+		$ratingSum = $avgProductRating + $avgServiceRating;
+		$totalRating = 0.00;
+		if($ratingSum>0){
+			$totalRating = $ratingSum/2;
+		}
 		
     	if($category_slug!='')
     		$data['category_slug']	= $category_slug;
@@ -583,7 +698,17 @@ class FrontController extends Controller
     	if($subcategory_slug!='')
     		$data['subcategory_slug']	= $subcategory_slug;
 
-		$data['is_seller'] = 1;
+		// and then you can get query log
+
+    	/*get product review*/
+    	$getAllProductReviews = ProductReview::join('products','product_review.product_id','products.id','')->join('users','product_review.user_id','users.id','')->select(['products.id','product_review.rating as product_rating','product_review.comments','users.id','users.fname','users.lname'])->where('products.user_id','=',$id)->get();
+
+    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+
+		$data['is_seller'] 			= 1;
+		$data['totalRating']  		= $totalRating;
+		$data['productReviews']  	= $getAllProductReviews;
+		$data['getTerms']  			= $getTerms;
         return view('Front/seller-products', $data);
     }
 
@@ -849,7 +974,6 @@ class FrontController extends Controller
   //function to get services list by provided parameters
 	public function getServicesByParameter(Request $request) {
 	
-		DB::enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$Services 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
 							  ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
@@ -884,6 +1008,18 @@ class FrontController extends Controller
 				$Services	=	$Services->where('services.title', 'like', '%' . $request->search_string . '%');
 			}
 
+			if($request->city_filter != '')
+			{
+				$Services	=	$Services->where('users.city', 'like', '%' . $request->city_filter . '%');
+			}
+
+
+			if($request->search_seller_product != '')
+			{
+				$Services	=	$Services->where('services.title', 'like', '%' . $request->search_seller_product . '%')->where('services.user_id','=',$request->sellers);
+			}
+
+
 			if($request->sort_order != '' && $request->sort_by != '')
 			{
 				if($request->sort_by == 'name')
@@ -903,8 +1039,8 @@ class FrontController extends Controller
 
 		$Services 			= $Services->paginate(config('constants.Services_limits'));
 		//dd($Services);
-		//print_r(DB::getQueryLog());
-		//exit;
+		// print_r(DB::getQueryLog());
+		// exit;
 		if(count($Services)>0) {
 			foreach($Services as $Service) {
 				$service_link	=	url('/').'/service';
@@ -933,7 +1069,7 @@ class FrontController extends Controller
 
 		//dd(is_object($data['Services']));
 
-		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->search_string,'services');
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'services');
 		$sellerData = '';
 		if(!empty($Sellers))
 		{
@@ -1153,7 +1289,13 @@ class FrontController extends Controller
         $data['pageTitle'] 	= 'Sellers Services';
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 		$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
-		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
+		if($request->segment(4)=='services'){
+			$data['ServiceCategories'] = $this->getServiceCategorySubcategoryList($seller_id);
+		}else{
+			$data['ServiceCategories'] = $this->getServiceCategorySubcategoryList();
+		}
+		
+		
     	$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
 		$data['link_seller_name']		=	$seller_name;
@@ -1162,6 +1304,9 @@ class FrontController extends Controller
 		
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+		$data['city_name']		    =	$Seller['city'];
+		$data['seller_email']       =   $Seller['email'];
+		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
 		$data['description']		= 	$Seller['description'];
 		
 		$data['header_image']       = '';
@@ -1181,13 +1326,38 @@ class FrontController extends Controller
 			}
 		}
 		
+		$avgProductRating 	 = 0.00;
+		$getAllProductRratings = Products::where('user_id','=',$id)->get();
+		$productsRatingCnt 	 = $getAllProductRratings->count();
+		$totalProductRating = $getAllProductRratings->sum('rating');
+		$avgProductRating = ($totalProductRating / $productsRatingCnt);
+		$avgProductRating = number_format($avgProductRating,2);		
+
+
+		$avgServiceRating 	 = 0.00;
+		$getAllServiceRratings = Services::where('user_id','=',$id)->get();
+		$ServicesRatingCnt 	 = $getAllServiceRratings->count();
+		$totalServiceRating = $getAllServiceRratings->sum('rating');
+		$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+		$avgServiceRating = number_format($avgServiceRating,2);	
+		
+		$data['totalRating'] = ($avgProductRating + $avgServiceRating)/2;
+		
+
     	if($category_slug!='')
     		$data['category_slug']	= $category_slug;
 
     	if($subcategory_slug!='')
     		$data['subcategory_slug']	= $subcategory_slug;
 
+    	/*get product review*/
+    	$getAllServiceReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.comments','users.id','users.fname','users.lname'])->where('services.user_id','=',$id)->get();
+
+    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+
 		$data['is_seller'] = 1;
+		$data['serviceReviews']  	= $getAllServiceReviews;
+		$data['getTerms']  			= $getTerms;
         return view('Front/seller-services', $data);
     }
 
@@ -1332,4 +1502,144 @@ class FrontController extends Controller
         echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
         exit;
 	}
+
+	/*function to add service review*/
+	public function addServiceReview(Request $request)
+	{
+		$user_id = Auth::guard('user')->id();
+        $is_added = 1;
+        $is_login_err = 0;
+        $txt_msg = trans('lang.txt_comments_success');
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
+        {
+			$rating = $request->rating;
+			$service_id = $request->service_id;
+			$comments = $request->comments;
+			$checkExistsServiceReq = ServiceRequest::where([['user_id','=',$user_id],['service_id','=',$service_id]])->get()->toArray();
+			if(empty($checkExistsServiceReq))
+			{
+				$is_added = 0;
+                $txt_msg = trans('errors.service_review_not_error');
+                echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                exit;
+			}
+
+			$checkExists = ServiceReview::where([['user_id','=',$user_id],['service_id','=',$service_id]])->get()->toArray();
+			if(!empty($checkExists))
+			{
+				$is_added = 0;
+                $txt_msg = trans('errors.service_review_error');
+                echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                exit;
+			}
+			else
+			{
+				
+				$currentDate = date('Y-m-d H:i:s');
+				$arrInsert = [
+								'service_id' => $service_id,
+								'user_id' => $user_id,
+								'comments' => $comments,
+								'rating' => $rating,
+								'is_approved' => '1',
+								'created_at' => $currentDate,
+								'updated_at' => $currentDate,
+							 ];
+
+				ServiceReview::create($arrInsert);
+
+				$getAllratings = ServiceReview::where([['service_id','=',$service_id]]);
+
+				$ratingCnt 	 = $getAllratings->count();
+				$totalRating = $getAllratings->sum('rating');
+						 
+				$avgRating 	 = 0.00;
+				if(!empty($ratingCnt))
+				{
+					$avgRating = ($totalRating / $ratingCnt);
+					$avgRating = number_format($avgRating,2);
+					$arrUpdate = ['rating' => $avgRating,'rating_count' => $ratingCnt];
+					Services::where('id',$service_id)->update($arrUpdate);
+				}
+			}
+
+		}
+		else
+        {
+          $is_added = 0;
+          $is_login_err = 1;
+          if($user_id && Auth::guard('user')->getUser()->role_id != 1)
+          {
+            $is_login_err = 0;
+          }
+          $txt_msg = trans('errors.login_buyer_required');
+        }
+        echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+        exit;
+	}
+
+
+	public function getCity(Request $request) {
+     	if($request->get('query')){
+	      $query = $request->get('query');
+
+	      $data = DB::table('users')
+	        ->where('city', 'LIKE', "%{$query}%")
+	        ->groupBy('city')
+	        ->get();
+	        $output='';
+	        if(count($data) > 0){
+	          $output = '<ul class="dropdown-menu" style="display:block; position:relative;width:100%">';
+		      foreach($data as $row)
+		      {
+		       $output .= '
+		       <li><a href="#">'.$row->city.'</a></li>
+		       ';
+		      }
+		      $output .= '</ul>';
+	        }
+	      
+	      echo $output;
+	    }
+    }
+
+    /*
+	*function to contact store
+	*@param: seller_email,message
+    */
+   public function contactStore(Request $request) { 
+      	
+      	$success_msg = $err_msg='';
+   		if(Auth::guard('user')->id()) {
+   			$user_message = $request->user_message;
+	   		$to_email = $request->seller_email;
+	   		$id = $request->seller_id;
+	   		$seller_name = $request->seller_name;
+           	$loginUser = UserMain::where('id',Auth::guard('user')->id())->first();
+           	$from_email=$loginUser->email;
+			$name = $loginUser->fname." ".$loginUser->lname;
+			$currentDate = date('Y-m-d H:i:s');
+
+			$arrInsert = [
+				'seller_id' => $id,
+				'email' => $from_email,
+				'message' => $user_message,
+				'created_at' => $currentDate,
+				'updated_at' => $currentDate,
+			 ];
+
+			ContactStore::create($arrInsert);
+	        $arrMailData = ['name' => $name, 'email' => $from_email, 'user_message'=> $user_message,'seller_name' => $seller_name];
+
+	            Mail::send('emails/contact_seller', $arrMailData, function($message) use ($to_email,$seller_name) {
+	            $message->to($to_email, $seller_name)->subject
+	                (trans('users.message_from_buyer_sub'));
+	            $message->from( env('FROM_MAIL'),'Tijara');
+	        });
+	       $success_msg = trans('users.mail_sent_to_seller_alert');
+        }else{
+        	$err_msg = trans('users.please_login_alert');
+        }
+        return response()->json(['success'=>$success_msg,'error'=>$err_msg]);
+   }
 }

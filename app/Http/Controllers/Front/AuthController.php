@@ -190,25 +190,45 @@ class AuthController extends Controller
     }
 	public function seller_register()
     {
+        $data = $details = $is_subscriber = [];
 		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();
-		$data['banner'] 	= $banner;
-		$data['registertype']= trans('users.sellers_title');
-		$data['role_id'] 	= 2;
-        $data['pageTitle'] = trans('lang.sign_up_title');
+        $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
+        $currentDate = date('Y-m-d H:i:s');
+
+        $session_user_id=Session::get('seller_register_form_id');
+
+        $is_subscriber = DB::table('user_packages')
+                    ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+                    ->where('packages.is_deleted','!=',1)
+                    ->where('user_packages.end_date','>=',$currentDate)
+                    ->where('user_id','=',$session_user_id)
+                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
+                    ->orderByRaw('user_packages.id ASC')
+                    ->get();
+        
+        $data['packageDetails']    = $details;
+        $data['subscribedPackage'] = $is_subscriber;
+		$data['banner'] 	       = $banner;
+		$data['registertype']      = trans('users.sellers_title');
+		$data['role_id'] 	       = 2;
+        $data['next_step']         = 1;
+        $data['pageTitle']         = trans('lang.sign_up_title');
+        $data['headingTitle']      = trans('users.sell_with_tijara_head');
 
 
         if(Auth::guard('user')->id()) {
             return redirect(route('frontHome'));
         }
-        return view('Front/register', $data);
+
+        return view('Front/seller_register', $data);
+
     }
 
+    /* function to register as a buyer*/
     public function doRegister(Request $request)
     {
         $rules = [
             'email'      => 'required|email|unique:users,email',
-            'fname'   =>  'required|string',
-            'lname'   =>  'required|string',
             'password'   =>  'required|confirmed|min:6',
             'password_confirmation'   =>  'required',
         ];
@@ -229,14 +249,11 @@ class AuthController extends Controller
         else
         {
             $arrInsert =array();
-            $arrInsert = ['fname'         =>trim($request->input('fname')),
-                          'lname'         =>trim($request->input('lname')),
+            $arrInsert = [
                           'email'         => trim($request->input('email')),
                           'password'      => bcrypt(trim($request->input('password'))),
                           'status'        => 'active',
                           'role_id'       => $request->input('role_id'),
-                          'profile'       =>'profile.png',
-                          'where_find_us' =>trim($request->input('find_us')),
                         ];
 
             if($request->input('role_id') == 1){
@@ -245,51 +262,72 @@ class AuthController extends Controller
             
             $user_id = User::create($arrInsert)->id;
 
-           // if(Auth::guard('user')->loginUsingId($user_id))
-            {
-
-				if($request->input('role_id') == 2)
-                {
-                    $email = trim($request->input('email'));
-                    $name  = trim($request->input('fname')).' '.trim($request->input('lname'));
-
-                    $admin_email = env('ADMIN_EMAIL');
-                    $admin_name  = env('ADMIN_NAME');
-                    $admin_email = 'cooldhirajsonar@gmail.com';
-
-                    
-
-                    $GetEmailContents = getEmailContents('Seller Register Admin');
-                    $subject = $GetEmailContents['subject'];
-                    $contents = $GetEmailContents['contents'];
-
-                    $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##'],[$name,$email,url('/'),route('adminSellerEdit', base64_encode($user_id))],$contents);
-
-                    $arrMailData = ['email_body' => $contents];
-
-                    // Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
-                    //     $message->to($admin_email, $admin_name)->subject
-                    //         (trans('users.admin_email_subject'));
-                    //     $message->from( env('FROM_MAIL'),'Tijara');
-                    // });
-
-                    Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
-                         $message->to($admin_email, $admin_name)->subject
-                             ($subject);
-                         $message->from( env('FROM_MAIL'),'Tijara');
-                     });
-                }
-
-                //Session::flash('success', 'Registration successfull!');
-                return redirect(route('frontRegisterSuccess'));
-            }
-            /*else
-            {
-                Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
-                return redirect()->back();
-            }*/
+            //Session::flash('success', 'Registration successfull!');
+            return redirect(route('frontRegisterSuccess'));
         }
 
+    }
+
+     public function newsellerRegister(Request $request)
+    {
+
+        $rules = [
+            'email'      => 'required|email|unique:users,email',          
+        ];
+        $messages = [
+            'email.required'                    => trans('errors.fill_in_email_err'),
+            'email.unique'                      => trans('errors.unique_email_err'),
+            'email.email'                       => trans('errors.valid_email_err'),
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()) {
+
+            $messages = $validator->messages();
+             return response()->json(['error_msg'=>$messages]);
+        }
+        else
+        {
+
+            $data = [];
+            $email = trim($request->input('email'));
+            //$password = bcrypt(trim($request->input('password')));
+            $password = trim($request->input('password'));
+            $status = 'active';
+            $role_id = 2;
+            $cpassword = trim($request->input('password_confirmation'));
+
+            Session::put('new_seller_email', $email);
+            Session::put('new_seller_password', $password);
+            Session::put('new_seller_cpassword', $cpassword);
+            Session::put('new_seller_status', $status);
+            Session::put('new_seller_role_id', $role_id);
+            Session::put('next_step', 2);
+       
+            return response()->json(['success'=>'Got Simple Ajax Request']);
+        }   
+    }
+
+    /*function to save third step seller registration form values*/
+    public function thirdStepsellerRegister(Request $request){
+     
+        $session_user_id = Session::get('new_seller_user_id');
+
+        $arrUpdate = [
+                'fname'        => trim($request->input('fname')),
+                'lname'        => trim($request->input('lname')),
+                'address'      => trim($request->input('address')),
+                'postcode'     => trim($request->input('postcode')),
+            ];
+
+        UserMain::where('id','=',$session_user_id)->update($arrUpdate);
+        Session::put('new_seller_fname');
+        Session::put('new_seller_lname');
+        Session::forget('next_step');
+        Session::forget('StepsHeadingTitle');
+        Session::put('next_step',4);
+        Session::put('StepsHeadingTitle',trans('users.sell_with_tijara_head'));
+        return response()->json(['success'=>'third step success']);
     }
 
     public function register_success()
@@ -386,8 +424,8 @@ class AuthController extends Controller
             'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'email'         => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
-            'paypal_email'  => 'nullable|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
-            'description'     => 'nullable|max:3000',
+          //  'paypal_email'  => 'nullable|regex:/(.*)\.([a-zA-z]+)/i|unique:users,paypal_email,'.$user_id,
+          //  'description'     => 'nullable|max:3000',
             'klarna_username' =>'required',
             'klarna_password' =>'required|min:6',
         ];
@@ -424,12 +462,12 @@ class AuthController extends Controller
                 'phone_number' => trim($request->input('phone_number')),
                 'address'      => trim($request->input('address')),
                 'city'         => trim($request->input('city')),
-                'swish_number' => trim($request->input('swish_number')),
+              //  'swish_number' => trim($request->input('swish_number')),
                 'postcode'     => trim($request->input('postcode')),
                 'store_name'   => trim($request->input('store_name')),
                 'paypal_email' => trim($request->input('paypal_email')),
-                'description'  => trim($request->input('description')),
-                'where_find_us'=> trim($request->input('find_us')),
+              //  'description'  => trim($request->input('description')),
+              //  'where_find_us'=> trim($request->input('find_us')),
                 'free_shipping'    => trim($request->input('free_shipping')),
                 'shipping_method'  => trim($request->input('shipping_method_ddl')),
                 'shipping_charges' => trim($request->input('shipping_charges')),
@@ -461,7 +499,26 @@ class AuthController extends Controller
         $user_id = Auth::guard('user')->id();
 
         $details=SellerPersonalPage::where('user_id',$user_id)->first();
-         $toUpdateData  =   array();
+        
+        $toUpdateData  =   array();
+        if($request->input('store_information'))
+            $toUpdateData['store_information']  =   trim($request->input('store_information'));
+        
+        if($request->input('store_policy'))
+            $toUpdateData['store_policy']  =   trim($request->input('store_policy'));
+        
+        if($request->input('store_name'))
+            $toUpdateData['store_name']  =   trim($request->input('store_name'));
+        
+        if($request->input('return_policy'))
+            $toUpdateData['return_policy']  =   trim($request->input('return_policy'));
+        
+        if($request->input('shipping_policy'))
+            $toUpdateData['shipping_policy']  =   trim($request->input('shipping_policy'));
+            
+        if($request->input('other_information'))
+            $toUpdateData['other_information']  =   trim($request->input('other_information'));
+            
         if($request->hasfile('header_img'))
             {
                 if(!empty($details->header_img)){
@@ -496,8 +553,8 @@ class AuthController extends Controller
                     $old_x = imageSX($src_img);
                     $old_y = imageSY($src_img);
 
-                    $newWidth = 300;
-                    $newHeight = 300;
+                    $newWidth = 200;
+                    $newHeight = 200;
 
                     if($old_x > $old_y){
                         $thumb_w    =   $newWidth;
@@ -629,6 +686,245 @@ class AuthController extends Controller
         $data['details']=$details;
         return view('Front/seller_personal_page', $data);
     }
+
+
+    /**
+     * function to save last step data of seller registration procee and remove all session variable.
+     *
+     * @return null
+     */
+    public function seller_info_page(Request $request)
+    {
+
+        $session_user_id = Session::get('new_seller_user_id');
+        $UpdateStore  =   array();
+        $UpdateStore = [
+                'store_name'      => trim($request->input('store_name')),
+        ];
+         if(!empty($UpdateStore)) {
+                UserMain::where('id',$session_user_id)->update($UpdateStore);
+        }
+
+        $details=SellerPersonalPage::where('user_id',$session_user_id)->first();
+
+        $toUpdateData  =   array();
+        $toUpdateData = [
+                'user_id'      => $session_user_id,
+                'header_img'        => trim($request->input('banner_image')),
+                'logo'        => trim($request->input('logo_image')),
+        ];
+    
+        if(!empty($toUpdateData)) {
+            if(!empty($details)){
+                SellerPersonalPage::where('user_id',$session_user_id)->update($toUpdateData);
+            }
+            else
+            {
+                $toUpdateData['user_id']=$session_user_id;
+                SellerPersonalPage::insert($toUpdateData);
+            }
+        }
+
+        $email =   Session::get('new_seller_email');
+        $name  = Session::get('new_seller_fname').' '.Session::get('new_seller_lname');
+
+        // $admin_email = env('ADMIN_EMAIL');
+        // $admin_name  = env('ADMIN_NAME');
+        //             //$admin_email = 'cooldhirajsonar@gmail.com';
+
+        // $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($session_user_id))];
+
+        //     Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+        //     $message->to($admin_email, $admin_name)->subject
+        //         (trans('users.admin_email_subject'));
+        //     $message->from( env('FROM_MAIL'),'Tijara');
+        // });
+
+        $admin_email = env('ADMIN_EMAIL');
+        $admin_name  = env('ADMIN_NAME');
+        
+        $GetEmailContents = getEmailContents('Seller Register Admin');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##'],[$name,$email,url('/'),route('adminSellerEdit', base64_encode($user_id))],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        // Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
+        //     $message->to($admin_email, $admin_name)->subject
+        //         (trans('users.admin_email_subject'));
+        //     $message->from( env('FROM_MAIL'),'Tijara');
+        // });
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
+             $message->to($admin_email, $admin_name)->subject
+                 ($subject);
+             $message->from( env('FROM_MAIL'),'Tijara');
+         });
+
+
+        Session::forget('new_seller_user_id');
+        Session::forget('new_seller_email');
+        Session::forget('new_seller_fname');
+        Session::forget('new_seller_lname');
+        Session::forget('new_seller_password');
+        Session::forget('new_seller_cpassword');
+        Session::forget('new_seller_status');
+        Session::forget('new_seller_role_id');
+        Session::forget('next_step');
+        Session::forget('seller_register_form_id');
+        return response()->json(['success'=>'last step success']);
+    }
+
+
+    /**
+     * function to upload seller banner image.
+     *
+     * @return null
+     */
+    public function uploadSellerBannerImage(Request $request){
+     
+        if(($request->file('fileUpload'))){
+
+            $fileError = 0;
+            $image=$request->file('fileUpload');
+            $name=$image->getClientOriginalName();
+            $fileExt  = strtolower($image->getClientOriginalExtension());
+            
+            if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+                $fileName = 'seller-banner-'.date('YmdHis').'.'.$fileExt;
+                $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
+                $path = public_path().'/uploads/Seller/'.$fileName;
+                $mime = getimagesize($path);
+            
+                if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+                if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+                if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+                if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+            
+                $old_x = imageSX($src_img);
+                $old_y = imageSY($src_img);
+                $newWidth = 300;
+                $newHeight = 300;
+            
+                if($old_x > $old_y) {
+                    $thumb_w    =   $newWidth;
+                    $thumb_h    =   $old_y/$old_x*$newWidth;
+                }
+            
+                if($old_x < $old_y) {
+                    $thumb_w    =   $old_x/$old_y*$newHeight;
+                    $thumb_h    =   $newHeight;
+                }
+            
+                if($old_x == $old_y) {
+                    $thumb_w    =   $newWidth;
+                    $thumb_h    =   $newHeight;
+                }
+            
+                $dst_img  =  ImageCreateTrueColor($thumb_w,$thumb_h);
+                imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+                // New save location
+                $new_thumb_loc = public_path().'/uploads/Seller/resized/' . $fileName;
+            
+                if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+
+                if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                imagedestroy($dst_img);
+                imagedestroy($src_img);
+
+            } else {
+
+                $fileError = 1;
+            }
+            
+            if($fileError == 1) {
+            
+                            
+                }
+                       
+            echo $fileName;
+        } 
+    }
+
+    /**
+     * function to upload seller logo image.
+     *
+     * @return null
+     */
+    public function uploadSellerLogoImage(Request $request){
+     
+        if(($request->file('fileUpload'))){
+
+            $fileError = 0;
+            $image=$request->file('fileUpload');
+            $name=$image->getClientOriginalName();
+            $fileExt  = strtolower($image->getClientOriginalExtension());
+            
+            if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+                $fileName = 'seller-logo-'.date('YmdHis').'.'.$fileExt;
+                $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
+                $path = public_path().'/uploads/Seller/'.$fileName;
+                $mime = getimagesize($path);
+            
+                if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+                if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+                if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+                if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+            
+                $old_x = imageSX($src_img);
+                $old_y = imageSY($src_img);
+                $newWidth = 300;
+                $newHeight = 300;
+            
+                if($old_x > $old_y) {
+                    $thumb_w    =   $newWidth;
+                    $thumb_h    =   $old_y/$old_x*$newWidth;
+                }
+            
+                if($old_x < $old_y) {
+                    $thumb_w    =   $old_x/$old_y*$newHeight;
+                    $thumb_h    =   $newHeight;
+                }
+            
+                if($old_x == $old_y) {
+                    $thumb_w    =   $newWidth;
+                    $thumb_h    =   $newHeight;
+                }
+            
+                $dst_img  =  ImageCreateTrueColor($thumb_w,$thumb_h);
+                imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+                // New save location
+                $new_thumb_loc = public_path().'/uploads/Seller/resized/' . $fileName;
+            
+                if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+
+                if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                imagedestroy($dst_img);
+                imagedestroy($src_img);
+
+            } else {
+
+                $fileError = 1;
+            }
+            
+            if($fileError == 1) {
+                
+                }
+                        //$producVariant['image']=$fileName;
+                        echo $fileName;
+        } 
+    }
+
 
     /* funtion to seller delete image
     @param : $id
@@ -1107,7 +1403,7 @@ class AuthController extends Controller
         $data['pageTitle'] = trans('users.seller_packages_title');
         if(!Auth::guard('user')->id())
         {
-            return redirect(route('frontHome'));
+            return redirect(route('seller_register'));
         }
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
         if($User->role_id!=2) {
@@ -1175,28 +1471,20 @@ class AuthController extends Controller
         $data['ramainingDays']     = $date_diff;
         $data['expiryDate']        = $ExpiredDate;
 
+
         return view('Front/Packages/index', $data);
+        
     }
 
     public function klarnaPayment(Request $request){
         $username = env('KLORNA_USERNAME');
         $password = env('KLORNA_PASSWORD');
-        
+
         $user_id       = $request->input('user_id');
         $amount         = $request->input('amount');
         $validity_days = $request->input('validity_days');
         $package_id    = $request->input('p_id');
         $package_name = $request->input('p_name');
-
-        $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
-        $billing_address= [];
-        $billing_address['given_name'] = $UserData['fname'];
-        $billing_address['family_name'] = $UserData['lname'];
-        $billing_address['email'] = $UserData['email'];
-        $billing_address['street_address'] = $UserData['address'];
-        $billing_address['postal_code'] = $UserData['postcode'];
-        $billing_address['city'] = $UserData['city'];
-        $billing_address['phone'] = $UserData['phone_number'];
 
         /*klarna api to create order*/
         $url = env('BASE_API_URL');
@@ -1206,7 +1494,6 @@ class AuthController extends Controller
           "locale"=> "en-SE",
           "order_amount"=> (int)ceil($amount),
           "order_tax_amount"=> 0,          
-          "billing_address"       => $billing_address,
         );
         $data['order_lines'] = [array(
                  "type"             => "physical",
@@ -1234,7 +1521,7 @@ class AuthController extends Controller
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-
+        $error_msg ='';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -1248,19 +1535,21 @@ class AuthController extends Controller
  
         if (curl_errno($ch)) {
             $error_msg = curl_error($ch);
+
         }
         curl_close($ch);
 
         $response = json_decode($result);
+
         if(!empty($response->error_messages)){
             $cnt_err = count($response->error_messages);
         }
-        
-        if (isset($error_msg) || @$cnt_err ) {
+
+        if(!empty($error_msg) || @$cnt_err ) {
            $blade_data['error_messages']= trans('errors.payment_failed_err');
            return view('Front/Packages/payment_error',$blade_data); 
         }
-      
+  
         $order_id = $response->order_id;
         $order_status = $response->status;
         $currentDate = date('Y-m-d H:i:s');
@@ -1284,7 +1573,8 @@ class AuthController extends Controller
           
         }
 
-        $arrInsertPackage = [
+        if(Auth::guard('user')->id()) {
+            $arrInsertPackage = [
                               'user_id'    =>$user_id,
                               'package_id' => $package_id,
                               'status'     => "block",
@@ -1293,11 +1583,25 @@ class AuthController extends Controller
                               'order_id'   => $order_id,
                               'payment_status' =>$order_status,
                             ];
-         
-        UserPackages::create($arrInsertPackage);
 
-        $html_data["html_snippet"] = $response->html_snippet;
-        return view('Front/Packages/payment_integration',$html_data); 
+            UserPackages::create($arrInsertPackage);
+            $html_data["html_snippet"] = $response->html_snippet;
+            return view('Front/Packages/payment_integration',$html_data); 
+        }else{
+
+        
+            Session::put('new_seller_package_id', $package_id);
+            Session::put('new_seller_package_status', 'block');
+            Session::put('new_seller_package_start_date', $start_date);
+            Session::put('new_seller_package_end_date', $ExpiredDate);
+            Session::put('new_seller_package_order_id', $order_id);
+            Session::put('new_seller_package_payment_status', $order_status);
+
+            $html_snippet = $response->html_snippet;
+      
+            return response()->json(['success'=>'package subscribed','html_snippet'=>$html_snippet,'error_msg'=>$error_msg]);
+           
+        }
        
     }
 
@@ -1307,7 +1611,7 @@ class AuthController extends Controller
         $username = env('KLORNA_USERNAME');
         $password = env('KLORNA_PASSWORD');
         /*klarna api call to read order*/
-      
+     
         $url = env('BASE_API_URL')."/".$order_id;
         /*  $url ="https://api.playground.klarna.com/checkout/v3/orders/d1d90381-3cda-6a89-a22c-33f1ed95eb9e";*/
         
@@ -1336,12 +1640,46 @@ class AuthController extends Controller
         
         $order_id     =  $response->order_id;
         $order_status = $response->status;
+
         $data=[];
         $data["html_snippet"] = $response->html_snippet;
         //return view('Front/Packages/payment_confirm',$data); 
 
-        Session::Flash('success', trans('messages.package_subscribe_success'));
-        return redirect(route('frontSellerPackages'));
+       
+
+
+        if(Auth::guard('user')->id()) {
+            Session::Flash('success', trans('messages.package_subscribe_success'));
+            return redirect(route('frontSellerPackages'));
+        }else{
+            Session::forget('next_step');
+             $arrInsert = [
+                          'email'         => Session::get('new_seller_email'),
+                          'password'      => bcrypt(Session::get('new_seller_password')),
+                          'status'        => Session::get('new_seller_status'),
+                          'role_id'       => Session::get('new_seller_role_id'),
+                        ];
+
+
+            $user_id = User::create($arrInsert)->id; 
+            Session::put('new_seller_user_id',$user_id);
+            $arrInsertPackage = [
+                              'user_id'    => $user_id,
+                              'package_id' => Session::get('new_seller_package_id'),
+                              'status'     => "block",
+                              'start_date' => Session::get('new_seller_package_start_date'),
+                              'end_date'   => Session::get('new_seller_package_end_date'),
+                              'order_id'   => Session::get('new_seller_package_order_id'),
+                              'payment_status' => Session::get('new_seller_package_payment_status'),
+                            ];
+
+            UserPackages::create($arrInsertPackage);
+            Session::put('next_step', 3);
+            Session::put('StepsHeadingTitle', trans('users.third_step_title'));
+            return redirect(route('seller_register'));
+            //return $this->view('Front/seller_register',$data); 
+        }
+       // $this->newsellerRegister();
         //return view('Front/Packages/seller-packages',$data); 
     }
 
@@ -1351,7 +1689,6 @@ class AuthController extends Controller
         $order_id = $request->order_id;
         $username = env('KLORNA_USERNAME');
         $password = env('KLORNA_PASSWORD');
-
 
         $package_details = DB::table('user_packages')
                         ->join('packages', 'packages.id', '=', 'user_packages.package_id')

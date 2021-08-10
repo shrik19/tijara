@@ -20,7 +20,7 @@ Route::get('/admin/refreshcaptcha', 'Admin\AuthController@refreshCaptcha');
 Route::post('/admin/login', 'Admin\AuthController@login')->name('adminDoLogin');
 Route::get('/admin/ForgotPassword','Admin\AuthController@ForgotPassword')->name('ForgotPassword');
 Route::post('/admin/ProcessForgotPassword','Admin\AuthController@ProcessForgotPassword')->name('ProcessForgotPassword');
-
+Route::get('/admin/seller/checkstore','Admin\SellerController@checkstore')->name('adminSellerCheckStore');
 Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history'], 'namespace'=>'Admin'],function() {
 	/*General*/
 	Route::any('/logout', 'AuthController@logout')->name('adminLogout');
@@ -175,7 +175,7 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::get('/changeStatus/{id}/{status}','SellerController@changeStatus')->name('adminSellerChangeStatus');
 		Route::get('/delete/{id}','SellerController@delete')->name('adminSellerDelete');
 	    Route::get('/exportdata','SellerController@exportdata')->name('adminSellerexportdata');
-	    Route::get('/checkstore','SellerController@checkstore')->name('adminSellerCheckStore');
+	
 		Route::get('/showpackages/{id}','SellerController@showpackages')->name('adminSellerShowPackages');
 	});
 

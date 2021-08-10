@@ -12,8 +12,10 @@
   <!-- Example row of columns -->
   
   <div class="row">
-    <div class="">
-      <div class="col-md-12">
+  <div class="col-md-2">
+        @include ('Front.layout.sidebar_menu')
+      </div>
+      <div class="col-md-10">
 			@if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
@@ -47,8 +49,7 @@
 			</div>
 		  </form>  
 		</div>
-	  </div>
-				
+	  
 	  </div> 
     </div>
   </div>

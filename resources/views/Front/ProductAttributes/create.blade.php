@@ -11,11 +11,13 @@
 <div class="container">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="">
+  <div class="col-md-2">
+        @include ('Front.layout.sidebar_menu')
+      </div>
         @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
-      <div class="col-md-3"></div> 
+      <div class="col-md-1"></div> 
       <div class="col-md-6">
         <h2>{{ __('lang.attribute_form_label')}}</h2>
         <hr class="heading_line"/>
@@ -46,8 +48,7 @@
           </form>
     
         </div>
-      </div>
-
+      
     </div>
   </div>
 </div> <!-- /container -->

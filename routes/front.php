@@ -32,6 +32,9 @@ Route::get('/product/{category_slug}/{product_slug}','Front\FrontController@prod
 Route::get('/product/{category_slug}/{subcategory_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategorySubcategory');
 Route::any('/get_product_attribute_details','Front\FrontController@getProductAttributeDetails')->name('getProductAttributeDetails');
 
+Route::post('/getCity', 'Front\FrontController@getCity')->name('getCity');
+Route::post('/contact-store', 'Front\FrontController@contactStore')->name('FrontContactStore');
+
 //services
 Route::get('/seller/{seller_name}/{seller_id}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');
 Route::any('/get_service_listing/','Front\FrontController@getServicesByParameter')->name('getServicesyParameter'); 
@@ -45,7 +48,8 @@ Route::post('/send-service-request','Front\FrontController@sendServiceRequest')-
 
 
 //auth
-Route::any('/front-login','Front\AuthController@login')->name('frontLogin');
+Route::any('/front-login/buyer','Front\AuthController@login')->name('frontLogin');
+Route::any('/front-login/seller','Front\AuthController@login')->name('frontLoginSeller');
 Route::post('/validate-login','Front\AuthController@doLogin')->name('doLogin');
 Route::get('/front-logout','Front\AuthController@logout')->name('frontLogout');
 Route::get('/buyer-register','Front\AuthController@buyer_register')->name('buyer_register');
@@ -53,12 +57,27 @@ Route::get('/seller-register','Front\AuthController@seller_register')->name('sel
 Route::post('/do-register','Front\AuthController@doRegister')->name('do-register');
 Route::get('/register-success','Front\AuthController@register_success')->name('frontRegisterSuccess');
 
+
 /*forgot password*/
 Route::post('/forgot-password','Front\AuthController@forgotPassword')->name('frontForgotPassword');
 Route::get('/password/reset/{token?}','Front\AuthController@showResetPassword')->name('frontshowResetPassword');
 Route::post('/reset-password','Front\AuthController@resetPassword')->name('frontResetPassword');
 /*end forgot password*/
 
+
+/*seller registration*/
+Route::any('/new-seller-register','Front\AuthController@newsellerRegister')->name('frontNewSellerRegister');
+Route::any('/klarna-payment', 'Front\AuthController@klarnaPayment')->name('frontklarnaPayment');
+Route::post('/subscribe-package', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
+
+Route::any('/package_callback', 'Front\AuthController@packageCallback')->name('frontPackageCallback');
+Route::get('/seller-packages', 'Front\AuthController@sellerPackages')->name('frontSellerPackages');
+
+Route::any('/third-step-seller-register','Front\AuthController@thirdStepsellerRegister')->name('frontThirdStepSellerRegister');
+Route::post('/upload-seller-banner-image','Front\AuthController@uploadSellerBannerImage')->name('uploadSellerBannerImage');
+Route::post('/upload-seller-logo-image','Front\AuthController@uploadSellerLogoImage')->name('uploadSellerLogoImage');
+Route::any('/seller-info-page', 'Front\AuthController@seller_info_page')->name('frontSellerInfoPage');
+/*end seller registration*/
 /*CMS Pages*/
 Route::get('/page/{page_slug}','Front\FrontController@cmsPage')->name('frontCmsPage');
 
@@ -78,6 +97,8 @@ Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->nam
 Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
 Route::any('/checkout_callback', 'Front\ProductController@checkoutCallback')->name('frontProductCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
+
+Route::get('/buyer-products','Front\ProductController@listBuyerProduct')->name('manageBuyerProducts');
 
 
 });	/*end Product Management  */
@@ -136,12 +157,9 @@ Route::group(['middleware'=>['front-login']],function()
 	Route::get('/delete-image/{id}','Front\AuthController@deleteImage')->name('SellerImageDelete');
 	Route::get('/buyer-profile/{edit?}', 'Front\AuthController@buyerProfile')->name('frontBuyerProfile');
 	Route::post('/buyer-profile-update', 'Front\AuthController@buyerProfileUpdate')->name('frontBuyerProfileUpdate');
-	Route::get('/seller-packages', 'Front\AuthController@sellerPackages')->name('frontSellerPackages');
+	/*Route::get('/seller-packages', 'Front\AuthController@sellerPackages')->name('frontSellerPackages');*/
 	Route::get('/profile', 'Front\AuthController@userProfile')->name('frontUserProfile');
-  Route::post('/klarna-payment', 'Front\AuthController@klarnaPayment')->name('frontklarnaPayment');
-   Route::post('/subscribe-package', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
-
-  Route::any('/package_callback', 'Front\AuthController@packageCallback')->name('frontPackageCallback');
+ 
  // Route::any('/push_notification', 'Front\AuthController@pushNotification')->name('frontPushNotification');
 	//Route::get('/subscribe-package/{user_id}/{p_id}/{v_days}', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
   // change password
@@ -161,6 +179,8 @@ Route::post('/remove-from-wishlist','Front\CartController@removeWishlistProduct'
 
 Route::post('/get-product-options','Front\FrontController@getProductOptions')->name('frontProductOptions');
 Route::post('/add-review','Front\FrontController@addReview')->name('frontAddReview');
+
+Route::post('/add-service-review','Front\FrontController@addServiceReview')->name('frontAddServiceReview');
 
 Route::any('/checkout','Front\CartController@showCheckout')->name('frontShowCheckout');
 Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name('frontCheckoutCallback');

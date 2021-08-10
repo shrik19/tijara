@@ -37,6 +37,7 @@
     filter: alpha(opacity=40);
     display:none;
 }
+
 </style>
    <!-- end custom css for custom chnages -->
   <script src="{{url('/')}}/assets/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -51,10 +52,13 @@
     var wishlist_add_success    = "{{trans('messages.wishlist_add_success')}}";
     var wishlist_product_remove = "{{trans('messages.wishlist_product_remove')}}";
     var wishlist_product_remove_success = "{{trans('messages.wishlist_product_remove_success')}}";
+  
+    var wishlist_service_remove_success = "{{trans('messages.wishlist_service_remove_success')}}";
     var txt_your_comments = "{{ __('lang.txt_your_comments')}}";
     var txt_comments = "{{ __('lang.txt_comments')}}";
     var txt_comments_err = "{{ __('lang.txt_comments_err')}}";
     var login_buyer_required = "{{ __('errors.login_buyer_required')}}";
+    var review_add_success = "{{ __('messages.review_add_success')}}";
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
     is_login = 1;
@@ -127,36 +131,8 @@
 
                   <div class="pull-right">
                 @if(Auth::guard('user')->id())
-                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><i class="fa fa-user"></i>{{ __('lang.my_account_title')}}</h3></a>
-                <ul class="dropdown-menu" style="margin-top: 50px;">
-
-                  <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
-                  
-                  
-                  <li><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('lang.txt_seller_order')}} @endif</a></li>
-
-                  <li><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
-
-                  @php
-                      $isPackagesubcribed = checkPackageSubscribe(Auth::guard('user')->id());
-                  @endphp
-
-                  @if($isPackagesubcribed !=0)
-                      <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
-                      <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
-                  @endif
-
-                  
-                  @if(Auth::guard('user')->getUser()->role_id==2)
-                    <li><a href="{{route('manageFrontServices')}}">{{ __('lang.manage_services_menu')}}</a></li>
-                    <li><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
-                    <li><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
-
-                  @endif
-                  <li><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
-                  <li><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
-                </ul>
-
+                <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i>{{ __('lang.my_account_title')}}</h3></a>
+               
                 @else
                 <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
                 @endif
@@ -172,3 +148,44 @@
     </nav>
   </header>
   <div class="clearfix"></div>
+
+ <?php 
+    $Categories = getCategorySubcategoryList();
+    $category_slug    = '';
+    $subcategory_slug = '';
+    $is_seller = '';
+    if(!empty(Auth::guard('user')->id())){
+      if(Auth::guard('user')->getUser()->role_id==2){
+       $seller_id = Auth::guard('user')->id();
+       $link_seller_name = get_link_seller_name($seller_id);
+       $is_seller=1;
+     }
+    }
+   
+
+  ?>
+@if(!empty($Categories))
+<nav style="margin-top: 50px">
+  <ul class="nav">
+        @php $i=0; @endphp
+        @foreach($Categories as $CategoryId=>$Category)
+        @php $i++;
+        $cls='';
+        if($category_slug==$Category['category_slug'])
+        $cls  =       'activemaincategory';
+        else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';
+         @endphp
+                @if(!empty($Categories[$CategoryId]['subcategory']))
+                <li class="expandCollapseSubcategory <?php echo $cls; ?>" href="#subcategories<?php echo $i; ?>" ><a href="#">{{$Category['category_name']}}</a>
+
+                <ul id="subcategories<?php echo $i; ?>" class="subcategories_list   <?php if($cls!='') echo'in activesubcategories'; ?>" >
+                  @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
+                  <li><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
+                  @endforeach
+                </ul>
+                </li>
+                @endif
+            @endforeach
+        </ul>
+</nav>
+@endif

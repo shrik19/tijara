@@ -106,5 +106,10 @@
      'fill_in_email_content' => 'Ange e-postinnehåll.',
      'fill_in_subject_en'=>'Fyll i ämnet (engelska).',
      'fill_in_email_content_en'=>'Ange e-postinnehåll (engelska).',
+     'service_review_error' => 'Du har redan granskat Tjänst.',
+     'service_review_not_error' => 'Du har inte tillåtelse att betygsätta den här Tjänst, eftersom du inte har någon order på Tjänst.',
+     'select_package_to_subscribe' => 'Välj paket för att prenumerera',
+     'please_check_privacy_policy' =>'Vänligen kolla sekretesspolicyn',
+     'please_enter_store_name' => 'Ange butiksnamn',
  ]
 ?>

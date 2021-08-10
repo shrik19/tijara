@@ -84,6 +84,448 @@ summary.active::after {
   right: 20px;
 }
 /*end FAQ page css*/
+/*css for featured seller*/
+.featured-banner{
+    background-image: url(../img/banner-seller.jpg) ;
+    background-repeat: no-repeat ;
+    background-origin: content-box ;
+    background-position: center;
+    width: 100%;
+    padding: 70px 0;
+    background-size: 100%;
+    overflow: hidden ;
+}
+
+.featured-seller h2 {
+    font-size: 40px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+    padding-bottom: 30px;
+}
+
+.featured_seller_section {
+    background: #fff;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 0 40px;
+    height: 250px;
+    padding: 80px 0 0 0;
+    text-align: center;
+}
+
+.featured_seller_section img.img-fluid {
+    width: 80%;
+    height: auto;
+}
+/*end css for featured seller*/
+/*css for seller registration*/
+  * {
+    margin: 0;
+    padding: 0
+}
+
+html {
+    height: 100%
+}
+
+
+
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px
+}
+
+#msform fieldset .form-card {
+    background: white;
+    border: 0 none;
+    border-radius: 0px;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 20px 40px 30px 40px;
+    box-sizing: border-box;
+    width: 94%;
+    margin: 0 3% 20px 3%;
+    position: relative
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none
+}
+
+#msform fieldset .form-card {
+    text-align: left;
+    color: #9E9E9E
+}
+
+#msform input,
+#msform textarea {
+    padding: 0px 8px 4px 8px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 16px;
+    letter-spacing: 1px
+}
+
+#msform input:focus,
+#msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: none;
+    font-weight: bold;
+    border-bottom: 2px solid skyblue;
+    outline-width: 0
+}
+
+#msform .action-button {
+    width: 100px;
+    background: skyblue;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px
+}
+
+#msform .action-button-previous:hover,
+#msform .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
+}
+
+select.list-dt {
+    border: none;
+    outline: 0;
+    border-bottom: 1px solid #ccc;
+    padding: 2px 5px 3px 5px;
+    margin: 2px
+}
+
+select.list-dt:focus {
+    border-bottom: 2px solid skyblue
+}
+
+.card {
+    z-index: 0;
+    border: none;
+    border-radius: 0.5rem;
+    position: relative
+}
+
+.fs-title {
+    font-size: 25px;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: left
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey
+}
+
+#progressbar .active {
+    color: #000000
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative
+}
+
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "\f023"
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "\f007"
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "\f09d"
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c"
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: skyblue
+}
+
+.radio-group {
+    position: relative;
+    margin-bottom: 25px
+}
+
+.radio {
+    display: inline-block;
+    width: 204;
+    height: 104;
+    border-radius: 0;
+    background: lightblue;
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 8px 2px
+}
+
+.radio:hover {
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3)
+}
+
+.radio.selected {
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover
+}
+
+
+.loader-seller {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #eceaea;
+    background-image: url(http://localhost:8000/assets/front/img/ajax-loader.gif);
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10000000;
+    opacity: 0.4;
+}
+/*end seller registration*/
+/*seller store page css*/
+ .store-active-btn{
+    color: #000;
+  }
+
+  .store-inactive-btn{
+    color: #A0A0A0;
+  }
+/*end seller store page css*/
+/*css for subheader menus*/
+nav {    
+  display: block;
+  text-align: center;
+}
+nav ul {
+  margin: 0;
+  padding:0;
+  list-style: none;
+}
+.nav a {
+  display:block; 
+  background: #000; 
+  color: #aaa; 
+  text-decoration: none;
+  padding: 0.8em 1.8em;
+  text-transform: uppercase;
+  font-size: 80%;
+  letter-spacing: 2px;
+  
+  position: relative;
+}
+.nav{  
+  vertical-align: top; 
+  display: inline-block;
+  border-radius:6px;
+}
+.nav li {
+  position: relative;
+}
+.nav > li { 
+  float: left; 
+  border-bottom: 4px #aaa solid; 
+  margin-right: 1px; 
+} 
+.nav > li > a { 
+  margin-bottom: 1px;
+}
+.nav > li:hover, 
+.nav > li:hover > a { 
+}
+.nav > li:first-child { 
+  border-radius: 4px 0 0 4px;
+} 
+.nav > li:first-child > a { 
+  border-radius: 4px 0 0 0;
+}
+.nav > li:last-child { 
+  border-radius: 0 0 4px 0; 
+  margin-right: 0;
+} 
+.nav > li:last-child > a { 
+  border-radius: 0 4px 0 0;
+}
+.nav li li a { 
+  margin-top: 1px;
+}
+
+.nav li a:first-child:nth-last-child(2):before { 
+  content: ""; 
+  position: absolute; 
+  height: 0; 
+  width: 0; 
+  border: 5px solid transparent; 
+  top: 50% ;
+  right:5px;  
+ }
+
+ /* submenu positioning*/
+.nav ul {
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1;
+  left: -99999em;
+}
+.nav > li:hover > ul {
+  left: auto;
+  margin-top: 5px;
+  min-width: 100%;
+}
+.nav > li li:hover > ul { 
+  left: 100%;
+  margin-left: 1px;
+  top: -1px;
+}
+/* arrow hover styling */
+.nav > li > a:first-child:nth-last-child(2):before { 
+  border-top-color: #aaa; 
+}
+.nav > li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent; 
+  margin-top:-5px
+}
+.nav li li > a:first-child:nth-last-child(2):before {  
+  border-left-color: #aaa; 
+  margin-top: -5px
+}
+.nav li li:hover > a:first-child:nth-last-child(2):before {
+  border: 5px solid transparent; 
+  right: 10px; 
+}
+/*end css for subheader menus*/
+ /*start css for buyer product grid*/
+.buyer-price{
+    font-weight: bold;color: #03989e;font-size: 20px;
+  }
+
+  .buyer-product-title{
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .remove-btn-col{
+    background-color: #ef5350;
+  }
+  .buyer-product-img{
+    height:220px;
+  width:100%;
+  border: 2px solid #ccc;
+  }
+  .buyer-button a {
+    margin: 8px auto;
+    min-width: 180px;
+    border-radius: 7px;
+    color: #fff;
+  }
+  
+  .buyer-product-title {
+    min-height: 58px;
+  }
+  .product-card{
+    margin-bottom: 70px;
+  }
+
+  .buyer-prod-msg{
+    background-color: #c7e9ea;
+    padding: 30px;
+    margin-bottom: 80px;
+  }
+
+  .buyer-prod-head{
+    color: #fff ;
+  }
+  .buyer-prod-content{
+    color: #fff;   
+    font-size: 20px;
+  }
+  /*end css for buyer product grid*/
 .top_line{height: 6px; width: 100%; float: left;background-color: #03989e; margin: 0;padding: 0;}
 .top_login{margin: 0;padding: 0;position: relative;}
 
@@ -128,18 +570,80 @@ summary.active::after {
 .gray_bg_color{
     background-color: #dbdbdb;
 }
-.login_btn{    margin: 11px 12px 20px 0;
-    padding: 5px 33px;
-    border-radius: 0;
-    color: #fff;
-    font-size: 18px;
-}
 .containerfluid{margin-top: 71px;}
-.login_container{margin-top: 30px;float: left;}
-.login_banner{width: 100%; float: left;}
-.login_box label{color: #515151; font-size: 14px; font-weight: 300;}
-.login_box .login_input{height: 50px; border:1px solid #dedede; border-radius: 0;}
-.login_box p{color: #515152; font-size: 14px;}
+
+/*
+** Login page
+*/
+	.login_container .left-section {
+		padding: 0;
+	}
+	
+	.login_container .right-section .form-section {
+    padding-top: 10%;
+}
+	
+	.login_banner {
+		padding: 10% 10% 10% 14%;
+		background-repeat: no-repeat !important;
+		background-size: cover !important;
+		background-position: 80% 10% !important;
+	}
+	
+	.login_banner-header h1 {
+		color: #ffffff;
+		font-size: 40px;
+		font-weight: bold;
+	}
+	
+	.right-section h2 {
+		font-weight: bold;
+		font-size: 30px;
+		color: #000;
+		margin-bottom: 40px;
+	}
+	
+	#sign-in-form input.form-control {
+		border-radius: 5px;
+		box-shadow: 0px 0px 0px 2px #ddd;
+		border: 1px solid #ddd;
+		height: 40px;
+		font-size: 14px;
+	}
+
+	#sign-in-form input:focus {
+		border-bottom: 4px solid gray;
+	}
+	
+	.tijara-login-button button, .tijara-signup-button a {
+		width: 100%;
+		border-radius: 5px;
+		color: #000;
+		font-weight: bold;
+		padding: 10px;
+		font-size: 18px;
+		margin: 7px 0px;
+	}
+	
+	.seller-link-section {
+		margin-top: 15px;
+	}
+	
+	.seller-link-section a,
+	.remember-section a {
+		color: #03989e;
+		font-weight: 600;
+	}
+	
+	.login_banner-footer {
+		margin-top: 95%;
+	}
+	
+	.login_banner-footer h2 {
+		color: #ffffff;
+		margin-right: 15px;
+	}
+
 .heading_line{      margin: 0;
     background-color: #03989e;
     width: 59px;
@@ -178,7 +682,7 @@ summary.active::after {
         padding: 12px 0 0 0;
     }
 
-.login_box{width: 96%; float: left; background-color: #f8f8f8;border: 1px solid #dedede; padding:20px;}
+
 .slider_cotnainer_section{margin-top: 38px;  background-image: url("../img/slider_bg.png"); background-repeat: no-repeat; background-origin: content-box; background-position: center;width: 100%; height: 500px;    background-size: 100%;
 overflow: hidden;}
 .sale_section{

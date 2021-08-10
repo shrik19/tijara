@@ -67,8 +67,10 @@
       'wishlist_empty' => 'Din önskelista är tom.',
       'wishlist_product_exists' => 'Produkten finns redan i önskelistan.',
       'txt_wishlist' => 'Önskelista',
-      'wishlist_product_remove' => 'Är du säker på att du vill ta bort produkten från Önskelistan?',
+      'wishlist_product_remove' => 'Är du säker på att du vill ta bort från Önskelista?',
       'wishlist_product_remove_success' => 'Produkten har tagits bort från önskelistan.',
+      'wishlist_service_remove' => 'Är du säker på att du vill ta bort tjänsten från Önskelistan?',
+      'wishlist_service_remove_success' => 'Tjänsten har tagits bort från önskelistan.',
       
       'txt_order_details' => 'Orderdetaljer',
       'txt_order_details_print' => 'Skriva ut',
@@ -80,5 +82,12 @@
 
      'email_save_success'=>'E-postuppgifterna har sparats.',
      'email_update_success'=>'E-postuppgifterna har uppdaterats.',
+     'wishlist_service_exists' => 'Tjänsten har redan lagts till i önskelistan',
+     'wishlist_product_exists' => 'Produkten har redan lagts till i önskelistan',
+     'review_add_success' => 'Granskningen har lagts till för tjänsten.',
+     'store_name_alreay_taken' => "Butiksnamnet har redan tagits.",
+     'buyer_product_msg' => 'Annonser får endast vara uppe på Tijaras annonser i max 30 dagar. Efter att tiden har gått ut kommer din annons tas bort. Om du fortfarande vill att din annons ska vara kvar på Tojjara annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort annonsen själv. Om du har frågor kontakta Tijara kundservice.',
+    'Obs_head' => 'Obs!',
+ 
  ]
 ?>

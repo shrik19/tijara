@@ -1,6 +1,7 @@
 @php
   //dd(Request::path());
 @endphp
+@if(Request::segment(4) !='services')
 <div class="category_list_box"  id="accordion">
         <h2 class="de_col">{{ __('lang.categories_head')}}</h2>
         <ul class="category_list">
@@ -13,7 +14,8 @@
         else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';
          @endphp
                 @if(!empty($Categories[$CategoryId]['subcategory']))
-                <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}}</a></li>
+                
+                <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;">@if(!empty(Request::segment(4))){{count($Categories[$CategoryId]['subcategory'])}}@endif</span></a></li>
 
                 <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
                 @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
@@ -24,7 +26,7 @@
             @endforeach
         </ul>
         <div>&nbsp;</div>
-        @if(Request::path() != "/" )
+        @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
           <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
           <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
           <h2 class="de_col">{{ __('lang.price_filter_head')}}</h2>
@@ -32,7 +34,7 @@
           <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
           <!-- <b>€ 1000</b> -->
           <div>&nbsp;</div>
-              <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="Enter City Name" />
+              <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" />
           <div id="cityList"></div>
           <div>&nbsp;</div>
           @if(empty($is_seller))
@@ -42,7 +44,9 @@
           @endif
         @endif
 </div>
+@endif
 
+@if(Request::segment(4) !='products')
 <div class="category_list_box"  id="accordion">
         <h2 class="de_col">{{ __('lang.service_categories_head')}}</h2>
         <ul class="category_list">
@@ -57,7 +61,7 @@
                   else if( $j==1) $cls  =       'activeservicemaincategory';
                 @endphp
                 @if(!empty($ServiceCategories[$CategoryId]['subcategory']))
-                  <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}}</a></li>
+                  <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;">@if(!empty(Request::segment(4))){{count($ServiceCategories[$CategoryId]['subcategory'])}}@endif</span></a></li>
 
                   <ul id="servicesubcategories<?php echo $j; ?>" class="service_subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
                   @foreach($ServiceCategories[$CategoryId]['subcategory'] as $subcategory)
@@ -70,6 +74,7 @@
         <div>&nbsp;</div>
         
 </div>
+@endif
 <script type="text/javascript">
 $(document).ready(function(){
   /*search by city */

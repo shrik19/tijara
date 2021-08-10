@@ -33,6 +33,7 @@ Route::get('/product/{category_slug}/{subcategory_slug}/{product_slug}','Front\F
 Route::any('/get_product_attribute_details','Front\FrontController@getProductAttributeDetails')->name('getProductAttributeDetails');
 
 Route::post('/getCity', 'Front\FrontController@getCity')->name('getCity');
+Route::post('/contact-store', 'Front\FrontController@contactStore')->name('FrontContactStore');
 
 //services
 Route::get('/seller/{seller_name}/{seller_id}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');

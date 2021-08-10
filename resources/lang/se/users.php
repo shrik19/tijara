@@ -247,5 +247,14 @@
     'login_as_seller' => 'Logga in som säljare',
     'already_have_account' => 'Har du redan ett konto?',
     'butiks_info_title' => 'Butiksinfo',
+    'review_title' => 'Omdömen',
+    'store_terms_title'=> 'Villkor',
+    'contact_store_head' => 'Kontakta butik',
+    'your_message_label' => 'Ditt meddelande',
+    'message_from_buyer_sub'=>'Meddelande från köparen',
+    'please_login_alert' => 'Vänligen logga in',
+    'mail_sent_to_seller_alert' => 'E -post skickat till säljaren',
+    'search_item_placeholder' => 'Sök objekt',
+    'enter_city_placeholder' => 'Ange stadens namn',
  ]
 ?>

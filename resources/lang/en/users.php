@@ -226,5 +226,14 @@
     'login_as_seller' => 'Login as seller',
     'already_have_account' => 'Do you already have an account?',
     'butiks_info_title' => 'Store info',
+    'review_title' => 'Reviews',
+    'store_terms_title'=> 'Terms',
+    'contact_store_head' => 'Contact store',
+    'your_message_label' => 'Your Message',
+    'message_from_buyer_sub'=>'Message From Buyer',
+    'please_login_alert' => 'please login',
+    'mail_sent_to_seller_alert' => 'Mail sent to seller successfully',
+    'search_item_placeholder' => 'Search items',
+    'enter_city_placeholder' => 'Enter City Name',
  ]
 ?>

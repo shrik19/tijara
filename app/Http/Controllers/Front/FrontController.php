@@ -31,6 +31,7 @@ use App\Models\Orders;
 use App\Models\OrdersDetails;
 use App\Models\ServiceRequest;
 use App\Models\ServiceReview;
+use App\Models\ContactStore;
 
 use DB;
 use Auth;
@@ -88,8 +89,23 @@ class FrontController extends Controller
 		return $featuredSellers;			
     }
 	//get category & subcategory listings
-	function getCategorySubcategoryList() {
-		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+	function getCategorySubcategoryList($seller_id='') {
+		if(!empty($seller_id)){
+			$seller_id=base64_decode($seller_id);
+			$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+			->join('category_products','category_products.category_id','=','categories.id')
+			->join('products','products.id','=','category_products.product_id')
+								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
+								->where('subcategories.status','=','active')
+								->where('categories.status','=','active')
+								->where('products.user_id','=',$seller_id)
+								->orderBy('categories.sequence_no')
+								->orderBy('subcategories.sequence_no')
+								->groupBy('subcategories.subcategory_name')
+								->get()
+								->toArray();
+		}else{
+			$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
 								->where('subcategories.status','=','active')
 								->where('categories.status','=','active')
@@ -97,6 +113,8 @@ class FrontController extends Controller
 								->orderBy('subcategories.sequence_no')
 								->get()
 								->toArray();
+		}
+		
 		$CategoriesArray	=	array();
 		foreach($Categories as $category) {
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
@@ -108,8 +126,25 @@ class FrontController extends Controller
 	}
 
 	//get category & subcategory listings
-	function getServiceCategorySubcategoryList() {
-		$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+	function getServiceCategorySubcategoryList($seller_id='') {
+		if(!empty($seller_id)){
+			$seller_id=base64_decode($seller_id);
+
+			$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+							->join('category_services','category_services.category_id','=','servicecategories.id')
+							->join('services','services.id','=','category_services.service_id')
+								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','serviceSubcategories.subcategory_name','serviceSubcategories.subcategory_slug')
+								->where('serviceSubcategories.status','=','active')
+								->where('servicecategories.status','=','active')
+								->where('services.user_id','=',$seller_id)
+								->orderBy('servicecategories.sequence_no')
+								->orderBy('serviceSubcategories.sequence_no')
+								->groupBy('serviceSubcategories.subcategory_name')
+								->get()
+								->toArray();
+
+		}else{
+			$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','serviceSubcategories.subcategory_name','serviceSubcategories.subcategory_slug')
 								->where('serviceSubcategories.status','=','active')
 								->where('servicecategories.status','=','active')
@@ -117,6 +152,8 @@ class FrontController extends Controller
 								->orderBy('serviceSubcategories.sequence_no')
 								->get()
 								->toArray();
+		}
+
 		$CategoriesArray	=	array();
 		foreach($Categories as $category) {
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
@@ -449,6 +486,11 @@ class FrontController extends Controller
 				$Products	=	$Products->where('products.title', 'like', '%' . $request->search_string . '%');
 			}
 
+			if($request->search_seller_product != '')
+			{
+				$Products	=	$Products->where('products.title', 'like', '%' . $request->search_seller_product . '%')->where('products.user_id','=',$request->sellers);
+			}
+
 			//echo '<pre>';print_r($request->sort_order); print_r($request->sort_by); echo '</pre>';
 			//dd('STOP');
 			if($request->sort_order != '' && $request->sort_by != '')
@@ -551,7 +593,6 @@ class FrontController extends Controller
     {
 
         $data['pageTitle'] 	= 'Home';
-
 		    $data['Categories'] = $this->getCategorySubcategoryList()	;
 
     		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
@@ -581,7 +622,13 @@ class FrontController extends Controller
     {
     	$data = [];
         $data['pageTitle'] 	= 'Sellers Products';
-		$data['Categories'] = $this->getCategorySubcategoryList()	;
+
+		if($request->segment(4)=='products'){
+			$data['Categories'] = $this->getCategorySubcategoryList($seller_id);
+		}else{
+			$data['Categories'] = $this->getCategorySubcategoryList();
+		}
+		
 		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
     	$data['category_slug']		=	'';
@@ -594,6 +641,7 @@ class FrontController extends Controller
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
 		$data['description']		= 	$Seller['description'];
 		$data['city_name']		    =	$Seller['city'];
+		$data['seller_email']       =   $Seller['email'];
 		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
 		$data['header_image']       = '';
 		$data['logo']       = '';
@@ -650,8 +698,17 @@ class FrontController extends Controller
     	if($subcategory_slug!='')
     		$data['subcategory_slug']	= $subcategory_slug;
 
-		$data['is_seller'] = 1;
-		$data['totalRating']  = $totalRating;
+		// and then you can get query log
+
+    	/*get product review*/
+    	$getAllProductReviews = ProductReview::join('products','product_review.product_id','products.id','')->join('users','product_review.user_id','users.id','')->select(['products.id','product_review.rating as product_rating','product_review.comments','users.id','users.fname','users.lname'])->where('products.user_id','=',$id)->get();
+
+    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+
+		$data['is_seller'] 			= 1;
+		$data['totalRating']  		= $totalRating;
+		$data['productReviews']  	= $getAllProductReviews;
+		$data['getTerms']  			= $getTerms;
         return view('Front/seller-products', $data);
     }
 
@@ -917,7 +974,6 @@ class FrontController extends Controller
   //function to get services list by provided parameters
 	public function getServicesByParameter(Request $request) {
 	
-		DB::enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$Services 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
 							  ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
@@ -956,6 +1012,13 @@ class FrontController extends Controller
 			{
 				$Services	=	$Services->where('users.city', 'like', '%' . $request->city_filter . '%');
 			}
+
+
+			if($request->search_seller_product != '')
+			{
+				$Services	=	$Services->where('services.title', 'like', '%' . $request->search_seller_product . '%')->where('services.user_id','=',$request->sellers);
+			}
+
 
 			if($request->sort_order != '' && $request->sort_by != '')
 			{
@@ -1226,7 +1289,13 @@ class FrontController extends Controller
         $data['pageTitle'] 	= 'Sellers Services';
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 		$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
-		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
+		if($request->segment(4)=='services'){
+			$data['ServiceCategories'] = $this->getServiceCategorySubcategoryList($seller_id);
+		}else{
+			$data['ServiceCategories'] = $this->getServiceCategorySubcategoryList();
+		}
+		
+		
     	$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
 		$data['link_seller_name']		=	$seller_name;
@@ -1236,6 +1305,7 @@ class FrontController extends Controller
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
 		$data['city_name']		    =	$Seller['city'];
+		$data['seller_email']       =   $Seller['email'];
 		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
 		$data['description']		= 	$Seller['description'];
 		
@@ -1280,7 +1350,14 @@ class FrontController extends Controller
     	if($subcategory_slug!='')
     		$data['subcategory_slug']	= $subcategory_slug;
 
+    	/*get product review*/
+    	$getAllServiceReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.comments','users.id','users.fname','users.lname'])->where('services.user_id','=',$id)->get();
+
+    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+
 		$data['is_seller'] = 1;
+		$data['serviceReviews']  	= $getAllServiceReviews;
+		$data['getTerms']  			= $getTerms;
         return view('Front/seller-services', $data);
     }
 
@@ -1489,28 +1566,66 @@ class FrontController extends Controller
 
 
 	public function getCity(Request $request) {
+     	if($request->get('query')){
+	      $query = $request->get('query');
 
-     if($request->get('query'))
-     {
-      $query = $request->get('query');
-
-      $data = DB::table('users')
-        ->where('city', 'LIKE', "%{$query}%")
-        ->groupBy('city')
-        ->get();
-        $output='';
-        if(count($data) > 0){
-          $output = '<ul class="dropdown-menu" style="display:block; position:relative;width:100%">';
-	      foreach($data as $row)
-	      {
-	       $output .= '
-	       <li><a href="#">'.$row->city.'</a></li>
-	       ';
-	      }
-	      $output .= '</ul>';
-        }
-      
-      echo $output;
-     }
+	      $data = DB::table('users')
+	        ->where('city', 'LIKE', "%{$query}%")
+	        ->groupBy('city')
+	        ->get();
+	        $output='';
+	        if(count($data) > 0){
+	          $output = '<ul class="dropdown-menu" style="display:block; position:relative;width:100%">';
+		      foreach($data as $row)
+		      {
+		       $output .= '
+		       <li><a href="#">'.$row->city.'</a></li>
+		       ';
+		      }
+		      $output .= '</ul>';
+	        }
+	      
+	      echo $output;
+	    }
     }
+
+    /*
+	*function to contact store
+	*@param: seller_email,message
+    */
+   public function contactStore(Request $request) { 
+      	
+      	$success_msg = $err_msg='';
+   		if(Auth::guard('user')->id()) {
+   			$user_message = $request->user_message;
+	   		$to_email = $request->seller_email;
+	   		$id = $request->seller_id;
+	   		$seller_name = $request->seller_name;
+           	$loginUser = UserMain::where('id',Auth::guard('user')->id())->first();
+           	$from_email=$loginUser->email;
+			$name = $loginUser->fname." ".$loginUser->lname;
+			$currentDate = date('Y-m-d H:i:s');
+
+			$arrInsert = [
+				'seller_id' => $id,
+				'email' => $from_email,
+				'message' => $user_message,
+				'created_at' => $currentDate,
+				'updated_at' => $currentDate,
+			 ];
+
+			ContactStore::create($arrInsert);
+	        $arrMailData = ['name' => $name, 'email' => $from_email, 'user_message'=> $user_message,'seller_name' => $seller_name];
+
+	            Mail::send('emails/contact_seller', $arrMailData, function($message) use ($to_email,$seller_name) {
+	            $message->to($to_email, $seller_name)->subject
+	                (trans('users.message_from_buyer_sub'));
+	            $message->from( env('FROM_MAIL'),'Tijara');
+	        });
+	       $success_msg = trans('users.mail_sent_to_seller_alert');
+        }else{
+        	$err_msg = trans('users.please_login_alert');
+        }
+        return response()->json(['success'=>$success_msg,'error'=>$err_msg]);
+   }
 }

@@ -31,6 +31,9 @@
             </div>
              <h2> {{ __('users.butiks_info_title')}}</h2>
 
+              <h4 style="margin-top: 50px;">{{ __('lang.category_label')}}</h4>
+            <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
+
             @include('Front.services_sidebar')
         </div>
         <div class="col-md-9">
@@ -75,13 +78,101 @@
                 <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
         </div>
+
+        <div class="col-md-12">
+          <hr>
+          <h2>{{ __('users.review_title')}}</h2>
+          <hr>
+          @if(!empty($serviceReviews))
+            @foreach($serviceReviews as $review)
+            <div>
+              <p><i class="fas fa-user"></i> <?php echo $review['fname']." ".$review['lname'];?></p>
+              <div class="star-rating" style="font-size:unset;pointer-events: none;">
+                  <select class='rating product_rating' data-rating="{{$review['service_rating']}}">
+                    <option value="1" >1</option>
+                    <option value="2" >2</option>
+                    <option value="3" >3</option>
+                    <option value="4" >4</option>
+                    <option value="5" >5</option>
+                  </select>
+                </div>
+              <p>{{$review['comments']}}</p>
+            </div>
+            <hr>
+            @endforeach
+          @endif
+        </div>
+
+        <div class="col-md-12">
+          <h2>{{ __('users.store_terms_title')}}</h2>
+          @if(!empty($getTerms))
+            <div style="display: flex;">
+              <p style="font-weight: bold;font-size: 16px;">Store Policy : </p>
+              <p style="margin-left: 10px;">{{$getTerms->store_policy}}</p>
+            </div>
+            <div style="display: flex;">
+              <p style="font-weight: bold;font-size: 16px;">Return Policy : </p>
+              <p style="margin-left: 10px;">{{$getTerms->return_policy}}</p>
+            </div>
+            <div style="display: flex;">
+              <p style="font-weight: bold;font-size: 16px;">Shipping Policy : </p>
+              <p style="margin-left: 10px;">{{$getTerms->shipping_policy}}</p>
+            </div>             
+          @endif
+        </div>
+
+        <!-- contact shop -->
+        <div class="col-md-12">
+         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.add_subcategory_title').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">contact store </a>
+        </div>
     </div>
+
+
+<!-- add subcategory model Form -->
+ <div class="modal fade" id="contactStoremodal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ __('users.contact_store_head')}}</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="container">
+            <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
+              @csrf
+                  <input type="hidden" class="seller_id"  name="hid" id="seller_id" value="">
+                  <input type="hidden" name="seller_email" class="seller_email" id="seller_email" value="">
+                  <input type="hidden" name="seller_name" class="seller_name" id="seller_name" value="">
+                <div class="form-group">
+                  <label>{{ __('users.your_message_label')}} <span class="text-danger">*</span></label>
+                  <textarea class="user_message" name="user_message" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}"  placeholder="{{ __('users.subcategory_name_label')}}" id="user_message"required></textarea>
+               
+                </div>
+            </form>
+            </div>
+        </div>
+        
+       <div class="modal-footer">
+        <button type="submit" class="conact-store-save btn btn-icon icon-left btn-success"><i class="fas fa-check"></i>{{ __('lang.save_btn')}}</button>
+        <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>{{ __('lang.close_btn')}}</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <!-- end contact seller model Form -->
 
 
     </div> <!-- /container -->
 </section>
 
 <script type="text/javascript">
+
+$( "#seller_product_filter" ).keyup(function() {
+   getListing();
+});
 
 function getListing()
 {
@@ -92,6 +183,7 @@ function getListing()
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   var search_string = $(".current_search_string").text();
+  var seller_product_filter = $("#seller_product_filter").val();
 
   $.ajax({
     url:siteUrl+"/get_service_listing",
@@ -99,7 +191,7 @@ function getListing()
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
+    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string,'search_seller_product':seller_product_filter },
     success:function(data)
     {
      //$('.product_listings').html(data);
@@ -131,6 +223,47 @@ function selectSellers()
     getListing();
 
 }
+
+
+
+$(document).on("click",".contact-store",function(event) {
+        
+        $('#contactStoremodal').find('.seller_id').val($(this).attr('id'));
+        $('#contactStoremodal').find('.seller_email').val($(this).attr('seller_email')); 
+        $('#contactStoremodal').find('.seller_name').val($(this).attr('seller_name'));      
+        $('#contactStoremodal').modal('show'); 
+});
+
+$(document).on("click",".conact-store-save",function(event) {
+       //storeContactform
+      if($('#contactStoremodal').find('.user_message').val()!='') {
+        let user_message   = $("#user_message").val();
+        let seller_email   = $("#seller_email").val();
+        let seller_id      = $("#seller_id").val();
+        let seller_name      = $("#seller_name").val();
+
+        $('#contactStoremodal').modal('hide'); 
+        $.ajax({
+          url:"{{ route('FrontContactStore') }}",
+          headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+          },
+          type: 'POST',
+          async: false,
+          data:{user_message:user_message,seller_email:seller_email,seller_id:seller_id,seller_name:seller_name},
+          success: function(output){
+            if(output.success !=''){
+              alert(output.success);
+              let user_message   = $("#user_message").val('');
+            }else{
+              alert(output.error);
+            }
+          }
+        });
+      } else{
+          alert("please add your message");
+      }    
+    });
 
 </script>
 @endsection

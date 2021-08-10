@@ -247,9 +247,15 @@
      'add_to_cart' => 'Add To Cart',
      'reset_options' => 'Reset Options',
 
-    'product_discount_label'    =>  'Discount',
+    'product_discount_label'    =>  'Discount (%)',
      'msg_product_success' => 'Checkout process complete, your product will be listed soon once payment confirmed.',
-
+    'back_to_ads'=>'Back to Ads',
+    'also_have_watch'=>'Others have also watch',
+     'product_buyer_name'   =>'Seller Name',
+     'product_buyer_email'  =>  'Seller Email',
+     'product_buyer_phone_no'=>'Telphone No',
+     'product_country'=>'Country',
+    'product_location'=>'Location',
      'service_time'=>'Service time',
      'price_type'=>'Price type',
      'per_hour'=>'Per hour',

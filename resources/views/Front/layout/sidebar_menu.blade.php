@@ -9,10 +9,13 @@
                   <li><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
 
                   @php
+                      $showProductMenu  = 1;
                       $isPackagesubcribed = checkPackageSubscribe(Auth::guard('user')->id());
+                      if(Auth::guard('user')->getUser()->role_id==2 && $isPackagesubcribed ==0)
+                        $showProductMenu  = 0;
                   @endphp
 
-                  @if($isPackagesubcribed !=0)
+                  @if($showProductMenu !=0)
                       <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
                       <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
                   @endif

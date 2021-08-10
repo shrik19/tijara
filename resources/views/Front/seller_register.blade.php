@@ -1,185 +1,180 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="containerfluid">
-  <div class="col-md-6 hor_strip debg_color">
-  </div>
-  <div class="col-md-6 hor_strip gray_bg_color">
-  </div>
-  @if(!empty($banner->image))
-  <img class="login_banner" src="{{url('/')}}/uploads/Banner/{{$banner->image}}" />
-@endif
-</div>
 <!-- multistep seller registration wizard start here -->
 
 <!-- MultiStep Form -->
-<div class="container">
-<div class="container-fluid" id="grad1">
-    <div class="row justify-content-center mt-0">
-    <h2><strong>
-    @if(!empty(Session::get('StepsHeadingTitle'))){{Session::get('StepsHeadingTitle')}} @else {{$headingTitle}} @endif
-    </strong></h2>
+<div class="container-fluid">
+	<div class="row">
+		<div class="seller_register_container">
+			<div class="col-md-4 left-section">
+				<div class="register_banner" style="background-image: url({{url('/')}}/uploads/Banner/{{$banner->image}});">
+					<div class="register_banner-header">
+						<h1>Sveriges första kulturella marknadsplats</h1>
+					</div>
+					<div class="register_banner-footer text-right">
+						<h2>Säljare</h2>
+						<img src="{{url('/')}}/uploads/Images/tijara-image.png" />
+					</div> 
+				</div>
+			</div>
+			<div class="col-md-8 right-section">
+				<div class="row mt-0">
+					<div class="col-md-12">
+						<h2 class="text-center"><strong>
+						@if(!empty(Session::get('StepsHeadingTitle'))){{Session::get('StepsHeadingTitle')}} @else {{$headingTitle}} @endif
+						</strong></h2>
 
-        <div class="row"> 
-        <div class="col-md-12 mx-0">
-            <div id="msform">
-            <div class="loader-seller" style="display:none;"></div>
-                <!-- progressbar -->
-                <ul id="progressbar">
-                    <li class="active" id="account"><strong>{{ __('users.step_one_head')}}</strong></li>
-                    <li id="personal"><strong>{{ __('users.step_two_head')}}</strong></li>
-                    <li id="payment"><strong>{{ __('users.step_three_head')}}</strong></li>
-                    <li id="confirm"><strong>{{ __('users.step_four_head')}}</strong></li>
-                </ul> 
-                <?php
-                    $email = $password= $role_id = $cpassword ='';
-                    $email=Session::get('new_seller_email');
-                    $password=Session::get('new_seller_password');
-                    $role_id =Session::get('new_seller_role_id');
-                    $cpassword =Session::get('new_seller_cpassword');
+						<div id="msform">
+							<div class="loader-seller" style="display:none;"></div>
+							<!-- progressbar -->
+							<ul id="progressbar">
+								<li class="active" id="account"><strong>{{ __('users.step_one_head')}}</strong></li>
+								<li id="personal"><strong>{{ __('users.step_two_head')}}</strong></li>
+								<li id="payment"><strong>{{ __('users.step_three_head')}}</strong></li>
+								<li id="confirm"><strong>{{ __('users.step_four_head')}}</strong></li>
+							</ul> 
+							<?php
+								$email = $password= $role_id = $cpassword ='';
+								$email=Session::get('new_seller_email');
+								$password=Session::get('new_seller_password');
+								$role_id =Session::get('new_seller_role_id');
+								$cpassword =Session::get('new_seller_cpassword');
 
-                    if(!empty(Session::get('next_step'))){
-                        $next_step =Session::get('next_step');
-                    }else{
-                        $next_step = $next_step;
-                    }
-                    
-                 ?>
-                      
-                <input type="hidden" name="" id="current_step_button" value="{{$next_step}}">
-                <!-- fieldsets -->
-                <fieldset>
-                    <div class="form-card">
-                        <form id="sellerRegisterForm" action="{{route('frontNewSellerRegister')}}" method="post">
-                            @csrf
-                    	<input type="hidden" name="role_id" id="role_id" value="{{$role_id}}">
-                        <label>{{ __('users.email_label')}}<span class="de_col">*</span></label>
-                        <input type="email" name="email" id="email" placeholder="{{ __('users.email_label')}}" value="{{$email}}"/> 
-                        <span class="invalid-feedback" id="err_email"></span><br>
+								if(!empty(Session::get('next_step'))){
+									$next_step =Session::get('next_step');
+								}else{
+									$next_step = $next_step;
+								}
+								
+							 ?>
+								  
+							<input type="hidden" name="" id="current_step_button" value="{{$next_step}}">
+							<!-- fieldsets -->
+							<fieldset class="seller_register_first">
+								<form id="sellerRegisterForm" action="{{route('frontNewSellerRegister')}}" method="post">
+									@csrf
+									<input type="hidden" name="role_id" id="role_id" value="{{$role_id}}">
+									<label>{{ __('users.email_label')}}<span class="de_col">*</span></label>
+									<input type="email" name="email" id="email" class="form-control" placeholder="{{ __('users.email_label')}}" value="{{$email}}"/> 
+									<span class="invalid-feedback" id="err_email"></span><br>
 
-                        <label>{{ __('users.password_label')}}<span class="de_col">*</span></label>
-                        <input type="password" name="password" id="password" placeholder="{{ __('users.password_label')}}"  value="{{$password}}"/>
-                        <span class="invalid-feedback" id="err_password" style=""></span><br>
+									<label>{{ __('users.password_label')}}<span class="de_col">*</span></label>
+									<input type="password" name="password" id="password" class="form-control" placeholder="{{ __('users.password_label')}}"  value="{{$password}}"/>
+									<span class="invalid-feedback" id="err_password" style=""></span><br>
 
-                        <label>{{ __('users.password_confirmation_label')}}<span class="de_col">*</span></label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" placeholder="{{ __('users.password_confirmation_label')}}" value="{{$cpassword}}" />
-                        <span class="invalid-feedback" id="err_cpassword"></span>
-                        </form>
-                    </div> 
+									<label>{{ __('users.password_confirmation_label')}}<span class="de_col">*</span></label>
+									<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('users.password_confirmation_label')}}" value="{{$cpassword}}" />
+									<span class="invalid-feedback" id="err_cpassword"></span>
+								</form>
+								<input type="button" name="next" class="next btn debg_color action-button 2" value="{{ __('users.next_step_btn')}}" id="first-step"  />
+							</fieldset>
+					  
+						 
+							<fieldset class="seller_register_second">
+								<div class="form-card">
+									@include ('Front.alert_messages')              
+									  <div class="col-md-12 package-html">
+										<?php $i=1; ?>
+											@foreach($packageDetails as $data)
+											
+											<div class="col-md-4 packages-section">
+												<div class="packages-subscribe">
+													<div class="packages-heading">
+														<h3>{{$data['title']}}</h3>
+														<div class="packages-price">{{$data['amount']}} kr/{{$data['validity_days']}} Days</div>
+													</div>
+													<div class="packages-body">
+														<div class="packages-description">
+															<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
+														</div>
+														<form  action="" class="needs-validation text-right" novalidate="" id="klarna_form">
+															{{ csrf_field() }}
+															<input type="hidden" name="user_id" value="" id="user_id" class="user_id">
+															<input type="hidden" name="p_id" value="{{$data['id']}}" id="p_id_{{$i}}" class="p_id">
+															<input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name_{{$i}}" class="p_name">
+															<input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days_{{$i}}" class="validity_days">
+															<input type="hidden" name="amount" value="{{$data['amount']}}" id="amount_{{$i}}" class="amount">     
+															<button type="button" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn btnsubscribePackage" onclick='subscribe_package("{{$i}}")'>{{ __('users.subscribe_btn')}}</button>
+														</form>
+													</div>
+												</div>
+											</div>
+											<?php $i++; ?>
+											@endforeach
+									   </div>
 
-                    <input type="button" name="next" class="next action-button 2" value="{{ __('users.next_step_btn')}}" id="first-step"  />
-                </fieldset>
-          
-             
-                <fieldset>
-                    <div class="form-card">
-                        @include ('Front.alert_messages')              
-                          <div class="col-md-12 package-html">
-                            <h2>{{ __('users.subscribe_package_label')}} </h2>
-                            <hr class="heading_line"/>
-                            <?php $i=1; ?>
-                                @foreach($packageDetails as $data)
-                                
-                                <div class="col-md-4">
-                                    <div class="panel panel-default subscribe-packages">
-                                    <div class="panel-heading">{{$data['title']}}</div>
-                                    <div class="panel-body" style="max-height: 215px;overflow: auto;">
-                                        <p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
-                                        <p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
-                                        <p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>
-                                        <form  action="" class="needs-validation" novalidate="" id="klarna_form">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="user_id" value="" id="user_id" class="user_id">
-                                            <input type="hidden" name="p_id" value="{{$data['id']}}" id="p_id_{{$i}}" class="p_id">
-                                            <input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name_{{$i}}" class="p_name">
-                                            <input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days_{{$i}}" class="validity_days">
-                                            <input type="hidden" name="amount" value="{{$data['amount']}}" id="amount_{{$i}}" class="amount">     
-                                            <button type="button" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn btnsubscribePackage" onclick='subscribe_package("{{$i}}")'>{{ __('users.subscribe_btn')}}</button>
-                                        </form>
-                                    </div>
-                                    </div>
-                                </div>
-                                <?php $i++; ?>
-                                @endforeach
-                           </div>
+									<div id="html_snippet" class="klarna_html"></div>  
+								</div> 
+									
+								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
+								<input type="button" name="next" class="next btn debg_color action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
 
-                        <div id="html_snippet" class="klarna_html"></div>  
-                    </div> 
-                        
-                    <input type="button" name="previous" class="previous action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
-                    <input type="button" name="next" class="next action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
+							</fieldset> 
+										
+								   
+							<fieldset class="seller_register_third">
+								<div class="form-card">
+									<form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
+										<input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}}">
+										<span class="invalid-feedback" id="err_fname"></span>
 
-                </fieldset> 
-                            
-                       
-                <fieldset>
-                    <div class="form-card">
-                        <form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
-                            <input type="text" name="fname" id="fname" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}}">
-                            <span class="invalid-feedback" id="err_fname"></span>
+										<input type="text" name="lname" id="lname" class="form-control" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}}">
+										<span class="invalid-feedback" id="err_lname"></span>
 
-                            <input type="text" name="lname" id="lname" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}}">
-                            <span class="invalid-feedback" id="err_lname"></span>
+										<textarea  id="address" class="form-control" name="address" rows="5" cols="30"  tabindex="5"></textarea> 
+										<input type="text" name="postcode" id="postcode" class="form-control" placeholder="{{ __('users.postal_code_label')}}" value="">
+										
+									</form>                          
+								</div> 
+								<!--<input type="button" name="previous" class="previous action-button-previous" value="{{ __('users.prev_step_btn')}}" /> -->
+								<input type="button" name="next" class="next btn debg_color action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>
+							</fieldset>
 
-                            <textarea  id="address" name="address" rows="5" cols="30"  tabindex="5"></textarea> 
-                            <input type="text" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="">
-                            
-                        </form>                          
-                    </div> 
-                    <!--<input type="button" name="previous" class="previous action-button-previous" value="{{ __('users.prev_step_btn')}}" /> -->
-                    <input type="button" name="next" class="next action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>
-                </fieldset>
+			   
+							<fieldset class="seller_register_fourth">
+								<div class="form-card">
+									<form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data" id="seller_personal_info">
+										@csrf
+										<div class="form-group" style="display: flex;">
+											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}}">
+											<input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> 
+										</div> <span class="invalid-feedback" id="err_store_name"></span>
 
-   
-                <fieldset>
-                    <div class="form-card">
-                        <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data" id="seller_personal_info">
-                            @csrf
-                        	<div style="display: flex;">
-                                <input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}}">
-                        	    <input type="button" name="check-store-unique" onclick="checkStoreName()" value="Verify" /> 
-                        	</div> <span class="invalid-feedback" id="err_store_name"></span>
+										<div class="form-group increment cloned">
+											<label>{{ __('users.seller_header_img_label')}}</label>
 
-                        	<div class="form-group increment cloned">
-        			            <label>{{ __('users.seller_header_img_label')}}</label>
-                                 <div class="col-md-4 seller_banner_upload">
-                                 
-                                    </div>
-                               
-                                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-        			           
+											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
+											<div class="col-md-4 seller_banner_upload"></div>
+											  
+											<span class="invalid-feedback" id="err_seller_banner_img"></span>
+											<div class="input-group-btn text-right"> 
+											</div>
+										</div>
 
-        			            <input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
-        			              
-        			            <span class="invalid-feedback" id="err_seller_banner_img"></span>
-        			            <div class="input-group-btn text-right"> 
-        			            </div>
-    			            </div>
-
-        			        <div class="form-group increment cloned">
-        			            <label>{{ __('users.seller_logo_label')}}</label>
-                                <div class="col-md-4 seller_logo_upload"></div>
-                                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-        			            <input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
-                                <span class="invalid-feedback" id="err_seller_logo_img"></span>
-        			            
-        			            <div class="input-group-btn text-right"> 
-        			            </div>
-        			       </div>
-    			            <div  style="display: flex;">
-    			          		<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value="">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> <a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="javascript:void(0)">{{ __('users.store_terms')}}</a>
-    			      		</div>
-
-                        	<input type="submit" name="next" class="next action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
-                    </form>
-                    </div>
-                </fieldset>
-                
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
+										<div class="form-group increment cloned">
+											<label>{{ __('users.seller_logo_label')}}</label>
+											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
+											<div class="col-md-4 seller_logo_upload"></div>
+											<span class="invalid-feedback" id="err_seller_logo_img"></span>
+											
+											<div class="input-group-btn text-right"> 
+											</div>
+									   </div>
+										<div class="remember-section row">
+											<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> <a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="javascript:void(0)">{{ __('users.store_terms')}}</a></span>	
+										</div>
+									</form>
+									<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
+								</div>
+							</fieldset>
+							
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -273,6 +268,7 @@
     }
 
 $(document).ready(function(){
+
     if($('#current_step_button').val() != 1){
         var curr_step=  $('input#current_step_button').val();
 
@@ -744,5 +740,10 @@ function checkStoreName(){
     }
 }
 
+$(document).ready(function(){
+	if ( $("#progressbar li#confirm").hasClass("active") ) { 
+		$("#progressbar li#payment").addClass("active");
+	}
+});
 </script>
 @endsection

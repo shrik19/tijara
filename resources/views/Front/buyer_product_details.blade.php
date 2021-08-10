@@ -72,7 +72,7 @@
                 
                 <ul class="product_details best_seller">
                   @foreach($similarProducts as $product)
-                            @include('Front.products_widget')
+                            @include('Front.similar_products_widget')
                   @endforeach
               </ul>
                   </div>

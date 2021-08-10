@@ -783,16 +783,30 @@ class FrontController extends Controller
 		if($tmpSellerData['role_id']==2)
         	return view('Front/seller_product_details', $data);
 		else {
-			
-			$similarProducts	=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+			$currentDate = date('Y-m-d H:i:s');
+		
+			$similarProducts	=   Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
+									->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+									->join('category_products', 'products.id', '=', 'category_products.product_id')
 									->join('categories', 'categories.id', '=', 'category_products.category_id')
 									->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-									->select(['products.*','products.id as product_id','categories.id as catId'])
+									->join('users', 'products.user_id', '=', 'users.id')
+									->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')//DB::raw("DATEDIFF(products.created_at, '".$currentDate."') AS posted_days")
+									->select(['products.*',
+									 DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") ,
+									 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
 									->where('products.status','=','active')
 									->where('products.is_deleted','=','0')
 									->where('categories.status','=','active')
-									->where('subcategories.status','=','active');
-									;
+									->where('subcategories.status','=','active')
+									->where('users.status','=','active')
+									->where(function($q) use ($currentDate) {
+
+										$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+									})
+									->orderBy('variant_product.id', 'ASC')
+									->groupBy('products.id')
+									->offset(0)->limit(config('constants.Products_limits'));
 			if(isset($category_slug) && $category_slug!='') {
 
 				$similarProducts=	$similarProducts->where('categories.category_slug','=',$category_slug);
@@ -801,7 +815,8 @@ class FrontController extends Controller
 				$similarProducts=	$similarProducts->where('categories.id','=',$Product->catId);
 			
 			}
-			$similarProducts	=	$similarProducts->where('products.id!=',$Product->id);
+			$similarProducts	=	$similarProducts->where('products.id','!=',$Product->id)->get();
+			//echo $Product->catId;exit;
 			$data['similarProducts']	=	$similarProducts;
 			$data['buyer_product_details']	=	BuyerProducts::where('product_id',$Product->id)->first();
 			return view('Front/buyer_product_details', $data);

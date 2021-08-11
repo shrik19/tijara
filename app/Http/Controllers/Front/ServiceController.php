@@ -557,14 +557,13 @@ class ServiceController extends Controller
             'title'         => 'required',
             'description'   => 'nullable|max:1000',
             'sort_order'        =>'numeric',
-            'service_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug',     
             'service_price'         => 'required',    
         ];
         if($request->input('service_id')==0) {
-            $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug';    
+            $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
             
         }else{
-            $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug,'.$id;
+            $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';
         }
 
         $messages = [
@@ -572,8 +571,7 @@ class ServiceController extends Controller
             'title.regex'            =>trans('lang.required_field_error'),     
             'description.max'        => trans('lang.max_1000_char'),
             'service_slug.required'  => trans('errors.service_slug_req'),
-            'service_slug.regex'     => trans('errors.input_aphanum_dash_err'),
-            'service_slug.unique'    => trans('messages.category_slug_already_taken'),
+            'service_slug.regex'     => trans('errors.input_aphanum_dash_err')
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);

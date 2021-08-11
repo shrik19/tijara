@@ -175,8 +175,49 @@
                         </div>
                 </div>
             </div>
+
         </div>
     </div> <!-- /container -->
+</section>
+
+<!-- product review section -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="best_seller_container">
+              <div class="col-md-12">
+              <h2>{{ __('users.review_title')}}</h2>
+                <hr>
+                @if(!empty($productReviews))
+                  @foreach($productReviews as $review)
+                  <div>
+                    <p>
+
+                    @if(!empty($review['profile']))
+                      <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
+                    @else 
+                      <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" style="width:50px;height:50px;">
+                    @endif
+                      
+                    <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+                    <div class="star-rating" style="font-size:unset;pointer-events: none;">
+                        <select class='rating product_rating' id='rating_{{$Product->id}}' data-rating="{{$review['product_rating']}}">
+                          <option value="1" >1</option>
+                          <option value="2" >2</option>
+                          <option value="3" >3</option>
+                          <option value="4" >4</option>
+                          <option value="5" >5</option>
+                        </select>
+                      </div>
+                    <p>{{$review['comments']}}</p>
+                  </div>
+                  <hr>
+                  @endforeach
+                @endif
+              </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section>

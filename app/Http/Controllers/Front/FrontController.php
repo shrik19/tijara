@@ -866,18 +866,43 @@ public function getCatSubList(Request $request) {
 
 		// and then you can get query log
 
-    	/*get product review*/
-    	$getAllProductReviews = ProductReview::join('products','product_review.product_id','products.id','')->join('users','product_review.user_id','users.id','')->select(['products.id','product_review.rating as product_rating','product_review.comments','users.id','users.fname','users.lname'])->where('products.user_id','=',$id)->get();
+    	/*get product review*/   	
+		$data['productReviews']= $this->getReviews('products',$id,'');
 
     	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
 
 		$data['is_seller'] 			= 1;
 		$data['totalRating']  		= $totalRating;
-		$data['productReviews']  	= $getAllProductReviews;
 		$data['getTerms']  			= $getTerms;
         return view('Front/seller-products', $data);
     }
 
+    /*function to get revirew for product and services*/
+	public function getReviews($type='',$sellerid='',$ids=''){
+
+		if($type=='products'){
+		 	$getAllReviews = ProductReview::join('products','product_review.product_id','products.id','')->join('users','product_review.user_id','users.id','')->select(['products.id','product_review.rating as product_rating','product_review.comments','users.id','users.fname','users.lname','users.profile','product_review.updated_at']);
+		 	if(!empty($sellerid)){
+		 		$getAllReviews = $getAllReviews->where('products.user_id','=',$sellerid)->get()->toArray();
+		 	}
+		 	if(!empty($ids)){
+		 		$getAllReviews = $getAllReviews->where('products.id','=',$ids)->get()->toArray();
+		 	
+		 	}		 	
+		}else{
+
+			$getAllReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.comments','users.id','users.fname','users.lname','users.profile','service_review.updated_at']);
+			if(!empty($sellerid)){
+		 		$getAllReviews = $getAllReviews->where('services.user_id','=',$sellerid)->get()->toArray();
+		 	}
+		 	if(!empty($ids)){
+		 		$getAllReviews = $getAllReviews->where('services.id','=',$ids)->get()->toArray();
+		 	
+		 	}
+		}
+
+		return $getAllReviews;
+	}
 	//function for product details page
 
 	public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') 
@@ -952,8 +977,7 @@ public function getCatSubList(Request $request) {
 
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();
 		
-		$Product = $Products[0];
-
+		$Product = $Products[0]; 
 		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();
 		
 		foreach($ProductVariants as $variant)
@@ -1008,7 +1032,8 @@ public function getCatSubList(Request $request) {
 		
 		$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Product['user_id'])]);
 		$data['seller_link'] = $sellerLink;
-		
+		/*get product review*/
+		$data['productReviews']= $this->getReviews('products','',$Product->id);
 		//dd($data['variantData']);
 		if($tmpSellerData['role_id']==2)
         	return view('Front/seller_product_details', $data);
@@ -1047,6 +1072,7 @@ public function getCatSubList(Request $request) {
 			}
 			$similarProducts	=	$similarProducts->where('products.id','!=',$Product->id)->get();
 			//echo $Product->catId;exit;
+			
 			$data['similarProducts']	=	$similarProducts;
 			$data['buyer_product_details']	=	BuyerProducts::where('product_id',$Product->id)->first();
 			return view('Front/buyer_product_details', $data);
@@ -1404,7 +1430,6 @@ public function getCatSubList(Request $request) {
 		
 		$Service = $Services[0];
 
-		
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 
 		$data['PopularServices']	= $this->getPopularServices();
@@ -1420,7 +1445,8 @@ public function getCatSubList(Request $request) {
 		
 		$sellerLink = route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Service['user_id'])]);
 		$data['seller_link'] = $sellerLink;
-		
+
+		$data['serviceReviews']= $this->getReviews('services','',$Service->id);
 		//dd($data['variantData']);
         return view('Front/service_details', $data);
     }
@@ -1545,12 +1571,11 @@ public function getCatSubList(Request $request) {
     		$data['subcategory_slug']	= $subcategory_slug;
 
     	/*get product review*/
-    	$getAllServiceReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.comments','users.id','users.fname','users.lname'])->where('services.user_id','=',$id)->get();
-
+    	//$getAllServiceReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.comments','users.id','users.fname','users.lname'])->where('services.user_id','=',$id)->get();
+    	/*get service review*/   
+		$data['serviceReviews']= $this->getReviews('services',$id,'','');
     	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
-
-		$data['is_seller'] = 1;
-		$data['serviceReviews']  	= $getAllServiceReviews;
+		$data['is_seller'] = 1;	
 		$data['getTerms']  			= $getTerms;
         return view('Front/seller-services', $data);
     }

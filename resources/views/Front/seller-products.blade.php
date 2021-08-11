@@ -88,7 +88,14 @@
           @if(!empty($productReviews))
             @foreach($productReviews as $review)
             <div>
-              <p><i class="fas fa-user"></i> <?php echo $review['fname']." ".$review['lname'];?></p>
+              <p>
+                @if(!empty($review['profile']))
+                  <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
+                @else 
+                  <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" style="width:50px;height:50px;">
+                @endif
+                <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?>
+              </p>
               <div class="star-rating" style="font-size:unset;pointer-events: none;">
                   <select class='rating product_rating' data-rating="{{$review['product_rating']}}">
                     <option value="1" >1</option>

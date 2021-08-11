@@ -88,63 +88,119 @@ class FrontController extends Controller
 			
 		return $featuredSellers;			
     }
+
 	//get category & subcategory listings
-	function getCategorySubcategoryList($seller_id='') {
-		if(!empty($seller_id)){
-			$seller_id=base64_decode($seller_id);
-			$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-			->join('category_products','category_products.category_id','=','categories.id')
-			->join('products','products.id','=','category_products.product_id')
-								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
-								->where('subcategories.status','=','active')
-								->where('categories.status','=','active')
-								->where('products.user_id','=',$seller_id)
-								->orderBy('categories.sequence_no')
-								->orderBy('subcategories.sequence_no')
-								->groupBy('subcategories.subcategory_name')
-								->get()
-								->toArray();
-		}else{
-			$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
-								->where('subcategories.status','=','active')
-								->where('categories.status','=','active')
-								->orderBy('categories.sequence_no')
-								->orderBy('subcategories.sequence_no')
-								->get()
-								->toArray();
-		}
+	public function getCategorySubcategoryList($seller_id='') {
 		
+		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
+								->where('subcategories.status','=','active')
+								->where('categories.status','=','active')
+								->orderBy('categories.sequence_no')
+								->orderBy('subcategories.sequence_no')
+								->groupBy('categories.id')
+								->get()
+								->toArray();
+
 		$CategoriesArray	=	array();
+		$currentDate = date('Y-m-d H:i:s');
+	
 		foreach($Categories as $category) {
+			$CategoriesArray[$category['id']]['product_count']=0;
+			DB::enableQueryLog();
+			$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+			  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+			  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+			  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+			  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+			  ->join('users', 'products.user_id', '=', 'users.id')
+			  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
+			  ->select(['products.id','products.title','categories.category_name'])
+			  ->where('products.status','=','active')
+			  ->where('products.is_deleted','=','0')
+			  ->where('categories.status','=','active')
+			  ->where('subcategories.status','=','active')
+			  ->where('users.status','=','active')
+			  ->where('category_products.category_id','=',$category['id'])
+			  ->where(function($q) use ($currentDate) {
+
+				$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+				});
+
+		
+			if(!empty($seller_id)){
+					
+				$seller_id=base64_decode($seller_id);
+				$productCount = $productCount->where('products.user_id','=',$seller_id);
+			}
+
+			$productCount = $productCount->groupBy('products.id')->get()->toArray();
+			$CategoriesArray[$category['id']]['product_count'] =  count($productCount);
+					
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
 			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
 			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
 		}
+		return $CategoriesArray;
+	}
 
+public function getCatSubList(Request $request) {
+		
+		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
+								->where('subcategories.status','=','active')
+								->where('categories.status','=','active')
+								->orderBy('categories.sequence_no')
+								->orderBy('subcategories.sequence_no')
+								->groupBy('categories.id')
+								->get()
+								->toArray();
+
+		$CategoriesArray	=	array();
+		$currentDate = date('Y-m-d H:i:s');
+	
+		foreach($Categories as $category) {
+			$CategoriesArray[$category['id']]['product_count']=0;
+			DB::enableQueryLog();
+			$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+			  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+			  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+			  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+			  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+			  ->join('users', 'products.user_id', '=', 'users.id')
+			  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
+			  ->select(['products.id','products.title','categories.category_name'])
+			  ->where('products.status','=','active')
+			  ->where('products.is_deleted','=','0')
+			  ->where('categories.status','=','active')
+			  ->where('subcategories.status','=','active')
+			  ->where('users.status','=','active')
+			  ->where('category_products.category_id','=',$category['id'])
+			  ->where(function($q) use ($currentDate) {
+
+				$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+				});
+
+			if(!empty($request->sellers) && !empty($request->search_seller_product)){
+				$productCount	=	$productCount->where('products.user_id','=',$request->sellers)->where('products.title', 'like', '%' . $request->search_seller_product . '%');
+			}
+
+			
+
+			$productCount = $productCount->groupBy('products.id')->get()->toArray();
+			$CategoriesArray[$category['id']]['product_count'] =  count($productCount);
+					
+			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
+			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
+			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
+		}
 		return $CategoriesArray;
 	}
 
 	//get category & subcategory listings
 	function getServiceCategorySubcategoryList($seller_id='') {
-		if(!empty($seller_id)){
-			$seller_id=base64_decode($seller_id);
-
-			$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
-							->join('category_services','category_services.category_id','=','servicecategories.id')
-							->join('services','services.id','=','category_services.service_id')
-								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','serviceSubcategories.subcategory_name','serviceSubcategories.subcategory_slug')
-								->where('serviceSubcategories.status','=','active')
-								->where('servicecategories.status','=','active')
-								->where('services.user_id','=',$seller_id)
-								->orderBy('servicecategories.sequence_no')
-								->orderBy('serviceSubcategories.sequence_no')
-								->groupBy('serviceSubcategories.subcategory_name')
-								->get()
-								->toArray();
-
-		}else{
-			$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+	
+		$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','serviceSubcategories.subcategory_name','serviceSubcategories.subcategory_slug')
 								->where('serviceSubcategories.status','=','active')
 								->where('servicecategories.status','=','active')
@@ -152,10 +208,36 @@ class FrontController extends Controller
 								->orderBy('serviceSubcategories.sequence_no')
 								->get()
 								->toArray();
-		}
+		
 
 		$CategoriesArray	=	array();
+		$currentDate = date('Y-m-d H:i:s');
 		foreach($Categories as $category) {
+			$CategoriesArray[$category['id']]['service_count']=0;
+			
+			$servicesCount 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
+							  ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+							  ->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')							  				  
+							  ->join('users', 'services.user_id', '=', 'users.id')
+							  ->join('user_packages', 'user_packages.user_id', '=', 'users.id')
+							  ->select(['services.*','servicecategories.category_name'])
+							  ->where('services.status','=','active')
+							  ->where('services.is_deleted','=','0')
+							   ->where('category_services.category_id','=',$category['id'])
+							  ->where('servicecategories.status','=','active')
+							  ->where('serviceSubcategories.status','=','active')
+							  ->where('users.status','=','active')
+							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+	
+			if(!empty($seller_id)){
+					
+				$seller_id=base64_decode($seller_id);
+				$servicesCount = $servicesCount ->where('services.user_id','=',$seller_id);
+			}
+
+			$servicesCount = $servicesCount->groupBy('services.id')->get()->toArray();
+			$CategoriesArray[$category['id']]['service_count']=  count($servicesCount);
+
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
 			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
 			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
@@ -164,8 +246,61 @@ class FrontController extends Controller
 		return $CategoriesArray;
 	}
 
+	//get category & subcategory listings
+	function getServiceCatSubcatList(Request $request) {
+	
+		$Categories 		= ServiceCategories::join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+								->select('servicecategories.id','servicecategories.category_name','servicecategories.category_slug','serviceSubcategories.subcategory_name','serviceSubcategories.subcategory_slug')
+								->where('serviceSubcategories.status','=','active')
+								->where('servicecategories.status','=','active')
+								->orderBy('servicecategories.sequence_no')
+								->orderBy('serviceSubcategories.sequence_no')
+								->get()
+								->toArray();
+		
+
+		$CategoriesArray	=	array();
+		$currentDate = date('Y-m-d H:i:s');
+		foreach($Categories as $category) {
+			$CategoriesArray[$category['id']]['service_count']=0;
+			
+			$servicesCount 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
+							  ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+							  ->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')							  				  
+							  ->join('users', 'services.user_id', '=', 'users.id')
+							  ->join('user_packages', 'user_packages.user_id', '=', 'users.id')
+							  ->select(['services.*','servicecategories.category_name'])
+							  ->where('services.status','=','active')
+							  ->where('services.is_deleted','=','0')
+							   ->where('category_services.category_id','=',$category['id'])
+							  ->where('servicecategories.status','=','active')
+							  ->where('serviceSubcategories.status','=','active')
+							  ->where('users.status','=','active')
+							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+	
+			if(!empty($seller_id)){
+					
+				$seller_id=base64_decode($seller_id);
+				$servicesCount = $servicesCount ->where('services.user_id','=',$seller_id);
+			}
+
+			if(!empty($request->sellers) && !empty($request->search_seller_product)){
+				$servicesCount	=	$servicesCount->where('services.user_id','=',$request->sellers)->where('services.title', 'like', '%' . $request->search_seller_product . '%');
+			}
+			
+			$servicesCount = $servicesCount->groupBy('services.id')->get()->toArray();
+			$CategoriesArray[$category['id']]['service_count']=  count($servicesCount);
+
+			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
+			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
+			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
+		}
+
+		return $CategoriesArray;
+	}
   //get seller listings
 	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',$city_filter = '',  $search_string = '',$productsServices='') {
+	
     	$today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
@@ -174,7 +309,7 @@ class FrontController extends Controller
 								->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today);
-								
+		
 		if($city_filter != ''){
 			$Sellers	=	$Sellers->where('users.city','like', '%' .$city_filter.'%');
 		}
@@ -454,7 +589,7 @@ class FrontController extends Controller
 							//   }, function ($query) use ($currentDate) {
 							// 	return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 							// });
-							  //
+	
 			if($request->category_slug !='') {
 				$category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
 				$Products	=	$Products->where('category_products.category_id','=',$category['id']);
@@ -554,6 +689,7 @@ class FrontController extends Controller
 		//dd(is_object($data['Products']));
 
 		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products');
+	//	echo "<pre>";$Sellers[$request->sellers]['product_cnt']);
 		$sellerData = '';
 		if(!empty($Sellers))
 		{
@@ -624,13 +760,13 @@ class FrontController extends Controller
         $data['pageTitle'] 	= 'Sellers Products';
 
 		if($request->segment(4)=='products'){
-			$data['Categories'] = $this->getCategorySubcategoryList($seller_id);
+			$data['Categories'] = $this->getCategorySubcategoryList($seller_id,$category_slug, $subcategory_slug);
 		}else{
 			$data['Categories'] = $this->getCategorySubcategoryList();
 		}
 		
 		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
-		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
+		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
     	$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
 		$data['link_seller_name']		=	$seller_name;
@@ -1579,7 +1715,7 @@ class FrontController extends Controller
 		      foreach($data as $row)
 		      {
 		       $output .= '
-		       <li><a href="#">'.$row->city.'</a></li>
+		       <li class="city_autocomplete"><a href="#">'.$row->city.'</a></li>
 		       ';
 		      }
 		      $output .= '</ul>';

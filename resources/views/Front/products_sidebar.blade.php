@@ -5,17 +5,24 @@
 <div class="category_list_box"  id="accordion">
         <h2 class="de_col">{{ __('lang.categories_head')}}</h2>
         <ul class="category_list">
-        @php $i=0; @endphp
+        @php $i=0; $j=0; @endphp
         @foreach($Categories as $CategoryId=>$Category)
-        @php $i++;
+        @php $i++; 
         $cls='';
+        if(!empty($Category['product_count'][$j])){
+          $product_count = $Category['product_count'][$j]; 
+        }else{
+          $product_count = '';
+        }
+        
+
+       
         if($category_slug==$Category['category_slug'])
         $cls  =       'activemaincategory';
         else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';
          @endphp
                 @if(!empty($Categories[$CategoryId]['subcategory']))
-                
-                <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;">@if(!empty(Request::segment(4))){{count($Categories[$CategoryId]['subcategory'])}}@endif</span></a></li>
+                <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$i}}">@if(!empty(Request::segment(4))){{$Categories[$CategoryId]['product_count']}}@endif</span></a></li>
 
                 <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
                 @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
@@ -23,6 +30,7 @@
                 @endforeach
                 </ul>
                 @endif
+                @php $j++; @endphp
             @endforeach
         </ul>
         <div>&nbsp;</div>
@@ -61,7 +69,7 @@
                   else if( $j==1) $cls  =       'activeservicemaincategory';
                 @endphp
                 @if(!empty($ServiceCategories[$CategoryId]['subcategory']))
-                  <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;">@if(!empty(Request::segment(4))){{count($ServiceCategories[$CategoryId]['subcategory'])}}@endif</span></a></li>
+                  <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;" id="serviceCount_{{$j}}">@if(!empty(Request::segment(4))){{$ServiceCategories[$CategoryId]['service_count']}}@endif</span></a></li>
 
                   <ul id="servicesubcategories<?php echo $j; ?>" class="service_subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
                   @foreach($ServiceCategories[$CategoryId]['subcategory'] as $subcategory)
@@ -97,10 +105,11 @@ $(document).ready(function(){
     });
 
 
-   $(document).on('click', 'li', function(){  
+   $(document).on('click', '.city_autocomplete', function(){  
         $('#city_name').val($(this).text());  
         $('#cityList').fadeOut();  
     });  
 
 });
+
 </script>

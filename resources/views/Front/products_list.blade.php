@@ -1,5 +1,4 @@
 
-
 @if(is_object($Products))
 <ul class="product_details">
     @foreach($Products as $product)

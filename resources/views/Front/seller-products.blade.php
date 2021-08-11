@@ -59,7 +59,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
-                      <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="getListing()">
+                      <select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listProducts()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                           <option value="asc">{{ __('lang.sort_by_asc')}}</option>
                           <option value="desc">{{ __('lang.sort_by_desc')}}</option>
@@ -69,7 +69,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
-                      <select class="form-control" name="sort_by" id="sort_by" onchange="getListing()">
+                      <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listProducts()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                           <option value="name">{{ __('lang.sort_by_name')}}</option>
                           <option value="price">{{ __('lang.sort_by_price')}}</option>
@@ -170,8 +170,37 @@
 
 <script type="text/javascript">
 $( "#seller_product_filter" ).keyup(function() {
-   getListing();
+   get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+  $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+
+   $.ajax({
+    url:siteUrl+"/getCatSubList",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'sellers' : $('.current_sellers').text(),'search_seller_product':$("#seller_product_filter").val()},
+    success:function(data)
+    {
+      //console.log(data);return
+      var i=1
+      $.each(data, function(k, v) {
+        console.log(k);
+        console.log("--");
+        $("#user_id").val();
+        $("#productCount_"+i).text(v.product_count);
+        i++;
+      });
+    }
+   });
 });
+
+function listProducts(){
+   get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+}
+
+/*
 function getListing()
 {
   var category_slug = $('.current_category').text();
@@ -189,7 +218,7 @@ function getListing()
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string},
+    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string,'search_seller_product':seller_product_filter},
     success:function(data)
     {
      //$('.product_listings').html(data);
@@ -198,11 +227,13 @@ function getListing()
      $('.seller_list_content').html(responseObj.sellers);
     }
    });
-}
+}*/
 
 var price_filter = $("#price_filter").slider({});
 price_filter.on('slideStop',function(){
-    getListing();
+   // getListing();
+    get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+  $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
 });
 
 function selectSellers()

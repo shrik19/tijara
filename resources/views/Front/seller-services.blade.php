@@ -58,7 +58,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
-                      <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="getListing()">
+                      <select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listService()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                           <option value="asc">{{ __('lang.sort_by_asc')}}</option>
                           <option value="desc">{{ __('lang.sort_by_desc')}}</option>
@@ -68,7 +68,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
-                      <select class="form-control" name="sort_by" id="sort_by" onchange="getListing()">
+                      <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listService()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                           <option value="name">{{ __('lang.sort_by_name')}}</option>
                       </select>
@@ -88,7 +88,7 @@
             <div>
               <p><i class="fas fa-user"></i> <?php echo $review['fname']." ".$review['lname'];?></p>
               <div class="star-rating" style="font-size:unset;pointer-events: none;">
-                  <select class='rating product_rating' data-rating="{{$review['service_rating']}}">
+                  <select class='rating service_rating' data-rating="{{$review['service_rating']}}">
                     <option value="1" >1</option>
                     <option value="2" >2</option>
                     <option value="3" >3</option>
@@ -171,10 +171,38 @@
 <script type="text/javascript">
 
 $( "#seller_product_filter" ).keyup(function() {
-   getListing();
+
+     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+
+    $.ajax({
+    url:siteUrl+"/getServiceCatSubcatList",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'sellers' : $('.current_sellers').text(),'search_seller_product':$("#seller_product_filter").val()},
+    success:function(data)
+    {
+      //console.log(data);return
+      var i=1
+      $.each(data, function(k, v) {
+        $("#user_id").val();
+        $("#serviceCount_"+i).text(v.service_count);
+        i++;
+      });
+    }
+   });
+
 });
 
-function getListing()
+function listService() {
+   get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+}
+
+
+/*function getListing()
 {
   var category_slug = $('.current_category').text();
   var subcategory_slug = $('.current_subcategory').text();
@@ -201,7 +229,7 @@ function getListing()
     }
    });
 }
-
+*/
 
 function selectSellers()
 {

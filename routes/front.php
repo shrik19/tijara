@@ -34,6 +34,8 @@ Route::any('/get_product_attribute_details','Front\FrontController@getProductAtt
 
 Route::post('/getCity', 'Front\FrontController@getCity')->name('getCity');
 Route::post('/contact-store', 'Front\FrontController@contactStore')->name('FrontContactStore');
+Route::any('/getCatSubList','Front\FrontController@getCatSubList')->name('getCatSubList');
+Route::any('/getServiceCatSubcatList','Front\FrontController@getServiceCatSubcatList')->name('getServiceCatSubcatList');
 
 //services
 Route::get('/seller/{seller_name}/{seller_id}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');

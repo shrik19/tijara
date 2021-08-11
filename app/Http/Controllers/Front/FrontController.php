@@ -425,7 +425,7 @@ public function getCatSubList(Request $request) {
 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->join('users', 'products.user_id', '=', 'users.id')
 								->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')//DB::raw("DATEDIFF(products.created_at, '".$currentDate."') AS posted_days")
-								->select(['products.*',DB::raw("DATEDIFF('".$currentDate."', products.sold_date) as sold_days"), DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") , DB::raw("count(orders_details.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+								->select(['products.*',DB::raw("DATEDIFF('".$currentDate."', products.sold_date) as sold_days"), DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") , DB::raw("count(orders_details.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id','categories.category_name'])
 								->where('products.status','=','active')
 								->where('products.is_deleted','=','0')
 								->where('categories.status','=','active')
@@ -759,13 +759,11 @@ public function getCatSubList(Request $request) {
     {
 
         $data['pageTitle'] 	= 'Home';
-		    $data['Categories'] = $this->getCategorySubcategoryList()	;
-
-    		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
-    		//$data['Products']			= $Products;
-			$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
-    		$data['category_slug']		=	'';
-    		$data['subcategory_slug']	=	'';
+		$data['Categories'] = $this->getCategorySubcategoryList();
+    	$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
+		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
+    	$data['category_slug']		=	'';
+    	$data['subcategory_slug']	=	'';
         $data['seller_id']		=	'';
         $data['search_string']		=	'';
 
@@ -778,8 +776,10 @@ public function getCatSubList(Request $request) {
         if(!empty($request->search))
         	$data['search_string']	= $request->search;
 
-        //$data['Sellers'] = $this->getSellersList($category_slug,$subcategory_slug);
+        $getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first()->toArray();
 
+        $data['category_name'] = $getCategoryName['category_name'];
+       //echo $data['category_name'];exit;
         return view('Front/products', $data);
 	}
 	
@@ -870,6 +870,10 @@ public function getCatSubList(Request $request) {
 		$data['productReviews']= $this->getReviews('products',$id,'');
 
     	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+
+    	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first()->toArray();
+    	
+        $data['category_name'] = $getCategoryName['category_name'];
 
 		$data['is_seller'] 			= 1;
 		$data['totalRating']  		= $totalRating;
@@ -1329,15 +1333,13 @@ public function getCatSubList(Request $request) {
 	 public function serviceListing($category_slug='',$subcategory_slug='',Request $request)
 	 {
  
-			 $data['pageTitle'] 	= 'Home';
- 
-			 $data['Categories'] = $this->getCategorySubcategoryList()	;
- 
-			 $data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
-			 //$data['Services']			= $Services;
-			 $data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
-			 $data['category_slug']		=	'';
-			 $data['subcategory_slug']	=	'';
+			$data['pageTitle'] 	= 'Home';
+			$data['Categories'] = $this->getCategorySubcategoryList()	;
+			$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
+			//$data['Services']			= $Services;
+			$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
+			$data['category_slug']		=	'';
+			$data['subcategory_slug']	=	'';
 			$data['seller_id']		=	'';
 			$data['search_string']		=	'';
  
@@ -1349,7 +1351,10 @@ public function getCatSubList(Request $request) {
  
 		 if(!empty($request->search))
 			 $data['search_string']	= $request->search;
- 
+ 		
+ 		$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first()->toArray();
+
+        $data['category_name'] = $getCategoryName['category_name'];
 		 
 		 return view('Front/services', $data);
 	 }

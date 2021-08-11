@@ -53,10 +53,10 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-3">
+        <!--  <div class="col-md-3">
             @include('Front.products_sidebar')
-        </div>
-        <div class="col-md-9">             
+        </div>-->
+        <div class="col-md-12">             
                 <div class="product_container">
                 <div class="loader"></div>
                     <h4>{{ __('lang.popular_items_in_market_head')}}</h4>

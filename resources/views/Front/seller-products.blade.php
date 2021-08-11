@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
+
 <section class="product_section">
     @if(!empty($header_image))
       <img src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
@@ -13,6 +14,7 @@
        
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
+        @include('Front.category_breadcrumb')
         <div class="col-md-3">
             <div style="display: flex">
              @if(!empty($logo)) 

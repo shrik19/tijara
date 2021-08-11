@@ -7,6 +7,8 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
+        
+        @include('Front.category_breadcrumb')
         <div class="col-md-3">
             @include('Front.services_sidebar')
         </div>

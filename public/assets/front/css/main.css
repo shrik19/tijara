@@ -129,7 +129,30 @@ html {
     height: 100%
 }
 
-
+/*category pages breadcrumb*/
+  ul.breadcrumb-category {
+  padding: 10px 16px;
+  list-style: none;
+}
+ul.breadcrumb-category li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: ">\00a0";
+}
+ul.breadcrumb-category li a {
+  text-decoration: none;
+}
+ul.breadcrumb-category li a {
+  color: #000 !important;
+}
+ul.breadcrumb-category li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
 /*
 #msform {
     text-align: center;

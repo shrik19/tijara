@@ -297,7 +297,7 @@ $(document).ready(function() {
     monthNamesShort: ['Januari','Februari','Mars','April','Maj','Juni','Juli','Augusti','September','Oktober'
     ,'November','December'],
     dayNames: ['måndag','tisdag','onsdag','torsdag','fredag','lördag','söndag'],
-    dayNamesShort: ['Mån','Tis','Ons','Tors','Fre','Lör','Sön'],
+    dayNamesShort: ['Mån','Tis','Ons','Tors','Fre','Lör','Sön'], 
     columnFormat: 'ddd',
     views: {
       sevenDays: {

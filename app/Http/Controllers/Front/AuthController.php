@@ -727,19 +727,6 @@ class AuthController extends Controller
 
         $email =   Session::get('new_seller_email');
         $name  = Session::get('new_seller_fname').' '.Session::get('new_seller_lname');
-
-        // $admin_email = env('ADMIN_EMAIL');
-        // $admin_name  = env('ADMIN_NAME');
-        //             //$admin_email = 'cooldhirajsonar@gmail.com';
-
-        // $arrMailData = ['name' => $name, 'email' => $email, 'seller_admin_link' => route('adminSellerEdit', base64_encode($session_user_id))];
-
-        //     Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
-        //     $message->to($admin_email, $admin_name)->subject
-        //         (trans('users.admin_email_subject'));
-        //     $message->from( env('FROM_MAIL'),'Tijara');
-        // });
-
         $admin_email = env('ADMIN_EMAIL');
         $admin_name  = env('ADMIN_NAME');
         
@@ -747,15 +734,9 @@ class AuthController extends Controller
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
 
-        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##'],[$name,$email,url('/'),route('adminSellerEdit', base64_encode($user_id))],$contents);
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##'],[$name,$email,url('/'),route('adminSellerEdit', base64_encode($session_user_id))],$contents);
 
         $arrMailData = ['email_body' => $contents];
-
-        // Mail::send('emails/seller_registration_admin', $arrMailData, function($message) use ($admin_email,$admin_name) {
-        //     $message->to($admin_email, $admin_name)->subject
-        //         (trans('users.admin_email_subject'));
-        //     $message->from( env('FROM_MAIL'),'Tijara');
-        // });
 
         Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
              $message->to($admin_email, $admin_name)->subject

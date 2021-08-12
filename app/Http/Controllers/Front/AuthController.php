@@ -747,7 +747,7 @@ class AuthController extends Controller
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
 
-        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##'],[$name,$email,url('/'),route('adminSellerEdit', base64_encode($user_id))],$contents);
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##'],[$name,$email,url('/'),route('adminSellerEdit', base64_encode($session_user_id))],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

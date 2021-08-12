@@ -1235,7 +1235,8 @@ class AuthController extends Controller
             ->first();//Check if the user exists
         if (empty($user->id))
         {
-            return redirect()->back()->withErrors(['email' => trans('errors.user_not_exist_err')]);
+            Session::flash('error', trans('errors.user_not_exist_err'));
+            return redirect(route('frontLogin'));
         }
 
         $token = $this->getRandom(60);
@@ -1249,12 +1250,6 @@ class AuthController extends Controller
         $email = $user->email;
         $name = $user->fname;
         $url = route('frontshowResetPassword',[$token]);
-
-        // $arrMailData = ['name' => $name,'email' => $email,'url' => $url, 'siteDetails'  =>$site_details];
-        // Mail::send('emails/forgot_password', $arrMailData, function($message) use ($email,$name) {
-        //     $message->to($email, $name)->subject(trans('lang.welcome') .' - '. trans('lang.forgot_password_title'));
-        //     $message->from('developer@techbeeconsulting.com',trans('lang.welcome'));
-        // });
 
         $GetEmailContents = getEmailContents('Forgot Password');
         $subject = $GetEmailContents['subject'];
@@ -1323,14 +1318,14 @@ class AuthController extends Controller
         $user->update(); //or $user->save();
 
         //login the user immediately they change password successfully
-        Auth::guard('user')->login($user);
+        //Auth::guard('user')->login($user);
 
         //Delete the token
         DB::table('password_resets')->where('email', $user->email)
         ->delete();
 
         Session::flash('success', trans('messages.pwd_reset_success'));
-        return redirect(route('frontHome'));
+        return redirect(route('frontLogin'));
 
     }
 

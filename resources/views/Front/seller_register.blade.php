@@ -8,6 +8,7 @@
 	<div class="row">
 		<div class="seller_register_container">
 			<div class="col-md-4 left-section">
+                @if(!empty($banner->image))
 				<div class="register_banner" style="background-image: url({{url('/')}}/uploads/Banner/{{$banner->image}});">
 					<div class="register_banner-header">
 						<h1>Sveriges första kulturella marknadsplats</h1>
@@ -17,6 +18,7 @@
 						<img src="{{url('/')}}/uploads/Images/tijara-image.png" />
 					</div> 
 				</div>
+                @endif
 			</div>
 			<div class="col-md-8 right-section">
 				<div class="row mt-0">

@@ -24,6 +24,7 @@ use App\Models\VariantProductAttribute;
 use App\Models\ProductCategory;
 use App\Models\ServiceCategory;
 use App\Models\SellerPersonalPage;
+use App\Models\serviceAvailability;
 
 use App\Models\UserMain;
 use App\Models\ProductReview;
@@ -1285,6 +1286,8 @@ class FrontController extends Controller
 		$sellerLink = route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Service['user_id'])]);
 		$data['seller_link'] = $sellerLink;
 		
+		$data['serviceAvailability']=   serviceAvailability::where('service_id',$Service->id)->get();
+            
 		//dd($data['variantData']);
         return view('Front/service_details', $data);
     }
@@ -1424,10 +1427,14 @@ class FrontController extends Controller
     {
         $service_time	=	$request->input('service_time');//str_replace('/','-',$request->input('service_time'));
         $request_id	=	DB::table('service_requests')->insertGetId([
-            'message' => $request->input('message'),
+            'service_title' => $request->input('service_title'),
+			'location' => $request->input('location'),
+			'service_date' => $request->input('service_date'),
+			'service_time' => $request->input('service_time'),
+			'phone_number' => $request->input('phone_number'),
             'user_id' => Auth::guard('user')->id(),
 			'service_id'=>$request->input('service_id'),
-			'service_time'=>date('Y-m-d H:i:s',strtotime($service_time)),
+			'service_price'=>$request->input('service_price'),
             'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -1444,7 +1451,9 @@ class FrontController extends Controller
 		$service	=	$service_request->title;
 		$email		=	$service_request->email;
 		$servicemessage	=	$request->input('message');
-		$service_time	=	date('Y-m-d H:i:s',strtotime($service_time));
+		$service_date=	$request->input('service_date');
+		$service_time=	$request->input('service_time');
+		//$service_time	=	date('Y-m-d H:i:s',strtotime($service_time));
 		$seller	=	$service_request->fname;
 		//echo'<pre>';print_r($request);exit;
         // $arrMailData = ['customername' => $customername, 'seller' => $seller, 'service' => $service,
@@ -1460,7 +1469,11 @@ class FrontController extends Controller
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
         
-        $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##','##SERVICEMESSAGE##','##PHONE##','##SITE_URL##'],[$customername,$seller,$service,$service_time,$servicemessage,$$user->phone_number,url('/')],$contents);
+        $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
+		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##PHONE##','##SITE_URL##'],
+		[$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
+		$request->input('service_price'),
+		$user->phone_number,url('/')],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

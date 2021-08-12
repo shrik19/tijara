@@ -24,6 +24,8 @@ use App\Models\Package;
 
 use App\Models\ServiceRequest;
 
+use App\Models\ServiceAvailability;
+
 use App\CommonLibrary;
 
 /*Uses*/
@@ -536,6 +538,7 @@ class ServiceController extends Controller
             $data['selectedCategories'] =   $selectedCategoriesArray;
             
         
+            $data['serviceAvailability']=   serviceAvailability::where('service_id',$service_id)->get();
             return view('Front/Services/edit', $data);
         }
         else {
@@ -555,7 +558,7 @@ class ServiceController extends Controller
         $rules = $messages = [];
         $rules = [ 
             'title'         => 'required',
-            'description'   => 'nullable|max:1000',
+           // 'description'   => 'nullable|max:1000',
             'sort_order'        =>'numeric',
             'service_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:services,service_slug',     
             'service_price'         => 'required',    
@@ -593,11 +596,13 @@ class ServiceController extends Controller
 
                 'status'            => trim($request->input('status')),
 
-                'price_type'            => trim($request->input('price_type')),
+               // 'price_type'            => trim($request->input('price_type')),
 
                 'service_price'            => trim($request->input('service_price')),
                 
                 'sort_order'        => trim($request->input('sort_order')),
+
+                'session_time'        => trim($request->input('session_time')),
                
                 'user_id'           =>  Auth::guard('user')->id()
             ];
@@ -618,6 +623,19 @@ class ServiceController extends Controller
             Services::where('id', $request->input('service_id'))->where('user_id', Auth::guard('user')->id())->update($arrServices);
         }
         
+        ServiceAvailability::where('service_id', $id)->delete();
+        if(!empty($request->input('service_availability'))) {
+             
+            foreach($request->input('service_availability') as $availability) {
+                $dateTime   =   explode(' ',$availability);
+                $service_availability['service_id']   =   $id;
+                $service_availability['service_date']  =   $dateTime[0];
+                $service_availability['start_time']   =   $dateTime[1];
+                
+                ServiceAvailability::create($service_availability);
+                
+            }
+        }
         ServiceCategory::where('service_id', $id)->delete();
              
          if(!empty($request->input('categories'))) {
@@ -702,13 +720,27 @@ class ServiceController extends Controller
         $slug_s = str_replace("-s-", '', $slug_p); 
         $slug =   CommonLibrary::php_cleanAccents($slug_s);
 
-        if(!empty($id)){
-            $data =  Services::where('service_slug', $slug)->where('id','!=',$id)->get();
-        } else{
-            $data =  Services::where('service_slug', $slug)->get();
+        
+        $data =  Services::where('service_slug','like', $slug.'%')->offset(0)->limit(1)->orderBy('id','desc');
+        
+        if(!empty($id))
+            $data   =   $data->where('id','!=',$id);
+            $data   =   $data->first();
+        if(!empty($data)) {
+            $slugParts  =   explode('-',$data->service_slug);
+            $slug_number=   end($slugParts);
+            
+            if(is_numeric($slug_number))
+                return $slug.'-'.($slug_number+1);
+            else
+            
+            return $slug.'-1';
         }
+        else
+            return $slug;
+        
 
-       $unique_slug =1;
+       /*$unique_slug =1;
         if(!empty($data[0]['service_slug'])){
             do{
                 $slug = $slug."-".$unique_slug;
@@ -721,7 +753,7 @@ class ServiceController extends Controller
             return $slug;
         }else{
             return $slug;
-        }
+        }*/
     }
 
 
@@ -773,20 +805,26 @@ class ServiceController extends Controller
 
     public function getAllServiceRequest(Request $request) 
     {
-      if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
-      {
+        $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
+
+        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')
+          ->join('services','services.id','=','service_requests.service_id')
+          ->select('services.title','services.description','users.fname','users.lname','users.email'
+          ,'service_requests.*')->where('service_requests.is_deleted','!=',1);
+
+        if($User->role_id==2) {
           //seller
-          $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description','services.price_type','services.service_price','service_requests.service_time')->where('service_requests.is_deleted','!=',1)->where('services.user_id','=',$request['user_id']);
+          $serviceRequest = $serviceRequest->where('services.user_id','=',$request['user_id']);
       }
       else 
       {
-        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')->join('services','services.id','=','service_requests.service_id')->select('services.title','users.fname','users.lname','users.email','service_requests.message','service_requests.created_at','service_requests.id','services.description','services.price_type','services.service_price','service_requests.service_time')->where('service_requests.is_deleted','!=',1)->where('service_requests.user_id','=',$request['user_id']);
+        $serviceRequest = $serviceRequest->where('service_requests.user_id','=',$request['user_id']);
       }
 
       if(!empty($request['search']['value'])) 
       {
-            $field = ['users.fname','users.lname','users.email','services.title','service_requests.message'];
-            $namefield = ['users.fname','users.lname','users.email','services.title','service_requests.message'];
+            $field = ['users.fname','users.lname','users.email','services.title'];
+            $namefield = ['users.fname','users.lname','users.email','services.title'];
             $search=($request['search']['value']);
             
             $serviceRequest = $serviceRequest->Where(function ($query) use($search, $field,$namefield) 
@@ -814,7 +852,8 @@ class ServiceController extends Controller
               
           $month_year_explod =explode("-",$request['monthYear']);
            
-          $serviceRequest = $serviceRequest->whereMonth('service_requests.service_time', '=', $month_year_explod[0])->whereYear('service_requests.service_time',$month_year_explod[1]);
+          $serviceRequest = $serviceRequest->whereMonth('service_requests.service_date', '=', $month_year_explod[0])
+          ->whereYear('service_requests.service_date',$month_year_explod[1]);
 
         }
         
@@ -838,24 +877,34 @@ class ServiceController extends Controller
                   $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
                   $user = (!empty($recordDetailsVal['fname'])) ? $recordDetailsVal['fname'].' '.$recordDetailsVal['lname'] : '-';
                   $serviceName = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
-                  $message = (!empty($recordDetailsVal['message'])) ? $recordDetailsVal['message'] : '-';
+                  //$message = (!empty($recordDetailsVal['message'])) ? $recordDetailsVal['message'] : '-';
                   $description = (!empty($recordDetailsVal['description'])) ? substr(strip_tags($recordDetailsVal['description']), 0, 110) : '-';
                   $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
-                  $service_time  = (!empty($recordDetailsVal['service_time'])) ? $recordDetailsVal['service_time'] : '-';
+                  $service_time  = (!empty($recordDetailsVal['service_time'])) ? $recordDetailsVal['service_date'].' '.$recordDetailsVal['service_time'] : '-';
+                  $location   = (!empty($recordDetailsVal['location'])) ? $recordDetailsVal['location'] : '-';
                   $service_price = (!empty($recordDetailsVal['service_price'])) ? $recordDetailsVal['service_price'] : '-';
-                  $price_type    = (!empty($recordDetailsVal['price_type'])) ? $recordDetailsVal['price_type'] : '-';
-                   $action = '<a style="margin-left:38px;" href="javascript:void(0);" user_name="'.$user.'" serviceName="'.$serviceName.'" message="'.$message.'" dated="'.$dated.'" id="'.$id.'" class="serviceReqDetails btn btn-info" title="'.$serviceName.'" id="'.$id.'" description="'.$description.'" message="'.$message.'" service_time="'.$service_time.'"  service_price="'.$service_price.'"  price_type="'.$price_type.'">Request Details</a>&nbsp&nbsp&nbsp';
+                  //$price_type    = (!empty($recordDetailsVal['price_type'])) ? $recordDetailsVal['price_type'] : '-';
+                   $action = '<a style="margin-left:38px;" href="javascript:void(0);" 
+                   user_name="'.$user.'" serviceName="'.$serviceName.'" 
+                    dated="'.$dated.'" id="'.$id.'" 
+                    class="serviceReqDetails btn btn-info" title="'.$serviceName.'" 
+                    id="'.$id.'" description="'.$description.'" 
+                     service_time="'.$service_time.'" 
+                     service_price="'.$service_price.'" location="'.$location.'"  
+                     >Request Details</a>&nbsp&nbsp&nbsp';
 
                  
 
                   if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
                   {
-                    $arr[] = [ '#'.$id, $user, $serviceName,$message, $dated, $action];
+                    $arr[] = [ '#'.$id, $user,$serviceName,$service_time,$service_price,$location, $dated, $action];
                   }
                   else
                   {
-                    $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontServiceRequestDel', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class="btn btn-danger">'.trans('lang.cancel_btn').'</a>';
-                    $arr[] = [ '#'.$id, $serviceName,$message, $dated, $action];
+                    $action .= '<a href="javascript:void(0)" 
+                    onclick=" return ConfirmDeleteFunction(\''.route('frontServiceRequestDel', base64_encode($id)).'\');" 
+                     title="'.trans('lang.delete_title').'" class="btn btn-danger">'.trans('lang.cancel_btn').'</a>';
+                    $arr[] = [ '#'.$id, $serviceName,$service_time,$service_price,$location, $dated, $action];
                   }
                 
               }
@@ -866,11 +915,11 @@ class ServiceController extends Controller
 
             if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
             {
-              $arr[] = [ '', '', '',  trans('lang.datatables.sEmptyTable'), '', ''];
+              $arr[] = [ '', '', '', '', trans('lang.datatables.sEmptyTable'), '', '',''];
             }
             else
             {
-              $arr[] = [ '', '', '', trans('lang.datatables.sEmptyTable'), ''];
+              $arr[] = [ '', '', '', trans('lang.datatables.sEmptyTable'), '','',''];
             }
 
           }

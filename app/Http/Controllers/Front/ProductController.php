@@ -555,6 +555,7 @@ class ProductController extends Controller
 				'status'       		=> trim($request->input('status')),
 				
                 'discount'       	=> trim($request->input('discount')),
+                'free_shipping'     =>  trim($request->input('free_shipping')),
 
 				'sort_order'       	=> trim($request->input('sort_order')),
                

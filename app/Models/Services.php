@@ -8,7 +8,7 @@ class Services extends Model
 {
     protected $table 	= 'services';
     protected $fillable = ['id','title','description','sort_order','service_slug','status',
-    'user_id','is_deleted','images','service_code','price_type','service_price','rating','rating_count'];
+    'user_id','is_deleted','images','service_code','session_time','service_price','rating','rating_count'];
     
     
 }

@@ -1600,8 +1600,12 @@ public function getCatSubList(Request $request) {
     	if($subcategory_slug!='')
     		$data['subcategory_slug']	= $subcategory_slug;
 
-    	/*get product review*/
-    	//$getAllServiceReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.comments','users.id','users.fname','users.lname'])->where('services.user_id','=',$id)->get();
+    	if(!empty($category_slug)){
+        	$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
+        	$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
+        	$data['category_name'] = $getCategoryName['category_name'];
+        		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+		}
     	/*get service review*/   
 		$data['serviceReviews']= $this->getReviews('services',$id,'','');
     	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();

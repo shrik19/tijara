@@ -143,7 +143,7 @@ $(document).ready(function(){
     });
 
 
-   $(document).on('click', 'li', function(){  
+   $(document).on('click', '.city_autocomplete', function(){  
         $('#service_city').val($(this).text());  
         $('#cityList').fadeOut();  
     }); 

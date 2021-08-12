@@ -778,8 +778,10 @@ public function getCatSubList(Request $request) {
         	$data['search_string']	= $request->search;
 
         $getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first()->toArray();
-
+         $getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first()->toArray();
+         
         $data['category_name'] = $getCategoryName['category_name'];
+        $data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
        //echo $data['category_name'];exit;
         return view('Front/products', $data);
 	}
@@ -873,8 +875,11 @@ public function getCatSubList(Request $request) {
     	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
 
     	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first()->toArray();
-    	
+
+        $getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first()->toArray();
+
         $data['category_name'] = $getCategoryName['category_name'];
+        $data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
 
 		$data['is_seller'] 			= 1;
 		$data['totalRating']  		= $totalRating;
@@ -1353,9 +1358,11 @@ public function getCatSubList(Request $request) {
 		 if(!empty($request->search))
 			 $data['search_string']	= $request->search;
  		
- 		$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first()->toArray();
+        $getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first()->toArray();
+        $getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first()->toArray();
 
         $data['category_name'] = $getCategoryName['category_name'];
+        $data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
 		 
 		 return view('Front/services', $data);
 	 }

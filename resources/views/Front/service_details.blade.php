@@ -57,35 +57,97 @@
                       <div style='clear: both;'></div>
                       <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Service->id}}'>{{$Service->rating}}</span></div>
                       <p>
+                        <?php echo $Service->service_price; ?> KR 
+                      </p>
+                      <p>
                         <?php echo $Service->description; ?>
                       </p>
 
-                      <p>
-                        <?php echo $Service->price_type; ?>: <?php echo $Service->service_price; ?> KR 
-                      </p>
                      
                         <div class="row">
-                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">Reset Options</a></div>
+                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;">
+                          <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
+                           style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a></div>
                         </div>
-                        <div class="row">
                         
+                        <!-- Modal -->
+                        <div class="modal fade" id="bookServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{ __('lang.book_service_title')}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                              
+                                <div class="form-group">
+                                  <label>{{ __('lang.service_title')}}</label>
+                                  <input type="text" value="{{$Service->title}}" id="" readonly class=" service_title form-control" 
+                                  placeholder="{{ __('lang.service_title')}}">
+                                </div>
+                                <div class="form-group">
+                                  <label>{{ __('lang.location')}}</label>
+                                  <input type="text"  id="" class="location form-control" placeholder="{{ __('lang.location')}}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label>{{ __('lang.service_date')}}</label>
+                                  <select  class="service_date form-control">
+                                    <option value="">{{ __('lang.select_label')}}</option>
+                                    @php $usedDates = array(); @endphp
+                                    @if(!empty($serviceAvailability))
+                                      @foreach($serviceAvailability as $availability) 
 
-                        <div class="col-xs-6 col-md-7">
-                        <div class="form-group">
-                            <label>{{ __('lang.service_time')}}</label>
-                            <input type="text" id="datetimepicker1" class="service_time form-control" placeholder="{{ __('lang.service_time')}}">
-                          </div>
-                          <div class="form-group">
-                            <label>{{ __('lang.message')}}</label>
-                            <textarea rows="10" cols="50" class="form-control message" placeholder="{{ __('lang.message')}}"></textarea>
-                            
-                          </div>
-                         
-                          <div class="quantity_box">
-                              <button type="button" class="btn btn-success" @if(Auth::guard('user')->id()) onclick="sendServiceRequest();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> {{ __('lang.sendRequest')}}  </button>
+                                        
+                                        @if(!in_array($availability->service_date,$usedDates) && $availability->service_date >= date('Y-m-d'))
+                                          <option value="{{$availability->service_date}}">{{$availability->service_date}}</option>
+                                        @endif
+                                        @php $usedDates[]=$availability->service_date; @endphp
+                                       @endforeach
+
+                                    @endif
+                                  </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label>{{ __('lang.service_time')}}</label>
+                                  <select  class="service_time form-control">
+                                    <option value="">{{ __('lang.select_label')}}</option>
+                                    @if(!empty($serviceAvailability))
+                                      @foreach($serviceAvailability as $availability) 
+
+                                        @php 
+                                        $date = $availability->service_date.' '.$availability->start_time;
+                                        $startTime  = $availability->start_time;
+                                        $endTime = date("H:i", strtotime($date . "+".$Service->session_time." minutes"));
+                                        @endphp
+                                        @if(date('Y-m-d H:i',strtotime($availability->service_date.' '.$availability->start_time)) > date('Y-m-d H:i'))
+                                          <option style="display:none;" id="{{$availability->service_date}}" value="{{$startTime}} - {{$endTime}}">{{$startTime}} - {{$endTime}} </option>
+                                         @endif 
+                                        @endforeach
+
+                                    @endif
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>{{ __('lang.personal_number')}}</label>
+                                  <input type="text"  id="phone_number" class="phone_number form-control" placeholder="(XXX) XXX-XXXX">
+                                </div>
+                                <div class="form-group">
+                                  <label>{{ __('lang.service_total_cost')}}</label>
+                                  <input type="text"  value="{{$Service->service_price}} kr" id="" readonly 
+                                  class=" form-control service_price" 
+                                  placeholder="{{ __('lang.service_total_cost')}}">
+                                </div>
+                              
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success" @if(Auth::guard('user')->id()) onclick="sendServiceRequest();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> {{ __('lang.book_service')}}  </button>
+                                </div>
+                              </div>
+                             
+                            </div>
                           </div>
                         </div>
-                      </div>
 
                 </div>
             </div>
@@ -156,8 +218,9 @@
 <script type="text/javascript">
 function sendServiceRequest()
 {
-  if($('.message').val()=='') {
-    alert("{{ __('lang.messageRequired')}}");
+  if($('.service_title').val()=='' || $('.location').val()=='' || $('.service_date').val()==''
+   || $('.service_time').val()==''  || $('.phone_number').val()==''  || $('.service_price').val()=='') {
+    alert("{{ __('lang.allFieldsRequired')}}");
     return false;
   }
     
@@ -169,7 +232,10 @@ function sendServiceRequest()
         'X-CSRF-Token': $('meta[name="_token"]').attr('content')
       },
       type: 'post',
-      data : {'service_id': {{$Service->id}},'seller_id': {{$Service->user_id}},'message':$('.message').val(),'service_time':$('.service_time').val()},
+      data : {'service_id': {{$Service->id}},'seller_id': {{$Service->user_id}},
+      'service_title':$('.service_title').val(),'location':$('.location').val(),
+      'service_date':$('.service_date').val(),'service_time':$('.service_time').val()
+      ,'phone_number':$('.phone_number').val(),'service_price':$('.service_price').val()},
       success:function(data)
       {
         $(".loader").hide();

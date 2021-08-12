@@ -230,6 +230,10 @@
                           <label class="col-md-3">{{ __('users.shipping_charges_label')}}</label>
                           <input type="text" class="col-md-8 login_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $product->shipping_charges}}">
                         </div>
+                        <label class="col-md-12">
+                          {{ __('users.free_shipping_label')}}
+                            <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping ==  "free_shipping"){ echo "checked"; } ?>>
+                          </label>
                     </div>
                   </div>
                   <div class="row">

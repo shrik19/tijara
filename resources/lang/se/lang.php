@@ -129,6 +129,21 @@
      'export_btn'=>'Exportera',
      'delete_title'=>'Radera',
 
+     'save_service_date_btn'=>  'Lägg till',
+     'service_date'         =>   'Dag',
+        'service_month'     =>  'Månad',
+        'service_year'      =>  'År',
+        'start_time'     =>  'Start',
+        'service_time_required'=>'Lägg till servicetid korrekt',
+        'select_future_date'=>'Välj endast framtida datum',
+        'areYouSureToDeleteServiceTime'   =>  'Är du säker på att ta bort den här servicetiden',
+        'book_service'=>'Boka',
+        'book_service_title'=>'Boka nu',
+        'service_title'=>'Välj tjänst',
+        'location'=>'Plats',
+        'service_date'=>'Datum',
+        'service_time'=>'Tider',
+        'personal_number'=>'Personnummer',
      'datatables' =>
     [
         'search'          => 'Sök:',
@@ -261,6 +276,8 @@
      'fixed_price'=>'Fast pris',
      'start_from'=>'Börja från',
      'service_price'=>'Pris',
+     'service_total_cost'=>'Total kostnad',
+     'allFieldsRequired'    =>  'alla fält krävs',
      'request_date' => 'Datum för begäran',
 
      'txt_average_rating' => 'Genomsnittligt betyg',

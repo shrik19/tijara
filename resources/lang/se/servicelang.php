@@ -12,6 +12,9 @@
      'action_label'=>'Handling',
      'service_required_error'=>'Vänligen ange tjänstens titel',
      'service_saved_success'=>'Serviceinformation sparades framgångsrikt',
-     
+     'session_time_label'=>'Tidsåtgång (på minut)',
+     'session_time_placeholder'=>'Hur lång tid passet tar (ex 45 min)',
+     'step_1'=>'Steg 1 - Beskrivning av tjänst',
+     'step_2'=>'Steg 2 - Lägg till lediga tider',
  ]
 ?>

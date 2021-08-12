@@ -1560,7 +1560,11 @@ public function getCatSubList(Request $request) {
 		$getAllProductRratings = Products::where('user_id','=',$id)->get();
 		$productsRatingCnt 	 = $getAllProductRratings->count();
 		$totalProductRating = $getAllProductRratings->sum('rating');
-		$avgProductRating = ($totalProductRating / $productsRatingCnt);
+
+		if(!empty($productsRatingCnt)){
+			$avgProductRating = ($totalProductRating / $productsRatingCnt);
+		}
+
 		$avgProductRating = number_format($avgProductRating,2);		
 
 
@@ -1568,7 +1572,11 @@ public function getCatSubList(Request $request) {
 		$getAllServiceRratings = Services::where('user_id','=',$id)->get();
 		$ServicesRatingCnt 	 = $getAllServiceRratings->count();
 		$totalServiceRating = $getAllServiceRratings->sum('rating');
-		$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+
+		if(!empty($avgServiceRating)){
+			$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+    	}
+
 		$avgServiceRating = number_format($avgServiceRating,2);	
 		
 		$data['totalRating'] = ($avgProductRating + $avgServiceRating)/2;

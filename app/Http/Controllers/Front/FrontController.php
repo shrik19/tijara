@@ -88,6 +88,7 @@ class FrontController extends Controller
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today)
 								->orderBy('users.id', 'DESC')
+								->groupBy('products.id')
 								->limit(3)
 								->get();
 			

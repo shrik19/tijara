@@ -1110,7 +1110,18 @@ overflow: hidden;}
 
 
 
+/*  Tijara front */
 
+ul.tijara_front_box.row {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.tijara_front_box li {
+    list-style: none;
+    float: left;
+    margin: 0 2px;
+}
 
 
 

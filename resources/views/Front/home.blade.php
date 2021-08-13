@@ -185,6 +185,28 @@
 					@endforeach
 				 </ul>
             </div>
+			
+			<div class="tijara_front_container">
+				<ul class="tijara_front_box row">
+					<li>
+						<div class="tijara_front_inner">
+							<img class="img-fluid" src="{{url('/')}}/assets/front/img/tijara_front/New Project_1.png"/>
+						</div>
+					</li>
+					<li>
+						<div class="tijara_front_inner">
+							<img class="img-fluid" src="{{url('/')}}/assets/front/img/tijara_front/New Project_2.png"/>
+						</div>
+					</li>
+					<li>
+						<div class="tijara_front_inner">
+							<img class="img-fluid" src="{{url('/')}}/assets/front/img/tijara_front/New Project_3.png"/>
+						</div>
+					</li>                       
+				</ul>
+            </div>
+			
+			
             <div class="best_seller_container">
                 <h3>{{ __('lang.follow_us_on_head')}}</h3>
                 <h2>Instagram</h2>

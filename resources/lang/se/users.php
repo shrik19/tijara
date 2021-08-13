@@ -270,5 +270,6 @@
     'mail_sent_to_seller_alert' => 'E -post skickat till säljaren',
     'search_item_placeholder' => 'Sök objekt',
     'enter_city_placeholder' => 'Ange stadens namn',
+    'noPackagesFound'=>'Paketet hittades inte',
  ]
 ?>

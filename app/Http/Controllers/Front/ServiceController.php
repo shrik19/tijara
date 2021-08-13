@@ -551,16 +551,17 @@ class ServiceController extends Controller
     }
 
     public function store(Request $request) {
-
+    //echo "<pre>";print_r($_POST);exit;
         $service_slug = $request->input('service_slug');
         $slug =   CommonLibrary::php_cleanAccents($service_slug);
         $id     = $request->input('service_id');
         $rules = $messages = [];
         $rules = [ 
             'title'         => 'required',
-           // 'description'   => 'nullable|max:1000',
-            'sort_order'        =>'numeric',
-            'service_price'         => 'required',    
+            'description'   => 'nullable|max:2000',
+            'sort_order'    =>'numeric',
+            'service_price' => 'required', 
+            'session_time'  => 'required',  
         ];
         if($request->input('service_id')==0) {
             $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
@@ -634,7 +635,17 @@ class ServiceController extends Controller
                 
             }
         }
+
         ServiceCategory::where('service_id', $id)->delete();
+
+        if(empty($request->input('categories'))) {  
+            $category  =   ServiceSubcategories::where('subcategory_name','Uncategorized')->first();
+            $request->input('categories')[]=  $category->id;
+            $servicecategories['service_id']    =   $id;
+            $servicecategories['category_id']   =   $category->category_id;
+            $servicecategories['subcategory_id']    =   $category->id;
+            ServiceCategory::create($servicecategories);          
+        } 
              
          if(!empty($request->input('categories'))) {
              
@@ -643,7 +654,6 @@ class ServiceController extends Controller
                  $servicecategories['service_id']   =   $id;
                  $servicecategories['category_id']  =   $category->category_id;
                  $servicecategories['subcategory_id']   =   $category->id;
-                 
                  ServiceCategory::create($servicecategories);
                  
              }

@@ -17,15 +17,18 @@
         }
                
         if($category_slug==$Category['category_slug'])
-        $cls  =       'activemaincategory';
-        else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';
+          $cls  ='activemaincategory';
+        else if($category_slug=='' && $i==1) 
+            $cls = 'activemaincategory';
+
          @endphp
                 @if(!empty($Categories[$CategoryId]['subcategory']))
-                <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" id="main_cat_name<?php echo $i; ?>" onclick="addBreadcrumbCat('{{$Category['category_name']}}')">{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$i}}">@if(!empty(Request::segment(4))){{$Categories[$CategoryId]['product_count']}}@endif</span></a></li>
+
+                <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" id="main_cat_name<?php echo $i; ?>">{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$i}}">@if(!empty(Request::segment(4))){{$Categories[$CategoryId]['product_count']}}@endif</span></a></li>
 
                 <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
                 @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
-                <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif onclick="addBreadcrumbSubCat('{{$subcategory['subcategory_name']}}')">{{ $subcategory['subcategory_name'] }}</a></li>
+                <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
                 @endforeach
                 </ul>
                 @endif
@@ -83,15 +86,7 @@
 </div>
 @endif
 <script type="text/javascript">
-  // function addBreadcrumbCat(category_name) {
-   
-
-  //  $('#breadcrumb_category').text(" > "+category_name);
-  // }
-  // function addBreadcrumbSubCat(subcategory_name) {
-  //  $('#breadcrumb_subcategory').text(" > "+subcategory_name)
-  // }
-
+ 
 $(document).ready(function(){
   /*search by city */
  $('#city_name').keyup(function(){ 

@@ -79,8 +79,8 @@
               <input type="text" class="login_input form-control" name="title" id="title" placeholder="{{ __('lang.product_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
             </div>
-
-            <div class="form-group col-md-6" style="display:none;">
+          
+            <div class="form-group col-md-6"  style="display:none;">
               <label class="col-md-12" class="col-md-6">{{ __('lang.product_slug_label')}} <span class="de_col">*</span></label>
               <p style="color:#000;font-size: 12px;">(This is the part of a URL which identifies a product on a website in an easy to read form)</p>
               <input type="text" class="col-md-6 form-control login_input form-control slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}} " value="{{old('product_slug')}}" tabindex="1" readonly="readonly">

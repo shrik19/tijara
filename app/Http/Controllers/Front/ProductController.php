@@ -528,9 +528,7 @@ class ProductController extends Controller
         $validator = validator::make($request->all(), $rules, $messages);
 
         if($validator->fails())  {
-         
             $messages = $validator->messages();
-              // echo "<pre>";print_r($messages);exit;
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
 
@@ -565,7 +563,6 @@ class ProductController extends Controller
 
 		if($request->input('product_id')==0) {
 			$id = Products::create($arrProducts)->id;
-
             //unique product code
             $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             Products::where('id', $id)->update(['product_code'=>substr(str_shuffle($string),0, 4).$id]);

@@ -250,5 +250,6 @@
     'mail_sent_to_seller_alert' => 'Mail sent to seller successfully',
     'search_item_placeholder' => 'Search items',
     'enter_city_placeholder' => 'Enter City Name',
+    'noPackagesFound'=>'Package not found',
  ]
 ?>

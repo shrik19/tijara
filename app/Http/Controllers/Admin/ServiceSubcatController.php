@@ -135,15 +135,16 @@ class ServiceSubcatController extends Controller
      * save sub category deatils details
      */
     public function subCategoryStore(Request $request) {
+
         $id=$request->id;
         $subcategory_slug = $request->input('subcategory_slug');
-        $slug = CommonLibrary::php_cleanAccents($slug_s);
+        $slug = CommonLibrary::php_cleanAccents($subcategory_slug);
 
         $rules = [
             'category_name'    => 'required',
             'subcategory_name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:serviceSubcategories,subcategory_name',
             'sequence_no'      => 'required',
-           'subcategory_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:subcategories,subcategory_slug',
+           'subcategory_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u',
         ];
         $messages = [
             'category_name.required'         => trans('errors.category_name_req'),

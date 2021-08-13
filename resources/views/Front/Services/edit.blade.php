@@ -143,7 +143,7 @@
         
               <h2  class="col-md-12">{{ __('servicelang.step_2')}}</h2>
               <div class="form-group col-md-2">
-                    <label class="col-md-12">{{ __('lang.service_year')}} <span class="de_col">*</span></label>
+                    <label class="col-md-12">{{ __('lang.service_year')}}</label>
                     
                     <select class="col-md-12 service_year" name="service_year" id="service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -158,7 +158,7 @@
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
               </div>
               <div class="form-group col-md-3">
-                    <label class="col-md-12">{{ __('lang.service_month')}} <span class="de_col">*</span></label>
+                    <label class="col-md-12">{{ __('lang.service_month')}} </label>
                     <select class="col-md-12 service_month" name="service_month" id="service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
@@ -172,7 +172,7 @@
                     </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
               </div>
               <div class="form-group col-md-2">
-                  <label class="col-md-12">{{ __('lang.service_date')}} <span class="de_col">*</span></label>
+                  <label class="col-md-12">{{ __('lang.service_date')}} </label>
                   <select class="col-md-12 service_date" name="service_date" id="service_date" >
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php
@@ -188,7 +188,7 @@
               </div>
 
               <div class="form-group col-md-3">
-                <label class="col-md-12">{{ __('lang.start_time')}} <span class="de_col">*</span></label>
+                <label class="col-md-12">{{ __('lang.start_time')}} </label>
                 <input type="tel" class="col-md-12 start_time" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
                 <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_time')) {{ $errors->first('start_time') }}@endif </span>
               </div>

@@ -75,7 +75,8 @@
 						 
 							<fieldset class="seller_register_second">
 								<div class="form-card">
-									@include ('Front.alert_messages')              
+									@include ('Front.alert_messages')   
+                                    @if(!empty($packageDetails))           
 									  <div class="col-md-12 package-html">
 										<?php $i=1; ?>
 											@foreach($packageDetails as $data)
@@ -105,6 +106,9 @@
 											<?php $i++; ?>
 											@endforeach
 									   </div>
+                                       @else
+                                        <div>{{ __('users.noPackagesFound')}}</div>  
+                                       @endif
 
 									<div id="html_snippet" class="klarna_html"></div>  
 								</div> 

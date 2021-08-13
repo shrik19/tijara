@@ -369,7 +369,9 @@ public function getCatSubList(Request $request) {
 			}
 		}
 		else {
-			foreach($Sellers as $seller) {
+
+			foreach($Sellers as $seller) { 
+			//	DB::enableQueryLog();
 				  $ServiceCnt = 0;
 
 				  $sellerServices	=	array();
@@ -382,6 +384,8 @@ public function getCatSubList(Request $request) {
 											->where('services.is_deleted','=','0')
 											->where('servicecategories.status','=','active')
 											->where('serviceSubcategories.status','=','active');
+
+
 				  if($category_slug !='')
 				  {
 					$category 		=  ServiceCategories::select('id')->where('category_slug','=',$category_slug)->first();
@@ -398,8 +402,8 @@ public function getCatSubList(Request $request) {
 					$sellerServices	=	$sellerServices->where('services.title','like','%'.$search_string.'%');
 				  }
 
-				  $sellerServices	=	$sellerServices->get();
-				  
+				  $sellerServices	=	$sellerServices->groupBy('services.id')->get();
+				 // 	print_r(DB::getQueryLog());exit;
 				  if(!empty($sellerServices))
 				  {					  
 					$ServiceCnt = count($sellerServices);
@@ -1273,8 +1277,8 @@ public function getCatSubList(Request $request) {
 
 		$Services 			= $Services->paginate(config('constants.Services_limits'));
 		//dd($Services);
-		// print_r(DB::getQueryLog());
-		// exit;
+		 // print_r(DB::getQueryLog());
+		 // exit;
 		if(count($Services)>0) {
 			foreach($Services as $Service) {
 				$service_link	=	url('/').'/service';
@@ -1304,6 +1308,8 @@ public function getCatSubList(Request $request) {
 		//dd(is_object($data['Services']));
 
 		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'services');
+		// echo "<pre>";
+		// print_r($Sellers);exit;
 		$sellerData = '';
 		if(!empty($Sellers))
 		{
@@ -1332,7 +1338,7 @@ public function getCatSubList(Request $request) {
 			}
 			$sellerData .= '</ul>';
 		}
-
+	
 		$serviceListing = view('Front/services_list', $data)->render();
 			echo json_encode(array('services'=>$serviceListing,'sellers'=>$sellerData));
 		exit;
@@ -1342,7 +1348,7 @@ public function getCatSubList(Request $request) {
 	 /* function to display services page*/
 	 public function serviceListing($category_slug='',$subcategory_slug='',Request $request)
 	 {
- 		
+
 			$data['pageTitle'] 	= 'Home';
 			$data['Categories'] = $this->getCategorySubcategoryList()	;
 			$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
@@ -1585,7 +1591,7 @@ public function getCatSubList(Request $request) {
 		$ServicesRatingCnt 	 = $getAllServiceRratings->count();
 		$totalServiceRating = $getAllServiceRratings->sum('rating');
 
-		if(!empty($avgServiceRating)){
+		if(!empty($ServicesRatingCnt)){
 			$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
     	}
 

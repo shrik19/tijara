@@ -2,7 +2,7 @@
   <div class="product_data">
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($product->image)
-          <img src="{{url('/')}}/uploads/productImages/resized/{{$product->image}}" style="width:100%;">
+          <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" style="width:100%;">
       @else
           <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" style="width:100%;">
       @endif

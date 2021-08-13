@@ -21,18 +21,19 @@
 	   
 	  <div class="card">
 		<div class="card-header row">
-		<div class="col-md-11">
-		    
-		  <h2>{{ __('lang.txt_seller_order')}}</h2>
-		  <hr class="heading_line"/>
-		  </div>
-		</div>
+      <h2>{{ __('lang.txt_seller_order')}}</h2>
+      <hr class="heading_line"/>
+      </div>
+    </div>
     <div class="col-md-12">
       <div class="buyer-prod-msg">
         <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
         <p  class="buyer-prod-content">{{__('messages.my_order_info')}}</p>
       </div>
     </div>
+		<div class="col-md-12">
+		    
+		  
 		<div class="card-body">
 		  <form id="" action="" method="post">
 			@csrf

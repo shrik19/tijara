@@ -88,6 +88,8 @@
      'store_name_alreay_taken' => "Butiksnamnet har redan tagits.",
      'buyer_product_msg' => 'Annonser får endast vara uppe på Tijaras annonser i max 30 dagar. Efter att tiden har gått ut kommer din annons tas bort. Om du fortfarande vill att din annons ska vara kvar på Tojjara annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort annonsen själv. Om du har frågor kontakta Tijara kundservice.',
     'Obs_head' => 'Obs!',
+    'info_head'=>'Information',
+    'my_order_info'=>'Här kan. du se dina beställningar som du har gjort. Om du frågor gällande din/dina beställningar vänligen kontakta ansvarig butik.',
  
  ]
 ?>

@@ -27,7 +27,12 @@
 		  <hr class="heading_line"/>
 		  </div>
 		</div>
-
+    <div class="col-md-12">
+      <div class="buyer-prod-msg">
+        <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
+        <p  class="buyer-prod-content">{{__('messages.my_order_info')}}</p>
+      </div>
+    </div>
 		<div class="card-body">
 		  <form id="" action="" method="post">
 			@csrf

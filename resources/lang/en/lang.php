@@ -301,5 +301,6 @@
     'start_time'     =>  'Start',
     'service_time_required'=>   'Add service time properly',
     'select_future_date'    =>  'Select future date only',
+    'feature_product_head' => 'News from the bargain corner',
  ]  
 ?>

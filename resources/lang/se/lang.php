@@ -300,5 +300,6 @@
      'product_form_step1'   =>  'Steg 1 - Produktbeskrivning',
      'product_form_step2'   =>  'Steg 2 - Produktdetaljer',
      'product_form_step3'   =>  'Steg 3- Frakt',
+     'feature_product_head' =>  'Nyheter från fyndhörnan',
  ]
 ?>

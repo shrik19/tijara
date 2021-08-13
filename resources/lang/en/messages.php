@@ -89,5 +89,7 @@
      'buyer_product_msg' => 'Ads may only be on Tijaras ads for a maximum of 30 days. After the time has passed expired, your ad will be deleted. If you still want your ad to stay
 on Tojjara ads, you can post the ad again. You can delete at any time the ad itself. If you have any questions, please contact Tijara customer service.',
      'Obs_head' => 'Obs!',
+     'info_head'=>'Information',
+     'my_order_info'=>'Here can. you see your orders as you have made. If you have questions regarding your / your orders please contact the responsible store.',
  ]
 ?>

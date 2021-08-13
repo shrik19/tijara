@@ -99,7 +99,7 @@
     </div>
 </div>
 </section>
-<!-- enf Featured seller section start -->
+<!-- end Featured seller section start -->
 
 <!-- popular services section start -->
 <section class="product_section">
@@ -125,8 +125,32 @@
       
     </div> <!-- /container -->  
 </section>
-
 <!-- popular services section end -->
+
+<!-- featured products -->
+
+<!-- popular services section start -->
+<section class="product_section">
+    <div class="container">
+      <!-- Example row of columns -->
+    <div class="row">
+       
+    <div class="col-md-12">             
+        <div class="product_container">
+        <div class="loader"></div>
+            <h2>{{ __('lang.feature_product_head')}}</h2>
+            <hr class="heading_line"/>
+            <ul class="product_details">
+            @foreach($FeaturedProducts as $product)
+                @include('Front.featured_product')
+            @endforeach
+            </ul>
+        </div>
+    </div>
+    </div>
+    </div> <!-- /container -->  
+</section>
+<!-- featured services section end -->
 <!-- banner section -->
 <section class="sale_section">
     <div class="container">

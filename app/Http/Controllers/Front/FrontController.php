@@ -24,7 +24,7 @@ use App\Models\VariantProductAttribute;
 use App\Models\ProductCategory;
 use App\Models\ServiceCategory;
 use App\Models\SellerPersonalPage;
-use App\Models\serviceAvailability;
+use App\Models\ServiceAvailability;
 
 use App\Models\UserMain;
 use App\Models\ProductReview;
@@ -88,7 +88,6 @@ class FrontController extends Controller
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today)
 								->orderBy('users.id', 'DESC')
-								->groupBy('products.id')
 								->limit(3)
 								->get();
 			
@@ -117,6 +116,7 @@ $featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_pack
 								->where('user_packages.start_date','<=', $currentDate)
 								->where('user_packages.end_date','>=', $currentDate)
 								->orderBy('users.id', 'DESC')
+								->groupBy('products.id')
 								->limit(3)
 								->get();
 		/*$featuredproducts 	= 		UserMain::join('products', 'users.id', '=', 'products.user_id')
@@ -1577,7 +1577,7 @@ public function getCatSubList(Request $request) {
 		$data['serviceReviews']= $this->getReviews('services','',$Service->id);
 
 		
-		$data['serviceAvailability']=   serviceAvailability::where('service_id',$Service->id)->get();
+		$data['serviceAvailability']=   ServiceAvailability::where('service_id',$Service->id)->get();
             
 		//dd($data['variantData']);
         return view('Front/service_details', $data);

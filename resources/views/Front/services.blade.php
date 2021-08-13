@@ -1,7 +1,8 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
+<script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
  <!-- Carousel Default -->
 <section class="product_section">
     <div class="container">

@@ -54,6 +54,14 @@
 
 					<form id="sign-in-form" action="{{url('/')}}/validate-login" method="post">
 						@csrf
+
+						@if(Request::segment(2)=='buyer')
+						<input type="hidden" name="role_id" value="1">
+						@endif
+
+						@if(Request::segment(2)=='seller')
+						<input type="hidden" name="role_id" value="2">
+						@endif
 						<div class="form-group">
 							<label>{{ __('users.email_label')}} <span class="de_col">*</span></label>
 							<input id="email-address" type="text" value="{{$tijara_front_login}}" class="form-control login_input" name="email" placeholder="{{ __('users.email_label')}}">

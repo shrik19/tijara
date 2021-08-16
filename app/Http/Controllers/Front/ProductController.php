@@ -589,6 +589,7 @@ class ProductController extends Controller
             //$buyerProductArray['price']=$request->input('price');
             BuyerProducts::create($buyerProductArray);
         }
+        //echo'<pre>';print_r($_POST);exit;
 		$producVariant=[];
 		if(!empty($request->input('sku'))) {
             
@@ -604,12 +605,14 @@ class ProductController extends Controller
 		            $producVariant['weight']    =   $_POST['weight'][$variant_key];
 		            $producVariant['quantity']  =   $_POST['quantity'][$variant_key]; 
 		            
+                    $producVariant['image']     =   '';
                    if(isset($_POST['hidden_images'][$variant_key]) && !empty($_POST['hidden_images'][$variant_key]) ) {
-                        $producVariant['image'] =   '';
+                        
                         foreach($_POST['hidden_images'][$variant_key] as $img)
                             $producVariant['image'].=   $img.',';
                         $producVariant['image'] =   rtrim($producVariant['image'],',');
                     }
+                   
                     if(isset($_POST['variant_id'][$variant_key])) {
 
                         $checkVariantExist   =   DB::table('variant_product')->where('id', $_POST['variant_id'][$variant_key])->first();
@@ -618,12 +621,13 @@ class ProductController extends Controller
                                 VariantProduct::where('id', $checkVariantExist->id)->update($producVariant);
                                 $variant_id=$checkVariantExist->id;
                         }
-                        else
+                        else{
                           $variant_id=VariantProduct::create($producVariant)->id;
+                        }
                     }
-                    
-                    else
+                    else{
 		              $variant_id=VariantProduct::create($producVariant)->id;
+                    }
 
 		            foreach($_POST['attribute'][$variant_key] as $attr_key=>$attribute) {
                        
@@ -642,8 +646,10 @@ class ProductController extends Controller
                             else
                               VariantProductAttribute::create($productVariantAttr);
                             } 
-                             else
-                              VariantProductAttribute::create($productVariantAttr);
+                             else{
+                                VariantProductAttribute::create($productVariantAttr);
+                             }
+                              
 		                }
 		                
 		            }

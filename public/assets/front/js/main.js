@@ -58,6 +58,7 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.number').val('');
     $trNew.find('.hidden_images').val('');
     $trNew.find('.variant_image').val('');
+    $trNew.find('.variant_id').val('');
     $trNew.find('.variant_name').attr('name','variant_name['+variant_id+']');
     $trNew.find('.variant_id').attr('name','variant_id['+variant_id+']');
     $trNew.find('.sku').attr('name','sku['+variant_id+']');
@@ -1166,6 +1167,12 @@ function hideShippingMethod(){
     $("#shipping_charges_div").show();
   }
 }
+
+$('#shipping_charges').on('input',function(e){
+  if($("#shipping_method_ddl").val() == ''){
+    alert("Plase Select shipping Method");
+  }
+});
 
 const regex = /[^\d.]|\.(?=.*\.)/g;
 const subst='';

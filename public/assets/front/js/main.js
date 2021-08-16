@@ -1167,6 +1167,12 @@ function hideShippingMethod(){
   }
 }
 
+$('#shipping_charges').on('input',function(e){
+  if($("#shipping_method_ddl").val() == ''){
+    alert("Plase Select shipping Method");
+  }
+});
+
 const regex = /[^\d.]|\.(?=.*\.)/g;
 const subst='';
 

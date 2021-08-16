@@ -113,5 +113,7 @@
      'select_package_to_subscribe' => 'Please Select package to subscribe',
      'please_check_privacy_policy' =>'Please check privacy policy',
      'please_enter_store_name' => 'Please enter store name',
+     'please_check_your_profile' => 'Please Confirm your profile (buyer/seller)',
+    
  ]
 ?>

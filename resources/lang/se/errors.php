@@ -111,5 +111,7 @@
      'select_package_to_subscribe' => 'Välj paket för att prenumerera',
      'please_check_privacy_policy' =>'Vänligen kolla sekretesspolicyn',
      'please_enter_store_name' => 'Ange butiksnamn',
+     'please_check_your_profile' => 'Bekräfta din profil (köpare/säljare)',
+
  ]
 ?>

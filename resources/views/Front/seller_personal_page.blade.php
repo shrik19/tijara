@@ -85,13 +85,13 @@
               if(!empty($details->header_img))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width:200px;height:200px;"></div>';
+                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width:200px;height:200px;" id="previewBanner"></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }
               @endphp
 
-              <input type="file" name="header_img" class="form-control" value="">
+              <input type="file" name="header_img" id="bannerInp" class="form-control" value="">
               
               <div class="text-danger">{{$errors->first('filename')}}</div>
               <div class="input-group-btn text-right"> 
@@ -104,13 +104,13 @@
               if(!empty($details->logo))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" style="width:200px;height:200px;"></div>';
+                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" style="width:200px;height:200px;" id="previewLogo"></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }
               @endphp
 
-              <input type="file" name="logo" class="form-control" value="">
+              <input type="file" name="logo" id="logoInp" class="form-control" value="">
               
               <div class="text-danger">{{$errors->first('filename')}}</div>
               <div class="input-group-btn text-right"> 
@@ -132,6 +132,20 @@
     </div>
   </div>
 </div> <!-- /container -->
+<script type="text/javascript">
+bannerInp.onchange = evt => {
+  const [file] = bannerInp.files
+  if (file) {
+    previewBanner.src = URL.createObjectURL(file)
+  }
+}
 
+logoInp.onchange = evt => {
+  const [file] = logoInp.files
+  if (file) {
+    previewLogo.src = URL.createObjectURL(file)
+  }
+}
+</script>
 
 @endsection

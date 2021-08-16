@@ -117,7 +117,7 @@ $featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_pack
 								->where('user_packages.end_date','>=', $currentDate)
 								->orderBy('users.id', 'DESC')
 								->groupBy('products.id')
-								->limit(3)
+								->limit(5)
 								->get();
 		/*$featuredproducts 	= 		UserMain::join('products', 'users.id', '=', 'products.user_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')

@@ -610,6 +610,7 @@ class ProductController extends Controller
                             $producVariant['image'].=   $img.',';
                         $producVariant['image'] =   rtrim($producVariant['image'],',');
                     }
+                   
                     if(isset($_POST['variant_id'][$variant_key])) {
 
                         $checkVariantExist   =   DB::table('variant_product')->where('id', $_POST['variant_id'][$variant_key])->first();
@@ -618,12 +619,13 @@ class ProductController extends Controller
                                 VariantProduct::where('id', $checkVariantExist->id)->update($producVariant);
                                 $variant_id=$checkVariantExist->id;
                         }
-                        else
+                        else{
                           $variant_id=VariantProduct::create($producVariant)->id;
+                        }
                     }
-                    
-                    else
+                    else{
 		              $variant_id=VariantProduct::create($producVariant)->id;
+                    }
 
 		            foreach($_POST['attribute'][$variant_key] as $attr_key=>$attribute) {
                        
@@ -642,8 +644,10 @@ class ProductController extends Controller
                             else
                               VariantProductAttribute::create($productVariantAttr);
                             } 
-                             else
-                              VariantProductAttribute::create($productVariantAttr);
+                             else{
+                                VariantProductAttribute::create($productVariantAttr);
+                             }
+                              
 		                }
 		                
 		            }

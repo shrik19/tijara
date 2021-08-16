@@ -98,6 +98,15 @@ class AuthController extends Controller
             // return redirect(route('frontLogin'));
             return redirect()->back();
         }
+        if($checkUser[0]['role_id'] != trim($request->input('role_id'))){
+            if($checkUser[0]['role_id'] == 2){
+                Session::flash('error', trans('errors.please_check_your_profile'));
+                return redirect(route('frontLogin'));
+            }else{
+                Session::flash('error', trans('errors.please_check_your_profile'));
+                return redirect(route('frontLoginSeller'));
+            }
+        }
 
         if($validator->fails()) {
             $error_messages = $validator->messages();
@@ -498,7 +507,7 @@ class AuthController extends Controller
         }
         $user_id = Auth::guard('user')->id();
 
-        $details=SellerPersonalPage::where('user_id',$user_id)->first();
+        $details=SellerPersonalPage::join('users', 'users.id', '=', 'seller_personal_page.user_id')->where('user_id',$user_id)->first();
         
         $toUpdateData  =   array();
         if($request->input('store_information'))
@@ -507,8 +516,11 @@ class AuthController extends Controller
         if($request->input('store_policy'))
             $toUpdateData['store_policy']  =   trim($request->input('store_policy'));
         
-        if($request->input('store_name'))
-            $toUpdateData['store_name']  =   trim($request->input('store_name'));
+        if($request->input('store_name')){
+             $storeName['store_name']  =   trim($request->input('store_name'));
+            UserMain::where('id', '=', $user_id)->update($storeName);
+           
+        }
         
         if($request->input('return_policy'))
             $toUpdateData['return_policy']  =   trim($request->input('return_policy'));

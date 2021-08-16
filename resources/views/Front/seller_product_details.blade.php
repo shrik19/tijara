@@ -201,7 +201,7 @@
                       
                     <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
                     <div class="star-rating" style="font-size:unset;pointer-events: none;">
-                        <select class='rating product_rating' id='rating_{{$Product->id}}' data-rating="{{$review['product_rating']}}">
+                        <select class='rating product_review_rating' id='rating_review_{{$Product->id}}' data-rating="{{$review['product_rating']}}">
                           <option value="1" >1</option>
                           <option value="2" >2</option>
                           <option value="3" >3</option>
@@ -240,6 +240,14 @@
 </section>
 
 <script type="text/javascript">
+
+  
+  $(".product_review_rating").each(function(){
+	  var currentRating = $(this).data('rating');
+	  $(this).barrating({
+		theme: 'fontawesome-stars'
+	  });
+  });
   
   $('#rating_{{$Product->id}}').barrating({
   theme: 'fontawesome-stars',

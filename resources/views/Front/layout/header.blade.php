@@ -74,13 +74,14 @@
 </head>
 <body>
   <header>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top tj-navbar" role="navigation">
       <hr class="top_line"/>
 
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
+          <div class="tj-topmenu">
           <div class="col-md-4">
-            <a class="navbar-brand" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" height="70"/></a>
+            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" height="70"/></a>
           </div>
 
           <div class="col-md-8">
@@ -145,9 +146,10 @@
           </div>
         </div>
       </div>
+      </div>
     </nav>
   </header>
-  <div class="clearfix"></div>
+
 
  <?php 
     $Categories = getCategorySubcategoryList();
@@ -164,9 +166,13 @@
    
 
   ?>
+
 @if(!empty($Categories))
-<nav style="margin-top: 50px">
-  <ul class="nav">
+<div class="clearfix"></div>
+<div class="row">
+<nav>
+  <ul class="nav mainMenu">
+    <!-- <span>( @php count($Categories) @endphp)</span> -->
         @php $i=0; @endphp
         @foreach($Categories as $CategoryId=>$Category)
         @php $i++;
@@ -188,4 +194,5 @@
             @endforeach
         </ul>
 </nav>
+</div>
 @endif

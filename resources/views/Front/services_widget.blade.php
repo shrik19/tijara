@@ -1,4 +1,4 @@
-<li style="min-height:500px;">
+<li style="max-height:500px;">
   <div class="product_data">
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($service->images)
@@ -6,7 +6,8 @@
       @else
           <img src="{{url('/')}}/uploads/ServiceImages/resized/no-image.png" style="width:100%;">
       @endif
-      <div class="buy_now_hover_details" style="height:280px !important;">
+      <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
+      <div class="buy_now_hover_details">
           <ul>
               <li style="margin-left: 30%;"><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>
               <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif><i class="far fa-heart"></i></a></li>

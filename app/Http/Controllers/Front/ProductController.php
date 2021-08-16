@@ -589,6 +589,7 @@ class ProductController extends Controller
             //$buyerProductArray['price']=$request->input('price');
             BuyerProducts::create($buyerProductArray);
         }
+        //echo'<pre>';print_r($_POST);exit;
 		$producVariant=[];
 		if(!empty($request->input('sku'))) {
             
@@ -604,8 +605,9 @@ class ProductController extends Controller
 		            $producVariant['weight']    =   $_POST['weight'][$variant_key];
 		            $producVariant['quantity']  =   $_POST['quantity'][$variant_key]; 
 		            
+                    $producVariant['image']     =   '';
                    if(isset($_POST['hidden_images'][$variant_key]) && !empty($_POST['hidden_images'][$variant_key]) ) {
-                        $producVariant['image'] =   '';
+                        
                         foreach($_POST['hidden_images'][$variant_key] as $img)
                             $producVariant['image'].=   $img.',';
                         $producVariant['image'] =   rtrim($producVariant['image'],',');

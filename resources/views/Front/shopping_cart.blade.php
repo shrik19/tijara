@@ -14,9 +14,14 @@
     <div class="row">
         <div class="col-sm-12 col-md-12">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <h2>{{ __('lang.shopping_cart')}}</h2>
               <hr class="heading_line"/>
+            </div>
+            <div class="col-md-6 text-right">
+           <button type="button" class="btn btn-default" onclick="location.href='{{route('frontHome')}}';">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> {{ __('lang.shopping_cart_continue')}}
+                        </button>
             </div>
           </div>
             <table class="table table-hover" style="margin-bottom:60px;">
@@ -32,7 +37,8 @@
                 </thead>
                 <tbody>
                   @if(!empty($details))
-                  @foreach($details as $orderProduct)
+                  @foreach($details as $orderId => $tmpOrderProduct)
+                    @foreach($tmpOrderProduct['details'] as $orderProduct)
                     <tr>
                         <td class="col-sm-4 col-md-4">
                         <div class="media">
@@ -81,7 +87,7 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h5>{{ __('lang.shopping_cart_subtotal')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($subTotal,2)}} kr</strong></h5></td>
+                        <td class="text-right"><h5><strong>{{number_format($tmpOrderProduct['subTotal'],2)}} kr</strong></h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
@@ -89,7 +95,7 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h5>{{ __('lang.shopping_cart_shipping')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($shippingTotal,2)}} kr</strong></h5></td>
+                        <td class="text-right"><h5><strong>{{number_format($tmpOrderProduct['shippingTotal'],2)}} kr</strong></h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
@@ -97,22 +103,21 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h3>{{ __('lang.shopping_cart_total')}}</h3></td>
-                        <td class="text-right"><h4><strong>{{number_format($Total,2)}} kr</strong></h4></td>
+                        <td class="text-right"><h4><strong>{{number_format($tmpOrderProduct['Total'],2)}} kr</strong></h4></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
+                        <td>   </td>
                         <td>
-                        <button type="button" class="btn btn-default" onclick="location.href='{{route('frontHome')}}';">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> {{ __('lang.shopping_cart_continue')}}
-                        </button></td>
-                        <td>
-                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" @if($is_buyer_product) onclick="location.href='{{route('frontShowBuyerCheckout')}}'" @else  onclick="location.href='{{route('frontShowCheckout')}}'" @endif>
+                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" @if($tmpOrderProduct['is_buyer_product']) onclick="location.href='{{route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])}}'" @else  onclick="location.href='{{route('frontShowCheckout', ['id' => base64_encode($orderId)])}}'" @endif>
                         {{ __('lang.shopping_cart_checkout')}} <span class="glyphicon glyphicon-play"></span>
                         </button></td>
                     </tr>
+                    <tr><td colspan="6" style="border:none;line-height:60px;">&nbsp;</td></tr>
+                    @endforeach
                     @else
                     <tr>
                         <td colspan="6">{{ __('lang.shopping_cart_no_records')}} <a href="{{route('frontHome')}}">{{ __('lang.shopping_cart_continue')}}</a></td>

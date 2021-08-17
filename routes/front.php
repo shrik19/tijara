@@ -184,7 +184,7 @@ Route::post('/add-review','Front\FrontController@addReview')->name('frontAddRevi
 
 Route::post('/add-service-review','Front\FrontController@addServiceReview')->name('frontAddServiceReview');
 
-Route::any('/checkout','Front\CartController@showCheckout')->name('frontShowCheckout');
+Route::any('/checkout/{id}','Front\CartController@showCheckout')->name('frontShowCheckout');
 Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name('frontCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');
 
@@ -197,5 +197,5 @@ Route::post('/change-order-status','Front\CartController@changeOrderStatus')->na
 Route::any('/all-service-request', 'Front\ServiceController@showAllServiceRequest')->name('frontAllServiceRequest');
 Route::any('/getAllServiceRequest','Front\ServiceController@getAllServiceRequest')->name('frontServiceRequestGetRecords');
 Route::get('/deleteServiceRequest/{id}','Front\ServiceController@deleteServiceRequest')->name('frontServiceRequestDel');
-Route::any('/product-checkout','Front\CartController@showBuyerCheckout')->name('frontShowBuyerCheckout');
+Route::any('/product-checkout/{id}','Front\CartController@showBuyerCheckout')->name('frontShowBuyerCheckout');
 

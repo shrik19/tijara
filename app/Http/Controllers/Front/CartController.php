@@ -41,6 +41,7 @@ class CartController extends Controller
         $user_id = Auth::guard('user')->id();
         $is_added = 1;
         $is_login_err = 0;
+        $is_other_seller = 0;
         $txt_msg = trans('lang.shopping_cart_added');
         if($user_id && Auth::guard('user')->getUser()->role_id == 1)
         {
@@ -82,10 +83,11 @@ class CartController extends Controller
                   {
                       if($details['user_id'] != $Products[0]['user_id'])
                       {
-                        $is_added = 0;
-                        $txt_msg = trans('errors.same_seller_product_err');
-                        echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
-                        exit;
+                        // $is_added = 0;
+                        // $txt_msg = trans('errors.same_seller_product_err');
+                        // echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+                        // exit;
+                        $is_other_seller = 1;
                       }
                   }
               }
@@ -96,7 +98,7 @@ class CartController extends Controller
               $created_at = date('Y-m-d H:i:s');
               //Create Temp order
               $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
-              if(!empty($checkExisting))
+              if(!empty($checkExisting) && $is_other_seller == 0)
               {
                   $OrderId = $checkExisting[0]['id'];
               }
@@ -304,7 +306,7 @@ class CartController extends Controller
       $is_buyer_product = 0;
       if($user_id)
       {
-        $checkExisting = TmpOrders::select('id')->where('user_id','=',$user_id)->get()->toArray();
+        $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
         if(!empty($checkExisting))
         {
           $subTotal       = 0;
@@ -313,91 +315,100 @@ class CartController extends Controller
           $product_shipping_type = '';
           $product_shipping_amount = 0;
 
-          $OrderId = $checkExisting[0]['id'];
-
-          //Update Order Totals
-          $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
-          if(!empty($checkExistingOrderProduct))
+          foreach($checkExisting as $tmpOrder)
           {
-              foreach($checkExistingOrderProduct as $details)
-              {
-                  $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
-                  if(empty($checkVariant))
-                  {
-                    $tmpOrderDetails = TmpOrdersDetails::find($details['id']);
-                    $tmpOrderDetails->delete();
-                    continue;
-                  }
-                  //Get Seller Shipping Informations
-                  $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
+            $OrderId = $tmpOrder['id'];
 
-                  if(!empty($details['shipping_method']) && !empty($details['shipping_charges']))
-                  {
-                    if($details['shipping_method'] == trans('users.flat_shipping_charges'))
+            //Update Order Totals
+            $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
+            if(!empty($checkExistingOrderProduct))
+            {
+                $subTotal       = 0;
+                $shippingTotal  = 0;
+                $total          = 0;
+
+                foreach($checkExistingOrderProduct as $details)
+                {
+                    $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
+                    if(empty($checkVariant))
                     {
-                      $product_shipping_type = 'flat';
-                      $product_shipping_amount = $details['shipping_charges'];
+                      $tmpOrderDetails = TmpOrdersDetails::find($details['id']);
+                      $tmpOrderDetails->delete();
+                      continue;
                     }
-                    else if($details['shipping_method'] == trans('users.prcentage_shipping_charges'))
+                    //Get Seller Shipping Informations
+                    $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
+
+                    if(!empty($details['shipping_method']) && !empty($details['shipping_charges']))
                     {
-                      $product_shipping_type = 'percentage';
-                      $product_shipping_amount = ((float)$details['price'] * $details['shipping_charges']) / 100;
-                    }
-                  }
-                  else if(empty($SellerShippingData['free_shipping']))
-                  {
-                      if(!empty($SellerShippingData['shipping_method']) && !empty($SellerShippingData['shipping_charges']))
+                      if($details['shipping_method'] == trans('users.flat_shipping_charges'))
                       {
-                          if($SellerShippingData['shipping_method'] == trans('users.flat_shipping_charges'))
-                          {
-                            $product_shipping_type = 'flat';
-                            $product_shipping_amount = $SellerShippingData['shipping_charges'];
-                          }
-                          elseif($SellerShippingData['shipping_method'] == trans('users.prcentage_shipping_charges'))
-                          {
-                            $product_shipping_type = 'percentage';
-                            $product_shipping_amount = ((float)$details['price'] * $SellerShippingData['shipping_charges']) / 100;
-                          }
+                        $product_shipping_type = 'flat';
+                        $product_shipping_amount = $details['shipping_charges'];
                       }
-                  }
-                  else
-                  {
-                    $product_shipping_type = 'free';
-                  }
+                      else if($details['shipping_method'] == trans('users.prcentage_shipping_charges'))
+                      {
+                        $product_shipping_type = 'percentage';
+                        $product_shipping_amount = ((float)$details['price'] * $details['shipping_charges']) / 100;
+                      }
+                    }
+                    else if(empty($SellerShippingData['free_shipping']))
+                    {
+                        if(!empty($SellerShippingData['shipping_method']) && !empty($SellerShippingData['shipping_charges']))
+                        {
+                            if($SellerShippingData['shipping_method'] == trans('users.flat_shipping_charges'))
+                            {
+                              $product_shipping_type = 'flat';
+                              $product_shipping_amount = $SellerShippingData['shipping_charges'];
+                            }
+                            elseif($SellerShippingData['shipping_method'] == trans('users.prcentage_shipping_charges'))
+                            {
+                              $product_shipping_type = 'percentage';
+                              $product_shipping_amount = ((float)$details['price'] * $SellerShippingData['shipping_charges']) / 100;
+                            }
+                        }
+                    }
+                    else
+                    {
+                      $product_shipping_type = 'free';
+                    }
 
-                  $arrOrderDetailsUpdate = [
-                    'shipping_type'        => $product_shipping_type,
-                    'shipping_amount'      => $product_shipping_amount,
-                  ];
-                  
-                  TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
+                    $arrOrderDetailsUpdate = [
+                      'shipping_type'        => $product_shipping_type,
+                      'shipping_amount'      => $product_shipping_amount,
+                    ];
+                    
+                    TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
-                  $subTotal += $details['price'] * $details['quantity'];
-                  $shippingTotal += $product_shipping_amount;
-              }
+                    $subTotal += $details['price'] * $details['quantity'];
+                    $shippingTotal += $product_shipping_amount;
+                }
 
-              $total = $subTotal+$shippingTotal;
+                $total = $subTotal+$shippingTotal;
 
-              $arrOrderUpdate = [
-                  'user_id'             => $user_id,
-                  'sub_total'           => $subTotal,
-                  'shipping_total'      => $shippingTotal,
-                  'total'               => $total,
-                  'payment_details'     => NULL,
-                  'payment_status'      => NULL,
-                  'order_status'        => 'PENDING',
-              ];
-    
-              TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+                $arrOrderUpdate = [
+                    'user_id'             => $user_id,
+                    'sub_total'           => $subTotal,
+                    'shipping_total'      => $shippingTotal,
+                    'total'               => $total,
+                    'payment_details'     => NULL,
+                    'payment_status'      => NULL,
+                    'order_status'        => 'PENDING',
+                ];
+      
+                TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
           }
+          
 
-          $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
+          //$checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
 
-          $data['subTotal'] = $checkExisting[0]['sub_total'];
-          $data['Total'] = $checkExisting[0]['total'];
-          $data['shippingTotal'] = $checkExisting[0]['shipping_total'];
+          //$data['subTotal'] = $checkExisting[0]['sub_total'];
+          //$data['Total'] = $checkExisting[0]['total'];
+          //$data['shippingTotal'] = $checkExisting[0]['shipping_total'];
 
-          $OrderId = $checkExisting[0]['id'];
+          $orderDetails[$OrderId] = ['subTotal' => $tmpOrder['sub_total'], 'Total' => $tmpOrder['total'], 'shippingTotal' => $tmpOrder['shipping_total']];
+
+          //$OrderId = $checkExisting[0]['id'];
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
           if(!empty($checkExistingOrderProduct))
           {
@@ -443,38 +454,34 @@ class CartController extends Controller
                       if($SellerData['role_id'] == 1)
                       {
                         $is_buyer_product = 1;
+                        $orderDetails[$OrderId]['is_buyer_product'] = 1;
+                      }
+                      else
+                      {
+                        $orderDetails[$OrderId]['is_buyer_product'] = 0;
                       }
                       $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
                       $Product->quantity = $details['quantity'];
                       $Product->image    = explode(',',$Product->image)[0];
                       $details['product'] = $Product;
-                      $orderDetails[] = $details;
+                      $orderDetails[$OrderId]['details'][] = $details;
+                      
                     }
                   }
               }
           }
           else
           {
-            $orderDetails = [];
-            $data['subTotal'] = 0.00;
-            $data['Total'] = 0.00;
-            $data['shippingTotal'] = 0.00;
-
+            unset($orderDetails[$OrderId]);
             $tmpOrder = TmpOrders::find($OrderId);
             $tmpOrder->delete();
             
           }
         }
-        else 
-        {
-          $data['subTotal'] = 0.00;
-          $data['Total'] = 0.00;
-          $data['shippingTotal'] = 0.00;
         }
-        //dd($orderDetails);
+        
         $data['details'] = $orderDetails;
-        $data['is_buyer_product'] = $is_buyer_product;
-
+        
         return view('Front/shopping_cart', $data);
       }
       else {
@@ -668,19 +675,22 @@ class CartController extends Controller
       exit;
     }
 
-    public function showCheckout()
+    public function showCheckout($orderId)
     {
       $data = [];
       $user_id = Auth::guard('user')->id();
       if($user_id && Auth::guard('user')->getUser()->role_id == 1)
       {
-        $checkExisting = TmpOrders::select('id')->where('user_id','=',$user_id)->get()->toArray();
+        $orderId = base64_decode($orderId);
+        
+        $checkExisting = TmpOrders::select('id')->where('id','=',$orderId)->get()->toArray();
         if(empty($checkExisting))
         {
           return redirect(route('frontShowCart'));
         }
         else
         {
+          
           $OrderId = $checkExisting[0]['id'];
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
           if(empty($checkExistingOrderProduct))
@@ -779,11 +789,11 @@ class CartController extends Controller
         $username = '';
         $password = '';
 
-        $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
+        $checkExisting = TmpOrders::where('id','=',$orderId)->get()->toArray();
         $param['Total'] = $checkExisting[0]['total'];
         
         $OrderId = $checkExisting[0]['id'];
-
+        
         
         $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
         if(!empty($checkExistingOrderProduct))
@@ -849,8 +859,7 @@ class CartController extends Controller
         return redirect(route('frontShowCart'));
       }
         $param['details'] = $orderDetails;
-      //dd($orderDetails);
-      
+     
       if(empty($username) || empty($password))
         {
           $blade_data['error_messages']= trans('errors.seller_credentials_err');
@@ -949,7 +958,7 @@ class CartController extends Controller
         curl_close($ch);
         
         $response = json_decode($result);
-        
+       
         if(empty($response))
         {
           $blade_data['error_messages']= 'Något gick fel, kontakta admin.';
@@ -1375,13 +1384,15 @@ class CartController extends Controller
  }
 
  /* function for klarna payment callback*/
- public function showBuyerCheckout()
+ public function showBuyerCheckout($orderId)
  {
     $TmpOrderId = '';
     $user_id = Auth::guard('user')->id();
     if($user_id && Auth::guard('user')->getUser()->role_id == 1)
     {
-      $checkOrder = TmpOrders::where('user_id','=',$user_id)->first();
+      $orderId = base64_decode($orderId);
+
+      $checkOrder = TmpOrders::where('id','=',$orderId)->first();
       if(empty($checkOrder))
       {
         return redirect(route('frontShowCart'));

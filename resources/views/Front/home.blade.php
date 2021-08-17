@@ -50,12 +50,13 @@
 
 <section class="product_section">
     
-    <div class="container">
+    <div class="container-fluid">
       <!-- Example row of columns -->
       <div class="row">
         <!--  <div class="col-md-3">
             @include('Front.products_sidebar')
         </div>-->
+        <div class="product_view">
         <div class="col-md-12">             
                 <div class="product_container">
                 <div class="loader"></div>
@@ -70,6 +71,7 @@
                 </div>
         </div>
     </div>
+    </div>
 
       
     </div> <!-- /container -->  
@@ -77,12 +79,15 @@
 <!-- Featured seller section start -->
  
 <section class="featured-seller">
-    <div class="container">
+    <div class="featured_seller_container">
+    <div class="container-fluid">
         <h2>{{ __('lang.featured_seller_head')}}</h2>
     </div>
+</div>
     <div class="featured-banner">
-    <div class="container">
-        <div class="row featured_seller_container">
+    <div class="featured_seller_container">
+    <div class="container-fluid">
+        <div class="row ">
         <!--     <div class=""> -->
                
                 @if(!empty($FeaturedSellers))
@@ -98,16 +103,18 @@
         </div>
     </div>
 </div>
+</div>
 </section>
 <!-- end Featured seller section start -->
 
 <!-- popular services section start -->
 <section class="product_section">
     
-    <div class="container">
+    <div class="container-fluid">
       <!-- Example row of columns -->
+
       <div class="row">
-       
+       <div class="product_view">
         <div class="col-md-12">             
                 <div class="product_container">
                 <div class="loader"></div>
@@ -120,6 +127,7 @@
                     </ul>
                 </div>
         </div>
+        </div>
     </div>
 
       
@@ -131,10 +139,10 @@
 
 <!-- popular services section start -->
 <section class="product_section">
-    <div class="container">
+    <div class="container-fluid">
       <!-- Example row of columns -->
     <div class="row">
-       
+    <div class="product_view">
     <div class="col-md-12">             
         <div class="product_container">
         <div class="loader"></div>
@@ -146,6 +154,7 @@
             @endforeach
             </ul>
         </div>
+</div>
     </div>
     </div>
     </div> <!-- /container -->  
@@ -153,8 +162,9 @@
 <!-- featured services section end -->
 <!-- banner section -->
 <section class="sale_section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
+            <div class="container-inner-section">
             <div class="col-md-6">
                 <div class="sale_details">
                     <h2>@if(!empty($banner->subtitle)){{$banner->subtitle}}@endif</h2>
@@ -169,12 +179,14 @@
             </div>
             @endif
         </div>
+        </div>
     </div>
 </section>
 <!-- end banner section -->
 
 <section>
-    <div class="container">
+    <div class="container-fluid">
+    <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
@@ -259,12 +271,15 @@
                 </div>
             </div> -->
 
-         
+        </div>
         </div>
     </div>
 </section>
+
 <!-- <section class="artical_section">
-    <div class="container">
+    <div class="container-fluid">
+    <div class="container-inner-section"> 
+
         <div class="row">
             <div class="best_seller_container">
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
@@ -312,7 +327,9 @@
         </div>
     </div>
 
+</div>
 </section> -->
+
 <script type="text/javascript">
 
   $(".product_rating").each(function(){

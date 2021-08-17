@@ -179,13 +179,11 @@
 </section>
 
 <script type="text/javascript">
-
-$( "#seller_product_filter" ).keyup(function() {
-
-     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
-
-    $.ajax({
+$( document ).ready(function() {
+     get_service_count();
+});
+function get_service_count(){
+  $.ajax({
     url:siteUrl+"/getServiceCatSubcatList",
     headers: {
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
@@ -203,7 +201,12 @@ $( "#seller_product_filter" ).keyup(function() {
       });
     }
    });
+}
+$( "#seller_product_filter" ).keyup(function() {
 
+     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+     get_service_count();
 });
 
 function listService() {

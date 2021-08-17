@@ -17,7 +17,7 @@
                   else if( $j==1) $cls  =       'activeservicemaincategory';
                 @endphp
                 @if(!empty($ServiceCategories[$CategoryId]['subcategory']))
-                  <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}}<span style="float: right;" id="serviceCount_{{$j}}">@if(!empty(Request::segment(4))){{$ServiceCategories[$CategoryId]['service_count']}}@endif</span></a></li>
+                  <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}}<span style="float: right;" id="serviceCount_{{$j}}"></span></a></li>
 
                   <ul id="servicesubcategories<?php echo $j; ?>" class="service_subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
                   @foreach($ServiceCategories[$CategoryId]['subcategory'] as $subcategory)

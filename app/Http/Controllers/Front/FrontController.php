@@ -199,56 +199,61 @@ $featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_pack
 
 	//get category & subcategory listings
 	public function getCategorySubcategoryList($seller_id='') {
-		
+		DB::enableQueryLog();
 		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
 								->where('subcategories.status','=','active')
 								->where('categories.status','=','active')
 								->orderBy('categories.sequence_no')
 								->orderBy('subcategories.sequence_no')
-								->groupBy('categories.id')
+								//->groupBy('categories.id')
 								->get()
 								->toArray();
-
+//print_r(DB::getQueryLog());exit;
 		$CategoriesArray	=	array();
 		$currentDate = date('Y-m-d H:i:s');
 	
 		foreach($Categories as $category) {
-			$CategoriesArray[$category['id']]['product_count']=0;
-			DB::enableQueryLog();
-			$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-			  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-			  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-			  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-			  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-			  ->join('users', 'products.user_id', '=', 'users.id')
-			  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
-			  ->select(['products.id','products.title','categories.category_name'])
-			  ->where('products.status','=','active')
-			  ->where('products.is_deleted','=','0')
-			  ->where('categories.status','=','active')
-			  ->where('subcategories.status','=','active')
-			  ->where('users.status','=','active')
-			  ->where('category_products.category_id','=',$category['id'])
-			  ->where(function($q) use ($currentDate) {
+	// 		$CategoriesArray[$category['id']]['product_count']=0;
+	// 		DB::enableQueryLog();
+	// 		$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+	// 		  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+	// 		  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+	// 		  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+	// 		  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+	// 		  ->join('users', 'products.user_id', '=', 'users.id')
+	// 		  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
+	// 		  ->select(['products.id','products.title','categories.category_name'])
+	// 		  ->where('products.status','=','active')
+	// 		  ->where('products.is_deleted','=','0')
+	// 		  ->where('categories.status','=','active')
+	// 		  ->where('subcategories.status','=','active')
+	// 		  ->where('users.status','=','active')
+	// 		  ->where('category_products.category_id','=',$category['id'])
+	// 		  ->where(function($q) use ($currentDate) {
 
-				$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
-				});
+	// 			$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+	// 			});
 
 		
-			if(!empty($seller_id)){
+	// 		if(!empty($seller_id)){
 					
-				$seller_id=base64_decode($seller_id);
-				$productCount = $productCount->where('products.user_id','=',$seller_id);
-			}
+	// 			$seller_id=base64_decode($seller_id);
+	// 			$productCount = $productCount->where('products.user_id','=',$seller_id);
+	// 		}
 
-			$productCount = $productCount->groupBy('products.id')->get()->toArray();
-			$CategoriesArray[$category['id']]['product_count'] =  count($productCount);
+	// 		$productCount = $productCount->groupBy('products.id')->get()->toArray();
+
+	// // and then you can get query log
+	// //print_r(DB::getQueryLog());echo "<br><br>";
+	// 		$CategoriesArray[$category['id']]['product_count'] =  count($productCount);
 					
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
 			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
 			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
 		}
+
+		//exit;		echo "<pre>";print_r($CategoriesArray);exit;
 		return $CategoriesArray;
 	}
 
@@ -269,7 +274,7 @@ public function getCatSubList(Request $request) {
 	
 		foreach($Categories as $category) {
 			$CategoriesArray[$category['id']]['product_count']=0;
-			DB::enableQueryLog();
+			
 			$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 			  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 			  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
@@ -323,7 +328,7 @@ public function getCatSubList(Request $request) {
 		foreach($Categories as $category) {
 			$CategoriesArray[$category['id']]['service_count']=0;
 			
-			$servicesCount 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
+			/*$servicesCount 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
 							  ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
 							  ->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')							  				  
 							  ->join('users', 'services.user_id', '=', 'users.id')
@@ -344,7 +349,7 @@ public function getCatSubList(Request $request) {
 			}
 
 			$servicesCount = $servicesCount->groupBy('services.id')->get()->toArray();
-			$CategoriesArray[$category['id']]['service_count']=  count($servicesCount);
+			$CategoriesArray[$category['id']]['service_count']=  count($servicesCount);*/
 
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
 			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
@@ -565,14 +570,14 @@ public function getCatSubList(Request $request) {
 				      $product_link	.=	'/'.$category_slug;
         }
         else {
-          $product_link	.=	'/'.$productCategories[0]['category_slug'];
+          $product_link	.=	'/'.@$productCategories[0]['category_slug'];
         }
 				if($subcategory_slug!='')
         {
 				      $product_link	.=	'/'.$subcategory_slug;
         }
         else {
-          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+          $product_link	.=	'/'.@$productCategories[0]['subcategory_slug'];
         }
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
@@ -647,7 +652,7 @@ public function getCatSubList(Request $request) {
 				$product_link	.=	'/'.$category_slug;
 			}
 			else {
-				$product_link	.=	'/'.$productCategories[0]['category_slug'];
+				$product_link	.=	'/'.@$productCategories[0]['category_slug'];
 			}
 			
 			if($subcategory_slug!='')
@@ -656,7 +661,7 @@ public function getCatSubList(Request $request) {
 			}
 			else 
 			{
-				$product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+				$product_link	.=	'/'.@$productCategories[0]['subcategory_slug'];
 			}
 
 			$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;

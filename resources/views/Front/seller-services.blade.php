@@ -191,13 +191,11 @@ function get_service_count(){
     type: 'post',
     data : {'sellers' : $('.current_sellers').text(),'search_seller_product':$("#seller_product_filter").val()},
     success:function(data)
-    {
-      //console.log(data);return
-      var i=1
+    { 
       $.each(data, function(k, v) {
         $("#user_id").val();
-        $("#serviceCount_"+i).text(v.service_count);
-        i++;
+        $("#serviceCount_"+k).text(v.service_count);
+
       });
     }
    });

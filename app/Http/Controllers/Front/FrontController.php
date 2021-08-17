@@ -274,7 +274,7 @@ public function getCatSubList(Request $request) {
 	
 		foreach($Categories as $category) {
 			$CategoriesArray[$category['id']]['product_count']=0;
-			
+				
 			$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 			  ->join('categories', 'categories.id', '=', 'category_products.category_id')
 			  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
@@ -288,11 +288,15 @@ public function getCatSubList(Request $request) {
 			  ->where('categories.status','=','active')
 			  ->where('subcategories.status','=','active')
 			  ->where('users.status','=','active')
+			 
 			  ->where('category_products.category_id','=',$category['id'])
 			  ->where(function($q) use ($currentDate) {
 
 				$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
-				});
+				})
+			  ->orderBy('categories.sequence_no')
+			  ->orderBy('subcategories.sequence_no');
+			 //->groupBy('categories.id');
 
 			if(!empty($request->sellers) && !empty($request->search_seller_product)){
 				$productCount	=	$productCount->where('products.user_id','=',$request->sellers)->where('products.title', 'like', '%' . $request->search_seller_product . '%');
@@ -301,12 +305,14 @@ public function getCatSubList(Request $request) {
 			
 
 			$productCount = $productCount->groupBy('products.id')->get()->toArray();
+
 			$CategoriesArray[$category['id']]['product_count'] =  count($productCount);
 					
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
 			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
 			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
 		}
+
 		return $CategoriesArray;
 	}
 
@@ -389,8 +395,9 @@ public function getCatSubList(Request $request) {
 							  ->where('servicecategories.status','=','active')
 							  ->where('serviceSubcategories.status','=','active')
 							  ->where('users.status','=','active')
-							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
-	
+							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+			->orderBy('servicecategories.sequence_no')
+			->orderBy('serviceSubcategories.sequence_no');
 			if(!empty($seller_id)){
 					
 				$seller_id=base64_decode($seller_id);

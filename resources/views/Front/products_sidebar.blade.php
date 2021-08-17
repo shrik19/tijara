@@ -24,7 +24,7 @@
          @endphp
                 @if(!empty($Categories[$CategoryId]['subcategory']))
 
-                <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" id="main_cat_name<?php echo $i; ?>">{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$i}}"></span></a></li>
+                <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" id="main_cat_name<?php echo $i; ?>">{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
 
                 <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
                 @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)

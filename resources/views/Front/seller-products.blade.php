@@ -178,7 +178,7 @@
 </section>
 
 <script type="text/javascript">
-  $( document ).ready(function() {
+  $(document).ready(function() {
     get_product_count();
 });
   function get_product_count(argument) {
@@ -194,10 +194,10 @@
       //console.log(data);return
       var i=1
       $.each(data, function(k, v) {
-        console.log(k);
+        console.log(v);
         console.log("--");
         $("#user_id").val();
-        $("#productCount_"+i).text(v.product_count);
+        $("#productCount_"+k).text(v.product_count);
         i++;
       });
     }

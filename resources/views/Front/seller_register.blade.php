@@ -122,13 +122,18 @@
 							<fieldset class="seller_register_third">
 								<div class="form-card">
 									<form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
+                                        <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label>
 										<input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}}">
 										<span class="invalid-feedback" id="err_fname"></span>
 
+                                        <label>{{ __('users.last_name_label')}}<span class="de_col">*</span></label>
 										<input type="text" name="lname" id="lname" class="form-control" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}}">
 										<span class="invalid-feedback" id="err_lname"></span>
 
-										<textarea  id="address" class="form-control" name="address" rows="5" cols="30"  tabindex="5"></textarea> 
+                                        <label>{{ __('users.address_label')}}</label>
+										<textarea  id="address" class="form-control" name="address" rows="5" cols="30"  tabindex="5"></textarea>
+
+                                        <label>{{ __('users.postal_code_label')}}</label> 
 										<input type="text" name="postcode" id="postcode" class="form-control" placeholder="{{ __('users.postal_code_label')}}" value="">
 										
 									</form>                          
@@ -143,6 +148,7 @@
 									<form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data" id="seller_personal_info">
 										@csrf
 										<div class="form-group" style="display: flex;">
+                                            <label>{{ __('users.store_name_label')}}<span class="de_col">*</span></label>
 											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}}">
 											<input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
@@ -551,7 +557,12 @@ $('#last-step').click(function(e) {
 
     e.preventDefault();
     let store_name     = $("#store_name").val();
-   
+    
+    if(store_name==''){
+       last_step_err = 1;
+       alert(please_enter_store_name)
+    } 
+
     if($("#chk_privacy_policy").is(':checked')){
        last_step_err = 0;
     } else {

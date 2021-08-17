@@ -178,11 +178,11 @@
 </section>
 
 <script type="text/javascript">
-$( "#seller_product_filter" ).keyup(function() {
-   get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-  $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
-
-   $.ajax({
+  $( document ).ready(function() {
+    get_product_count();
+});
+  function get_product_count(argument) {
+    $.ajax({
     url:siteUrl+"/getCatSubList",
     headers: {
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
@@ -202,6 +202,12 @@ $( "#seller_product_filter" ).keyup(function() {
       });
     }
    });
+  }
+$( "#seller_product_filter" ).keyup(function() {
+   get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+  $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+   get_product_count();
+  
 });
 
 function listProducts(){

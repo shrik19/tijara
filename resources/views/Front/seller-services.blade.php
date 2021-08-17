@@ -146,7 +146,7 @@
           <h4 class="modal-title">{{ __('users.contact_store_head')}}</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
+        <div class="loader"></div>
         <div class="modal-body">
             <div class="container">
             <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
@@ -282,8 +282,10 @@ $(document).on("click",".conact-store-save",function(event) {
         let seller_email   = $("#seller_email").val();
         let seller_id      = $("#seller_id").val();
         let seller_name      = $("#seller_name").val();
-
-        $('#contactStoremodal').modal('hide'); 
+		
+		$(".loader").show();
+        
+		setTimeout(function(){
         $.ajax({
           url:"{{ route('FrontContactStore') }}",
           headers: {
@@ -293,14 +295,18 @@ $(document).on("click",".conact-store-save",function(event) {
           async: false,
           data:{user_message:user_message,seller_email:seller_email,seller_id:seller_id,seller_name:seller_name},
           success: function(output){
-            if(output.success !=''){
+            
+			$(".loader").hide();
+			$('#contactStoremodal').modal('hide'); 
+			
+			if(output.success !=''){
               alert(output.success);
               let user_message   = $("#user_message").val('');
             }else{
               alert(output.error);
             }
           }
-        });
+        });}, 300);
       } else{
           alert("please add your message");
       }    

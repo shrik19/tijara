@@ -858,9 +858,9 @@ public function getCatSubList(Request $request) {
 				$seller_name = str_replace(" ", '-', $seller_name);
 				$seller_name = strtolower($seller_name);
 				if(!empty($Seller['name'])){
-					$display_name = $Seller['name']
+					$display_name = $Seller['name'];
 				}else{
-					$display_name = $Seller['store_name']
+					$display_name = $Seller['store_name'];
 				}
 				$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$display_name.' ( '.$Seller['product_cnt'].' )</span></a></li>';
 			}

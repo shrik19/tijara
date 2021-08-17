@@ -399,17 +399,28 @@ class AuthController extends Controller
                     ->where('user_packages.status','=','active')
                     ->where('user_id','=',$user_id)
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
-                    ->orderByRaw('user_packages.id')
+                    ->orderByRaw('user_packages.id DESC')
                     ->get();
         if(count($show_exp_message) == 0  ){
   
             $data['package_exp_msg'] = trans('messages.products_with_active_subscription');
         }
         else {
+                $next_date = date('Y-m-d', strtotime($currentDate. ' + 30 days'));
+
+                if (count($show_exp_message) <= 1 && $show_exp_message[0]->end_date <=$next_date ) {
+                    foreach($show_exp_message as $v) {
+                        if($v->end_date >= $currentDate){
+                            $data['package_exp_msg'] = trans('users.package_exp_message');
+                        }
+                    }
+                } 
+
+            /*
             foreach($show_exp_message as $v) {
                 if($v->end_date >= $currentDate)
                     $data['package_exp_msg'] = trans('users.package_exp_message');
-            }
+            }*/
         }
 
         $data['id'] = $user_id;
@@ -1438,17 +1449,23 @@ class AuthController extends Controller
                     ->where('user_packages.status','=','active')
                     ->where('user_id','=',$user_id)
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
-                    ->orderByRaw('user_packages.id')
+                    ->orderByRaw('user_packages.id DESC')
                     ->get();
-                    
-         if(count($show_exp_message) == 0  ){
+        
+        if(count($show_exp_message) == 0  ){
   
             $data['package_exp_msg'] = trans('messages.products_with_active_subscription');
         }
         else {
-            foreach($show_exp_message as $v) {
-                if($v->end_date >= $currentDate)
-                    $data['package_exp_msg'] = trans('users.package_exp_message');
+        
+            $next_date = date('Y-m-d', strtotime($currentDate. ' + 30 days'));
+
+            if (count($show_exp_message) <= 1 && $show_exp_message[0]->end_date <=$next_date ) {
+                foreach($show_exp_message as $v) {
+                    if($v->end_date >= $currentDate){
+                        $data['package_exp_msg'] = trans('users.package_exp_message');
+                    }
+                }
             }
         }
 

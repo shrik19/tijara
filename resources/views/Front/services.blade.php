@@ -27,7 +27,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
-                      <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="getListing()">
+                      <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="listServices()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                           <option value="asc">{{ __('lang.sort_by_asc')}}</option>
                           <option value="desc">{{ __('lang.sort_by_desc')}}</option>
@@ -37,7 +37,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
-                      <select class="form-control" name="sort_by" id="sort_by" onchange="getListing()">
+                      <select class="form-control" name="sort_by" id="sort_by" onchange="listServices()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                           <option value="name">{{ __('lang.sort_by_name')}}</option>
                       </select>
@@ -73,7 +73,19 @@
 </section>
 
 <script type="text/javascript">
+function listServices(){
 
+  var sort_by_order = $("#sort_by_order").val();
+  var sort_by = $("#sort_by").val();
+  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
+}
+
+$("#city_name").on("input", function() {
+   get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
+});
+/*
 function getListing()
 {
   var category_slug = $('.current_category').text();
@@ -99,7 +111,7 @@ function getListing()
       $('.seller_list_content').html(responseObj.sellers);
     }
    });
-}
+}*/
 
 
 function selectSellers()
@@ -119,7 +131,8 @@ function selectSellers()
       }
     });
     $(".current_sellers").html(Sellers);
-    getListing();
+     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
 
 }
 
@@ -150,7 +163,8 @@ $(document).ready(function(){
     }); 
 
    $("#service_city").on("input", function() { 
-      getListing();
+       get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
     }); 
 
 });

@@ -155,7 +155,7 @@
     </div> <!-- /container -->
 </section>
 
-<!-- product review section -->
+<!-- service review section -->
 <section>
     <div class="container">
         <div class="row">
@@ -164,6 +164,7 @@
               <h2>{{ __('users.review_title')}}</h2>
                 <hr>
                 @if(!empty($serviceReviews))
+                  @php $i=1; @endphp
                   @foreach($serviceReviews as $review)
                   <div>
                     <p>
@@ -177,7 +178,7 @@
                     
                     </p>
                     <div class="star-rating" style="font-size:unset;pointer-events: none;">
-                        <select class='rating product_rating' data-rating="{{$review['service_rating']}}">
+                        <select class='rating service_rating' data-rating="{{$review['service_rating']}}" id='rating_{{$Service->id}}_{{$i}}' data-id='rating_{{$Service->id}}_{{$i}}'>
                           <option value="1" >1</option>
                           <option value="2" >2</option>
                           <option value="3" >3</option>
@@ -188,6 +189,7 @@
                     <p>{{$review['comments']}}</p>
                   </div>
                   <hr>
+                  @php $i++; @endphp
                   @endforeach
                 @endif
               </div>
@@ -307,11 +309,15 @@ $('#prev-img').click(function (){
 $("#show-img").next('div').next('div').css('z-index','999');
 
 
+
+
 /*service rating*/
-  
-  $('#rating_{{$Service->id}}').barrating({
-  theme: 'fontawesome-stars',
-  initialRating: '{{$Service->rating}}',
+$(".service_rating").each(function(){
+  var currentRating = $(this).data('rating');
+  $(this).barrating({
+    theme: 'fontawesome-stars',
+    initialRating: currentRating,
+
   onSelect: function(value, text, event) {
 
    // Get element id by data-id attribute
@@ -388,7 +394,8 @@ $("#show-img").next('div').next('div').css('z-index','999');
     });
    }
   }
- });      
+ });   
+});    
 
 </script>
 @endsection

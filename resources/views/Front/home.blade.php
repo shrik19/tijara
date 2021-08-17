@@ -217,7 +217,7 @@
                 </div>
             </div>
 
-            <div class="best_seller_container">
+            <!-- <div class="best_seller_container">
                 <h3>{{ __('lang.3_steps_head')}}</h3>
                 <h2>{{ __('lang.how_it_works_head')}}</h2>
                 <div class="steps_section">
@@ -257,13 +257,13 @@
                         <img src="{{url('/')}}/assets/front/img/steps_bg_2.png"/>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
          
         </div>
     </div>
 </section>
-<section class="artical_section">
+<!-- <section class="artical_section">
     <div class="container">
         <div class="row">
             <div class="best_seller_container">
@@ -312,7 +312,7 @@
         </div>
     </div>
 
-</section>
+</section> -->
 <script type="text/javascript">
 
   $(".product_rating").each(function(){

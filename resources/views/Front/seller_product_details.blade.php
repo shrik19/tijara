@@ -42,7 +42,7 @@
                     <h2>{{$Product->title}}</h2>
                     <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4>
                     <div class="star-rating" style="font-size:unset;">
-                    <select class='rating' id='rating_{{$Product->id}}' data-id='rating_{{$Product->id}}'>
+                    <select class='rating product_rating' id='rating_{{$Product->id}}' data-id='rating_{{$Product->id}}' data-rating='{{$Product->rating}}'>
                       <option value="1" >1</option>
                       <option value="2" >2</option>
                       <option value="3" >3</option>
@@ -189,6 +189,7 @@
               <h2>{{ __('users.review_title')}}</h2>
                 <hr>
                 @if(!empty($productReviews))
+				  <?php $i = 1; ?>
                   @foreach($productReviews as $review)
                   <div>
                     <p>
@@ -201,7 +202,7 @@
                       
                     <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
                     <div class="star-rating" style="font-size:unset;pointer-events: none;">
-                        <select class='rating product_rating' id='rating_{{$Product->id}}' data-rating="{{$review['product_rating']}}">
+                        <select class='rating product_rating' id='rating_{{$Product->id}}_{{$i}}' data-id='rating_{{$Product->id}}_{{$i}}' data-rating="{{$review['product_rating']}}">
                           <option value="1" >1</option>
                           <option value="2" >2</option>
                           <option value="3" >3</option>
@@ -212,6 +213,7 @@
                     <p>{{$review['comments']}}</p>
                   </div>
                   <hr>
+				  <?php $i++; ?>
                   @endforeach
                 @endif
               </div>
@@ -240,11 +242,13 @@
 </section>
 
 <script type="text/javascript">
-  
-  $('#rating_{{$Product->id}}').barrating({
-  theme: 'fontawesome-stars',
-  initialRating: '{{$Product->rating}}',
-  onSelect: function(value, text, event) {
+
+$(".product_rating").each(function(){
+  var currentRating = $(this).data('rating');
+  $(this).barrating({
+    theme: 'fontawesome-stars',
+    initialRating: currentRating,
+    onSelect: function(value, text, event) {
 
    // Get element id by data-id attribute
    var el = this;
@@ -320,7 +324,8 @@
     });
    }
   }
- });      
+ });  
+}); 
 
 function addtoCartFromProduct()
 {

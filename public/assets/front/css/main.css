@@ -312,7 +312,7 @@ select.list-dt:focus {
     font-size: 12px;
     width: 25%;
     float: left;
-    position: relative
+    position: relative; text-align: center;
 }
 
 #progressbar #account:before {
@@ -336,34 +336,46 @@ select.list-dt:focus {
 }
 
 #progressbar li:before {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     line-height: 45px;
     display: block;
     font-size: 18px;
     color: #ffffff;
-    background: lightgray;
+    background: #fff;
     border-radius: 50%;
     margin: 0 auto 10px auto;
-    padding: 2px
+    padding: 2px;
+    border: 5px solid #ccc;
 }
 
 #progressbar li:after {
     content: '';
     width: 100%;
-    height: 2px;
+    height: 5px;
     background: lightgray;
     position: absolute;
-    left: 0;
-    top: 25px;
-    z-index: -1
+    left: 45%;
+    top: 13px;
+    z-index: -1;
+}
+#progressbar li:last-child:after{
+    content: '';
+    width: 100%;
+    height: 5px;
+    background: none!important;
+    position: absolute;
+    left: 45%;
+    top: 13px;
+    z-index: -1;
 }
 
-#progressbar li.active:before,
 #progressbar li.active:after {
-    background: skyblue
+    background: #9c9c9c;
 }
-
+#progressbar li.active:before{
+    background: #fff;
+}
 .radio-group {
     position: relative;
     margin-bottom: 25px
@@ -756,11 +768,12 @@ nav ul {
 	#seller-personal-form .remember-section {
 		margin: 10px 0;
 	}
-	
+	#progressbar>li>strong{font-size: 18px;}
 	#sign-up-form .remember-section span.remember-text, 
 	#seller-personal-form .remember-section span.remember-text {
 		margin-left: 6px;
 		font-weight: 600;
+        font-size: 17px;
 	}
 	
 	.seller_register_container .register_banner {
@@ -789,13 +802,20 @@ nav ul {
 	}
 	
 	.seller_register_container .seller_register_second .packages-price {
-		font-size: 18px;
+		font-size: 22px;
 	}
 	
 	.seller_register_container .seller_register_second .packages-description {
 		min-height: 70px;
 	}
-	
+    .packages-heading h3{font-size: 35px; font-weight: bold;}
+
+    .packages-description p{font-size: 20px; font-weight: 600; line-height: 30px; color: #737373;}
+	.packages-description div ul{padding-left: 20px;}
+    .packages-description div ul li{    font-size: 18px;
+        font-weight: 600;
+        line-height: 30px;
+        color: #a0a0a0;}
 	.seller_register_container .seller_register_second button{
 		border-radius: 5px;
 		color: #ffffff;
@@ -915,9 +935,10 @@ overflow: hidden;}
     background-color: #e5e5e5!important;
     height: 300px;
     display: table-cell!important;
-    vertical-align: middle;padding: 5px;
+    vertical-align: middle;padding: 5px;    width: 30%;
+    overflow: hidden;
 }
-
+.product_img img{width:fit-content!important;}
 .buy_now_hover_details{position: absolute; top: 0px;  height: 100%;
     width: 100%;
     opacity: 0;

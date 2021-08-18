@@ -57,16 +57,16 @@
 								<form id="sellerRegisterForm" action="{{route('frontNewSellerRegister')}}" method="post">
 									@csrf
 									<input type="hidden" name="role_id" id="role_id" value="{{$role_id}}">
-									<label>{{ __('users.email_label')}}<span class="de_col">*</span></label>
-									<input type="email" name="email" id="email" class="form-control" placeholder="{{ __('users.email_label')}}" value="{{$email}}"/> 
+									<!-- <label>{{ __('users.email_label')}}<span class="de_col">*</span></label> -->
+									<input type="email" name="email" id="email" class="form-control" placeholder="{{ __('users.email_label')}} *" value="{{$email}}"/> 
 									<span class="invalid-feedback" id="err_email"></span><br>
 
-									<label>{{ __('users.password_label')}}<span class="de_col">*</span></label>
-									<input type="password" name="password" id="password" class="form-control" placeholder="{{ __('users.password_label')}}"  value="{{$password}}"/>
+									<!-- <label>{{ __('users.password_label')}}<span class="de_col">*</span></label> -->
+									<input type="password" name="password" id="password" class="form-control" placeholder="{{ __('users.password_label')}} *"  value="{{$password}}"/>
 									<span class="invalid-feedback" id="err_password" style=""></span><br>
 
-									<label>{{ __('users.password_confirmation_label')}}<span class="de_col">*</span></label>
-									<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('users.password_confirmation_label')}}" value="{{$cpassword}}" />
+									<!-- <label>{{ __('users.password_confirmation_label')}}<span class="de_col">*</span></label> -->
+									<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('users.password_confirmation_label')}} *" value="{{$cpassword}}" />
 									<span class="invalid-feedback" id="err_cpassword"></span>
 								</form>
 								<input type="button" name="next" class="next btn debg_color action-button 2" value="{{ __('users.next_step_btn')}}" id="first-step"  />
@@ -77,11 +77,11 @@
 								<div class="form-card">
 									@include ('Front.alert_messages')   
                                     @if(!empty($packageDetails))           
-									  <div class="col-md-12 package-html">
+									  <div class="col-md-offset-2 col-md-10 package-html">
 										<?php $i=1; ?>
 											@foreach($packageDetails as $data)
 											
-											<div class="col-md-4 packages-section">
+											<div class="col-md-offset-1 col-md-4 packages-section">
 												<div class="packages-subscribe">
 													<div class="packages-heading">
 														<h3>{{$data['title']}}</h3>
@@ -122,18 +122,18 @@
 							<fieldset class="seller_register_third">
 								<div class="form-card">
 									<form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
-                                        <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label>
-										<input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}}">
+                                        <!-- <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label> -->
+										<input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}} *">
 										<span class="invalid-feedback" id="err_fname"></span>
 
-                                        <label>{{ __('users.last_name_label')}}<span class="de_col">*</span></label>
-										<input type="text" name="lname" id="lname" class="form-control" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}}">
+                                        <!-- <label>{{ __('users.last_name_label')}}<span class="de_col">*</span></label> -->
+										<input type="text" name="lname" id="lname" class="form-control" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}} *">
 										<span class="invalid-feedback" id="err_lname"></span>
 
-                                        <label>{{ __('users.address_label')}}</label>
-										<textarea  id="address" class="form-control" name="address" rows="5" cols="30"  tabindex="5"></textarea>
+                                        <!-- <label>{{ __('users.address_label')}}</label> -->
+										<textarea  id="address" class="form-control" name="address" placeholder="{{ __('users.address_label')}} " rows="5" cols="30"  tabindex="5"></textarea>
 
-                                        <label>{{ __('users.postal_code_label')}}</label> 
+                                        <!-- <label>{{ __('users.postal_code_label')}}</label>  -->
 										<input type="text" name="postcode" id="postcode" class="form-control" placeholder="{{ __('users.postal_code_label')}}" value="">
 										
 									</form>                          
@@ -148,8 +148,8 @@
 									<form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data" id="seller_personal_info">
 										@csrf
 										<div class="form-group" style="display: flex;">
-                                            <label>{{ __('users.store_name_label')}}<span class="de_col">*</span></label>
-											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}}">
+                                            <!-- <label>{{ __('users.store_name_label')}}<span class="de_col">*</span></label> -->
+											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
 											<input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
 
@@ -162,6 +162,7 @@
 											<span class="invalid-feedback" id="err_seller_banner_img"></span>
 											<div class="input-group-btn text-right"> 
 											</div>
+                                            
 										</div>
 
 										<div class="form-group increment cloned">

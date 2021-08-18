@@ -181,6 +181,7 @@
   $(document).ready(function() {
     get_product_count();
 });
+
   function get_product_count(argument) {
     $.ajax({
     url:siteUrl+"/getCatSubList",
@@ -194,25 +195,26 @@
       //console.log(data);return
       var i=1
       $.each(data, function(k, v) {
-        console.log(v);
-        console.log("--");
-        $("#user_id").val();
+       // console.log(v);
+        //console.log("--");
+        //$("#user_id").val();
         $("#productCount_"+k).text(v.product_count);
         i++;
       });
     }
    });
   }
+
 $( "#seller_product_filter" ).keyup(function() {
-   get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-  $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
-   get_product_count();
+    get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val());
+    get_product_count();
   
 });
 
 function listProducts(){
    get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val());
 }
 
 /*
@@ -268,7 +270,7 @@ function selectSellers()
       }
     });
     $(".current_sellers").html(Sellers);
-    getListing();
+    listProducts();
 
 }
 

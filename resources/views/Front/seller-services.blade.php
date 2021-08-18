@@ -203,13 +203,13 @@ function get_service_count(){
 $( "#seller_product_filter" ).keyup(function() {
 
      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+    $('.current_sellers').text(),$('#price_filter').val(),'',$("#seller_product_filter").val()) ;
      get_service_count();
 });
 
 function listService() {
    get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
+    $('.current_sellers').text(),$('#price_filter').val(),'',$("#seller_product_filter").val()) ;
 }
 
 
@@ -259,7 +259,7 @@ function selectSellers()
       }
     });
     $(".current_sellers").html(Sellers);
-    getListing();
+    listService();
 
 }
 

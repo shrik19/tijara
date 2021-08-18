@@ -76,18 +76,20 @@ class CartController extends Controller
                 exit;
               }  
               
-              $checkExistingOrderDetails = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id','temp_orders_details.product_id'])->where('temp_orders_details.user_id','=',$user_id)->limit(1)->get()->toArray();
+              $existingOrder = 0;
+              $checkExistingOrderDetails = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id','temp_orders_details.order_id'])->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
               if(!empty($checkExistingOrderDetails))
               {
                   foreach($checkExistingOrderDetails as $details)
                   {
-                      if($details['user_id'] != $Products[0]['user_id'])
+                      if($Products[0]['user_id'] == $details['user_id'])
                       {
                         // $is_added = 0;
                         // $txt_msg = trans('errors.same_seller_product_err');
                         // echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
                         // exit;
-                        $is_other_seller = 1;
+                        $existingOrder = $details['order_id'];
+                        break;
                       }
                   }
               }
@@ -98,9 +100,10 @@ class CartController extends Controller
               $created_at = date('Y-m-d H:i:s');
               //Create Temp order
               $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
-              if(!empty($checkExisting) && $is_other_seller == 0)
+              //if(!empty($checkExisting) && $is_other_seller == 0)
+              if(!empty($existingOrder))
               {
-                  $OrderId = $checkExisting[0]['id'];
+                  $OrderId = $existingOrder;
               }
               else
               {
@@ -263,7 +266,7 @@ class CartController extends Controller
                       TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                       $subTotal += $details['price'] * $details['quantity'];
-                      $shippingTotal += $details['shipping_amount'];
+                      $shippingTotal += $product_shipping_amount;
                   }
               }
 

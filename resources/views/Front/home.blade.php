@@ -84,12 +84,10 @@
         <h2>{{ __('lang.featured_seller_head')}}</h2>
     </div>
 </div>
-    <div class="featured-banner">
+    <div class="featured-banner" >
     <div class="featured_seller_container">
     <div class="container-fluid">
-        <div class="row ">
-        <!--     <div class=""> -->
-               
+        <div class="row ">               
                 @if(!empty($FeaturedSellers))
                     @foreach($FeaturedSellers as $fea_seller)
                    
@@ -161,7 +159,7 @@
 </section>
 <!-- featured services section end -->
 <!-- banner section -->
-<section class="sale_section">
+<!-- <section class="sale_section">
     <div class="container-fluid">
         <div class="row">
             <div class="container-inner-section">
@@ -181,14 +179,14 @@
         </div>
         </div>
     </div>
-</section>
+</section> -->
 <!-- end banner section -->
 
 <section>
     <div class="container-fluid">
     <div class="container-inner-section">
         <div class="row">
-            <div class="best_seller_container">
+           <?php /*<div class="best_seller_container">
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
                 <h2>{{ __('lang.best_seller_head')}}</h2>
                 <ul class="product_details best_seller">
@@ -197,7 +195,7 @@
 					@endforeach
 				 </ul>
             </div>
-			
+			*/?>
 			<div class="tijara_front_container">
 				<ul class="tijara_front_box row">
 					<li>
@@ -228,48 +226,6 @@
                     </ul>
                 </div>
             </div>
-
-            <!-- <div class="best_seller_container">
-                <h3>{{ __('lang.3_steps_head')}}</h3>
-                <h2>{{ __('lang.how_it_works_head')}}</h2>
-                <div class="steps_section">
-                    <div class="curve_img_1">
-                        <img src="{{url('/')}}/assets/front/img/steps_bg_1.png"/>
-                    </div>
-                    <ul class="steps_box">
-                        <li>
-                            <div class="steps_details">
-                                <img class="img-fluid" src="{{url('/')}}/assets/front/img/step1_icon.png"/>
-                                <h3>{{ __('lang.step_1_head')}}</h3>
-                                <p>
-                                    Aliquam venenatis mi sit amet velit sagittis molestie. Pellentesque varius viverra libero, at congue lorem aliquet in. Sed sed quam a turpis ultrices elementum. Aenean erat sapien, suscipit consequat porta et, elementum nec enim.
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="steps_details">
-                                <img class="img-fluid" src="{{url('/')}}/assets/front/img/step2_icon.png"/>
-                                <h3>{{ __('lang.step_2_head')}}</h3>
-                                <p>
-                                    Aliquam venenatis mi sit amet velit sagittis molestie. Pellentesque varius viverra libero, at congue lorem aliquet in. Sed sed quam a turpis ultrices elementum. Aenean erat sapien, suscipit consequat porta et, elementum nec enim.
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="steps_details">
-                                <img class="img-fluid" src="{{url('/')}}/assets/front/img/step3_icon.png"/>
-                                <h3>{{ __('lang.step_3_head')}}</h3>
-                                <p>
-                                    Aliquam venenatis mi sit amet velit sagittis molestie. Pellentesque varius viverra libero, at congue lorem aliquet in. Sed sed quam a turpis ultrices elementum. Aenean erat sapien, suscipit consequat porta et, elementum nec enim.
-                                </p>
-                            </div>
-                        </li>                       
-                    </ul>
-                    <div class="curve_img_2">
-                        <img src="{{url('/')}}/assets/front/img/steps_bg_2.png"/>
-                    </div>
-                </div>
-            </div> -->
 
         </div>
         </div>

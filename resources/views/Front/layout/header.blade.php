@@ -172,7 +172,6 @@
 <div class="row">
 <nav>
   <ul class="nav mainMenu">
-    <!-- <span>( @php count($Categories) @endphp)</span> -->
         @php $i=0; @endphp
         @foreach($Categories as $CategoryId=>$Category)
         @php $i++;

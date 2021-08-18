@@ -206,10 +206,10 @@ $featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_pack
 								->where('categories.status','=','active')
 								->orderBy('categories.sequence_no')
 								->orderBy('subcategories.sequence_no')
-								//->groupBy('categories.id')
+								->groupBy('categories.id')
 								->get()
 								->toArray();
-//print_r(DB::getQueryLog());exit;
+		//print_r(DB::getQueryLog());exit;
 		$CategoriesArray	=	array();
 		$currentDate = date('Y-m-d H:i:s');
 	
@@ -253,7 +253,7 @@ $featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_pack
 			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
 		}
 
-		//exit;		echo "<pre>";print_r($CategoriesArray);exit;
+			//echo "<pre>";print_r($CategoriesArray);exit;
 		return $CategoriesArray;
 	}
 

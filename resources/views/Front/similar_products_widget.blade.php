@@ -12,7 +12,7 @@
               <li><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
             </ul>
       </div>
-    </div>ss
+    </div>
     <div class="product_info">
         <h5>{{$product['category_name']}}</h5>
           

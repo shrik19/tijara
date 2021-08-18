@@ -483,7 +483,6 @@ nav ul {
   height: 0; 
   width: 0; 
   /* border: 5px solid transparent;  */
-  top: 50% ;
   right:5px;  
  }
 
@@ -492,7 +491,7 @@ nav ul {
   position: absolute;
   white-space: nowrap;
   z-index: 1;
-  left: -99999em;
+  left: -99999em;top:35px;
 }
 .nav > li:hover > ul {
   left: auto;
@@ -911,7 +910,7 @@ overflow: hidden;}
 .product_info h5{font-size: 18px; color: #515151; }
 .product_info h4{font-size: 22px; color: #515151; font-weight: bold; }
 .product_info h6{font-size: 20px; color: #515151; }
-.b.product_img{position: relative;}
+.product_img{position: relative;}
 .product_img{position: relative;     
     background-color: #e5e5e5!important;
     height: 300px;
@@ -923,7 +922,7 @@ overflow: hidden;}
     width: 100%;
     opacity: 0;
     transition: .3s ease; left: 0;
-    background-color: rgba(0,0,0,0.1);}
+    background-color: rgba(0,0,0,0.1); min-width:300px}
     .buy_now_hover_details ul{padding-top: 104px;}
 .buy_now_hover_details li{padding: 20px; width: 20%;}
 .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #5dc9ff; text-align: center; padding: 15px; font-size: 16px; }

@@ -925,27 +925,60 @@ overflow: hidden;}
 .category_list li a.active{color: #fff;background: #03989e;}
 .category_list li a{font-size: 18px; color: #717171; font-weight: 300;display: block;}
 .product_details{list-style: none;}
-.product_details li{width: 18%; float: left;margin: 10px; display: block; cursor: pointer; height: 100%; position: relative;}
-
+.product_details li{ float: left; display: block; cursor: pointer; height: 100%; position: relative;}
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+@media (min-width: 768px) {
+.col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
+}
 .product_info h5{font-size: 18px; color: #515151; }
 .product_info h4{font-size: 22px; color: #515151; font-weight: bold; }
 .product_info h6{font-size: 20px; color: #515151; }
 .product_img{position: relative;}
-.product_img{position: relative;     
+.product_img{position: relative;
     background-color: #e5e5e5!important;
     height: 300px;
     display: table-cell!important;
-    vertical-align: middle;padding: 5px;    width: 30%;
+    vertical-align: middle;
+    padding: 5px;
     overflow: hidden;
+    width: 100%;
+    float: left;
 }
-.product_img img{width:fit-content!important;}
+.product_img img{object-fit: contain;}
 .buy_now_hover_details{position: absolute; top: 0px;  height: 100%;
     width: 100%;
     opacity: 0;
     transition: .3s ease; left: 0;
-    background-color: rgba(0,0,0,0.1); min-width:300px}
+    background-color: rgba(0,0,0,0.1);}
     .buy_now_hover_details ul{padding-top: 104px;}
-.buy_now_hover_details li{padding: 20px; width: 20%;}
+.buy_now_hover_details li{padding: 14%; width: 20%;}
 .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #5dc9ff; text-align: center; padding: 15px; font-size: 16px; }
 .product_img:hover  .buy_now_hover_details{ opacity: 1;}
 

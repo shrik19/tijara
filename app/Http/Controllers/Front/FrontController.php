@@ -206,7 +206,7 @@ $featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_pack
 								->where('categories.status','=','active')
 								->orderBy('categories.sequence_no')
 								->orderBy('subcategories.sequence_no')
-								->groupBy('categories.id')
+								//->groupBy('categories.id')
 								->get()
 								->toArray();
 		//print_r(DB::getQueryLog());exit;

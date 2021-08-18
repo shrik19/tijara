@@ -980,6 +980,7 @@ overflow: hidden;}
     .buy_now_hover_details ul{padding-top: 104px;}
 .buy_now_hover_details li{padding: 14%; width: 20%;}
 .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #5dc9ff; text-align: center; padding: 15px; font-size: 16px; }
+
 .product_img:hover  .buy_now_hover_details{ opacity: 1;}
 
 

@@ -80,22 +80,25 @@ function getEmailContents($title)
 }
 /*function to get categoried and subcategories in subheader menus*/
 function getCategorySubcategoryList() {
+  DB::enableQueryLog();
     $Categories     = Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                 ->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
                 ->where('subcategories.status','=','active')
                 ->where('categories.status','=','active')
                 ->orderBy('categories.sequence_no')
                 ->orderBy('subcategories.sequence_no')
-                ->limit(12)
+               // ->offset(0)->limit(7)
                 ->get()
                 ->toArray();
+
     $CategoriesArray  = array();
     foreach($Categories as $category) {
       $CategoriesArray[$category['id']]['category_name']= $category['category_name'];
       $CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
       $CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
     }
-
+    
+    $CategoriesArray = array_slice($CategoriesArray, 0, 6);
     return $CategoriesArray;
   }
 

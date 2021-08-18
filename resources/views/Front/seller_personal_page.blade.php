@@ -88,7 +88,13 @@
                 echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width:200px;height:200px;" id="previewBanner"></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
-              }
+              }else{
+           echo '<div class="bannerImage" style="display: none;">';
+              echo '<div class="row">';
+                echo '<div class="col-md-4 existing-images"><img src="" style="width:200px;height:200px;" id="previewBanner"></div>';
+                echo '</div>';
+                echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
+            }
               @endphp
 
               <input type="file" name="header_img" id="bannerInp" class="form-control" value="">
@@ -136,6 +142,7 @@
 bannerInp.onchange = evt => {
   const [file] = bannerInp.files
   if (file) {
+    $('.bannerImage').css('display','none');
     previewBanner.src = URL.createObjectURL(file)
   }
 }

@@ -159,15 +159,11 @@ ul.breadcrumb-category li a:hover {
   text-decoration: underline;
 }
 
-.activemainmenu a {
+.activemainmenu > a {
     background: #03989e !important;
     color: #000000 !important;
 }
 
-
-.nav > li.activemainmenu > a:before {
-    border-top-color: #000000 !important;
-}
 
 /*
 #msform {

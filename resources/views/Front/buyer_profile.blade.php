@@ -7,7 +7,8 @@
 <div class="col-md-6 hor_strip gray_bg_color">
 </div>
 </div>
-<div class="container">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
   <div class="row">
     <div class="col-md-2">
@@ -122,7 +123,7 @@
   </div>
   </div><!-- row -->
 </div> <!-- /container -->
-
+          </div>
 <script>
   $(document).ready(function() {
     $('.description').richText();

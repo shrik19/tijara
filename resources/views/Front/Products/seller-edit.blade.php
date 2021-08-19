@@ -13,8 +13,15 @@
 </div>
 
 </div>
+<<<<<<< HEAD
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
+    <div class="col-md-2">
+=======
 <div class="container">
     <div class="col-md-2 tijara-sidebar">
+>>>>>>> 868a036965efb2dd19a88736f85859b8f9f95956
         @include ('Front.layout.sidebar_menu')
     </div>
       <div class="col-md-10">
@@ -210,6 +217,7 @@
                               @php $i++; @endphp
                             @endforeach  
                           @endif
+
                           <div class="col-md-4 text-right add-varinat-btn">
                               <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
                           </div>
@@ -254,7 +262,8 @@
       </div> <!-- /col-10 -->
 
 
-  
+</div>
+</div>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 

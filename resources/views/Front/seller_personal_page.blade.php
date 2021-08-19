@@ -7,7 +7,9 @@
 <div class="col-md-6 hor_strip gray_bg_color">
 </div>
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
   <div class="row">
   <div class="col-md-2 tijara-sidebar">
@@ -21,9 +23,9 @@
         <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data">
             @csrf
 
-            <div class="col-md-1"></div> 
+    
        <div class="col-md-6">
-        <h2>&nbsp;</h2>
+       
         <br>
 
         
@@ -145,6 +147,8 @@
       </form>    
     </div>
   </div>
+  </div>
+            </div>
 </div> <!-- /container -->
 <script type="text/javascript">
 bannerInp.onchange = evt => {

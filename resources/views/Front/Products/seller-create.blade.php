@@ -13,7 +13,9 @@
 </div>
 
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
    @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -180,7 +182,7 @@
                   ">
                 </div>
               
-                
+
                <div class="col-md-4 text-right add-varinat-btn">
                   <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
                </div>
@@ -224,7 +226,9 @@
 
   </form>
             </div>
+</div>
 </div> <!-- /container -->
+</div>
 <script>var siteUrl="{{url('/')}}";</script>
 
 

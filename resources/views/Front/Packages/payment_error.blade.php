@@ -7,7 +7,9 @@
   <div class="col-md-6 hor_strip gray_bg_color">
   </div>
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <div class="row">
     <div class="">
         </br>     
@@ -26,6 +28,8 @@
 
     </div>
   </div>
+  </div>
+</div>
 </div> <!-- /container -->
 
 @endsection

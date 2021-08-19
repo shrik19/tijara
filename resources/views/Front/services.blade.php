@@ -5,8 +5,9 @@
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
  <!-- Carousel Default -->
 <section class="product_section">
-    <div class="container">
+    <div class="container-fluid">
       <!-- Example row of columns -->
+      <div class="container-inner-section">
       <div class="row" style="margin-top:40px;">
         
         @include('Front.category_breadcrumb')
@@ -49,12 +50,13 @@
         </div>
     </div>
 
-
+</div>
     </div> <!-- /container -->
 </section>
 
 <section>
-    <div class="container">
+    <div class="container-fluid">
+    <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
@@ -67,7 +69,7 @@
             </div>
 
 
-
+</div>
         </div>
     </div>
 </section>

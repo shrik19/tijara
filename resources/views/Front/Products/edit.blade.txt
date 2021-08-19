@@ -142,7 +142,7 @@
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-4 text-right">
-		  <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
+		  <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color a_btn login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
 			</div>
 
       <div class="col-md-12">

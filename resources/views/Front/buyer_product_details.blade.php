@@ -66,7 +66,8 @@
 
 <!-- product review section -->
 <section>
-    <div class="container">
+    <div class="container-fluid">
+    <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
               <div class="col-md-12">
@@ -102,11 +103,13 @@
             </div>
         </div>
     </div>
+</div>
 </section>
 
 <section>
   @if(!empty($similarProducts))
-    <div class="container">
+    <div class="container-fluid">
+    <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
                 <h3>{{ __('lang.also_have_watch')}}</h3>
@@ -119,7 +122,7 @@
                   </div>
 
 
-
+</div>
         </div>
     </div>
     @endif

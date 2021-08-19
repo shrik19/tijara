@@ -94,7 +94,8 @@
 	      	 <div class="col-md-4">
 				<div class="panel panel-default subscribe-packages">
 				<div class="panel-heading">{{$data['title']}}</div>
-				<div class="panel-body package-body">
+				<div class="panel-body" style="min-height: 390px;overflow: auto;">
+
 					<p><span class="bold">{{ __('users.description_label')}} :</span> <?php echo $data->description; ?></p>
 					<p><span class="bold">{{ __('users.amount_label')}} : </span> {{$data['amount']}} kr</p>
 					<p><span class="bold">{{ __('users.validity_label')}} : </span>{{$data['validity_days']}} Days</p>
@@ -114,6 +115,7 @@
 				<div class="panel panel-default subscribe-packages">
 				<div class="panel-heading">{{$data['title']}}</div>
 				<div class="panel-body" style="max-height: 215px;overflow: auto;">
+>>>>>>> 868a036965efb2dd19a88736f85859b8f9f95956
 					<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
 					<p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
 					<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>

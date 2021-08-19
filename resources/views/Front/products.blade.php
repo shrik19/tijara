@@ -6,10 +6,10 @@
 
  <!-- Carousel Default -->
 <section class="product_section">
-    <div class="container">
+    <div class="container-fluid">
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
-
+  <div class="container-inner-section">
         @include('Front.category_breadcrumb')
         
         <div class="col-md-3">
@@ -52,14 +52,15 @@
             </div>
         </div>
     </div>
-
+    </div>
 
     </div> <!-- /container -->
 </section>
 
 <section>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
+          <div class="container-inner-section">
             <div class="best_seller_container">
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
                 <h2>{{ __('lang.best_seller_head')}}</h2>
@@ -71,7 +72,7 @@
             </div>
 
 
-
+</div>
         </div>
     </div>
 </section>

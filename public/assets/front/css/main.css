@@ -1033,14 +1033,14 @@ overflow: hidden;}
 .product_img{position: relative;
     background-color: #e5e5e5!important;
     height: 300px;
-    display: table-cell!important;
+    display: flex!important;
     vertical-align: middle;
     padding: 5px;
     overflow: hidden;
-    width: 100%;
-    float: left;
+  justify-content: center;
 }
-.product_img img{object-fit: contain;}
+.product_img img{width: 100%;
+    object-fit: contain;}
 .buy_now_hover_details{position: absolute; top: 0px;  height: 100%;
     width: 100%;
     opacity: 0;
@@ -1049,10 +1049,16 @@ overflow: hidden;}
     .buy_now_hover_details ul{padding-top: 104px;}
 .buy_now_hover_details li{padding: 14%; width: 20%;}
 .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #5dc9ff; text-align: center; padding: 15px; font-size: 16px; }
-
+.mid-section{margin: 40px 0;}
 .product_img:hover  .buy_now_hover_details{ opacity: 1;}
-
-
+.packages-description{height: 385px;}
+.card-header{margin: 25px 0;}
+.a_btn, .login_btn {    text-decoration: none;
+    font-size: 16px;
+    color: #fff;
+    padding: 6px 13px;
+}
+.subscribe-packages ul{padding: 20px;}
 .product_img{text-align: center;background-color: #e5e5e5; display: block;}
 .product_img:hover ~ .product_info h4{font-size: 22px; color: #03989e;; font-weight: bold; }
 .product_info h4:hover{font-size: 22px; color: #03989e;; font-weight: bold; }
@@ -1063,7 +1069,7 @@ overflow: hidden;}
 .sale_details pre{font-size: 20px;color: white; font-weight: 400;}
 .sale_btn{padding: 10px 32px; color: #fff; border: 1px solid #fff; border-radius: 30px;background: transparent; font-size: 25px; margin-top: 20px;}
 .best_seller li{width: 23%;}
-.best_seller_container{margin-top: 40px; float: left;width: 100%;}
+.best_seller_container{margin-top: 40px; float: left;width: 100%; padding-bottom: 40px;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
 .best_seller_container h2{font-size: 40px; font-weight: 600; color: #000;margin: 0;padding-bottom: 30px;}
 .instagram_imgs{list-style: none;}

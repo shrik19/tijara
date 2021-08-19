@@ -8,7 +8,9 @@
   </div>
   
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -29,7 +31,7 @@
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
-		  <a href="{{route('frontServiceCreate')}}" title="{{ __('servicelang.add_service')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('servicelang.add_service')}}</span> </a>
+		  <a href="{{route('frontServiceCreate')}}" title="{{ __('servicelang.add_service')}}" class="btn btn-black btn-sm debg_color login_btn a_btn" ><span>{{ __('servicelang.add_service')}}</span> </a>
 			</div>
 		</div>
 
@@ -55,8 +57,9 @@
 		  </form>  
 		</div>
 	  </div>
-		
+		</div>
     </div>
+</div>
   </div>
 </div> <!-- /container -->
 <script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>

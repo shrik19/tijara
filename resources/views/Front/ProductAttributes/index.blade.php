@@ -8,7 +8,9 @@
   </div>
   
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -49,10 +51,11 @@
 			</div>
 		  </form>  
 		</div>
-	  
+	  </div>
 	  </div> 
     </div>
   </div>
+</div>
 </div> <!-- /container -->
 <script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/dataTables.bootstrap4.min.css">

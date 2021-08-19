@@ -914,7 +914,10 @@ public function getCatSubList(Request $request) {
         	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
          	$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
          	$data['category_name'] = $getCategoryName['category_name'];
-        	$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+         	
+         	if($request->segment(3)!=''){
+        		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+        	}
         }
                
        //echo $data['category_name'];exit;
@@ -1015,7 +1018,9 @@ public function getCatSubList(Request $request) {
 	        $getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
 
 	        $data['category_name'] = $getCategoryName['category_name'];
-	        $data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+	        if($request->segment(3)!=''){
+	        	$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+	        }
     	}
 
 		$data['is_seller'] 			= 1;
@@ -1502,7 +1507,9 @@ public function getCatSubList(Request $request) {
         	$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
         	$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         	$data['category_name'] = $getCategoryName['category_name'];
+        	if($request->segment(3)!=''){
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+        	}
 		} 
 
 		 return view('Front/services', $data);
@@ -1740,7 +1747,9 @@ public function getCatSubList(Request $request) {
         	$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
         	$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         	$data['category_name'] = $getCategoryName['category_name'];
+        	if($request->segment(3)!=''){
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+        	}
 		}
     	/*get service review*/   
 		$data['serviceReviews']= $this->getReviews('services',$id,'','');

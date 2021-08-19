@@ -29,7 +29,7 @@
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
-		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color a_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
+		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
 			</div>
 		</div>
 

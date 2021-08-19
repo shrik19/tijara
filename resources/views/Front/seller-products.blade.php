@@ -13,7 +13,7 @@
     <div class="container">
        
       <!-- Example row of columns -->
-      <div class="row" style="margin-top:40px;">
+      <div class="row tijara-content" style="margin-top:40px;">
         @include('Front.category_breadcrumb')
         <div class="col-md-3">
             <div style="display: flex">
@@ -145,7 +145,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">{{ __('users.contact_store_head')}}</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
         </div>
         <div class="loader"></div>
         <div class="modal-body">
@@ -157,7 +157,7 @@
                   <input type="hidden" name="seller_name" class="seller_name" id="seller_name" value="">
                 <div class="form-group">
                   <label>{{ __('users.your_message_label')}} <span class="text-danger">*</span></label>
-                  <textarea class="user_message" name="user_message" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}"  placeholder="{{ __('users.subcategory_name_label')}}" id="user_message"required></textarea>
+                  <textarea class="user_message form-control contact-store-message" name="user_message" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}"  placeholder="{{ __('users.subcategory_name_label')}}" id="user_message"required></textarea>
                
                 </div>
             </form>

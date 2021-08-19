@@ -198,7 +198,7 @@ $featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_pack
     }
 
 	//get category & subcategory listings
-	public function getCategorySubcategoryList($seller_id='') {
+	public function getCategorySubcategoryList($seller_id='',$category_slug='', $subcategory_slug='') {
 		DB::enableQueryLog();
 		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
@@ -298,8 +298,11 @@ public function getCatSubList(Request $request) {
 			  ->orderBy('subcategories.sequence_no');
 			 //->groupBy('categories.id');
 
-			if(!empty($request->sellers) && !empty($request->search_seller_product)){
-				$productCount	=	$productCount->where('products.user_id','=',$request->sellers)->where('products.title', 'like', '%' . $request->search_seller_product . '%');
+			if(!empty($request->sellers)){
+				$productCount	=	$productCount->where('products.user_id','=',$request->sellers);
+			}
+			if(!empty($request->search_seller_product)){
+				$productCount	=	$productCount->where('products.title', 'like', '%' . $request->search_seller_product . '%');
 			}
 
 			
@@ -408,8 +411,8 @@ public function getCatSubList(Request $request) {
 				$servicesCount	=	$servicesCount->where('services.user_id','=',$request->sellers);
 			}
 
-			if(!empty($request->sellers) && !empty($request->search_seller_product)){
-				$servicesCount	=	$servicesCount->where('services.user_id','=',$request->sellers)->where('services.title', 'like', '%' . $request->search_seller_product . '%');
+			if(!empty($request->search_seller_product)){
+				$servicesCount	=	$servicesCount->where('services.title', 'like', '%' . $request->search_seller_product . '%');
 			}
 			
 			$servicesCount = $servicesCount->groupBy('services.id')->get()->toArray();

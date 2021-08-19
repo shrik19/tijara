@@ -179,6 +179,16 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::get('/showpackages/{id}','SellerController@showpackages')->name('adminSellerShowPackages');
 	});
 
+	/* Seller */
+	Route::group(['prefix'=>'newsLetterSubscriber'], function() {
+		Route::get('/','NewsletterSuscribers@index')->name('adminNewsletterUser');
+		Route::any('/getRecords','NewsletterSuscribers@getRecords')->name('adminNewsletterGetRecords');
+		Route::get('/exportdata','NewsletterSuscribers@exportdata')->name('adminSubscriberexportdata');
+	
+	
+		
+	});
+
 	/*Package*/
 	Route::group(['prefix'=>'package'], function() {
 		Route::get('/','PackageController@index')->name('adminPackage');

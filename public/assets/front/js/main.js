@@ -1411,9 +1411,7 @@ $('body').on('change', '.service_image', function () {
 
 
 });
-$('#phone_number')
-
-	.keydown(function (e) {
+$('#phone_number').keydown(function (e) {
 		var key = e.which || e.charCode || e.keyCode || 0;
 		$phone = $(this);
 
@@ -1468,3 +1466,51 @@ $('#phone_number')
 		}
 	});
   
+$('.subscribed_users').click(function(){
+  var email = $('#usersSubscribed').val();
+  let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+  let error = 0;
+
+  if(email == '') {
+    $(".subscribe_err").html(fill_in_email_err).show();
+    $(".subscribe_err").parent().addClass('jt-error');
+    error = 1;
+  }else if(!email_pattern.test(email)){
+    $(".subscribe_err").html(valid_email_err).show();
+    $(".subscribe_err").parent().addClass('jt-error');
+    error = 1;
+  } else {
+    $(".subscribe_err").parent().removeClass('jt-error');
+    $(".subscribe_err").html('');
+  }
+
+  if(error == 1)
+  {
+    return false;
+  }
+  else
+  {
+    $('.loader').show();
+    $.ajax({
+      headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+      },
+
+      url: siteUrl+'/users-subscription/?email='+email,
+      type: 'post',
+
+      data: { },
+      success: function(response){
+        $('.loader').hide();
+        console.log(response);
+        if(response.error !=''){
+          $('.subscribe_err').text(response.error)
+        }
+        
+        if(response.success !=''){
+          $('.subscribe_success').text(response.success)
+        }
+      }
+    });
+  }
+});

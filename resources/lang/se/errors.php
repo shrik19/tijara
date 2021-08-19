@@ -112,6 +112,7 @@
      'please_check_privacy_policy' =>'Vänligen kolla sekretesspolicyn',
      'please_enter_store_name' => 'Ange butiksnamn',
      'please_check_your_profile' => 'Bekräfta din profil (köpare/säljare)',
+     'already_subscribed' => 'Du har redan prenumererat på nyhetsbrev',
 
  ]
 ?>

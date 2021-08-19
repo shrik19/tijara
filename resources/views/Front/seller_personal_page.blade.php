@@ -12,10 +12,10 @@
   <div class="container-inner-section">
   <!-- Example row of columns -->
   <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-2 tijara-sidebar">
       @include ('Front.layout.sidebar_menu')
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10 tijara-content">
     @include ('Front.alert_messages')
      
         <h2> {{ __('users.seller_personal_form_label')}}</h2>
@@ -91,11 +91,11 @@
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }else{
-           echo '<div class="bannerImage" style="display: none;">';
+               echo '<div class="bannerImage" style="display: none;">';
               echo '<div class="row">';
                 echo '<div class="col-md-4 existing-images"><img src="" style="width:200px;height:200px;" id="previewBanner"></div>';
                 echo '</div>';
-                echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
+                echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
             }
               @endphp
 
@@ -115,7 +115,15 @@
                 echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" style="width:200px;height:200px;" id="previewLogo"></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
-              }
+              }else{
+
+              echo '<div class="logoImage" style="display: none;">';
+              echo '<div class="row">';
+              echo '<div class="col-md-4 existing-images"><img src="" style="width:200px;height:200px;" id="previewLogo"></div>';
+              echo '</div>';
+              echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
+                
+            }
               @endphp
 
               <input type="file" name="logo" id="logoInp" class="form-control" value="">
@@ -146,7 +154,7 @@
 bannerInp.onchange = evt => {
   const [file] = bannerInp.files
   if (file) {
-    $('.bannerImage').css('display','none');
+    $('.bannerImage').css('display','block');
     previewBanner.src = URL.createObjectURL(file)
   }
 }
@@ -154,6 +162,7 @@ bannerInp.onchange = evt => {
 logoInp.onchange = evt => {
   const [file] = logoInp.files
   if (file) {
+    $('.logoImage').css('display','block');
     previewLogo.src = URL.createObjectURL(file)
   }
 }

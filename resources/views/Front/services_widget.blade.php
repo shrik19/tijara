@@ -25,14 +25,17 @@
           </select>
         </div> 
 
-        <h5>{{$service['category_name']}}</h5>
+        @php $service_cat_link= url('/').'/services/'.strtolower($service['category_name']); @endphp
+        <a href="{{$service_cat_link}}"><h5>{{$service['category_name']}}</h5></a>
         <a href="{{$service->service_link}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
         @if(!empty($service->price))
         <h6>{{$service->price}} kr</h6>
         @endif
-        <h6>{{$service->seller}}</h6>
+        @php 
+          $seller_link= url('/').'/seller/'.$service->seller."/". base64_encode($service->user_id)."/services"; 
+        @endphp
+        <a href="{{$seller_link}}"><h6>{{$service->seller}}11</h6></a>
     </div>
   </div>
-
 
 </li>

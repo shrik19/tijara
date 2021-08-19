@@ -14,10 +14,10 @@
   <!-- Example row of columns -->
   
   <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
-      <div class="col-md-10">
+      <div class="col-md-10 service-req-content">
 
 	  @include('Front.alert_messages')
 	   
@@ -68,7 +68,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">{{ __('lang.service_req_details')}}</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
         </div>
         
         <div class="modal-body">

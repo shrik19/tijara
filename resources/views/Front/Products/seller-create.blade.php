@@ -20,14 +20,14 @@
    @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
-      <div class="col-md-2">
+      <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
       <div class="col-md-10">
   @if($is_seller)    
-  <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
+  <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
   @else
-  <form id="product-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
+  <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
   @endif
             @csrf
   <div class="row">
@@ -182,9 +182,9 @@
                   ">
                 </div>
               
-                
-               <div class="col-md-4 text-right">
-                  <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color  login_btn add_new_variant_btn a_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
+
+               <div class="col-md-4 text-right add-varinat-btn">
+                  <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
                </div>
               <div class="all_saved_attributes" ></div>
             </div>
@@ -211,7 +211,7 @@
       </div>
       
   </div>
-  <div class="row">
+  <div class="row  tijara-content">
 
       
             <div class="col-md-12">&nbsp;</div>

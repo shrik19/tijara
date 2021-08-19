@@ -16,8 +16,12 @@
   <div class="row">
     <div class="">
       <div class="col-md-12">
-    @if($subscribedError)
-      <div class="alert alert-danger">{{$subscribedError}}</div>
+        <div class="col-md-2 tijara-sidebar">
+          @include ('Front.layout.sidebar_menu')
+      </div>
+      <div class="col-md-10 tijara-content">
+      @if($subscribedError)
+        <div class="alert alert-danger">{{$subscribedError}}</div>
       @endif
     @include('Front.alert_messages')
      
@@ -35,13 +39,8 @@
 
     <div class="card-body">
       <div class="row">
-          @if(!empty($buyerProducts))
-          <?php 
-              
-
-           
-           
-          ?> 
+          @if(!empty($buyerProducts) && count($buyerProducts) > 0)
+          
           @foreach($buyerProducts as $key => $value)
             
           <?php 
@@ -79,10 +78,10 @@
           @endforeach
 
           @else
-          <div>No product found</div>
+          <div style="text-align: center;margin-top: 30px;">{{__('lang.datatables.sEmptyTable')}}</div>
           @endif
       </div>
-
+    </div>
     </div>
     </div>
         

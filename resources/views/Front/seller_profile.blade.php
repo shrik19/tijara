@@ -12,10 +12,10 @@
   <div class="container-inner-section">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2 tijara-sidebar">
       @include ('Front.layout.sidebar_menu')
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10 tijara-content">
       @if(!empty($package_exp_msg))
           <div class="alert alert-danger" role="alert">
             <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>

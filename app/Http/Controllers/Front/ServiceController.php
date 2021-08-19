@@ -551,7 +551,7 @@ class ServiceController extends Controller
     }
 
     public function store(Request $request) {
-    //echo "<pre>";print_r($_POST);exit;
+      //echo "<pre>";print_r($_POST);exit;
         $service_slug = $request->input('service_slug');
         $slug =   CommonLibrary::php_cleanAccents($service_slug);
         $id     = $request->input('service_id');
@@ -562,10 +562,11 @@ class ServiceController extends Controller
             'sort_order'    =>'numeric',
             'service_price' => 'required', 
             'session_time'  => 'required',  
-            'service_year'  => 'required',
+            'service_availability'  => 'required',
+           /* 'service_year'  => 'required',
             'service_month' => 'required',
             'service_date'  => 'required',
-            'start_time'    => 'required',
+            'start_time'    => 'required',*/
         ];
         if($request->input('service_id')==0) {
             $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
@@ -582,10 +583,11 @@ class ServiceController extends Controller
             'service_slug.regex'     => trans('errors.input_aphanum_dash_err'),  
             'session_time.required'           => trans('lang.required_field_error'),  
             'service_price.required'          => trans('lang.required_field_error'),  
-            'service_year.required'  => trans('lang.required_field_error'),           
+            'service_availability.required'  => trans('lang.required_field_error'),
+            /*'service_year.required'  => trans('lang.required_field_error'),           
             'service_month.required' => trans('lang.required_field_error'), 
             'service_date.required'  => trans('lang.required_field_error'),           
-            'start_time.required'    =>trans('lang.required_field_error'), 
+            'start_time.required'    =>trans('lang.required_field_error'), */
             
         ];
 
@@ -651,8 +653,7 @@ class ServiceController extends Controller
 
         if(empty($request->input('categories'))) {  
             $category  =   ServiceSubcategories::where('subcategory_name','Uncategorized')->first();
-            echo "<pre>";
-            print_r($category->id);exit;
+            
             $request->input('categories')[]=  $category->id;
             $servicecategories['service_id']    =   $id;
             $servicecategories['category_id']   =   $category->category_id;

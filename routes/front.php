@@ -59,6 +59,7 @@ Route::get('/seller-register','Front\AuthController@seller_register')->name('sel
 Route::post('/do-register','Front\AuthController@doRegister')->name('do-register');
 Route::get('/register-success','Front\AuthController@register_success')->name('frontRegisterSuccess');
 
+Route::any('/users-subscription','Front\AuthController@usersSubscription')->name('frontusersSubscription');
 
 /*forgot password*/
 Route::post('/forgot-password','Front\AuthController@forgotPassword')->name('frontForgotPassword');

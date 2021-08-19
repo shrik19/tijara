@@ -57,7 +57,9 @@
           <a href="{{route('adminEmail')}}" class="nav-link"><i class="fas fa-envelope-open-text"></i> <span>{{ __('lang.email_menu')}} </span></a>
         </li>
 
-        
+        <li class="nav-item dropdown">
+          <a href="{{route('adminNewsletterUser')}}" class="nav-link"><i class="fas fa-envelope-open-text"></i> <span>{{ __('users.newsletter_subscriber')}} </span></a>
+        </li>
 
         <li class="nav-item dropdown">
           <a href="{{route('adminSettingCreate')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.setting_menu')}} </span></a>

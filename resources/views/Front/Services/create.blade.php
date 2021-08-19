@@ -20,18 +20,17 @@
    @if($subscribedError)
       <div class="alert alert-danger">{{$subscribedError}}</div>
       @endif
-  <form id="service-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
+  <form id="service-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
             @csrf
   <div class="row">
 
-    <div class="col-md-2">
+    <div class="col-md-2 tijara-sidebar">
       @include ('Front.layout.sidebar_menu')
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10 tijara-content">
         <div class="col-md-10">
-
-              <h2>{{ __('servicelang.service_form_label')}}</h2>
-              <hr class="heading_line"/>
+            <h2>{{ __('servicelang.service_form_label')}}</h2>
+            <hr class="heading_line"/>
         </div>
         <div class="col-md-2 text-right" style="margin-top:30px;">
             <a href="{{route('manageFrontServices')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
@@ -121,7 +120,7 @@
         
               <h2  class="col-md-12">{{ __('servicelang.step_2')}}</h2>
               <div class="form-group col-md-2">
-                    <label class="col-md-12">{{ __('lang.service_year')}}<span class="de_col">*</span></label>
+                    <label class="col-md-12">{{ __('lang.service_year')}}<!-- <span class="de_col">*</span> --></label>
                     
                     <select class="col-md-12 service_year" name="service_year" id="service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -136,7 +135,7 @@
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
               </div>
               <div class="form-group col-md-3">
-                    <label class="col-md-12">{{ __('lang.service_month')}}<span class="de_col">*</span></label>
+                    <label class="col-md-12">{{ __('lang.service_month')}}<!-- <span class="de_col">*</span> --></label>
                     <select class="col-md-12 service_month" name="service_month" id="service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
@@ -150,7 +149,7 @@
                     </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
               </div>
               <div class="form-group col-md-2">
-                  <label class="col-md-12">{{ __('lang.service_date')}}<span class="de_col">*</span></label>
+                  <label class="col-md-12">{{ __('lang.service_date')}}<!-- <span class="de_col">*</span> --></label>
                   <select class="col-md-12 service_date" name="service_date" id="service_date" >
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php
@@ -162,19 +161,20 @@
                       }
                     ?>
                   </select>
-                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_date')) {{ $errors->first('service_date') }}@endif </span>
+                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
               </div>
 
               <div class="form-group col-md-3">
-                <label class="col-md-12">{{ __('lang.start_time')}} <span class="de_col">*</span></label>
+                <label class="col-md-12">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
                 <input type="tel" class="col-md-12 start_time" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
-                <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_time')) {{ $errors->first('start_time') }}@endif </span>
+                <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
               </div>
 
               <div class="col-md-2 text-center">
                 <label class="col-md-12">&nbsp;</label>
                 <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a>
               </div>
+
 
               <div class="added_service_times" style="display:none;"></div>
               <div  class="col-md-12" id="calendar" style="padding: 20px;"></div>

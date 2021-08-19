@@ -40,7 +40,7 @@
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="getListing()">
-                          <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
+                        <!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
                           <option value="name">{{ __('lang.sort_by_name')}}</option>
                           <option value="price">{{ __('lang.sort_by_price')}}</option>
                           <option value="rating">{{ __('lang.sort_by_rating')}}</option>

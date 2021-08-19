@@ -155,10 +155,9 @@
 
 										<div class="form-group increment cloned">
 											<label>{{ __('users.seller_header_img_label')}}</label>
-
+                                            <div class="col-md-4 seller_banner_upload"></div>
 											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
-											<div class="col-md-4 seller_banner_upload"></div>
-											  
+											
 											<span class="invalid-feedback" id="err_seller_banner_img"></span>
 											<div class="input-group-btn text-right"> 
 											</div>
@@ -167,10 +166,10 @@
 
 										<div class="form-group increment cloned">
 											<label>{{ __('users.seller_logo_label')}}</label>
+                                            <div class="col-md-4 seller_logo_upload"></div>
 											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
-											<div class="col-md-4 seller_logo_upload"></div>
-											<span class="invalid-feedback" id="err_seller_logo_img"></span>
 											
+											<span class="invalid-feedback" id="err_seller_logo_img"></span>	
 											<div class="input-group-btn text-right"> 
 											</div>
 									   </div>
@@ -346,7 +345,7 @@ $(document).ready(function(){
         }
         else if(!email_pattern.test(email))
         {
-            $("#err_email").html(fill_in_email_err).show();
+            $("#err_email").html(valid_email_err).show();
             $("#err_email").parent().addClass('jt-error');
             error = 1;
         }

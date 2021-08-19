@@ -15,7 +15,7 @@ use App\Models\SellerImages;
 use App\Models\Package;
 use App\Models\UserPackages;
 use App\Models\SellerPersonalPage;
-
+use App\Models\SubscribedUsers;
 /*Uses*/
 use Socialite;
 use DB;
@@ -1837,5 +1837,31 @@ class AuthController extends Controller
          //else recurring flow with insert new record
         
 
+    }
+
+    /*
+    *function to save subscribe users
+    *@param:email_id
+    */
+    public function usersSubscription(Request $request){
+
+        $email = $request->email;
+        $success_message = $err_message = '';
+
+        if(!empty($email)){
+
+            $is_exists =  SubscribedUsers::where('email','like', $email.'%')->first();
+
+            if(!empty($is_exists)){
+                $err_message = trans('errors.already_subscribed');
+                return response()->json(['error'=>$err_message]);
+            }else{
+                $newsLetter['email']   =   $email;
+                SubscribedUsers::create($newsLetter);
+                $success_message=trans('messages.news_letter_subscribe_success');
+                return response()->json(['success'=>$success_message]);
+            }
+          
+        }
     }
 }

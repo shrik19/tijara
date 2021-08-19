@@ -157,7 +157,8 @@
 
 <!-- service review section -->
 <section>
-    <div class="container">
+    <div class="container-fluid">
+    <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
               <div class="col-md-12">
@@ -196,10 +197,12 @@
             </div>
         </div>
     </div>
+</div>
 </section>
 
 <section>
-    <div class="container">
+    <div class="container-fluid">
+    <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
@@ -212,7 +215,7 @@
             </div>
 
 
-
+</div>
         </div>
     </div>
 </section>

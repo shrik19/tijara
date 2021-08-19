@@ -7,8 +7,9 @@
   <div class="col-md-6 hor_strip gray_bg_color">
   </div>
 </div>
-
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
     <!-- Example row of columns -->
     <div class="row">
     <div class="col-md-2">
@@ -41,7 +42,8 @@
             </form>
           </div>
         </div>
-     
+</div>
+</div>
     </div>
 </div> <!-- /container -->
 

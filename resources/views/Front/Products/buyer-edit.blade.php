@@ -13,7 +13,9 @@
 </div>
 
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
     <div class="col-md-2">
         @include ('Front.layout.sidebar_menu')
     </div>
@@ -258,10 +260,11 @@
               </div>
             </form>
           </div>
+</div>
       </div> <!-- /col-10 -->
 
 
-  
+</div>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 

@@ -1,6 +1,6 @@
 <div class="pull-left sidebar_menu">
                 @if(Auth::guard('user')->id())
-                <ul style="margin-top: 50px;">
+                <ul class="category_list" style="margin-top: 50px;">
 
                   <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
       

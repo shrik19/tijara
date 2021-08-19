@@ -8,8 +8,9 @@
   </div>
   
 </div>
-
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -28,7 +29,7 @@
       <hr class="heading_line"/>
       </div>
       <div class="col-md-1">
-      <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
+      <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
       </div>
     </div>
 
@@ -66,7 +67,7 @@
                 <p class="card-text buyer-product-title">{{$title}}</p>
                  <p class="card-text buyer-price">{{$price}}</p>
                  <div class="buyer-button">
-                  <a href="{{route('frontProductEdit', base64_encode($id))}}" class="btn btn-black btn-sm debg_color login_btn" title="{{ __('lang.edit_label')}}">{{ __('lang.edit_label')}}</a>
+                  <a href="{{route('frontProductEdit', base64_encode($id))}}" class="btn btn-black btn-sm debg_color login_btn a_btn" title="{{ __('lang.edit_label')}}">{{ __('lang.edit_label')}}</a>
                   
 
                   <a href="javascript:void(0)" onclick='return ConfirmDeleteFunction("{{route("frontProductDelete", base64_encode($id))}}");'  title="{{ __('lang.remove_title')}}" class="btn btn-black btn-sm login_btn remove-btn-col">{{ __('lang.remove_title')}}</a>
@@ -94,6 +95,8 @@
     </div>
     </div>
   </div>
+  </div>
+              </div>
 </div> <!-- /container -->
 <script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 

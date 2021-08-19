@@ -8,7 +8,9 @@
   </div>
   
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -57,8 +59,9 @@
 				
     </div>
   </div>
+</div>
 </div> <!-- /container -->
-
+</div>
 <!-- add subcategory model Form -->
  <div class="modal fade" id="serviceReqDetailsmodal">
     <div class="modal-dialog">

@@ -8,7 +8,9 @@
   </div>
   
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -27,7 +29,7 @@
 		  <hr class="heading_line"/>
 		  </div>
 		  <div class="col-md-1">
-		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
+		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color a_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
 			</div>
 		</div>
 
@@ -49,10 +51,11 @@
 			</div>
 		  </form>  
 		</div>
-	  
+	  </div>
 	  </div> 
     </div>
   </div>
+</div>
 </div> <!-- /container -->
 <script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/dataTables.bootstrap4.min.css">

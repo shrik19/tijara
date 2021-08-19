@@ -10,10 +10,11 @@
     @if(!empty($header_image))
       <img src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
     @endif
-    <div class="container">
-       
+    <div class="container-fluid">
+    <div class="container-inner-section">
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
+     
         @include('Front.category_breadcrumb')
         <div class="col-md-3">
             <div style="display: flex">
@@ -137,7 +138,7 @@
          <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.add_subcategory_title').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">contact store </a>
         </div>
     </div>
-
+</div>
 
 <!-- add contact seller model Form -->
  <div class="modal fade" id="contactStoremodal">

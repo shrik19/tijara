@@ -89,7 +89,7 @@
 	      	 <div class="col-md-4">
 				<div class="panel panel-default subscribe-packages">
 				<div class="panel-heading">{{$data['title']}}</div>
-				<div class="panel-body" style="max-height: 215px;overflow: auto;">
+				<div class="panel-body" style="min-height: 390px;overflow: auto;">
 					<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
 					<p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
 					<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>

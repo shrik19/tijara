@@ -13,7 +13,9 @@
 </div>
 
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="container-fluid">
+  <div class="container-inner-section">
   <!-- Example row of columns -->
    @if($subscribedError)
       <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -221,6 +223,8 @@
         </div>
       </div>
   </form>
+                    </div>
+                    </div>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">

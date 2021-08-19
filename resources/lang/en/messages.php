@@ -91,5 +91,6 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
      'Obs_head' => 'Obs!',
      'info_head'=>'Information',
      'my_order_info'=>'Here can. you see your orders as you have made. If you have questions regarding your / your orders please contact the responsible store.',
+     'news_letter_subscribe_success' => 'Newsletter Subscribe Successfully',
  ]
 ?>

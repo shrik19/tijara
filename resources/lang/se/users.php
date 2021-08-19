@@ -271,5 +271,14 @@
     'search_item_placeholder' => 'Sök objekt',
     'enter_city_placeholder' => 'Ange stadens namn',
     'noPackagesFound'=>'Paketet hittades inte',
+    'see_all_services' => "Se Alla tjänster",
+    'subcribed_title' => 'Användare prenumererar',
+    'is_subscrier_title' => 'Är prenumerant',
+    'all_subscribed_users_list' => 'Nyhetsbrev Prenumerantlista',
+    'newsletter_subscriber' => 'Nyhetsbrev Prenumerant',
+    'mark_as_main_menu_lable' => 'Markera som meny',
+    'remove_main_menu_lable' => 'Markera som meny',
+    'remove_main_menu_lable' => 'Ta bort från menyn',
+    'see_all_products' => 'Se alla produkter',
  ]
 ?>

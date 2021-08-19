@@ -14,7 +14,7 @@
 
 </div>
 <div class="container">
-    <div class="col-md-2">
+    <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
     </div>
       <div class="col-md-10">
@@ -25,7 +25,7 @@
       
           <div class="col-md-10">
            
-            <form id="product-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
+            <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
            
                 @csrf
               <div class="row">
@@ -210,7 +210,7 @@
                               @php $i++; @endphp
                             @endforeach  
                           @endif
-                          <div class="col-md-4 text-right">
+                          <div class="col-md-4 text-right add-varinat-btn">
                               <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
                           </div>
                           <div class="all_saved_attributes" ></div>
@@ -236,7 +236,7 @@
                           </label>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row tijara-content">
 
                   
                         <div class="col-md-12">&nbsp;</div>

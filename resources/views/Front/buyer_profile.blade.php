@@ -13,7 +13,7 @@
     <div class="col-md-2">
         @include ('Front.layout.sidebar_menu')
       </div>
-    <div class="col-md-10">
+    <div class="col-md-10 tijara-content">
     @include ('Front.alert_messages')
     <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
             @csrf

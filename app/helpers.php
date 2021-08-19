@@ -85,12 +85,15 @@ function getCategorySubcategoryList() {
                 ->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
                 ->where('subcategories.status','=','active')
                 ->where('categories.status','=','active')
+                ->where('categories.is_menu','=','1')
                 ->orderBy('categories.sequence_no')
                 ->orderBy('subcategories.sequence_no')
                // ->offset(0)->limit(7)
                 ->get()
                 ->toArray();
 
+  // and then you can get query log
+  //print_r(DB::getQueryLog());exit;
     $CategoriesArray  = array();
     foreach($Categories as $category) {
       $CategoriesArray[$category['id']]['category_name']= $category['category_name'];

@@ -14,17 +14,17 @@
 
 </div>
 <div class="container">
-    <div class="col-md-2">
+    <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
     </div>
-      <div class="col-md-10">
+      <div class="col-md-10 tijara-content">
          <!-- Example row of columns -->
           @if($subscribedError)
               <div class="alert alert-danger">{{$subscribedError}}</div>
               @endif
       
           <div class="col-md-10">
-          <form id="product-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
+          <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
     
                 @csrf
               <div class="row">

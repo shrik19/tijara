@@ -173,6 +173,7 @@ class CategoryController extends Controller
                                 'description' =>trim($request->input('description')),
                                 'sequence_no' => trim($request->input('sequence_no')),
                                 'category_slug' => trim(strtolower($slug)),
+                                'is_menu'  => trim($request->input('is_menu')),
                                ];
         Categories::create($arrInsertCategories);                   
         
@@ -243,6 +244,7 @@ class CategoryController extends Controller
                               'description'   => trim($request->input('description')),
                               'sequence_no'   => trim($request->input('sequence_no')),
                               'category_slug' => trim(strtolower($slug)),
+                              'is_menu'  => trim($request->input('is_menu')),
                             ];
                   
         Categories::where('id', '=', $id)->update($arrUpdateCategory);  

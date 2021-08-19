@@ -114,6 +114,7 @@
      'please_check_privacy_policy' =>'Please check privacy policy',
      'please_enter_store_name' => 'Please enter store name',
      'please_check_your_profile' => 'Please Confirm your profile (buyer/seller)',
+     'already_subscribed' => 'You already subscribed newsletter',
     
  ]
 ?>

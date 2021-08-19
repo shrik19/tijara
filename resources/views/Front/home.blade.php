@@ -61,7 +61,11 @@
                 <div class="product_container">
                 <div class="loader"></div>
                     <h4>{{ __('lang.popular_items_in_market_head')}}</h4>
-                    <h2>{{ __('lang.trending_product_head')}}</h2>
+             
+                     <div style="display: flex;">
+                        <h2>{{ __('lang.trending_product_head')}}</h2> 
+                            <a href="{{url('/')}}/products" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_products')}}</a>
+                    </div>
                     <hr class="heading_line"/>
                     <ul class="product_details">
 					@foreach($TrendingProducts as $product)
@@ -116,7 +120,7 @@
         <div class="col-md-12">             
                 <div class="product_container">
                 <div class="loader"></div>
-                    <h2>{{ __('lang.popular_services_head')}}</h2>
+                    <div style="display: flex;"><h2>{{ __('lang.popular_services_head')}}</h2>     <a href="{{url('/')}}/services" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_services')}}</a></div>
                     <hr class="heading_line"/>
                     <ul class="product_details">
                     @foreach($PopularServices as $service)

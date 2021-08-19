@@ -31,6 +31,19 @@
             </div>
 
             <div class="form-group">
+              <label>{{ __('users.mark_as_main_menu_lable')}}</label>
+              <select class="form-control" id="is_menu" name="is_menu">
+              <option value="">{{ __('lang.select_label')}}</option> 
+              <option value="1">{{ __('users.mark_as_main_menu_lable')}}</option>  
+              <option value="0">{{ __('users.remove_main_menu_lable')}}</option>
+            </select>
+              <div class="invalid-feedback">
+                {{ __('errors.select_is_verified')}}
+              </div>
+              <div class="text-danger">{{$errors->first('is_verified')}}</div>
+            </div>
+
+            <div class="form-group">
               <label>{{ __('users.description_label')}}</label>
               <textarea class="form-control description" name="description" id="description" spellcheck="true" value="{{old('address')}}"></textarea>
             </div>

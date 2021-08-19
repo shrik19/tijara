@@ -11,10 +11,11 @@
 <div class="container">
     <!-- Example row of columns -->
     <div class="row">
-    <div class="col-md-2">
+      <div class="col-md-12">
+    <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
-        
+        <div class="col-md-10">
         <div class="col-md-1"></div>
         <div class="col-md-6">
           @include ('Front.alert_messages')
@@ -41,7 +42,8 @@
             </form>
           </div>
         </div>
-     
+     </div>
+   </div>
     </div>
 </div> <!-- /container -->
 

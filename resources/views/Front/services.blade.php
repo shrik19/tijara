@@ -38,7 +38,7 @@
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="listServices()">
-                          <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
+                         <!--  <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
                           <option value="name">{{ __('lang.sort_by_name')}}</option>
                       </select>
                     </div>
@@ -78,12 +78,12 @@ function listServices(){
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
 }
 
 $("#city_name").on("input", function() {
    get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
 });
 /*
 function getListing()

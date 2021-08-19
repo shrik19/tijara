@@ -74,8 +74,11 @@
         <h3>{{ __('lang.join_our_newsletter_now_label')}}</h3>
         <p>{{ __('lang.get_e-mail_updates_label')}}</p>
           <div class="sub_box">
-            <input type="text" placeholder="{{ __('lang.enter_mail_placeholder')}} "/>
-            <button type="button" class="btn sub_btn">{{ __('lang.subscribe_label')}}</button>
+            <div class="loader"></div>
+            <input type="text" id="usersSubscribed" placeholder="{{ __('lang.enter_mail_placeholder')}} "/>
+            <button type="button" class="btn sub_btn subscribed_users">{{ __('lang.subscribe_label')}}</button>
+            <span class="subscribe_err"></span>
+            <span class="subscribe_success"></span>
           </div>
       </div>
     </div>
@@ -131,6 +134,7 @@ var store_name_is_verified = "{{ __('users.store_name_is_verified')}}";
 var select_package_to_subscribe = "{{ __('errors.select_package_to_subscribe')}}";
 var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
 var please_enter_store_name = "{{ __('errors.please_enter_store_name')}}";
+var valid_email_err = "{{ __('errors.valid_email_err')}}";
 </script>
         <!-- <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

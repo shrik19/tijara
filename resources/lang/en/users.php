@@ -251,5 +251,13 @@
     'search_item_placeholder' => 'Search items',
     'enter_city_placeholder' => 'Enter City Name',
     'noPackagesFound'=>'Package not found',
+    'see_all_services' => "See All Services",
+    'subcribed_title' => 'Users Subbscribed',
+    'is_subscrier_title' => 'Is Subscriber',
+    'all_subscribed_users_list' => 'Newsletter Subscriber List',
+    'newsletter_subscriber' => 'Newsletter Subscriber',
+    'mark_as_main_menu_lable' => 'Markera som meny',
+    'remove_main_menu_lable' => 'Remove From Menu',
+    'see_all_products' => 'See All Products',
  ]
 ?>

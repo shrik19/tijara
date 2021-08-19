@@ -24,8 +24,9 @@
             <option value="5" >5</option>
           </select>
         </div> 
-
-        <h5>{{$product['category_name']}}</h5>
+        @php $product_cat_link= url('/').'/products/'.strtolower($product['category_name']); @endphp
+        <a href="{{$product_cat_link}}">
+        <h5>{{$product['category_name']}}</h5></a>
         <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
         <h6>{{$product->price}} kr</h6>

@@ -346,7 +346,7 @@ $(document).ready(function(){
         }
         else if(!email_pattern.test(email))
         {
-            $("#err_email").html(fill_in_email_err).show();
+            $("#err_email").html(valid_email_err).show();
             $("#err_email").parent().addClass('jt-error');
             error = 1;
         }

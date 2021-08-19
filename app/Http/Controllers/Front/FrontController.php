@@ -214,39 +214,39 @@ $featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_pack
 		$currentDate = date('Y-m-d H:i:s');
 	
 		foreach($Categories as $category) {
-	// 		$CategoriesArray[$category['id']]['product_count']=0;
-	// 		DB::enableQueryLog();
-	// 		$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-	// 		  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-	// 		  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-	// 		  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-	// 		  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-	// 		  ->join('users', 'products.user_id', '=', 'users.id')
-	// 		  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
-	// 		  ->select(['products.id','products.title','categories.category_name'])
-	// 		  ->where('products.status','=','active')
-	// 		  ->where('products.is_deleted','=','0')
-	// 		  ->where('categories.status','=','active')
-	// 		  ->where('subcategories.status','=','active')
-	// 		  ->where('users.status','=','active')
-	// 		  ->where('category_products.category_id','=',$category['id'])
-	// 		  ->where(function($q) use ($currentDate) {
+	/*		$CategoriesArray[$category['id']]['product_count']=0;
+			DB::enableQueryLog();
+			$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+			  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+			  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+			  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+			  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+			  ->join('users', 'products.user_id', '=', 'users.id')
+			  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
+			  ->select(['products.id','products.title','categories.category_name'])
+			  ->where('products.status','=','active')
+			  ->where('products.is_deleted','=','0')
+			  ->where('categories.status','=','active')
+			  ->where('subcategories.status','=','active')
+			  ->where('users.status','=','active')
+			  ->where('category_products.category_id','=',$category['id'])
+			  ->where(function($q) use ($currentDate) {
 
-	// 			$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
-	// 			});
+				$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+				});
 
 		
-	// 		if(!empty($seller_id)){
+			if(!empty($seller_id)){
 					
-	// 			$seller_id=base64_decode($seller_id);
-	// 			$productCount = $productCount->where('products.user_id','=',$seller_id);
-	// 		}
+				$seller_id=base64_decode($seller_id);
+				$productCount = $productCount->where('products.user_id','=',$seller_id);
+			}
 
-	// 		$productCount = $productCount->groupBy('products.id')->get()->toArray();
+			$productCount = $productCount->groupBy('products.id')->get()->toArray();
 
-	// // and then you can get query log
-	// //print_r(DB::getQueryLog());echo "<br><br>";
-	// 		$CategoriesArray[$category['id']]['product_count'] =  count($productCount);
+			//and then you can get query log
+			print_r(DB::getQueryLog());echo "<br><br>";
+			$CategoriesArray[$category['id']]['product_count'] =  count($productCount);*/
 					
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
 			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
@@ -402,6 +402,10 @@ public function getCatSubList(Request $request) {
 					
 				$seller_id=base64_decode($seller_id);
 				$servicesCount = $servicesCount ->where('services.user_id','=',$seller_id);
+			}
+
+			if(!empty($request->sellers)){
+				$servicesCount	=	$servicesCount->where('services.user_id','=',$request->sellers);
 			}
 
 			if(!empty($request->sellers) && !empty($request->search_seller_product)){
@@ -869,7 +873,9 @@ public function getCatSubList(Request $request) {
 				}else{
 					$display_name = $Seller['store_name'];
 				}
+				if(!empty($Seller['product_cnt']) && $Seller['product_cnt'] > 0){
 				$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$display_name.' ( '.$Seller['product_cnt'].' )</span></a></li>';
+				}
 			}
 			$sellerData .= '</ul>';
 		}
@@ -1453,8 +1459,9 @@ public function getCatSubList(Request $request) {
 				',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
 				$seller_name = str_replace(" ", '-', $seller_name);
 				$seller_name = strtolower($seller_name);
-				
-				$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$Seller['name'].' ( '.$Seller['service_cnt'].' )</span></a></li>';
+				if(!empty($Seller['service_cnt']) && $Seller['service_cnt'] > 0){
+					$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$Seller['name'].' ( '.$Seller['service_cnt'].' )</span></a></li>';
+				}
 			}
 			$sellerData .= '</ul>';
 		}

@@ -18,14 +18,14 @@
    @if($subscribedError)
       <div class="alert alert-danger">{{$subscribedError}}</div>
       @endif
-  <form id="service-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
+  <form id="service-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
             @csrf
   <div class="row">
 
-    <div class="col-md-2">
+    <div class="col-md-2 tijara-sidebar">
       @include ('Front.layout.sidebar_menu')
     </div>
-    <div class="col-md-10">
+    <div class="col-md-10 tijara-content">
         <div class="col-md-10">
 
               <h2>{{ __('servicelang.service_form_label')}}</h2>
@@ -184,13 +184,13 @@
                       }
                     ?>
                   </select>
-                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_date')) {{ $errors->first('service_date') }}@endif </span>
+                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
               </div>
 
               <div class="form-group col-md-3">
                 <label class="col-md-12">{{ __('lang.start_time')}} </label>
                 <input type="tel" class="col-md-12 start_time" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
-                <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_time')) {{ $errors->first('start_time') }}@endif </span>
+                <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
               </div>
 
               <div class="col-md-2 text-center">

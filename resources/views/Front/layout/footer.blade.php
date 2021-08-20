@@ -84,7 +84,7 @@
         <h3>{{ __('lang.join_our_newsletter_now_label')}}</h3>
         <p>{{ __('lang.get_e-mail_updates_label')}}</p>
           <div class="sub_box">
-            <div class="loader"></div>
+            <div class="footer-loader"></div>
             <input type="text" id="usersSubscribed" placeholder="{{ __('lang.enter_mail_placeholder')}} "/>
             <button type="button" class="btn sub_btn subscribed_users">{{ __('lang.subscribe_label')}}</button>
             <span class="subscribe_err"></span>

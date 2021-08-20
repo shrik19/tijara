@@ -102,7 +102,7 @@
       type: 'get',
       data: { },
       success: function(output){
-        url="{{url('/')}}"+'/SubscribedUsersDetails/NewsLetterFromTijara.csv';
+        url="{{url('/')}}"+'/NewsLetterSubscriber/NewsLetterSubscriberFromTijara.csv';
         window.open(url,"_self")
       }
     });

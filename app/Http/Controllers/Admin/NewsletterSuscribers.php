@@ -81,9 +81,9 @@ class NewsletterSuscribers extends Controller
 
         $recordDetails = $usersDetails->get(['subscribed_users.email','subscribed_users.created_at','subscribed_users.is_subscribed']);
            
-        $filename = "NewsLetterUsers.csv";
+        $filename = "NewsLetterSubscriberFromTijara.csv";
        
-        $handle = fopen('SubscribedUsersDetails/'.$filename, 'w+');
+        $handle = fopen('NewsLetterSubscriber/'.$filename, 'w+');
         fputcsv($handle, array(trans('users.email_title'),trans('users.is_subscrier_title'),trans('users.page_created_title')));
    
         foreach($recordDetails as $row) {

@@ -10,7 +10,7 @@
       <div class="container-inner-section">
       <div class="row" style="margin-top:40px;">
         
-        @include('Front.category_breadcrumb')
+       <!--  @include('Front.category_breadcrumb') -->
         <div class="col-md-3">
             @include('Front.services_sidebar')
         </div>

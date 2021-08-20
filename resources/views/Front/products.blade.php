@@ -10,7 +10,7 @@
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
   <div class="container-inner-section">
-        @include('Front.category_breadcrumb')
+        <!-- @include('Front.category_breadcrumb') -->
         
         <div class="col-md-3">
             @include('Front.products_sidebar')

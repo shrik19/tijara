@@ -1490,7 +1490,7 @@ $('.subscribed_users').click(function(){
   }
   else
   {
-    $('.loader').show();
+    $('.footer-loader').show();
     $.ajax({
       headers: {
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
@@ -1500,8 +1500,9 @@ $('.subscribed_users').click(function(){
       type: 'post',
 
       data: { },
+
       success: function(response){
-        $('.loader').hide();
+        $('.footer-loader').hide();
         console.log(response);
         if(response.error !=''){
           $('.subscribe_err').text(response.error)

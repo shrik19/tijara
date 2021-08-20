@@ -14,7 +14,7 @@
     <div class="container-inner-section">
       <!-- Example row of columns -->
       <div class="row tijara-content" style="margin-top:40px;">
-        @include('Front.category_breadcrumb')
+       <!--  @include('Front.category_breadcrumb') -->
         <div class="col-md-3">
             <div style="display: flex">
              @if(!empty($logo)) 
@@ -40,7 +40,7 @@
         </div>
         <div class="col-md-9">
           <div style="text-align: center">
-            <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.products_title')}}" class="@if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.service_label')}}  </a>
+            <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.products_title')}}" class="@if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a><a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.service_label')}}  </a>
           </div>
 
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
@@ -72,7 +72,7 @@
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listProducts()">
-                          <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
+                         <!--  <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
                           <option value="name">{{ __('lang.sort_by_name')}}</option>
                           <option value="price">{{ __('lang.sort_by_price')}}</option>
                       </select>

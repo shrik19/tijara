@@ -1,5 +1,5 @@
-<div class="ft_top_container">
-        <div class="container">
+<!-- <div class="ft_top_container container-fluid">
+        <div class="container-inner-section">
         <ul class="client_logos">
           <li><img src="{{url('/')}}/assets/front/img/client_logo1.png"/></li>
           <li><img src="{{url('/')}}/assets/front/img/client_logo2.png"/></li>
@@ -8,9 +8,9 @@
           <li><img src="{{url('/')}}/assets/front/img/client_logo5.png"/></li>
         </ul>
       </div>
-    </div>
-    <div class="ft_middle_container">
-      <div class="container">
+    </div> -->
+    <div class="ft_middle_container container-fluid">
+      <div class="container-inner-section">
         <div class="col-md-3">
             <img src="{{url('/')}}/uploads/Images/{{$siteDetails->footer_logo}}" />
             <article class="address_container">
@@ -29,7 +29,17 @@
         @php
           $allPages = getCustomPages();
         @endphp
-        <div class="col-md-offset-1 col-md-2">
+		<div class="col-md-2">
+			<div class="ft_page_links">
+				<h3>{{ __('users.footer_sell_label')}}</h3>
+				<ul>
+					<li><a href="#">{{ __('users.footer_how_it_work_link')}}</a></li>
+					<li><a href="#">{{ __('users.footer_open_a_shop_link')}}</a></li>
+					<li><a href="#">{{ __('users.footer_my_pages_link')}}</a></li>
+				</ul>
+			</div>
+		</div>
+        <div class="col-md-2">
           <div class="ft_page_links">
           <h3>{{ __('lang.information_label')}}</h3>
           @if(!empty($allPages))
@@ -69,7 +79,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="ft_page_links">
         <h3>{{ __('lang.join_our_newsletter_now_label')}}</h3>
         <p>{{ __('lang.get_e-mail_updates_label')}}</p>
@@ -84,6 +94,11 @@
     </div>
       </div>
 
+    </div>
+    <div class="ft_payment_container container-fluid">
+        <div class="container-inner-section">
+          <img class="img-fluid" src="http://localhost:8000/assets/front/img/tijara_front/footer_payment_option.png">
+        </div>
     </div>
     <div class="clearfix"></div>
       <div class="ft_copyright">

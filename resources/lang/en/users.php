@@ -259,5 +259,9 @@
     'mark_as_main_menu_lable' => 'Markera som meny',
     'remove_main_menu_lable' => 'Remove From Menu',
     'see_all_products' => 'See All Products',
+    'footer_my_pages_link' => 'My pages',
+    'footer_open_a_shop_link' =>'Open a shop',
+    'footer_how_it_work_link' => 'That is how it works',
+    'footer_sell_label'=>'Sell',
  ]
 ?>

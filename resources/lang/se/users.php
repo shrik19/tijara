@@ -280,5 +280,9 @@
     'remove_main_menu_lable' => 'Markera som meny',
     'remove_main_menu_lable' => 'Ta bort från menyn',
     'see_all_products' => 'Se alla produkter',
+    'footer_my_pages_link' => 'Mina sidor',
+    'footer_open_a_shop_link' =>'Öppna butik',
+    'footer_how_it_work_link' => 'Så fungerar det',
+    'footer_sell_label'=>'Sälj',
  ]
 ?>

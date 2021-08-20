@@ -183,10 +183,7 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	Route::group(['prefix'=>'newsLetterSubscriber'], function() {
 		Route::get('/','NewsletterSuscribers@index')->name('adminNewsletterUser');
 		Route::any('/getRecords','NewsletterSuscribers@getRecords')->name('adminNewsletterGetRecords');
-		Route::get('/exportdata','NewsletterSuscribers@exportdata')->name('adminSubscriberexportdata');
-	
-	
-		
+		Route::get('/exportdata','NewsletterSuscribers@exportdata')->name('adminSubscriberexportdata');		
 	});
 
 	/*Package*/

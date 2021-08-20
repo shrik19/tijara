@@ -161,7 +161,7 @@ ul.breadcrumb-category li a:hover {
 
 .activemainmenu > a {
     background: #03989e !important;
-    color: #000000 !important;
+    color: #ffffff !important;
 }
 
 
@@ -682,7 +682,9 @@ nav ul {
 	#sign-up-form input.form-control,
 	#sellerRegisterForm input.form-control,
 	#third-step-form input.form-control,
-	#seller-personal-form input.form-control{
+	#seller-personal-form input.form-control,
+	#seller-profile-form input.form-control,
+	#seller-profile-form select.form-control {
 		border-radius: 5px;
 		box-shadow: 0px 0px 0px 2px #ddd;
 		border: 1px solid #ddd;
@@ -706,7 +708,8 @@ nav ul {
 	#sign-up-form input:focus,
 	#sellerRegisterForm input:focus,
 	#third-step-form input:focus,
-	#seller-personal-form input:focus{
+	#seller-personal-form input:focus,
+	#seller-profile-form input:focus{
 		border-bottom: 4px solid gray;
 	}
 	
@@ -830,7 +833,41 @@ nav ul {
 		float: left;
 		margin-left: 4%;
 	}
-	
+
+/* Seller profile page */
+.tijara-form input.form-control,
+.tijara-form select.form-control {
+	border-radius: 5px !important;
+	box-shadow: 0px 0px 0px 2px #ddd !important;
+	border: 1px solid #ddd !important;
+	height: 45px !important;
+	font-size: 14px !important;
+}
+
+.tijara-form textarea.form-control,
+.tijara-form .richText {
+	border-radius: 5px !important;
+	box-shadow: 0px 0px 0px 2px #ddd !important;
+	border: 1px solid #ddd !important;
+	margin-bottom: 25px !important;
+	font-size: 14px !important;
+}
+
+.tijara-form input:focus{
+	border-bottom: 4px solid gray !important;
+}
+
+
+.tijara-content,
+.tijara-sidebar {
+   /* margin: 5% 0;*/
+}
+
+.tijara-content .btn {
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #fff;
+}
 
 .heading_line{      margin: 0;
     background-color: #03989e;

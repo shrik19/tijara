@@ -183,7 +183,7 @@
          @endphp
                 @if(!empty($Categories[$CategoryId]['subcategory']))
 				<?php $current_path = explode("/",request()->path()); ?>
-                <li class="main-menu-item-<?php echo $i; ?> <?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>"><a href="#" >{{$Category['category_name']}}</a>
+                <li class="main-menu-item item-<?php echo $i; ?> <?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>"><a href="#" >{{$Category['category_name']}}</a>
 
                 <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
                   @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)

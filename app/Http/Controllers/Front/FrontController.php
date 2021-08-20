@@ -912,10 +912,9 @@ public function getCatSubList(Request $request) {
 
         if(!empty($category_slug)){
         	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
-         	$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
-         	$data['category_name'] = $getCategoryName['category_name'];
-         	
-         	if($request->segment(3)!=''){
+        	$data['category_name'] = $getCategoryName['category_name'];
+        	if(!empty($subcategory_slug)){
+         		$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
         	}
         }
@@ -1014,12 +1013,10 @@ public function getCatSubList(Request $request) {
 
     	if(!empty($category_slug)){
 	    	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
-
-	        $getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
-
-	        $data['category_name'] = $getCategoryName['category_name'];
-	        if($request->segment(3)!=''){
-	        	$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+	    	if(!empty($subcategory_slug)){
+	        	$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
+	        	$data['category_name'] = $getCategoryName['category_name'];
+	           	$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
 	        }
     	}
 
@@ -1505,11 +1502,11 @@ public function getCatSubList(Request $request) {
 
  		if(!empty($category_slug)){
         	$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
-        	$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         	$data['category_name'] = $getCategoryName['category_name'];
-        	if($request->segment(3)!=''){
+        	if(!empty($subcategory_slug)){
+        		$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
-        	}
+        	}        	
 		} 
 
 		 return view('Front/services', $data);
@@ -1745,9 +1742,10 @@ public function getCatSubList(Request $request) {
 
     	if(!empty($category_slug)){
         	$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
-        	$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         	$data['category_name'] = $getCategoryName['category_name'];
-        	if($request->segment(3)!=''){
+
+        	if(!empty($subcategory_slug)){
+        		$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
         	}
 		}

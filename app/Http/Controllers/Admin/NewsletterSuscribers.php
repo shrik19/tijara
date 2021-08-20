@@ -82,8 +82,11 @@ class NewsletterSuscribers extends Controller
         $recordDetails = $usersDetails->get(['subscribed_users.email','subscribed_users.created_at','subscribed_users.is_subscribed']);
            
         $filename = "NewsLetterSubscriberFromTijara.csv";
-       
-        $handle = fopen('NewsLetterSubscriber/'.$filename, 'w+');
+       // $path = url('/').'/public/NewsLetterSubscriber/'.$filename;
+        $path = '/public/NewsLetterSubscriber/'.$filename;
+        $handle = fopen(base_path() .$path,'w+');
+
+        //$handle = fopen($path, 'w+');
         fputcsv($handle, array(trans('users.email_title'),trans('users.is_subscrier_title'),trans('users.page_created_title')));
    
         foreach($recordDetails as $row) {

@@ -197,20 +197,22 @@ summary.active::after {
     background: #fff;
     overflow: hidden;
     border-radius: 10px;
-    height: 250px;
-    text-align: center;  
+    height: 350px;
+    text-align: center;
     position: relative;
     background-color: #e5e5e5!important;
-    height: auto;
-    display: table-cell!important;
-    vertical-align: middle;
-    padding: 5px; float: left;width: 100%;
+    padding: 5px;
+    float: left;
+    width: 100%;
+    display: flex;
 }
 .featured_seller_container{width: 90%; margin: 0 auto;}
 
 .featured_seller_section img.img-fluid {
-    width: 80%;
+    width: 100%;
     height: auto;
+    justify-content: center;
+    object-fit: contain;
 }
 /*end css for featured seller*/
 /*css for seller registration*/
@@ -440,11 +442,11 @@ select.list-dt:focus {
     height: 5px;
     background: lightgray;
     position: absolute;
-    left: 45%;
+    left: -49%;
     top: 13px;
     z-index: -1;
 }
-#progressbar li:last-child:after{
+#progressbar li:first-child:after{
     content: '';
     width: 100%;
     height: 5px;
@@ -454,12 +456,15 @@ select.list-dt:focus {
     top: 13px;
     z-index: -1;
 }
-
+/* #progressbar li:first-child.active:after {
+    background: #d3d3d3;
+} */
 #progressbar li.active:after {
     background: #9c9c9c;
+   
 }
 #progressbar li.active:before{
-    background: #fff;
+    background: #fff; border: 5px solid #9c9c9c;
 }
 .radio-group {
     position: relative;
@@ -692,7 +697,7 @@ nav ul {
 .buy_now_btn{color: #fff; font-size: 22px;border-radius: 20px; font-weight: 300; padding: 3px 26px;}
 .slider_buy_btn{color: #fff; font-size: 22px;border-radius: 20px; font-weight: 300; padding: 3px 26px;}
 .cart_details{padding: 0 20px; position: relative;}
-.header_left_container{padding-bottom: 20px;}
+.header_left_container{padding-bottom: 20px;width: 98%;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}
 .cart_count{
@@ -1020,6 +1025,13 @@ overflow: hidden;}
 .category_list li a{font-size: 18px; color: #717171; font-weight: 300;display: block;}
 .product_details{list-style: none;}
 .product_details li{ float: left; display: block; cursor: pointer; height: 100%; position: relative;}
+.seller_logo{width: 100px; height: 100px; display: flex;margin-right: 10px;}
+.seller_logo img{width: 100%; height: auto;    display: flex;
+    justify-content: center;
+    object-fit: contain; }
+
+.tijara_front_container{margin: 0 auto;}
+
 .col-xs-15,
 .col-sm-15,
 .col-md-15,
@@ -1274,8 +1286,9 @@ overflow: hidden;}
 
 ul.tijara_front_box.row {
     width: 70%;
-    margin: 0 auto;
+    margin: auto 30%;
 }
+
 
 .tijara_front_box li {
     list-style: none;
@@ -1469,7 +1482,8 @@ ul.tijara_front_box.row {
 
 .tj-navbar{background-color: transparent;box-shadow: none;border: none; background-image: none; float: left;width: 100%;}
 .tj-logo{padding: 0;margin: 25px; margin-left: 25px!important;}
-.mainMenu{padding-top: 70px; width: 100%;margin: 15px 25px 0;}
+.mainMenu{padding-top: 70px; width: 100%;margin: 15px 0;}
 .tj-topmenu{background-color: rgba(255, 255, 255, 0.9); float: left; width: 100%;}
 .product_view{width: 90%; margin: 0 auto;}
 .container-inner-section{width: 90%; margin: 0 auto;}
+.mtb-20{margin: 20px 0;}

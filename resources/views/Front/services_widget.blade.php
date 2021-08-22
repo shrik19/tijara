@@ -1,4 +1,4 @@
-<li style="max-height:500px;">
+<li class="col-md-15">
   <div class="product_data">
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($service->images)

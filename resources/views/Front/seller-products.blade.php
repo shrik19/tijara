@@ -17,8 +17,10 @@
        <!--  @include('Front.category_breadcrumb') -->
         <div class="col-md-3">
             <div style="display: flex">
+            
              @if(!empty($logo)) 
-             <img src="{{$logo}}" alt="Logo" style="width:100px;height:100px;" />&nbsp;&nbsp;@endif
+             <div class="seller_logo">
+             <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif
               <h2>{{ $seller_name }}</h2>
               <p style="margin-top: 60px;margin-left: -115px;">{{ $city_name }}</p>
               <div class="star-rating" style="font-size:unset;margin-top: 80px;margin-left: -64px;pointer-events: none;">

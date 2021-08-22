@@ -14,7 +14,7 @@
                 <div class="col-md-12">
                     <table class="table table-hover">
                         <tr>
-                            <td><img class="logo" src="{{url('/')}}/uploads/Images/1620728258_187920862.png" height="70"/></td>
+                            <td><img class="logo" src="{{url('/')}}/assets/img/logo.png" height="70"/></td>
                             <td><h2>{{ __('messages.txt_order_details')}} - #{{ $order['id'] }}</h2></td>
                         </tr>
                     </table>        

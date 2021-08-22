@@ -80,14 +80,13 @@
       <div class="container-fluid">
         <div class="row">
           <div class="tj-topmenu">
-          <div class="col-md-4">
-            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" height="70"/></a>
+          <div class="col-md-2">
+            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/assets/img/logo.png" height="60"/></a>
           </div>
 
-          <div class="col-md-8">
+          <div class="col-md-10">
             <div class="top_login">
-              
-              <div class="clearfix"></div>
+
               @php
               $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
               if (strpos($url,'service') !== false) 
@@ -95,13 +94,16 @@
               else
                 $formUrl  = route('AllproductListing');
               @endphp
-                <form method="POST" action="{{$formUrl}}" class="navbar-form navbar-right header_left_container" role="form">
+                <form method="POST" action="{{$formUrl}}" class="navbar-form navbar-left header_left_container" role="form">
                   @csrf
+                  <div class="col-md-9">
                 <div class=" form-group search_now_input_box">
                   <!-- <input type="text" placeholder="Email" class="form-control search_now_input"> -->
                   <input type="text" class="form-control search_now_input current_search_string" placeholder="{{ __('lang.search_placeholder')}}" name="search" id="search_string">
                   <button class="search_icon_btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
+                </div>
+                <div class="col-md-3">
                   <div class="form-group cart_details">
                     <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
                       <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
@@ -139,7 +141,7 @@
                 @endif
 
               </div>
-
+</div>
                 <!-- <button type="button" class=" btn buy_now_btn debg_color" onclick="location.href='{{route('AllproductListing')}}';">{{ __('lang.buy_now_btn')}}</button> -->
               </form>
             </div>
@@ -169,7 +171,7 @@
 
 @if(!empty($Categories))
 <div class="clearfix"></div>
-<div class="row">
+
 <nav>
   <ul class="nav mainMenu">
     <!-- <span>( @php count($Categories) @endphp)</span> -->
@@ -195,5 +197,5 @@
             @endforeach
         </ul>
 </nav>
-</div>
+
 @endif

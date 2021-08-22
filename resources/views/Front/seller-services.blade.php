@@ -17,7 +17,9 @@
         <div class="col-md-3">
           <div style="display: flex">
              @if(!empty($logo)) 
-             <img src="{{$logo}}" alt="Logo" style="width:100px;height:100px;" />&nbsp;&nbsp;@endif
+             <div class="seller_logo">
+             <img  src="{{$logo}}" alt="Logo" />&nbsp;&nbsp; </div>@endif
+            
               <h2>{{ $seller_name }}</h2>
               <p style="margin-top: 60px;margin-left: -115px;">{{ $city_name }}</p>
               <div class="star-rating" style="font-size:unset;margin-top: 80px;margin-left: -64px;pointer-events: none;">
@@ -82,9 +84,11 @@
         </div>
 
         <div class="col-md-12">
-          <hr>
+        <hr>
+          <div class="col-md-2">
           <h2>{{ __('users.review_title')}}</h2>
-          <hr>
+        </div>
+        <div class="col-md-2">
           @if(!empty($serviceReviews))
             @foreach($serviceReviews as $review)
             <div>
@@ -113,8 +117,9 @@
             @endforeach
           @endif
         </div>
-
+</div>
         <div class="col-md-12">
+          <div class="mtb-20">
           <h2>{{ __('users.store_terms_title')}}</h2>
           @if(!empty($getTerms))
             <div style="display: flex;">
@@ -131,10 +136,12 @@
             </div>             
           @endif
         </div>
-
+        </div>
         <!-- contact shop -->
         <div class="col-md-12">
+        <div class="mtb-20">
          <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.add_subcategory_title').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">contact store </a>
+</div>
         </div>
     </div>
 </div>

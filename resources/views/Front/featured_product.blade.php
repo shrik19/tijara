@@ -9,7 +9,7 @@
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
       <div class="buy_now_hover_details">
           <ul>
-              <li style="margin-left: 30%;"><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
+              <li style="margin-left: 10%;"><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
               <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToWishlistproducts('{{$product->id}}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif><i class="far fa-heart"></i></a></li>
           </ul>
       </div>

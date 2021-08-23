@@ -595,10 +595,12 @@ class ProductController extends Controller
             
 		           $order = 0; 
 		    foreach($request->input('sku') as $variant_key=>$variant) {
-               
-               
 
 		        if($variant!='' && $_POST['price'][$variant_key]!='' && $_POST['quantity'][$variant_key]!='') {
+                    if($_POST['quantity'][$variant_key]>0){
+                        $producIsSold['is_sold']     =   '0';
+                        Products::where('id', $id)->where('user_id', Auth::guard('user')->id())->update($producIsSold);
+                    }
 		            $producVariant['product_id']=   $id;
 		            $producVariant['price']     =   $_POST['price'][$variant_key];
 		            $producVariant['sku']       =   $_POST['sku'][$variant_key];

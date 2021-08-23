@@ -52,9 +52,9 @@
             <div class="product_container">
                 <div class="row">               
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                  @if(!empty($description))
+                  @if(!empty($store_information))
                   <div class="col-md-12 text-center">
-                    {!! $description !!}
+                    {!! $store_information !!}
                   </div>
                   @endif
                 </div>
@@ -197,8 +197,9 @@
       //console.log(data);return
       var i=1
       $.each(data, function(k, v) {
-       // console.log(v);
-        //console.log("--");
+       console.log(v);
+        console.log("--");
+        console.log(k);
         //$("#user_id").val();
         $("#productCount_"+k).text(v.product_count);
         i++;

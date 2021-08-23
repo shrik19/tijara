@@ -33,20 +33,20 @@
           
 
             <div class="form-group">
-              <!-- <label>{{ __('lang.store_name')}} <span class="de_col"></span></label> -->
+              <label>{{ __('lang.store_name')}} <span class="de_col"></span></label>
               <input type="text" class="form-control store_name" id="store_name" name="store_name" 
               placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" />
               <span class="invalid-feedback" id="err_fname">@if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span>
             </div>
             <div class="form-group">
-              <!-- <label>{{ __('lang.store_information')}}  <span class="de_col"></span></label> -->
+              <label>{{ __('lang.store_information')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="store_information" id="" 
               placeholder="{{ __('lang.store_information')}}" 
               value="" tabindex="2">@if(!empty($details->store_information)) {{$details->store_information}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('store_information')) {{ $errors->first('store_information') }}@endif </span>
             </div>
             <div class="form-group">
-              <!-- <label>{{ __('lang.store_policy')}}  <span class="de_col"></span></label> -->
+              <label>{{ __('lang.store_policy')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="store_policy" id="" 
               placeholder="{{ __('lang.store_policy')}}" 
               value="" tabindex="2">@if(!empty($details->store_policy)) {{$details->store_policy}} @endif</textarea>

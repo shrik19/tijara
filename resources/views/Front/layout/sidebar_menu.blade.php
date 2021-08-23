@@ -9,8 +9,22 @@
                       $activeClass = '';
                     }
                     ?>
+                    
                   <li class="{{$activeClass }}"><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
-        
+                  
+                  @if(Auth::guard('user')->getUser()->role_id==2)
+                  <?php 
+                    if((Request::segment(1)=='seller-dashboard')){
+                      $activeClass = 'activemainmenu';
+                    }
+                    else{
+                      $activeClass = '';
+                    }
+                    ?>
+
+                  
+                    <li class="{{$activeClass }}"><a href="{{route('frontDashboard')}}">{{ __('lang.summary_menu')}}</a></li>
+                    @endif
                   <?php 
                     if((Request::segment(1)=='all-orders') || (Request::segment(1)=='order-details')){
                       $activeClass = 'activemainmenu';

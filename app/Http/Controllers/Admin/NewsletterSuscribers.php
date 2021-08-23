@@ -19,10 +19,10 @@ use Mail;
 class NewsletterSuscribers extends Controller
 {
     /*
-	 * Define abjects of models, services.
-	 */
+     * Define abjects of models, services.
+     */
     function __construct() {
-    	
+        
     }
 
     /**
@@ -49,7 +49,7 @@ class NewsletterSuscribers extends Controller
         $usersDetails = SubscribedUsers::select('subscribed_users.*');
          
         if(!empty($request->search)) {
-			
+            
             $field = ['subscribed_users.id','subscribed_users.email','subscribed_users.created_at'];
             $namefield = ['subscribed_users.id','subscribed_users.email','subscribed_users.created_at'];
             $search=($request->search);
@@ -67,7 +67,7 @@ class NewsletterSuscribers extends Controller
                     for ($i = 0; $i < count($field); $i++){
                         $query->orwhere($field[$i], 'like',  '%' . $search .'%');
                     }  
-                }				 
+                }                
             }); 
         }
 
@@ -113,10 +113,10 @@ class NewsletterSuscribers extends Controller
     public function getRecords(Request $request) {
         $UsersDetails = SubscribedUsers::select('subscribed_users.*');
            
-		if(!empty($request['search']['value'])) {
-			
+        if(!empty($request['search']['value'])) {
+            
           $field = ['subscribed_users.email','subscribed_users.created_at','subscribed_users.is_subscribed'];
-		  $namefield = ['subscribed_users.email','subscribed_users.created_at','subscribed_users.is_subscribed'];
+          $namefield = ['subscribed_users.email','subscribed_users.created_at','subscribed_users.is_subscribed'];
           $search=($request['search']['value']);
             
             $SellerDetails = $UsersDetails->Where(function ($query) use($search, $field,$namefield) {
@@ -132,7 +132,7 @@ class NewsletterSuscribers extends Controller
                     for ($i = 0; $i < count($field); $i++){
                         $query->orwhere($field[$i], 'like',  '%' . $search .'%');
                     }  
-                }				 
+                }                
             }); 
         }
 

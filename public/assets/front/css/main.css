@@ -1286,7 +1286,7 @@ overflow: hidden;}
 
 ul.tijara_front_box.row {
     width: 70%;
-    margin: auto 30%;
+    margin: auto 15%;
 }
 
 
@@ -1296,7 +1296,10 @@ ul.tijara_front_box.row {
     margin: 0 2px;
 }
 
-
+.product_data {
+    height: 550px;
+    overflow: hidden;
+}
 
 
 

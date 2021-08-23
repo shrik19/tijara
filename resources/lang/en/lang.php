@@ -302,5 +302,13 @@
     'service_time_required'=>   'Add service time properly',
     'select_future_date'    =>  'Select future date only',
     'feature_product_head' => 'News from the bargain corner',
+
+    //Dashboard
+    'dashboard_statistics_period' => 'Statistics for the period',
+    'dashboard_orders' => 'Orders',
+    'dashboard_listed_products' => 'Listed Products',
+    'dashboard_service_requests' => 'Service Requests',
+    'dashboard_listed_services' => 'Listed Services',
+    'dashboard_total_sales' => 'Total sales',
  ]  
 ?>

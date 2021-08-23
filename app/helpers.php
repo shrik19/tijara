@@ -6,6 +6,12 @@ use App\Models\Wishlist;
 use App\Models\Emails;
 use App\Models\Categories;
 use App\Models\UserMain;
+use App\Models\Orders;
+use App\Models\Products;
+use App\Models\ServiceRequest;
+use App\Models\Services;
+
+//use DB;
 
 /** Get all Custom Pages. */
 function getCustomPages()
@@ -115,3 +121,72 @@ function get_link_seller_name($SellerId){
   $seller_name = strtolower($seller_name);
   return $seller_name;
 }
+
+
+function getFirstOrderYear()
+{
+  $tmpOrderData = Orders::select('created_at')->orderBy('id','asc')->take(1)->first()->toArray();
+  return $tmpOrderData;
+}
+
+function getTotalOrders($filterMonth, $filterYear, $sellerId = 0)
+{
+  $orderCount = Orders::where('orders.created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  if($sellerId)
+  { 
+    $orderCount = $orderCount->join('orders_details','orders_details.order_id', '=', 'orders.id');
+    $orderCount = $orderCount->join('products', 'products.id', '=', 'orders_details.product_id');
+    $orderCount = $orderCount->where('products.user_id', '=', $sellerId);
+  }
+  $orderCount = $orderCount->count();
+  return $orderCount;
+}
+
+function getTotalServiceRequests($filterMonth, $filterYear, $sellerId = 0)
+{
+  $serviceRequestCount = ServiceRequest::where('service_requests.created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  if($sellerId)
+  { 
+    $serviceRequestCount = $serviceRequestCount->join('services','services.id', '=', 'service_requests.service_id');
+    $serviceRequestCount = $serviceRequestCount->where('services.user_id', '=', $sellerId);
+  }
+  $serviceRequestCount = $serviceRequestCount->count();
+  return $serviceRequestCount;
+}
+
+
+function getTotalProducts($filterMonth, $filterYear, $sellerId = 0)
+{
+  $productCount = Products::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  if($sellerId)
+  { 
+    $productCount = $productCount->where('products.user_id', '=', $sellerId);
+  }
+  $productCount = $productCount->count();
+  return $productCount;
+}
+
+function getTotalServices($filterMonth, $filterYear, $sellerId = 0)
+{
+  $servicesCount = Services::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  if($sellerId)
+  { 
+    $servicesCount = $servicesCount->where('services.user_id', '=', $sellerId);
+  }
+  $servicesCount = $servicesCount->count();
+  return $servicesCount;
+}
+
+function getTotalAmount($filterMonth, $filterYear, $sellerId = 0)
+{
+  $orderTotal = Orders::where('orders.created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  if($sellerId)
+  { 
+    $orderTotal = $orderTotal->join('orders_details','orders_details.order_id', '=', 'orders.id');
+    $orderTotal = $orderTotal->join('products', 'products.id', '=', 'orders_details.product_id');
+    $orderTotal = $orderTotal->where('products.user_id', '=', $sellerId);
+  }
+  $orderTotal = $orderTotal->sum('total');
+  return number_format($orderTotal,2,'.','');
+}
+

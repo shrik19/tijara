@@ -24,7 +24,7 @@ Route::get('/admin/seller/checkstore','Admin\SellerController@checkstore')->name
 Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history'], 'namespace'=>'Admin'],function() {
 	/*General*/
 	Route::any('/logout', 'AuthController@logout')->name('adminLogout');
-	Route::get('/dashboard', 'AuthController@dashboard')->name('adminDashboard');
+	Route::any('/dashboard', 'AuthController@dashboard')->name('adminDashboard');
 	Route::get('/change-password', 'AuthController@changePassword')->name('adminChangePassword');
 	Route::post('/change-password-store', 'AuthController@changePasswordStore')->name('adminChangePasswordStore');
 

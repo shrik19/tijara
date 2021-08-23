@@ -13,15 +13,13 @@
 </div>
 
 </div>
-<<<<<<< HEAD
+
 <div class="mid-section">
 <div class="container-fluid">
   <div class="container-inner-section">
-    <div class="col-md-2">
-=======
-<div class="container">
+    
     <div class="col-md-2 tijara-sidebar">
->>>>>>> 868a036965efb2dd19a88736f85859b8f9f95956
+
         @include ('Front.layout.sidebar_menu')
     </div>
       <div class="col-md-10">
@@ -36,8 +34,6 @@
            
                 @csrf
               <div class="row">
-
-
                   <div class="col-md-10">
 
                     <h2>{{ __('lang.product_form_label')}}</h2>

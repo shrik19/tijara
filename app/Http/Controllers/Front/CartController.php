@@ -1896,7 +1896,7 @@ class CartController extends Controller
                             if(!empty($CheckIfAlreadyMarked))
                             {
                               $CheckIfAlreadyMarked = $CheckIfAlreadyMarked->toArray();
-                              if($CheckIfAlreadyMarked['is_sold'] == '0')
+                              if($CheckIfAlreadyMarked['is_sold'] == '0' && $is_seller == 0)
                               { 
                                 $arrUpdateProduct = ['is_sold' => '1', 'sold_date' => date('Y-m-d H:i:s')];
                                 Products::where('id',$Product->id)->update($arrUpdateProduct);
@@ -2034,7 +2034,7 @@ class CartController extends Controller
                             if(!empty($CheckIfAlreadyMarked))
                             {
                               $CheckIfAlreadyMarked = $CheckIfAlreadyMarked->toArray();
-                              if($CheckIfAlreadyMarked['is_sold'] == '0')
+                              if($CheckIfAlreadyMarked['is_sold'] == '0' && $is_seller == 0)
                               { 
                                 $arrUpdateProduct = ['is_sold' => '1', 'sold_date' => date('Y-m-d H:i:s')];
                                 Products::where('id',$Product->id)->update($arrUpdateProduct);

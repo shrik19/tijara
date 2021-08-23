@@ -97,7 +97,7 @@
     </div>
     <div class="ft_payment_container container-fluid">
         <div class="container-inner-section">
-          <img class="img-fluid" src="http://localhost:8000/assets/front/img/tijara_front/footer_payment_option.png">
+          <img class="img-fluid" src="{{url('/')}}/assets/front/img/tijara_front/footer_payment_option.png">
         </div>
     </div>
     <div class="clearfix"></div>

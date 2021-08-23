@@ -200,3 +200,4 @@ Route::any('/getAllServiceRequest','Front\ServiceController@getAllServiceRequest
 Route::get('/deleteServiceRequest/{id}','Front\ServiceController@deleteServiceRequest')->name('frontServiceRequestDel');
 Route::any('/product-checkout/{id}','Front\CartController@showBuyerCheckout')->name('frontShowBuyerCheckout');
 
+Route::any('/seller-dashboard', 'Front\AuthController@dashboard')->name('frontDashboard');

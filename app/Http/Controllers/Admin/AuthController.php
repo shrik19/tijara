@@ -121,7 +121,7 @@ class AuthController extends Controller
      /**
      * Function for dashboard
      */
-    public function dashboard() {
+    public function dashboard(Request $request) {
         
         $data = $siteSetting = [];
 
@@ -129,6 +129,83 @@ class AuthController extends Controller
         $data['module_name']         = trans('lang.summary_menu');
         $data['current_module_name'] = '';
         $data['module_url']          = route('adminDashboard');
+
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        $monthName = ['01' => 'Januari', '02' => 'Februari', '03' => 'Mars', '04' => 'April', '05' => 'Maj', '06' => 'Juni', '07' => 'Juli', '08' => 'Augusti', '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'December'];
+        $filterData = [];
+
+        $firstOrderDate = getFirstOrderYear();
+        if(!empty($firstOrderDate))
+        {
+            $tmpDate = date('Y-m',strtotime($firstOrderDate['created_at']));
+            $splitData = explode('-',$tmpDate);
+            $year = $splitData[0];
+            $month = $splitData[1];
+
+            if($year == $currentYear)
+            {
+                for($i = $month; $i <= $currentMonth; $i++)
+                {
+                    if(strlen($i) == 1)
+                    {
+                        $i = '0'.$i;
+                    }
+                    $filterData[$i.'-'.$currentYear] = $monthName[$i].' '.$currentYear;
+                }
+            }
+            else
+            {
+                for($j=$year; $j<=$currentYear; $j++)
+                {
+                    if($j < $currentYear)
+                    {
+                        for($i = $month; $i <= 12; $i++)
+                        {
+                            if(strlen($i) == 1)
+                            {
+                                $i = '0'.$i;
+                            }
+                            $filterData[$i.'-'.$j] = $monthName[$i].' '.$j;
+                        }
+                    }
+                    else if($j == $currentYear)
+                    {
+                        for($i = 1; $i <= $currentMonth; $i++)
+                        {
+                            if(strlen($i) == 1)
+                            {
+                                $i = '0'.$i;
+                            }
+                            $filterData[$i.'-'.$j] = $monthName[$i].' '.$j;
+                        }
+                    }
+                    
+                }
+            }
+        }
+        else
+        {
+            $filterData[$currentMonth.'-'.$currentYear] = $monthName[$currentMonth].' '.$$currentYear;
+        }
+
+        $data['filterDate'] = $filterData;
+    
+        if($request->input('filter_date') != null)
+        {
+            $tempDate = explode('-',$request->input('filter_date'));
+            $currentMonth = $tempDate[0];
+            $currentYear = $tempDate[1];
+        }
+
+        $data['orderCount'] = getTotalOrders($currentMonth,$currentYear);
+        $data['serviceRequestCount'] = getTotalServiceRequests($currentMonth,$currentYear);
+        $data['productCount'] = getTotalProducts($currentMonth,$currentYear);
+        $data['servicesCount'] = getTotalServices($currentMonth,$currentYear);
+        $data['totalAmount'] = getTotalAmount($currentMonth,$currentYear);
+
+        $data['currentDate'] = $currentMonth.'-'.$currentYear;
         return view('Admin/dashboard', $data);
     }
 
@@ -199,5 +276,4 @@ class AuthController extends Controller
         return redirect(route('adminDashboard'));
         
     }
-    
 }

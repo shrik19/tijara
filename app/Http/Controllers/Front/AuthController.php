@@ -1864,4 +1864,119 @@ class AuthController extends Controller
           
         }
     }
+
+
+     /**
+     * Function for dashboard
+     */
+    public function dashboard(Request $request) {
+        
+        $user_id = Auth::guard('user')->id();
+        
+        if($user_id)
+        {
+            $userRole = Auth::guard('user')->getUser()->role_id;
+            if($userRole == 1)
+            {
+                Session::flash('error', trans('errors.login_seller_required'));
+                return redirect(route('frontLogin'));
+            }
+
+            $data = $siteSetting = [];
+
+            $data['pageTitle']           = trans('lang.dashboard_menu');
+            $data['module_name']         = trans('lang.summary_menu');
+            $data['current_module_name'] = '';
+            $data['module_url']          = route('adminDashboard');
+
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+
+            $monthName = ['01' => 'Januari', '02' => 'Februari', '03' => 'Mars', '04' => 'April', '05' => 'Maj', '06' => 'Juni', '07' => 'Juli', '08' => 'Augusti', '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'December'];
+            $filterData = [];
+
+            $firstOrderDate = getFirstOrderYear();
+            if(!empty($firstOrderDate))
+            {
+                $tmpDate = date('Y-m',strtotime($firstOrderDate['created_at']));
+                $splitData = explode('-',$tmpDate);
+                $year = $splitData[0];
+                $month = $splitData[1];
+
+                if($year == $currentYear)
+                {
+                    for($i = $month; $i <= $currentMonth; $i++)
+                    {
+                        if(strlen($i) == 1)
+                        {
+                            $i = '0'.$i;
+                        }
+                        $filterData[$i.'-'.$currentYear] = $monthName[$i].' '.$currentYear;
+                    }
+                }
+                else
+                {
+                    for($j=$year; $j<=$currentYear; $j++)
+                    {
+                        if($j < $currentYear)
+                        {
+                            for($i = $month; $i <= 12; $i++)
+                            {
+                                if(strlen($i) == 1)
+                                {
+                                    $i = '0'.$i;
+                                }
+                                $filterData[$i.'-'.$j] = $monthName[$i].' '.$j;
+                            }
+                        }
+                        else if($j == $currentYear)
+                        {
+                            for($i = 1; $i <= $currentMonth; $i++)
+                            {
+                                if(strlen($i) == 1)
+                                {
+                                    $i = '0'.$i;
+                                }
+                                $filterData[$i.'-'.$j] = $monthName[$i].' '.$j;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            else
+            {
+                $filterData[$currentMonth.'-'.$currentYear] = $monthName[$currentMonth].' '.$$currentYear;
+            }
+
+            $data['filterDate'] = $filterData;
+        
+            if($request->input('filter_date') != null)
+            {
+                $tempDate = explode('-',$request->input('filter_date'));
+                $currentMonth = $tempDate[0];
+                $currentYear = $tempDate[1];
+            }
+
+            $data['orderCount'] = getTotalOrders($currentMonth,$currentYear,$user_id);
+            $data['serviceRequestCount'] = getTotalServiceRequests($currentMonth,$currentYear,$user_id);
+            $data['productCount'] = getTotalProducts($currentMonth,$currentYear,$user_id);
+            $data['servicesCount'] = getTotalServices($currentMonth,$currentYear,$user_id);
+            $data['totalAmount'] = getTotalAmount($currentMonth,$currentYear,$user_id);
+
+            // $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->get();
+            // if(!empty($userpackage))
+            // {
+            //     dd($userpackage);
+            // }
+
+            $data['currentDate'] = $currentMonth.'-'.$currentYear;
+            return view('Front/dashboard', $data);
+        }
+        else 
+        {
+            Session::flash('error', trans('errors.login_seller_required'));
+            return redirect(route('frontLogin'));
+        }
+    }
 }

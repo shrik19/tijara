@@ -301,5 +301,13 @@
      'product_form_step2'   =>  'Steg 2 - Produktdetaljer',
      'product_form_step3'   =>  'Steg 3- Frakt',
      'feature_product_head' =>  'Nyheter från fyndhörnan',
+
+     //Dashboard
+    'dashboard_statistics_period' => 'Statistik för perioden',
+    'dashboard_orders' => 'Beställningar',
+    'dashboard_listed_products' => 'Listade Produkter',
+    'dashboard_service_requests' => 'Bokningar',
+    'dashboard_listed_services' => 'Listade Tjänster',
+    'dashboard_total_sales' => 'Total försäljning',
  ]
 ?>

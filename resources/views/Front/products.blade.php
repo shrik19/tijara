@@ -15,7 +15,7 @@
         <div class="col-md-3">
             @include('Front.products_sidebar')
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 products-page">
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
             <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>

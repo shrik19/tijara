@@ -21,8 +21,8 @@
              <img  src="{{$logo}}" alt="Logo" />&nbsp;&nbsp; </div>@endif
             
               <h2>{{ $seller_name }}</h2>
-              <p style="margin-top: 60px;margin-left: -115px;">{{ $city_name }}</p>
-              <div class="star-rating" style="font-size:unset;margin-top: 80px;margin-left: -64px;pointer-events: none;">
+              <p>{{ $city_name }}</p>
+              <div class="star-rating">
                 <select class='rating service_rating' data-rating="{{$totalRating}}">
                   <option value="1" >1</option>
                   <option value="2" >2</option>
@@ -53,7 +53,7 @@
                 <div class="row">
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                   @if(!empty($description))
-                  <div class="col-md-12 text-center">
+                  <div class="col-md-12">
                     {!! $description !!}
                   </div>
                   @endif
@@ -89,7 +89,7 @@
           <div class="col-md-2">
           <h2>{{ __('users.review_title')}}</h2>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-9">
           @if(!empty($serviceReviews))
             @foreach($serviceReviews as $review)
             <div>

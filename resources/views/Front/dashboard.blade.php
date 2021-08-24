@@ -26,14 +26,16 @@
   <form method="POST" name="filterForm" id="filterForm" action="{{route('frontDashboard')}}">
     @csrf
     <div class="row">
-      <div class="col-md-3"><h3>{{ __('lang.dashboard_statistics_period')}} : </h3>
-      </div>
-      <div class="col-md-2">
+      <div class="summary_page">
+     <h3 class="pull-left">{{ __('lang.dashboard_statistics_period')}} : </h3>
+     
+     
       <select name="filter_date" id="filter_date" class="form-control" onchange="jQuery('#filterForm').submit();">
           @foreach($filterDate as $key => $data)
           <option value="{{$key}}" @if($currentDate == $key) selected="selected" @endif >{{$data}}</option>
           @endforeach
         </select>
+     
       </div>
     </div>
     <div class="row"><div class="col-md-12">&nbsp;</div></div>

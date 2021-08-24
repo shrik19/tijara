@@ -1017,11 +1017,12 @@ overflow: hidden;}
 .category_list li a{font-size: 18px; color: #717171; font-weight: 300;display: block;}
 .product_details{list-style: none;}
 .product_details li{ float: left; display: block; cursor: pointer; height: 100%; position: relative;}
-.seller_logo{width: 100px; height: 100px; display: flex;margin-right: 10px;}
+.seller_logo{width: 100px; height: 100px; display: flex;margin-right: 10px; float: left;}
 .seller_logo img{width: 100%; height: auto;    display: flex;
     justify-content: center;
     object-fit: contain; }
-
+.seller_info{float: left;margin-left: 15px; padding-bottom: 25px;}
+.store_info{font-size: 18px; line-height: 30px; padding: 10px 0; font-weight: normal;}
 .tijara_front_container{margin: 0 auto;}
 
 .col-xs-15,
@@ -1190,14 +1191,14 @@ overflow: hidden;}
     float: left;
     width: 100%; background-color: #f3f3f3;}
 .star-rating {
-    display: flex;
+    /* display: flex;
     flex-direction: row-reverse;
     font-size: 2em;
     justify-content: space-around;
     padding: 0 .2em;
     text-align: center;
     width: 5em;
-    margin-left: 15px;
+    margin-left: 15px; */
   }
 
   .star-rating input {
@@ -1220,11 +1221,16 @@ overflow: hidden;}
     color:#fc0;
   }
   .product_details_info h2{
-      font-size: 40px; font-weight: 600; position: relative;
+      font-size: 40px; font-weight: 600; position: relative;    padding-bottom: 15px;
   }
   .product_details_info h2:after{
-      position: absolute; content: "";
-      height: 3px; width: 150px;background-color: #03989e; right: 50px; top:50px;
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 126px;
+    background-color: #03989e;
+    left: 0px;
+    top: 50px;
   }
   .product_details_info h3{
     font-size: 28px; font-weight: 600; color: #03989e;
@@ -1270,10 +1276,22 @@ overflow: hidden;}
     left: 0;
     top: 0;
     opacity: 0;
+
   }
+  .summary_page{    margin: 15px 0;
+    float: left;
+    width: 100%;}
+.summary_page h3{margin: 0;}
+.summary_page select{    width: 30%;
+    margin-left: 13px;
+    float: left;}
 
-
-
+.pacakge_feature_list{
+    min-height:43vh;overflow: auto;position:relative
+}
+.package_bt{position: absolute; bottom: 20px; left:22px;}
+.pacakge_feature_list ul{    height: 230px;
+    overflow: auto;}
 /*  Tijara front */
 
 ul.tijara_front_box.row {

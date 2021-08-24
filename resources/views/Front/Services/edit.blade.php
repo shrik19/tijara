@@ -444,7 +444,7 @@ var service_time_counter  = 10000;
     var loop = new Date(start);
     var allDates = [];
     while(loop <= end){ 
-        alert(loop)
+        //alert(loop)
       var date = new Date(loop),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);

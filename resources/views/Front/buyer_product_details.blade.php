@@ -47,7 +47,7 @@
                       </p>
                       <div class="row">                      
                         <h3><i class="fa fa-phone-alt"></i> {{@$buyer_product_details->user_phone_no}}</h3>
-                        <h3><i class="fa fa-envelope"></i> {{$buyer_product_details->user_email}}</h3>
+                        <h3><i class="fa fa-envelope"></i> {{@$buyer_product_details->user_email}}</h3>
                       </div>
                         
                       <div class="row">

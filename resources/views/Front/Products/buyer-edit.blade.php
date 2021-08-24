@@ -12,13 +12,11 @@
 
 
 </div>
-<<<<<<< HEAD
+
 <div class="mid-section">
 <div class="container-fluid">
   <div class="container-inner-section">
-
     <div class="col-md-2 tijara-sidebar">
-
         @include ('Front.layout.sidebar_menu')
     </div>
       <div class="col-md-10 tijara-content">

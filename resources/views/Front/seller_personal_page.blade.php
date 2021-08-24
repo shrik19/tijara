@@ -89,19 +89,20 @@
               if(!empty($details->header_img))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width:200px;height:200px;" id="previewBanner"></div>';
+                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width: 235px;height: 150px;" id="previewBanner"></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }else{
                echo '<div class="bannerImage" style="display: none;">';
               echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="" style="width:200px;height:200px;" id="previewBanner"></div>';
+                echo '<div class="col-md-4 existing-images"><img src="" style="width: 235px;height: 150px;" id="previewBanner"></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
             }
               @endphp
 
               <input type="file" name="header_img" id="bannerInp" class="form-control" value="">
+              <p class="seller-banner-info" style="margin-top: 10px;font-size: 13px;">({{ __('users.seller_banner_info')}})</p>
               
               <div class="text-danger">{{$errors->first('filename')}}</div>
               <div class="input-group-btn text-right"> 
@@ -114,14 +115,14 @@
               if(!empty($details->logo))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" style="width:200px;height:200px;" id="previewLogo"></div>';
+                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" style="width:250px;height:80px;" id="previewLogo"></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }else{
 
               echo '<div class="logoImage" style="display: none;">';
               echo '<div class="row">';
-              echo '<div class="col-md-4 existing-images"><img src="" style="width:200px;height:200px;" id="previewLogo"></div>';
+              echo '<div class="col-md-4 existing-images"><img src="" style="width:250px;height:80px;" id="previewLogo"></div>';
               echo '</div>';
               echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
                 
@@ -129,7 +130,7 @@
               @endphp
 
               <input type="file" name="logo" id="logoInp" class="form-control" value="">
-              
+              <p class="seller-logo-info" style="margin-top: 10px;font-size: 13px;">({{ __('users.seller_logo_info')}})</p>
               <div class="text-danger">{{$errors->first('filename')}}</div>
               <div class="input-group-btn text-right"> 
               </div>

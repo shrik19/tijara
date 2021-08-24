@@ -49,6 +49,8 @@ use Validator;
 
 use DB;
 
+use Mail;
+
 
 
 class ProductController extends Controller
@@ -761,12 +763,12 @@ class ProductController extends Controller
 
             /*klarna api to create order*/
             
-        
+            $totalProductAmount = (int)ceil($productPostAmount)*100;
             //$url = "https://api.playground.klarna.com/checkout/v3/orders";
             $data = array("purchase_country"=> "SE",
             "purchase_currency"=> "SEK",
             "locale"=> "en-SE",
-            "order_amount"=> (int)ceil($productPostAmount),
+            "order_amount"=> $totalProductAmount,
             "order_tax_amount"=> 0,
             "billing_address" => $billing_address,
             );
@@ -776,9 +778,9 @@ class ProductController extends Controller
                 "name"=> 'Buyer Product Posting Cost',
                 "quantity"=>1,
                 "quantity_unit"=> "pcs",
-                "unit_price"=> (int)ceil($productPostAmount),
+                "unit_price"=> $totalProductAmount,
                 "tax_rate"=> 0,
-                "total_amount"=> (int)ceil($productPostAmount),
+                "total_amount"=> $totalProductAmount,
                 "total_discount_amount"=> 0,
                 "total_tax_amount"=> 0,
             );
@@ -885,7 +887,7 @@ class ProductController extends Controller
       }
     
       $response = json_decode($result);
-      
+
       $order_id     =  $response->order_id;
       $order_status = $response->status;
       
@@ -897,7 +899,7 @@ class ProductController extends Controller
 
         $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
 
-        $order_amount = (float)$response->order_amount;
+        $order_amount = (float)($response->order_amount/100);
         $TmpOrderId   = $response->merchant_data;
         //$orderCompleteAt = $response->complete_at;
 
@@ -947,8 +949,9 @@ class ProductController extends Controller
       
     /*get order from klarm by order id*/
     $order_id = $request->order_id;
+    //$order_id = '104313e3-46e3-6d8c-9b7a-36ff0078646a';
     $currentDate = date('Y-m-d H:i:s');
-
+    
     $username = '';
     $password = '';
     $checkExisting = TmpAdminOrders::where('klarna_order_reference','=',$order_id)->first()->toArray();
@@ -976,7 +979,7 @@ class ProductController extends Controller
     $username = env('KLORNA_USERNAME');
     $password = env('KLORNA_PASSWORD');
 
-    $Total = (float)ceil($checkExisting['total']);
+    $Total = (float)ceil($checkExisting['total'])*100;
 
     /*capture order after push request recieved from klarna*/
     $capture_url  = env('ORDER_MANAGEMENT_URL').$order_id."/captures";
@@ -1050,6 +1053,8 @@ class ProductController extends Controller
  
       $response = json_decode($res);
       $order_status = $response->status;
+
+      //dd($response);
       
       /*create file to check push request recieved or not*/
       
@@ -1071,8 +1076,8 @@ class ProductController extends Controller
             'product_slug'      => trim(strtolower($slug)),
             'meta_title'        => trim($ProductData['meta_title']),       
             'meta_description'  => trim($ProductData['meta_description']),
-            'shipping_method'   =>  trim($ProductData['shipping_method_ddl']),  
-            'shipping_charges'  =>  trim($ProductData['shipping_charges']),  
+            'shipping_method'   => '',  
+            'shipping_charges'  => '',  
             'meta_keyword'  	=> trim($ProductData['meta_keyword']),
             'description'       => trim($ProductData['description']),
             'status'       		=> trim($ProductData['status']),
@@ -1270,7 +1275,7 @@ class ProductController extends Controller
         'updated_at' => $currentDate,
         ];
 
-        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+        AdminOrders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
     }
 
     exit;

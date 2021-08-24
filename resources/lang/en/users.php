@@ -268,5 +268,7 @@
     'return_policy_label' => 'Return Policy',
     'shipping_policy_label' => 'Shipping Policy',
     'contact_store' => 'Contact Store',
+    'seller_logo_info' => 'Please add logo of size (400 x 150).',
+    'seller_banner_info' => 'Please add Banner of size (1800 x 700).',
  ]
 ?>

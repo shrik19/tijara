@@ -144,8 +144,10 @@
 
         
               <h2  class="col-md-12">{{ __('servicelang.step_2')}}</h2>
-              <div class="form-group col-md-2">
-                    <label class="col-md-12">{{ __('lang.service_year')}}</label>
+              <div class="col-md-12">
+                 <div class="col-md-9">
+              <div class="form-group col-md-3">
+                    <label class="col-md-12">{{ __('lang.from_service_year')}}</label>
                     
                     <select class="col-md-12 service_year" name="service_year" id="service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -160,7 +162,7 @@
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
               </div>
               <div class="form-group col-md-3">
-                    <label class="col-md-12">{{ __('lang.service_month')}} </label>
+                    <label class="col-md-12">{{ __('lang.from_service_month')}} </label>
                     <select class="col-md-12 service_month" name="service_month" id="service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
@@ -173,8 +175,8 @@
                       ?>
                     </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
               </div>
-              <div class="form-group col-md-2">
-                  <label class="col-md-12">{{ __('lang.service_date')}} </label>
+              <div class="form-group col-md-3">
+                  <label class="col-md-12">{{ __('lang.from_service_date')}} </label>
                   <select class="col-md-12 service_date" name="service_date" id="service_date" >
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php
@@ -188,18 +190,72 @@
                   </select>
                   <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
               </div>
-
-              <div class="form-group col-md-3">
+            </div>
+             <div class="col-md-3" style="display: flex;">
+              <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 35px;">
                 <label class="col-md-12">{{ __('lang.start_time')}} </label>
                 <input type="tel" class="col-md-12 start_time" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
                 <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
               </div>
 
-              <div class="col-md-2 text-center">
+              <div class="col-md-2 text-center" style="margin-top: 30px !important;">
                 <label class="col-md-12">&nbsp;</label>
                 <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a>
               </div>
+            </div>
+          </div>
 
+           <!-- to date block start -->
+            <div class="col-md-12">
+                 <div class="col-md-9">
+              <div class="form-group col-md-3">
+                    <label class="col-md-12">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
+                    
+                    <select class="col-md-12 to_service_year" name="to_service_year" id="to_service_year" >
+                      <option value="">{{ __('lang.select_label')}}</option>
+                      <?php
+                        for($i=date('Y'); $i<'2050';$i++) {
+                          ?>
+                          <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                          <?php
+                        }
+                      ?>
+                    </select>
+                    <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
+              </div>
+              <div class="form-group col-md-3">
+                    <label class="col-md-12">{{ __('lang.to_service_month')}}<!-- <span class="de_col">*</span> --></label>
+                    <select class="col-md-12 to_service_month" name="to_service_month" id="to_service_month" >
+                      <option value="">{{ __('lang.select_label')}}</option>
+                      <?php
+                        for ($i = 1; $i <= 12; $i++) {
+                          $timestamp = date('01-'.$i.'-'.date('Y'));
+                          ?>
+                          <option value="<?php echo date('m', strtotime($timestamp)); ?>"><?php echo date('F', strtotime($timestamp)); ?></option>
+                          <?php
+                        }
+                      ?>
+                    </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
+              </div>
+              <div class="form-group col-md-3">
+                  <label class="col-md-12">{{ __('lang.to_service_date')}}<!-- <span class="de_col">*</span> --></label>
+                  <select class="col-md-12 to_service_date" name="to_service_date" id="to_service_date" >
+                    <option value="">{{ __('lang.select_label')}}</option>
+                    <?php
+                      for ($i = 1; $i <=31; $i++) {
+                        
+                        ?>
+                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php
+                      }
+                    ?>
+                  </select>
+                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
+              </div>
+            </div>
+        
+          </div>
+          <!-- to date block end -->
               <div class="added_service_times" style="display:none;">
                 
                   @if(!empty($serviceAvailability))
@@ -291,7 +347,7 @@ $(document).ready(function() {
         
       });
     });
-    console.log(events_array);
+    //console.log(events_array);
    // $('#calendar').fullCalendar('addEventSource', events_array);
     
   }
@@ -361,8 +417,7 @@ $(document).ready(function() {
 var service_time_counter  = 10000;
   $('#save_service_date').click(function(){
     service_time_counter  = service_time_counter+1;
-    if($('#service_month').val()=='' || $('#service_year').val()=='' || $('#service_date').val()==''
-    || $('#start_time').val()=='00:00' || $('#start_time').val()=='') {
+    if($('#service_month').val()=='' || $('#service_year').val()=='' || $('#service_date').val()=='' || $('#to_service_month').val()=='' || $('#to_service_year').val()=='' || $('#to_service_date').val()=='' || $('#start_time').val()=='00:00' || $('#start_time').val()=='') {
         alert("{{ __('lang.service_time_required')}}");
         return false;
     }
@@ -375,18 +430,56 @@ var service_time_counter  = 10000;
       alert("{{ __('lang.select_future_date')}}");
         return false;
     }
-    var events_array = [{
+
+    if(to_service_date < new Date()) {
+      alert("{{ __('lang.select_future_to_date')}}");
+        return false;
+    }
+    var start_date = $('#service_year').val()+'-'+$('#service_month').val()+'-'+$('#service_date').val();
+    var end_date =  $('#to_service_year').val()+'-'+$('#to_service_month').val()+'-'+$('#to_service_date').val()
+    var start = new Date(start_date);
+    var end = new Date(end_date);
+
+
+    var loop = new Date(start);
+    var allDates = [];
+    while(loop <= end){ 
+        alert(loop)
+      var date = new Date(loop),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+      var tosendDate = [date.getFullYear(), mnth, day].join("-");
+      var sendDate =tosendDate+' '+$('#start_time').val();
+    $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability[]" class="service_availability" value="'+sendDate+'">');          
+       allDates.push(new Date(loop));
+       var newDate = loop.setDate(loop.getDate() + 1);
+       loop = new Date(newDate);
+    }
+
+    // $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability_time" class="service_availability_time" value="'+$('#start_time').val()+'">'); 
+      var events_array = [];  
+      $(allDates).each(function (k, v) {
+          var temp = {
+            id: service_time_counter,
+              title: $('#start_time').val(),
+              start: v,
+              //tip: 'Sup dog.'
+            };
+            events_array.push(temp);
+      });
+
+   /* var events_array = [{
         id: service_time_counter,
         title: $('#start_time').val(),
         start: new Date($('#service_year').val()+'-'+$('#service_month').val()+'-'+$('#service_date').val()),
         //tip: 'Sup dog.'
-      }, ];
+      }, ];*/
     $('#calendar').fullCalendar('addEventSource', events_array);
     $('#service_year').val('');
     $('#service_month').val('');
     $('#service_date').val('');
     $('#start_time').val('');
-    $('.added_service_times').append('<input type="text" id="'+service_time_counter+'"  name="service_availability[]" value="'+service_date_to_use+'">');
+    // $('.added_service_times').append('<input type="text" id="'+service_time_counter+'"  name="service_availability[]" value="'+service_date_to_use+'">');
   });
   
   

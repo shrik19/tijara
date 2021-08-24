@@ -637,8 +637,10 @@ class ServiceController extends Controller
         
         ServiceAvailability::where('service_id', $id)->delete();
         if(!empty($request->input('service_availability'))) {
-             
+            
             foreach($request->input('service_availability') as $availability) {
+              // echo "<pre>";print_r($request->input('service_availability'));exit;
+               //date('Y-m-d',strtotime($availability))
                 $dateTime   =   explode(' ',$availability);
                 $service_availability['service_id']   =   $id;
                 $service_availability['service_date']  =   $dateTime[0];

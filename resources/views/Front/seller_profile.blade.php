@@ -25,12 +25,13 @@
             @csrf
       @include ('Front.alert_messages')
       <div class="col-md-12">
-        <h2>{{ __('users.profile_update_title')}}</h2>
-        <hr class="heading_line"/>
-         
+	    <div class="card-header row">
+			  <h2>{{ __('users.profile_update_title')}}</h2>
+			  <hr class="heading_line">
+		 </div>  
         <div class="login_box">
           
-            <h2 class="col-md-12">{{ __('users.contact_person')}}</h2>
+            <h2 class="col-md-12 contact-info">{{ __('users.contact_person')}}</h2>
           
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <div class="form-group col-md-6">

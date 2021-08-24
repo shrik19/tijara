@@ -16,12 +16,13 @@
     <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
-        <div class="col-md-10">
-        <div class="col-md-1"></div>
+        <div class="col-md-10 tijara-content">
         <div class="col-md-6">
           @include ('Front.alert_messages')
-          <h2>{{ __('users.change_password_title')}} </h2>
-          <hr class="heading_line"/>
+		  <div class="card-header row">
+			  <h2>{{ __('users.change_password_title')}} </h2>
+			  <hr class="heading_line">
+		  </div>
           <div class="login_box">
             <form method="POST" action="{{route('frontChangePasswordStore')}}" class="needs-validation" novalidate="">
               @csrf

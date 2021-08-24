@@ -30,7 +30,7 @@
 		  <h2>{{ __('lang.your_products_label')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
-		  <div class="col-md-1">
+		  <div class="col-md-1 pro-top-btn">
 		  <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
 			</div>
 		</div>

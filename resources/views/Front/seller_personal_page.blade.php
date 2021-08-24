@@ -18,8 +18,10 @@
     <div class="col-md-10 tijara-content">
     @include ('Front.alert_messages')
      
-        <h2> {{ __('users.seller_personal_form_label')}}</h2>
-        <hr class="heading_line"/>
+		<div class="card-header row">
+			  <h2>{{ __('users.seller_personal_form_label')}} </h2>
+			  <hr class="heading_line">
+		</div>
         <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data">
             @csrf
 

@@ -30,7 +30,7 @@
 		  <h2>{{ __('servicelang.your_services_label')}}</h2>
 		  <hr class="heading_line"/>
 		  </div>
-		  <div class="col-md-1">
+		  <div class="col-md-1 pro-top-btn">
 		  <a href="{{route('frontServiceCreate')}}" title="{{ __('servicelang.add_service')}}" class="btn btn-black btn-sm debg_color login_btn a_btn" ><span>{{ __('servicelang.add_service')}}</span> </a>
 			</div>
 		</div>

@@ -28,7 +28,7 @@
 		  <h2>{{ __('lang.manage_attributes_menu')}} </h2>
 		  <hr class="heading_line"/>
 		  </div>
-		  <div class="col-md-1">
+		  <div class="col-md-1 pro-top-btn">
 		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
 			</div>
 		</div>

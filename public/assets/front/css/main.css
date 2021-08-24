@@ -60,9 +60,6 @@ header{
     filter: alpha(opacity=40);
     display: none;
 }
-.service-req-content{
-  margin: 5% 0;
-}
 
 .see-all-service-btn{
   font-weight: 500;
@@ -113,11 +110,6 @@ span.subscribe_err {
   border-bottom: 4px solid gray !important;
 }
 
-
-.tijara-content,
-.tijara-sidebar {
-    margin: 5% 0;
-}
 .add-varinat-btn .btn{
     font-size: 18px;
     padding: 5px 20px;
@@ -252,7 +244,7 @@ ul.breadcrumb-category li a:hover {
 
 .activemainmenu > a {
     background: #03989e !important;
-    color: #000000 !important;
+    color: #ffffff !important;
 }
 
 
@@ -661,7 +653,7 @@ nav ul {
   }
 
   .buyer-prod-msg{
-    background-color: #c7e9ea;
+    background-color: #03989e;
     padding: 30px;
     margin-bottom: 80px;
   }
@@ -1483,10 +1475,39 @@ ul.tijara_front_box.row {
 
 }
 
-.tj-navbar{background-color: transparent;box-shadow: none;border: none; background-image: none; float: left;width: 100%;}
+.tj-navbar{box-shadow: none;border: none; background-image: none; float: left;width: 100%;}
 .tj-logo{padding: 0;margin: 25px; margin-left: 25px!important;}
 .mainMenu{padding-top: 70px; width: 100%;margin: 15px 0;}
 .tj-topmenu{background-color: rgba(255, 255, 255, 0.9); float: left; width: 100%;}
 .product_view{width: 90%; margin: 0 auto;}
 .container-inner-section{width: 90%; margin: 0 auto;}
 .mtb-20{margin: 20px 0;}
+
+/*******************************/
+/*        23-08-2021           */   
+/*******************************/
+
+span.pro-text {
+    margin-left: 5px;
+}
+
+.buyer-prod-msg h2 {
+    color: #ffffff;
+}
+
+.alert.alert-danger {
+    margin-top: 50px;
+	margin-bottom: 0;
+}
+
+.pro-top-btn {
+    margin-top: 25px;
+}
+
+.contact-info {
+    margin-top: 0;
+}
+
+#seller-profile-form .card-header {
+    margin-bottom: 0;
+}

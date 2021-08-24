@@ -7,14 +7,12 @@
   <div class="col-md-6 hor_strip gray_bg_color">
   </div>
 </div>
-<div class="container">
+<div class="mid-section">
+<div class="containerfluid">
+<div class="container-inner-section">
   <div class="row">
-    <div class="">
-        </br>
       @include ('Front.alert_messages')
       <!-- html for seller subscribe packages -->
-       
-    <div class="col-md-12">
     	<div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
@@ -83,60 +81,56 @@
 			</div>
 			@endforeach
 		@endif
-	</div>
-	  
+		@if(count($packageDetails) != 0 && !empty($packageDetails))
+			  <div class="col-md-12">
+				<h2>{{ __('users.subscribe_package_label')}} </h2>
+				<hr class="heading_line"/>
+					@foreach($packageDetails as $data)
+					 <div class="col-md-4">
+						<div class="panel panel-default subscribe-packages">
+						<div class="panel-heading">{{$data['title']}}</div>
+						<div class="panel-body" style="min-height: 390px;overflow: auto;">
 
-	@if(count($packageDetails) != 0 && !empty($packageDetails))
-      <div class="col-md-12">
-        <h2>{{ __('users.subscribe_package_label')}} </h2>
-        <hr class="heading_line"/>
-	      	@foreach($packageDetails as $data)
-	      	 <div class="col-md-4">
-				<div class="panel panel-default subscribe-packages">
-				<div class="panel-heading">{{$data['title']}}</div>
-				<div class="panel-body" style="min-height: 390px;overflow: auto;">
-
-					<p><span class="bold">{{ __('users.description_label')}} :</span> <?php echo $data->description; ?></p>
-					<p><span class="bold">{{ __('users.amount_label')}} : </span> {{$data['amount']}} kr</p>
-					<p><span class="bold">{{ __('users.validity_label')}} : </span>{{$data['validity_days']}} Days</p>
-					<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">
-						 {{ csrf_field() }}
-					 	<input type="hidden" name="user_id" value="{{$user_id}}">
-					 	<input type="hidden" name="p_id" value="{{$data['id']}}">
-					 	<input type="hidden" name="p_name" value="{{$data['title']}}">
-					 	<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
-					 	<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
-					 	<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
-					 </form>
-				</div>
-				</div>
+							<p><span class="bold">{{ __('users.description_label')}} :</span> <?php echo $data->description; ?></p>
+							<p><span class="bold">{{ __('users.amount_label')}} : </span> {{$data['amount']}} kr</p>
+							<p><span class="bold">{{ __('users.validity_label')}} : </span>{{$data['validity_days']}} Days</p>
+							<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">
+								 {{ csrf_field() }}
+								<input type="hidden" name="user_id" value="{{$user_id}}">
+								<input type="hidden" name="p_id" value="{{$data['id']}}">
+								<input type="hidden" name="p_name" value="{{$data['title']}}">
+								<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
+								<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
+								<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
+							 </form>
+						</div>
+						</div>
+					</div>
+					<!--  <div class="col-md-4">
+						<div class="panel panel-default subscribe-packages">
+						<div class="panel-heading">{{$data['title']}}</div>
+						<div class="panel-body" style="max-height: 215px;overflow: auto;">
+		>>>>>>> 868a036965efb2dd19a88736f85859b8f9f95956
+							<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
+							<p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
+							<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>
+							<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">
+								 {{ csrf_field() }}
+								<input type="hidden" name="user_id" value="{{$user_id}}">
+								<input type="hidden" name="p_id" value="{{$data['id']}}">
+								<input type="hidden" name="p_name" value="{{$data['title']}}">
+								<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
+								<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
+								<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
+							 </form>
+						</div>
+						</div>
+					</div> -->
+					@endforeach
+			   </div>
+			   @endif
 			</div>
-	      	<!--  <div class="col-md-4">
-				<div class="panel panel-default subscribe-packages">
-				<div class="panel-heading">{{$data['title']}}</div>
-				<div class="panel-body" style="max-height: 215px;overflow: auto;">
->>>>>>> 868a036965efb2dd19a88736f85859b8f9f95956
-					<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
-					<p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
-					<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>
-					<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">
-						 {{ csrf_field() }}
-					 	<input type="hidden" name="user_id" value="{{$user_id}}">
-					 	<input type="hidden" name="p_id" value="{{$data['id']}}">
-					 	<input type="hidden" name="p_name" value="{{$data['title']}}">
-					 	<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
-					 	<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
-					 	<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
-					 </form>
-				</div>
-				</div>
-			</div> -->
-			@endforeach
-	   </div>
-	   @endif
-    </div>
-</div>
-  </div>
 </div> <!-- /container -->
-
+</div>
+</div>
 @endsection

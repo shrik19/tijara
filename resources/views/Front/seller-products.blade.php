@@ -120,15 +120,15 @@
           <h2>{{ __('users.store_terms_title')}}</h2>
           @if(!empty($getTerms))
             <div style="display: flex;">
-              <p style="font-weight: bold;font-size: 16px;">Store Policy : </p>
+              <p style="font-weight: bold;font-size: 16px;">{{ __('users.store_policy_label')}} : </p>
               <p style="margin-left: 10px;">{{$getTerms->store_policy}}</p>
             </div>
             <div style="display: flex;">
-              <p style="font-weight: bold;font-size: 16px;">Return Policy : </p>
+              <p style="font-weight: bold;font-size: 16px;">{{ __('users.return_policy_label')}} : </p>
               <p style="margin-left: 10px;">{{$getTerms->return_policy}}</p>
             </div>
             <div style="display: flex;">
-              <p style="font-weight: bold;font-size: 16px;">Shipping Policy : </p>
+              <p style="font-weight: bold;font-size: 16px;">Shipping Policy{{ __('users.shipping_policy_label')}} : </p>
               <p style="margin-left: 10px;">{{$getTerms->shipping_policy}}</p>
             </div>             
           @endif
@@ -136,7 +136,7 @@
 
         <!-- contact shop -->
         <div class="col-md-12">
-         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.add_subcategory_title').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">contact store </a>
+         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.contact_store').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
         </div>
     </div>
 </div>

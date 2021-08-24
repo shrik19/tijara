@@ -59,6 +59,7 @@
     var txt_comments_err = "{{ __('lang.txt_comments_err')}}";
     var login_buyer_required = "{{ __('errors.login_buyer_required')}}";
     var review_add_success = "{{ __('messages.review_add_success')}}";
+    var err_msg_okay = "{{ __('users.err_msg_okay')}}";
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
     is_login = 1;
@@ -105,9 +106,10 @@
                 </div>
                 <div class="col-md-3">
                   <div class="form-group cart_details">
-                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @endif>
+                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
                       <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
                     </a>
+
                     @php
                       $productCnt = getOrderProducts(Auth::guard('user')->id());
                     @endphp
@@ -119,7 +121,7 @@
                   </div>
 
                   <div class="form-group cart_details" style="padding-left:0px;">
-                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="javascript:alert('{{trans('errors.login_buyer_required')}}')" @else href="{{route('frontLogin')}}" @endif>
+                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
                         <i class="glyphicon glyphicon-heart" style="font-size:20px;"></i>
                       </a>
                       @php

@@ -284,5 +284,10 @@
     'footer_open_a_shop_link' =>'Öppna butik',
     'footer_how_it_work_link' => 'Så fungerar det',
     'footer_sell_label'=>'Sälj',
+    'err_msg_okay' => 'Okej',
+    'store_policy_label' => 'Butiks politik',
+    'return_policy_label' => 'Lämna tillbaka politik',
+    'shipping_policy_label' => 'Frakt politik',
+    'contact_store' => 'Kontakta butik',
  ]
 ?>

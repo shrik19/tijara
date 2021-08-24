@@ -1188,8 +1188,9 @@ public function getCatSubList(Request $request) {
 		/*get product review*/
 		$data['productReviews']= $this->getReviews('products','',$Product->id);
 		//dd($data['variantData']);
-		if($tmpSellerData['role_id']==2)
+		if($tmpSellerData['role_id']==2){
         	return view('Front/seller_product_details', $data);
+        }
 		else {
 			$currentDate = date('Y-m-d H:i:s');
 		

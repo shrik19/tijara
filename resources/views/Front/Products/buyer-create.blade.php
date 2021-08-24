@@ -158,7 +158,7 @@
                     <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_sku" ></span>
                   </div>
                   <div class="form-group  col-md-6" >
-                    <label class="col-md-12" >{{ __('lang.price_label')}} <span class="de_col"></span></label>
+                    <label class="col-md-12" >{{ __('lang.price_label')}} <span class="de_col"></span>*</label>
                     <input type="tel" class="login_input form-control price number variant_field" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value='{{ old("price.$i")}}' tabindex="7">
                     <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_sku" ></span>
                   </div>

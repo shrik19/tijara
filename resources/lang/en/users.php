@@ -263,5 +263,10 @@
     'footer_open_a_shop_link' =>'Open a shop',
     'footer_how_it_work_link' => 'That is how it works',
     'footer_sell_label'=>'Sell',
+    'err_msg_okay' => 'Okay',
+    'store_policy_label' => 'Store Policy',
+    'return_policy_label' => 'Return Policy',
+    'shipping_policy_label' => 'Shipping Policy',
+    'contact_store' => 'Contact Store',
  ]
 ?>

@@ -45,6 +45,15 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 
+
+/*onclick of product div redirect to details page*/
+
+/*$(".product_data").click(function(){
+  var attr_val = $(this).attr('product_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+});*/
 $(".add_new_variant_btn").click(function(){
 
     
@@ -1307,7 +1316,6 @@ function updateCart(OrderDetailsId)
 
 function showErrorMessage(strContent,redirect_url = '')
 {
-    
   $.alert({
       title: 'Oops!',
       content: strContent,
@@ -1316,7 +1324,7 @@ function showErrorMessage(strContent,redirect_url = '')
       columnClass: 'medium',
       icon : "fas fa-times-circle",
       buttons: {
-        okay: function () {
+        Ok: function () {
             if(redirect_url != '')
             {
               if(redirect_url == 'reload')

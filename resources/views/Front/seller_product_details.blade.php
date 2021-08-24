@@ -9,7 +9,6 @@
 <section class="product_details_section">
     <div class="loader"></div>
     <div class="container">
-
         <div class="row">
             <div class="col-md-6">
               <!-- Primary carousel image -->

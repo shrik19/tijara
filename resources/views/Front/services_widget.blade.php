@@ -1,5 +1,5 @@
 <li class="col-md-15">
-  <div class="product_data">
+  <div class="product_data services-data" service_link="{{$service->service_link}}" >
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($service->images)
           <img src="{{url('/')}}/uploads/ServiceImages/resized/{{$service->image}}" style="width:100%;">
@@ -39,3 +39,11 @@
   </div>
 
 </li>
+<script type="text/javascript">
+  $(".services-data").click(function(){
+  var attr_val = $(this).attr('service_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+});
+</script>

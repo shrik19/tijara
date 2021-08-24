@@ -89,9 +89,10 @@
 					 <div class="col-md-4">
 						<div class="panel panel-default subscribe-packages">
 						<div class="panel-heading">{{$data['title']}}</div>
-						<div class="panel-body" style="min-height: 390px;overflow: auto;">
+						<div class="panel-body pacakge_feature_list" >
 
 							<p><span class="bold">{{ __('users.description_label')}} :</span> <?php echo $data->description; ?></p>
+							<div class="package_bt">
 							<p><span class="bold">{{ __('users.amount_label')}} : </span> {{$data['amount']}} kr</p>
 							<p><span class="bold">{{ __('users.validity_label')}} : </span>{{$data['validity_days']}} Days</p>
 							<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">
@@ -103,6 +104,7 @@
 								<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
 								<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
 							 </form>
+							 </div>
 						</div>
 						</div>
 					</div>

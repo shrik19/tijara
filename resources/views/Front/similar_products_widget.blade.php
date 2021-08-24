@@ -9,7 +9,7 @@
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
       <div class="buy_now_hover_details">
           <ul>
-              <li><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
+              <li style="margin-left: 30%;"><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
             </ul>
       </div>
     </div>

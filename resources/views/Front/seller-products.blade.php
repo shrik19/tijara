@@ -16,14 +16,14 @@
       <div class="row tijara-content" style="margin-top:40px;">
        <!--  @include('Front.category_breadcrumb') -->
         <div class="col-md-3">
-            <div style="display: flex">
-            
+            <div>            
              @if(!empty($logo)) 
              <div class="seller_logo">
              <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif
+             <div class="seller_info">
               <h2>{{ $seller_name }}</h2>
-              <p style="margin-top: 60px;margin-left: -115px;">{{ $city_name }}</p>
-              <div class="star-rating" style="font-size:unset;margin-top: 80px;margin-left: -64px;pointer-events: none;">
+              <p>{{ $city_name }}</p>
+              <div class="star-rating">
                 <select class='rating product_rating' data-rating="{{$totalRating}}">
                   <option value="1" >1</option>
                   <option value="2" >2</option>
@@ -33,6 +33,7 @@
                 </select>
               </div>
             </div>
+</div>
              <h2> {{ __('users.butiks_info_title')}}</h2>
 
             <h4 style="margin-top: 50px;">{{ __('lang.category_label')}}</h4>
@@ -53,8 +54,8 @@
                 <div class="row">               
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                   @if(!empty($store_information))
-                  <div class="col-md-12 text-center">
-                    {!! $store_information !!}
+                  <div class="col-md-12">
+                    <p class="store_info">{!! $store_information !!}</p>
                   </div>
                   @endif
                 </div>
@@ -87,8 +88,10 @@
         
         <div class="col-md-12">
           <hr>
+          <div class="col-md-2">
           <h2>{{ __('users.review_title')}}</h2>
-          <hr>
+</div>
+<div class="col-md-9">
           @if(!empty($productReviews))
             @foreach($productReviews as $review)
             <div>
@@ -115,8 +118,10 @@
             @endforeach
           @endif
         </div>
+</div>
 
         <div class="col-md-12">
+        <div class="mtb-20">
           <h2>{{ __('users.store_terms_title')}}</h2>
           @if(!empty($getTerms))
             <div style="display: flex;">
@@ -130,13 +135,16 @@
             <div style="display: flex;">
               <p style="font-weight: bold;font-size: 16px;">Shipping Policy{{ __('users.shipping_policy_label')}} : </p>
               <p style="margin-left: 10px;">{{$getTerms->shipping_policy}}</p>
-            </div>             
+            </div>   
+          </div>          
           @endif
         </div>
 
         <!-- contact shop -->
         <div class="col-md-12">
+        <div class="mtb-20">
          <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.contact_store').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+</div>
         </div>
     </div>
 </div>

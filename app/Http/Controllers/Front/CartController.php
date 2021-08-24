@@ -323,7 +323,7 @@ class CartController extends Controller
             $OrderId = $tmpOrder['id'];
 
             //Update Order Totals
-            $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
+            $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
             if(!empty($checkExistingOrderProduct))
             {
                 $subTotal       = 0;
@@ -339,6 +339,17 @@ class CartController extends Controller
                       $tmpOrderDetails->delete();
                       continue;
                     }
+
+                    if(!empty($details['discount']))
+                    {
+                      $discount = number_format((($details['product_price'] * $details['discount']) / 100),2,'.','');
+                      $discount_price = $details['product_price'] - $discount;
+                    }
+                    else
+                    {
+                      $discount_price = $details['product_price'];
+                    }	
+
                     //Get Seller Shipping Informations
                     $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
 
@@ -352,7 +363,7 @@ class CartController extends Controller
                       else if($details['shipping_method'] == trans('users.prcentage_shipping_charges'))
                       {
                         $product_shipping_type = 'percentage';
-                        $product_shipping_amount = ((float)$details['price'] * $details['shipping_charges']) / 100;
+                        $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
                       }
                     }
                     else if(empty($SellerShippingData['free_shipping']))
@@ -367,7 +378,7 @@ class CartController extends Controller
                             elseif($SellerShippingData['shipping_method'] == trans('users.prcentage_shipping_charges'))
                             {
                               $product_shipping_type = 'percentage';
-                              $product_shipping_amount = ((float)$details['price'] * $SellerShippingData['shipping_charges']) / 100;
+                              $product_shipping_amount = ((float)$discount_price * $SellerShippingData['shipping_charges']) / 100;
                             }
                         }
                     }
@@ -376,14 +387,17 @@ class CartController extends Controller
                       $product_shipping_type = 'free';
                     }
 
+                    
+
                     $arrOrderDetailsUpdate = [
+                      'price'                => $discount_price,
                       'shipping_type'        => $product_shipping_type,
                       'shipping_amount'      => $product_shipping_amount,
                     ];
                     
                     TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
-                    $subTotal += $details['price'] * $details['quantity'];
+                    $subTotal += $discount_price * $details['quantity'];
                     $shippingTotal += $product_shipping_amount;
                 }
 
@@ -403,13 +417,13 @@ class CartController extends Controller
           }
           
 
-          //$checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
+          $updatedOrder = TmpOrders::where('id','=',$tmpOrder['id'])->first()->toArray();
 
           //$data['subTotal'] = $checkExisting[0]['sub_total'];
           //$data['Total'] = $checkExisting[0]['total'];
           //$data['shippingTotal'] = $checkExisting[0]['shipping_total'];
 
-          $orderDetails[$OrderId] = ['subTotal' => $tmpOrder['sub_total'], 'Total' => $tmpOrder['total'], 'shippingTotal' => $tmpOrder['shipping_total']];
+          $orderDetails[$OrderId] = ['subTotal' => $updatedOrder['sub_total'], 'Total' => $updatedOrder['total'], 'shippingTotal' => $updatedOrder['shipping_total']];
 
           //$OrderId = $checkExisting[0]['id'];
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
@@ -711,7 +725,8 @@ class CartController extends Controller
             $OrderId = $checkExisting[0]['id'];
 
             //Update Order Totals
-            $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
+            // $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
+            $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
             if(!empty($checkExistingOrderProduct))
             {
                 foreach($checkExistingOrderProduct as $details)
@@ -723,6 +738,16 @@ class CartController extends Controller
                       $tmpOrderDetails->delete();
                       continue;
                     }
+                    if(!empty($details['discount']))
+                    {
+                      $discount = number_format((($details['product_price'] * $details['discount']) / 100),2,'.','');
+                      $discount_price = $details['product_price'] - $discount;
+                    }
+                    else
+                    {
+                      $discount_price = $details['product_price'];
+                    }
+
                     //Get Seller Shipping Informations
                     $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
 
@@ -736,7 +761,7 @@ class CartController extends Controller
                       else if($details['shipping_method'] == trans('users.prcentage_shipping_charges'))
                       {
                         $product_shipping_type = 'percentage';
-                        $product_shipping_amount = ((float)$details['price'] * $details['shipping_charges']) / 100;
+                        $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
                       }
                     }
                     else if(empty($SellerShippingData['free_shipping']))
@@ -751,7 +776,7 @@ class CartController extends Controller
                             elseif($SellerShippingData['shipping_method'] == trans('users.prcentage_shipping_charges'))
                             {
                               $product_shipping_type = 'percentage';
-                              $product_shipping_amount = ((float)$details['price'] * $SellerShippingData['shipping_charges']) / 100;
+                              $product_shipping_amount = ((float)$discount_price * $SellerShippingData['shipping_charges']) / 100;
                             }
                         }
                     }
@@ -760,14 +785,17 @@ class CartController extends Controller
                       $product_shipping_type = 'free';
                     }
 
+                    	
+
                     $arrOrderDetailsUpdate = [
+                      'price'                => $discount_price,
                       'shipping_type'        => $product_shipping_type,
                       'shipping_amount'      => $product_shipping_amount,
                     ];
                     
                     TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
-                    $subTotal += $details['price'] * $details['quantity'];
+                    $subTotal += $discount_price * $details['quantity'];
                     $shippingTotal += $product_shipping_amount;
                 }
 
@@ -862,7 +890,9 @@ class CartController extends Controller
         return redirect(route('frontShowCart'));
       }
         $param['details'] = $orderDetails;
-     
+      
+        
+
       if(empty($username) || empty($password))
         {
           $blade_data['error_messages']= trans('errors.seller_credentials_err');
@@ -880,12 +910,13 @@ class CartController extends Controller
         $billing_address['phone'] = $UserData['phone_number'];
         /*klarna api to create order*/
         $url = env('BASE_API_URL');
-       
+        
+        $orderTotal = (int)ceil($checkExisting[0]['total']) * 100;
         //$url = "https://api.playground.klarna.com/checkout/v3/orders";
         $data = array("purchase_country"=> "SE",
           "purchase_currency"=> "SEK",
           "locale"=> "en-SE",
-          "order_amount"=> (int)ceil($checkExisting[0]['total']),
+          "order_amount"=> $orderTotal,
           "order_tax_amount"=> 0,
           "billing_address" => $billing_address,
         );
@@ -894,15 +925,16 @@ class CartController extends Controller
 
         foreach($orderDetails as $orderProduct)
         {
+          $productPrice = (int)ceil($orderProduct['price']) * 100;
           $arrOrderDetails[] = array(
             "type"=> "physical",
              "reference"=> $orderProduct['product_id'],
              "name"=> $orderProduct['product']->title.' '.$orderProduct['variant_attribute_id'],
              "quantity"=>$orderProduct['quantity'],
              "quantity_unit"=> "pcs",
-             "unit_price"=> (int)ceil($orderProduct['price']),
+             "unit_price"=> $productPrice,
              "tax_rate"=> 0,
-             "total_amount"=> (int)ceil($orderProduct['price'] * $orderProduct['quantity']),
+             "total_amount"=> (int)ceil($productPrice * $orderProduct['quantity']),
              "total_discount_amount"=> 0,
              "total_tax_amount"=> 0,
              "product_url"=> $orderProduct['product']->product_link,
@@ -912,14 +944,15 @@ class CartController extends Controller
 
         if($checkExisting[0]['shipping_total'])
         {
+          $shippingAmount = (int)ceil($checkExisting[0]['shipping_total']) * 100;
           $arrOrderDetails[] = array(
             "type"=> "shipping_fee",
              "name"=> 'Shipping Amount',
              "quantity"=>1,
              "quantity_unit"=> "pcs",
-             "unit_price"=> (int)ceil($checkExisting[0]['shipping_total']),
+             "unit_price"=> $shippingAmount,
              "tax_rate"=> 0,
-             "total_amount"=> (int)ceil($checkExisting[0]['shipping_total']),
+             "total_amount"=> $shippingAmount,
              "total_discount_amount"=> 0,
              "total_tax_amount"=> 0,
           );
@@ -961,7 +994,7 @@ class CartController extends Controller
         curl_close($ch);
         
         $response = json_decode($result);
-       
+        
         if(empty($response))
         {
           $blade_data['error_messages']= 'Något gick fel, kontakta admin.';
@@ -1064,7 +1097,7 @@ class CartController extends Controller
 
         $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
 
-        $order_amount = (float)$response->order_amount;
+        $order_amount = (float)($response->order_amount / 100);
         $TmpOrderId   = $response->merchant_data;
         //$orderCompleteAt = $response->complete_at;
 
@@ -1187,7 +1220,7 @@ class CartController extends Controller
      //$username = env('KLORNA_USERNAME');
      //$password = env('KLORNA_PASSWORD');
      
-     $Total = (float)ceil($checkExisting['total']);
+     $Total = (float)ceil($checkExisting['total']) * 100;
 
      /*capture order after push request recieved from klarna*/
      $capture_url  = env('ORDER_MANAGEMENT_URL').$order_id."/captures";

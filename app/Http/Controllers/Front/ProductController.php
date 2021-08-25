@@ -1092,7 +1092,7 @@ class ProductController extends Controller
         
         $id = Products::create($arrProducts)->id;
 
-         if(!empty($ProductData['user_name']))) {
+         if(!empty($ProductData['user_name'])) {
             BuyerProducts::where('product_id',$id)->delete();
             $buyerProductArray['product_id']=$id;
             $buyerProductArray['user_id']=$user_id;

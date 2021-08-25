@@ -1309,8 +1309,10 @@ ul.tijara_front_box.row {
 .tijara_front_box li {
     list-style: none;
     float: left;
-    margin: 0 2px;
+   
+    width: 33%;
 }
+.tijara_front_box li img{width: 100%; height: auto;}
 
 .product_data {
     height: 550px;

@@ -53,12 +53,12 @@
                       <div class="row">
                           <div class="col-xs-12 col-md-6">    
                             <div class="quantity_box">              
-                               <a href="javascript:void(0);">{{ __('lang.back_to_ads')}}</a>
+                               <a href="{{ route('frontHome') }}">{{ __('lang.back_to_ads')}}</a>
                             </div>
                           </div>
                       </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </div> <!-- /container -->
 </section>

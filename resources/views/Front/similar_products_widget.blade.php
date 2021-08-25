@@ -3,9 +3,8 @@
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($product->image)
       @php 
-      $productImage = explode(",",$product->image);
-      $img =$productImage[0];
-      
+        $productImage = explode(",",$product->image);
+        $img =$productImage[0];
        @endphp
           <img src="{{url('/')}}/uploads/ProductImages/resized/{{$img}}" >
       @else

@@ -291,8 +291,52 @@ $('input#sort_order').keyup(function(e)
     this.value = this.value.replace(/\D/g, '');
   }
 });
-
 $(".saveproduct").click(function(e){
+  e.preventDefault();
+  let title               = $("#title").val();
+  let sort_order          = $("#sort_order").val();
+  let error               = 0;
+
+
+  if(title == '')
+  {
+    $("#err_title").html(required_field_error).show();
+    $("#err_title").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_title").html('').show();
+
+  }
+
+  $( ".variant_field:visible" ).each(function() {
+      if($(this).val()=='') {
+          $(this).next('.invalid-feedback').html(required_field_error);
+          error = 1;
+      }
+      else
+      $(this).next('.invalid-feedback').html('');
+  });
+  $( ".add_attribute_group_td" ).each(function() {
+    if($(this).find('.added_attributes_each_div').length<=0) {
+        $(this).find('.added_attributes').html('<span style="color:red;">'+required_field_error+'</span>');
+        error = 1;
+    }
+});
+  if(error == 1)
+  {
+    return false;
+  }
+  else
+  {
+    $('#product-form').submit();
+    return true;
+  }
+
+});
+
+$(".saveBuyerProduct").click(function(e){
   e.preventDefault();
   let title               = $("#title").val();
   let sort_order          = $("#sort_order").val();
@@ -351,7 +395,6 @@ $(".saveproduct").click(function(e){
 
   if(seller_phone == '')
   {
-    alert("Sdkkj")
     $("#err_user_phone_no").html(required_field_error).show();
     $("#err_user_phone_no").parent().addClass('jt-error');
     error = 1;

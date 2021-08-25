@@ -450,7 +450,8 @@ class ProductController extends Controller
 			$product_id					=	base64_decode($id);
 			$data['product_id']			=	$product_id;
 			$data['product']			=	Products::where('id',$product_id)->first();
-            $data['buyerProduct']		=	BuyerProducts::where('product_id',$product_id)->first();
+         //   $data['buyerProduct']		=	BuyerProducts::where('product_id',$product_id)->first();
+            $data['buyerProduct']       =   Products::where('id',$product_id)->first();
             
             //$data['AttributesValues']  =   AttributesValues::get();
           
@@ -492,6 +493,7 @@ class ProductController extends Controller
             if($User->role_id==2) 
 			    return view('Front/Products/seller-edit', $data);
             else
+                //echo "<pre>";print_r($data);exit;
                 return view('Front/Products/buyer-edit', $data);
 		}
 		else {

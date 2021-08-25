@@ -1087,8 +1087,24 @@ class ProductController extends Controller
             'user_id'			=>	$user_id,
             'is_buyer_product'  => '1',
         ];
+
+
         
         $id = Products::create($arrProducts)->id;
+
+         if(!empty($ProductData['user_name']))) {
+            BuyerProducts::where('product_id',$id)->delete();
+            $buyerProductArray['product_id']=$id;
+            $buyerProductArray['user_id']=$user_id;
+            $buyerProductArray['user_name']=$ProductData['user_name'];
+            $buyerProductArray['user_email']=$ProductData['user_email']);
+            $buyerProductArray['user_phone_no']=$ProductData['user_phone_no']);
+            $buyerProductArray['country']=$ProductData['country']);
+            $buyerProductArray['location']=$ProductData['location']);
+            //$buyerProductArray['price']=$request->input('price');
+            BuyerProducts::create($buyerProductArray);
+        }
+
         //unique product code
         $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $product_code = substr(str_shuffle($string),0, 4).$id;

@@ -161,13 +161,15 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-              <div class="col-md-12">
+              <div class="row">
+              <hr>
+              <div class="col-md-2">
               <h2>{{ __('users.review_title')}}</h2>
-                <hr>
+              </div>
                 @if(!empty($serviceReviews))
                   @php $i=1; @endphp
                   @foreach($serviceReviews as $review)
-                  <div>
+                  <div class="col-md-10">
                     <p>
                       @if(!empty($review['profile']))
                       <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
@@ -188,8 +190,9 @@
                         </select>
                       </div>
                     <p>{{$review['comments']}}</p>
+                    <hr>
                   </div>
-                  <hr>
+                  
                   @php $i++; @endphp
                   @endforeach
                 @endif

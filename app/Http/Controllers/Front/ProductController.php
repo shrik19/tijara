@@ -1097,10 +1097,10 @@ class ProductController extends Controller
             $buyerProductArray['product_id']=$id;
             $buyerProductArray['user_id']=$user_id;
             $buyerProductArray['user_name']=$ProductData['user_name'];
-            $buyerProductArray['user_email']=$ProductData['user_email']);
-            $buyerProductArray['user_phone_no']=$ProductData['user_phone_no']);
-            $buyerProductArray['country']=$ProductData['country']);
-            $buyerProductArray['location']=$ProductData['location']);
+            $buyerProductArray['user_email']=$ProductData['user_email'];
+            $buyerProductArray['user_phone_no']=$ProductData['user_phone_no'];
+            $buyerProductArray['country']=$ProductData['country'];
+            $buyerProductArray['location']=$ProductData['location'];
             //$buyerProductArray['price']=$request->input('price');
             BuyerProducts::create($buyerProductArray);
         }

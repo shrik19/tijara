@@ -13,7 +13,7 @@
   <div class="container-inner-section">
   <!-- Example row of columns -->
   <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
         @if($subscribedError)

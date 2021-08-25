@@ -450,8 +450,8 @@ class ProductController extends Controller
 			$product_id					=	base64_decode($id);
 			$data['product_id']			=	$product_id;
 			$data['product']			=	Products::where('id',$product_id)->first();
-         //   $data['buyerProduct']		=	BuyerProducts::where('product_id',$product_id)->first();
-            $data['buyerProduct']       =   Products::where('id',$product_id)->first();
+            $data['buyerProduct']		=	BuyerProducts::where('product_id',$product_id)->first();
+           // $data['buyerProduct']       =   Products::where('id',$product_id)->first();
             
             //$data['AttributesValues']  =   AttributesValues::get();
           

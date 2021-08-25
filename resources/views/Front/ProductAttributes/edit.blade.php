@@ -35,7 +35,7 @@
 
             <div class="col-md-6">
               <div class="login_box">
-                <form method="POST" action="{{route('frontAttributeUpdate', $id)}}" class="needs-validation" novalidate="">
+                <form method="POST" id="product_attribute_form" action="{{route('frontAttributeUpdate', $id)}}" class="needs-validation" novalidate="">
                 <!-- class="needs-validation" novalidate="" -->
                 @csrf
 
@@ -64,12 +64,13 @@
                   @if(!empty($attributesValues) && count($attributesValues) !=0)
                   @foreach ($attributesValues as $key=>$values)
                   <div>
-                  <input type="text" class="form-control login_input" name="attribute_values[]" id="attribute_values_{{$values->id}}" required  value="{{ (old('attribute_values')) ?  old('attribute_values') : $values->attribute_values}}" style="float:left;width:80%;margin-top:10px;">
-
+                  <input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values_{{$values->id}}" required  value="{{ (old('attribute_values')) ?  old('attribute_values') : $values->attribute_values}}" style="width:80%;margin-top:25px;">
+                  <span class="invalid-feedback" id="err_fname" style="float:left;margin-left: 15px;margin-top:10px;"></span>
+                  </div>
                   <input type="hidden" name="attribute_id[]" id="attribute_id_{{$key+1}}" value="{{ (old('id')) ?  old('id') : $values->id}}">
 
-                  <button type="button" class="btn btn-danger remove_button" id="remove_button_{{$values->id}}" title="Remove Values"  style="float:right;margin-top: 7px;">X</button>
-                  </div>
+                  <button type="button" class="btn btn-danger remove_button" id="remove_button_{{$values->id}}" title="Remove Values"  style="float:right;margin-top: -35px;">X</button>
+                  
                   @endforeach
                   @endif
                   </div>
@@ -83,7 +84,8 @@
                 <div class="form-group">
                   <label>Attribute Values <span class="de_col">*</span></label>
                   <div class="field_wrapper">
-                  <input type="text" class="form-control login_input" name="attribute_values[]" id="attribute_values" required  value="" style="float:left;width:80%">
+                  <input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:25px;">
+                  <span class="invalid-feedback" id="err_fname" style="float:left;margin-left: 15px;margin-top:10px;"></span>
                   </div>
                 </div> 
 
@@ -95,7 +97,7 @@
           </div>
         </div><!-- col 12 end -->
         <div class="col-md-12 text-center attribute-btn" style="margin:30px;">
-          <button class="btn btn-black debg_color login_btn ffff">{{ __('lang.save_btn')}}</button>
+          <button class="btn btn-black debg_color login_btn save_att_val">{{ __('lang.save_btn')}}</button>
                 <a href="{{route('frontProductAttributes')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
 
                 </form>
@@ -109,13 +111,13 @@
 <script type="text/javascript">
   var addButton = $('.add_button'); //Add button selector
   var wrapper = $('.field_wrapper'); //Input field wrapper
-  var valueHTML = '<div><input type="text" class="form-control login_input" name="attribute_values[]" id="attribute_values" required  value="" style="float:left;width:80%;margin-top:10px;"><button type="button" class="btn btn-danger remove_button" title="Remove Values"  style="float:right;margin-top:-40px;">X</button></div>'; //New input field html 
+  var valueHTML = '<div class="form-group"><input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:25px;"><span class="invalid-feedback" id="err_fname" style="float:left;margin-left: 15px;margin-top:10px;"></span><button type="button" class="btn btn-danger remove_button" title="Remove Values"  style="float:right;margin-top:-35px;">X</button></div>'; //New input field html 
 
   var x = 1; //Initial field counter is 1
   //Once add button is clicked
   $(document).on("click", ".add_button", function () {
   // $(addButton).click(function(){
-  var valueHTML = '<div><input type="text" class="form-control login_input" name="attribute_values[]" id="attribute_values" required  value="" style="float:left;width:80%;margin-top:10px;"><button type="button" class="btn btn-danger remove_button" title="Remove Values"  style="float:right;margin-top:8px;">X</button></div>'; //New input field html 
+  var valueHTML = '<div><input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:25px;"><span class="invalid-feedback" id="err_att_val" style="float:left;margin-left: 15px;margin-top:10px;"></span><button type="button" class="btn btn-danger remove_button" title="Remove Values"  style="float:right;margin-top:-35px;">X</button></div>'; //New input field html 
   x++; //Increment field counter
   $(wrapper).append(valueHTML); //Add field html
 
@@ -148,6 +150,41 @@
   $(this).parent('div').remove(); //Remove field html
   x--; //Decrement field counter
   }
+  });
+
+ $(".save_att_val").click(function(e){
+    var error = 0;
+     
+    
+    $( ".attribute_values:visible" ).each(function() {
+      if($(this).val()=='') {
+          $(this).next('.invalid-feedback').html(required_field_error);
+          error = 1;
+      }
+      else{
+        $(this).next('.invalid-feedback').html('');
+        error = 0;
+      }
+      
+  });
+ /* $( ".add_attribute_group_td" ).each(function() {
+    if($(this).find('.added_attributes_each_div').length<=0) {
+        $(this).find('.added_attributes').html('<span style="color:red;">'+required_field_error+'</span>');
+        error = 1;
+    }
+});*/
+
+  if(error == 1)
+  {
+    return false;
+  }
+  else
+  {
+     return true;
+   // $('#product_attribute_form').submit();
+   
+  }
+
   });
 
 </script>

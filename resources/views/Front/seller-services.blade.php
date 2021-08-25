@@ -15,11 +15,12 @@
       <div class="row" style="margin-top:40px;">
        <!--  @include('Front.category_breadcrumb') -->
         <div class="col-md-3">
-          <div style="display: flex">
+          <div>
              @if(!empty($logo)) 
              <div class="seller_logo">
-             <img  src="{{$logo}}" alt="Logo" />&nbsp;&nbsp; </div>@endif
-            
+             <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp; </div>@endif
+             <div class="clearfix"></div>
+             <div class="seller_info">
               <h2>{{ $seller_name }}</h2>
               <p>{{ $city_name }}</p>
               <div class="star-rating">
@@ -31,11 +32,12 @@
                   <option value="5" >5</option>
                 </select>
               </div>
-            
+          </div>
             </div>
+            <div class="clearfix"></div>
              <h2> {{ __('users.butiks_info_title')}}</h2>
-
-              <h4 style="margin-top: 50px;">{{ __('lang.category_label')}}</h4>
+             <div class="clearfix"></div>
+              <h4 style="margin-top: 10px;">{{ __('lang.category_label')}}</h4>
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
 
             @include('Front.services_sidebar')
@@ -50,17 +52,26 @@
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
             
             <div class="product_container">
-                <div class="row">
+            <div class="row">               
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                  @if(!empty($description))
+                  @if(!empty($store_information))
                   <div class="col-md-12">
-                    {!! $description !!}
+                    <p class="store_info">{!! $store_information !!}</p>
                   </div>
                   @endif
                 </div>
                 <div class="row"><div class="col-md-12">&nbsp;</div></div>
                 <div class="row">
-                  <div class="col-md-3">
+                <div class="col-md-3 pull-right">
+                    <div class="form-group">
+                      <label>{{ __('lang.sort_by')}} : </label>
+                      <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listService()">
+                        <!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
+                          <option value="name">{{ __('lang.sort_by_name')}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3 pull-right">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listService()">
@@ -70,15 +81,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>{{ __('lang.sort_by')}} : </label>
-                      <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listService()">
-                        <!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
-                          <option value="name">{{ __('lang.sort_by_name')}}</option>
-                      </select>
-                    </div>
-                  </div>
+                  
                 </div>
                 <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>

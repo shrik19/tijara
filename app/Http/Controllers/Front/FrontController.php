@@ -1712,6 +1712,10 @@ public function getCatSubList(Request $request) {
 			{
 				$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
 			}
+			if(!empty($sellerImages['store_information']))
+			{
+				$data['store_information']       = $sellerImages['store_information'];
+			}
 		}
 		
 		$avgProductRating 	 = 0.00;

@@ -4,9 +4,10 @@
       @if($product->image)
       @php 
       $productImage = explode(",",$product->image);
-      echo "<pre>";print_r($productImage);exit;
+      $img =$productImage[0];
+      
        @endphp
-          <img src="{{url('/')}}/uploads/ProductImages/resized/{{$productImage}}" >
+          <img src="{{url('/')}}/uploads/ProductImages/resized/{{$img}}" >
       @else
           <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" >
       @endif

@@ -40,7 +40,11 @@
             <div class="col-md-6">
                 <div class="product_details_info">
                     <h2>{{$Product->title}}</h2>
-                    <h4 class="product_price" id="product_variant_price" style="color:#03989e;">{{ number_format($first['price'],2) }} kr</h4>
+                   <!--  <h4 class="product_price" id="product_variant_price" style="color:#03989e;"><span>{{ __('lang.price_label')}} :</span>{{ number_format($first['price'],2) }} kr  {{ number_format($first['discount_price'],2) }} kr</h4> -->
+
+                    <div class="quantity_box">              
+                      <h3>{{ __('lang.price_label')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span> 
+                    </div>
                    
                       <p>
                         <?php echo $Product->description; ?>

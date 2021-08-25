@@ -51,29 +51,29 @@
             <div class="form-group col-md-6">
               <label class="col-md-12" >{{ __('lang.product_buyer_name')}} <span class="de_col">*</span></label>
               <input type="text" required class="login_input form-control" name="user_name" id="user_name" placeholder="{{ __('lang.product_buyer_name')}} " value="{{old('user_name')}}" tabindex="1">
-              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_title" >@if($errors->has('user_name')) {{ $errors->first('user_name') }}@endif </span>
+              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_seller_name" >@if($errors->has('user_name')) {{ $errors->first('user_name') }}@endif </span>
             </div>
 
             <div class="form-group col-md-6">
               <label class="col-md-12" >{{ __('lang.product_buyer_email')}} <span class="de_col">*</span></label>
               <input type="email" required class="login_input form-control" name="user_email" id="user_email" placeholder="{{ __('lang.product_buyer_email')}} " value="{{old('user_email')}}" tabindex="1" >
-              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_title" >@if($errors->has('user_email')) {{ $errors->first('user_email') }}@endif </span>
+              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_seller_email" >@if($errors->has('user_email')) {{ $errors->first('user_email') }}@endif </span>
             </div>
 
             <div class="form-group col-md-6">
               <label class="col-md-12" >{{ __('lang.product_buyer_phone_no')}} <span class="de_col">*</span></label>
               <input type="tel" required class="login_input form-control" name="user_phone_no" id="user_phone_no" placeholder="{{ __('lang.product_buyer_phone_no')}} " value="{{old('user_phone_no')}}" tabindex="1">
-              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_title" >@if($errors->has('user_phone_no')) {{ $errors->first('user_phone_no') }}@endif </span>
+              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_user_phone_no" >@if($errors->has('user_phone_no')) {{ $errors->first('user_phone_no') }}@endif </span>
             </div>
             <div class="form-group col-md-6">
               <label class="col-md-12" >{{ __('lang.product_country')}} <span class="de_col">*</span></label>
               <input type="text" class="login_input form-control" name="country" id="country" placeholder="{{ __('lang.product_country')}} " value="{{old('country')}}" tabindex="1">
-              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_title" >@if($errors->has('country')) {{ $errors->first('country') }}@endif </span>
+              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_seller_county" >@if($errors->has('country')) {{ $errors->first('country') }}@endif </span>
             </div>
             <div class="form-group col-md-6">
               <label class="col-md-12" >{{ __('lang.product_location')}} <span class="de_col">*</span></label>
               <input type="text" class="login_input form-control" name="location" id="location" placeholder="{{ __('lang.product_location')}} " value="{{old('location')}}" tabindex="1">
-              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_title" >@if($errors->has('location')) {{ $errors->first('location') }}@endif </span>
+              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_location" >@if($errors->has('location')) {{ $errors->first('location') }}@endif </span>
             </div>
 
             <div class="form-group col-md-6">
@@ -159,8 +159,8 @@
                   </div>
                   <div class="form-group  col-md-6" >
                     <label class="col-md-12" >{{ __('lang.price_label')}} <span class="de_col"></span>*</label>
-                    <input type="tel" class="login_input form-control price number variant_field" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value='{{ old("price.$i")}}' tabindex="7">
-                    <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_sku" ></span>
+                    <input type="tel" class="login_input form-control price number variant_field" id="price" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value='{{ old("price.$i")}}' tabindex="7">
+                    <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_price" ></span>
                   </div>
                   <div style="display:none;" class="form-group  col-md-6" >
                     <label class="col-md-12" >{{ __('lang.qty_label')}} <span class="de_col"></span></label>

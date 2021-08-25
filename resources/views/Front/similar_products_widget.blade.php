@@ -3,7 +3,7 @@
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($product->image)
       @php 
-      $productImage = explode(",",$Product->image);
+      $productImage = explode(",",$product->image);
       echo "<pre>";print_r($productImage);exit;
        @endphp
           <img src="{{url('/')}}/uploads/ProductImages/resized/{{$productImage}}" >

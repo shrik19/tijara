@@ -304,6 +304,7 @@ $(document).ready(function(){
              $("#progressbar li").eq($("fieldset").index(current_fs)).addClass("active");
         }
         if(curr_step==4){
+
              current_fs_prev = $('input.'+curr_step).parent().prev();
             $("#progressbar li").eq($("fieldset").index(current_fs_prev)).addClass("active");
         }

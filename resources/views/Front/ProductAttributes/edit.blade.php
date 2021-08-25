@@ -124,7 +124,7 @@
   });
   $(wrapper).on('click', '.remove_button', function(e){
 
-  var textbox_value = $(this).prev().prev().attr("id");  
+  var textbox_value = $(this).prev().prev().find("input").attr("id");  
   if(textbox_value){
 
   var split = textbox_value.split("_");

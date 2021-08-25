@@ -1497,7 +1497,7 @@ class AuthController extends Controller
         $data = array("purchase_country"=> "SE",
           "purchase_currency"=> "SEK",
           "locale"=> "en-SE",
-          "order_amount"=> (int)ceil($amount),
+          "order_amount"=> (int)ceil($amount) * 100,
           "order_tax_amount"=> 0,          
         );
         $data['order_lines'] = [array(
@@ -1506,9 +1506,9 @@ class AuthController extends Controller
                   "name"            => $package_name,
                   "quantity"        => 1,
                   "quantity_unit"   => "pcs",
-                  "unit_price"      => (int)ceil($amount),
+                  "unit_price"      => (int)ceil($amount) * 100,
                   "tax_rate"        => 0,
-                  "total_amount"    => (int)ceil($amount),
+                  "total_amount"    => (int)ceil($amount) * 100,
                   "total_discount_amount" => 0,
                   "total_tax_amount"      => 0,
         )];

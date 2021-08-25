@@ -1597,6 +1597,7 @@ public function getCatSubList(Request $request) {
 
 		$data['PopularServices']	= $this->getPopularServices();
 		$data['Service']			= $Service;
+		//echo "<pre>";print_r($Service);exit;
 		$tmpSellerData = UserMain::where('id',$Service['user_id'])->first()->toArray();
 		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
 		$data['seller_name'] = $seller_name;

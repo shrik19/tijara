@@ -291,12 +291,11 @@ $('input#sort_order').keyup(function(e)
     this.value = this.value.replace(/\D/g, '');
   }
 });
-
 $(".saveproduct").click(function(e){
   e.preventDefault();
-  let title     = $("#title").val();
-  let sort_order    = $("#sort_order").val();
-  let error     = 0;
+  let title               = $("#title").val();
+  let sort_order          = $("#sort_order").val();
+  let error               = 0;
 
 
   if(title == '')
@@ -310,6 +309,7 @@ $(".saveproduct").click(function(e){
     $("#err_title").html('').show();
 
   }
+
   $( ".variant_field:visible" ).each(function() {
       if($(this).val()=='') {
           $(this).next('.invalid-feedback').html(required_field_error);
@@ -334,7 +334,140 @@ $(".saveproduct").click(function(e){
     return true;
   }
 
+});
+
+$(".saveBuyerProduct").click(function(e){
+  e.preventDefault();
+  let title               = $("#title").val();
+  let sort_order          = $("#sort_order").val();
+  let seller_name         = $("#user_name").val();
+  let seller_email        = $("#user_email").val();
+  let seller_phone        = $("#user_phone_no").val();
+  let seller_county       = $("#country").val();
+  let seller_municipality = $("#location").val();
+  let price               = $("#price").val();
+  let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+  let error               = 0;
+
+
+  if(title == '')
+  {
+    $("#err_title").html(required_field_error).show();
+    $("#err_title").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_title").html('').show();
+
+  }
+
+  if(seller_name == '')
+  {
+    $("#err_seller_name").html(required_field_error).show();
+    $("#err_seller_name").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_seller_name").html('').show();
+
+  }
+ 
+  if(seller_email == '')
+  {
+    $("#err_seller_email").html(fill_in_email_err).show();
+    $("#err_seller_email").parent().addClass('jt-error');
+    error = 1;
+  }
+  else if(!email_pattern.test(seller_email))
+  {
+    $("#err_seller_email").html(fill_in_email_err).show();
+    $("#err_seller_email").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_seller_email").parent().removeClass('jt-error');
+    $("#err_seller_email").html('').hide();
+  }
+
+
+  if(seller_phone == '')
+  {
+    $("#err_user_phone_no").html(required_field_error).show();
+    $("#err_user_phone_no").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_user_phone_no").html('').show();
+
+  }
+
+   if(seller_county == '')
+  {
+    $("#err_seller_county").html(required_field_error).show();
+    $("#err_seller_county").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_seller_county").html('').show();
+
+  }
+
+
+   if(seller_municipality == '')
+  {
+    $("#err_location").html(required_field_error).show();
+    $("#err_location").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_location").html('').show();
+
+  }
+
+  if(price == '')
+  {
+    $("#err_price").html(required_field_error).show();
+    $("#err_price").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_price").html('').show();
+
+  }
+
+
+  $( ".variant_field:visible" ).each(function() {
+      if($(this).val()=='') {
+          $(this).next('.invalid-feedback').html(required_field_error);
+          error = 1;
+      }
+      else
+      $(this).next('.invalid-feedback').html('');
   });
+  $( ".add_attribute_group_td" ).each(function() {
+    if($(this).find('.added_attributes_each_div').length<=0) {
+        $(this).find('.added_attributes').html('<span style="color:red;">'+required_field_error+'</span>');
+        error = 1;
+    }
+});
+  if(error == 1)
+  {
+    return false;
+  }
+  else
+  {
+    $('#product-form').submit();
+    return true;
+  }
+
+});
 $(".frontregisterbtn").click(function(e){
   e.preventDefault();
  // let fname   = $("#fname").val();

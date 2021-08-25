@@ -479,6 +479,9 @@ var service_time_counter  = 10000;
     $('#service_month').val('');
     $('#service_date').val('');
     $('#start_time').val('');
+    $('#to_service_year').val('');
+    $('#to_service_month').val('');
+    $('#to_service_date').val('');
     // $('.added_service_times').append('<input type="text" id="'+service_time_counter+'"  name="service_availability[]" value="'+service_date_to_use+'">');
   });
   

@@ -451,6 +451,7 @@ class ProductController extends Controller
 			$data['product_id']			=	$product_id;
 			$data['product']			=	Products::where('id',$product_id)->first();
             $data['buyerProduct']		=	BuyerProducts::where('product_id',$product_id)->first();
+           // $data['buyerProduct']       =   Products::where('id',$product_id)->first();
             
             //$data['AttributesValues']  =   AttributesValues::get();
           
@@ -492,6 +493,7 @@ class ProductController extends Controller
             if($User->role_id==2) 
 			    return view('Front/Products/seller-edit', $data);
             else
+                //echo "<pre>";print_r($data);exit;
                 return view('Front/Products/buyer-edit', $data);
 		}
 		else {
@@ -1085,8 +1087,24 @@ class ProductController extends Controller
             'user_id'			=>	$user_id,
             'is_buyer_product'  => '1',
         ];
+
+
         
         $id = Products::create($arrProducts)->id;
+
+         if(!empty($ProductData['user_name'])) {
+            BuyerProducts::where('product_id',$id)->delete();
+            $buyerProductArray['product_id']=$id;
+            $buyerProductArray['user_id']=$user_id;
+            $buyerProductArray['user_name']=$ProductData['user_name'];
+            $buyerProductArray['user_email']=$ProductData['user_email'];
+            $buyerProductArray['user_phone_no']=$ProductData['user_phone_no'];
+            $buyerProductArray['country']=$ProductData['country'];
+            $buyerProductArray['location']=$ProductData['location'];
+            //$buyerProductArray['price']=$request->input('price');
+            BuyerProducts::create($buyerProductArray);
+        }
+
         //unique product code
         $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $product_code = substr(str_shuffle($string),0, 4).$id;

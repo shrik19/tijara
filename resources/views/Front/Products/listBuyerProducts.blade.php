@@ -53,10 +53,15 @@
                 }
                   $dated      =   date('Y-m-d',strtotime($value['updated_at']));
                   $title = (!empty($value['title'])) ? substr($value['title'], 0, 50) : '-';
-                  $price = $value['price'].' Kr';
+                  $price = $value['price'];
                   $id =  $value['id'];
+                  
+                  $discount_price =0;
+                  if(!empty($value['discount'])) {
+                    $discount = number_format((($price * $value['discount']) / 100),2,'.','');
+                    $discount_price = $price - $discount;
+                  }
 
-                
           ?> 
             <div class="col-sm-3">
               <div class="card product-card">
@@ -64,7 +69,16 @@
               <div class="card-body">
                 <h5 class="card-title">{{$dated}}</h5>
                 <p class="card-text buyer-product-title">{{$title}}</p>
-                 <p class="card-text buyer-price">{{$price}}</p>
+                <p class="card-text" style="margin-bottom: 50px;">  
+                  <span class="buyer-price" style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price">
+                    <span style="@if(!empty($discount_price)) text-decoration: line-through; @endif">{{ number_format($value['price'],2) }} kr
+                    </span>
+                     @if(!empty($discount_price)) &nbsp;&nbsp;{{ number_format($discount_price,2) }} kr @endif</span> 
+                 </p>
+              <!--     <div class="quantity_box">              
+                      <span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($value['discount_price'])) text-decoration: line-through; @endif">{{ number_format($value['price'],2) }} kr</span> @if(!empty($value['discount_price'])) &nbsp;&nbsp;{{ number_format($value['discount_price'],2) }} kr @endif</span> 
+                    </div> -->
+                   
                  <div class="buyer-button">
                   <a href="{{route('frontProductEdit', base64_encode($id))}}" class="btn btn-black btn-sm debg_color login_btn a_btn" title="{{ __('lang.edit_label')}}">{{ __('lang.edit_label')}}</a>
                   

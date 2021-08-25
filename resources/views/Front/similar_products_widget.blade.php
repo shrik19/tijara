@@ -2,7 +2,11 @@
   <div class="product_data" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($product->image)
-          <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" >
+      @php 
+        $productImage = explode(",",$product->image);
+        $img =$productImage[0];
+       @endphp
+          <img src="{{url('/')}}/uploads/ProductImages/resized/{{$img}}" >
       @else
           <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" >
       @endif

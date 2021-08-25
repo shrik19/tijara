@@ -1287,10 +1287,10 @@ overflow: hidden;}
     float: left;}
 
 .pacakge_feature_list{
-    min-height:43vh;overflow: auto;position:relative
+    min-height:49vh;overflow: auto;position:relative
 }
 .package_bt{position: absolute; bottom: 20px; left:22px;}
-.pacakge_feature_list ul{    height: 230px;
+.pacakge_feature_list ul{    height: 365px;
     overflow: auto;}
 /*  Tijara front */
 

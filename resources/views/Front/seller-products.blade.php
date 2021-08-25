@@ -34,6 +34,7 @@
               </div>
             </div>
 </div>
+<div class="clearfix"></div>
              <h2> {{ __('users.butiks_info_title')}}</h2>
 
             <h4 style="margin-top: 50px;">{{ __('lang.category_label')}}</h4>
@@ -61,17 +62,7 @@
                 </div>
                 <div class="row"><div class="col-md-12">&nbsp;</div></div>
                 <div class="row">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>{{ __('lang.sort_by_order')}} : </label>
-                      <select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listProducts()">
-                          <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
-                          <option value="asc">{{ __('lang.sort_by_asc')}}</option>
-                          <option value="desc">{{ __('lang.sort_by_desc')}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
+                <div class="col-md-3 pull-right">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listProducts()">
@@ -81,6 +72,17 @@
                       </select>
                     </div>
                   </div>
+                  <div class="col-md-3 pull-right">
+                    <div class="form-group">
+                      <label>{{ __('lang.sort_by_order')}} : </label>
+                      <select class="form-control seller" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listProducts()">
+                          <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
+                          <option value="asc">{{ __('lang.sort_by_asc')}}</option>
+                          <option value="desc">{{ __('lang.sort_by_desc')}}</option>
+                      </select>
+                    </div>
+                  </div>
+                
                 </div>
                 <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>

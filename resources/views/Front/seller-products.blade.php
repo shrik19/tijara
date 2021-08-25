@@ -37,7 +37,7 @@
 <div class="clearfix"></div>
              <h2> {{ __('users.butiks_info_title')}}</h2>
 
-            <h4 style="margin-top: 50px;">{{ __('lang.category_label')}}</h4>
+            <h4 style="margin-top: 10px;">{{ __('lang.category_label')}}</h4>
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
 
             @include('Front.products_sidebar')

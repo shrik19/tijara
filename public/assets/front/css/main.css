@@ -1025,7 +1025,8 @@ overflow: hidden;}
 .seller_logo img{width: 100%; height: auto;    display: flex;
     justify-content: center;
     object-fit: contain; }
-.seller_info{float: left;margin-left: 15px; padding-bottom: 25px;}
+.seller_info{float: left;margin-left: 15px; padding-bottom: 5px;}
+
 .store_info{font-size: 18px; line-height: 30px; padding: 10px 0; font-weight: normal;}
 .tijara_front_container{margin: 0 auto;}
 

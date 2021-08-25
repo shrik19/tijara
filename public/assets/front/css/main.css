@@ -900,7 +900,7 @@ nav ul {
     .packages-heading h3{font-size: 35px; font-weight: bold;}
 
     .packages-description p{font-size: 20px; font-weight: 600; line-height: 30px; color: #737373;}
-	.packages-description div ul{padding-left: 20px;}
+	.packages-description div ul{padding-left: 20px; min-height: 333px;}
     .packages-description div ul li{    font-size: 18px;
         font-weight: 600;
         line-height: 30px;
@@ -1017,7 +1017,11 @@ overflow: hidden;}
 .category_list li a{font-size: 18px; color: #717171; font-weight: 300;display: block;}
 .product_details{list-style: none;}
 .product_details li{ float: left; display: block; cursor: pointer; height: 100%; position: relative;}
-.seller_logo{width: 100px; height: 100px; display: flex;margin-right: 10px; float: left;}
+.seller_logo{    width: 100%;
+    height: auto;
+    display: flex;
+    margin-right: 10px;
+    float: left;}
 .seller_logo img{width: 100%; height: auto;    display: flex;
     justify-content: center;
     object-fit: contain; }
@@ -1081,7 +1085,8 @@ overflow: hidden;}
 .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #5dc9ff; text-align: center; padding: 15px; font-size: 16px; }
 .mid-section{margin: 40px 0;}
 .product_img:hover  .buy_now_hover_details{ opacity: 1;}
-.packages-description{height: 385px;}
+.packages-description{    max-height: 385px;
+    overflow: auto;}
 .card-header{margin: 25px 0;}
 .a_btn, .login_btn {    text-decoration: none;
     font-size: 16px;
@@ -1287,18 +1292,18 @@ overflow: hidden;}
     float: left;}
 
 .pacakge_feature_list{
-    min-height:49vh;overflow: auto;position:relative
+    min-height:49Fvh;overflow: auto;position:relative
 }
 .package_bt{position: absolute; bottom: 20px; left:22px;}
 .pacakge_feature_list ul{    height: 365px;
     overflow: auto;}
 /*  Tijara front */
-
+.ptb-15{position: relative; margin: 16px 0;}
 ul.tijara_front_box.row {
     width: 70%;
     margin: auto 15%;
 }
-
+.invalid-feedback{position: absolute;    padding-top: 4px;}
 
 .tijara_front_box li {
     list-style: none;
@@ -1311,8 +1316,8 @@ ul.tijara_front_box.row {
     overflow: hidden;
 }
 
-
-
+#msform{padding: 20px 0;}
+.p-0{padding: 0;}
 
 
 

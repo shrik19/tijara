@@ -1723,13 +1723,13 @@ class AuthController extends Controller
 
         /*capture order after push request recieved from klarna*/
         $capture_url  = "https://api.playground.klarna.com/ordermanagement/v1/orders/".$order_id."/captures";
-
+        $captured_amount = (int)ceil($package_details->amount) * 100;
         $data = <<<DATA
                 {
-                    "captured_amount" : $package_details->amount
+                    "captured_amount"    => $captured_amount
                 }
             DATA;
-
+  
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL,$capture_url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

@@ -1329,11 +1329,24 @@ ul.tijara_front_box.row {
 
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
         .containerfluid{margin-top: 110px;}
+        .nav > li {
+            float: left;
+            /* border-bottom: 4px #aaa solid; */
+            margin-right: 1px;
+            width: 100%;
+            text-align: left;
+        }
         .hor_strip {
             height: 50px;
             float: left;
             width: 50%;
         }
+        header{
+            float: left;
+            width: 100%;
+            margin-bottom: 150px;
+        }
+        .see-all-service-btn{margin-left: 0;;}
         .logo{height: 45px;}
         .client_logos li {
             float: none;
@@ -1412,6 +1425,7 @@ ul.tijara_front_box.row {
             background-size: cover;
             overflow: hidden;
         }
+        .product_section>div>div{margin-top: 0!important;}
         .slider_content h2 {
             font-size: 42px;
             font-weight: 600;
@@ -1419,6 +1433,9 @@ ul.tijara_front_box.row {
         .slider_indicators {
             bottom: -39px;
             margin-left: -7pc;
+        }
+        .product_section {
+            padding-top: 0px;
         }
         .sale_section {
             margin-top: 70px;

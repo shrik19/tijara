@@ -1726,7 +1726,7 @@ class AuthController extends Controller
         $captured_amount = (int)ceil($package_details->amount) * 100;
         $data = <<<DATA
                 {
-                    "captured_amount"    => $captured_amount
+                    "captured_amount": $captured_amount
                 }
 
 DATA;

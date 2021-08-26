@@ -139,7 +139,7 @@
             </div>
             
 
-            <div  class="col-md-12" id="variant_table">
+            <div id="variant_table">
               <?php
 
               $i  = 0; ?>
@@ -188,7 +188,7 @@
                     
                     <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_sku" ></span>
                   </div>
-                  <div class="selected_images col-md-12"></div>
+                  <div class="selected_images col-md-6"></div>
                   <div class="remove_variant_div"></div>
                   
                 </div>

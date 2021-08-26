@@ -1728,7 +1728,8 @@ class AuthController extends Controller
                 {
                     "captured_amount"    => $captured_amount
                 }
-            DATA;
+
+DATA;
   
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL,$capture_url);

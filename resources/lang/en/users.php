@@ -266,9 +266,13 @@
     'err_msg_okay' => 'Okay',
     'store_policy_label' => 'Store Policy',
     'return_policy_label' => 'Return Policy',
+    'return_btn' => 'Return',
+    'shipping_btn' => 'Shipping',
+    'butik_btn' => 'Store',
     'shipping_policy_label' => 'Shipping Policy',
     'contact_store' => 'Contact Store',
     'seller_logo_info' => 'Please add logo of size (400 x 150).',
     'seller_banner_info' => 'Please add Banner of size (1800 x 700).',
+    'please_add_your_message'=>'please add your message',
  ]
 ?>

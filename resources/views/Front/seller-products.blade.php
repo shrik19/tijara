@@ -91,20 +91,23 @@
         <div class="col-md-12">
           <hr>
           <div class="col-md-2">
-          <h2>{{ __('users.review_title')}}</h2>
-</div>
-<div class="col-md-9">
+            <h2>{{ __('users.review_title')}}</h2>
+          </div>
+
+          <div class="col-md-9">
           @if(!empty($productReviews))
             @foreach($productReviews as $review)
-            <div>
-              <p>
+             <div class="row">
+              <div class="col-md-1">
                 @if(!empty($review['profile']))
-                  <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
+                  <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" class="ratingUserIcon">
                 @else 
-                  <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" style="width:50px;height:50px;">
+                  <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" class="ratingUserIcon">
                 @endif
-                <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?>
-              </p>
+               
+              </div>
+              <div class="col-md-5">
+                <p style="margin-top: 10px;margin-bottom: 1px;"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
               <div class="star-rating" style="font-size:unset;pointer-events: none;">
                   <select class='rating product_rating' data-rating="{{$review['product_rating']}}">
                     <option value="1" >1</option>
@@ -116,13 +119,15 @@
                 </div>
               <p>{{$review['comments']}}</p>
             </div>
+             <div class="col-md-6"></div>
+            </div>
             <hr>
             @endforeach
           @endif
+          </div>
         </div>
-</div>
 
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
         <div class="mtb-20">
           <h2>{{ __('users.store_terms_title')}}</h2>
           @if(!empty($getTerms))
@@ -140,7 +145,48 @@
             </div>   
           </div>          
           @endif
+        </div> -->
+        <!-- dummy tabs -->
+
+        <div class="col-md-12"> <hr>
+          <div class="col-md-3">
+            <h2>{{ __('users.store_terms')}}</h2>
+          </div>
+        <div class="col-md-9" style="margin-top: 25px;">
+         
+        
+
+          <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
+          <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+          <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+       <!--    <ul>
+            <li><a href="javascript:void(0)"  class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen"></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+          </ul> -->
+      
+          @if(!empty($getTerms))
+          <div id="StorePolicy" class="tabcontent">
+          <h3>{{ __('users.store_policy_label')}}</h3>
+          <p>{{@$getTerms->store_policy}}</p>
+          </div>
+
+          <div id="ReturnPolicy" class="tabcontent">
+          <h3>{{ __('users.return_policy_label')}}</h3>
+          <p>{{@$getTerms->return_policy}}</p> 
+          </div>
+
+          <div id="ShippingPolicy" class="tabcontent">
+          <h3>{{ __('users.shipping_policy_label')}}</h3>
+          <p>{{@$getTerms->shipping_policy}}</p>
+          </div>
+        @endif
+
+      
+   
         </div>
+      </div>
+        <!-- end -->
 
         <!-- contact shop -->
         <div class="col-md-12">
@@ -177,10 +223,9 @@
         </div>
         
        <div class="modal-footer">
-        <button type="submit" class="conact-store-save btn btn-icon icon-left btn-success"><i class="fas fa-check"></i>{{ __('lang.save_btn')}}</button>
-        <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>{{ __('lang.close_btn')}}</button>
-        </div>
-        
+        <button type="submit" class="conact-store-save btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
+        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal">{{ __('lang.close_btn')}}</button>
+        </div>        
       </div>
     </div>
   </div>
@@ -188,7 +233,7 @@
   <!-- end contact seller model Form -->
     </div> <!-- /container -->
 </section>
-
+  
 <script type="text/javascript">
   $(document).ready(function() {
     get_product_count();
@@ -207,11 +252,17 @@
       //console.log(data);return
       var i=1
       $.each(data, function(k, v) {
-       console.log(v);
-        console.log("--");
-        console.log(k);
-        //$("#user_id").val();
-        $("#productCount_"+k).text(v.product_count);
+        //console.log(v);
+        //console.log("--");
+        //console.log(k);
+       
+        //$("#productCount_"+k).text(v.product_count);
+        if(v.product_count == 0){
+            $("#productCount_"+k).parent().css('display','none');
+        }else{
+          
+           $("#productCount_"+k).text(v.product_count);
+        }
         i++;
       });
     }
@@ -339,10 +390,30 @@ $(document).on("click",".conact-store-save",function(event) {
           }
         });}, 300);
       } else{
-          alert("please add your message");
+          alert(please_add_your_message);
       }    
     }); 
+/*js code for policy tabs*/
+function openPage(pageName,elmnt) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+    // tablinks[i].style.backgroundColor = "";
+      tablinks[i].classList.remove("tablink-active");
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.classList.add("tablink-active");
+    }
 
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+  //   tablink-active
+       var element = document.getElementById("defaultOpen");
+   element.classList.add("tablink-active");
 </script>
 @endsection
 

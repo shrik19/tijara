@@ -26,7 +26,6 @@
 
                 <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" id="main_cat_name<?php echo $i; ?>">{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
 
-               <!--  <ul id="subcategories<?php/* echo $i; */?>" class="subcategories_list  panel-collapse collapse <?php /*if($cls!='') echo'in activesubcategories'; */?>"  role="tabpanel" aria-labelledby="headingOne" style=""> -->
                  <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse"  role="tabpanel" aria-labelledby="headingOne" style="">
                 @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
                 <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>

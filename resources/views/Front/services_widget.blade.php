@@ -14,7 +14,7 @@
           </ul>
       </div>
     </div>
-    <div class="service_info">
+    <div class="product_info">
         <div class="star-rating" style="font-size:unset;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
             <option value="1" >1</option>

@@ -60,13 +60,13 @@
         <div class="col-md-12">             
                 <div class="product_container">
                 <div class="loader"></div>
-                    <h4>{{ __('lang.popular_items_in_market_head')}}</h4>
+                    <!-- <h4>{{ __('lang.popular_items_in_market_head')}}</h4> -->
              
-                     <div style="display: flex;">
-                        <h2>{{ __('lang.trending_product_head')}}</h2> 
-                            <a href="{{url('/')}}/products" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_products')}}</a>
+                     <div>
+                        <h2 class="heading">{{ __('lang.trending_product_head')}}</h2> 
+                            <!-- <a href="{{url('/')}}/products" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_products')}}</a> -->
                     </div>
-                    <hr class="heading_line"/>
+                    <!-- <hr class="heading_line"/> -->
                     <ul class="product_details">
 					@foreach($TrendingProducts as $product)
                         @include('Front.products_widget')
@@ -82,10 +82,10 @@
 </section>
 <!-- Featured seller section start -->
  
-<section class="featured-seller">
+<section class="featured-seller product_view">
     <div class="featured_seller_container">
     <div class="container-fluid">
-        <h2>{{ __('lang.featured_seller_head')}}</h2>
+        <h2 class="heading">{{ __('lang.featured_seller_head')}}</h2>
     </div>
 </div>
     <div class="featured-banner" >
@@ -95,10 +95,13 @@
                 @if(!empty($FeaturedSellers))
                     @foreach($FeaturedSellers as $fea_seller)
                    
-                    <div class="col-md-4 feature_seller">
+                    <div class="col-md-3 feature_seller">
                         <div class="featured_seller_section"  >
                             <img class="img-fluid" src="{{url('/')}}/uploads/Seller/resized/<?php echo $fea_seller['logo'];?>" />
+                            <div class="clearfix"></div>
+                           
                         </div>
+                        <h3>Lorem ipsum</h3>
                     </div>
                     @endforeach
                 @endif
@@ -120,8 +123,11 @@
         <div class="col-md-12">             
                 <div class="product_container">
                 <div class="loader"></div>
-                    <div style="display: flex;"><h2>{{ __('lang.popular_services_head')}}</h2>     <a href="{{url('/')}}/services" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_services')}}</a></div>
-                    <hr class="heading_line"/>
+                    <div >
+                    <h2 class="heading">{{ __('lang.popular_services_head')}}</h2>     
+                    <!-- <a href="{{url('/')}}/services" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_services')}}</a> -->
+                </div>
+                    <!-- <hr class="heading_line"/> -->
                     <ul class="product_details">
                     @foreach($PopularServices as $service)
                         @include('Front.services_widget')
@@ -148,8 +154,8 @@
     <div class="col-md-12">             
         <div class="product_container">
         <div class="loader"></div>
-            <h2>{{ __('lang.feature_product_head')}}</h2>
-            <hr class="heading_line"/>
+            <h2 class="heading">{{ __('lang.feature_product_head')}}</h2>
+            <!-- <hr class="heading_line"/> -->
             <ul class="product_details">
             @foreach($FeaturedProducts as $product)
                 @include('Front.featured_product')

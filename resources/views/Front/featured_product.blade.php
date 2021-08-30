@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="product_info">
-        <div class="star-rating" style="font-size:unset;">
+        <!-- <div class="star-rating" style="font-size:unset;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
             <option value="2" >2</option>
@@ -23,15 +23,15 @@
             <option value="4" >4</option>
             <option value="5" >5</option>
           </select>
-        </div> 
+        </div>  -->
         @php $product_cat_link= url('/').'/products/'.strtolower($product['category_name']); @endphp
-        <a href="{{$product_cat_link}}">
-        <h5>{{$product['category_name']}}</h5></a>
+        <!-- <a href="{{$product_cat_link}}">
+        <h5>{{$product['category_name']}}</h5></a> -->
         <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
-        <h6>{{$product->price}} kr</h6>
+        <h6 class="product_price">{{$product->price}} kr</h6>
         @endif
-        <h6>{{$product->seller}}</h6>
+        <h6 >{{$product->seller}}</h6>
     </div>
   </div>
 

@@ -138,6 +138,27 @@ span.subscribe_err {
     padding: 5px 20px;
     color: #fff;
 }
+
+/*store page policy section*/
+.tablink{
+    border: none;
+    background: none;
+    padding: 3px 20px;
+    margin: 0px 20px;
+  }
+  .tablink-active{
+    background-color: white;
+    color: black;
+    border: 2px solid #c1b8b8;
+    border-radius: 6px;
+  }
+  .tabcontent{
+    margin-left: 20px;
+  }
+
+  .ratingUserIcon{
+    width:60px;height:60px;border-radius: 60px;
+  }
 /*FAQ page css*/
 main {
   max-width: 800px;

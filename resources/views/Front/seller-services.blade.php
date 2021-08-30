@@ -88,41 +88,47 @@
         </div>
 
         <div class="col-md-12">
-        <hr>
+          <hr>
+
           <div class="col-md-2">
-          <h2>{{ __('users.review_title')}}</h2>
-        </div>
-        <div class="col-md-9">
-          @if(!empty($serviceReviews))
-            @foreach($serviceReviews as $review)
-            <div>
-              <p>
-                @if(!empty($review['profile']))
-                  <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
-                @else 
-                  <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" style="width:50px;height:50px;">
-                @endif
-                
-               <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?>
-                 
-              </p>
-              <div class="star-rating" style="font-size:unset;pointer-events: none;">
-                  <select class='rating service_rating' data-rating="{{$review['service_rating']}}">
-                    <option value="1" >1</option>
-                    <option value="2" >2</option>
-                    <option value="3" >3</option>
-                    <option value="4" >4</option>
-                    <option value="5" >5</option>
-                  </select>
+            <h2>{{ __('users.review_title')}}</h2>
+          </div>
+
+          <div class="col-md-9">
+            @if(!empty($serviceReviews))
+              @foreach($serviceReviews as $review)
+              <div class="row">
+                <div class="col-md-1">
+                  @if(!empty($review['profile']))
+                    <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" class="ratingUserIcon">
+                  @else 
+                    <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" class="ratingUserIcon">
+                  @endif                   
                 </div>
-              <p>{{$review['comments']}}</p>
-            </div>
-            <hr>
-            @endforeach
-          @endif
+
+                <div class="col-md-5">
+                  <p style="margin-top: 10px;margin-bottom: 1px;"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+
+                  <div class="star-rating" style="font-size:unset;pointer-events: none;">
+                    <select class='rating service_rating' data-rating="{{$review['service_rating']}}">
+                      <option value="1" >1</option>
+                      <option value="2" >2</option>
+                      <option value="3" >3</option>
+                      <option value="4" >4</option>
+                      <option value="5" >5</option>
+                    </select>
+                  </div>
+                  
+                  <p style="margin-top: 15px;">{{$review['comments']}}</p>
+                </div>
+              <div class="col-md-6"></div>
+              </div>
+              <hr>
+              @endforeach
+            @endif
+          </div>
         </div>
-</div>
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <div class="mtb-20">
           <h2>{{ __('users.store_terms_title')}}</h2>
           @if(!empty($getTerms))
@@ -140,11 +146,49 @@
             </div>             
           @endif
         </div>
+        </div> -->
+         <div class="col-md-12"> <hr>
+          <div class="col-md-3">
+            <h2>{{ __('users.store_terms')}}</h2>
+          </div>
+        <div class="col-md-9" style="margin-top: 25px;">
+         
+        
+
+          <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
+          <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+          <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+       <!--    <ul>
+            <li><a href="javascript:void(0)"  class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen"></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+          </ul> -->
+      
+          @if(!empty($getTerms))
+          <div id="StorePolicy" class="tabcontent">
+          <h3>{{ __('users.store_policy_label')}}</h3>
+          <p>{{@$getTerms->store_policy}}</p>
+          </div>
+
+          <div id="ReturnPolicy" class="tabcontent">
+          <h3>{{ __('users.return_policy_label')}}</h3>
+          <p>{{@$getTerms->return_policy}}</p> 
+          </div>
+
+          <div id="ShippingPolicy" class="tabcontent">
+          <h3>{{ __('users.shipping_policy_label')}}</h3>
+          <p>{{@$getTerms->shipping_policy}}</p>
+          </div>
+        @endif
+
+      
+   
         </div>
+      </div>
         <!-- contact shop -->
         <div class="col-md-12">
         <div class="mtb-20">
-         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.add_subcategory_title').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">contact store </a>
+         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
 </div>
         </div>
     </div>
@@ -156,7 +200,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">{{ __('users.contact_store_head')}}</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
         </div>
         <div class="loader"></div>
         <div class="modal-body">
@@ -168,7 +212,7 @@
                   <input type="hidden" name="seller_name" class="seller_name" id="seller_name" value="">
                 <div class="form-group">
                   <label>{{ __('users.your_message_label')}} <span class="text-danger">*</span></label>
-                  <textarea class="user_message" name="user_message" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}"  placeholder="{{ __('users.subcategory_name_label')}}" id="user_message"required></textarea>
+                  <textarea class="user_message  form-control contact-store-message" name="user_message" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}"  placeholder="{{ __('users.subcategory_name_label')}}" id="user_message"required></textarea>
                
                 </div>
             </form>
@@ -176,8 +220,8 @@
         </div>
         
        <div class="modal-footer">
-        <button type="submit" class="conact-store-save btn btn-icon icon-left btn-success"><i class="fas fa-check"></i>{{ __('lang.save_btn')}}</button>
-        <button type="button" class="btn btn-icon icon-left btn-danger" data-dismiss="modal"><i class="fas fa-times"></i>{{ __('lang.close_btn')}}</button>
+        <button type="submit" class="conact-store-save btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
+        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal">{{ __('lang.close_btn')}}</button>
         </div>
         
       </div>
@@ -206,7 +250,13 @@ function get_service_count(){
     { 
       $.each(data, function(k, v) {
         $("#user_id").val();
-        $("#serviceCount_"+k).text(v.service_count);
+        //$("#serviceCount_"+k).text(v.service_count);
+        if(v.service_count == 0){
+            $("#serviceCount_"+k).parent().css('display','none');
+        }else{
+          
+           $("#serviceCount_"+k).text(v.service_count);
+        }
 
       });
     }
@@ -318,9 +368,30 @@ $(document).on("click",".conact-store-save",function(event) {
           }
         });}, 300);
       } else{
-          alert("please add your message");
+          alert(please_add_your_message);
       }    
     });
 
+/*js code for policy tabs*/
+function openPage(pageName,elmnt) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+    // tablinks[i].style.backgroundColor = "";
+      tablinks[i].classList.remove("tablink-active");
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.classList.add("tablink-active");
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+  //   tablink-active
+       var element = document.getElementById("defaultOpen");
+   element.classList.add("tablink-active");
 </script>
 @endsection

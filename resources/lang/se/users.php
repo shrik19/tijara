@@ -287,9 +287,13 @@
     'err_msg_okay' => 'Okej',
     'store_policy_label' => 'Butiks politik',
     'return_policy_label' => 'Lämna tillbaka politik',
+    'return_btn' => 'Retur',
+    'shipping_btn' => 'Frakt',
+    'butik_btn' => 'Butik',
     'shipping_policy_label' => 'Frakt politik',
     'contact_store' => 'Kontakta butik',
     'seller_logo_info' => 'Lägg till en logotyp i storlek (400 x 150).',
     'seller_banner_info' => 'Lägg till en banner i storlek (1800 x 700).',
+    'please_add_your_message'=>'lägg till ditt meddelande',
  ]
 ?>

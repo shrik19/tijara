@@ -17,7 +17,9 @@
     </div>
     <div class="product_info">
         @php $product_cat_link= url('/').'/products/'.strtolower($product['category_name']); @endphp
-        <a href="{{$product_cat_link}}"><h5>{{$product['category_name']}}</h5></a>
+        <!-- <a href="{{$product_cat_link}}">
+          <h5>{{$product['category_name']}}</h5></a> -->
+          <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         <div class="star-rating" style="font-size:unset;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
@@ -27,15 +29,15 @@
             <option value="5" >5</option>
           </select>
         </div>  
-        <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+      
         @if(!empty($product->price))
-        <h6><span @if(!empty($product->discount_price)) style="text-decoration: line-through;" @endif>{{$product->price}} kr</span>@if(!empty($product->discount_price)) &nbsp;&nbsp;{{$product->discount_price}} kr @endif</h6>
+        <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span></h6>
         @endif
 
          @php 
           $seller_link= url('/').'/seller/'.$product->seller."/". base64_encode($product->user_id)."/products"; 
         @endphp
-         <a href="{{$seller_link}}"><h6>{{$product->seller}}</h6></a>
+         <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
         <input type="hidden" name="product_quantity_{{$product->variant_id}}" id="product_quantity_{{$product->variant_id}}" value="1">
         <!-- <a href="javascript:void(0);" onclick="addToCart('{{$product->variant_id}}');"><i class="glyphicon glyphicon-shopping-cart"></i></a> -->
     </div>

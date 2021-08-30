@@ -81,11 +81,11 @@
       <div class="container-fluid">
         <div class="row">
           <div class="tj-topmenu">
-          <div class="col-md-2">
-            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/assets/img/logo.png" height="60"/></a>
+          <div class="wid-20 col-sm-12">
+            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/assets/img/logo.png"/></a>
           </div>
 
-          <div class="col-md-10">
+          <div class="wid-85 col-xm-12">
             <div class="top_login">
 
               @php
@@ -97,15 +97,29 @@
               @endphp
                 <form method="POST" action="{{$formUrl}}" class="navbar-form navbar-left header_left_container" role="form">
                   @csrf
-                  <div class="col-md-9">
+                  <div class="col-md-10">
                 <div class=" form-group search_now_input_box">
                   <!-- <input type="text" placeholder="Email" class="form-control search_now_input"> -->
                   <input type="text" class="form-control search_now_input current_search_string" placeholder="{{ __('lang.search_placeholder')}}" name="search" id="search_string">
                   <button class="search_icon_btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="form-group cart_details">
+                <div class="col-md-2">
+                  <ul class="right-icons">
+                  <li>
+
+<div>
+@if(Auth::guard('user')->id())
+<!-- <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a> -->
+<a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i></h3></a>               
+@else
+<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
+@endif
+
+</div>
+</li>
+                    <li>
+                    <div class="cart_details">
                     <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
                       <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
                     </a>
@@ -119,10 +133,11 @@
                     </div>
                     @endif
                   </div>
-
-                  <div class="form-group cart_details" style="padding-left:0px;">
+                    </li>
+                    <li>
+                    <div class="cart_details" style="padding-left:0px;">
                     <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
-                        <i class="glyphicon glyphicon-heart" style="font-size:20px;"></i>
+                        <i class="glyphicon glyphicon-heart"></i>
                       </a>
                       @php
                         $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
@@ -132,17 +147,14 @@
                         <span>{{$productWishlistCnt}}</span>
                       </div>
                       @endif
-                  </div> 
+                  </div>
+                    </li>
+                  
+                  </ul>
+                
 
-                  <div class="pull-right">
-                @if(Auth::guard('user')->id())
-                <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a>
-               
-                @else
-                <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
-                @endif
+                  
 
-              </div>
 </div>
                 <!-- <button type="button" class=" btn buy_now_btn debg_color" onclick="location.href='{{route('AllproductListing')}}';">{{ __('lang.buy_now_btn')}}</button> -->
               </form>

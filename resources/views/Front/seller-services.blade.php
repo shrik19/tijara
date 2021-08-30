@@ -188,7 +188,7 @@
         <!-- contact shop -->
         <div class="col-md-12">
         <div class="mtb-20">
-         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.add_subcategory_title').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">contact store </a>
+         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
 </div>
         </div>
     </div>

@@ -159,6 +159,15 @@ span.subscribe_err {
   .ratingUserIcon{
     width:60px;height:60px;border-radius: 60px;
   }
+  .ratingComment{
+    margin-top: 25px !important;
+  }
+  .ratingUname{
+    margin-top: 10px;margin-bottom: 1px;
+  }
+  .policies{
+    margin-top: 20px;
+  }
 /*FAQ page css*/
 main {
   max-width: 800px;

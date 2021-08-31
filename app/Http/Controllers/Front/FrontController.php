@@ -1187,6 +1187,7 @@ public function getCatSubList(Request $request) {
 		$data['seller_link'] = $sellerLink;
 		/*get product review*/
 		$data['productReviews']= $this->getReviews('products','',$Product->id);
+		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Product['user_id'])->first();
 		//dd($data['variantData']);
 		if($tmpSellerData['role_id']==2){
         	return view('Front/seller_product_details', $data);
@@ -1616,6 +1617,8 @@ public function getCatSubList(Request $request) {
 		$data['serviceAvailability']=   ServiceAvailability::where('service_id',$Service->id)->get();
             
 		//dd($data['variantData']);
+		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Service['user_id'])->first();
+
         return view('Front/service_details', $data);
     }
 	

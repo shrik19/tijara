@@ -11,34 +11,41 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-              <!-- Primary carousel image -->
-             
-                @php
-                $image='';
-                if($Service->images!='')
-                $image = explode(',',$Service->images)[0];
-                @endphp
-                @if($image!='')
-                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/{{$image}}">
-                    <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" id="show-img">
-                  </div>
-                  @endif
+              <div class="row">
+                <div class="col-md-3">
                   @if($Service->images!='')
                   <!-- Secondary carousel image thumbnail gallery -->
-                  <div class="small-img">
-                      <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
-                      <div class="small-container">
+                <div class="small-img">
+                    <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
+                    <div class="small-container">
+                      
+                        <div id="small-img-roll">
+                          @foreach(explode(',',$Service->images) as $image)
+                            <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" class="show-small-img" alt="">
+                          @endforeach
+                        </div>
                         
-                          <div id="small-img-roll">
-                            @foreach(explode(',',$Service->images) as $image)
-                              <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" class="show-small-img" alt="">
-                            @endforeach
-                          </div>
-                          
-                      </div>
-                      <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
-                  </div>
-                  @endif
+                    </div>
+                    <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+                </div>
+                @endif
+                </div>
+                <div class="col-md-9">
+                   @php
+                  $image='';
+                  if($Service->images!='')
+                  $image = explode(',',$Service->images)[0];
+                  @endphp
+                  @if($image!='')
+                    <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/{{$image}}">
+                      <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" id="show-img">
+                    </div>
+                    @endif
+                </div>
+              </div>
+              <!-- Primary carousel image -->
+          
+              
             </div>
 
             <div class="col-md-6">
@@ -66,8 +73,10 @@
                      
                         <div class="row">
                           <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;">
-                          <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
-                           style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a></div>
+                          <!-- <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
+                           style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a> -->
+                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn btn-icon btn-info" title="{{ __('lang.book_service')}}" id="reset_option">{{ __('lang.book_service')}}</a>
+                         </div>
                         </div>
                         
                         <!-- Modal -->
@@ -76,7 +85,7 @@
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">{{ __('lang.book_service_title')}}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close modal-cross-sign" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
@@ -161,25 +170,23 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-              <div class="row">
-              <hr>
-              <div class="col-md-2">
+              <div class="col-md-12">
+              <div class="col-md-6">
               <h2>{{ __('users.review_title')}}</h2>
-              </div>
+              <!-- </div> -->
                 @if(!empty($serviceReviews))
                   @php $i=1; @endphp
                   @foreach($serviceReviews as $review)
-                  <div class="col-md-10">
-                    <p>
+                  <div class="row"> 
+                    <div class="col-md-1">
                       @if(!empty($review['profile']))
-                      <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
+                      <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" class="ratingUserIcon">
                     @else 
-                      <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" style="width:50px;height:50px;">
+                      <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" class="ratingUserIcon">
                     @endif
-
-                    <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?>
-                    
-                    </p>
+                    </div>
+                    <div class="col-md-5" style="margin-left: 30px;">
+                       <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
                     <div class="star-rating" style="font-size:unset;pointer-events: none;">
                         <select class='rating service_rating' data-rating="{{$review['service_rating']}}" id='rating_{{$Service->id}}_{{$i}}' data-id='rating_{{$Service->id}}_{{$i}}'>
                           <option value="1" >1</option>
@@ -188,18 +195,47 @@
                           <option value="4" >4</option>
                           <option value="5" >5</option>
                         </select>
-                      </div>
-                    <p>{{$review['comments']}}</p>
-                    <hr>
+                    </div>
+                    <p class="ratingComment">{{$review['comments']}}</p>
+                   
                   </div>
-                  
+                   <div class="col-md-6"></div>
+                  </div>
+                  <hr>
                   @php $i++; @endphp
                   @endforeach
                 @endif
               </div>
+               <div class="col-md-6">
+               <h2>{{ __('users.store_terms')}}</h2>
+          
+                <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
+                <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+                <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+
+                @if(!empty($getTerms))
+                <div id="StorePolicy" class="tabcontent">
+              <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
+                <p class="policies">{{@$getTerms->store_policy}}</p>
+                </div>
+
+                <div id="ReturnPolicy" class="tabcontent">
+               <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
+                <p class="policies">{{@$getTerms->return_policy}}</p> 
+                </div>
+
+                <div id="ShippingPolicy" class="tabcontent">
+                <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+                <p class="policies">{{@$getTerms->shipping_policy}}</p>
+                </div>
+              @endif
+
             </div>
+            </div>
+           
         </div>
     </div>
+</div>
 </div>
 </section>
 

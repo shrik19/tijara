@@ -12,28 +12,33 @@
         <div class="row">
             <div class="col-md-6">
               <!-- Primary carousel image -->
-              @if(!empty($variantData))
+              <div class="row">
+                 @if(!empty($variantData))
                 @php
                 $first = reset($variantData);
                 @endphp
               @endif
-
-              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
-                <img src="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}" id="show-img">
-              </div>
-              
-              <!-- Secondary carousel image thumbnail gallery -->
-              <div class="small-img">
-                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
-                <div class="small-container">
-                  <div id="small-img-roll">
-                    @foreach($first['images'] as $image)
-                      <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" class="show-small-img" alt="">
-                    @endforeach
+                <div class="col-md-3">
+                  <!-- Secondary carousel image thumbnail gallery -->
+                  <div class="small-img">
+                    <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
+                    <div class="small-container">
+                      <div id="small-img-roll">
+                        @foreach($first['images'] as $image)
+                          <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" class="show-small-img" alt="">
+                        @endforeach
+                      </div>
+                    </div>
+                    <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
                   </div>
                 </div>
-                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+                <div class="col-md-9">
+              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
+                <img src="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}" id="show-img">
+              </div> 
+                </div>
               </div>
+                           
             </div>
 
             <div class="col-md-6">
@@ -181,46 +186,80 @@
 
 <!-- product review section -->
 <section>
-    <div class="container-fluid">
-    <div class="container-inner-section">
-        <div class="row">
-            <div class="best_seller_container">
-              <div class="col-md-12">
-              <h2>{{ __('users.review_title')}}</h2>
-                <hr>
-                @if(!empty($productReviews))
-				  <?php $i = 1; ?>
-                  @foreach($productReviews as $review)
-                  <div>
-                    <p>
-
-                    @if(!empty($review['profile']))
-                      <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
-                    @else 
-                      <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" style="width:50px;height:50px;">
-                    @endif
-                      
-                    <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
-                    <div class="star-rating" style="font-size:unset;pointer-events: none;">
-                        <select class='rating product_rating' id='rating_{{$Product->id}}_{{$i}}' data-id='rating_{{$Product->id}}_{{$i}}' data-rating="{{$review['product_rating']}}">
-                          <option value="1" >1</option>
-                          <option value="2" >2</option>
-                          <option value="3" >3</option>
-                          <option value="4" >4</option>
-                          <option value="5" >5</option>
-                        </select>
-                      </div>
-                    <p>{{$review['comments']}}</p>
-                  </div>
-                  <hr>
-				  <?php $i++; ?>
-                  @endforeach
-                @endif
-              </div>
-            </div>
+<div class="container-fluid">
+  <div class="container-inner-section">
+    <div class="row">
+      <div class="best_seller_container">
+      <div class="col-md-12">
+      <div class="col-md-6">
+      <h2>{{ __('users.review_title')}}</h2>
+      
+     <!--  <div class="col-md-9"> -->
+      @if(!empty($productReviews))
+      <?php $i = 1; ?>
+      @foreach($productReviews as $review)
+      <div class="row"> 
+        <div class="col-md-1">
+       
+          @if(!empty($review['profile']))
+          <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" class="ratingUserIcon">
+          @else 
+          <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" class="ratingUserIcon">
+          @endif
         </div>
+
+        <div class="col-md-5" style="margin-left: 30px;">
+          <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+
+          <div class="star-rating" style="font-size:unset;pointer-events: none;">
+            <select class='rating product_rating' id='rating_{{$Product->id}}_{{$i}}' data-id='rating_{{$Product->id}}_{{$i}}' data-rating="{{$review['product_rating']}}">
+              <option value="1" >1</option>
+              <option value="2" >2</option>
+              <option value="3" >3</option>
+              <option value="4" >4</option>
+              <option value="5" >5</option>
+            </select>
+          </div>
+          <p class="ratingComment">{{$review['comments']}}</p>
+        </div>
+        <div class="col-md-6"></div>
+        
+        </div>
+        <hr>
+        <?php $i++; ?>
+        @endforeach
+        @endif
+        </div>
+        <div class="col-md-6">
+           <h2>{{ __('users.store_terms')}}</h2>
+      
+            <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
+            <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+            <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+
+            @if(!empty($getTerms))
+            <div id="StorePolicy" class="tabcontent">
+          <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->store_policy}}</p>
+            </div>
+
+            <div id="ReturnPolicy" class="tabcontent">
+           <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->return_policy}}</p> 
+            </div>
+
+            <div id="ShippingPolicy" class="tabcontent">
+            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->shipping_policy}}</p>
+            </div>
+          @endif
+
+        </div>
+       <!--  </div> -->
+      </div>
     </div>
-                                        </div>
+  </div>
+</div>
 </section>
 
 <section>

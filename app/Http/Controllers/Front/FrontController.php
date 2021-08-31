@@ -1615,8 +1615,7 @@ public function getCatSubList(Request $request) {
 
 		
 		$data['serviceAvailability']=   ServiceAvailability::where('service_id',$Service->id)->get();
-            
-		//dd($data['variantData']);
+      
 		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Service['user_id'])->first();
 
         return view('Front/service_details', $data);
@@ -1631,7 +1630,7 @@ public function getCatSubList(Request $request) {
 								->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 								->join('users', 'services.user_id', '=', 'users.id')
 								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
-								->select(['services.*',DB::raw("count(service_requests.id) as totalOrderedServices")])
+								->select(['services.*',DB::raw("count(service_requests.id) as totalOrderedServices"),'servicecategories.category_name'])
 								->where('services.status','=','active')
 								->where('services.is_deleted','=','0')
 								->where('servicecategories.status','=','active')

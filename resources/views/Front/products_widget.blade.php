@@ -35,7 +35,13 @@
         @endif
 
          @php 
-          $seller_link= url('/').'/seller/'.$product->seller."/". base64_encode($product->user_id)."/products"; 
+          $seller_name = $product->seller;
+          $seller_name = str_replace( array( '\'', '"', 
+          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+          $seller_name = str_replace(" ", '-', $seller_name);
+          $seller_name = strtolower($seller_name);
+                      
+          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($product->user_id)."/products"; 
         @endphp
          <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
         <input type="hidden" name="product_quantity_{{$product->variant_id}}" id="product_quantity_{{$product->variant_id}}" value="1">

@@ -15,6 +15,8 @@
       </div>
     </div>
     <div class="product_info">
+      @if(Request::segment(1) !='service')
+
         <div class="star-rating" style="font-size:unset;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
             <option value="1" >1</option>
@@ -24,17 +26,30 @@
             <option value="5" >5</option>
           </select>
         </div> 
+      @endif
 
         @php $service_cat_link= url('/').'/services/'.strtolower($service['category_name']); @endphp
         <a href="{{$service_cat_link}}"><h5>{{$service['category_name']}}</h5></a>
         <a href="{{$service->service_link}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
-        @if(!empty($service->price))
-        <h6>{{$service->price}} kr</h6>
+        @if(!empty($service->service_price))
+        <h6>{{$service->service_price}} kr</h6>
         @endif
+        <!-- below code is for seller name  -->
         @php 
-          $seller_link= url('/').'/seller/'.$service->seller."/". base64_encode($service->user_id)."/services"; 
+          $seller_name = $service->seller;
+
+          $seller_name = str_replace( array( '\'', '"', 
+          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+          $seller_name = str_replace(" ", '-', $seller_name);
+          $seller_name = strtolower($seller_name);
+
+          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($service->user_id)."/services"; 
+          
         @endphp
-        <a href="{{$seller_link}}"><h6>{{$service->seller}}11</h6></a>
+
+        @if(Request::segment(1) !='service')
+          <a href="{{$seller_link}}"><h6>{{$service->seller}}</h6></a>
+        @endif
     </div>
   </div>
 

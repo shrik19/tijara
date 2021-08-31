@@ -12,33 +12,29 @@
         <div class="row">
             <div class="col-md-6">
               <!-- Primary carousel image -->
-              <div class="row">
-                 @if(!empty($variantData))
+
+              @if(!empty($variantData))
                 @php
                 $first = reset($variantData);
                 @endphp
               @endif
-                <div class="col-md-3">
-                  <!-- Secondary carousel image thumbnail gallery -->
-                  <div class="small-img">
-                    <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
-                    <div class="small-container">
-                      <div id="small-img-roll">
-                        @foreach($first['images'] as $image)
-                          <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" class="show-small-img" alt="">
-                        @endforeach
-                      </div>
-                    </div>
-                    <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
-                  </div>
-                </div>
-                <div class="col-md-9">
+
               <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
                 <img src="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}" id="show-img">
-              </div> 
-                </div>
               </div>
-                           
+              
+              <!-- Secondary carousel image thumbnail gallery -->
+              <div class="small-img">
+                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
+                <div class="small-container">
+                  <div id="small-img-roll">
+                    @foreach($first['images'] as $image)
+                      <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" class="show-small-img" alt="">
+                    @endforeach
+                  </div>
+                </div>
+                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+              </div>
             </div>
 
             <div class="col-md-6">
@@ -270,14 +266,13 @@
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
                 <h2>{{ __('lang.best_seller_head')}}</h2>
                 <ul class="product_details best_seller">
-					@foreach($PopularProducts as $product)
-                    @include('Front.products_widget')
-					@endforeach
-				 </ul>
+      					@foreach($PopularProducts as $key=>$product)
+                 @php if($key>3){continue;}@endphp
+                          @include('Front.products_widget')
+      					@endforeach
+      				 </ul>
             </div>
-
-
-                                        </div>
+          </div>
         </div>
     </div>
 </section>

@@ -11,41 +11,34 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-              <div class="row">
-                <div class="col-md-3">
+              <!-- Primary carousel image -->
+             
+                @php
+                $image='';
+                if($Service->images!='')
+                $image = explode(',',$Service->images)[0];
+                @endphp
+                @if($image!='')
+                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/{{$image}}">
+                    <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" id="show-img">
+                  </div>
+                  @endif
                   @if($Service->images!='')
                   <!-- Secondary carousel image thumbnail gallery -->
-                <div class="small-img">
-                    <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
-                    <div class="small-container">
-                      
-                        <div id="small-img-roll">
-                          @foreach(explode(',',$Service->images) as $image)
-                            <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" class="show-small-img" alt="">
-                          @endforeach
-                        </div>
+                  <div class="small-img">
+                      <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
+                      <div class="small-container">
                         
-                    </div>
-                    <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
-                </div>
-                @endif
-                </div>
-                <div class="col-md-9">
-                   @php
-                  $image='';
-                  if($Service->images!='')
-                  $image = explode(',',$Service->images)[0];
-                  @endphp
-                  @if($image!='')
-                    <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/{{$image}}">
-                      <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" id="show-img">
-                    </div>
-                    @endif
-                </div>
-              </div>
-              <!-- Primary carousel image -->
-          
-              
+                          <div id="small-img-roll">
+                            @foreach(explode(',',$Service->images) as $image)
+                              <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" class="show-small-img" alt="">
+                            @endforeach
+                          </div>
+                          
+                      </div>
+                      <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+                  </div>
+                  @endif
             </div>
 
             <div class="col-md-6">
@@ -247,7 +240,8 @@
                 <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
                 <h2>{{ __('lang.best_seller_head')}}</h2>
                 <ul class="product_details best_seller">
-					@foreach($PopularServices as $service)
+          @foreach($PopularServices as $key=>$service)
+           @php if($key>3){continue;} @endphp
                     @include('Front.services_widget')
 					@endforeach
 				 </ul>

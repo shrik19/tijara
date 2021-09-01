@@ -6,7 +6,7 @@
     
  <!-- Carousel Default -->
 <div class="slider_cotnainer_section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <section class="carousel-default slider_cotnainer">
                 <div id="carousel-default" class="carousel slide" data-ride="carousel">
@@ -28,12 +28,11 @@
                         @else
                         <div class="item slider_item">
                         @endif
-                        <div class="col-md-6">
-                            <img class="img-fluid" src="{{url('/')}}/uploads/Slider/<?php echo $data['sliderImage'];?>" id="sliderImages" alt="First slide">
-                        </div>
-                        <div class="col-md-6">
+                        <div >
+                            <img class="img-fluid" src="{{url('/')}}/uploads/Slider/test.jpg" id="sliderImages" alt="First slide">
+
                             <div class="slider_content">
-                                <h3>{{$data['title']}}</h3>
+                            <h3>{{$data['title']}}</h3>
                                 <?php echo $data['description']; ?>
                                 <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >{{ __('lang.browse_now_btn')}}</button>  
                             </div>

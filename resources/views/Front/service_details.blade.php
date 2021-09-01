@@ -44,7 +44,9 @@
             <div class="col-md-6">
                 <div class="product_details_info">
                     <h2>{{$Service->title}}</h2>
-                    <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4>
+                    <!-- <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4> -->
+                    <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $Service->service_price }} KR</a></h4>
+
                       <div class="star-rating" style="font-size:unset;">
                         <select class='rating service_rating' id='rating_{{$Service->id}}' data-id='rating_{{$Service->id}}' data-rating='{{$Service->rating}}'>
                           <option value="1" >1</option>
@@ -55,10 +57,10 @@
                         </select>
                       </div> 
                       <div style='clear: both;'></div>
-                      <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Service->id}}'>{{$Service->rating}}</span></div>
-                      <p>
-                        <?php echo $Service->service_price; ?> KR 
-                      </p>
+                      <!-- <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Service->id}}'>{{$Service->rating}}</span></div> -->
+                     <!--  <p>
+                        <?php// echo $Service->service_price; ?> KR 
+                      </p> -->
                       <p>
                         <?php echo $Service->description; ?>
                       </p>
@@ -66,8 +68,10 @@
                      
                         <div class="row">
                           <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;">
-                          <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
-                           style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a></div>
+                          <!-- <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
+                           style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a> -->
+                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn btn-icon btn-info" title="{{ __('lang.book_service')}}" id="reset_option">{{ __('lang.book_service')}}</a>
+                         </div>
                         </div>
                         
                         <!-- Modal -->
@@ -76,7 +80,7 @@
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">{{ __('lang.book_service_title')}}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close modal-cross-sign" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
@@ -161,25 +165,23 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-              <div class="row">
-              <hr>
-              <div class="col-md-2">
+              <div class="col-md-12">
+              <div class="col-md-6">
               <h2>{{ __('users.review_title')}}</h2>
-              </div>
+              <!-- </div> -->
                 @if(!empty($serviceReviews))
                   @php $i=1; @endphp
                   @foreach($serviceReviews as $review)
-                  <div class="col-md-10">
-                    <p>
+                  <div class="row"> 
+                    <div class="col-md-1">
                       @if(!empty($review['profile']))
-                      <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
+                      <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" class="ratingUserIcon">
                     @else 
-                      <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" style="width:50px;height:50px;">
+                      <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" class="ratingUserIcon">
                     @endif
-
-                    <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?>
-                    
-                    </p>
+                    </div>
+                    <div class="col-md-5" style="margin-left: 30px;">
+                       <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
                     <div class="star-rating" style="font-size:unset;pointer-events: none;">
                         <select class='rating service_rating' data-rating="{{$review['service_rating']}}" id='rating_{{$Service->id}}_{{$i}}' data-id='rating_{{$Service->id}}_{{$i}}'>
                           <option value="1" >1</option>
@@ -188,18 +190,47 @@
                           <option value="4" >4</option>
                           <option value="5" >5</option>
                         </select>
-                      </div>
-                    <p>{{$review['comments']}}</p>
-                    <hr>
+                    </div>
+                    <p class="ratingComment">{{$review['comments']}}</p>
+                   
                   </div>
-                  
+                   <div class="col-md-6"></div>
+                  </div>
+                  <hr>
                   @php $i++; @endphp
                   @endforeach
                 @endif
               </div>
+               <div class="col-md-6">
+               <h2>{{ __('users.store_terms')}}</h2>
+          
+                <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
+                <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+                <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+
+                @if(!empty($getTerms))
+                <div id="StorePolicy" class="tabcontent">
+              <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
+                <p class="policies">{{@$getTerms->store_policy}}</p>
+                </div>
+
+                <div id="ReturnPolicy" class="tabcontent">
+               <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
+                <p class="policies">{{@$getTerms->return_policy}}</p> 
+                </div>
+
+                <div id="ShippingPolicy" class="tabcontent">
+                <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+                <p class="policies">{{@$getTerms->shipping_policy}}</p>
+                </div>
+              @endif
+
             </div>
+            </div>
+           
         </div>
     </div>
+</div>
 </div>
 </section>
 
@@ -208,10 +239,11 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-                <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
-                <h2>{{ __('lang.best_seller_head')}}</h2>
+                <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
+                <h2>{{ __('users.other_watched_product')}}</h2>
                 <ul class="product_details best_seller">
-					@foreach($PopularServices as $service)
+          @foreach($PopularServices as $key=>$service)
+           @php if($key>3){continue;} @endphp
                     @include('Front.services_widget')
 					@endforeach
 				 </ul>

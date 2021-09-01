@@ -23,6 +23,7 @@ use App\Models\Wishlist;
 use App\Models\UserMain;
 use App\Models\Services;
 use App\Models\ServiceCategory;
+use App\Models\SellerPersonalPage;
 
 use DB;
 use Auth;
@@ -480,6 +481,21 @@ class CartController extends Controller
                       $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
                       $Product->quantity = $details['quantity'];
                       $Product->image    = explode(',',$Product->image)[0];
+                   
+                      $sellerLogoImage = SellerPersonalPage::where('user_id',$Product->user_id)->first();
+
+                      $seller_name = $SellerData['fname'].' '.$SellerData['lname'];
+
+                      $seller_name = str_replace( array( '\'', '"', 
+                      ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+                      $seller_name = str_replace(" ", '-', $seller_name);
+                      $seller_name = strtolower($seller_name);
+                      
+                      $seller_link = url('/').'/seller/'.$seller_name."/". base64_encode($Product->user_id)."/products"; 
+                      $Product->seller_link  = $seller_link;
+                      if(!empty($sellerLogoImage['logo'])){
+                          $details['sellerLogo'] = $sellerLogoImage['logo'];
+                      }
                       $details['product'] = $Product;
                       $orderDetails[$OrderId]['details'][] = $details;
                       

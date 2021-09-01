@@ -274,5 +274,7 @@
     'seller_logo_info' => 'Please add logo of size (400 x 150).',
     'seller_banner_info' => 'Please add Banner of size (1800 x 700).',
     'please_add_your_message'=>'please add your message',
+    'other_watched_product' => 'Others have also watched',
+    'read_more_btn' => 'Read More',
  ]
 ?>

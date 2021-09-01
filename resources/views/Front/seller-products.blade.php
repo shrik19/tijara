@@ -107,7 +107,7 @@
                
               </div>
               <div class="col-md-5">
-                <p style="margin-top: 10px;margin-bottom: 1px;"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+                <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
               <div class="star-rating" style="font-size:unset;pointer-events: none;">
                   <select class='rating product_rating' data-rating="{{$review['product_rating']}}">
                     <option value="1" >1</option>
@@ -117,7 +117,7 @@
                     <option value="5" >5</option>
                   </select>
                 </div>
-              <p>{{$review['comments']}}</p>
+              <p class="ratingComment">{{$review['comments']}}</p>
             </div>
              <div class="col-md-6"></div>
             </div>
@@ -159,28 +159,23 @@
           <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
           <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
           <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
-       <!--    <ul>
-            <li><a href="javascript:void(0)"  class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen"></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-          </ul> -->
       
           @if(!empty($getTerms))
-          <div id="StorePolicy" class="tabcontent">
-          <h3>{{ __('users.store_policy_label')}}</h3>
-          <p>{{@$getTerms->store_policy}}</p>
-          </div>
+            <div id="StorePolicy" class="tabcontent">
+            <!-- <h3>{{ __('users.store_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->store_policy}}</p>
+            </div>
 
-          <div id="ReturnPolicy" class="tabcontent">
-          <h3>{{ __('users.return_policy_label')}}</h3>
-          <p>{{@$getTerms->return_policy}}</p> 
-          </div>
+            <div id="ReturnPolicy" class="tabcontent">
+            <!-- <h3>{{ __('users.return_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->return_policy}}</p> 
+            </div>
 
-          <div id="ShippingPolicy" class="tabcontent">
-          <h3>{{ __('users.shipping_policy_label')}}</h3>
-          <p>{{@$getTerms->shipping_policy}}</p>
-          </div>
-        @endif
+            <div id="ShippingPolicy" class="tabcontent">
+            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->shipping_policy}}</p>
+            </div>
+          @endif
 
       
    
@@ -191,7 +186,7 @@
         <!-- contact shop -->
         <div class="col-md-12">
         <div class="mtb-20">
-         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="'.__('users.contact_store').'" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="{{__('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
 </div>
         </div>
     </div>
@@ -393,27 +388,7 @@ $(document).on("click",".conact-store-save",function(event) {
           alert(please_add_your_message);
       }    
     }); 
-/*js code for policy tabs*/
-function openPage(pageName,elmnt) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-    // tablinks[i].style.backgroundColor = "";
-      tablinks[i].classList.remove("tablink-active");
-    }
-    document.getElementById(pageName).style.display = "block";
-    elmnt.classList.add("tablink-active");
-    }
 
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-  //   tablink-active
-       var element = document.getElementById("defaultOpen");
-   element.classList.add("tablink-active");
 </script>
 @endsection
 

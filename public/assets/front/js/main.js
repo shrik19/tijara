@@ -45,7 +45,29 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 
-
+/*js code for policy tabs*/
+function openPage(pageName,elmnt) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+    // tablinks[i].style.backgroundColor = "";
+      tablinks[i].classList.remove("tablink-active");
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.classList.add("tablink-active");
+}
+var defaultOpen = document.getElementById('defaultOpen');
+if (defaultOpen) {
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+  //   tablink-active
+       var element = document.getElementById("defaultOpen");
+   element.classList.add("tablink-active");
+}
 /*onclick of product div redirect to details page*/
 
 /*$(".product_data").click(function(){

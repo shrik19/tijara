@@ -12,6 +12,7 @@
         <div class="row">
             <div class="col-md-6">
               <!-- Primary carousel image -->
+
               @if(!empty($variantData))
                 @php
                 $first = reset($variantData);
@@ -39,7 +40,15 @@
             <div class="col-md-6">
                 <div class="product_details_info">
                     <h2>{{$Product->title}}</h2>
-                    <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4>
+                    <!-- <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4> -->
+                    <div class="row">
+                          <div class="col-xs-12 col-md-6">    
+                          <div class="quantity_box">              
+                            <h3>{{ __('lang.shopping_cart_price')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span> 
+                          </div>
+                          </div>
+                        </div>
+                    
                     <div class="star-rating" style="font-size:unset;">
                     <select class='rating product_rating' id='rating_{{$Product->id}}' data-id='rating_{{$Product->id}}' data-rating='{{$Product->rating}}'>
                       <option value="1" >1</option>
@@ -48,34 +57,16 @@
                       <option value="4" >4</option>
                       <option value="5" >5</option>
                     </select>
-                        <!-- <input type="radio" id="5-stars" name="rating" value="5" />
-                        <label for="5-stars" class="star"><i class="fas fa-star"></i></label>
-                        <input type="radio" id="4-stars" name="rating" value="4" />
-                        <label for="4-stars" class="star"><i class="fas fa-star"></i></label>
-                        <input type="radio" id="3-stars" name="rating" value="3" />
-                        <label for="3-stars" class="star"><i class="fas fa-star"></i></label>
-                        <input type="radio" id="2-stars" name="rating" value="2" />
-                        <label for="2-stars" class="star"><i class="fas fa-star"></i></label>
-                        <input type="radio" id="1-star" name="rating" value="1" />
-                        <label for="1-star" class="star"><i class="fas fa-star"></i></label> -->
+                      
                       </div>
                       <div style='clear: both;'></div>
-                      <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Product->id}}'>{{$Product->rating}}</span></div>
+                   <!--    <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Product->id}}'>{{$Product->rating}}</span></div> -->
 
                       <p>
                         <?php echo $Product->description; ?>
                       </p>
                       <div class="row">
-                      <!-- <div class="col-md-12">
-                          <div class="radio icheck-success icheck-inline">
-                              <input type="radio" id="success12" name="success" />
-                              <label for="success12">success 1</label>
-                          </div>
-                          <div class="radio icheck-success icheck-inline">
-                              <input type="radio" checked id="success22" name="success" />
-                              <label for="success22">success 2</label>
-                          </div>
-                      </div> -->
+                     
                          @foreach($ProductAttributes as $attribute_id => $attribute)
                           <div class="col-md-12">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
@@ -135,12 +126,6 @@
                         <div class="col-xs-6 col-md-5"  >
                               <div class="quantity_box" style="margin-top:28px;">
                                 <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
-                                <!-- <select class="drop_down_select pull-right">
-                                      <option>1</option>
-                                      <option>2</option>
-                                      <option>3</option>
-                                      <option>4</option>
-                                  </select> -->
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
                                     <option value="1"></option>
@@ -165,13 +150,13 @@
                         </div>
                       </div>
 
-                      <div class="row">
+                      <!-- <div class="row">
                           <div class="col-xs-12 col-md-6">    
                           <div class="quantity_box">              
                             <h3>{{ __('lang.shopping_cart_price')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span> 
                           </div>
                           </div>
-                        </div>
+                        </div> -->
                 </div>
             </div>
 
@@ -181,46 +166,80 @@
 
 <!-- product review section -->
 <section>
-    <div class="container-fluid">
-    <div class="container-inner-section">
-        <div class="row">
-            <div class="best_seller_container">
-              <div class="col-md-12">
-              <h2>{{ __('users.review_title')}}</h2>
-                <hr>
-                @if(!empty($productReviews))
-				  <?php $i = 1; ?>
-                  @foreach($productReviews as $review)
-                  <div>
-                    <p>
-
-                    @if(!empty($review['profile']))
-                      <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" style="width:50px;height:50px;">
-                    @else 
-                      <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" style="width:50px;height:50px;">
-                    @endif
-                      
-                    <?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
-                    <div class="star-rating" style="font-size:unset;pointer-events: none;">
-                        <select class='rating product_rating' id='rating_{{$Product->id}}_{{$i}}' data-id='rating_{{$Product->id}}_{{$i}}' data-rating="{{$review['product_rating']}}">
-                          <option value="1" >1</option>
-                          <option value="2" >2</option>
-                          <option value="3" >3</option>
-                          <option value="4" >4</option>
-                          <option value="5" >5</option>
-                        </select>
-                      </div>
-                    <p>{{$review['comments']}}</p>
-                  </div>
-                  <hr>
-				  <?php $i++; ?>
-                  @endforeach
-                @endif
-              </div>
-            </div>
+<div class="container-fluid">
+  <div class="container-inner-section">
+    <div class="row">
+      <div class="best_seller_container">
+      <div class="col-md-12">
+      <div class="col-md-6">
+      <h2>{{ __('users.review_title')}}</h2>
+      
+     <!--  <div class="col-md-9"> -->
+      @if(!empty($productReviews))
+      <?php $i = 1; ?>
+      @foreach($productReviews as $review)
+      <div class="row"> 
+        <div class="col-md-1">
+       
+          @if(!empty($review['profile']))
+          <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" class="ratingUserIcon">
+          @else 
+          <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" class="ratingUserIcon">
+          @endif
         </div>
+
+        <div class="col-md-5" style="margin-left: 30px;">
+          <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+
+          <div class="star-rating" style="font-size:unset;pointer-events: none;">
+            <select class='rating product_rating' id='rating_{{$Product->id}}_{{$i}}' data-id='rating_{{$Product->id}}_{{$i}}' data-rating="{{$review['product_rating']}}">
+              <option value="1" >1</option>
+              <option value="2" >2</option>
+              <option value="3" >3</option>
+              <option value="4" >4</option>
+              <option value="5" >5</option>
+            </select>
+          </div>
+          <p class="ratingComment">{{$review['comments']}}</p>
+        </div>
+        <div class="col-md-6"></div>
+        
+        </div>
+        <hr>
+        <?php $i++; ?>
+        @endforeach
+        @endif
+        </div>
+        <div class="col-md-6">
+           <h2>{{ __('users.store_terms')}}</h2>
+      
+            <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
+            <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+            <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+
+            @if(!empty($getTerms))
+            <div id="StorePolicy" class="tabcontent">
+          <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->store_policy}}</p>
+            </div>
+
+            <div id="ReturnPolicy" class="tabcontent">
+           <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->return_policy}}</p> 
+            </div>
+
+            <div id="ShippingPolicy" class="tabcontent">
+            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->shipping_policy}}</p>
+            </div>
+          @endif
+
+        </div>
+       <!--  </div> -->
+      </div>
     </div>
-                                        </div>
+  </div>
+</div>
 </section>
 
 <section>
@@ -228,17 +247,16 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-                <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
-                <h2>{{ __('lang.best_seller_head')}}</h2>
+                <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
+                <h2>{{ __('users.other_watched_product')}}</h2>
                 <ul class="product_details best_seller">
-					@foreach($PopularProducts as $product)
-                    @include('Front.products_widget')
-					@endforeach
-				 </ul>
+      					@foreach($PopularProducts as $key=>$product)
+                 @php if($key>3){continue;}@endphp
+                          @include('Front.products_widget')
+      					@endforeach
+      				 </ul>
             </div>
-
-
-                                        </div>
+          </div>
         </div>
     </div>
 </section>

@@ -27,6 +27,7 @@
             <table class="table table-hover" style="margin-bottom:60px;">
                 <thead>
                     <tr>
+                         <th>{{ __('users.butik_btn')}}</th>
                         <th>{{ __('lang.shopping_cart_product')}}</th>
                         <th>{{ __('lang.shopping_cart_quantity')}}</th>
                         <th class="text-right">{{ __('lang.shopping_cart_price')}}</th>
@@ -40,6 +41,22 @@
                   @foreach($details as $orderId => $tmpOrderProduct)
                     @foreach($tmpOrderProduct['details'] as $orderProduct)
                     <tr>
+                        <td class="col-sm-4 col-md-4">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 
+                            @if($orderProduct['sellerLogo'])
+                              <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object" style="width: 72px; height: 72px;">
+                            @else
+                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" style="width: 72px; height: 72px;">
+                            @endif
+                              
+                            </a>
+                            <div class="media-body" style="padding-left:10px;padding-top:10px;">
+                                <h4 class="media-heading"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->seller }}</a></h4>
+                                <!-- <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5> -->
+                                <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
+                            </div>
+                        </div></td>
                         <td class="col-sm-4 col-md-4">
                         <div class="media">
                             <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 

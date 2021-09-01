@@ -295,5 +295,7 @@
     'seller_logo_info' => 'Lägg till en logotyp i storlek (400 x 150).',
     'seller_banner_info' => 'Lägg till en banner i storlek (1800 x 700).',
     'please_add_your_message'=>'lägg till ditt meddelande',
+    'other_watched_product' => 'Andra har även tittat på',
+    'read_more_btn' => 'Läs mer',
  ]
 ?>

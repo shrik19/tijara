@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="col-md-5">
-                  <p style="margin-top: 10px;margin-bottom: 1px;"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+                  <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
 
                   <div class="star-rating" style="font-size:unset;pointer-events: none;">
                     <select class='rating service_rating' data-rating="{{$review['service_rating']}}">
@@ -119,7 +119,7 @@
                     </select>
                   </div>
                   
-                  <p style="margin-top: 15px;">{{$review['comments']}}</p>
+                  <p class="ratingComment">{{$review['comments']}}</p>
                 </div>
               <div class="col-md-6"></div>
               </div>

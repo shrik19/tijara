@@ -159,6 +159,15 @@ span.subscribe_err {
   .ratingUserIcon{
     width:60px;height:60px;border-radius: 60px;
   }
+  .ratingComment{
+    margin-top: 25px !important;
+  }
+  .ratingUname{
+    margin-top: 10px;margin-bottom: 1px;
+  }
+  .policies{
+    margin-top: 20px;
+  }
 /*FAQ page css*/
 main {
   max-width: 800px;
@@ -222,10 +231,12 @@ summary.active::after {
     margin: 0;
     padding-bottom: 30px;
 }
-.feature_seller h3{text-align: center; font-size: 40px; font-weight: 600; padding-top: 10px;   white-space: nowrap; 
+.feature_seller h3{font-size: 25px; font-weight: 600; padding-top: 10px;   white-space: nowrap; 
     width: 95%; 
     overflow: hidden;
-    text-overflow: ellipsis; }
+    text-overflow: ellipsis;
+    text-decoration:underline;
+     }
 .featured_seller_section {
     background: #fff;
     overflow: hidden;

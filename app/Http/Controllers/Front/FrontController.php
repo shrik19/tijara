@@ -88,7 +88,7 @@ class FrontController extends Controller
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today)
 								->orderBy('users.id', 'DESC')
-								->limit(3)
+								->limit(4)
 								->get();
 			
 		return $featuredSellers;			
@@ -100,7 +100,7 @@ class FrontController extends Controller
 	// and then you can get query log
 	
     	$currentDate = date('Y-m-d H:i:s'); 
-$featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
+		$featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
     							->join('products', 'users.id', '=', 'products.user_id')
     							->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
@@ -1187,6 +1187,7 @@ public function getCatSubList(Request $request) {
 		$data['seller_link'] = $sellerLink;
 		/*get product review*/
 		$data['productReviews']= $this->getReviews('products','',$Product->id);
+		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Product['user_id'])->first();
 		//dd($data['variantData']);
 		if($tmpSellerData['role_id']==2){
         	return view('Front/seller_product_details', $data);
@@ -1614,8 +1615,9 @@ public function getCatSubList(Request $request) {
 
 		
 		$data['serviceAvailability']=   ServiceAvailability::where('service_id',$Service->id)->get();
-            
-		//dd($data['variantData']);
+      
+		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Service['user_id'])->first();
+
         return view('Front/service_details', $data);
     }
 	
@@ -1628,7 +1630,7 @@ public function getCatSubList(Request $request) {
 								->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
 								->join('users', 'services.user_id', '=', 'users.id')
 								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
-								->select(['services.*',DB::raw("count(service_requests.id) as totalOrderedServices")])
+								->select(['services.*',DB::raw("count(service_requests.id) as totalOrderedServices"),'servicecategories.category_name'])
 								->where('services.status','=','active')
 								->where('services.is_deleted','=','0')
 								->where('servicecategories.status','=','active')

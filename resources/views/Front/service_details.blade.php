@@ -44,7 +44,9 @@
             <div class="col-md-6">
                 <div class="product_details_info">
                     <h2>{{$Service->title}}</h2>
-                    <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4>
+                    <!-- <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4> -->
+                    <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $Service->service_price }} KR</a></h4>
+
                       <div class="star-rating" style="font-size:unset;">
                         <select class='rating service_rating' id='rating_{{$Service->id}}' data-id='rating_{{$Service->id}}' data-rating='{{$Service->rating}}'>
                           <option value="1" >1</option>
@@ -55,10 +57,10 @@
                         </select>
                       </div> 
                       <div style='clear: both;'></div>
-                      <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Service->id}}'>{{$Service->rating}}</span></div>
-                      <p>
-                        <?php echo $Service->service_price; ?> KR 
-                      </p>
+                      <!-- <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Service->id}}'>{{$Service->rating}}</span></div> -->
+                     <!--  <p>
+                        <?php// echo $Service->service_price; ?> KR 
+                      </p> -->
                       <p>
                         <?php echo $Service->description; ?>
                       </p>
@@ -237,8 +239,8 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-                <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
-                <h2>{{ __('lang.best_seller_head')}}</h2>
+                <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
+                <h2>{{ __('users.other_watched_product')}}</h2>
                 <ul class="product_details best_seller">
           @foreach($PopularServices as $key=>$service)
            @php if($key>3){continue;} @endphp

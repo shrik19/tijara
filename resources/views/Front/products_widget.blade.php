@@ -16,10 +16,36 @@
       </div>
     </div>
     <div class="product_info">
-        @php $product_cat_link= url('/').'/products/'.strtolower($product['category_name']); @endphp
-        <!-- <a href="{{$product_cat_link}}">
-          <h5>{{$product['category_name']}}</h5></a> -->
+        @php 
+       $category_name = $product->category_name;
+        $category_name = str_replace( array( '\'', '"', 
+        ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $category_name);
+        $category_name = str_replace(" ", '-', $category_name);
+        $category_name = strtolower($category_name);
+                    
+      $product_cat_link= url('/').'/products/'.$category_name; @endphp
+
+        @if( Request::path() == "/")
+         <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+         <div class="star-rating" style="font-size:unset;">
+          <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
+            <option value="1" >1</option>
+            <option value="2" >2</option>
+            <option value="3" >3</option>
+            <option value="4" >4</option>
+            <option value="5" >5</option>
+          </select>
+        </div>
+          @if(!empty($product->price))
+        <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span></h6>
+        @endif
+          <a href="{{$product_cat_link}}">
+          <h5>{{$product->category_name}}</h5></a>
+        @else
+        <a href="{{$product_cat_link}}">
+          <h5>{{$product->category_name}}</h5></a>
           <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+         @if(Request::segment(1) !='product' && Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
         <div class="star-rating" style="font-size:unset;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
@@ -29,12 +55,13 @@
             <option value="5" >5</option>
           </select>
         </div>  
-      
+        @endif
         @if(!empty($product->price))
         <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span></h6>
         @endif
 
          @php 
+
           $seller_name = $product->seller;
           $seller_name = str_replace( array( '\'', '"', 
           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
@@ -43,7 +70,13 @@
                       
           $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($product->user_id)."/products"; 
         @endphp
+        @if(Request::segment(1) !='product' && Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
          <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
+        @endif
+
+        @endif
+        
+        <!--  -->
         <input type="hidden" name="product_quantity_{{$product->variant_id}}" id="product_quantity_{{$product->variant_id}}" value="1">
         <!-- <a href="javascript:void(0);" onclick="addToCart('{{$product->variant_id}}');"><i class="glyphicon glyphicon-shopping-cart"></i></a> -->
     </div>

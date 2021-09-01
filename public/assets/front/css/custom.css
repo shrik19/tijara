@@ -1,7 +1,5 @@
 
-#sliderImages{
-	height: 448px;width: 586px;
-}
+
 .activemaincategory, .activesubcategory,.activeservicemaincategory, .activeservicesubcategory {
     text-decoration: none;
     color: #fff !important;

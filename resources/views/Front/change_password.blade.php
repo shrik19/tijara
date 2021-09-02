@@ -13,10 +13,14 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-12">
-    <div class="col-md-2 tijara-sidebar">
-        @include ('Front.layout.sidebar_menu')
-      </div>
+      @if($is_seller==1)
+        <div class="col-md-2 tijara-sidebar">
+          @include ('Front.layout.sidebar_menu')
+        </div>
         <div class="col-md-10 tijara-content">
+      @else
+        <div class="col-md-12 tijara-content">
+      @endif
         <div class="col-md-6">
           @include ('Front.alert_messages')
 		  <div class="card-header row">

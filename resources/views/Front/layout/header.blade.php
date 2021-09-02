@@ -112,7 +112,34 @@
 <div>
 @if(Auth::guard('user')->id())
 <!-- <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a> -->
-<a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i></h3></a>               
+  @if(Auth::guard('user')->getUser()->role_id == 1)
+   <div class="pull-right">
+                @if(Auth::guard('user')->id())
+                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><i class="fa fa-user"></i></h3></a>
+                <ul class="dropdown-menu">
+
+                  <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
+
+                  <li><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
+
+                  <li><a href="{{route('frontAllServiceRequest')}}">{{ __('lang.my_service_request')}}</a></li>
+
+                  <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
+
+                  <!-- <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li> -->
+                 
+                  <li><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
+                  <li><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
+                </ul>
+
+                @else
+                <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
+                @endif
+
+              </div>
+  @else
+  <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i></h3></a> 
+  @endif              
 @else
 <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><i class="fas fa-user-check de_col"></i></a></h3>
 @endif

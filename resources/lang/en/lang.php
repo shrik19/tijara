@@ -314,5 +314,7 @@
     'dashboard_service_requests' => 'Service Requests',
     'dashboard_listed_services' => 'Listed Services',
     'dashboard_total_sales' => 'Total sales',
+    'booking_policy' => 'Booking Policy',
+    'payment_policy' => 'Payment Policy',
  ]  
 ?>

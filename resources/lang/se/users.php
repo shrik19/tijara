@@ -297,5 +297,7 @@
     'please_add_your_message'=>'lägg till ditt meddelande',
     'other_watched_product' => 'Andra har även tittat på',
     'read_more_btn' => 'Läs mer',
+    'payment_btn' => 'Payment',
+    'booking_btn' =>'Booking',
  ]
 ?>

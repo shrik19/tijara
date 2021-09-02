@@ -16,10 +16,10 @@
   <div class="row">
     <div class="">
       <div class="col-md-12">
-        <div class="col-md-2 tijara-sidebar">
+        <!-- <div class="col-md-2 tijara-sidebar">
           @include ('Front.layout.sidebar_menu')
-      </div>
-      <div class="col-md-10 tijara-content">
+        </div> -->
+      <div class="col-md-12 tijara-content">
       @if($subscribedError)
         <div class="alert alert-danger">{{$subscribedError}}</div>
       @endif

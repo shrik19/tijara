@@ -18,10 +18,10 @@ width:100% !important;
     <div class="container-inner-section">
       <div class="row">
        <div class="col-md-12"> 
-      <div class="col-md-2 tijara-sidebar">
+      <!-- <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
-      </div>
-      <div class="col-md-10 tijara-content">
+      </div> -->
+     <!--  <div class="col-md-12 tijara-content"> -->
         <!-- Example row of columns -->
         @if($subscribedError)
           <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -261,7 +261,7 @@ width:100% !important;
           </div>
           </div>
           </form>
-        </div>
+        <!-- </div> -->
       </div>
     </div> <!-- /col-10 -->
 

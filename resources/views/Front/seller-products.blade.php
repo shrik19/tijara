@@ -56,7 +56,8 @@
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                   @if(!empty($store_information))
                   <div class="col-md-12">
-                    <p class="store_info">{!! $store_information !!}</p>
+                    <p class="store_info more"><?php echo $store_information.'... <a class="read-more-btn">Read More</a>'; ?>
+                    </p>
                   </div>
                   @endif
                 </div>
@@ -153,27 +154,31 @@
             <h2>{{ __('users.store_terms')}}</h2>
           </div>
         <div class="col-md-9" style="margin-top: 25px;">
-         
-        
 
-          <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
-          <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+          <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
-      
+          <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+          <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button>
+    
           @if(!empty($getTerms))
-            <div id="StorePolicy" class="tabcontent">
-            <!-- <h3>{{ __('users.store_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->store_policy}}</p>
-            </div>
-
-            <div id="ReturnPolicy" class="tabcontent">
-            <!-- <h3>{{ __('users.return_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->return_policy}}</p> 
+            <div id="PaymentPolicy" class="tabcontent">
+          <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->payment_policy}}</p>
             </div>
 
             <div id="ShippingPolicy" class="tabcontent">
             <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
             <p class="policies">{{@$getTerms->shipping_policy}}</p>
+            </div>
+
+            <div id="ReturnPolicy" class="tabcontent">
+           <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->return_policy}}</p> 
+            </div>
+
+            <div id="BookingPolicy" class="tabcontent">
+            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->booking_policy}}</p>
             </div>
           @endif
 
@@ -389,6 +394,16 @@ $(document).on("click",".conact-store-save",function(event) {
       }    
     }); 
 
+  /*$(document).ready(function () {
+                $(".read-more-btn").click(function () {
+                    $(this).prev().slideToggle();
+                    if ($(this).text() == "Read More") {
+                        $(this).text("Read Less");
+                    } else {
+                        $(this).text("Read More");
+                    }
+                });
+            });*/
 </script>
 @endsection
 

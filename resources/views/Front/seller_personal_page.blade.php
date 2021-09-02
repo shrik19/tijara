@@ -48,11 +48,18 @@
               <span class="invalid-feedback" id="err_description" >@if($errors->has('store_information')) {{ $errors->first('store_information') }}@endif </span>
             </div>
             <div class="form-group">
-              <label>{{ __('lang.store_policy')}}  <span class="de_col"></span></label>
-              <textarea class="form-control login_input" name="store_policy" id="" 
-              placeholder="{{ __('lang.store_policy')}}" 
-              value="" tabindex="2">@if(!empty($details->store_policy)) {{$details->store_policy}} @endif</textarea>
-              <span class="invalid-feedback" id="err_description" >@if($errors->has('store_policy')) {{ $errors->first('store_policy') }}@endif </span>
+              <label>{{ __('lang.payment_policy')}}  <span class="de_col"></span></label>
+              <textarea class="form-control login_input" name="payment_policy" id="" 
+              placeholder="{{ __('lang.payment_policy')}}" 
+              value="" tabindex="2">@if(!empty($details->payment_policy)) {{$details->payment_policy}} @endif</textarea>
+              <span class="invalid-feedback" id="err_description" >@if($errors->has('payment_policy')) {{ $errors->first('payment_policy') }}@endif </span>
+            </div>
+            <div class="form-group">
+              <label>{{ __('lang.booking_policy')}}  <span class="de_col"></span></label>
+              <textarea class="form-control login_input" name="booking_policy" id="" 
+              placeholder="{{ __('lang.booking_policy')}}" 
+              value="" tabindex="2">@if(!empty($details->booking_policy)) {{$details->booking_policy}} @endif</textarea>
+              <span class="invalid-feedback" id="err_description" >@if($errors->has('booking_policy')) {{ $errors->first('booking_policy') }}@endif </span>
             </div>
             <div class="form-group">
               <label>{{ __('lang.return_policy')}}  <span class="de_col"></span></label>

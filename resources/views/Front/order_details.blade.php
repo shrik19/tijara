@@ -12,10 +12,14 @@
 <div class="loader"></div>
 <div class="container printdiv">
     <div class="row">
-    <div class="col-md-2">
-      @include ('Front.layout.sidebar_menu')
-    </div>
-        <div class="col-sm-12 col-md-10">
+        @if($is_seller==1)
+        <div class="col-md-2 tijara-sidebar">
+          @include ('Front.layout.sidebar_menu')
+        </div>
+        <div class="col-md-10 tijara-content">
+          @else
+          <div class="col-md-12 tijara-content">
+        @endif
             <div class="row">
                 <div class="col-md-12">
                 <h2>{{ __('messages.txt_order_details')}} - #{{ $order['id'] }}</h2>

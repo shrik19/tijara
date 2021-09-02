@@ -245,7 +245,7 @@ $(document).ready(function() {
 			var newStr = '<span class="trim-text">'+ myStr.substring(0, maxLength) + '</span>';
 			var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
 			$(this).empty().html(newStr);
-			$(this).append('<span class="more-text">' + removedStr + '</span>');
+			$(this).append( '<span class="more-text">' + myStr.substring(0, maxLength) + removedStr + '</span>');
 			$(this).append(' <a href="javascript:void(0);" class="read-more">...Read More</a>');
 		}
 	});	

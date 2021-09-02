@@ -524,8 +524,11 @@ class AuthController extends Controller
         if($request->input('store_information'))
             $toUpdateData['store_information']  =   trim($request->input('store_information'));
         
-        if($request->input('store_policy'))
-            $toUpdateData['store_policy']  =   trim($request->input('store_policy'));
+        if($request->input('payment_policy'))
+            $toUpdateData['payment_policy']  =   trim($request->input('payment_policy'));
+
+        if($request->input('booking_policy'))
+            $toUpdateData['booking_policy']  =   trim($request->input('booking_policy'));
         
         if($request->input('store_name')){
              $storeName['store_name']  =   trim($request->input('store_name'));
@@ -1351,6 +1354,18 @@ class AuthController extends Controller
     public function changePassword() {
 
         $site_details        = Settings::first();
+        $user_id = Auth::guard('user')->id();
+        $is_seller = 0;
+        if($user_id){
+            $userRole = Auth::guard('user')->getUser()->role_id;
+        }
+
+        if($userRole == 2)
+        {
+          $is_seller = 1;
+        }
+        
+        $data['is_seller']   =   $is_seller;
         $data['module_url']  = route('frontChangePassword');
         $data['pageTitle']   = trans('users.change_password_title');
         $data['module_url']  = route('frontChangePassword');

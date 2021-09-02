@@ -213,14 +213,21 @@
         <div class="col-md-6">
            <h2>{{ __('users.store_terms')}}</h2>
       
-            <button class="tablink" onclick="openPage('StorePolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.butik_btn')}}</button>
-            <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+            <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
             <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+            <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+            <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button>
+
 
             @if(!empty($getTerms))
-            <div id="StorePolicy" class="tabcontent">
+            <div id="PaymentPolicy" class="tabcontent">
           <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->store_policy}}</p>
+            <p class="policies">{{@$getTerms->payment_policy}}</p>
+            </div>
+
+            <div id="ShippingPolicy" class="tabcontent">
+            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+            <p class="policies">{{@$getTerms->shipping_policy}}</p>
             </div>
 
             <div id="ReturnPolicy" class="tabcontent">
@@ -228,9 +235,9 @@
             <p class="policies">{{@$getTerms->return_policy}}</p> 
             </div>
 
-            <div id="ShippingPolicy" class="tabcontent">
+            <div id="BookingPolicy" class="tabcontent">
             <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->shipping_policy}}</p>
+            <p class="policies">{{@$getTerms->booking_policy}}</p>
             </div>
           @endif
 
@@ -573,6 +580,8 @@ function showAvailableOptions(attribute_id,attribute_value)
     return s.join(dec);
 }
 }
+
+
 
 </script>
 @endsection

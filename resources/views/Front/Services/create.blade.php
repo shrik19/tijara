@@ -163,19 +163,25 @@
                       }
                     ?>
                   </select>
-                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
+                  <span style="text-align: center;margin-top: 90px;margin-left: 15px;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span>
               </div>
             </div>
             <div class="col-md-3" style="display: flex;">
               <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 35px;">
                 <label class="col-md-12">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
                 <input type="tel" class="col-md-12 start_time" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7" >
-                <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
+            <!--     <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span> -->
               </div>
 
-              <div class="col-md-1 text-center" style="margin-top: 55px !important;">
-                <label class="col-md-12">&nbsp;</label>
-                <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a>
+              <div class="col-md-1 text-center" style="margin-top: 35px !important;">
+                <label class="col-md-12">Action</label>
+             <!--    <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a> -->
+                <select name="del_start_time" id="del_start_time" style="margin-top: 25px;">
+                  <option value="" >Select</option>
+                  <option value="insert">Insert</option>
+                    <option value="delete">Delete</option>
+                </select>
+                 <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('del_start_time')) {{ $errors->first('del_start_time') }}@endif </span>
               </div>
             </div>
           </div>
@@ -230,6 +236,15 @@
         
           </div>
           <!-- to date block end -->
+          <div class="col-md-12">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <div class="col-md-3" style="margin-left: 200px !important;">
+              <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a>
+            </div>
+            <div class="col-md-3"></div>
+            </div>
+          </div>
               <div class="added_service_times" style="display:none;"></div>
               <div  class="col-md-12" id="calendar" style="padding: 20px;"></div>
           </div>
@@ -395,22 +410,38 @@ var service_time_counter  = 10000;
     var start = new Date(start_date);
     var end = new Date(end_date);
 
+       /*code to add all dates in service_availability*/
+      var date = new Date(start_date);
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+      var fromsendDate = [date.getFullYear(), mnth, day].join("-");
+      var sendFromDate = fromsendDate+' '+$('#start_time').val();
+
+      //enddate
+      var endDate = new Date(end);
+      mnthEnd = ("0" + (endDate.getMonth() + 1)).slice(-2),
+      dayEnd = ("0" + endDate.getDate()).slice(-2);
+      var tosendDate = [endDate.getFullYear(), mnthEnd, dayEnd].join("-");
+      var sendToDate = tosendDate+' '+$('#start_time').val();
+
+     $('.added_service_times').append('<input type="text" name="start_date_time" class="service_availability" value="'+sendFromDate+'"><input type="text" name="to_date_time" class="service_availability" value="'+sendToDate+'">'); 
 
     var loop = new Date(start);
     var allDates = [];
     while(loop <= end){ 
 
-      var date = new Date(loop),
+      /* var date = new Date(loop),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
       var tosendDate = [date.getFullYear(), mnth, day].join("-");
-      var sendDate =tosendDate+' '+$('#start_time').val();
-    $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability[]" class="service_availability" value="'+sendDate+'">');          
+     var sendDate =tosendDate+' '+$('#start_time').val();
+    $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability[]" class="service_availability" value="'+sendDate+'">');   */       
         allDates.push(new Date(loop));
        var newDate = loop.setDate(loop.getDate() + 1);
        loop = new Date(newDate);
     }
-// $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability_time" class="service_availability_time" value="'+$('#start_time').val()+'">'); 
+
+
   var events_array = [];  
   $(allDates).each(function (k, v) {
     //alert(v);

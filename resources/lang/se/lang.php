@@ -313,5 +313,7 @@
     'dashboard_service_requests' => 'Bokningar',
     'dashboard_listed_services' => 'Listade Tjänster',
     'dashboard_total_sales' => 'Total försäljning',
+    'booking_policy' => 'Bokning Policy',
+    'payment_policy' => 'Betalning Policy',
  ]
 ?>

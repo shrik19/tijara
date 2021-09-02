@@ -276,5 +276,7 @@
     'please_add_your_message'=>'please add your message',
     'other_watched_product' => 'Others have also watched',
     'read_more_btn' => 'Read More',
+    'payment_btn' => 'Betalning',
+    'booking_btn'=>'Bokning'
  ]
 ?>

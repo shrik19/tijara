@@ -11,10 +11,10 @@
   <div class="container-inner-section">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-2">
+  <!--   <div class="col-md-2">
         @include ('Front.layout.sidebar_menu')
-      </div>
-    <div class="col-md-10 tijara-content">
+      </div> -->
+    <div class="col-md-12 tijara-content">
     @include ('Front.alert_messages')
     <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
             @csrf

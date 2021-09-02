@@ -94,16 +94,13 @@
         <div class="row ">               
                 @if(!empty($FeaturedSellers))
                     @foreach($FeaturedSellers as $fea_seller)
-                   @php
-                    $sname = $fea_seller->fname.' '.$fea_seller->lname;
-                    @endphp
                     <div class="col-md-3 feature_seller">
                         <div class="featured_seller_section"  >
                             <img class="img-fluid" src="{{url('/')}}/uploads/Seller/resized/<?php echo $fea_seller['logo'];?>" />
                             <div class="clearfix"></div>
                            
                         </div>
-                        <h3>{{ $sname }}</h3>
+                        <h3>{{ $fea_seller['store_name'] }}</h3>
                     </div>
                     @endforeach
                 @endif

@@ -279,5 +279,7 @@
     'payment_btn' => 'Betalning',
     'booking_btn'=>'Bokning'
     'place_label' => 'Place',
+    'all_btn' => 'All',
+    'type_label' => 'Type',
  ]
 ?>

@@ -10,8 +10,11 @@
       <!-- Example row of columns -->
       <div class="row" style="margin-top:40px;">
   <div class="container-inner-section">
-        <!-- @include('Front.category_breadcrumb') -->
-        
+ 
+        @if(Request::segment(1) =='services' || Request::segment(1) =='products')
+          @include('Front.category_breadcrumb')
+         
+        @endif
         <div class="col-md-3">
             @include('Front.products_sidebar')
         </div>

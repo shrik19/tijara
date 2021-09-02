@@ -300,5 +300,7 @@
     'payment_btn' => 'Payment',
     'booking_btn' =>'Booking',
     'place_label' => 'Plats',
+    'all_btn' => 'Alla',
+    'type_label' => 'Typ',
  ]
 ?>

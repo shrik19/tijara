@@ -316,5 +316,7 @@
     'dashboard_total_sales' => 'Total sales',
     'booking_policy' => 'Booking Policy',
     'payment_policy' => 'Payment Policy',
+    'all_category' => 'All Category',
+    
  ]  
 ?>

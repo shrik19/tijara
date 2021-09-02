@@ -36,8 +36,9 @@
             <option value="5" >5</option>
           </select>
         </div>
-          @if(!empty($product->price))
-        <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span></h6>
+
+        @if(!empty($product->price))
+        <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span><span @if(!empty($product->discount)) class="dic_percent" @endif >(<?php echo $product->discount."% off";?>)</span></h6>
         @endif
           <a href="{{$product_cat_link}}">
           <h5>{{$product->category_name}}</h5></a>
@@ -57,7 +58,7 @@
         </div>  
         @endif
         @if(!empty($product->price))
-        <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span></h6>
+        <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span><span @if(!empty($product->discount)) class="dic_percent" @endif >(<?php echo $product->discount."% off";?>)</span></h6>
         @endif
 
          @php 

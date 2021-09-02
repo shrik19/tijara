@@ -468,7 +468,7 @@ class CartController extends Controller
 
                       $Product->product_link	=	$product_link;
 
-                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id','store_name')->where('users.id','=',$Product->user_id)->first()->toArray();
                       if($SellerData['role_id'] == 1)
                       {
                         $is_buyer_product = 1;
@@ -479,6 +479,13 @@ class CartController extends Controller
                         $orderDetails[$OrderId]['is_buyer_product'] = 0;
                       }
                       $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                      if(!empty($SellerData['store_name'])){
+                         $Product->store_name  = $SellerData['store_name'];
+                       }else{
+                          $Product->store_name  = $Product->seller;
+                       }
+                     
+
                       $Product->quantity = $details['quantity'];
                       $Product->image    = explode(',',$Product->image)[0];
                    

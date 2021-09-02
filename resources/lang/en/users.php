@@ -278,5 +278,6 @@
     'read_more_btn' => 'Read More',
     'payment_btn' => 'Betalning',
     'booking_btn'=>'Bokning'
+    'place_label' => 'Place',
  ]
 ?>

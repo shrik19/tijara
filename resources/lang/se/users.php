@@ -299,5 +299,6 @@
     'read_more_btn' => 'Läs mer',
     'payment_btn' => 'Payment',
     'booking_btn' =>'Booking',
+    'place_label' => 'Plats',
  ]
 ?>

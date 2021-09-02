@@ -1115,7 +1115,26 @@ overflow: hidden;}
 .seller_info{float: left;margin-left: 15px; padding-bottom: 5px;}
 
 .store_info{font-size: 18px; line-height: 30px; padding: 10px 0; font-weight: normal;}
-.tijara_front_container{margin: 0 auto;}
+.tijara_front_container{margin: 0 auto; margin-right: 5px;}
+
+.tijara_front_read_more {
+    text-align: center;
+	margin: 30px 0;
+}
+
+.tijara_front_read_more a {
+    background: #d2e8e9;
+    padding: 5px 50px;
+    border-radius: 25px;
+    color: #03989e;
+    font-size: 18px;
+	font-weight: 600;
+}
+
+.tijara_front_read_more a:hover {
+    background: #03989e;
+    color: #d2e8e9;
+}
 
 .col-xs-15,
 .col-sm-15,

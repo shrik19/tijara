@@ -233,9 +233,31 @@
 </section>
 
 <script type="text/javascript">
-$( document ).ready(function() {
-     get_service_count();
+
+$(document).ready(function() {
+    
+	get_service_count();
+
+	var maxLength = 200;
+	$(".store_info").each(function(){
+		var myStr = $(this).text();
+		if($.trim(myStr).length > maxLength){
+			var newStr = '<span class="trim-text">'+ myStr.substring(0, maxLength) + '</span>';
+			var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+			$(this).empty().html(newStr);
+			$(this).append('<span class="more-text">' + removedStr + '</span>');
+			$(this).append(' <a href="javascript:void(0);" class="read-more">...Read More</a>');
+		}
+	});	
+	$(".more-text").hide();
+	$(".read-more").click(function(){
+		var moreLess = $(".more-text").is(':visible') ? '...Read More' : '...Read Less';
+		$(this).text(moreLess);
+		$(this).parent('.store_info').find(".more-text").toggle();
+		$(this).parent('.store_info').find(".trim-text").toggle();
+	});	
 });
+
 function get_service_count(){
   $.ajax({
     url:siteUrl+"/getServiceCatSubcatList",

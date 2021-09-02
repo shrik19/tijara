@@ -222,9 +222,10 @@
 						</div>
 					</li>                       
 				</ul>
-                <a href="{{url('/')}}/page/om-oss" class="btn debg_color login_btn">{{ __('users.read_more_btn')}}</a>
-            </div>
-			
+				<div class="tijara_front_read_more">
+					<a href="{{url('/')}}/page/om-oss" class="btn debg_color login_btn">{{ __('users.read_more_btn')}}</a>
+				</div>
+            </div>			
 			
             <div class="best_seller_container">
                 <h3>{{ __('lang.follow_us_on_head')}}</h3>

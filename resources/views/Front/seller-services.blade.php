@@ -7,7 +7,7 @@
  <!-- Carousel Default -->
 <section class="product_section">
   @if(!empty($header_image))
-      <img src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
+      <img class="seller_banner" src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
     @endif
     <div class="container-fluid">
     <div class="container-inner-section">

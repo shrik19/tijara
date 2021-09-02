@@ -2,12 +2,12 @@
 
 .activemaincategory, .activesubcategory,.activeservicemaincategory, .activeservicesubcategory {
     text-decoration: none;
-    color: #fff !important;
+    color: #fff;
     background: #03989e;
 }
 .activemaincategory a,.activeservicemaincategory a{
     text-decoration: none;
-    color: #fff !important;
+    color: #fff 
 }
 .activesubcategories,.activeservicesubcategories {
 	border-bottom: 0px !important;

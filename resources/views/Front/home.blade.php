@@ -32,7 +32,7 @@
                             <img class="img-fluid" src="{{url('/')}}/uploads/Slider/test.jpg" id="sliderImages" alt="First slide">
 
                             <div class="slider_content">
-                            <h3>{{$data['title']}}</h3>
+                            <!-- <h3>{{$data['title']}}</h3> -->
                                 <?php echo $data['description']; ?>
                                 <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >{{ __('lang.browse_now_btn')}}</button>  
                             </div>

@@ -917,6 +917,9 @@ public function getCatSubList(Request $request) {
          		$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
         	}
+        }else{
+        	$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
+        	$data['category_name'] = $getCategoryName['category_name'];
         }
                
        //echo $data['category_name'];exit;
@@ -1022,7 +1025,10 @@ public function getCatSubList(Request $request) {
 	        	$data['category_name'] = $getCategoryName['category_name'];
 	           	$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
 	        }
-    	}
+    	}else{
+        	$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
+        	$data['category_name'] = $getCategoryName['category_name'];
+        }
 
 		$data['is_seller'] 			= 1;
 		$data['totalRating']  		= $totalRating;
@@ -1387,7 +1393,11 @@ public function getCatSubList(Request $request) {
 			{
 				$Services	=	$Services->where('users.city', 'like', '%' . $request->city_filter . '%');
 			}
-
+			if($request->price_filter != '')
+			{
+				$tmpPrice = explode(',',$request->price_filter);
+				$Services	=	$Services->whereBetween('services.service_price',$tmpPrice);
+			}
 
 			if($request->search_seller_product != '')
 			{
@@ -1513,7 +1523,10 @@ public function getCatSubList(Request $request) {
         		$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
         	}        	
-		} 
+		} else{
+        	$getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
+        	$data['category_name'] = $getCategoryName['category_name'];
+        }
 
 		 return view('Front/services', $data);
 	 }
@@ -1760,7 +1773,10 @@ public function getCatSubList(Request $request) {
         		$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
         	}
-		}
+		}else{
+        	$getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
+        	$data['category_name'] = $getCategoryName['category_name'];
+        }
     	/*get service review*/   
 		$data['serviceReviews']= $this->getReviews('services',$id,'','');
     	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();

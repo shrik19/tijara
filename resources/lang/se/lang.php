@@ -315,5 +315,6 @@
     'dashboard_total_sales' => 'Total försäljning',
     'booking_policy' => 'Bokning Policy',
     'payment_policy' => 'Betalning Policy',
+    'all_category' => 'Alla kategorier',
  ]
 ?>

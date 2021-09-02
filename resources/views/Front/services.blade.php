@@ -10,7 +10,9 @@
       <div class="container-inner-section">
       <div class="row" style="margin-top:40px;">
         
-       <!--  @include('Front.category_breadcrumb') -->
+       @if(Request::segment(1) =='services' || Request::segment(1) =='products')
+          @include('Front.category_breadcrumb')
+        @endif
         <div class="col-md-3">
             @include('Front.services_sidebar')
         </div>
@@ -114,7 +116,11 @@ function getListing()
     }
    });
 }*/
-
+var price_filter = $("#price_filter").slider({});
+price_filter.on('slideStop',function(){
+     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
+});
 
 function selectSellers()
 {
@@ -140,7 +146,7 @@ function selectSellers()
 
 $(document).ready(function(){
   /*search by city */
- $('#city_name').keyup(function(){ 
+ $('#service_city').keyup(function(){ 
         var query = $(this).val();
        
         if(query != '')

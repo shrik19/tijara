@@ -99,7 +99,19 @@
                             <div class="clearfix"></div>
                            
                         </div>
-                        <h3>{{ $fea_seller['store_name'] }}</h3>
+                        @php
+                         $seller_name = $fea_seller->fname." ".$fea_seller->lname;
+              
+                          $seller_name = str_replace( array( '\'', '"', 
+                          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+                          $seller_name = str_replace(" ", '-', $seller_name);
+                          $seller_name = strtolower($seller_name);
+                                      
+                          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($fea_seller->id)."/products"; 
+                            
+                        @endphp
+                        <h3><a href="{{$seller_link}}" style="color: #000 !important;">{{ $fea_seller['store_name'] }}</a></h3><!-- 
+                        <h3>{{ $fea_seller['store_name'] }}</h3> -->
                     </div>
                     @endforeach
                 @endif

@@ -12,16 +12,14 @@
     <div class="ft_middle_container container-fluid">
       <div class="container-inner-section">
         <div class="col-md-3">
-            <img src="{{url('/')}}/uploads/Images/{{$siteDetails->footer_logo}}" />
-            <article class="address_container">
-              <p>{!!$siteDetails->footer_address!!}			 <!-- <strong>Address:</strong> 60-49 Road 11378 New York <br/>
-                <strong>Phone:</strong> 0704959277<br/>
-                <strong>Email:</strong> info@marketplace.se-->
+            <img class="footer_logo"  src="{{url('/')}}/assets/img/logo.png"     height="50px" />
+            <!-- <article class="address_container">
+              <p>{!!$siteDetails->footer_address!!}			 
               </p>
-            </article>
+            </article> -->
             <ul class="social_icon">
               <li><a href="#"><img src="{{url('/')}}/assets/front/img/fb_icon.png"/></a></li>
-              <li><a href="#"><img src="{{url('/')}}/assets/front/img/tw_icon.png"/></a></li>
+              <!-- <li><a href="#"><img src="{{url('/')}}/assets/front/img/tw_icon.png"/></a></li> -->
               <li><a href="#"><img src="{{url('/')}}/assets/front/img/instgram_icon.png"/></a></li>
               <li><a href="#"><img src="{{url('/')}}/assets/front/img/pi_icon.png"/></a></li>
             </ul>

@@ -18,10 +18,13 @@
           @include ('Front.layout.sidebar_menu')
         </div>
         <div class="col-md-10 tijara-content">
+           <div class="col-md-6">
       @else
         <div class="col-md-12 tijara-content">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
       @endif
-        <div class="col-md-6">
+        
           @include ('Front.alert_messages')
 		  <div class="card-header row">
 			  <h2>{{ __('users.change_password_title')}} </h2>
@@ -41,14 +44,21 @@
                   <input type="password" class="form-control login_input" name="password_confirmation" required tabindex="2" placeholder="{{ __('users.password_confirmation_label')}}">
                   <span class="invalid-feedback" id="err_fname">@if($errors->has('password_confirmation')) {{ $errors->first('password_confirmation') }}@endif </span>
                 </div>
-              
+               
+                @if($is_seller !=1) <div style="margin-top: 30px;margin-bottom: 30px;">@endif
                 <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
                 <a href="{{url()->previous()}}" class="btn btn-black gray_color login_btn"> {{ __('lang.cancel_btn')}}</a>
+
+               @if($is_seller !=1)</div> @endif
                 
             </form>
           </div>
         </div>
+         @if($is_seller !=1)
+          <div class="col-md-3"></div>
+         @endif
      </div>
+
    </div>
 
     </div>

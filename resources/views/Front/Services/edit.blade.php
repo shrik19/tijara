@@ -47,20 +47,20 @@
 
               <div class="form-group col-md-12">
                 <label class="col-md-3">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
-                <input type="text" class="col-md-8 login_input" name="title" id="title" 
+                <input type="text" class="col-md-8 login_input form-control" name="title" id="title" 
                 placeholder="{{ __('servicelang.service_title_label')}} " value="{{ (old('title')) ?  old('title') : $service->title}}" tabindex="1" onblur="checkServiceUniqueSlugName();">
                 <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
               </div>
 
               <div class="form-group col-md-12" style="display:none;">
                 <label class="col-md-3">{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
-                <input type="text" class="col-md-8 login_input slug-name" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{ (old('service_slug')) ?  old('service_slug') : $service->service_slug}}" tabindex="1" readonly="readonly">
+                <input type="text" class="col-md-8 login_input slug-name form-control" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{ (old('service_slug')) ?  old('service_slug') : $service->service_slug}}" tabindex="1" readonly="readonly">
                 <span style="text-align: center;" class="invalid-feedback col-md-12 slug-name-err" id="err_title" >@if($errors->has('service_slug')) {{ $errors->first('service_slug') }}@endif </span>
               </div>
 
               <div class="form-group col-md-12" >
                 <label class="col-md-3">{{ __('servicelang.session_time_label')}} <span class="de_col">*</span></label>
-                <input maxlength="3" type="text" class="col-md-8 login_input session_time number" name="session_time" id="session_time" 
+                <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
                 placeholder="{{ __('servicelang.session_time_placeholder')}} " value="{{ (old('session_time')) ?  old('session_time') : $service->session_time}}" 
                 tabindex="1" >
                 <span style="text-align: center;" class="invalid-feedback col-md-12 session_time-err" id="session_time" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
@@ -68,7 +68,7 @@
 
               <div class="form-group col-md-12">
                 <label class="col-md-3">{{ __('lang.category_label')}}</label>
-                <select class="select2 col-md-8 login_input" name="categories[]" id="categories" multiple placeholder="Select" tabindex="3">
+                <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="Select" tabindex="3">
                   <option></option>
                   @foreach($categories as $cat_id=>$category)
                     <optgroup label="{{$category['maincategory']}}">
@@ -89,24 +89,25 @@
 
               <div class="form-group col-md-12" style="display:none;">
                   <label class="col-md-3">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
-                  <input type="tel" class="col-md-8 login_input" name="sort_order" id="sort_order"
+                  <input type="tel" class="col-md-8 login_input form-control" name="sort_order" id="sort_order"
                    placeholder="{{ __('lang.sort_order_label')}}" 
                    value="{{(old('sort_order')) ?  old('sort_order') : $service->sort_order}}" tabindex="7">
                   <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
               </div>
 
+              <div class="form-group col-md-12">
               <label class="col-md-3">{{ __('servicelang.service_description_label')}}  <span class="de_col"></span></label>
                   
-              <div class="form-group col-md-8">
-                  <textarea class="col-md-12 login_input" name="description" id="description"
-                   placeholder="{{ __('lang.service_description_label')}}" value="" 
+             <!--  <div class="form-group col-md-8"> -->
+                  <textarea class="col-md-12 login_input form-control" name="description" rows="10" cols="20" placeholder="{{ __('lang.service_description_label')}}" value="" 
                    tabindex="2">{{ (old('description')) ?  old('description') : $service->description}}</textarea>
                   <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
-              </div>
+              <!-- </div> -->
+            </div>
 
               <div class="form-group col-md-12">
                 <label class="col-md-3">{{ __('lang.status_label')}} </label>
-                <select class="select2 col-md-8 login_input" name="status" id="status"  placeholder="Select" tabindex="8" >
+                <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8" >
                     <option @if($service->status=='active') selected="selected" @endif value="active">Active</option>
                     <option @if($service->status=='block') selected="selected" @endif value="block">Block</option>
                 </select>
@@ -116,7 +117,7 @@
             
               <div class="form-group col-md-12">
                   <label class="col-md-3">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
-                  <input type="tel" class="number col-md-8 service_price" name="service_price" id="service_price"
+                  <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price"
                    placeholder="{{ __('lang.service_price')}}" 
                    value="{{(old('service_price')) ?  old('service_price') : $service->service_price}}" tabindex="7">
                   <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_price" >@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
@@ -124,7 +125,7 @@
 
               <div class="form-group col-md-12">
                 <label class="col-md-3">{{ __('lang.images')}} </label>
-                <input type="file" class="col-md-8 login_input image service_image" >
+                <input type="file" class="col-md-8 login_input image service_image form-control" >
                 <div class="images col-md-12">
                   @php
                     $images = explode(',',$service->images);
@@ -149,7 +150,7 @@
               <div class="form-group col-md-3">
                     <label class="col-md-12">{{ __('lang.from_service_year')}}</label>
                     
-                    <select class="col-md-12 service_year" name="service_year" id="service_year" >
+                    <select class="col-md-12 service_year form-control" name="service_year" id="service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
                         for($i=date('Y'); $i<'2050';$i++) {
@@ -163,7 +164,7 @@
               </div>
               <div class="form-group col-md-3">
                     <label class="col-md-12">{{ __('lang.from_service_month')}} </label>
-                    <select class="col-md-12 service_month" name="service_month" id="service_month" >
+                    <select class="col-md-12 service_month form-control" name="service_month" id="service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
                         for ($i = 1; $i <= 12; $i++) {
@@ -177,7 +178,7 @@
               </div>
               <div class="form-group col-md-3">
                   <label class="col-md-12">{{ __('lang.from_service_date')}} </label>
-                  <select class="col-md-12 service_date" name="service_date" id="service_date" >
+                  <select class="col-md-12 service_date form-control" name="service_date" id="service_date" >
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php
                       for ($i = 1; $i <=31; $i++) {
@@ -192,16 +193,16 @@
               </div>
             </div>
              <div class="col-md-3" style="display: flex;">
-              <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 35px;">
+              <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 65px;">
                 <label class="col-md-12">{{ __('lang.start_time')}} </label>
-                <input type="tel" class="col-md-12 start_time" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
+                <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
                 <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
               </div>
 
-              <div class="col-md-2 text-center" style="margin-top: 35px !important;">
+              <div class="col-md-2 text-center" style="margin-top: 65px !important;">
                 <label class="col-md-12"></label>
                 <!-- <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a> -->
-                 <select name="del_start_time" id="del_start_time" style="margin-top: 25px;">
+                 <select name="del_start_time" id="del_start_time" style="margin-top: 25px;width: 100px" class="form-control">
                   <option value="" >Select</option>
                   <option value="insert">Insert</option>
                     <option value="delete">Delete</option>
@@ -216,7 +217,7 @@
               <div class="form-group col-md-3">
                     <label class="col-md-12">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
                     
-                    <select class="col-md-12 to_service_year" name="to_service_year" id="to_service_year" >
+                    <select class="col-md-12 to_service_year form-control" name="to_service_year" id="to_service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
                         for($i=date('Y'); $i<'2050';$i++) {
@@ -230,7 +231,7 @@
               </div>
               <div class="form-group col-md-3">
                     <label class="col-md-12">{{ __('lang.to_service_month')}}<!-- <span class="de_col">*</span> --></label>
-                    <select class="col-md-12 to_service_month" name="to_service_month" id="to_service_month" >
+                    <select class="col-md-12 to_service_month form-control" name="to_service_month" id="to_service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
                         for ($i = 1; $i <= 12; $i++) {
@@ -244,7 +245,7 @@
               </div>
               <div class="form-group col-md-3">
                   <label class="col-md-12">{{ __('lang.to_service_date')}}<!-- <span class="de_col">*</span> --></label>
-                  <select class="col-md-12 to_service_date" name="to_service_date" id="to_service_date" >
+                  <select class="col-md-12 to_service_date form-control" name="to_service_date" id="to_service_date" >
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php
                       for ($i = 1; $i <=31; $i++) {

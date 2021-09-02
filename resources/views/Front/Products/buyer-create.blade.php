@@ -20,10 +20,15 @@
    @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
+
+        @if($is_seller==1)
       <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
       <div class="col-md-10 tijara-content">
+        @else
+        <div class="col-md-12 tijara-content">
+      @endif
   
       <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
     
@@ -91,23 +96,26 @@
 
             <div class="form-group col-md-6" >
               <label class="col-md-12" >{{ __('lang.meta_title_label')}} <span class="de_col"></span></label>
+              <p class="meta-data">( {{ __('users.meta_title_info')}} )</p>
               <input type="text" class="login_input form-control" name="meta_title" id="meta_title" placeholder="{{ __('lang.meta_title_label')}}" value="{{old('meta_title')}}" tabindex="4">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
             </div>
 
             <div class="form-group col-md-6">
               <label class="col-md-12" >{{ __('lang.meta_desc_label')}} <span class="de_col"></span></label>
+              <p class="meta-data">( {{ __('users.meta_desciption_info')}} )</p>
               <input type="text" class="login_input form-control" name="meta_description" id="meta_description" placeholder="{{ __('lang.meta_desc_label')}}" value="{{old('meta_description')}}" tabindex="5">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_description" >@if($errors->has('meta_description')) {{ $errors->first('meta_description') }}@endif </span>
             </div>
 
             <div class="form-group col-md-6">
               <label class="col-md-12" >{{ __('lang.meta_keyword_label')}}  <span class="de_col"></span></label>
+              <p class="meta-data">( {{ __('users.meta_keyword_info')}} )</p>
               <input type="text" class="login_input form-control" name="meta_keyword" id="meta_keyword" placeholder="{{ __('lang.meta_keyword_label')}}" value="{{old('meta_keyword')}}" tabindex="6">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
             </div>
             <div class="form-group  col-md-6">
-              <label class="col-md-12" >{{ __('lang.status_label')}} </label>
+              <label class="col-md-12" style="margin-bottom: 15px;">{{ __('lang.status_label')}} </label>
               <select class="select2 login_input form-control" name="status" id="status"  placeholder="" tabindex="8" >
                 <option value="active">{{ __('lang.active_label')}}</option>
                 <option value="block">{{ __('lang.block_label')}}</option>
@@ -201,7 +209,7 @@
               
       			
             <div class="form-group col-md-12">
-              <textarea class="login_input form-control" name="description" id="description" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
+              <textarea class="login_input form-control" name="description" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2" rows="10" cols="20">{{old('description')}}</textarea>
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
             </div>
            

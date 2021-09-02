@@ -302,5 +302,8 @@
     'place_label' => 'Plats',
     'all_btn' => 'Alla',
     'type_label' => 'Typ',
+    'meta_title_info'=>'meta title hjälper sökmotorn att förstå vad din sida handlar om.',
+    'meta_desciption_info'=>'meta description ger en sammanfattning av webbsidan.',
+    'meta_keyword_info'=>'meta -nyckelord som används för att ge mer information till sökmotorer om vad en sida handlar om.',
  ]
 ?>

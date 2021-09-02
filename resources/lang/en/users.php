@@ -277,9 +277,12 @@
     'other_watched_product' => 'Others have also watched',
     'read_more_btn' => 'Read More',
     'payment_btn' => 'Betalning',
-    'booking_btn'=>'Bokning'
+    'booking_btn'=>'Bokning',
     'place_label' => 'Place',
     'all_btn' => 'All',
     'type_label' => 'Type',
+    'meta_title_info'=>'meta title help search engine to understand what your page is about.',
+    'meta_desciption_info'=>'meta description provide summary of web page.',
+    'meta_keyword_info'=>'meta keyword  used to give more information to search engines on what a page is about.',
  ]
 ?>

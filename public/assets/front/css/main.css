@@ -88,7 +88,11 @@ span.subscribe_err {
     margin-left: 30px;
     font-size: 14px;
 }
-
+.meta-data{
+  margin-left: 15px;
+  font-size: 13px;
+  color: #675f5f;
+}
 
 .tijara-form input.form-control,
 .tijara-form select.form-control,

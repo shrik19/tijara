@@ -87,18 +87,24 @@
 
                         <div class="form-group col-md-12" >
                           <label class="col-md-3">{{ __('lang.meta_title_label')}} <span class="de_col"></span></label>
+                          <p class="meta-data col-md-8">( {{ __('users.meta_title_info')}} )</p>
+                          <div class="col-md-3"></div>
                           <input type="text" class="col-md-8 login_input" name="meta_title" id="meta_title" placeholder="{{ __('lang.meta_title_label')}}" value="{{(old('meta_title')) ?  old('meta_title') : $product->meta_title}}" tabindex="4">
                           <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
                         </div>
 
                         <div class="form-group col-md-12">
                           <label class="col-md-3">{{ __('lang.meta_desc_label')}} <span class="de_col"></span></label>
+                          <p class="meta-data col-md-8">( {{ __('users.meta_desciption_info')}} )</p>
+                          <div class="col-md-3"></div>
                           <input type="text" class="col-md-8 login_input" name="meta_description" id="meta_description" placeholder="{{ __('lang.meta_desc_label')}}" value="{{(old('meta_description')) ?  old('meta_description') : $product->meta_description}}" tabindex="5">
                           <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_description" >@if($errors->has('meta_description')) {{ $errors->first('meta_description') }}@endif </span>
                         </div>
 
                         <div class="form-group col-md-12">
                           <label class="col-md-3">{{ __('lang.meta_keyword_label')}}  <span class="de_col"></span></label>
+                          <p class="meta-data">( {{ __('users.meta_keyword_info')}} )</p>
+                          <div class="col-md-3"></div>
                           <input type="text" class="col-md-8 login_input" name="meta_keyword" id="meta_keyword" placeholder="{{ __('lang.meta_keyword_label')}}" value="{{(old('meta_keyword')) ?  old('meta_keyword') : $product->meta_keyword}}" tabindex="6">
                           <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
                         </div>

@@ -73,7 +73,10 @@
                   <span class="buyer-price" style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price">
                     <span style="@if(!empty($discount_price)) text-decoration: line-through; @endif">{{ number_format($value['price'],2) }} kr
                     </span>
-                     @if(!empty($discount_price)) &nbsp;&nbsp;{{ number_format($discount_price,2) }} kr @endif</span> 
+                     @if(!empty($discount_price)) &nbsp;&nbsp;{{ number_format($discount_price,2) }} kr @endif 
+                     &nbsp;&nbsp;
+                      @if(!empty($value->discount))
+                      <?php echo "(".$value->discount."% off)";?> @endif</span> 
                  </p>
               <!--     <div class="quantity_box">              
                       <span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($value['discount_price'])) text-decoration: line-through; @endif">{{ number_format($value['price'],2) }} kr</span> @if(!empty($value['discount_price'])) &nbsp;&nbsp;{{ number_format($value['discount_price'],2) }} kr @endif</span> 

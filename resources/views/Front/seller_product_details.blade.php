@@ -20,7 +20,7 @@
               @endif
 
               <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
-                <img src="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}" id="show-img">
+                <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
               </div>
               
               <!-- Secondary carousel image thumbnail gallery -->

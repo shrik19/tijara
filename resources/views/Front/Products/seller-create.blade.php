@@ -112,7 +112,7 @@
             </div>
 
             <div class="form-group col-md-12">
-              <label class="col-md-3">{{ __('lang.product_discount_label')}} <span class="de_col">*</span></label>
+              <label class="col-md-3">{{ __('lang.product_discount_label')}}</label>
               <input type="text" class="col-md-8 login_input number" name="discount" id="discount" placeholder="{{ __('lang.product_discount_label')}} " value="{{old('discount')}}" tabindex="1">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_discount" >@if($errors->has('discount')) {{ $errors->first('discount') }}@endif </span>
             </div>

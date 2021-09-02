@@ -20,7 +20,7 @@
                 @endphp
                 @if($image!='')
                   <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/{{$image}}">
-                    <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" id="show-img">
+                    <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
                   </div>
                   @endif
                   @if($Service->images!='')
@@ -57,10 +57,7 @@
                         </select>
                       </div> 
                       <div style='clear: both;'></div>
-                      <!-- <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Service->id}}'>{{$Service->rating}}</span></div> -->
-                     <!--  <p>
-                        <?php// echo $Service->service_price; ?> KR 
-                      </p> -->
+                      
                       <p>
                         <?php echo $Service->description; ?>
                       </p>

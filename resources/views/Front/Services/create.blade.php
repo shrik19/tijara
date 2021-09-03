@@ -14,7 +14,7 @@
    @if($subscribedError)
       <div class="alert alert-danger">{{$subscribedError}}</div>
       @endif
-  <form id="service-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
+  <form id="service-form" class="tijara-form service-add-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
             @csrf
   <div class="row">
 
@@ -41,24 +41,24 @@
               <div class="form-group col-md-12">
                 <label class="col-md-3">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
                 <input type="text" class="col-md-8 login_input form-control" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="checkServiceUniqueSlugName();">
-                <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+                <span  class="invalid-feedback col-md-12 service_validation_err" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
               </div>
 
               <div class="form-group col-md-12" style="display:none;">
                 <label class="col-md-3">{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
                 <input type="text" class="col-md-8 login_input slug-name form-control" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{old('service_slug')}}" tabindex="1" readonly="readonly">
-                <span style="text-align: center;" class="invalid-feedback col-md-12 slug-name-err" id="err_title" >@if($errors->has('service_slug')) {{ $errors->first('service_slug') }}@endif </span>
+                <span class="invalid-feedback col-md-12 slug-name-err service_validation_err" id="err_title" >@if($errors->has('service_slug')) {{ $errors->first('service_slug') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-12" >
+              <div class="form-group col-md-12" style="margin-top: 15px;">
                 <label class="col-md-3">{{ __('servicelang.session_time_label')}} <span class="de_col">*</span></label>
                 <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
                 placeholder="{{ __('servicelang.session_time_placeholder')}} " value="{{old('session_time')}}" 
                 tabindex="1" >
-                <span style="text-align: center;" class="invalid-feedback col-md-12 session_time-err" id="session_time" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
+                <span style="text-align: center;" class="invalid-feedback col-md-12 session_time-err service_validation_err" id="session_time" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-12" style="margin-top: 15px;">
                 <label class="col-md-3">{{ __('lang.category_label')}}</label>
                 <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="Select" tabindex="3">
                   <option></option>
@@ -103,10 +103,10 @@
               <div class="form-group col-md-12">
                   <label class="col-md-3">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
                   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price" placeholder="{{ __('lang.service_price')}}" value="{{(old('service_price')) ?  old('service_price') :''}}" tabindex="7">
-                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_price" >@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
+                  <span class="invalid-feedback col-md-12 service_validation_err" id="service_price" >@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-12" style="margin-top: 15px;">
                 <label class="col-md-3">{{ __('lang.images')}} </label>
                 <input type="file" class="col-md-8 login_input image service_image form-control" >
                 <div class="images col-md-12"></div>
@@ -159,7 +159,7 @@
                       }
                     ?>
                   </select>
-                  <span style="text-align: center;margin-top: 90px;margin-left: 15px;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span>
+                  <span class="invalid-feedback col-md-12 service_date_validation" id="service_date" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span>
               </div>
             </div>
             <div class="col-md-3" style="display: flex;">
@@ -237,6 +237,7 @@
             <div class="col-md-6">
               <div class="col-md-3" style="margin-left: 200px !important;">
               <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a>
+              <input type="text " name="is_clicked" class="is_clicked" id="is_clicked" value="">
             </div>
             <div class="col-md-3"></div>
             </div>
@@ -247,7 +248,7 @@
         </div>
           <div class="col-md-12 text-center">&nbsp;</div>
           <div class="col-md-12 text-center">
-            <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn saveservice" tabindex="9">{{ __('lang.save_btn')}}</button>
+            <button type="submit" name="btnCountryCreate"class="btn btn-black debg_color login_btn saveservice" id="saveservicebtn" tabindex="9">{{ __('lang.save_btn')}}</button>
 
             <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
           </div>
@@ -309,6 +310,33 @@
 
 
 $(document).ready(function() {
+
+
+//check click on add time button or not
+  
+
+$('#saveservicebtn').click(function(){
+
+  let is_clicked = $(".is_clicked").val();
+  let error = 0;
+  if(is_clicked == '')
+  {
+    alert("please add service time");
+    error = 1;
+  }
+  if(error == 1)
+  {
+    return false;
+  }
+  else
+  {
+    $('.service-add-form').submit();
+    return true;
+  }
+     
+});
+
+
   var events_array = [];
 
   $('#calendar').fullCalendar({
@@ -376,13 +404,14 @@ $(document).ready(function() {
 });
 var service_time_counter  = 10000;
   $('#save_service_date').click(function(){
-
+    $('#is_clicked').val('1');
     service_time_counter  = service_time_counter+1;
     if($('#service_month').val()=='' || $('#service_year').val()=='' || $('#service_date').val()=='' || $('#to_service_month').val()=='' || $('#to_service_year').val()=='' || $('#to_service_date').val()==''
     || $('#start_time').val()=='00:00' || $('#start_time').val()=='') {
         alert("{{ __('lang.service_time_required')}}");
         return false;
     }
+
     var service_date  = new Date($('#service_year').val()+'-'+$('#service_month').val()+
     '-'+$('#service_date').val()+' '+$('#start_time').val());
     var service_date_to_use  = $('#service_year').val()+'-'+$('#service_month').val()+
@@ -459,11 +488,6 @@ var service_time_counter  = 10000;
     $('#to_service_date').val('');
     $('#start_time').val('');
     
-
-
-
-
-
   });
   </script>
 @endsection

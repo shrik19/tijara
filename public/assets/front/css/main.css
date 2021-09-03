@@ -35,6 +35,16 @@ header{
     color: #fff;
 }
 
+.service_date_validation{
+  text-align: center;margin-top: 140px;margin-left: 15px;
+}
+
+.service_validation_err{
+  text-align: center;
+  margin-top: 75px;
+  margin-left: -630px;
+}
+
 .bold{
   font-weight: bold;
 }

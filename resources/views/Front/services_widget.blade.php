@@ -24,7 +24,7 @@
       @endphp
 
       @if( Request::path() == "/")
-        <a href="{{$service->service_link}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
+        <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
 
         <div class="star-rating" style="font-size:unset;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
@@ -43,7 +43,7 @@
         <a href="{{$service_cat_link}}"><h5>{{$service['category_name']}}</h5></a>
       @else
         <a href="{{$service_cat_link}}"><h5>{{$service['category_name']}}</h5></a>
-        <a href="{{$service->service_link}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
+        <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
         @if(Request::segment(1) !='service'  && Request::segment(1) !='services' && Request::segment(1) != 'get_service_listing')
           <div class="star-rating" style="font-size:unset;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>

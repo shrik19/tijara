@@ -19,8 +19,33 @@
     </div>
     <div class="product_info">
         <h5>{{$product['category_name']}}</h5>
-          
-        <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+          <?php echo "<pre>";print_r(product/$product->product_slug);exit;
+
+
+        $product_link = url('/').'/product';
+    /*if($category_slug!='')
+        {
+              $product_link .=  '/'.$category_slug;
+        }
+        else {
+          $product_link .=  '/'.$productCategories[0]['category_slug'];
+        }
+        if($subcategory_slug!='')
+        {
+              $product_link .=  '/'.$subcategory_slug;
+        }
+        else {
+          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+        }*/
+
+        $product_link .=  $product->product_slug.'-P-'.$product->product_code;
+
+       // $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+       // $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
+
+        $product_link  = $product_link;
+          ?>
+        <a href="{{$product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
         <h6>{{$product->price}} kr</h6>
         @endif

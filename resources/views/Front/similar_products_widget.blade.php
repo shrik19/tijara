@@ -47,7 +47,7 @@
     <div class="product_info">
         <h5>{{$product['category_name']}}</h5>
          
-        <a href="{{$product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+        <a href="{{$product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
         <h6>{{$product->price}} kr</h6>
         @endif

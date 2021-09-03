@@ -17,7 +17,7 @@
             </ul>
       </div>
     </div>
-    <div class="product_info">
+    <div class="product_info" product_link="{{$product_link}}">
         <h5>{{$product['category_name']}}</h5>
           <?php 
 
@@ -57,3 +57,11 @@
 
 
 </li>
+<script type="text/javascript">
+  $(".product_info").click(function(){
+  var attr_val = $(this).attr('product_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+});
+</script>

@@ -1,7 +1,44 @@
-@extends('Front.layout.template')
-@section('middlecontent')
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>{{$siteDetails->site_title}}</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="_token" content="{{ csrf_token() }}">
+  <link rel="apple-touch-icon" href="{{url('/')}}/assets/front/apple-touch-icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap.min.css">
 
-<style type="text/css">
+  <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
+  <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
+  <!-- added custom css for custom chnages -->
+  <link rel="stylesheet" href="{{url('/')}}/assets/front/css/custom.css">
+  <style>
+   .loader{
+    position: absolute;
+    top:0px;
+    right:0px;
+    width:100%;
+    height:100%;
+    background-color:#eceaea;
+    background-image:url('{{url('/')}}/assets/front/img/ajax-loader.gif');
+    background-size: 50px;
+    background-repeat:no-repeat;
+    background-position:center;
+    z-index:10000000;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    display:none;
+}
+
+
    .modal-title{ 
     margin-left: 10px;
     line-height: 1.8;
@@ -17,6 +54,17 @@
     font-size: 30px;
 }
 </style>
+   <!-- end custom css for custom chnages -->
+  <script src="{{url('/')}}/assets/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+  <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
+  <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>
+  <script src="{{url('/')}}/assets/front/js/jquery-confirm.min.js"></script>
+
+</head>
+<body>
+
+
 <div class="container-fluid">
 	<!-- Example row of columns -->
 	<div class="row">
@@ -172,4 +220,5 @@ function checkForgotForm(event)
   }
 }
 </script>
-@endsection
+</body>
+</html>

@@ -94,8 +94,8 @@
      /*header front*/
      'my_account_title'=>'My Account',
      'manage_orders_menu'=>'My Orders',
-     'manage_products_menu'=>'Manage products',
-     'manage_services_menu'=>'Manage services',
+     'manage_products_menu'=>'Products',
+     'manage_services_menu'=>'Services',
      'manage_attributes_menu'=>'Manage attributes',
      'packages_menu'=>'Packages',
      'change_password_menu'=>'Change Password',

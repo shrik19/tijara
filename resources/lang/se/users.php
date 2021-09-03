@@ -201,7 +201,7 @@
     'seller_logo_label'=>'Logotyp',
     'seller_personal_form_label'=>'Säljarens personliga information',
     'seller_personal_info_saved'=>'Din personliga information sparades',
-    'seller_personal_page_menu'=>'Personlig sida',
+    'seller_personal_page_menu'=>'Butiksprofil',
      'seller_packages_title'=>'Säljar Paket',
      'upload_file_input'=>'Ladda upp en fil',
 

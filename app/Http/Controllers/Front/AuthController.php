@@ -191,6 +191,8 @@ class AuthController extends Controller
 		$data['registertype'] = trans('users.buyers_title');
         $data['pageTitle']    = trans('lang.sign_up_title');
 
+        $site_details          = Settings::first();
+        $data['siteDetails']   = $site_details;
 
         if(Auth::guard('user')->id()) {
             return redirect(route('frontHome'));
@@ -214,7 +216,10 @@ class AuthController extends Controller
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
                     ->orderByRaw('user_packages.id ASC')
                     ->get();
-        
+
+
+        $site_details          = Settings::first();
+        $data['siteDetails']   = $site_details;
         $data['packageDetails']    = $details;
         $data['subscribedPackage'] = $is_subscriber;
 		$data['banner'] 	       = $banner;

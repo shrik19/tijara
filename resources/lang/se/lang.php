@@ -31,7 +31,7 @@
      /*product*/
      'your_products_label'=>'Dina produkter',
      'add_product'=>'Lägg till produkt',
-     'manage_services_menu'=>'Hantera tjänster',
+     'manage_services_menu'=>'Tjänster',
      'attribute_saved'=>'Attributgruppen har sparats',
      'required_message'=> 'Detta fält krävs',
      'product_title_label'=>'Titel',
@@ -82,7 +82,7 @@
      /*header*/
      'my_account_title'=>'Mitt konto',
      'manage_orders_menu'=>'Mina beställningar',
-     'manage_products_menu'=>'Hantera produkter',
+     'manage_products_menu'=>'Produkter',
      'manage_attributes_menu'=>'Hantera attribut',
      'packages_menu'=>'Paket',
      'change_password_menu'=>'Ändra lösenord',

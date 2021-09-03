@@ -182,7 +182,7 @@
     'seller_logo_label'=>'Logo',
     'seller_personal_form_label'=>'Seller Personal Info',
     'seller_personal_info_saved'=>'Your Personal info saved successfully',
-    'seller_personal_page_menu'=>'Personal Page',
+    'seller_personal_page_menu'=>'Store Profile',
 
     // Backend CMS Page
     'cms_page_title'=>'Page',

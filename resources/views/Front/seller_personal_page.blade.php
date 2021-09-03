@@ -1,12 +1,6 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="containerfluid">
-<div class="col-md-6 hor_strip debg_color">
-</div>
-<div class="col-md-6 hor_strip gray_bg_color">
-</div>
-</div>
 <div class="mid-section">
 <div class="container-fluid">
   <div class="container-inner-section">
@@ -19,7 +13,7 @@
     @include ('Front.alert_messages')
      
 		<div class="card-header row">
-			  <h2>{{ __('users.seller_personal_form_label')}} </h2>
+			  <h2>{{ __('users.seller_personal_page_menu')}} </h2>
 			  <hr class="heading_line">
 		</div>
         <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data">

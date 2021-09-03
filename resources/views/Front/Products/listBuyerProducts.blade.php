@@ -1,13 +1,6 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="containerfluid">
-  <div class="col-md-6 hor_strip debg_color">
-  </div>
-  <div class="col-md-6 hor_strip gray_bg_color">
-  </div>
-  
-</div>
 <div class="mid-section">
 <div class="container-fluid">
   <div class="container-inner-section">
@@ -16,9 +9,7 @@
   <div class="row">
     <div class="">
       <div class="col-md-12">
-        <!-- <div class="col-md-2 tijara-sidebar">
-          @include ('Front.layout.sidebar_menu')
-        </div> -->
+    
       <div class="col-md-12 tijara-content">
       @if($subscribedError)
         <div class="alert alert-danger">{{$subscribedError}}</div>

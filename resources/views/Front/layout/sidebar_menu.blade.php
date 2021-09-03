@@ -35,11 +35,11 @@
        $activeClass = '';
       }
     ?>
-
-    @if($showProductMenu !=0)
-      <li class="{{$activeClass}}"><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
+    @if(Auth::guard('user')->getUser()->role_id==2)
+      @if(@$showProductMenu !=0)
+        <li class="{{$activeClass}}"><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
+      @endif
     @endif
-
     <?php 
       if((Request::segment(1)=='manage-services')){
         $activeClass = 'activemainmenu';

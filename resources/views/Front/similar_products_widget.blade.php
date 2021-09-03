@@ -19,24 +19,24 @@
     </div>
     <div class="product_info">
         <h5>{{$product['category_name']}}</h5>
-          <?php echo "<pre>";print_r(product/$product->product_slug);exit;
+          <?php 
 
 
         $product_link = url('/').'/product';
-    /*if($category_slug!='')
-        {
-              $product_link .=  '/'.$category_slug;
-        }
-        else {
-          $product_link .=  '/'.$productCategories[0]['category_slug'];
-        }
-        if($subcategory_slug!='')
-        {
-              $product_link .=  '/'.$subcategory_slug;
-        }
-        else {
-          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
-        }*/
+        /*if($category_slug!='')
+            {
+                  $product_link .=  '/'.$category_slug;
+            }
+            else {
+              $product_link .=  '/'.$productCategories[0]['category_slug'];
+            }
+            if($subcategory_slug!='')
+            {
+                  $product_link .=  '/'.$subcategory_slug;
+            }
+            else {
+              $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+            }*/
 
         $product_link .=  $product->product_slug.'-P-'.$product->product_code;
 

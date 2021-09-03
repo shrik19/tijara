@@ -308,7 +308,7 @@
     'see_show_label' => 'Visa diin butik',
     'intrumentpanel_label'=>'Intrumentpanel',
     'manage_label'=>'Hantera',
-    'please_add_service_time'=>'lägg till servicetid,
+    'please_add_service_time'=>'lägg till servicetid',
 
  ]
 ?>

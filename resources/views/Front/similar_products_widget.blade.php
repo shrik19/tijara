@@ -38,7 +38,7 @@
               $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
             }*/
 
-        $product_link .=  $product->product_slug.'-P-'.$product->product_code;
+        $product_link .=  '/'.$product->product_slug.'-P-'.$product->product_code;
 
        // $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
        // $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];

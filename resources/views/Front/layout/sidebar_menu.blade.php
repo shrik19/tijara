@@ -1,7 +1,7 @@
 <div class="pull-left sidebar_menu">
   @if(Auth::guard('user')->id())
   <ul class="category_list" style="margin-top: 50px;">
-    <li><h3>Intrumentpanel</h3></li>
+    <li><h3>{{ __('users.intrumentpanel_label')}}</h3></li>
 
     @if(Auth::guard('user')->getUser()->role_id==2)
        @php
@@ -21,7 +21,7 @@
       <li class="{{$activeClass }}"><a href="{{route('frontDashboard')}}">{{ __('lang.summary_menu')}}</a></li>
     @endif
 
-    <li><h2>Hantera</h2></li>
+    <li><h2>{{ __('users.manage_label')}}</h2></li>
 
     @if(Auth::guard('user')->getUser()->role_id==2)
       <li class="{{ request()->is('seller-personal-page') ? 'activemainmenu' : ''}}"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>

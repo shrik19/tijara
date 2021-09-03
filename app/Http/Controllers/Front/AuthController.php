@@ -524,6 +524,15 @@ class AuthController extends Controller
         $user_id = Auth::guard('user')->id();
 
         $details=SellerPersonalPage::join('users', 'users.id', '=', 'seller_personal_page.user_id')->where('user_id',$user_id)->first();
+        $sellerName=UserMain::where('id',$user_id)->first();
+
+          $seller_name = $sellerName['fname']." ".$sellerName['lname'];
+          $seller_name = str_replace( array( '\'', '"', 
+          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+          $seller_name = str_replace(" ", '-', $seller_name);
+          $seller_name = strtolower($seller_name);
+                      
+          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($user_id)."/products"; 
         
         $toUpdateData  =   array();
         if($request->input('store_information'))
@@ -714,6 +723,8 @@ class AuthController extends Controller
                 Session::flash('success', trans('users.seller_personal_info_saved'));
                     return redirect()->back();
             }
+
+        $data['seller_link']=$seller_link;
         $data['details']=$details;
         return view('Front/seller_personal_page', $data);
     }

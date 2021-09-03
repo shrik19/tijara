@@ -284,5 +284,9 @@
     'meta_title_info'=>'meta title help search engine to understand what your page is about.',
     'meta_desciption_info'=>'meta description provide summary of web page.',
     'meta_keyword_info'=>'meta keyword  used to give more information to search engines on what a page is about.',
+    'see_show_label' => 'See your shop',
+    'intrumentpanel_label'=>'Instrument panel',
+    'manage_label'=>'Manage',
+
  ]
 ?>

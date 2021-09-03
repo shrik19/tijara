@@ -17,9 +17,7 @@
             </ul>
       </div>
     </div>
-    <div class="product_info" product_link="{{$product_link}}">
-        <h5>{{$product['category_name']}}</h5>
-          <?php 
+     <?php 
 
 
         $product_link = url('/').'/product';
@@ -45,6 +43,9 @@
 
         $product_link  = $product_link;
           ?>
+    <div class="product_info" product_link="{{$product_link}}">
+        <h5>{{$product['category_name']}}</h5>
+         
         <a href="{{$product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
         <h6>{{$product->price}} kr</h6>

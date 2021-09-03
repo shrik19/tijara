@@ -61,6 +61,8 @@
     var review_add_success = "{{ __('messages.review_add_success')}}";
     var err_msg_okay = "{{ __('users.err_msg_okay')}}";
     var please_add_your_message = "{{ __('users.please_add_your_message')}}";
+    var please_add_service_time = "{{ __('users.please_add_service_time')}}";
+    
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
     is_login = 1;

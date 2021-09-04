@@ -18,14 +18,8 @@
                 $first = reset($variantData);
                 @endphp
               @endif
-
-              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
-                <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
-              </div>
-              
-              <!-- Secondary carousel image thumbnail gallery -->
               <div class="small-img">
-                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
+                <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
                 <div class="small-container">
                   <div id="small-img-roll">
                     @foreach($first['images'] as $image)
@@ -33,8 +27,14 @@
                     @endforeach
                   </div>
                 </div>
-                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+                <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
               </div>
+              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
+                <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
+              </div>
+              
+              <!-- Secondary carousel image thumbnail gallery -->
+             
             </div>
 
             <div class="col-md-6">

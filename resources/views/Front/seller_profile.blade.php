@@ -2,13 +2,13 @@
 @section('middlecontent')
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-2 tijara-sidebar">
+    <div class="col-md-2 tijara-sidebar ">
       @include ('Front.layout.sidebar_menu')
     </div>
-    <div class="col-md-10 tijara-content">
+    <div class="col-md-10 tijara-content ">
       @if(!empty($package_exp_msg))
           <div class="alert alert-danger" role="alert">
             <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>
@@ -18,13 +18,14 @@
             @csrf
       @include ('Front.alert_messages')
       <div class="col-md-12">
-	    <div class="card-header row">
+        <div class="seller_info">
+	    <div class="card-header row seller_header">
 			  <h2>{{ __('users.profile_update_title')}}</h2>
-			  <hr class="heading_line">
+			  <!-- <hr class="heading_line"> -->
 		 </div>  
-        <div class="login_box">
+        <div class="login_box seller_mid_cont">
           
-            <h2 class="col-md-12 contact-info">{{ __('users.contact_person')}}</h2>
+            <h2 class="col-md-12 contact-info seller_mid_header">{{ __('users.contact_person')}}</h2>
           
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <div class="form-group col-md-6">
@@ -112,6 +113,7 @@
         <div style="text-align: center">
           <button class="btn btn-black debg_color seller-profile-update login_btn">{{ __('lang.update_btn')}}</button>
           <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16">{{ __('lang.cancel_btn')}}</a>
+        </div>
         </div>
       </form>
     </div>

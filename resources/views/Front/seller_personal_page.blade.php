@@ -3,7 +3,7 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
   <div class="col-md-2 tijara-sidebar">
@@ -11,10 +11,10 @@
     </div>
     <div class="col-md-10 tijara-content">
     @include ('Front.alert_messages')
-     
-		<div class="card-header row">
+    <div class="seller_info">
+		<div class="card-header row seller_header">
 			  <h2>{{ __('users.seller_personal_page_menu')}} </h2>
-			  <hr class="heading_line">
+			  <!-- <hr class="heading_line"> -->
 		</div>
     <div class="" style="margin-left: 800px;">
        
@@ -30,7 +30,7 @@
         <br>
 
         
-          <div class="login_box">
+          <div class="login_box seller_mid_cont">
          
             <div class="form-group">
               <label>{{ __('lang.store_information')}}  <span class="de_col"></span></label>
@@ -85,7 +85,7 @@
               <input type="text" class="form-control store_name" id="store_name" name="store_name" 
               placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" style="margin-top: 30px;
     margin-left: -85px;"/>
-              <span class="invalid-feedback" id="err_fname"><input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 335px;margin-top: 26px;padding: 9px 16px !important;" /> @if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span>
+              <span class="invalid-feedback" id="err_fname"><input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 335px;margin-top: -55px;padding: 9px 16px !important;" /> @if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span>
             </div>
             <div class="form-group increment cloned">
               <label>{{ __('users.seller_header_img_label')}}</label>
@@ -151,7 +151,8 @@
           <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
                 
         </div>
-      </form>    
+      </form>   
+          </div> 
     </div>
   </div>
   </div>

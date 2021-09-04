@@ -3,20 +3,22 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
     <div class="col-md-2 tijara-sidebar">
       @include ('Front.layout.sidebar_menu')
     </div>
-    <div class="col-md-10 tijara-content">
+    <div class="col-md-10 tijara-content ">
+    <div class="seller_info">
     <div class="card">
-		  <div class="card-header row">
+		  <div class="card-header row seller_header">
         <h2>{{ __('lang.summary_menu')}}</h2>
-        <hr class="heading_line"/>
+        <!-- <hr class="heading_line"/> -->
       </div>
     </div>
-    
+  
+      <div class="seller_mid_cont">
   <form method="POST" name="filterForm" id="filterForm" action="{{route('frontDashboard')}}">
     @csrf
     <div class="row">
@@ -104,6 +106,8 @@
     
     
   </form>
+  </div>
+  </div>
 </div>
   </div>
 </div>

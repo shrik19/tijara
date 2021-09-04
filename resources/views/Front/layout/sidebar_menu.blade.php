@@ -1,6 +1,7 @@
 <div class="pull-left sidebar_menu">
+
   @if(Auth::guard('user')->id())
-  <ul class="category_list" style="margin-top: 50px;">
+  <ul class="seller_cat_list sel_cat_list" style="margin-top: 50px;">
     <li><h3>{{ __('users.intrumentpanel_label')}}</h3></li>
 
     @if(Auth::guard('user')->getUser()->role_id==2)
@@ -84,22 +85,12 @@
     <li class="{{$activeClass }}"><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
 
 
-
-
-
-
     <!--   @php
     $showProductMenu  = 1;
     $isPackagesubcribed = checkPackageSubscribe(Auth::guard('user')->id());
     if(Auth::guard('user')->getUser()->role_id==2 && $isPackagesubcribed ==0)
     $showProductMenu  = 0;
     @endphp -->
-
-
-
-
-
-
 
     <?php 
     if((Request::segment(1)=='product-attributes')){
@@ -126,5 +117,6 @@
   @else
   <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
   @endif
+
 
 </div>

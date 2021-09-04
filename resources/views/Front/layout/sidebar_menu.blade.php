@@ -1,6 +1,6 @@
 <div class="pull-left sidebar_menu">
                 @if(Auth::guard('user')->id())
-                <ul class="category_list" style="margin-top: 50px;">
+                <ul class="seller_cat_list" style="margin-top: 50px;">
                   <?php 
                     if((Request::segment(1)=='seller-profile') || (Request::segment(1)=='buyer-profile')){
                       $activeClass = 'activemainmenu';

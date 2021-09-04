@@ -11,7 +11,7 @@
       <img class="seller_banner" src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
     @endif
     <div class="container-fluid">
-    <div class="container-inner-section">
+    <div class="container-inner-section-1">
       <!-- Example row of columns -->
       <div class="row tijara-content" style="margin-top:40px;">
        <!--  @include('Front.category_breadcrumb') -->

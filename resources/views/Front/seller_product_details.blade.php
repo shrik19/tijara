@@ -18,14 +18,9 @@
                 $first = reset($variantData);
                 @endphp
               @endif
-
-              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
-                <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
-              </div>
-              
-              <!-- Secondary carousel image thumbnail gallery -->
-              <div class="small-img">
-                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img">
+ <!-- Secondary carousel image thumbnail gallery -->
+ <div class="small-img">
+                <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
                 <div class="small-container">
                   <div id="small-img-roll">
                     @foreach($first['images'] as $image)
@@ -33,8 +28,13 @@
                     @endforeach
                   </div>
                 </div>
-                <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img">
+                <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
               </div>
+              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
+                <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
+              </div>
+              
+             
             </div>
 
             <div class="col-md-6">
@@ -43,7 +43,7 @@
 
                     <!-- <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4> -->
                     <div class="row">
-                          <div class="col-xs-12 col-md-6">    
+                          <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box">              
                             <h3>{{ __('lang.shopping_cart_price')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
                             @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif
@@ -131,7 +131,7 @@
                         </div>
                         <div class="row">
                         <div class="col-xs-6 col-md-5"  >
-                              <div class="quantity_box" style="margin-top:28px;">
+                              <div class="quantity_box" style="margin-top:15px;">
                                 <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">

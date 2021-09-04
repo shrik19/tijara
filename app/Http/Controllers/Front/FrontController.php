@@ -1527,7 +1527,7 @@ public function getCatSubList(Request $request) {
         	$getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
         	$data['category_name'] = $getCategoryName['category_name'];
         }
-
+			//echo "<pre>";print_r($data['PopularServices']);exit;
 		 return view('Front/services', $data);
 	 }
 

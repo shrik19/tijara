@@ -1,12 +1,6 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="containerfluid">
-<div class="col-md-6 hor_strip debg_color">
-</div>
-<div class="col-md-6 hor_strip gray_bg_color">
-</div>
-</div>
 <div class="mid-section">
 <div class="container-fluid">
   <div class="container-inner-section">
@@ -19,9 +13,14 @@
     @include ('Front.alert_messages')
      
 		<div class="card-header row">
-			  <h2>{{ __('users.seller_personal_form_label')}} </h2>
+			  <h2>{{ __('users.seller_personal_page_menu')}} </h2>
 			  <hr class="heading_line">
 		</div>
+    <div class="" style="margin-left: 800px;">
+       
+        <a href="{{$seller_link}}"><i class="fa fa-eye" aria-hidden="true">{{ __('users.see_show_label')}} </i></a>
+       
+    </div>
         <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data">
             @csrf
 
@@ -32,14 +31,7 @@
 
         
           <div class="login_box">
-          
-
-            <div class="form-group">
-              <label>{{ __('lang.store_name')}} <span class="de_col"></span></label>
-              <input type="text" class="form-control store_name" id="store_name" name="store_name" 
-              placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" />
-              <span class="invalid-feedback" id="err_fname">@if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span>
-            </div>
+         
             <div class="form-group">
               <label>{{ __('lang.store_information')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="store_information" id="" rows="10" cols="20" placeholder="{{ __('lang.store_information')}}" 
@@ -67,14 +59,6 @@
               value="" tabindex="2">@if(!empty($details->return_policy)) {{$details->return_policy}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('return_policy')) {{ $errors->first('return_policy') }}@endif </span>
             </div>
-           
-          </div>
-        </div>
-        <div class="col-md-6">
-        
-          <div class="login_box">
-          
-
             <div class="form-group">
               <label>{{ __('lang.shipping_policy')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="shipping_policy" id="" 
@@ -87,6 +71,21 @@
               <textarea class="form-control login_input" name="other_information" id="" rows="10" cols="20" placeholder="{{ __('lang.other_information')}}" 
               value="" tabindex="2">@if(!empty($details->other_information)) {{$details->other_information}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('other_information')) {{ $errors->first('other_information') }}@endif </span>
+            </div>
+           
+          </div>
+        </div>
+        <div class="col-md-6">
+        
+          <div class="login_box">
+          
+
+             <div class="form-group"  style="display: flex;margin-top: 19px;">
+              <label>{{ __('lang.store_name')}} <span class="de_col"></span></label>
+              <input type="text" class="form-control store_name" id="store_name" name="store_name" 
+              placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" style="margin-top: 30px;
+    margin-left: -85px;"/>
+              <span class="invalid-feedback" id="err_fname"><input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 335px;margin-top: 26px;padding: 9px 16px !important;" /> @if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span>
             </div>
             <div class="form-group increment cloned">
               <label>{{ __('users.seller_header_img_label')}}</label>
@@ -173,6 +172,31 @@ logoInp.onchange = evt => {
     $('.logoImage').css('display','block');
     previewLogo.src = URL.createObjectURL(file)
   }
+}
+
+/*function to check unique store name
+* @param : store name
+*/
+function checkStoreName(){
+
+    var store_name= $("#store_name").val();
+    if(store_name!=''){
+        $.ajax({
+          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name,
+          type: 'get',
+          data: { },
+          success: function(output){
+            if(output !=''){
+             alert(output);
+            }else{
+                alert(store_name_is_verified);
+            }
+            }
+        });
+    }else{
+
+     alert(please_enter_store_name)
+    }
 }
 </script>
 

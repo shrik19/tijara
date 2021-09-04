@@ -1,12 +1,6 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="containerfluid">
-  <div class="col-md-6 hor_strip debg_color">
-  </div>
-  <div class="col-md-6 hor_strip gray_bg_color">
-  </div>
-</div>
 <div class="mid-section">
 <div class="container-fluid">
   <div class="container-inner-section">

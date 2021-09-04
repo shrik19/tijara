@@ -954,6 +954,8 @@ class ServiceController extends Controller
            
         $monthYearDropdown    .= "</select>";
 
+ 
+  //print_r(DB::getQueryLog());exit;
         $data['monthYearHtml']     = $monthYearDropdown;
         $data['is_seller']         = $is_seller;
         $data['user_id']           = $user_id;
@@ -1103,6 +1105,59 @@ class ServiceController extends Controller
           ];
 
       return json_encode($json_arr);
+
+  }
+
+  /*function to get all booking request*/
+   public function bookingRequest(Request $request) 
+    {
+      $user_id = Auth::guard('user')->id();
+      $is_seller = 0;
+      $orderDetails = [];
+      if($user_id)
+      {
+        $userRole = session('role_id');
+        if($userRole == 2)
+        {
+          $is_seller = 1;
+        }  
+
+        //$User   =   UserMain::where('id',$user_id)->first();
+
+        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')
+          ->join('services','services.id','=','service_requests.service_id')
+          ->select('services.title','services.description','users.fname','users.lname','users.email'
+          ,'service_requests.*')->where('service_requests.is_deleted','!=',1)->where('services.user_id','=',$user_id)->groupBy('service_requests.id')->orderby('service_requests.id', 'DESC')->get();
+
+      /*  if($User->role_id==2) {
+          //seller
+          $serviceRequest = $serviceRequest->where('services.user_id','=',$request['user_id']);
+        }
+        else 
+        {
+          $serviceRequest = $serviceRequest->where('service_requests.user_id','=',$request['user_id']);
+        }*/
+
+    
+       
+        
+         // $recordsTotal = $serviceRequest->groupBy('service_requests.id')->get()->count();
+      
+        //  $serviceRequest = $serviceRequest->groupBy('service_requests.id')->orderby('service_requests.id', 'DESC')->get();
+          
+        $data['bookingRequest']    = $serviceRequest;
+        $data['is_seller']         = $is_seller;
+        $data['user_id']           = $user_id;
+
+        return view('Front/service_booking_request', $data);
+      }
+      else 
+      {
+          Session::flash('error', trans('errors.login_buyer_required'));
+          return redirect(route('frontLogin'));
+      }
+     
+        //  $recordDetails = $serviceRequest->offset($request->input('start'))->limit($request->input('length'))->get();
 
   }
 

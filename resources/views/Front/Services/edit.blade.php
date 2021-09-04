@@ -1,4 +1,4 @@
-@extends('Front.layout.template')
+l.@extends('Front.layout.template')
 @section('middlecontent')
 <style>
   .login_box
@@ -6,13 +6,7 @@
     width:100% !important;
   }
 </style>
-<div class="containerfluid">
-<div class="col-md-6 hor_strip debg_color">
-</div>
-<div class="col-md-6 hor_strip gray_bg_color">
-</div>
 
-</div>
 <div class="mid-section">
 <div class="container-fluid">
   <div class="container-inner-section">
@@ -267,6 +261,7 @@
             <div class="col-md-6">
               <div class="col-md-3" style="margin-left: 200px !important;">
               <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a>
+            
             </div>
             <div class="col-md-3"></div>
             </div>

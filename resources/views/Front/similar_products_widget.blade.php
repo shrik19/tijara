@@ -1,5 +1,31 @@
 <li style="max-height:500px;">
-  <div class="product_data" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
+  <?php 
+
+
+        $product_link = url('/').'/product';
+        /*if($category_slug!='')
+            {
+                  $product_link .=  '/'.$category_slug;
+            }
+            else {
+              $product_link .=  '/'.$productCategories[0]['category_slug'];
+            }
+            if($subcategory_slug!='')
+            {
+                  $product_link .=  '/'.$subcategory_slug;
+            }
+            else {
+              $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+            }*/
+
+        $product_link .=  '/'.$product->product_slug.'-P-'.$product->product_code;
+
+       // $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+       // $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
+
+        $product_link  = $product_link;
+          ?>
+  <div  product_link="{{$product_link}}" class="product_data" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif >
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($product->image)
       @php 
@@ -17,10 +43,11 @@
             </ul>
       </div>
     </div>
+
     <div class="product_info">
         <h5>{{$product['category_name']}}</h5>
-          
-        <a href="{{$product->product_link}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+         
+        <a href="{{$product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
         <h6>{{$product->price}} kr</h6>
         @endif
@@ -32,3 +59,11 @@
 
 
 </li>
+<script type="text/javascript">
+  $(".product_data").click(function(){
+  var attr_val = $(this).attr('product_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+});
+</script>

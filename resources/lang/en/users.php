@@ -182,7 +182,7 @@
     'seller_logo_label'=>'Logo',
     'seller_personal_form_label'=>'Seller Personal Info',
     'seller_personal_info_saved'=>'Your Personal info saved successfully',
-    'seller_personal_page_menu'=>'Personal Page',
+    'seller_personal_page_menu'=>'Store Profile',
 
     // Backend CMS Page
     'cms_page_title'=>'Page',
@@ -284,5 +284,10 @@
     'meta_title_info'=>'meta title help search engine to understand what your page is about.',
     'meta_desciption_info'=>'meta description provide summary of web page.',
     'meta_keyword_info'=>'meta keyword  used to give more information to search engines on what a page is about.',
+    'see_show_label' => 'See your shop',
+    'intrumentpanel_label'=>'Instrument panel',
+    'manage_label'=>'Manage',
+    'please_add_service_time'=>'please add service time',
+
  ]
 ?>

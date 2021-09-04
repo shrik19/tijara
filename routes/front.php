@@ -196,6 +196,7 @@ Route::any('/getOrderRecords','Front\CartController@getRecords')->name('frontOrd
 Route::post('/change-order-status','Front\CartController@changeOrderStatus')->name('frontChangeOrderStatus');
 
 Route::any('/all-service-request', 'Front\ServiceController@showAllServiceRequest')->name('frontAllServiceRequest');
+Route::any('/booking-request', 'Front\ServiceController@bookingRequest')->name('frontAllbookingRequest');
 Route::any('/getAllServiceRequest','Front\ServiceController@getAllServiceRequest')->name('frontServiceRequestGetRecords');
 Route::get('/deleteServiceRequest/{id}','Front\ServiceController@deleteServiceRequest')->name('frontServiceRequestDel');
 Route::any('/product-checkout/{id}','Front\CartController@showBuyerCheckout')->name('frontShowBuyerCheckout');

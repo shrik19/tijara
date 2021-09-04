@@ -120,7 +120,9 @@
                 <h3>{{ __('lang.also_have_watch')}}</h3>
                 
                 <ul class="product_details best_seller">
+
                   @foreach($similarProducts as $product)
+
                             @include('Front.similar_products_widget')
                   @endforeach
               </ul>

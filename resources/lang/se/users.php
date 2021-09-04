@@ -201,7 +201,7 @@
     'seller_logo_label'=>'Logotyp',
     'seller_personal_form_label'=>'Säljarens personliga information',
     'seller_personal_info_saved'=>'Din personliga information sparades',
-    'seller_personal_page_menu'=>'Personlig sida',
+    'seller_personal_page_menu'=>'Butiksprofil',
      'seller_packages_title'=>'Säljar Paket',
      'upload_file_input'=>'Ladda upp en fil',
 
@@ -305,5 +305,10 @@
     'meta_title_info'=>'meta title hjälper sökmotorn att förstå vad din sida handlar om.',
     'meta_desciption_info'=>'meta description ger en sammanfattning av webbsidan.',
     'meta_keyword_info'=>'meta -nyckelord som används för att ge mer information till sökmotorer om vad en sida handlar om.',
+    'see_show_label' => 'Visa diin butik',
+    'intrumentpanel_label'=>'Intrumentpanel',
+    'manage_label'=>'Hantera',
+    'please_add_service_time'=>'lägg till servicetid',
+
  ]
 ?>

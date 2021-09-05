@@ -3,7 +3,7 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -11,24 +11,27 @@
         @include ('Front.layout.sidebar_menu')
       </div>
       <div class="col-md-10 tijara-content">
+      <div class="seller_info">
 		@if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
 	  @include('Front.alert_messages')
 	   
 	  <div class="card">
-		<div class="card-header row">
+		<div class="card-header row seller_header">
 		<div class="col-md-10">
 		    
 		  <h2>{{ __('servicelang.your_services_label')}}</h2>
-		  <hr class="heading_line"/>
+		  <!-- <hr class="heading_line"/> -->
 		  </div>
-		  <div class="col-md-1 pro-top-btn">
-		  <a href="{{route('frontServiceCreate')}}" title="{{ __('servicelang.add_service')}}" class="btn btn-black btn-sm debg_color login_btn a_btn" ><span>{{ __('servicelang.add_service')}}</span> </a>
-			</div>
+		 
 		</div>
 
-		<div class="card-body">
+		<div class="card-body seller_mid_cont">
+    <div class="mb-10 pro-top-btn">
+		  <a href="{{route('frontServiceCreate')}}" title="{{ __('servicelang.add_service')}}" class="btn btn-black btn-sm debg_color login_btn a_btn" ><span>{{ __('servicelang.add_service')}}</span> </a>
+			</div>
+      <div class="clearfix"></div>
 		  <form id="" action="" method="post">
 			@csrf
 			<div class="table-responsive">
@@ -49,6 +52,7 @@
 			</div>
 		  </form>  
 		</div>
+</div>
 	  </div>
 		</div>
     </div>

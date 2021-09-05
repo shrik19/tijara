@@ -3,7 +3,7 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -15,18 +15,23 @@
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
 	  @include('Front.alert_messages')
+    <div class="seller_info">
 	  <div class="card">
-		<div class="card-header row">
+		<div class="card-header row seller_header">
 		<div class="col-md-10">
 		  <h2>{{ __('lang.manage_attributes_menu')}} </h2>
-		  <hr class="heading_line"/>
+		  <!-- <hr class="heading_line"/> -->
 		  </div>
-		  <div class="col-md-1 pro-top-btn">
+		 
+		</div>
+<div class="clearfix"></div>
+<div class="mb-10 pro-top-btn">
 		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
 			</div>
-		</div>
-
-		<div class="card-body">
+      <br/><br/>
+      <div class="clearfix"></div>
+		<div class="card-body seller_mid_cont">
+ 
 		  <form id="" action="" method="post">
 			@csrf
 			<div class="table-responsive">
@@ -47,6 +52,7 @@
 	  </div>
 	  </div> 
     </div>
+</div>
   </div>
 </div>
 </div> <!-- /container -->

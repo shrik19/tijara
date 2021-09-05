@@ -3,7 +3,7 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-12">
@@ -12,19 +12,21 @@
           @include ('Front.layout.sidebar_menu')
         </div>
         <div class="col-md-10 tijara-content">
+        <div class="seller_info">
+        <div class="card-header row seller_header">
+			  <h2>{{ __('users.change_password_title')}} </h2>
+			  <hr class="heading_line">
+		  </div>
            <div class="col-md-6">
       @else
         <div class="col-md-12 tijara-content">
           <div class="col-md-3"></div>
-          <div class="col-md-6">
+          <div class="col-md-12">
       @endif
-        
+      
           @include ('Front.alert_messages')
-		  <div class="card-header row">
-			  <h2>{{ __('users.change_password_title')}} </h2>
-			  <hr class="heading_line">
-		  </div>
-          <div class="login_box">
+		
+          <div class="login_box seller_mid_cont">
             <form method="POST" action="{{route('frontChangePasswordStore')}}" class="needs-validation" novalidate="">
               @csrf
                 <div class="form-group">
@@ -52,7 +54,8 @@
           <div class="col-md-3"></div>
          @endif
      </div>
-
+</div>
+</div>
    </div>
 
     </div>

@@ -3,7 +3,7 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -18,17 +18,19 @@
       
 		 
 	  @include('Front.alert_messages')
-	   
+    <div class="seller_info">
 	  <div class="card">
-		<div class="card-header row">
+		<div class="card-header row seller_header">
       <h2>{{ __('lang.txt_seller_order')}}</h2>
-      <hr class="heading_line"/>
+      <!-- <hr class="heading_line"/> -->
       </div>
     </div>
+    <div class="seller_mid_cont">
     <div class="col-md-12">
-      <div class="buyer-prod-msg">
-        <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
-        <p  class="buyer-prod-content">{{__('messages.my_order_info')}}</p>
+      <div class="">
+        <h1 >{{__('messages.info_head')}}</h1>
+        <p  >{{__('messages.my_order_info')}}</p>
+        <br/><br/>
       </div>
     </div>
 		<div class="col-md-12">
@@ -60,9 +62,11 @@
 			</div>
 		  </form>  
 		</div>
+    </div>
 	  </div>
 		</div>
     </div>
+</div>
   </div>
 </div>
 </div> <!-- /container -->

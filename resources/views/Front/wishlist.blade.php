@@ -8,7 +8,7 @@
 </style>
 
 
-<section class="product_details_section">
+<section class="product_details_section-1">
 <div class="loader"></div>
 <div class="container">
     <div class="row">
@@ -69,7 +69,7 @@
 
 <!-- services wishlist -->
 
-<section class="product_details_section">
+<section class="product_details_section-1">
 <div class="loader"></div>
 <div class="container">
     <div class="row">

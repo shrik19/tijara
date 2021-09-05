@@ -3,7 +3,7 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-<div class="container-inner-section">
+<div class="container-inner-section-1">
 <!-- Example row of columns -->
 
 <div class="row">
@@ -17,12 +17,12 @@
     @endif
 
     @include('Front.alert_messages')
-
+    <div class="seller_info">
     <div class="card">
-      <div class="card-header row">
+      <div class="card-header row seller_header">
         <div class="col-md-11">
         <h2>{{ __('lang.all_service_request')}}</h2>
-        <hr class="heading_line"/>
+        <!-- <hr class="heading_line"/> -->
         </div>
       </div>
 
@@ -48,6 +48,7 @@
 
     </div>
     </div>
+</div>
   </div>
 </div> <!-- /container -->
 </div>

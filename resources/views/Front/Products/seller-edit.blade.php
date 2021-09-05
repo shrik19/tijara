@@ -9,13 +9,19 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
     
     <div class="col-md-2 tijara-sidebar">
 
         @include ('Front.layout.sidebar_menu')
     </div>
+    
       <div class="col-md-10">
+      <div class="seller_info">
+      <div class="seller_header">
+                    <h2>{{ __('lang.product_form_label')}}</h2>
+                    <!-- <hr class="heading_line"/> -->
+                </div>
          <!-- Example row of columns -->
           @if($subscribedError)
               <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -28,9 +34,7 @@
                 @csrf
               <div class="row">
                   <div class="col-md-10">
-
-                    <h2>{{ __('lang.product_form_label')}}</h2>
-                    <hr class="heading_line"/>
+                
                   </div>
                   <div class="col-md-2 text-right" style="margin-top:30px;">
                     <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
@@ -256,7 +260,7 @@
           </div>
       </div> <!-- /col-10 -->
 
-
+</div>
 </div>
 </div>
 </div> <!-- /container -->

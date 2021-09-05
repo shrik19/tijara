@@ -100,7 +100,7 @@ span.subscribe_err {
 }
 .meta-data{
   margin-left: 15px;
-  font-size: 13px;
+  font-size: 13px!important;
   color: #675f5f;
 }
 
@@ -266,7 +266,7 @@ summary.active::after {
     border-radius: 30px;
     border: 2px solid #ededed;
 }
-}
+
 .featured_seller_container{width: 90%; margin: 0 auto;}
 
 .featured_seller_section img.img-fluid {
@@ -1252,7 +1252,7 @@ overflow: hidden;}
     background-color: rgba(0,0,0,0.1);}
     .buy_now_hover_details ul{padding-top: 104px;}
 .buy_now_hover_details li{padding: 14%; width: 20%;}
-.buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #5dc9ff; text-align: center; padding: 15px; font-size: 16px; }
+.buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #03989e; text-align: center; padding: 15px; font-size: 16px; }
 .mid-section{margin: 40px 0;}
 .product_img:hover  .buy_now_hover_details{ opacity: 1;}
 .packages-description{    max-height: 385px;
@@ -1319,12 +1319,12 @@ overflow: hidden;}
 .aritacl_details h4{font-size: 20px;font-weight: 500;color: #1a1c1c;}
 .aritacl_details p{font-size: 15px;font-weight: 300;color: #1a1c1c;}
 .learn_more{text-decoration:none; color: #fff; background: #03989e; padding: 10px 35px; font-size: 16px; text-align: center;margin-top: 15px;border-radius: 23px;}
+.mb-10{margin:15px;     text-align: right;}
 
 
 
 
-
-
+.selected_images>div{float:left; margin:10px}
 
 
 
@@ -1733,7 +1733,7 @@ span.pro-text {
 .seller_cat_list li a{    border-bottom: 1px solid #303030;
     line-height: 45px;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 22px;
     margin: 5px;
     float: left;
     width: 100%;
@@ -1751,9 +1751,9 @@ span.pro-text {
     font-size: 20px;
 }
 .sel_cat_list li a{
-    border:none; padding-left: 20px;
+    border:none; padding-left: 15px;
 }
-.sel_cat_list h3, .sel_cat_list h2{    font-size: 32px;
+.sel_cat_list h3, .sel_cat_list h2{    font-size: 26px;
     font-weight: 700;}
     .seller_info{border-left: 1px solid #dadada;border-top: 1px solid #dadada; }
     .seller_header{
@@ -1764,3 +1764,5 @@ span.pro-text {
 
     }
     .seller_mid_cont{margin-left: 25px;}
+
+    .ge_input{line-height:40px; border:1px solid #dadada; border-radius:3px;width:67%; height:40px}

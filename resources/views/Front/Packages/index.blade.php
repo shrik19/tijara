@@ -3,8 +3,9 @@
 
 <div class="mid-section">
 <div class="containerfluid">
-<div class="container-inner-section">
+<div class="container-inner-section-1">
   <div class="row">
+	  <div class="col-md-12">
       @include ('Front.alert_messages')
       <!-- html for seller subscribe packages -->
     	<div class="col-md-2 tijara-sidebar">
@@ -16,13 +17,16 @@
 		  {{$package_exp_msg}}
 		</div>
 		@endif
-		
+		<div class="seller_info">
 		@if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
+		<div class="seller_header">
       	    <h2>{{ __('users.your_active_package')}}</h2>
-        	<hr class="heading_line"/>
+        	<!-- <hr class="heading_line"/> -->
+		</div>
 	      	@foreach($subscribedPackage as $row)
 	      	
 	      	 <div class="col-md-6">
+				   <br/><br/>
 				<div class="panel panel-default subscribe-packages">
 				<div class="panel-heading bold">{{$row->title}}</div>
 				<div class="panel-body package-body">
@@ -126,6 +130,8 @@
 			   </div>
 			   @endif
 			</div>
+			</div>
+</div>
 </div> <!-- /container -->
 </div>
 </div>

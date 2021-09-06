@@ -1540,16 +1540,18 @@ $('.subscribed_users').click(function(){
   let error = 0;
 
   if(email == '') {
-    $(".subscribe_err").html(fill_in_email_err).show();
-    $(".subscribe_err").parent().addClass('jt-error');
+    $('.subscribe_msg').addClass('subscribe_err');
+    $(".subscribe_msg").html(fill_in_email_err).show();
+    $(".subscribe_msg").parent().addClass('jt-error');
     error = 1;
   }else if(!email_pattern.test(email)){
-    $(".subscribe_err").html(valid_email_err).show();
-    $(".subscribe_err").parent().addClass('jt-error');
+    $('.subscribe_msg').addClass('subscribe_err');
+    $(".subscribe_msg").html(valid_email_err).show();
+    $(".subscribe_msg").parent().addClass('jt-error');
     error = 1;
   } else {
-    $(".subscribe_err").parent().removeClass('jt-error');
-    $(".subscribe_err").html('');
+    $(".subscribe_msg").parent().removeClass('jt-error');
+    $(".subscribe_msg").html('');
   }
 
   if(error == 1)
@@ -1558,6 +1560,7 @@ $('.subscribed_users').click(function(){
   }
   else
   {
+       
     $('.footer-loader').show();
     $.ajax({
       headers: {
@@ -1573,11 +1576,15 @@ $('.subscribed_users').click(function(){
         $('.footer-loader').hide();
         console.log(response);
         if(response.error !=''){
-          $('.subscribe_err').text(response.error)
+          $('.subscribe_msg').removeClass('subscribe_success');
+          $('.subscribe_msg').addClass('subscribe_err');
+          $('.subscribe_msg').text(response.error)
         }
         
         if(response.success !=''){
-          $('.subscribe_success').text(response.success)
+           $('.subscribe_msg').removeClass('subscribe_err');
+        $('.subscribe_msg').addClass('subscribe_success');
+          $('.subscribe_msg').text(response.success)
         }
       }
     });

@@ -45,10 +45,12 @@
                         <td class="col-sm-4 col-md-4">
                         <div class="media">
                             <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 
+                            @if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo']))
                             @if($orderProduct['sellerLogo'])
                               <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object" style="width: 72px; height: 72px;">
                             @else
                               <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" style="width: 72px; height: 72px;">
+                            @endif
                             @endif
                               
                             </a>

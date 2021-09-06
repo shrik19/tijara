@@ -85,8 +85,9 @@
             <div class="footer-loader"></div>
             <input type="text" id="usersSubscribed" placeholder="{{ __('lang.enter_mail_placeholder')}} "/>
             <button type="button" class="btn sub_btn subscribed_users">{{ __('lang.subscribe_label')}}</button>
-            <span class="subscribe_err"></span>
-            <span class="subscribe_success"></span>
+            <span class="subscribe_msg"></span>
+         <!--    <span class="subscribe_em"></span>
+            <span class="subscribe_success"></span> -->
           </div>
       </div>
     </div>

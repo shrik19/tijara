@@ -124,6 +124,7 @@ var select_attribute_value="{{ __('lang.select_label')}}  {{ __('lang.attribute_
 var required_field_error="{{ __('lang.required_field_error')}}";
 var attribute_saved="{{ __('lang.attribute_saved')}}";
 var fill_in_email_err="{{ __('errors.fill_in_email_err')}}";
+var fill_in_valid_email_err="{{ __('errors.invalid_email_err')}}";
 var fill_in_password_err="{{ __('errors.fill_in_password_err')}}";
 var fill_in_confirm_password_err="{{ __('errors.fill_in_confirm_password_err')}}";
 var fill_in_first_name_err="{{ __('errors.fill_in_first_name_err')}}";

@@ -1,9 +1,16 @@
 
 
-.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeservicesubcategory {
-    text-decoration: none;
+a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeservicesubcategory {
+   /* text-decoration: none;
     color: #fff;
-    background: #03989e;
+    background: #03989e;*/
+    background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
+}
+.activemainmenu {
+    background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
+}
+.activesubmenu{
+    background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
 }
 .activemaincategory a,.activeservicemaincategory a{
     text-decoration: none;

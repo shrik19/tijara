@@ -267,7 +267,7 @@ class ProductController extends Controller
 			}
 			
 		}
-		$ProductsDetails = $ProductsDetails->groupBy('products.id');
+		$ProductsDetails = $ProductsDetails->groupBy('products.id')->orderby('products.id', 'DESC');
         $recordsTotal = $ProductsDetails->get()->count();
         if(isset($request['order'][0])){
 

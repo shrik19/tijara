@@ -3,6 +3,7 @@
  return [
 
      'fill_in_email_err'=>'Fyll i din e-postadress',
+     'invalid_email_err'=>'Ange giltig e -postadress',
      'fill_in_password_err'=>'fyll i ditt nya lösenord',
      'fill_in_confirm_password_err'=>'Fyll i ditt bekräfta lösenord',
      'fill_in_first_name_err'=>'Fyll i förnamn',

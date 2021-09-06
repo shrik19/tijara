@@ -490,102 +490,7 @@ $(".saveBuyerProduct").click(function(e){
   }
 
 });
-$(".frontregisterbtn").click(function(e){
-  e.preventDefault();
- // let fname   = $("#fname").val();
- // let lname   = $("#lname").val();
 
-  let email     = $("#email").val();
-  let password  = $("#password").val();
-  let cpassword = $("#cpassword").val();
-  let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
-  let error = 0;
-
-  /*if(fname == '')
-  {
-    $("#err_fname").html(fill_in_first_name_err).show();
-    $("#err_fname").parent().addClass('jt-error');
-    error = 1;
-  }
-  else
-  {
-    $("#err_fname").html('').show();
-
-  }
-  if(lname == '')
-  {
-    $("#err_lname").html(fill_in_last_name_err).show();
-    $("#err_lname").parent().addClass('jt-error');
-    error = 1;
-  }
-  else
-  {
-    $("#err_lname").html('');
-  }*/
-  
-  if(email == '')
-  {
-    $("#err_email").html(fill_in_email_err).show();
-    $("#err_email").parent().addClass('jt-error');
-    error = 1;
-  }
-  else if(!email_pattern.test(email))
-  {
-    $("#err_email").html(fill_in_email_err).show();
-    $("#err_email").parent().addClass('jt-error');
-    error = 1;
-  }
-  else
-  {
-    $("#err_email").parent().removeClass('jt-error');
-    $("#err_email").html('').hide();
-  }
-
-  if(password == '')
-  {
-    $("#err_password").html(fill_in_password_err).show();
-    $("#err_password").parent().addClass('jt-error');
-    error = 1;
-  }
-  else if((password).length<6)
-  {
-    $("#err_password").html(password_min_6_char).show();
-    $("#err_password").parent().addClass('jt-error');
-    error = 1;
-  }
-  else
-  {
-    $("#err_password").parent().removeClass('jt-error');
-    $("#err_password").html('').hide();
-  }
-  if(password!=cpassword) {
-    $("#err_cpassword").html(password_not_matched).show();
-      $("#err_cpassword").parent().addClass('jt-error');
-     error = 1;
-  }
-  else
-  {
-    $("#err_cpassword").html('');
-  }
-
-  if($("#chk_privacy_policy").is(':checked')){
-     error = 0;
-  } else {
-      alert(please_check_privacy_policy);
-      error = 1;
-
-  }
-
-  if(error == 1)
-  {
-    return false;
-  }
-  else
-  {
-    $('#sign-up-form').submit();
-    return true;
-  }
-});
 
 /* function to validate reset password from*/
 $(".ResetPasswordBtn").click(function(e){
@@ -687,7 +592,7 @@ $(".update-buyer-profile").click(function(e){
   }
   else if(!email_pattern.test(email))
   {
-    $("#err_email").html(fill_in_email_err).show();
+    $("#err_email").html(fill_in_valid_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
@@ -1635,16 +1540,18 @@ $('.subscribed_users').click(function(){
   let error = 0;
 
   if(email == '') {
-    $(".subscribe_err").html(fill_in_email_err).show();
-    $(".subscribe_err").parent().addClass('jt-error');
+    $('.subscribe_msg').addClass('subscribe_err');
+    $(".subscribe_msg").html(fill_in_email_err).show();
+    $(".subscribe_msg").parent().addClass('jt-error');
     error = 1;
   }else if(!email_pattern.test(email)){
-    $(".subscribe_err").html(valid_email_err).show();
-    $(".subscribe_err").parent().addClass('jt-error');
+    $('.subscribe_msg').addClass('subscribe_err');
+    $(".subscribe_msg").html(valid_email_err).show();
+    $(".subscribe_msg").parent().addClass('jt-error');
     error = 1;
   } else {
-    $(".subscribe_err").parent().removeClass('jt-error');
-    $(".subscribe_err").html('');
+    $(".subscribe_msg").parent().removeClass('jt-error');
+    $(".subscribe_msg").html('');
   }
 
   if(error == 1)
@@ -1653,6 +1560,7 @@ $('.subscribed_users').click(function(){
   }
   else
   {
+       
     $('.footer-loader').show();
     $.ajax({
       headers: {
@@ -1668,11 +1576,15 @@ $('.subscribed_users').click(function(){
         $('.footer-loader').hide();
         console.log(response);
         if(response.error !=''){
-          $('.subscribe_err').text(response.error)
+          $('.subscribe_msg').removeClass('subscribe_success');
+          $('.subscribe_msg').addClass('subscribe_err');
+          $('.subscribe_msg').text(response.error)
         }
         
         if(response.success !=''){
-          $('.subscribe_success').text(response.success)
+           $('.subscribe_msg').removeClass('subscribe_err');
+        $('.subscribe_msg').addClass('subscribe_success');
+          $('.subscribe_msg').text(response.success)
         }
       }
     });

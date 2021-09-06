@@ -229,11 +229,11 @@
          @endphp
                 @if(!empty($Categories[$CategoryId]['subcategory']))
 				<?php $current_path = explode("/",request()->path()); ?>
-                <li class="main-menu-item-<?php echo $i; ?> <?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>"><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" >{{$Category['category_name']}}</a>
+                <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="<?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>">{{$Category['category_name']}}</a>
 
                 <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
                   @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
-                  <li class="<?php if(in_array($subcategory['subcategory_slug'], $current_path)) echo'activemainmenu';?>" ><a @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
+                  <li class="<?php if(in_array($subcategory['subcategory_slug'], $current_path)) echo'activesubmenu';?>" ><a @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
                   @endforeach
                 </ul>
                 </li>

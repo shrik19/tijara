@@ -3,6 +3,7 @@
  return [
 
      'fill_in_email_err'=>'Please fill in your email',
+     'invalid_email_err'=>'Please Enter valid email',
      'fill_in_password_err'=>'please fill in your new password',
      'fill_in_confirm_password_err'=>'Please fill in your confirm password',
      'fill_in_first_name_err'=>'Please fill in First Name',

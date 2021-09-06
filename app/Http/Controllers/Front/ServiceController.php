@@ -640,21 +640,26 @@ class ServiceController extends Controller
             'description'   => 'nullable|max:2000',
             'sort_order'    =>'numeric',
             'service_price' => 'required', 
-            'session_time'  => 'required',  
+     
             //'service_availability'  => 'required',
-            'start_date_time' =>  'required',
-            'to_date_time'    =>  'required',
-            'del_start_time'  =>  'required',
+          
            /* 'service_year'  => 'required',
             'service_month' => 'required',
             'service_date'  => 'required',
             'start_time'    => 'required',*/
         ];
         if($request->input('service_id')==0) {
-            $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
+
+            $rules['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
+            $rules['start_date_time'] =  'required';
+            $rules['to_date_time']    =  'required';
+            $rules['session_time']  = 'required';  
+            $rules['del_start_time']  =  'required';
+            
             
         }else{
             $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';
+            $rules ['service_availability']  = 'required';
         }
 
         $messages = [
@@ -679,9 +684,10 @@ class ServiceController extends Controller
         $validator = validator::make($request->all(), $rules, $messages);
 
         if($validator->fails())  {
-        /*  echo "<pre>";
-          print_r($messages);exit;*/
+       
             $messages = $validator->messages();
+             /*  echo "<pre>";
+          print_r($messages);exit;*/
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
 
@@ -722,6 +728,8 @@ class ServiceController extends Controller
             Services::where('id', $request->input('service_id'))->where('user_id', Auth::guard('user')->id())->update($arrServices);
         }
 
+      if($request->input('service_id')==0) {
+      
         if(!empty($request->input('start_date_time')) && !empty($request->input('to_date_time'))){
 
           $startTime = strtotime( $request->input('start_date_time') );
@@ -737,6 +745,7 @@ class ServiceController extends Controller
             $service_availability['start_time']   =   $dateTime[1];
 
             if($request->input('del_start_time')=='insert'){
+              //echo "sdjkhk";exit;
                  $checkISExist = DB::table('service_availability')
                   ->where('service_id',$id)
                   ->where('service_date',$dateTime[0])
@@ -750,6 +759,7 @@ class ServiceController extends Controller
                  
                                    
                 }else{
+                  //echo "sdjhg";exit;
                   DB::table('service_availability')
                   ->where('service_id',$id)
                   ->where('service_date',$dateTime[0])
@@ -759,38 +769,60 @@ class ServiceController extends Controller
           }
 
         }
-        
-//exit;
-        //ServiceAvailability::where('service_id', $id)->delete();
-/*old code for service availability*/
-       /* if(!empty($request->input('service_availability'))) {
-            
-            foreach($request->input('service_availability') as $availability) {
-              // echo "<pre>";print_r($request->input('service_availability'));exit;
-               //date('Y-m-d',strtotime($availability))
-                $dateTime   =   explode(' ',$availability);
-                $service_availability['service_id']   =   $id;
-                $service_availability['service_date']  =   $dateTime[0];
-                $service_availability['start_time']   =   $dateTime[1];
-               // echo $request->input('del_start_time');exit;
-                if($request->input('del_start_time')=='insert'){
-                  ServiceAvailability::create($service_availability);
-                }else{
-                  echo "here";
-                  DB::enableQueryLog();
 
-                  DB::table('service_availability')
+      }else{
+        
+        if(!empty($request->input('service_availability'))) {
+
+          foreach($request->input('service_availability') as $availability) {
+             //echo "<pre>";print_r($request->input('service_availability'));exit;
+              //date('Y-m-d',strtotime($availability))
+                 
+              $dateTime   =   explode(' ',$availability);
+
+              $service_availability['service_id']   =   $id;
+              $service_availability['service_date']  =   $dateTime[0];
+              $service_availability['start_time']   =   $dateTime[1];
+
+              if($request->input('del_start_time')=='insert'){
+           
+                $checkISExist = DB::table('service_availability')
                   ->where('service_id',$id)
                   ->where('service_date',$dateTime[0])
                   ->where('start_time',$dateTime[1])
-                  ->delete();
-                  // and then you can get query log
-  print_r(DB::getQueryLog());exit;
-                                  
+                  ->get();
+
+                if($checkISExist->count() == 0){
+     
+                  ServiceAvailability::create($service_availability);
                 }
-            }
-        }*/
-/*end old code for service availability*/
+                                                    
+              }else{
+
+                if(!empty($request->input('del_service_availability'))) {
+
+                  foreach($request->input('del_service_availability') as $availability) {
+                 
+                    $dateTime   =   explode(' ',$availability);
+
+                    $service_availability['service_id']   =   $id;
+                    $service_availability['service_date']  =   $dateTime[0];
+                    $service_availability['start_time']   =   $dateTime[1];
+                    //print_r($service_availability);exit;
+                       DB::table('service_availability')
+                      ->where('service_id',$id)
+                      ->where('service_date',$dateTime[0])
+                      ->where('start_time',$dateTime[1])
+                      ->delete();
+                  }
+                }
+            } 
+          }
+        }
+      
+        }
+        
+
         ServiceCategory::where('service_id', $id)->delete();
 
         if(empty($request->input('categories'))) {  

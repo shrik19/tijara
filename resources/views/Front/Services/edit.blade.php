@@ -93,7 +93,7 @@ l.@extends('Front.layout.template')
               <label class="col-md-3">{{ __('servicelang.service_description_label')}}  <span class="de_col"></span></label>
                   
              <!--  <div class="form-group col-md-8"> -->
-                  <textarea class="col-md-12 login_input form-control" name="description" rows="10" cols="20" placeholder="{{ __('lang.service_description_label')}}" value="" 
+                  <textarea class="col-md-12 login_input form-control" name="description" rows="10" cols="20" placeholder="{{ __('lang.product_description_label')}}" value="" 
                    tabindex="2">{{ (old('description')) ?  old('description') : $service->description}}</textarea>
                   <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
               <!-- </div> -->
@@ -271,8 +271,7 @@ l.@extends('Front.layout.template')
                   @if(!empty($serviceAvailability))
                     @foreach($serviceAvailability as $availability)
                       @php $service_time  = $availability['service_date'].' '.$availability['start_time']; @endphp
-                        <input type="hidden" id="{{$availability['id']}}" class="form-control service_availability " value="{{$service_time}}"  name="service_availability[]">
-                        
+                        <input type="hidden" id="{{$availability['id']}}" class="form-control service_availability " value="{{$service_time}}"  name="service_availability[]">                      
                       
                     @endforeach
                   @endif
@@ -449,40 +448,28 @@ var service_time_counter  = 10000;
     var end_date =  $('#to_service_year').val()+'-'+$('#to_service_month').val()+'-'+$('#to_service_date').val()
     var start = new Date(start_date);
     var end = new Date(end_date);
-
-
-  
-    /*code to add all dates in service_availability*/
-      var date = new Date(start_date);
-      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2);
-      var fromsendDate = [date.getFullYear(), mnth, day].join("-");
-      var sendFromDate = fromsendDate+' '+$('#start_time').val();
-
-      //enddate
-      var endDate = new Date(end);
-      mnthEnd = ("0" + (endDate.getMonth() + 1)).slice(-2),
-      dayEnd = ("0" + endDate.getDate()).slice(-2);
-      var tosendDate = [endDate.getFullYear(), mnthEnd, dayEnd].join("-");
-      var sendToDate = tosendDate+' '+$('#start_time').val();
-
-     $('.added_service_times').append('<input type="text" name="start_date_time" class="service_availability" value="'+sendFromDate+'"><input type="text" name="to_date_time" class="service_availability" value="'+sendToDate+'">'); 
-    /*var allDates = [];
-      var loop = new Date(start);
+    var loop = new Date(start);
+    var allDates = [];
     while(loop <= end){ 
-        //alert(loop)
       var date = new Date(loop),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
       var tosendDate = [date.getFullYear(), mnth, day].join("-");
       var sendDate =tosendDate+' '+$('#start_time').val();
-    $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability[]" class="service_availability" value="'+sendDate+'">');          
+     if($('#del_start_time').val()=='delete'){
+       // $('input[value="'+sendDate+'"]').remove();
+    
+        $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="del_service_availability[]" class="service_availability" value="'+sendDate+'">');
+     }else{
+         $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability[]" class="service_availability" value="'+sendDate+'">');
+     }
+           
        allDates.push(new Date(loop));
        var newDate = loop.setDate(loop.getDate() + 1);
        loop = new Date(newDate);
     }
 
-      var events_array = [];  
+    var events_array = [];  
       $(allDates).each(function (k, v) {
           var temp = {
             id: service_time_counter,
@@ -490,15 +477,9 @@ var service_time_counter  = 10000;
               start: v,
               //tip: 'Sup dog.'
             };
-             events_array.push(temp);             
-      });*/
+            events_array.push(temp);
+      });
 
-   /* var events_array = [{
-        id: service_time_counter,
-        title: $('#start_time').val(),
-        start: new Date($('#service_year').val()+'-'+$('#service_month').val()+'-'+$('#service_date').val()),
-        //tip: 'Sup dog.'
-      }, ];*/
     $('#calendar').fullCalendar('addEventSource', events_array);
     $('#service_year').val('');
     $('#service_month').val('');

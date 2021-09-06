@@ -117,7 +117,7 @@
   @if(Auth::guard('user')->getUser()->role_id == 1)
    <div class="pull-right">
                 @if(Auth::guard('user')->id())
-                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><i class="fa fa-user"></i></h3></a>
+                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></h3></a>
                 <ul class="dropdown-menu">
 
                   <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
@@ -140,10 +140,10 @@
 
               </div>
   @else
-  <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i></h3></a> 
+  <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></h3></a> 
   @endif              
 @else
-<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><i class="fas fa-user-check de_col"></i></a></h3>
+<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></a></h3>
 @endif
 
 </div>
@@ -151,7 +151,7 @@
                     <li>
                     <div class="cart_details">
                     <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
-                      <i class="glyphicon glyphicon-shopping-cart cart_icon"></i>
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" width="30" />
                     </a>
 
                     @php
@@ -167,7 +167,7 @@
                     <li>
                     <div class="cart_details" style="padding-left:0px;">
                     <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
-                        <i class="glyphicon glyphicon-heart"></i>
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" width="30" />
                       </a>
                       @php
                         $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());

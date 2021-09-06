@@ -769,7 +769,7 @@ nav ul {
     position: absolute;
     right: 0;
     top: 38vh;}
-.cart_details{padding: 0 20px; position: relative;}
+.cart_details{padding: 0 17px; position: relative;}
 .header_left_container{width: 98%;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}
@@ -1487,11 +1487,12 @@ ul.tijara_front_box.row {
     padding: 20px 0;
 }
 .tijara_front_box li img{width: 42%; height: auto;}
-.tijara_front_inner h4{      color: #03989e;
+.tijara_front_inner h4{     color: #03989e;
     text-align: left;
-    line-height: 31px;
-    font-size: 1.8em;
-    padding: 0 23px;}
+    line-height: 35px;
+    font-size: 2.2em;
+    padding: 0 23px;
+}
 /* .tijara_front_inner {width: 300px; height: 300px; } */
 .product_data {
     height: 460px;

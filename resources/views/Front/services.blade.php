@@ -32,7 +32,7 @@
                       <label>{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="listServices()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
-                          <option value="asc">{{ __('lang.sort_by_asc')}}</option>
+                          <option selected value="asc">{{ __('lang.sort_by_asc')}}</option>
                           <option value="desc">{{ __('lang.sort_by_desc')}}</option>
                       </select>
                     </div>

@@ -1085,11 +1085,11 @@ class ServiceController extends Controller
                    $action = '<a style="margin-left:38px;" href="javascript:void(0);" 
                    user_name="'.$user.'" serviceName="'.$serviceName.'" 
                     dated="'.$dated.'" id="'.$id.'" 
-                    class="serviceReqDetails btn btn-info" title="'.$serviceName.'" 
+                    class="serviceReqDetails  " title="'.$serviceName.'" 
                     id="'.$id.'" description="'.$description.'" 
                      service_time="'.$service_time.'" 
                      service_price="'.$service_price.'" location="'.$location.'"  
-                     >Request Details</a>&nbsp&nbsp&nbsp';
+                     ><i style="color:#2EA8AB;" class="fas fa-eye"></i></a>&nbsp&nbsp&nbsp';
 
                  
 
@@ -1101,7 +1101,8 @@ class ServiceController extends Controller
                   {
                     $action .= '<a href="javascript:void(0)" 
                     onclick=" return ConfirmDeleteFunction(\''.route('frontServiceRequestDel', base64_encode($id)).'\');" 
-                     title="'.trans('lang.delete_title').'" class="btn btn-danger">'.trans('lang.cancel_btn').'</a>';
+                     title="'.trans('lang.delete_title').'" class="" style="color:red;">
+                     <i class="fas fa-trash"></i></a>';
                     $arr[] = [ '#'.$id, $serviceName,$service_time,$service_price,$location, $dated, $action];
                   }
                 

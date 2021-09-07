@@ -2246,7 +2246,8 @@ class CartController extends Controller
                   $order_status = (!empty($recordDetailsVal['order_status'])) ? $recordDetailsVal['order_status'] : '-';
                   $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
                   
-                  $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i class="fas fa-eye"></i> </a>&nbsp;&nbsp;<a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i class="fas fa-file-download"></i> </a>';
+                  $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i style="color:#2EA8AB;" class="fas fa-eye"></i> </a>&nbsp;&nbsp;
+                  <a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i style="color:gray;" class="fas fa-file-download"></i> </a>';
 
                   if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
                   {

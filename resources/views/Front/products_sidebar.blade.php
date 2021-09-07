@@ -45,7 +45,7 @@
 
 @if(Request::segment(4) !='products')
   <div class="category_list_box show_service_cat_sidebar"  id="accordion">
-  <h2 class="de_col">{{ __('lang.service_categories_head')}}</h2>
+  <h2 class="">{{ __('lang.service_categories_head')}}</h2>
   <ul class="seller_cat_list">
 
   @php $j=0; @endphp
@@ -139,12 +139,19 @@ $(document).ready(function(){
     });  
 
    $(document).on('click', '.show_all_cat', function(){  
+     $(this).addClass('active');
+     $('.show_product_cat').removeClass('active');
+     $('.show_service_cat').removeClass('active');
         $('.show_product_cat_sidebar').show();
         $('.show_service_cat_sidebar').show();
         $('.all_cat_label').show();
+
     });
 
    $(document).on('click', '.show_product_cat', function(){ 
+    $(this).addClass('active');
+     $('.show_all_cat').removeClass('active');
+     $('.show_service_cat').removeClass('active');
         $('.show_product_cat_sidebar').show();
         $('.show_service_cat_sidebar').hide();
         $('.all_cat_label').hide();
@@ -152,6 +159,9 @@ $(document).ready(function(){
     });
 
    $(document).on('click', '.show_service_cat', function(){  
+    $(this).addClass('active');
+     $('.show_all_cat').removeClass('active');
+     $('.show_product_cat').removeClass('active');
          $('.show_service_cat_sidebar').show();
         $('.show_product_cat_sidebar').hide();
         $('.all_cat_label').hide();

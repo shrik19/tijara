@@ -279,5 +279,51 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 }
 .featured_seller_section {
   height: 250px !important;
-  padding: 5px;
+  padding: 0px !important;
 }
+.buy_now_hover_details li {
+  top: -45px !important;
+}
+.top_login h3 {
+  margin: 1px 0 !important;
+}
+@media only screen and (max-width: 500px) {
+  .tijara_front_box li {
+    width:100%;
+  }
+}
+@media only screen and (min-width: 501px) {
+  .tijara_front_box li {
+    width:46%;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .tijara_front_box li {
+    width:35%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .tijara_front_box li {
+    width:31%;
+  }
+}
+
+.product_details .col-xs-15 {
+  width: 28% !important;
+} 
+.category_button button {
+  padding: 5px 10px !important;
+  border: 0px solid #676767 !important;
+  border-radius: 0px;
+}
+.category_button .active {
+  border-bottom: 3px solid #05999F !important;
+}
+.tablink-active{
+  border: 0px;
+  border-bottom: 3px solid #05999F !important;
+}
+.category_button {
+  border-bottom: 1px solid;
+}
+

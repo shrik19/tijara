@@ -62,13 +62,16 @@
                   </div>
                   <input type="hidden" name="attribute_id[]" id="attribute_id_{{$key+1}}" value="{{ (old('id')) ?  old('id') : $values->id}}">
 
-                  <button type="button" class="btn btn-danger remove_button" id="remove_button_{{$values->id}}" title="Remove Values"  style="float:right;margin-top: -35px;">X</button>
+                  <a href="javascript:void(0);"
+                   class=" remove_button" id="remove_button_{{$values->id}}"
+                    title="Remove Values"  style="float:right;margin-top: -35px;color:red;">X</a>
                   
                   @endforeach
                   @endif
                   </div>
                 </div> 
-                <button type="button" class="btn btn-success add_button" title="Add field"  style="float:right;margin-top:5%;margin-left: 10%;font-size: 20px;">+</button>
+                <button type="button" class="add_button" title="Add field"  
+                style="float:right;margin-top:5%;margin-left: 10%;font-size: 20px; color:#03989E;">+</button>
 
                 <!--  end edit values -->
 

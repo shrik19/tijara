@@ -342,11 +342,11 @@ class ProductController extends Controller
                 }
                 $categoriesData =   rtrim($categoriesData,', ');
                 
-                $action = '<a href="'.route('frontProductEdit', base64_encode($id)).'" title="'.trans('lang.edit_label').'" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('frontProductEdit', base64_encode($id)).'" title="'.trans('lang.edit_label').'" style="color:#03989E;" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
 
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontProductDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontProductDelete', base64_encode($id)).'\');"  style="color:red;"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';
 
             
 

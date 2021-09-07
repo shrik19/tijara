@@ -23,9 +23,15 @@
 		<div class="card-header row">
 		<div class="col-md-11">
 		    
-		  <h2>{{ __('lang.all_service_request')}}</h2>
+		  <h2>@if($is_seller==1) {{ __('lang.all_service_request')}} @else {{ __('users.my_booking_title')}} @endif</h2>
 		  <hr class="heading_line"/>
 		  </div>
+      <div class="col-md-12" style="margin-bottom: -50px;">
+      <div class="buyer-prod-msg tijara-info-section">
+        <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
+        <p  class="buyer-prod-content">{{__('messages.service_booking_msg')}}</p>
+      </div>
+    </div>
 		</div>
 
 		<div class="card-body">

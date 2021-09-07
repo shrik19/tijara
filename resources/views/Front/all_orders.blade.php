@@ -21,18 +21,25 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-      <h2>{{ __('lang.txt_seller_order')}}</h2>
+      <h2>{{ __('users.my_order_title')}}</h2>
       <!-- <hr class="heading_line"/> -->
       </div>
     </div>
     <div class="seller_mid_cont">
-    <div class="col-md-12">
+    <!-- <div class="col-md-12">
       <div class="">
         <h1 >{{__('messages.info_head')}}</h1>
         <p  >{{__('messages.my_order_info')}}</p>
         <br/><br/>
       </div>
+    </div> -->
+    <div class="col-md-12" style="margin-top: 20px;">
+      <div class="tijara-info-section">
+        <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
+        <p  class="buyer-prod-content">{{__('messages.my_order_info')}}</p>
+      </div>
     </div>
+
 		<div class="col-md-12">
 		    
 		  

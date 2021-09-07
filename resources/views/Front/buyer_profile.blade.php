@@ -11,7 +11,7 @@
     <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
             @csrf
       <div class="col-md-6">
-        <h2>{{$registertype}} {{ __('users.profile_update_title')}}</h2>
+        <h2> {{ __('users.buyer_profile_update_title')}}</h2>
         <hr class="heading_line"/>
         
         <div class="login_box">
@@ -55,8 +55,8 @@
             </div>
 
             <div class="form-group">
-              <label>{{ __('users.city_label')}} </label>
-              <input type="text" class="form-control login_input" name="city" id="city" placeholder="{{ __('users.city_label')}}" value="{{ (old('city')) ? old('city') : $buyerDetails[0]->city}}">
+              <label>{{ __('users.location_label')}} </label>
+              <input type="text" class="form-control login_input" name="city" id="city" placeholder="{{ __('users.location_label')}}" value="{{ (old('city')) ? old('city') : $buyerDetails[0]->city}}">
               <span class="invalid-feedback" id="err_city">@if($errors->has('city')) {{ $errors->first('city') }}@endif</span>
             </div>
            
@@ -69,14 +69,14 @@
         <br>
         
         <div class="login_box">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label>{{ __('users.swish_number_label')}} </label>
             <input type="text" class="form-control login_input" name="swish_number" id="swish_number" placeholder="{{ __('users.swish_number_label')}}" value="{{ (old('swish_number')) ? old('swish_number') : $buyerDetails[0]->swish_number}}">
             <span class="invalid-feedback" id="err_swish_number">@if($errors->has('swish_number')) {{ $errors->first('swish_number') }}@endif</span>
-          </div>
+          </div> -->
 
           <div class="form-group increment cloned">
-            <label>{{ __('users.profile_label')}}</label>
+            <label>{{ __('users.select_profile_picture')}}</label>
             @php
             if(!empty($buyerDetails[0]->profile))
             {

@@ -92,5 +92,6 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
      'info_head'=>'Information',
      'my_order_info'=>'Here can. you see your orders as you have made. If you have questions regarding your / your orders please contact the responsible store.',
      'news_letter_subscribe_success' => 'Newsletter Subscribe Successfully',
+     'service_booking_msg' => 'Here you can see your bookings and make cancellations on your booked services. If you have questions regarding the service you have booked. Please contact the responsible company.',
  ]
 ?>

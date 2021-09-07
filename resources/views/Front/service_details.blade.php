@@ -33,7 +33,7 @@
                       <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
                   </div>
                   <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/{{$image}}">
-                    <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
+                    <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" id="show-img">
                   </div>
                   @endif
                   @if($Service->images!='')
@@ -68,14 +68,14 @@
                           <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;">
                           <!-- <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
                            style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a> -->
-                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn btn-icon btn-info" title="{{ __('lang.book_service')}}" id="reset_option">{{ __('lang.book_service')}}</a>
+                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn sub_btn" style="padding:5px;height: 36px;width: 18%;" title="{{ __('lang.book_service')}}" id="reset_option">{{ __('lang.book_service')}}</a>
                          </div>
                         </div>
                         
                         <!-- Modal -->
                         <div class="modal fade" id="bookServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                            <div class="modal-content" style="border-radius: 30px;">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">{{ __('lang.book_service_title')}}</h5>
                                 <button type="button" class="close modal-cross-sign" data-dismiss="modal" aria-label="Close">
@@ -143,7 +143,7 @@
                                 </div>
                               
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-success" @if(Auth::guard('user')->id()) onclick="sendServiceRequest();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> {{ __('lang.book_service')}}  </button>
+                                    <button style="width: 60%;    margin-left: 18%;    height: 45px;" type="button" class="btn sub_btn" @if(Auth::guard('user')->id()) onclick="sendServiceRequest();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> {{ __('lang.book_service_btn')}}  </button>
                                 </div>
                               </div>
                              

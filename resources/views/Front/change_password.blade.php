@@ -21,7 +21,8 @@
       @else
         <div class="col-md-12 tijara-content">
           <div class="col-md-3"></div>
-          <div class="col-md-12">
+          <div class="col-md-5">
+          <h2>{{ __('users.change_password_title')}} </h2>
       @endif
       
           @include ('Front.alert_messages')

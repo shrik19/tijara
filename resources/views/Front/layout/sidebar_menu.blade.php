@@ -64,9 +64,9 @@
     $activeClass = '';
     }
     ?>
-    <li class="{{ $activeClass }}"><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('lang.txt_seller_order')}} @endif</a></li>
+    <li class="{{ $activeClass }}"><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('users.all_orders_menu')}} @endif</a></li>
 
-    <li  class="{{ request()->is('booking-request') ? 'activemainmenu' : ''}}"><a href="{{route('frontAllbookingRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li>
+    <li  class="{{ request()->is('booking-request') ? 'activemainmenu' : ''}}"><a href="{{route('frontAllbookingRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('users.booking_request_label')}} @endif</a></li>
  <!--    <li  class="{{ request()->is('all-service-request') ? 'activemainmenu' : ''}}"><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li> -->
 
 

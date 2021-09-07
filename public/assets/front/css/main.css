@@ -35,7 +35,24 @@ header{
     background-color: #A0A0A0;
     color: #fff;
 }
+.bookingRequestCalender .fc-event, .fc-event-dot {
+    background-color: #FFC0C7!important;
+    border: #FFC0C7!important;
+    color:#000 !important;
+    padding: 9px !important;
+    font-size: 15px !important;
+    text-align: center !important;
+}
+.bookingRequestCalender .fc-center h2{
+  font-size: 17px !important
+}
 
+.buyer-product-price{
+  margin-top:-36px;position:absolute;font-size:18px !important;
+}
+.buyer-button{
+    margin-top: -16px;
+}
 .service_date_validation{
   text-align: center;margin-top: 140px;margin-left: 15px;
 }
@@ -721,6 +738,20 @@ nav ul {
   .product-card{
     margin-bottom: 70px;
   }
+
+  .tijara-info-section{
+     background-color: #a2dcde !important;
+    padding: 30px;
+    margin-bottom: 80px;
+  }
+
+  .form-group.col-md-6.buyer-productCat-select {
+    margin-top: -86px;
+}
+
+span.remember-text {
+    margin-left: 10px;
+}
 
   .buyer-prod-msg{
     background-color: #fafafa;

@@ -288,6 +288,10 @@
     'intrumentpanel_label'=>'Instrument panel',
     'manage_label'=>'Manage',
     'please_add_service_time'=>'please add service time',
+    'booking_request_label'=>'Bookings',
+    'all_orders_menu' => 'Orders',
+    'buyer_product_title' => 'Heading',
+    'buyer_product_form_label'=>'Post ad',
 
  ]
 ?>

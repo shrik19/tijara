@@ -61,7 +61,7 @@
                 <h5 class="card-title">{{$dated}}</h5>
                 <p class="card-text buyer-product-title">{{$title}}</p>
                 <p class="card-text" style="margin-bottom: 50px;">  
-                  <span class="buyer-price" style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price">
+                  <span class="buyer-price buyer-product-price" id="product_variant_price">
                     <span style="@if(!empty($discount_price)) text-decoration: line-through; @endif">{{ number_format($value['price'],2) }} kr
                     </span>
                      @if(!empty($discount_price)) &nbsp;&nbsp;{{ number_format($discount_price,2) }} kr @endif 
@@ -95,7 +95,7 @@
         
     </div> 
     <div class="col-md-12">
-      <div class="buyer-prod-msg">
+      <div class="buyer-prod-msg tijara-info-section">
         <h1 class="buyer-prod-head">{{__('messages.Obs_head')}}</h1>
         <p  class="buyer-prod-content">{{__('messages.buyer_product_msg')}}</p>
       </div>

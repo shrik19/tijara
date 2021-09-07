@@ -293,6 +293,12 @@
     'buyer_product_title' => 'Heading',
     'buyer_product_form_label'=>'Post ad',
     'buyer_product_list_title' => 'My ads',
+    'add_ads_btn' => 'Post new ad',
+    'buyer_profile_update_title' =>'My profile',
+    'location_label' => 'Location',
+    'select_profile_picture' =>'Select profile picture',
+    'my_order_title' => 'My Orders',
+    'my_booking_title' => 'My Booking',
 
  ]
 ?>

@@ -373,6 +373,14 @@ $(".saveBuyerProduct").click(function(e){
   let error               = 0;
 
 
+  if($("#chk_privacy_policy").is(':checked')){
+       error = 0;
+    } else {
+        alert(please_check_privacy_policy);
+        error = 1;
+
+    }
+
   if(title.trim() == '')
   {
     $("#err_title").html(required_field_error).show();
@@ -436,10 +444,10 @@ $(".saveBuyerProduct").click(function(e){
   }
   else
   {
+   
     $("#err_seller_county").html('').show();
 
   }
-
 
    if(seller_municipality.trim() == '')
   {
@@ -465,13 +473,7 @@ $(".saveBuyerProduct").click(function(e){
 
   }
 
-   if($("#chk_privacy_policy").is(':checked')){
-       error = 0;
-    } else {
-        alert(please_check_privacy_policy);
-        error = 1;
-
-    }
+   
 
   $( ".variant_field:visible" ).each(function() {
       if($(this).val()=='') {
@@ -487,6 +489,7 @@ $(".saveBuyerProduct").click(function(e){
         error = 1;
     }
 });
+
   if(error == 1)
   {
     return false;

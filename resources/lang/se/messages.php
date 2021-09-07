@@ -91,6 +91,7 @@
     'info_head'=>'Information',
     'my_order_info'=>'Här kan. du se dina beställningar som du har gjort. Om du frågor gällande din/dina beställningar vänligen kontakta ansvarig butik.',
     'news_letter_subscribe_success' => 'Nyhetsbrev Prenumerera framgångsrikt',
+    'service_booking_msg' => 'Här kan du se dina dina bokningar och göra avbokningar på dina bokade tjänster. Om du har frågor gällande den tjänst du har bokat. Vänligen kontakta ansvarig företag.',
  
  ]
 ?>

@@ -64,7 +64,7 @@ width:100% !important;
 
           <div class="form-group col-md-6">
           <label class="col-md-12">{{ __('lang.product_description_label')}}</label>
-          <textarea class="form-control login_input" name="description" placeholder="{{ __('lang.product_description_label')}} *" value="" tabindex="2" rows="5" cols="5">{{ (old('description')) ?  old('description') : $product->description}}</textarea>
+          <textarea class="form-control login_input" name="description" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2" rows="5" cols="5">{{ (old('description')) ?  old('description') : $product->description}}</textarea>
           <span class="invalid-feedback col-md-12" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
         
           </div>
@@ -166,7 +166,7 @@ width:100% !important;
 
           <span class="invalid-feedback col-md-12" style="text-align: left;"  id="err_sku" ></span>
           </div>
-          <div class="selected_images col-md-12"  style="margin-top:-146px;margin-left: 565px;">
+          <div class="selected_images col-md-12"  style="margin-top:-130px;margin-left: 565px;">
           @if($variant['image']!='')
           @php $images  = explode(',',$variant['image']);
           @endphp

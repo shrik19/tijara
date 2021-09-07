@@ -23,8 +23,8 @@
       <h2>{{ __('users.buyer_product_list_title')}}</h2>
       <hr class="heading_line"/>
       </div>
-      <div class="col-md-1">
-      <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
+      <div class="col-md-1" style="margin-left: -61px;">
+      <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" ><span>+ {{ __('users.add_ads_btn')}}</span> </a>
       </div>
     </div>
 

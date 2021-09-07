@@ -29,7 +29,8 @@
                         <div class="item slider_item">
                         @endif
                         <div >
-                            <img class="img-fluid" src="{{url('/')}}/uploads/Slider/test.jpg" id="sliderImages" alt="First slide">
+                            <img class="img-fluid" src="{{url('/')}}/uploads/Slider/<?php echo $data['sliderImage']; ?>" 
+                            id="sliderImages" alt="First slide">
 
                             <div class="slider_content">
                             <!-- <h3>{{$data['title']}}</h3> -->

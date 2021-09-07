@@ -246,3 +246,27 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 
 
 /*END : Product Details */
+
+
+/*tijara design fixes by developer */
+.product_data {
+  height: 335px;
+}
+.product_img {
+  min-height: 200px !important;
+  height: 200px;
+}
+
+.product_img img {
+  width: 100%;
+  object-fit: none;
+}
+.slider_content h2 {
+  line-height: 49px !important;
+  padding-left: 10% !important;
+}
+
+.slider_content
+{
+  top: 55px !important;
+}

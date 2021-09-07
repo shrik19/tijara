@@ -316,5 +316,7 @@
     'booking_policy' => 'Bokning Policy',
     'payment_policy' => 'Betalning Policy',
     'all_category' => 'Alla kategorier',
+    'popular_product_head'=>'Populära produkter',
+    'instagram_label'=>'Inlägg frän Instagram'
  ]
 ?>

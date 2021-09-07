@@ -292,6 +292,7 @@
     'all_orders_menu' => 'Orders',
     'buyer_product_title' => 'Heading',
     'buyer_product_form_label'=>'Post ad',
+    'buyer_product_list_title' => 'My ads',
 
  ]
 ?>

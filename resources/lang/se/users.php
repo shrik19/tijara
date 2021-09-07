@@ -313,6 +313,7 @@
     'all_orders_menu' => 'Beställningar',
     'buyer_product_title' => 'Rubrik',
     'buyer_product_form_label'=>'Lägg upp annons',
+    'buyer_product_list_title' => 'Mina annonser',
 
  ]
 ?>

@@ -20,7 +20,7 @@
     <div class="card-header row">
     <div class="col-md-10">
         
-      <h2>{{ __('lang.your_products_label')}}</h2>
+      <h2>{{ __('users.buyer_product_list_title')}}</h2>
       <hr class="heading_line"/>
       </div>
       <div class="col-md-1">

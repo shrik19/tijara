@@ -1674,7 +1674,7 @@ public function getCatSubList(Request $request) {
 				  $service_link	.=	'/'.$serviceCategories[0]['subcategory_slug'];
 				}
 
-				$service_link	.=	$Service->service_slug.'-S-'.$Service->service_code;
+				$service_link	.=	'/'.$Service->service_slug.'-S-'.$Service->service_code;
 
 				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Service->user_id)->first()->toArray();
 				$Service->seller	=	$SellerData['fname'].' '.$SellerData['lname'];

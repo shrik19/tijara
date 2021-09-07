@@ -19,7 +19,7 @@
               <hr class="heading_line"/>
             </div>
             <div class="col-md-6 text-right">
-           <button type="button" class="btn btn-default" onclick="location.href='{{route('frontHome')}}';">
+           <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='{{route('frontHome')}}';">
                             <span class="glyphicon glyphicon-shopping-cart"></span> {{ __('lang.shopping_cart_continue')}}
                         </button>
             </div>
@@ -92,7 +92,7 @@
                         <td class="col-sm-1 col-md-1 text-right"><strong>{{ number_format($orderProduct['shipping_amount'],2)}} kr</strong></td>
                         <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</strong></td>
                         <td class="col-sm-1 col-md-1 text-right">
-                        <button class="btn btn-danger" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
+                        <a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
                         <!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('{{ $orderProduct['id'] }}')">
                             <span class="glyphicon glyphicon-remove"></span> Remove
                         </button> -->

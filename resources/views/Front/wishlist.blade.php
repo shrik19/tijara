@@ -49,8 +49,8 @@
                         </div></td>
                         <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($orderProduct['product']->price,2) }} kr</strong></td>
                         <td class="col-sm-1 col-md-1 text-right">
-                        <button class="btn btn-success" onclick="addToCartWishlist('{{ $orderProduct['variant_id'] }}')" title="Add"><i class="glyphicon glyphicon-shopping-cart"></i></button>&nbsp;&nbsp;
-                        <button class="btn btn-danger" onclick="removeWishlistProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
+                        <button class="" style="color:#05999F;" onclick="addToCartWishlist('{{ $orderProduct['variant_id'] }}')" title="Add"><i class="glyphicon glyphicon-shopping-cart"></i></button>&nbsp;&nbsp;
+                        <button class="" style="color:red;" onclick="removeWishlistProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     @endforeach
@@ -111,9 +111,9 @@
                         <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format((float)$reqService['service']->service_price,2) }} kr</strong></td>
                         <td class="col-sm-1 col-md-1 text-right">
                      <!--    <button class="btn btn-success" onclick="addToCartWishlist('{{ $reqService['id'] }}')" title="Add"><i class="glyphicon glyphicon-shopping-cart"></i></button> -->
-                        <a href="{{$reqService['service']->service_link}}" class="btn btn-success">{{ __('lang.sendRequest')}}</i></a>
+                        <a href="{{$reqService['service']->service_link}}" style="color:#05999F;" class="">{{ __('lang.book_service')}}</i></a>
                         &nbsp;&nbsp;
-                        <button class="btn btn-danger" onclick="removeWishlistProduct('{{ $reqService['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
+                        <button class=" " style="color:red;" onclick="removeWishlistProduct('{{ $reqService['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
                       </td>
                     </tr>
                     @endforeach

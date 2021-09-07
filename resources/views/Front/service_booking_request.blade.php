@@ -21,12 +21,12 @@
     <div class="card">
       <div class="card-header row seller_header">
         <div class="col-md-11">
-        <h2>{{ __('lang.all_service_request')}}</h2>
+        <h2>{{ __('users.booking_request_label')}}</h2>
         <!-- <hr class="heading_line"/> -->
         </div>
       </div>
 
-      <div class="card-body">
+      <div class="card-body bookingRequestCalender">
         <div  class="col-md-12" id="calendar" style="padding: 20px;"></div>
         <div class="added_service_times" style="display:none;">
           <div class="added_service_times">         

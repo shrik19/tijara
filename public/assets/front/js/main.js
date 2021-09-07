@@ -359,6 +359,7 @@ $(".saveproduct").click(function(e){
 });
 
 $(".saveBuyerProduct").click(function(e){
+
   e.preventDefault();
   let title               = $("#title").val();
   let sort_order          = $("#sort_order").val();
@@ -372,7 +373,7 @@ $(".saveBuyerProduct").click(function(e){
   let error               = 0;
 
 
-  if(title == '')
+  if(title.trim() == '')
   {
     $("#err_title").html(required_field_error).show();
     $("#err_title").parent().addClass('jt-error');
@@ -384,7 +385,7 @@ $(".saveBuyerProduct").click(function(e){
 
   }
 
-  if(seller_name == '')
+  if(seller_name.trim() == '')
   {
     $("#err_seller_name").html(required_field_error).show();
     $("#err_seller_name").parent().addClass('jt-error');
@@ -396,7 +397,7 @@ $(".saveBuyerProduct").click(function(e){
 
   }
  
-  if(seller_email == '')
+  if(seller_email.trim() == '')
   {
     $("#err_seller_email").html(fill_in_email_err).show();
     $("#err_seller_email").parent().addClass('jt-error');
@@ -415,7 +416,7 @@ $(".saveBuyerProduct").click(function(e){
   }
 
 
-  if(seller_phone == '')
+  if(seller_phone.trim() == '')
   {
     $("#err_user_phone_no").html(required_field_error).show();
     $("#err_user_phone_no").parent().addClass('jt-error');
@@ -427,7 +428,7 @@ $(".saveBuyerProduct").click(function(e){
 
   }
 
-   if(seller_county == '')
+   if(seller_county.trim() == '')
   {
     $("#err_seller_county").html(required_field_error).show();
     $("#err_seller_county").parent().addClass('jt-error');
@@ -440,7 +441,7 @@ $(".saveBuyerProduct").click(function(e){
   }
 
 
-   if(seller_municipality == '')
+   if(seller_municipality.trim() == '')
   {
     $("#err_location").html(required_field_error).show();
     $("#err_location").parent().addClass('jt-error');
@@ -452,7 +453,7 @@ $(".saveBuyerProduct").click(function(e){
 
   }
 
-  if(price == '')
+  if(price.trim() == '')
   {
     $("#err_price").html(required_field_error).show();
     $("#err_price").parent().addClass('jt-error');
@@ -464,6 +465,13 @@ $(".saveBuyerProduct").click(function(e){
 
   }
 
+   if($("#chk_privacy_policy").is(':checked')){
+       error = 0;
+    } else {
+        alert(please_check_privacy_policy);
+        error = 1;
+
+    }
 
   $( ".variant_field:visible" ).each(function() {
       if($(this).val()=='') {

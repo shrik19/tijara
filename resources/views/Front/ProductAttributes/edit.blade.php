@@ -70,7 +70,7 @@
                   @endif
                   </div>
                 </div> 
-                <button type="button" class="add_button" title="Add field"  
+                <button type="button" class="login_btn  add_button " title="Add field"  
                 style="float:right;margin-top:5%;margin-left: 10%;font-size: 20px; color:#03989E;">+</button>
 
                 <!--  end edit values -->

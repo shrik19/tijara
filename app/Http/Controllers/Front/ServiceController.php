@@ -967,24 +967,50 @@ class ServiceController extends Controller
         }  
 
         /*month year filter*/
-        $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
+       /* $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
         $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control'>";
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;'>";
         $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";  
         for ($i = 0; $i <= 12; ++$i) {
             $time = strtotime(sprintf('+%d months', $i));
             $label = date('F ', $time);
             $value = date('m', $time);
-
+      
+           
             $time_year = strtotime(sprintf('-%d years', $i));
             $value_year = date('Y', $time);
             $label_year = date('Y ', $time);
             $selected = ( $value==$month &&  $value_year== $year ) ? ' selected=true' : '';
             $month_year = $value."-".$value_year;
-            $monthYearDropdown    .=  "<option  value='".$month_year."' >$label $label_year</option>";
+            $get_curr_month_yr = date('m Y');
+            $explod_mY = explode(' ', $get_curr_month_yr);
+           
+            $curr_month_yr = $explod_mY[0]."-".$explod_mY[1];
+
+            if($curr_month_yr==$month_year){
+              $selected= "selected";
+            }else{
+               $selected='';
+            }
+
+            $monthYearDropdown    .=  "<option  value='".$month_year."' ".$selected.">$label $label_year</option>";
         }
            
-        $monthYearDropdown    .= "</select>";
+        $monthYearDropdown    .= "</select>";*/
+
+          $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'>";
+          $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+              ->groupby('year','month')
+              ->get();
+             
+            foreach ($monthYearSql as $key => $value) {
+              $i=$value['month'];
+              $year =$value['year'];
+              $month =  date("M", strtotime("$i/12/10"));
+              $new_date = $value['new_date'];
+          
+              $monthYearDropdown    .=  "<option  value='".$new_date."'>$month $year</option>";
+            }
 
  
   //print_r(DB::getQueryLog());exit;

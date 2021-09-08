@@ -114,19 +114,19 @@
 						  <span class="invalid-feedback" id="err_email" style="">@if($errors->has('email')) {{ $errors->first('email') }}@endif</span>
 						</div>
 
-						<div class="form-group" style="margin-top:10px;">
+						<div class="form-group" style="margin-top:25px;">
 						  <label>{{ __('users.password_label')}}<span class="de_col">*</span></label>
 						  <input type="password" class="form-control login_input" name="password" id="password" value="{{ old('password')}}" placeholder="{{ __('users.password_label')}}">
 						  <span class="invalid-feedback" id="err_password" style="">@if($errors->has('password')) {{ $errors->first('password') }}@endif</span>
 						</div>
 
-						<div class="form-group" style="margin-top:10px;">
+						<div class="form-group" style="margin-top:25px;">
 						  <label>{{ __('users.password_confirmation_label')}}<span class="de_col">*</span></label>
 						  <input type="password" class="form-control login_input" name="password_confirmation" value="{{ old('password_confirmation')}}" id="cpassword" placeholder="{{ __('users.password_confirmation_label')}}">
 						  <span class="invalid-feedback" id="err_cpassword" style="">@if($errors->has('password_confirmation')) {{ $errors->first('password_confirmation') }}@endif</span>
 						</div>
 
-						<div class="remember-section row">
+						<div class="remember-section row" style="margin-top:25px;">
 							<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value="">
 							<span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> {{ __('users.and_chk')}} <a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a></span>		
 						</div>

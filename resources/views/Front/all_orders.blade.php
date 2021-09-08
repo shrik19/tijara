@@ -119,11 +119,24 @@
         data.status = $("#status").val();
         data.is_seller = "{{$is_seller}}"
         data.user_id = "{{$user_id}}"
+        data.monthYear = $('#monthYear').val()
       },
        type:'post',
     },
   });
+  $("<div class='form-group' style='float:right;'>"+
+  
+  "<?php echo $monthYearHtml; ?>"+
+  "</div>").appendTo("#productTable_length");
 
+  $(".dataTables_filter label").addClass("pull-right");
+  $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');
+
+  $('#monthYear').change(function(){
+
+    dataTable.draw();
+    
+  });
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
   '<option value="">{{ __("lang.status_label")}}</option>'+
   '<option value="PENDING">PENDING</option>'+

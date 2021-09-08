@@ -3,7 +3,7 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -18,23 +18,24 @@
 
 
 	  @include('Front.alert_messages')
-	   
-	  <div class="card">
-		<div class="card-header row">
-		<div class="col-md-11">
-		    
-		  <h2>@if($is_seller==1) {{ __('lang.all_service_request')}} @else {{ __('users.my_booking_title')}} @endif</h2>
-		  <hr class="heading_line"/>
-		  </div>
-      <div class="col-md-12" style="margin-bottom: -50px;">
-      <div class="buyer-prod-msg tijara-info-section">
-        <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
-        <p  class="buyer-prod-content">{{__('messages.service_booking_msg')}}</p>
+	 <div class="seller_info">
+       <div class="card">
+       <div class="card-header row seller_header">
+        <h2 class="page_heading">@if($is_seller==1) {{ __('lang.all_service_request')}} @else {{ __('users.my_booking_title')}} @endif</h2>
+        <!-- <hr class="heading_line"/> -->
+        </div>
       </div>
-    </div>
-		</div>
+    <div class="seller_mid_cont">
+       <div class="col-md-12" style="margin-top: 20px;">
+        <div class="tijara-info-section">
+           <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
+        <p  class="buyer-prod-content">{{__('messages.service_booking_msg')}}</p>
+        </div>
+      </div>
 
-		<div class="card-body">
+	 <div class="col-md-12">
+    <div class="card-body">
+	
 		  <form id="" action="" method="post">
 			@csrf
 			<div class="table-responsive">
@@ -60,7 +61,8 @@
 		  </form>  
 		</div>
 	  </div>
-				
+				</div>
+      </div>
     </div>
   </div>
 </div>
@@ -93,6 +95,7 @@
               
       </div>
     </div>
+  </div>
   </div>
 <script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/dataTables.bootstrap4.min.css">

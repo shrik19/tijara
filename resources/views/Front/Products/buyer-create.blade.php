@@ -9,9 +9,8 @@ width:100% !important;
 
 <div class="mid-section">
   <div class="container-fluid">
-    <div class="container-inner-section">
+    <div class="container-inner-section-1">
       <div class="row">
-        <div class="col-md-12"> 
 
           <!-- Example row of columns -->
           @if($subscribedError)
@@ -19,21 +18,41 @@ width:100% !important;
           @endif
 
           <div class="col-md-12">
+              @include ('Front.alert_messages')
+                  <div class="seller_info">
+           <!--      <div class="col-md-12"> -->
+            <!--  <div class="col-md-10"> -->
+            <div class="card">
+              <div class="card-header  row seller_header">
+                <div class="col-md-10">
+                  <h2 class="page_heading">{{ __('users.buyer_product_form_label')}}</h2>
+                  <!-- <hr class="heading_line"/> -->
+                </div>
+
+                <div class="col-md-2 text-right" style="margin-top:30px;">
+                  <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
+                </div>
+              </div>
+            </div>
+          <div class="seller_mid_cont"  style="margin-top: 20px;">
           <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
 
           @csrf
 
 
-          <div class="col-md-10">
+      <!--     <div class="col-md-10">
 
           <h2>{{ __('users.buyer_product_form_label')}}</h2>
           <hr class="heading_line"/>
           </div>
-          <div class="col-md-2 text-right" style="margin-top:30px;">
-          <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
-          </div>
+           -->
 
-          @include ('Front.alert_messages')
+        
+
+
+              <!-- </div> -->
+           <!--  </div> -->
+              <div class="seller_mid_cont">
           <div class="col-md-12">
             <div class="login_box">
 
@@ -226,8 +245,9 @@ width:100% !important;
           </div>
 
           </form>
-
         </div>
+        </div>
+      </div>
       </div>
     </div>
   </div>

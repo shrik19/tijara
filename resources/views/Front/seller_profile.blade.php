@@ -30,53 +30,55 @@
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <div class="form-group col-md-6">
               <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input" name="fname" id="fname" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('fname')) ?  old('fname') : $sellerDetails[0]->fname}}">
+              <input type="text" class="form-control ge_input" name="fname" id="fname" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('fname')) ?  old('fname') : $sellerDetails[0]->fname}}">
               <span class="invalid-feedback" id="err_fname">@if($errors->has('fname')) {{ $errors->first('fname') }}@endif </span>
+            </div>
+            <div class="form-group  col-md-6">
+              <label>{{ __('users.phone_number_label')}}</label>
+              <!-- <span style="margin-top: 10px;" class="col-md-2">+46</span> -->
+              <input type="text" class="form-control ge_input" name="phone_number" id="phone_number" placeholder="{{ __('users.phone_number_label')}}" value="{{ (old('phone_number')) ? old('phone_number') : $sellerDetails[0]->phone_number}}">
+              <span class="invalid-feedback" id="err_phone_number">@if($errors->has('phone_number')) {{ $errors->first('phone_number') }}@endif</span>
             </div>
 
             <div class="form-group  col-md-6">
               <label>{{ __('users.last_name_label')}}<span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input" name="lname" id="lname" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('lname')) ?  old('lname') : $sellerDetails[0]->lname}}">
+              <input type="text" class="form-control ge_input" name="lname" id="lname" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('lname')) ?  old('lname') : $sellerDetails[0]->lname}}">
               <span class="invalid-feedback" id="err_lname">@if($errors->has('lname')) {{ $errors->first('lname') }}@endif</span>
             </div>
 
-            <div class="form-group  col-md-6">
-              <label>{{ __('users.email_label')}}<span class="de_col">*</span></label>
-              <input type="email" class="form-control login_input" name="email" id="email" placeholder="{{ __('users.email_label')}}" value="{{ (old('email')) ? old('email') : $sellerDetails[0]->email}}">
-              <span class="invalid-feedback" id="err_email">@if($errors->has('email')) {{ $errors->first('email') }}@endif</span>
-            </div>          
-
-            <div class="form-group  col-md-6">
-              <label>{{ __('users.phone_number_label')}}</label>
-              <!-- <span style="margin-top: 10px;" class="col-md-2">+46</span> -->
-              <input type="text" class="form-control login_input" name="phone_number" id="phone_number" placeholder="{{ __('users.phone_number_label')}}" value="{{ (old('phone_number')) ? old('phone_number') : $sellerDetails[0]->phone_number}}">
-              <span class="invalid-feedback" id="err_phone_number">@if($errors->has('phone_number')) {{ $errors->first('phone_number') }}@endif</span>
-            </div>
-
-           
+            
             <div class="form-group col-md-6">
               <label>{{ __('users.address_label')}}</label>
-              <input type="text" class="form-control login_input" name="address" id="address" placeholder="{{ __('users.address')}}" value="{{ (old('address')) ? old('address') : $sellerDetails[0]->address}}">
+              <input type="text" class="form-control ge_input" name="address" id="address" placeholder="{{ __('users.address')}}" value="{{ (old('address')) ? old('address') : $sellerDetails[0]->address}}">
               
               <span class="invalid-feedback" id="err_address">@if($errors->has('address')) {{ $errors->first('address') }}@endif</span>
             </div> 
+            <div class="form-group  col-md-6">
+              <label>{{ __('users.email_label')}}<span class="de_col">*</span></label>
+              <input type="email" class="form-control ge_input" name="email" id="email" placeholder="{{ __('users.email_label')}}" value="{{ (old('email')) ? old('email') : $sellerDetails[0]->email}}">
+              <span class="invalid-feedback" id="err_email">@if($errors->has('email')) {{ $errors->first('email') }}@endif</span>
+            </div>          
+
+            
+            <div class="form-group col-md-6">
+              <label>{{ __('users.postal_code_label')}}</label>
+              <input type="text" class="form-control ge_input" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="{{ (old('postcode')) ? old('postcode') : $sellerDetails[0]->postcode}}">
+              <span class="invalid-feedback" id="err_address">@if($errors->has('postcode')) {{ $errors->first('postcode') }}@endif</span>
+            </div>
+           
 
             <div class="form-group  col-md-6">
               <label>{{ __('users.city_label')}}</label>
-              <input type="text" class="form-control login_input" name="city" id="city" placeholder="{{ __('users.city_label')}}" value="{{ (old('city')) ? old('city') : $sellerDetails[0]->city}}">
+              <input type="text" class="form-control ge_input" name="city" id="city" placeholder="{{ __('users.city_label')}}" value="{{ (old('city')) ? old('city') : $sellerDetails[0]->city}}">
               <span class="invalid-feedback" id="err_city">@if($errors->has('city')) {{ $errors->first('city') }}@endif</span>
             </div>
-            <div class="form-group col-md-6">
-              <label>{{ __('users.postal_code_label')}}</label>
-              <input type="text" class="form-control login_input" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="{{ (old('postcode')) ? old('postcode') : $sellerDetails[0]->postcode}}">
-              <span class="invalid-feedback" id="err_address">@if($errors->has('postcode')) {{ $errors->first('postcode') }}@endif</span>
-            </div>
+           
 
             <h2 class="col-md-12">{{ __('users.shipping_setting')}}</h2>
           
             <div class="form-group col-md-6" id="shipping_method_ddl_div">
               <label>{{ __('users.shipping_method_label')}}</label>
-             <select class="form-control login_input" name="shipping_method_ddl" id="shipping_method_ddl">
+             <select class="form-control ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
                <option  <?php if($sellerDetails[0]->shipping_method ==  trans('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
                <option <?php if($sellerDetails[0]->shipping_method ==  trans('users.prcentage_shipping_charges')){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
@@ -85,7 +87,7 @@
 
             <div class="form-group col-md-6" id="shipping_charges_div">
               <label>{{ __('users.shipping_charges_label')}}</label>
-              <input type="text" class="form-control login_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $sellerDetails[0]->shipping_charges}}">
+              <input type="text" class="form-control ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $sellerDetails[0]->shipping_charges}}">
             </div>
 
             <label class="col-md-12">
@@ -97,13 +99,13 @@
           
             <div class="form-group col-md-6">
               <label>{{ __('users.klarna_username_label')}}</label>
-              <input type="text" class="form-control login_input" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : $sellerDetails[0]->klarna_username}}">
+              <input type="text" class="form-control ge_input" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : $sellerDetails[0]->klarna_username}}">
               <span class="invalid-feedback">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
             </div>
 
             <div class="form-group col-md-6">
               <label>{{ __('users.klarna_password_label')}}</label>
-              <input type="password" class="form-control login_input" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : $sellerDetails[0]->klarna_password}}">
+              <input type="password" class="form-control ge_input" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : $sellerDetails[0]->klarna_password}}">
               <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
             </div>
         </div>

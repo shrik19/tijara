@@ -219,26 +219,38 @@
 			*/?>
 			<div class="tijara_front_container">
 				<ul class="tijara_front_box row">
-					<li class="colr-1">
+					<li >
+                        <div class="colr-box colr-1">
 						<div class="tijara_front_inner ">
                         <img src="{{url('/')}}/assets/img/icon1.png"  />
                         <h4>Unik<br/>
                             marknadsplats</h4>
 						</div>
+                        </div>
+                        <h3>Unik<br/>
+                            marknadsplats</h3>
 					</li>
-					<li class="colr-2">
+					<li>
+                   <div class="colr-box colr-2">
 						<div class="tijara_front_inner">
                         <img src="{{url('/')}}/assets/img/icon2.png"/>
                         <h4>Främjar<br/>
                         entreprenörskap</h4>
 						</div>
+                    </div>
+                    <h3>Unik<br/>
+                            marknadsplats</h3>
 					</li>
-					<li class="colr-3">
+					<li>
+                    <div class="colr-box colr-3">
 						<div class="tijara_front_inner">
                         <img src="{{url('/')}}/assets/img/icon3.png"/>
                         <h4>Uppmuntrar till<br/>
                             lokal handel</h4>
 						</div>
+                    </div>
+                    <h3>Unik<br/>
+                            marknadsplats</h3>
 					</li>                       
 				</ul>
 				<div class="tijara_front_read_more">

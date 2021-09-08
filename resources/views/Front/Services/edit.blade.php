@@ -53,7 +53,7 @@ width:100% !important;
   <label class="col-md-3">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
   <input type="text" class="col-md-8 login_input form-control" name="title" id="title" 
   placeholder="{{ __('servicelang.service_title_label')}} " value="{{ (old('title')) ?  old('title') : $service->title}}" tabindex="1" onblur="checkServiceUniqueSlugName();">
-  <span class="invalid-feedback col-md-12" id="err_title" style="margin-top: 75px;margin-left: -285px;">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+  <span class="invalid-feedback col-md-12" id="err_title" style="margin-top: 75px;margin-left: -247px;">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
   </div>
 
   <div class="form-group col-md-12" style="display:none;">
@@ -67,7 +67,7 @@ width:100% !important;
   <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
   placeholder="{{ __('servicelang.session_time_placeholder')}} " value="{{ (old('session_time')) ?  old('session_time') : $service->session_time}}" 
   tabindex="1" >
-  <span class="invalid-feedback col-md-12 session_time-err" id="session_time"  style="margin-top: 75px;margin-left: -285px;">@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
+  <span class="invalid-feedback col-md-12 session_time-err" id="session_time"  style="margin-top: 75px;margin-left: -247px;">@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
   </div>
 
   <div class="form-group col-md-12" style="margin-top: 15px;">

@@ -48,7 +48,7 @@
               <div class="form-group col-md-12">
                 <label class="col-md-3">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
                 <input type="text" class="col-md-8 login_input form-control" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="checkServiceUniqueSlugName();">
-                <span  class="invalid-feedback col-md-12 service_validation_err" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+                <span  class="invalid-feedback col-md-12 service_validation_err" id="err_title" style="margin-left: -700px;">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
               </div>
 
               <div class="form-group col-md-12" style="display:none;">
@@ -62,15 +62,15 @@
                 <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
                 placeholder="{{ __('servicelang.session_time_placeholder')}} " value="{{old('session_time')}}" 
                 tabindex="1" >
-                <span class="invalid-feedback col-md-12 session_time-err service_validation_err" id="session_time" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
+                <span class="invalid-feedback col-md-12 session_time-err service_validation_err" id="session_time" style="margin-left: -700px;" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-12" style="margin-top: 15px;">
               <label class="col-md-3">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
                   
              <!--  <div class="form-group col-md-8"> -->
                   <textarea class="col-md-12 login_input form-control" name="description" rows="5" cols="5" placeholder="{{ __('servicelang.service_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
-                  <span class="invalid-feedback col-md-12" id="err_description" style="margin-top: 150px;">@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+                  <span class="invalid-feedback col-md-12" id="err_description" style="margin-top: 150px;margin-left: -240px;">@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
               <!-- </div> -->
               </div>
 
@@ -87,7 +87,7 @@
                   </optgroup>
                   @endforeach
                 </select>
-                <span class="invalid-feedback col-md-12" id="err_find_us" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
+                <span class="invalid-feedback col-md-12" id="err_find_us" style="margin-left: -1005px;margin-top: 55px;">@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
               </div>
 
 
@@ -97,7 +97,7 @@
                   <span class="invalid-feedback col-md-12" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group col-md-12" style="margin-top: 15px;">
                 <label class="col-md-3">{{ __('lang.status_label')}} <span class="de_col">*</span> </label>
                 <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8" >
                   <option value="active">{{ __('lang.active_label')}}</option>
@@ -110,7 +110,7 @@
               <div class="form-group col-md-12">
                   <label class="col-md-3">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
                   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price" placeholder="{{ __('lang.service_price')}}" value="{{(old('service_price')) ?  old('service_price') :''}}" tabindex="7">
-                  <span class="invalid-feedback col-md-12 service_validation_err" id="service_price" >@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
+                  <span class="invalid-feedback col-md-12 service_validation_err" id="service_price" style="margin-left: -700px;">@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
               </div>
 
               <div class="form-group col-md-12" style="margin-top: 15px;">

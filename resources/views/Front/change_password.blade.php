@@ -38,13 +38,13 @@
               @csrf
                 <div class="form-group">
                   <label>{{ __('users.password_label')}}</label>
-                  <input type="password" class="form-control login_input" name="password" required tabindex="1" placeholder="{{ __('users.password_label')}}">
+                  <input type="password" class="form-control ge_input" name="password" required tabindex="1" placeholder="{{ __('users.password_label')}}">
                  <span class="invalid-feedback" id="err_fname">@if($errors->has('password')) {{ $errors->first('password') }}@endif </span>
                 </div>
 
                 <div class="form-group">
                   <label>{{ __('users.password_confirmation_label')}}</label>
-                  <input type="password" class="form-control login_input" name="password_confirmation" required tabindex="2" placeholder="{{ __('users.password_confirmation_label')}}">
+                  <input type="password" class="form-control ge_input" name="password_confirmation" required tabindex="2" placeholder="{{ __('users.password_confirmation_label')}}">
                   <span class="invalid-feedback" id="err_fname">@if($errors->has('password_confirmation')) {{ $errors->first('password_confirmation') }}@endif </span>
                 </div>
                

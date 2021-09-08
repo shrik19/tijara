@@ -58,7 +58,7 @@
         $cls  =       'activeservicemaincategory';
       
     @endphp
-<!--else if( $j==1) $cls  =       'activeservicemaincategory';-->
+<?/*else if( $j==1) $cls  =       'activeservicemaincategory';*/?>
     @if(!empty($ServiceCategories[$CategoryId]['subcategory']))
       <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;" id="serviceCount_{{$j}}"></span></a></li>
 

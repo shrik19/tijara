@@ -309,6 +309,16 @@
     'intrumentpanel_label'=>'Intrumentpanel',
     'manage_label'=>'Hantera',
     'please_add_service_time'=>'lägg till servicetid',
-
+    'booking_request_label'=>'Bokningar',
+    'all_orders_menu' => 'Beställningar',
+    'buyer_product_title' => 'Rubrik',
+    'buyer_product_form_label'=>'Lägg upp annons',
+    'buyer_product_list_title' => 'Mina annonser',
+    'add_ads_btn' => 'Lägg upp ny annons',
+    'buyer_profile_update_title' =>'Min profil',
+    'location_label' => 'Ort',
+    'select_profile_picture' =>'Välj profilbild',
+    'my_order_title' => 'Mina beställningar',
+    'my_booking_title' => 'Mina bokningar',
  ]
 ?>

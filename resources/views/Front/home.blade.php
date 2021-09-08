@@ -29,7 +29,8 @@
                         <div class="item slider_item">
                         @endif
                         <div >
-                            <img class="img-fluid" src="{{url('/')}}/uploads/Slider/test.jpg" id="sliderImages" alt="First slide">
+                            <img class="img-fluid" src="{{url('/')}}/uploads/Slider/<?php echo $data['sliderImage']; ?>" 
+                            id="sliderImages" alt="First slide">
 
                             <div class="slider_content">
                             <!-- <h3>{{$data['title']}}</h3> -->
@@ -62,7 +63,7 @@
                     <!-- <h4>{{ __('lang.popular_items_in_market_head')}}</h4> -->
              
                      <div>
-                        <h2 class="heading">{{ __('lang.trending_product_head')}}</h2> 
+                        <h2 class="heading">{{ __('lang.popular_product_head')}}</h2> 
                             <!-- <a href="{{url('/')}}/products" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_products')}}</a> -->
                     </div>
                     <!-- <hr class="heading_line"/> -->
@@ -246,8 +247,8 @@
             </div>			
 			
             <div class="best_seller_container">
-                <h3>{{ __('lang.follow_us_on_head')}}</h3>
-                <h2>Instagram</h2>
+                <!--<h3>{{ __('lang.follow_us_on_head')}}</h3>-->
+                <h2>{{ __('lang.instagram_label')}}</h2>
                 <div class="social_img_section">
                     <ul class="instagram_imgs" id="instafeed">
 

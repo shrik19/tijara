@@ -16,7 +16,7 @@
 			  <h2>{{ __('users.seller_personal_page_menu')}} </h2>
 			  <!-- <hr class="heading_line"> -->
 		</div>
-    <div class="" style="margin-left: 800px;">
+    <div class="store_eye_icon">
        
         <a href="{{$seller_link}}"><i class="fa fa-eye" aria-hidden="true">{{ __('users.see_show_label')}} </i></a>
        
@@ -85,7 +85,7 @@
               <input type="text" class="form-control store_name" id="store_name" name="store_name" 
               placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" style="margin-top: 30px;
     margin-left: -85px;"/>
-              <span class="invalid-feedback" id="err_fname"><input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 335px;margin-top: -55px;padding: 9px 16px !important;" /> @if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span>
+              <span class="invalid-feedback" id="err_fname"><input type="button" name="check-store-unique" class="btn debg_color verify-store"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> @if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span>
             </div>
             <div class="form-group increment cloned">
               <label>{{ __('users.seller_header_img_label')}}</label>

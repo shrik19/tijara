@@ -9,6 +9,12 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 .activemainmenu {
     background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
 }
+.leftsideactivemainmenu {
+    background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
+}
+
+.leftsideactivemainmenu a{ background-color: #fdeff0 !important;}
+
 .activesubmenu{
     background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
 }
@@ -246,3 +252,82 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 
 
 /*END : Product Details */
+
+
+/*tijara design fixes by developer */
+.product_data {
+  height: 335px;
+}
+.product_img {
+  min-height: 200px !important;
+  height: 200px;
+}
+
+.product_img img {
+  width: 100%;
+  object-fit: none;
+}
+.slider_content h2 {
+  line-height: 49px !important;
+  padding-left: 10% !important;
+}
+
+.slider_content
+{
+  top: 60px !important;
+}
+.nav > li {
+  width: 14% !important;
+  font-size: 13px;
+}
+.featured_seller_section img.img-fluid {
+  object-fit: cover !important;
+}
+.featured_seller_section {
+  height: 250px !important;
+  padding: 0px !important;
+}
+.buy_now_hover_details li {
+  top: -45px !important;
+}
+.top_login h3 {
+  margin: 1px 0 !important;
+}
+@media only screen and (max-width: 500px) {
+  .tijara_front_box li {
+    width:100%;
+  }
+}
+@media only screen and (min-width: 501px) {
+  .tijara_front_box li {
+    width:46%;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .tijara_front_box li {
+    width:35%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .tijara_front_box li {
+    width:31%;
+  }
+}
+
+
+.category_button button {
+  padding: 5px 10px !important;
+  border: 0px solid #676767 !important;
+  border-radius: 0px;
+}
+.category_button .active {
+  border-bottom: 3px solid #05999F !important;
+}
+.tablink-active{
+  border: 0px;
+  border-bottom: 3px solid #05999F !important;
+}
+.category_button {
+  border-bottom: 1px solid;
+}
+

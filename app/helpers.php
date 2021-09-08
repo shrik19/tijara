@@ -107,7 +107,7 @@ function getCategorySubcategoryList() {
       $CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
     }
     
-    $CategoriesArray = array_slice($CategoriesArray, 0, 6);
+    $CategoriesArray = array_slice($CategoriesArray, 0, 7);
     return $CategoriesArray;
   }
 

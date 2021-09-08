@@ -1,18 +1,28 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
+<div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
 
     <div class="col-md-12 tijara-content">
-    @include ('Front.alert_messages')
-    <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
+      @include ('Front.alert_messages')
+       <div class="seller_info">
+        <div class="card">
+        <div class="card-header row seller_header">
+          <h2 class="page_heading">{{ __('users.buyer_profile_update_title')}}</h2>
+          <!-- <hr class="heading_line"/> -->
+          </div>
+        </div>
+        <div class="seller_mid_cont"  style="margin-top: 20px;">
+    
+      <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
             @csrf
       <div class="col-md-6">
-        <h2>{{$registertype}} {{ __('users.profile_update_title')}}</h2>
-        <hr class="heading_line"/>
+        <!-- <h2> {{ __('users.buyer_profile_update_title')}}</h2>
+        <hr class="heading_line"/> -->
         
         <div class="login_box">
           
@@ -23,13 +33,13 @@
               <span class="invalid-feedback" id="err_fname" >@if($errors->has('fname')) {{ $errors->first('fname') }}@endif </span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 25px;">
               <label>{{ __('users.last_name_label')}} <span class="de_col">*</span></label>
               <input type="text" class="form-control login_input" name="lname" id="lname" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('lname')) ?  old('lname') : $buyerDetails[0]->lname}}">
               <span class="invalid-feedback" id="err_lname" >@if($errors->has('lname')) {{ $errors->first('lname') }}@endif</span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 25px;">
               <label>{{ __('users.email_label')}} <span class="de_col">*</span></label>
               <input type="email" class="form-control login_input" name="email" id="email" placeholder="{{ __('users.email_label')}}" value="{{ (old('email')) ? old('email') : $buyerDetails[0]->email}}">
               <span class="invalid-feedback" id="err_email" >@if($errors->has('email')) {{ $errors->first('email') }}@endif</span>
@@ -55,8 +65,8 @@
             </div>
 
             <div class="form-group">
-              <label>{{ __('users.city_label')}} </label>
-              <input type="text" class="form-control login_input" name="city" id="city" placeholder="{{ __('users.city_label')}}" value="{{ (old('city')) ? old('city') : $buyerDetails[0]->city}}">
+              <label>{{ __('users.location_label')}} </label>
+              <input type="text" class="form-control login_input" name="city" id="city" placeholder="{{ __('users.location_label')}}" value="{{ (old('city')) ? old('city') : $buyerDetails[0]->city}}">
               <span class="invalid-feedback" id="err_city">@if($errors->has('city')) {{ $errors->first('city') }}@endif</span>
             </div>
            
@@ -65,23 +75,27 @@
       
 
        <div class="col-md-6">
-        <h2>&nbsp;</h2>
-        <br>
+       
         
         <div class="login_box">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label>{{ __('users.swish_number_label')}} </label>
             <input type="text" class="form-control login_input" name="swish_number" id="swish_number" placeholder="{{ __('users.swish_number_label')}}" value="{{ (old('swish_number')) ? old('swish_number') : $buyerDetails[0]->swish_number}}">
             <span class="invalid-feedback" id="err_swish_number">@if($errors->has('swish_number')) {{ $errors->first('swish_number') }}@endif</span>
-          </div>
+          </div> -->
 
           <div class="form-group increment cloned">
-            <label>{{ __('users.profile_label')}}</label>
+            <label>{{ __('users.select_profile_picture')}}</label>
             @php
             if(!empty($buyerDetails[0]->profile))
             {
               echo '<div class="row">';
-              echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Buyer/resized/'.$buyerDetails[0]->profile.'" style="width:200px;height:200px;"></div>';
+              echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Buyer/resized/'.$buyerDetails[0]->profile.'" class="buyer_profile_update_img"></div>';
+              echo '</div>';
+              echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
+            }else{
+              echo '<div class="row">';
+              echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Buyer/no_image_circle.png" class="buyer_profile_update_img"></div>';
               echo '</div>';
               echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
             }
@@ -89,7 +103,7 @@
 
             <!-- <input type="file" name="profile" class="form-control" value="{{old('profile')}}"> -->
             <div class="upload-btn-wrapper">
-            <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> {{ __('users.upload_file_input')}}</button>
+            <button class="uploadbtn buyer_profile_update_btn"><i class="fa fa-upload" aria-hidden="true" style=""></i> {{ __('users.upload_file_input')}}</button>
             <input type="file" name="profile" class="form-control" value="{{old('profile')}}" />
             </div>
             
@@ -113,9 +127,12 @@
    <!--  </div> -->
     </form>
   </div>
+  </div>
+  </div>
   </div><!-- row -->
 </div> <!-- /container -->
-          </div>
+  </div>
+</div>
 <script>
   $(document).ready(function() {
     $('.description').richText();

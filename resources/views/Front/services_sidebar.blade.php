@@ -40,9 +40,9 @@
         $cls='';
         if($category_slug==$Category['category_slug'])
         $cls  =       'activemaincategory';
-        else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';
+        
       @endphp
-
+<!--else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';-->
       @if(!empty($Categories[$CategoryId]['subcategory']))
         <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}}<span style="float: right;" id="productCount_{{$i}}">@if(!empty(Request::segment(4))){{count($Categories[$CategoryId]['subcategory'])}}@endif</span></a></li>
 

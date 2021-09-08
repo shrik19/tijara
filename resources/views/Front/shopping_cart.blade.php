@@ -8,21 +8,40 @@
 </style>
 
 
+<div class="mid-section">
+<div class="container-fluid">
+<div class="container-inner-section-1">
+<div class="row">
+<div class="col-md-12"> 
+<div class="seller_info">
+    <div class="card">
+        <div class="card-header row seller_header">
+            <div class="col-md-6">
+            <h2 class="page_heading">{{ __('lang.shopping_cart')}}</h2> 
+            </div> 
+            <div class="col-md-6 text-right">
+           <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='{{route('frontHome')}}';">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> {{ __('lang.shopping_cart_continue')}}
+                        </button>
+            </div>     
+        </div>
+    </div>
+<div class="seller_mid_cont"  style="margin-top: 20px;">
 <section class="product_details_section-1">
 <div class="loader"></div>
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-12">
         <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <h2>{{ __('lang.shopping_cart')}}</h2>
               <hr class="heading_line"/>
-            </div>
-            <div class="col-md-6 text-right">
-           <button type="button" class="btn btn-default" onclick="location.href='{{route('frontHome')}}';">
+            </div> -->
+            <!-- <div class="col-md-6 text-right">
+           <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='{{route('frontHome')}}';">
                             <span class="glyphicon glyphicon-shopping-cart"></span> {{ __('lang.shopping_cart_continue')}}
                         </button>
-            </div>
+            </div> -->
           </div>
             <table class="table table-hover" style="margin-bottom:60px;">
                 <thead>
@@ -92,7 +111,7 @@
                         <td class="col-sm-1 col-md-1 text-right"><strong>{{ number_format($orderProduct['shipping_amount'],2)}} kr</strong></td>
                         <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</strong></td>
                         <td class="col-sm-1 col-md-1 text-right">
-                        <button class="btn btn-danger" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
+                        <a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
                         <!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('{{ $orderProduct['id'] }}')">
                             <span class="glyphicon glyphicon-remove"></span> Remove
                         </button> -->
@@ -147,5 +166,11 @@
     </div>
 </div>
 </section>
-
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 @endsection

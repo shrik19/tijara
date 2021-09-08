@@ -35,10 +35,28 @@ header{
     background-color: #A0A0A0;
     color: #fff;
 }
+.bookingRequestCalender .fc-event, .fc-event-dot {
+    background-color: #FFC0C7!important;
+    border: #FFC0C7!important;
+    color:#000 !important;
+    padding: 9px !important;
+    font-size: 15px !important;
+    text-align: center !important;
+}
+.bookingRequestCalender .fc-center h2{
+  font-size: 17px !important
+}
 
+.buyer-product-price{
+  margin-top:-15px;position:absolute;font-size:18px !important;
+}
+.buyer-button{
+    margin-top: -6px;
+}
 .service_date_validation{
   text-align: center;margin-top: 140px;margin-left: 15px;
 }
+.btn:hover{color: #fff}
 
 .service_validation_err{
   text-align: center;
@@ -56,7 +74,36 @@ header{
     width: 100%;
     height: auto;
 }
+.buyer_profile_update_img{
+  width:200px;height:200px;margin-top:10px;
+}
+.buyer_profile_update_btn{
+  color:#fff !important;background-color: #03989e !important;font-weight: bold !important;
+}
+.page_heading{
+  font-size: 40px !important;
+  font-weight: bold !important;
+}
 
+.verify-store{
+  margin-left: 385px;
+  margin-top: 26px;
+  padding: 9px 16px !important;
+}
+.store_eye_icon{
+  margin-left: 950px;
+  margin-top: 30px;
+}
+
+.service-add-steps{
+  color: #bbb2b2;
+  font-size: 33px;
+}
+.solid-horizontal-line{
+  height: 1px;
+  width: 100%;
+  background-color: #eee;
+}
 .footer-loader{
     position: absolute;
     top: 0px;
@@ -704,9 +751,11 @@ nav ul {
     background-color: #ef5350;
   }
   .buyer-product-img{
-    height:220px;
-  width:100%;
-  border: 2px solid #ccc;
+    /*height:220px;
+  width:100%;*/
+    height: 250px;
+    width: 250px;
+    border: 2px solid #ccc;
   }
   .buyer-button a {
     margin: 8px auto;
@@ -721,6 +770,20 @@ nav ul {
   .product-card{
     margin-bottom: 70px;
   }
+
+  .tijara-info-section{
+     background-color: #a2dcde !important;
+    padding: 30px;
+    margin-bottom: 80px;
+  }
+
+  .form-group.col-md-6.buyer-productCat-select {
+    margin-top: -86px;
+}
+
+span.remember-text {
+    margin-left: 10px;
+}
 
   .buyer-prod-msg{
     background-color: #fafafa;

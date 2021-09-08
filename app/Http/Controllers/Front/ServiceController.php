@@ -295,11 +295,12 @@ class ServiceController extends Controller
                 }
                 $categoriesData =   rtrim($categoriesData,', ');
                 
-                $action = '<a href="'.route('frontServiceEdit', base64_encode($id)).'" title="'.trans('lang.edit_label').'" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('frontServiceEdit', base64_encode($id)).'" 
+                title="'.trans('lang.edit_label').'" style="color:#06999F;" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
 
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('frontServiceDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" style="color:red;" onclick=" return ConfirmDeleteFunction(\''.route('frontServiceDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';
 
             
 
@@ -637,29 +638,37 @@ class ServiceController extends Controller
         $rules = $messages = [];
         $rules = [ 
             'title'         => 'required',
-            'description'   => 'nullable|max:2000',
+            'description'   => 'required|max:2000',
             'sort_order'    =>'numeric',
             'service_price' => 'required', 
-            'session_time'  => 'required',  
+            'status' => 'required', 
+            'session_time'  => 'required',
+            'categories'  => 'required',
             //'service_availability'  => 'required',
-            'start_date_time' =>  'required',
-            'to_date_time'    =>  'required',
-            'del_start_time'  =>  'required',
-           /* 'service_year'  => 'required',
+          
+           /* 'categories'  => 'required',
             'service_month' => 'required',
             'service_date'  => 'required',
             'start_time'    => 'required',*/
         ];
         if($request->input('service_id')==0) {
-            $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
+
+            $rules['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
+            $rules['start_date_time'] =  'required';
+            $rules['to_date_time']    =  'required';
+           
+            $rules['del_start_time']  =  'required';
+            
             
         }else{
             $rules ['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';
+            $rules ['service_availability']  = 'required';
         }
 
         $messages = [
             'title.required'         => trans('lang.required_field_error'),           
             'title.regex'            =>trans('lang.required_field_error'),     
+            'description.required'        => trans('lang.required_field_error'),
             'description.max'        => trans('lang.max_1000_char'),
             'service_slug.required'  => trans('errors.service_slug_req'),
             'service_slug.regex'     => trans('errors.input_aphanum_dash_err'),  
@@ -668,6 +677,8 @@ class ServiceController extends Controller
             'start_date_time.required' => trans('errors.service_start_end_datetime_req'),
             'to_date_time.required'  => trans('errors.service_start_end_datetime_req'),
             'del_start_time.required' => trans('lang.required_field_error'),
+            'status.required'            =>trans('lang.required_field_error'),
+            'categories.required'  => trans('lang.required_field_error'), 
             //  'service_availability.required'  => trans('lang.required_field_error'),
             /*'service_year.required'  => trans('lang.required_field_error'),           
             'service_month.required' => trans('lang.required_field_error'), 
@@ -679,9 +690,10 @@ class ServiceController extends Controller
         $validator = validator::make($request->all(), $rules, $messages);
 
         if($validator->fails())  {
-        /*  echo "<pre>";
-          print_r($messages);exit;*/
+       
             $messages = $validator->messages();
+             /*  echo "<pre>";
+          print_r($messages);exit;*/
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
 
@@ -722,6 +734,8 @@ class ServiceController extends Controller
             Services::where('id', $request->input('service_id'))->where('user_id', Auth::guard('user')->id())->update($arrServices);
         }
 
+      if($request->input('service_id')==0) {
+      
         if(!empty($request->input('start_date_time')) && !empty($request->input('to_date_time'))){
 
           $startTime = strtotime( $request->input('start_date_time') );
@@ -737,6 +751,7 @@ class ServiceController extends Controller
             $service_availability['start_time']   =   $dateTime[1];
 
             if($request->input('del_start_time')=='insert'){
+              //echo "sdjkhk";exit;
                  $checkISExist = DB::table('service_availability')
                   ->where('service_id',$id)
                   ->where('service_date',$dateTime[0])
@@ -750,6 +765,7 @@ class ServiceController extends Controller
                  
                                    
                 }else{
+                  //echo "sdjhg";exit;
                   DB::table('service_availability')
                   ->where('service_id',$id)
                   ->where('service_date',$dateTime[0])
@@ -759,38 +775,60 @@ class ServiceController extends Controller
           }
 
         }
-        
-//exit;
-        //ServiceAvailability::where('service_id', $id)->delete();
-/*old code for service availability*/
-       /* if(!empty($request->input('service_availability'))) {
-            
-            foreach($request->input('service_availability') as $availability) {
-              // echo "<pre>";print_r($request->input('service_availability'));exit;
-               //date('Y-m-d',strtotime($availability))
-                $dateTime   =   explode(' ',$availability);
-                $service_availability['service_id']   =   $id;
-                $service_availability['service_date']  =   $dateTime[0];
-                $service_availability['start_time']   =   $dateTime[1];
-               // echo $request->input('del_start_time');exit;
-                if($request->input('del_start_time')=='insert'){
-                  ServiceAvailability::create($service_availability);
-                }else{
-                  echo "here";
-                  DB::enableQueryLog();
 
-                  DB::table('service_availability')
+      }else{
+        
+        if(!empty($request->input('service_availability'))) {
+
+          foreach($request->input('service_availability') as $availability) {
+             //echo "<pre>";print_r($request->input('service_availability'));exit;
+              //date('Y-m-d',strtotime($availability))
+                 
+              $dateTime   =   explode(' ',$availability);
+
+              $service_availability['service_id']   =   $id;
+              $service_availability['service_date']  =   $dateTime[0];
+              $service_availability['start_time']   =   $dateTime[1];
+
+              if($request->input('del_start_time')=='insert'){
+           
+                $checkISExist = DB::table('service_availability')
                   ->where('service_id',$id)
                   ->where('service_date',$dateTime[0])
                   ->where('start_time',$dateTime[1])
-                  ->delete();
-                  // and then you can get query log
-  print_r(DB::getQueryLog());exit;
-                                  
+                  ->get();
+
+                if($checkISExist->count() == 0){
+     
+                  ServiceAvailability::create($service_availability);
                 }
-            }
-        }*/
-/*end old code for service availability*/
+                                                    
+              }else{
+
+                if(!empty($request->input('del_service_availability'))) {
+
+                  foreach($request->input('del_service_availability') as $availability) {
+                 
+                    $dateTime   =   explode(' ',$availability);
+
+                    $service_availability['service_id']   =   $id;
+                    $service_availability['service_date']  =   $dateTime[0];
+                    $service_availability['start_time']   =   $dateTime[1];
+                    //print_r($service_availability);exit;
+                       DB::table('service_availability')
+                      ->where('service_id',$id)
+                      ->where('service_date',$dateTime[0])
+                      ->where('start_time',$dateTime[1])
+                      ->delete();
+                  }
+                }
+            } 
+          }
+        }
+      
+        }
+        
+
         ServiceCategory::where('service_id', $id)->delete();
 
         if(empty($request->input('categories'))) {  
@@ -935,24 +973,58 @@ class ServiceController extends Controller
         }  
 
         /*month year filter*/
-        $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
+       /* $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
         $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control'>";
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;'>";
         $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";  
         for ($i = 0; $i <= 12; ++$i) {
             $time = strtotime(sprintf('+%d months', $i));
             $label = date('F ', $time);
             $value = date('m', $time);
-
+      
+           
             $time_year = strtotime(sprintf('-%d years', $i));
             $value_year = date('Y', $time);
             $label_year = date('Y ', $time);
             $selected = ( $value==$month &&  $value_year== $year ) ? ' selected=true' : '';
             $month_year = $value."-".$value_year;
-            $monthYearDropdown    .=  "<option  value='".$month_year."' >$label $label_year</option>";
+            $get_curr_month_yr = date('m Y');
+            $explod_mY = explode(' ', $get_curr_month_yr);
+           
+            $curr_month_yr = $explod_mY[0]."-".$explod_mY[1];
+
+            if($curr_month_yr==$month_year){
+              $selected= "selected";
+            }else{
+               $selected='';
+            }
+
+            $monthYearDropdown    .=  "<option  value='".$month_year."' ".$selected.">$label $label_year</option>";
         }
            
-        $monthYearDropdown    .= "</select>";
+        $monthYearDropdown    .= "</select>";*/
+
+          $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'>";
+          $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'));
+            if($userRole == 1){
+                $monthYearSql = $monthYearSql->where('user_id','=',$user_id);
+            }
+             
+            $monthYearSql = $monthYearSql->groupby('year','month')
+              ->get();
+          
+          if(!empty($monthYearSql) && count($monthYearSql)>0){   
+            foreach ($monthYearSql as $key => $value) {
+              $i=$value['month'];
+              $year =$value['year'];
+              $month =  date("M", strtotime("$i/12/10"));
+              $new_date = $value['new_date'];
+          
+              $monthYearDropdown    .=  "<option  value='".$new_date."'>$month $year</option>";
+            }
+          }else{
+             $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";
+          }
 
  
   //print_r(DB::getQueryLog());exit;
@@ -1053,11 +1125,11 @@ class ServiceController extends Controller
                    $action = '<a style="margin-left:38px;" href="javascript:void(0);" 
                    user_name="'.$user.'" serviceName="'.$serviceName.'" 
                     dated="'.$dated.'" id="'.$id.'" 
-                    class="serviceReqDetails btn btn-info" title="'.$serviceName.'" 
+                    class="serviceReqDetails  " title="'.$serviceName.'" 
                     id="'.$id.'" description="'.$description.'" 
                      service_time="'.$service_time.'" 
                      service_price="'.$service_price.'" location="'.$location.'"  
-                     >Request Details</a>&nbsp&nbsp&nbsp';
+                     ><i style="color:#2EA8AB;" class="fas fa-eye"></i></a>&nbsp&nbsp&nbsp';
 
                  
 
@@ -1069,7 +1141,8 @@ class ServiceController extends Controller
                   {
                     $action .= '<a href="javascript:void(0)" 
                     onclick=" return ConfirmDeleteFunction(\''.route('frontServiceRequestDel', base64_encode($id)).'\');" 
-                     title="'.trans('lang.delete_title').'" class="btn btn-danger">'.trans('lang.cancel_btn').'</a>';
+                     title="'.trans('lang.delete_title').'" class="" style="color:red;">
+                     <i class="fas fa-trash"></i></a>';
                     $arr[] = [ '#'.$id, $serviceName,$service_time,$service_price,$location, $dated, $action];
                   }
                 

@@ -21,18 +21,19 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-      <h2>{{ __('lang.txt_seller_order')}}</h2>
+      <h2 class="page_heading">{{ __('users.my_order_title')}}</h2>
       <!-- <hr class="heading_line"/> -->
       </div>
     </div>
     <div class="seller_mid_cont">
-    <div class="col-md-12">
-      <div class="">
-        <h1 >{{__('messages.info_head')}}</h1>
-        <p  >{{__('messages.my_order_info')}}</p>
-        <br/><br/>
+      
+    <div class="col-md-12" style="margin-top: 20px;">
+      <div class="tijara-info-section">
+        <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
+        <p  class="buyer-prod-content">{{__('messages.my_order_info')}}</p>
       </div>
     </div>
+
 		<div class="col-md-12">
 		    
 		  
@@ -112,11 +113,24 @@
         data.status = $("#status").val();
         data.is_seller = "{{$is_seller}}"
         data.user_id = "{{$user_id}}"
+        data.monthYear = $('#monthYear').val()
       },
        type:'post',
     },
   });
+  $("<div class='form-group' style='float:right;'>"+
+  
+  "<?php echo $monthYearHtml; ?>"+
+  "</div>").appendTo("#productTable_length");
 
+  $(".dataTables_filter label").addClass("pull-right");
+  $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');
+
+  $('#monthYear').change(function(){
+
+    dataTable.draw();
+    
+  });
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
   '<option value="">{{ __("lang.status_label")}}</option>'+
   '<option value="PENDING">PENDING</option>'+

@@ -22,15 +22,23 @@
                 <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
                 <div class="small-container">
                   <div id="small-img-roll">
+                  @if(isset($first['images'][0]) && !empty($first['images'][0]))
                     @foreach($first['images'] as $image)
                       <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" class="show-small-img" alt="">
                     @endforeach
+                  @else
+                   <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
+                  @endif
                   </div>
                 </div>
                 <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
               </div>
               <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
+                @if(isset($first['images'][0]) && !empty($first['images'][0]))
                 <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
+                @else
+                  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png"  id="show-img">
+                @endif
               </div>
               
               <!-- Secondary carousel image thumbnail gallery -->

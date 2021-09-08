@@ -45,7 +45,7 @@
 
 @if(Request::segment(4) !='products')
   <div class="category_list_box show_service_cat_sidebar"  id="accordion">
-  <h2 class="de_col">{{ __('lang.service_categories_head')}}</h2>
+  <h2 class="">{{ __('lang.service_categories_head')}}</h2>
   <ul class="seller_cat_list">
 
   @php $j=0; @endphp
@@ -56,9 +56,9 @@
       $cls='';
       if($category_slug==$Category['category_slug'])
         $cls  =       'activeservicemaincategory';
-      else if( $j==1) $cls  =       'activeservicemaincategory';
+      
     @endphp
-
+<!--else if( $j==1) $cls  =       'activeservicemaincategory';-->
     @if(!empty($ServiceCategories[$CategoryId]['subcategory']))
       <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;" id="serviceCount_{{$j}}"></span></a></li>
 
@@ -139,12 +139,19 @@ $(document).ready(function(){
     });  
 
    $(document).on('click', '.show_all_cat', function(){  
+     $(this).addClass('active');
+     $('.show_product_cat').removeClass('active');
+     $('.show_service_cat').removeClass('active');
         $('.show_product_cat_sidebar').show();
         $('.show_service_cat_sidebar').show();
         $('.all_cat_label').show();
+
     });
 
    $(document).on('click', '.show_product_cat', function(){ 
+    $(this).addClass('active');
+     $('.show_all_cat').removeClass('active');
+     $('.show_service_cat').removeClass('active');
         $('.show_product_cat_sidebar').show();
         $('.show_service_cat_sidebar').hide();
         $('.all_cat_label').hide();
@@ -152,6 +159,9 @@ $(document).ready(function(){
     });
 
    $(document).on('click', '.show_service_cat', function(){  
+    $(this).addClass('active');
+     $('.show_all_cat').removeClass('active');
+     $('.show_product_cat').removeClass('active');
          $('.show_service_cat_sidebar').show();
         $('.show_product_cat_sidebar').hide();
         $('.all_cat_label').hide();

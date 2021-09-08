@@ -8,7 +8,7 @@
 </style>
 
 
-<section class="product_details_section">
+<section class="">
 <div class="loader"></div>
 <div class="container printdiv">
     <div class="row">

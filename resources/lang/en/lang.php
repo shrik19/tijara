@@ -317,6 +317,8 @@
     'booking_policy' => 'Booking Policy',
     'payment_policy' => 'Payment Policy',
     'all_category' => 'All Category',
-    
+    'popular_product_head'=>'Popular Products',
+    'instagram_label'=>'Instagram',
+    'book_service_btn'=>'Book Service',
  ]  
 ?>

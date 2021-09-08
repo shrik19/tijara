@@ -146,7 +146,7 @@ class AuthController extends Controller
                         //$_SESSION['currentUser']=$currentUser;
                         session($currentUser);
                         if($getRoleId->role_id==2){
-                            return redirect(route('frontSellerProfile'));
+                            return redirect(route('frontDashboard'));
                         }else{
                             return redirect(route('frontBuyerProfile'));
                         }

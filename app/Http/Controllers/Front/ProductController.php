@@ -37,6 +37,8 @@ use App\Models\BuyerProducts;
 
 use App\CommonLibrary;
 
+use App\Http\AdyenClient;
+
 /*Uses*/
 
 use Auth;
@@ -57,15 +59,17 @@ class ProductController extends Controller
 
 {
 
+    protected $checkout;
+
     /*
 
 	 * Define abjects of models, services.
 
 	 */
 
-    function __construct() {
+    function __construct(AdyenClient $checkout) {
 
-    
+        $this->checkout = $checkout->service;
     	//$data['CurrentUser']   =   UserMain::where('id',Auth::guard('user')->id())->first();
 
     }
@@ -853,6 +857,166 @@ class ProductController extends Controller
             return view('Front/checkout', $param);
         }
     }
+
+    public function showCheckoutSwish(Request $request) {
+        
+        $product_slug = $request->input('product_slug');
+        $slug =   CommonLibrary::php_cleanAccents($product_slug);
+        $rules = [ 
+            'title'         => 'required',
+            'description'   => 'nullable|max:3000',
+            'sort_order'		=>'numeric',      
+            'product_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u',  
+
+        ];
+
+        $messages = [
+            'title.required'         =>  trans('lang.required_field_error'),           
+            'title.regex'            => trans('lang.required_field_error'),     
+            'description.max'        => trans('lang.max_1000_char'),
+            'product_slug.required'  => trans('errors.product_slug_req'),
+            'product_slug.regex'     => trans('errors.input_aphanum_dash_err'),
+        ];
+
+        $validator = validator::make($request->all(), $rules, $messages);
+
+        if($validator->fails())  {
+         
+            $messages = $validator->messages();
+              // echo "<pre>";print_r($messages);exit;
+            return redirect()->back()->withInput($request->all())->withErrors($messages);
+        }
+        else
+        {
+            $data = array(
+                'type' => $request->type,
+                'clientKey' => env('CLIENT_KEY')
+            );
+            return view('Front/checkout_swish', $data);
+        }
+    }
+
+     // Result pages
+  public function result(Request $request){
+    $type = $request->type;
+    dd($type);
+    //return view('pages.result')->with('type', $type);
+}
+
+    /* ################# API ENDPOINTS ###################### */
+  // The API routes are exempted from app/Http/Middleware/VerifyCsrfToken.php
+
+  public function getPaymentMethods(Request $request){
+    error_log("Request for getPaymentMethods $request");
+
+    $params = array(
+        "merchantAccount" => env('MERCHANT_ACCOUNT'),
+        "channel" => "Web"
+    );
+
+    $response = $this->checkout->paymentMethods($params);
+    foreach($response as $key => $r)
+    {
+        if($key > 0)
+        {
+          unset($response[$key]);
+        }
+    }
+    return $response;
+}
+
+public function initiatePayment(Request $request){
+    error_log("Request for initiatePayment $request");
+
+    $orderRef = uniqid();
+    $params = array(
+        "merchantAccount" => env('MERCHANT_ACCOUNT'),
+        "channel" => "Web", // required
+        "amount" => array(
+            "currency" => 'SEK',
+            "value" => 0002 // value is 10€ in minor units
+        ),
+        "reference" => $orderRef, // required
+        // required for 3ds2 native flow
+        "additionalData" => array(
+            "allow3DS2" => "true"
+        ),
+        "origin" => "https://dev.tijara.se", // required for 3ds2 native flow
+        "shopperIP" => $request->ip(),// required by some issuers for 3ds2
+        // we pass the orderRef in return URL to get paymentData during redirects
+        // required for 3ds2 redirect flow
+        "returnUrl" => "https://dev.tijara.se/api/handleShopperRedirect?orderRef=${orderRef}",
+        "paymentMethod" => $request->paymentMethod,
+        "browserInfo" => $request->browserInfo // required for 3ds2
+        );
+
+    $response = $this->checkout->payments($params);
+
+    return $response;
+}
+
+
+public function submitAdditionalDetails(Request $request){
+    error_log("Request for submitAdditionalDetails $request");
+
+    $payload = array("details" => $request->details, "paymentData" => $request->paymentData);
+
+    $response = $this->checkout->paymentsDetails($payload);
+
+    return $response;
+}
+
+public function handleShopperRedirect(Request $request){
+    error_log("Request for handleShopperRedirect $request");
+
+    $redirect = $request->all();
+
+    $details = array();
+    if (isset($redirect["redirectResult"])) {
+      $details["redirectResult"] = $redirect["redirectResult"];
+    } else if (isset($redirect["payload"])) {
+      $details["payload"] = $redirect["payload"];
+    }
+    $orderRef = $request->orderRef;
+
+    $payload = array("details" => $details);
+
+    $response = $this->checkout->paymentsDetails($payload);
+
+    dd($response["resultCode"]); 
+    // switch ($response["resultCode"]) {
+    //     case "Authorised":
+    //         return redirect()->route('result', ['type' => 'success']);
+    //     case "Pending":
+    //     case "Received":
+    //         return redirect()->route('result', ['type' => 'pending']);
+    //     case "Refused":
+    //         return redirect()->route('result', ['type' => 'failed']);
+    //     default:
+    //         return redirect()->route('result', ['type' => 'error']);
+    // }
+}
+
+/* ################# end API ENDPOINTS ###################### */
+
+// Util functions
+public function findCurrency($type){
+
+    switch ($type) {
+    case "ach":
+        return "USD";
+    case "wechatpayqr":
+    case "alipay":
+        return "CNY";
+    case "dotpay":
+        return "PLN";
+    case "boletobancario":
+    case "boletobancario_santander":
+        return "BRL";
+    default:
+        return "SEK";
+    }
+}
 
     /* function for klarna payment callback*/
     public function checkoutCallback(Request $request)

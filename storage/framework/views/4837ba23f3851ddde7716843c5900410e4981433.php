@@ -1,0 +1,1 @@
+<?php /**PATH D:\xampp\htdocs\tijara\resources\views/Front/product_details.blade.php ENDPATH**/ ?>

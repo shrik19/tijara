@@ -48,10 +48,16 @@
 
             <div class="form-group col-md-12">
               <label class="col-md-3">{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
-              <input type="text" class="col-md-8 ge_input ge_input" name="title" id="title" placeholder="{{ __('lang.product_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
+              <input type="text" class="col-md-8 ge_input " name="title" id="title" placeholder="{{ __('lang.product_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
               <span class="invalid-feedback col-md-12"  id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
             </div>
 
+            <label class="col-md-3">{{ __('lang.product_description_label')}}  <span class="de_col"></span></label>
+              
+      			<div class="form-group col-md-8">
+              <textarea class="ge_input" style="width: 100%; height: 175px;" name="description"  placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
+              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+            </div>
             
             <div class="form-group col-md-12">
               <label class="col-md-3" >{{ __('lang.category_label')}}</label>
@@ -69,6 +75,14 @@
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_find_us" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
             </div>
 
+            <div class="form-group  col-md-12">
+              <label class="col-md-3">{{ __('lang.status_label')}} </label>
+              <select class="select2 col-md-8 ge_input" name="status" id="status"  placeholder="" tabindex="8" >
+                <option value="active">{{ __('lang.active_label')}}</option>
+                <option value="block">{{ __('lang.block_label')}}</option>
+                </select>
+              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+            </div>
             <div class="form-group col-md-12" style="display:none;">
               <label class="col-md-6">{{ __('lang.product_slug_label')}} <span class="de_col">*</span></label>
               <p style="color:#000;font-size: 12px;">(This is the part of a URL which identifies a product on a website in an easy to read form)</p>
@@ -99,14 +113,7 @@
               <input type="text" class="col-md-8 ge_input" name="meta_keyword" id="meta_keyword" placeholder="{{ __('lang.meta_keyword_label')}}" value="{{old('meta_keyword')}}" tabindex="6">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
             </div>
-            <div class="form-group  col-md-12">
-              <label class="col-md-3">{{ __('lang.status_label')}} </label>
-              <select class="select2 col-md-8 ge_input" name="status" id="status"  placeholder="" tabindex="8" >
-                <option value="active">{{ __('lang.active_label')}}</option>
-                <option value="block">{{ __('lang.block_label')}}</option>
-                </select>
-              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
-            </div>
+            
 
             <div class="form-group col-md-12">
               <label class="col-md-3">{{ __('lang.product_discount_label')}}</label>
@@ -118,12 +125,7 @@
               <input type="tel" class="col-md-8 ge_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
             </div>
-            <label class="col-md-3">{{ __('lang.product_description_label')}}  <span class="de_col"></span></label>
-              
-      			<div class="form-group col-md-8">
-              <textarea class="col-md-8 ge_input form-control" name="description" rows="10" cols="20" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
-              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
-            </div>
+            
 
             <h2 class="col-md-12">{{ __('lang.product_form_step2')}}</h2>
             <div  class="col-md-12" id="variant_table">
@@ -156,7 +158,7 @@
                   </div>
                   <div class="form-group  col-md-12" >
                     <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col"></span></label>
-                    <select class="col-md-4 ge_input select_attribute variant_field" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
+                    <select style="width: 32%;    float: left;" class="col-md-4 ge_input select_attribute variant_field" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                         @foreach ($attributesToSelect as $attr)
@@ -164,7 +166,8 @@
                         @endforeach
                     </select>
                  
-                    <select style="margin-top: 10px;" selected_attribute_value="" class="col-md-offset-3 variant_field  col-md-4 ge_input select_attribute_value variant_field" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]">
+                    <select style="margin-left: 10px;    width: 34%;" selected_attribute_value="" 
+                    class=" variant_field  col-md-4 ge_input select_attribute_value variant_field" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]">
                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
 
                     </select>

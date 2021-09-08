@@ -120,11 +120,11 @@
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="<?php echo e(url('/')); ?>/assets/img/imgpsh_fullsize.png" width="30" /></h3></a>
                 <ul class="dropdown-menu">
 
-                  <li><a href="<?php echo e(route('frontUserProfile')); ?>"><?php echo e(__('users.profile_label')); ?></a></li>
+                  <li><a href="<?php echo e(route('frontUserProfile')); ?>"><?php echo e(__('users.buyer_profile_update_title')); ?></a></li>
 
                   <li><a href="<?php echo e(route('frontAllOrders')); ?>"><?php echo e(__('lang.manage_orders_menu')); ?> </a></li>
 
-                  <li><a href="<?php echo e(route('frontAllServiceRequest')); ?>"><?php echo e(__('lang.my_service_request')); ?></a></li>
+                  <li><a href="<?php echo e(route('frontAllServiceRequest')); ?>"><?php echo e(__('users.my_booking_title')); ?></a></li>
 
                   <li><a href="<?php echo e(route('manageFrontProducts')); ?>"><?php echo e(__('lang.manage_products_menu')); ?></a></li>
 

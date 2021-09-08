@@ -64,9 +64,9 @@
     $activeClass = '';
     }
     ?>
-    <li class="<?php echo e($activeClass); ?>"><a href="<?php echo e(route('frontAllOrders')); ?>"><?php if(Auth::guard('user')->getUser()->role_id==1): ?> <?php echo e(__('lang.manage_orders_menu')); ?> <?php else: ?> <?php echo e(__('lang.txt_seller_order')); ?> <?php endif; ?></a></li>
+    <li class="<?php echo e($activeClass); ?>"><a href="<?php echo e(route('frontAllOrders')); ?>"><?php if(Auth::guard('user')->getUser()->role_id==1): ?> <?php echo e(__('lang.manage_orders_menu')); ?> <?php else: ?> <?php echo e(__('users.all_orders_menu')); ?> <?php endif; ?></a></li>
 
-    <li  class="<?php echo e(request()->is('booking-request') ? 'activemainmenu' : ''); ?>"><a href="<?php echo e(route('frontAllbookingRequest')); ?>"><?php if(Auth::guard('user')->getUser()->role_id==1): ?> <?php echo e(__('lang.my_service_request')); ?> <?php else: ?> <?php echo e(__('lang.all_service_request')); ?> <?php endif; ?></a></li>
+    <li  class="<?php echo e(request()->is('booking-request') ? 'activemainmenu' : ''); ?>"><a href="<?php echo e(route('frontAllbookingRequest')); ?>"><?php if(Auth::guard('user')->getUser()->role_id==1): ?> <?php echo e(__('lang.my_service_request')); ?> <?php else: ?> <?php echo e(__('users.booking_request_label')); ?> <?php endif; ?></a></li>
  <!--    <li  class="<?php echo e(request()->is('all-service-request') ? 'activemainmenu' : ''); ?>"><a href="<?php echo e(route('frontAllServiceRequest')); ?>"><?php if(Auth::guard('user')->getUser()->role_id==1): ?> <?php echo e(__('lang.my_service_request')); ?> <?php else: ?> <?php echo e(__('lang.all_service_request')); ?> <?php endif; ?></a></li> -->
 
 

@@ -98,6 +98,7 @@ Route::post('/upload-variant-image','Front\ProductController@uploadVariantImage'
 Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->name('frontProductCheckUniqueSlug');
 
 Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
+//Route::any('/checkout-swish/{type}','Front\ProductController@showCheckoutSwish')->name('frontProductShowCheckout');
 Route::any('/checkout_callback', 'Front\ProductController@checkoutCallback')->name('frontProductCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
 
@@ -202,3 +203,9 @@ Route::get('/deleteServiceRequest/{id}','Front\ServiceController@deleteServiceRe
 Route::any('/product-checkout/{id}','Front\CartController@showBuyerCheckout')->name('frontShowBuyerCheckout');
 
 Route::any('/seller-dashboard', 'Front\AuthController@dashboard')->name('frontDashboard');
+
+Route::get('/result/{type}', 'Front\ProductController@result')->name('result');
+Route::post('/api/getPaymentMethods', 'Front\ProductController@getPaymentMethods');
+Route::post('/api/initiatePayment', 'Front\ProductController@initiatePayment');
+Route::post('/api/submitAdditionalDetails', 'Front\ProductController@submitAdditionalDetails');
+Route::match(['get', 'post'], '/api/handleShopperRedirect', 'Front\ProductController@handleShopperRedirect');

@@ -57,7 +57,8 @@
                         <label class="col-md-3">{{ __('lang.product_description_label')}}  <span class="de_col"></span></label>
                           
                         <div class="form-group col-md-8">
-                          <textarea class="ge_input ge_input" style="width: 100%; height: 175px;" name="description" id="description" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{ (old('description')) ?  old('description') : $product->description}}</textarea>
+                          <textarea class="ge_input ge_input" style="width: 100%; height: 175px;"
+                           name="description" id="" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{ (old('description')) ?  old('description') : $product->description}}</textarea>
                           <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
                         </div>
                         <div class="form-group  col-md-12">
@@ -167,7 +168,7 @@
                                   </div>
                                   <div class="form-group  col-md-12" >
                                     <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col"></span></label>
-                                    <select id="{{$attribute['id']}}" style="margin-left: 10px;    width: 34%;"  class="col-md-4 variant_field ge_input select_attribute preselected_attribute" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
+                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 variant_field ge_input select_attribute preselected_attribute" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                         @foreach ($attributesToSelect as $attr)
@@ -179,7 +180,7 @@
                                           @endif
                                         @endforeach
                                     </select>
-                                    <select style="margin-left: 10px; width: 34%;" selected_attribute_value="{{$attribute['attribute_value_id']}}" class="variant_field {{$attribute['id']}} col-md-4 ge_input select_attribute_value" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]">
+                                    <select style="margin-left: 10px; width: 32%;" selected_attribute_value="{{$attribute['attribute_value_id']}}" class="variant_field {{$attribute['id']}} col-md-4 ge_input select_attribute_value" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]">
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
 
                                     </select>

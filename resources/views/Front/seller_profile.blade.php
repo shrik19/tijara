@@ -125,7 +125,11 @@
 </div>
 
 <script>
-
+<style>
+.ge_input {
+  width: 100%;
+}
+</style>
 
   /*function to check unique store name
 * @param : store name

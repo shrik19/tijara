@@ -74,6 +74,16 @@ header{
     width: 100%;
     height: auto;
 }
+.buyer_profile_update_img{
+  width:200px;height:200px;margin-top:10px;
+}
+.buyer_profile_update_btn{
+  color:#fff !important;background-color: #03989e !important;font-weight: bold !important;
+}
+.page_heading{
+  font-size: 40px !important;
+  font-weight: bold !important;
+}
 
 .footer-loader{
     position: absolute;

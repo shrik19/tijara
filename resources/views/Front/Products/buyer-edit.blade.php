@@ -9,7 +9,7 @@ width:100% !important;
 
 <div class="mid-section">
   <div class="container-fluid">
-    <div class="container-inner-section">
+    <div class="container-inner-section-1">
       <div class="row">
        <div class="col-md-12"> 
      
@@ -18,6 +18,22 @@ width:100% !important;
           <div class="alert alert-danger">{{$subscribedError}}</div>
         @endif
 
+        <div class="seller_info">
+          <div class="card">
+          <div class="card-header row seller_header">
+          <!-- <h2 class="page_heading">{{ __('users.my_order_title')}}</h2> -->
+            <div class="col-md-10">
+               <h2 class="page_heading">{{ __('users.buyer_product_form_label')}}</h2>
+              <!--  <hr class="heading_line"/> -->
+               </div>
+               <div class="col-md-2 text-right" style="margin-top:30px;">
+               <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
+          </div>
+          <!-- <hr class="heading_line"/> -->
+          </div>
+          </div>
+          <div class="seller_mid_cont" style="margin-top: 20px;">
+
         <div class="col-md-12">
           <!-- <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data"> -->
           <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
@@ -25,14 +41,7 @@ width:100% !important;
           <div class="row">
 
 
-          <div class="col-md-10">
-
-          <h2>{{ __('users.buyer_product_form_label')}}</h2>
-          <hr class="heading_line"/>
-          </div>
-          <div class="col-md-2 text-right" style="margin-top:30px;">
-          <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
-          </div>
+        
 
           @include ('Front.alert_messages')
           <div class="col-md-12">
@@ -273,7 +282,8 @@ width:100% !important;
         <!-- </div> -->
       </div>
     </div> <!-- /col-10 -->
-
+</div>
+</div>
   </div>
 </div>
   </div>

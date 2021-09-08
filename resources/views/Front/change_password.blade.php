@@ -14,20 +14,26 @@
         <div class="col-md-10 tijara-content">
         <div class="seller_info">
         <div class="card-header row seller_header">
-			  <h2>{{ __('users.change_password_title')}} </h2>
+			  <h2>{{ __('users.change_password_title')}}</h2>
 			  <hr class="heading_line">
 		  </div>
-           <div class="col-md-6">
+         
       @else
         <div class="col-md-12 tijara-content">
-          <div class="col-md-3"></div>
-          <div class="col-md-5">
+          <div class="seller_info">
+          <div class="card">
+            <div class="card-header row seller_header">
+          <!-- <div class="col-md-3"></div>
+          <div class="col-md-5"> -->
           <h2>{{ __('users.change_password_title')}} </h2>
+        </div></div>
       @endif
       
           @include ('Front.alert_messages')
-		
-          <div class="login_box seller_mid_cont">
+		  <div class="col-md-12">
+        <div class="col-md-2"></div>
+          <div class="col-md-5">
+          <div class="login_box seller_mid_cont"  style="margin-top: 20px;">
             <form method="POST" action="{{route('frontChangePasswordStore')}}" class="needs-validation" novalidate="">
               @csrf
                 <div class="form-group">
@@ -52,9 +58,10 @@
           </div>
         </div>
          @if($is_seller !=1)
-          <div class="col-md-3"></div>
+          <div class="col-md-5"></div>
          @endif
-     </div>
+     </div></div>
+
 </div>
 </div>
    </div>

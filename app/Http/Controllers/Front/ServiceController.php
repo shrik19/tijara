@@ -1003,7 +1003,8 @@ class ServiceController extends Controller
           $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))->where('user_id','=',$user_id)
               ->groupby('year','month')
               ->get();
-             
+          
+          if(!empty($monthYearSql) && count($monthYearSql)>0){   
             foreach ($monthYearSql as $key => $value) {
               $i=$value['month'];
               $year =$value['year'];
@@ -1012,6 +1013,9 @@ class ServiceController extends Controller
           
               $monthYearDropdown    .=  "<option  value='".$new_date."'>$month $year</option>";
             }
+          }else{
+             $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";
+          }
 
  
   //print_r(DB::getQueryLog());exit;

@@ -2150,15 +2150,20 @@ class CartController extends Controller
           $monthYearSql = Orders::select(DB::raw('count(id) as `orders`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))->where('user_id','=',$user_id)
               ->groupby('year','month')
               ->get();
-             
-            foreach ($monthYearSql as $key => $value) {
-              $i=$value['month'];
-              $year =$value['year'];
-              $month =  date("M", strtotime("$i/12/10"));
-              $new_date = $value['new_date'];
-          
-              $monthYearDropdown    .=  "<option  value='".$new_date."'>$month $year</option>";
-            }
+
+            if(!empty($monthYearSql) && count($monthYearSql)>0){
+                foreach ($monthYearSql as $key => $value) {
+                  $i=$value['month'];
+                  $year =$value['year'];
+                  $month =  date("M", strtotime("$i/12/10"));
+                  $new_date = $value['new_date'];
+              
+                  $monthYearDropdown    .=  "<option  value='".$new_date."'>$month $year</option>";
+                }
+             }else{
+                 $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";  
+             }
+            
 
             /*$curr_yr = date("Y");
 

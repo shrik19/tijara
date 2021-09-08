@@ -120,11 +120,11 @@
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></h3></a>
                 <ul class="dropdown-menu">
 
-                  <li><a href="{{route('frontUserProfile')}}">{{ __('users.profile_label')}}</a></li>
+                  <li><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
 
                   <li><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
 
-                  <li><a href="{{route('frontAllServiceRequest')}}">{{ __('lang.my_service_request')}}</a></li>
+                  <li><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
 
                   <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
 

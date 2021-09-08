@@ -1,18 +1,28 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
+<div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
 
     <div class="col-md-12 tijara-content">
-    @include ('Front.alert_messages')
-    <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
+      @include ('Front.alert_messages')
+       <div class="seller_info">
+        <div class="card">
+        <div class="card-header row seller_header">
+          <h2 class="page_heading">{{ __('users.buyer_profile_update_title')}}</h2>
+          <!-- <hr class="heading_line"/> -->
+          </div>
+        </div>
+        <div class="seller_mid_cont"  style="margin-top: 20px;">
+    
+      <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
             @csrf
       <div class="col-md-6">
-        <h2> {{ __('users.buyer_profile_update_title')}}</h2>
-        <hr class="heading_line"/>
+        <!-- <h2> {{ __('users.buyer_profile_update_title')}}</h2>
+        <hr class="heading_line"/> -->
         
         <div class="login_box">
           
@@ -65,8 +75,7 @@
       
 
        <div class="col-md-6">
-        <h2>&nbsp;</h2>
-        <br>
+       
         
         <div class="login_box">
           <!-- <div class="form-group">
@@ -81,7 +90,12 @@
             if(!empty($buyerDetails[0]->profile))
             {
               echo '<div class="row">';
-              echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Buyer/resized/'.$buyerDetails[0]->profile.'" style="width:200px;height:200px;"></div>';
+              echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Buyer/resized/'.$buyerDetails[0]->profile.'" class="buyer_profile_update_img"></div>';
+              echo '</div>';
+              echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
+            }else{
+              echo '<div class="row">';
+              echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Buyer/no_image_circle.png" class="buyer_profile_update_img"></div>';
               echo '</div>';
               echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
             }
@@ -89,7 +103,7 @@
 
             <!-- <input type="file" name="profile" class="form-control" value="{{old('profile')}}"> -->
             <div class="upload-btn-wrapper">
-            <button class="uploadbtn"><i class="fa fa-upload" aria-hidden="true"></i> {{ __('users.upload_file_input')}}</button>
+            <button class="uploadbtn buyer_profile_update_btn"><i class="fa fa-upload" aria-hidden="true" style=""></i> {{ __('users.upload_file_input')}}</button>
             <input type="file" name="profile" class="form-control" value="{{old('profile')}}" />
             </div>
             
@@ -113,9 +127,12 @@
    <!--  </div> -->
     </form>
   </div>
+  </div>
+  </div>
   </div><!-- row -->
 </div> <!-- /container -->
-          </div>
+  </div>
+</div>
 <script>
   $(document).ready(function() {
     $('.description').richText();

@@ -638,13 +638,15 @@ class ServiceController extends Controller
         $rules = $messages = [];
         $rules = [ 
             'title'         => 'required',
-            'description'   => 'nullable|max:2000',
+            'description'   => 'required|max:2000',
             'sort_order'    =>'numeric',
             'service_price' => 'required', 
-     
+            'status' => 'required', 
+            'session_time'  => 'required',
+            'categories'  => 'required',
             //'service_availability'  => 'required',
           
-           /* 'service_year'  => 'required',
+           /* 'categories'  => 'required',
             'service_month' => 'required',
             'service_date'  => 'required',
             'start_time'    => 'required',*/
@@ -654,7 +656,7 @@ class ServiceController extends Controller
             $rules['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
             $rules['start_date_time'] =  'required';
             $rules['to_date_time']    =  'required';
-            $rules['session_time']  = 'required';  
+           
             $rules['del_start_time']  =  'required';
             
             
@@ -666,6 +668,7 @@ class ServiceController extends Controller
         $messages = [
             'title.required'         => trans('lang.required_field_error'),           
             'title.regex'            =>trans('lang.required_field_error'),     
+            'description.required'        => trans('lang.required_field_error'),
             'description.max'        => trans('lang.max_1000_char'),
             'service_slug.required'  => trans('errors.service_slug_req'),
             'service_slug.regex'     => trans('errors.input_aphanum_dash_err'),  
@@ -674,6 +677,8 @@ class ServiceController extends Controller
             'start_date_time.required' => trans('errors.service_start_end_datetime_req'),
             'to_date_time.required'  => trans('errors.service_start_end_datetime_req'),
             'del_start_time.required' => trans('lang.required_field_error'),
+            'status.required'            =>trans('lang.required_field_error'),
+            'categories.required'  => trans('lang.required_field_error'), 
             //  'service_availability.required'  => trans('lang.required_field_error'),
             /*'service_year.required'  => trans('lang.required_field_error'),           
             'service_month.required' => trans('lang.required_field_error'), 
@@ -1000,8 +1005,12 @@ class ServiceController extends Controller
         $monthYearDropdown    .= "</select>";*/
 
           $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'>";
-          $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))->where('user_id','=',$user_id)
-              ->groupby('year','month')
+          $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'));
+            if($userRole == 1){
+                $monthYearSql = $monthYearSql->where('user_id','=',$user_id);
+            }
+             
+            $monthYearSql = $monthYearSql->groupby('year','month')
               ->get();
           
           if(!empty($monthYearSql) && count($monthYearSql)>0){   

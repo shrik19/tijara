@@ -9,6 +9,12 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 .activemainmenu {
     background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
 }
+.leftsideactivemainmenu {
+    background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
+}
+
+.leftsideactivemainmenu a{ background-color: #fdeff0 !important;}
+
 .activesubmenu{
     background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
 }

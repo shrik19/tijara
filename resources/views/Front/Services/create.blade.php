@@ -9,7 +9,7 @@
 
 <div class="mid-section">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
    @if($subscribedError)
       <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -20,21 +20,28 @@
 
     <div class="col-md-2 tijara-sidebar">
       @include ('Front.layout.sidebar_menu')
-    </div>
+    </div> 
     <div class="col-md-10 tijara-content">
+         @include ('Front.alert_messages')
+         <div class="seller_info">
+        <div class="card">
+        <div class="card-header row seller_header">
+        <!-- <h2 class="page_heading">{{ __('users.my_order_title')}}</h2> -->
+        <!-- <hr class="heading_line"/> -->
         <div class="col-md-10">
             <h2>{{ __('servicelang.service_form_label')}}</h2>
-            <hr class="heading_line"/>
+            
         </div>
         <div class="col-md-2 text-right" style="margin-top:30px;">
             <a href="{{route('manageFrontServices')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
         </div>
-
-         @include ('Front.alert_messages')
+        </div>
+        </div>
+        <div class="seller_mid_cont" style="margin-top: 15px;">
         <div class="col-md-12">
 
           <div class="login_box">
-              <h2 class="col-md-12">{{ __('servicelang.step_1')}}</h2>
+              <h2 class="col-md-12 service-add-steps">{{ __('servicelang.step_1')}}</h2>
 
               <input type="hidden" name="service_id" value="{{$service_id}}">
 
@@ -55,11 +62,20 @@
                 <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
                 placeholder="{{ __('servicelang.session_time_placeholder')}} " value="{{old('session_time')}}" 
                 tabindex="1" >
-                <span style="text-align: center;" class="invalid-feedback col-md-12 session_time-err service_validation_err" id="session_time" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
+                <span class="invalid-feedback col-md-12 session_time-err service_validation_err" id="session_time" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-12" style="margin-top: 15px;">
-                <label class="col-md-3">{{ __('lang.category_label')}}</label>
+              <div class="form-group col-md-12">
+              <label class="col-md-3">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
+                  
+             <!--  <div class="form-group col-md-8"> -->
+                  <textarea class="col-md-12 login_input form-control" name="description" rows="5" cols="5" placeholder="{{ __('servicelang.service_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
+                  <span class="invalid-feedback col-md-12" id="err_description" style="margin-top: 150px;">@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+              <!-- </div> -->
+              </div>
+
+              <div class="form-group col-md-12">
+                <label class="col-md-3">{{ __('lang.category_label')}} <span class="de_col">*</span></label>
                 <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="Select" tabindex="3">
                   <option></option>
                   @foreach($categories as $cat_id=>$category)
@@ -71,32 +87,23 @@
                   </optgroup>
                   @endforeach
                 </select>
-                <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_find_us" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
+                <span class="invalid-feedback col-md-12" id="err_find_us" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
               </div>
 
 
               <div class="form-group col-md-12" style="display:none;">
                   <label class="col-md-3">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
                   <input type="tel" class="col-md-8 login_input form-control" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
-                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
+                  <span class="invalid-feedback col-md-12" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
               </div>
 
               <div class="form-group col-md-12">
-              <label class="col-md-3">{{ __('servicelang.service_description_label')}}  <span class="de_col"></span></label>
-                  
-             <!--  <div class="form-group col-md-8"> -->
-                  <textarea class="col-md-12 login_input form-control" name="description" rows="10" cols="20" placeholder="{{ __('servicelang.service_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
-                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
-              <!-- </div> -->
-              </div>
-
-              <div class="form-group col-md-12">
-                <label class="col-md-3">{{ __('lang.status_label')}} </label>
+                <label class="col-md-3">{{ __('lang.status_label')}} <span class="de_col">*</span> </label>
                 <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8" >
                   <option value="active">{{ __('lang.active_label')}}</option>
                   <option value="block">{{ __('lang.block_label')}}</option>
                   </select>
-                <span style="text-align: center;" class="invalid-feedback col-md-12" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+                <span class="invalid-feedback col-md-12" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
               </div>
 
             
@@ -109,12 +116,13 @@
               <div class="form-group col-md-12" style="margin-top: 15px;">
                 <label class="col-md-3">{{ __('lang.images')}} </label>
                 <input type="file" class="col-md-8 login_input image service_image form-control" >
-                <div class="images col-md-12"></div>
+                <div class="images col-md-12" style="margin-top: 15px;"></div>
               </div>
 
 
-        
-              <h2  class="col-md-12">{{ __('servicelang.step_2')}}</h2>
+              <hr class="solid-horizontal-line">
+             
+              <h2  class="col-md-12 service-add-steps">{{ __('servicelang.step_2')}}</h2>
                <div class="col-md-12">
                  <div class="col-md-9">
               <div class="form-group col-md-3">
@@ -257,6 +265,8 @@
   </form>
                     </div>
                     </div>
+                  </div>
+                </div>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">

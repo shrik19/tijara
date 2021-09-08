@@ -7,7 +7,7 @@
     @if(Auth::guard('user')->getUser()->role_id==2)
        @php
         if((Request::segment(1)=='seller-dashboard')){
-        $activeClass = 'activemainmenu';
+        $activeClass = 'leftsideactivemainmenu';
         }
         else{
         $activeClass = '';
@@ -25,12 +25,12 @@
     <li><h2>{{ __('users.manage_label')}}</h2></li>
 
     @if(Auth::guard('user')->getUser()->role_id==2)
-      <li class="{{ request()->is('seller-personal-page') ? 'activemainmenu' : ''}}"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
+      <li class="{{ request()->is('seller-personal-page') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
     @endif
 
     <?php 
       if((Request::segment(1)=='manage-products')){
-        $activeClass = 'activemainmenu';
+        $activeClass = 'leftsideactivemainmenu';
       }
       else{
        $activeClass = '';
@@ -43,7 +43,7 @@
     @endif
     <?php 
       if((Request::segment(1)=='manage-services')){
-        $activeClass = 'activemainmenu';
+        $activeClass = 'leftsideactivemainmenu';
       }
       else{
         $activeClass = '';
@@ -58,7 +58,7 @@
 
     <?php 
     if((Request::segment(1)=='all-orders') || (Request::segment(1)=='order-details')){
-    $activeClass = 'activemainmenu';
+    $activeClass = 'leftsideactivemainmenu';
     }
     else{
     $activeClass = '';
@@ -66,17 +66,17 @@
     ?>
     <li class="{{ $activeClass }}"><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('users.all_orders_menu')}} @endif</a></li>
 
-    <li  class="{{ request()->is('booking-request') ? 'activemainmenu' : ''}}"><a href="{{route('frontAllbookingRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('users.booking_request_label')}} @endif</a></li>
- <!--    <li  class="{{ request()->is('all-service-request') ? 'activemainmenu' : ''}}"><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li> -->
+    <li  class="{{ request()->is('booking-request') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontAllbookingRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('users.booking_request_label')}} @endif</a></li>
+ <!--    <li  class="{{ request()->is('all-service-request') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li> -->
 
 
     @if(Auth::guard('user')->getUser()->role_id==2)                   
-    <li class="{{ request()->is('seller-packages') ? 'activemainmenu' : ''}}"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
+    <li class="{{ request()->is('seller-packages') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
 
     @endif
     <?php 
     if((Request::segment(1)=='seller-profile') || (Request::segment(1)=='buyer-profile')){
-    $activeClass = 'activemainmenu';
+    $activeClass = 'leftsideactivemainmenu';
     }
     else{
     $activeClass = '';
@@ -94,7 +94,7 @@
 
     <?php 
     if((Request::segment(1)=='product-attributes')){
-    $activeClass = 'activemainmenu';
+    $activeClass = 'leftsideactivemainmenu';
     }
     else{
     $activeClass = '';
@@ -107,11 +107,11 @@
     <!--     @if(Auth::guard('user')->getUser()->role_id==2)
     <li  class="{{$activeClass}}"><a href="{{route('manageFrontServices')}}">{{ __('lang.manage_services_menu')}}</a></li>
 
-    <li class="{{ request()->is('seller-packages') ? 'activemainmenu' : ''}}"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
+    <li class="{{ request()->is('seller-packages') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
 
     @endif -->
-    <li class="{{ request()->is('change-password') ? 'activemainmenu' : ''}}"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
-    <li class="{{ request()->is('front-logout') ? 'activemainmenu' : ''}}"><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
+    <li class="{{ request()->is('change-password') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
+    <li class="{{ request()->is('front-logout') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
   </ul>
 
   @else

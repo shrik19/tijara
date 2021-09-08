@@ -94,8 +94,8 @@
         <div class="card">
           <div class="buyer-prod-msg" style="height:250px;">
             <h2 class="buyer-prod-head">Din prenumeration</h2>
-            <p class="buyer-prod-content">Paket : Tijara bas 69 kr/månad</p>
-            <p class="buyer-prod-content">Din nästa betalning : 2021-10-01</p>
+            <p class="buyer-prod-content col_black">Paket : Tijara bas 69 kr/månad</p>
+            <p class="buyer-prod-content col_black">Din nästa betalning : 2021-10-01</p>
           </div>
         </div>
       </div> 

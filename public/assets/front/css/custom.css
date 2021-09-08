@@ -13,7 +13,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
     background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
 }
 
-.leftsideactivemainmenu a{ background-color: #fdeff0 !important;}
+.leftsideactivemainmenu a{     background-color: #fff1e8 !important;}
 
 .activesubmenu{
     background-color: transparent !important; color: #000 !important; font-weight: 600 !important;
@@ -271,11 +271,11 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   line-height: 49px !important;
   padding-left: 10% !important;
 }
-
+/* 
 .slider_content
 {
   top: 60px !important;
-}
+} */
 .nav > li {
   width: 14% !important;
   font-size: 13px;

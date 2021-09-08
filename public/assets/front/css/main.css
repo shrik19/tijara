@@ -784,11 +784,11 @@ nav ul {
 span.remember-text {
     margin-left: 10px;
 }
-
+.sidebar_menu{width: 100%;}
   .buyer-prod-msg{
-    background-color: #fafafa;
+    background-color: #efefef;
     padding: 30px;
-    margin-bottom: 80px;
+    margin-bottom: 80px; border-radius: 6px;
   }
 
   .buyer-prod-head{
@@ -1217,7 +1217,7 @@ overflow: hidden;}
     text-align: center;
 	margin: 30px 0;
 }
-
+.col_black{color: #000;}
 .tijara_front_read_more a {
     background: #d2e8e9;
     padding: 5px 50px;
@@ -1226,12 +1226,14 @@ overflow: hidden;}
     font-size: 18px;
 	font-weight: 600;
 }
-
+.store_eye_icon a{color: #000000;}
+.visa_img{background-color: #03989e; height: 20px; width: 30px;   padding: 6px 9px 0; border-radius: 3px;}
+.visa_img i{color: #fff; font-size: 21px;}
 .tijara_front_read_more a:hover {
     background: #03989e;
     color: #d2e8e9;
 }
-
+.pos_none{position: relative!important;}
 .col-xs-15,
 .col-sm-15,
 .col-md-15,
@@ -1461,7 +1463,7 @@ overflow: hidden;}
     color:#fc0;
   }
   .product_details_info h2{
-      font-size: 40px; font-weight: 600; position: relative;    padding-bottom: 15px;margin-top: 0;
+      font-size: 40px; font-weight: 600; position: relative;    padding-bottom: 15px;margin-top: 0; line-height: 55px;
   }
   .product_details_info h2:after{
     position: absolute;
@@ -1522,9 +1524,14 @@ overflow: hidden;}
     float: left;
     width: 100%;}
 .summary_page h3{margin: 0;}
-.summary_page select{    width: 30%;
+.summary_page select{width: auto;
     margin-left: 13px;
-    float: left;}
+    float: left;
+    background: #ffbd59;
+    font-weight: 600;
+    color: #000;
+    border: none;
+    border-radius: 0;}
 
 .pacakge_feature_list{
     min-height:49Fvh;overflow: auto;position:relative
@@ -1573,8 +1580,8 @@ ul.tijara_front_box.row {
 }
 #msform{padding: 20px 0;}
 .p-0{padding: 0;}
-
-
+.colr-box {padding: 20px;}
+.tijara_front_box li h3{text-align: left; font-size: 24px; color: #737373;}
 
 
 /* Responsive css */
@@ -1839,7 +1846,7 @@ span.pro-text {
     font-weight: 700;}
     .seller_info{border-left: 1px solid #dadada;border-top: 1px solid #dadada; }
     .seller_header{
-        margin: 0;padding: 20px; background-color: #fafafa;
+        margin: 0;padding: 20px; background-color: #efefef;
     }
     .seller_mid_header{
         margin: 25px 0;
@@ -1848,3 +1855,43 @@ span.pro-text {
     .seller_mid_cont{margin-left: 25px;}
 
     .ge_input{line-height:40px; border:1px solid #dadada; border-radius:3px;width:67%; height:40px}
+    .fc-scroller > .fc-day-grid, .fc-scroller > .fc-time-grid{background-color: transparent!important;}
+    .fc-basic-view th.fc-week-number, .fc-basic-view th.fc-day-number{
+        padding: 20px 2px!important;;
+    }
+.fc-widget-content{border: none!important;}
+  
+        .fc-day-header{ padding: 20px 2px!important;;}
+        .fc-basic-view th span{    line-height: 56px!important;
+            font-size: 21px;
+            color: #a7a7a7;
+            font-weight: 400;}
+        .fc-basic-view th{border: none !important;}
+        .fc-head-container{    border: none!important;;
+            border-top: 1px solid #dadada!important;;
+            border-bottom: 1px solid #dadada!important;;}
+            .fc-view-container{width: 94%; margin: 0 3%;}
+            .fc-right{float: none!important;}
+            .fc-prev-button{position: absolute!important;
+                left: 8px;
+                top: 94px!important;
+                border: none!important;
+                background: none!important;
+                box-shadow: none!important;}
+
+                .fc button .fc-icon {
+                    position: relative;
+                    top: -0.05em;
+                    margin: 0 .2em;
+                    vertical-align: middle;
+                    font-size: 27px!important;;
+                    color: #a7a7a7!important;;
+                }
+                .fc-next-button{
+                    position: absolute!important;
+                right: 8px;
+                top: 94px!important;
+                border: none!important;
+                background: none!important;
+                box-shadow: none!important;
+                }

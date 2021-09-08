@@ -23,13 +23,13 @@
               <span class="invalid-feedback" id="err_fname" >@if($errors->has('fname')) {{ $errors->first('fname') }}@endif </span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 25px;">
               <label>{{ __('users.last_name_label')}} <span class="de_col">*</span></label>
               <input type="text" class="form-control login_input" name="lname" id="lname" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('lname')) ?  old('lname') : $buyerDetails[0]->lname}}">
               <span class="invalid-feedback" id="err_lname" >@if($errors->has('lname')) {{ $errors->first('lname') }}@endif</span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 25px;">
               <label>{{ __('users.email_label')}} <span class="de_col">*</span></label>
               <input type="email" class="form-control login_input" name="email" id="email" placeholder="{{ __('users.email_label')}}" value="{{ (old('email')) ? old('email') : $buyerDetails[0]->email}}">
               <span class="invalid-feedback" id="err_email" >@if($errors->has('email')) {{ $errors->first('email') }}@endif</span>

@@ -2139,6 +2139,67 @@ class CartController extends Controller
           $is_seller = 1;
         }
 
+
+        /*month year filter*/
+        $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
+        $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'>";
+        //$monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";
+
+      
+          $monthYearSql = Orders::select(DB::raw('count(id) as `orders`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+              ->groupby('year','month')
+              ->get();
+             
+            foreach ($monthYearSql as $key => $value) {
+              $i=$value['month'];
+              $year =$value['year'];
+              $month =  date("M", strtotime("$i/12/10"));
+              $new_date = $value['new_date'];
+          
+              $monthYearDropdown    .=  "<option  value='".$new_date."'>$month $year</option>";
+            }
+
+            /*$curr_yr = date("Y");
+
+            for ($j = 2000; $j <= $curr_yr; $j++) {
+            for ($i = 1; $i <= 12; $i++) {
+
+            echo "<br>".date("M", strtotime("$i/12/10"));
+
+            $time = strtotime(sprintf('+%d months', $i));
+
+            $label = date('F ', $i); 
+            //echo 
+            //echo $i."<br>";
+            $value = date('m', $time);       
+            $time_year = strtotime(sprintf('-%d years', $curr_yr));
+            $label_year = date('Y ', $time);
+            $value_year = date('Y', $time);
+
+
+            $selected = ( $value==$month &&  $value_year== $year ) ? ' selected=true' : '';
+            $month_year = $value."-".$j;
+
+            $get_curr_month_yr = date('m Y');
+            $explod_mY = explode(' ', $get_curr_month_yr);
+
+            $curr_month_yr = $explod_mY[0]."-".$explod_mY[1];
+
+            if($curr_month_yr==$month_year){
+            $selected= "selected";
+            }else{
+            $selected='';
+            }
+
+            $monthYearDropdown    .=  "<option  value='".$month_year."' ".$selected.">$label $j</option>";
+
+            }
+
+            }*/
+        $monthYearDropdown    .= "</select>";
+
+        $data['monthYearHtml']     = $monthYearDropdown;
         $data['is_seller'] = $is_seller;
         $data['user_id'] = $user_id;
 
@@ -2199,7 +2260,6 @@ class CartController extends Controller
               }); 
       }
 
-        
 
         if(!empty($request['status'])) 
         {
@@ -2207,7 +2267,14 @@ class CartController extends Controller
             $orders = $orders->Where('orders.order_status', '=', $request['status']);
 
         }
-      
+
+        if(!empty($request->monthYear)) {
+          $month_year_explod =explode("-",$request->monthYear);
+          $orders = $orders->whereMonth('orders.created_at', '=', $month_year_explod[0])
+          ->whereYear('orders.created_at',$month_year_explod[1]);
+
+        }
+       
         
           $recordsTotal = $orders->groupBy('orders.id')->get()->count();
           // if(isset($request['order'][0])){

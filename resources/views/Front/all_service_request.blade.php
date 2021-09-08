@@ -148,7 +148,7 @@ $( document ).ready(function() {
     },
   });
 
-  $("<div class='form-group col-md-4' style='float:right;'>"+
+  $("<div class='form-group' style='float:right;'>"+
   
   "<?php echo $monthYearHtml; ?>"+
   "</div>").appendTo("#serviceRequestTable_length");

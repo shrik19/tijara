@@ -18,7 +18,7 @@
 		</div>
     <div class="store_eye_icon">
        
-        <a href="{{$seller_link}}"><i class="fa fa-eye" aria-hidden="true">{{ __('users.see_show_label')}} </i></a>
+        <a href="{{$seller_link}}"><span class="visa_img"><i class="fa fa-eye" aria-hidden="true"></i></span> &nbsp;{{ __('users.see_show_label')}} </a>
        
     </div>
         <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data">

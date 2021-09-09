@@ -299,6 +299,7 @@
     'select_profile_picture' =>'Select profile picture',
     'my_order_title' => 'My Orders',
     'my_booking_title' => 'My Booking',
+    'verify_store' => 'Please verify Store',
 
  ]
 ?>

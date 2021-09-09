@@ -54,6 +54,7 @@
     var store_name_is_verified = "{{ __('users.store_name_is_verified')}}";
     var select_package_to_subscribe = "{{ __('errors.select_package_to_subscribe')}}";
     var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
+    var verify_store = "{{ __('users.verify_store')}}";
 </script>
   <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
   <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>
@@ -185,11 +186,11 @@
 									<form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
                                         <!-- <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label> -->
 										<input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}} *">
-										<span class="invalid-feedback" id="err_fname"></span>
+										<span class="invalid-feedback" id="err_fname" style="margin-top: -28px;margin-left: 10px;"></span>
 
                                         <!-- <label>{{ __('users.last_name_label')}}<span class="de_col">*</span></label> -->
 										<input type="text" name="lname" id="lname" class="form-control" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}} *">
-										<span class="invalid-feedback" id="err_lname"></span>
+										<span class="invalid-feedback" id="err_lname" style="margin-top: -27px;margin-left: 10px;"></span>
 
                                         <!-- <label>{{ __('users.address_label')}}</label> -->
 										<textarea  id="address" class="form-control" name="address" placeholder="{{ __('users.address_label')}} " rows="5" cols="30"  tabindex="5"></textarea>
@@ -210,13 +211,16 @@
 										@csrf
 										<div class="form-group" style="display: flex;">
                                             <!-- <label>{{ __('users.store_name_label')}}<span class="de_col">*</span></label> -->
+                                            
+                                            <input type="hidden" class="form-control login_input" name="verify_btn_click" id="verify_btn_click" value="">
 											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
-											<input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> 
+											<input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-top: 11px;" /> 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
 
 										<div class="form-group increment cloned">
+											<div class="col-md-4 seller_banner_upload" style="margin-top: 20px;"></div>
 											<label>{{ __('users.seller_header_img_label')}}</label>
-                                            <div class="col-md-4 seller_banner_upload"></div>
+                                            
 											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
 											
 											<span class="invalid-feedback" id="err_seller_banner_img"></span>
@@ -226,8 +230,8 @@
 										</div>
 
 										<div class="form-group increment cloned">
+											<div class="col-md-4 seller_logo_upload" style="margin-top: 20px;"></div>
 											<label>{{ __('users.seller_logo_label')}}</label>
-                                            <div class="col-md-4 seller_logo_upload"></div>
 											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
 											
 											<span class="invalid-feedback" id="err_seller_logo_img"></span>	
@@ -301,7 +305,7 @@
                         console.log("second step complete");  
                         $(".package-html").hide();
                         $(".klarna_html").html(data.html_snippet).show();
-                        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                        //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     }else{
                         alert(data.error_msg);
                         error=1;
@@ -619,11 +623,17 @@ $('#last-step').click(function(e) {
 
     e.preventDefault();
     let store_name     = $("#store_name").val();
+    let verify_btn_click = $("#verify_btn_click").val();
     
     if(store_name==''){
        last_step_err = 1;
        alert(please_enter_store_name)
     } 
+
+    if(verify_btn_click==''){
+       last_step_err = 1;
+       alert(verify_store)
+    }
 
     if($("#chk_privacy_policy").is(':checked')){
        last_step_err = 0;
@@ -632,6 +642,7 @@ $('#last-step').click(function(e) {
         last_step_err = 1;
 
     }
+
 
     if(last_step_err == 1){
             return false;
@@ -798,7 +809,7 @@ return false;
 * @param : store name
 */
 function checkStoreName(){
-
+    var is_verfied = $("#verify_btn_click").val('1');
     var store_name= $("#store_name").val();
     if(store_name!=''){
         $.ajax({

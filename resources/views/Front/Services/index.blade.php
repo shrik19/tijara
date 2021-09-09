@@ -21,7 +21,7 @@
 		<div class="card-header row seller_header">
 		<div class="col-md-10">
 		    
-		  <h2>{{ __('lang.services_label')}}</h2>
+		  <h2>{{ __('lang.service_label')}}</h2>
 		  <!-- <hr class="heading_line"/> -->
 		  </div>
 		 

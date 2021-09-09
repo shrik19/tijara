@@ -320,5 +320,6 @@
     'select_profile_picture' =>'Välj profilbild',
     'my_order_title' => 'Mina beställningar',
     'my_booking_title' => 'Mina bokningar',
+    'verify_store' => 'Kontrollera Store',
  ]
 ?>

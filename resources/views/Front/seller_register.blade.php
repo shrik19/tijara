@@ -301,7 +301,7 @@
                         console.log("second step complete");  
                         $(".package-html").hide();
                         $(".klarna_html").html(data.html_snippet).show();
-                        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                        //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     }else{
                         alert(data.error_msg);
                         error=1;

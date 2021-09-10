@@ -914,7 +914,11 @@ class ProductController extends Controller
     }
 
 public function swishIpnCallback(Request $request){
-    echo'ipn received';
+    $content = json_encode($_REQUEST);
+    $fp = fopen("swishipn.txt","wb");
+    fwrite($fp,$content);
+    fclose($fp);
+    mail("priyanka.techbee@gmail.com","swish IPN",json_encode($_REQUEST));
 }
      // Result pages
   public function result(Request $request){

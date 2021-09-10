@@ -862,6 +862,10 @@ class ProductController extends Controller
         
         $product_slug = $request->input('product_slug');
         $slug =   CommonLibrary::php_cleanAccents($product_slug);
+        $user_id = Auth::guard('user')->id();
+        $productData = $request->all();
+
+
         $rules = [ 
             'title'         => 'required',
             'description'   => 'nullable|max:3000',
@@ -888,9 +892,21 @@ class ProductController extends Controller
         }
         else
         {
+            $arrInsertOrder = [
+                'user_id' => $user_id,
+                'total' => env('PRODUCT_POST_AMOUNT'),
+                'product_details' => json_encode($productData),
+                'order_status' => 'PENDING',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ];
+            $orderId = TmpAdminOrders::create($arrInsertOrder)->id;
+            Session::put('current_buyer_order_id', $orderId);
             $data = array(
                 'type' => $request->type,
-                'clientKey' => env('CLIENT_KEY')
+                'clientKey' => env('CLIENT_KEY'),
+                'orderId'=>$orderId,
+                'paymentAmount'=>env('PRODUCT_POST_AMOUNT')
             );
             return view('Front/checkout_swish', $data);
         }
@@ -900,6 +916,17 @@ class ProductController extends Controller
   public function result(Request $request){
     $type = $request->type;
   //  dd($type);
+  $current_buyer_order_id   =   session('current_buyer_order_id');
+  Session::put('current_buyer_order_id', 0);
+
+  if($type=='success') {
+    return redirect()->route('frontProductCheckoutSuccess', ['id' => session('current_buyer_order_id')]);
+  }
+  else
+  {
+    $data['error_messages']=trans('errors.payment_failed_err');
+    return view('Front/payment_error',$data);
+  }
     return view('pages.result')->with('type', $type);
 }
 
@@ -928,24 +955,24 @@ class ProductController extends Controller
 public function initiatePayment(Request $request){
     error_log("Request for initiatePayment $request");
 
-    $orderRef = uniqid();
+    $orderRef = session('current_buyer_order_id');
     $params = array(
         "merchantAccount" => env('MERCHANT_ACCOUNT'),
         "channel" => "Web", // required
         "amount" => array(
             "currency" => 'SEK',
-            "value" => 0002 // value is 10€ in minor units
+            "value" => env('PRODUCT_POST_AMOUNT') // value is 10€ in minor units
         ),
         "reference" => $orderRef, // required
         // required for 3ds2 native flow
         "additionalData" => array(
             "allow3DS2" => "true"
         ),
-        "origin" => "https://dev.tijara.se", // required for 3ds2 native flow
+        "origin" => url('/'), // required for 3ds2 native flow
         "shopperIP" => $request->ip(),// required by some issuers for 3ds2
         // we pass the orderRef in return URL to get paymentData during redirects
         // required for 3ds2 redirect flow
-        "returnUrl" => "https://dev.tijara.se/api/handleShopperRedirect?orderRef=${orderRef}",
+        "returnUrl" => url('/')."/api/handleShopperRedirect?orderRef=${orderRef}",
         "paymentMethod" => $request->paymentMethod,
         "browserInfo" => $request->browserInfo // required for 3ds2
         );

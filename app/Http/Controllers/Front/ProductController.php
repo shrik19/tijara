@@ -907,7 +907,7 @@ class ProductController extends Controller
                 'type' => $request->type,
                 'clientKey' => env('CLIENT_KEY'),
                 'orderId'=>$orderId,
-                'paymentAmount'=>env('PRODUCT_POST_AMOUNT')
+                'paymentAmount'=>env('PRODUCT_POST_AMOUNT')*10
             );
             return view('Front/checkout_swish', $data);
         }
@@ -921,34 +921,9 @@ class ProductController extends Controller
   Session::put('current_buyer_order_id', 0);
 
   if($type=='success') {
-    $order_id = $request->order_id;
-    //$order_id = '104313e3-46e3-6d8c-9b7a-36ff0078646a';
-    $currentDate = date('Y-m-d H:i:s');
-    
-    $username = '';
-    $password = '';
-    $checkExisting = TmpAdminOrders::where('klarna_order_reference','=',$order_id)->first()->toArray();
-    $ProductData = json_decode($checkExisting['product_details'],true);
-    $user_id = $checkExisting['user_id'];
-    
-    $currentDate = date('Y-m-d H:i:s');
-    //START : Create Order
-    $arrOrderInsert = [
-                        'user_id'     => $user_id,
-                        'address'     => '',
-                        'order_lines' => '',
-                        'total' => $checkExisting['total'],
-                        'payment_details' => '',
-                        'payment_status' => '',
-                        'order_status' => 'PENDING',
-                        'created_at' => $currentDate,
-                        'updated_at' => $currentDate,
-                        'klarna_order_reference' => $checkExisting['klarna_order_reference'],
-                    ];
-    $NewOrderId = AdminOrders::create($arrOrderInsert)->id;
-    $temp_orders = TmpAdminOrders::find($checkExisting['id']);
-    $temp_orders->delete();
-    return redirect()->route('frontProductCheckoutSuccess', ['id' => session('current_buyer_order_id')]);
+   
+
+    return redirect()->route('frontProductCheckoutSuccess', ['id' => base64_encode($current_buyer_order_id)]);
   }
   else
   {
@@ -989,7 +964,7 @@ public function initiatePayment(Request $request){
         "channel" => "Web", // required
         "amount" => array(
             "currency" => 'SEK',
-            "value" => env('PRODUCT_POST_AMOUNT') // value is 10€ in minor units
+            "value" => env('PRODUCT_POST_AMOUNT')*10 // value is 10€ in minor units
         ),
         "reference" => $orderRef, // required
         // required for 3ds2 native flow
@@ -1018,7 +993,7 @@ public function submitAdditionalDetails(Request $request){
 
     $response = $this->checkout->paymentsDetails($payload);
 
-    echo'<pre>';print_r($response);exit;
+    //echo'<pre>';print_r($response);exit;
     return $response;
 }
 
@@ -1039,7 +1014,7 @@ public function handleShopperRedirect(Request $request){
 
     $response = $this->checkout->paymentsDetails($payload);
 
-    dd($response["resultCode"]); 
+    echo'<pre>';print_r($response);exit; 
     // switch ($response["resultCode"]) {
     //     case "Authorised":
     //         return redirect()->route('result', ['type' => 'success']);

@@ -919,6 +919,7 @@ public function swishIpnCallback(Request $request){
     fwrite($fp,$content);
     fclose($fp);
     mail("priyanka.techbee@gmail.com","swish IPN",json_encode($_REQUEST));
+    mail("priyanka.techbee@gmail.com","swish IPN2",json_encode($_POST));
     echo json_encode($_REQUEST);
 }
      // Result pages

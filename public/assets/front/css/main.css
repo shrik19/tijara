@@ -67,6 +67,17 @@ header{
 .bold{
   font-weight: bold;
 }
+.order-product-title{
+  font-size: 18px !important;font-weight: 500;margin-top: -45px;
+}
+.order-product-price{
+  margin-bottom: 50px;margin-top: -35px;
+}
+.buyer-service-store{
+    margin-top: -48px;
+    font-size: 18px !important;
+    font-weight: 500;
+}
 .package-body{
   min-height: 375px;overflow: auto;padding: 25px;
 }

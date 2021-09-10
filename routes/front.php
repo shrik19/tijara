@@ -191,6 +191,7 @@ Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name(
 Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');
 
 Route::any('/all-orders', 'Front\CartController@showAllOrders')->name('frontAllOrders');
+Route::any('/all-buyer-orders', 'Front\CartController@showBuyerOrders')->name('frontAllBuyerOrders');
 Route::any('/order-details/{id}', 'Front\CartController@showOrderDetails')->name('frontShowOrderDetails');
 Route::any('/download-order-details/{id}', 'Front\CartController@downloadOrderDetails')->name('frontDownloadOrderDetails');
 Route::any('/getOrderRecords','Front\CartController@getRecords')->name('frontOrdersGetRecords');

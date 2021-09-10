@@ -94,6 +94,8 @@
             @endif
             </div>
             </div>
+
+              {!! $buyerProducts->links() !!}
             </div>
             </div>
 

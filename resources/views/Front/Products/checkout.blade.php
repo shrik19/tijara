@@ -10,7 +10,7 @@
   }
 </style>
 
-<section class="product_details_section">
+<section class="">
 <div class="loader"></div>
 <div class="container">
       <div class="row" style="margin-bottom:60px;">

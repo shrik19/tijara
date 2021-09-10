@@ -35,7 +35,6 @@ width:100% !important;
           <div class="seller_mid_cont" style="margin-top: 20px;">
 
         <div class="col-md-12">
-          <!-- <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data"> -->
           <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
           @csrf
           <div class="row">

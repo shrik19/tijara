@@ -1144,8 +1144,6 @@ public function swishIpnCallback(Request $request){
                 
         }
     }
-    else
-    mail('priyanka.techbee@gmail.com','temp order not found',json_encode($_REQUEST));
     
 }
      // Result pages

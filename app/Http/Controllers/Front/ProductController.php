@@ -916,14 +916,16 @@ class ProductController extends Controller
 public function swishIpnCallback(Request $request){
     if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
         $order_id = $_REQUEST['merchantReference'];
-            //$order_id = '104313e3-46e3-6d8c-9b7a-36ff0078646a';
-            $currentDate = date('Y-m-d H:i:s');
+            
+        $currentDate = date('Y-m-d H:i:s');
             
             $username = '';
             $password = '';
-           /* $checkOrderExisting = AdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first()->toArray();
+           $checkOrderExisting = AdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first()->toArray();
             if(!empty($checkOrderExisting))
-             return 1;*/
+             {
+                 return 1;
+             }
             $checkExisting = TmpAdminOrders::where('id','=',$order_id)->first()->toArray();
             if(!empty($checkExisting)) {
                 $ProductData = json_decode($checkExisting['product_details'],true);
@@ -931,7 +933,7 @@ public function swishIpnCallback(Request $request){
                 
                 $currentDate = date('Y-m-d H:i:s');
 
-
+                mail('priyanka.techbee@gmail.com','swish ipn response',json_encode($_REQUEST));
                 
                 $address = array();
                 $Total = (float)ceil($checkExisting['total']);
@@ -1143,7 +1145,8 @@ public function swishIpnCallback(Request $request){
                     $message->from( env('FROM_MAIL'),'Tijara');
                 });
                 //END : Send success email to Seller.
-
+            
+                
                 
         }
     }

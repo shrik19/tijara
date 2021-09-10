@@ -139,6 +139,14 @@
     <div class="row">
         <div class="col-md-12 text-right">
             <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick="printDiv();">{{ __('messages.txt_order_details_print')}} <span class="glyphicon glyphicon-print"></span></button>
+              <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick='downloadPdf("{{route('frontDownloadOrderDetails', base64_encode($order['id']))}}");'>{{ __('messages.txt_order_details_print')}} <span class="glyphicon glyphicon-print"></span></button>
+          <!--   <a href="{{route('frontDownloadOrderDetails', base64_encode($order['id']))}}" title="Download"  style="font-size:18px;">Download<i style="color:gray;" class="fas fa-file-download"></i> </a> -->
+    <!--       var attr_val = $(this).attr('product_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  } -->
+
+        <!--     <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick="printDiv();">Download<span class="glyphicon glyphicon-print"></span></button> -->
         </div>
     </div>
     <div class="col-md-12">&nbsp;</div>
@@ -211,6 +219,13 @@
                 }
             });
         });
+    }
+     function downloadPdf(DownloadLink) 
+    {
+
+      if(DownloadLink !=''){
+        window.location.href = DownloadLink; 
+      } 
     }
 </script>
 @endsection

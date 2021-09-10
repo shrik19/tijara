@@ -892,6 +892,7 @@ class ProductController extends Controller
         }
         else
         {
+            $currentDate = date('Y-m-d H:i:s');
             $arrInsertOrder = [
                 'user_id' => $user_id,
                 'total' => env('PRODUCT_POST_AMOUNT'),
@@ -920,6 +921,33 @@ class ProductController extends Controller
   Session::put('current_buyer_order_id', 0);
 
   if($type=='success') {
+    $order_id = $request->order_id;
+    //$order_id = '104313e3-46e3-6d8c-9b7a-36ff0078646a';
+    $currentDate = date('Y-m-d H:i:s');
+    
+    $username = '';
+    $password = '';
+    $checkExisting = TmpAdminOrders::where('klarna_order_reference','=',$order_id)->first()->toArray();
+    $ProductData = json_decode($checkExisting['product_details'],true);
+    $user_id = $checkExisting['user_id'];
+    
+    $currentDate = date('Y-m-d H:i:s');
+    //START : Create Order
+    $arrOrderInsert = [
+                        'user_id'     => $user_id,
+                        'address'     => '',
+                        'order_lines' => '',
+                        'total' => $checkExisting['total'],
+                        'payment_details' => '',
+                        'payment_status' => '',
+                        'order_status' => 'PENDING',
+                        'created_at' => $currentDate,
+                        'updated_at' => $currentDate,
+                        'klarna_order_reference' => $checkExisting['klarna_order_reference'],
+                    ];
+    $NewOrderId = AdminOrders::create($arrOrderInsert)->id;
+    $temp_orders = TmpAdminOrders::find($checkExisting['id']);
+    $temp_orders->delete();
     return redirect()->route('frontProductCheckoutSuccess', ['id' => session('current_buyer_order_id')]);
   }
   else
@@ -990,6 +1018,7 @@ public function submitAdditionalDetails(Request $request){
 
     $response = $this->checkout->paymentsDetails($payload);
 
+    echo'<pre>';print_r($response);exit;
     return $response;
 }
 

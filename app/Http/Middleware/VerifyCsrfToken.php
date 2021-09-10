@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         'api/getPaymentMethods',
         'api/initiatePayment',
         'api/handleShopperRedirect',
-        'api/submitAdditionalDetails'
+        'api/submitAdditionalDetails',
+        'swish-ipn-callback'
     ];
 }

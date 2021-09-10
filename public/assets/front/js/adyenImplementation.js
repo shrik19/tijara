@@ -93,20 +93,20 @@ function handleServerResponse(res, component) {
     component.handleAction(res.action);
   } else {
     console.log(res);
-    return true;
+    
     switch (res.resultCode) {
       case "Authorised":
-        window.location.href = "/result/success";
+        window.location.href = "/result/"+res.merchantReference+"/success";
         break;
       case "Pending":
       case "Received":
-        window.location.href = "/result/pending";
+        window.location.href = "/result/"+res.merchantReference+"/pending";
         break;
       case "Refused":
-        window.location.href = "/result/failed";
+        window.location.href = "/result/"+res.merchantReference+"/failed";
         break;
       default:
-        window.location.href = "/result/error";
+        window.location.href = "/result/"+res.merchantReference+"/error";
         break;
     }
   }

@@ -101,7 +101,7 @@ Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->nam
 Route::any('/checkout-swish/{type}','Front\ProductController@showCheckoutSwish')->name('frontProductShowCheckout');
 Route::any('/checkout_callback', 'Front\ProductController@checkoutCallback')->name('frontProductCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
-
+ 
 Route::get('/buyer-products','Front\ProductController@listBuyerProduct')->name('manageBuyerProducts');
 
 

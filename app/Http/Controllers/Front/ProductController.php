@@ -899,8 +899,8 @@ class ProductController extends Controller
      // Result pages
   public function result(Request $request){
     $type = $request->type;
-    dd($type);
-    //return view('pages.result')->with('type', $type);
+  //  dd($type);
+    return view('pages.result')->with('type', $type);
 }
 
     /* ################# API ENDPOINTS ###################### */

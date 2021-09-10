@@ -84,7 +84,7 @@ Route::any('/seller-info-page', 'Front\AuthController@seller_info_page')->name('
 /*CMS Pages*/
 Route::get('/page/{page_slug}','Front\FrontController@cmsPage')->name('frontCmsPage');
 
-
+ 
 /* Product Management  */
 Route::group(['prefix'=>'manage-products'], function() {
 Route::get('/','Front\ProductController@index')->name('manageFrontProducts');
@@ -97,8 +97,8 @@ Route::get('/delete/{id}','Front\ProductController@delete')->name('frontProductD
 Route::post('/upload-variant-image','Front\ProductController@uploadVariantImage')->name('uploadVariantImage');
 Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->name('frontProductCheckUniqueSlug');
 
-Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
-//Route::any('/checkout-swish/{type}','Front\ProductController@showCheckoutSwish')->name('frontProductShowCheckout');
+//Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
+Route::any('/checkout-swish/{type}','Front\ProductController@showCheckoutSwish')->name('frontProductShowCheckout');
 Route::any('/checkout_callback', 'Front\ProductController@checkoutCallback')->name('frontProductCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
 

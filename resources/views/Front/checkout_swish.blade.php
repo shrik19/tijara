@@ -6,6 +6,8 @@
 
 <div id="clientKey" class="hidden">{{$clientKey}}</div>
 <div id="type" class="hidden">{{$type}}</div>
+<div id="orderId" class="hidden">{{$orderId}}</div>
+<div id="paymentAmount" class="hidden">{{$paymentAmount}}</div>
 
 <section class="product_details_section">
 <div class="loader"></div>
@@ -15,6 +17,8 @@
           <div class="container">
             <div class="payment-container">
                 <div id={{$type}} class="payment"></div>
+                <div id={{$orderId}} class="orderId"></div>
+                
             </div>
           </div>
         </div>

@@ -932,6 +932,7 @@ public function swishIpnCallback(Request $request){
             $address = array();
             $Total = (float)ceil($checkExisting['total']);
             $paymentDetails = $_REQUEST;
+            $order_status   =   'Success';
             $slug =   CommonLibrary::php_cleanAccents($ProductData['product_slug']);
             //Create Product
             $arrProducts = [
@@ -974,7 +975,7 @@ public function swishIpnCallback(Request $request){
             //START : Update Order
             $arrOrderUpdate = [
                 'address'     => json_encode($address),
-                'order_lines' => json_encode($orderLines),
+                'order_lines' => '',
                 'payment_details' => json_encode($paymentDetails),
                 'payment_status' => $order_status,
                 'order_status' => 'COMPLETE',

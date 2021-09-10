@@ -914,31 +914,14 @@ class ProductController extends Controller
     }
 
 public function swishIpnCallback(Request $request){
-    $content = json_encode($_REQUEST);
-    $fp = fopen("swishipn.txt","wb");
-    fwrite($fp,$content);
-    fclose($fp);
-    mail("priyanka.techbee@gmail.com","swish IPN",json_encode($_REQUEST));
-    mail("priyanka.techbee@gmail.com","swish IPN2",json_encode($_POST));
-    echo json_encode($_REQUEST);
-}
-     // Result pages
-  public function result(Request $request){
-    $type = $request->type;
-  
-    $current_buyer_order_id   =  $request->id;
-    Session::put('current_buyer_order_id', 0);
-
-    if($type=='success') {
-    {
-        
-            $order_id = $current_buyer_order_id;
+    if($_REQUEST['success']==true) {
+        $order_id = $_REQUEST['merchantReference'];
             //$order_id = '104313e3-46e3-6d8c-9b7a-36ff0078646a';
             $currentDate = date('Y-m-d H:i:s');
             
             $username = '';
             $password = '';
-            $checkExisting = TmpAdminOrders::where('id','=',$current_buyer_order_id)->first()->toArray();
+            $checkExisting = TmpAdminOrders::where('id','=',$order_id)->first()->toArray();
             $ProductData = json_decode($checkExisting['product_details'],true);
             $user_id = $checkExisting['user_id'];
             
@@ -948,8 +931,7 @@ public function swishIpnCallback(Request $request){
             
             $address = array();
             $Total = (float)ceil($checkExisting['total']);
-            $paymentDetails = ['captures' => $response->captures, 'klarna_reference' => $response->klarna_reference];
-            
+            $paymentDetails = $_REQUEST;
             $slug =   CommonLibrary::php_cleanAccents($ProductData['product_slug']);
             //Create Product
             $arrProducts = [
@@ -1125,7 +1107,7 @@ public function swishIpnCallback(Request $request){
             });
             
         
-            $admin_email = 'shrik.techbee@gmail.com';
+            $admin_email = 'priyanka.techbee@gmail.com';
             $admin_name  = 'Tijara Admin';
             
             $GetEmailContents = getEmailContents('Product Published Admin');
@@ -1143,6 +1125,18 @@ public function swishIpnCallback(Request $request){
             });
             //END : Send success email to Seller.
         }
+    
+}
+     // Result pages
+  public function result(Request $request){
+    $type = $request->type;
+  
+    $current_buyer_order_id   =  $request->id;
+    Session::put('current_buyer_order_id', 0);
+
+    if($type=='success') {
+    
+        
         return redirect()->route('frontProductCheckoutSuccess', ['id' => base64_encode($current_buyer_order_id)]);
     }
     else

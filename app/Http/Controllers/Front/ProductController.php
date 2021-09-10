@@ -921,9 +921,9 @@ public function swishIpnCallback(Request $request){
             
             $username = '';
             $password = '';
-            $checkOrderExisting = AdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first()->toArray();
+           /* $checkOrderExisting = AdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first()->toArray();
             if(!empty($checkOrderExisting))
-             return 1;
+             return 1;*/
             $checkExisting = TmpAdminOrders::where('id','=',$order_id)->first()->toArray();
             if(!empty($checkExisting)) {
                 $ProductData = json_decode($checkExisting['product_details'],true);

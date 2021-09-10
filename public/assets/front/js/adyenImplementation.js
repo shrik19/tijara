@@ -66,7 +66,8 @@ function filterUnimplemented(pm) {
 async function handleSubmission(state, component, url) {
   try {
     const res = await callServer(url, state.data);
-    handleServerResponse(res, component);
+    handleSubmission(state, component, "/api/handleShopperRedirect");
+    //handleServerResponse(res, component);
   } catch (error) {
     console.error(error);
     alert("Error occurred. Look at console for details");
@@ -91,6 +92,8 @@ function handleServerResponse(res, component) {
   if (res.action) {
     component.handleAction(res.action);
   } else {
+    console.log(res);
+    return true;
     switch (res.resultCode) {
       case "Authorised":
         window.location.href = "/result/success";

@@ -907,7 +907,7 @@ class ProductController extends Controller
                 'type' => $request->type,
                 'clientKey' => env('CLIENT_KEY'),
                 'orderId'=>$orderId,
-                'paymentAmount'=>env('PRODUCT_POST_AMOUNT')*10
+                'paymentAmount'=>env('PRODUCT_POST_AMOUNT')*100
             );
             return view('Front/checkout_swish', $data);
         }
@@ -1199,7 +1199,7 @@ public function initiatePayment(Request $request){
         "channel" => "Web", // required
         "amount" => array(
             "currency" => 'SEK',
-            "value" => env('PRODUCT_POST_AMOUNT')*10 // value is 10€ in minor units
+            "value" => env('PRODUCT_POST_AMOUNT')*100 // value is 10€ in minor units
         ),
         "reference" => $orderRef, // required
         // required for 3ds2 native flow

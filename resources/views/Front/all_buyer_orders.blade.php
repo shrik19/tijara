@@ -50,14 +50,14 @@
                               </div>
                             <div class="card-body"  style="margin-top: 20px;">
                                 <div class="row">
-                                    @if(!empty($ordersDetails))
+                                    @if(!empty($ordersDetails) && count($ordersDetails) > 0)
 
                                     @foreach($ordersDetails as $key => $value)
 
                                     <?php 
 
                               
-                                  if(!empty($value->image) && count($value->image)>0) {
+                                  if(!empty($value->image)) {
                                     $imagesParts    =   explode(',',$value->image); 
                                     $image  =   url('/').'/uploads/ProductImages/resized/'.$imagesParts[0];
                                     }

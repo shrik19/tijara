@@ -934,6 +934,20 @@ public function swishIpnCallback(Request $request){
             $paymentDetails = $_REQUEST;
             $order_status   =   'Success';
             $slug =   CommonLibrary::php_cleanAccents($ProductData['product_slug']);
+
+            $arrOrderInsert = [
+                'user_id'     => $user_id,
+                'address'     => '',
+                'order_lines' => '',
+                'total' => $checkExisting['total'],
+                'payment_details' => '',
+                'payment_status' => '',
+                'order_status' => 'PENDING',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+                'klarna_order_reference' => $_REQUEST['pspReference'],
+            ];
+            $NewOrderId = AdminOrders::create($arrOrderInsert)->id;
             //Create Product
             $arrProducts = [
                 'title'        		=> trim(ucfirst($ProductData['title'])),

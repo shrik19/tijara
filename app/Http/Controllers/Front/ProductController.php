@@ -1014,7 +1014,7 @@ public function handleShopperRedirect(Request $request){
 
     $response = $this->checkout->paymentsDetails($payload);
 
-    echo'<pre>';print_r($response);exit; 
+    //echo'<pre>';print_r($response);exit; 
     // switch ($response["resultCode"]) {
     //     case "Authorised":
     //         return redirect()->route('result', ['type' => 'success']);

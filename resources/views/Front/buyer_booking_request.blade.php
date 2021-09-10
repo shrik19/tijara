@@ -8,14 +8,16 @@
 
         <div class="row">
             <div class="col-md-12 tijara-content">
-    
+                <?php /* @if($subscribedError)
+                <div class="alert alert-danger">{{$subscribedError}}</div>
+                @endif */ ?>
                 @include('Front.alert_messages')
                 <div class="seller_info">
 
                     <div class="card">
                         <div class="card-header row seller_header">
                         <h2 class="page_heading">{{ __('users.my_booking_title')}}</h2>
-               
+                        <!-- <hr class="heading_line"/> -->
                         </div>
                     </div>
                     <div class="seller_mid_cont"  style="margin-top: 20px;">
@@ -26,7 +28,10 @@
                                 <p  class="buyer-prod-content">{{__('messages.service_booking_msg')}}</p>
                             </div>
                         </div>
-                  
+                       <!--  <div class="col-md-12">
+                        <div class="col-md-9"></div>
+                            <div  class="col-md-3"><?php echo $monthYearHtml;?></div>
+                        </div> -->
                         <div class="card">
                               <div class="col-md-12" style="margin-bottom: 40px;margin-top: -45px;">
                                 <div class="col-md-9"></div>
@@ -53,18 +58,18 @@
                                     ->get();
 
 
-                                      if(!empty($value['image'])) {
-                                    $imagesParts    =   explode(',',$value['images']); 
-                                    $image  =   url('/').'/uploads/ServiceImages/resized/'.$value['images'];
+                                    if(!empty($value['images'])) {
+                                   
+                                   $image  =   url('/').'/uploads/ServiceImages/resized/'.$value['images'];
                                     }
                                     else{
                                     $image  =     url('/').'/uploads/ServiceImages/resized/no-image.png';
                                     }
-                                   
+                               
                                     $dated      =   date('Y-m-d',strtotime($value['service_date']));
 
                                     $serviceName = (!empty($value['title'])) ? $value['title'] : '-';
-                              
+                                    // $price = $value['service_price'];
                                     $service_price = (!empty($value->price)) ? $value->price : '-';
                                     $storeName = (!empty($getStoreName[0]->store_name)) ?$getStoreName[0]->store_name : '-';
 

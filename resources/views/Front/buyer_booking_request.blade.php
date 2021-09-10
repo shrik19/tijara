@@ -58,14 +58,15 @@
                                     ->get();
 
 
-                                    if(!empty($value['images'])) {
-                                   
-                                   $image  =   url('/').'/uploads/ServiceImages/resized/'.$value['images'];
+                                 if(!empty($value['images']) && count($value['images'])>0) {
+                                   $imagesParts    =   explode(',',$value['images']); 
+                    
+                                   $image  =   url('/').'/uploads/ServiceImages/resized/'.$imagesParts[0];
                                     }
                                     else{
                                     $image  =     url('/').'/uploads/ServiceImages/resized/no-image.png';
                                     }
-                               
+                                   
                                     $dated      =   date('Y-m-d',strtotime($value['service_date']));
 
                                     $serviceName = (!empty($value['title'])) ? $value['title'] : '-';

@@ -56,9 +56,10 @@
 
                                     <?php 
 
-                                  if(!empty($value->image)) {
+                              
+                                  if(!empty($value->image) && count($value->image)>0) {
                                     $imagesParts    =   explode(',',$value->image); 
-                                    $image  =   url('/').'/uploads/ProductImages/resized/'.$value->image;
+                                    $image  =   url('/').'/uploads/ProductImages/resized/'.$imagesParts[0];
                                     }
                                     else{
                                     $image  =     url('/').'/uploads/ProductImages/resized/no-image.png';

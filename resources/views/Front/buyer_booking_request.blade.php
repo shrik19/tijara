@@ -58,7 +58,7 @@
                                     ->get();
 
 
-                                 if(!empty($value['images']) && count($value['images'])>0) {
+                                 if(!empty($value['images'])) {
                                    $imagesParts    =   explode(',',$value['images']); 
                     
                                    $image  =   url('/').'/uploads/ServiceImages/resized/'.$imagesParts[0];

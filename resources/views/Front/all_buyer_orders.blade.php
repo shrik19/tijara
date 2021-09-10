@@ -50,7 +50,7 @@
                               </div>
                             <div class="card-body"  style="margin-top: 20px;">
                                 <div class="row">
-                                    @if(!empty($ordersDetails) && count($ordersDetails) > 0)
+                                    @if(!empty($ordersDetails))
 
                                     @foreach($ordersDetails as $key => $value)
 

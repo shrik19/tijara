@@ -1893,7 +1893,10 @@ public function findCurrency($type){
         //$buyerProducts   =   Products::where('user_id',Auth::guard('user')->id())->get();
         $buyerProducts = Products::Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
                             ->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])
-                            ->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id())->groupBy('products.id')->get();
+                            ->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id())->groupBy('products.id');
+
+
+         $buyerProducts       = $buyerProducts->paginate(12);
        /* $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
             
         if(!empty($checkProductExistOfBuyer)) {

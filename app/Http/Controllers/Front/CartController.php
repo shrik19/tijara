@@ -2126,6 +2126,69 @@ class CartController extends Controller
       }
     }
 
+    public function showBuyerOrders(Request $request){
+       $user_id = Auth::guard('user')->id();
+      $is_seller = 0;
+      $orderDetails = [];
+      if($user_id)
+      {
+           
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'><option value=''>".trans('lang.select_label')."</option>";
+        
+          
+        $monthYearSql = Orders::select(DB::raw('count(id) as `orders`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))->where('user_id','=',$user_id)->groupby('year','month')
+              ->get();
+           
+
+        if(!empty($monthYearSql) && count($monthYearSql)>0){
+            foreach ($monthYearSql as $key => $value) {
+              $i=$value['month'];
+              $year =$value['year'];
+              $month =  date("M", strtotime("$i/12/10"));
+              $new_date = $value['new_date'];
+              if($new_date==$request['monthYear']){
+                $selected = "selected";
+              }else{
+                $selected = "";
+              }
+          
+              $monthYearDropdown    .=  "<option  value='".$new_date."' ".$selected.">$month $year</option>";
+            }
+         }
+          
+        $monthYearDropdown    .= "</select>";
+          
+        $orders  = Orders::join('orders_details', 'orders.id', '=', 'orders_details.order_id')
+                  ->join('products', 'products.id', '=', 'orders_details.product_id')
+                ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+               // ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+               ->join('users','users.id','=','products.user_id')
+              ->select('orders.created_at','products.title','products.product_code','products.product_slug','variant_product.price','users.store_name','variant_product.image','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
+
+        if(!empty($request->monthYear)) {
+          $month_year_explod =explode("-",$request->monthYear);
+          $orders = $orders->whereMonth('orders.created_at', '=', $month_year_explod[0])
+          ->whereYear('orders.created_at',$month_year_explod[1]);
+
+        }
+       
+        $orders       = $orders->groupBy('orders.id')->orderby('orders.id', 'DESC');
+        $orders       = $orders->paginate(12);
+
+        $data['ordersDetails']  = $orders;
+        $data['monthYearHtml']     = $monthYearDropdown;
+        $data['is_seller']         = $is_seller;
+        $data['user_id']           = $user_id;
+
+        return view('Front/all_buyer_orders', $data);
+      }
+      else 
+      {
+          Session::flash('error', trans('errors.login_buyer_required'));
+          return redirect(route('frontLogin'));
+      }
+    }
+
     public function showAllOrders(Request $request)
     {
       $user_id = Auth::guard('user')->id();

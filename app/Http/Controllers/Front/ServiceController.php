@@ -1003,36 +1003,100 @@ class ServiceController extends Controller
         }
            
         $monthYearDropdown    .= "</select>";*/
-
+        
           $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'>";
-          $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'));
+          $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(service_date, '%m-%Y') new_date"),  DB::raw('YEAR(service_date) year, MONTH(service_date) month'));
             if($userRole == 1){
                 $monthYearSql = $monthYearSql->where('user_id','=',$user_id);
             }
              
             $monthYearSql = $monthYearSql->groupby('year','month')
               ->get();
-          
-          if(!empty($monthYearSql) && count($monthYearSql)>0){   
+            $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";  
+          if(!empty($monthYearSql) && count($monthYearSql)>0){ 
+
             foreach ($monthYearSql as $key => $value) {
               $i=$value['month'];
               $year =$value['year'];
               $month =  date("M", strtotime("$i/12/10"));
               $new_date = $value['new_date'];
+
+              if($new_date==$request['monthYear']){
+                $selected = "selected";
+              }else{
+                $selected = "";
+              }
           
-              $monthYearDropdown    .=  "<option  value='".$new_date."'>$month $year</option>";
+              $monthYearDropdown    .=  "<option  value='".$new_date."' ".$selected.">$month $year</option>";
             }
           }else{
              $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";
           }
+          $monthYearDropdown    .= "</select>";
+           //$User   =   UserMain::where('id',Auth::guard('user')->id())->first();
+ 
+        $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')
+          ->join('services','services.id','=','service_requests.service_id')
+
+          ->select('services.user_id as seller_id','services.title','services.service_price as price','services.images','services.description','services.service_slug','services.service_code','users.fname','users.lname','users.email'
+          ,'users.store_name','service_requests.*')->where('service_requests.is_deleted','!=',1)->where('service_requests.user_id','=',$user_id);
+
+        /*if($User->role_id==2) {
+          //seller
+          $serviceRequest = $serviceRequest->where('services.user_id','=',$request['user_id']);
+      }
+      else 
+      {
+        $serviceRequest = $serviceRequest->where('service_requests.user_id','=',$request['user_id']);
+      }*/
+/*
+      if(!empty($request['search']['value'])) 
+      {
+            $field = ['users.fname','users.lname','users.email','services.title'];
+            $namefield = ['users.fname','users.lname','users.email','services.title'];
+            $search=($request['search']['value']);
+            
+            $serviceRequest = $serviceRequest->Where(function ($query) use($search, $field,$namefield) 
+            { 
+                if(strpos($search, ' ') !== false)
+                {
+                      $s=explode(' ',$search);
+                      foreach($s as $val) {
+                          for ($i = 0; $i < count($namefield); $i++){
+                              $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
+                          }  
+                      }
+                  }
+                  else 
+                  {
+                    for ($i = 0; $i < count($field); $i++){
+                        $query->orwhere($field[$i], 'like',  '%' . $search .'%');
+                  }  
+
+                }        
+              }); 
+      }*/               
+
+        if(!empty($request['monthYear'])) {
+              
+          $month_year_explod =explode("-",$request['monthYear']);
+           
+          $serviceRequest = $serviceRequest->whereMonth('service_requests.service_date', '=', $month_year_explod[0])
+          ->whereYear('service_requests.service_date',$month_year_explod[1]);
+
+        }
+        
+          $serviceRequest = $serviceRequest->groupBy('service_requests.id')->orderby('service_requests.id', 'DESC');
+          $serviceRequest       = $serviceRequest->paginate(12);
 
  
-  //print_r(DB::getQueryLog());exit;
+        //print_r(DB::getQueryLog());exit;
+        $data['buyerBookingRequest']  = $serviceRequest;
         $data['monthYearHtml']     = $monthYearDropdown;
         $data['is_seller']         = $is_seller;
         $data['user_id']           = $user_id;
 
-        return view('Front/all_service_request', $data);
+        return view('Front/buyer_booking_request', $data);
       }
       else 
       {
@@ -1041,6 +1105,7 @@ class ServiceController extends Controller
       }
     }
 
+   /*
     public function getAllServiceRequest(Request $request) 
     {
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
@@ -1179,7 +1244,7 @@ class ServiceController extends Controller
 
       return json_encode($json_arr);
 
-  }
+  }*/
 
   /*function to get all booking request*/
    public function bookingRequest(Request $request) 

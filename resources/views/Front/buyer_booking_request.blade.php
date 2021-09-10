@@ -86,14 +86,20 @@
                                 $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($value->seller_id)."/services"; 
 
                                 $service_link = url('/').'/service/'.$value->service_slug.'-S-'.$value->service_code;
-                                   
+                                 // echo "<pre>";print_r($value['location']);exit;
+                                   $description=$value->description;
+
+                                   $location = $value['location'];
+                                   $service_time=$value['time'];
                                     ?> 
                                     <div class="col-sm-3">
                                         <div class="card product-card">
-                                            <img class="card-img-top buyer-product-img ServiceImgCard" src="{{$image}}" service_link="{{$service_link}}">
+                                            <img class="card-img-top buyer-product-img ServiceImgCard serviceReqDetails" src="{{$image}}"user_name="'.$user.'" serviceName="{{$serviceName}}" dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}">
+
+
                                             <div class="card-body">
                                                 <h5 class="card-title">{{$dated}}</h5>
-                                                <p class="card-text buyer-product-title"><a href="{{$service_link}}"  style="color: #000 !important">{{$serviceName}}</a></p>
+                                                <p class="card-text buyer-product-title serviceReqDetails"  dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}"><a style="color: #000 !important">{{$serviceName}}</a></p>
                                                 <p class="card-text" style="margin-bottom: 50px;margin-top: -36px;">  
                                                 <span class="buyer-price  booking-service-price" id="product_variant_price">
                                                 {{number_format($service_price,2) }} kr
@@ -125,21 +131,68 @@
         </div>       
     </div>
 </div> <!-- /container -->
+
+<!-- add subcategory model Form -->
+ <div class="modal fade" id="serviceReqDetailsmodal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ __('lang.service_req_details')}}</h4>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+          <table>
+           <!--  <tr><td style="font-weight: 700px;"></td>:<td></td></tr> -->
+           @if(session('role_id')==2)  
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.cust_label')}} {{ __('lang.txt_name')}} :</td><td class="user_name" style="padding-left: 10px;"></td></tr>
+            @endif
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.sevice_name_head')}} :</td><td class="title" style="padding-left: 10px;"></td></tr>
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_label')}} {{ __('lang.product_description_label')}} :</td><td class="description" style="padding-left: 10px;"></td></tr>
+            
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_time')}} :</td><td class="service_time" style="padding-left: 10px;"></td></tr>
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_total_cost')}} :</td><td class="service_price" style="padding-left: 10px;"></td></tr>
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.location')}} :</td><td class="location" style="padding-left: 10px;"></td></tr>
+
+          </table>
+        </div>
+              
+      </div>
+    </div>
+  </div>
+
 <script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <!-- Template CSS -->
 <link rel="stylesheet" href="{{url('/')}}/assets/css/sweetalert.css">
 <!-- General JS Scripts -->
 <script src="{{url('/')}}/assets/js/sweetalert.js"></script>
 <script type="text/javascript">
-$(".ServiceImgCard").click(function(){
+/*$(".ServiceImgCard").click(function(){
   var attr_val = $(this).attr('service_link');
   if(attr_val !=''){
     window.location.href = attr_val; 
   }
-});
+});*/
 $("#monthYear").on('change', function() {
   //alert( this.value );
   this.form.submit();
 });
+
+$(document).on("click",".serviceReqDetails",function(event) {      
+  
+    jQuery.noConflict();
+        $('#serviceReqDetailsmodal').find('.id').text($(this).attr('id'));
+        $('#serviceReqDetailsmodal').find('.user_name').text($(this).attr('user_name'));
+        $('#serviceReqDetailsmodal').find('.title').text($(this).attr('title'));
+        $('#serviceReqDetailsmodal').find('.description').text($(this).attr('description'));
+        $('#serviceReqDetailsmodal').find('.location').text($(this).attr('location'));
+        $('#serviceReqDetailsmodal').find('.service_time').text($(this).attr('service_time'));
+        $('#serviceReqDetailsmodal').find('.service_price').text($(this).attr('service_price'));
+
+        $('#serviceReqDetailsmodal').modal('show');
+        //$('.modal-backdrop').attr('style','position: relative;');
+    }); 
+
+
 </script>
 @endsection

@@ -86,6 +86,9 @@
                                $product_link = url('/').'/product/'.$value->product_slug.'-P-'.$value->product_code;
 
                                 $id =  $value['id'];
+//echo "<pre>";print_r($value->order_id);exit;
+                               /*    $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i style="color:#2EA8AB;" class="fas fa-eye"></i> </a>&nbsp;&nbsp;
+                  <a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i style="color:gray;" class="fas fa-file-download"></i> </a>';*/
 
                                     /* $discount_price =0;
                                     if(!empty($value['discount'])) {
@@ -97,10 +100,11 @@
                                     <div class="col-sm-3">
                                         <div class="card product-card">
                                       
-                                            <img class="card-img-top buyer-product-img" src="{{$image}}" product_link="{{$product_link}}">
+                                            <img class="card-img-top buyer-product-img" src="{{$image}}" product_link="{{route('frontShowOrderDetails', base64_encode($value->order_id))}}" title="{{ __('lang.txt_view')}}">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{$dated}}</h5>
-                                                <p class="card-text buyer-product-title"><a href="{{$product_link}}"  style="color: #000 !important">{{$productName}}</a></p>
+                                                <p class="card-text buyer-product-title">
+                                                    <a href="{{route('frontShowOrderDetails', base64_encode($value->order_id))}}" title="{{ __('lang.txt_view')}}" style="color: #000 !important;">{{$productName}}</a></p>
                                                 <p class="card-text order-product-price">  
                                                 <span class="buyer-price" id="product_variant_price">
                                                 {{number_format($product_price,2) }} kr

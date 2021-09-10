@@ -9,7 +9,7 @@
 <div id="orderId" class="hidden">{{$orderId}}</div>
 <div id="paymentAmount" class="hidden">{{$paymentAmount}}</div>
 
-<section class="product_details_section">
+<section class=""> 
 <div class="loader"></div>
 <div class="row" style="margin-bottom:60px;">
       <div class="col-md-10 col-md-offset-1">

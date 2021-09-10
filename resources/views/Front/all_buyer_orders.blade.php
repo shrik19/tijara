@@ -69,7 +69,7 @@
 
                                     $productName = (!empty($value->title)) ? $value->title : '-';
                                     // $price = $value['service_price'];
-                                    $product_price = (!empty($value->price)) ? $value->price : '-';
+                                    $product_price = (!empty($value->price)) ? $value->price * $value->quantity: '-';
                                     $storeName = (!empty($value->store_name)) ?$value->store_name : '-';
                                   
                                   $seller_name = $value->fname." ".$value->lname;

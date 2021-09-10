@@ -1141,8 +1141,7 @@ public function swishIpnCallback(Request $request){
                 });
                 //END : Send success email to Seller.
 
-                $temp_orders = TmpAdminOrders::find($checkExisting['id']);
-                $temp_orders->delete();
+                
         }
     }
     else
@@ -1358,16 +1357,22 @@ public function findCurrency($type){
       $OrderId = base64_decode($id);
       $checkOrder = TmpAdminOrders::where('id','=',$OrderId)->first()->toArray();
 
-      if($checkOrder['user_id'] != $user_id)
-      {
-        Session::flash('error', trans('errors.not_authorize_order'));
-        return redirect(route('frontHome'));
+      if(!empty($checkOrder)) {
+
+        if($checkOrder['user_id'] != $user_id)
+        {
+            Session::flash('error', trans('errors.not_authorize_order'));
+            return redirect(route('frontHome'));
+        }
+        else
+        {
+            $data['OrderId'] = $OrderId;
+            return view('Front/Products/order_success', $data);
+        }
+        $temp_orders = TmpAdminOrders::find($checkOrder['id']);
+                $temp_orders->delete();
       }
-      else
-      {
-          $data['OrderId'] = $OrderId;
-          return view('Front/Products/order_success', $data);
-      }
+      
     }
     else
     {

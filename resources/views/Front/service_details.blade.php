@@ -16,26 +16,39 @@
                 @php
                 $image='';
                 if($Service->images!='')
-                $image = explode(',',$Service->images)[0];
+                    $image = explode(',',$Service->images)[0];
                 @endphp
-                @if($image!='')
+
+               
                 <div class="small-img">
                       <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
                       <div class="small-container">
                         
                           <div id="small-img-roll">
+                        @if(isset($image) && !empty($image))
                             @foreach(explode(',',$Service->images) as $image)
-                              <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" class="show-small-img" alt="">
+                              <img src="{{url('/')}}/uploads/ServiceImages/serviceIcons/{{$image}}" class="show-small-img" alt="">
                             @endforeach
+                        @else
+                            <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" class="show-small-img">
+                        @endif
                           </div>
                           
                       </div>
                       <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
                   </div>
-                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/{{$image}}">
-                    <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" id="show-img">
+
+                 @if(isset($image) && !empty($image))
+                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}">
+                    <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
                   </div>
-                  @endif
+                   @else
+                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/no-image.png">
+                    <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" id="show-img">
+                  </div>
+                   @endif
+
+                 
                   @if($Service->images!='')
                   <!-- Secondary carousel image thumbnail gallery -->
                 
@@ -297,8 +310,11 @@ $('.show-custom').zoomImage();
 $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
 $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');
 $('.show-small-img').click(function () {
-  $('#show-img').attr('src', $(this).attr('src'))
-  $('#big-img').attr('src', $(this).attr('src'))
+
+  var str =  $(this).attr('src');
+  var customImg = str.replace("serviceIcons", "serviceDetails");
+  $('#show-img').attr('src', customImg);
+  $('#big-img').attr('src', customImg);
   $(this).attr('alt', 'now').siblings().removeAttr('alt')
   $(this).css({'border': 'solid 1px #951b25', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
   if ($('#small-img-roll').children().length > 4) {

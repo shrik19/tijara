@@ -321,5 +321,6 @@
     'my_order_title' => 'Mina beställningar',
     'my_booking_title' => 'Mina bokningar',
     'verify_store' => 'Kontrollera Store',
+    'cancel_service' => 'Avboka',
  ]
 ?>

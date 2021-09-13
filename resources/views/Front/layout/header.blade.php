@@ -122,7 +122,7 @@
 
                   <li><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
 
-                  <li><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
+                  <li><a href="{{route('frontAllBuyerOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
 
                   <li><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
 

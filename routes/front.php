@@ -84,7 +84,7 @@ Route::any('/seller-info-page', 'Front\AuthController@seller_info_page')->name('
 /*CMS Pages*/
 Route::get('/page/{page_slug}','Front\FrontController@cmsPage')->name('frontCmsPage');
 
-
+ 
 /* Product Management  */
 Route::group(['prefix'=>'manage-products'], function() {
 Route::get('/','Front\ProductController@index')->name('manageFrontProducts');
@@ -97,11 +97,11 @@ Route::get('/delete/{id}','Front\ProductController@delete')->name('frontProductD
 Route::post('/upload-variant-image','Front\ProductController@uploadVariantImage')->name('uploadVariantImage');
 Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->name('frontProductCheckUniqueSlug');
 
-Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
-//Route::any('/checkout-swish/{type}','Front\ProductController@showCheckoutSwish')->name('frontProductShowCheckout');
+//Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
+Route::any('/checkout-swish/{type}','Front\ProductController@showCheckoutSwish')->name('frontProductShowCheckout');
 Route::any('/checkout_callback', 'Front\ProductController@checkoutCallback')->name('frontProductCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
-
+ 
 Route::get('/buyer-products','Front\ProductController@listBuyerProduct')->name('manageBuyerProducts');
 
 
@@ -191,6 +191,7 @@ Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name(
 Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');
 
 Route::any('/all-orders', 'Front\CartController@showAllOrders')->name('frontAllOrders');
+Route::any('/all-buyer-orders', 'Front\CartController@showBuyerOrders')->name('frontAllBuyerOrders');
 Route::any('/order-details/{id}', 'Front\CartController@showOrderDetails')->name('frontShowOrderDetails');
 Route::any('/download-order-details/{id}', 'Front\CartController@downloadOrderDetails')->name('frontDownloadOrderDetails');
 Route::any('/getOrderRecords','Front\CartController@getRecords')->name('frontOrdersGetRecords');
@@ -204,7 +205,8 @@ Route::any('/product-checkout/{id}','Front\CartController@showBuyerCheckout')->n
 
 Route::any('/seller-dashboard', 'Front\AuthController@dashboard')->name('frontDashboard');
 
-Route::get('/result/{type}', 'Front\ProductController@result')->name('result');
+Route::get('/result/{id}/{type}', 'Front\ProductController@result')->name('result');
+Route::match(['get', 'post'],'/swish-ipn-callback', 'Front\ProductController@swishIpnCallback')->name('swishIpnCallback');
 Route::post('/api/getPaymentMethods', 'Front\ProductController@getPaymentMethods');
 Route::post('/api/initiatePayment', 'Front\ProductController@initiatePayment');
 Route::post('/api/submitAdditionalDetails', 'Front\ProductController@submitAdditionalDetails');

@@ -1,5 +1,7 @@
 const clientKey = document.getElementById("clientKey").innerHTML;
 const type = document.getElementById("type").innerHTML;
+const orderId = document.getElementById("orderId").innerHTML;
+const paymentAmount = document.getElementById("paymentAmount").innerHTML;
 
 async function initCheckout() {
   try {
@@ -19,7 +21,7 @@ async function initCheckout() {
           holderNameRequired: true,
           name: "Credit or debit card",
           amount: {
-            value: 0002,
+            value: paymentAmount,
             currency: "SEK",
           },
         },
@@ -64,6 +66,7 @@ function filterUnimplemented(pm) {
 async function handleSubmission(state, component, url) {
   try {
     const res = await callServer(url, state.data);
+    //handleSubmission(state, component, "/api/handleShopperRedirect");
     handleServerResponse(res, component);
   } catch (error) {
     console.error(error);
@@ -89,19 +92,21 @@ function handleServerResponse(res, component) {
   if (res.action) {
     component.handleAction(res.action);
   } else {
+    console.log(res);
+    
     switch (res.resultCode) {
       case "Authorised":
-        window.location.href = "/result/success";
+        window.location.href = "/result/"+res.merchantReference+"/success";
         break;
       case "Pending":
       case "Received":
-        window.location.href = "/result/pending";
+        window.location.href = "/result/"+res.merchantReference+"/pending";
         break;
       case "Refused":
-        window.location.href = "/result/failed";
+        window.location.href = "/result/"+res.merchantReference+"/failed";
         break;
       default:
-        window.location.href = "/result/error";
+        window.location.href = "/result/"+res.merchantReference+"/error";
         break;
     }
   }

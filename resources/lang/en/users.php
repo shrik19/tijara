@@ -300,6 +300,7 @@
     'my_order_title' => 'My Orders',
     'my_booking_title' => 'My Booking',
     'verify_store' => 'Please verify Store',
+    'cancel_service' => 'Cancel',
 
  ]
 ?>

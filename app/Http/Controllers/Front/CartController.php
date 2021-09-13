@@ -1340,7 +1340,7 @@ class CartController extends Controller
         $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('orders.id','=',$checkExisting['id'])->get()->toArray();
 
         //START : Send success email to User.
-          $email = trim($GetOrder[0]['email']);
+          $email = 'priyanka.techbee@gmail.com';//trim($GetOrder[0]['email']);
           $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
           // $arrMailData = ['name' => $name, 'email' => $email, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
@@ -1351,11 +1351,105 @@ class CartController extends Controller
           //     $message->from('developer@techbeeconsulting.com','Tijara');
           // });
 
+          $mailOrderDetails = array(); $mail_order_details  = '';
+          $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$checkExisting['id'])->get()->toArray();
+              if(!empty($checkExistingOrderProduct))
+              {
+                  foreach($checkExistingOrderProduct as $details)
+                  {
+                      $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                                  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+                                  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                                  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+                                  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                                  //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
+                                  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+                                  ->where('products.status','=','active')
+                                  ->where('categories.status','=','active')
+                                  ->where('subcategories.status','=','active')
+                                  ->where('products.id','=',$details['product_id'])
+                                  ->where('variant_product.id','=',$details['variant_id'])
+                                  ->orderBy('products.id', 'DESC')
+                                  ->orderBy('variant_product.id', 'ASC')
+                                  ->groupBy('products.id')
+                                  ->get();
+                        
+                      if(count($TrendingProducts)>0) 
+                      {
+                        foreach($TrendingProducts as $Product)
+                        {
+                         
+                          $productCategories = $this->getProductCategories($Product->id);
+                          //dd($productCategories);
+
+                          $product_link	=	url('/').'/product';
+
+                          $product_link	.=	'/'.$productCategories[0]['category_slug'];
+                          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+
+                          $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+
+                          $Product->product_link	=	$product_link;
+
+                          $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+                          $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                          
+                          $Product->quantity = $details['quantity'];
+                          $Product->image    = explode(',',$Product->image)[0];
+                          $details['product'] = $Product;
+                          $mailOrderDetails[] = $details;
+
+                          
+                        }
+                      }
+                  }
+              }
+              foreach($mailOrderDetails as $orderProduct) {
+                $mail_order_details  .= '<tr>
+                        <td style="width: 40%; text-align: left;">
+                            <h4 style="margin:5px 0;">'.$orderProduct['product']->title.'</h4>
+                            <br/>'.$orderProduct['variant_attribute_id'].'
+                        </td>
+                        <td  style="width: 15%; text-align: right;">
+                          <h4 style="margin:5px 0;"> '.$orderProduct['quantity'].'</h4>
+                      </td>
+                      <td  style="width: 15%; text-align: right;">
+                          <h4 style="margin:5px 0;"> '.number_format($orderProduct['price'],2).' kr</h4>
+                      </td>
+                      <td  style="width: 15%; text-align: right;">
+                          <h4 style="margin:5px 0;"> '.number_format($orderProduct['shipping_amount'],2).' kr</h4>
+                      </td>
+                      <td  style="width: 15%; text-align: right;">
+                          <h4 style="margin:5px 0;">'.number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2).' kr</h4>
+                      </td>
+                    </tr>';
+              }
+
+              
+          $billingAddress  = json_decode($checkExisting['address'],true);
+          $billingAddress           = json_decode($billingAddress['billing'],true);
+          $billingAdd = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['given_name'].' '.$billingAddress['family_name'].'</p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['email'].' </p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['street_address'].' </p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['city'].', '.$billingAddress['postal_code'].' </p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['phone'].' </p>';
+          
+          $shippingAddress  = json_decode($checkExisting['address'],true);
+          $shippingAddress           = json_decode($shippingAddress['shipping'],true);
+          $shippingAdd = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['given_name'].' '.$shippingAddress['family_name'].'</p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['email'].' </p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['street_address'].' </p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['city'].', '.$shippingAddress['postal_code'].' </p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['phone'].' </p>';
+          
           $GetEmailContents = getEmailContents('Order Success');
           $subject = $GetEmailContents['subject'];
           $contents = $GetEmailContents['contents'];
           $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
-          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$name,$email,url('/'),$url],$contents);
+          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##',
+          '##ORDER_TOTAL##','##BILLING_ADDRESS##','##SHIPPING_ADDRESS##'],
+          [$name,$email,url('/'),$url,$mail_order_details,$checkExisting['total'],$billingAdd,$shippingAdd
+        ],$contents);
 
           $arrMailData = ['email_body' => $contents];
 
@@ -1373,7 +1467,7 @@ class CartController extends Controller
         $GetSeller = UserMain::select('users.fname','users.lname','users.email')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
 
         //START : Send success email to Seller.
-          $emailSeller = trim($GetSeller['email']);
+          $emailSeller = 'priyanka.techbee@gmail.com';//trim($GetSeller['email']);
           $nameSeller  = trim($GetSeller['fname']).' '.trim($GetSeller['lname']);
 
           $admin_email = 'shrik.techbee@gmail.com';
@@ -1391,7 +1485,8 @@ class CartController extends Controller
           $subject = $GetEmailContents['subject'];
           $contents = $GetEmailContents['contents'];
           $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
-          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$nameSeller,$emailSeller,url('/'),$url],$contents);
+          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##','##TOTAL##'],
+          [$nameSeller,$emailSeller,url('/'),$url,$mail_order_details,$checkExisting['total']],$contents);
 
           $arrMailData = ['email_body' => $contents];
 
@@ -2118,6 +2213,69 @@ class CartController extends Controller
           $pdf = PDF::loadView('Front/download_order_details',$data);
           return $pdf->download('pdfview.pdf');
         }
+      }
+      else 
+      {
+          Session::flash('error', trans('errors.login_buyer_required'));
+          return redirect(route('frontLogin'));
+      }
+    }
+
+    public function showBuyerOrders(Request $request){
+       $user_id = Auth::guard('user')->id();
+      $is_seller = 0;
+      $orderDetails = [];
+      if($user_id)
+      {
+           
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'><option value=''>".trans('lang.select_label')."</option>";
+        
+          
+        $monthYearSql = Orders::select(DB::raw('count(id) as `orders`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))->where('user_id','=',$user_id)->groupby('year','month')
+              ->get();
+           
+
+        if(!empty($monthYearSql) && count($monthYearSql)>0){
+            foreach ($monthYearSql as $key => $value) {
+              $i=$value['month'];
+              $year =$value['year'];
+              $month =  date("M", strtotime("$i/12/10"));
+              $new_date = $value['new_date'];
+              if($new_date==$request['monthYear']){
+                $selected = "selected";
+              }else{
+                $selected = "";
+              }
+          
+              $monthYearDropdown    .=  "<option  value='".$new_date."' ".$selected.">$month $year</option>";
+            }
+         }
+          
+        $monthYearDropdown    .= "</select>";
+          
+        $orders  = Orders::join('orders_details', 'orders.id', '=', 'orders_details.order_id')
+                  ->join('products', 'products.id', '=', 'orders_details.product_id')
+                ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+               // ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+               ->join('users','users.id','=','products.user_id')
+              ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','variant_product.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
+
+        if(!empty($request->monthYear)) {
+          $month_year_explod =explode("-",$request->monthYear);
+          $orders = $orders->whereMonth('orders.created_at', '=', $month_year_explod[0])
+          ->whereYear('orders.created_at',$month_year_explod[1]);
+
+        }
+       
+        $orders       = $orders->groupBy('orders.id')->orderby('orders.id', 'DESC');
+        $orders       = $orders->paginate(12);
+
+        $data['ordersDetails']  = $orders;
+        $data['monthYearHtml']     = $monthYearDropdown;
+        $data['is_seller']         = $is_seller;
+        $data['user_id']           = $user_id;
+
+        return view('Front/all_buyer_orders', $data);
       }
       else 
       {

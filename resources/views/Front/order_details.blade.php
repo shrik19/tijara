@@ -139,6 +139,7 @@
     <div class="row">
         <div class="col-md-12 text-right">
             <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick="printDiv();">{{ __('messages.txt_order_details_print')}} <span class="glyphicon glyphicon-print"></span></button>
+              <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick='downloadPdf("{{route('frontDownloadOrderDetails', base64_encode($order['id']))}}");'>Download <span class="fas fa-file-download"></span></button>
         </div>
     </div>
     <div class="col-md-12">&nbsp;</div>
@@ -211,6 +212,13 @@
                 }
             });
         });
+    }
+     function downloadPdf(DownloadLink) 
+    {
+
+      if(DownloadLink !=''){
+        window.location.href = DownloadLink; 
+      } 
     }
 </script>
 @endsection

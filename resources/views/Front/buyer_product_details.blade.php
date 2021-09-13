@@ -24,7 +24,7 @@
                   <div id="small-img-roll">
                   @if(isset($first['images'][0]) && !empty($first['images'][0]))
                     @foreach($first['images'] as $image)
-                      <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" class="show-small-img" alt="">
+                      <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$image}}" class="show-small-img" alt="">
                     @endforeach
                   @else
                    <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
@@ -33,7 +33,7 @@
                 </div>
                 <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
               </div>
-              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/{{$first['images'][0]}}">
+              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}">
                 @if(isset($first['images'][0]) && !empty($first['images'][0]))
                 <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
                 @else
@@ -51,8 +51,8 @@
                    <!--  <h4 class="product_price" id="product_variant_price" style="color:#03989e;"><span>{{ __('lang.price_label')}} :</span>{{ number_format($first['price'],2) }} kr  {{ number_format($first['discount_price'],2) }} kr</h4> -->
 
                     <div class="quantity_box">              
-                      <h3>{{ __('lang.price_label')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span> 
-                      <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span>
+                      <h3>{{ __('lang.price_label')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span></span> 
+                      
                     </div>
                    
                       <p>
@@ -153,8 +153,10 @@ $('.show-custom').zoomImage();
 $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
 $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');
 $('.show-small-img').click(function () {
-  $('#show-img').attr('src', $(this).attr('src'))
-  $('#big-img').attr('src', $(this).attr('src'))
+  var str =  $(this).attr('src');
+  var customImg = str.replace("productIcons", "productDetails");
+  $('#show-img').attr('src', customImg);
+  $('#big-img').attr('src', customImg);
   $(this).attr('alt', 'now').siblings().removeAttr('alt')
   $(this).css({'border': 'solid 1px #951b25', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
   if ($('#small-img-roll').children().length > 4) {
@@ -224,13 +226,13 @@ function showAvailableOptions()
       var responseObj = $.parseJSON(data);
       var images = responseObj.current_variant.image.split(',');
       $(images).each(function(key,image){
-          $(".show-custom").attr('href',siteUrl+'/uploads/ProductImages/'+image);
-          $(".show-custom").find('img').attr('src',siteUrl+'/uploads/ProductImages/'+image);
+          $(".show-custom").attr('href',siteUrl+'/uploads/ProductImages/productDetails/'+image);
+          $(".show-custom").find('img').attr('src',siteUrl+'/uploads/ProductImages/productDetails/'+image);
           return false;
       });
       var allImages = '';
       $(images).each(function(key,image){
-        allImages+='<img src="'+siteUrl+'/uploads/ProductImages/'+image+'" class="show-small-img" alt="">';
+        allImages+='<img src="'+siteUrl+'/uploads/ProductImages/productIcons/'+image+'" class="show-small-img" alt="">';
       });
 
       $("#small-img-roll").html(allImages);

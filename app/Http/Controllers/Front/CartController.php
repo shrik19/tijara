@@ -1425,14 +1425,17 @@ class CartController extends Controller
                     </tr>';
               }
 
-          $billingAddress  = json_decode($checkExisting['billing'],true);
+              
+          $billingAddress  = json_decode($checkExisting['address'],true);
+          $billingAddress           = json_decode($billingAddress['billing']);
           $billingAdd = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['given_name'].' '.$billingAddress['family_name'].'</p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['email'].' </p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['street_address'].' </p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['city'].', '.$billingAddress['postal_code'].' </p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['phone'].' </p>';
           
-          $shippingAddress  = json_decode($checkExisting['shipping'],true);
+          $shippingAddress  = json_decode($checkExisting['address'],true);
+          $shippingAddress           = json_decode($shippingAddress['shipping']);
           $shippingAdd = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['given_name'].' '.$shippingAddress['family_name'].'</p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['email'].' </p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['street_address'].' </p>

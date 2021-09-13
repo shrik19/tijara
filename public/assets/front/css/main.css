@@ -1709,8 +1709,9 @@ span.pro-text {
                   }
                   .mt-30{margin-top: 30px;}
                 /* Responsive css */
-
+                .toggle_btn{display: none;}
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
+        .toggle_btn{display: block;}
         .containerfluid{margin-top: 110px;}
         .nav > li {
             float: left;

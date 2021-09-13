@@ -1128,7 +1128,7 @@ public function swishIpnCallback(Request $request){
                 });
                 
             
-                $admin_email = env('ADMIN_EMAIL');
+                $admin_email = 'priyanka.techbee@gmail.com';//env('ADMIN_EMAIL');
                 $admin_name  = 'Tijara Admin';
                 
                 $GetEmailContents = getEmailContents('Product Published Admin');

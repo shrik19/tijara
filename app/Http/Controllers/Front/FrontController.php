@@ -803,7 +803,7 @@ public function getCatSubList(Request $request) {
 
 		$Products 			= $Products->paginate(config('constants.Products_limits'));
 		//dd($Products);
-		dd(DB::getQueryLog());
+		print_r(DB::getQueryLog());
 		if(count($Products)>0) {
 			foreach($Products as $Product) {
 				$product_link	=	url('/').'/product';

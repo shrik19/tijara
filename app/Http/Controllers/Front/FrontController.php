@@ -84,6 +84,7 @@ class FrontController extends Controller
 								->where('users.is_featured','=','1')
 								->where('users.is_verified','=','1')
 								->where('users.status','=','active')
+								->where('users.is_deleted','=','0')
 								->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today)
@@ -109,6 +110,7 @@ class FrontController extends Controller
 								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->select('products.*','users.id as user_id','users.fname','users.lname','users.email','user_packages.package_id','users.store_name','users.description','variant_product.image','variant_product.price','variant_product.id as variant_id','categories.category_name')
 								->where('users.role_id','=','2')
+								->where('users.is_deleted','=','0')
 								->where('users.is_featured','=','1')
 								->where('users.is_verified','=','1')
 								->where('users.status','=','active')
@@ -288,6 +290,7 @@ public function getCatSubList(Request $request) {
 			  ->where('categories.status','=','active')
 			  ->where('subcategories.status','=','active')
 			  ->where('users.status','=','active')
+			  ->where('users.is_deleted','=','0')
 			 
 			  ->where('category_products.category_id','=',$category['id'])
 			  ->where(function($q) use ($currentDate) {
@@ -397,7 +400,7 @@ public function getCatSubList(Request $request) {
 							   ->where('category_services.category_id','=',$category['id'])
 							  ->where('servicecategories.status','=','active')
 							  ->where('serviceSubcategories.status','=','active')
-							  ->where('users.status','=','active')
+							  ->where('users.status','=','active')->where('users.is_deleted','=','0')
 							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 			->orderBy('servicecategories.sequence_no')
 			->orderBy('serviceSubcategories.sequence_no');
@@ -425,7 +428,8 @@ public function getCatSubList(Request $request) {
 
 		return $CategoriesArray;
 	}
-  //get seller listings
+
+    //get seller listings
 	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',$city_filter = '',  $search_string = '',$productsServices='') {
 	
     	$today          = date('Y-m-d H:i:s');
@@ -433,6 +437,7 @@ public function getCatSubList(Request $request) {
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
 								->where('users.role_id','=','2')
 								->where('users.status','=','active')
+								->where('users.is_deleted','=','0')
 								->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today);
@@ -559,6 +564,7 @@ public function getCatSubList(Request $request) {
 								->where('categories.status','=','active')
 							  	->where('subcategories.status','=','active')
 								->where('users.status','=','active')
+								->where('users.is_deleted','=','0')
 								->where(function($q) use ($currentDate) {
 
 									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
@@ -596,7 +602,7 @@ public function getCatSubList(Request $request) {
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
-        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->where('users.is_deleted','=','0')first()->toArray();
         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
 				$Product->product_link	=	$product_link;
@@ -643,6 +649,7 @@ public function getCatSubList(Request $request) {
 							  ->where('products.status','=','active')
 							  ->where('products.is_deleted','=','0')
                 			  ->where('users.status','=','active')
+                			  ->where('users.is_deleted','=','0')
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
 							  ->orderBy('products.id', 'DESC')
@@ -1217,6 +1224,7 @@ public function getCatSubList(Request $request) {
 									->where('categories.status','=','active')
 									->where('subcategories.status','=','active')
 									->where('users.status','=','active')
+									->where('users.is_deleted','=','0')
 									->where(function($q) use ($currentDate) {
 
 										$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
@@ -1368,6 +1376,7 @@ public function getCatSubList(Request $request) {
 							  ->where('servicecategories.status','=','active')
 							  ->where('serviceSubcategories.status','=','active')
 							  ->where('users.status','=','active')
+							  ->where('users.is_deleted','=','0')
 							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
 			if($request->category_slug !='') {
 				$category 		=  ServiceCategories::select('id')->where('category_slug','=',$request->category_slug)->first();
@@ -1650,6 +1659,7 @@ public function getCatSubList(Request $request) {
 								->where('servicecategories.status','=','active')
 							  	->where('serviceSubcategories.status','=','active')
 								->where('users.status','=','active')
+								->where('users.is_deleted','=','0')
 								->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 								->orderBy('totalOrderedServices', 'DESC')
 								->groupBy('services.id')

@@ -717,8 +717,8 @@ public function getCatSubList(Request $request) {
 	DB::enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$Products 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-							  ->rightJoin('categories', 'categories.id', '=', 'category_products.category_id')
-							  ->rightJoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
+							  ->leftJoin('categories', 'categories.id', '=', 'category_products.category_id')
+							  ->leftJoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')

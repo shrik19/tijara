@@ -95,20 +95,29 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-
+   $(".show_all_cat").addClass('active');
   $(document).on('click', '.show_all_cat', function(){  
-    $('.show_product_cat_sidebar').show();
-    $('.show_service_cat_sidebar').show();
-    $('.all_cat_label').show();
+      $(this).addClass('active');
+      $('.show_product_cat').removeClass('active');
+      $('.show_service_cat').removeClass('active');
+      $('.show_product_cat_sidebar').show();
+      $('.show_service_cat_sidebar').show();
+      $('.all_cat_label').show();
   });
 
   $(document).on('click', '.show_product_cat', function(){  
+    $(this).addClass('active');
+    $('.show_all_cat').removeClass('active');
+    $('.show_service_cat').removeClass('active');
     $('.show_product_cat_sidebar').show();
     $('.show_service_cat_sidebar').hide();
     $('.all_cat_label').hide();
   });
 
   $(document).on('click', '.show_service_cat', function(){  
+    $(this).addClass('active');
+    $('.show_all_cat').removeClass('active');
+    $('.show_product_cat').removeClass('active');
     $('.show_service_cat_sidebar').show();
     $('.show_product_cat_sidebar').hide();
     $('.all_cat_label').hide();

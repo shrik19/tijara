@@ -1836,7 +1836,7 @@ public function getCatSubList(Request $request) {
 		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##PHONE##','##SITE_URL##'],
 		[$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
 		$request->input('service_price'),
-		$user->phone_number,url('/')],$contents);
+		$request->input('phone_number'),url('/')],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

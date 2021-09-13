@@ -1340,7 +1340,7 @@ class CartController extends Controller
         $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('orders.id','=',$checkExisting['id'])->get()->toArray();
 
         //START : Send success email to User.
-          $email = trim($GetOrder[0]['email']);
+          $email = 'priyanka.techbee@gmail.com';//trim($GetOrder[0]['email']);
           $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
           // $arrMailData = ['name' => $name, 'email' => $email, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
@@ -1351,11 +1351,95 @@ class CartController extends Controller
           //     $message->from('developer@techbeeconsulting.com','Tijara');
           // });
 
+          $mailOrderDetails = array(); $mail_order_details  = '';
+          $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$$checkExisting['id'])->get()->toArray();
+              if(!empty($checkExistingOrderProduct))
+              {
+                  foreach($checkExistingOrderProduct as $details)
+                  {
+                      $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                                  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+                                  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                                  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+                                  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                                  //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
+                                  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+                                  ->where('products.status','=','active')
+                                  ->where('categories.status','=','active')
+                                  ->where('subcategories.status','=','active')
+                                  ->where('products.id','=',$details['product_id'])
+                                  ->where('variant_product.id','=',$details['variant_id'])
+                                  ->orderBy('products.id', 'DESC')
+                                  ->orderBy('variant_product.id', 'ASC')
+                                  ->groupBy('products.id')
+                                  ->get();
+                        
+                      if(count($TrendingProducts)>0) 
+                      {
+                        foreach($TrendingProducts as $Product)
+                        {
+                          if($is_seller == 1 && $Product->user_id != $user_id) 
+                          {
+                            Session::flash('error', trans('errors.not_authorize_order'));
+                            return redirect(route('frontHome'));
+                            exit;
+                          }
+
+                          $productCategories = $this->getProductCategories($Product->id);
+                          //dd($productCategories);
+
+                          $product_link	=	url('/').'/product';
+
+                          $product_link	.=	'/'.$productCategories[0]['category_slug'];
+                          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+
+                          $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+
+                          $Product->product_link	=	$product_link;
+
+                          $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+                          $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                          
+                          $data['seller_name'] = $Product->seller;
+                          $sellerLink = route('sellerProductListingByCategory',['seller_name' => $Product->seller, 'seller_id' => base64_encode($Product->user_id)]);
+                          $data['seller_link'] = $sellerLink;
+                          
+                          $Product->quantity = $details['quantity'];
+                          $Product->image    = explode(',',$Product->image)[0];
+                          $details['product'] = $Product;
+                          $mailOrderDetails[] = $details;
+
+                          
+                        }
+                      }
+                  }
+              }
+              foreach($mailOrderDetails as $orderProduct) {
+                $mail_order_details  .= '<tr>
+                        <td style="width: 40%; text-align: left;">
+                            <h4 style="margin:5px 0;">'.$orderProduct['product']->title.'</h4>
+                            <br/>'.$orderProduct['variant_attribute_id'].'
+                        </td>
+                        <td  style="width: 15%; text-align: right;">
+                          <h4 style="margin:5px 0;"> '.$orderProduct['quantity'].'</h4>
+                      </td>
+                      <td  style="width: 15%; text-align: right;">
+                          <h4 style="margin:5px 0;"> '.number_format($orderProduct['price'],2).' kr</h4>
+                      </td>
+                      <td  style="width: 15%; text-align: right;">
+                          <h4 style="margin:5px 0;"> '.number_format($orderProduct['shipping_amount'],2).' kr</h4>
+                      </td>
+                      <td  style="width: 15%; text-align: right;">
+                          <h4 style="margin:5px 0;">'.number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2).' kr</h4>
+                      </td>
+                    </tr>';
+              }
           $GetEmailContents = getEmailContents('Order Success');
           $subject = $GetEmailContents['subject'];
           $contents = $GetEmailContents['contents'];
           $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
-          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$name,$email,url('/'),$url],$contents);
+          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##','##TOTAL##'],
+          [$name,$email,url('/'),$url,$mail_order_details,$checkExisting['total']],$contents);
 
           $arrMailData = ['email_body' => $contents];
 
@@ -1373,7 +1457,7 @@ class CartController extends Controller
         $GetSeller = UserMain::select('users.fname','users.lname','users.email')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
 
         //START : Send success email to Seller.
-          $emailSeller = trim($GetSeller['email']);
+          $emailSeller = 'priyanka.techbee@gmail.com';//trim($GetSeller['email']);
           $nameSeller  = trim($GetSeller['fname']).' '.trim($GetSeller['lname']);
 
           $admin_email = 'shrik.techbee@gmail.com';
@@ -1391,7 +1475,8 @@ class CartController extends Controller
           $subject = $GetEmailContents['subject'];
           $contents = $GetEmailContents['contents'];
           $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
-          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$nameSeller,$emailSeller,url('/'),$url],$contents);
+          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##','##TOTAL##'],
+          [$nameSeller,$emailSeller,url('/'),$url,$mail_order_details,$checkExisting['total']],$contents);
 
           $arrMailData = ['email_body' => $contents];
 

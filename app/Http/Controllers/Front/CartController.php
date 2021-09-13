@@ -1378,13 +1378,7 @@ class CartController extends Controller
                       {
                         foreach($TrendingProducts as $Product)
                         {
-                          if($is_seller == 1 && $Product->user_id != $user_id) 
-                          {
-                            Session::flash('error', trans('errors.not_authorize_order'));
-                            return redirect(route('frontHome'));
-                            exit;
-                          }
-
+                         
                           $productCategories = $this->getProductCategories($Product->id);
                           //dd($productCategories);
 

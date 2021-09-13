@@ -25,7 +25,7 @@
                   <div id="small-img-roll">
                    @if(isset($first['images'][0]) && !empty($first['images'][0]))
                     @foreach($first['images'] as $image)
-                      <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" class="show-small-img" alt="">
+                      <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$image}}" class="show-small-img" alt="">
                     @endforeach
                   @else
                       <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
@@ -496,13 +496,13 @@ function showAvailableOptions(attribute_id,attribute_value)
       var responseObj = $.parseJSON(data);
       var images = responseObj.current_variant.image.split(',');
       $(images).each(function(key,image){
-          $(".show-custom").attr('href',siteUrl+'/uploads/ProductImages/'+image);
-          $(".show-custom").find('img').attr('src',siteUrl+'/uploads/ProductImages/'+image);
+          $(".show-custom").attr('href',siteUrl+'/uploads/ProductImages/productDetails/'+image);
+          $(".show-custom").find('img').attr('src',siteUrl+'/uploads/ProductImages/productDetails/'+image);
           return false;
       });
       var allImages = '';
       $(images).each(function(key,image){
-        allImages+='<img src="'+siteUrl+'/uploads/ProductImages/'+image+'" class="show-small-img" alt="">';
+        allImages+='<img src="'+siteUrl+'/uploads/ProductImages/productIcons/'+image+'" class="show-small-img" alt="">';
       });
 
       $("#small-img-roll").html(allImages);

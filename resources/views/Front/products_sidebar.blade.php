@@ -114,6 +114,7 @@
 <script type="text/javascript">
  
 $(document).ready(function(){
+   $(".show_all_cat").addClass('active');
   /*search by city */
  $('#city_name').keyup(function(){ 
         var query = $(this).val();
@@ -139,9 +140,9 @@ $(document).ready(function(){
     });  
 
    $(document).on('click', '.show_all_cat', function(){  
-     $(this).addClass('active');
-     $('.show_product_cat').removeClass('active');
-     $('.show_service_cat').removeClass('active');
+       $(this).addClass('active');
+       $('.show_product_cat').removeClass('active');
+       $('.show_service_cat').removeClass('active');
         $('.show_product_cat_sidebar').show();
         $('.show_service_cat_sidebar').show();
         $('.all_cat_label').show();
@@ -149,9 +150,9 @@ $(document).ready(function(){
     });
 
    $(document).on('click', '.show_product_cat', function(){ 
-    $(this).addClass('active');
-     $('.show_all_cat').removeClass('active');
-     $('.show_service_cat').removeClass('active');
+        $(this).addClass('active');
+        $('.show_all_cat').removeClass('active');
+        $('.show_service_cat').removeClass('active');
         $('.show_product_cat_sidebar').show();
         $('.show_service_cat_sidebar').hide();
         $('.all_cat_label').hide();
@@ -159,10 +160,10 @@ $(document).ready(function(){
     });
 
    $(document).on('click', '.show_service_cat', function(){  
-    $(this).addClass('active');
-     $('.show_all_cat').removeClass('active');
-     $('.show_product_cat').removeClass('active');
-         $('.show_service_cat_sidebar').show();
+        $(this).addClass('active');
+        $('.show_all_cat').removeClass('active');
+        $('.show_product_cat').removeClass('active');
+        $('.show_service_cat_sidebar').show();
         $('.show_product_cat_sidebar').hide();
         $('.all_cat_label').hide();
     });

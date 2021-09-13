@@ -216,8 +216,14 @@
 @if(!empty($Categories))
 <div class="clearfix"></div>
 
-<nav>
-  <ul class="nav mainMenu">
+<nav class="navbar sticky-top navbar-expand-lg bg-dark m-0">
+    <div class="container-fluid">    
+      <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <i class="fas fa-bars"></i>
+  </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="nav mainMenu">
     <!-- <span>( @php count($Categories) @endphp)</span> -->
         @php $i=0; @endphp
         @foreach($Categories as $CategoryId=>$Category)
@@ -240,6 +246,7 @@
                 @endif
             @endforeach
         </ul>
-</nav>
-
+      </div>
+    </div>
+  </nav>
 @endif

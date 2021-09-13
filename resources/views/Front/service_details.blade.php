@@ -16,8 +16,9 @@
                 @php
                 $image='';
                 if($Service->images!='')
-                $image = explode(',',$Service->images)[0];
+                    $image = explode(',',$Service->images)[0];
                 @endphp
+
                
                 <div class="small-img">
                       <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
@@ -36,7 +37,8 @@
                       </div>
                       <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
                   </div>
-                    @if(isset($image) && !empty($image))
+
+                 @if(isset($image) && !empty($image))
                   <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}">
                     <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
                   </div>

@@ -24,9 +24,9 @@
                       <div class="small-container">
                         
                           <div id="small-img-roll">
-                        @if(isset($Service->images) && !empty($Service->images))
+                        @if(isset($image) && !empty($image))
                             @foreach(explode(',',$Service->images) as $image)
-                              <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" class="show-small-img" alt="">
+                              <img src="{{url('/')}}/uploads/ServiceImages/serviceIcons/{{$image}}" class="show-small-img" alt="">
                             @endforeach
                         @else
                             <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" class="show-small-img">
@@ -36,9 +36,16 @@
                       </div>
                       <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
                   </div>
-                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/{{$image}}">
-                    <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" id="show-img">
+                    @if(isset($image) && !empty($image))
+                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}">
+                    <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
                   </div>
+                   @else
+                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}">
+                    <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
+                  </div>
+                   @endif
+
                   @endif
                   @if($Service->images!='')
                   <!-- Secondary carousel image thumbnail gallery -->

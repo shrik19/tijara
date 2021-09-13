@@ -1427,7 +1427,7 @@ class CartController extends Controller
 
               
           $billingAddress  = json_decode($checkExisting['address'],true);
-          $billingAddress           = json_decode($billingAddress['billing']);
+          $billingAddress           = json_decode($billingAddress['billing'],true);
           $billingAdd = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['given_name'].' '.$billingAddress['family_name'].'</p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['email'].' </p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['street_address'].' </p>
@@ -1435,7 +1435,7 @@ class CartController extends Controller
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$billingAddress['phone'].' </p>';
           
           $shippingAddress  = json_decode($checkExisting['address'],true);
-          $shippingAddress           = json_decode($shippingAddress['shipping']);
+          $shippingAddress           = json_decode($shippingAddress['shipping'],true);
           $shippingAdd = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['given_name'].' '.$shippingAddress['family_name'].'</p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['email'].' </p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['street_address'].' </p>

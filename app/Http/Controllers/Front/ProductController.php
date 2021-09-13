@@ -1101,7 +1101,7 @@ public function swishIpnCallback(Request $request){
                     }
                 } 
                 
-                $product_link	=	url('/').'/product';
+                $product_link	=	url('/').'/products';
                 $product_link	.=	'/'.$categorySlug;
                 $product_link	.=	'/'.$subCategorySlug;
                 $product_link	.=	'/'.$slug.'-P-'.$product_code;
@@ -1128,7 +1128,7 @@ public function swishIpnCallback(Request $request){
                 });
                 
             
-                $admin_email = 'priyanka.techbee@gmail.com';//env('ADMIN_EMAIL');
+                $admin_email = env('ADMIN_EMAIL');
                 $admin_name  = 'Tijara Admin';
                 
                 $GetEmailContents = getEmailContents('Product Published Admin');

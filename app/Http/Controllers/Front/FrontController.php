@@ -1808,8 +1808,8 @@ public function getCatSubList(Request $request) {
        
 		$user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
 		$customername = $user->fname;
-
-		
+		$customeraddress	=	$user->address.' '.$user->city.' '.$user->postcode;
+		$sellername 	=$service_request->fname;
 
 		$service	=	$service_request->title;
 		$email		=	$service_request->email;
@@ -1818,25 +1818,18 @@ public function getCatSubList(Request $request) {
 		$service_time=	$request->input('service_time');
 		//$service_time	=	date('Y-m-d H:i:s',strtotime($service_time));
 		$seller	=	$service_request->fname;
-		//echo'<pre>';print_r($request);exit;
-        // $arrMailData = ['customername' => $customername, 'seller' => $seller, 'service' => $service,
-		// 'service_time'=>$service_time, 'servicemessage' => $servicemessage,'phone_number'=>$user->phone_number];
-
-		// Mail::send('emails/service_request_success_seller', $arrMailData, function($message) use ($email,$seller) {
-		// 	$message->to($email, $seller)->subject
-		// 		(trans('lang.newRequestReceived'));
-		// 	$message->from(env('MAIL_USERNAME'),env('APP_NAME'));
-		// });
+		
 
 		$GetEmailContents = getEmailContents('Service Request');
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
         
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
-		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##PHONE##','##SITE_URL##'],
+		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##PHONE##','##SITE_URL##',
+			'##CUSTOMERADDRESS##','##SELLER##'],
 		[$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
 		$request->input('service_price'),
-		$request->input('phone_number'),url('/')],$contents);
+		$request->input('phone_number'),url('/'),$customeraddress,$sellername],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

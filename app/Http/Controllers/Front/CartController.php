@@ -1394,10 +1394,6 @@ class CartController extends Controller
                           $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
                           $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
                           
-                          $data['seller_name'] = $Product->seller;
-                          $sellerLink = route('sellerProductListingByCategory',['seller_name' => $Product->seller, 'seller_id' => base64_encode($Product->user_id)]);
-                          $data['seller_link'] = $sellerLink;
-                          
                           $Product->quantity = $details['quantity'];
                           $Product->image    = explode(',',$Product->image)[0];
                           $details['product'] = $Product;

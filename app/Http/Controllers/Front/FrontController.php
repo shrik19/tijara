@@ -602,7 +602,7 @@ public function getCatSubList(Request $request) {
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
-        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->where('users.is_deleted','=','0')first()->toArray();
+        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->where('users.is_deleted','=','0')->first()->toArray();
         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
 				$Product->product_link	=	$product_link;

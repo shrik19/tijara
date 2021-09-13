@@ -4,7 +4,7 @@
       @if($service->images)
         <img src="{{url('/')}}/uploads/ServiceImages/resized/{{$service->image}}" style="width:100%;">
       @else
-        <img src="{{url('/')}}/uploads/ServiceImages/resized/no-image.png" style="width:100%;">
+        <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" style="width:100%;">
       @endif
       <div class="buy_now_hover_details">
         <ul>

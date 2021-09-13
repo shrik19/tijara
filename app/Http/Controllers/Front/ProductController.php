@@ -933,7 +933,7 @@ public function swishIpnCallback(Request $request){
                 
                 $currentDate = date('Y-m-d H:i:s');
 
-                mail('priyanka.techbee@gmail.com','swish ipn response',json_encode($_REQUEST));
+               // mail('priyanka.techbee@gmail.com','swish ipn response',json_encode($_REQUEST));
                 
                 $address = array();
                 $Total = (float)ceil($checkExisting['total']);

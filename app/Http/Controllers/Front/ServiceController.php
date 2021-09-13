@@ -668,7 +668,7 @@ class ServiceController extends Controller
 
         $data['module_url']             = route('manageFrontServices');     
         
-        $categories                     =  ServiceCategories::Leftjoin('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+        $categories                     =  ServiceCategories::Leftjoin('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')->where('servicecategories.status','=','active')->where('serviceSubcategories.status','=','active')
                                             ->select('*')->get();
                                             
         $categoriesArray                =   array();

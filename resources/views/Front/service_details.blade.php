@@ -43,8 +43,8 @@
                     <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
                   </div>
                    @else
-                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}">
-                    <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
+                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/no-image.png">
+                    <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" id="show-img">
                   </div>
                    @endif
 

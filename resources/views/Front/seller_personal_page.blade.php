@@ -85,7 +85,8 @@
               <input type="text" class="form-control store_name" id="store_name" name="store_name" 
               placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" style="margin-top: 30px;
     margin-left: -85px;"/>
-              <span class="invalid-feedback" id="err_fname"><input type="button" name="check-store-unique" class="btn debg_color verify-store"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> @if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span>
+         <input type="button" name="check-store-unique" class="btn debg_color verify-store"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 1px;" />  
+        <!--     <span class="invalid-feedback" id="err_fname">@if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span> -->
             </div>
             <div class="form-group increment cloned">
               <label>{{ __('users.seller_header_img_label')}}</label>

@@ -717,8 +717,8 @@ public function getCatSubList(Request $request) {
 	DB::enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$Products 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-							  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+							  ->leftJoin('categories', 'categories.id', '=', 'category_products.category_id')
+							  ->leftJoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')
@@ -729,6 +729,7 @@ public function getCatSubList(Request $request) {
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
 							  ->where('users.status','=','active')
+							  ->where('users.is_deleted','=','0')
 							  ->where(function($q) use ($currentDate) {
 
 								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);

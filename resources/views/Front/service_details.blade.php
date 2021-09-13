@@ -18,7 +18,7 @@
                 if($Service->images!='')
                 $image = explode(',',$Service->images)[0];
                 @endphp
-                @if($image!='')
+               
                 <div class="small-img">
                       <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
                       <div class="small-container">
@@ -46,7 +46,7 @@
                   </div>
                    @endif
 
-                  @endif
+                 
                   @if($Service->images!='')
                   <!-- Secondary carousel image thumbnail gallery -->
                 

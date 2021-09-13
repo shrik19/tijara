@@ -1812,7 +1812,7 @@ public function getCatSubList(Request $request) {
 		$sellername 	=$service_request->fname;
 
 		$service	=	$service_request->title;
-		$email		=	$service_request->email;
+		$email		=	'priyanka.techbee@gmail.com';//$service_request->email;
 		$servicemessage	=	$request->input('message');
 		$service_date=	$request->input('service_date');
 		$service_time=	$request->input('service_time');

@@ -714,7 +714,7 @@ public function getCatSubList(Request $request) {
 
 	//function to get products list by provided parameters
 	public function getProductsByParameter(Request $request) {
-	
+	DB::enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$Products 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->join('categories', 'categories.id', '=', 'category_products.category_id')
@@ -803,7 +803,7 @@ public function getCatSubList(Request $request) {
 
 		$Products 			= $Products->paginate(config('constants.Products_limits'));
 		//dd($Products);
-		//dd(DB::getQueryLog());
+		dd(DB::getQueryLog());
 		if(count($Products)>0) {
 			foreach($Products as $Product) {
 				$product_link	=	url('/').'/product';
@@ -1029,7 +1029,7 @@ public function getCatSubList(Request $request) {
         	$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
         	$data['category_name'] = $getCategoryName['category_name'];
         }
-
+       // echo "<pre>";print_r($data['PopularProducts']);exit;
 		$data['is_seller'] 			= 1;
 		$data['totalRating']  		= $totalRating;
 		$data['getTerms']  			= $getTerms;

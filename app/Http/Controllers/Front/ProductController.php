@@ -435,7 +435,7 @@ class ProductController extends Controller
 
         $data['module_url']             = route('manageFrontProducts');		
 		
-		$categories						=  Categories::Leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
+		$categories						=  Categories::Leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')->where('categories.status','=','active')->where('subcategories.status','=','active')
 											->select('*')->get();
 											
 		$categoriesArray				=	array();

@@ -25,28 +25,28 @@
 		</div>
 	      	@foreach($subscribedPackage as $row)
 	      	
-	      	 <div class="col-md-6">
+	      	 <div class="col-md-6 ">
 				   <br/><br/>
-				<div class="panel panel-default subscribe-packages">
-				<div class="panel-heading bold">{{$row->title}}</div>
+				<div class="panel panel-default subscribe-packages package_width">
+				<div class="panel-heading bold package_heading package-basic">{{$row->title}}</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="package-body">
-					  	<tr>
+					  	<!-- <tr>
 					  		<td class="bold">{{ __('users.description_label')}}</td>
 					  		<td><?php echo $row->description; ?></td>
-					    </tr>
+					    </tr> -->
 
 					    <tr>
-					  		<td class="bold">{{ __('users.amount_label')}}</td>
+					  		<td>{{ __('users.amount_label')}}</td>
 					  		<td> {{$row->amount}} kr</td>
 					    </tr>
 					    <tr>
-					  		<td class="bold">{{ __('users.validity_label')}}</td>
+					  		<td>{{ __('users.validity_label')}}</td>
 					  		<td>{{$row->validity_days}} Days.</td>
 					    </tr>
 					    <tr>
-					  		<td class="bold">{{ __('users.purchased_date_label')}}</td>
+					  		<td >{{ __('users.purchased_date_label')}}</td>
 					  		@if($row->start_date >= date('Y-m-d H:i:s'))
 					  			<td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
 					  			
@@ -55,26 +55,27 @@
 					  		@endif
 					    </tr>
 					    <tr>
-					  		<td class="bold">{{ __('users.expiry_date_label')}}</td>
+					  		<td >{{ __('users.expiry_date_label')}}</td>
 					  		<td>{{date('l, d F Y',strtotime($row->end_date))}}</td>
 					    </tr>
 					    <tr>
-					    	<td class="bold">{{ __('lang.status_label')}}</td>
+					    	<td >{{ __('lang.status_label')}}</td>
 					    	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="CAPTURED" )
-					  			<td><a href="javascript:void(0)" class="btn btn-warning "> {{ __('users.not_activated_label')}}</a></td>
+					  			<td><a href="javascript:void(0)" class="btn btn-warning tj-btn-waring"> {{ __('users.not_activated_label')}}</a></td>
 					  		@elseif($row->payment_status=="checkout_incomplete")
 					  		<td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a>
 					  			<p style="font-weight: bold;margin-top: 20px;margin-left:-108px;color: green"> {{ __('messages.payment_in_process')}}</p>
 					  			<a href="" class="btn btn-info" style="margin-left: 114px;margin-top: -60px"> Reload</a>
 					  		</td>
 					  		@elseif($row->status=="active")
-					  			<td><a href="javascript:void(0)" class="btn btn-success "> {{ __('lang.active_label')}} </a></td>
+					  			<td><a href="javascript:void(0)" class="btn btn-success tj-btn-sucess"> {{ __('lang.active_label')}} </a></td>
 					  		@endif
 					    </tr>
 					  	
 					  </tbody>
 				    </table>
 				</div>
+				<div class="panel-heading bold package_footer package-basic"></div>
 				</div>
 			</div>
 			@endforeach

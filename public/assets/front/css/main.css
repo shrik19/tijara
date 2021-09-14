@@ -79,8 +79,9 @@ header{
     font-weight: 500;
 }
 .package-body{
-  min-height: 375px;overflow: auto;padding: 25px;
+  min-height: auto;overflow: auto;padding: 25px;
 }
+.package_width{width: 70%; margin: 0 15%;}
 #instafeed img.img-fluid {
     width: 100%;
     height: auto;
@@ -1332,6 +1333,8 @@ overflow: hidden;}
 }
 .product_info a{text-decoration: none;}
 .subscribe-packages ul{padding: 20px;}
+
+
 .product_img{text-align: center;background-color: #e5e5e5; display: block;}
 .product_img:hover ~ .product_info h4{font-size: 22px; color: #03989e;; font-weight: bold; }
 .product_info h4:hover{text-decoration: none; }
@@ -1710,6 +1713,43 @@ span.pro-text {
                   .mt-30{margin-top: 30px;}
                 /* Responsive css */
                 .toggle_btn{display: none;}
+                .package_heading{}
+                .package_heading{color: #fff!important;
+                    text-align: center; font-weight: normal;
+                    font-size: 30px;
+                    line-height: 60px;
+                    height: 80px; -webkit-border-top-left-radius: 30px;
+                    -webkit-border-top-right-radius: 30px;
+                    -moz-border-radius-topleft: 30px;
+                    -moz-border-radius-topright: 30px;
+                    border-top-left-radius: 30px;
+                    border-top-right-radius: 30px;
+                }
+
+                    .package_footer{
+                        height: 80px; -webkit-border-bottom-right-radius: 30px;
+                        -webkit-border-bottom-left-radius: 30px;
+                        -moz-border-radius-bottomright: 30px;
+                        -moz-border-radius-bottomleft: 30px;
+                        border-bottom-right-radius: 30px;
+                        border-bottom-left-radius: 30px;
+                    }
+                    .tj-btn-sucess{border: none; padding: 5px 15px; color: #fff; font-size: 20px; background-color: #38aeb3; background-image: none;}
+                    .tj-btn-sucess:hover{
+                        border: none; padding: 5px 15px; color: #fff; font-size: 20px; background-color: #38aeb3; background-image: none;
+                    }
+                    .tj-btn-waring{border: none; padding: 5px 15px; color: #fff; font-size: 20px; background-color: #ffa873; background-image: none;}
+                    .tj-btn-waring:hover{
+                        border: none; padding: 5px 15px; color: #fff; font-size: 20px; background-color: #ffa873; background-image: none;
+                    }
+                    .package-pro{background-color: #81cccf!important; background-image: none!important;}
+                    .package-basic{background-color: #bfecab!important; background-image: none!important;}
+
+
+                    @media only screen and (min-device-width: 1024px) and (max-device-width: 1400px){
+
+                    .package_width{width: 90%; margin: 0 5%;}
+                    }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
         .toggle_btn{display: block;}
         .containerfluid{margin-top: 110px;}

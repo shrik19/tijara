@@ -277,7 +277,7 @@ class AuthController extends Controller
                 
                 $url = url('/').'/front-login/buyer';
 
-                $GetEmailContents = getEmailContents('Buyer Registe');
+                $GetEmailContents = getEmailContents('Buyer Register');
                 $subject = $GetEmailContents['subject'];
                 $contents = $GetEmailContents['contents'];
 

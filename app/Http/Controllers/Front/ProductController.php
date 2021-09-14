@@ -1201,13 +1201,7 @@ public function swishIpnCallback(Request $request){
 public function initiatePayment(Request $request){
     error_log("Request for initiatePayment $request");
 
-    $params = array(
-        "merchantAccount" => env('MERCHANT_ACCOUNT'),
-        "channel" => "Web"
-    );
-
-    $response = $this->checkout->paymentMethods($params);
-    echo'<pre>';print_r($response);exit;
+    
     $orderRef = session('current_buyer_order_id');
     $params = array(
         "merchantAccount" => env('MERCHANT_ACCOUNT'),

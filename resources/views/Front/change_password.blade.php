@@ -42,17 +42,19 @@
                  <span class="invalid-feedback" id="err_fname">@if($errors->has('password')) {{ $errors->first('password') }}@endif </span>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 25px;">
                   <label>{{ __('users.password_confirmation_label')}}</label>
                   <input type="password" class="form-control ge_input" name="password_confirmation" required tabindex="2" placeholder="{{ __('users.password_confirmation_label')}}">
                   <span class="invalid-feedback" id="err_fname">@if($errors->has('password_confirmation')) {{ $errors->first('password_confirmation') }}@endif </span>
                 </div>
                
-                @if($is_seller !=1) <div style="margin-top: 30px;margin-bottom: 30px;">@endif
+                @if($is_seller !=1) <div style="margin-top: 30px;margin-bottom: 30px;">@else
+              <div style="margin-top: 30px;">
+                  @endif
                 <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
                 <a href="{{url()->previous()}}" class="btn btn-black gray_color login_btn"> {{ __('lang.cancel_btn')}}</a>
 
-               @if($is_seller !=1)</div> @endif
+               </div>
                 
             </form>
           </div>

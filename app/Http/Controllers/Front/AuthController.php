@@ -723,7 +723,8 @@ class AuthController extends Controller
                 Session::flash('success', trans('users.seller_personal_info_saved'));
                     return redirect()->back();
             }
-
+            
+        $data['seller_id']=$user_id;
         $data['seller_link']=$seller_link;
         $data['details']=$details;
         return view('Front/seller_personal_page', $data);

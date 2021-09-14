@@ -65,9 +65,9 @@ td {
               <tr>
                 <td style="text-align:center;"><img src="https://tijara.techbeeconsulting.com/uploads/img/1620728258_187920862.png" alt="Tijara" style="margin:-64px auto 0 auto; vertical-align:bottom"></td>
               </tr>
-              <tr>
+             <?php/* <tr>
                 <td style="text-align:center;"><h2 style="color:#000; font-size:26px; line-height:36px; margin-top: 40px;">{{ __('lang.hi')}} {{$name}}!</h2></td>
-              </tr>
+              </tr>*/?>
               <tr>
                 <td style="text-align:center;"><p style="margin:17px 0 35px 0;font-weight:600;color:#03989e;">{{ __('lang.request_to_reset_pwd_msg')}}</p></td>
               </tr>

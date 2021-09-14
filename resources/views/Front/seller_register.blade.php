@@ -643,7 +643,6 @@ $('#last-step').click(function(e) {
 
     }
 
-
     if(last_step_err == 1){
             return false;
     }

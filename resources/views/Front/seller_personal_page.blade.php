@@ -30,7 +30,7 @@
         <br>
 
         
-        <input type="hidden " name="seller_id" value="{{$seller_id}}" class="seller_id" id="seller_id">
+        <input type="hidden" name="seller_id" value="{{$seller_id}}" class="seller_id" id="seller_id">
           <div class="login_box seller_mid_cont">
          
             <div class="form-group">

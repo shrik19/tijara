@@ -26,7 +26,7 @@
               <span class="invalid-feedback" id="err_fname">@if($errors->has('name')) {{ $errors->first('name') }}@endif </span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 30px;">
               <label>{{ __('lang.attribute_value_label')}} <span class="de_col">*</span></label>
               <select class="form-control login_input" id="type" name="type">
                 <option value="">{{ __('lang.select_label')}} </option>
@@ -36,10 +36,11 @@
               </select>
               <span class="invalid-feedback" id="err_fname">@if($errors->has('type')) {{ $errors->first('type') }}@endif </span>
             </div>
-
+            <div style="margin-top: 30px;">
             <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
            
             <a href="{{$module_url}}" class="btn btn-black gray_color login_btn"> {{ __('lang.cancel_btn')}}</a>
+            </div>
           </form>
     
         </div>

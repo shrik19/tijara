@@ -272,6 +272,27 @@ class AuthController extends Controller
 
             if($request->input('role_id') == 1){
                 $arrInsert['is_verified'] = 1;
+
+                $email = trim($request->input('email'));
+                $name   =   'Buyer';
+                $url = url('/').'/front-login/buyer';
+
+                $GetEmailContents = getEmailContents('Buyer Register');
+                $subject = $GetEmailContents['subject'];
+                $contents = $GetEmailContents['contents'];
+
+                $contents = str_replace(['##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],
+                [$email,url('/'),$url,env('FROM_MAIL')],$contents);
+
+                $arrMailData = ['email_body' => $contents];
+
+                Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
+                    $message->to($email, $name)->subject
+                        ($subject);
+                    $message->from( env('FROM_MAIL'),'Tijara');
+                });
+
+
             }
             
             $user_id = User::create($arrInsert)->id;
@@ -723,7 +744,8 @@ class AuthController extends Controller
                 Session::flash('success', trans('users.seller_personal_info_saved'));
                     return redirect()->back();
             }
-
+            
+        $data['seller_id']=$user_id;
         $data['seller_link']=$seller_link;
         $data['details']=$details;
         return view('Front/seller_personal_page', $data);
@@ -1278,7 +1300,8 @@ class AuthController extends Controller
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
 
-        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],[$name,$email,url('/'),$url,env('FROM_MAIL')],$contents);
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],
+        [$name,$email,url('/'),$url,env('FROM_MAIL')],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

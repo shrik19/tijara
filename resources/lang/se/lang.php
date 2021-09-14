@@ -83,7 +83,7 @@
      'my_account_title'=>'Mitt konto',
      'manage_orders_menu'=>'Mina beställningar',
      'manage_products_menu'=>'Produkter',
-     'manage_attributes_menu'=>'Hantera attribut',
+     'manage_attributes_menu'=>'attribut',
      'packages_menu'=>'Paket',
      'change_password_menu'=>'Ändra lösenord',
      'logout_label'=>'Logga ut',

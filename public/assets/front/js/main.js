@@ -317,8 +317,9 @@ $(".saveproduct").click(function(e){
   e.preventDefault();
   let title               = $("#title").val();
   let sort_order          = $("#sort_order").val();
+  let description         = $(".product_description").val();
+  let category            = $("#categories").val();
   let error               = 0;
-
 
   if(title == '')
   {
@@ -329,6 +330,31 @@ $(".saveproduct").click(function(e){
   else
   {
     $("#err_title").html('').show();
+
+  }
+
+
+  if(description == '')
+  {
+    $("#err_description").html(required_field_error).show();
+    $("#err_description").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_description").html('').show();
+
+  }
+
+  if(category == null)
+  {
+    $("#err_category").html(required_field_error).show();
+    $("#err_category").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_category").html('').show();
 
   }
 
@@ -666,7 +692,7 @@ $(".seller-profile-update").click(function(e){
   }
   else if(!email_pattern.test(email))
   {
-    $("#err_email").html(fill_in_email_err).show();
+    $("#err_email").html(fill_in_valid_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }

@@ -43,6 +43,13 @@ header{
     font-size: 15px !important;
     text-align: center !important;
 }
+.productErr{
+  margin-top: 35px;
+  margin-left: -675px;
+}
+.producterrDiv{
+margin-top: 15px;
+}
 .bookingRequestCalender .fc-center h2{
   font-size: 17px !important
 }

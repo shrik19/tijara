@@ -1819,7 +1819,6 @@ public function getCatSubList(Request $request) {
        
 		$user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
 		$customername = $user->fname;
-		$customeremail	=	$user->email;
 		$customeraddress	=	$user->address.' '.$user->city.' '.$user->postcode;
 		$sellername 	=$service_request->fname;
 
@@ -1850,26 +1849,6 @@ public function getCatSubList(Request $request) {
                 ($subject);
             $message->from( env('FROM_MAIL'),'Tijara');
         });
-
-		$GetEmailContents = getEmailContents('Buyer - Service Request');
-        $subject = $GetEmailContents['subject'];
-        $contents = $GetEmailContents['contents'];
-        
-        $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
-		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##PHONE##','##SITE_URL##',
-			'##CUSTOMERADDRESS##','##SELLER##'],
-		[$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
-		$request->input('service_price'),
-		$request->input('phone_number'),url('/'),$customeraddress,$sellername],$contents);
-
-        $arrMailData = ['email_body' => $contents];
-
-        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($customeremail,$customername,$subject) {
-            $message->to($customeremail, $customername)->subject
-                ($subject);
-            $message->from( env('FROM_MAIL'),'Tijara');
-        });
-
 
         echo 1;
         exit;

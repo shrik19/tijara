@@ -519,24 +519,28 @@ class ProductController extends Controller
 
         $rules = [ 
             'title'         => 'required',
-            'description'   => 'nullable|max:3000',
-            'sort_order'		=>'numeric',      
-            'product_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u',  
+            'description'   => 'required|max:3000',
+            'sort_order'    =>'numeric',      
+            'product_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u',
+            'categories'  => 'required',  
 
         ];
 
         $messages = [
             'title.required'         =>  trans('lang.required_field_error'),           
-            'title.regex'            => trans('lang.required_field_error'),     
+            'title.regex'            => trans('lang.required_field_error'), 
+            'description.required'   => trans('lang.required_field_error'),    
             'description.max'        => trans('lang.max_1000_char'),
             'product_slug.required'  => trans('errors.product_slug_req'),
             'product_slug.regex'     => trans('errors.input_aphanum_dash_err'),
+            'categories.required'  => trans('lang.required_field_error'), 
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
 
         if($validator->fails())  {
             $messages = $validator->messages();
+           // echo "<pre>";print_r( $messages );exit;
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
 
@@ -1197,6 +1201,7 @@ public function swishIpnCallback(Request $request){
 public function initiatePayment(Request $request){
     error_log("Request for initiatePayment $request");
 
+    
     $orderRef = session('current_buyer_order_id');
     $params = array(
         "merchantAccount" => env('MERCHANT_ACCOUNT'),

@@ -49,7 +49,7 @@
             
             <div class="form-group col-md-6">
               <label>{{ __('users.address_label')}}</label>
-              <input type="text" class="form-control ge_input" name="address" id="address" placeholder="{{ __('users.address')}}" value="{{ (old('address')) ? old('address') : $sellerDetails[0]->address}}">
+              <input type="text" class="form-control ge_input" name="address" id="address" placeholder="{{ __('users.address_label')}}" value="{{ (old('address')) ? old('address') : $sellerDetails[0]->address}}">
               
               <span class="invalid-feedback" id="err_address">@if($errors->has('address')) {{ $errors->first('address') }}@endif</span>
             </div> 
@@ -67,7 +67,7 @@
             </div>
            
 
-            <div class="form-group  col-md-6">
+            <div class="form-group  col-md-6" style="margin-top: ">
               <label>{{ __('users.city_label')}}</label>
               <input type="text" class="form-control ge_input" name="city" id="city" placeholder="{{ __('users.city_label')}}" value="{{ (old('city')) ? old('city') : $sellerDetails[0]->city}}">
               <span class="invalid-feedback" id="err_city">@if($errors->has('city')) {{ $errors->first('city') }}@endif</span>
@@ -75,13 +75,12 @@
            
 
             <h2 class="col-md-12">{{ __('users.shipping_setting')}}</h2>
-          
             <div class="form-group col-md-6" id="shipping_method_ddl_div">
               <label>{{ __('users.shipping_method_label')}}</label>
              <select class="form-control ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
-               <option  <?php if($sellerDetails[0]->shipping_method ==  trans('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
-               <option <?php if($sellerDetails[0]->shipping_method ==  trans('users.prcentage_shipping_charges')){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
+               <option  <?php if($sellerDetails[0]->shipping_method == "Flat shipping costs"){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
+               <option <?php if($sellerDetails[0]->shipping_method == "Percentage Shipping Charges"){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
              </select>
             </div>
 

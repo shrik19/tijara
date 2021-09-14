@@ -30,6 +30,7 @@
         <br>
 
         
+        <input type="hidden" name="seller_id" value="{{$seller_id}}" class="seller_id" id="seller_id">
           <div class="login_box seller_mid_cont">
          
             <div class="form-group">
@@ -182,11 +183,12 @@ logoInp.onchange = evt => {
 function checkStoreName(){
 
     var store_name= $("#store_name").val();
+    var seller_id = $("#seller_id").val();
     if(store_name!=''){
         $.ajax({
-          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name,
+          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
           type: 'get',
-          data: { },
+          data: {},
           success: function(output){
             if(output !=''){
              alert(output);

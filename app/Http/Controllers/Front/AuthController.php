@@ -274,7 +274,7 @@ class AuthController extends Controller
                 $arrInsert['is_verified'] = 1;
 
                 $email = trim($request->input('email'));
-                $name = $user->fname;
+                
                 $url = url('/').'/front-login/buyer';
 
                 $GetEmailContents = getEmailContents('Buyer Registe');

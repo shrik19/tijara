@@ -144,7 +144,7 @@ function getTotalOrders($filterMonth, $filterYear, $sellerId = 0)
 
 function getTotalServiceRequests($filterMonth, $filterYear, $sellerId = 0)
 {
-  $serviceRequestCount = ServiceRequest::where('service_requests.created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  $serviceRequestCount = ServiceRequest::where('service_requests.service_date', 'like', $filterYear.'-'.$filterMonth. '%');
   if($sellerId)
   { 
     $serviceRequestCount = $serviceRequestCount->join('services','services.id', '=', 'service_requests.service_id');

@@ -6,10 +6,10 @@ const paymentAmount = document.getElementById("paymentAmount").innerHTML;
 async function initCheckout() {
   try {
     const paymentMethodsResponse = await callServer("/api/getPaymentMethods");
-    alert('ok');
+    
     setTimeout(function(){ 
       document.getElementsByClassName('adyen-checkout__button')[0].style.visibility = 'hidden';
-      document.querySelector(".adyen-checkout__button").click(); }, 200);
+      document.querySelector(".adyen-checkout__button").click(); }, 100);
     const configuration = {
       paymentMethodsResponse: filterUnimplemented(paymentMethodsResponse),
       clientKey,

@@ -1117,7 +1117,7 @@ public function swishIpnCallback(Request $request){
                 $email = trim($GetOrder[0]['email']);
                 $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
-                $GetEmailContents = getEmailContents('Product Published');
+                $GetEmailContents = getEmailContents('Buyer product');
                 $subject = $GetEmailContents['subject'];
                 $contents = $GetEmailContents['contents'];
                 
@@ -1135,7 +1135,7 @@ public function swishIpnCallback(Request $request){
                 $admin_email = env('ADMIN_EMAIL');
                 $admin_name  = 'Tijara Admin';
                 
-                $GetEmailContents = getEmailContents('Buyer product');
+                $GetEmailContents = getEmailContents('Product Published Admin');
                 $subject = $GetEmailContents['subject'];
                 $contents = $GetEmailContents['contents'];
                 

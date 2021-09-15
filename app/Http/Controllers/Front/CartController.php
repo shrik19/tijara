@@ -1351,7 +1351,26 @@ class CartController extends Controller
           //     $message->from('developer@techbeeconsulting.com','Tijara');
           // });
 
-          $mailOrderDetails = array(); $mail_order_details  = '';
+          $mailOrderDetails = array(); $mail_order_details  = '<table width="800">
+          <tbody>
+          <tr>
+                        <td style="width: 40%; text-align: left;">
+                            Produkt
+                        </td>
+                        <td style="width: 15%; text-align: right;">
+                          Kvantitet
+                      </td>
+                      <td style="width: 15%; text-align: right;">
+                          Pris
+                      </td>
+                      <td style="width: 15%; text-align: right;">
+                          Frakt
+                      </td>
+                      <td style="width: 15%; text-align: right;">
+                          Total
+                      </td>
+                    </tr>
+                    ';
           $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$checkExisting['id'])->get()->toArray();
               if(!empty($checkExistingOrderProduct))
               {
@@ -1442,6 +1461,14 @@ class CartController extends Controller
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['city'].', '.$shippingAddress['postal_code'].' </p>
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['phone'].' </p>';
           
+          $mail_order_details .=  '<tr>                     
+          <td colspan="5" style="text-align: right; padding-top: 20px;">
+              <h4 style="margin:5px 0; font-weight: 600; font-size: 20px;">TotalSumma</h4>
+              <h4 style="margin:5px 0; font-weight: 300; font-size: 18px;">'.$checkExisting['total'].'</h4>
+          </td>
+        </tr>
+      </tbody>
+  </table>';
           $GetEmailContents = getEmailContents('Order Success');
           $subject = $GetEmailContents['subject'];
           $contents = $GetEmailContents['contents'];
@@ -1467,10 +1494,10 @@ class CartController extends Controller
         $GetSeller = UserMain::select('users.fname','users.lname','users.email')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
 
         //START : Send success email to Seller.
-          $emailSeller = 'priyanka.techbee@gmail.com';//trim($GetSeller['email']);
+          $emailSeller = trim($GetSeller['email']);
           $nameSeller  = trim($GetSeller['fname']).' '.trim($GetSeller['lname']);
 
-          $admin_email = 'shrik.techbee@gmail.com';
+          $admin_email = env('ADMIN_EMAIL');
           $admin_name  = 'Tijara Admin';
           
           // $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];

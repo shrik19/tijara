@@ -1464,7 +1464,7 @@ class CartController extends Controller
           $mail_order_details .=  '<tr>                     
           <td colspan="5" style="text-align: right; padding-top: 20px;">
               <h4 style="margin:5px 0; font-weight: 600; font-size: 20px;">TotalSumma</h4>
-              <h4 style="margin:5px 0; font-weight: 300; font-size: 18px;">'.$checkExisting['total'].'</h4>
+              <h4 style="margin:5px 0; font-weight: 300; font-size: 18px;">'.$checkExisting['total'].' kr</h4>
           </td>
         </tr>
       </tbody>

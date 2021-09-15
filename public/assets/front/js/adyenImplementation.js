@@ -8,7 +8,7 @@ async function initCheckout() {
     const paymentMethodsResponse = await callServer("/api/getPaymentMethods");
     alert('ok');
     setTimeout(function(){ 
-      document.querySelector(".adyen-checkout__button").hide();
+      document.getElementsByClassName('adyen-checkout__button')[0].style.visibility = 'hidden';
       document.querySelector(".adyen-checkout__button").click(); }, 200);
     const configuration = {
       paymentMethodsResponse: filterUnimplemented(paymentMethodsResponse),

@@ -2019,9 +2019,9 @@ DATA;
             $data['servicesCount'] = getTotalServices($currentMonth,$currentYear,$user_id);
             $data['totalAmount'] = getTotalAmount($currentMonth,$currentYear,$user_id);
             $currentDate = date('Y-m-d H:i:s');
-            $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->where('user_packages.status','=','active')->where('user_packages.start_date','<=',$currentDate)->orderBy('user_packages.id','DESC')->select('packages.id','packages.title','packages.amount','packages.validity_days','user_packages.end_date')->first();
+            $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->where('user_packages.status','=','active')->where('user_packages.start_date','<=',$currentDate)->orderBy('user_packages.id','DESC')->select('packages.id','packages.title','packages.amount','packages.validity_days','user_packages.end_date')->get();
         
-            
+            // echo "<pre>";print_r( $userpackage);exit;
             /*if(!empty($userpackage))
             {
                 dd($userpackage);

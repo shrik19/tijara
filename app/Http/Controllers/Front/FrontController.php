@@ -1843,7 +1843,7 @@ public function getCatSubList(Request $request) {
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
 		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##PHONE##','##SITE_URL##',
 			'##CUSTOMERADDRESS##','##SELLER##'],
-		[$customername,$seller.$email,$service,$service_time,$service_date,$request->input('location'),
+		[$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
 		$request->input('service_price'),
 		$request->input('phone_number'),url('/'),$customeraddress,$sellername],$contents);
 
@@ -1856,12 +1856,7 @@ public function getCatSubList(Request $request) {
         });
 
 		
-		$email	=	'priyanka.techbee@gmail.com';
-		Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$seller,$subject) {
-            $message->to($email, $seller)->subject
-                ($subject);
-            $message->from( env('FROM_MAIL'),'Tijara');
-        });
+		
 
         echo 1;
         exit;

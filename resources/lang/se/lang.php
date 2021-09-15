@@ -319,5 +319,6 @@
     'popular_product_head'=>'Populära produkter',
     'instagram_label'=>'Inlägg frän Instagram',
     'book_service_btn'=>'Slutför bokning',
+    'continue_to_swish'=>'Fortsätt till Swish',
  ]
 ?>

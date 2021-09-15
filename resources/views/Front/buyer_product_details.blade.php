@@ -83,7 +83,7 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-              <div class="col-md-12">
+
               <h2>{{ __('users.review_title')}}</h2>
                 <hr>
                 @if(!empty($productReviews))
@@ -111,8 +111,9 @@
                   </div>
                   <hr>
                   @endforeach
+                  {!! $productReviews->links() !!}
                 @endif
-              </div>
+
             </div>
         </div>
     </div>
@@ -125,7 +126,7 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-                <h3>{{ __('lang.also_have_watch')}}</h3>
+                <h2>{{ __('lang.also_have_watch')}}</h2>
                 
                 <ul class="product_details best_seller">
 

@@ -123,6 +123,7 @@
             </div>
             <hr>
             @endforeach
+              {!! $productReviews->links() !!}
           @endif
           </div>
         </div>
@@ -190,7 +191,7 @@
         <!-- contact shop -->
         <div class="col-md-12">
         <div class="mtb-20">
-         <a href="javascript:void(0);"  class="btn btn-icon btn-info contact-store" title="{{__('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+         <a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store" title="{{__('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
 </div>
         </div>
     </div>
@@ -235,7 +236,8 @@
   
 <script type="text/javascript">
 $(document).ready(function() {
-    
+  var read_more_btn = "{{ __('users.read_more_btn')}}";
+  var read_less_btn = "{{ __('users.read_less_btn')}}";
 	get_product_count();
 
 	var maxLength = 200;
@@ -246,12 +248,12 @@ $(document).ready(function() {
 			var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
 			$(this).empty().html(newStr);
 			$(this).append( '<span class="more-text">' + myStr.substring(0, maxLength) + removedStr + '</span>');
-			$(this).append(' <a href="javascript:void(0);" class="read-more">...Read More</a>');
+			$(this).append(' <a href="javascript:void(0);" class="read-more">...'+read_more_btn+'</a>');
 		}
 	});	
 	$(".more-text").hide();
 	$(".read-more").click(function(){
-		var moreLess = $(".more-text").is(':visible') ? '...Read More' : '...Read Less';
+		var moreLess = $(".more-text").is(':visible') ? '...'+read_more_btn : '...'+read_less_btn;
 		$(this).text(moreLess);
 		$(this).parent('.store_info').find(".more-text").toggle();
 		$(this).parent('.store_info').find(".trim-text").toggle();

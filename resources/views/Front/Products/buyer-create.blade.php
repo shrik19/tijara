@@ -165,7 +165,7 @@ width:100% !important;
 
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_sku" ></span>
               </div>
-              <div class="selected_images col-md-6" style="margin-top:-145px;margin-left: 565px;"></div>
+              <div class="selected_images col-md-6" style="margin-top:-135px;margin-left:700px;"></div>
               <div class="remove_variant_div"></div>
 
               </div>

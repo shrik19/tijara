@@ -13,15 +13,15 @@
 <div class="container">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="">
-      <div class="col-md-8 col-md-offset-2">
+    <div class="cmspageDiv">
+     
         <h2>{{ $details['title'] }}</h2>
         <hr class="heading_line"/>
         <div>
 		      {!! $details['contents'] !!}
          
         </div>
-      </div>
+ 
     </div>
   </div>
 </div> <!-- /container -->

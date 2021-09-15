@@ -2252,7 +2252,7 @@ public function findCurrency($type){
                             ->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id())->groupBy('products.id');
 
 
-         $buyerProducts       = $buyerProducts->paginate(12);
+        $buyerProducts       = $buyerProducts->paginate(config('constants.buyer_product'));
        /* $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();
             
         if(!empty($checkProductExistOfBuyer)) {

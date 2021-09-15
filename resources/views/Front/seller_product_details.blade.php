@@ -185,7 +185,7 @@
   <div class="container-inner-section">
     <div class="row">
       <div class="best_seller_container">
-      <div class="col-md-12">
+      <div class="col-md-12" style="margin-left: -33px;">
       <div class="col-md-6">
       <h2>{{ __('users.review_title')}}</h2>
       
@@ -216,13 +216,17 @@
             </select>
           </div>
           <p class="ratingComment">{{$review['comments']}}</p>
+          <!-- pagination for comments -->
+             
         </div>
         <div class="col-md-6"></div>
         
         </div>
+
         <hr>
         <?php $i++; ?>
         @endforeach
+          {!! $productReviews->links() !!}
         @endif
         </div>
         <div class="col-md-6">

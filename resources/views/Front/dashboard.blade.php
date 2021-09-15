@@ -92,10 +92,16 @@
 
       <div class="col-md-6">
         <div class="card">
-          <div class="buyer-prod-msg" style="height:250px;">
-            <h2 class="buyer-prod-head">Din prenumeration</h2>
-            <p class="buyer-prod-content col_black">Paket : Tijara bas 69 kr/månad</p>
-            <p class="buyer-prod-content col_black">Din nästa betalning : 2021-10-01</p>
+           <div class="buyer-prod-msg" style="height:250px;">
+            <?php
+              $title = (!empty($userpackage['title'])) ? $userpackage['title'] : '-';
+              $amount = (!empty($userpackage['amount'])) ? $userpackage['amount']." kr" : '-';
+              $validity_days = (!empty($userpackage['validity_days'])) ? " /".$userpackage['validity_days']." Days" : '-';
+              $payment_date = (!empty($userpackage['end_date'])) ? date('Y-m-d',strtotime($userpackage['end_date'])) : '-';
+             ?>
+            <h2 class="buyer-prod-head">{{__('users.your_subscribed_label')}}</h2>
+            <p class="buyer-prod-content col_black">{{__('users.Package_title')}} : {{$title}} {{$amount}} {{$validity_days}} </p>
+            <p class="buyer-prod-content col_black">{{__('users.next_payment_label')}} : {{ $payment_date }} </p>
           </div>
         </div>
       </div> 

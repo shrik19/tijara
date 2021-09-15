@@ -301,6 +301,9 @@
     'my_booking_title' => 'My Booking',
     'verify_store' => 'Please verify Store',
     'cancel_service' => 'Cancel',
+    'read_less_btn'=>'Read More',
+    'your_subscribed_label' => 'Your subscription',
+    'next_payment_label' => 'Your next payment',
 
  ]
 ?>

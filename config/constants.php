@@ -19,4 +19,6 @@ return [
  #'PAYGATESECRET' => 'ZtjR4tACuaQWscDbTkylhxEf',
  'Products_limits'=>'20',
  'Services_limits'=>'20',
+ 'review_limits'=>'10',
+ 'buyer_product'=>'12',
 ];

@@ -50,6 +50,9 @@ header{
 .producterrDiv{
 margin-top: 15px;
 }
+.cmspageDiv{
+  margin-bottom: 40px;
+}
 .bookingRequestCalender .fc-center h2{
   font-size: 17px !important
 }

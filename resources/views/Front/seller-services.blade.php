@@ -125,6 +125,7 @@
               </div>
               <hr>
               @endforeach
+               {!! $serviceReviews->links() !!}
             @endif
           </div>
         </div>
@@ -235,7 +236,9 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-    
+  var read_more_btn = "{{ __('users.read_more_btn')}}";
+  var read_less_btn = "{{ __('users.read_less_btn')}}";
+
 	get_service_count();
 
 	var maxLength = 200;
@@ -246,12 +249,12 @@ $(document).ready(function() {
 			var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
 			$(this).empty().html(newStr);
 			$(this).append( '<span class="more-text">' + myStr.substring(0, maxLength) + removedStr + '</span>');
-			$(this).append(' <a href="javascript:void(0);" class="read-more">...Read More</a>');
+			$(this).append(' <a href="javascript:void(0);" class="read-more">...'+read_more_btn+'</a>');
 		}
 	});	
 	$(".more-text").hide();
 	$(".read-more").click(function(){
-		var moreLess = $(".more-text").is(':visible') ? '...Read More' : '...Read Less';
+		var moreLess = $(".more-text").is(':visible') ? '...'+read_more_btn : '...'+read_less_btn;
 		$(this).text(moreLess);
 		$(this).parent('.store_info').find(".more-text").toggle();
 		$(this).parent('.store_info').find(".trim-text").toggle();

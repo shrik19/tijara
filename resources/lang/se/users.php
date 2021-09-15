@@ -322,5 +322,8 @@
     'my_booking_title' => 'Mina bokningar',
     'verify_store' => 'Kontrollera Store',
     'cancel_service' => 'Avboka',
+    'read_less_btn' => 'Läs mindre',
+    'your_subscribed_label' => 'Din prenumeration',
+    'next_payment_label' => 'Din nästa betalning',
  ]
 ?>

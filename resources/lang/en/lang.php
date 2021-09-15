@@ -320,5 +320,7 @@
     'popular_product_head'=>'Popular Products',
     'instagram_label'=>'Instagram',
     'book_service_btn'=>'Book Service',
+    'continue_to_swish'=>'Continue to swish',
+    
  ]  
 ?>

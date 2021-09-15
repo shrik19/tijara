@@ -123,6 +123,7 @@
             </div>
             <hr>
             @endforeach
+            <?php //echo "<pre>";print_r($productReviews->links());exit;?>
               {!! $productReviews->links() !!}
           @endif
           </div>
@@ -425,6 +426,14 @@ $(document).on("click",".conact-store-save",function(event) {
                     }
                 });
             });*/
+
+$(".page-link").click(function(){   
+  var attr_val = $(this).attr('href');
+  if(attr_val !='' && attr_val != undefined){
+    window.location.href = attr_val; 
+  }
+});
+
 </script>
 @endsection
 

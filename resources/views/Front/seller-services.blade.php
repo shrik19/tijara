@@ -416,5 +416,12 @@ function openPage(pageName,elmnt) {
   //   tablink-active
        var element = document.getElementById("defaultOpen");
    element.classList.add("tablink-active");
+
+$(".page-link").click(function(){   
+  var attr_val = $(this).attr('href');
+  if(attr_val !='' && attr_val != undefined){
+    window.location.href = attr_val; 
+  }
+});
 </script>
 @endsection

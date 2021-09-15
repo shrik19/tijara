@@ -10,23 +10,28 @@
 
 <section class="">
 <div class="loader"></div>
-<div class="container printdiv">
+<!-- <div class=""> -->
+    <div class="mid-section">
+<div class="container-fluid">
+     <div class="container-inner-section-1">
     <div class="row">
         @if($is_seller==1)
         <div class="col-md-2 tijara-sidebar">
           @include ('Front.layout.sidebar_menu')
         </div>
-        <div class="col-md-10 tijara-content">
+        <div class="col-md-10 tijara-content printdiv">
+        <div class="seller_info">
           @else
-          <div class="col-md-12 tijara-content">
+          <div class="col-md-12 tijara-content printdiv">
         @endif
-            <div class="row">
+            <div class="row ">
                 <div class="col-md-12">
+
                 <h2>{{ __('messages.txt_order_details')}} - #{{ $order['id'] }}</h2>
                 <hr class="heading_line"/>
                 </div>
             </div>
-            <div class="row">
+            <div class="row seller_mid_cont">
                 @if(!empty($billingAddress))
                 <div class="col-sm-12 col-md-6">
                     <h4><strong>{{ __('messages.txt_billing_address')}}</strong></h4>
@@ -44,7 +49,7 @@
                     {{ $shippingAddress['email'] }}<br />
                     {{ $shippingAddress['street_address'] }}<br />
                     {{ $shippingAddress['city'] }}, {{ $shippingAddress['postal_code'] }}<br />
-                    {{ $shippingAddress['phone'] }}<span />
+                    {{ $shippingAddress['phone'] }}</span>
                 </div>
                 @endif
             </div>
@@ -134,7 +139,7 @@
             </table>
         </div>
     </div>
-</div>
+</div></div></div></div></div>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-right">

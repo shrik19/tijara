@@ -6,6 +6,8 @@ const paymentAmount = document.getElementById("paymentAmount").innerHTML;
 async function initCheckout() {
   try {
     const paymentMethodsResponse = await callServer("/api/getPaymentMethods");
+    alert('ok');
+    setTimeout(function(){ document.getElementsByClassName("adyen-checkout__button").click(); }, 300);
     const configuration = {
       paymentMethodsResponse: filterUnimplemented(paymentMethodsResponse),
       clientKey,
@@ -66,8 +68,7 @@ function filterUnimplemented(pm) {
 async function handleSubmission(state, component, url) {
   try {
     const res = await callServer(url, state.data);
-    if(url=='/api/initiatePayment')
-      alert('ok');
+    
     //handleSubmission(state, component, "/api/handleShopperRedirect");
     handleServerResponse(res, component);
   } catch (error) {

@@ -181,11 +181,15 @@ class CartController extends Controller
                 {
                   if($attrIds == '')
                   {
-                    $attrIds = $variantAttr->name.' : '.$variantAttr->attribute_values;
+                    if (strpos($attrIds, $variantAttr->name.' : '.$variantAttr->attribute_values) !== false) 
+                    {}
+                    else $attrIds = $variantAttr->name.' : '.$variantAttr->attribute_values;
                   }
                   else
                   {
-                    $attrIds.= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
+                    if (strpos($attrIds, $variantAttr->name.' : '.$variantAttr->attribute_values) !== false) 
+                    {}
+                    else $attrIds.= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
                   }
                 }  
                 

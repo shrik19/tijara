@@ -71,7 +71,8 @@
 
                                     $serviceName = (!empty($value['title'])) ? $value['title'] : '-';
                                     // $price = $value['service_price'];
-                                    $service_price = (!empty($value->price)) ? $value->price : '-';
+                                    $service_price = (!empty($value->price)) ? number_format($value->price,2)." Kr" : '-';
+                                    
                                     $storeName = (!empty($getStoreName[0]->store_name)) ?$getStoreName[0]->store_name : '-';
 
                                     $id =  $value['id'];
@@ -102,7 +103,7 @@
                                                 <p class="card-text buyer-product-title serviceReqDetails"  dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}"><a style="color: #000 !important">{{$serviceName}}</a></p>
                                                 <p class="card-text" style="margin-bottom: 50px;margin-top: -36px;">  
                                                 <span class="buyer-price  booking-service-price" id="product_variant_price">
-                                                {{number_format($service_price,2) }} kr
+                                                {{$service_price}}
                                                 </span> 
                                                 </p>
                                                 <p class="card-text buyer-service-store">{{ __('users.butik_btn')}} :<a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>

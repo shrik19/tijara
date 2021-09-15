@@ -82,7 +82,7 @@
 </section>
 <!-- Featured seller section start -->
  
-<section class="featured-seller product_view">
+<section class="featured-seller ">
     <div class="featured_seller_container">
     <div class="container-fluid">
         <h2 class="heading">{{ __('lang.featured_seller_head')}}</h2>

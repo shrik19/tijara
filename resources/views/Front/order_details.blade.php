@@ -13,7 +13,7 @@
 <!-- <div class=""> -->
     <div class="mid-section">
 <div class="container-fluid">
-     <div class="container-inner-section-1">
+    <div class="container-inner-section-1">
     <div class="row">
         @if($is_seller==1)
         <div class="col-md-2 tijara-sidebar">

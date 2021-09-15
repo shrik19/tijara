@@ -207,9 +207,9 @@ width:100% !important;
   <label class="col-md-12"></label>
   <!-- <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a> -->
   <select name="del_start_time" id="del_start_time" style="margin-top: 25px;width: 100px" class="form-control">
-  <option value="" >Select</option>
-  <option value="insert">Insert</option>
-  <option value="delete">Delete</option>
+  <option value="" >{{ __('lang.select_label')}}</option>
+  <option value="insert">{{ __('lang.save_btn')}}</option>
+  <option value="delete">{{ __('lang.delete_title')}}</option>
   </select>
   </div>
   </div>
@@ -441,7 +441,7 @@ hourFormat: "24"
   $('#save_service_date').click(function(){
     service_time_counter  = service_time_counter+1;
     if($('#service_month').val()=='' || $('#service_year').val()=='' || $('#service_date').val()=='' || $('#to_service_month').val()=='' || $('#to_service_year').val()=='' || $('#to_service_date').val()=='' || $('#start_time').val()=='00:00' || $('#start_time').val()=='') {
-    alert("{{ __('lang.service_time_required')}}");
+    showErrorMessage("{{ __('lang.service_time_required')}}");
     return false;
     }
     var service_date  = new Date($('#service_year').val()+'-'+$('#service_month').val()+
@@ -450,12 +450,12 @@ hourFormat: "24"
     '-'+$('#service_date').val()+' '+$('#start_time').val();
     //alert(service_date);
     if(service_date < new Date()) {
-    alert("{{ __('lang.select_future_date')}}");
+    showErrorMessage("{{ __('lang.select_future_date')}}");
     return false;
     }
 
     if(to_service_date < new Date()) {
-    alert("{{ __('lang.select_future_to_date')}}");
+    showErrorMessage("{{ __('lang.select_future_to_date')}}");
     return false;
     }
     var start_date = $('#service_year').val()+'-'+$('#service_month').val()+'-'+$('#service_date').val();

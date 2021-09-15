@@ -272,16 +272,16 @@
         }
         else if(p_name=='')
         {
-            alert("something wrong try again");
+            showErrorMessage("something wrong try again");
             err = 1;
         }
         else if(validity_days==''){
-            alert("something wrong try again");
+            showErrorMessage("something wrong try again");
             err = 1;
         }
         else if(amount == '')
         {
-            alert("something wrong try again");
+            showErrorMessage("something wrong try again");
             err = 1;
         }else{
             err=0;
@@ -307,7 +307,7 @@
                         $(".klarna_html").html(data.html_snippet).show();
                         //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     }else{
-                        alert(data.error_msg);
+                        showErrorMessage(data.error_msg);
                         error=1;
                     }
                 }
@@ -469,7 +469,7 @@ $(document).ready(function(){
                         console.log(data.success);
                         console.log("first step complete");              
                     }else{
-                        alert(data.error_msg.email);
+                        showErrorMessage(data.error_msg.email);
                         error=1;
                     }
                 }
@@ -514,7 +514,7 @@ $('#second-step').click(function(e) {
     let user_id  = $("#user_id").val();
     var err = 0
     if(user_id == ''){
-        alert(select_package_to_subscribe);
+        showErrorMessage(select_package_to_subscribe);
         err = 1;
     }
     
@@ -627,18 +627,18 @@ $('#last-step').click(function(e) {
     
     if(store_name==''){
        last_step_err = 1;
-       alert(please_enter_store_name)
+       showErrorMessage(please_enter_store_name)
     } 
 
     if(verify_btn_click==''){
        last_step_err = 1;
-       alert(verify_store)
+       showErrorMessage(verify_store)
     }
 
     if($("#chk_privacy_policy").is(':checked')){
        last_step_err = 0;
     } else {
-        alert(please_check_privacy_policy);
+        showErrorMessage(please_check_privacy_policy);
         last_step_err = 1;
 
     }
@@ -688,7 +688,7 @@ $('body').on('change', '#seller_banner_img', function () {
   var file = $(this).val().split('.').pop();
 
     if (validExtensions.indexOf(file) == -1) {
-          alert(invalid_files_err);
+          showErrorMessage(invalid_files_err);
           $(this).val('');
           return false;
 
@@ -726,7 +726,7 @@ $('body').on('change', '#seller_logo_img', function () {
   var validExtensions = ["jpg","jpeg","gif","png"];
   var file = $(this).val().split('.').pop();
   if (validExtensions.indexOf(file) == -1) {
-          alert(invalid_files_err);
+          showErrorMessage(invalid_files_err);
           $(this).val('');
           return false;
 }else{
@@ -817,15 +817,15 @@ function checkStoreName(){
           data: { },
           success: function(output){
             if(output !=''){
-             alert(output);
+             showErrorMessage(output);
             }else{
-                alert(store_name_is_verified);
+                showSuccessMessage(store_name_is_verified);
             }
             }
         });
     }else{
 
-     alert(please_enter_store_name)
+     showErrorMessage(please_enter_store_name)
     }
 }
 

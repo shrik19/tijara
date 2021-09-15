@@ -383,15 +383,15 @@ $(document).on("click",".conact-store-save",function(event) {
 			$('#contactStoremodal').modal('hide'); 
 			
 			if(output.success !=''){
-              alert(output.success);
+              showSuccessMessage(output.success);
               let user_message   = $("#user_message").val('');
             }else{
-              alert(output.error);
+              showErrorMessage(output.error);
             }
           }
         });}, 300);
       } else{
-          alert(please_add_your_message);
+          showErrorMessage(please_add_your_message);
       }    
     });
 

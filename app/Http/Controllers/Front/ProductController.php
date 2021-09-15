@@ -2122,15 +2122,18 @@ public function findCurrency($type){
 
            $product = Products::where('id', $id)->update(['is_deleted' =>1]);
 
-           Session::flash('success', trans('lang.record_delete'));
+          // Session::flash('success', trans('lang.record_delete'));
 
-                return redirect()->back();  
+             //   return redirect()->back();  
+            return response()->json(['success'=>trans('lang.record_delete')]);
 
         } else {
 
-            Session::flash('error', trans('errors.something_went_wrong'));
+            //Session::flash('error', trans('errors.something_went_wrong'));
 
-            return redirect()->back();
+            //return redirect()->back();
+         
+            return response()->json(['error'=>trans('errors.something_went_wrong')]);
 
         }
 

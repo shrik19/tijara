@@ -123,13 +123,13 @@
 </div> <!-- /container -->
 </div>
 
-<script>
+
 <style>
 .ge_input {
   width: 100%;
 }
 </style>
-
+<script>
   /*function to check unique store name
 * @param : store name
 */
@@ -142,7 +142,7 @@
       data: { },
       success: function(output){
         if(output !='')
-         alert(output);
+         showErrorMessage(output);
         }
     });
   }

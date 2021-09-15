@@ -1154,7 +1154,7 @@ public function swishIpnCallback(Request $request){
                 
         }
     }
-    
+    echo '[accepted]';
 }
      // Result pages
   public function result(Request $request){

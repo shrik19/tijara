@@ -150,6 +150,8 @@ var select_package_to_subscribe = "{{ __('errors.select_package_to_subscribe')}}
 var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
 var please_enter_store_name = "{{ __('errors.please_enter_store_name')}}";
 var valid_email_err = "{{ __('errors.valid_email_err')}}";
+var read_more_btn = "{{ __('users.read_more_btn')}}";
+var read_less_btn = "{{ __('users.read_less_btn')}}";
 </script>
         <!-- <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

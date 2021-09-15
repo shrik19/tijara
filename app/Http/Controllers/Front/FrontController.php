@@ -1050,24 +1050,29 @@ public function getCatSubList(Request $request) {
 		if($type=='products'){
 		 	$getAllReviews = ProductReview::join('products','product_review.product_id','products.id','')->join('users','product_review.user_id','users.id','')->select(['products.id','product_review.rating as product_rating','product_review.comments','users.id','users.fname','users.lname','users.profile','product_review.updated_at']);
 		 	if(!empty($sellerid)){
-		 		$getAllReviews = $getAllReviews->where('products.user_id','=',$sellerid)->get()->toArray();
+		 		$getAllReviews = $getAllReviews->where('products.user_id','=',$sellerid);
 		 	}
 		 	if(!empty($ids)){
-		 		$getAllReviews = $getAllReviews->where('products.id','=',$ids)->get()->toArray();
+		 		$getAllReviews = $getAllReviews->where('products.id','=',$ids);
+		 		
+		 	}
 		 	
-		 	}		 	
+		 	$getAllReviews =  $getAllReviews->orderBy('product_review.id', 'DESC');	
 		}else{
 
 			$getAllReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.comments','users.id','users.fname','users.lname','users.profile','service_review.updated_at']);
 			if(!empty($sellerid)){
-		 		$getAllReviews = $getAllReviews->where('services.user_id','=',$sellerid)->get()->toArray();
+		 		$getAllReviews = $getAllReviews->where('services.user_id','=',$sellerid);
 		 	}
 		 	if(!empty($ids)){
-		 		$getAllReviews = $getAllReviews->where('services.id','=',$ids)->get()->toArray();
+		 		$getAllReviews = $getAllReviews->where('services.id','=',$ids);
 		 	
 		 	}
+		 	$getAllReviews =  $getAllReviews->orderBy('service_review.id', 'DESC');		
 		}
-
+			
+	
+		$getAllReviews =  $getAllReviews->paginate(config('constants.review_limits'));	
 		return $getAllReviews;
 	}
 	//function for product details page

@@ -1340,7 +1340,7 @@ class CartController extends Controller
         $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('orders.id','=',$checkExisting['id'])->get()->toArray();
 
         //START : Send success email to User.
-          $email = 'priyanka.techbee@gmail.com';//trim($GetOrder[0]['email']);
+          $email = trim($GetOrder[0]['email']);
           $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
           // $arrMailData = ['name' => $name, 'email' => $email, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
@@ -2268,7 +2268,7 @@ class CartController extends Controller
         }
        
         $orders       = $orders->groupBy('orders.id')->orderby('orders.id', 'DESC');
-        $orders       = $orders->paginate(12);
+        $orders       = $orders->paginate(config('constants.buyer_product'));
 
         $data['ordersDetails']  = $orders;
         $data['monthYearHtml']     = $monthYearDropdown;

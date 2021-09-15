@@ -254,8 +254,8 @@ class ServiceController extends Controller
 
        
         
-        $recordsTotal = $ServicesDetails->count();
-
+        $recordsTotal = $ServicesDetails->get()->count();
+        
         $recordDetails = $ServicesDetails->offset($request->input('start'))->limit($request->input('length'))->get();
 
         $arr = [];

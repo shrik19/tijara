@@ -87,7 +87,7 @@
 
                                 $service_link = url('/').'/service/'.$value->service_slug.'-S-'.$value->service_code;
                                  // echo "<pre>";print_r($value['location']);exit;
-                                   $description=$value->description;
+                                   $description=strip_tags($value->description);
 
                                    $location = $value['location'];
                                    $service_time=$value['time'];

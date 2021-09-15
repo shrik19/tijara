@@ -10,7 +10,7 @@
   <img class="login_banner" src="{{url('/')}}/uploads/Banner/{{$banner->image}}" />
 @endif
 </div>
-<div class="container">
+<!-- <div class="container"> -->
   <!-- Example row of columns -->
   <div class="row">
     <div class="cmspageDiv">
@@ -24,6 +24,6 @@
  
     </div>
   </div>
-</div> <!-- /container -->
+<!-- </div> --> <!-- /container -->
 
 @endsection

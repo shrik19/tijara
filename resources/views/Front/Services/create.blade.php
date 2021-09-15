@@ -179,11 +179,11 @@
 
               <div class="col-md-1 text-center" style="margin-top: 65px !important;">
                 <label class="col-md-12">Action</label>
-             <!--    <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a> -->
+             <!--    <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_btn')}}</a> -->
                 <select name="del_start_time" id="del_start_time" class="form-control" style="margin-top: 25px;width: 100px;">
-                  <option value="" >Select</option>
-                  <option value="insert">Insert</option>
-                    <option value="delete">Delete</option>
+                  <option value="" >{{ __('lang.select_label')}}</option>
+                  <option value="insert">{{ __('lang.save_btn')}}</option>
+                    <option value="delete">{{ __('lang.delete_title')}}</option>
                 </select>
                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('del_start_time')) {{ $errors->first('del_start_time') }}@endif </span>
               </div>
@@ -331,7 +331,7 @@ $('#saveservicebtn').click(function(){
   let error = 0;
   if(is_clicked == '')
   {
-    alert(please_add_service_time);
+    showErrorMessage(please_add_service_time);
     error = 1;
   }
   if(error == 1)
@@ -418,7 +418,7 @@ var service_time_counter  = 10000;
     service_time_counter  = service_time_counter+1;
     if($('#service_month').val()=='' || $('#service_year').val()=='' || $('#service_date').val()=='' || $('#to_service_month').val()=='' || $('#to_service_year').val()=='' || $('#to_service_date').val()==''
     || $('#start_time').val()=='00:00' || $('#start_time').val()=='') {
-        alert("{{ __('lang.service_time_required')}}");
+        showErrorMessage("{{ __('lang.service_time_required')}}");
         return false;
     }
 
@@ -433,11 +433,11 @@ var service_time_counter  = 10000;
     '-'+$('#to_service_date').val()+' '+$('#start_time').val();
    
     if(service_date < new Date()) {
-      alert("{{ __('lang.select_future_date')}}");
+      showErrorMessage("{{ __('lang.select_future_date')}}");
         return false;
     }
     if(to_service_date < new Date()) {
-      alert("{{ __('lang.select_future_to_date')}}");
+      showErrorMessage("{{ __('lang.select_future_to_date')}}");
         return false;
     }
     var start_date = $('#service_year').val()+'-'+$('#service_month').val()+'-'+$('#service_date').val();

@@ -136,7 +136,7 @@ $('#variant_table').on('change', '.variant_image', function () {
         var validExtensions = ["jpg","jpeg","gif","png"];
         var file = $(this).val().split('.').pop();
         if (validExtensions.indexOf(file) == -1) {
-                alert(invalid_files_err);
+                showErrorMessage(invalid_files_err);
                 $(this).val('');
                 return false;
         }
@@ -402,7 +402,7 @@ $(".saveBuyerProduct").click(function(e){
   if($("#chk_privacy_policy").is(':checked')){
        error = 0;
     } else {
-        alert(please_check_privacy_policy);
+        showErrorMessage(please_check_privacy_policy);
         error = 1;
 
     }
@@ -736,7 +736,7 @@ $(this).parents(".form-group").remove();
 $(".cloned-danger").html('')
 });
 
-function ConfirmDeleteFunction(url, id = false) {
+/*function ConfirmDeleteFunction(url, id = false) {
     var message = alert_delete_record_message;
 
   swal({
@@ -758,6 +758,59 @@ function ConfirmDeleteFunction(url, id = false) {
         return false;
       }
     });
+}
+*/
+
+function ConfirmDeleteFunction(url, id = false)
+{
+  $.confirm({
+      title: 'Confirm!',
+      content: are_you_sure_message,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          okay: function () {
+            $(".loader").show();
+            $.ajax({
+              url:url,
+              headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              },
+              type: 'get',
+              data : {},
+              success:function(data)
+              {
+                $(".loader").hide();
+                // var responseObj = $.parseJSON(data);
+                // alert(responseObj);return
+                /*if(responseObj.status == 'success')
+                {
+                    showSuccessMessage(responseObj.msg,'reload');
+                }
+                else
+                {
+                    showErrorMessage(responseObj.msg,'reload');
+                }*/
+                 if(data.success)
+                {
+                    showSuccessMessage(data.success,'reload');
+                }
+                else
+                {
+                    showErrorMessage(data.error,'/front-login');
+                }
+        
+              }
+            });
+          },
+          cancel: function () {
+            
+          },
+      }
+  });
+
 }
 
 function ConfirmDeleteFunction1(url, id = false) {
@@ -1276,7 +1329,7 @@ function hideShippingMethod(){
 
 $('#shipping_charges').on('input',function(e){
   if($("#shipping_method_ddl").val() == ''){
-    alert("Plase Select shipping Method");
+    showErrorMessage("Plase Select shipping Method");
   }
 });
 
@@ -1485,7 +1538,7 @@ $('body').on('change', '.service_image', function () {
   var validExtensions = ["jpg","jpeg","gif","png"];
   var file = $(this).val().split('.').pop();
   if (validExtensions.indexOf(file) == -1) {
-          alert(invalid_files_err);
+          showErrorMessage(invalid_files_err);
           $(this).val('');
           return false;
   }

@@ -278,7 +278,7 @@ function sendServiceRequest()
 {
   if($('.service_title').val()=='' || $('.location').val()=='' || $('.service_date').val()==''
    || $('.service_time').val()==''  || $('.phone_number').val()==''  || $('.service_price').val()=='') {
-    alert("{{ __('lang.allFieldsRequired')}}");
+    showErrorMessage("{{ __('lang.allFieldsRequired')}}");
     return false;
   }
     
@@ -298,7 +298,7 @@ function sendServiceRequest()
       {
         $(".loader").hide();
         var responseObj = $.parseJSON(data);
-        alert("{{ __('lang.serviceRequestSent')}}");
+        showSuccessMessage("{{ __('lang.serviceRequestSent')}}");
         location.reload();
       }
      });

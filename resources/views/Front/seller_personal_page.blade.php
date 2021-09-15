@@ -191,15 +191,17 @@ function checkStoreName(){
           data: {},
           success: function(output){
             if(output !=''){
-             alert(output);
+             showErrorMessage(output);
             }else{
-                alert(store_name_is_verified);
+                //alert(store_name_is_verified);
+                showSuccessMessage(store_name_is_verified);
             }
             }
         });
     }else{
 
-     alert(please_enter_store_name)
+     
+      showErrorMessage(please_enter_store_name);
     }
 }
 </script>

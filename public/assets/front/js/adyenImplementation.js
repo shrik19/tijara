@@ -66,6 +66,8 @@ function filterUnimplemented(pm) {
 async function handleSubmission(state, component, url) {
   try {
     const res = await callServer(url, state.data);
+    if(url=='/api/initiatePayment')
+      alert('ok');
     //handleSubmission(state, component, "/api/handleShopperRedirect");
     handleServerResponse(res, component);
   } catch (error) {

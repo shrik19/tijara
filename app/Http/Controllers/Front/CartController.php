@@ -1469,13 +1469,22 @@ class CartController extends Controller
         </tr>
       </tbody>
   </table>';
+  $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
+
+        $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
+
+  $overview  = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; 
+  ">Butik: '.$GetSeller['store_name'].'</p>
+  <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Ordernummer: #'.$checkExisting['id'].' </p>
+  <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$checkExisting['created_at'].' </p>';
+  
           $GetEmailContents = getEmailContents('Order Success');
           $subject = $GetEmailContents['subject'];
           $contents = $GetEmailContents['contents'];
           $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
           $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##',
-          '##ORDER_TOTAL##','##BILLING_ADDRESS##','##SHIPPING_ADDRESS##'],
-          [$name,$email,url('/'),$url,$mail_order_details,$checkExisting['total'],$billingAdd,$shippingAdd
+          '##ORDER_TOTAL##','##OVERVIEW##','##SHIPPING_ADDRESS##'],
+          [$name,$email,url('/'),$url,$mail_order_details,$checkExisting['total'],$overview,$shippingAdd
         ],$contents);
 
           $arrMailData = ['email_body' => $contents];
@@ -1488,11 +1497,7 @@ class CartController extends Controller
 
         //END : Send success email to User.
 
-
-        $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
-
-        $GetSeller = UserMain::select('users.fname','users.lname','users.email')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
-
+        
         //START : Send success email to Seller.
           $emailSeller = trim($GetSeller['email']);
           $nameSeller  = trim($GetSeller['fname']).' '.trim($GetSeller['lname']);
@@ -1500,20 +1505,14 @@ class CartController extends Controller
           $admin_email = env('ADMIN_EMAIL');
           $admin_name  = 'Tijara Admin';
           
-          // $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
-
-          // Mail::send('emails/order_success', $arrMailData, function($message) use ($emailSeller,$nameSeller,$admin_email,$admin_name) {
-          //     $message->to($emailSeller, $nameSeller)->cc($admin_email,$admin_name)->subject
-          //         ('Tijara - New Order placed');
-          //     $message->from('developer@techbeeconsulting.com','Tijara');
-          // });
-
-          $GetEmailContents = getEmailContents('Order Success');
+          
+          $GetEmailContents = getEmailContents('Seller Order Success');
           $subject = $GetEmailContents['subject'];
           $contents = $GetEmailContents['contents'];
           $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
-          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##','##TOTAL##'],
-          [$nameSeller,$emailSeller,url('/'),$url,$mail_order_details,$checkExisting['total']],$contents);
+          $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##',
+          '##TOTAL##','##OVERVIEW##','##SHIPPING_ADDRESS##'],
+          [$nameSeller,$emailSeller,url('/'),$url,$mail_order_details,$checkExisting['total'],$overview,$shippingAdd],$contents);
 
           $arrMailData = ['email_body' => $contents];
 

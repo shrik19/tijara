@@ -144,7 +144,7 @@ function getTotalOrders($filterMonth, $filterYear, $sellerId = 0)
 
 function getTotalServiceRequests($filterMonth, $filterYear, $sellerId = 0)
 {
-  $serviceRequestCount = ServiceRequest::where('service_requests.service_date', 'like', $filterYear.'-'.$filterMonth. '%');
+  $serviceRequestCount = ServiceRequest::where('service_requests.service_date', 'like', $filterYear.'-'.$filterMonth. '%')->where('service_requests.is_deleted', '=', '0');
   if($sellerId)
   { 
     $serviceRequestCount = $serviceRequestCount->join('services','services.id', '=', 'service_requests.service_id');
@@ -157,7 +157,7 @@ function getTotalServiceRequests($filterMonth, $filterYear, $sellerId = 0)
 
 function getTotalProducts($filterMonth, $filterYear, $sellerId = 0)
 {
-  $productCount = Products::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  $productCount = Products::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%')->where('is_deleted', '=', '0');
   if($sellerId)
   { 
     $productCount = $productCount->where('products.user_id', '=', $sellerId);
@@ -168,7 +168,7 @@ function getTotalProducts($filterMonth, $filterYear, $sellerId = 0)
 
 function getTotalServices($filterMonth, $filterYear, $sellerId = 0)
 {
-  $servicesCount = Services::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  $servicesCount = Services::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%')->where('is_deleted', '=', '0');
   if($sellerId)
   { 
     $servicesCount = $servicesCount->where('services.user_id', '=', $sellerId);

@@ -928,7 +928,7 @@ public function swishIpnCallback(Request $request){
            $checkOrderExisting = AdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
             if(!empty($checkOrderExisting))
              {
-                 return 1;
+                 return '[accepted]';
              }
             $checkExisting = TmpAdminOrders::where('id','=',$order_id)->first()->toArray();
             if(!empty($checkExisting)) {

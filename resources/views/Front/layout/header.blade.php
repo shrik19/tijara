@@ -120,18 +120,18 @@
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></h3></a>
                 <ul class="dropdown-menu">
 
-                  <li><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
+                  <li style="width:100%"><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
 
-                  <li><a href="{{route('frontAllBuyerOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
+                  <li  style="width:100%"><a href="{{route('frontAllBuyerOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
 
-                  <li><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
+                  <li style="width:100%"><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
 
-                  <li><a href="{{route('manageFrontProducts')}}">{{ __('users.buyer_product_list_title')}}</a></li>
+                  <li style="width:100%"><a href="{{route('manageFrontProducts')}}">{{ __('users.buyer_product_list_title')}}</a></li>
 
                   <!-- <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li> -->
                  
-                  <li><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
-                  <li><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
+                  <li style="width:100%"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
+                  <li style="width:100%"><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
                 </ul>
 
                 @else

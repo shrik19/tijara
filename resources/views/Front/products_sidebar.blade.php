@@ -46,7 +46,7 @@
 
 @if(Request::segment(4) !='products')
   <div class="category_list_box show_service_cat_sidebar"  id="accordion">
-  <h2 class="">{{ __('lang.service_categories_head')}}</h2>
+  <h2 style="display:none;" class="">{{ __('lang.service_categories_head')}}</h2>
   <ul class="seller_cat_list">
 
   @php $j=0; @endphp

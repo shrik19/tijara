@@ -256,6 +256,15 @@ span.subscribe_err {
     margin-top: 20px;
   }
 /*FAQ page css*/
+
+/*butik logo slider*/
+
+.slick-next:before,
+.slick-prev:before{
+  color: #03989e !important;
+  font-size: 24px !important;
+}
+
 main {
   max-width: 800px;
   margin: 0 auto;

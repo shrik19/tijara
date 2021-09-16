@@ -262,6 +262,8 @@ $(document).ready(function() {
 });
 
   function get_product_count(argument) {
+    $('.activeservicesubcategories').removeClass('activeservicesubcategories').removeClass('in');
+
     $.ajax({
     url:siteUrl+"/getCatSubList",
     headers: {
@@ -274,9 +276,9 @@ $(document).ready(function() {
       //console.log(data);return
       var i=1
       $.each(data, function(k, v) {
-        //console.log(v);
-        //console.log("--");
-        //console.log(k);
+        console.log(v);
+        console.log("--");
+        console.log(k);
        
         //$("#productCount_"+k).text(v.product_count);
         if(v.product_count == 0){

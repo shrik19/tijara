@@ -183,7 +183,7 @@
     'not_activated_label'=>'Ändå inte aktiverad',
     'subscribe_btn'=>'Prenumerera',
     'subscribe_package_label'=>'Prenumerera på paket',
-
+    'activated' => 'Aktiverad',
 
         //package
         'your_active_package'=>'Ditt aktiva paket',

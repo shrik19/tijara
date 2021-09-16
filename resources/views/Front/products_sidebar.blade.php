@@ -23,6 +23,7 @@
         else if($category_slug=='' && $i==1) 
         $cls = 'activemaincategory';
         
+
       @endphp
 
       @if(!empty($Categories[$CategoryId]['subcategory']))

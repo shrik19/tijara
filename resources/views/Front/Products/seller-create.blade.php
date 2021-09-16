@@ -125,7 +125,7 @@
               <input type="tel" class="col-md-8 ge_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
               <span class="invalid-feedback col-md-12"  id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
             </div>
-            
+              <hr class="solid-horizontal-line">
 
             <h2 class="col-md-12">{{ __('lang.product_form_step2')}}</h2>
             <div  class="col-md-12" id="variant_table">
@@ -137,7 +137,7 @@
                 <div class="variant_tr" id="variant_tr" variant_id="<?php echo $i;?>">
                  
                   <div class="form-group  col-md-12" >
-                    <label class="col-md-3">{{ __('lang.sku_label')}} <span class="de_col"></span></label>
+                    <label class="col-md-3">{{ __('lang.sku_label')}} <span class="de_col">*</span></label>
                     <input type="text" class="col-md-8 ge_input sku variant_field" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value='{{ old("sku.$i")}}' tabindex="7">
                     <span class="invalid-feedback col-md-12 productErr"  id="err_sku" ></span>
                   </div>
@@ -157,7 +157,7 @@
                     <span class="invalid-feedback col-md-12 productErr" id="err_sku" ></span>
                   </div>
                   <div class="form-group  col-md-12 producterrDiv" >
-                    <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col"></span></label>
+                    <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col">*</span></label>
                     <select style="width: 32%;float: left;" class="col-md-4 ge_input select_attribute variant_field" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
@@ -175,25 +175,27 @@
                   </div>
                   
                   <div class="form-group  col-md-12 producterrDiv" >
-                    <label class="col-md-3">{{ __('lang.image_label')}} <span class="de_col"></span></label>
+                    <label class="col-md-3">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
                     <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                     
-                    <span class="invalid-feedback col-md-12 productErr"  id="err_sku" ></span>
+                    <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="margin-top:40px;"></span>  
+                    <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="margin-top:40px;"></span>                  
                   </div>
+
                   <div class="selected_images col-md-12"></div>
                   <div class="remove_variant_div"></div>
-                  <hr class="separator" style="
-                      border: 1px solid darkseagreen;
-                      
-                  ">
+                  <div class="loader"></div>
                 </div>
               
 
-               <div class="col-md-12 text-right add-varinat-btn">
+               <div class="col-md-12 text-right add-varinat-btn" style="margin-bottom: 20px;">
                   <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
                </div>
               <div class="all_saved_attributes" ></div>
+
+               <hr class="solid-horizontal-line">
             </div>
+
             <h2 class="col-md-12">{{ __('lang.product_form_step3')}}</h2>
 
             <div class="form-group col-md-12" id="shipping_method_ddl_div">

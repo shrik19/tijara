@@ -146,7 +146,7 @@ $('#variant_table').on('change', '.variant_image', function () {
         if (fileUpload.files.length > 0) {
 
                formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
-
+                $(".loader").show();
                 $.ajax({
                     headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
                       url: siteUrl+'/manage-products/upload-variant-image',
@@ -156,6 +156,7 @@ $('#variant_table').on('change', '.variant_image', function () {
                       contentType: false,
 
                       success: function(data) {
+                        $(".loader").hide();
                        elm.parent('div').next('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
                           '<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="40" height="40">'+
                                             '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
@@ -315,10 +316,13 @@ $('input#sort_order').keyup(function(e)
 });
 $(".saveproduct").click(function(e){
   e.preventDefault();
+
   let title               = $("#title").val();
   let sort_order          = $("#sort_order").val();
   let description         = $(".product_description").val();
   let category            = $("#categories").val();
+  let variant_image       = $(".variant_image").val();
+  let hidden_images       = $(".hidden_images").val();
   let error               = 0;
 
   if(title == '')
@@ -357,6 +361,32 @@ $(".saveproduct").click(function(e){
     $("#err_category").html('').show();
 
   }
+
+  if(variant_image == '')
+  {
+    $("#err_variant_image").html(required_field_error).show();
+    $("#err_variant_image").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_variant_image").html('').show();
+
+  }
+
+  if(hidden_images == '')
+  {
+    $("#err_variant_hid_image").html(wait_while_upload).show();
+    $("#err_variant_hid_image").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_variant_hid_image").html('').show();
+
+  }
+
+  
 
   $( ".variant_field:visible" ).each(function() {
       if($(this).val()=='') {
@@ -1548,7 +1578,7 @@ $('body').on('change', '.service_image', function () {
   if (fileUpload.files.length > 0) {
 
          formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
-
+          $(".loader").show();
           $.ajax({
               headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
                 url: siteUrl+'/manage-services/upload-image',
@@ -1558,7 +1588,9 @@ $('body').on('change', '.service_image', function () {
                 contentType: false,
 
                 success: function(data) {
-                 elm.next('div.images').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
+                  $(".loader").hide();   
+                      
+                  elm.next('div.images').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
                     '<img src="'+siteUrl+'/uploads/ServiceImages/'+data+'" width="70" height="70">'+
                                       '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>');     
                 }

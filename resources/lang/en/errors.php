@@ -117,6 +117,8 @@
      'please_check_your_profile' => 'Please Confirm your profile (buyer/seller)',
      'already_subscribed' => 'You already subscribed newsletter',
      'service_start_end_datetime_req' => 'Service Start and End Datetime required',
+     'wait_for_image_uplaod' => 'Wait While uploading product Images',
+     'please_uplaod_service_image' => 'Please Service Images',
     
  ]
 ?>

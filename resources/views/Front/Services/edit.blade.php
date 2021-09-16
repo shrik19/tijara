@@ -14,7 +14,7 @@ width:100% !important;
   @if($subscribedError)
   <div class="alert alert-danger">{{$subscribedError}}</div>
   @endif
-  <form id="service-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
+  <form id="service-form service-add-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
   @csrf
   <div class="row">
 
@@ -128,9 +128,11 @@ width:100% !important;
   </div>
 
   <div class="form-group col-md-12" style="margin-top: 15px;">
-  <label class="col-md-3">{{ __('lang.images')}} </label>
+  <label class="col-md-3">{{ __('lang.images')}} <span class="de_col">*</span></label>
   <input type="file" class="col-md-8 login_input image service_image form-control" >
-  <div class="images col-md-12" style="margin-top: 15px;">
+  <div class="images col-md-12" style="margin-top: 27px;">
+    <span class="invalid-feedback col-md-12 productErr" id="err_service_image" style="margin-top: 75px;margin-left: -245px;"></span>  
+    <span class="invalid-feedback col-md-12 productErr" id="err_service_hid_image" style="margin-top: 75px;margin-left: -245px;"></span>   
   @php
   $images = explode(',',$service->images);
   @endphp
@@ -355,6 +357,52 @@ hourFormat: "24"
 <script type="text/javascript">//<![CDATA[
 
   $(document).ready(function() {
+
+    //check click on add time button or not
+  
+
+$('#saveservice').click(function(){
+
+  let service_image = $(".service_image").val();
+  let hidden_images = $(".hidden_images").val();
+  let error = 0;
+ 
+  if(service_image == '')
+  {
+    $("#err_service_image").html(please_uplaod_service_image).show();
+    $("#err_service_image").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#err_service_image").html('').show();
+
+  }
+
+  if(hidden_images == '')
+  {
+    $("#err_service_hid_image").html(wait_while_upload).show();
+    $("#err_service_hid_image").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_service_hid_image").html('').show();
+
+  }
+
+   
+  if(error == 1)
+  {
+    return false;
+  }
+  else
+  {
+    $('.service-add-form').submit();
+    return true;
+  }
+     
+});
+
     var events_array = [];
 
     if($('.service_availability').length>0) {

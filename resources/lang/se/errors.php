@@ -115,6 +115,7 @@
      'please_check_your_profile' => 'Bekräfta din profil (köpare/säljare)',
      'already_subscribed' => 'Du har redan prenumererat på nyhetsbrev',
      'service_start_end_datetime_req' => 'Tjänstens start- och slutdatum krävs',
-
+     'wait_for_image_uplaod' => 'Vänta medan du laddar upp produktbilder',
+     'please_uplaod_service_image' => 'Vänligen tjänste bilder',
  ]
 ?>

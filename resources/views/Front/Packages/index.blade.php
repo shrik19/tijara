@@ -18,6 +18,10 @@
 		</div>
 		@endif
 		<div class="seller_info">
+				@php
+					$active ='package-basic';
+					$inactive = 'package-pro';
+				@endphp
 		@if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
 		<div class="seller_header">
       	    <h2>{{ __('users.your_active_package')}}</h2>
@@ -28,7 +32,7 @@
 	      	 <div class="col-md-6 ">
 				   <br/><br/>
 				<div class="panel panel-default subscribe-packages package_width">
-				<div class="panel-heading bold package_heading package-basic">{{$row->title}}</div>
+				<div class="panel-heading bold package_heading @if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $active }}@endif">{{$row->title}}</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="package-body">
@@ -68,14 +72,15 @@
 					  			<a href="" class="btn btn-info" style="margin-left: 114px;margin-top: -60px"> Reload</a>
 					  		</td>
 					  		@elseif($row->status=="active")
-					  			<td><a href="javascript:void(0)" class="btn btn-success tj-btn-sucess"> {{ __('lang.active_label')}} </a></td>
+					  			<td><a href="javascript:void(0)" class="btn btn-success tj-btn-sucess"> {{ __('users.activated')}} </a></td>
 					  		@endif
 					    </tr>
 					  	
 					  </tbody>
 				    </table>
 				</div>
-				<div class="panel-heading bold package_footer package-basic"></div>
+
+				<div class="panel-heading bold package_footer  	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $active }}@endif"></div>
 				</div>
 			</div>
 			@endforeach

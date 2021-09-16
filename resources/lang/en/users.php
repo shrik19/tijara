@@ -176,7 +176,7 @@
     'buyer_profile_title'=>'Buyer Profile',
     'seller_packages_title'=>'Seller Packages',
     'upload_file_input'=>'Upload a file',
-
+    'activated' => 'Activated',
     //seller personal page
     'seller_header_img_label'=>'Header Image',
     'seller_logo_label'=>'Logo',

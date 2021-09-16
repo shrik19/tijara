@@ -101,7 +101,7 @@
      'change_password_menu'=>'Change Password',
      'logout_label'=>'Logout',
      'buy_now_btn'=>'Buy Now',
-     'browse_now_btn'=>'Browse Now',
+     'browse_now_btn'=>'Explore the market',
      'search_placeholder'=>'Search',
      /*footer front*/
      'information_label'=>'Information',

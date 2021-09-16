@@ -1335,7 +1335,12 @@ overflow: hidden;}
     .buy_now_hover_details ul{padding-top: 104px;}
 .buy_now_hover_details li{padding: 14%; width: 100%;}
 .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #03989e; text-align: center; padding: 15px; font-size: 16px; }
-.two_icons li{padding: 14%; width: 46%;}
+.two_icons li{padding: 14%; width: 46%; top:-73px}
+.one_icon li{top: -22px;
+    position: absolute;
+    left: 50%;
+    margin-left: -27px;
+}
 .mid-section{margin: 40px 0;}
 .product_img:hover  .buy_now_hover_details{ opacity: 1;}
 .packages-description{    max-height: 385px;

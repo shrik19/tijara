@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>{{$siteDetails->site_title}}</title>
+  <title>@if(isset($meta_title)) {{$meta_title}} @else {{$siteDetails->site_title}} @endif</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="_token" content="{{ csrf_token() }}">
@@ -120,18 +120,18 @@
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></h3></a>
                 <ul class="dropdown-menu">
 
-                  <li><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
+                  <li style="width:100%"><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
 
-                  <li><a href="{{route('frontAllBuyerOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
+                  <li  style="width:100%"><a href="{{route('frontAllBuyerOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
 
-                  <li><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
+                  <li style="width:100%"><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
 
-                  <li><a href="{{route('manageFrontProducts')}}">{{ __('users.buyer_product_list_title')}}</a></li>
+                  <li style="width:100%"><a href="{{route('manageFrontProducts')}}">{{ __('users.buyer_product_list_title')}}</a></li>
 
                   <!-- <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li> -->
                  
-                  <li><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
-                  <li><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
+                  <li style="width:100%"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
+                  <li style="width:100%"><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
                 </ul>
 
                 @else

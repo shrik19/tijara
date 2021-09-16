@@ -90,7 +90,7 @@
               <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
             </div>
 
-            <div class="form-group col-md-12" >
+            <div class="form-group col-md-12" style="display:none;">
               <label class="col-md-3">{{ __('lang.meta_title_label')}} <span class="de_col"></span></label>
               <p class="meta-data col-md-8">( {{ __('users.meta_title_info')}} )</p>
                <div class="col-md-3"></div>
@@ -98,7 +98,7 @@
               <span class="invalid-feedback col-md-12"  id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
             </div>
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" style="display:none;">
               <label class="col-md-3">{{ __('lang.meta_desc_label')}} <span class="de_col"></span></label>
               <p class="meta-data col-md-8">( {{ __('users.meta_desciption_info')}} )</p>
               <div class="col-md-3"></div>
@@ -106,7 +106,7 @@
               <span class="invalid-feedback col-md-12"  id="err_meta_description" >@if($errors->has('meta_description')) {{ $errors->first('meta_description') }}@endif </span>
             </div>
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" style="display:none;">
               <label class="col-md-3">{{ __('lang.meta_keyword_label')}}  <span class="de_col"></span></label>
               <p class="meta-data col-md-8">( {{ __('users.meta_keyword_info')}} )</p>
               <div class="col-md-3"></div>
@@ -158,7 +158,7 @@
                   </div>
                   <div class="form-group  col-md-12 producterrDiv" >
                     <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col">*</span></label>
-                    <select style="width: 32%;float: left;" class="col-md-4 ge_input select_attribute variant_field" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
+                    <select style="width: 32%;" class="col-md-4 ge_input select_attribute variant_field" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                         @foreach ($attributesToSelect as $attr)
@@ -212,7 +212,7 @@
             </div>
             <label class="col-md-12">
              {{ __('users.free_shipping_label')}}
-              <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()">
+              <input style="margin-left: 17%;"  type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()">
             </label>
         </div>
       </div>

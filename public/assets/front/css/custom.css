@@ -323,3 +323,6 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   border-bottom: 1px solid;
 }
 
+textarea {
+  resize: none;
+}

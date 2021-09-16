@@ -152,6 +152,8 @@ var please_enter_store_name = "{{ __('errors.please_enter_store_name')}}";
 var valid_email_err = "{{ __('errors.valid_email_err')}}";
 var read_more_btn = "{{ __('users.read_more_btn')}}";
 var read_less_btn = "{{ __('users.read_less_btn')}}";
+var wait_while_upload = "{{ __('errors.wait_for_image_uplaod')}}";
+var please_uplaod_service_image = "{{ __('errors.please_uplaod_service_image')}}";
 </script>
         <!-- <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

@@ -114,11 +114,14 @@
               </div>
 
               <div class="form-group col-md-12" style="margin-top: 15px;">
-                <label class="col-md-3">{{ __('lang.images')}} </label>
+                <label class="col-md-3">{{ __('lang.images')}} <span class="de_col">*</span></label>
                 <input type="file" class="col-md-8 login_input image service_image form-control" >
-                <div class="images col-md-12" style="margin-top: 15px;"></div>
+              
+                <div class="images col-md-12" style="margin-top: 27px;"></div>
+                  <span class="invalid-feedback col-md-12 productErr" id="err_service_image" style="margin-top: 75px;margin-left: -245px;"></span>  
+                  <span class="invalid-feedback col-md-12 productErr" id="err_service_hid_image" style="margin-top: 75px;margin-left: -245px;"></span>   
               </div>
-
+              <div class="loader"></div>
 
               <hr class="solid-horizontal-line">
              
@@ -328,12 +331,39 @@ $(document).ready(function() {
 $('#saveservicebtn').click(function(){
 
   let is_clicked = $(".is_clicked").val();
+  let service_image = $(".service_image").val();
+  let hidden_images = $(".hidden_images").val();
   let error = 0;
   if(is_clicked == '')
   {
     showErrorMessage(please_add_service_time);
     error = 1;
   }
+
+  if(service_image == '')
+  {
+    $("#err_service_image").html(please_uplaod_service_image).show();
+    $("#err_service_image").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#err_service_image").html('').show();
+
+  }
+
+  if(hidden_images == '')
+  {
+    $("#err_service_hid_image").html(wait_while_upload).show();
+    $("#err_service_hid_image").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_service_hid_image").html('').show();
+
+  }
+
+   
   if(error == 1)
   {
     return false;

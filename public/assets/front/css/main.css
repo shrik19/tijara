@@ -125,6 +125,7 @@ margin-top: 15px;
 }
 .solid-horizontal-line{
   height: 1px;
+  border: 1px solid #eee;
   width: 100%;
   background-color: #eee;
 }

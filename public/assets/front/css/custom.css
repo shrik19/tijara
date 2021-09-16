@@ -278,7 +278,9 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   padding: 0px !important;
 }
 .buy_now_hover_details li {
-  top: -45px !important;
+  top: -83px !important;
+  float: right;
+  margin-right: 10px;
 }
 .top_login h3 {
   margin: 1px 0 !important;

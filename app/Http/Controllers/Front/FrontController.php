@@ -290,6 +290,7 @@ public function getCatSubList(Request $request) {
 			  ->where('categories.status','=','active')
 			  ->where('subcategories.status','=','active')
 			  ->where('users.status','=','active')
+			  ->where('variant_product.quantity','>',0)
 			  ->where('users.is_deleted','=','0')
 			 
 			  ->where('category_products.category_id','=',$category['id'])

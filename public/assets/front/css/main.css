@@ -47,6 +47,8 @@ header{
   margin-top: 35px;
   margin-left: -675px;
 }
+.login_box{overflow: hidden;}
+.res{position: relative;}
 .producterrDiv{
 margin-top: 15px;
 }
@@ -179,7 +181,7 @@ span.subscribe_err {
 .tijara-form .select2-container--default,
 .tijara-form .select2-selection--multiple {
   border-radius: 5px !important;
-  box-shadow: 0px 0px 0px 2px #ddd !important;
+  /* box-shadow: 0px 0px 0px 2px #ddd !important; */
   border: 1px solid #ddd !important;
   height: 45px !important;
   font-size: 14px !important;
@@ -666,7 +668,7 @@ nav ul {
   color: #000; 
   text-decoration: none;
   padding: 0.8em 1.8em;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-size: 100%;
   /* letter-spacing: 2px; */
   
@@ -1329,8 +1331,9 @@ overflow: hidden;}
     transition: .3s ease; left: 0;
     background-color: rgba(0,0,0,0.1);}
     .buy_now_hover_details ul{padding-top: 104px;}
-.buy_now_hover_details li{padding: 14%; width: 20%;}
+.buy_now_hover_details li{padding: 14%; width: 100%;}
 .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #03989e; text-align: center; padding: 15px; font-size: 16px; }
+.two_icons li{padding: 14%; width: 46%;}
 .mid-section{margin: 40px 0;}
 .product_img:hover  .buy_now_hover_details{ opacity: 1;}
 .packages-description{    max-height: 385px;

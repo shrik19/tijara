@@ -96,7 +96,7 @@
      'manage_orders_menu'=>'My Orders',
      'manage_products_menu'=>'Products',
      'manage_services_menu'=>'Services',
-     'manage_attributes_menu'=>'Manage attributes',
+     'manage_attributes_menu'=>'Attributes',
      'packages_menu'=>'Packages',
      'change_password_menu'=>'Change Password',
      'logout_label'=>'Logout',

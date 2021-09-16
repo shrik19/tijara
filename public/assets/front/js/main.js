@@ -425,6 +425,7 @@ $(".saveBuyerProduct").click(function(e){
   let seller_county       = $("#country").val();
   let seller_municipality = $("#location").val();
   let price               = $("#price").val();
+  let variant_image               = $(".variant_image").val();
   let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
   let error               = 0;
 
@@ -529,7 +530,29 @@ $(".saveBuyerProduct").click(function(e){
 
   }
 
-   
+   if(variant_image == '')
+  {
+    $("#err_variant_image").html(required_field_error).show();
+    $("#err_variant_image").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_variant_image").html('').show();
+
+  }
+
+  if(hidden_images == '')
+  {
+    $("#err_variant_hid_image").html(wait_while_upload).show();
+    $("#err_variant_hid_image").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_variant_hid_image").html('').show();
+
+  }
 
   $( ".variant_field:visible" ).each(function() {
       if($(this).val()=='') {

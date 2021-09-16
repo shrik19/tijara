@@ -189,27 +189,27 @@ width:100% !important;
               <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-6" >
+              <div class="form-group col-md-6" style="display:none;">
               <label class="col-md-12" >{{ __('lang.meta_title_label')}} <span class="de_col"></span></label>
               <p class="meta-data">( {{ __('users.meta_title_info')}} )</p>
               <input type="text" class="login_input form-control" name="meta_title" id="meta_title" placeholder="{{ __('lang.meta_title_label')}}" value="{{old('meta_title')}}" tabindex="4">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-6" style="margin-top: 10px;">
+              <div class="form-group col-md-6" style="margin-top: 10px;display:none;">
               <label class="col-md-12" >{{ __('lang.meta_desc_label')}} <span class="de_col"></span></label>
               <p class="meta-data">( {{ __('users.meta_desciption_info')}} )</p>
               <input type="text" class="login_input form-control" name="meta_description" id="meta_description" placeholder="{{ __('lang.meta_desc_label')}}" value="{{old('meta_description')}}" tabindex="5">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_description" >@if($errors->has('meta_description')) {{ $errors->first('meta_description') }}@endif </span>
               </div>
 
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-6" style="display:none;">
               <label class="col-md-12" >{{ __('lang.meta_keyword_label')}}  <span class="de_col"></span></label>
               <p class="meta-data">( {{ __('users.meta_keyword_info')}} )</p>
               <input type="text" class="login_input form-control" name="meta_keyword" id="meta_keyword" placeholder="{{ __('lang.meta_keyword_label')}}" value="{{old('meta_keyword')}}" tabindex="6">
               <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
               </div>
-              <div class="form-group  col-md-6">
+              <div class="form-group  col-md-6" style="display:none;">
               <label class="col-md-12" style="margin-bottom: 15px;">{{ __('lang.status_label')}} </label>
               <select class="select2 login_input form-control" name="status" id="status"  placeholder="" tabindex="8" >
               <option value="active">{{ __('lang.active_label')}}</option>

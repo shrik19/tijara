@@ -92,7 +92,7 @@
 					@foreach($packageDetails as $data)
 					 <div class="col-md-4">
 						<div class="panel panel-default subscribe-packages">
-						<div class="panel-heading package_heading package-basic">{{$data['title']}}</div>
+						<div class="panel-heading package_heading package-pro">{{$data['title']}}</div>
 						<div class="panel-body pacakge_feature_list" >
 
 							<p><span class="bold">{{ __('users.description_label')}} :</span> <?php echo $data->description; ?></p>
@@ -110,7 +110,7 @@
 							 </form>
 							 </div>
 						</div>
-						<div class="panel-heading bold package_footer package-basic"></div>
+						<div class="panel-heading bold package_footer package-pro"></div>
 						</div>
 					</div>
 					<!--  <div class="col-md-4">

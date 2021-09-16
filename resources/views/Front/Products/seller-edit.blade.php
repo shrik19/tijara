@@ -218,11 +218,16 @@
                             @endforeach  
                           @endif
 
-                          <div class="col-md-4 text-right add-varinat-btn" style="margin-bottom: 20px;">
+                          <div class="col-md-4 text-right add-varinat-btn" style="margin-bottom: 10px;">
                               <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" style="margin-left: 760px !important;" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
                           </div>
                           <div class="all_saved_attributes" ></div>
-                          <hr class="solid-horizontal-line">
+                          <div class="col-md-9">&nbsp;</div>
+               <div class="info col-md-3" style="background-color: #e6f2ff;padding: 20px;
+               border-radius: 15px;margin-bottom: 10px;width: 22%;">Lägg till andra varianter
+                  av din produkt, så som
+                  färg eller storlek etc.</div>
+                          <span class="solid-horizontal-line"></span>
                         </div>
                         <h2 class="col-md-12">{{ __('lang.product_form_step3')}}</h2>
 

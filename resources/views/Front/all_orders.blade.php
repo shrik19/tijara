@@ -27,14 +27,14 @@
     </div>
     <div class="seller_mid_cont">
       
-    <div class="col-md-12" style="margin-top: 20px;">
+  <!--   <div class="col-md-12" style="margin-top: 20px;">
       <div class="tijara-info-section">
         <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
         <p  class="buyer-prod-content">{{__('messages.my_order_info')}}</p>
       </div>
-    </div>
+    </div> -->
 
-		<div class="col-md-12">
+		<div class="col-md-12" style="margin-top: 20px;">
 		    
 		  
 		<div class="card-body">

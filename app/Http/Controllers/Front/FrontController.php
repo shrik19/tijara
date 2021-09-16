@@ -89,7 +89,7 @@ class FrontController extends Controller
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today)
 								->orderBy('users.id', 'DESC')
-								->limit(4)
+								//->limit(4)
 								->get();
 			
 		return $featuredSellers;			

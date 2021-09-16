@@ -58,6 +58,7 @@
                 <tbody>
                   @if(!empty($details))
                   @foreach($details as $orderId => $tmpOrderProduct)
+                  @if(!empty($tmpOrderProduct))
                     @foreach($tmpOrderProduct['details'] as $orderProduct)
                     
                     <tr>
@@ -154,6 +155,7 @@
                         </button></td>
                     </tr>
                     <tr><td colspan="6" style="border:none;line-height:60px;">&nbsp;</td></tr>
+                    @endif
                     @endforeach
                     @else
                     <tr>

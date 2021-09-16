@@ -9,9 +9,15 @@
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
       <div class="buy_now_hover_details">
           <ul>
-              <li><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
+              <!--<li><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
               <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToCart('{{$product->variant_id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-              <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToWishlist('{{$product->variant_id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="far fa-heart"></i></a></li>
+              -->
+              <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) 
+                    onclick="addToWishlist('{{$product->variant_id}}');event.stopPropagation();" 
+                    @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif>
+                    <i class="far fa-heart"></i>
+                  </a>
+              </li>
           </ul>
       </div>
     </div>

@@ -163,11 +163,12 @@ width:100% !important;
               <label class="col-md-12" >{{ __('lang.image_label')}} <span class="de_col"></span></label>
               <input type="file" variant_id="<?php echo $i; ?>" class="login_input form-control image  variant_image" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
 
-              <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_sku" ></span>
+              <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="margin-top: 3px;margin-left: 2px;"></span>  
+              <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="margin-top: 3px;margin-left: 2px;"></span>
               </div>
-              <div class="selected_images col-md-6" style="margin-top:-135px;margin-left:700px;"></div>
+              <div class="selected_images col-md-6" style="margin-top:-135px;margin-left:625px;"></div>
               <div class="remove_variant_div"></div>
-
+              <div class="loader"></div>
               </div>
 
 
@@ -175,7 +176,7 @@ width:100% !important;
               <div class="all_saved_attributes" ></div>
               </div>
               
-              <div class="form-group col-md-6" style="margin-top: 28px;">
+              <div class="form-group col-md-6" style="margin-top: 7px;">
               <label class="col-md-12" >{{ __('lang.product_location')}} <span class="de_col">*</span></label>
               <input type="text" class="login_input form-control" name="location" id="location" placeholder="{{ __('lang.product_location')}} " value="{{old('location')}}" tabindex="1">
               <span class="invalid-feedback col-md-12"  id="err_location" >@if($errors->has('location')) {{ $errors->first('location') }}@endif </span>

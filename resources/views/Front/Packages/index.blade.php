@@ -92,7 +92,7 @@
 					@foreach($packageDetails as $data)
 					 <div class="col-md-4">
 						<div class="panel panel-default subscribe-packages">
-						<div class="panel-heading">{{$data['title']}}</div>
+						<div class="panel-heading package_heading package-basic">{{$data['title']}}</div>
 						<div class="panel-body pacakge_feature_list" >
 
 							<p><span class="bold">{{ __('users.description_label')}} :</span> <?php echo $data->description; ?></p>
@@ -106,10 +106,11 @@
 								<input type="hidden" name="p_name" value="{{$data['title']}}">
 								<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
 								<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
-								<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
+								<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn  tj-btn-sucess">{{ __('users.subscribe_btn')}}</button>
 							 </form>
 							 </div>
 						</div>
+						<div class="panel-heading bold package_footer package-basic"></div>
 						</div>
 					</div>
 					<!--  <div class="col-md-4">

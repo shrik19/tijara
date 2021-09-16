@@ -126,7 +126,7 @@
 
                   <li><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
 
-                  <li><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
+                  <li><a href="{{route('manageFrontProducts')}}">{{ __('users.buyer_product_list_title')}}</a></li>
 
                   <!-- <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li> -->
                  

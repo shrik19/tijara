@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
-    
+   
  <!-- Carousel Default -->
 <div class="slider_cotnainer_section">
     <div class="container-fluid">
@@ -91,7 +91,7 @@
     <div class="featured-banner" >
     <div class="featured_seller_container">
     <div class="container-fluid">
-        <div class="row ">               
+        <div class="row logo-slider">               
                 @if(!empty($FeaturedSellers))
                     @foreach($FeaturedSellers as $fea_seller)
                     <div class="col-md-3 feature_seller">
@@ -519,7 +519,12 @@ $(".service_rating").each(function(){
          });
       });
 </script>
-
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/slick-theme.min.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/slick.min.css">
+<script src="{{url('/')}}/assets/front/js/slick.min.js"></script>
+<script type="text/javascript">
+  
+</script>
 <script src="{{url('/')}}/assets/front/js/instafeed/dist/instafeed.min.js"></script>
 
 <script type="text/javascript">
@@ -529,6 +534,15 @@ $(".service_rating").each(function(){
     });
     feed.run();
 
+    $('.logo-slider').slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    dots: false,
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    infinite: true
+  });
 
 </script>
 @endsection

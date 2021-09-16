@@ -88,7 +88,7 @@
      'change_password_menu'=>'Ändra lösenord',
      'logout_label'=>'Logga ut',
      'buy_now_btn'=>'Köp nu',
-     'browse_now_btn'=>'Bläddra nu',
+     'browse_now_btn'=>'Utforska marknaden',
      'search_placeholder'=>'Sök',
      /*footer*/
      'information_label'=>'Information',

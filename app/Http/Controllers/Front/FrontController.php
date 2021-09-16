@@ -1208,7 +1208,7 @@ public function getCatSubList(Request $request) {
 		/*get product review*/
 		$data['productReviews']= $this->getReviews('products','',$Product->id);
 		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Product['user_id'])->first();
-		$data['meta_title']	=	$Product['title'];
+		//$data['meta_title']	=	$Product['title'];
 		//dd($data['variantData']);
 		if($tmpSellerData['role_id']==2){
         	return view('Front/seller_product_details', $data);

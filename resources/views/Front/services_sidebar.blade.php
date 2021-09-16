@@ -30,7 +30,7 @@
 
 @if(Request::segment(4) !='services')
 <div class="category_list_box show_product_cat_sidebar">
-  <h2>{{ __('lang.categories_head')}}</h2>
+  <h2 style="display:none;">{{ __('lang.categories_head')}}</h2>
   <ul class="seller_cat_list">
     @php $i=0; @endphp
 

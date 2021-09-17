@@ -334,12 +334,12 @@ function getListing()
    });
 }*/
 
-/*var price_filter = $("#price_filter").slider({});
+var price_filter = $("#price_filter").slider({});
 price_filter.on('slideStop',function(){
-   // getListing();
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-  $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
-});*/
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").val());
+    get_product_count();
+});
 
 function selectSellers()
 {

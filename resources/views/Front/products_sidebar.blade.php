@@ -2,9 +2,10 @@
   <label class="all_cat_label">{{ __('lang.all_category')}}</label>
 @endif
 
-@if(Request::segment(4) !='services')
-<div class="category_list_box show_product_cat_sidebar"  id="accordion">
+ <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
+<script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
 
+<div class="category_list_box show_product_cat_sidebar"  id="accordion">
   <h2>{{ __('lang.categories_head')}}</h2>
   <ul class="seller_cat_list">
     @php $i=0; $j=0;
@@ -51,10 +52,8 @@
     @endforeach
   </ul>
 </div>
-@endif
 
-@if(Request::segment(4) !='products')
-  <div class="category_list_box show_service_cat_sidebar"  id="accordion">
+  <div class="category_list_box show_service_cat_sidebar"  id="accordion" style="display: none">
   <h2 style="display:none;" class="">{{ __('lang.service_categories_head')}}</h2>
   <ul class="seller_cat_list">
 
@@ -82,18 +81,20 @@
   </ul>
   <div>&nbsp;</div>
 
+
+  
+
+
   </div>
-@endif
+
 <div>
 
 <div>&nbsp;</div>
-@if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
-  <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
-  <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
+ <?php /* @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services') */?>
+ 
   <hr>
   <label>{{ __('lang.sort_by_price')}}</label>
 
-  <div>&nbsp;</div>
   <div>&nbsp;</div>
   <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
   <!-- <b>€ 1000</b> -->
@@ -118,7 +119,7 @@
       <span class="seller_list_content"></span>
     @endif
   @endif
-  @endif
+  <?php /* @endif */?>
 </div>
 
 <script type="text/javascript">
@@ -178,6 +179,5 @@ $(document).ready(function(){
         $('.show_product_cat_sidebar').hide();
         $('.all_cat_label').hide();
     });
-
 });
 </script>

@@ -8,7 +8,7 @@
   <h2>{{ __('lang.categories_head')}}</h2>
   <ul class="seller_cat_list">
     @php $i=0; $j=0;
-    if($current_role_id==1)
+    if(isset($current_role_id) && $current_role_id==1)
       $productsads='ads';
     else
       $productsads =  'products';

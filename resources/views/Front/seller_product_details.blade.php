@@ -296,7 +296,7 @@
           <h4 class="modal-title">{{ __('users.report_product_btn')}}</h4>
           <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
         </div>
-        <div class="loader"></div>
+        <div class="loader-seller"></div>
         <div class="modal-body">
             <div class="container">
             <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
@@ -690,7 +690,7 @@ $(document).on("click",".send_report_product",function(event) {
         let seller_name      = $("#seller_name").val();
         let product_link      = $("#product_link").val();
         let product_id      = $("#product_id").val();
-       $(".loader").show();
+       $(".loader-seller").show();
 
         setTimeout(function(){
     $.ajax({
@@ -703,7 +703,7 @@ $(document).on("click",".send_report_product",function(event) {
           data:{user_message:user_message,user_email:user_email,product_link:product_link,product_id:product_id,seller_name:seller_name},
           success: function(output){
         
-             $(".loader").hide();
+             $(".loader-seller").hide();
              $('#reportProductmodal').modal('hide');  
            
             if(output.success !=''){

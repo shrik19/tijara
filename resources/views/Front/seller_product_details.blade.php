@@ -296,7 +296,7 @@
           <h4 class="modal-title">{{ __('users.report_product_btn')}}</h4>
           <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
         </div>
-        <div class="loader-seller"></div>
+        <div class="loader-seller" style="display: none;"></div>
         <div class="modal-body">
             <div class="container">
             <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">

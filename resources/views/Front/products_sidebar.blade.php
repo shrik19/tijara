@@ -7,7 +7,13 @@
 
   <h2>{{ __('lang.categories_head')}}</h2>
   <ul class="seller_cat_list">
-    @php $i=0; $j=0; @endphp
+    @php $i=0; $j=0;
+    if($current_role_id==1)
+      $productsads='ads';
+    else
+      $productsads =  'products';
+    @endphp
+
 
     @foreach($Categories as $CategoryId=>$Category)
       @php $i++; 
@@ -33,7 +39,10 @@
         <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse  <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
 
         @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
-          <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
+          <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug'])
+           class="activesubcategory" @endif  @if(empty($is_seller)) 
+           href="{{url('/')}}/{{$productsads}}/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else 
+           href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
         @endforeach
         </ul>
       @endif

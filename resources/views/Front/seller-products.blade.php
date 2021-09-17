@@ -385,8 +385,8 @@ $(document).on("click",".conact-store-save",function(event) {
        //storeContactform	  
       if($('#contactStoremodal').find('.user_message').val()!='') {
         let user_message   = $("#user_message").val();
-        let seller_email   = $("#seller_email").val();
-        let seller_id      = $("#seller_id").val();
+        let user_email   = $("#seller_email").val();
+        let product_link      = $("#product_link").val();
         let seller_name      = $("#seller_name").val();
 		
        $(".loader").show();
@@ -399,7 +399,7 @@ $(document).on("click",".conact-store-save",function(event) {
           },
           type: 'POST',
           async: false,
-          data:{user_message:user_message,seller_email:seller_email,seller_id:seller_id,seller_name:seller_name},
+          data:{user_message:user_message,user_email:user_email,product_link:product_link,seller_name:seller_name},
           success: function(output){
 			  
 			       $(".loader").hide();

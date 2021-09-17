@@ -35,9 +35,9 @@
               </div>
               <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}">
                 @if(isset($first['images'][0]) && !empty($first['images'][0]))
-                <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img ggg">
+                <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
                 @else
-                  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png"  id="show-img fg" fg>
+                  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png"  id="show-img">
                 @endif
               </div>
               

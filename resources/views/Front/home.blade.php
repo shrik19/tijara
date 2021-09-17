@@ -165,7 +165,7 @@
     <div class="col-md-12">             
         <div class="product_container">
         <div class="loader"></div>
-            <h2 class="heading"><a href="{{url('/')}}/annonser">{{ __('lang.feature_product_head')}}</a></h2>
+            <h2 class="heading"><a href="{{url('/')}}/annonser" style="color: #000;">{{ __('lang.feature_product_head')}}</a></h2>
             <!-- <hr class="heading_line"/> -->
             <ul class="product_details">
             @foreach($FeaturedProducts as $product)
@@ -180,7 +180,7 @@
 </section>
 <!-- featured services section end -->
 <!-- banner section -->
-<!-- <section class="sale_section">
+<?php /* <section class="sale_section">
     <div class="container-fluid">
         <div class="row">
             <div class="container-inner-section">
@@ -200,7 +200,7 @@
         </div>
         </div>
     </div>
-</section> -->
+</section>  */?>
 <!-- end banner section -->
 
 <section>

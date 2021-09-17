@@ -1281,18 +1281,24 @@ public function getCatSubList(Request $request) {
 		$data['meta_title']	=	'Tijara - '.$Product['title'];
 
 	
-		$loginUserData = UserMain::where('id',Auth::guard('user')->id())->where('is_deleted','=','0')->first();
+	
 		$data['product_id'] = $Products[0]->id;
 		$data['product_link']	= url()->full();
-		$data['loginUserEmail']	= $loginUserData['email'];
-		//;
-		//echo "<pre>";print_r($product_link);exit;
+		if(Auth::guard('user')->id()) {
+			$loginUserData = UserMain::where('id',Auth::guard('user')->id())->where('is_deleted','=','0')->first();
+			$data['loginUserEmail']	= $loginUserData['email'];
+		}else{
+			$data['loginUserEmail']='';
+		}
+		
 
 		//dd($loginUserData);
 		if($tmpSellerData['role_id']==2){
         	return view('Front/seller_product_details', $data);
         }
 		else {
+
+			//echo "<pre>";print_r($data);exit;
 			$currentDate = date('Y-m-d H:i:s');
 		
 			$similarProducts	=   Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')

@@ -6,7 +6,7 @@
     width:100% !important;
   }
   .selected_images {
-    background-image: url(../uploads/images/multiple_no_images.png);
+    background-image: url(../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
     height: 60px;
     padding-left: 0;

@@ -7,7 +7,7 @@
   }
 
   .selected_images {
-    background-image: url(../uploads/images/multiple_no_images.png);
+    background-image: url(../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
     height: 60px;
     padding-left: 0;
@@ -262,7 +262,6 @@
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">
   $('body').on('click', '.remove_image', function () {
-  alert("dfh")
     $(this).prev('img').prev('input').parent("div").remove();
     $(this).prev('img').prev('input').remove();
     $(this).prev('img').remove();

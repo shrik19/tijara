@@ -9,7 +9,7 @@
   <ul class="seller_cat_list">
     @php $i=0; $j=0;
     if(isset($current_role_id) && $current_role_id==1)
-      $productsads='ads';
+      $productsads='annonser';
     else
       $productsads =  'products';
     @endphp

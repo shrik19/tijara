@@ -42,7 +42,7 @@
               @endif
               </div>
               
-              <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size">{{ __('users.report_product_btn')}} </a>
+              <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 13px;margin-left: -38px;">{{ __('users.report_product_btn')}} </a>
             </div>
 
             <div class="col-md-6">

@@ -27,6 +27,12 @@ Route::any('/get_product_listing/','Front\FrontController@getProductsByParameter
 Route::any('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
 Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');
+
+Route::any('/ads/','Front\FrontController@buyerProductListing')->name('AllbuyerProductListing');
+Route::get('/ads/{category_slug}','Front\FrontController@buyerProductListing')->name('buyerProductListingByCategory');
+Route::get('/ads/{category_slug}/{subcategory_slug}','Front\FrontController@buyerProductListing')->name('buyerProductListingBySubcategory');
+
+
 Route::any('/product/{product_slug}','Front\FrontController@productDetails')->name('productDetails');
 Route::get('/product/{category_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategory');
 Route::get('/product/{category_slug}/{subcategory_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategorySubcategory');

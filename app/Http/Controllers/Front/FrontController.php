@@ -32,8 +32,8 @@ use App\Models\Orders;
 use App\Models\OrdersDetails;
 use App\Models\ServiceRequest;
 use App\Models\ServiceReview;
-
 use App\Models\ContactStore;
+use App\Models\ReportProduct;
 
 use App\Models\BuyerProducts;
 
@@ -1203,7 +1203,6 @@ public function getCatSubList(Request $request) {
 			$Products		=	$Products->where('products.product_slug','=',$product_parts[0])->where('products.product_code','=',$product_parts[1]);
 		}
 		$Products			=	$Products->get();// ->groupBy('products.id')
-		
 
 		if(isset($product_slug) && count($Products)<=0) {
 			$product_parts	=	explode('-P-',$product_slug);
@@ -1280,7 +1279,16 @@ public function getCatSubList(Request $request) {
 		$data['productReviews']= $this->getReviews('products','',$Product->id);
 		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Product['user_id'])->first();
 		$data['meta_title']	=	'Tijara - '.$Product['title'];
-		//dd($data['variantData']);
+
+	
+		$loginUserData = UserMain::where('id',Auth::guard('user')->id())->where('is_deleted','=','0')->first();
+		$data['product_id'] = $Products[0]->id;
+		$data['product_link']	= url()->full();
+		$data['loginUserEmail']	= $loginUserData['email'];
+		//;
+		//echo "<pre>";print_r($product_link);exit;
+
+		//dd($loginUserData);
 		if($tmpSellerData['role_id']==2){
         	return view('Front/seller_product_details', $data);
         }
@@ -2161,4 +2169,71 @@ public function getCatSubList(Request $request) {
         }
         return response()->json(['success'=>$success_msg,'error'=>$err_msg]);
    }
+
+       /*
+	*function to report product
+	*@param: seller_email,message
+    */
+   public function reportProduct(Request $request) { 
+      	
+      	$success_msg = $err_msg='';
+   		//if(Auth::guard('user')->id()) {
+   			$user_message = $request->user_message;
+   			$user_email = $request->user_email;
+   			$product_id = $request->product_id;
+   			$product_link = $request->product_link;
+   			$seller_name = $request->seller_name;
+   			//$to_email = $request->seller_email;
+	   		$to_email = env('ADMIN_EMAIL');
+	   		//$id = $request->seller_id;
+	   		
+           	/*$loginUser = UserMain::where('id',Auth::guard('user')->id())->first();
+           	$from_email=$loginUser->email;
+			$name = $loginUser->fname." ".$loginUser->lname;*/
+			$currentDate = date('Y-m-d H:i:s');
+
+			$arrInsert = [
+				'buyer_email'  => $user_email,
+				'product_id'   => $product_id,
+				'product_link' => $product_link,
+				'message'      => $user_message,
+				'seller_name'  => $seller_name,
+				'created_at'   => $currentDate,
+				'updated_at'   => $currentDate,
+			 ];
+
+			ReportProduct::create($arrInsert);
+
+		$admin_email = env('ADMIN_EMAIL');
+        $admin_name  = env('ADMIN_NAME');
+        
+        $GetEmailContents = getEmailContents('Buyer Product Report');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+
+        $contents = str_replace(['##PRODUCT_NO##','##EMAIL##','##PRODUCT_LINK##','##MESSAGE##','##SITE_URL##'],[$product_id,$user_email,$product_link,$user_message,url('/')],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
+             $message->to($admin_email, $admin_name)->subject
+                 ($subject);
+             $message->from( env('FROM_MAIL'),'Tijara');
+         });
+
+			/*exit;
+	        $arrMailData = ['name' => $name, 'email' => $from_email, 'user_message'=> $user_message,'seller_name' => $seller_name];
+
+	            Mail::send('emails/contact_seller', $arrMailData, function($message) use ($to_email,$seller_name) {
+	            $message->to($to_email, $seller_name)->subject
+	                (trans('users.subject_product_report'));
+	            $message->from( env('FROM_MAIL'),'Tijara');
+	        });*/
+	       $success_msg = trans('users.mail_sent_message');
+        /*}else{
+        	$err_msg = trans('users.please_login_alert');
+        }*/
+        return response()->json(['success'=>$success_msg,'error'=>$err_msg]);
+   }
+
 }

@@ -28,9 +28,9 @@ Route::any('/products/','Front\FrontController@productListing')->name('Allproduc
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
 Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');
 
-Route::any('/ads/','Front\FrontController@buyerProductListing')->name('AllbuyerProductListing');
-Route::get('/ads/{category_slug}','Front\FrontController@buyerProductListing')->name('buyerProductListingByCategory');
-Route::get('/ads/{category_slug}/{subcategory_slug}','Front\FrontController@buyerProductListing')->name('buyerProductListingBySubcategory');
+Route::any('/annonser/','Front\FrontController@buyerProductListing')->name('AllbuyerProductListing');
+Route::get('/annonser/{category_slug}','Front\FrontController@buyerProductListing')->name('buyerProductListingByCategory');
+Route::get('/annonser/{category_slug}/{subcategory_slug}','Front\FrontController@buyerProductListing')->name('buyerProductListingBySubcategory');
 
 
 Route::any('/product/{product_slug}','Front\FrontController@productDetails')->name('productDetails');

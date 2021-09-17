@@ -165,7 +165,7 @@
     <div class="col-md-12">             
         <div class="product_container">
         <div class="loader"></div>
-            <h2 class="heading">{{ __('lang.feature_product_head')}}</h2>
+            <h2 class="heading"><a href="{{url('/')}}/annonser">{{ __('lang.feature_product_head')}}</a></h2>
             <!-- <hr class="heading_line"/> -->
             <ul class="product_details">
             @foreach($FeaturedProducts as $product)

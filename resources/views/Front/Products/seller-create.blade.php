@@ -5,6 +5,24 @@
   {
     width:100% !important;
   }
+
+  .selected_images {
+    background-image: url(../uploads/images/multiple_no_images.png);
+    background-repeat: no-repeat;
+    height: 60px;
+    padding-left: 0;
+}
+
+.selected_images>div {
+    float: left;
+    margin: 5px 2px 2px 4px;
+}
+
+.selected_images a.remove_image {
+    position: absolute;
+    bottom: 2px;
+    margin-left: -50px;
+}
 </style>
 
 <div class="mid-section">
@@ -181,7 +199,7 @@
                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="margin-top:40px;"></span>                  
                   </div>
 
-                  <div class="selected_images col-md-12"></div>
+                  <div class="col-md-3"></div><div class="selected_images col-md-9"></div>
                   <div class="remove_variant_div"></div>
                   <div class="loader"></div>
                 </div>
@@ -242,6 +260,15 @@
 </div> <!-- /container -->
 </div>
 <script>var siteUrl="{{url('/')}}";</script>
+<script type="text/javascript">
+  $('body').on('click', '.remove_image', function () {
+  alert("dfh")
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
 
+</script>
 
 @endsection

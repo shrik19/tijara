@@ -125,7 +125,7 @@
               <input type="tel" class="col-md-8 ge_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
               <span class="invalid-feedback col-md-12"  id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
             </div>
-              <hr class="solid-horizontal-line">
+          
 
             <h2 class="col-md-12">{{ __('lang.product_form_step2')}}</h2>
             <div  class="col-md-12" id="variant_table">

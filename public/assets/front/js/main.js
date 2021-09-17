@@ -913,6 +913,7 @@ if($('.product_listings').length>0) {
 function get_product_listing(page,category_slug='',subcategory_slug='',
   sellers ='',price='',city='', search_string='',search_seller_product='',current_role_id='') {
    // alert(current_role_id);
+   
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   $.ajax({

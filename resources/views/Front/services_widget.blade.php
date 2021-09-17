@@ -26,7 +26,7 @@
       @if( Request::path() == "/")
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
 
-        <div class="star-rating" style="font-size:unset;">
+       <?php /*  <div class="star-rating" style="font-size:unset;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
           <option value="1" >1</option>
           <option value="2" >2</option>
@@ -34,7 +34,7 @@
           <option value="4" >4</option>
           <option value="5" >5</option>
           </select>
-        </div> 
+        </div> */ ?>
 
         @if(!empty($service->service_price))
           <h6>{{$service->service_price}} kr</h6>

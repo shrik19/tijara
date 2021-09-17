@@ -39,7 +39,7 @@
 
             <h4 style="margin-top: 10px;">{{ __('lang.category_label')}}</h4>
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
-
+            <div class="current_role_id" style="display: none">{{$role_id}}</div>
             @include('Front.products_sidebar')
         </div>
         <div class="col-md-9">
@@ -295,14 +295,14 @@ $(document).ready(function() {
 
 $( "#seller_product_filter" ).keyup(function() {
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val());
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").val());
     get_product_count();
   
 });
 
 function listProducts(){
    get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val());
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").val());
 }
 
 /*

@@ -1658,7 +1658,7 @@ span.pro-text {
 }
 .seller_cat_list{margin: 0;}
 .seller_cat_list li { list-style: none; }
-.seller_cat_list li a{    border-bottom: 1px solid #303030;
+.seller_cat_list li a{    
     line-height: 45px;
     text-decoration: none;
     font-size: 22px;

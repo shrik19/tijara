@@ -738,6 +738,7 @@ public function getCatSubList(Request $request) {
 							  ->where('subcategories.status','=','active')
 							  ->where('users.status','=','active')
 							  ->where('users.is_deleted','=','0')
+							  ->where('users.role_id','=',$request->role_id)
 							  ->where(function($q) use ($currentDate) {
 
 								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
@@ -898,9 +899,22 @@ public function getCatSubList(Request $request) {
 		//return view('Front/products_list', $data);
 	}
     /* function to display products page*/
-    public function productListing($category_slug='',$subcategory_slug='',Request $request)
+	public function buyerProductListing($category_slug='',$subcategory_slug='',Request $request)
     {
-
+		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
+		$data['current_role_id']	=	'1';
+		return view('Front/products', $data);
+	}
+	public function productListing($category_slug='',$subcategory_slug='',Request $request)
+    {
+		
+		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
+		$data['current_role_id']	=	'2';
+		return view('Front/products', $data);
+	}
+    public function productListingFunction($request,$category_slug='',$subcategory_slug='')
+    {
+		
         $data['pageTitle'] 	= 'Home';
 		$data['Categories'] = $this->getCategorySubcategoryList();
     	$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
@@ -930,9 +944,11 @@ public function getCatSubList(Request $request) {
         	$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
         	$data['category_name'] = $getCategoryName['category_name'];
         }
-               
+          
+		return $data;
+		//echo'<pre>';print_r($data);exit;
        //echo $data['category_name'];exit;
-        return view('Front/products', $data);
+        
 	}
 	
 	/* function to display products page*/
@@ -985,7 +1001,7 @@ public function getCatSubList(Request $request) {
 		$avgProductRating 	 = 0.00;
 		$getAllProductRatings = ProductReview::join('products','product_review.product_id','products.id','')->select(['products.id','product_review.rating as product_rating'])->where('products.user_id','=',$id)->get();
 
-	// and then you can get query log
+		// and then you can get query log
 	
 		
 		$productsRatingCnt 	 = $getAllProductRatings->count();

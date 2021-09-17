@@ -66,11 +66,11 @@ class FrontController extends Controller
 
 		$data['Categories']    	= $this->getCategorySubcategoryList()	;
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList()	;
-		$data['TrendingProducts']= $this->getTrendingProducts();
+		$data['TrendingProducts']= $this->getTrendingProducts('','',2);
 		$data['PopularProducts']= $this->getPopularProducts();
 		$data['FeaturedSellers']= $this->getFeaturedSellers();
 		$data['PopularServices']= $this->getPopularServices();
-		$data['FeaturedProducts']= $this->getFeaturedProducts();
+		$data['FeaturedProducts']= $this->getFeaturedProducts('','',1);
         return view('Front/home', $data);
     }
 
@@ -96,9 +96,9 @@ class FrontController extends Controller
     }
 
      /*Function to get treding seller*/
-    function getFeaturedProducts($category_slug='',$subcategory_slug=''){
+    function getFeaturedProductsOld($category_slug='',$subcategory_slug='',$role_id=''){
     	DB::enableQueryLog();
-	// and then you can get query log
+		// and then you can get query log
 	
     	$currentDate = date('Y-m-d H:i:s'); 
 		$featuredproducts 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
@@ -119,36 +119,11 @@ class FrontController extends Controller
 								->where('user_packages.end_date','>=', $currentDate)
 								->orderBy('users.id', 'DESC')
 								->groupBy('products.id')
-								->limit(5)
-								->get();
-		/*$featuredproducts 	= 		UserMain::join('products', 'users.id', '=', 'products.user_id')
-								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-								->join('category_products', 'products.id', '=', 'category_products.product_id')
-								->join('categories', 'categories.id', '=', 'category_products.category_id')
-								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-								->join('users', 'products.user_id', '=', 'users.id')
-								->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')//DB::raw("DATEDIFF(products.created_at, '".$currentDate."') AS posted_days")
-								->select(['products.*',DB::raw("DATEDIFF('".$currentDate."', products.sold_date) as sold_days"), DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") , 'variant_product.image','variant_product.price','variant_product.id as variant_id','categories.category_name'])
-								->where('products.status','=','active')
-								->where('products.is_deleted','=','0')
+								->limit(5);
+								if($role_id!='')
+								$featuredproducts->where('users.role_id','=',$role_id);
+								$featuredproducts	=	$featuredproducts->get();
 
-								->where('categories.status','=','active')
-							  	->where('subcategories.status','=','active')
-								->where('users.status','=','active')
-								->where('users.is_featured','=','1')
-								->where('users.is_verified','=','1')
-								->where('users.role_id','=','2')
-								->where('user_packages.status','=','active')
-								->where('user_packages.start_date','<=',$currentDate)
-								->where('user_packages.end_date','>=',$currentDate)
-								
-						
-					
-								->orderBy('users.id', 'DESC')
-								->groupBy('products.id')
-								->get();*/
-								//print_r(DB::getQueryLog());exit;
 		if(count($featuredproducts)>0) {
 			foreach($featuredproducts as $Product) {
         $productCategories = $this->getProductCategories($Product->id);
@@ -199,6 +174,81 @@ class FrontController extends Controller
 		return $featuredproducts;			
     }
 
+	function getFeaturedProducts($category_slug='',$subcategory_slug='',$role_id=''){
+    	DB::enableQueryLog();
+		// and then you can get query log
+	
+    	$currentDate = date('Y-m-d H:i:s'); 
+		$featuredproducts 	= UserMain::join('products', 'users.id', '=', 'products.user_id')
+    							->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+								->join('category_products', 'products.id', '=', 'category_products.product_id')
+								->join('categories', 'categories.id', '=', 'category_products.category_id')
+								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+								->select('products.*','users.id as user_id','users.fname',
+								'users.lname','users.email','users.store_name','users.description','variant_product.image','variant_product.price','variant_product.id as variant_id','categories.category_name')
+								
+								->where('users.is_deleted','=','0')
+								//->where('users.is_featured','=','1')
+								//->where('users.is_verified','=','1')
+								->where('users.status','=','active')
+								
+								->orderBy('users.id', 'DESC')
+								->groupBy('products.id')
+								->limit(5);
+								if($role_id!='')
+								$featuredproducts->where('users.role_id','=',$role_id);
+								$featuredproducts	=	$featuredproducts->get();
+
+		if(count($featuredproducts)>0) {
+			foreach($featuredproducts as $Product) {
+        $productCategories = $this->getProductCategories($Product->id);
+
+				$product_link	=	url('/').'/product';
+		if($category_slug!='')
+        {
+				      $product_link	.=	'/'.$category_slug;
+        }
+        else {
+          $product_link	.=	'/'.$productCategories[0]['category_slug'];
+        }
+				if($subcategory_slug!='')
+        {
+				      $product_link	.=	'/'.$subcategory_slug;
+        }
+        else {
+          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+        }
+
+				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
+
+       // $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+       // $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+
+				$Product->product_link	=	$product_link;
+
+				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+				foreach($variantProduct as $vp)
+				{
+					$Product->image = explode(",",$vp->image)[0];
+					$Product->price = $vp->price;
+					$Product->variant_id = $vp->variant_id;
+					if(!empty($Product->discount))
+					{
+						$discount = number_format((($Product->price * $Product->discount) / 100),2,'.','');
+						$Product->discount_price = $Product->price - $discount;
+					}
+					else
+					{
+						$Product->discount_price = 0;
+					}
+				}
+			}
+		}
+		// echo "<pre>";
+		// print_r($featuredproducts);exit;
+		return $featuredproducts;			
+    }
 	//get category & subcategory listings
 	public function getCategorySubcategoryList($seller_id='',$category_slug='', $subcategory_slug='') {
 		DB::enableQueryLog();
@@ -631,7 +681,7 @@ public function getCatSubList(Request $request) {
 								return $PopularProducts;
 	}
 	// get trending products
-	function getTrendingProducts($category_slug='',$subcategory_slug='') {
+	function getTrendingProducts($category_slug='',$subcategory_slug='',$role_id='') {
 	//DB::enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$roleId = 2;
@@ -651,12 +701,17 @@ public function getCatSubList(Request $request) {
 							  ->where('products.is_deleted','=','0')
                 			  ->where('users.status','=','active')
                 			  ->where('users.is_deleted','=','0')
+							  
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
 							  ->orderBy('products.id', 'DESC')
 							  //->orderBy('variant_id', 'ASC')
 							  ->groupBy('products.id')
-							  ->offset(0)->limit(config('constants.Products_limits'))->get();
+							  ->offset(0)->limit(config('constants.Products_limits'));
+							  if($role_id!='')
+								$TrendingProducts->where('users.role_id','=',$role_id);
+
+								$TrendingProducts	=$TrendingProducts->get();
                 //dd(DB::getQueryLog());
 		//dd($TrendingProducts);
                 //dd(count($TrendingProducts));

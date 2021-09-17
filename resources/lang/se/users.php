@@ -313,7 +313,7 @@
     'all_orders_menu' => 'Beställningar',
     'buyer_product_title' => 'Rubrik',
     'buyer_product_form_label'=>'Lägg upp annons',
-    'buyer_product_list_title' => 'Mina annonser',
+    'buyer_product_list_title' => 'Mina Annonser',
     'add_ads_btn' => 'Lägg upp ny annons',
     'buyer_profile_update_title' =>'Min profil',
     'location_label' => 'Ort',
@@ -325,5 +325,10 @@
     'read_less_btn' => 'Läs mindre',
     'your_subscribed_label' => 'Din prenumeration',
     'next_payment_label' => 'Din nästa betalning',
+    'report_product_btn' => 'Rapportera produkt',
+    'subject_product_report' => 'Meddelande från köparen angående produktrapport',
+    'mail_sent_message' => 'Mail skickat',
+    'report_ad_btn' => 'Rapportera Annonser',
+
  ]
 ?>

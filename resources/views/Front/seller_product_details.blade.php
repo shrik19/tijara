@@ -42,7 +42,7 @@
               @endif
               </div>
               
-             
+              <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 13px;margin-left: -38px;">{{ __('users.report_product_btn')}} </a>
             </div>
 
             <div class="col-md-6">
@@ -286,6 +286,50 @@
         </div>
     </div>
 </section>
+
+
+<!-- add report product model Form -->
+ <div class="modal fade" id="reportProductmodal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ __('users.report_product_btn')}}</h4>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="loader-seller" style="display: none;"></div>
+        <div class="modal-body">
+            <div class="container">
+            <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
+              @csrf
+                  <input type="hidden" name="seller_name" class="seller_name" id="seller_name" value="">
+                  <input type="hidden" name="product_link" class="product_link" id="product_link" value="">
+                  <input type="hidden" name="product_id" class="product_id" id="product_id" value="">
+
+                <div class="form-group">
+                  <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
+                
+                  <input type="text" name="user_email" class="form-control user_email" id="user_email" placeholder="{{ __('users.email_label')}}" value="" style="width: 500px;">
+                   <span class="invalid-feedback col-md-12"  id="err_email" ></span>
+                </div>
+
+                <div class="form-group">
+                  <label style="margin-top:10px;">{{ __('users.your_message_label')}} <span class="text-danger">*</span></label>
+                  <textarea class="user_message form-control contact-store-message" name="user_message" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}"  placeholder="{{ __('users.subcategory_name_label')}}" id="user_message"required></textarea>
+               
+                </div>
+            </form>
+            </div>
+        </div>
+        
+       <div class="modal-footer">
+        <button type="submit" class="send_report_product btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
+        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal">{{ __('lang.close_btn')}}</button>
+        </div>        
+      </div>
+    </div>
+  </div>
+  
+  <!-- end report product model Form -->
 
 <script type="text/javascript">
 
@@ -602,7 +646,76 @@ function showAvailableOptions(attribute_id,attribute_value)
 }
 }
 
+$(document).on("click",".report_product",function(event) {
+        
+        $('#reportProductmodal').find('.user_email').val($(this).attr('user_email'));
+        $('#reportProductmodal').find('.product_link').val($(this).attr('product_link'));
+        $('#reportProductmodal').find('.seller_name').val($(this).attr('seller_name')); 
+        $('#reportProductmodal').find('.product_id').val($(this).attr('product_id'));  
+       // $('#reportProductmodal').find('.message').val($(this).attr('message'));  
+       
+         $('#reportProductmodal').modal('show');
+});
 
+$(document).on("click",".send_report_product",function(event) {
+       //storeContactform 
+      let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+      let error = 0;
 
+     if($('#reportProductmodal').find('.user_email').val()=='') {
+        $("#err_email").html(fill_in_email_err).show();
+        $("#err_email").parent().addClass('jt-error');
+        error = 1;
+     }else if(!email_pattern.test($('#reportProductmodal').find('.user_email').val())) {
+      $("#err_email").html(fill_in_valid_email_err).show();
+      $("#err_email").parent().addClass('jt-error');
+      error = 1;
+    }else{
+      $("#err_email").parent().removeClass('jt-error');
+      $("#err_email").html('').hide();
+    }
+
+    if($('#reportProductmodal').find('.user_message').val()==''){
+       showErrorMessage(required_field_error);
+       error = 1;
+    }
+
+    if(error == 1){
+      return false;
+    }else{
+    
+        let user_message   = $("#user_message").val();
+        let user_email   = $("#user_email").val();
+        let seller_id      = $("#seller_id").val();
+        let seller_name      = $("#seller_name").val();
+        let product_link      = $("#product_link").val();
+        let product_id      = $("#product_id").val();
+       $(".loader-seller").show();
+
+        setTimeout(function(){
+    $.ajax({
+          url:"{{ route('FrontReportProduct') }}",
+          headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+          },
+          type: 'POST',
+          async: false,
+          data:{user_message:user_message,user_email:user_email,product_link:product_link,product_id:product_id,seller_name:seller_name},
+          success: function(output){
+        
+             $(".loader-seller").hide();
+             $('#reportProductmodal').modal('hide');  
+           
+            if(output.success !=''){
+              showSuccessMessage(output.success);
+              let user_message   = $("#user_message").val('');
+            }else{
+              showErrorMessage(output.error);
+            }
+          }
+        });}, 300);
+      }   
+    }); 
+/*product_link product_no product_name user_email*/
 </script>
 @endsection

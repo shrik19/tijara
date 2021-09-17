@@ -39,7 +39,7 @@
 
             <h4 style="margin-top: 10px;">{{ __('lang.category_label')}}</h4>
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
-
+            <div class="current_role_id" style="display: none">{{$role_id}}</div>
             @include('Front.products_sidebar')
         </div>
         <div class="col-md-9">
@@ -295,14 +295,14 @@ $(document).ready(function() {
 
 $( "#seller_product_filter" ).keyup(function() {
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val());
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").val());
     get_product_count();
   
 });
 
 function listProducts(){
    get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val());
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").val());
 }
 
 /*
@@ -334,12 +334,12 @@ function getListing()
    });
 }*/
 
-/*var price_filter = $("#price_filter").slider({});
+var price_filter = $("#price_filter").slider({});
 price_filter.on('slideStop',function(){
-   // getListing();
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-  $('.current_sellers').text(),$('#price_filter').val(),'','',$("#seller_product_filter").val()) ;
-});*/
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").val());
+    get_product_count();
+});
 
 function selectSellers()
 {
@@ -385,8 +385,8 @@ $(document).on("click",".conact-store-save",function(event) {
        //storeContactform	  
       if($('#contactStoremodal').find('.user_message').val()!='') {
         let user_message   = $("#user_message").val();
-        let seller_email   = $("#seller_email").val();
-        let seller_id      = $("#seller_id").val();
+        let user_email   = $("#seller_email").val();
+        let product_link      = $("#product_link").val();
         let seller_name      = $("#seller_name").val();
 		
        $(".loader").show();
@@ -399,7 +399,7 @@ $(document).on("click",".conact-store-save",function(event) {
           },
           type: 'POST',
           async: false,
-          data:{user_message:user_message,seller_email:seller_email,seller_id:seller_id,seller_name:seller_name},
+          data:{user_message:user_message,user_email:user_email,product_link:product_link,seller_name:seller_name},
           success: function(output){
 			  
 			       $(".loader").hide();

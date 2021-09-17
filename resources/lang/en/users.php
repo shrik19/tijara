@@ -304,6 +304,10 @@
     'read_less_btn'=>'Read More',
     'your_subscribed_label' => 'Your subscription',
     'next_payment_label' => 'Your next payment',
+    'report_product_btn' => 'Report Product',
+    'subject_product_report' => 'Message From Buyer Regarding Product Report',
+    'mail_sent_message' => 'Mail Sent',
+    'report_ad_btn' => 'Report Ad',
 
  ]
 ?>

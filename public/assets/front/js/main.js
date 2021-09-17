@@ -892,11 +892,17 @@ function ConfirmDeleteFunction1(url, id = false) {
 
 if($('.product_listings').length>0) {
   var page = 1;
-  get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text());
+  
+  get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+  $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
+  $(".current_search_string").text(),'',$(".current_role_id").text());
+  
   $(document).on('click', '.pagination a', function(event){
       event.preventDefault();
       var page = $(this).attr('href').split('page=')[1];
-      get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text());
+      get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+      $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
+      $(".current_search_string").text(),'',$(".current_role_id").text());
    });
 
 
@@ -905,7 +911,9 @@ if($('.product_listings').length>0) {
 
 
 function get_product_listing(page,category_slug='',subcategory_slug='',
-  sellers ='',price='',city='', search_string='',search_seller_product='') {
+  sellers ='',price='',city='', search_string='',search_seller_product='',current_role_id='') {
+   // alert(current_role_id);
+   
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   $.ajax({
@@ -917,7 +925,8 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
     data : {'page': page, 'category_slug' : category_slug, 
     'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 
     'price_filter' : price,'city_filter' : city, 'sort_order' : sort_by_order, 
-    'sort_by' : sort_by, 'search_string' : search_string,search_seller_product:search_seller_product },
+    'sort_by' : sort_by, 'search_string' : search_string,search_seller_product:search_seller_product ,
+    'role_id':current_role_id},
     success:function(data)
     {
       var responseObj = $.parseJSON(data);

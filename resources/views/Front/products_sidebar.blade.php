@@ -2,12 +2,19 @@
   <label class="all_cat_label">{{ __('lang.all_category')}}</label>
 @endif
 
-@if(Request::segment(4) !='services')
-<div class="category_list_box show_product_cat_sidebar"  id="accordion">
+ <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
+<script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
 
+<div class="category_list_box show_product_cat_sidebar"  id="accordion">
   <h2>{{ __('lang.categories_head')}}</h2>
   <ul class="seller_cat_list">
-    @php $i=0; $j=0; @endphp
+    @php $i=0; $j=0;
+    if(isset($current_role_id) && $current_role_id==1)
+      $productsads='annonser';
+    else
+      $productsads =  'products';
+    @endphp
+
 
     @foreach($Categories as $CategoryId=>$Category)
       @php $i++; 
@@ -33,7 +40,10 @@
         <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse  <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
 
         @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
-          <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
+          <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug'])
+           class="activesubcategory" @endif  @if(empty($is_seller)) 
+           href="{{url('/')}}/{{$productsads}}/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else 
+           href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
         @endforeach
         </ul>
       @endif
@@ -42,10 +52,8 @@
     @endforeach
   </ul>
 </div>
-@endif
 
-@if(Request::segment(4) !='products')
-  <div class="category_list_box show_service_cat_sidebar"  id="accordion">
+  <div class="category_list_box show_service_cat_sidebar"  id="accordion" style="display: none">
   <h2 style="display:none;" class="">{{ __('lang.service_categories_head')}}</h2>
   <ul class="seller_cat_list">
 
@@ -73,18 +81,20 @@
   </ul>
   <div>&nbsp;</div>
 
+
+  
+
+
   </div>
-@endif
+
 <div>
 
 <div>&nbsp;</div>
-@if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
-  <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
-  <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
+ <?php /* @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services') */?>
+ 
   <hr>
   <label>{{ __('lang.sort_by_price')}}</label>
 
-  <div>&nbsp;</div>
   <div>&nbsp;</div>
   <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
   <!-- <b>€ 1000</b> -->
@@ -109,7 +119,7 @@
       <span class="seller_list_content"></span>
     @endif
   @endif
-  @endif
+  <?php /* @endif */?>
 </div>
 
 <script type="text/javascript">
@@ -169,6 +179,5 @@ $(document).ready(function(){
         $('.show_product_cat_sidebar').hide();
         $('.all_cat_label').hide();
     });
-
 });
 </script>

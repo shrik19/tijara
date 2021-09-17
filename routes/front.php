@@ -27,6 +27,12 @@ Route::any('/get_product_listing/','Front\FrontController@getProductsByParameter
 Route::any('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
 Route::get('/products/{category_slug}/{subcategory_slug}','Front\FrontController@productListing')->name('productListingBySubcategory');
+
+Route::any('/annonser/','Front\FrontController@buyerProductListing')->name('AllbuyerProductListing');
+Route::get('/annonser/{category_slug}','Front\FrontController@buyerProductListing')->name('buyerProductListingByCategory');
+Route::get('/annonser/{category_slug}/{subcategory_slug}','Front\FrontController@buyerProductListing')->name('buyerProductListingBySubcategory');
+
+
 Route::any('/product/{product_slug}','Front\FrontController@productDetails')->name('productDetails');
 Route::get('/product/{category_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategory');
 Route::get('/product/{category_slug}/{subcategory_slug}/{product_slug}','Front\FrontController@productDetails')->name('productDetailsWithCategorySubcategory');
@@ -36,6 +42,7 @@ Route::post('/getCity', 'Front\FrontController@getCity')->name('getCity');
 Route::post('/contact-store', 'Front\FrontController@contactStore')->name('FrontContactStore');
 Route::any('/getCatSubList','Front\FrontController@getCatSubList')->name('getCatSubList');
 Route::any('/getServiceCatSubcatList','Front\FrontController@getServiceCatSubcatList')->name('getServiceCatSubcatList');
+Route::post('/report-product', 'Front\FrontController@reportProduct')->name('FrontReportProduct');
 
 //services
 Route::get('/seller/{seller_name}/{seller_id}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');

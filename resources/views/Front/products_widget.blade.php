@@ -6,6 +6,17 @@
       @else
           <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" >
       @endif
+
+      @php 
+
+          $seller_name = $product->seller;
+          $seller_name = str_replace( array( '\'', '"', 
+          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+          $seller_name = str_replace(" ", '-', $seller_name);
+          $seller_name = strtolower($seller_name);
+                      
+          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($product->user_id)."/products"; 
+        @endphp
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
       <div class="buy_now_hover_details one_icon">
           <ul>
@@ -46,8 +57,8 @@
         @if(!empty($product->price))
         <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span><span @if(!empty($product->discount)) class="dic_percent" @endif >@if(!empty($product->discount)) (<?php echo $product->discount."% off";?>) @endif</span></h6>
         @endif
-          <a href="{{$product_cat_link}}">
-          <h5>{{$product->category_name}}</h5></a>
+           <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
+          <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
         <a href="{{$product_cat_link}}">
           <h5>{{$product->category_name}}</h5></a>
@@ -67,16 +78,7 @@
         <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span><span @if(!empty($product->discount)) class="dic_percent" @endif >@if(!empty($product->discount))(<?php echo $product->discount."% off";?>)@endif</span></h6>
         @endif
 
-         @php 
-
-          $seller_name = $product->seller;
-          $seller_name = str_replace( array( '\'', '"', 
-          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
-          $seller_name = str_replace(" ", '-', $seller_name);
-          $seller_name = strtolower($seller_name);
-                      
-          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($product->user_id)."/products"; 
-        @endphp
+         
         @if(Request::segment(1) !='product' && Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
          <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
         @endif

@@ -222,7 +222,7 @@
      'shopping_cart_quantity' => 'Kvantitet',
      'shopping_cart_price' => 'Pris',
      'shopping_cart_remove' => 'Avlägsna',
-     'shopping_cart_checkout' => 'Kolla upp',
+     'shopping_cart_checkout' => 'Checka ut',
      'shopping_cart_continue' => 'Fortsätt handla',
      'shopping_cart_subtotal' => 'Delsumma',
      'shopping_cart_shipping' => 'Frakt',

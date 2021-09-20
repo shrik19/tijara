@@ -11,7 +11,7 @@
       <div class="row" style="margin-top:40px;">
   <div class="container-inner-section">
  
-        @if(Request::segment(1) =='services' || Request::segment(1) =='products')
+        @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
           @include('Front.category_breadcrumb')
          
         @endif

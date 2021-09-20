@@ -1,7 +1,8 @@
- @if(Request::segment(1) =='services' || Request::segment(1) =='products')
+ @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
   <label class="all_cat_sidebar_label">{{ __('lang.all_category')}}</label>
 
-  <!-- <h3 style="float: left">{{ __('lang.all_category')}}</h3> -->
+
+  <p class="all_cat_label">{{ __('lang.all_category')}}</p>
 @endif
 
  <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />

@@ -1,7 +1,7 @@
 @if(Request::segment(4) !='products')
 <div class="category_list_box show_service_cat_sidebar" >
-  <label class="all_cat_label">{{ __('lang.all_category')}}</label>
-  <h2>{{ __('lang.service_categories_head')}}</h2>
+  <label class="all_cat_sidebar_label">{{ __('lang.all_category')}}</label>
+ <!--  <h2>{{ __('lang.service_categories_head')}}</h2> -->
   <ul class="seller_cat_list">
     @php $j=0; @endphp
 
@@ -28,8 +28,7 @@
 </div>
 @endif
 
-@if(Request::segment(4) !='services')
-<div class="category_list_box show_product_cat_sidebar">
+<div class="category_list_box show_product_cat_sidebar" style="display: none">
   <h2 style="display:none;">{{ __('lang.categories_head')}}</h2>
   <ul class="seller_cat_list">
     @php $i=0; @endphp
@@ -56,7 +55,7 @@
   </ul>
   <div>&nbsp;</div>
 </div>
-@endif
+
 <div>
 
 <div>&nbsp;</div>

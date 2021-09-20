@@ -1,12 +1,14 @@
  @if(Request::segment(1) =='services' || Request::segment(1) =='products')
-  <label class="all_cat_label">{{ __('lang.all_category')}}</label>
+  <label class="all_cat_sidebar_label">{{ __('lang.all_category')}}</label>
+
+  <!-- <h3 style="float: left">{{ __('lang.all_category')}}</h3> -->
 @endif
 
  <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
 <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
 
 <div class="category_list_box show_product_cat_sidebar"  id="accordion">
-  <h2>{{ __('lang.categories_head')}}</h2>
+  
   <ul class="seller_cat_list">
     @php $i=0; $j=0;
     if(isset($current_role_id) && $current_role_id==1)
@@ -90,7 +92,7 @@
 <div>
 
 <div>&nbsp;</div>
- <?php /* @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services') */?>
+  @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
  
   <hr>
   <label>{{ __('lang.sort_by_price')}}</label>
@@ -119,7 +121,7 @@
       <span class="seller_list_content"></span>
     @endif
   @endif
-  <?php /* @endif */?>
+   @endif 
 </div>
 
 <script type="text/javascript">

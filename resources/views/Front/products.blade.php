@@ -27,8 +27,8 @@
             <div class="product_container">
                 <div class="row">
                   <div class="col-md-6">
-                    <h2>{{ __('lang.trending_product_head')}}</h2>
-                    <hr class="heading_line"/>
+                   <!--  <h2>{{ __('lang.trending_product_head')}}</h2>
+                    <hr class="heading_line"/> -->
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
@@ -66,7 +66,7 @@
         <div class="row">
           <div class="container-inner-section">
             <div class="best_seller_container">
-                <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
+                <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
                 <h2>{{ __('lang.best_seller_head')}}</h2>
                 <ul class="product_details best_seller">
 					@foreach($PopularProducts as $product)

@@ -101,6 +101,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
     max-height: 400px;
     overflow: scroll;
     overflow-x: hidden;
+    left: 0!important;
   }
   
   .small-container .show-small-img {

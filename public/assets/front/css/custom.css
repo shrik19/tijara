@@ -96,8 +96,11 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   }
   
   .small-container div {
-	width: 800%;
-	position: relative;
+    width: 18%;
+    position: relative;
+    max-height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
   }
   
   .small-container .show-small-img {

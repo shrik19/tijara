@@ -96,7 +96,6 @@ function getListing()
   var sort_by = $("#sort_by").val();
   var search_string = $(".current_search_string").text();
   var current_role_id = $(".current_role_id").text();
-
   $.ajax({
     url:siteUrl+"/get_product_listing",
     headers: {
@@ -219,7 +218,8 @@ price_filter.on('slideStop',function(){
 $("#city_name").on("input", function() {
   getListing();
 });
- 
+
+
 function selectSellers()
 {
     var Sellers = '';

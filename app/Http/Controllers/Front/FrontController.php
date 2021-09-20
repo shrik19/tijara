@@ -986,8 +986,8 @@ public function getCatSubList(Request $request) {
     	  if($subcategory_slug!='')
     			$data['subcategory_slug']	= $subcategory_slug;
 
-        if(!empty($request->search))
-        	$data['search_string']	= $request->search;
+        if(!empty($request['search']))
+        	$data['search_string']	= $request['search'];
 
         if(!empty($category_slug)){
         	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();

@@ -59,8 +59,8 @@
 <div>
 
 <div>&nbsp;</div>
-
-@if(Request::segment(4) !='products' && Request::segment(4) !='services')
+ @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
+ 
   <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
   <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
   <hr>
@@ -75,13 +75,15 @@
   <input type="text" name="city_name" id="service_city" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" />
   <div id="cityList"></div>
   <div>&nbsp;</div>
-@endif
 
-<div class="category_button">
+  <div class="category_button">
   <button class="show_all_cat">{{ __('users.all_btn')}}</button>
   <button class="show_product_cat">{{ __('lang.product_label')}}</button>
   <button class="show_service_cat">{{ __('lang.service_label')}}</button>
 </div>
+@endif
+
+
 
 @if(Request::path() != "/" && Request::segment(1) !='products' && Request::segment(1) !='services')
   @if(empty($is_seller))

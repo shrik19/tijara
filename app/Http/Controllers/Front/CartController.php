@@ -2241,7 +2241,7 @@ class CartController extends Controller
           $data['shippingAddress'] = json_decode($address['shipping'],true);
           //return view('Front/download_order_details', $data);
           $pdf = PDF::loadView('Front/download_order_details',$data);
-          return $pdf->download('pdfview.pdf');
+          return $pdf->download('order-#'.$OrderId.'.pdf');
         }
       }
       else 

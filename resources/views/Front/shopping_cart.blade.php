@@ -57,12 +57,15 @@
                 </thead>
                 <tbody>
                   @if(!empty($details))
+                  
                   @foreach($details as $orderId => $tmpOrderProduct)
                   @if(!empty($tmpOrderProduct))
+                   @php   $inc=1; @endphp
                     @foreach($tmpOrderProduct['details'] as $orderProduct)
-                    
+                
                     <tr>
                         <td class="col-sm-4 col-md-4">
+                            @if($inc==1)
                         <div class="media">
                             <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 
                             @if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo']))
@@ -72,12 +75,15 @@
                             @endif
                                                       
                             </a>
+                             
                             <div class="media-body" style="padding-left:10px;padding-top:10px;">
+
                                 <h4 class="media-heading"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->store_name }}</a></h4>
                                 <!-- <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5> -->
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
-                        </div></td>
+                            
+                        </div>@endif</td>
                         <td class="col-sm-4 col-md-4">
                         <div class="media">
                             <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 
@@ -118,6 +124,7 @@
                         </button> -->
                       </td>
                     </tr>
+                    @php $inc++; @endphp
                   @endforeach
                     <tr>
                         <td>   </td>

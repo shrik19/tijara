@@ -6,7 +6,7 @@
     width:100% !important;
   }
   .selected_images {
-    background-image: url(../uploads/Images/multiple_no_images.png);
+    background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
     height: 60px;
     padding-left: 0;
@@ -212,7 +212,7 @@
                                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="margin-top:40px;"></span>   
                                   </div>
                                   <div class="col-md-3"></div>
-                                  <div class=" selected_images col-md-9">
+                                  <div class="selected_images col-md-9">
                                     @if($variant['image']!='')
                                       @php $images  = explode(',',$variant['image']);
                                       @endphp
@@ -221,13 +221,13 @@
                                               <input type="hidden" class="form-control ge_input hidden_images" value="{{$image}}"  name="hidden_images[{{$i}}][]" placeholder="{{ __('lang.image_label')}}">
                                                   
                                                   
-                                            <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" width="40" height="40">
+                                            <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" width="50" height="50">
                                             <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
                                           </div>
                                         @endforeach
                                     @endif
                                   </div>
-                                 <!--  <div class="selected_images col-md-12"></div> -->
+                                  <!-- <div class="selected_images col-md-12"></div> -->
                                   <div class="remove_variant_div"></div>
                                   <div class="loader"></div>
                                  

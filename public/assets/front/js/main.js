@@ -157,9 +157,13 @@ $('#variant_table').on('change', '.variant_image', function () {
 
                       success: function(data) {
                         $(".loader").hide();
-                       elm.parent('div').next().next('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
+                      /* elm.parent('div').next().next('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
                           '<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="50" height="50">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
+                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');*/
+
+                      elm.prev('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
+                          '<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="50" height="50">'+
+                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');          
                       }
 
                 });

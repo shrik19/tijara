@@ -95,26 +95,30 @@
   @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
  
   <hr>
-  <label>{{ __('lang.sort_by_price')}}</label>
+  <label class="price_label">{{ __('lang.sort_by_price')}}</label>
 
   <div>&nbsp;</div>
   <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
   <!-- <b>€ 1000</b> -->
   <div>&nbsp;</div>
   <div>&nbsp;</div>
-  <label>{{ __('users.place_label')}}</label>
+  <label class="price_label">{{ __('users.place_label')}}</label>
   <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" />
   <div id="cityList"></div>
   <div>&nbsp;</div>
+
+  
+  @if(Request::segment(1) !='annonser')
+    <div>&nbsp;</div>
+    <label  class="price_label">{{ __('users.type_label')}}</label>
+    <div class="category_button">
+    <button class="show_all_cat">{{ __('users.all_btn')}}</button>
+    <button class="show_product_cat">{{ __('lang.product_label')}}</button>
+    <button class="show_service_cat">{{ __('lang.service_label')}}</button>
+    </div>
+  @endif
   <div>&nbsp;</div>
-  <label>{{ __('users.type_label')}}</label>
-  <div class="category_button">
-  <button class="show_all_cat">{{ __('users.all_btn')}}</button>
-  <button class="show_product_cat">{{ __('lang.product_label')}}</button>
-  <button class="show_service_cat">{{ __('lang.service_label')}}</button>
-  </div>
-  <div>&nbsp;</div>
-  @if(Request::path() != "/" && Request::segment(1) !='products' && Request::segment(1) !='services')
+  @if(Request::path() != "/" && Request::segment(1) !='products' && Request::segment(1) !='services' && Request::segment(1) !='annonser')
     @if(empty($is_seller))
     <!-- Seller Listing -->
       <h2 class="de_col">{{ __('lang.sellers_head')}}</h2>

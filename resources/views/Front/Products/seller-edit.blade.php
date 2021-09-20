@@ -14,7 +14,8 @@
 
 .selected_images>div {
     float: left;
-    margin: 5px 2px 2px 4px;
+    margin: 3px 0px 0px 3px;
+    border: 1px solid #ccc;
 }
 
 .selected_images a.remove_image {

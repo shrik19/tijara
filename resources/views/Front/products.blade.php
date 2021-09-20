@@ -60,7 +60,7 @@
 
     </div> <!-- /container -->
 </section>
-
+@if(Request::segment(1) !='annonser')
 <section>
     <div class="container-fluid">
         <div class="row">
@@ -80,6 +80,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <script type="text/javascript">
 

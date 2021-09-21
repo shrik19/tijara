@@ -390,6 +390,20 @@ $(".saveproduct").click(function(e){
 
   }
 
+ /*  $( ".variant_image:visible" ).each(function() {
+ 
+       alert($(this).parent('div').hasClass('.hidden_images'));
+    
+        if ( $(".variant_image").hasClass("hidden_images") == false){
+
+          $(this).next('#err_variant_image').html(required_field_error);
+          error = 1;
+      }
+      else
+      $(this).next('#err_variant_image').html('');
+  });
+*/
+
   
 
   $( ".variant_field:visible" ).each(function() {
@@ -1627,8 +1641,8 @@ $('body').on('change', '.service_image', function () {
                 success: function(data) {
                   $(".loader").hide();   
                       
-                  elm.next('div.images').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
-                    '<img src="'+siteUrl+'/uploads/ServiceImages/'+data+'" width="70" height="70">'+
+                  elm.prev('div.images').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
+                    '<img src="'+siteUrl+'/uploads/ServiceImages/'+data+'" width="50" height="50">'+
                                       '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>');     
                 }
 

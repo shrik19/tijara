@@ -44,14 +44,14 @@
               <input type="email" class="form-control login_input" name="email" id="email" placeholder="{{ __('users.email_label')}}" value="{{ (old('email')) ? old('email') : $buyerDetails[0]->email}}">
               <span class="invalid-feedback" id="err_email" >@if($errors->has('email')) {{ $errors->first('email') }}@endif</span>
             </div>
-
+            <?php /*
             <div class="form-group">
               <label>{{ __('users.phone_number_label')}}</label>
               <!-- <span style="margin-top: 10px;" class="col-md-2">+46</span> -->
               <input type="text" class="form-control login_input" name="phone_number" id="phone_number" placeholder="{{ __('users.phone_number_label')}}" value="{{ (old('phone_number')) ? old('phone_number') : $buyerDetails[0]->phone_number}}">
               <span class="invalid-feedback" id="err_phone_number" >@if($errors->has('phone_number')) {{ $errors->first('phone_number') }}@endif</span>
             </div>
-
+            */?>
             <div class="form-group">
               <label>{{ __('users.address_label')}} </label>
                 <textarea class="form-control" id="address" name="address" rows="5" cols="30" style="height:auto" tabindex="5" placeholder="{{ __('users.address_label')}}"><?php if(!empty($buyerDetails[0]->address)){ echo $buyerDetails[0]->address; }?></textarea>

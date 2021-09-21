@@ -64,7 +64,7 @@
 
                     <div class="login_box">
 
-                        <h2 class="col-md-12">{{ __('lang.product_form_step1')}}</h2>
+                        <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step1')}}</h2>
                         <input type="hidden" name="product_id" value="{{$product_id}}">
 
                         <div class="form-group col-md-12">
@@ -165,7 +165,7 @@
                         </div>
         
 
-                        <h2 class="col-md-12">{{ __('lang.product_form_step2')}}</h2>
+                        <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step2')}}</h2>
                         <div  class="col-md-12" id="variant_table">
                           @php $v=0; $i=0; @endphp
                           @if(count($VariantProductAttributeArr)>0)
@@ -276,7 +276,7 @@
                   färg eller storlek etc.</div>
                     
                         </div>
-                        <h2 class="col-md-12">{{ __('lang.product_form_step3')}}</h2>
+                        <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step3')}}</h2>
 
                         <div class="form-group col-md-12" id="shipping_method_ddl_div">
                           <label class="col-md-3">{{ __('users.shipping_method_label')}}</label>
@@ -298,7 +298,7 @@
                         <div class="col-md-12">
                          <label class="col-md-3"> {{ __('users.free_shipping_label')}}</label>
                           <div class="col-md-8">
-                            <input style="margin-left: 17%;" type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping ==  "free_shipping"){ echo "checked"; } ?>>
+                            <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping ==  "free_shipping"){ echo "checked"; } ?>>
                           </div>
                           </div>
                     </div>

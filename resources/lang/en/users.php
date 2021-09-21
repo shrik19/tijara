@@ -308,6 +308,21 @@
     'subject_product_report' => 'Message From Buyer Regarding Product Report',
     'mail_sent_message' => 'Mail Sent',
     'report_ad_btn' => 'Report Ad',
+    'butik_info_placeholder' => 'Give a brief description of your store / service to yours
+customers. If you have a visiting address, you can
+write it here.',
+    'payment_policy_placeholder'=>'Here you can inform your customers about how they can
+pay.',
+    'return_policy_placeholder'=>'Here you can inform your customers about how they can
+return purchased goods.',
+    'shipping_policy_placeholder' => 'Here you can inform your customers about your
+shipping options and delivery time.',
+    'cancellation_policy' =>'Cancellation',
+    'cancellation_policy_placeholder' =>'Here you can inform your customers about how
+cancellation of service works.',
+    'service_address_placeholder' =>'Address (ex Linnégatan 27, 724 46, Kalmar)',
+    'service_description_placeholder' => 'Describe your service to your customers',
+    'service_price_placeholder' => 'Price (kr)',
 
  ]
 ?>

@@ -723,6 +723,7 @@ class ServiceController extends Controller
             'status' => 'required', 
             'session_time'  => 'required',
             'categories'  => 'required',
+            'address'  => 'required',
             //'service_availability'  => 'required',
           
            /* 'categories'  => 'required',
@@ -735,7 +736,6 @@ class ServiceController extends Controller
             $rules['service_slug'] = 'required|regex:/^[\pL0-9a-z-]+$/u';    
             $rules['start_date_time'] =  'required';
             $rules['to_date_time']    =  'required';
-           
             $rules['del_start_time']  =  'required';
             
             
@@ -758,6 +758,7 @@ class ServiceController extends Controller
             'del_start_time.required' => trans('lang.required_field_error'),
             'status.required'            =>trans('lang.required_field_error'),
             'categories.required'  => trans('lang.required_field_error'), 
+            'address.required'  => trans('lang.required_field_error'), 
             //  'service_availability.required'  => trans('lang.required_field_error'),
             /*'service_year.required'  => trans('lang.required_field_error'),           
             'service_month.required' => trans('lang.required_field_error'), 
@@ -786,7 +787,7 @@ class ServiceController extends Controller
 
                 'status'            => trim($request->input('status')),
 
-               // 'price_type'            => trim($request->input('price_type')),
+                'address'            => trim($request->input('address')),
 
                 'service_price'            => trim($request->input('service_price')),
                 

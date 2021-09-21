@@ -64,24 +64,26 @@
 
         <div class="login_box">
 
-            <h2 class="col-md-12">{{ __('lang.product_form_step1')}}</h2>
+            <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step1')}}</h2>
             <input type="hidden" name="product_id" value="{{$product_id}}">
 
             <div class="form-group col-md-12">
               <label class="col-md-3">{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
               <div class="col-md-8">
               <input type="text" class="col-md-8 ge_input " name="title" id="title" placeholder="{{ __('lang.product_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
-              <span class="invalid-feedback  productErr"  id="err_title">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+              <span class="invalid-feedback col-md-8"  id="err_title">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
             </div>
             </div>
 
+            <div class="form-group col-md-12">
             <label class="col-md-3">{{ __('lang.product_description_label')}} <span class="de_col">*</span></label>
             <div class="col-md-8">
       			<div class="form-group  producterrDiv col-md-8 p-0">
-              <textarea class="ge_input product_description col-md-8 " style="padding-left:15px;width:100%; height: 175px;    margin-left: 5px;" name="description"  placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{old('description')}}</textarea>
-              <span class="invalid-feedback  productErr" style="margin-top: 175px;"  id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+              <textarea class="ge_input product_description col-md-8 " style="width:100%; height: 175px;" name="description"  placeholder="{{ __('users.service_description_placeholder')}}" value="" tabindex="2">{{old('description')}}</textarea>
+              <span class="invalid-feedback  col-md-8"  id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
             </div>
           </div>
+        </div>
             
             <div class="form-group col-md-12 producterrDiv">
               <label class="col-md-3" >{{ __('lang.category_label')}} <span class="de_col">*</span></label>
@@ -97,7 +99,7 @@
                 </optgroup>
                 @endforeach
               </select>
-              <span class="invalid-feedback  productErr" style="margin-top: 45px;" id="err_category" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
+              <span class="invalid-feedback  col-md-8" id="err_category" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
             </div>
             </div>
 
@@ -125,7 +127,7 @@
               <p class="meta-data col-md-8">( {{ __('users.meta_title_info')}} )</p>
                <div class="col-md-3"></div>
               <input type="text" class="col-md-8 ge_input" name="meta_title" id="meta_title" placeholder="{{ __('lang.meta_title_label')}}" value="{{old('meta_title')}}" tabindex="4">
-              <span class="invalid-feedback col-md-12"  id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
+              <span class="invalid-feedback col-md-8"  id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
             </div>
 
             <div class="form-group col-md-12" style="display:none;">
@@ -141,7 +143,7 @@
               <p class="meta-data col-md-8">( {{ __('users.meta_keyword_info')}} )</p>
               <div class="col-md-3"></div>
               <input type="text" class="col-md-8 ge_input" name="meta_keyword" id="meta_keyword" placeholder="{{ __('lang.meta_keyword_label')}}" value="{{old('meta_keyword')}}" tabindex="6">
-              <span class="invalid-feedback col-md-12" id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
+              <span class="invalid-feedback col-md-8" id="err_meta_keyword" >@if($errors->has('meta_keyword')) {{ $errors->first('meta_keyword') }}@endif </span>
             </div>
             
 
@@ -155,11 +157,11 @@
             <div class="form-group  col-md-12"  style="display:none;">
               <label class="col-md-3">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
               <input type="tel" class="col-md-8 ge_input" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
-              <span class="invalid-feedback col-md-12"  id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
+              <span class="invalid-feedback col-md-8"  id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
             </div>
           
 
-            <h2 class="col-md-12">{{ __('lang.product_form_step2')}}</h2>
+            <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step2')}}</h2>
             <div  class="col-md-12" id="variant_table">
               <?php
 
@@ -172,35 +174,35 @@
                     <label class="col-md-3">{{ __('lang.sku_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                     <input type="text" class="col-md-8 ge_input sku variant_field" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value='{{ old("sku.$i")}}' tabindex="7">
-                    <span class="invalid-feedback  productErr"  id="err_sku" ></span>
+                    <span class="invalid-feedback  col-md-8"  id="err_sku" ></span>
                    </div>
                   </div>
                   <div class="form-group  col-md-12 producterrDiv" >
                     <label class="col-md-3">{{ __('lang.weight_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                     <input type="text" class="col-md-8 ge_input weight variant_field" name="weight[<?php echo $i;?>]"  placeholder="{{ __('lang.weight_placeholder')}}" value='{{ old("weight.$i")}}' tabindex="7">
-                    <span class="invalid-feedback  productErr"  id="err_sku" ></span>
+                    <span class="invalid-feedback  col-md-8"  id="err_sku" ></span>
                     </div>
                   </div>
                   <div class="form-group  col-md-12 producterrDiv" >
                     <label class="col-md-3">{{ __('lang.price_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                     <input type="tel" class="col-md-8 ge_input price number variant_field" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value='{{ old("price.$i")}}' tabindex="7">
-                    <span class="invalid-feedback  productErr" id="err_sku" ></span>
+                    <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                     </div>
                   </div>
                   <div class="form-group  col-md-12 producterrDiv" >
                     <label class="col-md-3">{{ __('lang.qty_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                     <input type="tel" class="col-md-8 ge_input quantity number variant_field" name="quantity[<?php echo $i;?>]"  placeholder="{{ __('lang.qty_label')}}" value='{{ old("quantity.$i")}}' tabindex="7">
-                    <span class="invalid-feedback  productErr" id="err_sku" ></span>
+                    <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                   </div>
                   </div>
                   <div class="form-group  col-md-12 producterrDiv" >
                     <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                     <select style="width: 32%;" class="col-md-4 ge_input select_attribute variant_field" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
-                      <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
+                      <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
                         @foreach ($attributesToSelect as $attr)
                           <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
@@ -209,10 +211,10 @@
                     
                     <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
                     class=" variant_field  col-md-4 ge_input select_attribute_value variant_field" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]">
-                      <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
+                      <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
 
                     </select>
-                    <span class="invalid-feedback  productErr" id="err_sku" ></span>
+                    <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                   </div>
                   </div>
                   
@@ -220,9 +222,9 @@
                     <label class="col-md-3">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                       <div class="selected_images"></div>
-                      <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
+                      <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                       <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="margin-top:40px;"></span>  
-                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="margin-top:40px;"></span>   
+                      <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span>   
                     </div>
                     
                                   
@@ -247,7 +249,7 @@
                <span class="solid-horizontal-line"></span>
             </div>
 
-            <h2 class="col-md-12">{{ __('lang.product_form_step3')}}</h2>
+            <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step3')}}</h2>
 
             <div class="form-group col-md-12" id="shipping_method_ddl_div">
               <label class="col-md-3">{{ __('users.shipping_method_label')}}</label>

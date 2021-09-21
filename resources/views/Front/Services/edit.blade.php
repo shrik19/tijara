@@ -5,6 +5,26 @@ l.@extends('Front.layout.template')
 {
 width:100% !important;
 }
+
+ .images {
+    background-image: url(../../uploads/Images/multiple_no_images.png);
+    background-repeat: no-repeat;
+    height: 60px;
+    padding-left: 0;
+    margin-bottom: 10px
+}
+
+.images>div {
+    float: left;
+    margin: 3px 0px 0px 3px;
+    border: 1px solid #ccc;
+}
+
+.images a.remove_image {
+    position: absolute;
+    bottom: 55px;
+    margin-left: -48px;
+}
 </style>
 
 <div class="mid-section">
@@ -45,44 +65,61 @@ width:100% !important;
   <div class="col-md-12">
 
   <div class="login_box">
-  <h2 class="col-md-12 service-add-steps">{{ __('servicelang.step_1')}}</h2>
+  <h2 class="col-md-12 product_add_h2">{{ __('servicelang.step_1')}}</h2>
 
   <input type="hidden" name="service_id" value="{{$service_id}}">
 
   <div class="form-group col-md-12">
   <label class="col-md-3">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
+  <div class="col-md-8">
   <input type="text" class="col-md-8 login_input form-control" name="title" id="title" 
   placeholder="{{ __('servicelang.service_title_label')}} " value="{{ (old('title')) ?  old('title') : $service->title}}" tabindex="1" onblur="checkServiceUniqueSlugName();">
-  <span class="invalid-feedback col-md-12" id="err_title" style="margin-top: 75px;margin-left: -247px;">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+  <span class="invalid-feedback col-md-8" id="err_title">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+  </div>
   </div>
 
   <div class="form-group col-md-12" style="display:none;">
   <label class="col-md-3">{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
+  <div class="col-md-8">
   <input type="text" class="col-md-8 login_input slug-name form-control" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{ (old('service_slug')) ?  old('service_slug') : $service->service_slug}}" tabindex="1" readonly="readonly">
-  <span style="text-align: center;" class="invalid-feedback col-md-12 slug-name-err" id="err_title" >@if($errors->has('service_slug')) {{ $errors->first('service_slug') }}@endif </span>
+  <span class="invalid-feedback col-md-8 slug-name-err" id="err_title" >@if($errors->has('service_slug')) {{ $errors->first('service_slug') }}@endif </span>
+  </div>
   </div>
 
-  <div class="form-group col-md-12" style="margin-top: 15px;">
+  <div class="form-group col-md-12">
   <label class="col-md-3">{{ __('servicelang.session_time_label')}} <span class="de_col">*</span></label>
+  <div class="col-md-8">
   <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
   placeholder="{{ __('servicelang.session_time_placeholder')}} " value="{{ (old('session_time')) ?  old('session_time') : $service->session_time}}" 
   tabindex="1" >
-  <span class="invalid-feedback col-md-12 session_time-err" id="session_time"  style="margin-top: 75px;margin-left: -247px;">@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
+  <span class="invalid-feedback col-md-8 session_time-err" id="session_time">@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
+</div>
   </div>
 
-  <div class="form-group col-md-12" style="margin-top: 15px;">
+  <div class="form-group col-md-12">
+  <label class="col-md-3">{{ __('users.address_label')}} <span class="de_col">*</span></label>
+  <div class="col-md-8">
+  <input type="text" class="col-md-8 login_input address form-control" name="address" id="address" 
+  placeholder="{{ __('users.service_address_placeholder')}} " value="{{ (old('address')) ?  old('address') : $service->address}}" 
+  tabindex="1" >
+  <span class="invalid-feedback col-md-8address-err" id="address">@if($errors->has('address')) {{ $errors->first('address') }}@endif </span>
+</div>
+  </div>
+
+  <div class="form-group col-md-12">
   <label class="col-md-3">{{ __('servicelang.service_description_label')}}<span class="de_col">*</span>  <span class="de_col"></span></label>
 
-  <!--  <div class="form-group col-md-8"> -->
-  <textarea class="col-md-12 login_input form-control" name="description" rows="5" cols="5" placeholder="{{ __('lang.product_description_label')}}" value="" 
+   <div class="col-md-8">
+  <textarea class="col-md-12 login_input form-control" name="description" rows="5" cols="5" placeholder="{{ __('users.service_description_placeholder')}}" value="" 
   tabindex="2">{{ (old('description')) ?  old('description') : $service->description}}</textarea>
-  <span class="invalid-feedback col-md-12" id="err_description" style="margin-top: 150px;margin-left: -275px;">@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
-  <!-- </div> -->
+  <span class="invalid-feedback col-md-8" id="err_description">@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+  </div>
   </div>
 
-  <div class="form-group col-md-12" style="margin-top: 15px;">
+  <div class="form-group col-md-12">
   <label class="col-md-3">{{ __('lang.category_label')}}<span class="de_col">*</span></label>
-  <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="Select" tabindex="3">
+  <div class="col-md-8">
+  <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
   <option></option>
   @foreach($categories as $cat_id=>$category)
   <optgroup label="{{$category['maincategory']}}">
@@ -97,42 +134,48 @@ width:100% !important;
   </optgroup>
   @endforeach
   </select>
-  <span  style="margin-top: 75px;margin-left: -285px;" class="invalid-feedback col-md-12" id="err_find_us" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
+  <span class="invalid-feedback col-md-8" id="err_find_us" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
+  </div>
   </div>
 
 
   <div class="form-group col-md-12" style="display:none;">
   <label class="col-md-3">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
+  <div class="col-md-8">
   <input type="tel" class="col-md-8 login_input form-control" name="sort_order" id="sort_order"
   placeholder="{{ __('lang.sort_order_label')}}" 
   value="{{(old('sort_order')) ?  old('sort_order') : $service->sort_order}}" tabindex="7">
-  <span class="invalid-feedback col-md-12" id="err_meta_keyword">@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
+  <span class="invalid-feedback col-md-8" id="err_meta_keyword">@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
+  </div>
   </div>
 
-  <div class="form-group col-md-12"  style="margin-top: 15px;">
+  <div class="form-group col-md-12">
   <label class="col-md-3">{{ __('lang.status_label')}}<span class="de_col">*</span> </label>
+  <div class="col-md-8">
   <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8" >
   <option @if($service->status=='active') selected="selected" @endif value="active">Active</option>
   <option @if($service->status=='block') selected="selected" @endif value="block">Block</option>
   </select>
-  <span class="invalid-feedback col-md-12" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+  <span class="invalid-feedback col-md-8" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+  </div>
   </div>
 
 
   <div class="form-group col-md-12">
   <label class="col-md-3">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
+  <div class="col-md-8">
   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price"
-  placeholder="{{ __('lang.service_price')}}" 
+  placeholder="{{ __('users.service_price_placeholder')}}" 
   value="{{(old('service_price')) ?  old('service_price') : $service->service_price}}" tabindex="7">
-  <span style="margin-top: 75px;margin-left: -285px;" class="invalid-feedback col-md-12" id="service_price" >@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
+  <span class="invalid-feedback col-md-12" id="service_price" >@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
+  </div>
   </div>
 
-  <div class="form-group col-md-12" style="margin-top: 15px;">
+  <div class="form-group col-md-12">
   <label class="col-md-3">{{ __('lang.images')}} <span class="de_col">*</span></label>
-  <input type="file" class="col-md-8 login_input image service_image form-control" >
-  <div class="images col-md-12" style="margin-top: 27px;">
-    <span class="invalid-feedback col-md-12 productErr" id="err_service_image" style="margin-top: 75px;margin-left: -245px;"></span>  
-    <span class="invalid-feedback col-md-12 productErr" id="err_service_hid_image" style="margin-top: 75px;margin-left: -245px;"></span>   
+  <div class="col-md-8">
+  <div class="images">
+     
   @php
   $images = explode(',',$service->images);
   @endphp
@@ -140,17 +183,21 @@ width:100% !important;
   @foreach($images as $image)
   @if($image!='')
   <input type="hidden" class="form-control login_input hidden_images" value="{{$image}}"  name="hidden_images[]">
-  <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="70" height="70">
+  <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="50" height="50">
   <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
   @endif
   @endforeach
   @endif
   </div>
+  <input type="file" class="col-md-8 login_input image service_image form-control">
+  <span class="invalid-feedback col-md-12 productErr" id="err_service_image"></span>  
+  <span class="invalid-feedback col-md-12 productErr" id="err_service_hid_image"></span> 
+  </div>
   </div>
 
 
   <hr class="solid-horizontal-line">
-  <h2 class="col-md-12 service-add-steps">{{ __('servicelang.step_2')}}</h2>
+  <h2 class="col-md-12 product_add_h2">{{ __('servicelang.step_2')}}</h2>
   <div class="col-md-12">
   <div class="col-md-9">
   <div class="form-group col-md-3">

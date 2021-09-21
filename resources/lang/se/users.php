@@ -197,8 +197,8 @@
         'subscribe_package_label'=>'Prenumerera på paket',
 
         //seller personal page
-    'seller_header_img_label'=>'Rubrikbild',
-    'seller_logo_label'=>'Logotyp',
+    'seller_header_img_label'=>'Butiksbanner',
+    'seller_logo_label'=>'Butikslogga',
     'seller_personal_form_label'=>'Säljarens personliga information',
     'seller_personal_info_saved'=>'Din personliga information sparades',
     'seller_personal_page_menu'=>'Butiksprofil',
@@ -329,6 +329,20 @@
     'subject_product_report' => 'Meddelande från köparen angående produktrapport',
     'mail_sent_message' => 'Mail skickat',
     'report_ad_btn' => 'Rapportera Annonser',
+    'butik_info_placeholder' => 'Ge kort beskrivning om din butik/tjänst till dina
+kunder. Om du har en besöksadress kan du skriva den här.',
+    'payment_policy_placeholder'=>'Här kan du informera dina kunder om hur de kan
+betala.',
+    'return_policy_placeholder'=>'Här kan du informera dina kunder om hur de kan
+lämna tillbaka köpta varor.',
+    'shipping_policy_placeholder' => 'Här kan du informera dina kunder om dina
+fraktalternativ och leveranstiden.',
+    'cancellation_policy' => 'Avbokning',
+    'cancellation_policy_placeholder' =>'Här kan du informera dina kunder om hur
+avbokning av tjänst fungerar.',
+    'service_address_placeholder' =>'Adress (ex Linnégatan 27, 724 46, Kalmar)',
+    'service_description_placeholder' => 'Beskriv din tjänst för dina kunder',
+    'service_price_placeholder' => 'Pris (kr)',
 
  ]
 ?>

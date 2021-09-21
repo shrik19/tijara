@@ -71,10 +71,13 @@ margin-top: 15px;
 .btn:hover{color: #fff}
 
 .service_validation_err{
-  text-align: center;
+ /* text-align: center;
   margin-top: 75px;
-  margin-left: -630px;
+  margin-left: -630px;*/
+/*  margin-top: 50px;
+  margin-left: -877px;*/
 }
+
 
 .bold{
   font-weight: bold;
@@ -119,10 +122,6 @@ margin-top: 15px;
   margin-top: 30px;
 }
 
-.service-add-steps{
-  color: #bbb2b2;
-  font-size: 33px;
-}
 .solid-horizontal-line{
   height: 1px;
   border: 1px solid #eee;
@@ -185,6 +184,12 @@ span.subscribe_err {
     font-weight: bold;
     margin-left: 30px;
     font-size: 14px;
+}
+.product_add_h2{
+    font-size: 30px !important;
+    font-weight: 400 !important;
+    color: #c1c1c1;
+    padding: 40px;
 }
 .meta-data{
   margin-left: 15px;

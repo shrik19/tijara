@@ -35,44 +35,52 @@
          
             <div class="form-group">
               <label>{{ __('lang.store_information')}}  <span class="de_col"></span></label>
-              <textarea class="form-control login_input" name="store_information" id="" rows="10" cols="20" placeholder="{{ __('lang.store_information')}}" 
+              <textarea class="form-control login_input" name="store_information" id="" rows="10" cols="20" placeholder="{{ __('users.butik_info_placeholder')}}" 
               value="" tabindex="2">@if(!empty($details->store_information)) {{$details->store_information}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('store_information')) {{ $errors->first('store_information') }}@endif </span>
             </div>
             <div class="form-group">
               <label>{{ __('lang.payment_policy')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="payment_policy" id="" 
-              placeholder="{{ __('lang.payment_policy')}}" rows="10" cols="20"
+              placeholder="{{ __('users.payment_policy_placeholder')}}" rows="10" cols="20"
               value="" tabindex="2">@if(!empty($details->payment_policy)) {{$details->payment_policy}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('payment_policy')) {{ $errors->first('payment_policy') }}@endif </span>
             </div>
+            <?php /*
             <div class="form-group">
               <label>{{ __('lang.booking_policy')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="booking_policy" id="" 
               placeholder="{{ __('lang.booking_policy')}}" rows="10" cols="20"
               value="" tabindex="2">@if(!empty($details->booking_policy)) {{$details->booking_policy}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('booking_policy')) {{ $errors->first('booking_policy') }}@endif </span>
-            </div>
+            </div>*/?>
             <div class="form-group">
               <label>{{ __('lang.return_policy')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="return_policy" id="" 
-              placeholder="{{ __('lang.return_policy')}}" rows="10" cols="20"
+              placeholder="{{ __('users.return_policy_placeholder')}}" rows="10" cols="20"
               value="" tabindex="2">@if(!empty($details->return_policy)) {{$details->return_policy}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('return_policy')) {{ $errors->first('return_policy') }}@endif </span>
             </div>
             <div class="form-group">
               <label>{{ __('lang.shipping_policy')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="shipping_policy" id="" 
-              placeholder="{{ __('lang.shipping_policy')}}" rows="10" cols="20"
+              placeholder="{{ __('users.shipping_policy_placeholder')}}" rows="10" cols="20"
               value="" tabindex="2">@if(!empty($details->shipping_policy)) {{$details->shipping_policy}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('shipping_policy')) {{ $errors->first('shipping_policy') }}@endif </span>
             </div>
             <div class="form-group">
+              <label>{{ __('users.cancellation_policy')}}  <span class="de_col"></span></label>
+              <textarea class="form-control login_input" name="cancellation_policy" id="" 
+              placeholder="{{ __('users.cancellation_policy_placeholder')}}" rows="10" cols="20"
+              value="" tabindex="2">@if(!empty($details->cancellation_policy)) {{$details->cancellation_policy}} @endif</textarea>
+              <span class="invalid-feedback" id="err_description" >@if($errors->has('cancellation_policy')) {{ $errors->first('cancellation_policy') }}@endif </span>
+            </div>
+            <?php /*<div class="form-group">
               <label>{{ __('lang.other_information')}}  <span class="de_col"></span></label>
               <textarea class="form-control login_input" name="other_information" id="" rows="10" cols="20" placeholder="{{ __('lang.other_information')}}" 
               value="" tabindex="2">@if(!empty($details->other_information)) {{$details->other_information}} @endif</textarea>
               <span class="invalid-feedback" id="err_description" >@if($errors->has('other_information')) {{ $errors->first('other_information') }}@endif </span>
-            </div>
+            </div>*/?>
            
           </div>
         </div>

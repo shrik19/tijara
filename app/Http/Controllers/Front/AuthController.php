@@ -562,8 +562,8 @@ class AuthController extends Controller
         if($request->input('payment_policy'))
             $toUpdateData['payment_policy']  =   trim($request->input('payment_policy'));
 
-        if($request->input('booking_policy'))
-            $toUpdateData['booking_policy']  =   trim($request->input('booking_policy'));
+        if($request->input('cancellation_policy'))
+            $toUpdateData['cancellation_policy']  =   trim($request->input('cancellation_policy'));
         
         if($request->input('store_name')){
              $storeName['store_name']  =   trim($request->input('store_name'));
@@ -577,8 +577,8 @@ class AuthController extends Controller
         if($request->input('shipping_policy'))
             $toUpdateData['shipping_policy']  =   trim($request->input('shipping_policy'));
             
-        if($request->input('other_information'))
-            $toUpdateData['other_information']  =   trim($request->input('other_information'));
+        /*if($request->input('other_information'))
+            $toUpdateData['other_information']  =   trim($request->input('other_information'));*/
             
         if($request->hasfile('header_img'))
             {
@@ -1148,7 +1148,7 @@ class AuthController extends Controller
                 'fname'        => trim($request->input('fname')),
                 'lname'        => trim($request->input('lname')),
                 'email'        => trim($request->input('email')),
-                'phone_number' => trim($request->input('phone_number')),
+                //'phone_number' => trim($request->input('phone_number')),
                 'address'      => trim($request->input('address')),
                 'city'         => trim($request->input('city')),
                 'swish_number' => trim($request->input('swish_number')),

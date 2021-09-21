@@ -346,6 +346,9 @@ avbokning av tjänst fungerar.',
     'payment_method_head' => 'Betalningsmetoder',
     'payment_method_info' => 'Välj betalningsmetod för er butik. Tänk på att de går bra med flera betalningsalternativ.',
     'klarna_pament_label' => 'Klarna betalning',
+    'card_number_label' => 'Kortnummer',
+    'security_code_label' => 'Säkerhetskod (CVV)',
+    'card_expiry_date_lable' => 'Utgångsdatum (MM/ÅÅ)',
 
  ]
 ?>

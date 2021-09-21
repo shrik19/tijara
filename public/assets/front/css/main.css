@@ -104,7 +104,10 @@ margin-top: 15px;
     border-radius: 30px;
     color: #d0caca;
 }
-
+.contact_person_head{
+  margin-left: 14px;
+  font-size: 16px !important;
+}
 .bold{
   font-weight: bold;
 }
@@ -149,7 +152,6 @@ margin-top: 15px;
 }
 
 .solid-horizontal-line{
-  height: 1px;
   border: 1px solid #eee;
   width: 100%;
   background-color: #eee;

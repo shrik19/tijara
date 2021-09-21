@@ -326,6 +326,9 @@ cancellation of service works.',
     'payment_method_head' => 'Payment methods',
     'payment_method_info' => 'Choose payment method for your store. Keep in mind that they work well with several payment options.',
     'klarna_pament_label' => 'Klarna Payment',
+    'card_number_label' => 'Card Number',
+    'security_code_label' => 'Security code (CVV)',
+    'card_expiry_date_lable' => 'Expiry Date MM/YY',
 
  ]
 ?>

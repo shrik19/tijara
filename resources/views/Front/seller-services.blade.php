@@ -20,7 +20,7 @@
              <div class="seller_logo">
              <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp; </div>@endif
              <div class="clearfix"></div>
-             <div class="seller_info">
+             <div class="seller_info border-none">
               <h2>{{ $seller_name }}</h2>
               <p>{{ $city_name }}</p>
               <div class="star-rating">

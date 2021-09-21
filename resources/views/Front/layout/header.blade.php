@@ -151,7 +151,7 @@
                     <li>
                     <div class="cart_details">
                     <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
-                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" width="30" />
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" style={ width: 20px; margin-top: 4px;} />
                     </a>
 
                     @php

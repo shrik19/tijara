@@ -24,19 +24,21 @@
             <h3>{{ __('users.payment_method_head')}}</h3>
             <p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>
             <div class="login_box klarna_payment_detail_box">
-            <div class="payment-lock-icon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+          
               <form method="POST" action="{{route('frontStorePaymentDetails')}}" class="needs-validation" novalidate="">
               @csrf
+
+                <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
               <p>Klarna</p>
               <div class="form-group">
                   
-              <input type="text" class="form-control ge_input" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : $sellerDetails[0]->klarna_username}}">
+              <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : $sellerDetails[0]->klarna_username}}">
               <span class="invalid-feedback">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
                 </div>
 
-                 <div class="form-group">
+              <div class="form-group">
                    <!-- <label>{{ __('users.klarna_password_label')}}</label> -->
-              <input type="password" class="form-control ge_input" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : $sellerDetails[0]->klarna_password}}">
+              <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : $sellerDetails[0]->klarna_password}}">
               <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
                 </div>
 

@@ -78,10 +78,7 @@ margin-top: 15px;
   margin-left: -877px;*/
 }
 
-.payment-lock-icon{
-  float: right;
-  margin-right: 10px;
-}
+
 
 .payment_method_title{
   margin-top: 20px;
@@ -90,10 +87,24 @@ margin-top: 15px;
 }
 
 .klarna_payment_detail_box{
-border: #efe8e8 solid 2px;
-  padding: 20px;
-  border-radius: 50px;
+  border: #efe8e8 solid 2px;
+  padding: 25px;
+  border-radius: 20px;
 }
+.payment-lock-icon{
+  float: right;
+  margin-right: 10px;
+  margin-top: -15px;
+}
+
+.klarna_payment_lock{
+    
+    border: 1px solid #d0caca;
+    padding: 7px;
+    border-radius: 30px;
+    color: #d0caca;
+}
+
 .bold{
   font-weight: bold;
 }

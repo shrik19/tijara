@@ -93,7 +93,7 @@
              {{ __('users.free_shipping_label')}}
               <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($sellerDetails[0]->free_shipping ==  "free_shipping"){ echo "checked"; } ?>>
             </label>
-
+              <?php /*
             <h2 class="col-md-12">{{ __('users.payment_setting')}}</h2>
           
             <div class="form-group col-md-6">
@@ -107,6 +107,9 @@
               <input type="password" class="form-control ge_input" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : $sellerDetails[0]->klarna_password}}">
               <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
             </div>
+
+            */?>
+
         </div>
 
       </div>

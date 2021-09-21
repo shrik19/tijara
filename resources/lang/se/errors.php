@@ -117,5 +117,6 @@
      'service_start_end_datetime_req' => 'Tjänstens start- och slutdatum krävs',
      'wait_for_image_uplaod' => 'Vänta medan du laddar upp produktbilder',
      'please_uplaod_service_image' => 'Vänligen tjänste bilder',
+     'old_password_not_match' => 'Ange rätt gammalt lösenord',
  ]
 ?>

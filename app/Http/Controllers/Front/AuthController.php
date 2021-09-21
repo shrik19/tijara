@@ -2092,4 +2092,22 @@ DATA;
             return redirect(route('frontLogin'));
         }
     }
+
+    /* function to check for old password is corrcet or not
+    * @param:password
+    */
+    function checkOldPassword(Request $request){
+        $old_password = bcrypt($request->old_password);
+        $id = Auth::guard('user')->id();
+  
+       $User   =   User::where('id',Auth::guard('user')->id())->first();
+
+        $success = $error ='';
+        if (Hash::check($request->old_password, $User['password'])) {
+            $success = "match";
+        }else{
+            $error =  trans('errors.old_password_not_match');
+        }
+        return response()->json(['success'=>$success,'error'=>$error]);
+    }
 }

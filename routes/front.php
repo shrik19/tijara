@@ -176,6 +176,7 @@ Route::group(['middleware'=>['front-login']],function()
   // change password
   Route::get('/change-password', 'Front\AuthController@changePassword')->name('frontChangePassword');
   Route::post('/change-password-store', 'Front\AuthController@changePasswordStore')->name('frontChangePasswordStore');
+
 });
 
 Route::post('/add-to-cart','Front\CartController@addToCart')->name('frontAddToCart');
@@ -221,3 +222,4 @@ Route::match(['get', 'post'], '/api/handleShopperRedirect', 'Front\ProductContro
 
 Route::any('/seller-payment-details', 'Front\AuthController@showPaymentDetails')->name('frontSellerPaymentDetails');
 Route::post('/seller-payment-update', 'Front\AuthController@sellerPaymentDetailsUpdate')->name('frontStorePaymentDetails');
+  Route::any('/check-old-password', 'Front\AuthController@checkOldPassword')->name('frontcheckOldPassword');

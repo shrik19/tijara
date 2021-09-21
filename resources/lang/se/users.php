@@ -349,6 +349,8 @@ avbokning av tjänst fungerar.',
     'card_number_label' => 'Kortnummer',
     'security_code_label' => 'Säkerhetskod (CVV)',
     'card_expiry_date_lable' => 'Utgångsdatum (MM/ÅÅ)',
+    'old_password_label' => 'Gammalt lösenord',
+    'new_password_label' => 'Nytt lösenord',
 
  ]
 ?>

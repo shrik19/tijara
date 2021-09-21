@@ -9,20 +9,21 @@ width:100% !important;
 .selected_images {
     background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
-    height: 60px;
+    height: 85px;
     padding-left: 0;
+  margin-bottom: 10px;
 }
 
 .selected_images>div {
     float: left;
-    margin: 3px 0px 0px 3px;
-    border: 1px solid #ccc;
+  border: 2px solid #ccc;
+  margin: 0 !important;
   }
 
 .selected_images a.remove_image {
     position: absolute;
-    bottom: 2px;
-    margin-left: -50px;
+    bottom: 3px;
+    margin-left: -75px;
 }
 </style>
 
@@ -197,7 +198,7 @@ width:100% !important;
                @foreach($images as $image)
                <div>
                <input type="hidden" class="form-control login_input hidden_images" value="{{$image}}"  name="hidden_images[{{$i}}][]" placeholder="{{ __('lang.image_label')}}">
-               <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" width="50" height="50">
+               <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" width="78" height="80">
                <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
                </div>
                @endforeach

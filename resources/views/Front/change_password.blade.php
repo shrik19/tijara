@@ -31,14 +31,24 @@
       
           @include ('Front.alert_messages')
 		  <div class="col-md-12">
-        <div class="col-md-2"></div>
+      <!--   <div class="col-md-2"></div> -->
           <div class="col-md-5">
+
           <div class="login_box seller_mid_cont"  style="margin-top: 20px;">
+              @if($is_seller==1) <p>{{ __('users.change_password_title')}}</p> @endif
             <form method="POST" action="{{route('frontChangePasswordStore')}}" class="needs-validation" novalidate="">
               @csrf
+                @if($is_seller==1)
                 <div class="form-group">
-                  <label>{{ __('users.password_label')}}</label>
-                  <input type="password" class="form-control ge_input" name="password" required tabindex="1" placeholder="{{ __('users.password_label')}}">
+                  <label>{{ __('users.old_password_label')}}</label>
+                  <input type="password" class="form-control ge_input" id="old_password" name="old_password" required tabindex="1" placeholder="{{ __('users.old_password_label')}}" onblur="checkPassword(this)">
+                 <span class="invalid-feedback" id="err_fname">@if($errors->has('old_password')) {{ $errors->first('old_password') }}@endif </span>
+                </div>
+                @endif
+
+                <div class="form-group">
+                  <label>{{ __('users.new_password_label')}}</label>
+                  <input type="password" class="form-control ge_input" name="password" required tabindex="1" placeholder="{{ __('users.new_password_label')}}">
                  <span class="invalid-feedback" id="err_fname">@if($errors->has('password')) {{ $errors->first('password') }}@endif </span>
                 </div>
 
@@ -60,7 +70,7 @@
           </div>
         </div>
          @if($is_seller !=1)
-          <div class="col-md-5"></div>
+          <div class="col-md-7"></div>
          @endif
      </div></div>
 
@@ -70,5 +80,23 @@
 
     </div>
 </div> <!-- /container -->
+<script type="text/javascript">
+  
+/*function convertToSlug by its name*/
+function checkPassword(inputtxt){
+  var password = inputtxt.value;
 
+   $.ajax({
+    url: siteUrl+'/check-old-password',
+    type: 'get',
+    data: { old_password:password},
+    success: function(output){
+      if(output.error !=''){
+        showErrorMessage(output.error);
+      }
+    }
+  });
+
+}
+</script>
 @endsection

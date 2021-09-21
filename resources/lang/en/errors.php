@@ -119,6 +119,7 @@
      'service_start_end_datetime_req' => 'Service Start and End Datetime required',
      'wait_for_image_uplaod' => 'Wait While uploading product Images',
      'please_uplaod_service_image' => 'Please Service Images',
+     'old_password_not_match' => 'Please enter correct old password',
     
  ]
 ?>

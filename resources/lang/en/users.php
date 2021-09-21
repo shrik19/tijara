@@ -329,6 +329,8 @@ cancellation of service works.',
     'card_number_label' => 'Card Number',
     'security_code_label' => 'Security code (CVV)',
     'card_expiry_date_lable' => 'Expiry Date MM/YY',
+    'old_password_label' => 'Old password',
+    'new_password_label' => 'New password',
 
  ]
 ?>

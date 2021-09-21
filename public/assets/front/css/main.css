@@ -78,7 +78,22 @@ margin-top: 15px;
   margin-left: -877px;*/
 }
 
+.payment-lock-icon{
+  float: right;
+  margin-right: 10px;
+}
 
+.payment_method_title{
+  margin-top: 20px;
+  font-size: 16px;
+  margin-left: 30px;
+}
+
+.klarna_payment_detail_box{
+border: #efe8e8 solid 2px;
+  padding: 20px;
+  border-radius: 50px;
+}
 .bold{
   font-weight: bold;
 }

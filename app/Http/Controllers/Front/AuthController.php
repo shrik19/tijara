@@ -458,6 +458,57 @@ class AuthController extends Controller
         return view('Front/seller_profile', $data);
     }
 
+      /*
+    *function to show seller payment
+    */
+    public function showPaymentDetails(Request $request)
+    {
+        $data['role_id']    = 2;
+       // $data['registertype'] = trans('users.buyers_title');
+        $data['pageTitle']    = trans('lang.sign_up_title');
+
+        $site_details          = Settings::first();
+        $data['siteDetails']   = $site_details;
+        $user_id = Auth::guard('user')->id();
+        $details = UserMain::get_Seller($user_id);
+        $data['sellerDetails']          = $details;
+        if($user_id) {
+            return view('Front/seller_payment_details', $data);
+           
+        }else{
+          return view('Front/login', $data);
+        }  
+    }
+
+    public function sellerPaymentDetailsUpdate(Request $request){
+        $user_id = Auth::guard('user')->id();
+        $rules = [
+            'klarna_username' =>'required',
+            'klarna_password' =>'required|min:6',
+        ];
+
+         $messages = [
+            'klarna_username.required'         => trans('errors.fill_in_klarna_username_err'),
+            'klarna_password.required'         => trans('errors.fill_in_klarna_password_err'),
+            'klarna_password.min'         => trans('errors.password_min_6_char'),
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()) {
+            $messages = $validator->messages();
+            return redirect()->back()->withInput($request->all())->withErrors($messages);
+        } else
+        {
+
+            $arrUpdate = [
+                'klarna_username'  => trim($request->input('klarna_username')),
+                'klarna_password' => base64_encode(trim($request->input('klarna_password'))),
+            ];
+
+            UserMain::where('id','=',$user_id)->update($arrUpdate);
+            Session::flash('success', trans('messages.status_updated_success'));
+            return redirect(route('frontSellerPaymentDetails'));
+        }
+    }
      /**
      * Update user with given details.
      */

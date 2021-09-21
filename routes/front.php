@@ -218,3 +218,6 @@ Route::post('/api/getPaymentMethods', 'Front\ProductController@getPaymentMethods
 Route::post('/api/initiatePayment', 'Front\ProductController@initiatePayment');
 Route::post('/api/submitAdditionalDetails', 'Front\ProductController@submitAdditionalDetails');
 Route::match(['get', 'post'], '/api/handleShopperRedirect', 'Front\ProductController@handleShopperRedirect');
+
+Route::any('/seller-payment-details', 'Front\AuthController@showPaymentDetails')->name('frontSellerPaymentDetails');
+Route::post('/seller-payment-update', 'Front\AuthController@sellerPaymentDetailsUpdate')->name('frontStorePaymentDetails');

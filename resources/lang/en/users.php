@@ -276,8 +276,8 @@
     'please_add_your_message'=>'please add your message',
     'other_watched_product' => 'Others have also watched',
     'read_more_btn' => 'Read More',
-    'payment_btn' => 'Betalning',
-    'booking_btn'=>'Bokning',
+    'payment_btn' => 'Payment',
+    'booking_btn'=>'Booking',
     'place_label' => 'Place',
     'all_btn' => 'All',
     'type_label' => 'Type',
@@ -323,6 +323,9 @@ cancellation of service works.',
     'service_address_placeholder' =>'Address (ex Linnégatan 27, 724 46, Kalmar)',
     'service_description_placeholder' => 'Describe your service to your customers',
     'service_price_placeholder' => 'Price (kr)',
+    'payment_method_head' => 'Payment methods',
+    'payment_method_info' => 'Choose payment method for your store. Keep in mind that they work well with several payment options.',
+    'klarna_pament_label' => 'Klarna Payment',
 
  ]
 ?>

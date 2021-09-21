@@ -297,8 +297,8 @@
     'please_add_your_message'=>'lägg till ditt meddelande',
     'other_watched_product' => 'Andra har även tittat på',
     'read_more_btn' => 'Läs mer',
-    'payment_btn' => 'Payment',
-    'booking_btn' =>'Booking',
+    'payment_btn' => 'Betalning',
+    'booking_btn' =>'Bokning',
     'place_label' => 'Plats',
     'all_btn' => 'Alla',
     'type_label' => 'Typ',
@@ -343,6 +343,9 @@ avbokning av tjänst fungerar.',
     'service_address_placeholder' =>'Adress (ex Linnégatan 27, 724 46, Kalmar)',
     'service_description_placeholder' => 'Beskriv din tjänst för dina kunder',
     'service_price_placeholder' => 'Pris (kr)',
+    'payment_method_head' => 'Betalningsmetoder',
+    'payment_method_info' => 'Välj betalningsmetod för er butik. Tänk på att de går bra med flera betalningsalternativ.',
+    'klarna_pament_label' => 'Klarna betalning',
 
  ]
 ?>

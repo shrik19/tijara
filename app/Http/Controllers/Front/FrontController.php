@@ -1342,7 +1342,7 @@ public function getCatSubList(Request $request) {
 			}
 			$similarProducts	=	$similarProducts->where('products.id','!=',$Product->id)->get();
 			//echo $Product->catId;exit;
-			$product_sold_data = BuyerProducts::where('user_id',$tmpSellerData['id'])->first();
+			$product_sold_data = BuyerProducts::where('product_id',$Product->id)->first();
 			$data['product_location'] = $product_sold_data['location'];
 			$data['product_seller_name'] = $product_sold_data['user_name'];
 			$data['similarProducts']	=	$similarProducts;

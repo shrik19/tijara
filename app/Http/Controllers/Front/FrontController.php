@@ -1274,6 +1274,7 @@ public function getCatSubList(Request $request) {
 		$tmpSellerData = UserMain::where('id',$Product['user_id'])->first()->toArray();
 		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
 		$data['seller_name'] = $seller_name;
+		$data['store_name'] = $tmpSellerData['store_name'];
 
 		$seller_name = str_replace( array( '\'', '"', 
 		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
@@ -1341,7 +1342,9 @@ public function getCatSubList(Request $request) {
 			}
 			$similarProducts	=	$similarProducts->where('products.id','!=',$Product->id)->get();
 			//echo $Product->catId;exit;
-			
+			$product_sold_data = BuyerProducts::where('product_id',$Product->id)->first();
+			$data['product_location'] = $product_sold_data['location'];
+			$data['product_seller_name'] = $product_sold_data['user_name'];
 			$data['similarProducts']	=	$similarProducts;
 			$data['buyer_product_details']	=	BuyerProducts::where('product_id',$Product->id)->first();
 			return view('Front/buyer_product_details', $data);
@@ -1727,7 +1730,7 @@ public function getCatSubList(Request $request) {
 		$tmpSellerData = UserMain::where('id',$Service['user_id'])->first()->toArray();
 		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
 		$data['seller_name'] = $seller_name;
-
+		$data['store_name'] = $tmpSellerData['store_name'];
 		$seller_name = str_replace( array( '\'', '"', 
 		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
 		$seller_name = str_replace(" ", '-', $seller_name);

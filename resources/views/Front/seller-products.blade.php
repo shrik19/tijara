@@ -35,7 +35,7 @@
             </div>
 </div>
 <div class="clearfix"></div>
-             <h2> {{ __('users.butiks_info_title')}}</h2>
+             <!-- <h2> {{ __('users.butiks_info_title')}}</h2> -->
 
             <h4 style="margin-top: 10px;" class="all_cat_sidebar_label">{{ __('lang.category_label')}}</h4>
             <div class=" form-group search_now_input_box">
@@ -163,7 +163,7 @@
           <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
           <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
-          <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button>
+          <button class="tablink" onclick="openPage('CancelPolicy', this, 'white')">{{ __('users.cancellation_policy')}}</button>
     
           @if(!empty($getTerms))
             <div id="PaymentPolicy" class="tabcontent">
@@ -181,9 +181,8 @@
             <p class="policies">{{@$getTerms->return_policy}}</p> 
             </div>
 
-            <div id="BookingPolicy" class="tabcontent">
-            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->booking_policy}}</p>
+            <div id="CancelPolicy" class="tabcontent">
+              <p class="policies">{{@$getTerms->cancellation_policy}}</p>
             </div>
           @endif
 

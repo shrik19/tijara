@@ -52,8 +52,9 @@
                     <!-- <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4> -->
                     <div class="row">
                           <div class="col-xs-12 col-md-12">    
-                          <div class="quantity_box">              
-                            <h3>{{ __('lang.shopping_cart_price')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
+                          <div class="quantity_box"> 
+                          <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>             
+                            <span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
                             @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif
 
                             <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span>
@@ -235,7 +236,7 @@
             <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
             <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
             <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
-            <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button>
+           <!--  <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button> -->
 
 
             @if(!empty($getTerms))
@@ -254,10 +255,9 @@
             <p class="policies">{{@$getTerms->return_policy}}</p> 
             </div>
 
-            <div id="BookingPolicy" class="tabcontent">
-            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+            <!-- <div id="BookingPolicy" class="tabcontent">
             <p class="policies">{{@$getTerms->booking_policy}}</p>
-            </div>
+            </div> -->
           @endif
 
         </div>

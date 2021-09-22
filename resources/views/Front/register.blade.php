@@ -98,7 +98,7 @@
 				<div class="col-md-3"></div>
 				<div class="col-md-6 form-section">
 					@include ('Front.alert_messages')
-					<h2>{{ __('users.create_account_btn')}}</h2>
+					<h2 class="de_col">{{ __('users.create_account_btn')}}</h2>
 
 					<p>{{ __('users.already_have_account')}}
 					  <a href="{{url('/')}}/front-login/buyer" class="de_col">{{ __('users.login_label')}}</a>

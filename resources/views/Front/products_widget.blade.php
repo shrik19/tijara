@@ -1,5 +1,5 @@
 <li  class="col-xs-15">
-  <div class="product_data" product_link="{{$product->product_link}}" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
+  <div class="product_data product_link_js" product_link="{{$product->product_link}}" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($product->image)
           <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" >
@@ -60,10 +60,12 @@
            <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
-        <a href="{{$product_cat_link}}">
-          <h5>{{$product->category_name}}</h5></a>
+
+          @if(Request::segment(1) !='product')
+           <a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> 
+          @endif
           <a href="{{$product->product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
-         @if(Request::segment(1) !='product' && Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
+         @if(Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
         <div class="star-rating" style="font-size:unset;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
@@ -79,7 +81,7 @@
         @endif
 
          
-        @if(Request::segment(1) !='product' && Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
+        @if(Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
          <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
         @endif
 
@@ -92,7 +94,7 @@
   </div>
 </li>
 <script type="text/javascript">
-  $(".product_data").click(function(){
+  $(".product_link_js").click(function(){
   var attr_val = $(this).attr('product_link');
   if(attr_val !=''){
     window.location.href = attr_val; 

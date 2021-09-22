@@ -30,7 +30,7 @@ header{
     background-color: #ffcc99;padding: 10px;margin-bottom: 55px;margin-top: 25px;margin-left: 40px;border-radius: 10px;
 }
 .de_col{
-    color: #03989e;
+    color: #03989e !important;
 }
 .debg_color{
     background-color: #03989e;
@@ -58,6 +58,10 @@ margin-top: 15px;
 }
 .cmspageDiv{
   margin: 50px;
+}
+.service_store_name{
+  color: #bfbaba;
+  font-size: 16px;
 }
 .bookingRequestCalender .fc-center h2{
   font-size: 17px !important

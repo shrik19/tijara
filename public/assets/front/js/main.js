@@ -128,7 +128,6 @@ $( ".number" ).each(function() {
 });
 
 $('#variant_table').on('change', '.variant_image', function () {
-
         var fileUpload  = $(this)[0];
         var elm         =   $(this);
         var variant_id  = $(this).attr('variant_id');
@@ -142,10 +141,11 @@ $('#variant_table').on('change', '.variant_image', function () {
         }
 
         var formData = new FormData();
-
+      
         if (fileUpload.files.length > 0) {
 
                formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+
                 $(".loader").show();
                 $.ajax({
                     headers : {'X-CSRF-Token': $('input[name="_token"]').val()},

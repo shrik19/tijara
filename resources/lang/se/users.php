@@ -351,6 +351,7 @@ avbokning av tjänst fungerar.',
     'card_expiry_date_lable' => 'Utgångsdatum (MM/ÅÅ)',
     'old_password_label' => 'Gammalt lösenord',
     'new_password_label' => 'Nytt lösenord',
+    'go_to_announse_page'=>'Gå till Tijara annonser',
 
  ]
 ?>

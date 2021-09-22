@@ -25,6 +25,10 @@ header{
     width: 100%;
     margin-bottom: 40px;
 }
+.go_to_tijara_ads_btn{
+  color: #000 !important;
+    background-color: #ffcc99;padding: 10px;margin-bottom: 55px;margin-top: 25px;margin-left: 40px;border-radius: 10px;
+}
 .de_col{
     color: #03989e;
 }

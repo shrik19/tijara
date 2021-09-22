@@ -1766,7 +1766,6 @@ public function findCurrency($type){
                             if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
             
                                 $fileName = 'product-'.date('YmdHis').'.'.$fileExt;
-            
                                 $image->move(public_path().'/uploads/ProductImages/', $fileName);  // your folder path
             
             

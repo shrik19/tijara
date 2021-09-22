@@ -6,9 +6,9 @@
       @else
         <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" style="width:100%;">
       @endif
-      <div class="buy_now_hover_details two_icons">
+      <div class="buy_now_hover_details one_icon">
         <ul>
-          <li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>
+         <?php /*<li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>*/?>
           <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="far fa-heart"></i></a></li>
         </ul>
       </div>
@@ -26,7 +26,7 @@
       @if( Request::path() == "/")
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
 
-       <?php /*  <div class="star-rating" style="font-size:unset;">
+     <div class="star-rating" style="font-size:unset;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
           <option value="1" >1</option>
           <option value="2" >2</option>
@@ -34,7 +34,7 @@
           <option value="4" >4</option>
           <option value="5" >5</option>
           </select>
-        </div> */ ?>
+        </div> 
 
         @if(!empty($service->service_price))
           <h6>{{$service->service_price}} kr</h6>

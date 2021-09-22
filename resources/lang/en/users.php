@@ -331,6 +331,7 @@ cancellation of service works.',
     'card_expiry_date_lable' => 'Expiry Date MM/YY',
     'old_password_label' => 'Old password',
     'new_password_label' => 'New password',
+    'go_to_announse_page'=>'Go to Tijara Ads',
 
  ]
 ?>

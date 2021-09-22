@@ -235,7 +235,7 @@
             <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
             <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
             <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
-            <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button>
+           <!--  <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button> -->
 
 
             @if(!empty($getTerms))
@@ -254,10 +254,9 @@
             <p class="policies">{{@$getTerms->return_policy}}</p> 
             </div>
 
-            <div id="BookingPolicy" class="tabcontent">
-            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+            <!-- <div id="BookingPolicy" class="tabcontent">
             <p class="policies">{{@$getTerms->booking_policy}}</p>
-            </div>
+            </div> -->
           @endif
 
         </div>

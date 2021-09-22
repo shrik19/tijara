@@ -66,10 +66,12 @@
                       <p>
                         <?php echo $Product->description; ?>
                       </p>
-                      <div class="row">                      
+                      <div class="row prduct_det">  
+                        <div class="col-md-12">                    
                         <h3><i class="fa fa-phone-alt"></i> {{@$buyer_product_details->user_phone_no}}</h3>
                         <h3><i class="fa fa-envelope"></i> {{@$buyer_product_details->user_email}}</h3>
-                      </div>
+
+                        </div>                      </div>
                         
                       <div class="row">
                           <div class="col-xs-12 col-md-6">    

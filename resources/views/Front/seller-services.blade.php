@@ -38,8 +38,10 @@
              <h2> {{ __('users.butiks_info_title')}}</h2>
              <div class="clearfix"></div>
               <h4 style="margin-top: 10px;">{{ __('lang.category_label')}}</h4>
+              <div class=" form-group search_now_input_box">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
-
+            <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
+</div>
             @include('Front.services_sidebar')
         </div>
         <div class="col-md-9">

@@ -1430,7 +1430,7 @@ overflow: hidden;}
 .sale_details h3{font-size: 38px;color: white; font-weight: 500;}
 .sale_details pre{font-size: 20px;color: white; font-weight: 400;}
 .sale_btn{padding: 10px 32px; color: #fff; border: 1px solid #fff; border-radius: 30px;background: transparent; font-size: 25px; margin-top: 20px;}
-.best_seller li{width: 23%;}
+/* .best_seller li{width: 23%;} */
 .best_seller_container{margin-top: 40px; float: left;width: 100%; padding-bottom: 40px;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
 .best_seller_container h2{font-size: 40px; font-weight: 600; color: #000;margin: 0;padding-bottom: 30px;}
@@ -1694,7 +1694,7 @@ span.pro-text {
 }
 
 .buyer-prod-msg h2 {
-    color: #000;
+    color: #000; font-size: 22px;
 }
 
 .alert.alert-danger {
@@ -1722,9 +1722,9 @@ span.pro-text {
     margin: 5px;
     float: left;
     width: 100%;
-    color: #000;background: transparent;
+    color: #000;background: transparent; 
 }
-
+.seller_page_botton_border li a{border-bottom: 1px solid #191919;}
 .seller_cat_list>.activemaincategory, .seller_cat_list>.activesubcategory, .seller_cat_list>.activeservicemaincategory, .seller_cat_list>.activeservicesubcategory{
     background-color: transparent; color: #000; font-weight: 600;
 }
@@ -1831,8 +1831,24 @@ span.pro-text {
                     .package-pro{background-color: #81cccf!important; background-image: none!important;}
                     .package-basic{background-color: #bfecab!important; background-image: none!important;}
                     .product_all h5{margin: 0; padding-top: 10px; font-size: 18px;}
-.product_all p{font-size: 16px!important; font-weight: normal; min-height: 10px; padding: 4px 0;margin: 0;}
+.product_all p{font-size: 16px!important; font-weight: normal; min-height: 10px; padding: 4px 0;margin: 0;
+    white-space: nowrap;
+    width: 95%;
+    overflow: hidden;
+  
+    text-overflow: ellipsis;}
 .buyer_prduct_header{font-size: 36px!important;}
+.seller_serch_icon{float: right;    margin-top: -34px;
+    margin-right: 10px;}
+    /* .expandCollapseSubcategory{border-bottom: 1px solid #dadada;} */
+    .shopping_cart th{font-weight: normal;border: 0px!important; font-size: 16px;}
+    /* .shopping_cart tr td{border-top: 0px!important;} */
+    .shopping_cart tbody{border:1px solid #dadada}
+    .border-cart{border:1px solid #dadada}
+    .prduct_det h3{font-size: 18px;
+        font-weight: 300;
+        color: #515151;
+        line-height: 25px;}
                     @media only screen and (min-device-width: 1024px) and (max-device-width: 1400px){
 
                     .package_width{width: 90%; margin: 0 5%;}

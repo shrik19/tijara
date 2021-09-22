@@ -60,10 +60,11 @@
            <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
-        <a href="{{$product_cat_link}}">
-          <h5>{{$product->category_name}}</h5></a>
+          @if(Request::segment(1) !='product')
+           <a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> 
+          @endif
           <a href="{{$product->product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
-         @if(Request::segment(1) !='product' && Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
+         @if(Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
         <div class="star-rating" style="font-size:unset;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
@@ -79,7 +80,7 @@
         @endif
 
          
-        @if(Request::segment(1) !='product' && Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
+        @if(Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
          <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
         @endif
 

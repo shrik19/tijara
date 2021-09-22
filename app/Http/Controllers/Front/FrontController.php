@@ -1274,6 +1274,7 @@ public function getCatSubList(Request $request) {
 		$tmpSellerData = UserMain::where('id',$Product['user_id'])->first()->toArray();
 		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
 		$data['seller_name'] = $seller_name;
+		$data['store_name'] = $tmpSellerData['store_name'];
 
 		$seller_name = str_replace( array( '\'', '"', 
 		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);

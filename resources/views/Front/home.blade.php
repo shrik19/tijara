@@ -167,7 +167,7 @@
         <div class="loader"></div>
             <div style="display: flex;">
             <h2 class="heading">{{ __('lang.feature_product_head')}}</h2>
-            <a href="{{url('/')}}/annonse" title="{{ __('lang.feature_product_head')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a>
+            <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a>
           </div>
             <!-- <hr class="heading_line"/> -->
             <ul class="product_details">

@@ -60,7 +60,7 @@
                     <h2>{{$Service->title}}</h2>
                      <h4 class="">@if(!empty($Service->session_time)){{$Service->session_time}} min @endif</h4>
                     <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>
-                    <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $Service->service_price }} KR</a></h4>
+                    <h4 class="product_price"><a href="{{$seller_link}}" class="de_col">{{ $Service->service_price }} KR</a></h4>
 
                       <div class="star-rating" style="font-size:unset;">
                         <select class='rating service_rating' id='rating_{{$Service->id}}' data-id='rating_{{$Service->id}}' data-rating='{{$Service->rating}}'>

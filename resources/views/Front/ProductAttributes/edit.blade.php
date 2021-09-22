@@ -42,9 +42,9 @@
                   <label>{{ __('lang.type_label')}} <span class="de_col">*</span></label>
                   <select class="form-control login_input" id="type" name="type">
                     <option value="">{{ __('lang.select_label')}}</option>
-                    <option value="radio"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='radio')) {{ 'selected' }} @endif>{{ __('lang.radio_label')}}</option>  
+                    <?php /*<option value="radio"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='radio')) {{ 'selected' }} @endif>{{ __('lang.radio_label')}}</option>  */?>
                     <option value="dropdown"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='dropdown')) {{ 'selected' }} @endif>{{ __('lang.dropdown_label')}}</option>
-                    <option value="textbox" @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='textbox')) {{ 'selected' }} @endif>{{ __('lang.textbox_label')}}</option>
+                    <?php /*<option value="textbox" @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='textbox')) {{ 'selected' }} @endif>{{ __('lang.textbox_label')}}</option>*/?>
                   </select>
                   <span class="invalid-feedback" id="err_fname">@if($errors->has('type')) {{ $errors->first('type') }}@endif </span>
                 </div>

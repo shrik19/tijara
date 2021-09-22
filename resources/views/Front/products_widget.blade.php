@@ -60,6 +60,7 @@
            <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
+
           @if(Request::segment(1) !='product')
            <a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> 
           @endif

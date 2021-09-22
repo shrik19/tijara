@@ -352,6 +352,7 @@ avbokning av tjänst fungerar.',
     'old_password_label' => 'Gammalt lösenord',
     'new_password_label' => 'Nytt lösenord',
     'go_to_announse_page'=>'Gå till Tijara annonser',
+    'sold_by_title' =>'Säljes av',
 
  ]
 ?>

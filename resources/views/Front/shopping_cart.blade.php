@@ -20,9 +20,9 @@
             <h2 class="page_heading">{{ __('lang.shopping_cart')}}</h2> 
             </div> 
             <div class="col-md-6 text-right">
-           <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='{{route('frontHome')}}';">
+      <!--      <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='{{route('frontHome')}}';">
                             <span class="glyphicon glyphicon-shopping-cart"></span> {{ __('lang.shopping_cart_continue')}}
-                        </button>
+                        </button> -->
             </div>     
         </div>
     </div>

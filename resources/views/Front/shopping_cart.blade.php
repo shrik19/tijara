@@ -13,9 +13,9 @@
 <div class="container-inner-section-1">
 <div class="row">
 <div class="col-md-12"> 
-<div class="seller_info">
+<div class="seller_info border-none">
     <div class="card">
-        <div class="card-header row seller_header">
+        <div class="card-header row">
             <div class="col-md-6">
             <h2 class="page_heading">{{ __('lang.shopping_cart')}}</h2> 
             </div> 
@@ -29,7 +29,7 @@
 <div class="seller_mid_cont"  style="margin-top: 20px;">
 <section class="product_details_section-1">
 <div class="loader"></div>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-md-12">
         <div class="row">
@@ -43,7 +43,7 @@
                         </button>
             </div> -->
           </div>
-            <table class="table table-hover" style="margin-bottom:60px;">
+            <table class="table table-hover shopping_cart" style="margin-bottom:60px;">
                 <thead>
                     <tr>
                          <th>{{ __('users.butik_btn')}}</th>
@@ -84,6 +84,7 @@
                             </div>
                             
                         </div>@endif</td>
+                        <span>
                         <td class="col-sm-4 col-md-4">
                         <div class="media">
                             <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 

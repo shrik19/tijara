@@ -38,7 +38,10 @@
              <h2> {{ __('users.butiks_info_title')}}</h2>
 
             <h4 style="margin-top: 10px;" class="all_cat_sidebar_label">{{ __('lang.category_label')}}</h4>
+            <div class=" form-group search_now_input_box">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
+            <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
+</div>
             <div class="current_role_id" style="display: none">{{$role_id}}</div>
             <h3 style="line-height: 45px; text-decoration: none; font-size: 22px;margin: 5px;float: left;">{{ __('lang.all_category')}}</h3>
             @include('Front.products_sidebar')

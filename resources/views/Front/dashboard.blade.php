@@ -36,7 +36,7 @@
     </div>
     <div class="row"><div class="col-md-12">&nbsp;</div></div>
     <div class="row text-center">
-      <div class="col-md-3" >
+      <div class="col-md-15" >
       
         <div class="card">
           <div class="buyer-prod-msg" style="height:250px;">
@@ -47,7 +47,7 @@
         </div>
       </div>  
 
-      <div class="col-md-3">
+      <div class="col-md-15">
         <div class="card">
           <div class="buyer-prod-msg" style="height:250px;">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_service_requests')}}</h2>
@@ -57,7 +57,7 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-15">
 
         <div class="card">
           <div class="buyer-prod-msg" style="height:250px;">
@@ -70,7 +70,7 @@
        
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-15">
         <div class="card">
           <div class="buyer-prod-msg" style="height:250px;">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_listed_services')}}</h2>
@@ -80,7 +80,7 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-15">
         <div class="card">
           <div class="buyer-prod-msg" style="height:250px;">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_total_sales')}}</h2>

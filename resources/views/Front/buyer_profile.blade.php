@@ -9,9 +9,9 @@
 
     <div class="col-md-12 tijara-content">
       @include ('Front.alert_messages')
-       <div class="seller_info">
+       <div class="seller_info border-none">
         <div class="card">
-        <div class="card-header row seller_header">
+        <div class="card-header row">
           <h2 class="page_heading">{{ __('users.buyer_profile_update_title')}}</h2>
           <!-- <hr class="heading_line"/> -->
           </div>

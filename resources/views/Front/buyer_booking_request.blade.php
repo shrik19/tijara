@@ -12,10 +12,10 @@
                 <div class="alert alert-danger">{{$subscribedError}}</div>
                 @endif */ ?>
                 @include('Front.alert_messages')
-                <div class="seller_info">
+                <div class="seller_info border-none">
 
                     <div class="card">
-                        <div class="card-header row seller_header">
+                        <div class="card-header row">
                         <h2 class="page_heading">{{ __('users.my_booking_title')}}</h2>
                         <!-- <hr class="heading_line"/> -->
                         </div>
@@ -98,15 +98,15 @@
                                             <img class="card-img-top buyer-product-img ServiceImgCard serviceReqDetails" src="{{$image}}"user_name="'.$user.'" serviceName="{{$serviceName}}" dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}">
 
 
-                                            <div class="card-body">
+                                            <div class="card-body product_all">
                                                 <h5 class="card-title">{{$dated}}</h5>
                                                 <p class="card-text buyer-product-title serviceReqDetails"  dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}"><a style="color: #000 !important">{{$serviceName}}</a></p>
-                                                <p class="card-text" style="margin-bottom: 50px;margin-top: -36px;">  
+                                                <p class="card-text" >  
                                                 <span class="buyer-price  booking-service-price" id="product_variant_price">
                                                 {{$service_price}}
                                                 </span> 
                                                 </p>
-                                                <p class="card-text buyer-service-store"><?php /* {{ __('users.butik_btn')}} : */?><a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>
+                                                <p class="card-text buyer-service-store" style="margin-bottom: 20px"><?php /* {{ __('users.butik_btn')}} : */?><a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>
 
 
                                                 <div class="buyer-button">

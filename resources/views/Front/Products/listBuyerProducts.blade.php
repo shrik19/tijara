@@ -14,13 +14,13 @@
               <div class="alert alert-danger">{{$subscribedError}}</div>
             @endif
             @include('Front.alert_messages')
-            <div class="seller_info">
+            <div class="seller_info border-none">
             <div class="card">
-            <div class="card-header row seller_header">
+            <div class="card-header row">
             <div class="col-md-10">
 
-            <h2>{{ __('users.buyer_product_list_title')}}</h2>
-            <hr class="heading_line"/>
+            <h2 class="buyer_prduct_header">{{ __('users.buyer_product_list_title')}}</h2>
+            <!-- <hr class="heading_line"/> -->
             </div>
             <div class="col-md-1" style="margin-left: -61px;">
             <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" ><span>+ {{ __('users.add_ads_btn')}}</span> </a>
@@ -61,10 +61,10 @@
             <div class="col-sm-3">
             <div class="card product-card">
             <img class="card-img-top buyer-product-img" src="{{$image}}" >
-            <div class="card-body">
+            <div class="card-body product_all">
             <h5 class="card-title">{{$dated}}</h5>
             <p class="card-text buyer-product-title">{{$title}}</p>
-            <p class="card-text" style="margin-bottom: 50px;">  
+            <p class="card-text" style="margin-bottom: 20px;">  
             <span class="buyer-price buyer-product-price" id="product_variant_price">
             <span style="@if(!empty($discount_price)) text-decoration: line-through; @endif">{{ number_format($value['price'],2) }} kr
             </span>
@@ -79,7 +79,7 @@
 
             <div class="buyer-button">
             <a href="{{route('frontProductEdit', base64_encode($id))}}" class="btn btn-black btn-sm debg_color login_btn a_btn" title="{{ __('lang.edit_label')}}">{{ __('lang.edit_label')}}</a>
-
+<br>
 
             <a href="javascript:void(0)" onclick='return ConfirmDeleteFunction("{{route("frontProductDelete", base64_encode($id))}}");'  title="{{ __('lang.remove_title')}}" class="btn btn-black btn-sm login_btn remove-btn-col">{{ __('lang.remove_title')}}</a>
             </div>

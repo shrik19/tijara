@@ -58,7 +58,8 @@
             <div class="col-md-6">
                 <div class="product_details_info">
                     <h2>{{$Service->title}}</h2>
-                    <!-- <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4> -->
+                     <h4 class="">@if(!empty($Service->session_time)){{$Service->session_time}} min @endif</h4>
+                    <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>
                     <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $Service->service_price }} KR</a></h4>
 
                       <div class="star-rating" style="font-size:unset;">
@@ -72,7 +73,7 @@
                       </div> 
                       <div style='clear: both;'></div>
                       
-                      <p>
+                      <p style="margin-top: 20px;">
                         <?php echo $Service->description; ?>
                       </p>
 
@@ -217,9 +218,9 @@
                <h2>{{ __('users.store_terms')}}</h2>
           
                 <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
-                <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
-                <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
-                <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button>
+                <!-- <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+                <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button> -->
+                <button class="tablink" onclick="openPage('CancelPolicy', this, 'white')">{{ __('users.cancellation_policy')}}</button>
 
                 @if(!empty($getTerms))
                  <div id="PaymentPolicy" class="tabcontent">
@@ -227,19 +228,16 @@
                   <p class="policies">{{@$getTerms->payment_policy}}</p>
                   </div>
 
-                  <div id="ShippingPolicy" class="tabcontent">
-                  <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
+                 <!--  <div id="ShippingPolicy" class="tabcontent">
                   <p class="policies">{{@$getTerms->shipping_policy}}</p>
                   </div>
 
                   <div id="ReturnPolicy" class="tabcontent">
-                 <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
                   <p class="policies">{{@$getTerms->return_policy}}</p> 
-                  </div>
+                  </div> -->
 
-                  <div id="BookingPolicy" class="tabcontent">
-                  <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-                  <p class="policies">{{@$getTerms->booking_policy}}</p>
+                  <div id="CancelPolicy" class="tabcontent">
+                  <p class="policies">{{@$getTerms->cancellation_policy}}</p>
                   </div>
               @endif
 

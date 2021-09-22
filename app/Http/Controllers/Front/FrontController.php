@@ -988,12 +988,14 @@ public function getCatSubList(Request $request) {
 
         if(!empty($request['search']))
         	$data['search_string']	= $request['search'];
-
+        $data['all_cat_link'] = url('/')."/products";
         if(!empty($category_slug)){
+        	$data['category_link'] = url('/')."/products/".$category_slug;
         	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
         	$data['category_name'] = $getCategoryName['category_name'];
         	if(!empty($subcategory_slug)){
          		$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
+         		$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
         	}
         }else{
@@ -1099,12 +1101,15 @@ public function getCatSubList(Request $request) {
 
     	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
 
+    	$data['all_cat_link'] = url('/')."/products";
     	if(!empty($category_slug)){
 	    	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
+	    	$data['category_link'] = url('/')."/products/".$category_slug;
 	    	if(!empty($subcategory_slug)){
 	        	$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
 	        	$data['category_name'] = $getCategoryName['category_name'];
 	           	$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+	           	$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
 	        }
     	}else{
         	$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
@@ -1620,12 +1625,15 @@ public function getCatSubList(Request $request) {
 		 if(!empty($request->search))
 			 $data['search_string']	= $request->search;
 
+		 $data['all_cat_link'] = url('/')."/services";
  		if(!empty($category_slug)){
         	$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
         	$data['category_name'] = $getCategoryName['category_name'];
+        	$data['category_link'] = url('/')."/services/".$category_slug;
         	if(!empty($subcategory_slug)){
         		$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+        		$data['subcategory_link'] = url('/')."/services/".$category_slug."/".$subcategory_slug;
         	}        	
 		} else{
         	$getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
@@ -1869,14 +1877,15 @@ public function getCatSubList(Request $request) {
 
     	if($subcategory_slug!='')
     		$data['subcategory_slug']	= $subcategory_slug;
-
+    	 $data['all_cat_link'] = url('/')."/services";
     	if(!empty($category_slug)){
         	$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
         	$data['category_name'] = $getCategoryName['category_name'];
-
+        	$data['category_link'] = url('/')."/services/".$category_slug;
         	if(!empty($subcategory_slug)){
         		$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+        		$data['subcategory_link'] = url('/')."/services/".$category_slug."/".$subcategory_slug;
         	}
 		}else{
         	$getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();

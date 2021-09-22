@@ -17,7 +17,7 @@ function isNumber(evt) {
 }
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){ 
-	  allLetterNumber(inputtxt);
+	  //allLetterNumber(inputtxt);
     var slug = inputtxt.value;
     //replace space with hypen
     slug = inputtxt.value.toLowerCase();
@@ -28,20 +28,30 @@ function convertToSlug(inputtxt){
     $('.slug-name').val(slug);
 }
 
-/*function to validate letters for category*/
+/*function to validate letters for category
   function allLetterNumber(inputtxt){ 
-    var letters = /^[0-9a-zA-ZäöåÄÖÅ ]*$/;
+    var letters = /^[0-9a-zA-ZäöåÄÖÅ& ]*$/;
+    var error=0;
     if(inputtxt.value.match(letters)){
       $('.err-letter').text('');
-      return true;
     }
     else {
       $('.err-letter').text(input_letter_no_err);
+      error=1;
+    }
+
+    if(error == 1)
+    {
       return false;
+    }
+    else
+    {
+      $('#product_cat_form').submit();
+      return true;
     }
   }
 
-
+*/
 
 //product category form validation
 /*$(".product_cat_btn").click(function(e){

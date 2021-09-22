@@ -148,14 +148,14 @@ class SubcategoryController extends Controller
         $rules = [];
         if(!empty($id)){
             $rules = [ 
-                'subcategory_name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:subcategories,subcategory_name,'.$id,
+                'subcategory_name' => 'required|unique:subcategories,subcategory_name,'.$id,
                 'category_name'    => 'required',
                 'sequence_no'      => 'required',
                 'subcategory_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:subcategories,subcategory_slug,'.$id,
             ];
         }else{
             $rules = [
-                'subcategory_name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:subcategories,subcategory_name',
+                'subcategory_name' => 'required|unique:subcategories,subcategory_name',
                 'category_name'    => 'required',
                 'sequence_no'      => 'required',
                 'subcategory_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:subcategories,subcategory_slug',
@@ -165,7 +165,7 @@ class SubcategoryController extends Controller
         $messages = [
             'category_name.required'         => trans('errors.category_name_req'),
             'subcategory_name.required'      => trans('errors.subcategory_name_req'),
-            'subcategory_name.regex'         => trans('errors.input_alphabet_err'),
+            //'subcategory_name.regex'         => trans('errors.input_alphabet_err'),
             'sequence_no.required'           => trans('errors.sequence_number_err'),
             'subcategory_name.unique'        => trans('errors.unique_subcategory_name'),
             'subcategory_slug.required'     => trans('errors.subcategory_slug_req'),

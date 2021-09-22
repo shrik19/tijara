@@ -165,7 +165,10 @@
     <div class="col-md-12">             
         <div class="product_container">
         <div class="loader"></div>
-            <h2 class="heading"><a href="{{url('/')}}/annonser" style="color: #000;">{{ __('lang.feature_product_head')}}</a></h2>
+            <div style="display: flex;">
+            <h2 class="heading">{{ __('lang.feature_product_head')}}</h2>
+            <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a>
+          </div>
             <!-- <hr class="heading_line"/> -->
             <ul class="product_details">
             @foreach($FeaturedProducts as $product)

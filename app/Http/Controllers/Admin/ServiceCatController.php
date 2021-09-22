@@ -148,14 +148,14 @@ class ServiceCatController extends Controller
          $slug =   CommonLibrary::php_cleanAccents($category_slug);
 
         $rules = [
-            'name'          => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:servicecategories,category_name',
+            'name'          => 'required|unique:servicecategories,category_name',
             'sequence_no'   => 'required',
             'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:servicecategories,category_slug',
         ];
 
         $messages = [
             'name.required' => trans('errors.category_name_req'),
-            'name.regex'    => trans('errors.input_alphabet_err'), 
+            //'name.regex'    => trans('errors.input_alphabet_err'), 
             'sequence_no.required'    => trans('errors.sequence_number_err'),
             'name.unique'             => trans('errors.enter_diff_cat_err'),
             'category_slug.required'  => trans('errors.category_slug_req'),
@@ -223,13 +223,13 @@ class ServiceCatController extends Controller
         $slug =   CommonLibrary::php_cleanAccents($category_slug);
 
         $rules = [
-            'name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:servicecategories,category_name,'.$id,
+            'name' => 'required|unique:servicecategories,category_name,'.$id,
             'sequence_no'   => 'required',
             'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:servicecategories,category_slug,'.$id,
         ];
         $messages = [
             'name.required' => trans('errors.category_name_req'),
-            'name.regex'    => trans('errors.input_alphabet_err'), 
+            //'name.regex'    => trans('errors.input_alphabet_err'), 
             'sequence_no.required'   => trans('errors.sequence_number_err'),
             'name.unique'   => trans('errors.enter_diff_cat_err'),
             'category_slug.required'  => trans('errors.category_slug_req'),

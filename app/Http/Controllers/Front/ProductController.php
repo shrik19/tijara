@@ -528,7 +528,7 @@ class ProductController extends Controller
 
         $messages = [
             'title.required'         =>  trans('lang.required_field_error'),           
-            'title.regex'            => trans('lang.required_field_error'), 
+            //'title.regex'            => trans('lang.required_field_error'), 
             'description.required'   => trans('lang.required_field_error'),    
             'description.max'        => trans('lang.max_1000_char'),
             'product_slug.required'  => trans('errors.product_slug_req'),
@@ -1766,7 +1766,6 @@ public function findCurrency($type){
                             if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
             
                                 $fileName = 'product-'.date('YmdHis').'.'.$fileExt;
-            
                                 $image->move(public_path().'/uploads/ProductImages/', $fileName);  // your folder path
             
             

@@ -9,21 +9,22 @@
 .selected_images {
     background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
-    height: 85px;
+    min-height: 85px;
     padding-left: 0;
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .selected_images>div {
-    float: left;
-  border: 2px solid #ccc;
-  margin: 0 !important;
+     float: left;
+    border: 2px solid #ccc;
+    margin: 0 !important;
+    position: relative;
   }
 
 .selected_images a.remove_image {
     position: absolute;
-    bottom: 3px;
-    margin-left: -75px;
+    bottom: 0px;
+    left: 3px;
 }
 </style>
 
@@ -220,7 +221,7 @@
                   <div class="form-group  col-md-12 producterrDiv" >
                     <label class="col-md-3">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
-                      <div class="selected_images"></div>
+                      <div class="selected_images col-md-12"></div>
                       <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                       <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="margin-top:40px;"></span>  
                       <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span>   

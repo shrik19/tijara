@@ -10,24 +10,24 @@
 }
 
  .images {
-    background-image: url(../uploads/Images/multiple_no_images.png);
+   background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
-    height: 60px;
+    height: 85px;
     padding-left: 0;
-    margin-bottom: 10px
+    margin-bottom: 10px;
 }
 
 .images>div {
-    float: left;
-    margin: 3px 0px 0px 3px;
-    border: 1px solid #ccc;
+     float: left;
+  border: 2px solid #ccc;
+  margin: 0 !important;
 }
 
 
 .images a.remove_image {
     position: absolute;
-    bottom: 55px;
-    margin-left: -48px;
+    bottom: 3px;
+    margin-left: -75px;
 }
 </style>
 
@@ -164,7 +164,7 @@
               <div class="form-group col-md-12">
                 <label class="col-md-3">{{ __('lang.images')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
-                <div class="images"></div>
+                <div class="images col-md-12"></div>
                 <input type="file" class="col-md-8 login_input image service_image form-control" >                
                   <span class="invalid-feedback col-md-8" id="err_service_image"></span>  
                   <span class="invalid-feedback col-md-12" id="err_service_hid_image"></span>   
@@ -579,4 +579,13 @@ var service_time_counter  = 10000;
     
   });
   </script>
+  <script type="text/javascript">
+  $('body').on('click', '.remove_image', function () {
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
+
+</script>
 @endsection

@@ -67,7 +67,7 @@
           <div class="container-inner-section">
             <div class="best_seller_container">
                 <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
-                <h2>{{ __('lang.best_seller_head')}}</h2>
+                <h2>{{ __('users.other_watched_product')}}</h2>
                 <ul class="product_details best_seller">
 					@foreach($PopularProducts as $product)
                     @include('Front.products_widget')

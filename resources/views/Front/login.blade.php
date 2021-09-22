@@ -96,7 +96,7 @@
 			<div class="col-md-8 right-section">
 				<div class="col-md-3"></div>
 				<div class="col-md-6 form-section">
-					<h2>{{ __('users.login_label')}}</h2>
+					<h2 class="de_col">{{ __('users.login_label')}}</h2>
 
 					@include ('Front.alert_messages')
 

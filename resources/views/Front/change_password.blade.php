@@ -20,9 +20,9 @@
          
       @else
         <div class="col-md-12 tijara-content">
-          <div class="seller_info">
+          <div class="seller_info border-none">
           <div class="card">
-            <div class="card-header row seller_header">
+            <div class="card-header row">
           <!-- <div class="col-md-3"></div>
           <div class="col-md-5"> -->
           <h2>{{ __('users.change_password_title')}} </h2>

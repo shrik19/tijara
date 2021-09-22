@@ -18,9 +18,9 @@
       
 		 
 	  @include('Front.alert_messages')
-    <div class="seller_info">
+    <div class="seller_info border-none">
 	  <div class="card">
-		<div class="card-header row seller_header">
+		<div class="card-header row">
       <h2 class="page_heading">{{ __('users.my_order_title')}}</h2>
       </div>
     </div>
@@ -101,7 +101,7 @@
                                         <div class="card product-card">
                                       
                                             <img class="card-img-top buyer-product-img" src="{{$image}}" product_link="{{route('frontShowOrderDetails', base64_encode($value->order_id))}}" title="{{ __('lang.txt_view')}}">
-                                            <div class="card-body">
+                                            <div class="card-body product_all">
                                                 <h5 class="card-title">{{$dated}}</h5>
                                                 <p class="card-text buyer-product-title">
                                                     <a href="{{route('frontShowOrderDetails', base64_encode($value->order_id))}}" title="{{ __('lang.txt_view')}}" style="color: #000 !important;">{{$productName}}</a></p>

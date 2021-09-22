@@ -8,7 +8,7 @@ function convertToSlug(inputtxt){
     //replace space with hypen
     slug = inputtxt.value.toLowerCase();
     //replace special character with -
-    slug = slug.replace(/[`~!@#$%^*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    slug = slug.replace(/[`~!@#$%^*&()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
         //slug = slug.replace(/[^\w\s]/gi, '')
     //function to check slug name is unique or not
     slug = checkUniqueSlugName(slug);
@@ -1641,9 +1641,9 @@ $('body').on('change', '.service_image', function () {
                 success: function(data) {
                   $(".loader").hide();   
                       
-                  elm.prev('div.images').append('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
+                  elm.prev('div.images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
                     '<img src="'+siteUrl+'/uploads/ServiceImages/'+data+'" width="78" height="80">'+
-                                      '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>');     
+                                      '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
                 }
 
           });

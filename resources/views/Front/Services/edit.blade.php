@@ -7,9 +7,9 @@ width:100% !important;
 }
 
  .images {
-    background-image: url(../../uploads/Images/multiple_no_images.png);
+   background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
-    height: 85px;
+    min-height: 85px;
     padding-left: 0;
     margin-bottom: 10px;
 }
@@ -18,12 +18,13 @@ width:100% !important;
     float: left;
     border: 2px solid #ccc;
     margin: 0 !important;
+    position: relative;
 }
 
 .images a.remove_image {
     position: absolute;
-    bottom: 3px;
-    margin-left: -75px;
+    bottom: 0px;
+    left: 3px;
 }
 </style>
 
@@ -182,9 +183,11 @@ width:100% !important;
   @if(!empty($images))
   @foreach($images as $image)
   @if($image!='')
+  <div>
   <input type="hidden" class="form-control login_input hidden_images" value="{{$image}}"  name="hidden_images[]">
   <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="78" height="80">
   <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
+</div>
   @endif
   @endforeach
   @endif

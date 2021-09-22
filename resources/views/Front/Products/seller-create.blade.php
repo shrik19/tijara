@@ -9,21 +9,22 @@
 .selected_images {
     background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
-    height: 85px;
+    min-height: 85px;
     padding-left: 0;
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .selected_images>div {
-    float: left;
-  border: 2px solid #ccc;
-  margin: 0 !important;
+     float: left;
+    border: 2px solid #ccc;
+    margin: 0 !important;
+    position: relative;
   }
 
 .selected_images a.remove_image {
     position: absolute;
-    bottom: 3px;
-    margin-left: -75px;
+    bottom: 0px;
+    left: 3px;
 }
 </style>
 

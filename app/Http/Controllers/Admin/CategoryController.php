@@ -145,7 +145,6 @@ class CategoryController extends Controller
         $category_slug = $request->input('category_slug');
         $slug =   CommonLibrary::php_cleanAccents($category_slug);
         $rules = [
-            'name'    => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:categories,category_name',
             'name'    => 'required|unique:categories,category_name',
             'sequence_no'   => 'required',
             'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:categories,category_slug',
@@ -216,7 +215,7 @@ class CategoryController extends Controller
         
         $id = base64_decode($id);
         $rules = [
-            'name' => 'required|regex:/^[\pL0-9\s\-]+$/u|unique:categories,category_name,'.$id,
+            'name' => 'required|unique:categories,category_name,'.$id,
             'sequence_no'   => 'required',
             'category_slug' => 'required|regex:/^[0-9a-z-]+$/u|unique:categories,category_slug,'.$id,
         ];

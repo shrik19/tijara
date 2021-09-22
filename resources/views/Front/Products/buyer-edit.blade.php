@@ -314,5 +314,13 @@ width:100% !important;
   </div>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
+<script type="text/javascript">
+$('body').on('click', '.remove_image', function () {
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
+</script>
 
 @endsection

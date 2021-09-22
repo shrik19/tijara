@@ -8,21 +8,21 @@
   .selected_images {
     background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
-    height: 60px;
+    height: 85px;
     padding-left: 0;
-    margin-bottom: 10px
+  margin-bottom: 10px;
 }
 
 .selected_images>div {
     float: left;
-    margin: 3px 0px 0px 3px;
-    border: 1px solid #ccc;
-}
+  border: 2px solid #ccc;
+  margin: 0 !important;
+  }
 
 .selected_images a.remove_image {
     position: absolute;
-    bottom: 55px;
-    margin-left: -48px;
+    bottom: 3px;
+    margin-left: -75px;
 }
 </style>
 
@@ -232,16 +232,14 @@
                                   <div class="form-group  col-md-12" >
                                     <label class="col-md-3">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
                                     <div class="col-md-8">
-                                    <div class="selected_images">
+                                    <div class="selected_images col-md-12">
                                     @if($variant['image']!='')
                                       @php $images  = explode(',',$variant['image']);
                                       @endphp
                                         @foreach($images as $image)
                                           <div>
-                                              <input type="hidden" class="form-control ge_input hidden_images" value="{{$image}}"  name="hidden_images[{{$i}}][]" placeholder="{{ __('lang.image_label')}}">
-                                                  
-                                                  
-                                            <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" width="50" height="50">
+                                            <input type="hidden" class="form-control ge_input hidden_images" value="{{$image}}"  name="hidden_images[{{$i}}][]" placeholder="{{ __('lang.image_label')}}">
+                                            <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" width="78" height="80">
                                             <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
                                           </div>
                                         @endforeach

@@ -9,21 +9,21 @@ width:100% !important;
  .images {
     background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
-    height: 60px;
+    height: 85px;
     padding-left: 0;
-    margin-bottom: 10px
+    margin-bottom: 10px;
 }
 
 .images>div {
     float: left;
-    margin: 3px 0px 0px 3px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
+    margin: 0 !important;
 }
 
 .images a.remove_image {
     position: absolute;
-    bottom: 55px;
-    margin-left: -48px;
+    bottom: 3px;
+    margin-left: -75px;
 }
 </style>
 
@@ -174,7 +174,7 @@ width:100% !important;
   <div class="form-group col-md-12">
   <label class="col-md-3">{{ __('lang.images')}} <span class="de_col">*</span></label>
   <div class="col-md-8">
-  <div class="images">
+  <div class="images col-md-12">
      
   @php
   $images = explode(',',$service->images);
@@ -183,7 +183,7 @@ width:100% !important;
   @foreach($images as $image)
   @if($image!='')
   <input type="hidden" class="form-control login_input hidden_images" value="{{$image}}"  name="hidden_images[]">
-  <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="50" height="50">
+  <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="78" height="80">
   <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
   @endif
   @endforeach
@@ -600,6 +600,15 @@ $('#saveservice').click(function(){
     // $('.added_service_times').append('<input type="text" id="'+service_time_counter+'"  name="service_availability[]" value="'+service_date_to_use+'">');
   });
 
+
+</script>
+<script type="text/javascript">
+  $('body').on('click', '.remove_image', function () {
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
 
 </script>
 @endsection

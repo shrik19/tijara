@@ -1,5 +1,5 @@
  @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
-  <label class="all_cat_sidebar_label">{{ __('lang.all_category')}}</label>
+  <h2 class="all_cat_sidebar_label" id="all_cat_label"><a href="{{route('AllproductListing')}}" title="{{ __('lang.category_label')}}" style="color: #000 !important;"></i>{{ __('lang.category_label')}}</span> </a></h2>
 
 
   <p class="all_cat_label">{{ __('lang.all_category')}}</p>
@@ -185,6 +185,8 @@ $(document).ready(function(){
         $('.show_service_cat_sidebar').show();
         $('.show_product_cat_sidebar').hide();
         $('.all_cat_label').hide();
+        //$("#all_cat_label").attr("href", "{{route('AllserviceListing')}}")
+       
     });
 });
 </script>

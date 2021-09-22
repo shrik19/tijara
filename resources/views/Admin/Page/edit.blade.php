@@ -72,7 +72,13 @@
 <script src="{{url('/')}}/assets/front/js/jquery.richtext.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('.description').richText();
+    $('.description').richText({
+           // uploads
+            imageUpload: true,
+            fileUpload: true,
+
+    });
+
     $('.description_en').richText();
   });
 </script>

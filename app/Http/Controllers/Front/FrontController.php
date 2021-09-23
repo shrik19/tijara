@@ -1033,6 +1033,7 @@ public function getCatSubList(Request $request) {
     public function sellerProductListing($seller_name ='', $seller_id = '', $category_slug = null, $subcategory_slug= null, Request $request)
     {
     	$data = [];
+    	$data['path'] = @$request->path;
         $data['pageTitle'] 	= 'Sellers Products';
 
 		if($request->segment(4)=='products'){

@@ -5,7 +5,9 @@
   {
     width:100% !important;
   }
-
+.invalid-feedback {
+    position: relative !important;
+}
 .selected_images {
     background-image: url(../../uploads/Images/multiple_no_images.png);
     background-repeat: no-repeat;
@@ -223,7 +225,7 @@
                     <div class="col-md-8">
                       <div class="selected_images col-md-12"></div>
                       <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
-                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="margin-top:40px;"></span>  
+                      <span class="invalid-feedback col-md-8" id="err_variant_image" style="margin-left:-1px;"></span>  
                       <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span>   
                     </div>
                     

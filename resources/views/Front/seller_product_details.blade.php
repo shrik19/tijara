@@ -81,13 +81,13 @@
                       <p>
                         <?php echo $Product->description; ?>
                       </p>
-                      <div class="col-md-6 box_ch">
+                     
                      
                          @foreach($ProductAttributes as $attribute_id => $attribute)
-                        
+                         <div class="col-md-6">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                              
-                                <div class="col-xs-5 col-md-12">
+                                <div>
                               <h3>{{ucwords($attribute['attribute_name'])}} : </h3> &nbsp;&nbsp;
                               <div class="clearfix"></div>
                                     <input type="hidden" id="variant_type" name="variant_type" value="{{$attribute['attribute_type']}}">
@@ -128,10 +128,10 @@
                                     @endif
                                 </div>
                                 </div>
-                     
+                                </div>
                             
                         @endforeach
-                        </div>
+                      
                       
                      
                         

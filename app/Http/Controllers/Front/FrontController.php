@@ -787,8 +787,7 @@ public function getCatSubList(Request $request) {
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')
 							  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
-							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id',DB::raw('100 - (ROUND((variant_product.price  * 100) / products.discount, 1)) AS discounted_price')])
-
+							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id',DB::raw('( variant_product.price -  ROUND((variant_product.price  * products.discount) / 100, 2) ) AS discounted_price')])
 							  ->where('products.status','=','active')
 							  ->where('products.is_deleted','=','0')
 							  ->where('categories.status','=','active')
@@ -800,12 +799,13 @@ public function getCatSubList(Request $request) {
 
 								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
+
 							//   ->when( "users.role_id" == 2 , function ($query) {
 							// 		return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
 							//   }, function ($query) use ($currentDate) {
 							// 	return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 							// });
-	
+
 
 			if($request->category_slug !='') {
 				$category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
@@ -853,6 +853,16 @@ public function getCatSubList(Request $request) {
 				}
 				else if($request->sort_by == 'price')
 				{
+					/*if(!empty($Product->discount))
+					{
+						$discount = number_format((($Product->price * $Product->discount) / 100),2,'.','');
+						$Product->discount_price = $Product->price - $discount;
+					}
+					else
+					{
+						$Product->discount_price = 0;
+					}*/
+
 					//$Products	=	$Products->orderBy('variant_product.price', strtoupper($request->sort_order));
 					$Products	=	$Products->orderBy('discounted_price', strtoupper($request->sort_order));
 				}
@@ -871,8 +881,9 @@ public function getCatSubList(Request $request) {
 		//$data['ProductsTotal'] = $Products->count();
 
 		$Products 			= $Products->paginate(config('constants.Products_limits'));
+
 		//dd($Products);
-		//print_r(DB::getQueryLog());
+	//print_r(DB::getQueryLog());exit;
 		if(count($Products)>0) {
 			foreach($Products as $Product) {
 				$product_link	=	url('/').'/product';

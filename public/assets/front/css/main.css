@@ -47,6 +47,16 @@ header{
     font-size: 15px !important;
     text-align: center !important;
 }
+
+.service-add-calender .fc-event, .fc-event-dot {
+    background-color: #c4eafd!important;
+    border: #c4eafd!important;
+    color: #000 !important;
+    padding: 9px !important;
+    font-size: 15px !important;
+    text-align: center !important;
+}
+
 .productErr{
   margin-top: 35px;
   margin-left: -675px;

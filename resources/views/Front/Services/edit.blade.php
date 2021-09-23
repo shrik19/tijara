@@ -338,7 +338,7 @@ width:100% !important;
   @endforeach
   @endif
   </div>
-  <div  class="col-md-12" id="calendar" style="padding: 20px;"></div>
+  <div  class="col-md-12" id="calendar service-add-calender" style="padding: 20px;"></div>
   </div>
   </div>
   <div class="col-md-12 text-center">&nbsp;</div>

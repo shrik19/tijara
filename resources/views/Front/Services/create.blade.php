@@ -303,7 +303,7 @@
             </div>
           </div>
               <div class="added_service_times" style="display:none;"></div>
-              <div  class="col-md-12" id="calendar" style="padding: 20px;"></div>
+              <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;"></div>
           </div>
         </div>
           <div class="col-md-12 text-center">&nbsp;</div>

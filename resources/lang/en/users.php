@@ -333,6 +333,7 @@ cancellation of service works.',
     'new_password_label' => 'New password',
     'go_to_announse_page'=>'Go to Tijara Ads',
     'sold_by_title' =>'Sold By',
+    'see_available_time_btn' =>'See free times',
 
  ]
 ?>

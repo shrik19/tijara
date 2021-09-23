@@ -53,19 +53,15 @@
                     <div class="row">
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
-                          <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>             
-                            <span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
+                          <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>           
+                         
+                            <span style="padding-top:2px; color: #03989e; font-weight:600;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
                             @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif
 
                             <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span>
                           </span> 
                             
-
-                          </div>
-                          </div>
-                        </div>
-                    
-                    <div class="star-rating" style="font-size:unset;">
+                          <div class="star-rating" style="font-size:unset; padding-top:35px">
                     <select class='rating product_rating' id='rating_{{$Product->id}}' data-id='rating_{{$Product->id}}' data-rating='{{$Product->rating}}'>
                       <option value="1" >1</option>
                       <option value="2" >2</option>
@@ -74,7 +70,12 @@
                       <option value="5" >5</option>
                     </select>
                       
-                      </div>
+                      </div> 
+                          </div>
+                          </div>
+                        </div>
+                    
+                  
                       <div style='clear: both;'></div>
                    <!--    <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Product->id}}'>{{$Product->rating}}</span></div> -->
 
@@ -87,10 +88,10 @@
                           <div class="col-md-12">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                               <div class="row">
-                                <div class="col-xs-5 col-md-4">
+                                <div class="col-xs-5 col-md-6">
                               <h3>{{ucwords($attribute['attribute_name'])}} : </h3> &nbsp;&nbsp;
-                                </div>
-                                <div class="col-xs-5 col-md-8">
+                                
+                               <div class="clearfix"></div>
                                     <input type="hidden" id="variant_type" name="variant_type" value="{{$attribute['attribute_type']}}">
                                     @if($attribute['attribute_type']=='radio')
                                       @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
@@ -101,7 +102,7 @@
                                             $checked = 'checked="checked"';
                                           }
                                         @endphp
-                                        <div class="radio icheck-success icheck-inline" style="margin-top:10px !important;">
+                                        <div class="radio icheck-success icheck-inline product_check">
                                             <input type="radio" name="optionsRadios_{{$attribute['attribute_name']}}" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" {{$checked}} onclick="showAvailableOptions('{{$attribute_id}}','{{$attribute_value_id}}')" class="variant_radio_{{$attribute_id}}" />
                                             <label for="{{$attribute_value_id}}">{{$attribute_value}}</label>
                                         </div>
@@ -128,20 +129,11 @@
                                     </div>
                                     @endif
                                 </div>
-                              </div>    
-                            </div>
-                            
-                        </div>
-                        @endforeach
-
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options')}}</a></div>
-                        </div>
-                        <div class="row">
-                        <div class="col-xs-6 col-md-5"  >
-                              <div class="quantity_box" style="margin-top:15px;">
+                               
+                              <div class="col-xs-6 col-md-6"  >
+                             
                                 <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
+                                <div class="clearfix"></div>
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
                                     <option value="1"></option>
@@ -156,14 +148,25 @@
                                     <option value="10"></option>
                                     </datalist>
                               </div>
-                          </div>
+                         
 
-                        <div class="col-xs-6 col-md-7">
+                        <div class="col-xs-6 col-md-12">
                             <div class="quantity_box">
                                <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
                                <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
                             </div>
+                        </div>  
+                            </div>
+                            
                         </div>
+                        @endforeach
+
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options')}}</a></div>
+                        </div>
+                        <div class="row">
+                      
                       </div>
 
                       <!-- <div class="row">

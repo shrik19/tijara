@@ -1,4 +1,4 @@
-<li class="col-xs-15" style="max-height:500px;">
+<li class="col-md-15" style="max-height:500px;">
   <?php 
 
 
@@ -37,7 +37,7 @@
           <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" >
       @endif
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
-      <div class="buy_now_hover_details ">
+      <div class="buy_now_hover_details one_icon">
           <ul>
               <li style="margin-left: 30%;"><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
             </ul>

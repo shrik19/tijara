@@ -66,7 +66,9 @@ margin-top: 15px;
 .bookingRequestCalender .fc-center h2{
   font-size: 17px !important
 }
-
+.book_service_button{
+  padding: 3px 70px;margin-left: 1px;font-size: 20px;
+}
 .buyer-product-price{
   margin-top:-7px;position:absolute;font-size:18px !important;
 }

@@ -82,7 +82,7 @@
                           <div class="col-md-12" style="padding-right: 70px; padding-top: 12px;">
                           <!-- <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
                            style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a> -->
-                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn sub_btn" style="padding: 5px 70px;margin-left: 1px;font-size: 20px;" title="{{ __('users.see_available_time_btn')}}" id="reset_option">{{ __('users.see_available_time_btn')}}<i class="far fa-calendar-alt" style="margin-left: 10px;font-size: 20px;"></i></a>
+                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn sub_btn book_service_button" title="{{ __('users.see_available_time_btn')}}" id="reset_option">{{ __('users.see_available_time_btn')}}<i class="far fa-calendar-alt" style="margin-left: 10px;font-size: 20px;"></i></a>
                          </div>
                         </div>
                         

@@ -322,6 +322,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 .tablink-active{
   border: 0px;
   border-bottom: 3px solid #05999F !important;
+  border-radius: 0;
 }
 .category_button {
   border-bottom: 1px solid;

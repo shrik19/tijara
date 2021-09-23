@@ -1,5 +1,5 @@
 @php
-$class = (strpos($path, 'annonser') !== false || strpos($path, 'seller') !== false) ? 'col-md-3':'col-md-15';
+$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false) ? 'col-md-3':'col-md-15';
 @endphp
 
 <li class="{{$class}}">

@@ -50,33 +50,34 @@
             </div>
 
             <div class="col-md-6">
-                <div class="product_details_info" style="min-height: 375px;position: relative;">
+                <div class="product_details_info" style="min-height: 385px;position: relative;">
                     <h2>{{$Product->title}}</h2>
                    <!--  <h4 class="product_price" id="product_variant_price" style="color:#03989e;"><span>{{ __('lang.price_label')}} :</span>{{ number_format($first['price'],2) }} kr  {{ number_format($first['discount_price'],2) }} kr</h4> -->
 
                     <div class="quantity_box">              
                                <span  style="font-size:20px;color: #03989e; font-weight:600;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span></span> 
-                      <div> <span>{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif   </span> <span><i class="fas fa-map-marker-alt de_col"></i>
+                      <div> <span>{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif   </span> <span style="padding-left:13%"><i class="fas fa-map-marker-alt de_col"></i>
                   @if(!empty($product_location)){{$product_location}}@endif</span></div>
                     </div>
                       <div class="clearfix"></div>
                       <div class="row prduct_det" style="position:absolute; bottom:0px">  
                         <div class="col-md-12" >                    
                         <h3><i class="fa fa-phone-alt"></i> {{@$buyer_product_details->user_phone_no}}</h3>
-                        <h3><i class="fa fa-envelope"></i> {{@$buyer_product_details->user_email}}</h3>
+                        <h3><i class="far fa-envelope"></i> {{@$buyer_product_details->user_email}}</h3>
 
                         </div>       
                       </div>
                         
-                      <div class="row">
-                          <div class="col-xs-12 col-md-6">    
-                            <div class="quantity_box">              
-                               <a href="{{ route('frontHome') }}">{{ __('lang.back_to_ads')}}</a>
-                            </div>
-                          </div>
-                      </div>
+                     
                 </div>
             </div> 
+            <div class="row">
+                          <div class="col-xs-12 col-md-12">    
+                                       
+                               <a class="annonser_btn" href="{{ route('frontHome') }}">{{ __('lang.back_to_ads')}}</a>
+                           
+                          </div>
+                      </div>
         </div>
     </div> <!-- /container -->
 </section>

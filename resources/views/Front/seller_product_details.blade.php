@@ -81,15 +81,15 @@
                       <p>
                         <?php echo $Product->description; ?>
                       </p>
-                      <div class="row">
+                     
                      
                          @foreach($ProductAttributes as $attribute_id => $attribute)
-                          <div class="col-md-6">
+                         <div class="col-md-6">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
-                              <div class="row">
-                                <div class="col-xs-5 col-md-12">
+                             
+                                <div>
                               <h3>{{ucwords($attribute['attribute_name'])}} : </h3> &nbsp;&nbsp;
-                              <div class="cleardix"></div>
+                              <div class="clearfix"></div>
                                     <input type="hidden" id="variant_type" name="variant_type" value="{{$attribute['attribute_type']}}">
                                     @if($attribute['attribute_type']=='radio')
                                       @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
@@ -107,7 +107,7 @@
                                       @endforeach
                                     
                                     @elseif($attribute['attribute_type']=='dropdown')
-                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e;" onchange="showAvailableOptions('{{$attribute_id}}', this.value)">
+                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" onchange="showAvailableOptions('{{$attribute_id}}', this.value)">
                                     @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
                                       @php
                                           $selected = '';
@@ -127,19 +127,17 @@
                                     </div>
                                     @endif
                                 </div>
-                              </div>    
-                            </div>
+                                </div>
+                                </div>
                             
-                        </div>
                         @endforeach
-
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options')}}</a></div>
-                        </div>
-                        <div class="row">
+                      
+                      
+                     
+                        
+                     
                         <div class="col-xs-6 col-md-6"  >
-                              <div class="quantity_box" style="margin-top:15px;">
+                              <div class="quantity_box">
                                 <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
@@ -155,16 +153,12 @@
                                     <option value="10"></option>
                                     </datalist>
                               </div>
-                          </div>
-                                          <div class="clearfix"></div>
-                        <div class="col-xs-6 col-md-12">
-                            <div class="quantity_box">
-                               <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
-                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
-                            </div>
-                        </div>
+                         
+                                          
+                        
                       </div>
-
+                      <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options')}}</a></div>
+                        
                       <!-- <div class="row">
                           <div class="col-xs-12 col-md-6">    
                           <div class="quantity_box">              
@@ -173,6 +167,12 @@
                           </div>
                         </div> -->
                 </div>
+                <div class="col-xs-6 col-md-12">
+                            <div class="quantity_box">
+                               <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
+                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
+                            </div>
+                        </div>
             </div>
 
         </div>

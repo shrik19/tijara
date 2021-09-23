@@ -1290,7 +1290,7 @@ overflow: hidden;}
 .category_list li a.active{color: #fff;background: #03989e;}
 .category_list li a{font-size: 18px; color: #717171; font-weight: 300;display: block;}
 .product_details{list-style: none;}
-.product_details li{ float: left; display: block; cursor: pointer; height: 100%; position: relative; width: 23%;margin: 0 5px;}
+.product_details li{ float: left; display: block; cursor: pointer; height: 100%; position: relative;}
 .seller_logo{    width: 100%;
     height: auto;
     display: flex;
@@ -1879,11 +1879,7 @@ span.pro-text {
     margin-top: 0px!important;
 }
 
-
-
-
-
-
+.wid_23 li{width: 23%; margin: 0 5px;}
 
 
 

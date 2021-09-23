@@ -55,28 +55,10 @@
                    <!--  <h4 class="product_price" id="product_variant_price" style="color:#03989e;"><span>{{ __('lang.price_label')}} :</span>{{ number_format($first['price'],2) }} kr  {{ number_format($first['discount_price'],2) }} kr</h4> -->
 
                     <div class="quantity_box">              
-                     <!--  -->
-                      <span  style="font-size:20px;" id="product_variant_price">
-                      <span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">
-                      {{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) 
-                      &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif 
-                      <span>
-                        @if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif
-                      </span>
-                    </span> 
-                    <div class="clearfix"></div>
-                        <span>{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif  
-                           </span>
-                           <span><i class="fa fa-map-marker de_col" aria-hidden="true"></i>
-                  @if(!empty($product_location)){{$product_location}}@endif</span>
-                
-                  <p>
-                        <?php echo $Product->description; ?>
-                      </p>
-                      
+                               <span  style="font-size:20px;color: #03989e; font-weight:600;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span></span> 
+                      <div> <span>{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif   </span>   <div class="clearfix"></div><span><i class="fas fa-map-marker-alt de_col"></i>
+                  @if(!empty($product_location)){{$product_location}}@endif</span></div>
                     </div>
-                   
-                     
                       <div class="clearfix"></div>
                       <div class="row prduct_det" style="position:absolute; bottom:0px">  
                         <div class="col-md-12" >                    

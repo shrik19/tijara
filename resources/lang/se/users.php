@@ -353,6 +353,7 @@ avbokning av tjänst fungerar.',
     'new_password_label' => 'Nytt lösenord',
     'go_to_announse_page'=>'Gå till Tijara annonser',
     'sold_by_title' =>'Säljes av',
+    'see_available_time_btn' =>'Se lediga tider',
 
  ]
 ?>

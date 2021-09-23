@@ -780,6 +780,7 @@ public function getCatSubList(Request $request) {
 	DB::enableQueryLog();
 
 		$currentDate = date('Y-m-d H:i:s');
+		$data = [];
 		$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->leftJoin('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->leftJoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
@@ -787,7 +788,7 @@ public function getCatSubList(Request $request) {
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')
 							  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
-							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id',DB::raw('( variant_product.price -  ROUND((variant_product.price  * products.discount) / 100, 2) ) AS discounted_price')])
+							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id',DB::raw('( variant_product.price -  ROUND((variant_product.price  * products.discount) / 100, 2) ) AS discounted_price'),'users.role_id'])
 							  ->where('products.status','=','active')
 							  ->where('products.is_deleted','=','0')
 							  ->where('categories.status','=','active')
@@ -882,7 +883,8 @@ public function getCatSubList(Request $request) {
 
 		$Products 			= $Products->paginate(config('constants.Products_limits'));
 
-		//dd($Products);
+		
+		$data['show_products'] =$Products[0]->role_id;
 	//print_r(DB::getQueryLog());exit;
 		if(count($Products)>0) {
 			foreach($Products as $Product) {

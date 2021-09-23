@@ -1,4 +1,4 @@
-<li  class="col-xs-15">
+<li  @if(Request::segment(1) =='seller' || Request::segment(1)) =='annonser') class = 'col-md-4' @else class="col-xs-15" @endif>
   <div class="product_data product_link_js" product_link="{{$product->product_link}}" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       @if($product->image)

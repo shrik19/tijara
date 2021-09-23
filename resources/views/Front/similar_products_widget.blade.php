@@ -1,4 +1,4 @@
-<li style="max-height:500px;">
+<li class="col-xs-15" style="max-height:500px;">
   <?php 
 
 

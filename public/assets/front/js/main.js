@@ -911,7 +911,7 @@ function ConfirmDeleteFunction1(url, id = false) {
 
 if($('.product_listings').length>0) {
   var page = 1;
-  
+
   get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
   $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
   $(".current_search_string").text(),'',$(".current_role_id").text());
@@ -945,7 +945,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
     'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 
     'price_filter' : price,'city_filter' : city, 'sort_order' : sort_by_order, 
     'sort_by' : sort_by, 'search_string' : search_string,search_seller_product:search_seller_product ,
-    'role_id':current_role_id},
+    'role_id':current_role_id,'path':window.location.pathname},
     success:function(data)
     {
       var responseObj = $.parseJSON(data);

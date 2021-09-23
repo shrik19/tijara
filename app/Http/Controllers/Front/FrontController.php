@@ -779,6 +779,7 @@ public function getCatSubList(Request $request) {
 	public function getProductsByParameter(Request $request) {
 	DB::enableQueryLog();
 
+		//print_r($request->all());exit;
 		$currentDate = date('Y-m-d H:i:s');
 		$data = [];
 		$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
@@ -964,6 +965,7 @@ public function getCatSubList(Request $request) {
 			}
 			$sellerData .= '</ul>';
 		}
+		$data['path'] = @$request->path;
 
 		$productListing = view('Front/products_list', $data)->render();
 			echo json_encode(array('products'=>$productListing,'sellers'=>$sellerData));
@@ -973,8 +975,10 @@ public function getCatSubList(Request $request) {
     /* function to display products page*/
 	public function buyerProductListing($category_slug='',$subcategory_slug='',Request $request)
     {
+
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
 		$data['current_role_id']	=	'1';
+
 		return view('Front/products', $data);
 	}
 	public function productListing($category_slug='',$subcategory_slug='',Request $request)

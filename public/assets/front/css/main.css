@@ -1731,7 +1731,7 @@ span.pro-text {
     width: 100%;
     color: #000;background: transparent; 
 }
-.seller_page_botton_border {border-bottom: 1px solid #191919;}
+.seller_page_botton_border {border-bottom: 1px solid #aaa;}
 .seller_cat_list>.activemaincategory, .seller_cat_list>.activesubcategory, .seller_cat_list>.activeservicemaincategory, .seller_cat_list>.activeservicesubcategory{
     background-color: transparent; color: #000; font-weight: 600;
 }

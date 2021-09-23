@@ -1862,13 +1862,13 @@ span.pro-text {
     /* .shopping_cart tr td{border-top: 0px!important;} */
     .shopping_cart tbody{border:1px solid #dadada}
     .border-cart{border:1px solid #dadada}
-    .prduct_det h3{font-size: 16px;
-        font-weight: 600;
+    .prduct_det h3{font-size: 18px;
+        font-weight: 500;
         color: #000;
 
         line-height: 25px;}
 
-        .prduct_det i{font-size:20px; color: #03989e;}
+        .prduct_det i{font-size:22px; color: #03989e; padding-right: 10px;}
 
 
 .product_check{width: 80%;
@@ -1882,7 +1882,19 @@ span.pro-text {
 .wid_23 li{width: 23%; margin: 0 5px;}
 
 
-
+.annonser_btn{    margin-top: 46px;
+    padding: 8px 15px;
+    background: #03989e;
+    color: #fff;
+    float: right;
+    border-radius: 3px;
+    font-size: 16px;
+}
+.annonser_btn:hover{
+    text-decoration: none;
+    background: #03989e;
+    color: #fff;
+}
 
 
                     @media only screen and (min-device-width: 1024px) and (max-device-width: 1400px){

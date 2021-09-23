@@ -53,15 +53,19 @@
                     <div class="row">
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
-                          <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>           
-                         
+                          <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>             
                             <span style="padding-top:2px; color: #03989e; font-weight:600;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
                             @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif
 
                             <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span>
                           </span> 
                             
-                          <div class="star-rating" style="font-size:unset; padding-top:35px">
+
+                          </div>
+                          </div>
+                        </div>
+                    
+                    <div class="star-rating" style="font-size:unset; padding-top:35px">
                     <select class='rating product_rating' id='rating_{{$Product->id}}' data-id='rating_{{$Product->id}}' data-rating='{{$Product->rating}}'>
                       <option value="1" >1</option>
                       <option value="2" >2</option>
@@ -70,12 +74,7 @@
                       <option value="5" >5</option>
                     </select>
                       
-                      </div> 
-                          </div>
-                          </div>
-                        </div>
-                    
-                  
+                      </div>
                       <div style='clear: both;'></div>
                    <!--    <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Product->id}}'>{{$Product->rating}}</span></div> -->
 
@@ -85,13 +84,12 @@
                       <div class="row">
                      
                          @foreach($ProductAttributes as $attribute_id => $attribute)
-                          <div class="col-md-12">
+                          <div class="col-md-6">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                               <div class="row">
-                                <div class="col-xs-5 col-md-6">
+                                <div class="col-xs-5 col-md-12">
                               <h3>{{ucwords($attribute['attribute_name'])}} : </h3> &nbsp;&nbsp;
-                                
-                               <div class="clearfix"></div>
+                              <div class="cleardix"></div>
                                     <input type="hidden" id="variant_type" name="variant_type" value="{{$attribute['attribute_type']}}">
                                     @if($attribute['attribute_type']=='radio')
                                       @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
@@ -102,14 +100,14 @@
                                             $checked = 'checked="checked"';
                                           }
                                         @endphp
-                                        <div class="radio icheck-success icheck-inline product_check">
+                                        <div class="radio icheck-success icheck-inline" style="margin-top:10px !important;">
                                             <input type="radio" name="optionsRadios_{{$attribute['attribute_name']}}" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" {{$checked}} onclick="showAvailableOptions('{{$attribute_id}}','{{$attribute_value_id}}')" class="variant_radio_{{$attribute_id}}" />
                                             <label for="{{$attribute_value_id}}">{{$attribute_value}}</label>
                                         </div>
                                       @endforeach
                                     
                                     @elseif($attribute['attribute_type']=='dropdown')
-                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown" style="width: 80%;display: inline-block;margin-top: 5px;" onchange="showAvailableOptions('{{$attribute_id}}', this.value)">
+                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e;" onchange="showAvailableOptions('{{$attribute_id}}', this.value)">
                                     @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
                                       @php
                                           $selected = '';
@@ -129,11 +127,20 @@
                                     </div>
                                     @endif
                                 </div>
-                               
-                              <div class="col-xs-6 col-md-6"  >
-                             
+                              </div>    
+                            </div>
+                            
+                        </div>
+                        @endforeach
+
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options')}}</a></div>
+                        </div>
+                        <div class="row">
+                        <div class="col-xs-6 col-md-6"  >
+                              <div class="quantity_box" style="margin-top:15px;">
                                 <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
-                                <div class="clearfix"></div>
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
                                     <option value="1"></option>
@@ -148,25 +155,14 @@
                                     <option value="10"></option>
                                     </datalist>
                               </div>
-                         
-
+                          </div>
+                                          <div class="clearfix"></div>
                         <div class="col-xs-6 col-md-12">
                             <div class="quantity_box">
                                <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
                                <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
                             </div>
-                        </div>  
-                            </div>
-                            
                         </div>
-                        @endforeach
-
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options')}}</a></div>
-                        </div>
-                        <div class="row">
-                      
                       </div>
 
                       <!-- <div class="row">
@@ -335,18 +331,15 @@
   <!-- end report product model Form -->
 
 <script type="text/javascript">
-
 $(".product_rating").each(function(){
   var currentRating = $(this).data('rating');
   $(this).barrating({
     theme: 'fontawesome-stars',
     initialRating: currentRating,
     onSelect: function(value, text, event) {
-
    // Get element id by data-id attribute
    var el = this;
    var el_id = el.$elem.data('id');
-
    // rating was selected by a user
    if (typeof(event) !== 'undefined') {
  
@@ -396,7 +389,6 @@ $(".product_rating").each(function(){
                           showErrorMessage(responseObj.msg,'/front-login');
                         }
                       }
-
                     }
                   });
                 }
@@ -419,7 +411,6 @@ $(".product_rating").each(function(){
   }
  });  
 }); 
-
 function addtoCartFromProduct()
 {
     var product_quantity = $("#product_quantity").val();
@@ -435,9 +426,7 @@ function addtoCartFromProduct()
       showErrorMessage(product_variant_error);
       return false;
     }
-
     $(".loader").show();
-
     $.ajax({
       url:siteUrl+"/add-to-cart",
       headers: {
@@ -464,15 +453,11 @@ function addtoCartFromProduct()
             showErrorMessage(responseObj.msg,'/front-login');
           }
         }
-
       }
      });
 }
-
 //Initialize product gallery
-
 $('.show-custom').zoomImage();
-
 $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
 $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');
 $('.show-small-img').click(function () { 
@@ -492,9 +477,7 @@ $('.show-small-img').click(function () {
     }
   }
 });
-
 //Enable the next button
-
 $('#next-img').click(function (){
   $('#show-img').attr('src', $(".show-small-img[alt='now']").next().attr('src'))
   $('#big-img').attr('src', $(".show-small-img[alt='now']").next().attr('src'))
@@ -510,9 +493,7 @@ $('#next-img').click(function (){
     }
   }
 });
-
 //Enable the previous button
-
 $('#prev-img').click(function (){
   $('#show-img').attr('src', $(".show-small-img[alt='now']").prev().attr('src'))
   $('#big-img').attr('src', $(".show-small-img[alt='now']").prev().attr('src'))
@@ -528,15 +509,11 @@ $('#prev-img').click(function (){
     }
   }
 });
-
 $("#show-img").next('div').next('div').css('z-index','999');
-
-
 function showAvailableOptions(attribute_id,attribute_value)
 {
   $("#reset_option").show();
   $(".loader").show();
-
   $.ajax({
     url:siteUrl+"/get-product-options",
     headers: {
@@ -557,7 +534,6 @@ function showAvailableOptions(attribute_id,attribute_value)
       $(images).each(function(key,image){
         allImages+='<img src="'+siteUrl+'/uploads/ProductImages/productIcons/'+image+'" class="show-small-img" alt="">';
       });
-
       $("#small-img-roll").html(allImages);
       $('.show-custom').find('div').remove();
       $('.show-custom').zoomImage();
@@ -579,7 +555,6 @@ function showAvailableOptions(attribute_id,attribute_value)
         }
       });
       $(".show-custom").find('div').not(':first').css('z-index','999');
-
       $("#product_variant_id").val(responseObj.current_variant.id);
       if(responseObj.current_variant.discount_price)
       {
@@ -599,7 +574,6 @@ function showAvailableOptions(attribute_id,attribute_value)
         {
           $("."+option.attribute_id+" option").attr('disabled','disabled');
           $("."+option.attribute_id+" option[value='"+option.attribute_value_id+"']").removeAttr('disabled');
-
           if(optionLength == 1)
           {
             $("."+option.attribute_id+" option[value='"+option.attribute_value_id+"']").attr('selected','selected');
@@ -611,7 +585,6 @@ function showAvailableOptions(attribute_id,attribute_value)
           $(".variant_radio_"+option.attribute_id).each(function(){
               $(this).attr('disabled','disabled').removeAttr('checked');
           });
-
           $("#"+option.attribute_value_id).removeAttr('disabled');
           if(optionLength == 1)
           {
@@ -619,11 +592,9 @@ function showAvailableOptions(attribute_id,attribute_value)
           }
         }
       });
-
       $(".loader").hide();
     }
   });
-
   function number_format (number, decimals, dec_point, thousands_sep) {
     // Strip all characters but numerical ones.
     number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
@@ -648,7 +619,6 @@ function showAvailableOptions(attribute_id,attribute_value)
     return s.join(dec);
 }
 }
-
 $(document).on("click",".report_product",function(event) {
         
         $('#reportProductmodal').find('.user_email').val($(this).attr('user_email'));
@@ -659,12 +629,10 @@ $(document).on("click",".report_product",function(event) {
        
          $('#reportProductmodal').modal('show');
 });
-
 $(document).on("click",".send_report_product",function(event) {
        //storeContactform 
       let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
       let error = 0;
-
      if($('#reportProductmodal').find('.user_email').val()=='') {
         $("#err_email").html(fill_in_email_err).show();
         $("#err_email").parent().addClass('jt-error');
@@ -677,12 +645,10 @@ $(document).on("click",".send_report_product",function(event) {
       $("#err_email").parent().removeClass('jt-error');
       $("#err_email").html('').hide();
     }
-
     if($('#reportProductmodal').find('.user_message').val()==''){
        showErrorMessage(required_field_error);
        error = 1;
     }
-
     if(error == 1){
       return false;
     }else{
@@ -694,7 +660,6 @@ $(document).on("click",".send_report_product",function(event) {
         let product_link      = $("#product_link").val();
         let product_id      = $("#product_id").val();
        $(".loader-seller").show();
-
         setTimeout(function(){
     $.ajax({
           url:"{{ route('FrontReportProduct') }}",

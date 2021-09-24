@@ -561,7 +561,7 @@ class AuthController extends Controller
                //'city'         => trim($request->input('city')),
               //  'swish_number' => trim($request->input('swish_number')),
                 'postcode'     => trim($request->input('postcode')),
-                'store_name'   => trim($request->input('store_name')),
+               // 'store_name'   => trim($request->input('store_name')),
                 'paypal_email' => trim($request->input('paypal_email')),
               //  'description'  => trim($request->input('description')),
               //  'where_find_us'=> trim($request->input('find_us')),

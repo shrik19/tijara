@@ -834,6 +834,64 @@ $(document).ready(function(){
 		$("#progressbar li#payment").addClass("active");
 	}
 });
+
+
+
+function showErrorMessage(strContent,redirect_url = '')
+{
+  $.alert({
+      title: 'Oops!',
+      content: strContent,
+      type: 'red',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-times-circle",
+      buttons: {
+        Ok: function () {
+            if(redirect_url != '')
+            {
+              if(redirect_url == 'reload')
+              {
+                location.reload(true);
+              }
+              else
+              {
+                window.location.href = redirect_url;
+              }
+            }
+        },
+      }
+    });
+}
+
+
+function showSuccessMessage(strContent,redirect_url = '')
+{
+    
+  $.alert({
+      title: 'Success!',
+      content: strContent,
+      type: 'green',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-check-circle",
+      buttons: {
+        okay: function () {
+          if(redirect_url != '')
+          {
+            if(redirect_url == 'reload')
+            {
+              location.reload(true);
+            }
+            else
+            {
+              window.location.href = redirect_url;
+            }
+          }
+        },
+      }
+    });
+}
 </script>
 </body>
 </html>

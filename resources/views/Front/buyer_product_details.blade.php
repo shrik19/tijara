@@ -56,14 +56,14 @@
 
                     <div class="quantity_box">              
                                <span  style="font-size:20px;color: #03989e; font-weight:600;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span></span> 
-                      <div> <span>{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif   </span> <span style="padding-left:13%"><i class="fas fa-map-marker-alt de_col"></i>
+                      <div> <span>{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif   </span> <span style="padding-left:13%"> <img src="{{url('/')}}/assets/img/7.png" width="40" />
                   @if(!empty($product_location)){{$product_location}}@endif</span></div>
                     </div>
                       <div class="clearfix"></div>
                       <div class="row prduct_det" style="position:absolute; bottom:0px">  
                         <div class="col-md-12" >                    
-                        <h3><i class="fa fa-phone-alt"></i> {{@$buyer_product_details->user_phone_no}}</h3>
-                        <h3><i class="far fa-envelope"></i> {{@$buyer_product_details->user_email}}</h3>
+                        <h3> <img src="{{url('/')}}/assets/img/8.png" width="40" /> {{@$buyer_product_details->user_phone_no}}</h3>
+                        <h3><img src="{{url('/')}}/assets/img/9.png" width="40" /> {{@$buyer_product_details->user_email}}</h3>
 
                         </div>       
                       </div>

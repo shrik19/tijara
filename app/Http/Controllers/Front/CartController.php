@@ -221,25 +221,28 @@ class CartController extends Controller
               }
 
               //Update Order Totals
-              $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id as product_user','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
+              $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
+//echo "<pre>";print_r($checkExistingOrderProduct);
               if(!empty($checkExistingOrderProduct))
               {
                   foreach($checkExistingOrderProduct as $details)
                   {
+                     $product_shipping_amount = 0;
                       //Get Seller Shipping Informations
                       $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
-
-                      if(!empty($Products[0]['shipping_method']) && !empty($Products[0]['shipping_charges']))
+         
+                       // where products.id = $details['product_id']
+                      if(!empty($details['shipping_method']) && !empty($details['shipping_charges']))
                       {
-                        if($Products[0]['shipping_method'] == trans('users.flat_shipping_charges'))
+                        if($details['shipping_method'] == trans('users.flat_shipping_charges'))
                         {
                           $product_shipping_type = 'flat';
-                          $product_shipping_amount = (float)$Products[0]['shipping_charges'];
+                          $product_shipping_amount = (float)$details['shipping_charges'];
                         }
-                        else if($Products[0]['shipping_method'] == trans('users.prcentage_shipping_charges'))
+                        else if($details['shipping_method'] == trans('users.prcentage_shipping_charges'))
                         {
                           $product_shipping_type = 'percentage';
-                          $product_shipping_amount =((float)$Products[0]['price'] * $Products[0]['shipping_charges']) / 100;
+                          $product_shipping_amount =((float)$details['price'] * $details['shipping_charges']) / 100;
                         }
                       }
                       else if(empty($SellerShippingData['free_shipping']))
@@ -254,8 +257,10 @@ class CartController extends Controller
                               elseif($SellerShippingData['shipping_method'] == trans('users.prcentage_shipping_charges'))
                               {
                                 $product_shipping_type = 'percentage';
-                                $product_shipping_amount = ((float)$Products[0]['price'] * $SellerShippingData['shipping_charges']) / 100;
+                                $product_shipping_amount = ((float)$details['price'] * $SellerShippingData['shipping_charges']) / 100;
                               }
+                          }else{
+                             $product_shipping_type = 'free'; 
                           }
                       }
                       else
@@ -267,7 +272,8 @@ class CartController extends Controller
                         'shipping_type'        => $product_shipping_type,
                         'shipping_amount'      => $product_shipping_amount,
                       ];
-  
+
+                    // echo "<pre>";print_r($arrOrderDetailsUpdate);
                       TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                       $subTotal += $details['price'] * $details['quantity'];
@@ -337,6 +343,8 @@ class CartController extends Controller
 
                 foreach($checkExistingOrderProduct as $details)
                 {
+                    $product_shipping_amount = 0;
+                    $discount_price = 0;
                     $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
                     if(empty($checkVariant))
                     {
@@ -385,6 +393,8 @@ class CartController extends Controller
                               $product_shipping_type = 'percentage';
                               $product_shipping_amount = ((float)$discount_price * $SellerShippingData['shipping_charges']) / 100;
                             }
+                        }else{
+                          $product_shipping_type='free';
                         }
                     }
                     else

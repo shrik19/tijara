@@ -84,8 +84,8 @@
               <label>{{ __('users.shipping_method_label')}}</label>
              <select class="form-control ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
-               <option  <?php if($sellerDetails[0]->shipping_method == "Flat shipping costs"){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
-               <option <?php if($sellerDetails[0]->shipping_method == "Percentage Shipping Charges"){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
+               <option  <?php if($sellerDetails[0]->shipping_method ==  __('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
+               <option <?php if($sellerDetails[0]->shipping_method ==  __('users.prcentage_shipping_charges')){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
              </select>
             </div>
 

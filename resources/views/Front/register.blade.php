@@ -159,6 +159,64 @@ var password_min_6_char="{{ __('errors.password_min_6_char')}}";
 var password_not_matched="{{ __('errors.password_not_matched')}}";
 var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
 
+
+
+function showErrorMessage(strContent,redirect_url = '')
+{
+  $.alert({
+      title: 'Oops!',
+      content: strContent,
+      type: 'red',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-times-circle",
+      buttons: {
+        Ok: function () {
+            if(redirect_url != '')
+            {
+              if(redirect_url == 'reload')
+              {
+                location.reload(true);
+              }
+              else
+              {
+                window.location.href = redirect_url;
+              }
+            }
+        },
+      }
+    });
+}
+
+
+function showSuccessMessage(strContent,redirect_url = '')
+{
+    
+  $.alert({
+      title: 'Success!',
+      content: strContent,
+      type: 'green',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-check-circle",
+      buttons: {
+        okay: function () {
+          if(redirect_url != '')
+          {
+            if(redirect_url == 'reload')
+            {
+              location.reload(true);
+            }
+            else
+            {
+              window.location.href = redirect_url;
+            }
+          }
+        },
+      }
+    });
+}
+
 $(document).on('click','.frontregisterbtn',function(e) {
 
   e.preventDefault();
@@ -210,6 +268,7 @@ $(document).on('click','.frontregisterbtn',function(e) {
   {
     $("#err_email").parent().removeClass('jt-error');
     $("#err_email").html('').hide();
+
   }
 
   if(password == '')
@@ -240,10 +299,10 @@ $(document).on('click','.frontregisterbtn',function(e) {
   }
 
   if($("#chk_privacy_policy").is(':checked')){
-     error = 0;
+    // error = 0;
   } else {
 
-      alert(please_check_privacy_policy);
+      showErrorMessage(please_check_privacy_policy);
       error = 1;
 
   }

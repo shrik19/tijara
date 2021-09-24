@@ -1290,7 +1290,7 @@ function addToWishlist(product_variant)
         }
         else
         {
-          showErrorMessage(responseObj.msg,'/front-login');
+          showErrorMessage(responseObj.msg,'/front-login/buyer');
         }
       }
 

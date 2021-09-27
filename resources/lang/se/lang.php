@@ -289,7 +289,7 @@
      'txt_comments' => 'Kommentarer',
      'txt_comments_err' => 'Ange dina kommentarer.',
      'txt_comments_success' => 'Produktrecension har lagts till.',
-     'featured_seller_head'=>'Utvalda Butiker',
+     'featured_seller_head'=>'Utvalda butiker',
      'popular_services_head' => 'Populära tjänster',
      'remove_title' => 'Ta bort',
 

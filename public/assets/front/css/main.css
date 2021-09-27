@@ -1162,7 +1162,7 @@ span.remember-text {
 		margin-left: 4%;
 	}
 	
-.heading{font-weight: 600; font-size: 42px; padding-bottom: 30px;}
+.heading{font-weight: 600; font-size: 42px; padding-bottom: 30px;margin-left: 10px;}
 .heading_line{       margin: 0;
     background-color: #03989e;
     width: 8%;
@@ -1679,7 +1679,7 @@ ul.tijara_front_box.row {
 #msform{padding: 20px 0;}
 .p-0{padding: 0;}
 .colr-box {padding: 20px;}
-.tijara_front_box li h3{text-align: left; font-size: 24px; color: #737373;}
+.tijara_front_box li h3{text-align: left; font-size: 24px; color: #737373;margin-left: 35px;}
 
 
 

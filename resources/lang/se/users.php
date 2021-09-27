@@ -354,6 +354,14 @@ avbokning av tjänst fungerar.',
     'go_to_announse_page'=>'Gå till Tijara annonser',
     'sold_by_title' =>'Säljes av',
     'see_available_time_btn' =>'Se lediga tider',
-
+    'Unik_title' =>'Unik',
+    'marketplace_title'=>'marknadsplats',
+    'promote_title'=>'Främjar',
+    'entrepreneurship_title'=>'entreprenörskap',
+    'encourages_to_title'=>'Uppmuntrar till',
+    'local_trade_title'=>'lokal handel',
+    'unique_marketplace_info'=>'Utforska unika produkter och tjänster.',
+    'entrepreneurship_info'=>'Starta din entreprenörsresa redan idag.',
+    'encourages_local_trade_info' => 'Hitta produkter och tjänster nära dig.',
  ]
 ?>

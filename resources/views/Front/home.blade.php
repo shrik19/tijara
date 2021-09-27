@@ -223,37 +223,34 @@
 			<div class="tijara_front_container">
 				<ul class="tijara_front_box row">
 					<li >
-                        <div class="colr-box colr-1">
-						<div class="tijara_front_inner ">
-                        <img src="{{url('/')}}/assets/img/icon1.png"  />
-                        <h4>Unik<br/>
-                            marknadsplats</h4>
-						</div>
-                        </div>
-                        <h3>Unik<br/>
-                            marknadsplats</h3>
+            <div class="colr-box colr-1">
+              <div class="tijara_front_inner ">
+              <img src="{{url('/')}}/assets/img/icon1.png"  />
+              <h4>{{ __('users.Unik_title')}}<br/>
+              {{ __('users.marketplace_title')}}</h4>
+              </div>
+            </div>
+              <h3>{{ __('users.unique_marketplace_info')}}</h3>
 					</li>
 					<li>
-                   <div class="colr-box colr-2">
-						<div class="tijara_front_inner">
-                        <img src="{{url('/')}}/assets/img/icon2.png"/>
-                        <h4>Främjar<br/>
-                        entreprenörskap</h4>
-						</div>
-                    </div>
-                    <h3>Unik<br/>
-                            marknadsplats</h3>
+            <div class="colr-box colr-2">
+              <div class="tijara_front_inner">
+              <img src="{{url('/')}}/assets/img/icon2.png"/>
+              <h4>{{ __('users.promote_title')}}<br/>
+              {{ __('users.entrepreneurship_title')}}</h4>
+              </div>
+            </div>
+              <h3>{{ __('users.entrepreneurship_info')}}</h3>
 					</li>
 					<li>
                     <div class="colr-box colr-3">
 						<div class="tijara_front_inner">
                         <img src="{{url('/')}}/assets/img/icon3.png"/>
-                        <h4>Uppmuntrar till<br/>
-                            lokal handel</h4>
+                        <h4>{{ __('users.encourages_to_title')}}<br/>
+                            {{ __('users.local_trade_title')}}</h4>
 						</div>
                     </div>
-                    <h3>Unik<br/>
-                            marknadsplats</h3>
+                    <h3>{{ __('users.encourages_local_trade_info')}}</h3>
 					</li>                       
 				</ul>
 				<div class="tijara_front_read_more">

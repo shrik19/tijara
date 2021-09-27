@@ -334,6 +334,14 @@ cancellation of service works.',
     'go_to_announse_page'=>'Go to Tijara Ads',
     'sold_by_title' =>'Sold By',
     'see_available_time_btn' =>'See free times',
-
+    'Unik_title' =>'Unique',
+    'marketplace_title'=>'marketplace',
+    'promote_title'=>'Promotes',
+    'entrepreneurship_title' =>'entrepreneurship',
+    'encourages_to_title'=>'Encourages to',
+    'local_trade_title'=>'local trade',
+    'unique_marketplace_info'=> 'Explore unique products and services.',
+    'entrepreneurship_info'=> 'Start your entrepreneurial journey already today.',
+    'encourages_local_trade_info' => 'Find products and services close to you.',
  ]
 ?>

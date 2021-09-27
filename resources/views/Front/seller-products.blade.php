@@ -18,9 +18,9 @@
         <div class="col-md-3">
             <div>            
              @if(!empty($logo)) 
-             <div class="seller_logo">
+             <div class="seller_logo seller_details_img">
              <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif
-             <div class="seller_info border-none">
+             <div class="seller_info border-none seller_details">
               <h2>{{ $seller_name }}</h2>
               <p>{{ $city_name }}</p>
               <div class="star-rating">

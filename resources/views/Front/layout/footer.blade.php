@@ -18,10 +18,10 @@
               </p>
             </article> -->
             <ul class="social_icon">
-              <li><a href="#"><img src="{{url('/')}}/assets/front/img/fb_icon.png"/></a></li>
+              <li><a href="#"><img src="{{url('/')}}/assets/img/facebook_1.png"/></a></li>
               <!-- <li><a href="#"><img src="{{url('/')}}/assets/front/img/tw_icon.png"/></a></li> -->
-              <li><a href="#"><img src="{{url('/')}}/assets/front/img/instgram_icon.png"/></a></li>
-              <li><a href="#"><img src="{{url('/')}}/assets/front/img/pi_icon.png"/></a></li>
+              <li><a href="#"><img src="{{url('/')}}/assets/img/instagram_1.png"/></a></li>
+              <li><a href="#"><img src="{{url('/')}}/assets/img/link_1.png"/></a></li>
             </ul>
         </div>
         @php

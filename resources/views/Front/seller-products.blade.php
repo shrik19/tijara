@@ -106,9 +106,9 @@
              <div class="row">
               <div class="col-md-1">
                 @if(!empty($review['profile']))
-                  <img src="{{url('/')}}/uploads/Buyer/resized/{{$review['profile']}}" class="ratingUserIcon">
+                  <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
                 @else 
-                  <img src="{{url('/')}}/uploads/Buyer/resized/profile.png" class="ratingUserIcon">
+                  <img src="{{url('/')}}/uploads/Buyer/buyerIcons/no-image.png" class="ratingUserIcon">
                 @endif
                
               </div>

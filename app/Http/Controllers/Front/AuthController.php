@@ -1182,6 +1182,86 @@ class AuthController extends Controller
 
                     imagedestroy($dst_img);
                     imagedestroy($src_img);
+
+                     /*resized for product details page small image*/
+                        $mime = getimagesize($path);
+            
+                        if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+    
+                        if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+    
+                        if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+    
+                        if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+    
+    
+    
+                        $old_x = imageSX($src_img);
+    
+                        $old_y = imageSY($src_img);
+    
+    
+    
+                        $newWidth = 70;
+    
+                        $newHeight = 70;
+    
+    
+    
+                        if($old_x > $old_y) {
+    
+                            $thumb_w    =   $newWidth;
+    
+                            $thumb_h    =   $old_y/$old_x*$newWidth;
+    
+                        }
+    
+    
+    
+                        if($old_x < $old_y) {
+    
+                            $thumb_w    =   $old_x/$old_y*$newHeight;
+    
+                            $thumb_h    =   $newHeight;
+    
+                        }
+    
+    
+    
+                        if($old_x == $old_y) {
+    
+                            $thumb_w    =   $newWidth;
+    
+                            $thumb_h    =   $newHeight;
+    
+                        }
+    
+    
+    
+                        $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
+    
+                        imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+    
+                        // New save location
+    
+                        $new_thumb_loc = public_path().'/uploads/Buyer/buyerIcons/' . $fileName;
+    
+    
+    
+                        if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+    
+                        if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+    
+                        if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+    
+                        if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+    
+    
+    
+                        imagedestroy($dst_img);
+    
+                        imagedestroy($src_img);        
+    
                 }
                 else {
                     $fileError = 1;

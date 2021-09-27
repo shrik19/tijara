@@ -26,8 +26,13 @@ header{
     margin-bottom: 40px;
 }
 .go_to_tijara_ads_btn{
-  color: #000 !important;
-    background-color: #ffcc99;padding: 10px;margin-bottom: 55px;margin-top: 25px;margin-left: 40px;border-radius: 10px;
+    color: #000 !important;
+    background-color: #f9b78e;
+    
+    margin-bottom: 55px;
+    margin-top: 25px;
+    margin-left: 40px;
+    border-radius: 20px;
 }
 .de_col{
     color: #03989e !important;
@@ -391,7 +396,7 @@ summary.active::after {
     width: 95%; 
     overflow: hidden;
     text-overflow: ellipsis;
-    text-decoration:underline;
+    text-decoration: none;
      }
 .featured_seller_section {
     background: #fff;
@@ -408,7 +413,7 @@ summary.active::after {
     border-radius: 30px;
     border: 2px solid #ededed;
 }
-
+.feature_seller h3 a:hover{    text-decoration: none;}
 .featured_seller_container{width: 90%; margin: 0 auto;}
 
 .featured_seller_section img.img-fluid {
@@ -1300,8 +1305,10 @@ overflow: hidden;}
     justify-content: center;
     object-fit: contain; }
 .seller_info{float: left; padding-bottom: 5px;width: 100%;}
-.seller_info h2{font-size: 28px; font-weight: 600;;}
-.seller_info p{font-size: 22px;}
+.seller_info h2{    font-size: 22px;
+    font-weight: 600;
+    margin: 0; line-height: 25px;}
+.seller_info p{font-size: 18px;margin: 0;}
 .store_info{font-size: 18px; line-height: 30px; padding: 10px 0; font-weight: normal;}
 .tijara_front_container{margin: 0 auto; margin-right: 5px;}
 .all_cat_sidebar_label{font-size: 30px; padding: 20px 0 0 0;margin-bottom: 30px}
@@ -1447,7 +1454,21 @@ overflow: hidden;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
 .best_seller_container h2{font-size: 40px; font-weight: 600; color: #000;margin: 0;padding-bottom: 30px;}
 .instagram_imgs{list-style: none;}
-.instagram_imgs li{float: left;width: 20%;}
+.instagram_imgs li{    float: left;
+    width: 18%;
+    margin: 7px;
+    position: relative;}
+    
+    .instagram_imgs li:before {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        content: "\f16d";
+        font-family: "Font Awesome 5 Brands";
+        right: -25px;
+        font-size: 23px;
+        color: #fff;
+    }
 .steps_section{position: relative;    height: 300px;
     margin: 29px 0;}
 
@@ -1693,7 +1714,7 @@ ul.tijara_front_box.row {
 .mainMenu{padding-top: 40px; width: 100%;margin: 15px 0 0 0;}
 .tj-topmenu{background-color: rgba(255, 255, 255, 0.9); float: left; width: 100%;}
 .product_view{width: 90%; margin: 0 auto;}
-.container-inner-section{width: 90%; margin: 0 auto;}
+.container-inner-section{width: 94%; margin: 0 auto;}
 .mtb-20{margin: 20px 0;}
 .m-0{margin: 0!important; position: relative; min-height: 0;}
 .toggle_btn{      position: fixed;
@@ -1895,7 +1916,8 @@ span.pro-text {
     background: #03989e;
     color: #fff;
 }
-
+.seller_details{width: 61%;}
+.seller_details_img{width: 35%;}
 
                     @media only screen and (min-device-width: 1024px) and (max-device-width: 1400px){
 
@@ -1970,12 +1992,27 @@ span.pro-text {
         .best_seller li {
             width: 94%;
         }
-
+..instagram_imgs li{width: 100%;}
         .instagram_imgs img{width: 100%;}
         .best_seller_container{padding: 15px;}
         .product_details li {
             width: 95%;
 
+        }
+        .a_btn, .login_btn {
+            text-decoration: none;
+            font-size: 12px;
+            color: #fff;
+            padding: 6px 5px;
+        }
+        .go_to_tijara_ads_btn {
+            color: #000 !important;
+            background-color: #ffcc99;
+            padding: 10px;
+            margin-bottom: 97px;
+            margin-top: 42px;
+            margin-left: -14px;
+            border-radius: 10px;
         }
         .product_img{position: relative;}
         .buy_now_hover_details{position: absolute; top: 0px;  height: 100%;

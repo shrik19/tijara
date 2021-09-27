@@ -111,7 +111,7 @@
                           $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($fea_seller->id)."/products"; 
                             
                         @endphp
-                        <h3><a href="{{$seller_link}}" title="{{$fea_seller['store_name']}}" style="color: #000 !important;">{{ $fea_seller['store_name'] }}</a></h3><!-- 
+                        <h3><a href="{{$seller_link}}" title="{{$fea_seller['store_name']}}" style="color: #000 !important;border-bottom: 1px solid #000;line-height: 41px;">{{ $fea_seller['store_name'] }}</a></h3><!-- 
                         <h3>{{ $fea_seller['store_name'] }}</h3> -->
                     </div>
                     @endforeach

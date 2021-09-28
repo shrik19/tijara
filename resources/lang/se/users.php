@@ -363,5 +363,14 @@ avbokning av tjänst fungerar.',
     'unique_marketplace_info'=>'Utforska unika produkter och tjänster.',
     'entrepreneurship_info'=>'Starta din entreprenörsresa redan idag.',
     'encourages_local_trade_info' => 'Hitta produkter och tjänster nära dig.',
+    'swish_pament_label' => 'Swish betalning',
+    'stripe_pament_label' => 'Stripe betalning',
+    'swish_api_key_label' =>'Api Key',
+    'swish_merchant_account_label' => 'Merchant Account',
+    'swish_client_key_label' => 'Client Key',
+    'easy_peyment_title' => 'Enkel betalning',
+    'stripe_api_key_label' =>'Api Key',
+    'stripe_account_label' => 'Stripe Account',
+ 
  ]
 ?>

@@ -22,11 +22,11 @@
           @include ('Front.alert_messages')
           <div class="col-md-6">
             <h3>{{ __('users.payment_method_head')}}</h3>
-            <p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>
-            <div class="login_box klarna_payment_detail_box">
-          
-              <form method="POST" action="{{route('frontStorePaymentDetails')}}" class="needs-validation" novalidate="">
+             <form method="POST" action="{{route('frontStorePaymentDetails')}}" class="needs-validation" novalidate="">
               @csrf
+
+            <p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>
+            <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
 
                 <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
               <p>Klarna</p>
@@ -45,6 +45,48 @@
                 
              
             </div>
+            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.easy_peyment_title')}}</p>
+            <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
+          
+                <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
+              <p>Swish</p>
+              <div class="form-group">
+                  
+              <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="{{ (old('swish_api_key')) ? old('swish_api_key') : $sellerDetails[0]->swish_api_key}}">
+              <span class="invalid-feedback" style="position: relative;">@if($errors->has('swish_api_key')) {{ $errors->first('swish_api_key') }}@endif</span>
+                </div>
+
+              <div class="form-group">
+              <input type="password" class="form-control" name="swish_merchant_account" id="swish_merchant_account" placeholder="{{ __('users.swish_merchant_account_label')}}" value="{{ (old('swish_merchant_account')) ? old('swish_merchant_account') : $sellerDetails[0]->swish_merchant_account}}">
+              <span class="invalid-feedback">@if($errors->has('swish_merchant_account')) {{ $errors->first('swish_merchant_account') }}@endif</span>
+              </div>
+
+
+              <div class="form-group">
+              <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="{{ (old('swish_client_key')) ? old('swish_client_key') : $sellerDetails[0]->swish_client_key}}">
+              <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
+              </div>
+                
+             
+            </div>
+            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
+            <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
+                <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
+              <p>Stripe</p>
+              <div class="form-group">
+                  
+              <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="{{ (old('strip_api_key')) ? old('strip_api_key') : $sellerDetails[0]->strip_api_key}}">
+              <span class="invalid-feedback" style="position: relative;">@if($errors->has('strip_api_key')) {{ $errors->first('strip_api_key') }}@endif</span>
+                </div>
+
+              <div class="form-group">
+              <input type="text" class="form-control" name="strip_account" id="strip_account" placeholder="{{ __('users.stripe_account_label')}}" value="{{ (old('strip_account')) ? old('strip_account') : $sellerDetails[0]->strip_account}}">
+              <span class="invalid-feedback">@if($errors->has('strip_account')) {{ $errors->first('strip_account') }}@endif</span>
+                </div>
+
+                
+             
+            </div>
              <div style="margin-top: 30px;">
              
                 <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
@@ -56,6 +98,7 @@
           <div class="col-md-4">
               <div class="info" style="background-color: #e6f2ff;padding: 20px;margin-bottom: 10px;">{{ __('users.payment_method_info')}}</div>
           </div>
+            <div class="col-md-2"></div>
         
             
          </div> <!-- seller_mid_cont -->

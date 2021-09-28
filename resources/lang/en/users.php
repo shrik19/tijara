@@ -343,5 +343,13 @@ cancellation of service works.',
     'unique_marketplace_info'=> 'Explore unique products and services.',
     'entrepreneurship_info'=> 'Start your entrepreneurial journey already today.',
     'encourages_local_trade_info' => 'Find products and services close to you.',
+    'swish_pament_label' => 'Swish Payment',
+    'stripe_pament_label' => 'Stripe Payment',
+    'swish_api_key_label' =>'Api Key',
+    'swish_merchant_account_label' => 'Merchant Account',
+    'swish_client_key_label' => 'Client Key',
+    'easy_peyment_title' => 'Easy Payment',
+    'stripe_api_key_label' =>'Api Key',
+    'stripe_account_label' => 'Stripe Account',
  ]
 ?>

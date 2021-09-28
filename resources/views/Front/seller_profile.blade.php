@@ -23,12 +23,12 @@
 			  <h2>{{ __('users.profile_update_title')}}</h2>
 			  <!-- <hr class="heading_line"> -->
 		 </div>  
-        <div class="login_box seller_mid_cont">
+        <div class="login_box seller_mid_cont" style="margin-top: 40px;">
           
             <h2 class="col-md-12 contact-info seller_mid_header">{{ __('users.contact_person')}}</h2>
           
             <input type="hidden" name="role_id" value="{{$role_id}}">
-            <p class="contact_person_head">Kontaktperson:</p>
+            <p class="contact_person_head" style="margin-top: 40px;margin-left: 16px;margin-bottom: 20px;">Kontaktperson:</p>
 
             <div class="form-group col-md-6">
              <!--  <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label> -->
@@ -79,7 +79,7 @@
               <hr class="row solid-horizontal-line">
             </div>
 
-            <h2 class="col-md-12">{{ __('users.shipping_setting')}}</h2>
+            <h2 class="col-md-12" style="margin-top: 40px;margin-bottom: 20px;">{{ __('users.shipping_setting')}}</h2>
             <div class="form-group col-md-6" id="shipping_method_ddl_div">
               <label>{{ __('users.shipping_method_label')}}</label>
              <select class="form-control ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
@@ -116,9 +116,9 @@
 
             */?>
             <hr class="row solid-horizontal-line">
-             <h2 class="col-md-12">{{ __('users.payment_setting')}}</h2>
+             <h2 class="col-md-12" style="margin-top: 40px;margin-bottom: 20px;">{{ __('users.payment_setting')}}</h2>
              <div class="col-md-12">
-              <div class="col-md-6">
+              <div class="col-md-6" style="margin-left: -15px;">
 
                 <div class="form-group">
                   <input type="text" class="form-control ge_input" name="card_fname" id="card_fname" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('card_fname')) ?  old('card_fname') : $sellerDetails[0]->card_fname}}">

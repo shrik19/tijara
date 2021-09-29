@@ -11,7 +11,7 @@
       <div class="row" style="margin-top:40px;">
   <div class="container-inner-section">
  
-        <?php if(Request::segment(1) =='services' || Request::segment(1) =='products'): ?>
+        <?php if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser'): ?>
           <?php echo $__env->make('Front.category_breadcrumb', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
          
         <?php endif; ?>
@@ -23,11 +23,12 @@
             <span class="current_subcategory" style="display:none;"><?php echo e($subcategory_slug); ?></span>
             <span class="current_sellers" style="display:none;"><?php echo e($seller_id); ?></span>
             <span class="current_search_string" style="display:none;"><?php echo e($search_string); ?></span>
+            <span class="current_role_id" style="display:none;"><?php echo e($current_role_id); ?></span>
             <div class="product_container">
                 <div class="row">
                   <div class="col-md-6">
-                    <h2><?php echo e(__('lang.trending_product_head')); ?></h2>
-                    <hr class="heading_line"/>
+                   <!--  <h2><?php echo e(__('lang.trending_product_head')); ?></h2>
+                    <hr class="heading_line"/> -->
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
@@ -59,14 +60,14 @@
 
     </div> <!-- /container -->
 </section>
-
+<?php if(Request::segment(1) !='annonser'): ?>
 <section>
     <div class="container-fluid">
         <div class="row">
           <div class="container-inner-section">
             <div class="best_seller_container">
-                <h3><?php echo e(__('lang.popular_items_in_market_head')); ?></h3>
-                <h2><?php echo e(__('lang.best_seller_head')); ?></h2>
+                <!-- <h3><?php echo e(__('lang.popular_items_in_market_head')); ?></h3> -->
+                <h2><?php echo e(__('users.other_watched_product')); ?></h2>
                 <ul class="product_details best_seller">
 					<?php $__currentLoopData = $PopularProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php echo $__env->make('Front.products_widget', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -79,11 +80,13 @@
         </div>
     </div>
 </section>
+<?php endif; ?>
 
 <script type="text/javascript">
 
 function getListing()
 {
+  
   var category_slug = $('.current_category').text();
   var subcategory_slug = $('.current_subcategory').text();
   var sellers = $('.current_sellers').text();
@@ -92,14 +95,17 @@ function getListing()
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   var search_string = $(".current_search_string").text();
-
+  var current_role_id = $(".current_role_id").text();
   $.ajax({
     url:siteUrl+"/get_product_listing",
     headers: {
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price_filter,'city_filter' : city_filter,  'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string },
+    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 
+      'sellers' : sellers, 'price_filter' : price_filter,'city_filter' : city_filter, 
+       'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string
+       , 'role_id' : current_role_id },
     success:function(data)
     {
      //$('.product_listings').html(data);
@@ -212,7 +218,8 @@ price_filter.on('slideStop',function(){
 $("#city_name").on("input", function() {
   getListing();
 });
- 
+
+
 function selectSellers()
 {
     var Sellers = '';

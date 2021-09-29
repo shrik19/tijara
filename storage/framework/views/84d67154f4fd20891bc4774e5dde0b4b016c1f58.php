@@ -8,24 +8,44 @@
 </style>
 
 
+<div class="mid-section">
+<div class="container-fluid">
+<div class="container-inner-section-1">
+<div class="row">
+<div class="col-md-12"> 
+<div class="seller_info border-none">
+    <div class="card">
+        <div class="card-header row">
+            <div class="col-md-6">
+            <h2 class="page_heading"><?php echo e(__('lang.shopping_cart')); ?></h2> 
+            </div> 
+            <div class="col-md-6 text-right">
+      <!--      <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='<?php echo e(route('frontHome')); ?>';">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> <?php echo e(__('lang.shopping_cart_continue')); ?>
+
+                        </button> -->
+            </div>     
+        </div>
+    </div>
+<div class="seller_mid_cont"  style="margin-top: 20px;">
 <section class="product_details_section-1">
 <div class="loader"></div>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-md-12">
         <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <h2><?php echo e(__('lang.shopping_cart')); ?></h2>
               <hr class="heading_line"/>
-            </div>
-            <div class="col-md-6 text-right">
+            </div> -->
+            <!-- <div class="col-md-6 text-right">
            <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='<?php echo e(route('frontHome')); ?>';">
                             <span class="glyphicon glyphicon-shopping-cart"></span> <?php echo e(__('lang.shopping_cart_continue')); ?>
 
                         </button>
-            </div>
+            </div> -->
           </div>
-            <table class="table table-hover" style="margin-bottom:60px;">
+            <table class="table table-hover shopping_cart" style="margin-bottom:60px;">
                 <thead>
                     <tr>
                          <th><?php echo e(__('users.butik_btn')); ?></th>
@@ -39,11 +59,15 @@
                 </thead>
                 <tbody>
                   <?php if(!empty($details)): ?>
+                  
                   <?php $__currentLoopData = $details; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orderId => $tmpOrderProduct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <?php if(!empty($tmpOrderProduct)): ?>
+                   <?php   $inc=1; ?>
                     <?php $__currentLoopData = $tmpOrderProduct['details']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orderProduct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    
+                
                     <tr>
                         <td class="col-sm-4 col-md-4">
+                            <?php if($inc==1): ?>
                         <div class="media">
                             <a class="thumbnail pull-left" href="<?php echo e($orderProduct['product']->product_link); ?>"> 
                             <?php if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo'])): ?>
@@ -53,12 +77,16 @@
                             <?php endif; ?>
                                                       
                             </a>
+                             
                             <div class="media-body" style="padding-left:10px;padding-top:10px;">
+
                                 <h4 class="media-heading"><a href="<?php echo e($orderProduct['product']->seller_link); ?>"><?php echo e($orderProduct['product']->store_name); ?></a></h4>
                                 <!-- <h5 class="media-heading"> <?php echo e($orderProduct['variant_attribute_id']); ?> </h5> -->
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
-                        </div></td>
+                            
+                        </div><?php endif; ?></td>
+                        <span>
                         <td class="col-sm-4 col-md-4">
                         <div class="media">
                             <a class="thumbnail pull-left" href="<?php echo e($orderProduct['product']->product_link); ?>"> 
@@ -99,6 +127,7 @@
                         </button> -->
                       </td>
                     </tr>
+                    <?php $inc++; ?>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td>   </td>
@@ -131,11 +160,12 @@
                         <td>   </td>
                         <td>   </td>
                         <td>
-                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" <?php if($tmpOrderProduct['is_buyer_product']): ?> onclick="location.href='<?php echo e(route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])); ?>'" <?php else: ?>  onclick="location.href='<?php echo e(route('frontShowCheckout', ['id' => base64_encode($orderId)])); ?>'" <?php endif; ?>>
+                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" <?php if($tmpOrderProduct['is_buyer_product']): ?> onclick="location.href='<?php echo e(route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])); ?>'" <?php else: ?>  onclick="location.href='<?php echo e(route('frontShowPaymentOptions', ['id' => base64_encode($orderId)])); ?>'" <?php endif; ?>>
                         <?php echo e(__('lang.shopping_cart_checkout')); ?> <span class="glyphicon glyphicon-play"></span>
                         </button></td>
                     </tr>
                     <tr><td colspan="6" style="border:none;line-height:60px;">&nbsp;</td></tr>
+                    <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <?php else: ?>
                     <tr>
@@ -148,7 +178,13 @@
     </div>
 </div>
 </section>
-
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('Front.layout.template', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\tijara\resources\views/Front/shopping_cart.blade.php ENDPATH**/ ?>

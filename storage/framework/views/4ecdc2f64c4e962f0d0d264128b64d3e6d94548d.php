@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/fontawesome-stars.css">
 <script src="<?php echo e(url('/')); ?>/assets/front/js/jquery.barrating.min.js"></script>
-    
+   
  <!-- Carousel Default -->
 <div class="slider_cotnainer_section">
     <div class="container-fluid">
@@ -82,7 +82,7 @@
 </section>
 <!-- Featured seller section start -->
  
-<section class="featured-seller product_view">
+<section class="featured-seller ">
     <div class="featured_seller_container">
     <div class="container-fluid">
         <h2 class="heading"><?php echo e(__('lang.featured_seller_head')); ?></h2>
@@ -91,7 +91,7 @@
     <div class="featured-banner" >
     <div class="featured_seller_container">
     <div class="container-fluid">
-        <div class="row ">               
+        <div class="row logo-slider">               
                 <?php if(!empty($FeaturedSellers)): ?>
                     <?php $__currentLoopData = $FeaturedSellers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fea_seller): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-md-3 feature_seller">
@@ -111,7 +111,7 @@
                           $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($fea_seller->id)."/products"; 
                             
                         ?>
-                        <h3><a href="<?php echo e($seller_link); ?>" title="<?php echo e($fea_seller['store_name']); ?>" style="color: #000 !important;"><?php echo e($fea_seller['store_name']); ?></a></h3><!-- 
+                        <h3><a href="<?php echo e($seller_link); ?>" title="<?php echo e($fea_seller['store_name']); ?>" style="color: #000 !important;border-bottom: 1px solid #000;line-height: 41px;"><?php echo e($fea_seller['store_name']); ?></a></h3><!-- 
                         <h3><?php echo e($fea_seller['store_name']); ?></h3> -->
                     </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -165,7 +165,10 @@
     <div class="col-md-12">             
         <div class="product_container">
         <div class="loader"></div>
+            <div style="display: flex;">
             <h2 class="heading"><?php echo e(__('lang.feature_product_head')); ?></h2>
+            <a href="<?php echo e(url('/')); ?>/annonser" title="<?php echo e(__('users.go_to_announse_page')); ?>" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn"><?php echo e(__('users.go_to_announse_page')); ?></a>
+          </div>
             <!-- <hr class="heading_line"/> -->
             <ul class="product_details">
             <?php $__currentLoopData = $FeaturedProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -180,27 +183,27 @@
 </section>
 <!-- featured services section end -->
 <!-- banner section -->
-<!-- <section class="sale_section">
+<?php /* <section class="sale_section">
     <div class="container-fluid">
         <div class="row">
             <div class="container-inner-section">
             <div class="col-md-6">
                 <div class="sale_details">
-                    <h2><?php if(!empty($banner->subtitle)): ?><?php echo e($banner->subtitle); ?><?php endif; ?></h2>
-                    <h3><?php if(!empty($banner->title)): ?><?php echo e($banner->title); ?><?php endif; ?></h3>
+                    <h2>@if(!empty($banner->subtitle)){{$banner->subtitle}}@endif</h2>
+                    <h3>@if(!empty($banner->title)){{$banner->title}}@endif</h3>
                     <p><?php echo $data['description']; ?></p>
-                    <button type="button" class="btn sale_btn" onclick="document.location='<?php echo e($banner['redirect_link']); ?>'"><?php echo e(__('lang.shop_now_btn')); ?></button>
+                    <button type="button" class="btn sale_btn" onclick="document.location='{{$banner['redirect_link']}}'">{{ __('lang.shop_now_btn')}}</button>
                 </div>
             </div>
-            <?php if(!empty($banner->image)): ?>
+            @if(!empty($banner->image))
             <div class="col-md-6">
-              <img class="img-fluid mid_banner" src="<?php echo e(url('/')); ?>/uploads/Banner/<?php echo e($banner->image); ?>" style="height: 412px"/>
+              <img class="img-fluid mid_banner" src="{{url('/')}}/uploads/Banner/{{$banner->image}}" style="height: 412px"/>
             </div>
-            <?php endif; ?>
+            @endif
         </div>
         </div>
     </div>
-</section> -->
+</section>  */?>
 <!-- end banner section -->
 
 <section>
@@ -219,26 +222,35 @@
 			*/?>
 			<div class="tijara_front_container">
 				<ul class="tijara_front_box row">
-					<li class="colr-1">
-						<div class="tijara_front_inner ">
-                        <img src="<?php echo e(url('/')); ?>/assets/img/icon1.png"  />
-                        <h4>Unik<br/>
-                            marknadsplats</h4>
-						</div>
+					<li >
+            <div class="colr-box colr-1">
+              <div class="tijara_front_inner ">
+              <img src="<?php echo e(url('/')); ?>/assets/img/icon1.png"  />
+              <h4><?php echo e(__('users.Unik_title')); ?><br/>
+              <?php echo e(__('users.marketplace_title')); ?></h4>
+              </div>
+            </div>
+              <h3><?php echo e(__('users.unique_marketplace_info')); ?></h3>
 					</li>
-					<li class="colr-2">
-						<div class="tijara_front_inner">
-                        <img src="<?php echo e(url('/')); ?>/assets/img/icon2.png"/>
-                        <h4>Främjar<br/>
-                        entreprenörskap</h4>
-						</div>
+					<li>
+            <div class="colr-box colr-2">
+              <div class="tijara_front_inner">
+              <img src="<?php echo e(url('/')); ?>/assets/img/icon2.png"/>
+              <h4><?php echo e(__('users.promote_title')); ?><br/>
+              <?php echo e(__('users.entrepreneurship_title')); ?></h4>
+              </div>
+            </div>
+              <h3><?php echo e(__('users.entrepreneurship_info')); ?></h3>
 					</li>
-					<li class="colr-3">
+					<li>
+                    <div class="colr-box colr-3">
 						<div class="tijara_front_inner">
                         <img src="<?php echo e(url('/')); ?>/assets/img/icon3.png"/>
-                        <h4>Uppmuntrar till<br/>
-                            lokal handel</h4>
+                        <h4><?php echo e(__('users.encourages_to_title')); ?><br/>
+                            <?php echo e(__('users.local_trade_title')); ?></h4>
 						</div>
+                    </div>
+                    <h3><?php echo e(__('users.encourages_local_trade_info')); ?></h3>
 					</li>                       
 				</ul>
 				<div class="tijara_front_read_more">
@@ -507,7 +519,12 @@ $(".service_rating").each(function(){
          });
       });
 </script>
-
+<link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/slick-theme.min.css">
+<link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/slick.min.css">
+<script src="<?php echo e(url('/')); ?>/assets/front/js/slick.min.js"></script>
+<script type="text/javascript">
+  
+</script>
 <script src="<?php echo e(url('/')); ?>/assets/front/js/instafeed/dist/instafeed.min.js"></script>
 
 <script type="text/javascript">
@@ -517,6 +534,32 @@ $(".service_rating").each(function(){
     });
     feed.run();
 
+    $('.logo-slider').slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    dots: false,
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    infinite: true,
+    responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            adaptiveHeight: true,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+  });
 
 </script>
 <?php $__env->stopSection(); ?>

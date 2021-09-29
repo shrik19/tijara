@@ -16,26 +16,39 @@
                 <?php
                 $image='';
                 if($Service->images!='')
-                $image = explode(',',$Service->images)[0];
+                    $image = explode(',',$Service->images)[0];
                 ?>
-                <?php if($image!=''): ?>
+
+               
                 <div class="small-img">
                       <!-- <img src="<?php echo e(url('/')); ?>/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
                       <div class="small-container">
                         
                           <div id="small-img-roll">
+                        <?php if(isset($image) && !empty($image)): ?>
                             <?php $__currentLoopData = explode(',',$Service->images); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                              <img src="<?php echo e(url('/')); ?>/uploads/ServiceImages/<?php echo e($image); ?>" class="show-small-img" alt="">
+                              <img src="<?php echo e(url('/')); ?>/uploads/ServiceImages/serviceIcons/<?php echo e($image); ?>" class="show-small-img" alt="">
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
+                            <img src="<?php echo e(url('/')); ?>/uploads/ServiceImages/no-image.png" class="show-small-img">
+                        <?php endif; ?>
                           </div>
                           
                       </div>
                       <!-- <img src="<?php echo e(url('/')); ?>/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
                   </div>
-                  <div class="show-custom" href="<?php echo e(url('/')); ?>/uploads/ServiceImages/<?php echo e($image); ?>">
-                    <img src="<?php echo e(url('/')); ?>/uploads/ServiceImages/<?php echo e($image); ?>" id="show-img">
+
+                 <?php if(isset($image) && !empty($image)): ?>
+                  <div class="show-custom" href="<?php echo e(url('/')); ?>/uploads/ServiceImages/serviceDetails/<?php echo e($image); ?>">
+                    <img src="<?php echo e(url('/')); ?>/uploads/ServiceImages/serviceDetails/<?php echo e($image); ?>" id="show-img">
                   </div>
-                  <?php endif; ?>
+                   <?php else: ?>
+                  <div class="show-custom" href="<?php echo e(url('/')); ?>/uploads/ServiceImages/no-image.png">
+                    <img src="<?php echo e(url('/')); ?>/uploads/ServiceImages/no-image.png" id="show-img">
+                  </div>
+                   <?php endif; ?>
+
+                 
                   <?php if($Service->images!=''): ?>
                   <!-- Secondary carousel image thumbnail gallery -->
                 
@@ -45,8 +58,9 @@
             <div class="col-md-6">
                 <div class="product_details_info">
                     <h2><?php echo e($Service->title); ?></h2>
-                    <!-- <h4 class="product_price" style="color:#03989e;"><a href="<?php echo e($seller_link); ?>"><?php echo e($seller_name); ?></a></h4> -->
-                    <h4 class="product_price" style="color:#03989e;"><a href="<?php echo e($seller_link); ?>"><?php echo e($Service->service_price); ?> KR</a></h4>
+                     <h4 class=""><?php if(!empty($Service->session_time)): ?><?php echo e($Service->session_time); ?> min <?php endif; ?></h4>
+                    <h4 class="service_store_name"><?php if(!empty($store_name)): ?><?php echo e($store_name); ?><?php endif; ?></h4>
+                    <h4 class="product_price"><a href="<?php echo e($seller_link); ?>" class="de_col"><?php echo e($Service->service_price); ?> KR</a></h4>
 
                       <div class="star-rating" style="font-size:unset;">
                         <select class='rating service_rating' id='rating_<?php echo e($Service->id); ?>' data-id='rating_<?php echo e($Service->id); ?>' data-rating='<?php echo e($Service->rating); ?>'>
@@ -59,23 +73,23 @@
                       </div> 
                       <div style='clear: both;'></div>
                       
-                      <p>
+                      <p style="margin-top: 20px;">
                         <?php echo $Service->description; ?>
                       </p>
 
                      
                         <div class="row">
-                          <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;">
+                          <div class="col-md-12" style="padding-right: 70px; padding-top: 12px;">
                           <!-- <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
                            style="color:#ff0000;" id="reset_option"><?php echo e(__('lang.book_service')); ?></a> -->
-                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn sub_btn" style="padding:5px;height: 36px;width: 18%;" title="<?php echo e(__('lang.book_service')); ?>" id="reset_option"><?php echo e(__('lang.book_service')); ?></a>
+                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn sub_btn book_service_button" title="<?php echo e(__('users.see_available_time_btn')); ?>" id="reset_option"><?php echo e(__('users.see_available_time_btn')); ?><i class="far fa-calendar-alt" style="margin-left: 10px;font-size: 20px;"></i></a>
                          </div>
                         </div>
                         
                         <!-- Modal -->
                         <div class="modal fade" id="bookServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
-                            <div class="modal-content">
+                            <div class="modal-content" style="border-radius: 30px;">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel"><?php echo e(__('lang.book_service_title')); ?></h5>
                                 <button type="button" class="close modal-cross-sign" data-dismiss="modal" aria-label="Close">
@@ -143,7 +157,7 @@
                                 </div>
                               
                                 <div class="form-group">
-                                    <button type="button" class="btn sub_btn" <?php if(Auth::guard('user')->id()): ?> onclick="sendServiceRequest();" <?php else: ?> onclick="showErrorMessage('<?php echo e(trans('errors.login_buyer_required')); ?>','<?php echo e(route('frontLogin')); ?>');" <?php endif; ?>> <?php echo e(__('lang.book_service_btn')); ?>  </button>
+                                    <button style="width: 60%;    margin-left: 18%;    height: 45px;" type="button" class="btn sub_btn" <?php if(Auth::guard('user')->id()): ?> onclick="sendServiceRequest();" <?php else: ?> onclick="showErrorMessage('<?php echo e(trans('errors.login_buyer_required')); ?>','<?php echo e(route('frontLogin')); ?>');" <?php endif; ?>> <?php echo e(__('lang.book_service_btn')); ?>  </button>
                                 </div>
                               </div>
                              
@@ -163,7 +177,7 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-              <div class="col-md-12">
+              <div class="col-md-12"  style="margin-left: -33px;">
               <div class="col-md-6">
               <h2><?php echo e(__('users.review_title')); ?></h2>
               <!-- </div> -->
@@ -173,9 +187,9 @@
                   <div class="row"> 
                     <div class="col-md-1">
                       <?php if(!empty($review['profile'])): ?>
-                      <img src="<?php echo e(url('/')); ?>/uploads/Buyer/resized/<?php echo e($review['profile']); ?>" class="ratingUserIcon">
+                      <img src="<?php echo e(url('/')); ?>/uploads/Buyer/buyerIcons/<?php echo e($review['profile']); ?>" class="ratingUserIcon">
                     <?php else: ?> 
-                      <img src="<?php echo e(url('/')); ?>/uploads/Buyer/resized/profile.png" class="ratingUserIcon">
+                      <img src="<?php echo e(url('/')); ?>/uploads/Buyer/buyerIcons/no-image.png" class="ratingUserIcon">
                     <?php endif; ?>
                     </div>
                     <div class="col-md-5" style="margin-left: 30px;">
@@ -197,15 +211,17 @@
                   <hr>
                   <?php $i++; ?>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php echo $serviceReviews->links(); ?>
+
                 <?php endif; ?>
               </div>
                <div class="col-md-6">
                <h2><?php echo e(__('users.store_terms')); ?></h2>
           
                 <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style=""><?php echo e(__('users.payment_btn')); ?></button>
-                <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')"><?php echo e(__('users.shipping_btn')); ?></button>
-                <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')"><?php echo e(__('users.return_btn')); ?></button>
-                <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')"><?php echo e(__('users.booking_btn')); ?></button>
+                <!-- <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')"><?php echo e(__('users.shipping_btn')); ?></button>
+                <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')"><?php echo e(__('users.return_btn')); ?></button> -->
+                <button class="tablink" onclick="openPage('CancelPolicy', this, 'white')"><?php echo e(__('users.cancellation_policy')); ?></button>
 
                 <?php if(!empty($getTerms)): ?>
                  <div id="PaymentPolicy" class="tabcontent">
@@ -213,19 +229,16 @@
                   <p class="policies"><?php echo e(@$getTerms->payment_policy); ?></p>
                   </div>
 
-                  <div id="ShippingPolicy" class="tabcontent">
-                  <!-- <h3><?php echo e(__('users.shipping_policy_label')); ?></h3> -->
+                 <!--  <div id="ShippingPolicy" class="tabcontent">
                   <p class="policies"><?php echo e(@$getTerms->shipping_policy); ?></p>
                   </div>
 
                   <div id="ReturnPolicy" class="tabcontent">
-                 <!--  <h3><?php echo e(__('users.return_policy_label')); ?></h3> -->
                   <p class="policies"><?php echo e(@$getTerms->return_policy); ?></p> 
-                  </div>
+                  </div> -->
 
-                  <div id="BookingPolicy" class="tabcontent">
-                  <!-- <h3><?php echo e(__('users.shipping_policy_label')); ?></h3> -->
-                  <p class="policies"><?php echo e(@$getTerms->booking_policy); ?></p>
+                  <div id="CancelPolicy" class="tabcontent">
+                  <p class="policies"><?php echo e(@$getTerms->cancellation_policy); ?></p>
                   </div>
               <?php endif; ?>
 
@@ -264,7 +277,7 @@ function sendServiceRequest()
 {
   if($('.service_title').val()=='' || $('.location').val()=='' || $('.service_date').val()==''
    || $('.service_time').val()==''  || $('.phone_number').val()==''  || $('.service_price').val()=='') {
-    alert("<?php echo e(__('lang.allFieldsRequired')); ?>");
+    showErrorMessage("<?php echo e(__('lang.allFieldsRequired')); ?>");
     return false;
   }
     
@@ -284,7 +297,7 @@ function sendServiceRequest()
       {
         $(".loader").hide();
         var responseObj = $.parseJSON(data);
-        alert("<?php echo e(__('lang.serviceRequestSent')); ?>");
+        showSuccessMessage("<?php echo e(__('lang.serviceRequestSent')); ?>");
         location.reload();
       }
      });
@@ -297,8 +310,11 @@ $('.show-custom').zoomImage();
 $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
 $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');
 $('.show-small-img').click(function () {
-  $('#show-img').attr('src', $(this).attr('src'))
-  $('#big-img').attr('src', $(this).attr('src'))
+
+  var str =  $(this).attr('src');
+  var customImg = str.replace("serviceIcons", "serviceDetails");
+  $('#show-img').attr('src', customImg);
+  $('#big-img').attr('src', customImg);
   $(this).attr('alt', 'now').siblings().removeAttr('alt')
   $(this).css({'border': 'solid 1px #951b25', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
   if ($('#small-img-roll').children().length > 4) {

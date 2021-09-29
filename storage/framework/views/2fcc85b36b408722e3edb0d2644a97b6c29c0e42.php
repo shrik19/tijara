@@ -18,10 +18,10 @@
               </p>
             </article> -->
             <ul class="social_icon">
-              <li><a href="#"><img src="<?php echo e(url('/')); ?>/assets/front/img/fb_icon.png"/></a></li>
+              <li><a href="#"><img src="<?php echo e(url('/')); ?>/assets/img/facebook_1.png"/></a></li>
               <!-- <li><a href="#"><img src="<?php echo e(url('/')); ?>/assets/front/img/tw_icon.png"/></a></li> -->
-              <li><a href="#"><img src="<?php echo e(url('/')); ?>/assets/front/img/instgram_icon.png"/></a></li>
-              <li><a href="#"><img src="<?php echo e(url('/')); ?>/assets/front/img/pi_icon.png"/></a></li>
+              <li><a href="#"><img src="<?php echo e(url('/')); ?>/assets/img/instagram_1.png"/></a></li>
+              <li><a href="#"><img src="<?php echo e(url('/')); ?>/assets/img/link_1.png"/></a></li>
             </ul>
         </div>
         <?php
@@ -150,6 +150,10 @@ var select_package_to_subscribe = "<?php echo e(__('errors.select_package_to_sub
 var please_check_privacy_policy = "<?php echo e(__('errors.please_check_privacy_policy')); ?>";
 var please_enter_store_name = "<?php echo e(__('errors.please_enter_store_name')); ?>";
 var valid_email_err = "<?php echo e(__('errors.valid_email_err')); ?>";
+var read_more_btn = "<?php echo e(__('users.read_more_btn')); ?>";
+var read_less_btn = "<?php echo e(__('users.read_less_btn')); ?>";
+var wait_while_upload = "<?php echo e(__('errors.wait_for_image_uplaod')); ?>";
+var please_uplaod_service_image = "<?php echo e(__('errors.please_uplaod_service_image')); ?>";
 </script>
         <!-- <script>window.jQuery || document.write('<script src="<?php echo e(url('/')); ?>/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

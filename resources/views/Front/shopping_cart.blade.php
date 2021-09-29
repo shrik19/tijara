@@ -158,7 +158,7 @@
                         <td>   </td>
                         <td>   </td>
                         <td>
-                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" @if($tmpOrderProduct['is_buyer_product']) onclick="location.href='{{route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])}}'" @else  onclick="location.href='{{route('frontShowCheckout', ['id' => base64_encode($orderId)])}}'" @endif>
+                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" @if($tmpOrderProduct['is_buyer_product']) onclick="location.href='{{route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])}}'" @else  onclick="location.href='{{route('frontShowPaymentOptions', ['id' => base64_encode($orderId)])}}'" @endif>
                         {{ __('lang.shopping_cart_checkout')}} <span class="glyphicon glyphicon-play"></span>
                         </button></td>
                     </tr>

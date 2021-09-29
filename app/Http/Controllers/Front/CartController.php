@@ -81,7 +81,12 @@ class CartController extends Controller
               }  
               
               $existingOrder = 0;
-              $checkExistingOrderDetails = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id','temp_orders_details.order_id'])->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
+              $checkExistingOrderDetails = TmpOrdersDetails::
+              join('temp_orders', 'temp_orders_details.order_id', '=', 'temp_orders.id')
+              ->join('products', 'temp_orders_details.product_id', '=', 'products.id')
+              ->select(['products.user_id','temp_orders_details.order_id'])
+              ->where('temp_orders_details.user_id','=',$user_id)
+              ->where('temp_orders.show_in_cart','=',1)->get()->toArray();
               if(!empty($checkExistingOrderDetails))
               {
                   foreach($checkExistingOrderDetails as $details)

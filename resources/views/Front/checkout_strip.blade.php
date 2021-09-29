@@ -42,7 +42,7 @@
                                                         id="payment-form">
 
                             @csrf
-                            <input type="text" name="order_id" value="{{$order_id}}">
+                            <input type="hidden" name="order_id" value="{{$order_id}}">
 
 
                             <div class='form-row row'>

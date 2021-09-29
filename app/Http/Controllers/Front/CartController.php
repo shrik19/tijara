@@ -1044,7 +1044,14 @@ class CartController extends Controller
                 "description" => "Tijara payment for order #".$orderRef ,
                 
         ]);
-        echo'<pre>';print_r($response);exit;
+        $arrOrderUpdate = [
+          
+          'klarna_order_reference'  => $response->id,
+          
+        ];
+
+        TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+        //echo'<pre>';print_r($response);exit;
         $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
         //Session::flash('success', 'Payment successful!');
           
@@ -1195,7 +1202,7 @@ class CartController extends Controller
       }
       return $response;
   }
-     function showCheckoutKlarna($user_id,$checkExisting,$orderDetails,$OrderId,$username,$password)
+    function showCheckoutKlarna($user_id,$checkExisting,$orderDetails,$OrderId,$username,$password)
     {
         $data = [];
         

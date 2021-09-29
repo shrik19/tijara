@@ -1104,7 +1104,7 @@ class CartController extends Controller
           "shopperIP" => $request->ip(),// required by some issuers for 3ds2
           // we pass the orderRef in return URL to get paymentData during redirects
           // required for 3ds2 redirect flow
-          "returnUrl" => route('frontProductCheckoutSuccess',['id'=>$orderRef]),//url('/')."/checkouthandleShopperRedirect?orderRef=${orderRef}&seller_id=".$UserData['id'],
+          "returnUrl" => url('/')."/checkouthandleShopperRedirect?orderRef=${orderRef}&seller_id=".$UserData['id'],
           "paymentMethod" => $request->paymentMethod,
           "browserInfo" => $request->browserInfo // required for 3ds2
           );
@@ -1136,6 +1136,7 @@ class CartController extends Controller
       $payload = array("details" => $details);
 
       $response = $this->service->paymentsDetails($payload);
+      echo'<pre>';print_r($response);exit;
   }
     public function checkoutSubmitAdditionalDetails(Request $request){
       error_log("Request for submitAdditionalDetails $request");

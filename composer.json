@@ -21,7 +21,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "mews/captcha": "^3.1",
-        "simplesoftwareio/simple-qrcode": "~3"
+        "simplesoftwareio/simple-qrcode": "~3",
+        "stripe/stripe-php": "^7.97"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

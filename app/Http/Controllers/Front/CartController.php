@@ -26,6 +26,7 @@ use App\Models\ServiceCategory;
 use App\Models\SellerPersonalPage;
 
 use App\Http\AdyenClient;
+use Stripe;
 
 use DB;
 use Auth;
@@ -746,7 +747,7 @@ class CartController extends Controller
         {
           return redirect(route('frontShowCart'));
         }
-       
+        Session::put('current_checkout_order_id', $orderId);
         $paymentOptionAvailable = array(); $isPaymentOptionAvailable= 0;
 
         if($checkExisting->klarna_username!='' && $checkExisting->klarna_password!='') {
@@ -757,7 +758,7 @@ class CartController extends Controller
           $paymentOptionAvailable[]='swish';
           $isPaymentOptionAvailable = 1;
         }
-        if($checkExisting->strip_api_key!='' && $checkExisting->strip_account!='' ) {
+        if($checkExisting->strip_api_key!='' && $checkExisting->strip_secret!='' ) {
           $paymentOptionAvailable[]='strip';
           $isPaymentOptionAvailable = 1;
         }
@@ -794,7 +795,7 @@ class CartController extends Controller
       if($user_id && Auth::guard('user')->getUser()->role_id == 1)
       {
         $orderId = base64_decode($orderId);
-        
+        Session::put('current_checkout_order_id', $orderId);
         $checkExisting = TmpOrders::select('id')->where('id','=',$orderId)->get()->toArray();
         if(empty($checkExisting))
         {
@@ -938,7 +939,8 @@ class CartController extends Controller
                           ->select(['products.*','categories.category_name', 'variant_product.image',
                           'variant_product.price','variant_product.id as variant_id',
                           'users.klarna_username','users.klarna_password',
-                          'users.swish_api_key','users.swish_merchant_account','users.swish_client_key'])
+                          'users.swish_api_key','users.swish_merchant_account','users.swish_client_key'
+                          ,'users.strip_api_key','users.strip_secret'])
                           ->where('products.status','=','active')
                           ->where('categories.status','=','active')
                           ->where('subcategories.status','=','active')
@@ -958,6 +960,10 @@ class CartController extends Controller
                 {
                   $seller_id  = $Product->user_id;
                   $swish_client_key = $Product->swish_client_key;
+                  $strip_api_key = $Product->strip_api_key;
+                  $strip_secret = $Product->strip_secret;
+
+                  
                   if(empty($username) && empty($password))
                   {
                     $username = $Product->klarna_username;
@@ -997,20 +1003,56 @@ class CartController extends Controller
             return view('Front/payment_error',$responseFromFun); 
           }
           else
-          return view('Front/checkout', $responseFromFun);
+          return view('Front/checkout_klarna', $responseFromFun);
         }
         if($paymetOption=='swish') {
-          $responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);
-          
+          $responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
           
           return view('Front/checkout_swish', $responseFromFun);
         }
+        if($paymetOption=='strip') {
+         // $responseFromFun=  $this->showCheckoutStrip($seller_id,$checkExisting);         
+          $data['strip_secret'] = $strip_secret;
+          $data['strip_api_key']= $strip_api_key;
+          $data['order_id']= $OrderId;
+          $data['Total']  = $param['Total'];
+          return view('Front/checkout_strip', $data);
+        }
       }
+    }
+    public function checkoutStripProcess(Request $request) {
+
+      $orderRef = session('current_checkout_order_id');
+      //echo $orderRef;exit;
+      if($orderRef!=$request->order_id) 
+      return redirect(route('frontShowCart'));
+      $UserData = TmpOrders::join('temp_orders_details', 'temp_orders.id', '=', 'temp_orders_details.order_id')
+                        ->join('products', 'products.id', '=', 'temp_orders_details.product_id')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->select(['users.*'])                          
+                        ->where('temp_orders.id','=',$orderRef)->first()->toArray();
+
+      //echo'<pre>';print_r($UserData);exit;
+      $checkExisting = TmpOrders::where('id','=',$orderRef)->first()->toArray();
+      $orderTotal = (int)ceil($checkExisting['total']) * 100;
+      Stripe\Stripe::setApiKey($UserData['strip_secret']);
+      
+        Stripe\Charge::create ([
+                "amount" => $orderTotal,
+                "currency" => "INR",
+                "source" => $request->stripeToken,
+                "description" => "Tijara payment for order #".$orderRef ,
+                
+        ]);
+        $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
+        //Session::flash('success', 'Payment successful!');
+          
+        return redirect(route('frontProductCheckoutSuccess',['id'=>$orderRef]));
     }
     function showCheckoutSwish($seller_id,$checkExisting) {
 
       $UserData = UserMain::select('users.*')->where('users.id','=',$seller_id)->first()->toArray();
-      Session::put('current_checkout_order_id', $checkExisting[0]['id']);
+      
         $client = new \Adyen\Client();
         $client->setXApiKey($UserData['swish_api_key']);
         $client->setEnvironment(\Adyen\Environment::TEST);
@@ -1062,7 +1104,7 @@ class CartController extends Controller
           "shopperIP" => $request->ip(),// required by some issuers for 3ds2
           // we pass the orderRef in return URL to get paymentData during redirects
           // required for 3ds2 redirect flow
-          "returnUrl" => url('/')."/checkouthandleShopperRedirect?orderRef=${orderRef}&seller_id=".$UserData['id'],
+          "returnUrl" => route('frontProductCheckoutSuccess',['id'=>$orderRef]),//url('/')."/checkouthandleShopperRedirect?orderRef=${orderRef}&seller_id=".$UserData['id'],
           "paymentMethod" => $request->paymentMethod,
           "browserInfo" => $request->browserInfo // required for 3ds2
           );
@@ -1083,17 +1125,17 @@ class CartController extends Controller
         $client->setEnvironment(\Adyen\Environment::TEST);
 
         $this->service = new \Adyen\Service\Checkout($client);
-    $details = array();
-    if (isset($redirect["redirectResult"])) {
-      $details["redirectResult"] = $redirect["redirectResult"];
-    } else if (isset($redirect["payload"])) {
-      $details["payload"] = $redirect["payload"];
-    }
-    $orderRef = $request->orderRef;
+      $details = array();
+      if (isset($redirect["redirectResult"])) {
+        $details["redirectResult"] = $redirect["redirectResult"];
+      } else if (isset($redirect["payload"])) {
+        $details["payload"] = $redirect["payload"];
+      }
+      $orderRef = $request->orderRef;
 
-    $payload = array("details" => $details);
+      $payload = array("details" => $details);
 
-    $response = $this->service->paymentsDetails($payload);
+      $response = $this->service->paymentsDetails($payload);
   }
     public function checkoutSubmitAdditionalDetails(Request $request){
       error_log("Request for submitAdditionalDetails $request");
@@ -1450,6 +1492,7 @@ class CartController extends Controller
   public function showCheckoutSuccess($id)
   {
     $data = [];
+    Session::put('current_checkout_order_id', '');
     $user_id = Auth::guard('user')->id();
     if($user_id && Auth::guard('user')->getUser()->role_id == 1)
     {

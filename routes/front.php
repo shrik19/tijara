@@ -232,3 +232,4 @@ Route::post('/seller-payment-update', 'Front\AuthController@sellerPaymentDetails
 Route::post('/getSwishPaymentMethods', 'Front\CartController@getSwishPaymentMethods');
 Route::post('/swishInitiatePayment', 'Front\CartController@swishInitiatePayment');
 Route::post('/checkoutSubmitAdditionalDetails', 'Front\CartController@checkoutSubmitAdditionalDetails');
+Route::post('/checkout-strip-process', 'Front\CartController@checkoutStripProcess')->name('checkoutStripProcess');

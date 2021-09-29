@@ -96,7 +96,7 @@
 			<div class="col-md-8 right-section">
 				<div class="col-md-3"></div>
 				<div class="col-md-6 form-section">
-					<h2><?php echo e(__('users.login_label')); ?></h2>
+					<h2 class="de_col"><?php echo e(__('users.login_label')); ?></h2>
 
 					<?php echo $__env->make('Front.alert_messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 

@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title><?php echo e($siteDetails->site_title); ?></title>
+  <title><?php if(isset($meta_title)): ?> <?php echo e($meta_title); ?> <?php else: ?> <?php echo e($siteDetails->site_title); ?> <?php endif; ?></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="_token" content="<?php echo e(csrf_token()); ?>">
@@ -120,18 +120,18 @@
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="<?php echo e(url('/')); ?>/assets/img/imgpsh_fullsize.png" width="30" /></h3></a>
                 <ul class="dropdown-menu">
 
-                  <li><a href="<?php echo e(route('frontUserProfile')); ?>"><?php echo e(__('users.buyer_profile_update_title')); ?></a></li>
+                  <li style="width:100%"><a href="<?php echo e(route('frontUserProfile')); ?>"><?php echo e(__('users.buyer_profile_update_title')); ?></a></li>
 
-                  <li><a href="<?php echo e(route('frontAllOrders')); ?>"><?php echo e(__('lang.manage_orders_menu')); ?> </a></li>
+                  <li  style="width:100%"><a href="<?php echo e(route('frontAllBuyerOrders')); ?>"><?php echo e(__('lang.manage_orders_menu')); ?> </a></li>
 
-                  <li><a href="<?php echo e(route('frontAllServiceRequest')); ?>"><?php echo e(__('users.my_booking_title')); ?></a></li>
+                  <li style="width:100%"><a href="<?php echo e(route('frontAllServiceRequest')); ?>"><?php echo e(__('users.my_booking_title')); ?></a></li>
 
-                  <li><a href="<?php echo e(route('manageFrontProducts')); ?>"><?php echo e(__('lang.manage_products_menu')); ?></a></li>
+                  <li style="width:100%"><a href="<?php echo e(route('manageFrontProducts')); ?>"><?php echo e(__('users.buyer_product_list_title')); ?></a></li>
 
                   <!-- <li><a href="<?php echo e(route('frontProductAttributes')); ?>"><?php echo e(__('lang.manage_attributes_menu')); ?></a></li> -->
                  
-                  <li><a href="<?php echo e(route('frontChangePassword')); ?>"><?php echo e(__('lang.change_password_menu')); ?></a></li>
-                  <li><a href="<?php echo e(route('frontLogout')); ?>"><?php echo e(__('lang.logout_label')); ?></a></li>
+                  <li style="width:100%"><a href="<?php echo e(route('frontChangePassword')); ?>"><?php echo e(__('lang.change_password_menu')); ?></a></li>
+                  <li style="width:100%"><a href="<?php echo e(route('frontLogout')); ?>"><?php echo e(__('lang.logout_label')); ?></a></li>
                 </ul>
 
                 <?php else: ?>
@@ -151,7 +151,7 @@
                     <li>
                     <div class="cart_details">
                     <a <?php if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1): ?> href="<?php echo e(route('frontShowCart')); ?>" <?php else: ?> onclick="showErrorMessage('<?php echo e(trans('errors.login_buyer_required')); ?>','<?php echo e(route('frontLogin')); ?>');" <?php endif; ?>>
-                    <img src="<?php echo e(url('/')); ?>/assets/img/imgpsh_fullsize_cart.png" width="30" />
+                    <img src="<?php echo e(url('/')); ?>/assets/img/imgpsh_fullsize_cart.png" style={ width: 20px; margin-top: 4px;} />
                     </a>
 
                     <?php
@@ -216,8 +216,14 @@
 <?php if(!empty($Categories)): ?>
 <div class="clearfix"></div>
 
-<nav>
-  <ul class="nav mainMenu">
+<nav class="navbar sticky-top navbar-expand-lg bg-dark m-0">
+    <div class="container-fluid">    
+      <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <i class="fas fa-bars"></i>
+  </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="nav mainMenu">
     <!-- <span>( <?php count($Categories) ?>)</span> -->
         <?php $i=0; ?>
         <?php $__currentLoopData = $Categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $CategoryId=>$Category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -240,6 +246,7 @@
                 <?php endif; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
-</nav>
-
+      </div>
+    </div>
+  </nav>
 <?php endif; ?><?php /**PATH D:\xampp\htdocs\tijara\resources\views/Front/layout/header.blade.php ENDPATH**/ ?>

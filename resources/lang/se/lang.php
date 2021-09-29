@@ -320,5 +320,15 @@
     'instagram_label'=>'Inlägg frän Instagram',
     'book_service_btn'=>'Slutför bokning',
     'continue_to_swish'=>'Fortsätt till Swish',
+
+    //strip
+    'name_on_card'  =>   'namn på kort',
+    'card_number'   =>   'Kortnummer',
+    'cvc'           =>  'CVC',
+    'expiration_month'=>    'Utgångs Månad',
+    'expiration_year'=>'Utgångsår',
+    'strip_payment_details'=>'Randig betalningsinformation',
+    'pay_now'   =>  'Betala nu',
+    'strip_error_message'=>'Korrigera felen och försök igen.',
  ]
 ?>

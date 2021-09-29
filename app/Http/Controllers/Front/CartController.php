@@ -1243,6 +1243,7 @@ class CartController extends Controller
         $orderAddress = json_decode($checkExisting[0]['address']);
         $orderBillingAddress  = json_decode($orderAddress['billing']);
         $orderShippingAddress  = json_decode($orderAddress['shipping']);
+        echo'<pre>';print_r($orderBillingAddress);exit;
         $billing_address= [];
         $billing_address['given_name'] = $orderBillingAddress['given_name'];
         $billing_address['family_name'] = $orderBillingAddress['family_name'];

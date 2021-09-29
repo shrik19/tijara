@@ -1244,15 +1244,15 @@ class CartController extends Controller
         $orderAddress = json_decode($checkExisting[0]['address']);
         $orderBillingAddress  = json_decode($orderAddress->billing);
         $orderShippingAddress  = json_decode($orderAddress->shipping);
-        echo'<pre>';print_r($orderBillingAddress);exit;
+        //echo'<pre>';print_r($orderBillingAddress);exit;
         $billing_address= [];
-        $billing_address['given_name'] = $orderBillingAddress['given_name'];
-        $billing_address['family_name'] = $orderBillingAddress['family_name'];
-        $billing_address['email'] = $orderBillingAddress['email'];
-        $billing_address['street_address'] = $orderBillingAddress['street_address'];
-        $billing_address['postal_code'] = $orderBillingAddress['postal_code'];
-        $billing_address['city'] = $orderBillingAddress['city'];
-        $billing_address['phone'] = $orderBillingAddress['phone'];
+        $billing_address['given_name'] = $orderBillingAddress->given_name;
+        $billing_address['family_name'] = $orderBillingAddress->family_name;
+        $billing_address['email'] = $orderBillingAddress->email;
+        $billing_address['street_address'] = $orderBillingAddress->street_address;
+        $billing_address['postal_code'] = $orderBillingAddress->postal_code;
+        $billing_address['city'] = $orderBillingAddress->city;
+        $billing_address['phone'] = $orderBillingAddress->phone;
         /*klarna api to create order*/
         $url = env('BASE_API_URL');
         

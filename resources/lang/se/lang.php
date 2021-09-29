@@ -331,5 +331,6 @@
     'strip_payment_details'=>'Randig betalningsinformation',
     'pay_now'   =>  'Betala nu',
     'strip_error_message'=>'Korrigera felen och försök igen.',
+    'pay_through'   =>  'Betala igenom',
  ]
 ?>

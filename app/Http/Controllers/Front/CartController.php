@@ -1047,7 +1047,7 @@ class CartController extends Controller
         $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
         //Session::flash('success', 'Payment successful!');
           
-        return redirect(route('frontProductCheckoutSuccess',['id'=>base64_encode($NewOrderId)]));
+        return redirect(route('frontCheckoutSuccess',['id'=>base64_encode($NewOrderId)]));
     }
     function showCheckoutSwish($seller_id,$checkExisting) {
 

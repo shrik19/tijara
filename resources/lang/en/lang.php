@@ -333,5 +333,6 @@
     'strip_payment_details'=>'Stripe payment details',
     'pay_now'   =>  'Pay now',
     'strip_error_message'=>'Please correct the errors and try again.',
+    'pay_through'   =>  'Pay through',
  ]  
 ?>

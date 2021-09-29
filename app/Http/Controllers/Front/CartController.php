@@ -1496,6 +1496,7 @@ class CartController extends Controller
     Session::put('current_checkout_order_id', '');
     if($request->status=='success' || $request->status=='pending') {
       $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
+      $data['OrderId']=0;
       return view('Front/order_success', $data);
     }
     else {

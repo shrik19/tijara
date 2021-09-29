@@ -808,6 +808,7 @@ class CartController extends Controller
         }
         else
         {
+          $OrderId = $checkExisting[0]['id'];
           if($request->billing_given_name) {
             $billing_address= [];
             $billing_address['given_name'] = $request->billing_given_name;
@@ -829,7 +830,7 @@ class CartController extends Controller
             
             $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
 
-            $OrderId = $checkExisting[0]['id'];
+            
             $arrOrderUpdate = [
             
               'address'  => json_encode($address),

@@ -1037,13 +1037,14 @@ class CartController extends Controller
       $orderTotal = (int)ceil($checkExisting['total']) * 100;
       Stripe\Stripe::setApiKey($UserData['strip_secret']);
       
-        Stripe\Charge::create ([
+        $response = Stripe\Charge::create ([
                 "amount" => $orderTotal,
                 "currency" => "INR",
                 "source" => $request->stripeToken,
                 "description" => "Tijara payment for order #".$orderRef ,
                 
         ]);
+        echo'<pre>';print_r($response);exit;
         $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
         //Session::flash('success', 'Payment successful!');
           

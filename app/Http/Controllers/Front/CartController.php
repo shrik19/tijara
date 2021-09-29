@@ -814,7 +814,7 @@ class CartController extends Controller
             $billing_address['given_name'] = $request->billing_given_name;
             $billing_address['family_name'] = $request->billing_family_name;
             $billing_address['email'] = $request->billing_email;
-            $billing_address['street_address'] = $request->billing_street_address;
+            $billing_address['street_address'] = $request->billing_address;
             $billing_address['postal_code'] = $request->billing_postcode;
             $billing_address['city'] = $request->billing_city;
             $billing_address['phone'] = $request->billing_phone_number;
@@ -823,7 +823,7 @@ class CartController extends Controller
             $shipping_address['given_name'] = $request->shipping_given_name;
             $shipping_address['family_name'] = $request->shipping_family_name;
             $shipping_address['email'] = $request->shipping_email;
-            $shipping_address['street_address'] = $request->shipping_street_address;
+            $shipping_address['street_address'] = $request->shipping_address;
             $shipping_address['postal_code'] = $request->shipping_postcode;
             $shipping_address['city'] = $request->shipping_city;
             $shipping_address['phone'] = $request->shipping_phone_number;

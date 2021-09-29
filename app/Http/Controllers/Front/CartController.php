@@ -1239,7 +1239,7 @@ class CartController extends Controller
         $data = [];
         
         $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
-        $orderAddress = json_decode($checkExisting['address']);
+        $orderAddress = json_decode($checkExisting[0]['address']);
 
         $billing_address= [];
         $billing_address['given_name'] = $orderAddress['billing']['given_name'];

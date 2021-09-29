@@ -20,7 +20,8 @@ class VerifyCsrfToken extends Middleware
         'swish-ipn-callback',
         'getSwishPaymentMethods',
         'swishInitiatePayment',
-        'checkoutSubmitAdditionalDetails'
+        'checkoutSubmitAdditionalDetails',
+        'checkout-swish-ipn'
 
     ];
 }

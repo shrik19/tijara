@@ -1044,10 +1044,10 @@ class CartController extends Controller
                 "description" => "Tijara payment for order #".$orderRef ,
                 
         ]);
-        $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
+        $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
         //Session::flash('success', 'Payment successful!');
           
-        return redirect(route('frontProductCheckoutSuccess',['id'=>$orderRef]));
+        return redirect(route('frontProductCheckoutSuccess',['id'=>base64_encode($NewOrderId)]));
     }
     function showCheckoutSwish($seller_id,$checkExisting) {
 
@@ -1383,8 +1383,9 @@ class CartController extends Controller
         }
       }
       //END : Create Order Details.
+      return $NewOrderId;
     }
-    public function checkoutSwishCallback(Request $request){
+    public function checkoutSwishIpn(Request $request){
       if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
           $order_id = $_REQUEST['merchantReference'];
               
@@ -1474,15 +1475,16 @@ class CartController extends Controller
 
         $checkExisting = TmpOrders::where('id','=',$TmpOrderId)->where('klarna_order_reference','=',$order_id)->first()->toArray();
         $Total = (float)ceil($checkExisting['total']);
-
+        $NewOrderId = 0;
         if($order_amount != $Total)
         {
           $data['error_messages']=trans('errors.order_amount_mismatched');
           return view('Front/payment_error',$data);
         }
+        
         else
         {
-          $this->checkoutProcessedFunction($checkExisting,$TmpOrderId,$order_status,$address,$orderLines);
+          $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$TmpOrderId,$order_status,$address,$orderLines);
         }
 
         return redirect(route('frontCheckoutSuccess',['id' => base64_encode($NewOrderId)]));

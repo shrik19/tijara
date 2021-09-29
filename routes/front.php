@@ -226,7 +226,8 @@ Route::post('/seller-payment-update', 'Front\AuthController@sellerPaymentDetails
   Route::any('/check-old-password', 'Front\AuthController@checkOldPassword')->name('frontcheckOldPassword');
 
 
-  Route::match(['get', 'post'], '/checkouthandleShopperRedirect', 'Front\CartController@checkouthandleShopperRedirect');
+Route::match(['get', 'post'], '/checkouthandleShopperRedirect', 'Front\CartController@checkouthandleShopperRedirect');
+Route::match(['get', 'post'], '/checkout-swish-ipn', 'Front\CartController@checkoutSwishIpn');
 
   Route::match(['get', 'post'],'/checkout-swish-ipn-callback', 'Front\CartController@CheckoutswishIpnCallback')->name('CheckoutswishIpnCallback');
 Route::post('/getSwishPaymentMethods', 'Front\CartController@getSwishPaymentMethods');

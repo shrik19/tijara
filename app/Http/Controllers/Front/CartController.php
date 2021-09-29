@@ -1242,8 +1242,8 @@ class CartController extends Controller
         
         $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
         $orderAddress = json_decode($checkExisting[0]['address']);
-        $orderBillingAddress  = json_decode($orderAddress['billing']);
-        $orderShippingAddress  = json_decode($orderAddress['shipping']);
+        $orderBillingAddress  = json_decode($orderAddress->billing);
+        $orderShippingAddress  = json_decode($orderAddress->shipping);
         echo'<pre>';print_r($orderBillingAddress);exit;
         $billing_address= [];
         $billing_address['given_name'] = $orderBillingAddress['given_name'];

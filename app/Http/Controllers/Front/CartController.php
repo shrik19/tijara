@@ -1050,7 +1050,7 @@ class CartController extends Controller
           
         ];
 
-        TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+        TmpOrders::where('id',$orderRef)->update($arrOrderUpdate);
         //echo'<pre>';print_r($response);exit;
         $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
         //Session::flash('success', 'Payment successful!');

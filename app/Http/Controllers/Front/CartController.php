@@ -1241,15 +1241,16 @@ class CartController extends Controller
         
         $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
         $orderAddress = json_decode($checkExisting[0]['address']);
-echo'<pre>';print_r($orderAddress);exit;
+        $orderBillingAddress  = json_decode($orderAddress['billing']);
+        $orderShippingAddress  = json_decode($orderAddress['shipping']);
         $billing_address= [];
-        $billing_address['given_name'] = $orderAddress['billing']['given_name'];
-        $billing_address['family_name'] = $orderAddress['billing']['family_name'];
-        $billing_address['email'] = $orderAddress['billing']['email'];
-        $billing_address['street_address'] = $orderAddress['billing']['street_address'];
-        $billing_address['postal_code'] = $orderAddress['billing']['postal_code'];
-        $billing_address['city'] = $orderAddress['billing']['city'];
-        $billing_address['phone'] = $orderAddress['billing']['phone'];
+        $billing_address['given_name'] = $orderBillingAddress['given_name'];
+        $billing_address['family_name'] = $orderBillingAddress['family_name'];
+        $billing_address['email'] = $orderBillingAddress['email'];
+        $billing_address['street_address'] = $orderBillingAddress['street_address'];
+        $billing_address['postal_code'] = $orderBillingAddress['postal_code'];
+        $billing_address['city'] = $orderBillingAddress['city'];
+        $billing_address['phone'] = $orderBillingAddress['phone'];
         /*klarna api to create order*/
         $url = env('BASE_API_URL');
         

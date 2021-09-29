@@ -23,7 +23,11 @@ function getCustomPages()
 
 function getOrderProducts($userId)
 {
-  $allOrderProducts = TmpOrdersDetails::where('user_id','=',$userId)->get()->toArray();
+  $allOrderProducts = TmpOrdersDetails::
+  join('temp_orders', 'temp_orders_details.order_id', '=', 'temp_orders.id')->
+  where('temp_orders.user_id','=',$userId)->where('temp_orders.show_in_cart','=',1)
+  ->select(['temp_orders_details.*'])
+  ->get()->toArray();
   if(!empty($allOrderProducts))
   {
     foreach($allOrderProducts as $key => $order)

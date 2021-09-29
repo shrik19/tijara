@@ -1108,7 +1108,7 @@ class CartController extends Controller
           "paymentMethod" => $request->paymentMethod,
           "browserInfo" => $request->browserInfo // required for 3ds2
           );
-      //echo'<pre>';print_r($params);exit;
+      echo'<pre>';print_r($params);exit;
       $response = $this->service->payments($params);
   
       return $response;

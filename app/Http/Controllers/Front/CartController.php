@@ -323,7 +323,7 @@ class CartController extends Controller
       $is_buyer_product = 0;
       if($user_id)
       {
-        $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
+        $checkExisting = TmpOrders::where('user_id','=',$user_id)->where('show_in_cart','=',1)->get()->toArray();
         if(!empty($checkExisting))
         {
           $subTotal       = 0;
@@ -337,7 +337,8 @@ class CartController extends Controller
             $OrderId = $tmpOrder['id'];
 
             //Update Order Totals
-            $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+            $checkExistingOrderProduct = TmpOrdersDetails::
+            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->groupBy('temp_orders_details.variant_id')->get()->toArray();
             if(!empty($checkExistingOrderProduct))
             {
                 $subTotal       = 0;
@@ -767,13 +768,17 @@ class CartController extends Controller
           return view('Front/payment_error',$blade_data); 
         }
         //echo '<pre>';print_r($checkExisting);exit;
-        if(count($paymentOptionAvailable)>1) {
+        //if(count($paymentOptionAvailable)>1) 
+        $customerDetails=UserMain::where('id',$user_id)->first();
+        {
           $data['orderId']=$orderId;
           $data['payment_options']  = $paymentOptionAvailable;
+          $data['details']= $customerDetails;
           return view('Front/shopping_payment_options',$data);
         }
-        else {
-          return redirect(route('frontShowCheckout',['id' => base64_encode($orderId),'paymentoption'=>$paymentOptionAvailable[0]]));
+       // else 
+        {
+         // return redirect(route('frontShowCheckout',['id' => base64_encode($orderId),'paymentoption'=>$paymentOptionAvailable[0]]));
             //return redirect(route('frontShowCheckout',['id'=>base64_encode($orderId),'paymetoption'=>$paymentOptionAvailable[0]]));
             
         }
@@ -787,7 +792,7 @@ class CartController extends Controller
     }
     
 
-    public function showCheckout($orderId,$paymetOption)
+    public function showCheckout($orderId,$paymetOption,Request $request)
     {
       $data = [];
       
@@ -803,8 +808,35 @@ class CartController extends Controller
         }
         else
         {
+          $billing_address= [];
+          $billing_address['given_name'] = $request->billing_given_name;
+          $billing_address['family_name'] = $request->billing_family_name;
+          $billing_address['email'] = $request->billing_email;
+          $billing_address['street_address'] = $request->billing_street_address;
+          $billing_address['postal_code'] = $request->billing_postcode;
+          $billing_address['city'] = $request->billing_city;
+          $billing_address['phone'] = $request->billing_phone_number;
+
+          $shipping_address= [];
+          $shipping_address['given_name'] = $request->shipping_given_name;
+          $shipping_address['family_name'] = $request->shipping_family_name;
+          $shipping_address['email'] = $request->shipping_email;
+          $shipping_address['street_address'] = $request->shipping_street_address;
+          $shipping_address['postal_code'] = $request->shipping_postcode;
+          $shipping_address['city'] = $request->shipping_city;
+          $shipping_address['phone'] = $request->shipping_phone_number;
           
+          $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
+
           $OrderId = $checkExisting[0]['id'];
+          $arrOrderUpdate = [
+          
+            'address'  => json_encode($address),
+            
+          ];
+  
+          TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+          
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
           if(empty($checkExistingOrderProduct))
           {
@@ -1207,14 +1239,16 @@ class CartController extends Controller
         $data = [];
         
         $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
+        $orderAddress = json_decode($checkExisting['address']);
+
         $billing_address= [];
-        $billing_address['given_name'] = $UserData['fname'];
-        $billing_address['family_name'] = $UserData['lname'];
-        $billing_address['email'] = $UserData['email'];
-        $billing_address['street_address'] = $UserData['address'];
-        $billing_address['postal_code'] = $UserData['postcode'];
-        $billing_address['city'] = $UserData['city'];
-        $billing_address['phone'] = $UserData['phone_number'];
+        $billing_address['given_name'] = $orderAddress['billing']['given_name'];
+        $billing_address['family_name'] = $orderAddress['billing']['family_name'];
+        $billing_address['email'] = $orderAddress['billing']['email'];
+        $billing_address['street_address'] = $orderAddress['billing']['street_address'];
+        $billing_address['postal_code'] = $orderAddress['billing']['postal_code'];
+        $billing_address['city'] = $orderAddress['billing']['city'];
+        $billing_address['phone'] = $orderAddress['billing']['phone'];
         /*klarna api to create order*/
         $url = env('BASE_API_URL');
         
@@ -1346,7 +1380,7 @@ class CartController extends Controller
       //START : Create Order
       $arrOrderInsert = [
                           'user_id'     => $checkExisting['user_id'],
-                          'address'     => json_encode($address),
+                          'address'     => $checkExisting['address'],
                           'order_lines' => json_encode($orderLines),
                           'sub_total'   => $checkExisting['sub_total'],
                           'shipping_total' => $checkExisting['shipping_total'],
@@ -1501,6 +1535,12 @@ class CartController extends Controller
   }
 
   public function CheckoutswishCallback(Request $request) {
+    $arrOrderUpdate = [
+      'show_in_cart'  => 0,
+      
+    ];
+
+    TmpOrders::where('id',session('current_checkout_order_id'))->update($arrOrderUpdate);
     Session::put('current_checkout_order_id', '');
     if($request->status=='success' || $request->status=='pending') {
       $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';

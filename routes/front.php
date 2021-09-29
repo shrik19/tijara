@@ -106,7 +106,6 @@ Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->nam
 
 //Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
 Route::any('/checkout-swish/{type}','Front\ProductController@showCheckoutSwish')->name('frontProductShowCheckout');
-Route::any('/klarna_checkout_callback', 'Front\ProductController@checkoutKlarnaCallback')->name('frontProductKlarnaCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
  
 Route::get('/buyer-products','Front\ProductController@listBuyerProduct')->name('manageBuyerProducts');
@@ -198,6 +197,7 @@ Route::any('/paymentoptions/{id}','Front\CartController@showPaymentOptions')->na
 Route::any('/checkout/{id}/{paymentoption}','Front\CartController@showCheckout')->name('frontShowCheckout');
 Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name('frontCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');
+Route::any('/klarna_checkout_callback', 'Front\CartController@checkoutKlarnaCallback')->name('frontProductKlarnaCheckoutCallback');
 
 Route::any('/all-orders', 'Front\CartController@showAllOrders')->name('frontAllOrders');
 Route::any('/all-buyer-orders', 'Front\CartController@showBuyerOrders')->name('frontAllBuyerOrders');

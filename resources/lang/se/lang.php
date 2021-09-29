@@ -320,6 +320,7 @@
     'instagram_label'=>'Inlägg frän Instagram',
     'book_service_btn'=>'Slutför bokning',
     'continue_to_swish'=>'Fortsätt till Swish',
+    'swish_payment_not_proceed'=>'Betalningen går inte vidare. Vänligen försök igen senare',
 
     //strip
     'name_on_card'  =>   'namn på kort',

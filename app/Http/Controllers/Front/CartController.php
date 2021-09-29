@@ -1108,7 +1108,7 @@ class CartController extends Controller
           "paymentMethod" => $request->paymentMethod,
           "browserInfo" => $request->browserInfo // required for 3ds2
           );
-      echo'<pre>';print_r($params);exit;
+     // echo'<pre>';print_r($params);exit;
       $response = $this->service->payments($params);
   
       return $response;
@@ -1492,6 +1492,18 @@ class CartController extends Controller
       }
   }
 
+  public function CheckoutswishCallback(Request $request) {
+    Session::put('current_checkout_order_id', '');
+    if($request->status=='success' || $request->status=='pending') {
+      $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
+      return view('Front/order_success', $data);
+    }
+    else {
+      $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
+          return view('Front/payment_error',$blade_data); 
+    }
+    
+  }
   public function showCheckoutSuccess($id)
   {
     $data = [];

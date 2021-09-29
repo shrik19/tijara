@@ -321,7 +321,8 @@
     'instagram_label'=>'Instagram',
     'book_service_btn'=>'Book Service',
     'continue_to_swish'=>'Continue to swish',
-    
+    'swish_payment_not_proceed'=>'Payment not proceed. please try again later',
+
 
     //strip
     'name_on_card'  =>   'Name on card',

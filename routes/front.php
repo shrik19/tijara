@@ -229,7 +229,7 @@ Route::post('/seller-payment-update', 'Front\AuthController@sellerPaymentDetails
 Route::match(['get', 'post'], '/checkouthandleShopperRedirect', 'Front\CartController@checkouthandleShopperRedirect');
 Route::match(['get', 'post'], '/checkout-swish-ipn', 'Front\CartController@checkoutSwishIpn');
 
-  Route::match(['get', 'post'],'/checkout-swish-ipn-callback', 'Front\CartController@CheckoutswishIpnCallback')->name('CheckoutswishIpnCallback');
+Route::match(['get', 'post'],'/checkout-swish-callback', 'Front\CartController@CheckoutswishCallback')->name('CheckoutswishCallback');
 Route::post('/getSwishPaymentMethods', 'Front\CartController@getSwishPaymentMethods');
 Route::post('/swishInitiatePayment', 'Front\CartController@swishInitiatePayment');
 Route::post('/checkoutSubmitAdditionalDetails', 'Front\CartController@checkoutSubmitAdditionalDetails');

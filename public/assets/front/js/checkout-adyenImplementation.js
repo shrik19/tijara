@@ -101,17 +101,17 @@ function handleServerResponse(res, component) {
     
     switch (res.resultCode) {
       case "Authorised":
-        window.location.href = "/result/"+res.merchantReference+"/success";
+        window.location.href = "/checkout-swish-callback?status=success";
         break;
       case "Pending":
       case "Received":
-        window.location.href = "/result/"+res.merchantReference+"/pending";
+        window.location.href = "/checkout-swish-callback?status=pending";
         break;
       case "Refused":
-        window.location.href = "/result/"+res.merchantReference+"/failed";
+        window.location.href = "/checkout-swish-callback?status=failed";
         break;
       default:
-        window.location.href = "/result/"+res.merchantReference+"/error";
+        window.location.href = "/checkout-swish-callback?status=error";
         break;
     }
   }

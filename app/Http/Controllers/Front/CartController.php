@@ -808,35 +808,36 @@ class CartController extends Controller
         }
         else
         {
-          $billing_address= [];
-          $billing_address['given_name'] = $request->billing_given_name;
-          $billing_address['family_name'] = $request->billing_family_name;
-          $billing_address['email'] = $request->billing_email;
-          $billing_address['street_address'] = $request->billing_street_address;
-          $billing_address['postal_code'] = $request->billing_postcode;
-          $billing_address['city'] = $request->billing_city;
-          $billing_address['phone'] = $request->billing_phone_number;
+          if($request->billing_given_name) {
+            $billing_address= [];
+            $billing_address['given_name'] = $request->billing_given_name;
+            $billing_address['family_name'] = $request->billing_family_name;
+            $billing_address['email'] = $request->billing_email;
+            $billing_address['street_address'] = $request->billing_street_address;
+            $billing_address['postal_code'] = $request->billing_postcode;
+            $billing_address['city'] = $request->billing_city;
+            $billing_address['phone'] = $request->billing_phone_number;
 
-          $shipping_address= [];
-          $shipping_address['given_name'] = $request->shipping_given_name;
-          $shipping_address['family_name'] = $request->shipping_family_name;
-          $shipping_address['email'] = $request->shipping_email;
-          $shipping_address['street_address'] = $request->shipping_street_address;
-          $shipping_address['postal_code'] = $request->shipping_postcode;
-          $shipping_address['city'] = $request->shipping_city;
-          $shipping_address['phone'] = $request->shipping_phone_number;
-          
-          $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
-
-          $OrderId = $checkExisting[0]['id'];
-          $arrOrderUpdate = [
-          
-            'address'  => json_encode($address),
+            $shipping_address= [];
+            $shipping_address['given_name'] = $request->shipping_given_name;
+            $shipping_address['family_name'] = $request->shipping_family_name;
+            $shipping_address['email'] = $request->shipping_email;
+            $shipping_address['street_address'] = $request->shipping_street_address;
+            $shipping_address['postal_code'] = $request->shipping_postcode;
+            $shipping_address['city'] = $request->shipping_city;
+            $shipping_address['phone'] = $request->shipping_phone_number;
             
-          ];
-  
-          TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
-          
+            $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
+
+            $OrderId = $checkExisting[0]['id'];
+            $arrOrderUpdate = [
+            
+              'address'  => json_encode($address),
+              
+            ];
+    
+            TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+          }
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
           if(empty($checkExistingOrderProduct))
           {
@@ -1240,7 +1241,7 @@ class CartController extends Controller
         
         $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
         $orderAddress = json_decode($checkExisting[0]['address']);
-
+echo'<pre>';print_r($orderAddress);exit;
         $billing_address= [];
         $billing_address['given_name'] = $orderAddress['billing']['given_name'];
         $billing_address['family_name'] = $orderAddress['billing']['family_name'];

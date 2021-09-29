@@ -16,7 +16,7 @@
             
             {{$swish_message}}
             </h2>
-            else
+            @else
             <h2 style="text-align: center;color: green">
             
             {{ __('lang.msg_order_success')}}

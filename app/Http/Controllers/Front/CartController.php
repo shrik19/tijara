@@ -1128,6 +1128,7 @@ class CartController extends Controller
                         ->select(['users.*'])                          
                         ->where('temp_orders.id','=',$orderRef)->first()->toArray();
       
+        echo'<pre>';print_r($UserData);exit;
         $client = new \Adyen\Client();
         $client->setXApiKey($UserData['swish_api_key']);
         $client->setEnvironment(\Adyen\Environment::TEST);
@@ -1559,7 +1560,7 @@ class CartController extends Controller
       ];
   
       TmpOrders::where('id',$current_checkout_order_id)->update($arrOrderUpdate);
-      
+
       $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
       $data['OrderId']=0;
       return view('Front/order_success', $data);

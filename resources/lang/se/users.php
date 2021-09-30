@@ -370,7 +370,7 @@ avbokning av tjänst fungerar.',
     'swish_client_key_label' => 'Client Key',
     'easy_peyment_title' => 'Enkel betalning',
     'stripe_api_key_label' =>'Api Key',
-    'stripe_account_label' => 'Stripe Account',
+    'stripe_secret_label' => 'Stripe Secret Key',
  
  ]
 ?>

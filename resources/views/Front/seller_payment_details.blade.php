@@ -80,8 +80,8 @@
                 </div>
 
               <div class="form-group">
-              <input type="text" class="form-control" name="strip_account" id="strip_account" placeholder="{{ __('users.stripe_account_label')}}" value="{{ (old('strip_account')) ? old('strip_account') : $sellerDetails[0]->strip_account}}">
-              <span class="invalid-feedback">@if($errors->has('strip_account')) {{ $errors->first('strip_account') }}@endif</span>
+              <input type="text" class="form-control" name="strip_secret" id="strip_secret" placeholder="{{ __('users.stripe_secret_label')}}" value="{{ (old('strip_secret')) ? old('strip_secret') : $sellerDetails[0]->strip_secret}}">
+              <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
                 </div>
 
                 

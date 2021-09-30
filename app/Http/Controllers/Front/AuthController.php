@@ -506,7 +506,7 @@ class AuthController extends Controller
                 'swish_merchant_account' => trim($request->input('swish_merchant_account')),
                 'swish_client_key'       => trim($request->input('swish_client_key')),
                 'strip_api_key'          => trim($request->input('strip_api_key')),
-                'strip_account'          => trim($request->input('strip_account')),
+                'strip_secret'          => trim($request->input('strip_secret')),
             ];
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);

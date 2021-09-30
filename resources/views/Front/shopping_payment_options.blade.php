@@ -134,9 +134,10 @@
                   </div>
                 </div>  
               </div>
-              <div class="col-md-12" style="text-align: center;">
+              <div class="col-md-12">
+                  <div class="col-md-2"></div>
                 @foreach($payment_options as $p)
-                  <div class="col-md-3">
+                  <div class="col-md-3 text-center">
                     <button id="{{$p}}" type="button" class="btn buy_now_btn debg_color pay_through_btn" style="font-size:18px;"
                     >
                       {{ __('lang.pay_through')}} {{$p}} <span class="glyphicon glyphicon-play"></span>

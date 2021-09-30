@@ -66,10 +66,10 @@ class CartController extends Controller
           if(!empty($productVariant))
           {
               $Products = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
-        							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-        							  ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product.quantity','variant_product_attribute.id as variant_attribute_id'])
+                        ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                        ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product.quantity','variant_product_attribute.id as variant_attribute_id'])
                         ->where('variant_product.id','=', $productVariant)
-        							  ->where('products.status','=','active')
+                        ->where('products.status','=','active')
                         ->get()->toArray();
               
               if($user_id == $Products[0]['user_id'])
@@ -152,7 +152,7 @@ class CartController extends Controller
                   else
                   {
                     $discount_price = $price;
-                  }		
+                  }   
                   
                   if($quantity > $Products[0]['quantity'])
                   {
@@ -181,7 +181,7 @@ class CartController extends Controller
                     exit;
                   } 
                 $variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
-											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+                       ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
                        ->where([['variant_id','=',$productVariant],['product_id','=',$Products[0]['id']]])->get();
                 
                 $attrIds = '';  
@@ -209,7 +209,7 @@ class CartController extends Controller
                   else
                   {
                     $discount_price = $Products[0]['price'];
-                  }	
+                  } 
                        
                 $arrOrderDetailsInsert = [
                     'order_id'             => $OrderId,
@@ -370,7 +370,7 @@ class CartController extends Controller
                     else
                     {
                       $discount_price = $details['product_price'];
-                    }	
+                    } 
 
                     //Get Seller Shipping Informations
                     $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
@@ -457,7 +457,7 @@ class CartController extends Controller
               {
                   //$orderDetails[] = $details;
 
-                  $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                  $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
                               ->join('categories', 'categories.id', '=', 'category_products.category_id')
                               ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                               ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -482,14 +482,14 @@ class CartController extends Controller
                       $productCategories = $this->getProductCategories($Product->id);
                       //dd($productCategories);
 
-                      $product_link	=	url('/').'/product';
+                      $product_link = url('/').'/product';
 
-                      $product_link	.=	'/'.$productCategories[0]['category_slug'];
-                      $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+                      $product_link .=  '/'.$productCategories[0]['category_slug'];
+                      $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
 
-                      $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+                      $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
-                      $Product->product_link	=	$product_link;
+                      $Product->product_link  = $product_link;
 
                       $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id','store_name')->where('users.id','=',$Product->user_id)->first()->toArray();
                       if($SellerData['role_id'] == 1)
@@ -501,7 +501,7 @@ class CartController extends Controller
                       {
                         $orderDetails[$OrderId]['is_buyer_product'] = 0;
                       }
-                      $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                      $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                       if(!empty($SellerData['store_name'])){
                          $Product->store_name  = $SellerData['store_name'];
                        }else{
@@ -686,7 +686,7 @@ class CartController extends Controller
             else
             {
               $discount_price = $price;
-            }	
+            } 
             $arrOrderDetailsUpdate = [
                 'price'                => $discount_price,
                 'quantity'             => $Quantity,
@@ -920,7 +920,7 @@ class CartController extends Controller
                       $product_shipping_type = 'free';
                     }
 
-                    	
+                      
 
                     $arrOrderDetailsUpdate = [
                       'price'                => $discount_price,
@@ -968,7 +968,7 @@ class CartController extends Controller
           {
               //$orderDetails[] = $details;
 
-              $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+              $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
                           ->join('categories', 'categories.id', '=', 'category_products.category_id')
                           ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                           ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -1011,17 +1011,17 @@ class CartController extends Controller
                   $productCategories = $this->getProductCategories($Product->id);
                   //dd($productCategories);
 
-                  $product_link	=	url('/').'/product';
+                  $product_link = url('/').'/product';
 
-                  $product_link	.=	'/'.$productCategories[0]['category_slug'];
-                  $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+                  $product_link .=  '/'.$productCategories[0]['category_slug'];
+                  $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
 
-                  $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+                  $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
-                  $Product->product_link	=	$product_link;
+                  $Product->product_link  = $product_link;
 
                   $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
-                  $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                  $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                   $Product->quantity = $details['quantity'];
                   $Product->image    = explode(',',$Product->image)[0];
                   $details['product'] = $Product;
@@ -1092,8 +1092,6 @@ class CartController extends Controller
         TmpOrders::where('id',$orderRef)->update($arrOrderUpdate);
         //echo'<pre>';print_r($response);exit;
         $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
-        $orderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
-                  $this->sendMailAboutOrder($orderDetails);
         //Session::flash('success', 'Payment successful!');
           
         return redirect(route('frontCheckoutSuccess',['id'=>base64_encode($NewOrderId)]));
@@ -1322,26 +1320,22 @@ class CartController extends Controller
 
         $data['merchant_data'] = $OrderId;
         $data['options']= ['allow_separate_shipping_address' => true,'color_button' => '#03989e','color_button_text' => '#ffffff'];
-        //echo $username.'-----'.$password;
-        //echo'<pre>';print_r($data);exit;
 
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-        //
+        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $result = curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        echo $httpcode;
+        
         //dd($password);
          
         if (curl_errno($ch)) {
@@ -1350,7 +1344,6 @@ class CartController extends Controller
         curl_close($ch);
         
         $response = json_decode($result);
-        //echo'<pre>====';print_r($response);
         $responseToFun['error']  = 0;
         if(empty($response))
         { 
@@ -1459,10 +1452,8 @@ class CartController extends Controller
                }
               $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
               if(!empty($checkExisting)) {
-                  //$ProductData = json_decode($checkExisting['product_details'],true);
-                  $newOrderId=$this->checkoutProcessedFunction($checkExisting,$order_id,'checkout_complete','','') ;
-                  $orderDetails = Orders::where('id','=',$newOrderId)->first()->toArray();
-                  $this->sendMailAboutOrder($orderDetails);
+                  $ProductData = json_decode($checkExisting['product_details'],true);
+                  $this->checkoutProcessedFunction($checkExisting,$order_id,'checkout_complete','','') ;
                 
               }
        }
@@ -1719,35 +1710,20 @@ class CartController extends Controller
                           ];
         Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
 
-        $this->sendMailAboutOrder($checkExisting);
-
-      }
-      else
-      {
-        $arrOrderUpdate = [
-          'payment_details' => json_encode($response),
-          'payment_status' => $order_status,
-          'order_status' => 'PENDING',
-          'order_complete_at' => '',
-          'updated_at' => $currentDate,
-        ];
-
-        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
-      }
-
-      exit;
-
- }
-function sendMailAboutOrder($checkExisting) {
-  $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')
-  ->select('users.fname','users.lname','users.email','orders.*')
-  ->where('orders.id','=',$checkExisting['id'])->get()->toArray();
+        $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('orders.id','=',$checkExisting['id'])->get()->toArray();
 
         //START : Send success email to User.
           $email = trim($GetOrder[0]['email']);
           $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
-         
+          // $arrMailData = ['name' => $name, 'email' => $email, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
+
+          // Mail::send('emails/order_success', $arrMailData, function($message) use ($email,$name) {
+          //     $message->to($email, $name)->subject
+          //         ('Tijara - Order successfull.');
+          //     $message->from('developer@techbeeconsulting.com','Tijara');
+          // });
+
           $mailOrderDetails = array(); $mail_order_details  = '<table width="800">
           <tbody>
           <tr>
@@ -1773,7 +1749,7 @@ function sendMailAboutOrder($checkExisting) {
               {
                   foreach($checkExistingOrderProduct as $details)
                   {
-                      $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                      $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
                                   ->join('categories', 'categories.id', '=', 'category_products.category_id')
                                   ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                                   ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -1798,17 +1774,17 @@ function sendMailAboutOrder($checkExisting) {
                           $productCategories = $this->getProductCategories($Product->id);
                           //dd($productCategories);
 
-                          $product_link	=	url('/').'/product';
+                          $product_link = url('/').'/product';
 
-                          $product_link	.=	'/'.$productCategories[0]['category_slug'];
-                          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+                          $product_link .=  '/'.$productCategories[0]['category_slug'];
+                          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
 
-                          $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+                          $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
-                          $Product->product_link	=	$product_link;
+                          $Product->product_link  = $product_link;
 
                           $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
-                          $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                          $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                           
                           $Product->quantity = $details['quantity'];
                           $Product->image    = explode(',',$Product->image)[0];
@@ -1859,23 +1835,21 @@ function sendMailAboutOrder($checkExisting) {
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['phone'].' </p>';
           
           $mail_order_details .=  '<tr>                     
-                  <td colspan="5" style="text-align: right; padding-top: 20px;">
-                      <h4 style="margin:5px 0; font-weight: 600; font-size: 20px;">TotalSumma</h4>
-                      <h4 style="margin:5px 0; font-weight: 300; font-size: 18px;">'.$checkExisting['total'].' kr</h4>
-                  </td>
-                </tr>
-              </tbody>
-          </table>';
-          $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')
-          ->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
+          <td colspan="5" style="text-align: right; padding-top: 20px;">
+              <h4 style="margin:5px 0; font-weight: 600; font-size: 20px;">TotalSumma</h4>
+              <h4 style="margin:5px 0; font-weight: 300; font-size: 18px;">'.$checkExisting['total'].' kr</h4>
+          </td>
+        </tr>
+      </tbody>
+  </table>';
+  $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
 
-                $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name')
-                ->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
+        $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
 
-          $overview  = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; 
-          ">Butik: '.$GetSeller['store_name'].'</p>
-          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Ordernummer: #'.$checkExisting['id'].' </p>
-          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$checkExisting['created_at'].' </p>';
+  $overview  = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; 
+  ">Butik: '.$GetSeller['store_name'].'</p>
+  <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Ordernummer: #'.$checkExisting['id'].' </p>
+  <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$checkExisting['created_at'].' </p>';
   
           $GetEmailContents = getEmailContents('Order Success');
           $subject = $GetEmailContents['subject'];
@@ -1943,7 +1917,25 @@ function sendMailAboutOrder($checkExisting) {
           }
         }
 
-}
+
+      }
+      else
+      {
+        $arrOrderUpdate = [
+          'payment_details' => json_encode($response),
+          'payment_status' => $order_status,
+          'order_status' => 'PENDING',
+          'order_complete_at' => '',
+          'updated_at' => $currentDate,
+        ];
+
+        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+      }
+
+      exit;
+
+ }
+
  /* function for klarna payment callback*/
  public function showBuyerCheckout($orderId)
  {
@@ -2112,7 +2104,7 @@ function sendMailAboutOrder($checkExisting) {
         {
           foreach($getWishlist as $details)
           {
-              $wishlistProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+              $wishlistProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
                           ->join('categories', 'categories.id', '=', 'category_products.category_id')
                           ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                           ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -2138,17 +2130,17 @@ function sendMailAboutOrder($checkExisting) {
                   $productCategories = $this->getProductCategories($Product->id);
                   //dd($productCategories);
 
-                  $product_link	=	url('/').'/product';
+                  $product_link = url('/').'/product';
 
-                  $product_link	.=	'/'.$productCategories[0]['category_slug'];
-                  $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+                  $product_link .=  '/'.$productCategories[0]['category_slug'];
+                  $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
 
-                  $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+                  $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
-                  $Product->product_link	=	$product_link;
+                  $Product->product_link  = $product_link;
 
                   $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
-                  $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                  $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                   $Product->quantity = 1;
                   $Product->image    = explode(',',$Product->image)[0];
                   $details['product'] = $Product;
@@ -2231,11 +2223,11 @@ function sendMailAboutOrder($checkExisting) {
             if(!empty($productVariant))
             {
                 $Product = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
-          							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-          							  ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
+                          ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                          ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
                           ->where('variant_product.id','=', $productVariant)
-          							  ->where('products.status','=','active')
-          							  ->get()->toArray();
+                          ->where('products.status','=','active')
+                          ->get()->toArray();
                 //dd($Product);
                 //Create Temp order
                 $checkExisting = Wishlist::where([['user_id','=',$user_id],['product_id','=',$Product[0]['id']],['variant_id','=',$productVariant]])->first();
@@ -2248,7 +2240,7 @@ function sendMailAboutOrder($checkExisting) {
                 else
                 {
                   $variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
-  											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+                         ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
                          ->where([['variant_id','=',$productVariant],['product_id','=',$Product[0]['id']]])->get();
                   
                   $attrIds = '';  
@@ -2396,7 +2388,7 @@ function sendMailAboutOrder($checkExisting) {
               {
                   foreach($checkExistingOrderProduct as $details)
                   {
-                      $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                      $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
                                   ->join('categories', 'categories.id', '=', 'category_products.category_id')
                                   ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                                   ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -2427,17 +2419,17 @@ function sendMailAboutOrder($checkExisting) {
                           $productCategories = $this->getProductCategories($Product->id);
                           //dd($productCategories);
 
-                          $product_link	=	url('/').'/product';
+                          $product_link = url('/').'/product';
 
-                          $product_link	.=	'/'.$productCategories[0]['category_slug'];
-                          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+                          $product_link .=  '/'.$productCategories[0]['category_slug'];
+                          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
 
-                          $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+                          $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
-                          $Product->product_link	=	$product_link;
+                          $Product->product_link  = $product_link;
 
                           $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
-                          $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                          $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                           
                           $data['seller_name'] = $Product->seller;
                           $sellerLink = route('sellerProductListingByCategory',['seller_name' => $Product->seller, 'seller_id' => base64_encode($Product->user_id)]);
@@ -2534,7 +2526,7 @@ function sendMailAboutOrder($checkExisting) {
               {
                   foreach($checkExistingOrderProduct as $details)
                   {
-                      $TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                      $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
                                   ->join('categories', 'categories.id', '=', 'category_products.category_id')
                                   ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                                   ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -2565,17 +2557,17 @@ function sendMailAboutOrder($checkExisting) {
                           $productCategories = $this->getProductCategories($Product->id);
                           //dd($productCategories);
 
-                          $product_link	=	url('/').'/product';
+                          $product_link = url('/').'/product';
 
-                          $product_link	.=	'/'.$productCategories[0]['category_slug'];
-                          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+                          $product_link .=  '/'.$productCategories[0]['category_slug'];
+                          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
 
-                          $product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
+                          $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
-                          $Product->product_link	=	$product_link;
+                          $Product->product_link  = $product_link;
 
                           $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
-                          $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+                          $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                           
                           $data['seller_name'] = $Product->seller;
                           $sellerLink = route('sellerProductListingByCategory',['seller_name' => $Product->seller, 'seller_id' => base64_encode($Product->user_id)]);
@@ -2830,7 +2822,7 @@ function sendMailAboutOrder($checkExisting) {
                         $query->orwhere($field[$i], 'like',  '%' . $search .'%');
                   }  
 
-                }				 
+                }        
               }); 
       }
 

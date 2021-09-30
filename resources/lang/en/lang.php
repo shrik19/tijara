@@ -321,6 +321,18 @@
     'instagram_label'=>'Instagram',
     'book_service_btn'=>'Book Service',
     'continue_to_swish'=>'Continue to swish',
-    
+    'swish_payment_not_proceed'=>'Payment not proceed. please try again later',
+
+
+    //strip
+    'name_on_card'  =>   'Name on card',
+    'card_number'   =>   'Card Number',
+    'cvc'           =>  'CVC',
+    'expiration_month'=>    'Expiration month',
+    'expiration_year'=>'Expiration year',
+    'strip_payment_details'=>'Stripe payment details',
+    'pay_now'   =>  'Pay now',
+    'strip_error_message'=>'Please correct the errors and try again.',
+    'pay_through'   =>  'Pay through',
  ]  
 ?>

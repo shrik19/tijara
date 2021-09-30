@@ -25,6 +25,9 @@ use App\Models\Services;
 use App\Models\ServiceCategory;
 use App\Models\SellerPersonalPage;
 
+use App\Http\AdyenClient;
+use Stripe;
+
 use DB;
 use Auth;
 use Validator;
@@ -78,7 +81,12 @@ class CartController extends Controller
               }  
               
               $existingOrder = 0;
-              $checkExistingOrderDetails = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->select(['products.user_id','temp_orders_details.order_id'])->where('temp_orders_details.user_id','=',$user_id)->get()->toArray();
+              $checkExistingOrderDetails = TmpOrdersDetails::
+              join('temp_orders', 'temp_orders_details.order_id', '=', 'temp_orders.id')
+              ->join('products', 'temp_orders_details.product_id', '=', 'products.id')
+              ->select(['products.user_id','temp_orders_details.order_id'])
+              ->where('temp_orders_details.user_id','=',$user_id)
+              ->where('temp_orders.show_in_cart','=',1)->get()->toArray();
               if(!empty($checkExistingOrderDetails))
               {
                   foreach($checkExistingOrderDetails as $details)
@@ -320,7 +328,7 @@ class CartController extends Controller
       $is_buyer_product = 0;
       if($user_id)
       {
-        $checkExisting = TmpOrders::where('user_id','=',$user_id)->get()->toArray();
+        $checkExisting = TmpOrders::where('user_id','=',$user_id)->where('show_in_cart','=',1)->get()->toArray();
         if(!empty($checkExisting))
         {
           $subTotal       = 0;
@@ -334,7 +342,8 @@ class CartController extends Controller
             $OrderId = $tmpOrder['id'];
 
             //Update Order Totals
-            $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+            $checkExistingOrderProduct = TmpOrdersDetails::
+            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->groupBy('temp_orders_details.variant_id')->get()->toArray();
             if(!empty($checkExistingOrderProduct))
             {
                 $subTotal       = 0;
@@ -729,14 +738,74 @@ class CartController extends Controller
       exit;
     }
 
-    public function showCheckout($orderId)
-    {
-      $data = [];
+    public function showPaymentOptions($orderId) {
       $user_id = Auth::guard('user')->id();
       if($user_id && Auth::guard('user')->getUser()->role_id == 1)
       {
         $orderId = base64_decode($orderId);
         
+        $checkExisting = TmpOrders::join('temp_orders_details', 'temp_orders.id', '=', 'temp_orders_details.order_id')
+                        ->join('products', 'products.id', '=', 'temp_orders_details.product_id')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->select(['users.*'])                          
+                        ->where('temp_orders.id','=',$orderId)->first();
+        if(empty($checkExisting))
+        {
+          return redirect(route('frontShowCart'));
+        }
+        Session::put('current_checkout_order_id', $orderId);
+        $paymentOptionAvailable = array(); $isPaymentOptionAvailable= 0;
+
+        if($checkExisting->klarna_username!='' && $checkExisting->klarna_password!='') {
+            $paymentOptionAvailable[]='klarna';
+            $isPaymentOptionAvailable = 1;
+        }
+        if($checkExisting->swish_api_key!='' && $checkExisting->swish_merchant_account!='' && $checkExisting->swish_client_key!='') {
+          $paymentOptionAvailable[]='swish';
+          $isPaymentOptionAvailable = 1;
+        }
+        if($checkExisting->strip_api_key!='' && $checkExisting->strip_secret!='' ) {
+          $paymentOptionAvailable[]='strip';
+          $isPaymentOptionAvailable = 1;
+        }
+        if($isPaymentOptionAvailable==0) {
+          $blade_data['error_messages']= trans('errors.seller_credentials_err');
+          return view('Front/payment_error',$blade_data); 
+        }
+        //echo '<pre>';print_r($checkExisting);exit;
+        //if(count($paymentOptionAvailable)>1) 
+        $customerDetails=UserMain::where('id',$user_id)->first();
+        {
+          $data['orderId']=$orderId;
+          $data['payment_options']  = $paymentOptionAvailable;
+          $data['details']= $customerDetails;
+          return view('Front/shopping_payment_options',$data);
+        }
+       // else 
+        {
+         // return redirect(route('frontShowCheckout',['id' => base64_encode($orderId),'paymentoption'=>$paymentOptionAvailable[0]]));
+            //return redirect(route('frontShowCheckout',['id'=>base64_encode($orderId),'paymetoption'=>$paymentOptionAvailable[0]]));
+            
+        }
+
+          
+      }
+      else
+      {
+        return redirect(route('frontShowCart'));
+      }
+    }
+    
+
+    public function showCheckout($orderId,$paymetOption,Request $request)
+    {
+      $data = [];
+      
+      $user_id = Auth::guard('user')->id();
+      if($user_id && Auth::guard('user')->getUser()->role_id == 1)
+      {
+        $orderId = base64_decode($orderId);
+        Session::put('current_checkout_order_id', $orderId);
         $checkExisting = TmpOrders::select('id')->where('id','=',$orderId)->get()->toArray();
         if(empty($checkExisting))
         {
@@ -744,8 +813,37 @@ class CartController extends Controller
         }
         else
         {
-          
           $OrderId = $checkExisting[0]['id'];
+          if($request->billing_given_name) {
+            $billing_address= [];
+            $billing_address['given_name'] = $request->billing_given_name;
+            $billing_address['family_name'] = $request->billing_family_name;
+            $billing_address['email'] = $request->billing_email;
+            $billing_address['street_address'] = $request->billing_address;
+            $billing_address['postal_code'] = $request->billing_postcode;
+            $billing_address['city'] = $request->billing_city;
+            $billing_address['phone'] = $request->billing_phone_number;
+
+            $shipping_address= [];
+            $shipping_address['given_name'] = $request->shipping_given_name;
+            $shipping_address['family_name'] = $request->shipping_family_name;
+            $shipping_address['email'] = $request->shipping_email;
+            $shipping_address['street_address'] = $request->shipping_address;
+            $shipping_address['postal_code'] = $request->shipping_postcode;
+            $shipping_address['city'] = $request->shipping_city;
+            $shipping_address['phone'] = $request->shipping_phone_number;
+            
+            $address = ['billing' => json_encode($billing_address), 'shipping' => json_encode($shipping_address)];
+
+            
+            $arrOrderUpdate = [
+            
+              'address'  => json_encode($address),
+              
+            ];
+    
+            TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+          }
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
           if(empty($checkExistingOrderProduct))
           {
@@ -877,7 +975,11 @@ class CartController extends Controller
                           ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                           ->join('users', 'users.id', '=', 'products.user_id')
                           //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
-                          ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id','users.klarna_username','users.klarna_password'])
+                          ->select(['products.*','categories.category_name', 'variant_product.image',
+                          'variant_product.price','variant_product.id as variant_id',
+                          'users.klarna_username','users.klarna_password',
+                          'users.swish_api_key','users.swish_merchant_account','users.swish_client_key'
+                          ,'users.strip_api_key','users.strip_secret'])
                           ->where('products.status','=','active')
                           ->where('categories.status','=','active')
                           ->where('subcategories.status','=','active')
@@ -889,11 +991,17 @@ class CartController extends Controller
                           ->offset(0)->limit(config('constants.Products_limits'))->get();
                           //dd(DB::getQueryLog());
 
-                          //dd(count($TrendingProducts));
-                                 
+                          //dd(($TrendingProducts));
+              //echo'<pre>';print_r($TrendingProducts);exit;
+              $seller_id=0;                   
               if(count($TrendingProducts)>0) {
                 foreach($TrendingProducts as $Product)
                 {
+                  $seller_id  = $Product->user_id;
+                  $swish_client_key = $Product->swish_client_key;
+                  $strip_api_key = $Product->strip_api_key;
+                  $strip_secret = $Product->strip_secret;
+
                   
                   if(empty($username) && empty($password))
                   {
@@ -921,30 +1029,235 @@ class CartController extends Controller
                 }
               }
           }
-      }
-      else
-      {
-        return redirect(route('frontShowCart'));
-      }
+        }
+        else
+        {
+          return redirect(route('frontShowCart'));
+        }
         $param['details'] = $orderDetails;
       
-        
-
-      if(empty($username) || empty($password))
-        {
-          $blade_data['error_messages']= trans('errors.seller_credentials_err');
-          return view('Front/payment_error',$blade_data); 
+        if($paymetOption=='klarna') {
+          $responseFromFun=  $this->showCheckoutKlarna($user_id,$checkExisting,$orderDetails,$OrderId,$username,$password);
+          if(isset($responseFromFun['error']) && $responseFromFun['error']==1) {
+            return view('Front/payment_error',$responseFromFun); 
+          }
+          else
+          return view('Front/checkout_klarna', $responseFromFun);
         }
+        if($paymetOption=='swish') {
+          $responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
+          
+          return view('Front/checkout_swish', $responseFromFun);
+        }
+        if($paymetOption=='strip') {
+         // $responseFromFun=  $this->showCheckoutStrip($seller_id,$checkExisting);         
+          $data['strip_secret'] = $strip_secret;
+          $data['strip_api_key']= $strip_api_key;
+          $data['order_id']= $OrderId;
+          $data['Total']  = $param['Total'];
+          return view('Front/checkout_strip', $data);
+        }
+      }
+    }
+    public function checkoutStripProcess(Request $request) {
+
+      $orderRef = session('current_checkout_order_id');
+      //echo $orderRef;exit;
+      if($orderRef!=$request->order_id) 
+      return redirect(route('frontShowCart'));
+      $UserData = TmpOrders::join('temp_orders_details', 'temp_orders.id', '=', 'temp_orders_details.order_id')
+                        ->join('products', 'products.id', '=', 'temp_orders_details.product_id')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->select(['users.*'])                          
+                        ->where('temp_orders.id','=',$orderRef)->first()->toArray();
+
+      //echo'<pre>';print_r($UserData);exit;
+      $checkExisting = TmpOrders::where('id','=',$orderRef)->first()->toArray();
+      $orderTotal = (int)ceil($checkExisting['total']) * 100;
+      Stripe\Stripe::setApiKey($UserData['strip_secret']);
       
+        $response = Stripe\Charge::create ([
+                "amount" => $orderTotal,
+                "currency" => "INR",
+                "source" => $request->stripeToken,
+                "description" => "Tijara payment for order #".$orderRef ,
+                
+        ]);
+        $arrOrderUpdate = [
+          
+          'klarna_order_reference'  => $response->id,
+          
+        ];
+
+        TmpOrders::where('id',$orderRef)->update($arrOrderUpdate);
+        //echo'<pre>';print_r($response);exit;
+        $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
+        //Session::flash('success', 'Payment successful!');
+          
+        return redirect(route('frontCheckoutSuccess',['id'=>base64_encode($NewOrderId)]));
+    }
+    function showCheckoutSwish($seller_id,$checkExisting) {
+
+      $UserData = UserMain::select('users.*')->where('users.id','=',$seller_id)->first()->toArray();
+      
+        $client = new \Adyen\Client();
+        $client->setXApiKey($UserData['swish_api_key']);
+        $client->setEnvironment(\Adyen\Environment::TEST);
+
+        $this->service = new \Adyen\Service\Checkout($client);
+
+        $orderTotal = (int)ceil($checkExisting[0]['total']) * 100;
+        $data = array(
+          'type' => 'swish',
+          'clientKey' => $UserData['swish_client_key'],
+          'orderId'=>$checkExisting[0]['id'],
+          'paymentAmount'=>$orderTotal,
+          'seller_id'=>$seller_id
+        );
+        return $data;
+    }
+    public function swishInitiatePayment(Request $request){
+      error_log("Request for initiatePayment $request");
+  
+      $orderRef = session('current_checkout_order_id');
+      $UserData = TmpOrders::join('temp_orders_details', 'temp_orders.id', '=', 'temp_orders_details.order_id')
+                        ->join('products', 'products.id', '=', 'temp_orders_details.product_id')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->select(['users.*'])                          
+                        ->where('temp_orders.id','=',$orderRef)->first()->toArray();
+      
+        $client = new \Adyen\Client();
+        $client->setXApiKey($UserData['swish_api_key']);
+        $client->setEnvironment(\Adyen\Environment::TEST);
+
+        $this->service = new \Adyen\Service\Checkout($client);
+        
+      
+      $checkExisting = TmpOrders::where('id','=',$orderRef)->first()->toArray();
+      $orderTotal = (int)ceil($checkExisting['total']) * 100;
+      $params = array(
+          "merchantAccount" => $UserData['swish_merchant_account'],
+          "channel" => "Web", // required
+          "amount" => array(
+              "currency" => 'SEK',
+              "value" => $orderTotal // value is 10€ in minor units
+          ),
+          "reference" => $orderRef, // required
+          // required for 3ds2 native flow
+          "additionalData" => array(
+              "allow3DS2" => "true"
+          ),
+          "origin" => url('/'), // required for 3ds2 native flow
+          "shopperIP" => $request->ip(),// required by some issuers for 3ds2
+          // we pass the orderRef in return URL to get paymentData during redirects
+          // required for 3ds2 redirect flow
+          "returnUrl" => url('/')."/checkouthandleShopperRedirect?orderRef=${orderRef}&seller_id=".$UserData['id'],
+          "paymentMethod" => $request->paymentMethod,
+          "browserInfo" => $request->browserInfo // required for 3ds2
+          );
+     // echo'<pre>';print_r($params);exit;
+      $response = $this->service->payments($params);
+  
+      return $response;
+  }
+  public function checkouthandleShopperRedirect(Request $request){
+    error_log("Request for handleShopperRedirect $request");
+
+    $redirect = $request->all();
+
+    $UserData = UserMain::select('users.*')->where('users.id','=',$request->seller_id)->first()->toArray();
+      
+        $client = new \Adyen\Client();
+        $client->setXApiKey($UserData['swish_api_key']);
+        $client->setEnvironment(\Adyen\Environment::TEST);
+
+        $this->service = new \Adyen\Service\Checkout($client);
+      $details = array();
+      if (isset($redirect["redirectResult"])) {
+        $details["redirectResult"] = $redirect["redirectResult"];
+      } else if (isset($redirect["payload"])) {
+        $details["payload"] = $redirect["payload"];
+      }
+      $orderRef = $request->orderRef;
+
+      $payload = array("details" => $details);
+
+      $response = $this->service->paymentsDetails($payload);
+      echo'<pre>';print_r($response);exit;
+  }
+    public function checkoutSubmitAdditionalDetails(Request $request){
+      error_log("Request for submitAdditionalDetails $request");
+  
+      $orderRef = session('current_checkout_order_id');
+      $UserData = TmpOrders::join('temp_orders_details', 'temp_orders.id', '=', 'temp_orders_details.order_id')
+                        ->join('products', 'products.id', '=', 'temp_orders_details.product_id')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->select(['users.*'])                          
+                        ->where('temp_orders.id','=',$orderRef)->first()->toArray();
+      
+        $client = new \Adyen\Client();
+        $client->setXApiKey($UserData['swish_api_key']);
+        $client->setEnvironment(\Adyen\Environment::TEST);
+
+        $this->service = new \Adyen\Service\Checkout($client);
+        
+      
+      $payload = array("details" => $request->details, "paymentData" => $request->paymentData);
+  
+      $response = $this->service->paymentsDetails($payload);
+  
+      //echo'<pre>';print_r($response);exit;
+      return $response;
+  }
+    public function getSwishPaymentMethods(Request $request){
+      
+      $orderRef = session('current_checkout_order_id');
+      $UserData = TmpOrders::join('temp_orders_details', 'temp_orders.id', '=', 'temp_orders_details.order_id')
+                        ->join('products', 'products.id', '=', 'temp_orders_details.product_id')
+                        ->join('users', 'users.id', '=', 'products.user_id')
+                        ->select(['users.*'])                          
+                        ->where('temp_orders.id','=',$orderRef)->first()->toArray();
+
+      
+      $client = new \Adyen\Client();
+      $client->setXApiKey($UserData['swish_api_key']);
+      $client->setEnvironment(\Adyen\Environment::TEST);
+
+      $this->service = new \Adyen\Service\Checkout($client);
+
+  
+      $params = array(
+          "merchantAccount" => $UserData['swish_merchant_account'],
+          "channel" => "Web"
+      );
+  
+      $response = $this->service->paymentMethods($params);
+      foreach($response as $key => $r)
+      {
+          if($key > 0)
+          {
+            unset($response[$key]);
+          }
+      }
+      return $response;
+  }
+    function showCheckoutKlarna($user_id,$checkExisting,$orderDetails,$OrderId,$username,$password)
+    {
+        $data = [];
+        
         $UserData = UserMain::select('users.*')->where('users.id','=',$user_id)->first()->toArray();
+        $orderAddress = json_decode($checkExisting[0]['address']);
+        $orderBillingAddress  = json_decode($orderAddress->billing);
+        $orderShippingAddress  = json_decode($orderAddress->shipping);
+        //echo'<pre>';print_r($orderBillingAddress);exit;
         $billing_address= [];
-        $billing_address['given_name'] = $UserData['fname'];
-        $billing_address['family_name'] = $UserData['lname'];
-        $billing_address['email'] = $UserData['email'];
-        $billing_address['street_address'] = $UserData['address'];
-        $billing_address['postal_code'] = $UserData['postcode'];
-        $billing_address['city'] = $UserData['city'];
-        $billing_address['phone'] = $UserData['phone_number'];
+        $billing_address['given_name'] = $orderBillingAddress->given_name;
+        $billing_address['family_name'] = $orderBillingAddress->family_name;
+        $billing_address['email'] = $orderBillingAddress->email;
+        $billing_address['street_address'] = $orderBillingAddress->street_address;
+        $billing_address['postal_code'] = $orderBillingAddress->postal_code;
+        $billing_address['city'] = $orderBillingAddress->city;
+        $billing_address['phone'] = $orderBillingAddress->phone;
         /*klarna api to create order*/
         $url = env('BASE_API_URL');
         
@@ -978,7 +1291,7 @@ class CartController extends Controller
              "image_url"=> url('/').'/uploads/ProductImages/resized/'.$orderProduct['product']->image,
           );
         }
-
+        
         if($checkExisting[0]['shipping_total'])
         {
           $shippingAmount = (int)ceil($checkExisting[0]['shipping_total']) * 100;
@@ -999,8 +1312,8 @@ class CartController extends Controller
        
         $data['merchant_urls'] =array(
                  "terms"=>  url("/"),
-                 "checkout"=> url("/")."/checkout_callback?order_id={checkout.order.id}",
-                 "confirmation"=> url("/")."/checkout_callback?order_id={checkout.order.id}",
+                 "checkout"=> url("/")."/klarna_checkout_callback?order_id={checkout.order.id}",
+                 "confirmation"=> url("/")."/klarna_checkout_callback?order_id={checkout.order.id}",
                  "push"=> url("/")."/checkout_push_notification?order_id={checkout.order.id}",
                
         );
@@ -1011,7 +1324,7 @@ class CartController extends Controller
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-
+        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -1022,7 +1335,7 @@ class CartController extends Controller
         curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $result = curl_exec($ch);
-
+        
         //dd($password);
          
         if (curl_errno($ch)) {
@@ -1031,11 +1344,13 @@ class CartController extends Controller
         curl_close($ch);
         
         $response = json_decode($result);
-        
+        $responseToFun['error']  = 0;
         if(empty($response))
-        {
-          $blade_data['error_messages']= 'Något gick fel, kontakta admin.';
-           return view('Front/payment_error',$blade_data); 
+        { 
+          $responseToFun['error']  = 1;
+          $responseToFun['error_messages']= 'Något gick fel, kontakta admin.';
+          return $responseToFun;
+           //return view('Front/payment_error',$blade_data); 
         }
         if(!empty($response->error_messages))
         {
@@ -1043,8 +1358,10 @@ class CartController extends Controller
         }
         
         if (isset($error_msg) || @$cnt_err ) {
-           $blade_data['error_messages']= trans('errors.payment_failed_err');
-           return view('Front/payment_error',$blade_data); 
+          $responseToFun['error']  = 1;
+           $responseToFun['error_messages']= trans('errors.payment_failed_err');
+           return $responseToFun;
+          // return view('Front/payment_error',$blade_data); 
         }
         
         
@@ -1062,18 +1379,88 @@ class CartController extends Controller
         
         $param["html_snippet"] = $response->html_snippet;
         //return view('Front/Packages/payment_integration',$html_data); 
-        return view('Front/checkout', $param);
-
-      }
-      else
-      {
-        Session::flash('error', trans('errors.login_buyer_required'));
-        return redirect(route('frontLogin'));
-      }
+        //return view('Front/checkout', $param);
+        return $param;
+      
     }
+    
+    function checkoutProcessedFunction($checkExisting,$TmpOrderId,$order_status,$address='',$orderLines='') {
+      $currentDate = date('Y-m-d H:i:s');
+      //START : Create Order
+      $arrOrderInsert = [
+                          'user_id'     => $checkExisting['user_id'],
+                          'address'     => $checkExisting['address'],
+                          'order_lines' => json_encode($orderLines),
+                          'sub_total'   => $checkExisting['sub_total'],
+                          'shipping_total' => $checkExisting['shipping_total'],
+                          'total' => $checkExisting['total'],
+                          'payment_details' => '',
+                          'payment_status' => $order_status,
+                          'order_status' => 'PENDING',
+                          'order_complete_at' => '',
+                          'created_at' => $currentDate,
+                          'updated_at' => $currentDate,
+                          'klarna_order_reference' => $checkExisting['klarna_order_reference'],
+                        ];
+      $NewOrderId = Orders::create($arrOrderInsert)->id;
+      $temp_orders = TmpOrders::find($checkExisting['id']);
+      $temp_orders->delete();
+      //END : Create Order
+      //START : Create Order Details.
+      $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$TmpOrderId)->where('user_id','=',$checkExisting['user_id'])->get()->toArray();
+      if(!empty($checkExistingOrderProduct))
+      {
+        foreach($checkExistingOrderProduct as $details)
+        {
+          $arrOrderDetailsInsert = [
+            'order_id'     => $NewOrderId,
+            'user_id'     => $checkExisting['user_id'],
+            'product_id' => $details['product_id'],
+            'variant_id'   => $details['variant_id'],
+            'variant_attribute_id' => $details['variant_attribute_id'],
+            'price' => $details['price'],
+            'quantity' => $details['quantity'],
+            'shipping_type' => $details['shipping_type'],
+            'shipping_amount' => $details['shipping_amount'],
+            'status' => $details['status'],
+            'created_at' => $currentDate,
+            'updated_at' => $currentDate
 
+          ];
+
+          OrdersDetails::create($arrOrderDetailsInsert)->id;
+
+          $temp_orders_details = TmpOrdersDetails::find($details['id']);
+          $temp_orders_details->delete();
+        }
+      }
+      //END : Create Order Details.
+      return $NewOrderId;
+    }
+    public function checkoutSwishIpn(Request $request){
+      if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
+          $order_id = $_REQUEST['merchantReference'];
+              
+          $currentDate = date('Y-m-d H:i:s');
+              
+              $username = '';
+              $password = '';
+             $checkOrderExisting = Orders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
+              if(!empty($checkOrderExisting))
+               {
+                   return '[accepted]';
+               }
+              $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
+              if(!empty($checkExisting)) {
+                  $ProductData = json_decode($checkExisting['product_details'],true);
+                  $this->checkoutProcessedFunction($checkExisting,$order_id,'checkout_complete','','') ;
+                
+              }
+       }
+            return '[accepted]';
+      }
     /* function for klarna payment callback*/
-    public function checkoutCallback(Request $request)
+    public function checkoutKlarnaCallback(Request $request)
     {
       $order_id = $request->order_id;
       //$username = env('KLORNA_USERNAME');
@@ -1140,73 +1527,45 @@ class CartController extends Controller
 
         $checkExisting = TmpOrders::where('id','=',$TmpOrderId)->where('klarna_order_reference','=',$order_id)->first()->toArray();
         $Total = (float)ceil($checkExisting['total']);
-
+        $NewOrderId = 0;
         if($order_amount != $Total)
         {
           $data['error_messages']=trans('errors.order_amount_mismatched');
           return view('Front/payment_error',$data);
         }
+        
         else
         {
-          $currentDate = date('Y-m-d H:i:s');
-          //START : Create Order
-          $arrOrderInsert = [
-                              'user_id'     => $checkExisting['user_id'],
-                              'address'     => json_encode($address),
-                              'order_lines' => json_encode($orderLines),
-                              'sub_total'   => $checkExisting['sub_total'],
-                              'shipping_total' => $checkExisting['shipping_total'],
-                              'total' => $checkExisting['total'],
-                              'payment_details' => '',
-                              'payment_status' => $order_status,
-                              'order_status' => 'PENDING',
-                              'order_complete_at' => '',
-                              'created_at' => $currentDate,
-                              'updated_at' => $currentDate,
-                              'klarna_order_reference' => $checkExisting['klarna_order_reference'],
-                            ];
-        $NewOrderId = Orders::create($arrOrderInsert)->id;
-        $temp_orders = TmpOrders::find($checkExisting['id']);
-        $temp_orders->delete();
-        //END : Create Order
-        //START : Create Order Details.
-        $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$TmpOrderId)->where('user_id','=',$checkExisting['user_id'])->get()->toArray();
-        if(!empty($checkExistingOrderProduct))
-        {
-          foreach($checkExistingOrderProduct as $details)
-          {
-            $arrOrderDetailsInsert = [
-              'order_id'     => $NewOrderId,
-              'user_id'     => $checkExisting['user_id'],
-              'product_id' => $details['product_id'],
-              'variant_id'   => $details['variant_id'],
-              'variant_attribute_id' => $details['variant_attribute_id'],
-              'price' => $details['price'],
-              'quantity' => $details['quantity'],
-              'shipping_type' => $details['shipping_type'],
-              'shipping_amount' => $details['shipping_amount'],
-              'status' => $details['status'],
-              'created_at' => $currentDate,
-              'updated_at' => $currentDate
-
-            ];
-
-            OrdersDetails::create($arrOrderDetailsInsert)->id;
-
-            $temp_orders_details = TmpOrdersDetails::find($details['id']);
-            $temp_orders_details->delete();
-          }
+          $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$TmpOrderId,$order_status,$address,$orderLines);
         }
-        //END : Create Order Details.
-      }
 
         return redirect(route('frontCheckoutSuccess',['id' => base64_encode($NewOrderId)]));
       }
   }
 
+  public function CheckoutswishCallback(Request $request) {
+    $arrOrderUpdate = [
+      'show_in_cart'  => 0,
+      
+    ];
+
+    TmpOrders::where('id',session('current_checkout_order_id'))->update($arrOrderUpdate);
+    Session::put('current_checkout_order_id', '');
+    if($request->status=='success' || $request->status=='pending') {
+      $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
+      $data['OrderId']=0;
+      return view('Front/order_success', $data);
+    }
+    else {
+      $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
+          return view('Front/payment_error',$blade_data); 
+    }
+    
+  }
   public function showCheckoutSuccess($id)
   {
     $data = [];
+    Session::put('current_checkout_order_id', '');
     $user_id = Auth::guard('user')->id();
     if($user_id && Auth::guard('user')->getUser()->role_id == 1)
     {

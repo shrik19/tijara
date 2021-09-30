@@ -913,7 +913,7 @@ class ProductController extends Controller
                 'orderId'=>$orderId,
                 'paymentAmount'=>env('PRODUCT_POST_AMOUNT')*100
             );
-            return view('Front/checkout_swish', $data);
+            return view('Front/buyer_product_swish', $data);
         }
     }
 

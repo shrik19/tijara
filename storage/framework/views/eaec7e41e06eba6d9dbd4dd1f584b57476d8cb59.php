@@ -1,5 +1,5 @@
 <li class="col-xs-15">
-  <div class="product_data">
+  <div class="product_data product_link_js" product_link="<?php echo e($product->product_link); ?>">
     <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
       <?php if($product->image): ?>
           <img src="<?php echo e(url('/')); ?>/uploads/ProductImages/resized/<?php echo e($product->image); ?>" >
@@ -7,9 +7,9 @@
           <img src="<?php echo e(url('/')); ?>/uploads/ProductImages/resized/no-image.png" >
       <?php endif; ?>
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
-      <div class="buy_now_hover_details">
+      <div class="buy_now_hover_details one_icon">
           <ul>
-              <li style="margin-left: 10%;"><a href="<?php echo e($product->product_link); ?>"><i class="fa fa-search"></i></a></li>
+             <?php /*<li><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li> */?>
               <li><a href="javascript:void(0);" <?php if(Auth::guard('user')->id()): ?> onclick="addToWishlistproducts('<?php echo e($product->id); ?>');" <?php else: ?> onclick="showErrorMessage('<?php echo e(trans('errors.login_buyer_required')); ?>','<?php echo e(route('frontLogin')); ?>');" <?php endif; ?>><i class="far fa-heart"></i></a></li>
           </ul>
       </div>
@@ -37,4 +37,11 @@
 
 
 </li>
-<?php /**PATH D:\xampp\htdocs\tijara\resources\views/Front/featured_product.blade.php ENDPATH**/ ?>
+<script type="text/javascript">
+  $(".product_link_js").click(function(){
+  var attr_val = $(this).attr('product_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+});
+</script><?php /**PATH D:\xampp\htdocs\tijara\resources\views/Front/featured_product.blade.php ENDPATH**/ ?>

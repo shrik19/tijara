@@ -106,7 +106,6 @@ Route::get('/check-slugname','Front\ProductController@checkUniqueSlugName')->nam
 
 //Route::any('/checkout','Front\ProductController@showCheckout')->name('frontProductShowCheckout');
 Route::any('/checkout-swish/{type}','Front\ProductController@showCheckoutSwish')->name('frontProductShowCheckout');
-Route::any('/checkout_callback', 'Front\ProductController@checkoutCallback')->name('frontProductCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\ProductController@showCheckoutSuccess')->name('frontProductCheckoutSuccess');
  
 Route::get('/buyer-products','Front\ProductController@listBuyerProduct')->name('manageBuyerProducts');
@@ -194,9 +193,11 @@ Route::post('/add-review','Front\FrontController@addReview')->name('frontAddRevi
 
 Route::post('/add-service-review','Front\FrontController@addServiceReview')->name('frontAddServiceReview');
 
-Route::any('/checkout/{id}','Front\CartController@showCheckout')->name('frontShowCheckout');
+Route::any('/paymentoptions/{id}','Front\CartController@showPaymentOptions')->name('frontShowPaymentOptions');
+Route::any('/checkout/{id}/{paymentoption}','Front\CartController@showCheckout')->name('frontShowCheckout');
 Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name('frontCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');
+Route::any('/klarna_checkout_callback', 'Front\CartController@checkoutKlarnaCallback')->name('frontProductKlarnaCheckoutCallback');
 
 Route::any('/all-orders', 'Front\CartController@showAllOrders')->name('frontAllOrders');
 Route::any('/all-buyer-orders', 'Front\CartController@showBuyerOrders')->name('frontAllBuyerOrders');
@@ -223,3 +224,13 @@ Route::match(['get', 'post'], '/api/handleShopperRedirect', 'Front\ProductContro
 Route::any('/seller-payment-details', 'Front\AuthController@showPaymentDetails')->name('frontSellerPaymentDetails');
 Route::post('/seller-payment-update', 'Front\AuthController@sellerPaymentDetailsUpdate')->name('frontStorePaymentDetails');
   Route::any('/check-old-password', 'Front\AuthController@checkOldPassword')->name('frontcheckOldPassword');
+
+
+Route::match(['get', 'post'], '/checkouthandleShopperRedirect', 'Front\CartController@checkouthandleShopperRedirect');
+Route::match(['get', 'post'], '/checkout-swish-ipn', 'Front\CartController@checkoutSwishIpn');
+
+Route::match(['get', 'post'],'/checkout-swish-callback', 'Front\CartController@CheckoutswishCallback')->name('CheckoutswishCallback');
+Route::post('/getSwishPaymentMethods', 'Front\CartController@getSwishPaymentMethods');
+Route::post('/swishInitiatePayment', 'Front\CartController@swishInitiatePayment');
+Route::post('/checkoutSubmitAdditionalDetails', 'Front\CartController@checkoutSubmitAdditionalDetails');
+Route::post('/checkout-strip-process', 'Front\CartController@checkoutStripProcess')->name('checkoutStripProcess');

@@ -1,7 +1,7 @@
 <?php if(Request::segment(4) !='products'): ?>
 <div class="category_list_box show_service_cat_sidebar" >
-  <label class="all_cat_label"><?php echo e(__('lang.all_category')); ?></label>
-  <h2><?php echo e(__('lang.service_categories_head')); ?></h2>
+  <label class="all_cat_sidebar_label"><?php echo e(__('lang.all_category')); ?></label>
+ <!--  <h2><?php echo e(__('lang.service_categories_head')); ?></h2> -->
   <ul class="seller_cat_list">
     <?php $j=0; ?>
 
@@ -15,7 +15,7 @@
       ?>
 
       <?php if(!empty($ServiceCategories[$CategoryId]['subcategory'])): ?>
-        <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#"><?php echo e($Category['category_name']); ?><span style="float: right;" id="serviceCount_<?php echo e($CategoryId); ?>"></span></a></li>
+        <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" <?php if(Request::segment(1) =='seller'): ?> class = 'seller_page_botton_border' <?php endif; ?> ><?php echo e($Category['category_name']); ?><span style="float: right;" id="serviceCount_<?php echo e($CategoryId); ?>"></span></a></li>
 
         <ul id="servicesubcategories<?php echo $j; ?>" class="service_subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
         <?php $__currentLoopData = $ServiceCategories[$CategoryId]['subcategory']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -28,9 +28,8 @@
 </div>
 <?php endif; ?>
 
-<?php if(Request::segment(4) !='services'): ?>
-<div class="category_list_box show_product_cat_sidebar">
-  <h2><?php echo e(__('lang.categories_head')); ?></h2>
+<div class="category_list_box show_product_cat_sidebar" style="display: none">
+  <h2 style="display:none;"><?php echo e(__('lang.categories_head')); ?></h2>
   <ul class="seller_cat_list">
     <?php $i=0; ?>
 
@@ -40,9 +39,9 @@
         $cls='';
         if($category_slug==$Category['category_slug'])
         $cls  =       'activemaincategory';
-        else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';
+        
       ?>
-
+<!--else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';-->
       <?php if(!empty($Categories[$CategoryId]['subcategory'])): ?>
         <li class="expandCollapseSubcategory <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#"><?php echo e($Category['category_name']); ?><span style="float: right;" id="productCount_<?php echo e($i); ?>"><?php if(!empty(Request::segment(4))): ?><?php echo e(count($Categories[$CategoryId]['subcategory'])); ?><?php endif; ?></span></a></li>
 
@@ -56,12 +55,12 @@
   </ul>
   <div>&nbsp;</div>
 </div>
-<?php endif; ?>
+
 <div>
 
 <div>&nbsp;</div>
-
-<?php if(Request::segment(4) !='products' && Request::segment(4) !='services'): ?>
+ <?php if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services'): ?>
+ 
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/js/css/bootstrap-slider.css" />
   <script src="<?php echo e(url('/')); ?>/assets/front/js/bootstrap-slider.js"></script>
   <hr>
@@ -76,13 +75,15 @@
   <input type="text" name="city_name" id="service_city" class="form-control input-lg" placeholder="<?php echo e(__('users.enter_city_placeholder')); ?>" />
   <div id="cityList"></div>
   <div>&nbsp;</div>
-<?php endif; ?>
 
-<div class="category_button">
+  <div class="category_button">
   <button class="show_all_cat"><?php echo e(__('users.all_btn')); ?></button>
   <button class="show_product_cat"><?php echo e(__('lang.product_label')); ?></button>
   <button class="show_service_cat"><?php echo e(__('lang.service_label')); ?></button>
 </div>
+<?php endif; ?>
+
+
 
 <?php if(Request::path() != "/" && Request::segment(1) !='products' && Request::segment(1) !='services'): ?>
   <?php if(empty($is_seller)): ?>
@@ -95,20 +96,29 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-
+   $(".show_all_cat").addClass('active');
   $(document).on('click', '.show_all_cat', function(){  
-    $('.show_product_cat_sidebar').show();
-    $('.show_service_cat_sidebar').show();
-    $('.all_cat_label').show();
+      $(this).addClass('active');
+      $('.show_product_cat').removeClass('active');
+      $('.show_service_cat').removeClass('active');
+      $('.show_product_cat_sidebar').show();
+      $('.show_service_cat_sidebar').show();
+      $('.all_cat_label').show();
   });
 
   $(document).on('click', '.show_product_cat', function(){  
+    $(this).addClass('active');
+    $('.show_all_cat').removeClass('active');
+    $('.show_service_cat').removeClass('active');
     $('.show_product_cat_sidebar').show();
     $('.show_service_cat_sidebar').hide();
     $('.all_cat_label').hide();
   });
 
   $(document).on('click', '.show_service_cat', function(){  
+    $(this).addClass('active');
+    $('.show_all_cat').removeClass('active');
+    $('.show_product_cat').removeClass('active');
     $('.show_service_cat_sidebar').show();
     $('.show_product_cat_sidebar').hide();
     $('.all_cat_label').hide();

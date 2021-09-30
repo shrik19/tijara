@@ -1452,7 +1452,7 @@ class CartController extends Controller
                }
               $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
               if(!empty($checkExisting)) {
-                  $ProductData = json_decode($checkExisting['product_details'],true);
+                  //$ProductData = json_decode($checkExisting['product_details'],true);
                   $this->checkoutProcessedFunction($checkExisting,$order_id,'checkout_complete','','') ;
                 
               }

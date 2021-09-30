@@ -1322,11 +1322,13 @@ class CartController extends Controller
 
         $data['merchant_data'] = $OrderId;
         $data['options']= ['allow_separate_shipping_address' => true,'color_button' => '#03989e','color_button_text' => '#ffffff'];
+        echo $username.'-----'.$password;
+        echo'<pre>';print_r($data);exit;
 
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-        //echo'<pre>';print_r($data);exit;
+        //
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -1339,7 +1341,7 @@ class CartController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $result = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        echo $httpcode;
+        //echo $httpcode;
         //dd($password);
          
         if (curl_errno($ch)) {
@@ -1348,7 +1350,7 @@ class CartController extends Controller
         curl_close($ch);
         
         $response = json_decode($result);
-        echo'<pre>====';print_r($response);
+        //echo'<pre>====';print_r($response);
         $responseToFun['error']  = 0;
         if(empty($response))
         { 

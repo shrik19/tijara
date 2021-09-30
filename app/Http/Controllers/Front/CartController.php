@@ -1092,6 +1092,8 @@ class CartController extends Controller
         TmpOrders::where('id',$orderRef)->update($arrOrderUpdate);
         //echo'<pre>';print_r($response);exit;
         $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
+        $orderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
+                  $this->sendMailAboutOrder($orderDetails);
         //Session::flash('success', 'Payment successful!');
           
         return redirect(route('frontCheckoutSuccess',['id'=>base64_encode($NewOrderId)]));
@@ -1453,7 +1455,9 @@ class CartController extends Controller
               $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
               if(!empty($checkExisting)) {
                   //$ProductData = json_decode($checkExisting['product_details'],true);
-                  $this->checkoutProcessedFunction($checkExisting,$order_id,'checkout_complete','','') ;
+                  $newOrderId=$this->checkoutProcessedFunction($checkExisting,$order_id,'checkout_complete','','') ;
+                  $orderDetails = Orders::where('id','=',$newOrderId)->first()->toArray();
+                  $this->sendMailAboutOrder($orderDetails);
                 
               }
        }
@@ -1710,20 +1714,35 @@ class CartController extends Controller
                           ];
         Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
 
-        $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('orders.id','=',$checkExisting['id'])->get()->toArray();
+        $this->sendMailAboutOrder($checkExisting);
+
+      }
+      else
+      {
+        $arrOrderUpdate = [
+          'payment_details' => json_encode($response),
+          'payment_status' => $order_status,
+          'order_status' => 'PENDING',
+          'order_complete_at' => '',
+          'updated_at' => $currentDate,
+        ];
+
+        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+      }
+
+      exit;
+
+ }
+function sendMailAboutOrder($checkExisting) {
+  $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')
+  ->select('users.fname','users.lname','users.email','orders.*')
+  ->where('orders.id','=',$checkExisting['id'])->get()->toArray();
 
         //START : Send success email to User.
           $email = trim($GetOrder[0]['email']);
           $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
-          // $arrMailData = ['name' => $name, 'email' => $email, 'order_details_link' => url('/').'/order-details/'.base64_encode($GetOrder[0]['id'])];
-
-          // Mail::send('emails/order_success', $arrMailData, function($message) use ($email,$name) {
-          //     $message->to($email, $name)->subject
-          //         ('Tijara - Order successfull.');
-          //     $message->from('developer@techbeeconsulting.com','Tijara');
-          // });
-
+         
           $mailOrderDetails = array(); $mail_order_details  = '<table width="800">
           <tbody>
           <tr>
@@ -1835,21 +1854,23 @@ class CartController extends Controller
           <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['phone'].' </p>';
           
           $mail_order_details .=  '<tr>                     
-          <td colspan="5" style="text-align: right; padding-top: 20px;">
-              <h4 style="margin:5px 0; font-weight: 600; font-size: 20px;">TotalSumma</h4>
-              <h4 style="margin:5px 0; font-weight: 300; font-size: 18px;">'.$checkExisting['total'].' kr</h4>
-          </td>
-        </tr>
-      </tbody>
-  </table>';
-  $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
+                  <td colspan="5" style="text-align: right; padding-top: 20px;">
+                      <h4 style="margin:5px 0; font-weight: 600; font-size: 20px;">TotalSumma</h4>
+                      <h4 style="margin:5px 0; font-weight: 300; font-size: 18px;">'.$checkExisting['total'].' kr</h4>
+                  </td>
+                </tr>
+              </tbody>
+          </table>';
+          $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')
+          ->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
 
-        $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
+                $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name')
+                ->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
 
-  $overview  = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; 
-  ">Butik: '.$GetSeller['store_name'].'</p>
-  <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Ordernummer: #'.$checkExisting['id'].' </p>
-  <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$checkExisting['created_at'].' </p>';
+          $overview  = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; 
+          ">Butik: '.$GetSeller['store_name'].'</p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Ordernummer: #'.$checkExisting['id'].' </p>
+          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$checkExisting['created_at'].' </p>';
   
           $GetEmailContents = getEmailContents('Order Success');
           $subject = $GetEmailContents['subject'];
@@ -1917,25 +1938,7 @@ class CartController extends Controller
           }
         }
 
-
-      }
-      else
-      {
-        $arrOrderUpdate = [
-          'payment_details' => json_encode($response),
-          'payment_status' => $order_status,
-          'order_status' => 'PENDING',
-          'order_complete_at' => '',
-          'updated_at' => $currentDate,
-        ];
-
-        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
-      }
-
-      exit;
-
- }
-
+}
  /* function for klarna payment callback*/
  public function showBuyerCheckout($orderId)
  {

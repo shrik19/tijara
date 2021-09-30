@@ -1326,7 +1326,7 @@ class CartController extends Controller
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-        //echo'<pre>';print_r($data);exit;
+        echo'<pre>';print_r($data);exit;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -1346,7 +1346,7 @@ class CartController extends Controller
         curl_close($ch);
         
         $response = json_decode($result);
-        echo'<pre>====';print_r($response);
+        //echo'<pre>====';print_r($response);
         $responseToFun['error']  = 0;
         if(empty($response))
         { 

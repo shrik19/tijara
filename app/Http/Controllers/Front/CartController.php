@@ -1339,7 +1339,7 @@ class CartController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $result = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        echo $httpcode;exit;
+        //echo $httpcode;exit;
         //dd($password);
          
         if (curl_errno($ch)) {

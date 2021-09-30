@@ -1,6 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+  .invalid-feedback {
+    position: relative !important;
+}
+</style>
 <div class="mid-section">
 <div class="container-fluid">
   <div class="container-inner-section">

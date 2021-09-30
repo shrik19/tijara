@@ -20,7 +20,7 @@
                 <h2>Orderdetaljer - #{{$orderId}}</h2>
                 <hr class="heading_line">
               </div>
-              <div class="col-md-12 login_box" style="height: 620px;">
+              <div class="col-md-12 login_box">
                 <div class="col-md-6">
                   <h4><strong>{{ __('messages.txt_billing_address')}}</strong></h4>
                   <div class="form-group">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-md-6">
                   <h4><strong>{{ __('messages.txt_shipping_address')}}</strong>
-                  <div class="form-group" style="float:right;">
+                  <div style="float:right;">
                           <input type="checkbox" name="same_as_billing" 
                           id="same_as_billing" value=""><span class="remember-text">
                           Samma som fakturering

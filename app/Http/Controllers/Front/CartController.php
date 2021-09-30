@@ -1548,14 +1548,18 @@ class CartController extends Controller
   }
 
   public function CheckoutswishCallback(Request $request) {
-    $arrOrderUpdate = [
-      'show_in_cart'  => 0,
-      
-    ];
-
-    TmpOrders::where('id',session('current_checkout_order_id'))->update($arrOrderUpdate);
+    
+    $current_checkout_order_id  = session('current_checkout_order_id');
     Session::put('current_checkout_order_id', '');
     if($request->status=='success' || $request->status=='pending') {
+
+      $arrOrderUpdate = [
+        'show_in_cart'  => 0,
+        
+      ];
+  
+      TmpOrders::where('id',$current_checkout_order_id)->update($arrOrderUpdate);
+      
       $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
       $data['OrderId']=0;
       return view('Front/order_success', $data);

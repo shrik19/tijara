@@ -13,7 +13,7 @@
             
           </div>
           <div class="card-body">
-            <form method="POST" action="" class="needs-validation" novalidate="">
+            <form method="POST" action="" class="needs-validation tijara-form" novalidate="">
               @csrf
               <div class="col-md-12">
 
@@ -134,7 +134,7 @@
                   </div>
                 </div>  
               </div>
-              <div class="col-md-12">
+              <div class="col-md-12" style="text-align: center;">
                 @foreach($payment_options as $p)
                   <div class="col-md-3">
                     <button id="{{$p}}" type="button" class="btn buy_now_btn debg_color pay_through_btn" style="font-size:18px;"

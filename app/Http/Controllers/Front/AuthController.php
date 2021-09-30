@@ -483,8 +483,8 @@ class AuthController extends Controller
     public function sellerPaymentDetailsUpdate(Request $request){
         $user_id = Auth::guard('user')->id();
         $rules = [
-            'klarna_username' =>'required',
-            'klarna_password' =>'required|min:6',
+            'klarna_username' =>'nullable',
+            'klarna_password' =>'nullable|min:6',
         ];
 
          $messages = [

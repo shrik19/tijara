@@ -57,7 +57,7 @@
                 </div>
 
               <div class="form-group">
-              <input type="password" class="form-control" name="swish_merchant_account" id="swish_merchant_account" placeholder="{{ __('users.swish_merchant_account_label')}}" value="{{ (old('swish_merchant_account')) ? old('swish_merchant_account') : $sellerDetails[0]->swish_merchant_account}}">
+              <input type="text" class="form-control" name="swish_merchant_account" id="swish_merchant_account" placeholder="{{ __('users.swish_merchant_account_label')}}" value="{{ (old('swish_merchant_account')) ? old('swish_merchant_account') : $sellerDetails[0]->swish_merchant_account}}">
               <span class="invalid-feedback">@if($errors->has('swish_merchant_account')) {{ $errors->first('swish_merchant_account') }}@endif</span>
               </div>
 

@@ -1128,7 +1128,7 @@ class CartController extends Controller
                         ->select(['users.*'])                          
                         ->where('temp_orders.id','=',$orderRef)->first()->toArray();
       
-        echo'<pre>';print_r($UserData);exit;
+        //echo'<pre>';print_r($UserData);exit;
         $client = new \Adyen\Client();
         $client->setXApiKey($UserData['swish_api_key']);
         $client->setEnvironment(\Adyen\Environment::TEST);

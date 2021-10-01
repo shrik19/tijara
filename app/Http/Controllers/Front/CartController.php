@@ -419,7 +419,7 @@ class CartController extends Controller
                       'shipping_amount'      => $product_shipping_amount,
                     ];
                     
-                    TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
+                    //TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                     $subTotal += $discount_price * $details['quantity'];
                     $shippingTotal += $product_shipping_amount;
@@ -437,7 +437,7 @@ class CartController extends Controller
                     'order_status'        => 'PENDING',
                 ];
       
-                TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+                //TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
           }
           
 

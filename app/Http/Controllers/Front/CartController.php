@@ -2685,9 +2685,18 @@ class CartController extends Controller
         $orders  = Orders::join('orders_details', 'orders.id', '=', 'orders_details.order_id')
                   ->join('products', 'products.id', '=', 'orders_details.product_id')
                 ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-               // ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                ->join('users','users.id','=','products.user_id')
                ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','variant_product.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
+
+
+
+
+                  /*  $checkExistingOrderProduct = TmpOrdersDetails::
+            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product as v1', 'v1.product_id', '=', 'products.id')->join('variant_product as v2', 'v2.price', '=', 'temp_orders_details.price')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','v2.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('v1.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+*/
+
+
 
         if(!empty($request->monthYear)) {
           $month_year_explod =explode("-",$request->monthYear);

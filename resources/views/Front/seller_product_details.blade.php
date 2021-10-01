@@ -413,6 +413,7 @@ $(".product_rating").each(function(){
 }); 
 function addtoCartFromProduct()
 {
+  
     var product_quantity = $("#product_quantity").val();
     var variant = $("#product_variant_id").val();
     

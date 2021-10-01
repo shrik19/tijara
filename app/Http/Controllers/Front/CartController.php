@@ -2685,7 +2685,7 @@ class CartController extends Controller
         $orders  = Orders::join('orders_details', 'orders.id', '=', 'orders_details.order_id')
                   ->join('products', 'products.id', '=', 'orders_details.product_id')
                 ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                ->join('variant_product', 'orders_details.variant_id', '=', 'variant_product.id')
                ->join('users','users.id','=','products.user_id')
                ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','variant_product.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
 

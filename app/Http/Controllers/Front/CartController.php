@@ -2674,12 +2674,19 @@ class CartController extends Controller
           
         $monthYearDropdown    .= "</select>";
           
+        // $orders  = Orders::join('orders_details', 'orders.id', '=', 'orders_details.order_id')
+        //           ->join('products', 'products.id', '=', 'orders_details.product_id')
+        //         ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+        //        // ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+        //        ->join('users','users.id','=','products.user_id')
+        //       ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','variant_product.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
+
         $orders  = Orders::join('orders_details', 'orders.id', '=', 'orders_details.order_id')
-                  ->join('products', 'products.id', '=', 'orders_details.product_id')
-                ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-               // ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-               ->join('users','users.id','=','products.user_id')
-              ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','variant_product.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
+          ->join('products', 'products.id', '=', 'orders_details.product_id')
+        ->join('variant_product as v1', 'products.id', '=', 'v1.product_id')
+        ->join('variant_product as v2', 'v2.price', '=', 'orders_details.price')
+       ->join('users','users.id','=','products.user_id')
+      ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','v2.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
 
         if(!empty($request->monthYear)) {
           $month_year_explod =explode("-",$request->monthYear);

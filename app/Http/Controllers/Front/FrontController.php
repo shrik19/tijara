@@ -1179,6 +1179,7 @@ public function getCatSubList(Request $request) {
 
 	public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') 
 	{
+
 		$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 										->join('categories', 'categories.id', '=', 'category_products.category_id')
 										->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
@@ -1247,10 +1248,11 @@ public function getCatSubList(Request $request) {
 		}
 
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();
-		
+	
 		$Product = $Products[0]; 
-		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();
-		
+		/*$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();*/
+		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>',0)->orderBy('id','ASC')->get();
+			//echo "<pre>";print_r($ProductVariants);exit;
 		foreach($ProductVariants as $variant)
 		{
 			$variantData[$variant->id]['id']			=	$variant->id;
@@ -1320,9 +1322,9 @@ public function getCatSubList(Request $request) {
 			$data['loginUserEmail']='';
 		}
 		
-
+		
 		//dd($loginUserData);
-		if($tmpSellerData['role_id']==2){
+		if($tmpSellerData['role_id']==2){// echo "<pre>";print_r($data);exit;
         	return view('Front/seller_product_details', $data);
         }
 		else {
@@ -1368,6 +1370,7 @@ public function getCatSubList(Request $request) {
 			$data['product_seller_name'] = $product_sold_data['user_name'];
 			$data['similarProducts']	=	$similarProducts;
 			$data['buyer_product_details']	=	BuyerProducts::where('product_id',$Product->id)->first();
+
 			return view('Front/buyer_product_details', $data);
 		}
 			

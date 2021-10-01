@@ -349,11 +349,15 @@ class CartController extends Controller
           foreach($checkExisting as $tmpOrder)
           { 
             $OrderId = $tmpOrder['id'];
-
+            //DB::enableQueryLog();
             //Update Order Totals
+            /*$checkExistingOrderProduct = TmpOrdersDetails::
+            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();*/
             $checkExistingOrderProduct = TmpOrdersDetails::
-            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
-          //  echo "<pre>";print_r($checkExistingOrderProduct);exit;
+            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product as v1', 'v1.product_id', '=', 'products.id')->join('variant_product as v2', 'v2.price', '=', 'temp_orders_details.price')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','v2.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('v1.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+
+            //print_r(DB::getQueryLog());exit;
+            //  echo "<pre>";print_r($checkExistingOrderProduct);exit;
             if(!empty($checkExistingOrderProduct))
             {
                 $subTotal       = 0;
@@ -374,12 +378,12 @@ class CartController extends Controller
 
                     if(!empty($details['discount']))
                     {
-                      $discount = number_format((($details['price'] * $details['discount']) / 100),2,'.','');//variant_price previously used
-                      $discount_price = $details['price'] - $discount;//variant_price previously used
+                      $discount = number_format((($details['product_price'] * $details['discount']) / 100),2,'.','');//variant_price previously used
+                      $discount_price = $details['product_price'] - $discount;//variant_price previously used
                     }
                     else
                     {
-                      $discount_price = $details['price'];//variant_price previously used
+                      $discount_price = $details['product_price'];//variant_price previously used
                     } 
 
                     //Get Seller Shipping Informations

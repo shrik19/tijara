@@ -33,7 +33,7 @@
                             id="sliderImages" alt="First slide">
 
                             <div class="slider_content">
-                            <!-- <h3>{{$data['title']}}</h3> -->
+                            <?php /* <h3>{{$data['title']}}</h3>*/?>
                                 <?php echo $data['description']; ?>
                                 <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >{{ __('lang.browse_now_btn')}}</button>  
                             </div>
@@ -45,6 +45,8 @@
                 </div>
             </section>
         </div>
+      </div>
+    </div>
     </div>
  <!-- end slider section -->
 
@@ -63,7 +65,7 @@
                     <!-- <h4>{{ __('lang.popular_items_in_market_head')}}</h4> -->
              
                      <div>
-                        <h2 class="heading">{{ __('lang.popular_product_head')}}</h2> 
+                        <h2 class="heading product_heading">{{ __('lang.popular_product_head')}}</h2> 
                             <!-- <a href="{{url('/')}}/products" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_products')}}</a> -->
                     </div>
                     <!-- <hr class="heading_line"/> -->
@@ -82,10 +84,10 @@
 </section>
 <!-- Featured seller section start -->
  
-<section class="featured-seller ">
+<section class="featured-seller">
     <div class="featured_seller_container">
     <div class="container-fluid">
-        <h2 class="heading">{{ __('lang.featured_seller_head')}}</h2>
+        <h2 class="heading product_heading">{{ __('lang.featured_seller_head')}}</h2>
     </div>
 </div>
     <div class="featured-banner" >
@@ -111,7 +113,7 @@
                           $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($fea_seller->id)."/products"; 
                             
                         @endphp
-                        <h3><a href="{{$seller_link}}" title="{{$fea_seller['store_name']}}" style="color: #000 !important;border-bottom: 1px solid #000;line-height: 41px;">{{ $fea_seller['store_name'] }}</a></h3><!-- 
+                        <h3><a href="{{$seller_link}}" title="{{$fea_seller['store_name']}}" class="Featured_shop_heading">{{ $fea_seller['store_name'] }}</a></h3><!-- 
                         <h3>{{ $fea_seller['store_name'] }}</h3> -->
                     </div>
                     @endforeach
@@ -539,7 +541,7 @@ $(".service_rating").each(function(){
     slidesToScroll: 1,
     dots: false,
     arrows: true,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 2000,
     infinite: true,
     responsive: [

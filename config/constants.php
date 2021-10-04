@@ -21,4 +21,5 @@ return [
  'Services_limits'=>'20',
  'review_limits'=>'10',
  'buyer_product'=>'12',
+ 'Front_Products_limits'=>'10',
 ];

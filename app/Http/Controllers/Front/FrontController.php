@@ -707,7 +707,7 @@ public function getCatSubList(Request $request) {
 							  ->orderBy('products.id', 'DESC')
 							  //->orderBy('variant_id', 'ASC')
 							  ->groupBy('products.id')
-							  ->offset(0)->limit(config('constants.Products_limits'));
+							  ->offset(0)->limit(config('constants.Front_Products_limits'));
 							  if($role_id!='')
 								$TrendingProducts->where('users.role_id','=',$role_id);
 

@@ -48,8 +48,8 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
       $product_cat_link= url('/').'/products/'.$category_name; @endphp
 
         @if( Request::path() == "/")
-         <a href="{{$product->product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
-         <div class="star-rating" style="font-size:unset;">
+         <a href="{{$product->product_link}}" title="{{$product->title}}" style="margin-top: 8px;"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+         <div class="star-rating" style="font-size:unset;margin-top: 0px;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
             <option value="2" >2</option>
@@ -60,9 +60,9 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         </div>
 
         @if(!empty($product->price))
-        <h6 class="product_price"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span><span @if(!empty($product->discount)) class="dic_percent" @endif >@if(!empty($product->discount)) (<?php echo $product->discount."% off";?>) @endif</span></h6>
+        <h6 class="product_price" style="margin-top: 6px;"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span><span @if(!empty($product->discount)) class="dic_percent" @endif >@if(!empty($product->discount)) (<?php echo $product->discount."% off";?>) @endif</span></h6>
         @endif
-           <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
+           <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->seller}}</h5></a>
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
 

@@ -1265,7 +1265,7 @@ overflow: hidden;}
     position: absolute;width: 92%;
      top:14vh}
 .slider_content h3{color: black; font-size: 35px; margin: 0;}
-.slider_content h2{font-size: 54px; font-weight: 600; color: #fff; line-height: 80px; padding-left: 8% !important;line-height: 49px ;
+.slider_content h2{font-size: 54px; font-weight: 600; color: #fff; line-height: 80px; padding-left: 50px !important;line-height: 49px ;
     padding-left: 10% ;}
 .slider_content p{font-size: 20px;color: #151511; line-height: 30px;}
 .slider_indicators{     position: absolute;

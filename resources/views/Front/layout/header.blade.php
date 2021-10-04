@@ -150,6 +150,22 @@
 </li>
                     <li>
                     <div class="cart_details">
+                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" style="width: 35px;"  />
+                      </a>
+                      @php
+                        $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
+                      @endphp
+                      @if($productWishlistCnt > 0)
+                      <div class="cart_count">
+                        <span>{{$productWishlistCnt}}</span>
+                      </div>
+                      @endif
+                  </div>
+                    </li>
+
+                    <li>
+                    <div class="cart_details"  style="padding-left:0px;">
                     <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
                     <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" style="width: 20px; margin-top: 4px;"  />
                     </a>
@@ -164,21 +180,7 @@
                     @endif
                   </div>
                     </li>
-                    <li>
-                    <div class="cart_details" style="padding-left:0px;">
-                    <a @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>
-                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" style="width: 35px;"  />
-                      </a>
-                      @php
-                        $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
-                      @endphp
-                      @if($productWishlistCnt > 0)
-                      <div class="cart_count">
-                        <span>{{$productWishlistCnt}}</span>
-                      </div>
-                      @endif
-                  </div>
-                    </li>
+                    
                   
                   </ul>
                 
@@ -218,6 +220,9 @@
 
 <nav class="navbar sticky-top navbar-expand-lg bg-dark m-0">
     <div class="container-fluid">    
+      <div class="row">
+        <div class="product_view">
+      <div class="col-md-12">
       <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
    <i class="fas fa-bars"></i>
   </button>
@@ -247,6 +252,9 @@
             @endforeach
         </ul>
       </div>
+      </div>
     </div>
+  </div>
+</div>
   </nav>
 @endif

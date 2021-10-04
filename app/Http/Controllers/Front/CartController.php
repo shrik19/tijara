@@ -348,13 +348,20 @@ class CartController extends Controller
 
           foreach($checkExisting as $tmpOrder)
           { 
+
             $OrderId = $tmpOrder['id'];
-            //DB::enableQueryLog();
+           // DB::enableQueryLog();
             //Update Order Totals
-            /*$checkExistingOrderProduct = TmpOrdersDetails::
+
+            /* $checkExistingOrderProduct = TmpOrdersDetails::
             join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();*/
-            $checkExistingOrderProduct = TmpOrdersDetails::
-            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product as v1', 'v1.product_id', '=', 'products.id')->join('variant_product as v2', 'v2.price', '=', 'temp_orders_details.price')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','v2.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('v1.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+
+             $checkExistingOrderProduct = TmpOrdersDetails::
+            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join("variant_product",function($join){
+            $join->on("variant_product.product_id","=","products.id")
+                ->on("variant_product.id","=","temp_orders_details.variant_id");
+            })->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+
 
             //print_r(DB::getQueryLog());exit;
             //  echo "<pre>";print_r($checkExistingOrderProduct);exit;
@@ -378,12 +385,12 @@ class CartController extends Controller
 
                     if(!empty($details['discount']))
                     {
-                      $discount = number_format((($details['product_price'] * $details['discount']) / 100),2,'.','');//variant_price previously used
-                      $discount_price = $details['product_price'] - $discount;//variant_price previously used
+                      $discount = number_format((($details['product_price'] * $details['discount']) / 100),2,'.','');
+                      $discount_price = $details['product_price'] - $discount;
                     }
                     else
                     {
-                      $discount_price = $details['product_price'];//variant_price previously used
+                      $discount_price = $details['product_price'];
                     } 
 
                     //Get Seller Shipping Informations
@@ -435,7 +442,7 @@ class CartController extends Controller
                       'shipping_type'        => $product_shipping_type,
                       'shipping_amount'      => $product_shipping_amount,
                     ];
-                    //echo "<pre>";print_r($arrOrderDetailsUpdate);exit;
+                   // echo "<pre>";print_r($arrOrderDetailsUpdate);exit;
                     TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                     $subTotal += $discount_price * $details['quantity'];
@@ -883,9 +890,12 @@ class CartController extends Controller
            /* $checkExistingOrderProduct = TmpOrdersDetails::join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->groupBy('temp_orders_details.variant_id')->get()->toArray();*/
 
 
-
           $checkExistingOrderProduct = TmpOrdersDetails::
-            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product as v1', 'v1.product_id', '=', 'products.id')->join('variant_product as v2', 'v2.price', '=', 'temp_orders_details.price')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','v2.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('v1.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+            join('products', 'temp_orders_details.product_id', '=', 'products.id')->join("variant_product",function($join){
+            $join->on("variant_product.product_id","=","products.id")
+                ->on("variant_product.id","=","temp_orders_details.variant_id");
+            })->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+
 
             if(!empty($checkExistingOrderProduct))
             {

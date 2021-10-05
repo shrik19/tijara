@@ -16,10 +16,15 @@ use App\Models\Services;
 /** Get all Custom Pages. */
 function getCustomPages()
 {
-    $allPages = Page::where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();
+    $allPages = Page::where('slug_en','!=','contact-us')->where('slug_en','!=','faq')->where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();
     return $allPages;
 }
-
+/** Get FAQ Custom Pages. */
+function getCustomerServicePage()
+{
+    $getCustomerServicePage = Page::where('slug_en','=','contact-us')->orwhere('slug_en','=','faq')->where([['status','=','active'],['is_deleted','=', '0']])->orderBy('pages.id','DESC')->get()->toArray();
+    return $getCustomerServicePage;
+}
 
 function getOrderProducts($userId)
 {

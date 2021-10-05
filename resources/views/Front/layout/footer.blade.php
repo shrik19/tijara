@@ -25,7 +25,8 @@
             </ul>
         </div>
         @php
-          $allPages = getCustomPages();
+          $allPages   = getCustomPages();
+          $getCustomerServicePage = getCustomerServicePage();
         @endphp
 		<div class="col-md-2">
 			<div class="ft_page_links">
@@ -71,9 +72,29 @@
         <div class="ft_page_links">
         <h3>{{ __('lang.customer_service_label')}}</h3>
         <ul>
-         <!--  <li><a href="{{route('frontUserProfile')}}">{{ __('lang.my_account_title')}}</a></li> -->
-          <li><a href="javascript:void(0)">{{ __('lang.contact_us_label')}} </a></li>
-          <li><a href="{{route('AllproductListing')}}">{{ __('lang.shopping_cart_label')}} </a></li>
+         <!--  <li><a href="{{route('frontUserProfile')}}">{{ __('lang.my_account_title')}}</a></li> 
+          <li><a href="javascript:void(0)">{{ __('lang.contact_us_label')}} </a></li>-->
+        
+          @if(!empty($getCustomerServicePage))
+             @foreach($getCustomerServicePage as $CustomerServicePage)
+            @php
+                $pageFaq = '';
+                $faqUrl  = '';
+                if(Config::get('app.locale') == 'se')
+                {
+                  $pageFaq = $CustomerServicePage['title'];
+                  $faqUrl  = route('frontCmsPage', array($CustomerServicePage['slug']));
+                }
+                else
+                {
+                  $pageFaq = $CustomerServicePage['title_en'];
+                  $faqUrl  = route('frontCmsPage', array($CustomerServicePage['slug_en']));
+                }
+            @endphp
+            <li><a href="{{ $faqUrl }}">{{ $pageFaq }} </a></li>
+            @endforeach
+          @endif
+         <!--  <li><a href="{{route('AllproductListing')}}">{{ __('lang.shopping_cart_label')}} </a></li> -->
         </ul>
       </div>
     </div>

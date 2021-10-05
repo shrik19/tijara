@@ -103,7 +103,7 @@
           specialerbjudanden.',
      'subscribe_label'=>'PRENUMERERA',
      'copyright_label'=>'upphovsrätt',
-     'all_right_reserved_label'=>'Okej',
+     'all_right_reserved_label'=>'Alla rättigheter reserverade',
      'enter_mail_placeholder'=>'Ange din e-post',
      'sign_in_start_session_label'=>'Logga in för att starta din session',
      'hi'=>'Hej',
@@ -304,7 +304,7 @@
      'product_form_step1'   =>  'Steg 1 - Produktbeskrivning',
      'product_form_step2'   =>  'Steg 2 - Produktdetaljer',
      'product_form_step3'   =>  'Steg 3- Frakt',
-     'feature_product_head' =>  'Nyheter från fyndhörnan',
+     'feature_product_head' =>  'Nyheter från Tijara annonser',
 
      //Dashboard
     'dashboard_statistics_period' => 'Statistik för perioden',
@@ -332,5 +332,8 @@
     'pay_now'   =>  'Betala nu',
     'strip_error_message'=>'Korrigera felen och försök igen.',
     'pay_through'   =>  'Betala igenom',
+    'about_tijara_label' => 'About Tijara',
+    'customer_service_label' => 'Kundservice',
+    'contact_us_label' => 'Kontakta oss',
  ]
 ?>

@@ -305,7 +305,7 @@
     'service_time_required' =>   'Add service time properly',
     'select_future_date'    =>  'Select future Form date only',
     'select_future_to_date' => 'Select future To date only',
-    'feature_product_head' => 'News from the bargain corner',
+    'feature_product_head' => 'News from Tijara ads',
 
     //Dashboard
     'dashboard_statistics_period' => 'Statistics for the period',
@@ -334,5 +334,8 @@
     'pay_now'   =>  'Pay now',
     'strip_error_message'=>'Please correct the errors and try again.',
     'pay_through'   =>  'Pay through',
+    'about_tijara_label' => 'Om Tijara',
+    'customer_service_label' => 'Customer service',
+    'contact_us_label' => 'Contact Us',
  ]  
 ?>

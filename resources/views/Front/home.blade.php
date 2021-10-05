@@ -137,7 +137,7 @@
                 <div class="product_container">
                 <div class="loader"></div>
                     <div >
-                    <h2 class="heading">{{ __('lang.popular_services_head')}}</h2>     
+                    <h2 class="heading product_heading">{{ __('lang.popular_services_head')}}</h2>     
                     <!-- <a href="{{url('/')}}/services" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_services')}}</a> -->
                 </div>
                     <!-- <hr class="heading_line"/> -->
@@ -168,7 +168,7 @@
         <div class="product_container">
         <div class="loader"></div>
             <div style="display: flex;">
-            <h2 class="heading">{{ __('lang.feature_product_head')}}</h2>
+            <h2 class="heading product_heading">{{ __('lang.feature_product_head')}}</h2>
             <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a>
           </div>
             <!-- <hr class="heading_line"/> -->
@@ -262,7 +262,7 @@
 			
             <div class="best_seller_container">
                 <!--<h3>{{ __('lang.follow_us_on_head')}}</h3>-->
-                <h2>{{ __('lang.instagram_label')}}</h2>
+                <h2 class="product_heading">{{ __('lang.instagram_label')}}</h2>
                 <div class="social_img_section">
                     <ul class="instagram_imgs" id="instafeed">
 

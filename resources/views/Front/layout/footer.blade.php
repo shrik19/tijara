@@ -39,7 +39,7 @@
 		</div>
         <div class="col-md-2">
           <div class="ft_page_links">
-          <h3>{{ __('lang.information_label')}}</h3>
+          <h3>{{ __('lang.about_tijara_label')}}</h3>
           @if(!empty($allPages))
           <ul>
             @foreach($allPages as $page)
@@ -69,10 +69,10 @@
       </div>
       <div class="col-md-2">
         <div class="ft_page_links">
-        <h3>{{ __('lang.my_account_title')}}</h3>
+        <h3>{{ __('lang.customer_service_label')}}</h3>
         <ul>
-          <li><a href="{{route('frontUserProfile')}}">{{ __('lang.my_account_title')}}</a></li>
-          <li><a href="javascript:void(0)">{{ __('lang.contact_label')}} </a></li>
+         <!--  <li><a href="{{route('frontUserProfile')}}">{{ __('lang.my_account_title')}}</a></li> -->
+          <li><a href="javascript:void(0)">{{ __('lang.contact_us_label')}} </a></li>
           <li><a href="{{route('AllproductListing')}}">{{ __('lang.shopping_cart_label')}} </a></li>
         </ul>
       </div>

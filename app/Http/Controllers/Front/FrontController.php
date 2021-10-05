@@ -1792,7 +1792,7 @@ public function getCatSubList(Request $request) {
 								->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 								->orderBy('totalOrderedServices', 'DESC')
 								->groupBy('services.id')
-								->offset(0)->limit(config('constants.Services_limits'))->get();
+								->offset(0)->limit(config('constants.Front_Services_limits'))->get();
 
 		if(count($PopularServices)>0) {
 			foreach($PopularServices as $Service) {

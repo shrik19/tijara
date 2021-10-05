@@ -35,9 +35,8 @@ header{
 .go_to_tijara_ads_btn{
     color: #000 !important;
     background-color: #f9b78e;
-    
     margin-bottom: 55px;
-    margin-top: 25px;
+    margin-top: 55px;
     margin-left: 40px;
     border-radius: 20px;
 }
@@ -1204,7 +1203,7 @@ span.remember-text {
 .address_container p{color: #828282; font-size: 16px; line-height: 30px;}
 .address_container p strong {color: #828282; font-size: 18px;}
 .social_icon{padding-top: 40px;}
-.footer_logo{margin-top: 25px;}
+.footer_logo{margin-top: 30px;}
 .social_icon li{float: left; margin: 2px 9px;}
 .ft_page_links h3{color: #fff; /*padding-top: 55px;*/}
 .ft_page_links li{list-style: none;    font-size: 15px;
@@ -1265,7 +1264,7 @@ overflow: hidden;}
     position: absolute;width: 92%;
      top:14vh}
 .slider_content h3{color: black; font-size: 35px; margin: 0;}
-.slider_content h2{font-size: 54px; font-weight: 600; color: #fff; line-height: 80px; padding-left: 50px !important;line-height: 49px ;
+.slider_content h2{font-size: 54px; font-weight: 600; color: #fff; line-height: 80px; padding-left: 51px !important;line-height: 49px ;
     padding-left: 10% ;}
 .slider_content p{font-size: 20px;color: #151511; line-height: 30px;}
 .slider_indicators{     position: absolute;
@@ -1326,7 +1325,7 @@ overflow: hidden;}
 .tijara_front_container{margin: 0 auto; margin-right: 5px;}
 .all_cat_sidebar_label{font-size: 30px; padding: 20px 0 0 0;margin-bottom: 30px}
 .tijara_front_read_more {
-    text-align: center;
+  text-align: center;
 	margin: 30px 0;
 }
 .col_black{color: #000;}
@@ -1336,7 +1335,7 @@ overflow: hidden;}
     border-radius: 25px;
     color: #03989e;
     font-size: 18px;
-	font-weight: 600;
+	  font-weight: 300;
 }
 .store_eye_icon a{color: #000000;}
 .visa_img{background-color: #03989e; height: 20px; width: 30px;   padding: 6px 9px 0; border-radius: 3px;}
@@ -1465,7 +1464,7 @@ overflow: hidden;}
 /* .best_seller li{width: 23%;} */
 .best_seller_container{margin-top: 40px; float: left;width: 100%; padding-bottom: 40px;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
-.best_seller_container h2{font-size: 40px; font-weight: 600; color: #000;margin: 0;padding-bottom: 30px;}
+.best_seller_container h2{margin-left: 20px;margin: 0;padding-bottom: 30px;}
 .instagram_imgs{list-style: none;}
 .instagram_imgs li{    float: left;
     width: 18%;
@@ -1478,8 +1477,8 @@ overflow: hidden;}
         width: 50px;
         content: "\f16d";
         font-family: "Font Awesome 5 Brands";
-        right: -25px;
-        font-size: 23px;
+        right: -13px;
+        font-size: 30px;
         color: #fff;
     }
 .steps_section{position: relative;    height: 300px;
@@ -1689,11 +1688,13 @@ ul.tijara_front_box.row {
     padding: 20px 0;
 }
 .tijara_front_box li img{width: 42%; height: auto;}
-.tijara_front_inner h4{     color: #03989e;
+.tijara_front_inner h4{     
+    color: #03989e;
     text-align: left;
     line-height: 35px;
     font-size: 2.2em;
     padding: 0 23px;
+    font-weight: 400;
 }
 /* .tijara_front_inner {width: 300px; height: 300px; } */
 .product_data {
@@ -1713,7 +1714,7 @@ ul.tijara_front_box.row {
 #msform{padding: 20px 0;}
 .p-0{padding: 0;}
 .colr-box {padding: 20px;}
-.tijara_front_box li h3{text-align: left; font-size: 24px; color: #737373;margin-left: 35px;}
+.tijara_front_box li h3{text-align: left; font-size: 24px; color: #737373;margin-left: 35px;font-weight: 300;}
 
 
 

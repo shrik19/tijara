@@ -777,8 +777,7 @@ public function getCatSubList(Request $request) {
 
 	//function to get products list by provided parameters
 	public function getProductsByParameter(Request $request) {
-	DB::enableQueryLog();
-
+		DB::enableQueryLog();
 		//print_r($request->all());exit;
 		$currentDate = date('Y-m-d H:i:s');
 		$data = [];
@@ -789,7 +788,8 @@ public function getCatSubList(Request $request) {
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')
 							  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
-							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id',DB::raw('( variant_product.price -  ROUND((variant_product.price  * products.discount) / 100, 2) ) AS discounted_price'),'users.role_id'])
+							  ->leftJoin('orders_details', 'variant_product.id', '=', 'orders_details.variant_id')
+							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id',DB::raw('( variant_product.price -  ROUND((variant_product.price  * products.discount) / 100, 2) ) AS discounted_price'),'users.role_id',DB::raw("count(orders_details.id) as totalOrderedProducts")])
 							  ->where('products.status','=','active')
 							  ->where('products.is_deleted','=','0')
 							  ->where('categories.status','=','active')
@@ -871,6 +871,14 @@ public function getCatSubList(Request $request) {
 				else if($request->sort_by == 'rating')
 				{
 					$Products	=	$Products->orderBy('products.rating', strtoupper($request->sort_order));
+				}
+				else if($request->sort_by == 'popular')
+				{
+					$Products	=	$Products->orderBy('totalOrderedProducts', strtoupper($request->sort_order));
+				}
+				else if($request->sort_by == 'discount')
+				{
+					$Products	=	$Products->orderBy('products.discount', strtoupper($request->sort_order));
 				}
 			}
 			else

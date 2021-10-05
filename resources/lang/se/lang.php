@@ -335,5 +335,7 @@
     'about_tijara_label' => 'Om Tijara',
     'customer_service_label' => 'Kundservice',
     'contact_us_label' => 'Kontakta oss',
+    'sort_by_discount' => 'Rea',
+    'sort_by_popular_product'=>'Populära',
  ]
 ?>

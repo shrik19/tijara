@@ -257,4 +257,7 @@
   </div>
 </div>
   </nav>
+  @if(Request::segment(1) =='products' )
+  <hr class="categoryGrayLine">
+  @endif
 @endif

@@ -337,5 +337,7 @@
     'about_tijara_label' => 'About Tijara',
     'customer_service_label' => 'Customer service',
     'contact_us_label' => 'Contact Us',
+    'sort_by_discount' => 'Discount',
+    'sort_by_popular_product'=>'Popular',
  ]  
 ?>

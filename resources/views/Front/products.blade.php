@@ -8,27 +8,15 @@
 <section class="product_section">
     <div class="container-fluid">
       <!-- Example row of columns -->
-      <div class="row" style="margin-top:40px;">
+      <div class="row">
   <div class="container-inner-section">
  
         @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
           @include('Front.category_breadcrumb')
          
         @endif
-        <div class="col-md-3">
-            @include('Front.products_sidebar')
-        </div>
-        <div class="col-md-9 products-page">
-            <span class="current_category" style="display:none;">{{$category_slug}}</span>
-            <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
-            <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
-            <span class="current_search_string" style="display:none;">{{$search_string}}</span>
-            <span class="current_role_id" style="display:none;">{{$current_role_id}}</span>
-            <div class="product_container">
-                <div class="row">
+         <div class="row">
                   <div class="col-md-6">
-                   <!--  <h2>{{ __('lang.trending_product_head')}}</h2>
-                    <hr class="heading_line"/> -->
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
@@ -45,13 +33,27 @@
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="getListing()">
                         <!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
-                          <option value="name">{{ __('lang.sort_by_name')}}</option>
-                          <option value="price">{{ __('lang.sort_by_price')}}</option>
-                          <option value="rating">{{ __('lang.sort_by_rating')}}</option>
+                        <option value="popular">{{ __('lang.sort_by_popular_product')}}</option>
+                        <option value="price">{{ __('lang.sort_by_price')}}</option>
+                        <option value="discount">{{ __('lang.sort_by_discount')}}</option>
+                        <option value="name">{{ __('lang.sort_by_name')}}</option>
+                        <option value="rating">{{ __('lang.sort_by_rating')}}</option>
                       </select>
                     </div>
                   </div>
                 </div>
+        <div class="col-md-3">
+            @include('Front.products_sidebar')
+        </div>
+        <div class="col-md-9 products-page">
+
+            <span class="current_category" style="display:none;">{{$category_slug}}</span>
+            <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
+            <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
+            <span class="current_search_string" style="display:none;">{{$search_string}}</span>
+            <span class="current_role_id" style="display:none;">{{$current_role_id}}</span>
+            <div class="product_container">
+               
                 <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
         </div>

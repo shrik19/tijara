@@ -332,7 +332,7 @@
     'pay_now'   =>  'Betala nu',
     'strip_error_message'=>'Korrigera felen och försök igen.',
     'pay_through'   =>  'Betala igenom',
-    'about_tijara_label' => 'About Tijara',
+    'about_tijara_label' => 'Om Tijara',
     'customer_service_label' => 'Kundservice',
     'contact_us_label' => 'Kontakta oss',
  ]

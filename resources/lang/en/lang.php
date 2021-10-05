@@ -334,7 +334,7 @@
     'pay_now'   =>  'Pay now',
     'strip_error_message'=>'Please correct the errors and try again.',
     'pay_through'   =>  'Pay through',
-    'about_tijara_label' => 'Om Tijara',
+    'about_tijara_label' => 'About Tijara',
     'customer_service_label' => 'Customer service',
     'contact_us_label' => 'Contact Us',
  ]  

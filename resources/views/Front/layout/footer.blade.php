@@ -27,14 +27,33 @@
         @php
           $allPages   = getCustomPages();
           $getCustomerServicePage = getCustomerServicePage();
+          $getHowToSellPage = getHowToSellPage();
         @endphp
 		<div class="col-md-2">
 			<div class="ft_page_links">
 				<h3>{{ __('users.footer_sell_label')}}</h3>
 				<ul>
-					<li><a href="#">{{ __('users.footer_how_it_work_link')}}</a></li>
-					<li><a href="#">{{ __('users.footer_open_a_shop_link')}}</a></li>
-					<li><a href="#">{{ __('users.footer_my_pages_link')}}</a></li>
+           @if(!empty($getHowToSellPage))
+              @foreach($getHowToSellPage as $sellPage)
+              @php
+                  $howToSellPage = '';
+                  $howToSellUrl  = '';
+                  if(Config::get('app.locale') == 'se')
+                  {
+                    $howToSellPage = $sellPage[0]['title'];
+                    $howToSellUrl  = route('frontCmsPage', array($sellPage[0]['slug']));
+                  }
+                  else
+                  {
+                    $howToSellPage = $sellPage[0]['title_en'];
+                    $howToSellUrl  = route('frontCmsPage', array($sellPage[0]['slug_en']));
+                  }
+              @endphp
+              <li><a href="{{ $howToSellUrl }}">{{ $howToSellPage }} </a></li>
+           @endif
+					<li><a  href="{{route('seller_register')}}" >{{ __('users.footer_open_a_shop_link')}}</a></li>
+					<li><a style="cursor: pointer;" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{route('frontDashboard')}}" @else onclick="showErrorMessage('{{trans('errors.login_seller_required')}}','{{ route('frontLoginSeller') }}');"  @endif>{{ __('users.footer_my_pages_link')}}</a></li>
+
 				</ul>
 			</div>
 		</div>

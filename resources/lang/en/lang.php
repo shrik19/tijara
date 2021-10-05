@@ -339,5 +339,7 @@
     'contact_us_label' => 'Contact Us',
     'sort_by_discount' => 'Discount',
     'sort_by_popular_product'=>'Popular',
+    'category_title' => 'Categories',
+    'whole_sweden_option' => 'Whole Sweden',
  ]  
 ?>

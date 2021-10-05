@@ -58,7 +58,21 @@ header{
     font-size: 15px !important;
     text-align: center !important;
 }
+.product_sorting_filter{
+  font-size: 14px;
+  color: #222222;
+  font-weight: 400;
+}
 
+.product_sorting_filter_option{
+  font-size: 14px;
+  color: #222222;
+  font-weight: 300;
+}
+.slider-handle {
+    background-color: #03989e !important;
+    background-image: linear-gradient(to bottom, #03989e, #03989e) !important;
+}
 .service-add-calender .fc-event, .fc-event-dot {
     background-color: #c4eafd!important;
     border: #c4eafd!important;
@@ -225,14 +239,15 @@ margin-top: 15px;
   font-size: 16px;
 }
 .all_cat_label{
-  line-height: 45px;
-    text-decoration: none;
-    font-size: 22px;
-    margin: 5px;
-    float: left;
-    width: 100%;
-    color: #000;
-    background: transparent;
+  line-height: 30px;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 5px;
+  float: left;
+  width: 100%;
+  color: #222222;
+  background: transparent;
+  font-weight: 300;
 }
 span.subscribe_success {
     color: green;
@@ -1329,7 +1344,14 @@ overflow: hidden;}
 .seller_info p{font-size: 18px;margin: 0;}
 .store_info{font-size: 18px; line-height: 30px; padding: 10px 0; font-weight: normal;}
 .tijara_front_container{margin: 0 auto; margin-right: 5px;}
-.all_cat_sidebar_label{font-size: 30px; padding: 20px 0 0 0;margin-bottom: 30px}
+.all_cat_sidebar_label{   
+ font-size: 24px;
+ color: #222222;
+ font-weight: 400; 
+ /*padding: 20px 0 0 0;*/
+ margin-bottom: 30px;
+ margin-top: 0px;
+}
 .tijara_front_read_more {
   text-align: center;
 	margin: 30px 0;
@@ -1774,13 +1796,15 @@ span.pro-text {
 .seller_cat_list{margin: 0;}
 .seller_cat_list li { list-style: none; }
 .seller_cat_list li a{    
-    line-height: 45px;
+    line-height: 30px;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 16px;
     margin: 5px;
     float: left;
     width: 100%;
-    color: #000;background: transparent; 
+    color: #222222;
+    background: transparent;
+    font-weight: 300;
 }
 .seller_page_botton_border {border-bottom: 1px solid #aaa;}
 .seller_cat_list>.activemaincategory, .seller_cat_list>.activesubcategory, .seller_cat_list>.activeservicemaincategory, .seller_cat_list>.activeservicesubcategory{
@@ -1788,7 +1812,13 @@ span.pro-text {
 }
 
 .seller_cat_list>.activemaincategory>a, .seller_cat_list>.activesubcategory>a, .seller_cat_list>.activeservicemaincategory>a, .seller_cat_list>.activeservicesubcategory>a{
-    background-color: transparent; color: #000; font-weight: 600;
+    background-color: transparent;
+    color: #222222;
+    font-weight: 600;
+}
+
+.activeAllcategory{
+  font-weight: 600 !important;
 }
 .ratingUname, .ratingComment {
     font-size: 20px;

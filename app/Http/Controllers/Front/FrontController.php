@@ -994,6 +994,15 @@ public function getCatSubList(Request $request) {
 		
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
 		$data['current_role_id']	=	'2';
+		$cities = DB::table('users')
+			->where('is_deleted','=',0)
+			->where('status','=','active')
+			->where('city','!=','')
+	        ->groupBy('city')
+	        ->select('id','city')
+	        ->get();
+	       
+	    $data['allCities'] = $cities;
 		return view('Front/products', $data);
 	}
     public function productListingFunction($request,$category_slug='',$subcategory_slug='')

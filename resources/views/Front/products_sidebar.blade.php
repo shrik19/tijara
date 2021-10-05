@@ -1,8 +1,6 @@
  @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
-  <h2 class="all_cat_sidebar_label" id="all_cat_label"><a href="{{route('AllproductListing')}}" title="{{ __('lang.category_label')}}" style="color: #000 !important;"></i>{{ __('lang.category_label')}}</span> </a></h2>
-
-
-  <p class="all_cat_label">{{ __('lang.all_category')}}</p>
+  <h2 class="all_cat_sidebar_label" id="all_cat_label">{{ __('lang.category_title')}}</h2>
+  
 @endif
 
  <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
@@ -30,12 +28,11 @@
 
         if($category_slug==$Category['category_slug'])
         $cls  ='activemaincategory';
-        else if($category_slug=='' && $i==1) 
-        $cls = 'activemaincategory';
-        
+              
 
       @endphp
-
+        <li>
+  <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}" @if($category_slug=='' && $i==1) class="activeAllcategory" @endif >{{ __('lang.all_category')}}</a></li>
       @if(!empty($Categories[$CategoryId]['subcategory']))
 
         <li class="expandCollapseSubcategory  <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" id="main_cat_name<?php echo $i; ?>" @if(Request::segment(1) =='seller') class = 'seller_page_botton_border' @endif>{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
@@ -95,7 +92,6 @@
 <div>&nbsp;</div>
   @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
  
-  <hr>
   <label class="price_label">{{ __('lang.sort_by_price')}}</label>
 
   <div>&nbsp;</div>
@@ -104,8 +100,16 @@
   <div>&nbsp;</div>
   <div>&nbsp;</div>
   <label class="price_label">{{ __('users.place_label')}}</label>
-  <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" />
-  <div id="cityList"></div>
+<!--   <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" /> -->
+ <select class="form-control" name="city_name" id="city_name">
+    <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
+    @if(!empty($allCities))
+      @foreach($allCities as $city)
+      <option value="{{@$city->city}}" class="product_sorting_filter_option">{{@$city->city}}</option>       
+      @endforeach
+    @endif
+  </select>
+<!--   <div id="cityList"></div> -->
   <div>&nbsp;</div>
 
   
@@ -134,7 +138,7 @@
 $(document).ready(function(){
    $(".show_all_cat").addClass('active');
   /*search by city */
- $('#city_name').keyup(function(){ 
+/* $('#city_name').keyup(function(){ 
         var query = $(this).val();
        
         if(query != '')
@@ -155,7 +159,7 @@ $(document).ready(function(){
    $(document).on('click', '.city_autocomplete', function(){  
         $('#city_name').val($(this).text());  
         $('#cityList').fadeOut();  
-    });  
+    });  */
 
    $(document).on('click', '.show_all_cat', function(){  
        $(this).addClass('active');

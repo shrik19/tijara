@@ -16,7 +16,7 @@ use App\Models\Services;
 /** Get all Custom Pages. */
 function getCustomPages()
 {
-    $allPages = Page::where('slug_en','!=','contact-us')->where('slug_en','!=','faq')>where('slug_en','!=','how-to-sell')->where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();
+    $allPages = Page::where('slug_en','!=','contact-us')->where('slug_en','!=','faq')->where('slug_en','!=','how-to-sell')->where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();
     return $allPages;
 }
 /** Get FAQ Custom Pages. */

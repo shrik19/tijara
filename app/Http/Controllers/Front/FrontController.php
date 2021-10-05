@@ -874,7 +874,7 @@ public function getCatSubList(Request $request) {
 				}
 				else if($request->sort_by == 'popular')
 				{
-					$Products	=	$Products->orderBy('variant_product.id', strtoupper($request->sort_order));
+					$Products	=	$Products->orderBy('totalOrderedProducts', strtoupper($request->sort_order));
 				}
 				else if($request->sort_by == 'discount')
 				{

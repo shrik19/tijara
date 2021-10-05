@@ -34,19 +34,18 @@
 				<h3>{{ __('users.footer_sell_label')}}</h3>
 				<ul>
            @if(!empty($getHowToSellPage))
-              @foreach($getHowToSellPage as $sellPage)
               @php
                   $howToSellPage = '';
                   $howToSellUrl  = '';
                   if(Config::get('app.locale') == 'se')
                   {
-                    $howToSellPage = $sellPage[0]['title'];
-                    $howToSellUrl  = route('frontCmsPage', array($sellPage[0]['slug']));
+                    $howToSellPage = $getHowToSellPage[0]['title'];
+                    $howToSellUrl  = route('frontCmsPage', array($getHowToSellPage[0]['slug']));
                   }
                   else
                   {
-                    $howToSellPage = $sellPage[0]['title_en'];
-                    $howToSellUrl  = route('frontCmsPage', array($sellPage[0]['slug_en']));
+                    $howToSellPage = $getHowToSellPage[0]['title_en'];
+                    $howToSellUrl  = route('frontCmsPage', array($getHowToSellPage[0]['slug_en']));
                   }
               @endphp
               <li><a href="{{ $howToSellUrl }}">{{ $howToSellPage }} </a></li>

@@ -260,6 +260,12 @@ margin-top: 15px;
   color: #222222;
   font-weight: 400;
 }
+.other_watched_products{
+  font-size: 24px;
+  color: #222222;
+  font-weight: 400;
+  margin-bottom: 25px !important;
+}
 .all_cat_label{
   line-height: 30px;
   text-decoration: none;

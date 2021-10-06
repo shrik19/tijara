@@ -118,8 +118,8 @@
     <label  class="price_label">{{ __('users.type_label')}}</label>
     <div class="category_button">
     <button class="show_all_cat">{{ __('users.all_btn')}}</button>
-    <button class="show_product_cat">{{ __('lang.product_label')}}</button>
-    <button class="show_service_cat">{{ __('lang.service_label')}}</button>
+    <button class="show_product_cat">{{ __('lang.category_product_title')}}</button>
+    <button class="show_service_cat">{{ __('lang.category_service_title')}}</button>
     </div>
   @endif
   <div>&nbsp;</div>

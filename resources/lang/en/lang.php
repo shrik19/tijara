@@ -341,5 +341,7 @@
     'sort_by_popular_product'=>'Popular',
     'category_title' => 'Categories',
     'whole_sweden_option' => 'Whole Sweden',
+    'category_product_title'=>'products',
+    'category_service_title'=>'Services',
  ]  
 ?>

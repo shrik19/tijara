@@ -123,7 +123,19 @@ margin-top: 15px;
   margin-left: -877px;*/
 }
 
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #03989e;
+    border-color: #03989e;
+}
 
+.pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
+    color: #ffffff;
+    background-color: #222222;
+    border-color: #ddd;
+}
 
 .payment_method_title{
   margin-top: 20px;
@@ -234,9 +246,9 @@ margin-top: 15px;
     width: 500px;
 }
 .price_label{
-  height: 35px;
-  margin-left: -10px;
-  font-size: 16px;
+  font-size: 24px;
+  color: #222222;
+  font-weight: 400;
 }
 .all_cat_label{
   line-height: 30px;

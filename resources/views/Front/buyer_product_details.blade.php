@@ -72,7 +72,7 @@
                       <div>
                         <h3 class="ad_contact_details"> {{ __('users.description_label')}} </h3>
                        @if(!empty($Product->description))  
-                        <p class="">{{$Product->description}}</p> 
+                        <p class=""><?php echo strip_tags($Product->description);?></p> 
                        @endif
                       </div>
                         
@@ -150,7 +150,7 @@
             <div class="best_seller_container">
                 <h2 class="other_watched_products">{{ __('lang.also_have_watch')}}</h2>
                 
-                <ul class="product_details best_seller wid_23">
+                <ul class="product_details best_seller">
 
                   @foreach($similarProducts as $product)
 

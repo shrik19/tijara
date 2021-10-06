@@ -79,7 +79,7 @@
                    <!--    <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Product->id}}'>{{$Product->rating}}</span></div> -->
 
                       <p>
-                        <?php echo $Product->description; ?>
+                        <?php echo strip_tags($Product->description); ?>
                       </p>
                      
                      

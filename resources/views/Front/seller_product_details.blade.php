@@ -42,22 +42,22 @@
               @endif
               </div>
               
-              <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 13px;margin-left: -38px;">{{ __('users.report_product_btn')}} </a>
+              <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 12px;">{{ __('users.report_product_btn')}} </a>
             </div>
 
             <div class="col-md-6">
                 <div class="product_details_info">
-                    <h2>{{$Product->title}}</h2>
+                    <h2 class="product_title_details">{{$Product->title}}</h2>
 
                     <!-- <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4> -->
                     <div class="row">
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
-                          <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>             
-                            <span style="padding-top:2px; color: #03989e; font-weight:600;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
+                          <h4 class="service_store_name"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>             
+                            <span class="product_original_price" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
                             @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif
 
-                            <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span>
+                          <?php /*   <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span> */?>
                           </span> 
                             
 
@@ -65,7 +65,7 @@
                           </div>
                         </div>
                     
-                    <div class="star-rating" style="font-size:unset; padding-top:35px">
+                    <div class="star-rating start_rating_details">
                     <select class='rating product_rating' id='rating_{{$Product->id}}' data-id='rating_{{$Product->id}}' data-rating='{{$Product->rating}}'>
                       <option value="1" >1</option>
                       <option value="2" >2</option>

@@ -325,7 +325,7 @@
     'read_less_btn' => 'Läs mindre',
     'your_subscribed_label' => 'Din prenumeration',
     'next_payment_label' => 'Din nästa betalning',
-    'report_product_btn' => 'Rapportera produkt',
+    'report_product_btn' => 'Rapportera',
     'subject_product_report' => 'Meddelande från köparen angående produktrapport',
     'mail_sent_message' => 'Mail skickat',
     'report_ad_btn' => 'Rapportera Annonser',

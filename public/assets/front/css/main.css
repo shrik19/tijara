@@ -97,6 +97,7 @@ margin-top: 15px;
 .service_store_name{
   color: #bfbaba;
   font-size: 16px;
+  margin-top: -15px;
 }
 .bookingRequestCalender .fc-center h2{
   font-size: 17px !important
@@ -1674,7 +1675,12 @@ overflow: hidden;}
     position: relative;
     /* padding-bottom: 15px; */
     margin-top: 0;
-    line-height: 42px;
+    line-height: 55px;
+}
+
+.start_rating_details{
+  font-size: 15px !important;
+  padding-top:35px
 }
   .product_details_info h2:after{
     position: absolute;
@@ -1689,7 +1695,21 @@ overflow: hidden;}
     font-size: 28px; font-weight: 600; color: #03989e;
 }
 .product_details_info p{
-    font-size: 18px; font-weight: 300; color: #515151; line-height: 25px;
+    /*font-size: 18px; font-weight: 300; color: #515151; line-height: 25px;*/
+    font-size: 16px;
+    color: #777;
+    font-weight: 300;
+    margin-top: 10px;
+}
+.service_store_name a{
+  color: #777 !important;
+}
+.product_original_price{
+    padding-top: 2px;
+    color: #03989e;
+    font-weight: 500;
+    position: absolute;
+    font-size: 24px;
 }
 .select_product_color{list-style: none;width: 100%;margin-top: 8px;}
 .select_product_color li{float: left;
@@ -1876,6 +1896,11 @@ span.pro-text {
     font-size: 14px;
     font-weight: 300;
     color: #777;
+}
+.product_title_details{
+  font-size: 26px !important;
+  font-weight: 400 !important;
+  color: #222222 !important;
 }
 .sel_cat_list li a{
     border:none; padding-left: 15px;

@@ -5,7 +5,7 @@
       @include('Front.products_widget')
     @endforeach
 </ul>
-<div style="text-align: center">
+<div class="pagination_div">
 {!! $Products->links() !!}
 </div>
 @else

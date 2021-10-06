@@ -143,6 +143,10 @@ margin-top: 15px;
     border: 1px solid #ddd;
 }
 
+.pagination_div{
+  text-align: center; clear:both;
+}
+
 .payment_method_title{
   margin-top: 20px;
   font-size: 16px;

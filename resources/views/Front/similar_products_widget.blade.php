@@ -26,7 +26,7 @@
         $product_link  = $product_link;
           ?>
   <div  product_link="{{$product_link}}" class="product_data" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif >
-    <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
+    <div class="product_img" style="min-height:280px;display:inline-block;background-color: white;">
       @if($product->image)
       @php 
         $productImage = explode(",",$product->image);

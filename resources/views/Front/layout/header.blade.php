@@ -80,7 +80,7 @@
   <header>
     <nav class="navbar navbar-default navbar-fixed-top tj-navbar" role="navigation">
       <hr class="top_line"/>
-
+<div class="product_view">
       <div class="container-fluid">
         <div class="row">
           <div class="tj-topmenu">
@@ -89,8 +89,9 @@
           </div>
 
           <div class="wid-85 col-xm-12">
+            
             <div class="top_login">
-
+            <div class="row">
               @php
               $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
               if (strpos($url,'service') !== false) 
@@ -193,6 +194,8 @@
             </div>
           </div>
         </div>
+      </div>
+</div>
       </div>
       </div>
     </nav>

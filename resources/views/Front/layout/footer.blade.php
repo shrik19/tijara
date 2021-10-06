@@ -11,6 +11,7 @@
     </div> -->
     <div class="ft_middle_container container-fluid">
       <div class="container-inner-section">
+        <div class="row">
         <div class="col-md-3">
             <img class="footer_logo"  src="{{url('/')}}/assets/img/logo.png"     height="50px" />
             <!-- <article class="address_container">
@@ -131,7 +132,7 @@
       </div>
     </div>
       </div>
-
+      </div>
     </div>
     <div class="ft_payment_container container-fluid">
         <div class="container-inner-section">

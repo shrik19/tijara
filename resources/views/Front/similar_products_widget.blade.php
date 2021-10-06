@@ -43,7 +43,7 @@
             </ul>
       </div>
     </div> */?>
-
+    </div>
     <div class="product_info">
         <h5>{{$product['category_name']}}</h5>
          
@@ -55,7 +55,7 @@
         <input type="hidden" name="product_quantity_{{$product->variant_id}}" id="product_quantity_{{$product->variant_id}}" value="1">
         <!-- <a href="javascript:void(0);" onclick="addToCart('{{$product->variant_id}}');"><i class="glyphicon glyphicon-shopping-cart"></i></a> -->
     </div>
-  </div>
+  
 
 
 </li>

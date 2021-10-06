@@ -22,6 +22,6 @@ return [
  'review_limits'=>'10',
  'buyer_product'=>'12',
  'Front_Products_limits'=>'10',
- 'Front_Services_limits'=>'10'
- 'Popular_product_limit'=>'5',
+ 'Front_Services_limits'=>'10',
+ 'Popular_Product_limits'=>'5',
 ];

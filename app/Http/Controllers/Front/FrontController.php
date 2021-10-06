@@ -629,7 +629,7 @@ public function getCatSubList(Request $request) {
 								->orderBy('totalOrderedProducts', 'DESC')
 								->orderBy('variant_product.id', 'ASC')
 								->groupBy('products.id')
-								->offset(0)->limit(config('constants.Popular_product_limit'))->get();
+								->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
 		//dd(DB::getQueryLog());								
 		if(count($PopularProducts)>0) {
 			foreach($PopularProducts as $Product) {

@@ -196,8 +196,9 @@ margin-top: 15px;
 }
 .package_width{width: 70%; margin: 0 15%;}
 #instafeed img.img-fluid {
-    width: 100%;
-    min-height: 229px !important;
+  width: 100%;
+  height: 340px !important;
+  object-fit: cover;
 }
 .buyer_profile_update_img{
   width:200px;height:200px;margin-top:10px;
@@ -440,7 +441,7 @@ summary.active::after {
 /*end FAQ page css*/
 /*css for featured seller*/
 
-.featured-seller{margin-top: 40px;}
+/* .featured-seller{margin-top: 40px;} */
 /*.featured-seller h2 {
     font-size: 40px;
     font-weight: 600;
@@ -1001,7 +1002,7 @@ span.remember-text {
     right: 0;
     top: 38vh;}
 .cart_details{padding: 0 17px; position: relative;}
-.header_left_container{width: 98%;}
+.header_left_container{width: 100%;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}
 .cart_count{
@@ -1023,7 +1024,7 @@ span.remember-text {
     background-color: #dbdbdb;
 }
 /* .containerfluid{margin-top: 71px;} */
-.right-icons{list-style-type: none; }
+.right-icons{list-style-type: none;float:right; }
 .right-icons li{float: left; width: auto;}
 .right-icons li i{font-size: 23px;}
 /*
@@ -1034,7 +1035,7 @@ span.remember-text {
 	.seller_register_container .left-section {
 		padding: 0;
 	}
-	
+	.home-slider{height: 500px;}
 	.login_container .right-section .form-section, 
 	.register_container .right-section .form-section {
 		padding-top: 10%;
@@ -1239,7 +1240,7 @@ span.remember-text {
 		margin-left: 4%;
 	}
 	
-.heading{font-weight: 600; font-size: 42px; padding-bottom: 30px;margin-left: 10px;}
+.heading{font-weight: 600; font-size: 42px; margin-left: 10px;}
 .heading_line{       margin: 0;
     background-color: #03989e;
     width: 8%;
@@ -1266,12 +1267,12 @@ span.remember-text {
 .address_container p{color: #828282; font-size: 16px; line-height: 30px;}
 .address_container p strong {color: #828282; font-size: 18px;}
 .social_icon{padding-top: 40px;}
-.footer_logo{margin-top: 30px;}
+.footer_logo{margin-top: 20px; height:35px;}
 .social_icon li{float: left; margin: 2px 9px;}
 .ft_page_links h3{color: #fff; /*padding-top: 55px;*/}
 .ft_page_links li{list-style: none;    font-size: 15px;
     padding: 9px 0;}
-.ft_page_links li a{ color: #828282; }
+.ft_page_links li a{ color: #828282; font-size: 16px; font-weight: 300; }
 .ft_page_links p{color: #828282; line-height: 30px; font-size: 16px;}
 .sub_box input{width: 60%; border: none; height: 36px; float: left; border-radius: 23px; padding:0 39px 0 14px;}
 .sub_btn{color: #fff; background-color: #03989e;    border-radius: 23px;
@@ -1286,7 +1287,7 @@ span.remember-text {
 .ft_payment_container{
   background-color: #191919;
 }
-.slider_cotnainer_section{ width: 100%; height: 70vh;   background-size: 100%;
+.slider_cotnainer_section{ width: 100%;  background-size: 100%;
 overflow: hidden;}
 .sale_section{
     margin-top: 50px;
@@ -1325,7 +1326,7 @@ overflow: hidden;}
 .slider_item img{overflow: hidden;}
 .slider_content{    padding-left: 60px;
     position: absolute;width: 92%;
-     top:14vh}
+     top:6vh}
 .slider_content h3{color: black; font-size: 35px; margin: 0;}
 .slider_content h2{font-size: 54px; font-weight: 600; color: #fff; line-height: 80px; padding-left: 51px !important;line-height: 49px ;
     padding-left: 10% ;}
@@ -1339,7 +1340,7 @@ overflow: hidden;}
     margin-left: -30%;
     text-align: center;
     list-style: none;
-    top: 47%;
+    bottom:8px;
     margin-left: -32%;}
     .slider_indicators li {
         display: inline-block;
@@ -1401,7 +1402,7 @@ overflow: hidden;}
   font-weight: 400;
   color: #222222;
 }
-}
+
 .tijara_front_container{margin: 0 auto; margin-right: 5px;}
 .all_cat_sidebar_label{   
  font-size: 24px;
@@ -1469,23 +1470,28 @@ overflow: hidden;}
     border-radius: 3px;
     margin: 0 5px;
     border: 1px solid #676767;}
-.product_info h5{font-size: 12px; color: #515151;  width: 95%; 
-    overflow: hidden; white-space: nowrap; 
-    text-overflow: ellipsis;}
+.product_info h5{font-size: 12px; color: #333;  width: 95%; 
+    overflow: hidden; white-space: nowrap;  margin:0; margin-top: 3px;
+    text-overflow: ellipsis; font-weight: 300;}
 .product_info h4{font-size: 14px;
-    color: #515151;
-    font-weight: 400;
-    white-space: nowrap; 
-    width: 95%; 
-    overflow: hidden;margin: 0;
-    text-overflow: ellipsis; padding-bottom: 5px;
+  color: #222222;
+  font-weight: 300;
+  white-space: nowrap;
+  width: 95%;
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  margin-top: 8px;
 }
 .star-rating .br-widget{
     height: 15px!important;
     white-space: nowrap;
     margin-bottom: 5px;
 }
-.product_info h6{font-size: 16px; color: #515151; margin: 9px 0 0 0;
+.product_info h6{font-size: 16px;
+  color: #222222;
+  margin: 9px 0 0 0;
+  font-weight: 500;
 }
 .product_img{position: relative;}
 .product_img{position: relative;
@@ -1496,7 +1502,7 @@ overflow: hidden;}
     padding: 0px;
     overflow: hidden;
   justify-content: center;
-      border: 1px solid #e5e5e5;
+      /* border: 1px solid #e5e5e5; */
 }
 .border-none{border: none!important;}
 .dic_price{
@@ -1796,8 +1802,8 @@ hr{
 /*  Tijara front */
 .ptb-15{position: relative; margin: 16px 0;}
 ul.tijara_front_box.row {
-    width: 90%;
-    margin: auto 5%;
+    width: 98%;
+    margin: auto 1%;
     text-align: center;
 }
 .invalid-feedback{position: absolute;    padding-top: 4px;}
@@ -1806,7 +1812,7 @@ ul.tijara_front_box.row {
     list-style: none;
     float: left;
    
-    width: 31%;
+    width: 32.1%;
     margin: 10px;
     padding: 20px 0;
 }
@@ -1846,12 +1852,12 @@ ul.tijara_front_box.row {
 
 .wid-20{float: left; width: 15%;}
 .wid-85{width: 80%; float: left;}
-.tj-navbar{box-shadow: none;border: none; background-image: none; float: left;width: 100%;}
-.tj-logo img{padding: 0;  width: 100%; padding-left: 20px; padding-top: 25px; }
+.tj-navbar{box-shadow: none;border: none; background-image: none; float: left;width: 100%; background: #fff;}
+.tj-logo img{padding: 0;  width: 100%;  padding-top: 25px; }
 .mainMenu{padding-top: 40px; width: 100%;margin: 15px 0 0 0;}
 .tj-topmenu{background-color: rgba(255, 255, 255, 0.9); float: left; width: 100%;}
 .product_view{width: 90%; margin: 0 auto;}
-.container-inner-section{width: 94%; margin: 0 auto;}
+.container-inner-section{width: 90%; margin: 0 auto;}
 .mtb-20{margin: 20px 0;}
 .m-0{margin: 0!important; position: relative; min-height: 0;}
 .toggle_btn{      position: fixed;
@@ -2178,7 +2184,7 @@ span.pro-text {
         .product_img:hover  .buy_now_hover_details{ opacity: 1;}
         
         /* .slider_item img{display: none;} */
-        .slider_cotnainer_section{ width: 100%; height: 43vh;   background-size: 100%;
+        .slider_cotnainer_section{ width: 100%;    background-size: 100%;
             overflow: hidden;}
         .product_section>div>div{margin-top: 0!important;}
         /* .slider_content h2 {

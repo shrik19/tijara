@@ -20,7 +20,7 @@
                         @endforeach  
                     </ol>
 
-                    <div class="carousel-inner" role="listbox">
+                    <div class="carousel-inner home-slider" role="listbox">
                         <!-- NOTE: Bootstrap v4 changes class name to carousel-item -->
                         @foreach($SliderDetails as $key=>$data)
                         @if($key == 0)
@@ -223,7 +223,7 @@
             </div>
 			*/?>
 			<div class="tijara_front_container">
-				<ul class="tijara_front_box row">
+				<ul class="tijara_front_box">
 					<li >
             <div class="colr-box colr-1">
               <div class="tijara_front_inner ">

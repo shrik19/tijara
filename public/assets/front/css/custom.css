@@ -262,7 +262,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 
 .product_img img {
   width: 100%;
-  object-fit: none;
+  object-fit: cover;
 }
 /* .slider_content h2 {
   line-height: 49px ;
@@ -301,12 +301,18 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 }
 @media only screen and (min-width: 1024px) {
   .tijara_front_box li {
-    width:35%;
+    width:31%;
   }
 }
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1400px) {
   .tijara_front_box li {
     width:31%;
+  }
+}
+
+@media only screen and (min-width: 1900px) {
+  .tijara_front_box li {
+    width:32%;
   }
 }
 

@@ -1,6 +1,6 @@
 <li class="col-xs-15">
   <div class="product_data product_link_js" product_link="{{$product->product_link}}">
-    <div class="product_img" style="min-height:280px;margin-bottom:20px;display:inline-block;background-color: white;">
+    <div class="product_img" style="min-height:280px;display:inline-block;background-color: white;">
       @if($product->image)
           <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" >
       @else

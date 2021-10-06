@@ -35,9 +35,9 @@
           </div>
             </div>
             <div class="clearfix"></div>
-             <h2> {{ __('users.butiks_info_title')}}</h2>
+             <!-- <h2> {{ __('users.butiks_info_title')}}</h2> -->
              <div class="clearfix"></div>
-              <h4 style="margin-top: 10px;">{{ __('lang.category_label')}}</h4>
+              <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
               <div class=" form-group search_now_input_box">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
             <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
@@ -46,7 +46,7 @@
         </div>
         <div class="col-md-9">
            <div style="text-align: center">
-            <a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.service_label')}}  </a>
+            <a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.category_service_title')}}  </a>
             <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.products_title')}}" class="@if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a>
 
              <!-- contact shop -->
@@ -62,6 +62,7 @@
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                   @if(!empty($store_information))
                   <div class="col-md-12">
+                     <h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
                     <p class="store_info">{!! $store_information !!}</p>
                   </div>
                   @endif
@@ -97,7 +98,7 @@
           <hr>
 
           <div class="col-md-2">
-            <h2>{{ __('users.review_title')}}</h2>
+            <h2  class="review_title">{{ __('users.review_title')}}</h2>
           </div>
 
           <div class="col-md-9">

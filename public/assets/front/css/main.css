@@ -375,7 +375,10 @@ span.subscribe_err {
     margin-top: 25px !important;
   }
   .ratingUname{
-    margin-top: 10px;margin-bottom: 1px;
+    margin-bottom: 1px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #222222;
   }
   .policies{
     margin-top: 20px;
@@ -782,7 +785,7 @@ select.list-dt:focus {
 /*end seller registration*/
 /*seller store page css*/
  .store-active-btn{
-    color: #000;
+    color: #222222;
     font-size: 20px;
     border-right: 2px solid;
     margin-right: 10px;
@@ -790,7 +793,11 @@ select.list-dt:focus {
     padding-top: 4px;
     padding-bottom: 4px;
   }
-
+  .butik_info_heading{
+    font-size: 18px;
+    font-weight: 400;
+    color: #222222;
+  }
   .store-inactive-btn{
     color: #A0A0A0;
     font-size: 20px;
@@ -1370,7 +1377,24 @@ overflow: hidden;}
     font-weight: 600;
     margin: 0; line-height: 25px;}
 .seller_info p{font-size: 18px;margin: 0;}
-.store_info{font-size: 18px; line-height: 30px; padding: 10px 0; font-weight: normal;}
+.store_info{
+  font-size: 14px;
+  line-height: 20px;
+  color: #777;
+  font-weight: 300;
+}
+.seller_store_cat_head{
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 400;
+    color: #222222;
+}
+.review_title{
+  font-size: 24px;
+  font-weight: 400;
+  color: #222222;
+}
+}
 .tijara_front_container{margin: 0 auto; margin-right: 5px;}
 .all_cat_sidebar_label{   
  font-size: 24px;
@@ -1848,8 +1872,10 @@ span.pro-text {
 .activeAllcategory{
   font-weight: 600 !important;
 }
-.ratingUname, .ratingComment {
-    font-size: 20px;
+.ratingComment {
+    font-size: 14px;
+    font-weight: 300;
+    color: #777;
 }
 .sel_cat_list li a{
     border:none; padding-left: 15px;

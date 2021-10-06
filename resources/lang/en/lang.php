@@ -343,5 +343,6 @@
     'whole_sweden_option' => 'Whole Sweden',
     'category_product_title'=>'products',
     'category_service_title'=>'Services',
+    'butik_info_heading' =>'Store Information',
  ]  
 ?>

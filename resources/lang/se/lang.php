@@ -341,5 +341,6 @@
     'whole_sweden_option' => 'Hela Sverige',
     'category_product_title'=>'Produkter',
     'category_service_title'=>'Tjänster',
+    'butik_info_heading' =>'Butiksinformation',
  ]
 ?>

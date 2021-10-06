@@ -9,6 +9,9 @@
 <div class="category_list_box show_product_cat_sidebar"  id="accordion">
   
   <ul class="seller_cat_list">
+    <li>
+      <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+    </li>
     @php $i=0; $j=0;
     if(isset($current_role_id) && $current_role_id==1)
       $productsads='annonser';
@@ -31,8 +34,7 @@
               
 
       @endphp
-        <li>
-  <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}" @if($category_slug=='' && $i==1) class="activeAllcategory" @endif >{{ __('lang.all_category')}}</a></li>
+   
       @if(!empty($Categories[$CategoryId]['subcategory']))
 
         <li class="expandCollapseSubcategory  <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" id="main_cat_name<?php echo $i; ?>" @if(Request::segment(1) =='seller') class = 'seller_page_botton_border' @endif>{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
@@ -192,5 +194,11 @@ $(document).ready(function(){
         //$("#all_cat_label").attr("href", "{{route('AllserviceListing')}}")
        
     });
+
+
+  var search_string = $(".current_search_string").text();
+   if(search_string !=''){
+    $(".all_category_bold").addClass("activeAllcategory");
+   }
 });
 </script>

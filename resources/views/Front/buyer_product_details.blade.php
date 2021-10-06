@@ -51,21 +51,29 @@
 
             <div class="col-md-6">
                 <div class="product_details_info" style="min-height: 385px;position: relative;">
-                    <h2>{{$Product->title}}</h2>
+                    <h2 class="product_title_details">{{$Product->title}}</h2>
                    <!--  <h4 class="product_price" id="product_variant_price" style="color:#03989e;"><span>{{ __('lang.price_label')}} :</span>{{ number_format($first['price'],2) }} kr  {{ number_format($first['discount_price'],2) }} kr</h4> -->
 
                     <div class="quantity_box">              
-                               <span  style="font-size:20px;color: #03989e; font-weight:600;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span></span> 
-                      <div> <span>{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif   </span> <span style="padding-left:13%"> <img src="{{url('/')}}/assets/img/7.png" width="40" />
+                               <span  style="margin-top: -10px;"  class="product_original_price" id="product_variant_price">{{ number_format($first['price'],2) }} kr</span> 
+                      <div style="margin-top: 30px;"> 
+                        <span class="service_time_css">{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif </span>
+                         <span style="padding-left:13%" class="service_time_css"> <img src="{{url('/')}}/assets/img/7.png" width="40" />
                   @if(!empty($product_location)){{$product_location}}@endif</span></div>
                     </div>
                       <div class="clearfix"></div>
                       <div class="row prduct_det" style="position:absolute; bottom:0px">  
                         <div class="col-md-12" >                    
-                        <h3> <img src="{{url('/')}}/assets/img/8.png" width="40" /> {{@$buyer_product_details->user_phone_no}}</h3>
-                        <h3><img src="{{url('/')}}/assets/img/9.png" width="40" /> {{@$buyer_product_details->user_email}}</h3>
+                        <h3 class="ad_contact_details"> <img src="{{url('/')}}/assets/img/8.png" width="40" /> {{@$buyer_product_details->user_phone_no}}</h3>
+                        <h3 class="ad_contact_details"><img src="{{url('/')}}/assets/img/9.png" width="40" /> {{@$buyer_product_details->user_email}}</h3>
 
                         </div>       
+                      </div>
+                      <div>
+                        <h3 class="ad_contact_details"> {{ __('users.description_label')}} </h3>
+                       @if(!empty($Product->description))  
+                        <p class="">{{$Product->description}}</p> 
+                       @endif
                       </div>
                         
                      
@@ -74,7 +82,7 @@
             <div class="row">
                           <div class="col-xs-12 col-md-12">    
                                        
-                               <a class="annonser_btn" href="{{ route('frontHome') }}">{{ __('lang.back_to_ads')}}</a>
+                               <a href="{{route('frontProductCreate')}}"  class="annonser_btn">{{ __('lang.back_to_ads')}}</a>
                            
                           </div>
                       </div>
@@ -84,6 +92,7 @@
 
 
 <!-- product review section -->
+<?php /*
 <section>
     <div class="container-fluid">
     <div class="container-inner-section">
@@ -132,14 +141,14 @@
     </div>
 </div>
 </section>
-
+*/?>
 <section>
   @if(!empty($similarProducts))
     <div class="container-fluid">
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-                <h2>{{ __('lang.also_have_watch')}}</h2>
+                <h2 class="other_watched_products">{{ __('lang.also_have_watch')}}</h2>
                 
                 <ul class="product_details best_seller wid_23">
 

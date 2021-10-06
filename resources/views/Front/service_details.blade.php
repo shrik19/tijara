@@ -57,12 +57,13 @@
 
             <div class="col-md-6">
                 <div class="product_details_info">
-                    <h2>{{$Service->title}}</h2>
-                     <h4 class="">@if(!empty($Service->session_time)){{$Service->session_time}} min @endif</h4>
-                    <h4 class="service_store_name">@if(!empty($store_name)){{$store_name}}@endif</h4>
-                    <h4 class="product_price"><a href="{{$seller_link}}" class="de_col">{{ $Service->service_price }} KR</a></h4>
+                    <h2 class="product_title_details">{{$Service->title}}</h2>
+                     <h4 class="service_time_css">@if(!empty($Service->session_time)){{$Service->session_time}} min @endif</h4>
+                    <h4 class="service_store_name" style="margin-top: 0px;"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>
+                    <!-- <h4 class="product_price product_original_price"><a href="{{$seller_link}}" class="de_col">{{ $Service->service_price }} Kr</a></h4> -->
+                    <span class="product_original_price" style="padding-top: 25px;">{{ $Service->service_price }} Kr</span>
 
-                      <div class="star-rating" style="font-size:unset;">
+                      <div class="star-rating" style="font-size:15px;">
                         <select class='rating service_rating' id='rating_{{$Service->id}}' data-id='rating_{{$Service->id}}' data-rating='{{$Service->rating}}'>
                           <option value="1" >1</option>
                           <option value="2" >2</option>
@@ -72,10 +73,8 @@
                         </select>
                       </div> 
                       <div style='clear: both;'></div>
-                      
-                      <p style="margin-top: 20px;">
-                        <?php echo $Service->description; ?>
-                      </p>
+                      <p style="margin-top:50px"><?php echo $Service->description; ?></p>
+                  
 
                      
                         <div class="row">
@@ -105,7 +104,7 @@
                                 </div>
                                 <div class="form-group">
                                   <label>{{ __('lang.location')}}</label>
-                                  <input type="text"  id="" class="location form-control" placeholder="{{ __('lang.location')}}">
+                                  <input type="text"  id="" class="location form-control" value="@if(!empty($Service->address)) {{$Service->address}} @endif" placeholder="{{ __('lang.location')}}" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label>{{ __('lang.service_date')}}</label>
@@ -145,15 +144,16 @@
                                     @endif
                                   </select>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                   <label>{{ __('lang.personal_number')}}</label>
                                   <input type="text"  id="phone_number" class="phone_number form-control" placeholder="(XXX) XXX-XXXX">
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                   <label>{{ __('lang.service_total_cost')}}</label>
                                   <input type="text"  value="{{$Service->service_price}} kr" id="" readonly 
                                   class=" form-control service_price" 
                                   placeholder="{{ __('lang.service_total_cost')}}">
+                                  <p style="font-size: 12px;">Betalning sker på plats</p>
                                 </div>
                               
                                 <div class="form-group">
@@ -179,7 +179,8 @@
             <div class="best_seller_container">
               <div class="col-md-12"  style="margin-left: -33px;">
               <div class="col-md-6">
-              <h2>{{ __('users.review_title')}}</h2>
+              <h2  class="review_title">{{ __('users.review_title')}}</h2>
+              <hr class="hr_product_details">
               <!-- </div> -->
                 @if(!empty($serviceReviews))
                   @php $i=1; @endphp
@@ -215,17 +216,17 @@
                 @endif
               </div>
                <div class="col-md-6">
-               <h2>{{ __('users.store_terms')}}</h2>
-          
-                <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
+               <h2 class="review_title">{{ __('users.store_terms')}}</h2>
+               <hr class="hr_product_details">
+                <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
                 <!-- <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
                 <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button> -->
-                <button class="tablink" onclick="openPage('CancelPolicy', this, 'white')">{{ __('users.cancellation_policy')}}</button>
+                <button class="tablink product_sorting_filter" onclick="openPage('CancelPolicy', this, 'white')">{{ __('users.cancellation_policy')}}</button>
 
                 @if(!empty($getTerms))
                  <div id="PaymentPolicy" class="tabcontent">
                 <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
-                  <p class="policies">{{@$getTerms->payment_policy}}</p>
+                  <p class="policies ratingComment">{{@$getTerms->payment_policy}}</p>
                   </div>
 
                  <!--  <div id="ShippingPolicy" class="tabcontent">
@@ -237,7 +238,7 @@
                   </div> -->
 
                   <div id="CancelPolicy" class="tabcontent">
-                  <p class="policies">{{@$getTerms->cancellation_policy}}</p>
+                  <p class="policies ratingComment">{{@$getTerms->cancellation_policy}}</p>
                   </div>
               @endif
 
@@ -256,7 +257,7 @@
         <div class="row">
             <div class="best_seller_container">
                 <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
-                <h2>{{ __('users.other_watched_product')}}</h2>
+                <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
                 <ul class="product_details best_seller">
           @foreach($PopularServices as $key=>$service)
            @php if($key>3){continue;} @endphp
@@ -275,7 +276,7 @@
 function sendServiceRequest()
 {
   if($('.service_title').val()=='' || $('.location').val()=='' || $('.service_date').val()==''
-   || $('.service_time').val()==''  || $('.phone_number').val()==''  || $('.service_price').val()=='') {
+   || $('.service_time').val()=='' || $('.service_price').val()=='') {
     showErrorMessage("{{ __('lang.allFieldsRequired')}}");
     return false;
   }
@@ -291,7 +292,7 @@ function sendServiceRequest()
       data : {'service_id': {{$Service->id}},'seller_id': {{$Service->user_id}},
       'service_title':$('.service_title').val(),'location':$('.location').val(),
       'service_date':$('.service_date').val(),'service_time':$('.service_time').val()
-      ,'phone_number':$('.phone_number').val(),'service_price':$('.service_price').val()},
+      ,'service_price':$('.service_price').val()},
       success:function(data)
       {
         $(".loader").hide();

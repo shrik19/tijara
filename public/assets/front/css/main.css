@@ -95,8 +95,9 @@ margin-top: 15px;
   margin: 50px;
 }
 .service_store_name{
-  color: #bfbaba;
-  font-size: 16px;
+  color: #777;
+  font-weight: 300;
+  font-size: 14px;
   margin-top: -15px;
 }
 .bookingRequestCalender .fc-center h2{
@@ -382,7 +383,7 @@ span.subscribe_err {
     color: #222222;
   }
   .policies{
-    margin-top: 20px;
+    margin-left: -20px;
   }
 /*FAQ page css*/
 
@@ -798,6 +799,11 @@ select.list-dt:focus {
     font-size: 18px;
     font-weight: 400;
     color: #222222;
+  }
+  .ad_contact_details{
+    font-size: 18px !important;
+    font-weight: 300 !important;
+    color: #222222 !important;
   }
   .store-inactive-btn{
     color: #A0A0A0;
@@ -1496,6 +1502,23 @@ overflow: hidden;}
 .dic_price{
     text-decoration: line-through; font-size: 16px; color: rgb(0, 145, 7);
 }
+.hr_product_details{
+    margin-top: -15px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #f9f9f9;
+}
+hr{
+  /*border-top: 1px solid #f9f9f9 !important;*/
+}
+.add_ads_btn{
+  float: right;margin-top: -70px;
+}
+.service_time_css{
+  font-size: 16px;
+  font-weight: 300;
+  color: #222222;
+}
 .dic_percent{
  font-size: 16px; color: rgb(0, 145, 7);
 }
@@ -1721,7 +1744,7 @@ overflow: hidden;}
 .color_3{background-color: blue;}
 .color_4{background-color: green;}
 .quantity_box{float: left; width: 100%;}
-.quantity_box h3{float: left; font-size: 20px; color: #03989e; font-weight: 300; margin: 0; line-height: 40px;}
+.quantity_box h3{float: left; font-size: 18px;color: #03989e; font-weight: 300; margin: 0; line-height: 40px;}
 
 .drop_down_select{width: 80%; padding: 10px 15px 10px 15px; background-color: #fff; border: 1px solid #03989e; border-radius: 40px; float: right;}
 .add_to_cart_btn{background-color: #03989e; padding: 10px 30px; color: #fff; font-size: 20px; border-radius: 28px;margin-top: 21px; font-weight: 300; width:93%}

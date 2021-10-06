@@ -16,6 +16,11 @@
          
         @endif
          <div class="row">
+           @if(Request::segment(1) =='annonser')
+           <div class="col-md-12">
+              <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn add_ads_btn"><span>+ {{ __('users.add_ads_btn')}}</span> </a>
+           </div>
+           @endif
                   <div class="col-md-6">
                   </div>
                   <div class="col-md-3">

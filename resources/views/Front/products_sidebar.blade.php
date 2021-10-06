@@ -93,14 +93,16 @@
 
 <div>&nbsp;</div>
   @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
- 
-  <label class="price_label">{{ __('lang.sort_by_price')}}</label>
+      @if(strpos(@$path, 'annonser') !== false)
+      <?php echo "sdhj";exit;?>
+      <label class="price_label">{{ __('lang.sort_by_price')}}</label>
 
-  <div>&nbsp;</div>
-  <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
-  <!-- <b>€ 1000</b> -->
-  <div>&nbsp;</div>
-  <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
+      <!-- <b>€ 1000</b> -->
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+    @endif
   <label class="price_label">{{ __('users.place_label')}}</label>
 <!--   <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" /> -->
  <select class="form-control" name="city_name" id="city_name">

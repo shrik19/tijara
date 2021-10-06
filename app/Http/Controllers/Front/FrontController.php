@@ -986,7 +986,15 @@ public function getCatSubList(Request $request) {
 
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
 		$data['current_role_id']	=	'1';
-
+		$cities = DB::table('users')
+			->where('is_deleted','=',0)
+			->where('status','=','active')
+			->where('city','!=','')
+	        ->groupBy('city')
+	        ->select('id','city')
+	        ->get();
+	       
+	    $data['allCities'] = $cities;
 		return view('Front/products', $data);
 	}
 	public function productListing($category_slug='',$subcategory_slug='',Request $request)
@@ -1371,7 +1379,7 @@ public function getCatSubList(Request $request) {
 									})
 									->orderBy('variant_product.id', 'ASC')
 									->groupBy('products.id')
-									->offset(0)->limit(config('constants.Products_limits'));
+									->offset(0)->limit(config('constants.Popular_Product_limits'));
 			if(isset($category_slug) && $category_slug!='') {
 
 				$similarProducts=	$similarProducts->where('categories.category_slug','=',$category_slug);
@@ -1952,7 +1960,7 @@ public function getCatSubList(Request $request) {
 			'location' => $request->input('location'),
 			'service_date' => $request->input('service_date'),
 			'service_time' => $request->input('service_time'),
-			'phone_number' => $request->input('phone_number'),
+			//'phone_number' => $request->input('phone_number'),
             'user_id' => Auth::guard('user')->id(),
 			'service_id'=>$request->input('service_id'),
 			'service_price'=>$request->input('service_price'),
@@ -1983,11 +1991,10 @@ public function getCatSubList(Request $request) {
         $contents = $GetEmailContents['contents'];
         
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
-		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##PHONE##','##SITE_URL##',
+		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##',
 			'##CUSTOMERADDRESS##','##SELLER##'],
 		[$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
-		$request->input('service_price'),
-		$request->input('phone_number'),url('/'),$customeraddress,$sellername],$contents);
+		$request->input('service_price'),url('/'),$customeraddress,$sellername],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

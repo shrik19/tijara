@@ -54,7 +54,7 @@
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
                           <h4 class="service_store_name"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>             
-                            <span class="product_original_price" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span>
+                            <span class="product_original_price" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @endif">{{ number_format($first['price'],2) }} kr</span>
                             @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif
 
                           <?php /*   <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span> */?>
@@ -187,8 +187,8 @@
       <div class="best_seller_container">
       <div class="col-md-12" style="margin-left: -33px;">
       <div class="col-md-6">
-      <h2>{{ __('users.review_title')}}</h2>
-      
+      <h2 class="review_title">{{ __('users.review_title')}}</h2>
+      <hr class="hr_product_details">
      <!--  <div class="col-md-9"> -->
       @if(!empty($productReviews))
       <?php $i = 1; ?>
@@ -206,7 +206,7 @@
         <div class="col-md-5" style="margin-left: 30px;">
           <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
 
-          <div class="star-rating" style="font-size:unset;pointer-events: none;">
+          <div class="star-rating" style="font-size:15px;pointer-events: none;">
             <select class='rating product_rating' id='rating_{{$Product->id}}_{{$i}}' data-id='rating_{{$Product->id}}_{{$i}}' data-rating="{{$review['product_rating']}}">
               <option value="1" >1</option>
               <option value="2" >2</option>
@@ -230,28 +230,28 @@
         @endif
         </div>
         <div class="col-md-6">
-           <h2>{{ __('users.store_terms')}}</h2>
-      
-            <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
-            <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
-            <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+           <h2  class="review_title">{{ __('users.store_terms')}}</h2>
+            <hr class="hr_product_details">
+            <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
+            <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+            <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
            <!--  <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button> -->
 
 
             @if(!empty($getTerms))
             <div id="PaymentPolicy" class="tabcontent">
           <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->payment_policy}}</p>
+            <p class="policies ratingComment">{{@$getTerms->payment_policy}}</p>
             </div>
 
             <div id="ShippingPolicy" class="tabcontent">
             <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->shipping_policy}}</p>
+            <p class="policies ratingComment">{{@$getTerms->shipping_policy}}</p>
             </div>
 
             <div id="ReturnPolicy" class="tabcontent">
            <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->return_policy}}</p> 
+            <p class="policies ratingComment">{{@$getTerms->return_policy}}</p> 
             </div>
 
             <!-- <div id="BookingPolicy" class="tabcontent">
@@ -272,8 +272,7 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-                <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
-                <h2>{{ __('users.other_watched_product')}}</h2>
+                <h2  class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
                 <ul class="product_details best_seller">
       					@foreach($PopularProducts as $key=>$product)
                  @php if($key>3){continue;}@endphp

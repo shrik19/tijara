@@ -257,7 +257,7 @@
   </div>
 </div>
   </nav>
-  @if(Request::segment(1) =='products' || Request::segment(1) =='services' )
+  @if(Request::segment(1) =='products' || Request::segment(1) =='services' || Request::segment(1) =='annonser' )
   <hr class="categoryGrayLine">
   @endif
 @endif

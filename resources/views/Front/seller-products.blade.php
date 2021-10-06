@@ -100,7 +100,6 @@
           <div class="col-md-2">
             <h2 class="review_title">{{ __('users.review_title')}}</h2>
           </div>
-
           <div class="col-md-9">
           @if(!empty($productReviews))
             @foreach($productReviews as $review)

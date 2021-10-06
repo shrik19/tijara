@@ -5,7 +5,9 @@
       @include('Front.services_widget')
     @endforeach
 </ul>
+<div class="pagination_div">
 {!! $Services->links() !!}
+</div>
 @else
 <div style="text-align:center;color: red;font-size: 20px;margin-top: 20px;">{{ $Services }}</div>
 @endif

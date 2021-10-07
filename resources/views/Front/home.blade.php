@@ -90,7 +90,7 @@
         <h2 class="heading product_heading">{{ __('lang.featured_seller_head')}}</h2>
     </div>
 </div>
-    <div class="featured-banner" >
+    <div class="featured-banner" style="margin-left: 10px;">
     <div class="featured_seller_container">
     <div class="container-fluid">
         <div class="row logo-slider">               

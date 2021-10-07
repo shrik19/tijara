@@ -225,7 +225,7 @@
     <div class="container-fluid">    
       <div class="row">
         <div class="product_view">
-      <div class="col-md-12">
+      <div class="">
       <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
    <i class="fas fa-bars"></i>
   </button>

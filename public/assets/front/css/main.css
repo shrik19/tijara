@@ -2174,7 +2174,7 @@ span.pro-text {
         }
         .search_now_input_box {
             position: relative;
-            width: 53%!important;
+            width: 53%;
             float: left;
         }
     
@@ -2183,6 +2183,10 @@ span.pro-text {
             position: relative;
             margin: 0;float: left;
         }
+        .seller_search {
+          margin-top: 9px;
+          width: 100%!important;
+      }
         .header_left_container {
             padding-bottom: 12px;
             margin-top: 20px;
@@ -2415,4 +2419,30 @@ span.pro-text {
             width: 100%;
             font-size: 13px;
         }
+        .home-slider {
+          height: 290px;
+      }
+      .tijara-content .btn {
+        font-size: 18px;
+        padding: 5px 20px;
+        color: #fff;
+        margin-top: 28px;
+        text-align: center;
+    }
+    .seller_store_mo{
+      width: 100%;
+      float: left;
+      margin: 12px 0 30px;
+    }
+    .seller_store_cat_head {
+      margin-top: 10px;
+      margin-top: 27px;
+      font-size: 24px;
+      font-weight: 400;
+      color: #222222;
+  }
+  .seller_banner {
+    height: 175px;
+    object-fit: cover;
+}
 }

@@ -11,7 +11,7 @@
       <img class="seller_banner" src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
     @endif
     <div class="container-fluid">
-    <div class="container-inner-section-1">
+    <div class="container-inner-section">
       <!-- Example row of columns -->
       <div class="row tijara-content" style="margin-top:40px;">
        <!--  @include('Front.category_breadcrumb') -->
@@ -38,7 +38,7 @@
              <!-- <h2> {{ __('users.butiks_info_title')}}</h2> -->
 
             <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
-            <div class=" form-group search_now_input_box">
+            <div class=" form-group search_now_input_box seller_search">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
             <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
 </div>
@@ -157,10 +157,10 @@
         <!-- dummy tabs -->
 
         <div class="col-md-12" style="margin-bottom: 50px;"> <hr>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <h2>{{ __('users.store_terms')}}</h2>
           </div>
-        <div class="col-md-9" style="margin-top: 25px;">
+        <div class="col-md-9" style="margin-top: 25px; margin-left: 5vw;">
 
           <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>

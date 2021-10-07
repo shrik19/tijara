@@ -63,15 +63,15 @@
  
   <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
   <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>
-  <hr>
-  <label>{{ __('lang.sort_by_price')}}</label>
+  <!-- <hr> -->
+  <label class="filter_lable">{{ __('lang.sort_by_price')}}</label>
   <div>&nbsp;</div>
   <div>&nbsp;</div>
   <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
   <!-- <b>€ 1000</b> -->
   <div>&nbsp;</div>
   <div>&nbsp;</div>
-  <label>{{ __('users.place_label')}}</label>
+  <label class="filter_lable">{{ __('users.place_label')}}</label>
   <input type="text" name="city_name" id="service_city" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" />
   <div id="cityList"></div>
   <div>&nbsp;</div>

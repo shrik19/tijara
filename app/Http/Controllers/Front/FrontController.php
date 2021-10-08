@@ -1647,7 +1647,7 @@ public function getCatSubList(Request $request) {
 			}
 			$sellerData .= '</ul>';
 		}
-	
+		$data['path'] = @$request->path;
 		$serviceListing = view('Front/services_list', $data)->render();
 			echo json_encode(array('services'=>$serviceListing,'sellers'=>$sellerData));
 		exit;
@@ -1817,7 +1817,7 @@ public function getCatSubList(Request $request) {
 								->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 								->orderBy('totalOrderedServices', 'DESC')
 								->groupBy('services.id')
-								->offset(0)->limit(config('constants.Front_Services_limits'))->get();
+								->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
 
 		if(count($PopularServices)>0) {
 			foreach($PopularServices as $Service) {
@@ -1855,6 +1855,7 @@ public function getCatSubList(Request $request) {
     public function sellerServiceListing($seller_name ='', $seller_id = '', $category_slug = null, $subcategory_slug= null, Request $request)
     {
         $data['pageTitle'] 	= 'Sellers Services';
+        $data['path'] = @$request->path;
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 		$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
 		if($request->segment(4)=='services'){

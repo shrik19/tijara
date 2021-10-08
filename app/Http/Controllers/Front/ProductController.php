@@ -38,6 +38,7 @@ use App\Models\BuyerProducts;
 use App\CommonLibrary;
 
 use App\Http\AdyenClient;
+use Intervention\Image\Facades\Image;
 
 /*Uses*/
 
@@ -1771,9 +1772,10 @@ public function findCurrency($type){
             
             
                                 $path = public_path().'/uploads/ProductImages/'.$fileName;
-            
+
+
                                 $mime = getimagesize($path);
-            
+                                
             
             
                                 if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
@@ -1789,12 +1791,32 @@ public function findCurrency($type){
                                 $old_x = imageSX($src_img);
             
                                 $old_y = imageSY($src_img);
+                                    
+                                $width = 500;
+                                $height = 500;
+                               // echo "here".$old_x;exit;$img    = Image::make($image->getRealPath());
+                                // we need to resize image, otherwise it will be cropped 
+                                $imageNew = Image::make($path);
+
+                                if ($old_x < $width) { 
+                                    $imageNew->resize($width, null, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                    });
+                                }
+
+                                if ($old_y < $height) {
+                                    $imageNew->resize(null, $height, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                    }); 
+                                }
+
+                                $imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
+                                $imageNew->save(public_path("uploads/ProductImages/{$fileName}"));
+
+                                           
+                                $newWidth = 230;
             
-            
-            
-                                $newWidth = 300;
-            
-                                $newHeight = 300;
+                                $newHeight = 230;
             
             
             

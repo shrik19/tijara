@@ -1,4 +1,10 @@
-<li class="col-md-15">
+
+@php
+$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false) ? 'col-md-3':'col-md-15';
+@endphp
+
+<li class="{{$class}}">
+
   <div class="product_data services-data" service_link="{{$service->service_link}}" >
     <div class="product_img" style="min-height:280px;display:inline-block;background-color: white;">
       @if($service->images)
@@ -26,7 +32,7 @@
       @if( Request::path() == "/")
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
 
-     <div class="star-rating" style="font-size:unset;">
+     <div class="star-rating" style="font-size:15px;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
           <option value="1" >1</option>
           <option value="2" >2</option>
@@ -47,7 +53,7 @@
            @endif
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
         @if(Request::segment(1) !='services' && Request::segment(1) != 'get_service_listing')
-          <div class="star-rating" style="font-size:unset;">
+          <div class="star-rating" style="font-size:15px;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
           <option value="1" >1</option>
           <option value="2" >2</option>
@@ -59,7 +65,7 @@
         @endif
 
         @if(!empty($service->service_price))
-          <h6>{{$service->service_price}} kr</h6>
+          <h6 style="margin-top: 6px;">{{$service->service_price}} kr</h6>
         @endif
 
         <!-- below code is for seller name  -->

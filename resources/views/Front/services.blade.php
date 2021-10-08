@@ -8,7 +8,7 @@
     <div class="container-fluid">
       <!-- Example row of columns -->
       <div class="container-inner-section">
-      <div class="row" style="margin-top:40px;">
+      <div class="row">
         
        @if(Request::segment(1) =='services' || Request::segment(1) =='products')
           @include('Front.category_breadcrumb')
@@ -24,10 +24,10 @@
             <div class="product_container">
                 <div class="row">
                   <div class="col-md-6">
-                    <h2>{{ __('lang.trending_service_head')}}</h2>
-                    <hr class="heading_line"/>
+                    <!-- <h2>{{ __('lang.trending_service_head')}}</h2>
+                    <hr class="heading_line"/> -->
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3" style="margin-left: -16px;">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="listServices()">
@@ -61,9 +61,10 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container">
-                <h3>{{ __('lang.popular_items_in_market_head')}}</h3>
-                <h2>{{ __('lang.best_seller_head')}}</h2>
-                <ul class="product_details best_seller">
+                <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
+                <!-- <h2>{{ __('lang.best_seller_head')}}</h2> -->
+                <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
+                <ul class="product_details best_seller" style="margin-left:4px;">
                   @foreach($PopularServices as $service)
                             @include('Front.services_widget')
                   @endforeach

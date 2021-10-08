@@ -1110,7 +1110,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'page': page, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price,'city_filter' : city, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string,'search_seller_product':search_seller_product  },
+    data : {'page': page, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers, 'price_filter' : price,'city_filter' : city, 'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string,'search_seller_product':search_seller_product,'path':window.location.pathname  },
     success:function(data)
     {
       var responseObj = $.parseJSON(data);

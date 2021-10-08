@@ -1,6 +1,11 @@
 @if(Request::segment(4) !='products')
 <div class="category_list_box show_service_cat_sidebar" >
-  <label class="all_cat_sidebar_label">{{ __('lang.all_category')}}</label>
+ <h2 class="all_cat_sidebar_label" id="all_cat_label" style="margin-top: -18px;">{{ __('lang.category_title')}}</h2>
+  <ul class="seller_cat_list">
+    <li>
+      <a href="{{route('AllserviceListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+    </li>
+  </ul>
  <!--  <h2>{{ __('lang.service_categories_head')}}</h2> -->
   <ul class="seller_cat_list">
     @php $j=0; @endphp
@@ -11,7 +16,7 @@
         $cls='';
         if($category_slug==$Category['category_slug'])
         $cls  =       'activeservicemaincategory';
-        else if( $j==1) $cls  =       'activeservicemaincategory';
+        
       @endphp
 
       @if(!empty($ServiceCategories[$CategoryId]['subcategory']))
@@ -71,15 +76,29 @@
   <!-- <b>€ 1000</b> -->
   <div>&nbsp;</div>
   <div>&nbsp;</div>
+   <div style="margin-left: 4px;"> 
   <label class="filter_lable">{{ __('users.place_label')}}</label>
-  <input type="text" name="city_name" id="service_city" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" />
+  <select class="form-control" name="city_name" id="service_city">
+      <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
+      @if(!empty($allCities))
+        @foreach($allCities as $city)
+        <option value="{{@$city->city}}" class="product_sorting_filter_option">{{@$city->city}}</option>       
+        @endforeach
+      @endif
+    </select>
+  </div>
+ <!--  <input type="text" name="city_name" id="service_city" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" />
   <div id="cityList"></div>
-  <div>&nbsp;</div>
+ -->
+  
 
+  <div>&nbsp;</div>
+ <div style="margin-left: 4px;"> 
   <div class="category_button">
   <button class="show_all_cat">{{ __('users.all_btn')}}</button>
   <button class="show_product_cat">{{ __('lang.product_label')}}</button>
   <button class="show_service_cat">{{ __('lang.service_label')}}</button>
+</div>
 </div>
 @endif
 
@@ -123,5 +142,11 @@ $(document).ready(function(){
     $('.show_product_cat_sidebar').hide();
     $('.all_cat_label').hide();
   });
+
+  var search_string = $(".current_search_string").text();
+   if(search_string !=''){
+    $(".all_category_bold").addClass("activeAllcategory");
+  }
+
 });
 </script>

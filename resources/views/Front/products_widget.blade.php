@@ -49,7 +49,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
 
         @if( Request::path() == "/")
          <a href="{{$product->product_link}}" title="{{$product->title}}" style="margin-top: 8px;"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
-         <div class="star-rating" style="font-size:unset;margin-top: 0px;">
+         <div class="star-rating" style="font-size:15px;margin-top: 0px;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
             <option value="2" >2</option>

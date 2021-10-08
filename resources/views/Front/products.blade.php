@@ -23,7 +23,7 @@
            @endif
                   <div class="col-md-6">
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3" style="margin-left: -30px;">
                     <div class="form-group">
                       <label class="product_sorting_filter">{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="getListing()">
@@ -75,7 +75,7 @@
             <div class="best_seller_container">
                 <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
                 <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
-                <ul class="product_details best_seller">
+                <ul class="product_details best_seller" style="margin-left:4px;">
 					@foreach($PopularProducts as $product)
                     @include('Front.products_widget')
 					@endforeach

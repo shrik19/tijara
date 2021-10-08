@@ -27,7 +27,7 @@ use App\Models\ServiceRequest;
 use App\Models\ServiceAvailability;
 
 use App\CommonLibrary;
-
+use Intervention\Image\Facades\Image;
 /*Uses*/
 
 use Auth;
@@ -383,10 +383,31 @@ class ServiceController extends Controller
                                $old_y = imageSY($src_img);
            
            
+                                $width = 500;
+                                $height = 500;
+                               // echo "here".$old_x;exit;$img    = Image::make($image->getRealPath());
+                                // we need to resize image, otherwise it will be cropped 
+                                $imageNew = Image::make($path);
+
+                                if ($old_x < $width) { 
+                                    $imageNew->resize($width, null, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                    });
+                                }
+
+                                if ($old_y < $height) {
+                                    $imageNew->resize(null, $height, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                    }); 
+                                }
+
+                                $imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
+                                $imageNew->save(public_path("uploads/ServiceImages/{$fileName}"));
+
+
+                               $newWidth = 230;
            
-                               $newWidth = 300;
-           
-                               $newHeight = 300;
+                               $newHeight = 230;
            
            
            

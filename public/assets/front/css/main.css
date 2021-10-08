@@ -263,11 +263,13 @@ margin-top: 15px;
   color: #222222;
   font-weight: 400;
 }
+
 .other_watched_products{
   font-size: 24px;
   color: #222222;
   font-weight: 400;
   margin-bottom: 25px !important;
+  margin-left: 15px !important;
 }
 .all_cat_label{
   line-height: 30px;
@@ -520,6 +522,7 @@ ul.breadcrumb-category li a {
   font-size: 12px;
   font-weight: 300;
   text-decoration: underline !important;
+  margin-left: 5px;
 }
 ul.breadcrumb-category li a:hover {
   color: #01447e;
@@ -1419,7 +1422,7 @@ overflow: hidden;}
  font-weight: 400; 
  /*padding: 20px 0 0 0;*/
  margin-bottom: 30px;
- margin-top: 0px;
+ margin-left: 5px;
 }
 .tijara_front_read_more {
   text-align: center;
@@ -1503,6 +1506,7 @@ overflow: hidden;}
   color: #222222;
   margin: 9px 0 0 0;
   font-weight: 500;
+  margin-top: 6px !important;
 }
 .product_img{position: relative;}
 .product_img{position: relative;
@@ -1517,7 +1521,10 @@ overflow: hidden;}
 }
 .border-none{border: none!important;}
 .dic_price{
-    text-decoration: line-through; font-size: 16px; color: rgb(0, 145, 7);
+    text-decoration: line-through; /*font-size: 16px; color: rgb(0, 145, 7);*/
+    font-size: 12px;
+    color: #777;
+    font-weight: 300;
 }
 .hr_product_details{
     margin-top: -15px;

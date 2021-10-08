@@ -1,6 +1,10 @@
  @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
-  <h2 class="all_cat_sidebar_label" id="all_cat_label">{{ __('lang.category_title')}}</h2>
-  
+  <h2 class="all_cat_sidebar_label" id="all_cat_label" style="margin-top: -60px;">{{ __('lang.category_title')}}</h2>
+  <ul class="seller_cat_list">
+    <li>
+      <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+    </li>
+  </ul>
 @endif
 
  <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
@@ -9,9 +13,9 @@
 <div class="category_list_box show_product_cat_sidebar"  id="accordion">
   
   <ul class="seller_cat_list">
-    <li>
+   <?php /*  <li>
       <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
-    </li>
+    </li> */?>
     @php $i=0; $j=0;
     if(isset($current_role_id) && $current_role_id==1)
       $productsads='annonser';
@@ -93,37 +97,42 @@
 
 <div>&nbsp;</div>
   @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
-      @if(strpos(@$path, 'annonser') !== false)
-      <?php echo "sdhj";exit;?>
+     @if(Request::segment(1) !='annonser')
+      <div style="margin-left: 4px;"> 
       <label class="price_label">{{ __('lang.sort_by_price')}}</label>
 
       <div>&nbsp;</div>
       <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
+    </div>
       <!-- <b>€ 1000</b> -->
       <div>&nbsp;</div>
       <div>&nbsp;</div>
     @endif
+    <div style="margin-left: 4px;"> 
   <label class="price_label">{{ __('users.place_label')}}</label>
-<!--   <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" /> -->
- <select class="form-control" name="city_name" id="city_name">
-    <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
-    @if(!empty($allCities))
-      @foreach($allCities as $city)
-      <option value="{{@$city->city}}" class="product_sorting_filter_option">{{@$city->city}}</option>       
-      @endforeach
-    @endif
-  </select>
+  <!--   <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" /> -->
+   <select class="form-control" name="city_name" id="city_name">
+      <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
+      @if(!empty($allCities))
+        @foreach($allCities as $city)
+        <option value="{{@$city->city}}" class="product_sorting_filter_option">{{@$city->city}}</option>       
+        @endforeach
+      @endif
+    </select>
+    </div>
 <!--   <div id="cityList"></div> -->
   <div>&nbsp;</div>
 
   
   @if(Request::segment(1) !='annonser')
     <div>&nbsp;</div>
+    <div style="margin-left: 4px;"> 
     <label  class="price_label">{{ __('users.type_label')}}</label>
     <div class="category_button">
     <button class="show_all_cat">{{ __('users.all_btn')}}</button>
     <button class="show_product_cat">{{ __('lang.category_product_title')}}</button>
     <button class="show_service_cat">{{ __('lang.category_service_title')}}</button>
+    </div>
     </div>
   @endif
   <div>&nbsp;</div>

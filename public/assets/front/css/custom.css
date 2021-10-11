@@ -64,8 +64,8 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 
 /*START : Product Details */
 .show-custom {
-	width: 400px;
-	height: 400px;
+	width: 500px;
+	height: 500px;
 	margin-left: 70px;
   position: relative;
   }
@@ -73,7 +73,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 .show-custom img#show-img {
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: absolute; object-fit: contain;
 }
   .small-img .icon-left, .small-img .icon-right {
 	width: 12px;
@@ -311,7 +311,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 }
 @media only screen and (min-width: 1400px) {
   .tijara_front_box li {
-    width:31.4%;
+    width:31.1%;
   }
 }
 

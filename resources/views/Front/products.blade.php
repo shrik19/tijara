@@ -21,9 +21,18 @@
               <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn add_ads_btn"><span>+ {{ __('users.add_ads_btn')}}</span> </a>
            </div>
            @endif
+           <div class="col-md-3">
+              
+              </div>
+           <div class="col-md-7" style="text-align:center">
+             <img src="{{url('/')}}/assets/img/tijara_ann.jpeg" height="200">
+           </div>
                   <div class="col-md-6">
+              
                   </div>
+                  
                   <div class="col-md-3" style="margin-left: -30px;">
+                  
                     <div class="form-group">
                       <label class="product_sorting_filter">{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="getListing()">

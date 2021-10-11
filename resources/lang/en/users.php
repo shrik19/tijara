@@ -243,7 +243,7 @@
     'butiks_info_title' => 'Store info',
     'review_title' => 'Reviews',
     'store_terms_title'=> 'Terms',
-    'contact_store_head' => 'Contact store',
+    'contact_store_head' => 'Contact',
     'your_message_label' => 'Your Message',
     'message_from_buyer_sub'=>'Message From Buyer',
     'please_login_alert' => 'please login',

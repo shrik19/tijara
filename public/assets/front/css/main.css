@@ -1404,7 +1404,7 @@ overflow: hidden;}
   font-weight: 300;
 }
 .seller_store_cat_head{
-    margin-top: 10px;    margin-top: 96px;
+    margin-top: 75px;
     font-size: 24px;
     font-weight: 400;
     color: #222222;
@@ -1414,7 +1414,7 @@ overflow: hidden;}
   font-weight: 400;
   color: #222222;
 }
-.seller_search{margin-top: 9px;}
+.seller_search{margin-top: 29px;}
 .tijara_front_container{margin: 0 auto; width: 74%;}
 .all_cat_sidebar_label{   
  font-size: 24px;

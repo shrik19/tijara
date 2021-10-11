@@ -793,7 +793,7 @@ select.list-dt:focus {
 /*end seller registration*/
 /*seller store page css*/
  .store-active-btn{
-    color: #222222;
+    color: #222222 !important;
     font-size: 20px;
     border-right: 2px solid;
     margin-right: 10px;

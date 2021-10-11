@@ -67,9 +67,14 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 	width: 400px;
 	height: 400px;
 	margin-left: 70px;
+  position: relative;
   }
   
-
+.show-custom img#show-img {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
   .small-img .icon-left, .small-img .icon-right {
 	width: 12px;
 	height: 24px;

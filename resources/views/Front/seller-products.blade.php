@@ -62,8 +62,12 @@
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                   @if(!empty($store_information))
                   <div class="col-md-12">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-8">
                     <h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
                     <p class="store_info"><?php echo $store_information; ?></p>
+                     </div>
+                    <div class="col-md-3"></div>
                   </div>
                   @endif
                 </div>
@@ -98,7 +102,7 @@
         <div class="col-md-12">
           <hr>
           <div class="col-md-2">
-            <h2 class="review_title">{{ __('users.review_title')}}</h2>
+            <h2 class="review_title" style="margin-left:-12px;">{{ __('users.review_title')}}</h2>
           </div>
           <div class="col-md-9">
           @if(!empty($productReviews))
@@ -158,7 +162,7 @@
 
         <div class="col-md-12" style="margin-bottom: 50px;"> <hr>
           <div class="col-md-2">
-            <h2>{{ __('users.store_terms')}}</h2>
+            <h2  class="review_title" style="margin-left:-12px;">{{ __('users.store_terms')}}</h2>
           </div>
         <div class="col-md-9" style="margin-top: 25px; margin-left: 5vw;">
 
@@ -242,7 +246,7 @@ $(document).ready(function() {
   var read_less_btn = "{{ __('users.read_less_btn')}}";
 	get_product_count();
 
-	var maxLength = 200;
+	var maxLength = 120;
 	$(".store_info").each(function(){
 		var myStr = $(this).text();
 		if($.trim(myStr).length > maxLength){

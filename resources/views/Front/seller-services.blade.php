@@ -62,8 +62,12 @@
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                   @if(!empty($store_information))
                   <div class="col-md-12">
-                     <h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-8">
+                    <h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
                     <p class="store_info">{!! $store_information !!}</p>
+                    </div>
+                    <div class="col-md-3"></div>
                   </div>
                   @endif
                 </div>
@@ -157,7 +161,7 @@
         </div> -->
          <div class="col-md-12" style="margin-bottom: 50px;"> <hr>
           <div class="col-md-2">
-            <h2>{{ __('users.store_terms')}}</h2>
+            <h2  class="review_title" style="margin-left:-12px;">{{ __('users.store_terms')}}</h2>
           </div>
         <div class="col-md-9" style="margin-top: 25px; margin-left: 5vw;">
           <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
@@ -244,7 +248,7 @@ $(document).ready(function() {
 
 	get_service_count();
 
-	var maxLength = 200;
+	var maxLength = 120;
 	$(".store_info").each(function(){
 		var myStr = $(this).text();
 		if($.trim(myStr).length > maxLength){

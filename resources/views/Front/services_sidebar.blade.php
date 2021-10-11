@@ -1,5 +1,5 @@
  @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
-  <h2 class="all_cat_sidebar_label" id="all_cat_label" style="margin-top: -60px;">{{ __('lang.category_title')}}</h2>
+  <h2 class="all_cat_sidebar_label" id="all_cat_label">{{ __('lang.category_title')}}</h2>
   <ul class="seller_cat_list">
     <li>
       <a href="{{route('AllserviceListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>

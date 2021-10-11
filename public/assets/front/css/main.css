@@ -60,7 +60,7 @@ header{
 }
 .product_sorting_filter{
   font-size: 14px;
-  color: #222222;
+  color: #222222 !important;
   font-weight: 400;
 }
 
@@ -793,7 +793,7 @@ select.list-dt:focus {
 /*end seller registration*/
 /*seller store page css*/
  .store-active-btn{
-    color: #222222;
+    color: #222222 !important;
     font-size: 20px;
     border-right: 2px solid;
     margin-right: 10px;
@@ -1404,7 +1404,7 @@ overflow: hidden;margin-top: 1px;}
   font-weight: 300;
 }
 .seller_store_cat_head{
-    margin-top: 10px;    margin-top: 96px;
+    margin-top: 75px;
     font-size: 24px;
     font-weight: 400;
     color: #222222;
@@ -1414,7 +1414,7 @@ overflow: hidden;margin-top: 1px;}
   font-weight: 400;
   color: #222222;
 }
-.seller_search{margin-top: 9px;}
+.seller_search{margin-top: 29px;}
 .tijara_front_container{margin: 0 auto; width: 74%;}
 .all_cat_sidebar_label{   
  font-size: 24px;

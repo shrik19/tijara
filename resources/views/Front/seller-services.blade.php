@@ -38,10 +38,17 @@
              <!-- <h2> {{ __('users.butiks_info_title')}}</h2> -->
              <div class="clearfix"></div>
               <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
-              <div class=" form-group search_now_input_box seller_search">
+
+            <div class=" form-group search_now_input_box seller_search">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
             <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
-</div>
+            </div>
+            <ul class="seller_cat_list">
+                <li>
+                  <a href="{{route('AllserviceListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+                </li>
+              </ul>
+
             @include('Front.services_sidebar')
         </div>
         <div class="col-md-9">
@@ -62,8 +69,12 @@
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
                   @if(!empty($store_information))
                   <div class="col-md-12">
-                     <h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-8">
+                    <h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
                     <p class="store_info">{!! $store_information !!}</p>
+                    </div>
+                    <div class="col-md-3"></div>
                   </div>
                   @endif
                 </div>
@@ -157,33 +168,33 @@
         </div> -->
          <div class="col-md-12" style="margin-bottom: 50px;"> <hr>
           <div class="col-md-2">
-            <h2>{{ __('users.store_terms')}}</h2>
+            <h2  class="review_title" style="margin-left:-12px;">{{ __('users.store_terms')}}</h2>
           </div>
         <div class="col-md-9" style="margin-top: 25px; margin-left: 5vw;">
-          <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
-          <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
-          <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
-          <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button>
+          <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
+          <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+          <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+          <button class="tablink product_sorting_filter" onclick="openPage('CancelPolicy', this, 'white')">{{ __('users.cancellation_policy')}}</button>
       
           @if(!empty($getTerms))
           <div id="PaymentPolicy" class="tabcontent">
           <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->payment_policy}}</p>
+            <p class="policies ratingComment">{{@$getTerms->payment_policy}}</p>
             </div>
 
             <div id="ShippingPolicy" class="tabcontent">
             <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->shipping_policy}}</p>
+            <p class="policies ratingComment">{{@$getTerms->shipping_policy}}</p>
             </div>
 
             <div id="ReturnPolicy" class="tabcontent">
            <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->return_policy}}</p> 
+            <p class="policies ratingComment">{{@$getTerms->return_policy}}</p> 
             </div>
 
-            <div id="BookingPolicy" class="tabcontent">
+            <div id="CancelPolicy" class="tabcontent">
             <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->booking_policy}}</p>
+            <p class="policies ratingComment">{{@$getTerms->cancellation_policy}}</p>
             </div>
         @endif
 
@@ -244,7 +255,7 @@ $(document).ready(function() {
 
 	get_service_count();
 
-	var maxLength = 200;
+	var maxLength = 120;
 	$(".store_info").each(function(){
 		var myStr = $(this).text();
 		if($.trim(myStr).length > maxLength){

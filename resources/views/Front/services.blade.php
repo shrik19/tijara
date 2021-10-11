@@ -42,7 +42,13 @@
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="listServices()">
                          <!--  <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
-                          <option value="name">{{ __('lang.sort_by_name')}}</option>
+                         <!--  <option value="name">{{ __('lang.sort_by_name')}}</option> -->
+
+                           <option value="popular" class="product_sorting_filter_option">{{ __('lang.sort_by_popular_product')}}</option>
+                          <option value="price" class="product_sorting_filter_option">{{ __('lang.sort_by_price')}}</option>
+                          <option value="discount" class="product_sorting_filter_option">{{ __('lang.sort_by_discount')}}</option>
+                          <option value="name" class="product_sorting_filter_option">{{ __('lang.sort_by_name')}}</option>
+                          <option value="rating" class="product_sorting_filter_option">{{ __('lang.sort_by_rating')}}</option>
                       </select>
                     </div>
                   </div>

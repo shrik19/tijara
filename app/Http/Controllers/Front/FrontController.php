@@ -1521,7 +1521,8 @@ public function getCatSubList(Request $request) {
 							  ->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')							  				  
 							  ->join('users', 'services.user_id', '=', 'users.id')
 							  ->join('user_packages', 'user_packages.user_id', '=', 'users.id')
-							  ->select(['services.*','servicecategories.category_name'])
+							  ->leftJoin('service_requests', 'services.id', '=', 'service_requests.service_id')
+							  ->select(['services.*','servicecategories.category_name',DB::raw("count(service_requests.id) as totalServiceRequests")])
 							  ->where('services.status','=','active')
 							  ->where('services.is_deleted','=','0')
 							  ->where('servicecategories.status','=','active')
@@ -1572,6 +1573,20 @@ public function getCatSubList(Request $request) {
 				{
 					$Services	=	$Services->orderBy('services.title', strtoupper($request->sort_order));
 				}
+				else if($request->sort_by == 'price')
+				{
+				
+					$Services	=	$Services->orderBy('services.service_price', strtoupper($request->sort_order));
+				}
+				else if($request->sort_by == 'rating')
+				{
+					$Services	=	$Services->orderBy('services.rating', strtoupper($request->sort_order));
+				}
+				else if($request->sort_by == 'popular')
+				{
+					$Services	=	$Services->orderBy('totalServiceRequests', strtoupper($request->sort_order));
+				}
+		
 				
 			}
 			else

@@ -1,11 +1,16 @@
-@if(Request::segment(4) !='products')
-<div class="category_list_box show_service_cat_sidebar" >
- <h2 class="all_cat_sidebar_label" id="all_cat_label" style="margin-top: -18px;">{{ __('lang.category_title')}}</h2>
+ @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
+  <h2 class="all_cat_sidebar_label" id="all_cat_label">{{ __('lang.category_title')}}</h2>
   <ul class="seller_cat_list">
     <li>
       <a href="{{route('AllserviceListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
     </li>
   </ul>
+@endif
+
+
+@if(Request::segment(4) !='products')
+<div class="category_list_box show_service_cat_sidebar" >
+  
  <!--  <h2>{{ __('lang.service_categories_head')}}</h2> -->
   <ul class="seller_cat_list">
     @php $j=0; @endphp

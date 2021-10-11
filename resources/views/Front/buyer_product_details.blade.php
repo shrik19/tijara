@@ -8,10 +8,10 @@
 
 <section class="product_details_section">
     <div class="loader"></div>
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row container-inner-section">
+            <div class="col-md-6 ">
               <!-- Primary carousel image -->
               @if(!empty($variantData))
                 @php
@@ -62,7 +62,7 @@
                   @if(!empty($product_location)){{$product_location}}@endif</span></div>
                     </div>
                       <div class="clearfix"></div>
-                      <div class="row prduct_det" style="position:absolute; bottom:0px">  
+                      <div class="row prduct_det" style="position:absolute; bottom:-80px">  
                         <div class="col-md-12" >                    
                         <h3 class="ad_contact_details"> <img src="{{url('/')}}/assets/img/8.png" width="40" /> {{@$buyer_product_details->user_phone_no}}</h3>
                         <h3 class="ad_contact_details"><img src="{{url('/')}}/assets/img/9.png" width="40" /> {{@$buyer_product_details->user_email}}</h3>

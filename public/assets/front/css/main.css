@@ -1005,7 +1005,7 @@ span.remember-text {
     padding: 12px 28px;
     position: absolute;
     right: 0;
-    top: 33vh;}
+    top: 335px;}
 .cart_details{padding: 0 1vw; position: relative;}
 .header_left_container{width: 100%;}
 .cart_icon{    font-size: 19px;
@@ -1294,7 +1294,7 @@ span.remember-text {
   background-color: #191919;
 }
 .slider_cotnainer_section{ width: 100%;  background-size: 100%;
-overflow: hidden;}
+overflow: hidden;margin-top: 1px;}
 .sale_section{
     margin-top: 50px;
     background-image: url(../img/sale_bg_img.png);
@@ -1744,7 +1744,7 @@ hr{
     width: 126px;
     background-color: #03989e;
     left: 0px;
-    top: 41px;line-height: 53px;
+    top: 44px;line-height: 53px;
   }
   .product_details_info h3{
     font-size: 28px; font-weight: 600; color: #03989e;
@@ -1754,7 +1754,8 @@ hr{
     font-size: 16px;
     color: #777;
     font-weight: 300;
-    margin-top: 10px;
+    margin-top: 10px;    max-height: 155px;
+    overflow: auto;
 }
 .service_store_name a{
   color: #777 !important;
@@ -1847,7 +1848,7 @@ ul.tijara_front_box.row {
     color: #03989e;
     text-align: left;
     line-height: 35px;
-    font-size: 2.2em;
+    font-size: 1.4vw;
     padding: 0 23px;
     font-weight: 400;
 }

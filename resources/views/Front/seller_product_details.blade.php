@@ -8,8 +8,8 @@
 
 <section class="product_details_section">
     <div class="loader"></div>
-    <div class="container">
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row container-inner-section">
             <div class="col-md-6">
               <!-- Primary carousel image -->
 
@@ -45,7 +45,7 @@
               <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 12px;">{{ __('users.report_product_btn')}} </a>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-offset-1 col-md-5">
                 <div class="product_details_info">
                     <h2 class="product_title_details">{{$Product->title}}</h2>
 
@@ -84,7 +84,7 @@
                      
                      
                          @foreach($ProductAttributes as $attribute_id => $attribute)
-                         <div class="col-md-6">
+                         <div class="col-md-6 p-0">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                              
                                 <div>
@@ -136,9 +136,10 @@
                      
                         
                      
-                        <div class="col-xs-6 col-md-6"  >
+                        <div class="col-xs-6 col-md-6 p-0"  >
                               <div class="quantity_box">
                                 <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
+                                <div class="clearfix"></div>
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
                                     <option value="1"></option>
@@ -167,7 +168,7 @@
                           </div>
                         </div> -->
                 </div>
-                <div class="col-xs-6 col-md-12">
+                <div class="col-xs-6 col-md-12 p-0">
                             <div class="quantity_box">
                                <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
                                <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>

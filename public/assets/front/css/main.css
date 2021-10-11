@@ -1294,7 +1294,7 @@ span.remember-text {
   background-color: #191919;
 }
 .slider_cotnainer_section{ width: 100%;  background-size: 100%;
-overflow: hidden;}
+overflow: hidden;margin-top: 1px;}
 .sale_section{
     margin-top: 50px;
     background-image: url(../img/sale_bg_img.png);
@@ -1847,7 +1847,7 @@ ul.tijara_front_box.row {
     color: #03989e;
     text-align: left;
     line-height: 35px;
-    font-size: 2.2em;
+    font-size: 1.4vw;
     padding: 0 23px;
     font-weight: 400;
 }

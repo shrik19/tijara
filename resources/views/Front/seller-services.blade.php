@@ -164,30 +164,30 @@
             <h2  class="review_title" style="margin-left:-12px;">{{ __('users.store_terms')}}</h2>
           </div>
         <div class="col-md-9" style="margin-top: 25px; margin-left: 5vw;">
-          <button class="tablink" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
-          <button class="tablink" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
-          <button class="tablink" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
-          <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button>
+          <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
+          <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
+          <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
+          <button class="tablink product_sorting_filter" onclick="openPage('CancelPolicy', this, 'white')">{{ __('users.cancellation_policy')}}</button>
       
           @if(!empty($getTerms))
           <div id="PaymentPolicy" class="tabcontent">
           <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->payment_policy}}</p>
+            <p class="policies ratingComment">{{@$getTerms->payment_policy}}</p>
             </div>
 
             <div id="ShippingPolicy" class="tabcontent">
             <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->shipping_policy}}</p>
+            <p class="policies ratingComment">{{@$getTerms->shipping_policy}}</p>
             </div>
 
             <div id="ReturnPolicy" class="tabcontent">
            <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->return_policy}}</p> 
+            <p class="policies ratingComment">{{@$getTerms->return_policy}}</p> 
             </div>
 
-            <div id="BookingPolicy" class="tabcontent">
+            <div id="CancelPolicy" class="tabcontent">
             <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-            <p class="policies">{{@$getTerms->booking_policy}}</p>
+            <p class="policies ratingComment">{{@$getTerms->cancellation_policy}}</p>
             </div>
         @endif
 

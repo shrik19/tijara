@@ -263,7 +263,7 @@
     'butiks_info_title' => 'Butiksinfo',
     'review_title' => 'Omdömen',
     'store_terms_title'=> 'Villkor',
-    'contact_store_head' => 'Kontakta butik',
+    'contact_store_head' => 'Kontakta',
     'your_message_label' => 'Ditt meddelande',
     'message_from_buyer_sub'=>'Meddelande från köparen',
     'please_login_alert' => 'Vänligen logga in',

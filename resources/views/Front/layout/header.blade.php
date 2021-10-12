@@ -198,11 +198,7 @@
 </div>
       </div>
       </div>
-    </nav>
-  </header>
-
-
- <?php 
+      <?php 
     $Categories = getCategorySubcategoryList();
     $category_slug    = '';
     $subcategory_slug = '';
@@ -221,7 +217,7 @@
 @if(!empty($Categories))
 <div class="clearfix"></div>
 
-<nav class="navbar sticky-top navbar-expand-lg bg-dark m-0">
+<nav class="navbar sticky-top navbar-expand-lg bg-dark m-0 ">
     <div class="container-fluid">    
       <div class="row">
         <div class="product_view">
@@ -260,7 +256,12 @@
   </div>
 </div>
   </nav>
-  @if(Request::segment(1) =='products' || Request::segment(1) =='services' || Request::segment(1) =='annonser' || Request::segment(1) =='product')
+  <hr class="categoryGrayLine">
+  <!-- @if(Request::segment(1) =='products' || Request::segment(1) =='services' || Request::segment(1) =='annonser' || Request::segment(1) =='product')
   <hr class="categoryGrayLine">
   @endif
-@endif
+@endif -->
+    </nav>
+  </header>
+
+

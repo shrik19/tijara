@@ -1294,7 +1294,7 @@ span.remember-text {
   background-color: #191919;
 }
 .slider_cotnainer_section{ width: 100%;  background-size: 100%;
-overflow: hidden;margin-top: 1px;}
+overflow: hidden;margin-top: 155px;}
 .sale_section{
     margin-top: 50px;
     background-image: url(../img/sale_bg_img.png);
@@ -1704,7 +1704,7 @@ hr{
     float: left;
     width: 100%; }
 
-
+.p_155{padding-top: 155px!important;}
   .star-rating input {
     display:none;
   }
@@ -1886,7 +1886,7 @@ ul.tijara_front_box.row {
 .tj-logo img{    padding: 0;
   width: 70%;
   padding-top: 33px; }
-.mainMenu{padding-top: 40px; width: 100%;margin: 15px 0 0 0;}
+.mainMenu{ width: 100%;margin: 15px 0 0 0;}
 .tj-topmenu{background-color: rgba(255, 255, 255, 0.9); float: left; width: 100%;}
 .product_view{width: 90%; margin: 0 auto;}
 .container-inner-section{width: 90%; margin: 0 auto;}
@@ -2188,6 +2188,7 @@ span.pro-text {
   background-color: #919191!important; height: 0px!important;
 }
 .slider-handle{height: 14px!important; width: 14px!important;}
+.product_section{padding-top: 35px;}
 
                     @media only screen and (min-device-width: 1024px) and (max-device-width: 1400px){
 

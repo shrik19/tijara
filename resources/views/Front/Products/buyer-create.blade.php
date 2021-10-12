@@ -32,7 +32,7 @@ width:100% !important;
 }
 </style>
 
-<div class="mid-section">
+<div class="mid-section p_155">
   <div class="container-fluid">
     <div class="container-inner-section-1">
       <div class="row">

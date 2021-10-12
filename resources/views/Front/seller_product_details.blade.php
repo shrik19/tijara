@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
 
-<section class="product_details_section">
+<section class="product_details_section p_155">
     <div class="loader"></div>
     <div class="container-fluid">
         <div class="row container-inner-section">

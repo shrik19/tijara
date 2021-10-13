@@ -110,7 +110,7 @@
      'service_review_error' => 'Du har redan granskat Tjänst.',
      'service_review_not_error' => 'Du har inte tillåtelse att betygsätta den här Tjänst, eftersom du inte har någon order på Tjänst.',
      'select_package_to_subscribe' => 'Välj paket för att prenumerera',
-     'please_check_privacy_policy' =>'Vänligen kolla sekretesspolicyn',
+     'please_check_privacy_policy' =>'Vänligen godkänn användarvillkoren.',
      'please_enter_store_name' => 'Ange butiksnamn',
      'please_check_your_profile' => 'Bekräfta din profil (köpare/säljare)',
      'already_subscribed' => 'Du har redan prenumererat på nyhetsbrev',

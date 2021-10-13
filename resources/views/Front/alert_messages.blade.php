@@ -6,7 +6,7 @@
    <button class="close" data-dismiss="alert">
       <span>&times;</span>
    </button>
-   <strong>{{ __('messages.success')}}</strong> {{Session::get('success')}}
+   <!-- <strong>{{ __('messages.success')}}</strong>  -->{{Session::get('success')}}
    </div>
 </div>
 </div>

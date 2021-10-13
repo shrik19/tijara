@@ -170,6 +170,51 @@ $('#variant_table').on('change', '.variant_image', function () {
         }
 
 });
+
+
+$('#buyer_profile_image').on("change", function(){ 
+
+        var fileUpload  = $(this)[0];
+        var elm         =   $(this);
+        //var variant_id  = $(this).attr('variant_id');
+         
+        var validExtensions = ["jpg","jpeg","gif","png"];
+        var file = $(this).val().split('.').pop();
+        if (validExtensions.indexOf(file) == -1) {
+                showErrorMessage(invalid_files_err);
+                $(this).val('');
+                return false;
+        }
+
+        var formData = new FormData();
+      
+        if (fileUpload.files.length > 0) {
+
+               formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+
+                $(".loader").show();
+                $.ajax({
+                    headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+                      url: siteUrl+'/upload-profile-image',
+                      type: 'POST',
+                      data: formData,
+                      processData: false,
+                      contentType: false,
+
+                      success: function(data) {
+                        $(".loader").hide();
+                  
+                        $(".existing-images").prepend('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images">'+
+                          '<img src="'+siteUrl+'/uploads/Buyer/'+data+'" class="buyer_profile_update_img">'+
+                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');
+                      }
+
+                });
+        }
+
+});
+
+
 $('body').on('click', '.remove_image', function () {
     $(this).prev('img').prev('input').remove();
     $(this).prev('img').remove();
@@ -658,7 +703,7 @@ $(".update-buyer-profile").click(function(e){
   let error = 0;
   let letters = /^[A-Za-z ]+$/;
 
-
+/*
   if(fname == '')
   {
     $("#err_fname").html(fill_in_first_name_err).show();
@@ -693,6 +738,7 @@ $(".update-buyer-profile").click(function(e){
   {
     $("#err_lname").html('');
   }
+  */
   if(email == '')
   {
     $("#err_email").html(fill_in_email_err).show();
@@ -834,9 +880,9 @@ $(".cloned-danger").html('')
 */
 
 function ConfirmDeleteFunction(url, id = false)
-{
+{   alert("sd")
   $.confirm({
-      title: 'Confirm!',
+      title: 'confirm!',
       content: are_you_sure_message,
       type: 'orange',
       typeAnimated: true,
@@ -1654,59 +1700,59 @@ $('body').on('change', '.service_image', function () {
 
 });
 $('#phone_number').keydown(function (e) {
-		var key = e.which || e.charCode || e.keyCode || 0;
-		$phone = $(this);
+    var key = e.which || e.charCode || e.keyCode || 0;
+    $phone = $(this);
 
     // Don't let them remove the starting '('
     if ($phone.val().length === 1 && (key === 8 || key === 46)) {
-			$phone.val('('); 
+      $phone.val('('); 
       return false;
-		} 
+    } 
     // Reset if they highlight and type over first char.
     else if ($phone.val().charAt(0) !== '(') {
-			$phone.val('('+String.fromCharCode(e.keyCode)+''); 
-		}
+      $phone.val('('+String.fromCharCode(e.keyCode)+''); 
+    }
 
-		// Auto-format- do not expose the mask as the user begins to type
-		if (key !== 8 && key !== 9) {
-			if ($phone.val().length === 4) {
-				$phone.val($phone.val() + ')');
-			}
-			if ($phone.val().length === 5) {
-				$phone.val($phone.val() + ' ');
-			}			
-			if ($phone.val().length === 9) {
-				$phone.val($phone.val() + '-');
-			}
-		}
+    // Auto-format- do not expose the mask as the user begins to type
+    if (key !== 8 && key !== 9) {
+      if ($phone.val().length === 4) {
+        $phone.val($phone.val() + ')');
+      }
+      if ($phone.val().length === 5) {
+        $phone.val($phone.val() + ' ');
+      }     
+      if ($phone.val().length === 9) {
+        $phone.val($phone.val() + '-');
+      }
+    }
 
-		// Allow numeric (and tab, backspace, delete) keys only
-		return (key == 8 || 
-				key == 9 ||
-				key == 46 ||
-				(key >= 48 && key <= 57) ||
-				(key >= 96 && key <= 105));	
-	})
-	
-	.bind('focus click', function () {
-		$phone = $(this);
-		
-		if ($phone.val().length === 0) {
-			$phone.val('(');
-		}
-		else {
-			var val = $phone.val();
-			$phone.val('').val(val); // Ensure cursor remains at the end
-		}
-	})
-	
-	.blur(function () {
-		$phone = $(this);
-		
-		if ($phone.val() === '(') {
-			$phone.val('');
-		}
-	});
+    // Allow numeric (and tab, backspace, delete) keys only
+    return (key == 8 || 
+        key == 9 ||
+        key == 46 ||
+        (key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105)); 
+  })
+  
+  .bind('focus click', function () {
+    $phone = $(this);
+    
+    if ($phone.val().length === 0) {
+      $phone.val('(');
+    }
+    else {
+      var val = $phone.val();
+      $phone.val('').val(val); // Ensure cursor remains at the end
+    }
+  })
+  
+  .blur(function () {
+    $phone = $(this);
+    
+    if ($phone.val() === '(') {
+      $phone.val('');
+    }
+  });
   
 $('.subscribed_users').click(function(){
   var email = $('#usersSubscribed').val();

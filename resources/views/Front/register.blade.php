@@ -128,7 +128,7 @@
 
 						<div class="remember-section row" style="margin-top:25px;">
 							<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value="">
-							<span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> {{ __('users.and_chk')}} <a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a></span>		
+							<span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> {{ __('users.and_chk')}} <a href="{{url('/')}}/page/villkor">{{ __('users.privacy_policy')}}</a></span>		
 						</div>
 						
 						<div class="button-section">

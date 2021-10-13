@@ -148,7 +148,7 @@ class AuthController extends Controller
                         if($getRoleId->role_id==2){
                             return redirect(route('frontDashboard'));
                         }else{
-                            return redirect(route('frontBuyerProfile'));
+                            return redirect(route('frontHome'));
                         }
                     }
                     else
@@ -1098,15 +1098,15 @@ class AuthController extends Controller
 
         $user_id = Auth::guard('user')->id();
         $rules = [
-            'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
-            'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
+            'fname'         => 'nullable|regex:/^[\pL\s\-]+$/u',
+            'lname'         => 'nullable|regex:/^[\pL\s\-]+$/u',
             'email'        => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,email,'.$user_id,
         ];
 
         $messages = [
-            'fname.required'         => trans('errors.fill_in_first_name_err'),
+            //'fname.required'         => trans('errors.fill_in_first_name_err'),
             'fname.regex'            => trans('errors.input_alphabet_err'),
-            'lname.required'         => trans('errors.fill_in_last_name_err'),
+            //'lname.required'         => trans('errors.fill_in_last_name_err'),
             'lname.regex'            => trans('errors.input_alphabet_err'),
             'email.required'         => trans('errors.fill_in_email_err'),
             'email.unique'           => trans('errors.unique_email_err'),
@@ -2194,5 +2194,178 @@ DATA;
             $error =  trans('errors.old_password_not_match');
         }
         return response()->json(['success'=>$success,'error'=>$error]);
+    }
+
+
+    public function uploadProfileImage(Request $request){
+     
+         if(($request->file('fileUpload'))){
+
+                        $fileError = 0;
+                        $image=$request->file('fileUpload');
+                        
+            
+                           
+                     {
+            
+                            $name=$image->getClientOriginalName();
+            
+                            $fileExt  = strtolower($image->getClientOriginalExtension());
+            
+            
+            
+                            if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+                                $fileName = 'Buyer_'.date('YmdHis').'.'.$fileExt;
+            
+            
+                               $image->move(public_path().'/uploads/Buyer/', $fileName);  // your folder path
+                                $path = public_path().'/uploads/Buyer/'.$fileName;
+                                $mime = getimagesize($path);
+                                
+            
+            
+                              
+
+                    if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+                    if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+                    if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+                    if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+
+                    $old_x = imageSX($src_img);
+                    $old_y = imageSY($src_img);
+
+                    $newWidth = 300;
+                    $newHeight = 300;
+
+                    if($old_x > $old_y){
+                        $thumb_w    =   $newWidth;
+                        $thumb_h    =   $old_y/$old_x*$newWidth;
+                    }
+
+                    if($old_x < $old_y){
+                        $thumb_w    =   $old_x/$old_y*$newHeight;
+                        $thumb_h    =   $newHeight;
+                    }
+
+                    if($old_x == $old_y){
+                        $thumb_w    =   $newWidth;
+                        $thumb_h    =   $newHeight;
+                    }
+
+                    $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
+                    imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+
+                    // New save location
+                    $new_thumb_loc = public_path().'/uploads/Buyer/resized/' . $fileName;
+
+                    if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+                    if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                    if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+                    if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+
+                    imagedestroy($dst_img);
+                    imagedestroy($src_img);
+
+                     /*resized for product details page small image*/
+                        $mime = getimagesize($path);
+            
+                        if($mime['mime']=='image/png'){ $src_img = imagecreatefrompng($path); }
+    
+                        if($mime['mime']=='image/jpg'){ $src_img = imagecreatefromjpeg($path); }
+    
+                        if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
+    
+                        if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
+    
+    
+    
+                        $old_x = imageSX($src_img);
+    
+                        $old_y = imageSY($src_img);
+    
+    
+    
+                        $newWidth = 70;
+    
+                        $newHeight = 70;
+    
+    
+    
+                        if($old_x > $old_y) {
+    
+                            $thumb_w    =   $newWidth;
+    
+                            $thumb_h    =   $old_y/$old_x*$newWidth;
+    
+                        }
+    
+    
+    
+                        if($old_x < $old_y) {
+    
+                            $thumb_w    =   $old_x/$old_y*$newHeight;
+    
+                            $thumb_h    =   $newHeight;
+    
+                        }
+    
+    
+    
+                        if($old_x == $old_y) {
+    
+                            $thumb_w    =   $newWidth;
+    
+                            $thumb_h    =   $newHeight;
+    
+                        }
+    
+    
+    
+                        $dst_img        =   ImageCreateTrueColor($thumb_w,$thumb_h);
+    
+                        imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
+    
+                        // New save location
+    
+                        $new_thumb_loc = public_path().'/uploads/Buyer/buyerIcons/' . $fileName;
+    
+    
+    
+                        if($mime['mime']=='image/png'){ $result = imagepng($dst_img,$new_thumb_loc,8); }
+    
+                        if($mime['mime']=='image/jpg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+    
+                        if($mime['mime']=='image/jpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+    
+                        if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
+    
+    
+    
+                        imagedestroy($dst_img);
+    
+                        imagedestroy($src_img);           
+            
+                            } else {
+            
+                                    $fileError = 1;
+            
+                            }
+            
+                        }
+            
+            
+            
+                        if($fileError == 1) {
+            
+                            //Session::flash('error', 'Oops! Some files are not valid, Only .jpeg, .jpg, .png files are allowed.');
+            
+                            //return redirect()->back();
+            
+                        }
+                        //$producVariant['image']=$fileName;
+                        echo $fileName;
+                    } 
+
+
     }
 }

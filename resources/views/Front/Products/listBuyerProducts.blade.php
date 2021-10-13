@@ -19,7 +19,7 @@
             <div class="card-header row">
             <div class="col-md-10">
 
-            <h2 class="buyer_prduct_header">{{ __('users.buyer_product_list_title')}}</h2>
+            <h2 class="page_heading">{{ __('users.buyer_product_list_title')}}</h2>
             <!-- <hr class="heading_line"/> -->
             </div>
             <div class="col-md-1" style="margin-left: -61px;">

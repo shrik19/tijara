@@ -32,7 +32,7 @@
      'settings_save_success'=>'Details Inserted successfully!',
      'pwd_changed_success' => 'Password changed successfully!',
      'billing_update_success'=>'Personal billing details updated successfully!',
-     'reset_pwd_email_sent_success'=>'Reset Password email sent successfully.',
+     'reset_pwd_email_sent_success'=>'An email has been sent to Your email address. Click on the link to select a new password.',
      'pwd_reset_success'=>'Password reset successfully.',
      'package_subscribe_success'=>'Package Subscribe successfully!',
      'thank_you_joined_us_msg'=>"Thanks for signing up – we're so thrilled you've joined us!",

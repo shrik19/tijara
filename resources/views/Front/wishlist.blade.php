@@ -15,7 +15,7 @@
 <div class="seller_info">
     <div class="card">
         <div class="card-header row seller_header">
-            <h2 class="page_heading">{{ __('lang.shopping_cart_product')}} {{ __('messages.txt_wishlist')}}</h2>       
+            <h2 class="page_heading" style="margin-left: 60px;">{{ __('lang.shopping_cart_product')}} {{ __('messages.txt_wishlist')}}</h2>       
         </div>
     </div>
     <section class="product_details_section-1">
@@ -40,21 +40,21 @@
                         <tr>
                             <td class="col-sm-4 col-md-4">
                             <div class="media">
-                                <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 
+                                <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
                                 @if($orderProduct['product']['image'])
-                                  <img src="{{url('/')}}/uploads/ProductImages/resized/{{$orderProduct['product']->image}}" class="media-object" style="width: 72px; height: 72px;">
+                                  <img src="{{url('/')}}/uploads/ProductImages/resized/{{$orderProduct['product']->image}}" class="media-object" style="width: 72px; height: 72px;padding: 1px;">
                                 @else
-                                  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" style="width: 72px; height: 72px;">
+                                  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" style="width: 72px; height: 72px;padding: 1px;">
                                 @endif
                                   
                                 </a>
                                 <div class="media-body" style="padding-left:10px;padding-top:10px;">
-                                    <h4 class="media-heading"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
-                                    <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5>
+                                    <h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
+                                    <h5 class="media-heading product_attribute_css">  <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']);?></h5>
                                     <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                                 </div>
                             </div></td>
-                            <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($orderProduct['product']->price,2) }} kr</strong></td>
+                            <td class="col-sm-2 col-md-2 text-right"><h4 class="cart_total_css">{{ number_format($orderProduct['product']->price,2) }} kr</td></h4></td>
                             <td class="col-sm-1 col-md-1 text-right">
                             <a href="javascript:void(0);" class="" style="color:#05999F;" 
                             onclick="addToCartWishlist('{{ $orderProduct['variant_id'] }}')"

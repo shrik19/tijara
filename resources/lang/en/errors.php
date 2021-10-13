@@ -112,7 +112,7 @@
      'service_review_error' => 'You already given review to This Service.',
      'service_review_not_error' => 'You are not allowed to rate this Service, as you don\'t have Booking for the Service.',
      'select_package_to_subscribe' => 'Please Select package to subscribe',
-     'please_check_privacy_policy' =>'Please check privacy policy',
+     'please_check_privacy_policy' =>'Please accept the terms of use.',
      'please_enter_store_name' => 'Please enter store name',
      'please_check_your_profile' => 'Please Confirm your profile (buyer/seller)',
      'already_subscribed' => 'You already subscribed newsletter',

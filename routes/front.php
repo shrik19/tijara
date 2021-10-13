@@ -175,8 +175,10 @@ Route::group(['middleware'=>['front-login']],function()
   // change password
   Route::get('/change-password', 'Front\AuthController@changePassword')->name('frontChangePassword');
   Route::post('/change-password-store', 'Front\AuthController@changePasswordStore')->name('frontChangePasswordStore');
+ 
 
 });
+ Route::post('/upload-profile-image','Front\AuthController@uploadProfileImage')->name('uploadProfileImage');
 
 Route::post('/add-to-cart','Front\CartController@addToCart')->name('frontAddToCart');
 Route::get('/show-cart','Front\CartController@showCart')->name('frontShowCart');

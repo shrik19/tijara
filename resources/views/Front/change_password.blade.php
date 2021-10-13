@@ -25,7 +25,7 @@
             <div class="card-header row">
           <!-- <div class="col-md-3"></div>
           <div class="col-md-5"> -->
-          <h2>{{ __('users.change_password_title')}} </h2>
+          <h2 class="page_heading" style="margin-left: 43px;">{{ __('users.change_password_title')}} </h2>
         </div></div>
       @endif
       
@@ -40,20 +40,20 @@
               @csrf
                 @if($is_seller==1)
                 <div class="form-group">
-                  <label>{{ __('users.old_password_label')}}</label>
+                  <label class="label_css">{{ __('users.old_password_label')}}</label>
                   <input type="password" class="form-control ge_input" id="old_password" name="old_password" required tabindex="1" placeholder="{{ __('users.old_password_label')}}" onblur="checkPassword(this)">
                  <span class="invalid-feedback" id="err_fname">@if($errors->has('old_password')) {{ $errors->first('old_password') }}@endif </span>
                 </div>
                 @endif
 
                 <div class="form-group">
-                  <label>{{ __('users.new_password_label')}}</label>
+                  <label class="label_css">{{ __('users.new_password_label')}}</label>
                   <input type="password" class="form-control ge_input" name="password" required tabindex="1" placeholder="{{ __('users.new_password_label')}}">
                  <span class="invalid-feedback" id="err_fname">@if($errors->has('password')) {{ $errors->first('password') }}@endif </span>
                 </div>
 
                 <div class="form-group" style="margin-top: 25px;">
-                  <label>{{ __('users.password_confirmation_label')}}</label>
+                  <label class="label_css">{{ __('users.password_confirmation_label')}}</label>
                   <input type="password" class="form-control ge_input" name="password_confirmation" required tabindex="2" placeholder="{{ __('users.password_confirmation_label')}}">
                   <span class="invalid-feedback" id="err_fname">@if($errors->has('password_confirmation')) {{ $errors->first('password_confirmation') }}@endif </span>
                 </div>

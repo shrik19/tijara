@@ -17,7 +17,7 @@
     <div class="card">
         <div class="card-header row">
             <div class="col-md-6">
-            <h2 class="page_heading">{{ __('lang.shopping_cart')}}</h2> 
+            <h2 class="page_heading" style="margin-left: 12px;">{{ __('lang.shopping_cart')}}</h2> 
             </div> 
             <div class="col-md-6 text-right">
       <!--      <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='{{route('frontHome')}}';">
@@ -67,9 +67,9 @@
                         <td class="col-sm-4 col-md-4">
                             @if($inc==1)
                         <div class="media">
-                            <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 
+                            <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
                             @if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo']))
-                              <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object" style="width: 72px; height: 72px;">
+                              <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object seller-show-icon">
                             @else
                               <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" style="width: 72px; height: 72px;">
                             @endif
@@ -78,7 +78,7 @@
                              
                             <div class="media-body" style="padding-left:10px;padding-top:10px;">
 
-                                <h4 class="media-heading"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->store_name }}</a></h4>
+                                <h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->store_name }}</a></h4>
                                 <!-- <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5> -->
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
@@ -87,17 +87,17 @@
                         <span>
                         <td class="col-sm-4 col-md-4">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 
+                            <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
                             @if($orderProduct['product']['image'])
-                              <img src="{{url('/')}}/uploads/ProductImages/resized/{{$orderProduct['product']->image}}" class="media-object" style="width: 72px; height: 72px;">
+                              <img src="{{url('/')}}/uploads/ProductImages/resized/{{$orderProduct['product']->image}}" class="media-object show-cart-product" style="width: 72px; height: 72px;padding: 1px;">
                             @else
-                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" style="width: 72px; height: 72px;">
+                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object show-cart-product" style="width: 72px; height: 72px;padding: 1px;">
                             @endif
                               
                             </a>
                             <div class="media-body" style="padding-left:10px;padding-top:10px;">
-                                <h4 class="media-heading"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
-                                <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5>
+                                <h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
+                                <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']);?> </h5>
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
                         </div></td>
@@ -115,9 +115,9 @@
                             <option value="10" @if($orderProduct['quantity'] == 10) selected="selected" @endif>10</option>
                         </select>
                         </td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($orderProduct['price'],2) }} kr</strong></td>
-                        <td class="col-sm-1 col-md-1 text-right"><strong>{{ number_format($orderProduct['shipping_amount'],2)}} kr</strong></td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right"><p class="product_sorting_filter_option">{{ number_format($orderProduct['price'],2) }} kr</p></td>
+                        <td class="col-sm-1 col-md-1 text-right"><p  class="product_sorting_filter_option">{{ number_format($orderProduct['shipping_amount'],2)}} kr</p></td>
+                        <td class="col-sm-2 col-md-2 text-right"><p  class="product_sorting_filter_option">{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</p></td>
                         <td class="col-sm-1 col-md-1 text-right">
                         <a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
                         <!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('{{ $orderProduct['id'] }}')">
@@ -132,24 +132,24 @@
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h5>{{ __('lang.shopping_cart_subtotal')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($tmpOrderProduct['subTotal'],2)}} kr</strong></h5></td>
+                        <td><h5  class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
+                        <td class="text-right"><h5 class="product_sorting_filter_option">{{number_format($tmpOrderProduct['subTotal'],2)}} kr</h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h5>{{ __('lang.shopping_cart_shipping')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($tmpOrderProduct['shippingTotal'],2)}} kr</strong></h5></td>
+                        <td><h5 class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</h5></td>
+                        <td class="text-right"><h5 class="product_sorting_filter_option">{{number_format($tmpOrderProduct['shippingTotal'],2)}} kr</h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h3>{{ __('lang.shopping_cart_total')}}</h3></td>
-                        <td class="text-right"><h4><strong>{{number_format($tmpOrderProduct['Total'],2)}} kr</strong></h4></td>
+                        <td><h4 class="cart_total_css">{{ __('lang.shopping_cart_total')}}</h4></td>
+                        <td class="text-right"><h4 class="cart_total_css">{{number_format($tmpOrderProduct['Total'],2)}} kr</h4></td>
                     </tr>
                     <tr>
                         <td>   </td>

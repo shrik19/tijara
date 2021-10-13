@@ -16,18 +16,18 @@
 
                     <div class="card">
                         <div class="card-header row">
-                        <h2 class="page_heading">{{ __('users.my_booking_title')}}</h2>
+                        <h2 class="page_heading" style="margin-left: 13px;">{{ __('users.my_booking_title')}}</h2>
                         <!-- <hr class="heading_line"/> -->
                         </div>
                     </div>
                     <div class="seller_mid_cont"  style="margin-top: 20px;">
                     
-                        <div class="col-md-12">
+                        <!-- <div class="col-md-12">
                             <div class="tijara-info-section">
                                 <h1 class="buyer-prod-head">{{__('messages.info_head')}}</h1>
                                 <p  class="buyer-prod-content">{{__('messages.service_booking_msg')}}</p>
                             </div>
-                        </div>
+                        </div> -->
                        <!--  <div class="col-md-12">
                         <div class="col-md-9"></div>
                             <div  class="col-md-3"><?php echo $monthYearHtml;?></div>
@@ -149,7 +149,7 @@
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.cust_label')}} {{ __('lang.txt_name')}} :</td><td class="user_name" style="padding-left: 10px;"></td></tr>
             @endif
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.sevice_name_head')}} :</td><td class="title" style="padding-left: 10px;"></td></tr>
-            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_label')}} {{ __('lang.product_description_label')}} :</td><td class="description" style="padding-left: 10px;"></td></tr>
+            <tr><td style="font-weight: bold;padding: 5px;"> {{ __('lang.product_description_label')}} :</td><td class="description" style="padding-left: 10px;"></td></tr>
             
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_time')}} :</td><td class="service_time" style="padding-left: 10px;"></td></tr>
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_total_cost')}} :</td><td class="service_price" style="padding-left: 10px;"></td></tr>

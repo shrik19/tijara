@@ -62,6 +62,7 @@
     var err_msg_okay = "{{ __('users.err_msg_okay')}}";
     var please_add_your_message = "{{ __('users.please_add_your_message')}}";
     var please_add_service_time = "{{ __('users.please_add_service_time')}}";
+    var select_placeholder = "{{ __('lang.select_label')}}";
     
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
@@ -160,7 +161,7 @@
                         $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
                       @endphp
                       @if($productWishlistCnt > 0)
-                      <div class="cart_count">
+                      <div class="cart_count count_wishlist">
                         <span class="wishlist_count">{{$productWishlistCnt}}</span>
                       </div>
                       @endif

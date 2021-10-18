@@ -314,6 +314,11 @@ $('body').on('click', '.remove_image', function () {
     $(this).prev('img').remove();
     $(this).remove();
 });
+
+
+$( document ).ready(function() {
+  $('.select2-search__field').attr("placeholder", select_placeholder);
+});
 </script>
 
 @endsection

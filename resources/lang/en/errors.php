@@ -65,7 +65,7 @@
      'upload_header_logo_err'=>'Upload Header Logo',
      'upload_footer_logo_err'=>'Upload Footer Logo',
     /*Auth*/
-     'account_blocked_contact_admin_err'=>'Your account is blocked, contact the admin!',
+     'account_blocked_contact_admin_err'=>'Your account is not verified by Admin, contact the administrator!',
      'invalid_email_password_err'=>'Invalid email or password!',
      'pwd_and_confirm_pwd_same_err'=>'Password and Confirm Password must be same!',
      'invalid_credentials_try_again_err'=>'Invalid login details. Please Try again.',

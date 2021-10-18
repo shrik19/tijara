@@ -13,7 +13,7 @@
 <div class="container-inner-section-1">
 <div class="row">
 <div class="col-md-12"> 
-<div class="seller_info border-none">
+<div class="seller_info shopping_cart_page border-none">
     <div class="card">
         <div class="card-header row">
             <div class="col-md-6">
@@ -66,7 +66,7 @@
                     <tr>
                         <td class="col-sm-4 col-md-4">
                             @if($inc==1)
-                        <div class="media">
+                        <div class="media cart-store-sec bg-white">
                             <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
                             @if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo']))
                               <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object seller-show-icon">
@@ -85,7 +85,7 @@
                             
                         </div>@endif</td>
                         <span>
-                        <td class="col-sm-4 col-md-4">
+                        <td class="col-sm-4 col-md-4 bg-white">
                         <div class="media">
                             <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
                             @if($orderProduct['product']['image'])
@@ -101,7 +101,7 @@
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
                         </div></td>
-                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                        <td class="col-sm-1 col-md-1 bg-white" style="text-align: center">
                         <select name="quantity_{{ $orderProduct['id'] }}" id="quantity_{{ $orderProduct['id'] }}" class="form-control" onchange="updateCart('{{ $orderProduct['id'] }}')">
                             <option value="1" @if($orderProduct['quantity'] == 1) selected="selected" @endif>1</option>
                             <option value="2" @if($orderProduct['quantity'] == 2) selected="selected" @endif>2</option>
@@ -115,10 +115,10 @@
                             <option value="10" @if($orderProduct['quantity'] == 10) selected="selected" @endif>10</option>
                         </select>
                         </td>
-                        <td class="col-sm-2 col-md-2 text-right"><p class="product_sorting_filter_option">{{ number_format($orderProduct['price'],2) }} kr</p></td>
-                        <td class="col-sm-1 col-md-1 text-right"><p  class="product_sorting_filter_option">{{ number_format($orderProduct['shipping_amount'],2)}} kr</p></td>
-                        <td class="col-sm-2 col-md-2 text-right"><p  class="product_sorting_filter_option">{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</p></td>
-                        <td class="col-sm-1 col-md-1 text-right">
+                        <td class="col-sm-2 col-md-2 text-right bg-white"><p class="product_sorting_filter_option">{{ number_format($orderProduct['price'],2) }} kr</p></td>
+                        <td class="col-sm-1 col-md-1 text-right bg-white"><p  class="product_sorting_filter_option">{{ number_format($orderProduct['shipping_amount'],2)}} kr</p></td>
+                        <td class="col-sm-2 col-md-2 text-right bg-white"><p  class="product_sorting_filter_option">{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</p></td>
+                        <td class="col-sm-1 col-md-1 text-right bg-white">
                         <a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
                         <!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('{{ $orderProduct['id'] }}')">
                             <span class="glyphicon glyphicon-remove"></span> Remove
@@ -127,29 +127,32 @@
                     </tr>
                     @php $inc++; @endphp
                   @endforeach
-                    <tr>
+                    <tr class="ttl-sec">
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h5  class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
-                        <td class="text-right"><h5 class="product_sorting_filter_option">{{number_format($tmpOrderProduct['subTotal'],2)}} kr</h5></td>
+                        <td class="bg-white"><h5  class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
+                        <td class="text-right bg-white"><h5 class="product_sorting_filter_option">{{number_format($tmpOrderProduct['subTotal'],2)}} kr</h5></td>
+						<td class="bg-white">   </td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h5 class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</h5></td>
-                        <td class="text-right"><h5 class="product_sorting_filter_option">{{number_format($tmpOrderProduct['shippingTotal'],2)}} kr</h5></td>
+                        <td class="bg-white"><h5 class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</h5></td>
+                        <td class="text-right bg-white"><h5 class="product_sorting_filter_option">{{number_format($tmpOrderProduct['shippingTotal'],2)}} kr</h5></td>
+						<td class="bg-white">   </td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h4 class="cart_total_css">{{ __('lang.shopping_cart_total')}}</h4></td>
-                        <td class="text-right"><h4 class="cart_total_css">{{number_format($tmpOrderProduct['Total'],2)}} kr</h4></td>
+                        <td class="bg-white"><h4 class="cart_total_css">{{ __('lang.shopping_cart_total')}}</h4></td>
+                        <td class="text-right bg-white"><h4 class="cart_total_css">{{number_format($tmpOrderProduct['Total'],2)}} kr</h4></td>
+						<td class="bg-white">   </td>
                     </tr>
                     <tr>
                         <td>   </td>
@@ -161,6 +164,7 @@
                         <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" @if($tmpOrderProduct['is_buyer_product']) onclick="location.href='{{route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])}}'" @else  onclick="location.href='{{route('frontShowPaymentOptions', ['id' => base64_encode($orderId)])}}'" @endif>
                         {{ __('lang.shopping_cart_checkout')}} <span class="glyphicon glyphicon-play"></span>
                         </button></td>
+						<td>   </td>
                     </tr>
                     <tr><td colspan="6" style="border:none;line-height:60px;">&nbsp;</td></tr>
                     @endif

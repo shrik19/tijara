@@ -363,7 +363,7 @@ span.subscribe_err {
 .tijara-form textarea.form-control,
 .tijara-form .richText {
   border-radius: 5px !important;
-  box-shadow: 0px 0px 0px 2px #ddd !important;
+  /*box-shadow: 0px 0px 0px 2px #ddd !important;*/
   border: 1px solid #ddd !important;
   margin-bottom: 25px !important;
   font-size: 14px !important;
@@ -1038,6 +1038,7 @@ span.remember-text {
     position: absolute;
     right: 0;
     top: 335px;}
+
 .cart_details{padding: 0 1vw; position: relative;}
 .header_left_container{width: 100%;}
 .cart_icon{    font-size: 19px;
@@ -1045,6 +1046,11 @@ span.remember-text {
 .cart_count{
     background-color: #03989e;  height: 16px; width: 16px;border-radius: 50%; color: #fff;position: absolute;
     top: -7px;
+    right: 6px;
+}
+
+.cart_count.count_wishlist{
+  top: -7px;
     right: 16px;
 }
 .cart_total_css{
@@ -1054,7 +1060,9 @@ span.remember-text {
 }
 .cart_count span{font-size: 10px;text-align: center; color: #fff;    position: absolute;
     top: 2px;
-    left: 5px;}
+    left: 5px;
+    right:5px;
+  }
     .search_now_input_box{position: relative; float: left;width: 100%;}
     .search_icon_btn{border: none;background-color: transparent;       margin-left: -35px;
         margin-top: 10px;}
@@ -2124,7 +2132,7 @@ span.pro-text {
     /* .expandCollapseSubcategory{border-bottom: 1px solid #dadada;} */
     .shopping_cart th{font-weight: normal;border: 0px!important; font-size: 16px;}
     /* .shopping_cart tr td{border-top: 0px!important;} */
-    .shopping_cart tbody{border:1px solid #dadada}
+/*    .shopping_cart tbody{border:1px solid #dadada}*/
     .border-cart{border:1px solid #dadada}
     .prduct_det h3{font-size: 18px;
         font-weight: 500;
@@ -2134,7 +2142,38 @@ span.pro-text {
 
         .prduct_det i{font-size:22px; color: #03989e; padding-right: 10px;}
 
+/*********************18-10-2021*********************/
 
+.shopping_cart_page.seller_info {
+    background: #dddddd;
+}
+.shopping_cart_page .shopping_cart tbody tr:hover {
+    background-color: transparent;
+}
+
+.shopping_cart_page .shopping_cart tbody tr {
+  border-top: 5px solid #dddddd;
+}
+
+.shopping_cart_page .shopping_cart tbody tr.ttl-sec {
+    border-top: 10px solid #dddddd;
+}
+
+.shopping_cart_page .shopping_cart tbody tr td {
+  border: none;
+}
+
+.shopping_cart_page .shopping_cart .bg-white {
+  background: #ffffff;
+}
+
+.shopping_cart_page .shopping_cart .media.cart-store-sec {
+    
+    padding: 8px;
+  margin-top: -7px;
+}
+
+/****************************************************/
 .product_check{width: 80%;
     padding: 10px 15px 10px 15px;
     background-color: #fff;

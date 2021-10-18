@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="containerfluid">
+<div class="containerfluid p_155">
   <!--<div class="col-md-6 hor_strip debg_color">
   </div>
   <div class="col-md-6 hor_strip gray_bg_color">

@@ -65,7 +65,7 @@
      'upload_header_logo_err'=>'Ladda upp Rubrik Logotyp',
      'upload_footer_logo_err'=>'Ladda upp Sidfot Logotyp',
       /*Auth*/
-     'account_blocked_contact_admin_err'=>'Ditt konto är blockerat, kontakta administratören!',
+     'account_blocked_contact_admin_err'=>'Ditt konto har inte verifierats av Admin, kontakta administratören!',
      'invalid_email_password_err'=>'Ogiltig e-post eller lösenord!',
      'pwd_and_confirm_pwd_same_err'=>'Lösenord och Bekräfta lösenord måste vara samma!',
      'invalid_credentials_try_again_err'=>'Ogiltiga inloggnings uppgifter. Var god försök igen.',

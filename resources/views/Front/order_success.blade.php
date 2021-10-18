@@ -1,10 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-
+<div class="container-fluid p_155">
 <div class="container">
   <div class="row">
-    <div class="">
+    <div class="container-fluid p_155">
         </br>     
       
       <div class="col-md-12 text-center" style="padding: 50px;">
@@ -30,5 +30,5 @@
     </div>
   </div>
 </div> <!-- /container -->
-
+</div>
 @endsection

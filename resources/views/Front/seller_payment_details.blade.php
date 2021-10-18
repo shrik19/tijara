@@ -29,7 +29,7 @@
             <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
 
                 <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
-              <p>Klarna</p>
+              <p><img src="{{url('/')}}/uploads/Images/klarna-payment-logo.png" width="90" height="80"></p>
               <div class="form-group">
                   
               <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : $sellerDetails[0]->klarna_username}}">
@@ -49,7 +49,7 @@
             <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
           
                 <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
-              <p>Swish</p>
+              <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="80"></p>
               <div class="form-group">
                   
               <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="{{ (old('swish_api_key')) ? old('swish_api_key') : $sellerDetails[0]->swish_api_key}}">
@@ -72,7 +72,7 @@
             <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
             <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
                 <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
-              <p>Stripe</p>
+              <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="200" height="50"></p>
               <div class="form-group">
                   
               <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="{{ (old('strip_api_key')) ? old('strip_api_key') : $sellerDetails[0]->strip_api_key}}">

@@ -1875,7 +1875,7 @@ class AuthController extends Controller
 
             UserPackages::create($arrInsertPackage);
             Session::put('next_step', 3);
-            Session::put('StepsHeadingTitle', trans('users.third_step_title'));
+            Session::put('StepsHeadingTitle', trans('users.sell_with_tijara_head'));
             return redirect(route('seller_register'));
             //return $this->view('Front/seller_register',$data); 
         }

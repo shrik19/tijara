@@ -66,7 +66,7 @@
 
         <div class="login_box">
 
-            <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step1')}}</h2>
+            <h2 class="col-md-12 product_add_h2 steps_no_css">{{ __('lang.product_form_step1')}}</h2>
             <input type="hidden" name="product_id" value="{{$product_id}}">
 
             <div class="form-group col-md-12">
@@ -91,7 +91,7 @@
               <label class="col-md-3" >{{ __('lang.category_label')}} <span class="de_col">*</span></label>
               <div class="col-md-8">
               <select class="select2 col-md-8 ge_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
-                <option></option>
+                <option>{{ __('lang.select_label')}}</option>
                 @foreach($categories as $cat_id=>$category)
                 <optgroup label="{{$category['maincategory']}}">
                 <!--<option value="{{$cat_id}}">{{$category['maincategory']}}</option>-->
@@ -163,7 +163,7 @@
             </div>
           
 
-            <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step2')}}</h2>
+            <h2 class="col-md-12 product_add_h2 steps_no_css">{{ __('lang.product_form_step2')}}</h2>
             <div  class="col-md-12" id="variant_table">
               <?php
 
@@ -217,6 +217,7 @@
 
                     </select>
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
+                    <p class="seller-logo-info col-md-8" style="font-size: 13px;">Ändra eller lägg till nya egenskaper till vänster under Attribut</p>
                   </div>
                   </div>
                   
@@ -226,7 +227,8 @@
                       <div class="selected_images col-md-12"></div>
                       <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                       <span class="invalid-feedback col-md-8" id="err_variant_image" style="margin-left:-1px;"></span>  
-                      <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span>   
+                      <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span> 
+                      <p class="seller-logo-info col-md-8" style="font-size: 13px;">Lägg till en bild i storlek (1080x1080px)</p>  
                     </div>
                     
                                   

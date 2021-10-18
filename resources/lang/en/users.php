@@ -161,7 +161,7 @@
      /*auth*/
 
     //package
-    'your_active_package'=>'Your active package',
+    'your_active_package'=>'Package',
     'description_label'=>'Description',
     'amount_label'=>'Amount',
     'validity_label'=>'Validity days',
@@ -271,8 +271,8 @@
     'butik_btn' => 'Store',
     'shipping_policy_label' => 'Shipping Policy',
     'contact_store' => 'Contact',
-    'seller_logo_info' => 'Please add logo of size (400 x 150).',
-    'seller_banner_info' => 'Please add Banner of size (1800 x 700).',
+    'seller_logo_info' => 'Please add logo of size (120 x 120).',
+    'seller_banner_info' => 'Please add Banner of size (1800 x 350).',
     'please_add_your_message'=>'please add your message',
     'other_watched_product' => 'Others have also watched',
     'read_more_btn' => 'Read More',
@@ -351,5 +351,6 @@ cancellation of service works.',
     'easy_peyment_title' => 'Easy Payment',
     'stripe_api_key_label' =>'Api Key',
     'stripe_secret_label' => 'Stripe Secret Key',
+    'back_to_butik_setting'=>'Back To Butik Profile',
  ]
 ?>

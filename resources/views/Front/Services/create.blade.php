@@ -167,12 +167,12 @@
                 <div class="images col-md-12"></div>
                 <input type="file" class="col-md-8 login_input image service_image form-control" >                
                   <span class="invalid-feedback col-md-8" id="err_service_image"></span>  
-                  <span class="invalid-feedback col-md-12" id="err_service_hid_image"></span>   
+                  <span class="invalid-feedback col-md-12" id="err_service_hid_image"></span>  
+                  <p class="seller-logo-info col-md-8" style="font-size: 13px;">Lägg till en bild i storlek (1080x1080px)</p>   
                 </div>
               </div>
               <div class="loader"></div>
 
-              <hr class="solid-horizontal-line">
              
               <h2  class="col-md-12 product_add_h2">{{ __('servicelang.step_2')}}</h2>
                <div class="col-md-12">

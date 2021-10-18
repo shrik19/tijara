@@ -20,7 +20,7 @@
       <div class="col-md-12">
         <div class="seller_info">
 	    <div class="card-header row seller_header">
-			  <h2>{{ __('users.profile_update_title')}}</h2>
+			  <h2 class="page_heading">{{ __('users.profile_update_title')}}</h2>
 			  <!-- <hr class="heading_line"> -->
 		 </div>  
         <div class="login_box seller_mid_cont" style="margin-top: 40px;">

@@ -1626,7 +1626,7 @@ function showSuccessMessage(strContent,redirect_url = '')
   $.alert({
       title: 'Success!',
       content: strContent,
-      type: 'green',
+      type: '#03989e',
       typeAnimated: true,
       columnClass: 'medium',
       icon : "fas fa-check-circle",

@@ -92,7 +92,7 @@
 
       <div class="col-md-6">
         <div class="card">
-           <div class="buyer-prod-msg" style="height:250px;">
+           <div class="buyer-prod-msg" style="height:150px;">
             <?php
               $title = (!empty($userpackage['title'])) ? $userpackage['title'] : '-';
               $amount = (!empty($userpackage['amount'])) ? $userpackage['amount']." kr" : '-';

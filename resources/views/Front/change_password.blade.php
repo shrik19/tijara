@@ -14,8 +14,8 @@
         <div class="col-md-10 tijara-content">
         <div class="seller_info">
         <div class="card-header row seller_header">
-			  <h2>{{ __('users.change_password_title')}}</h2>
-			  <hr class="heading_line">
+			  <h2 class="page_heading">{{ __('users.change_password_title')}}</h2>
+			  
 		  </div>
          
       @else
@@ -35,7 +35,7 @@
           <div class="col-md-5">
 
           <div class="login_box seller_mid_cont"  style="margin-top: 20px;">
-              @if($is_seller==1) <p>{{ __('users.change_password_title')}}</p> @endif
+             
             <form method="POST" action="{{route('frontChangePasswordStore')}}" class="needs-validation" novalidate="">
               @csrf
                 @if($is_seller==1)

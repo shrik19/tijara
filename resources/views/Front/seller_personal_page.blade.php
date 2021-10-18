@@ -1,6 +1,11 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+  ::placeholder{
+    font-weight: 300;
+    color: #999;
+  }
+</style>
 <div class="mid-section p_155">
 <div class="container-fluid">
   <div class="container-inner-section-1">

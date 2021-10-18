@@ -57,6 +57,7 @@
             <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.products_title')}}" class="@if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a><a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.category_service_title')}}  </a>
             <!-- contact shop -->
             <a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{__('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+            
           </div>
 
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
@@ -64,8 +65,10 @@
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
             
             <div class="product_container">
-                <div class="row">               
+                <div class="row">          
+
                   <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                   <a href="{{route('frontSellerPersonalPage')}}" title="" class="pull-right" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>  
                   @if(!empty($store_information))
                   <div class="col-md-12">
                     <div class="col-md-1"></div>

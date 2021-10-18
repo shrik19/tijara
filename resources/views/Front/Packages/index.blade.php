@@ -24,7 +24,7 @@
 				@endphp
 		@if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
 		<div class="seller_header">
-      	    <h2>{{ __('users.your_active_package')}}</h2>
+      	    <h2 class="page_heading">{{ __('users.your_active_package')}}</h2>
         	<!-- <hr class="heading_line"/> -->
 		</div>
 	      	@foreach($subscribedPackage as $row)

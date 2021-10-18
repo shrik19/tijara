@@ -19,7 +19,7 @@
 	  <div class="card">
 		<div class="card-header row seller_header">
 		<div class="col-md-10">
-		  <h2>{{ __('lang.manage_attributes_menu')}} </h2>
+		  <h2 class="page_heading">{{ __('lang.manage_attributes_menu')}} </h2>
 		  <!-- <hr class="heading_line"/> -->
 		  </div>
 		 

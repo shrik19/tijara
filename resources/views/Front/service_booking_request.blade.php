@@ -21,7 +21,7 @@
     <div class="card">
       <div class="card-header row seller_header">
         <div class="col-md-11">
-        <h2>{{ __('users.booking_request_label')}}</h2>
+        <h2 class="page_heading">{{ __('users.booking_request_label')}}</h2>
         <!-- <hr class="heading_line"/> -->
         </div>
       </div>
@@ -172,6 +172,8 @@
         $('#serviceReqDetailsmodal').modal('show');
       },
     });
+
+    $(".fc-today-button").html('Idag');
   });
 
 </script>

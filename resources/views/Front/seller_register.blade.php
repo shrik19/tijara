@@ -37,7 +37,20 @@
     filter: alpha(opacity=40);
     display:none;
 }
+.jconfirm .jconfirm-box.jconfirm-type-green {
+    border-top: solid 7px #03989e;
+    -webkit-animation-name: type cyan;
+    animation-name: type-cyan;
+}
 
+.jconfirm .jconfirm-box.jconfirm-type-green .jconfirm-title-c .jconfirm-icon-c {
+    color: #03989e !important;
+}
+.placeholder{
+  font-size: 14px !important;
+  color: #777 !important;
+  font-weight: 300 !important;
+}
 </style>
    <!-- end custom css for custom chnages -->
   <script src="{{url('/')}}/assets/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -85,18 +98,18 @@
 			<div class="col-md-8 right-section">
 				<div class="row mt-0">
 					<div class="col-md-12">
-						<h2 class="text-center"><strong>
+						<h2 class="text-center sell_with_tijara_head">
 						@if(!empty(Session::get('StepsHeadingTitle'))){{Session::get('StepsHeadingTitle')}} @else {{$headingTitle}} @endif
-						</strong></h2>
+						</h2>
 
 						<div id="msform">
 							<div class="loader-seller" style="display:none;"></div>
 							<!-- progressbar -->
 							<ul id="progressbar">
-								<li class="active" id="account"><strong>{{ __('users.step_one_head')}}</strong></li>
-								<li id="personal"><strong>{{ __('users.step_two_head')}}</strong></li>
-								<li id="payment"><strong>{{ __('users.step_three_head')}}</strong></li>
-								<li id="confirm"><strong>{{ __('users.step_four_head')}}</strong></li>
+								<li class="active" id="account">{{ __('users.step_one_head')}}</li>
+								<li id="personal">{{ __('users.step_two_head')}}</li>
+								<li id="payment">{{ __('users.step_three_head')}}</li>
+								<li id="confirm">{{ __('users.step_four_head')}}</li>
 							</ul> 
 							<?php
 								$email = $password= $role_id = $cpassword ='';
@@ -145,13 +158,13 @@
 											
 											<div class="col-md-offset-1 col-md-4 packages-section">
 												<div class="packages-subscribe">
-													<div class="packages-heading">
+													<div class="packages-heading"  onclick='subscribe_package("{{$i}}")' style="cursor:pointer;">
 														<h3>{{$data['title']}}</h3>
 														<div class="packages-price">{{$data['amount']}} kr/{{$data['validity_days']}} Days</div>
 													</div>
 													<div class="packages-body">
 														<div class="packages-description">
-															<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
+														 <?php echo $data->description; ?></p>
 														</div>
 														<form  action="" class="needs-validation text-right" novalidate="" id="klarna_form">
 															{{ csrf_field() }}
@@ -160,7 +173,7 @@
 															<input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name_{{$i}}" class="p_name">
 															<input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days_{{$i}}" class="validity_days">
 															<input type="hidden" name="amount" value="{{$data['amount']}}" id="amount_{{$i}}" class="amount">     
-															<button type="button" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn btnsubscribePackage" onclick='subscribe_package("{{$i}}")'>{{ __('users.subscribe_btn')}}</button>
+															<!-- <button type="button" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn btnsubscribePackage" onclick='subscribe_package("{{$i}}")'>{{ __('users.subscribe_btn')}}</button> -->
 														</form>
 													</div>
 												</div>
@@ -214,12 +227,12 @@
                                             
                                             <input type="hidden" class="form-control login_input" name="verify_btn_click" id="verify_btn_click" value="">
 											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
-											<input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-top: 11px;" /> 
+											<input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-top: 11px;font-weight: 500;" /> 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
 
 										<div class="form-group increment cloned">
 											<div class="col-md-4 seller_banner_upload" style="margin-top: 20px;"></div>
-											<label>{{ __('users.seller_header_img_label')}}</label>
+											<label class="placeholder" style="margin-left: -144px;">{{ __('users.seller_header_img_label')}}</label>
                                             
 											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
 											
@@ -231,7 +244,7 @@
 
 										<div class="form-group increment cloned">
 											<div class="col-md-4 seller_logo_upload" style="margin-top: 20px;"></div>
-											<label>{{ __('users.seller_logo_label')}}</label>
+											<label class="placeholder" style="margin-left: -144px;">{{ __('users.seller_logo_label')}}</label>
 											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
 											
 											<span class="invalid-feedback" id="err_seller_logo_img"></span>	
@@ -239,7 +252,7 @@
 											</div>
 									   </div>
 										<div class="remember-section row">
-											<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> <a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="javascript:void(0)">{{ __('users.store_terms')}}</a></span>	
+											<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor">&nbsp;{{ __('users.terms_of_use')}} </a> <a href="{{url('/')}}/page/villkor">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="{{url('/')}}/page/villkor">{{ __('users.store_terms')}}</a></span>	
 										</div>
 									</form>
 									<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
@@ -869,14 +882,14 @@ function showSuccessMessage(strContent,redirect_url = '')
 {
     
   $.alert({
-      title: 'Success!',
+      title: 'Klart!',
       content: strContent,
       type: 'green',
       typeAnimated: true,
       columnClass: 'medium',
       icon : "fas fa-check-circle",
       buttons: {
-        okay: function () {
+        ok: function () {
           if(redirect_url != '')
           {
             if(redirect_url == 'reload')

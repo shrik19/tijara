@@ -16,7 +16,7 @@
      'city_label'=>'Stad',
      'swish_number_label'=>'Swish-nummer',
      'where_did_you_find_us_label'=>'Var hittade du oss?',
-     'store_name_label'=>'Affärsnamn',
+     'store_name_label'=>'Butiksnamn',
      'paypal_email_address_label'=>'Paypal e-postadress',
      'register_as_title'=>'Registrera dig som',
      'password_label'=>'Lösenord',
@@ -160,7 +160,7 @@
      'add_site_content_info'=>'Lägg till Sidans Innehåll.',
      /*dashboard*/
      'welcome_to_admin_heading'=>'Välkommen till Admin',
-    'your_active_package'=>'Ditt aktiva paket',
+    'your_active_package'=>'Paket',
     'description_label'=>'Beskrivning',
     'amount_label'=>'Belopp',
     'validity_label'=>'Giltighetsdagar',
@@ -173,29 +173,9 @@
     /*front start*/
      'seller_profile_title'=>'Säljar Profil',
      'buyer_profile_title'=>'Köpare Profil',
-
-     'your_active_package'=>'Ditt aktiva paket',
-    'description_label'=>'Beskrivning',
-    'amount_label'=>'Belopp',
-    'validity_label'=>'Giltighetsdagar',
-    'purchased_date_label'=>'Inköpt datum',
-    'expiry_date_label'=>'Utgångsdatum',
-    'not_activated_label'=>'Ändå inte aktiverad',
-    'subscribe_btn'=>'Prenumerera',
-    'subscribe_package_label'=>'Prenumerera på paket',
     'activated' => 'Aktiverad',
 
-        //package
-        'your_active_package'=>'Ditt aktiva paket',
-        'description_label'=>'Beskrivning',
-        'amount_label'=>'Belopp',
-        'validity_label'=>'Giltighetsdagar',
-        'purchased_date_label'=>'Inköpt datum',
-        'expiry_date_label'=>'Utgångsdatum',
-        'not_activated_label'=>'Ändå inte aktiverad',
-        'subscribe_btn'=>'Prenumerera',
-        'subscribe_package_label'=>'Prenumerera på paket',
-
+        
         //seller personal page
     'seller_header_img_label'=>'Butiksbanner',
     'seller_logo_label'=>'Butikslogga',
@@ -292,8 +272,8 @@
     'butik_btn' => 'Butik',
     'shipping_policy_label' => 'Frakt politik',
     'contact_store' => 'Kontakta',
-    'seller_logo_info' => 'Lägg till en logotyp i storlek (400 x 150).',
-    'seller_banner_info' => 'Lägg till en banner i storlek (1800 x 700).',
+    'seller_logo_info' => 'Lägg till en logotyp i storlek (120 x 120).',
+    'seller_banner_info' => 'Lägg till en banner i storlek (1800 x 350).',
     'please_add_your_message'=>'lägg till ditt meddelande',
     'other_watched_product' => 'Andra har även tittat på',
     'read_more_btn' => 'Läs mer',
@@ -305,7 +285,7 @@
     'meta_title_info'=>'meta title hjälper sökmotorn att förstå vad din sida handlar om.',
     'meta_desciption_info'=>'meta description ger en sammanfattning av webbsidan.',
     'meta_keyword_info'=>'meta -nyckelord som används för att ge mer information till sökmotorer om vad en sida handlar om.',
-    'see_show_label' => 'Visa diin butik',
+    'see_show_label' => 'Visa din butik',
     'intrumentpanel_label'=>'Intrumentpanel',
     'manage_label'=>'Hantera',
     'please_add_service_time'=>'lägg till servicetid',
@@ -336,7 +316,7 @@ betala.',
     'return_policy_placeholder'=>'Här kan du informera dina kunder om hur de kan
 lämna tillbaka köpta varor.',
     'shipping_policy_placeholder' => 'Här kan du informera dina kunder om dina
-fraktalternativ och leveranstiden.',
+fraktalternativ och leveranstider.',
     'cancellation_policy' => 'Avbokning',
     'cancellation_policy_placeholder' =>'Här kan du informera dina kunder om hur
 avbokning av tjänst fungerar.',
@@ -371,6 +351,7 @@ avbokning av tjänst fungerar.',
     'easy_peyment_title' => 'Enkel betalning',
     'stripe_api_key_label' =>'Api Key',
     'stripe_secret_label' => 'Stripe Secret Key',
+    'back_to_butik_setting'=>'Tillbaka till butiksprofilen',
  
  ]
 ?>

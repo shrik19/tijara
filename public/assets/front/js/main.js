@@ -880,7 +880,7 @@ $(".cloned-danger").html('')
 */
 
 function ConfirmDeleteFunction(url, id = false)
-{   alert("sd")
+{  
   $.confirm({
       title: 'confirm!',
       content: are_you_sure_message,
@@ -1640,7 +1640,7 @@ function showSuccessMessage(strContent,redirect_url = '')
       columnClass: 'medium',
       icon : "fas fa-check-circle",
       buttons: {
-        okay: function () {
+        ok: function () {
           if(redirect_url != '')
           {
             if(redirect_url == 'reload')

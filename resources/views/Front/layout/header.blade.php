@@ -161,7 +161,7 @@
                       @endphp
                       @if($productWishlistCnt > 0)
                       <div class="cart_count">
-                        <span>{{$productWishlistCnt}}</span>
+                        <span class="wishlist_count">{{$productWishlistCnt}}</span>
                       </div>
                       @endif
                   </div>
@@ -178,7 +178,7 @@
                     @endphp
                     @if($productCnt > 0)
                     <div class="cart_count">
-                      <span>{{$productCnt}}</span>
+                      <span class="add_to_cart_count">{{$productCnt}}</span>
                     </div>
                     @endif
                   </div>

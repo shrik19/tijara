@@ -1275,6 +1275,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
 
 function addToCart(product_variant)
 {
+  //alert("here")
   //return 1;
   var product_quantity = $("#product_quantity_"+product_variant).val();
   $(".loader").show();
@@ -1291,7 +1292,10 @@ function addToCart(product_variant)
       var responseObj = $.parseJSON(data);
       if(responseObj.status == 1)
       {
-          showSuccessMessage(product_add_success,'reload');
+          var currentValue = $(".add_to_cart_count").text();
+          var newValue = parseInt(parseFloat(currentValue)) + 1;
+          $(".add_to_cart_count").text(newValue);
+          //showSuccessMessage(product_add_success,'reload');
       }
       else
       {
@@ -1327,7 +1331,9 @@ function addToWishlist(product_variant)
       var responseObj = $.parseJSON(data);
       if(responseObj.status == 1)
       {
-          showSuccessMessage(wishlist_add_success,'reload');
+        var currentValue = $(".wishlist_count").text();
+        var newValue = parseInt(parseFloat(currentValue)) + 1;
+        $(".wishlist_count").text(newValue);
       }
       else
       {
@@ -1362,7 +1368,10 @@ function addToWishlistServices(service_id)
       var responseObj = $.parseJSON(data);
       if(responseObj.status == 1)
       {
-          showSuccessMessage(service_fav_succ,'reload');
+        var currentValue = $(".wishlist_count").text();
+        var newValue = parseInt(parseFloat(currentValue)) + 1;
+        $(".wishlist_count").text(newValue);
+        //showSuccessMessage(service_fav_succ,'reload');
       }
       else
       {

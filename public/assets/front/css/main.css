@@ -705,10 +705,10 @@ select.list-dt:focus {
 
 #progressbar li {
     list-style-type: none;
-    font-size: 12px;
+    font-size: 16px;
     width: 25%;
     float: left;
-    position: relative; text-align: center;
+    position: relative; text-align: center; font-weight: 500;;
 }
 
 #progressbar #account:before {
@@ -1108,7 +1108,7 @@ span.remember-text {
 		
 	.login_banner,
 	.register_banner{
-		min-height: 800px;
+		/* min-height: 800px; */
 		padding: 10% 10% 10% 14%;
 		background-repeat: no-repeat !important;
 		background-size: cover !important;
@@ -1238,9 +1238,9 @@ span.remember-text {
         font-size: 17px;
 	}
 	
-	.seller_register_container .register_banner {
+	/* .seller_register_container .register_banner {
 		min-height: 900px;
-	}
+	} */
 	
 	.seller_register_container .seller_register_second .packages-section {
 		margin-bottom: 3%;
@@ -1381,7 +1381,7 @@ overflow: hidden;margin-top: 155px;}
     height: 100vh;
 }
 .seller_register_container .register_banner {
-    min-height: 900px;
+    /* min-height: 900px; */
     height: 100vh;
 }
 #sliderImages{        height: auto;

@@ -42,8 +42,7 @@
               <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
                 </div>
 
-                
-             
+				<div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
             </div>
             <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.easy_peyment_title')}}</p>
             <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
@@ -66,8 +65,8 @@
               <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="{{ (old('swish_client_key')) ? old('swish_client_key') : $sellerDetails[0]->swish_client_key}}">
               <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
               </div>
-                
-             
+              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div> 
+			 
             </div>
             <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
             <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
@@ -84,7 +83,7 @@
               <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
               </div>
 
-                
+              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>  
              
             </div>
              <div style="margin-top: 30px;">

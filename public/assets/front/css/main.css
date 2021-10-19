@@ -2187,7 +2187,8 @@ span.pro-text {
 
 .seller-chng-pass .ge_input,
 .seller-payment-form .form-control,
-#product-form .ge_input {
+#product-form .ge_input,
+.payment_explanation_text {
     color: #999 !important;
     font-weight: 300 !important;
 }

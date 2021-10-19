@@ -945,12 +945,18 @@ nav ul {
 /*end css for subheader menus*/
  /*start css for buyer product grid*/
 .buyer-price{
-    font-weight: bold;color: #03989e;font-size: 20px;
+  font-weight: 500;
+    color: #03989e;
+    font-size: 16px;
   }
+.order-product-store-title{
+font-size: 12px!important; color: #333!important; font-weight: 300!important;
 
+}
   .buyer-product-title{
-    font-weight: bold;
-    font-size: 20px;
+font-size: 14px!important;
+    color: #222222!important;
+    font-weight: 300!important;
   }
   .remove-btn-col{
     background-color: #ef5350;
@@ -959,7 +965,7 @@ nav ul {
     height: 300px;
     width: 100%;
     border: 2px solid #ccc;
-    object-fit: contain;
+    object-fit: contain; cursor: pointer;
   }
   .buyer-button a {
     margin: 8px auto;
@@ -2088,7 +2094,7 @@ span.pro-text {
                   .mt-30{margin-top: 30px;}
                 /* Responsive css */
                 .toggle_btn{display: none;}
-                .package_heading{}
+              
                 .package_heading{color: #fff!important;
                     text-align: center; font-weight: normal;
                     font-size: 30px;
@@ -2119,8 +2125,10 @@ span.pro-text {
                     }
                     .package-pro{background-color: #81cccf!important; background-image: none!important;}
                     .package-basic{background-color: #bfecab!important; background-image: none!important;}
-                    .product_all h5{margin: 0; padding-top: 10px; font-size: 18px;}
-.product_all p{font-size: 16px!important; font-weight: normal; min-height: 10px; padding: 4px 0;margin: 0;
+                    .product_all h5{margin: 0;     line-height: 25px;    font-size: 16px;
+                      color: #222222;
+                      font-weight: 400;padding-top: 3px;}
+.product_all p{font-size: 16px; font-weight: normal; margin: 0; line-height: 25px; min-height: 25px;
     white-space: nowrap;
     width: 95%;
     overflow: hidden;

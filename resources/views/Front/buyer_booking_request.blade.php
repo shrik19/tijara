@@ -106,7 +106,7 @@
                                                 {{$service_price}}
                                                 </span> 
                                                 </p>
-                                                <p class="card-text buyer-service-store" style="margin-bottom: 20px"><?php /* {{ __('users.butik_btn')}} : */?><a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>
+                                                <p class="card-text order-product-store-title" style="margin-bottom: 20px"><?php /* {{ __('users.butik_btn')}} : */?><a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>
 
 
                                                 <div class="buyer-button">

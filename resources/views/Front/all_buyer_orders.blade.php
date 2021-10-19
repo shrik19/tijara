@@ -104,7 +104,7 @@
                                                 {{number_format($product_price,2) }} kr
                                                 </span> 
                                                 </p>
-                                                <p class="card-text order-product-title"> <a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>
+                                                <p class="card-text order-product-store-title"> <a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>
                                             </div>
                                         </div>
                                     </div>

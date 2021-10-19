@@ -169,6 +169,8 @@
 <style>
 .ge_input {
   width: 100%;
+  font-weight: 300 !important;
+  color: #999 !important;
 }
 </style>
 <script>

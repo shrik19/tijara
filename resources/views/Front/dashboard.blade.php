@@ -19,7 +19,7 @@
     </div>
   
       <div class="seller_mid_cont">
-  <form method="POST" name="filterForm" id="filterForm" action="{{route('frontDashboard')}}">
+  <form method="POST" name="filterForm" id="filterForm" class="seller-dashboard-form" action="{{route('frontDashboard')}}">
     @csrf
     <div class="row">
       <div class="summary_page">
@@ -38,8 +38,8 @@
     <div class="row text-center">
       <div class="col-md-15" >
       
-        <div class="card">
-          <div class="buyer-prod-msg" style="height:250px;">
+        <div class="card buyer-prod-card">
+          <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_orders')}}</h2>
             <br />
             <h2>{{ $orderCount }}</h2>
@@ -48,8 +48,8 @@
       </div>  
 
       <div class="col-md-15">
-        <div class="card">
-          <div class="buyer-prod-msg" style="height:250px;">
+        <div class="card buyer-prod-card">
+          <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_service_requests')}}</h2>
             <br />
             <h2>{{ $serviceRequestCount }}</h2>
@@ -59,8 +59,8 @@
 
       <div class="col-md-15">
 
-        <div class="card">
-          <div class="buyer-prod-msg" style="height:250px;">
+        <div class="card buyer-prod-card">
+          <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_listed_products')}}</h2>
             <br />
             <h2>{{ $productCount }}</h2>
@@ -71,8 +71,8 @@
       </div>
 
       <div class="col-md-15">
-        <div class="card">
-          <div class="buyer-prod-msg" style="height:250px;">
+        <div class="card buyer-prod-card">
+          <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_listed_services')}}</h2>
             <br />
             <h2>{{ $servicesCount }}</h2>
@@ -81,8 +81,8 @@
       </div>
 
       <div class="col-md-15">
-        <div class="card">
-          <div class="buyer-prod-msg" style="height:250px;">
+        <div class="card buyer-prod-card">
+          <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_total_sales')}}</h2>
             <br />
             <h2>{{ $totalAmount }} Kr</h2>
@@ -92,7 +92,7 @@
 
       <div class="col-md-6">
         <div class="card">
-           <div class="buyer-prod-msg" style="height:150px;">
+           <div class="buyer-prod-msg-bottom" style="height:150px;">
             <?php
               $title = (!empty($userpackage['title'])) ? $userpackage['title'] : '-';
               $amount = (!empty($userpackage['amount'])) ? $userpackage['amount']." kr" : '-';

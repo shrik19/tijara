@@ -22,7 +22,7 @@
           @include ('Front.alert_messages')
           <div class="col-md-6">
             <h3>{{ __('users.payment_method_head')}}</h3>
-             <form method="POST" action="{{route('frontStorePaymentDetails')}}" class="needs-validation" novalidate="">
+             <form method="POST" action="{{route('frontStorePaymentDetails')}}" class="needs-validation seller-payment-form" novalidate="">
               @csrf
 
             <p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>

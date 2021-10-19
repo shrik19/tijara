@@ -301,6 +301,7 @@
 </div>
 </div> <!-- /container -->
 </div>
+</div>
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">
   $('body').on('click', '.remove_image', function () {
@@ -308,6 +309,10 @@
     $(this).prev('img').prev('input').remove();
     $(this).prev('img').remove();
     $(this).remove();
+});
+
+$( document ).ready(function() {
+  $('.select2-search__field').attr("placeholder", select_placeholder);
 });
 
 </script>

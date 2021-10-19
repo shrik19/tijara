@@ -73,8 +73,8 @@
      'free_shipping_label' => 'Gratis frakt',
      'shipping_method_label' => 'Frakt metod',
      'select_shipping_method' => 'Välj fraktmetod',
-     'flat_shipping_charges'=>'Platta fraktkostnader',
-     'prcentage_shipping_charges'=>'Andel fraktkostnader',
+     'flat_shipping_charges'=>'Platta fraktkostnader (ex 50 kr)',
+     'prcentage_shipping_charges'=>'Andel fraktkostnader (ex 10%)',
      'shipping_charges_label' => "Fraktkostnader",
 
     /*product category */

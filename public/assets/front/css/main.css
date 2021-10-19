@@ -994,8 +994,8 @@ font-size: 14px!important;
 span.remember-text {
     margin-left: 10px;
 }
-.sidebar_menu{width: 100%;}
-  .buyer-prod-msg{
+.sidebar_menu{width: 100%; margin-top: 20px;}
+ /* .buyer-prod-msg{
     background-color: #efefef;
     padding: 30px;
     margin-bottom: 80px; border-radius: 6px;
@@ -1004,7 +1004,7 @@ span.remember-text {
   .buyer-prod-head{
     color: #fff ;
     font-size: 24px;
-  }
+  }*/
   .buyer-prod-content{
     color: #fff !important;
     font-size: 14px !important;
@@ -2179,6 +2179,43 @@ span.pro-text {
     
     padding: 8px;
   margin-top: -7px;
+}
+
+/****************************************************/
+
+/*********************19-10-2021*********************/
+
+.seller-chng-pass .ge_input,
+.seller-payment-form .form-control,
+#product-form .ge_input {
+    color: #999 !important;
+    font-weight: 300 !important;
+}
+
+
+.seller-dashboard-form .buyer-prod-card {
+    background-color: #efefef;
+    padding-top: 100%;
+    position: relative;
+    width: 100%;
+    margin-bottom: 80px;
+    border-radius: 6px;
+}
+
+.seller-dashboard-form .buyer-prod-msg {
+    position: absolute;
+    top: 50px;
+    left: 12px;
+    bottom: 0;
+    right: 12px;
+    text-align: center;
+}
+
+.seller-dashboard-form .buyer-prod-msg-bottom {
+    background-color: #efefef;
+    padding: 30px;
+    margin-bottom: 80px;
+    border-radius: 6px;
 }
 
 /****************************************************/

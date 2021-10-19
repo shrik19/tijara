@@ -36,7 +36,7 @@
 
           <div class="login_box seller_mid_cont"  style="margin-top: 20px;">
              
-            <form method="POST" action="{{route('frontChangePasswordStore')}}" class="needs-validation" novalidate="">
+            <form method="POST" action="{{route('frontChangePasswordStore')}}" class="needs-validation seller-chng-pass" novalidate="">
               @csrf
                 @if($is_seller==1)
                 <div class="form-group">
@@ -77,7 +77,7 @@
 </div>
 </div>
    </div>
-
+	</div>
     </div>
 </div> <!-- /container -->
 <script type="text/javascript">

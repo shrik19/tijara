@@ -116,9 +116,9 @@
       ,'November','December'],
       monthNamesShort: ['Januari','Februari','Mars','April','Maj','Juni','Juli','Augusti','September','Oktober'
       ,'November','December'],
-      dayNames: ['måndag','tisdag','onsdag','torsdag','fredag','lördag','söndag'],
+      dayNames: ['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'],
 
-      dayNamesShort: ['Mån','Tis','Ons','Tors','Fre','Lör','Sön'],
+      dayNamesShort: ['Sön','Mån','Tis','Ons','Tors','Fre','Lör'],
 
       columnFormat: 'ddd',
       views: {

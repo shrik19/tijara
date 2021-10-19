@@ -33,6 +33,7 @@ class AuthController extends Controller
 {
 
     function __construct() {
+		
         $site_details          = Settings::first();
         $data['siteDetails']   = $site_details;
     }
@@ -201,7 +202,8 @@ class AuthController extends Controller
     }
 	public function seller_register()
     {
-        $data = $details = $is_subscriber = [];
+        
+		$data = $details = $is_subscriber = [];
 		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();
         $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
         $currentDate = date('Y-m-d H:i:s');

@@ -132,8 +132,15 @@
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td class="bg-white"><h5  class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
-                        <td class="text-right bg-white"><h5 class="product_sorting_filter_option">{{number_format($tmpOrderProduct['subTotal'],2)}} kr</h5></td>
+                        <td class="bg-white bbvbvb"><h5  class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
+                        <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
+                            @php 
+                                $price_subTotal_array = str_split(strrev($tmpOrderProduct['subTotal']), 3);
+                                $subTotal = strrev(implode(" ", $price_subTotal_array));
+                                $subTotal = $subTotal.",00";
+                            @endphp
+                            {{ $subTotal }} kr
+                        <?php /* {{number_format($tmpOrderProduct['subTotal'],2)}} kr */?></h5></td>
 						<td class="bg-white">   </td>
                     </tr>
                     <tr>
@@ -141,8 +148,16 @@
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td class="bg-white"><h5 class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</h5></td>
-                        <td class="text-right bg-white"><h5 class="product_sorting_filter_option">{{number_format($tmpOrderProduct['shippingTotal'],2)}} kr</h5></td>
+                        <td class="bg-white"><h5 class="product_sorting_filter_option dddddd">{{ __('lang.shopping_cart_shipping')}}</h5></td>
+                        <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
+
+                             @php  
+                                $price_shipping_array = str_split(strrev($tmpOrderProduct['shippingTotal']), 3);
+                                $shippingTotal = strrev(implode(" ", $price_shipping_array));
+                                $shippingTotal = $shippingTotal.",00";
+                            @endphp
+                            {{$shippingTotal}} kr
+                            <?php /* {{number_format($tmpOrderProduct['shippingTotal'],2)}} kr */?></h5></td>
 						<td class="bg-white">   </td>
                     </tr>
                     <tr>
@@ -151,7 +166,14 @@
                         <td>   </td>
                         <td>   </td>
                         <td class="bg-white"><h4 class="cart_total_css">{{ __('lang.shopping_cart_total')}}</h4></td>
-                        <td class="text-right bg-white"><h4 class="cart_total_css">{{number_format($tmpOrderProduct['Total'],2)}} kr</h4></td>
+                        <td class="text-right bg-white"><h4 class="cart_total_css">
+                            @php 
+                                $price_array = str_split(strrev($tmpOrderProduct['Total']), 3);
+                                $price_nice = strrev(implode(" ", $price_array));
+                                $price_nice = $price_nice.",00";
+                            @endphp
+                        {{ $price_nice }} kr</h4></td>
+                        <?php /*{{number_format($tmpOrderProduct['Total'],2)}} kr */?>
 						<td class="bg-white">   </td>
                     </tr>
                     <tr>

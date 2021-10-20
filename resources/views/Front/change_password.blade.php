@@ -7,6 +7,8 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-12">
+          @include ('Front.alert_messages')
+          
       @if($is_seller==1)
         <div class="col-md-2 tijara-sidebar">
           @include ('Front.layout.sidebar_menu')
@@ -25,11 +27,11 @@
             <div class="card-header row">
           <!-- <div class="col-md-3"></div>
           <div class="col-md-5"> -->
-          <h2 class="page_heading" style="margin-left: 43px;">{{ __('users.change_password_title')}} </h2>
+          <h2 class="page_heading" style="margin-left: 43px;font-size:24px !important;">{{ __('users.change_password_title')}} </h2>
         </div></div>
       @endif
       
-          @include ('Front.alert_messages')
+        
 		  <div class="col-md-12">
       <!--   <div class="col-md-2"></div> -->
           <div class="col-md-5">

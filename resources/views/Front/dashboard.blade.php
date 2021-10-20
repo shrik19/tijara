@@ -13,7 +13,7 @@
     <div class="seller_info">
     <div class="card">
 		  <div class="card-header row seller_header">
-        <h2>{{ __('lang.summary_menu')}}</h2>
+        <h2 class="page_heading">{{ __('lang.summary_menu')}}</h2>
         <!-- <hr class="heading_line"/> -->
       </div>
     </div>
@@ -23,7 +23,7 @@
     @csrf
     <div class="row">
       <div class="summary_page">
-     <h3 class="pull-left">{{ __('lang.dashboard_statistics_period')}} : </h3>
+     <h3 class="pull-left" style="margin-left: 10px;">{{ __('lang.dashboard_statistics_period')}} : </h3>
      
      
       <select name="filter_date" id="filter_date" class="form-control" onchange="jQuery('#filterForm').submit();">

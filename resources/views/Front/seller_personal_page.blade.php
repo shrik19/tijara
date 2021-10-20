@@ -108,7 +108,7 @@
               if(!empty($details->header_img))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width: 235px;height: 150px;" id="previewBanner"></div>';
+                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width: 235px;height: 150px;" id="previewBanner"><a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }else{
@@ -217,6 +217,13 @@ function checkStoreName(){
       showErrorMessage(please_enter_store_name);
     }
 }
+
+$('body').on('click', '.remove_image', function () {
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
 </script>
 
 @endsection

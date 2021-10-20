@@ -71,8 +71,19 @@
 
                                     $serviceName = (!empty($value['title'])) ? $value['title'] : '-';
                                     // $price = $value['service_price'];
-                                    $service_price = (!empty($value->price)) ? number_format($value->price,2)." Kr" : '-';
+                    
+                                   /* $service_price = (!empty($value->price)) ? number_format($value->price,2)." Kr" : '-';*/
+                                    if(!empty($value->price)){
+                                        $service_price_array = str_split(strrev($value->price), 3);
+                                        $service_price = strrev(implode(" ", $service_price_array));
+                                        $service_price = $service_price.",00 kr";
                                     
+                                        
+                                    } else{
+                                        $service_price = '-';
+                                    }
+                                   
+
                                     $storeName = (!empty($getStoreName[0]->store_name)) ?$getStoreName[0]->store_name : '-';
 
                                     $id =  $value['id'];

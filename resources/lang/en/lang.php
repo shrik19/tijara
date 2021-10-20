@@ -257,8 +257,8 @@
      'add_to_cart' => 'Add To Cart',
      'reset_options' => 'Reset Options',
 
-    'product_discount_label'    =>  'Discount (%)',
-     'msg_product_success' => 'Checkout process complete, your product will be listed soon once payment confirmed.',
+    'product_discount_label' =>  'Discount (%)',
+     'msg_product_success'   => 'Thanks! Your ad will be published shortly.',
     'back_to_ads'=>'Back to Ads',
     'also_have_watch'=>'Others have also watch',
      'product_buyer_name'   =>'Seller Name',

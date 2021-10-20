@@ -188,9 +188,10 @@
 									<div id="html_snippet" class="klarna_html"></div>  
 								</div> 
 									
+								<div class="pull-right register_second_btn">	
 								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
 								<input type="button" name="next" class="next btn debg_color action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
-
+								</div>
 							</fieldset> 
 										
 								   

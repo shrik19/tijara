@@ -44,7 +44,6 @@ width:100% !important;
 
           <div class="col-md-12">
               @include ('Front.alert_messages')
-                  <div class="seller_info">
            <!--      <div class="col-md-12"> -->
             <!--  <div class="col-md-10"> -->
             <div class="card">
@@ -299,7 +298,6 @@ width:100% !important;
           </div>
 
           </form>
-        </div>
         </div>
       </div>
       </div>

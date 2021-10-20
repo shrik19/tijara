@@ -42,15 +42,15 @@ width:100% !important;
           <div class="alert alert-danger">{{$subscribedError}}</div>
         @endif
 
-        <div class="seller_info">
+        
           <div class="card">
           <div class="card-header row seller_header">
           <!-- <h2 class="page_heading">{{ __('users.my_order_title')}}</h2> -->
             <div class="col-md-10">
-               <h2 class="page_heading">{{ __('users.buyer_product_form_label')}}</h2>
+               <h2 class="page_heading" style="margin-left: 33px;">{{ __('users.buyer_product_form_label')}}</h2>
               <!--  <hr class="heading_line"/> -->
                </div>
-               <div class="col-md-2 text-right" style="margin-top:30px;">
+               <div class="col-md-2 text-right" style="margin-top:30px;margin-left: -14px;">
                <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
           </div>
           <!-- <hr class="heading_line"/> -->
@@ -302,7 +302,6 @@ width:100% !important;
         <!-- </div> -->
       </div>
     </div> <!-- /col-10 -->
-</div>
 </div>
   </div>
 </div>

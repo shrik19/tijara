@@ -18,7 +18,7 @@
        <div class="seller_info border-none">
         <div class="card">
         <div class="card-header row">
-          <h2 class="page_heading">{{ __('users.buyer_profile_update_title')}}</h2>
+          <h2 class="page_heading label_margin">{{ __('users.buyer_profile_update_title')}}</h2>
           <!-- <hr class="heading_line"/> -->
           </div>
         </div>

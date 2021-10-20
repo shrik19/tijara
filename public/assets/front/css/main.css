@@ -1113,6 +1113,7 @@ span.remember-text {
 		background-repeat: no-repeat !important;
 		background-size: cover !important;
 		background-position: 80% 10% !important;
+    height: 100vh;
 	}
 	
 	.login_banner-header h1,

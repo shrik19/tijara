@@ -70,6 +70,7 @@ header{
   color: #222222 !important;
   font-weight: 300 !important;
 }
+.product_sorting_filter_option a{  color: #222222 !important;}
 .slider-handle {
     background-color: #03989e !important;
     background-image: linear-gradient(to bottom, #03989e, #03989e) !important;
@@ -721,7 +722,10 @@ select.list-dt:focus {
     float: left;
     position: relative; text-align: center; font-weight: 500;;
 }
-
+#progressbar li span{    position: absolute;
+  top: 5px;
+  left: 49%;
+  color: #fff;}
 #progressbar #account:before {
     font-family: FontAwesome;
     content: "\f023"
@@ -748,12 +752,13 @@ select.list-dt:focus {
     line-height: 45px;
     display: block;
     font-size: 18px;
-    color: #ffffff;
+    color: transparent;
     background: #fff;
     border-radius: 50%;
     margin: 0 auto 10px auto;
     padding: 2px;
-    border: 5px solid #ccc;
+    border: 5px solid #ccc;background: #03989e;
+    border: 5px solid #03989e;
 }
 
 #progressbar li:after {
@@ -784,7 +789,7 @@ select.list-dt:focus {
    
 }
 #progressbar li.active:before{
-    background: #fff; border: 5px solid #9c9c9c;
+    background: #03989e; border: 5px solid #03989e;
 }
 .radio-group {
     position: relative;
@@ -957,7 +962,7 @@ nav ul {
  /*start css for buyer product grid*/
 .buyer-price{
   font-weight: 500;
-    color: #03989e;
+    color: #222;
     font-size: 16px;
   }
 .order-product-store-title{
@@ -975,8 +980,8 @@ font-size: 14px!important;
   .buyer-product-img{
     height: 300px;
     width: 100%;
-    border: 2px solid #ccc;
-    object-fit: contain; cursor: pointer;
+    /* border: 2px solid #ccc; */
+    object-fit: cover; cursor: pointer;
   }
   .buyer-button a {
     margin: 8px auto;
@@ -1071,9 +1076,9 @@ span.remember-text {
     right: 16px;
 }
 .cart_total_css{
-  font-size: 16px;
+  font-size: 14px;
   color: #222222;
-  font-weight: 400;
+  font-weight: 300;
 }
 .cart_count span{font-size: 10px;text-align: center; color: #fff;    position: absolute;
     top: 2px;
@@ -1126,7 +1131,9 @@ span.remember-text {
 		background-position: 80% 10% !important;
     height: 100vh;
 	}
-	
+	.register_banner-1{
+    min-height: 800px;
+  }
 	.login_banner-header h1,
 	.register_banner-header h1{
 		color: #ffffff;
@@ -1250,9 +1257,9 @@ span.remember-text {
         font-size: 17px;
 	}
 	
-	/* .seller_register_container .register_banner {
+	.seller_register_container .register_banner {
 		min-height: 900px;
-	} */
+	}
 	
 	.seller_register_container .seller_register_second .packages-section {
 		margin-bottom: 3%;

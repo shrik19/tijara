@@ -84,7 +84,7 @@
 	<div class="row">
 		<div class="register_container">
 			<div class="col-md-4 left-section" >
-				<div class="register_banner" style="background: #03989e;">
+				<div class="register_banner register_banner-1" style="background: #03989e;">
 				<div class="register_banner-header">
 					<h1>Sveriges första kulturella marknadsplats</h1>
 				</div>

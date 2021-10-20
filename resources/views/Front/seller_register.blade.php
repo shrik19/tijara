@@ -106,10 +106,10 @@
 							<div class="loader-seller" style="display:none;"></div>
 							<!-- progressbar -->
 							<ul id="progressbar">
-								<li class="active" id="account">{{ __('users.step_one_head')}}</li>
-								<li id="personal">{{ __('users.step_two_head')}}</li>
-								<li id="payment">{{ __('users.step_three_head')}}</li>
-								<li id="confirm">{{ __('users.step_four_head')}}</li>
+								<li class="active" id="account"><span>1</span></spa>{{ __('users.step_one_head')}}</li>
+								<li id="personal"><span>2</span>{{ __('users.step_two_head')}}</li>
+								<li id="payment"><span>3</span>{{ __('users.step_three_head')}}</li>
+								<li id="confirm"><span>4</span>{{ __('users.step_four_head')}}</li>
 							</ul> 
 							<?php
 								$email = $password= $role_id = $cpassword ='';

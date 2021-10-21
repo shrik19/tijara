@@ -26,6 +26,21 @@ width:100% !important;
     bottom: 0px;
     left: 3px;
 }
+th.fc-week-number.fc-widget-header {
+    display: none;
+}
+td.fc-week-number {
+    display: none;
+}
+
+.fc-content-skeleton td {
+    text-align: center;
+    padding: 30px;
+}
+
+.product_add_h2{
+    padding: 40px 0px !important;
+}
 </style>
 
 <div class="mid-section p_155">
@@ -53,7 +68,7 @@ width:100% !important;
   <!-- <hr class="heading_line"/> -->
   <div class="col-md-10">
 
-  <h2>{{ __('servicelang.service_form_label')}}</h2>
+  <h2 class="page_heading" style="margin-left: 15px;">{{ __('servicelang.service_form_label')}}</h2>
   <!--        <hr class="heading_line"/> -->
   </div>
   <div class="col-md-2 text-right" style="margin-top:30px;">
@@ -61,7 +76,7 @@ width:100% !important;
   </div>
   </div>
   </div>
-  <div class="seller_mid_cont" style="margin-top: 15px;">
+  <div class="seller_mid_cont">
 
   <div class="col-md-12">
 
@@ -70,7 +85,7 @@ width:100% !important;
 
   <input type="hidden" name="service_id" value="{{$service_id}}">
 
-  <div class="form-group col-md-12">
+  <div class="form-group row">
   <label class="col-md-3">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
   <div class="col-md-8">
   <input type="text" class="col-md-8 login_input form-control" name="title" id="title" 
@@ -79,7 +94,7 @@ width:100% !important;
   </div>
   </div>
 
-  <div class="form-group col-md-12" style="display:none;">
+  <div class="form-group row" style="display:none;">
   <label class="col-md-3">{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
   <div class="col-md-8">
   <input type="text" class="col-md-8 login_input slug-name form-control" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{ (old('service_slug')) ?  old('service_slug') : $service->service_slug}}" tabindex="1" readonly="readonly">
@@ -87,7 +102,7 @@ width:100% !important;
   </div>
   </div>
 
-  <div class="form-group col-md-12">
+  <div class="form-group row">
   <label class="col-md-3">{{ __('servicelang.session_time_label')}} <span class="de_col">*</span></label>
   <div class="col-md-8">
   <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
@@ -97,7 +112,7 @@ width:100% !important;
 </div>
   </div>
 
-  <div class="form-group col-md-12">
+  <div class="form-group row">
   <label class="col-md-3">{{ __('users.address_label')}} <span class="de_col">*</span></label>
   <div class="col-md-8">
   <input type="text" class="col-md-8 login_input address form-control" name="address" id="address" 
@@ -107,7 +122,7 @@ width:100% !important;
 </div>
   </div>
 
-  <div class="form-group col-md-12">
+  <div class="form-group row">
   <label class="col-md-3">{{ __('servicelang.service_description_label')}}<span class="de_col">*</span>  <span class="de_col"></span></label>
 
    <div class="col-md-8">
@@ -117,7 +132,7 @@ width:100% !important;
   </div>
   </div>
 
-  <div class="form-group col-md-12">
+  <div class="form-group row">
   <label class="col-md-3">{{ __('lang.category_label')}}<span class="de_col">*</span></label>
   <div class="col-md-8">
   <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
@@ -140,7 +155,7 @@ width:100% !important;
   </div>
 
 
-  <div class="form-group col-md-12" style="display:none;">
+  <div class="form-group row" style="display:none;">
   <label class="col-md-3">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
   <div class="col-md-8">
   <input type="tel" class="col-md-8 login_input form-control" name="sort_order" id="sort_order"
@@ -150,7 +165,7 @@ width:100% !important;
   </div>
   </div>
 
-  <div class="form-group col-md-12">
+  <div class="form-group row">
   <label class="col-md-3">{{ __('lang.status_label')}}<span class="de_col">*</span> </label>
   <div class="col-md-8">
   <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8" >
@@ -162,7 +177,7 @@ width:100% !important;
   </div>
 
 
-  <div class="form-group col-md-12">
+  <div class="form-group row">
   <label class="col-md-3">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
   <div class="col-md-8">
   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price"
@@ -172,7 +187,7 @@ width:100% !important;
   </div>
   </div>
 
-  <div class="form-group col-md-12">
+  <div class="form-group row">
   <label class="col-md-3">{{ __('lang.images')}} <span class="de_col">*</span></label>
   <div class="col-md-8">
   <div class="images col-md-12">
@@ -201,7 +216,7 @@ width:100% !important;
 
   <hr class="solid-horizontal-line">
   <h2 class="col-md-12 product_add_h2">{{ __('servicelang.step_2')}}</h2>
-  <div class="col-md-12">
+  <div class="col-md-12" style="margin-left: -32px;">
   <div class="col-md-9">
   <div class="form-group col-md-3">
   <label class="col-md-12">{{ __('lang.from_service_year')}}</label>
@@ -268,7 +283,7 @@ width:100% !important;
   </div>
 
   <!-- to date block start -->
-  <div class="col-md-12">
+  <div class="col-md-12" style="margin-left: -32px;">
   <div class="col-md-9">
   <div class="form-group col-md-3">
   <label class="col-md-12">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
@@ -338,7 +353,7 @@ width:100% !important;
   @endforeach
   @endif
   </div>
-  <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;"></div>
+  <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;margin-left: -12px;"></div>
   </div>
   </div>
   <div class="col-md-12 text-center">&nbsp;</div>

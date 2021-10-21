@@ -29,6 +29,22 @@
     bottom: 3px;
     margin-left: -75px;
 }
+
+th.fc-week-number.fc-widget-header {
+    display: none;
+}
+td.fc-week-number {
+    display: none;
+}
+
+.fc-content-skeleton td {
+    text-align: center;
+    padding: 30px;
+}
+
+.product_add_h2{
+    padding: 40px 0px !important;
+}
 </style>
 
 <div class="mid-section p_155">
@@ -53,7 +69,7 @@
         <!-- <h2 class="page_heading">{{ __('users.my_order_title')}}</h2> -->
         <!-- <hr class="heading_line"/> -->
         <div class="col-md-10">
-            <h2>{{ __('servicelang.service_form_label')}}</h2>
+            <h2  class="page_heading">{{ __('servicelang.service_form_label')}}</h2>
             
         </div>
         <div class="col-md-2 text-right" style="margin-top:30px;">
@@ -61,15 +77,15 @@
         </div>
         </div>
         </div>
-        <div class="seller_mid_cont" style="margin-top: 15px;">
+        <div class="seller_mid_cont">
         <div class="col-md-12">
 
           <div class="login_box">
-              <h2 class="col-md-12 product_add_h2" style="margin-left: -40px;">{{ __('servicelang.step_1')}}</h2>
+              <h2 class="col-md-12 product_add_h2">{{ __('servicelang.step_1')}}</h2>
 
               <input type="hidden" name="service_id" value="{{$service_id}}">
 
-              <div class="form-group col-md-12">
+              <div class="form-group row">
                 <label class="col-md-3">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input form-control" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="checkServiceUniqueSlugName();">
@@ -77,7 +93,7 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-12" style="display:none;">
+              <div class="form-group row" style="display:none;">
                 <label class="col-md-3">{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input slug-name form-control" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{old('service_slug')}}" tabindex="1" readonly="readonly">
@@ -85,7 +101,7 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group row">
                 <label class="col-md-3">{{ __('servicelang.session_time_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
@@ -95,7 +111,7 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group row">
                 <label class="col-md-3">{{ __('users.address_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input address form-control" name="address" id="address" 
@@ -105,7 +121,7 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group row">
               <label class="col-md-3">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
                   
               <div class="col-md-8">
@@ -114,7 +130,7 @@
               </div>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group row">
                 <label class="col-md-3">{{ __('lang.category_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
@@ -133,7 +149,7 @@
               </div>
 
 
-              <div class="form-group col-md-12" style="display:none;">
+              <div class="form-group" style="display:none;">
                   <label class="col-md-3">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
                   <div class="col-md-8">
                   <input type="tel" class="col-md-8 login_input form-control" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
@@ -141,7 +157,7 @@
                   </div>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group row">
                 <label class="col-md-3">{{ __('lang.status_label')}} <span class="de_col">*</span> </label>
                 <div class="col-md-8">
                 <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8">
@@ -153,7 +169,7 @@
               </div>
 
             
-              <div class="form-group col-md-12">
+              <div class="form-group row">
                   <label class="col-md-3">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
                   <div class="col-md-8">
                   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price" placeholder="{{ __('users.service_price_placeholder')}}" value="{{(old('service_price')) ?  old('service_price') :''}}" tabindex="7">
@@ -161,7 +177,7 @@
                 </div>
               </div>
 
-              <div class="form-group col-md-12">
+              <div class="form-group row">
                 <label class="col-md-3">{{ __('lang.images')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <div class="images col-md-12"></div>
@@ -175,7 +191,7 @@
 
              
               <h2  class="col-md-12 product_add_h2">{{ __('servicelang.step_2')}}</h2>
-               <div class="col-md-12">
+               <div class="row">
                  <div class="col-md-9">
               <div class="form-group col-md-3">
                     <label class="col-md-12">{{ __('lang.from_service_year')}}<!-- <span class="de_col">*</span> --></label>
@@ -242,7 +258,7 @@
             </div>
           </div>
           <!-- to date block start -->
-            <div class="col-md-12">
+            <div class="col-md-12" style="margin-left: -32px;">
                  <div class="col-md-9">
               <div class="form-group col-md-3">
                     <label class="col-md-12">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
@@ -303,7 +319,7 @@
             </div>
           </div>
               <div class="added_service_times" style="display:none;"></div>
-              <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;"></div>
+              <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;    margin-left: -12px;"></div>
           </div>
         </div>
           <div class="col-md-12 text-center">&nbsp;</div>
@@ -585,6 +601,9 @@ var service_time_counter  = 10000;
     $(this).prev('img').prev('input').remove();
     $(this).prev('img').remove();
     $(this).remove();
+});
+$( document ).ready(function() {
+  $('.select2-search__field').attr("placeholder", select_placeholder);
 });
 
 </script>

@@ -676,9 +676,11 @@ class AuthController extends Controller
 
                     $old_x = imageSX($src_img);
                     $old_y = imageSY($src_img);
-
+                        /*
                     $newWidth = 1800;
-                    $newHeight = 700;
+                    $newHeight = 700;*/
+                    $newWidth = 1800;
+                    $newHeight = 350;
 
                     if($old_x > $old_y){
                         $thumb_w    =   $newWidth;
@@ -754,8 +756,10 @@ class AuthController extends Controller
                     $old_x = imageSX($src_img);
                     $old_y = imageSY($src_img);
 
-                    $newWidth = 400;
-                    $newHeight = 150;
+                   /* $newWidth = 400;
+                    $newHeight = 150;*/
+                    $newWidth = 120;
+                    $newHeight = 120;
 
                     if($old_x > $old_y){
                         $thumb_w    =   $newWidth;
@@ -2369,5 +2373,30 @@ DATA;
                     } 
 
 
+    }
+
+    /*function to remove banner image*/
+    public function removeBannerImage(Request $request){
+
+        if(!empty($request->image_path)){
+            $Filename = $request->image_path;
+            $return_text = 0;
+
+            if (!empty($Filename)) {
+                SellerPersonalPage::where('header_img','like',$Filename.'%')->update(['header_img' => null]);
+                $image_path = public_path("/uploads/Seller/".$Filename);
+                        $resized_image_path = public_path("/uploads/Seller/resized".$Filename);
+                        if (File::exists($image_path)) {
+                    
+                            File::delete($image_path);
+                        }
+                        if (File::exists($resized_image_path)) {
+                            File::delete($resized_image_path);
+                        }
+            }else{
+                $return_text =1;
+            }
+            return response()->json(['message'=>$return_text]);
+        }
     }
 }

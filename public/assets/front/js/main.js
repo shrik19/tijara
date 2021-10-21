@@ -77,14 +77,26 @@ if (defaultOpen) {
   }
 });*/
 $(".add_new_variant_btn").click(function(){
-
-    
+   // jQuery(".var_img_div").remove();
+    //yourSelect.find('option').not('div.variant_tr:last').remove();
+    //$("div.variant_tr:last").remove();
     $trLast = $("div.variant_tr:last");
     variant_id=$trLast.attr('variant_id');
     variant_id++;
-
+    //
     $trNew = $trLast.clone();
     $trNew.attr('variant_id',variant_id);
+    var divCount = $('.var_img_div').length
+
+    while (divCount >0) 
+            {
+              alert("s");
+                //$("div.var_img_div").last().remove();
+                //$('.var_img_div option:not(:first)').remove();
+                $trNew.find('.var_img_div').not('variant_tr:first').remove();
+                divCount--;
+            }
+//$trNew = $trNew.children('div[class=var_img_div]:last').remove();
     $trNew.find(':text').val('');
     $trNew.find('.number').val('');
     $trNew.find('.hidden_images').val('');

@@ -44,7 +44,7 @@
       <div class="seller_info">
       <div class="seller_header">
 
-<h2>{{ __('lang.product_form_label')}}</h2>
+<h2 class="page_heading" style="margin-left: 11px;">{{ __('lang.product_form_label')}}</h2>
 <!-- <hr class="heading_line"/> -->
 </div>
   @if($is_seller)    
@@ -66,7 +66,7 @@
 
         <div class="login_box">
 
-            <h2 class="col-md-12 product_add_h2 steps_no_css">{{ __('lang.product_form_step1')}}</h2>
+            <h2 class="col-md-12 product_add_h2 steps_no_css" style="margin-left: -12px;">{{ __('lang.product_form_step1')}}</h2>
             <input type="hidden" name="product_id" value="{{$product_id}}">
 
             <div class="form-group col-md-12">
@@ -221,7 +221,7 @@
                   </div>
                   </div>
                   
-                  <div class="form-group  col-md-12 producterrDiv" >
+                  <div class="form-group  col-md-12 producterrDiv var_img_div" >
                     <label class="col-md-3">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                       <div class="selected_images col-md-12"></div>
@@ -313,6 +313,12 @@
 
 $( document ).ready(function() {
   $('.select2-search__field').attr("placeholder", select_placeholder);
+
+/*  var var_id = $(".variant_image").attr('variant_id');
+  if(var_id > 0)
+  { 
+     $(this).parent().parent().parent();hide();
+  }*/
 });
 
 </script>

@@ -178,8 +178,9 @@ Route::group(['middleware'=>['front-login']],function()
  
 
 });
- Route::post('/upload-profile-image','Front\AuthController@uploadProfileImage')->name('uploadProfileImage');
+ Route::any('/upload-profile-image','Front\AuthController@uploadProfileImage')->name('uploadProfileImage');
 
+ Route::any('/remove-banner-image','Front\AuthController@removeBannerImage')->name('removeBannerImage');
 Route::post('/add-to-cart','Front\CartController@addToCart')->name('frontAddToCart');
 Route::get('/show-cart','Front\CartController@showCart')->name('frontShowCart');
 Route::post('/remove-from-cart','Front\CartController@removeCartProduct')->name('frontRemoveCartProduct');

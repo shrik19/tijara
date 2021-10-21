@@ -102,19 +102,20 @@
          <input type="button" name="check-store-unique" class="btn debg_color verify-store"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 1px;" />  
         <!--     <span class="invalid-feedback" id="err_fname">@if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span> -->
             </div>
+            <div class="loader"></div>
             <div class="form-group increment cloned">
               <label>{{ __('users.seller_header_img_label')}}</label>
               @php
               if(!empty($details->header_img))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width: 235px;height: 150px;" id="previewBanner"><a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>';
+                echo '<div class="col-md-4 banner_existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width: 235px;height: 150px;" id="previewBanner"><a href="javascript:void(0);" class="remove_banner_image"><i class="fas fa-trash"></i></a></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }else{
                echo '<div class="bannerImage" style="display: none;">';
               echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="" style="width: 235px;height: 150px;" id="previewBanner"></div>';
+                echo '<div class="col-md-4 banner_existing-images"><img src="" style="width: 235px;height: 150px;" id="previewBanner"><a href="javascript:void(0);" class="remove_banner_image"><i class="fas fa-trash"></i></a></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
             }
@@ -178,6 +179,7 @@ bannerInp.onchange = evt => {
   const [file] = bannerInp.files
   if (file) {
     $('.bannerImage').css('display','block');
+    $('.banner_existing-images').css('display','block');
     previewBanner.src = URL.createObjectURL(file)
   }
 }
@@ -217,13 +219,28 @@ function checkStoreName(){
       showErrorMessage(please_enter_store_name);
     }
 }
+$('body').on('click', '.remove_banner_image', function () {
+    var path = $('#previewBanner').attr('src');
+    var Filename= path.split('/').pop();
+    $(".loader").css("display","block");
 
-$('body').on('click', '.remove_image', function () {
-    $(this).prev('img').prev('input').parent("div").remove();
-    $(this).prev('img').prev('input').remove();
-    $(this).prev('img').remove();
-    $(this).remove();
+    $.ajax({
+          headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+            url: "{{url('/')}}"+'/remove-banner-image?image_path='+Filename,
+            type: 'post',
+            data: {},
+          success: function(output){
+              $(".loader").css("display","none");
+             
+              if(output.message==0){
+                $('.banner_existing-images').css('display','none');
+                $(this).remove();
+              }
+             
+          }
+    });
 });
+
 </script>
 
 @endsection

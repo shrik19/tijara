@@ -31,7 +31,7 @@
 }
 </style>
 
-<div class="mid-section">
+<div class="mid-section p_155">
 <div class="container-fluid">
   <div class="container-inner-section-1">
     
@@ -43,7 +43,7 @@
       <div class="col-md-10">
       <div class="seller_info">
       <div class="seller_header">
-                    <h2>{{ __('lang.product_form_label')}}</h2>
+                    <h2 class="page_heading" style="margin-left: 11px;">{{ __('lang.product_form_label')}}</h2>
                     <!-- <hr class="heading_line"/> -->
                 </div>
          <!-- Example row of columns -->
@@ -69,7 +69,7 @@
 
                     <div class="login_box">
 
-                        <h2 class="col-md-12 product_add_h2">{{ __('lang.product_form_step1')}}</h2>
+                        <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;">{{ __('lang.product_form_step1')}}</h2>
                         <input type="hidden" name="product_id" value="{{$product_id}}">
 
                         <div class="form-group col-md-12">
@@ -334,6 +334,10 @@
     $(this).prev('img').prev('input').remove();
     $(this).prev('img').remove();
     $(this).remove();
+});
+
+$( document ).ready(function() {
+  $('.select2-search__field').attr("placeholder", select_placeholder);
 });
 
 </script>

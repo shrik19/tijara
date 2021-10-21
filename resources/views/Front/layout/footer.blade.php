@@ -141,7 +141,8 @@
     </div>
     <div class="clearfix"></div>
       <div class="ft_copyright">
-        <p>© {{ __('lang.copyright_label')}} {{date('Y')}} <span class="de_col">{{config('constants.PROJECT_NAME')}}</span>. | {{ __('lang.all_right_reserved_label')}}</p>
+        <?php /*<p>© {{ __('lang.copyright_label')}} {{date('Y')}} <span class="de_col">{{config('constants.PROJECT_NAME')}}</span>. | {{ __('lang.all_right_reserved_label')}}</p> */?>
+        <p>{{$siteDetails->copyright_content}}  </p>
       </div>
     </footer>
     <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->

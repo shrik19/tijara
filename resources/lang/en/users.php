@@ -352,5 +352,6 @@ cancellation of service works.',
     'stripe_api_key_label' =>'Api Key',
     'stripe_secret_label' => 'Stripe Secret Key',
     'back_to_butik_setting'=>'Back To Butik Profile',
+    'copyright_content_label' => 'Footer copyright content',
  ]
 ?>

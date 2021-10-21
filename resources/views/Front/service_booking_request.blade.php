@@ -1,6 +1,21 @@
 @extends('Front.layout.template')
 @section('middlecontent')
+<style type="text/css">
 
+  th.fc-week-number.fc-widget-header {
+    display: none;
+  }
+
+  td.fc-week-number {
+    display: none;
+ }
+
+  .fc-content-skeleton td {
+      text-align: center;
+      padding: 30px;
+  }
+
+</style>
 <div class="mid-section p_155">
 <div class="container-fluid">
 <div class="container-inner-section-1">
@@ -21,7 +36,7 @@
     <div class="card">
       <div class="card-header row seller_header">
         <div class="col-md-11">
-        <h2 class="page_heading">{{ __('users.booking_request_label')}}</h2>
+        <h2 class="page_heading" style="margin-bottom: 60px;">{{ __('users.booking_request_label')}}</h2>
         <!-- <hr class="heading_line"/> -->
         </div>
       </div>

@@ -38,13 +38,18 @@
               <div class="text-danger err-letter">{{ ($errors->has('footer_logo')) ? $errors->first('footer_logo') : '' }}</div>
             </div>
 
+            <div class="form-group">
+              <label> {{ __('users.copyright_content_label')}} <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="copyright_content" name="copyright_content" placeholder="Ccopyright Content" value="{{ (old('copyright_content')) ?  old('copyright_content') : $sitedata[0]->copyright_content}}" />
+              <div class="text-danger">{{ ($errors->has('copyright_content')) ? $errors->first('copyright_content') : '' }}</div>
+            </div>
+
             <div class="box-footer">
                <span class="pull-right">
                 <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i>{{ __('lang.save_btn')}}</button>&nbsp;&nbsp;
                 <a href="{{$module_url}}" class="btn btn-icon icon-left btn-danger" tabindex="16"><i class="fas fa-times"></i>{{ __('lang.cancel_btn')}}</a>
                </span>
             </div>
-
           </form>
         </div>
       </div>

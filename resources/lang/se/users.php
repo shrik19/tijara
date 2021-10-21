@@ -352,6 +352,7 @@ avbokning av tjänst fungerar.',
     'stripe_api_key_label' =>'Api Key',
     'stripe_secret_label' => 'Stripe Secret Key',
     'back_to_butik_setting'=>'Tillbaka till butiksprofilen',
+    'copyright_content_label' => 'Footer copyright content',
  
  ]
 ?>

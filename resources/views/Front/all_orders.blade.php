@@ -21,7 +21,7 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-      <h2>{{ __('users.my_order_title')}}</h2>
+      <h2 class="page_heading" style="margin-left: 16px;">{{ __('users.my_order_title')}}</h2>
       <!-- <hr class="heading_line"/> -->
       </div>
     </div>

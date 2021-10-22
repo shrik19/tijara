@@ -926,7 +926,7 @@ public function swishIpnCallback(Request $request){
     if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
         $order_id = $_REQUEST['merchantReference'];
             echo "in<br>";
-            echo ""-->.$order_id;
+            echo "==".$order_id;
         $currentDate = date('Y-m-d H:i:s');
             
             $username = '';

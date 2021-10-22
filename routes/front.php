@@ -55,7 +55,6 @@ Route::get('/service/{category_slug}/{service_slug}','Front\FrontController@serv
 Route::get('/service/{category_slug}/{subcategory_slug}/{service_slug}','Front\FrontController@serviceDetails')->name('serviceDetailsWithCategorySubcategory');
 Route::post('/send-service-request','Front\FrontController@sendServiceRequest')->name('sendServiceRequest');
 
-
 //auth
 Route::any('/front-login/buyer','Front\AuthController@login')->name('frontLogin');
 Route::any('/front-login/seller','Front\AuthController@login')->name('frontLoginSeller');
@@ -67,6 +66,7 @@ Route::post('/do-register','Front\AuthController@doRegister')->name('do-register
 Route::get('/register-success','Front\AuthController@register_success')->name('frontRegisterSuccess');
 
 Route::any('/users-subscription','Front\AuthController@usersSubscription')->name('frontusersSubscription');
+Route::get('/user/verify/{token}', 'Front\AuthController@verifyUser');
 
 /*forgot password*/
 Route::post('/forgot-password','Front\AuthController@forgotPassword')->name('frontForgotPassword');

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 /*Models*/
 use App\User;
@@ -33,11 +34,11 @@ class AuthController extends Controller
 {
 
     function __construct() {
-		
+        
         $site_details          = Settings::first();
         $data['siteDetails']   = $site_details;
     }
-	/**
+    /**
      * function to Show Login Page.
      * @return null
      */
@@ -46,19 +47,19 @@ class AuthController extends Controller
         $site_details          = Settings::first();
         $data['siteDetails']   = $site_details;
 
-		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Login')->first();
-		$data['banner'] 	= $banner;
+        $banner             =  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Login')->first();
+        $data['banner']     = $banner;
         $data['pageTitle'] = 'Sign In';
-		$data['tijara_front_login']	=	'';
-		$data['tijara_front_password']=	'';
-		$data['tijara_remember_me']	=	'';
-		if(isset($_COOKIE['tijara_front_login'])) {
+        $data['tijara_front_login'] =   '';
+        $data['tijara_front_password']= '';
+        $data['tijara_remember_me'] =   '';
+        if(isset($_COOKIE['tijara_front_login'])) {
             $data['tijara_front_login']=$_COOKIE['tijara_front_login'];
             $data['tijara_front_password']=$_COOKIE['tijara_front_password'];
             $data['tijara_remember_me']=$_COOKIE['tijara_remember_me'];
         }
         else {
-				setcookie('tijara_front_login', '', time() + (86400 * 30), "/");
+                setcookie('tijara_front_login', '', time() + (86400 * 30), "/");
                 setcookie('tijara_front_password', '', time() + (86400 * 30), "/");
                 setcookie('tijara_remember_me', '', time() + (86400 * 30), "/");
         }
@@ -184,12 +185,12 @@ class AuthController extends Controller
             return redirect(route('frontSellerProfile'));
 
     }
-	public function buyer_register()
+    public function buyer_register()
     {
-		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();
-		$data['banner'] 	= $banner;
-		$data['role_id'] 	= 1;
-		$data['registertype'] = trans('users.buyers_title');
+        $banner             =  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();
+        $data['banner']     = $banner;
+        $data['role_id']    = 1;
+        $data['registertype'] = trans('users.buyers_title');
         $data['pageTitle']    = trans('lang.sign_up_title');
 
         $site_details          = Settings::first();
@@ -200,11 +201,11 @@ class AuthController extends Controller
         }
         return view('Front/register', $data);
     }
-	public function seller_register()
+    public function seller_register()
     {
         
-		$data = $details = $is_subscriber = [];
-		$banner		 		=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();
+        $data = $details = $is_subscriber = [];
+        $banner             =  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Register')->first();
         $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
         $currentDate = date('Y-m-d H:i:s');
 
@@ -224,9 +225,9 @@ class AuthController extends Controller
         $data['siteDetails']   = $site_details;
         $data['packageDetails']    = $details;
         $data['subscribedPackage'] = $is_subscriber;
-		$data['banner'] 	       = $banner;
-		$data['registertype']      = trans('users.sellers_title');
-		$data['role_id'] 	       = 2;
+        $data['banner']            = $banner;
+        $data['registertype']      = trans('users.sellers_title');
+        $data['role_id']           = 2;
         $data['next_step']         = 1;
         $data['pageTitle']         = trans('lang.sign_up_title');
         $data['headingTitle']      = trans('users.sell_with_tijara_head');
@@ -265,20 +266,25 @@ class AuthController extends Controller
         else
         {
             $arrInsert =array();
+            $verification_token = hash_hmac('sha256',Str::random(40), config('app.key'));
             $arrInsert = [
                           'email'         => trim($request->input('email')),
                           'password'      => bcrypt(trim($request->input('password'))),
                           'status'        => 'active',
                           'role_id'       => $request->input('role_id'),
+                          'is_verified'  => 1,
+                          'activation_token' => $verification_token,
+                          'activation_status' => 'pending',
                         ];
-
-            if($request->input('role_id') == 1){
-                $arrInsert['is_verified'] = 1;
+           
+           // if(!empty($user_id)){
+                
 
                 $email = trim($request->input('email'));
+                //echo "-->".$email;exit;
                 $name   =   'Buyer';
-                $url = url('/').'/front-login/buyer';
-
+               // $url = url('/').'/front-login/verify';
+                $url =url('user/verify', $verification_token);
                 $GetEmailContents = getEmailContents('Buyer Register');
                 $subject = $GetEmailContents['subject'];
                 $contents = $GetEmailContents['contents'];
@@ -287,22 +293,46 @@ class AuthController extends Controller
                 [$email,url('/'),$url,env('FROM_MAIL')],$contents);
 
                 $arrMailData = ['email_body' => $contents];
-
                 Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
                     $message->to($email, $name)->subject
                         ($subject);
                     $message->from( env('FROM_MAIL'),'Tijara');
                 });
-
-
-            }
-            
+           
             $user_id = User::create($arrInsert)->id;
-
             //Session::flash('success', 'Registration successfull!');
             return redirect(route('frontRegisterSuccess'));
         }
 
+    }
+
+    /*code to verify user*/
+      public function verifyUser($token)
+    {
+
+        
+        $verifyUser = User::where('activation_token', $token)->first();
+
+        if(isset($verifyUser) ){
+            $user = $verifyUser->activation_token;
+          //   echo "<pre>";print_r($user);exit;
+            if(!$user) {
+                $verifyUser->activation_token = 'active';
+                $arrUpdate = [
+                    'activation_token'        => 'active',
+                ];
+
+            User::where('id','=',$verifyUser->id)->update($arrUpdate);
+               // $verifyUser->save();
+                $status =  trans('messages.email_verified_msg'),
+            }else{
+                $status = trans('messages.email_already_verified_msg'),
+            }
+        }else{
+            return redirect('/front-login/buyer')->with('warning',  trans('messages.email_not_identified_msg'));
+        }
+
+        return redirect('/front-login/buyer')->with('success', $status);
     }
 
      public function newsellerRegister(Request $request)
@@ -1324,7 +1354,7 @@ class AuthController extends Controller
            // 'billing_address'    =>  'required|string',
             'billing_street'     =>  'required|string',
             //'billing_province'   =>  'required',
-			'billing_city'   	 =>  'required',
+            'billing_city'       =>  'required',
             'billing_suburb'     =>  'required',
             'billing_postcode'   =>  'required',
         ];
@@ -1332,7 +1362,7 @@ class AuthController extends Controller
             'billing_address.required'    => trans('errors.billing_address_req_err'),
             'billing_street.required'     => trans('errors.billing_street_req_err'),
             'billing_province.required'   => trans('errors.billing_province_req_err'),
-			'billing_city.required'   	  => trans('errors.billing_city_req_err'),
+            'billing_city.required'       => trans('errors.billing_city_req_err'),
             'billing_suburb.required'     => trans('errors.billing_suburb_req_err'),
             'billing_postcode.required'   => trans('errors.billing_postcode_req_err'),
 
@@ -1350,7 +1380,7 @@ class AuthController extends Controller
                             'billing_address'=>trim($request->input('billing_address')),
                             'billing_street'=>trim($request->input('billing_street')),
                             'billing_province'=>'',//trim($request->input('billing_province')),
-    						'billing_city'=>trim($request->input('billing_city')),
+                            'billing_city'=>trim($request->input('billing_city')),
                             'billing_suburb'=>trim($request->input('billing_suburb')),
                             'billing_postcode'=>trim($request->input('billing_postcode')),
                            ];
@@ -1374,7 +1404,7 @@ class AuthController extends Controller
                             'shipping_address'=>trim($request->input('billing_address')),
                             'shipping_street'=>trim($request->input('billing_street')),
                             'shipping_province'=>'',//trim($request->input('billing_province')),
-    						'shipping_city'=>trim($request->input('billing_city')),
+                            'shipping_city'=>trim($request->input('billing_city')),
                             'shipping_suburb'=>trim($request->input('billing_suburb')),
                             'shipping_postcode'=>trim($request->input('billing_postcode')),
                            ];

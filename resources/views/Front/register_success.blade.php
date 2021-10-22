@@ -12,8 +12,10 @@
         <div class="login_box">
 		
           <div class="alert alert-success">{{ __('lang.account_register_success')}}
+
 		 <!--  <a href="{{url('/')}}/profile" class="de_col">{{ __('lang.click_here_btn')}}</a>{{ __('lang.go_to_your_profile_msg')}} -->
 		  </div>
+     
         </div>
       </div>
     </div>

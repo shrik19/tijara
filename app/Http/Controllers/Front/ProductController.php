@@ -897,6 +897,7 @@ class ProductController extends Controller
         }
         else
         {
+
             $currentDate = date('Y-m-d H:i:s');
             $arrInsertOrder = [
                 'user_id' => $user_id,
@@ -906,7 +907,9 @@ class ProductController extends Controller
                 'created_at' => $currentDate,
                 'updated_at' => $currentDate,
             ];
+           echo "<pre>";print_r($arrInsertOrder);exit;
             $orderId = TmpAdminOrders::create($arrInsertOrder)->id;
+            
             Session::put('current_buyer_order_id', $orderId);
             $data = array(
                 'type' => $request->type,
@@ -919,6 +922,7 @@ class ProductController extends Controller
     }
 
 public function swishIpnCallback(Request $request){
+    echo "dfjhh";exit;
     if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
         $order_id = $_REQUEST['merchantReference'];
             

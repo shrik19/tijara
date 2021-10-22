@@ -322,7 +322,7 @@ class AuthController extends Controller
             $activation_status = $verifyUser->activation_status;
             if($activation_status == 'pending'){
                 $arrUpdate = [
-                    'activation_token'  => 'active',
+                    'activation_status'  => 'active',
                 ];
                 User::where('id','=',$verifyUser->id)->update($arrUpdate);
                 $status =  trans('messages.email_verified_msg');

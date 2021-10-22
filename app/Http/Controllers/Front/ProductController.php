@@ -907,7 +907,7 @@ class ProductController extends Controller
                 'created_at' => $currentDate,
                 'updated_at' => $currentDate,
             ];
-           echo "<pre>";print_r($arrInsertOrder);exit;
+          
             $orderId = TmpAdminOrders::create($arrInsertOrder)->id;
             
             Session::put('current_buyer_order_id', $orderId);
@@ -922,10 +922,11 @@ class ProductController extends Controller
     }
 
 public function swishIpnCallback(Request $request){
-    echo "dfjhh";exit;
+    echo "dfjhh";
     if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
         $order_id = $_REQUEST['merchantReference'];
-            
+            echo "in<br>";
+            echo ""-->.$order_id;
         $currentDate = date('Y-m-d H:i:s');
             
             $username = '';
@@ -962,6 +963,8 @@ public function swishIpnCallback(Request $request){
                     'updated_at' => $currentDate,
                     'klarna_order_reference' => $_REQUEST['pspReference'],
                 ];
+                echo "<br>oi";
+                print_r(  $arrOrderInsert);
                 $NewOrderId = AdminOrders::create($arrOrderInsert)->id;
                 //Create Product
                 $arrProducts = [
@@ -978,7 +981,8 @@ public function swishIpnCallback(Request $request){
                     'user_id'			=>	$user_id,
                     'is_buyer_product'  => '1',
                 ];
-
+ echo "<br><br>product";
+                print_r(  $arrProducts);
 
                 
                 $id = Products::create($arrProducts)->id;
@@ -993,6 +997,8 @@ public function swishIpnCallback(Request $request){
                     $buyerProductArray['country']=$ProductData['country'];
                     $buyerProductArray['location']=$ProductData['location'];
                     //$buyerProductArray['price']=$request->input('price');
+                     echo "<br><br>buyerprod";
+                print_r(  $buyerProductArray);
                     BuyerProducts::create($buyerProductArray);
                 }
 

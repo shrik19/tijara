@@ -324,9 +324,9 @@ class AuthController extends Controller
 
             User::where('id','=',$verifyUser->id)->update($arrUpdate);
                // $verifyUser->save();
-                $status =  trans('messages.email_verified_msg'),
+                $status =  trans('messages.email_verified_msg');
             }else{
-                $status = trans('messages.email_already_verified_msg'),
+                $status = trans('messages.email_already_verified_msg');
             }
         }else{
             return redirect('/front-login/buyer')->with('warning',  trans('messages.email_not_identified_msg'));

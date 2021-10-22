@@ -861,6 +861,27 @@ select.list-dt:focus {
     color: #A0A0A0;
     font-size: 20px;
   }
+.close_store{
+  margin-top:60px;
+}
+p.seller-logo-banner-info{
+  margin-top: 10px !important;font-size: 13px !important;
+}
+.logo-existing-img{
+  width:250px;height:80px;
+}
+.banner_preview_img{
+  width: 235px;height: 150px;
+}
+
+.butik_profile_store_name{
+  margin-top:  30px !important;
+  margin-left: -85px !important;
+}
+
+.butik_profile_store_div{
+  display: flex;margin-top: 19px;
+}
 /*end seller store page css*/
 /*css for subheader menus*/
 nav {    

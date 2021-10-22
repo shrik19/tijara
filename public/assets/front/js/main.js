@@ -963,6 +963,58 @@ function ConfirmDeleteFunction1(url, id = false) {
     });
 }
 
+function ConfirmCloseStoreFunction(url, id = false) {
+    var message = close_store_confirm_msg;
+
+  $.confirm({
+      title: 'confirm!',
+      content: close_store_confirm_msg,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          okay: function () {
+            $(".loader").show();
+            $.ajax({
+              url:url,
+              headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              },
+              type: 'get',
+              data : {},
+              success:function(data)
+              {
+                $(".loader").hide();
+                // var responseObj = $.parseJSON(data);
+                // alert(responseObj);return
+                /*if(responseObj.status == 'success')
+                {
+                    showSuccessMessage(responseObj.msg,'reload');
+                }
+                else
+                {
+                    showErrorMessage(responseObj.msg,'reload');
+                }*/
+                 if(data.success)
+                {
+                    showSuccessMessage(data.success,'reload');
+                }
+                else
+                {
+                    showErrorMessage(data.error,'/front-login');
+                }
+        
+              }
+            });
+          },
+          cancel: function () {
+            
+          },
+      }
+  });
+}
+
 if($('.product_listings').length>0) {
   var page = 1;
 

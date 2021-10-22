@@ -93,12 +93,10 @@
         
           <div class="login_box">
           
-
-             <div class="form-group"  style="display: flex;margin-top: 19px;">
+             <div class="form-group butik_profile_store_div">
               <label>{{ __('lang.store_name')}} <span class="de_col"></span></label>
-              <input type="text" class="form-control store_name" id="store_name" name="store_name" 
-              placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" style="margin-top: 30px;
-    margin-left: -85px;"/>
+              <input type="text" class="form-control store_name butik_profile_store_name" id="store_name" name="store_name" 
+              placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif"/>
          <input type="button" name="check-store-unique" class="btn debg_color verify-store"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 1px;" />  
         <!--     <span class="invalid-feedback" id="err_fname">@if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span> -->
             </div>
@@ -109,20 +107,20 @@
               if(!empty($details->header_img))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 banner_existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" style="width: 235px;height: 150px;" id="previewBanner"><a href="javascript:void(0);" class="remove_banner_image"><i class="fas fa-trash"></i></a></div>';
+                echo '<div class="col-md-4 banner_existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->header_img.'" class="banner_preview_img" id="previewBanner"><a href="javascript:void(0);" class="remove_banner_image"><i class="fas fa-trash"></i></a></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }else{
                echo '<div class="bannerImage" style="display: none;">';
               echo '<div class="row">';
-                echo '<div class="col-md-4 banner_existing-images"><img src="" style="width: 235px;height: 150px;" id="previewBanner"><a href="javascript:void(0);" class="remove_banner_image"><i class="fas fa-trash"></i></a></div>';
+                echo '<div class="col-md-4 banner_existing-images"><img src="" class="banner_preview_img" id="previewBanner"><a href="javascript:void(0);" class="remove_banner_image"><i class="fas fa-trash"></i></a></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
             }
               @endphp
 
               <input type="file" name="header_img" id="bannerInp" class="form-control" value="">
-              <p class="seller-banner-info" style="margin-top: 10px;font-size: 13px;">({{ __('users.seller_banner_info')}})</p>
+              <p class="seller-banner-info seller-logo-banner-info">({{ __('users.seller_banner_info')}})</p>
               
               <div class="text-danger">{{$errors->first('filename')}}</div>
               <div class="input-group-btn text-right"> 
@@ -135,14 +133,14 @@
               if(!empty($details->logo))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" style="width:250px;height:80px;" id="previewLogo"></div>';
+                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" class="logo-existing-img" id="previewLogo"></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }else{
 
               echo '<div class="logoImage" style="display: none;">';
               echo '<div class="row">';
-              echo '<div class="col-md-4 existing-images"><img src="" style="width:250px;height:80px;" id="previewLogo"></div>';
+              echo '<div class="col-md-4 existing-images"><img src="" class="logo-existing-img" id="previewLogo"></div>';
               echo '</div>';
               echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
                 
@@ -150,13 +148,15 @@
               @endphp
 
               <input type="file" name="logo" id="logoInp" class="form-control" value="">
-              <p class="seller-logo-info" style="margin-top: 10px;font-size: 13px;">({{ __('users.seller_logo_info')}})</p>
+              <p class="seller-logo-info seller-logo-banner-info">({{ __('users.seller_logo_info')}})</p>
               <div class="text-danger">{{$errors->first('filename')}}</div>
               <div class="input-group-btn text-right"> 
               </div>
             </div>
 
-          
+            <div class="close_store">
+              <a href="javascript:void(0)" onclick="ConfirmCloseStoreFunction('{{ route('frontShopClose',base64_encode($details->user_id)) }}');" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('users.close_store_btn')}}</a>
+            </div>          
               
           </div>
         </div>

@@ -97,6 +97,9 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
     'email_verified_msg'         => 'Din e-post är verifierad. Du kan nu logga in.',
     'email_already_verified_msg' => 'Din e-post är redan verifierad. Du kan nu logga in.',
     'email_not_identified_msg'   => 'Tyvärr kan din e -post inte identifieras.',
+    'close_store_confirm_msg' =>'Du kommer att förlora alla dina inställningar och bilder. Du kommer inte att kunna återställa den här posten igen!',
+    'your_shop_disapper_msg' => 'din butik försvinner om 30 dagar.',
+    'already_shop_close_req' => 'Du har redan begärt att butiken ska stängas',
  
  ]
 ?>

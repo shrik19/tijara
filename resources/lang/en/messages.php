@@ -96,5 +96,8 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
      'email_verified_msg' => 'Your e-mail is verified. You can now login.',
      'email_already_verified_msg' => 'Your e-mail is already verified. You can now login.',
      'email_not_identified_msg' => 'Sorry your email cannot be identified.',
+     'close_store_confirm_msg' =>'You will lose all your settings and images. You will not be able to recover this record again!',
+     'your_shop_disapper_msg' => 'Your shop will disapear in 30 days.',
+     'already_shop_close_req' => 'You already requested for shop close.',
  ]
 ?>

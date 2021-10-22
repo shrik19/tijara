@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\UserMain;
 use App\Models\City;
+use App\Models\Products;
 
 /*Uses*/
 use Auth;
@@ -429,6 +430,155 @@ use File;
             return redirect()->back();
         } 
         else {
+            Session::flash('error', trans('errors.something_wrong_err'));
+            return redirect()->back();
+        }
+    }
+
+
+    /**
+    * Show list of all buyer Ads.
+    * @return [array] [record array]
+    */
+    public function buyerAds() {
+        $data = [];
+        $data['pageTitle']              = trans('lang.buyer_ad_title');
+        $data['current_module_name']    = trans('lang.buyer_ad_title');
+        $data['module_name']            = trans('lang.buyer_ad_title');
+        $data['module_url']             = route('adminBuyersAd');
+        $data['recordsTotal']           = 0;
+        $data['currentModule']          = '';
+        return view('Admin/Buyer/buyerAd', $data);
+    }
+
+        /**
+    * [getRecords for buyer ad list.This is a ajax function for dynamic datatables list]
+    * @param  Request $request [sent filters if applied any]
+    * @return [JSON]           [buyer list in json format]
+    */
+    public function getBuyerAds(Request $request) {
+        //$customerDetails = UserMain::select('users.*')->where('role_id','=',1)->where('is_deleted','!=',1);
+
+      //  $customerDetails = UserMain::select('users.*')->where('role_id','=',1)->where('is_deleted','!=',1);
+        $currentDate = date('Y-m-d H:i:s');
+        $buyerProducts = Products::Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
+                            ->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])
+                            ->where('products.is_deleted','!=',1)->where('products.is_buyer_product','=','1')/*->where('products.is_sold','=','0')->where([DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30])*/
+                            ->groupBy('products.id');
+
+        if(!empty($request['search']['value']))
+        {
+            $field = ['products.title','products.created_at'];
+            $namefield = ['products.title','products.created_at'];
+            $search=($request['search']['value']);
+
+            $buyerProducts = $buyerProducts->Where(function ($query) use($search, $field,$namefield) {
+                if (strpos($search, ' ') !== false){
+                    $s=explode(' ',$search);
+                    foreach($s as $val) {
+                        for ($i = 0; $i < count($namefield); $i++){
+                            $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
+                        }  
+                    }
+                }
+                else {
+                    for ($i = 0; $i < count($field); $i++){
+                        $query->orwhere($field[$i], 'like',  '%' . $search .'%');
+                    }  
+                }                
+            }); 
+        }
+
+        if (!empty($request['status']) && !empty($request['search']['value'])) {
+            $buyerProducts = $buyerProducts->Where('products.status', '=', $request['status']);
+        }
+        else if(!empty($request['status'])) {
+            $buyerProducts = $buyerProducts->Where('products.status', '=', $request['status']);
+        }
+
+        if(isset($request['order'][0])){
+            $postedorder=$request['order'][0];
+            if($postedorder['column']==0) $orderby='products.title';
+            if($postedorder['column']==1) $orderby='products.created_at';
+         /*   if($postedorder['column']==2) $orderby='products.email';
+            if($postedorder['column']==3) $orderby='products.where_find_us';*/
+
+            $orderorder = $postedorder['dir'];
+            $buyerProducts = $buyerProducts->orderby($orderby, $orderorder);
+        }
+
+        $recordsTotal  = $buyerProducts->get()->count();
+
+        $recordDetails = $buyerProducts->offset($request->input('start'))->limit($request->input('length'))->get();
+
+        $arr = [];
+        if (count($recordDetails) > 0) {
+            $recordDetails = $recordDetails->toArray();
+            foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal) {
+
+                $id         = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
+                $title      = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
+                $created_at = (!empty($recordDetailsVal['created_at'])) ? date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at'])) : '-';
+
+               if(!empty($recordDetailsVal['image'])) {
+                    $imagesParts    =   explode(',',$recordDetailsVal['image']);
+                    
+                    $image  =   url('/').'/uploads/ProductImages/resized/'.$imagesParts[0];
+                }
+                else
+                    $image  =     url('/').'/uploads/ProductImages/resized/no-image.png';
+                
+                $image      =   '<img src="'.$image.'" width="70" height="70">';
+               /* $email = (!empty($recordDetailsVal['email'])) ? '<a href="mailto:'.$recordDetailsVal['email'].'">'.$recordDetailsVal['email'].'</a>' : '-';
+                $whereFindUs = (!empty($recordDetailsVal['where_find_us'])) ? $recordDetailsVal['where_find_us'] : '-';*/
+
+                if ($recordDetailsVal['status'] == 'active') {
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBuyersAdsChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
+                } else {
+                    $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminBuyersAdsChangeStatus', [base64_encode($recordDetailsVal['id']), 'active']).'\');" class="btn btn-icon btn-danger" title="'.__('lang.active_label').'"><i class="fa fa-lock"></i> </a>';
+                }
+
+               /* $action = '<a href="'.route('adminBuyersEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminBuyersDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';*/
+
+                $arr[] = [$image,$title, $created_at, $status];
+            }
+        } 
+        else {
+            $arr[] = ['', '', trans('lang.datatables.sEmptyTable'), ''];
+        }
+
+        $json_arr = [
+        'draw' => $request->input('draw'),
+        'recordsTotal' => $recordsTotal,
+        'recordsFiltered' => $recordsTotal,
+        'data' => ($arr),
+        ];
+
+        return json_encode($json_arr);
+    }
+
+
+    /**
+    * Change status for Record [active/block].
+    * @param  $id = Id, $status = active/block 
+    */
+    public function changeAdsStatus($id, $status) {
+       
+        if(empty($id)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect(route('adminBuyers'));
+        }
+
+        $id = base64_decode($id); echo $id;
+       
+        $result = products::where('id', $id)->update(['status' => $status]);
+
+        if ($result) {
+            Session::flash('success', trans('messages.status_updated_success'));
+            return redirect()->back();
+        } else {
             Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }

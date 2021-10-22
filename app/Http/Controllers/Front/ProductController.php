@@ -2273,9 +2273,8 @@ public function findCurrency($type){
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
         //$buyerProducts   =   Products::where('user_id',Auth::guard('user')->id())->get();
         $buyerProducts = Products::Leftjoin('variant_product', 'products.id', '=', 'variant_product.product_id')
-                            ->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])
+                            ->select(['products.*','variant_product.sku','variant_product.price','variant_product.image'])->where('products.status','=','active')
                             ->where('products.is_deleted','!=',1)->where('products.user_id',Auth::guard('user')->id())->groupBy('products.id');
-
 
         $buyerProducts       = $buyerProducts->paginate(config('constants.buyer_product'));
        /* $checkProductExistOfBuyer   =   Products::where('user_id',Auth::guard('user')->id())->first();

@@ -1,4 +1,4 @@
-<!doctype html>
+F<!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -63,7 +63,7 @@
     var please_add_your_message = "{{ __('users.please_add_your_message')}}";
     var please_add_service_time = "{{ __('users.please_add_service_time')}}";
     var select_placeholder = "{{ __('lang.select_label')}}";
-    
+    var close_store_confirm_msg = "{{trans('messages.close_store_confirm_msg')}}";
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
     is_login = 1;

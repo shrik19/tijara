@@ -2431,4 +2431,30 @@ DATA;
             return response()->json(['message'=>$return_text]);
         }
     }
+
+    public function SellerShopClose($id){
+        if(empty($id)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect(route('frontSellerPersonalPage'));
+        }
+
+        $id = base64_decode($id);
+        $result = User::find($id);
+
+        if (!empty($result)) {
+            $currentDate = date('Y-m-d H:i:s');
+            $shop_close_date = date('Y-m-d H:i:s', strtotime($currentDate. ' + 30 days'));
+            if(!empty($result->shop_close_date) && $result->shop_close_date != '0000-00-00 00:00:00'){
+                return response()->json(['success'=>trans('messages.already_shop_close_req')]);
+            }else{
+               $users = User::where('id', $id)->update(['shop_close_date' => $shop_close_date]);
+            }
+            
+            return response()->json(['success'=>trans('messages.your_shop_disapper_msg')]);
+
+        } else {
+            return response()->json(['error'=>trans('errors.something_went_wrong')]);
+        } 
+    }
+    
 }

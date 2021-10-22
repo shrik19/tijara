@@ -353,6 +353,8 @@ avbokning av tjänst fungerar.',
     'stripe_secret_label' => 'Stripe Secret Key',
     'back_to_butik_setting'=>'Tillbaka till butiksprofilen',
     'copyright_content_label' => 'Footer copyright content',
+    'all_buyers_ads_list'=>'Alla Köpare Annonser',
+    'close_store_btn' => 'Stäng butik',
  
  ]
 ?>

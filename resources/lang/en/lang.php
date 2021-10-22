@@ -344,5 +344,6 @@
     'category_product_title'=>'products',
     'category_service_title'=>'Services',
     'butik_info_heading' =>'Store Information',
+    'buyer_ad_title' => 'Buyer Ads',
  ]  
 ?>

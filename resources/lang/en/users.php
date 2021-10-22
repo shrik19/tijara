@@ -353,5 +353,7 @@ cancellation of service works.',
     'stripe_secret_label' => 'Stripe Secret Key',
     'back_to_butik_setting'=>'Back To Butik Profile',
     'copyright_content_label' => 'Footer copyright content',
+    'all_buyers_ads_list'=>'All Buyers Ads',
+    'close_store_btn' => 'Close Store',
  ]
 ?>

@@ -313,21 +313,23 @@ class AuthController extends Controller
         
         $verifyUser = User::where('activation_token', $token)->first();
 
+        // if(isset($verifyUser)){
+        //      $status = trans('messages.email_already_verified_msg');
+        // }else
+
         if(isset($verifyUser) ){
             $user = $verifyUser->activation_token;
-          //   echo "<pre>";print_r($user);exit;
-            if(!$user) {
-                $verifyUser->activation_token = 'active';
+            $activation_status = $verifyUser->activation_status;
+            if($activation_status == 'pending'){
                 $arrUpdate = [
-                    'activation_token'        => 'active',
+                    'activation_token'  => 'active',
                 ];
-
-            User::where('id','=',$verifyUser->id)->update($arrUpdate);
-               // $verifyUser->save();
+                User::where('id','=',$verifyUser->id)->update($arrUpdate);
                 $status =  trans('messages.email_verified_msg');
             }else{
                 $status = trans('messages.email_already_verified_msg');
             }
+         
         }else{
             return redirect('/front-login/buyer')->with('warning',  trans('messages.email_not_identified_msg'));
         }

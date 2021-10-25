@@ -76,7 +76,9 @@
 						<p class="store_info">{!! $store_information !!}</p>
 					@endif
                     </div>
-                    <div class="col-md-3"></div>
+                   <div class="col-md-3 text-right">
+                    <a href="{{route('frontSellerPersonalPage')}}" title=""><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>
+                  </div>
                   </div>                  
                 </div>
                 <div><div class="col-md-12">&nbsp;</div></div>
@@ -102,7 +104,7 @@
 						</div>
 					</div>	                  
                 </div>
-                <span class="service_listings col-md-12"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+                <span class="service_listings"><div class="col-md-12" style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
         </div>
 

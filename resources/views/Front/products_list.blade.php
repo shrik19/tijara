@@ -9,5 +9,5 @@
 {!! $Products->links() !!}
 </div>
 @else
-<div style="text-align:center;color: red;font-size: 20px;margin-top: 20px;">{{ $Products }}</div>
+<div class="col-md-12" style="text-align:center;color: red;font-size: 20px;margin-top: 20px;">{{ $Products }}</div>
 @endif

@@ -8,7 +8,7 @@ class UserMain extends Model
 {
     protected $table 	= 'users';
 
-    protected $fillable = ['role_id','fname','lname','email','paypal_email','phone_number','address','store_name','city','swish_number','postcode','profile','description','where_find_us','is_verified','free_shipping','shipping_method','shipping_charges','klarna_username','klarna_password','swish_api_key','swish_merchant_account','swish_client_key','strip_api_key','strip_secret','is_featured','card_fname','card_lname','card_number','card_exp_date','card_security_code','activation_token','activation_status'];
+    protected $fillable = ['role_id','fname','lname','email','paypal_email','phone_number','address','store_name','city','swish_number','postcode','profile','description','where_find_us','is_verified','free_shipping','shipping_method','shipping_charges','klarna_username','klarna_password','swish_api_key','swish_merchant_account','swish_client_key','strip_api_key','strip_secret','is_featured','card_fname','card_lname','card_number','card_exp_date','card_security_code','activation_token','activation_status','shop_close_date','is_shop_closed'];
 
 
     /* function to get buyers*/

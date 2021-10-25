@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fname','lname', 'role_id', 'email', 'password', 'username' , 'status' , 'phone_number' , 'paypal_email', 'address','store_name','city','swish_number','postcode'		,'profile','description','where_find_us','is_verified','activation_token','activation_status',
+        'fname','lname', 'role_id', 'email', 'password', 'username' , 'status' , 'phone_number' , 'paypal_email', 'address','store_name','city','swish_number','postcode'		,'profile','description','where_find_us','is_verified','activation_token','activation_status','shop_close_date','is_shop_closed'
     ];
 
     /**

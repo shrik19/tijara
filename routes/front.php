@@ -178,6 +178,7 @@ Route::group(['middleware'=>['front-login']],function()
 
   Route::any('/seller-shop-close/{id}', 'Front\AuthController@SellerShopClose')->name('frontShopClose');
 
+  Route::any('/seller-shop-close-cron', 'Front\AuthController@ShopCloseCron')->name('frontShopCloseCron');
 });
  Route::any('/upload-profile-image','Front\AuthController@uploadProfileImage')->name('uploadProfileImage');
 

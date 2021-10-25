@@ -86,7 +86,7 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
-        $checkUser   = User::select('id','status','role_id','is_verified')->where('email','=', trim($request->input('email')))->get();
+        $checkUser   = User::select('id','status','role_id','is_verified')->where('email','=', trim($request->input('email')))->where('is_shop_closed','=','0')->get();
 
         if(!isset($checkUser[0]))
         {
@@ -166,7 +166,10 @@ class AuthController extends Controller
                 }
                 
 
-            }
+            }/*elseif($checkUser[0]['is_shop_closed'] == 1){
+                Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
+                return redirect()->back();
+            }*/
             else
             {
                 Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
@@ -2455,6 +2458,52 @@ DATA;
         } else {
             return response()->json(['error'=>trans('errors.something_went_wrong')]);
         } 
+    }
+
+    /*cron to check shop close*/
+    public function ShopCloseCron(Request $request){
+
+        $currentDate = date('Y-m-d H:i:s');
+
+        $shopData = User::whereDate('shop_close_date','<=', $currentDate)->get();
+      //  echo "<pre>";print_r($shopData);exit;
+        if (!empty($shopData) && count($shopData) > 0) {
+          //  echo "in";exit;
+  /*          DB::enableQueryLog();//enable query logging
+
+$user = User::find(5);
+
+print_r(DB::getQueryLog());*/
+            $users = User::where('shop_close_date','<=',  $currentDate)->update(['is_shop_closed' => '0']);
+            $message = trans('messages.shop_close_sucess');
+        }else{
+           
+            $message = trans('messages.your_shop_disapper_msg');
+        }
+        echo $message;
+        /*
+        if(empty($id)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect(route('frontSellerPersonalPage'));
+        }
+
+        $id = base64_decode($id);
+        $result = User::find($id);
+
+        if (!empty($result)) {
+            $currentDate = date('Y-m-d H:i:s');
+            $shop_close_date = date('Y-m-d H:i:s', strtotime($currentDate. ' + 30 days'));
+            if(!empty($result->shop_close_date) && $result->shop_close_date != '0000-00-00 00:00:00'){
+                return response()->json(['success'=>trans('messages.already_shop_close_req')]);
+            }else{
+               $users = User::where('id', $id)->update(['shop_close_date' => $shop_close_date]);
+            }
+            
+            return response()->json(['success'=>trans('messages.your_shop_disapper_msg')]);
+
+        } else {
+            return response()->json(['error'=>trans('errors.something_went_wrong')]);
+        } */
     }
     
 }

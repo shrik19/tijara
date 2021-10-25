@@ -232,6 +232,10 @@ margin-top: 15px;
   color: #222222;
   font-weight: 300;
 }
+.product_attribut_h2{
+    margin-top: 20px !important;
+    margin-bottom: 60px !important;
+}
 .seller-show-icon{
   width: 30px !important; height: 30px !important;padding: 1px !important;
 }

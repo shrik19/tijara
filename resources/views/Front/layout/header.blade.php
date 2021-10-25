@@ -64,6 +64,9 @@
     var please_add_service_time = "{{ __('users.please_add_service_time')}}";
     var select_placeholder = "{{ __('lang.select_label')}}";
     var close_store_confirm_msg = "{{trans('messages.close_store_confirm_msg')}}";
+    var cancel_js_btn = "{{ __('users.cancel_btn')}}";
+    var js_confirm_msg = "{{ __('users.confirm_btn')}}";
+    
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
     is_login = 1;

@@ -173,12 +173,10 @@
     </div>
   </div>
 
-<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-<!-- Template CSS -->
-<link rel="stylesheet" href="{{url('/')}}/assets/css/sweetalert.css">
 <!-- General JS Scripts -->
-<script src="{{url('/')}}/assets/js/sweetalert.js"></script>
+
 <script type="text/javascript">
+    //jconfirm-buttons
 /*$(".ServiceImgCard").click(function(){
   var attr_val = $(this).attr('service_link');
   if(attr_val !=''){

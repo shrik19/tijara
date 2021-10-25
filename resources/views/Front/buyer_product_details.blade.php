@@ -1,6 +1,6 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-<script src="{{url('/')}}/assets/front/js/zoom-image.js"></script>
+<!-- <script src="{{url('/')}}/assets/front/js/zoom-image.js"></script> -->
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/icheck-bootstrap.min.css">
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
@@ -153,8 +153,7 @@
                 <ul class="product_details best_seller">
 
                   @foreach($similarProducts as $product)
-
-                            @include('Front.similar_products_widget')
+                    @include('Front.similar_products_widget')
                   @endforeach
               </ul>
                   </div>
@@ -214,7 +213,7 @@
 
 //Initialize product gallery
 
-$('.show-custom').zoomImage();
+//$('.show-custom').zoomImage();
 
 $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
 $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');

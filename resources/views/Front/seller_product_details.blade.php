@@ -483,7 +483,7 @@ $('.show-small-img').click(function () {
 });
 //Enable the next button
 $('#next-img').click(function (){
-  alert("aJKJ")
+ 
   $('#show-img').attr('src', $(".show-small-img[alt='now']").next().attr('src'))
   $('#big-img').attr('src', $(".show-small-img[alt='now']").next().attr('src'))
   $(".show-small-img[alt='now']").next().css({'border': 'solid 1px #951b25', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})

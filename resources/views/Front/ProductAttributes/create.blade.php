@@ -3,7 +3,7 @@
 
 <div class="mid-section p_155">
 <div class="container-fluid">
-  <div class="container-inner-section">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
       <div class="col-md-12">
@@ -17,9 +17,9 @@
           <div class="seller_info">
             <div class="card">
         <div class="card-header row seller_header">
-           <h2 class="page_heading">{{ __('lang.attribute_form_label')}}</h2>
+           <h2>{{ __('lang.attribute_form_label')}}</h2>
         </div>
-         <div class="seller_mid_cont"  style="margin-top: 40px;">
+         <div class="seller_mid_cont">
     
       <div class="col-md-6">
         <div class="login_box">

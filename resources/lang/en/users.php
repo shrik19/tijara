@@ -355,5 +355,8 @@ cancellation of service works.',
     'copyright_content_label' => 'Footer copyright content',
     'all_buyers_ads_list'=>'All Buyers Ads',
     'close_store_btn' => 'Close Store',
+    'cancel_btn' => 'Cancel',
+    'confirm_btn' => 'Confirm!',
+
  ]
 ?>

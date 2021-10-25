@@ -65,7 +65,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         @endif
 
         @if(!empty($service->service_price))
-          <h6 style="margin-top: 6px;">{{$service->service_price}} kr</h6>
+          <h6 class="product_price" style="margin-top: 6px;">{{$service->service_price}} kr</h6>
         @endif
 
         <!-- below code is for seller name  -->
@@ -80,7 +80,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         @endphp
 
         @if(Request::segment(1) !='services' && Request::segment(1) != 'get_service_listing')
-          <a href="{{$seller_link}}"><h6>{{$service->seller}}</h6></a>
+          <a href="{{$seller_link}}"><h5>{{$service->seller}}</h5></a>
         @endif
       @endif
     </div>

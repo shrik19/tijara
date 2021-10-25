@@ -890,14 +890,14 @@ $(".cloned-danger").html('')
 function ConfirmDeleteFunction(url, id = false)
 {  
   $.confirm({
-      title: 'confirm!',
+      title: js_confirm_msg,
       content: are_you_sure_message,
       type: 'orange',
       typeAnimated: true,
       columnClass: 'medium',
       icon: 'fas fa-exclamation-triangle',
       buttons: {
-          okay: function () {
+          ok: function () {
             $(".loader").show();
             $.ajax({
               url:url,
@@ -931,7 +931,7 @@ function ConfirmDeleteFunction(url, id = false)
               }
             });
           },
-          cancel: function () {
+          Avbryt: function () {
             
           },
       }

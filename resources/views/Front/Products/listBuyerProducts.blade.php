@@ -113,13 +113,5 @@
     </div>       
   </div>
 </div> <!-- /container -->
-<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-
-<script src="{{url('/')}}/assets/front/js/dataTables.bootstrap4.min.js"></script>
-<!-- Template CSS -->
-<link rel="stylesheet" href="{{url('/')}}/assets/css/sweetalert.css">
-<!-- General JS Scripts -->
-<script src="{{url('/')}}/assets/js/sweetalert.js"></script>
-
 
 @endsection

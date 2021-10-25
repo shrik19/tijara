@@ -3,7 +3,7 @@
 
 <div class="mid-section p_155">
   <div class="container-fluid">
-    <div class="container-inner-section">
+    <div class="container-inner-section-1">
       <div class="row">
         <div class="col-md-12"> 
           <div class="col-md-2 tijara-sidebar">
@@ -15,9 +15,9 @@
           @endif
 
           <div class="col-md-10 tijara-content">
+            <div class="seller_info">
             <div class="col-md-10">
-            <h2>{{ __('lang.attribute_form_label')}}</h2>
-              <hr class="heading_line"/>
+            <h2 class="product_attribut_h2">{{ __('lang.attribute_form_label')}}</h2>
             </div>
 
             <div class="col-md-2 text-right" style="margin-top:30px;">
@@ -90,6 +90,7 @@
                 
               </div>
             </div>
+          </div>
           </div>
         </div><!-- col 12 end -->
         <div class="col-md-12 text-center attribute-btn" style="margin:30px;">

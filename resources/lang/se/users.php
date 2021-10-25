@@ -355,6 +355,8 @@ avbokning av tjänst fungerar.',
     'copyright_content_label' => 'Footer copyright content',
     'all_buyers_ads_list'=>'Alla Köpare Annonser',
     'close_store_btn' => 'Stäng butik',
+    'cancel_btn' => 'Avbryt',
+    'confirm_btn' => 'Bekräfta!',
  
  ]
 ?>

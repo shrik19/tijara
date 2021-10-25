@@ -260,7 +260,7 @@
                 <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
                 <ul class="product_details best_seller">
           @foreach($PopularServices as $key=>$service)
-           @php if($key>3){continue;} @endphp
+           @php if($key>4){continue;} @endphp
                     @include('Front.services_widget')
 					@endforeach
 				 </ul>

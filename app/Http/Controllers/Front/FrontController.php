@@ -606,7 +606,7 @@ public function getCatSubList(Request $request) {
 	//get popular products
 	function getPopularProducts($category_slug='',$subcategory_slug='') {
 		$currentDate = date('Y-m-d H:i:s');
-		//DB::enableQueryLog();
+		DB::enableQueryLog();
 		$PopularProducts 	= Products::join('orders_details', 'products.id', '=', 'orders_details.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
@@ -637,7 +637,7 @@ public function getCatSubList(Request $request) {
 								->orderBy('variant_product.id', 'ASC')
 								->groupBy('products.id')
 								->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
-		//dd(DB::getQueryLog());								
+		//print_r(DB::getQueryLog());	exit;
 		if(count($PopularProducts)>0) {
 			foreach($PopularProducts as $Product) {
         $productCategories = $this->getProductCategories($Product->id);

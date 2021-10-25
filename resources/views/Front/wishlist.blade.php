@@ -15,7 +15,7 @@
 <div class="seller_info">
     <div class="card">
         <div class="card-header row seller_header">
-            <h2 class="page_heading" style="margin-left: 60px;">{{ __('lang.shopping_cart_product')}} {{ __('messages.txt_wishlist')}}</h2>       
+            <h2 class="page_heading service_wishlist_h2">{{ __('lang.shopping_cart_product')}} {{ __('messages.txt_wishlist')}}</h2>       
         </div>
     </div>
     <section class="product_details_section-1">
@@ -80,7 +80,7 @@
 <!-- services wishlist -->
     <div class="card">
         <div class="card-header row seller_header">
-            <h2 class="page_heading">{{ __('lang.service_label')}} {{ __('messages.txt_wishlist')}}</h2>
+            <h2 class="page_heading service_wishlist_h2">{{ __('lang.service_label')}} {{ __('messages.txt_wishlist')}}</h2>
         </div>
     </div>
     <section class="product_details_section-1">

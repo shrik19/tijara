@@ -248,7 +248,9 @@ class AuthController extends Controller
     public function doRegister(Request $request)
     {
         $rules = [
-            'email'      => 'required|email|unique:users,email',
+            //'email'      => 'required|email',
+           // 'email'      => 'required|email|unique:users,email,is_deleted,0',  
+            'email'      => 'required|email|unique:users,email',  
             'password'   =>  'required|confirmed|min:6',
             'password_confirmation'   =>  'required',
         ];
@@ -261,6 +263,15 @@ class AuthController extends Controller
             'password.confirmed'                => trans('errors.password_not_matched'),
             'password_confirmation.required'    => trans('errors.fill_in_confirm_password_err'),
         ];
+
+    /*    $is_exist =  User::where('email','like', $request->input('email'))->where('is_deleted','=','0')->get();
+        //echo "<pre>";print_r($is_exist);exit;
+        if(!empty($is_exist) && count($is_exist) > 0){
+             $messages = [
+                'email.unique'                      => trans('errors.unique_email_err'),
+            ];
+        }*/
+        
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()) {
             $messages = $validator->messages();

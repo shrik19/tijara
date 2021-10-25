@@ -88,7 +88,7 @@
 
                                     $id =  $value['id'];
 
-                                $seller_name = $getStoreName[0]->fname." ".$getStoreName[0]->lname;
+                                $seller_name = @$getStoreName[0]->fname." ".@$getStoreName[0]->lname;
                  
                                 $seller_name = str_replace( array( '\'', '"', 
                                   ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);

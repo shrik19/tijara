@@ -1096,6 +1096,9 @@ span.remember-text {
   top: -7px;
     right: 16px;
 }
+.service_wishlist_h2{
+  margin-left: 60px !important;
+}
 .cart_total_css{
   font-size: 14px;
   color: #222222;
@@ -1712,7 +1715,7 @@ hr{
 /* .best_seller li{width: 23%;} */
 .best_seller_container{margin-top: 40px; float: left;width: 100%; padding-bottom: 40px;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
-.best_seller_container h2{margin-left: 20px;margin: 0;padding-bottom: 30px;}
+.best_seller_container h2{margin-left: 20px !important;margin: 0;padding-bottom: 30px;}
 .instagram_imgs{list-style: none;}
 .instagram_imgs li{       float: left;
   width: 19%;
@@ -2188,6 +2191,9 @@ span.pro-text {
   
     text-overflow: ellipsis;}
 .buyer_prduct_header{font-size: 36px!important;}
+.seller_search {
+    margin-top: 20px !important;
+}
 .seller_serch_icon{float: right;    margin-top: -34px;
     margin-right: 10px;}
     /* .expandCollapseSubcategory{border-bottom: 1px solid #dadada;} */
@@ -2232,6 +2238,9 @@ span.pro-text {
     
     padding: 8px;
   margin-top: -7px;
+}
+.shopping_cart_page  .thumbnail {
+  margin-bottom: 0px !important;
 }
 
 /****************************************************/

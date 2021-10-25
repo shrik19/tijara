@@ -115,7 +115,14 @@
                             <option value="10" @if($orderProduct['quantity'] == 10) selected="selected" @endif>10</option>
                         </select>
                         </td>
-                        <td class="col-sm-2 col-md-2 text-right bg-white"><p class="product_sorting_filter_option">{{ number_format($orderProduct['price'],2) }} kr</p></td>
+                        <td class="col-sm-2 col-md-2 text-right bg-white"><p class="product_sorting_filter_option">
+                             @php 
+                                $price_array_tbl = str_split(strrev($orderProduct['price']), 3);
+                                $price_tbl = strrev(implode(" ", $price_array_tbl));
+                                $price_tbl = $price_tbl.",00";
+                            @endphp
+                               {{ $price_tbl }} kr
+                        <?php /*{{ number_format($orderProduct['price'],2) }} kr */ ?></p></td>
                         <td class="col-sm-1 col-md-1 text-right bg-white"><p  class="product_sorting_filter_option">{{ number_format($orderProduct['shipping_amount'],2)}} kr</p></td>
                         <td class="col-sm-2 col-md-2 text-right bg-white"><p  class="product_sorting_filter_option">{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</p></td>
                         <td class="col-sm-1 col-md-1 text-right bg-white">

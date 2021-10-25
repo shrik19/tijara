@@ -52,56 +52,57 @@
             @include('Front.services_sidebar')
         </div>
         <div class="col-md-9">
-           <div style="text-align: center">
-            <a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.category_service_title')}}  </a>
-            <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.products_title')}}" class="@if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a>
-
-             <!-- contact shop -->
-            <a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
-
+           <div>
+		   <div class="col-md-9 text-center">
+				<a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.category_service_title')}}  </a>
+				<a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.products_title')}}" class="@if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a>
+			</div>
+            <!-- contact shop -->
+			<div class="col-md-3">
+				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+			</div>
           </div>
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
             <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
             
             <div class="product_container">
-            <div class="row">               
-                  <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                  @if(!empty($store_information))
-                  <div class="col-md-12">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-8">
-                    <h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
-                    <p class="store_info">{!! $store_information !!}</p>
+				<div>               
+                  <div><div class="col-md-12">&nbsp;</div></div>                  
+                  <div>
+                    <div class="col-md-9">
+					@if(!empty($store_information))
+						<h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
+						<p class="store_info">{!! $store_information !!}</p>
+					@endif
                     </div>
                     <div class="col-md-3"></div>
-                  </div>
-                  @endif
+                  </div>                  
                 </div>
-                <div class="row"><div class="col-md-12">&nbsp;</div></div>
-                <div class="row">
-                <div class="col-md-3 pull-right">
-                    <div class="form-group">
-                      <label>{{ __('lang.sort_by')}} : </label>
-                      <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listService()">
+                <div><div class="col-md-12">&nbsp;</div></div>
+                <div>
+					<div class="col-md-6"></div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>{{ __('lang.sort_by')}} : </label>
+							<select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listService()">
                         <!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
-                          <option value="name">{{ __('lang.sort_by_name')}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-3 pull-right">
-                    <div class="form-group">
-                      <label>{{ __('lang.sort_by_order')}} : </label>
-                      <select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listService()">
-                          <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
-                          <option value="asc">{{ __('lang.sort_by_asc')}}</option>
-                          <option value="desc">{{ __('lang.sort_by_desc')}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  
+								<option value="name">{{ __('lang.sort_by_name')}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>{{ __('lang.sort_by_order')}} : </label>
+							<select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listService()">
+								<option value="">---- {{ __('lang.sort_by_option')}} ----</option>
+								<option value="asc">{{ __('lang.sort_by_asc')}}</option>
+								<option value="desc">{{ __('lang.sort_by_desc')}}</option>
+							</select>
+						</div>
+					</div>	                  
                 </div>
-                <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+                <span class="service_listings col-md-12"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
         </div>
 

@@ -925,7 +925,7 @@ function ConfirmDeleteFunction(url, id = false)
                 }
                 else
                 {
-                    showErrorMessage(data.error,'/front-login');
+                    showErrorMessage(data.error,'/front-login/buyer');
                 }
         
               }
@@ -985,6 +985,7 @@ function ConfirmCloseStoreFunction(url, id = false) {
               data : {},
               success:function(data)
               {
+            
                 $(".loader").hide();
                 // var responseObj = $.parseJSON(data);
                 // alert(responseObj);return

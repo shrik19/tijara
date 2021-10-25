@@ -351,7 +351,27 @@ span.subscribe_err {
   font-size: 13px!important;
   color: #675f5f;
 }
+.jconfirm .jconfirm-box.jconfirm-type-orange,
+.jconfirm .jconfirm-box.jconfirm-type-animated {
+    border-top: 7px solid #03989e !important;
+}
 
+i.fas.fa-exclamation-triangle,
+i.fas.fa-check-circle {
+    color: #03989e !important;
+}
+
+.jconfirm-buttons .btn:first-child {
+    background-color: #03989e !important;
+    color: #fff !important;
+  font-weight: 400 !important;
+}
+
+.jconfirm-buttons .btn:last-child {
+  background-color: #A0A0A0 !important;
+    color: #fff !important;
+    font-weight: 400 !important;
+}
 .tijara-form input.form-control,
 .tijara-form select.form-control,
 .tijara-form .select2-container--default,

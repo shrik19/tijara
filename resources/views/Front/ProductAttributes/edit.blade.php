@@ -16,8 +16,11 @@
 
           <div class="col-md-10 tijara-content">
             <div class="seller_info">
+              <div class="card">
             <div class="col-md-10">
-            <h2 class="product_attribut_h2">{{ __('lang.attribute_form_label')}}</h2>
+            <div class="card-header row seller_header">
+               <h2>{{ __('lang.attribute_form_label')}}</h2>
+            </div>
             </div>
 
             <div class="col-md-2 text-right" style="margin-top:30px;">
@@ -25,7 +28,7 @@
             </div>
 
             <!-- <div class="col-md-1"></div>  -->
-
+            <div class="seller_mid_cont">
             <div class="col-md-6">
               <div class="login_box">
                 <form method="POST" id="product_attribute_form" action="{{route('frontAttributeUpdate', $id)}}" class="needs-validation" novalidate="">
@@ -91,6 +94,8 @@
               </div>
             </div>
           </div>
+          </div>
+        </div>
           </div>
         </div><!-- col 12 end -->
         <div class="col-md-12 text-center attribute-btn" style="margin:30px;">

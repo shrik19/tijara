@@ -1063,6 +1063,7 @@ class ServiceController extends Controller
 
     public function showAllServiceRequest(Request $request)
     {
+      
       $user_id = Auth::guard('user')->id();
       $is_seller = 0;
       $orderDetails = [];
@@ -1418,11 +1419,9 @@ class ServiceController extends Controller
 
       if (!empty($result)) {
         $service = ServiceRequest::where('id', $id)->update(['is_deleted' =>1]);
-        Session::flash('success', trans('lang.record_delete'));
-        return redirect()->back();  
+        return response()->json(['success'=>trans('lang.record_delete')]); 
       } else {
-        Session::flash('error', trans('lang.something_went_wrong'));
-        return redirect()->back();
+         return response()->json(['error'=>trans('errors.something_went_wrong')]);
       }
     }
 }

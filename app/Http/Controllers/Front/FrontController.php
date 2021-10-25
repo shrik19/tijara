@@ -1005,6 +1005,7 @@ public function getCatSubList(Request $request) {
 	    $data['allCities'] = $cities;
 		return view('Front/products', $data);
 	}
+
 	public function productListing($category_slug='',$subcategory_slug='',Request $request)
     {
 		
@@ -1043,9 +1044,11 @@ public function getCatSubList(Request $request) {
         if(!empty($request['search']))
         	$data['search_string']	= $request['search'];
         $data['all_cat_link'] = url('/')."/products";
+        
         if(!empty($category_slug)){
         	$data['category_link'] = url('/')."/products/".$category_slug;
         	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
+        	
         	$data['category_name'] = $getCategoryName['category_name'];
         	if(!empty($subcategory_slug)){
          		$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
@@ -1053,8 +1056,10 @@ public function getCatSubList(Request $request) {
         		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
         	}
         }else{
-        	$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
-        	$data['category_name'] = $getCategoryName['category_name'];
+        	//$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
+        	//$data['category_name'] = $getCategoryName['category_name'];
+        	$data['category_name'] = trans('lang.all_category');
+        	
         }
           
 		return $data;
@@ -1167,8 +1172,9 @@ public function getCatSubList(Request $request) {
 	           	$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
 	        }
     	}else{
-        	$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
-        	$data['category_name'] = $getCategoryName['category_name'];
+        	/*$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
+        	$data['category_name'] = $getCategoryName['category_name'];*/
+        	$data['category_name'] = trans('lang.all_category');
         }
        // echo "<pre>";print_r($data['PopularProducts']);exit;
         $data['role_id'] 			= 2;
@@ -1714,8 +1720,9 @@ public function getCatSubList(Request $request) {
         		$data['subcategory_link'] = url('/')."/services/".$category_slug."/".$subcategory_slug;
         	}        	
 		} else{
-        	$getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
-        	$data['category_name'] = $getCategoryName['category_name'];
+        	/*$getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
+        	$data['category_name'] = $getCategoryName['category_name'];*/
+        	$data['category_name'] = trans('lang.all_category');
         }
 			//echo "<pre>";print_r($data['PopularServices']);exit;
 		 return view('Front/services', $data);
@@ -1968,8 +1975,9 @@ public function getCatSubList(Request $request) {
         		$data['subcategory_link'] = url('/')."/services/".$category_slug."/".$subcategory_slug;
         	}
 		}else{
-        	$getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
-        	$data['category_name'] = $getCategoryName['category_name'];
+        	// $getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
+        	// $data['category_name'] = $getCategoryName['category_name'];
+        	$data['category_name'] = trans('lang.all_category');
         }
     	/*get service review*/   
 		$data['serviceReviews']= $this->getReviews('services',$id,'','');

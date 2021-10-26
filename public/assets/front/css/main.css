@@ -40,6 +40,9 @@ header{
     margin-left: 40px;
     border-radius: 20px;
 }
+.swish_payment_ad_img{
+  border: solid 1px #DDD;width: 210px;height: 65px;
+}
 .de_col{
     color: #03989e !important;
 }
@@ -366,8 +369,8 @@ span.subscribe_err {
       visibility: hidden;
    }
  .ft_middle_container, .container-inner-section, .ft_copyright,.container,.tijara-sidebar{
-  display: none;
-      visibility: hidden;
+    display: none;
+    visibility: hidden;
  }
  .modal-body-wrapper{
   margin-top :0px !important;

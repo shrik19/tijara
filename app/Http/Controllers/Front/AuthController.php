@@ -524,7 +524,7 @@ class AuthController extends Controller
             return view('Front/seller_payment_details', $data);
            
         }else{
-          return view('Front/login', $data);
+          return view('Front/login/seller', $data);
         }  
     }
 

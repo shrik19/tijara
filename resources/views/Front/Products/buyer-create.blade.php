@@ -254,34 +254,12 @@ width:100% !important;
               <div class="form-group" style="margin-top: 40px;">
                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="de_col">&nbsp;{{ __('users.terms_of_use')}} </a> <a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a></span>  
               </div>
-                    
+              
+              <div class="form-group swish_payment_ad_img">
+                <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="65"><span>({{env('PRODUCT_POST_AMOUNT')}} kr)</span>
+              </div>
                     
                </div>
-             <!--  <h2 class="col-md-12">{{ __('lang.product_form_step1')}}</h2> -->
-              
-
-             
-
-
-            
-
-
-              
-
-
-             
-
-
-              
-
-              
-
-
-              
-             
-
-
-              
 
               </div>
             </div>

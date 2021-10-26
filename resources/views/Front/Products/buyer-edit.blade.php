@@ -279,6 +279,7 @@ width:100% !important;
                  <div class="form-group">
                    <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> <a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="javascript:void(0)">{{ __('users.store_terms')}}</a></span>  
                </div>
+
                </div>
 
             </div>

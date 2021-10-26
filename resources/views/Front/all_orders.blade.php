@@ -69,16 +69,33 @@
     </div>
 </div>
   </div>
+
+    <!-- order details model -->
+ <div class="modal fade" id="orderDetailsmodal">
+    <div class="modal-dialog modal-lg" role = "dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ __('messages.txt_order_details')}}</h4>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
+        </div>
+          <div class="modal-body-wrapper">
+        <div class="modal-body" id="order_details_box">
+            
+        </div>
+      </div>
+              
+      </div>
+    </div>
+  </div>
+
+
 </div>
 </div> <!-- /container -->
-<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/dataTables.bootstrap4.min.css">
 <script src="{{url('/')}}/assets/front/js/jquery.dataTables.min.js"></script>
-<script src="{{url('/')}}/assets/front/js/dataTables.bootstrap4.min.js"></script>
-<!-- Template CSS -->
-<link rel="stylesheet" href="{{url('/')}}/assets/css/sweetalert.css">
-<!-- General JS Scripts -->
-<script src="{{url('/')}}/assets/js/sweetalert.js"></script>
+<script src="{{url('/')}}/assets/front/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
   var dataTable = $('#productTable').DataTable({
     "processing": true,
@@ -145,6 +162,101 @@
   $('#status').change(function(){
     dataTable.draw();
   });
+
+
+function print_window(id){
+ 
+  var order_id = btoa(id);
+    $.ajax({
+        headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                 },
+        url: "{{url('/')}}"+'/order-details/'+order_id,
+        type: 'get',
+       // async: false,
+        data:{},
+        success: function(data){
+            console.log(data)
+             $('#orderDetailsmodal').modal('show');
+           $('#order_details_box').html(data);
+        }
+    });
+
+}
+
+ function printDiv() {
+      
+  const section = $(".mid-section");
+  const modalBody = $(".modal-body").detach();
+  const content = $(".tijara-content").detach();
+  section.append(modalBody);
+  window.print();
+  section.empty();
+  section.append(content);
+  $(".modal-body-wrapper").append(modalBody);
+
+}
+
+function downloadPdf(DownloadLink) 
+{
+  if(DownloadLink !=''){
+    window.location.href = DownloadLink; 
+  } 
+}
+
+function change_order_status(order_id) {
+
+  var order_status = $('#order_status').val(); 
+  var order_id = order_id;
+
+  $.confirm({
+      title: js_confirm_msg,
+      content: "{{ __('lang.order_status_confirm')}}",
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          ok: function () 
+          {
+              $(".loader").show();
+
+              $.ajax({
+              url:siteUrl+"/change-order-status",
+              headers: {
+                  'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              },
+              type: 'post',
+              data : {'order_status': order_status, 'order_id' : order_id},
+              success:function(data)
+              {
+                  $(".loader").hide();
+                  var responseObj = $.parseJSON(data);
+                  if(responseObj.status == 1)
+                  {
+                      showSuccessMessage(responseObj.msg);
+                  }
+                  else
+                  {
+                      if(responseObj.is_login_err == 0)
+                      {
+                          showErrorMessage(responseObj.msg);
+                      }
+                      else
+                      {
+                          showErrorMessage(responseObj.msg,'/front-login/seller');
+                      }
+                  }
+
+              }
+              });
+          },
+          Avbryt: function () {
+              
+          },
+      }
+  });
+}
 
 </script>
 

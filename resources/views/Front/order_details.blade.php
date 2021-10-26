@@ -1,21 +1,10 @@
-@extends('Front.layout.template')
-@section('middlecontent')
-
-<style>
-  .btn span.glyphicon {
-    opacity: 1;
-}
-</style>
 
 
-<section class="">
 <div class="loader"></div>
-<!-- <div class=""> -->
-    <div class="mid-section p_155">
-<div class="container-fluid">
-    <div class="container-inner-section-1">
+
+    
     <div class="row">
-        @if($is_seller==1)
+        <?php /*@if($is_seller==1)
         <div class="col-md-2 tijara-sidebar">
           @include ('Front.layout.sidebar_menu')
         </div>
@@ -23,7 +12,8 @@
         <div class="seller_info">
           @else
           <div class="col-md-12 tijara-content printdiv">
-        @endif
+        @endif */?>
+        <div class="col-md-12 tijara-content printdiv">
             <div class="row ">
                 <div class="col-md-12">
 
@@ -113,7 +103,7 @@
                             {{ __('messages.txt_payment_status')}} : {{ $order['payment_status'] }} <br />
                             {{ __('messages.txt_order_status')}} : 
                             @if($is_seller || $is_buyer_order) 
-                            <select name="order_status" id="order_status" class="form-control" style="width: 50%;display: inline-block;">
+                            <select name="order_status" id="order_status" onchange="change_order_status(<?php echo $order['id']; ?>)" order_id="{{$order['id']}}" class="form-control" style="width: 50%;display: inline-block;">
                                 <option value="PENDING" @if($order['order_status'] == 'PENDING') selected="selected" @endif>PENDING</option>
                                 <option value="SHIPPED" @if($order['order_status'] == 'SHIPPED') selected="selected" @endif>SHIPPED</option>
                                 <option value="COMPLETE" @if($order['order_status'] == 'COMPLETE') selected="selected" @endif>COMPLETE</option>
@@ -139,91 +129,16 @@
             </table>
         </div>
     </div>
-</div></div></div></div></div>
+</div></div>
 <div class="container">
     <div class="row">
-        <div class="col-md-12 text-right">
-            <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick="printDiv();">{{ __('messages.txt_order_details_print')}} <span class="glyphicon glyphicon-print"></span></button>
-              <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" onclick='downloadPdf("{{route('frontDownloadOrderDetails', base64_encode($order['id']))}}");'>Download <span class="fas fa-file-download"></span></button>
+        <div class="col-md-12">
+            <button type="button" class="btn print_btn debg_color" style="font-size:18px;" onclick="printDiv();">{{ __('messages.txt_order_details_print')}} <span class="glyphicon glyphicon-print"></span></button>
+              <button type="button" class="btn download_btn debg_color" style="font-size:18px;" onclick='downloadPdf("{{route('frontDownloadOrderDetails', base64_encode($order['id']))}}");'>Download <span class="fas fa-file-download"></span></button>
         </div>
     </div>
     <div class="col-md-12">&nbsp;</div>
 </div>
 
-</section>
-<script type="text/javascript">
-    function printDiv() 
-    {
-        var divToPrint=jQuery(".printdiv");
-        var newWin=window.open('','Print-Window');
-        newWin.document.open();
-        newWin.document.write('<html><body onload="window.print()">'+divToPrint.html()+'</body></html>');
-        newWin.document.close();
-        setTimeout(function(){newWin.close();},10);
-    }
 
-    if($("#order_status").length)
-    {
-        $("#order_status").change(function()
-        {
-            var order_status = $(this).val();
-            var order_id = "{{ $order['id'] }}";
-            
-            $.confirm({
-                title: 'Confirm!',
-                content: "{{ __('lang.order_status_confirm')}}",
-                type: 'orange',
-                typeAnimated: true,
-                columnClass: 'medium',
-                icon: 'fas fa-exclamation-triangle',
-                buttons: {
-                    okay: function () 
-                    {
-                        $(".loader").show();
 
-                        $.ajax({
-                        url:siteUrl+"/change-order-status",
-                        headers: {
-                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                        },
-                        type: 'post',
-                        data : {'order_status': order_status, 'order_id' : order_id},
-                        success:function(data)
-                        {
-                            $(".loader").hide();
-                            var responseObj = $.parseJSON(data);
-                            if(responseObj.status == 1)
-                            {
-                                showSuccessMessage(responseObj.msg);
-                            }
-                            else
-                            {
-                                if(responseObj.is_login_err == 0)
-                                {
-                                    showErrorMessage(responseObj.msg);
-                                }
-                                else
-                                {
-                                    showErrorMessage(responseObj.msg,'/front-login');
-                                }
-                            }
-
-                        }
-                        });
-                    },
-                    cancel: function () {
-                        
-                    },
-                }
-            });
-        });
-    }
-     function downloadPdf(DownloadLink) 
-    {
-
-      if(DownloadLink !=''){
-        window.location.href = DownloadLink; 
-      } 
-    }
-</script>
-@endsection

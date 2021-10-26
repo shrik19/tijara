@@ -355,6 +355,25 @@ span.subscribe_err {
 .jconfirm .jconfirm-box.jconfirm-type-animated {
     border-top: 7px solid #03989e !important;
 }
+/*order deatils print*/
+  @media print {
+   a[href]:after {
+      display: none;
+      visibility: hidden;
+   }
+   .modal-header{
+    display: none;
+      visibility: hidden;
+   }
+ .ft_middle_container, .container-inner-section, .ft_copyright,.container,.tijara-sidebar{
+  display: none;
+      visibility: hidden;
+ }
+ .modal-body-wrapper{
+  margin-top :0px !important;
+  padding-top: 0px !important;
+ }
+}
 
 i.fas.fa-exclamation-triangle,
 i.fas.fa-check-circle {

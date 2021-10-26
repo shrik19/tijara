@@ -183,23 +183,23 @@
     window.location.href = attr_val; 
   }
 });*/
-$("#monthYear").on('change', function() {
+jQuery("#monthYear").on('change', function() {
   //alert( this.value );
   this.form.submit();
 });
 
-$(document).on("click",".serviceReqDetails",function(event) {      
+jQuery(document).on("click",".serviceReqDetails",function(event) {      
   
     jQuery.noConflict();
-        $('#serviceReqDetailsmodal').find('.id').text($(this).attr('id'));
-        $('#serviceReqDetailsmodal').find('.user_name').text($(this).attr('user_name'));
-        $('#serviceReqDetailsmodal').find('.title').text($(this).attr('title'));
-        $('#serviceReqDetailsmodal').find('.description').text($(this).attr('description'));
-        $('#serviceReqDetailsmodal').find('.location').text($(this).attr('location'));
-        $('#serviceReqDetailsmodal').find('.service_time').text($(this).attr('service_time'));
-        $('#serviceReqDetailsmodal').find('.service_price').text($(this).attr('service_price'));
+        jQuery('#serviceReqDetailsmodal').find('.id').text(jQuery(this).attr('id'));
+        jQuery('#serviceReqDetailsmodal').find('.user_name').text(jQuery(this).attr('user_name'));
+        jQuery('#serviceReqDetailsmodal').find('.title').text(jQuery(this).attr('title'));
+        jQuery('#serviceReqDetailsmodal').find('.description').text(jQuery(this).attr('description'));
+        jQuery('#serviceReqDetailsmodal').find('.location').text(jQuery(this).attr('location'));
+        jQuery('#serviceReqDetailsmodal').find('.service_time').text(jQuery(this).attr('service_time'));
+        jQuery('#serviceReqDetailsmodal').find('.service_price').text(jQuery(this).attr('service_price'));
 
-        $('#serviceReqDetailsmodal').modal('show');
+        jQuery('#serviceReqDetailsmodal').modal('show');
         //$('.modal-backdrop').attr('style','position: relative;');
     }); 
 

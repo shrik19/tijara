@@ -1,6 +1,25 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+  @media print {
+   a[href]:after {
+      display: none;
+      visibility: hidden;
+   }
+   .modal-header{
+    display: none;
+      visibility: hidden;
+   }
+ .ft_middle_container, .container-inner-section, .ft_copyright,.container{
+  display: none;
+      visibility: hidden;
+ }
+ .modal-body-wrapper{
+  margin-top :0px !important;
+  padding-top: 0px !important;
+ }
+}
+</style>
 <div class="mid-section p_155">
 <div class="container-fluid">
   <div class="container-inner-section-1">
@@ -94,7 +113,7 @@
                                     <div class="col-sm-3">
                                         <div class="card product-card">
                                       
-                                            <img class="card-img-top buyer-product-img" src="{{$image}}" product_link="{{route('frontShowOrderDetails', base64_encode($value->order_id))}}" title="{{ __('lang.txt_view')}}">
+                                            <img class="card-img-top buyer-product-img" order_id="{{base64_encode($value->order_id)}}" src="{{$image}}" product_link="{{route('frontShowOrderDetails', base64_encode($value->order_id))}}" title="{{ __('lang.txt_view')}}">
                                             <div class="card-body product_all">
                                                 <h5 class="card-title">{{$dated}}</h5>
                                                 <p class="card-text buyer-product-title">
@@ -128,24 +147,166 @@
   
 </div>
   </div>
+
+
+
+  <!-- order details model -->
+ <div class="modal fade" id="orderDetailsmodal">
+    <div class="modal-dialog modal-lg" role = "dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ __('messages.txt_order_details')}}</h4>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
+        </div>
+          <div class="modal-body-wrapper">
+        <div class="modal-body" id="order_details_box">
+            
+        </div>
+      </div>
+              
+      </div>
+    </div>
+  </div>
+
+
+</div>
 </div>
 </div> <!-- /container -->
-<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-<script src="{{url('/')}}/assets/front/js/dataTables.bootstrap4.min.js"></script>
 
+
+
+<!-- General JS Scripts -->
+
+
+<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="{{url('/')}}/assets/front/js/bootstrap.min.js"></script>
 <!-- General JS Scripts -->
 <script src="{{url('/')}}/assets/js/sweetalert.js"></script>
 <script type="text/javascript">
 $(".buyer-product-img").click(function(){
-  var attr_val = $(this).attr('product_link');
+ /* var attr_val = $(this).attr('product_link');
   if(attr_val !=''){
     window.location.href = attr_val; 
-  }
+  }*/
+  var order_id = $(this).attr('order_id');
+  
+     $.ajax({
+        headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                 },
+        url: "{{url('/')}}"+'/order-details/'+order_id,
+        type: 'get',
+       // async: false,
+        data:{},
+        success: function(data){
+            console.log(data)
+             $('#orderDetailsmodal').modal('show');
+           $('#order_details_box').html(data);
+               //$(".loader").hide();
+            /*if(data.success=="package subscribed"){
+                console.log(data.success);
+                console.log("second step complete");  
+                $(".package-html").hide();
+                $(".klarna_html").html(data.html_snippet).show();
+                //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+            }*/
+        }
+    });
+
 });
 
 $("#monthYear").on('change', function() {
   //alert( this.value );
   this.form.submit();
 });
+
+
+ function printDiv() 
+    {
+      //$('#orderDetailsmodal').modal('hide');
+       // var divToPrint=jQuery(".printdiv");
+        /*var newWin=window.open('','Print-Window');
+        newWin.document.open();
+        newWin.document.write('<html><body onload="window.print()">'+divToPrint.html()+'</body></html>');
+        newWin.document.close();
+        setTimeout(function(){newWin.close();},10);*/
+
+      const section = $(".mid-section");
+      const modalBody = $(".modal-body").detach();
+
+      const content = $(".tijara-content").detach();
+      section.append(modalBody);
+      window.print();
+      section.empty();
+      section.append(content);
+      $(".modal-body-wrapper").append(modalBody);
+
+    }
+            
+
+    if($("#order_status").length)
+    {
+        $("#order_status").change(function()
+        {
+          var order_status = $(this).val();
+          var order_id = $(this).attr('order_id');
+            
+            $.confirm({
+                title: 'Confirm!',
+                content: "{{ __('lang.order_status_confirm')}}",
+                type: 'orange',
+                typeAnimated: true,
+                columnClass: 'medium',
+                icon: 'fas fa-exclamation-triangle',
+                buttons: {
+                    okay: function () 
+                    {
+                        $(".loader").show();
+
+                        $.ajax({
+                        url:siteUrl+"/change-order-status",
+                        headers: {
+                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                        },
+                        type: 'post',
+                        data : {'order_status': order_status, 'order_id' : order_id},
+                        success:function(data)
+                        {
+                            $(".loader").hide();
+                            var responseObj = $.parseJSON(data);
+                            if(responseObj.status == 1)
+                            {
+                                showSuccessMessage(responseObj.msg);
+                            }
+                            else
+                            {
+                                if(responseObj.is_login_err == 0)
+                                {
+                                    showErrorMessage(responseObj.msg);
+                                }
+                                else
+                                {
+                                    showErrorMessage(responseObj.msg,'/front-login/buyer');
+                                }
+                            }
+
+                        }
+                        });
+                    },
+                    cancel: function () {
+                        
+                    },
+                }
+            });
+        });
+    }
+     function downloadPdf(DownloadLink) 
+    {
+
+      if(DownloadLink !=''){
+        window.location.href = DownloadLink; 
+      } 
+    }
 </script>
+
 @endsection

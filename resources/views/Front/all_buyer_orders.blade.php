@@ -178,7 +178,6 @@
 <!-- General JS Scripts -->
 
 
-<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script src="{{url('/')}}/assets/front/js/bootstrap.min.js"></script>
 <!-- General JS Scripts -->
 <script src="{{url('/')}}/assets/js/sweetalert.js"></script>

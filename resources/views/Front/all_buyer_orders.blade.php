@@ -176,11 +176,8 @@
 
 
 <!-- General JS Scripts -->
-
-
 <script src="{{url('/')}}/assets/front/js/bootstrap.min.js"></script>
-<!-- General JS Scripts -->
-<script src="{{url('/')}}/assets/js/sweetalert.js"></script>
+
 <script type="text/javascript">
 $(".buyer-product-img").click(function(){
  /* var attr_val = $(this).attr('product_link');

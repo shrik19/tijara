@@ -123,7 +123,7 @@ class AuthController extends Controller
 
             if(Auth::guard('user')->attempt(['email' => $request->input('email'),'password' => $request->input('password')]))
             {
-                
+                echo "<pre>";print_r($checkUser[0]);exit;
          
                // if($checkUser[0]['is_verified'] == 1){
                 if(($checkUser[0]['is_shop_closed'] != 1) && ($checkUser[0]['role_id']==2)){

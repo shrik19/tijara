@@ -348,7 +348,12 @@ class AuthController extends Controller
             }
          
         }else{
-            return redirect('/front-login/buyer')->with('warning',  trans('messages.email_not_identified_msg'));
+            if($verifyUser->role_id=='2'){
+                return redirect('/front-login/seller')->with('warning',  trans('messages.email_not_identified_msg'));
+            } else{
+                return redirect('/front-login/buyer')->with('warning',  trans('messages.email_not_identified_msg'));
+            }
+            
         }
 
         return redirect('/front-login/buyer')->with('success', $status);

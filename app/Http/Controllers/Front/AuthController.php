@@ -125,8 +125,8 @@ class AuthController extends Controller
             {
                 
                
-               // if($checkUser[0]['status'] == 'active'){
-                if($checkUser[0]['is_verified'] == 1){
+               // if($checkUser[0]['is_verified'] == 1){
+                if($checkUser[0]['is_shop_closed'] != 1 && $checkUser[0]['role_id']==2){
 
                     if(Auth::guard('user')->loginUsingId($checkUser[0]['id'])){
 

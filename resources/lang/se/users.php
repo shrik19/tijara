@@ -357,6 +357,7 @@ avbokning av tjänst fungerar.',
     'close_store_btn' => 'Stäng butik',
     'cancel_btn' => 'Avbryt',
     'confirm_btn' => 'Bekräfta!',
- 
+    'is_trial_package' => 'är Rättegång',
+    'extend_trial_package' => 'Förläng provpaketet',
  ]
 ?>

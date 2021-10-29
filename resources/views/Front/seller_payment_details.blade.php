@@ -26,12 +26,12 @@
               @csrf
 
             <p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>
-            <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
+            <div class="login_box payment_detail_box klarna_payment" style="margin-top: 20px;">
 
-                <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
+                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock klarna_payment_lock" aria-hidden="true"></i></div>
               <p><img src="{{url('/')}}/uploads/Images/klarna-payment-logo.png" width="90" height="80"></p>
               <div class="form-group">
-                  
+              <input type="hidden" name="selected_package" id="selected_package" value="{{$selected_package}}">
               <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : $sellerDetails[0]->klarna_username}}">
               <span class="invalid-feedback" style="position: relative;">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
                 </div>
@@ -45,9 +45,9 @@
 				<div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
             </div>
             <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.easy_peyment_title')}}</p>
-            <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
+            <div class="login_box payment_detail_box swish_payment" style="margin-top: 20px;">
           
-                <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
+                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
               <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="80"></p>
               <div class="form-group">
                   
@@ -69,8 +69,8 @@
 			 
             </div>
             <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
-            <div class="login_box klarna_payment_detail_box" style="margin-top: 20px;">
-                <div class="payment-lock-icon"><i class="fa fa-lock klarna_payment_lock" aria-hidden="true"></i></div>
+            <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">
+                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div>
               <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="200" height="50"></p>
               <div class="form-group">
                   
@@ -79,7 +79,7 @@
                 </div>
 
               <div class="form-group">
-              <input type="text" class="form-control" name="strip_secret" id="strip_secret" placeholder="{{ __('users.stripe_secret_label')}}" value="{{ (old('strip_secret')) ? old('strip_secret') : $sellerDetails[0]->strip_secret}}">
+              <input type="text" class="form-control" name="strip_secret" id="strip_secret" class="stripe_payment" placeholder="{{ __('users.stripe_secret_label')}}" value="{{ (old('strip_secret')) ? old('strip_secret') : $sellerDetails[0]->strip_secret}}">
               <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
               </div>
 
@@ -111,5 +111,22 @@
 </div><!-- /container-inner-section-1 -->
 </div><!-- /container-fluid -->
 </div><!-- /mid-section -->
-
+<script type="text/javascript">
+  
+$(document).ready(function(){
+ 
+  var selected_package_name =$('#selected_package').val();
+ 
+  if(selected_package_name == "Tijara Bas"){
+    //$('.klarna_payment_detail_box').attr('disabled', 'disabled');
+    $('.klarna_payment :input').attr('disabled', true);
+    $('.stripe_payment :input').attr('disabled', true);
+    $(".swish_payment_lock").removeClass("fa-lock");
+  }else{
+    $(".klarna_payment_lock").removeClass("fa-lock");
+    $(".swish_payment_lock").removeClass("fa-lock");
+    $(".stripe_payment_lock").removeClass("fa-lock");
+  }
+});
+</script>
 @endsection

@@ -100,6 +100,6 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
      'your_shop_disapper_msg' => 'Your shop will disapear in 30 days.',
      'already_shop_close_req' => 'You already requested for shop close.',
      'shop_close_sucess' => 'Shop Closed successfully!',
-    //'shop_closed_login_msg' => 'Your shop is closed.',
+     'package_extend_success' => 'Paketförlängning lyckades.',
  ]
 ?>

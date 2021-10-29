@@ -120,6 +120,8 @@
      'wait_for_image_uplaod' => 'Wait While uploading product Images',
      'please_uplaod_service_image' => 'Please Service Images',
      'old_password_not_match' => 'Please enter correct old password',
+     'please_active_your_account' => 'please verify registered Email-Id before login',
+     'please_add_payment_details' => 'Please Add at least one Payment Details',
     
  ]
 ?>

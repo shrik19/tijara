@@ -20,41 +20,10 @@
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
   <!-- added custom css for custom chnages -->
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/custom.css">
-  <style>
-   .loader{
-    position: absolute;
-    top:0px;
-    right:0px;
-    width:100%;
-    height:100%;
-    background-color:#eceaea;
-    background-image:url('{{url('/')}}/assets/front/img/ajax-loader.gif');
-    background-size: 50px;
-    background-repeat:no-repeat;
-    background-position:center;
-    z-index:10000000;
-    opacity: 0.4;
-    filter: alpha(opacity=40);
-    display:none;
-}
-.jconfirm .jconfirm-box.jconfirm-type-green {
-    border-top: solid 7px #03989e;
-    -webkit-animation-name: type cyan;
-    animation-name: type-cyan;
-}
-
-.jconfirm .jconfirm-box.jconfirm-type-green .jconfirm-title-c .jconfirm-icon-c {
-    color: #03989e !important;
-}
-.placeholder{
-  font-size: 14px !important;
-  color: #777 !important;
-  font-weight: 300 !important;
-}
-</style>
+ 
    <!-- end custom css for custom chnages -->
   <script src="{{url('/')}}/assets/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-<script type="text/javascript">
+	<script type="text/javascript">
     var siteUrl="{{url('/')}}";
     var fill_in_email_err="{{ __('errors.fill_in_email_err')}}";
     var fill_in_password_err="{{ __('errors.fill_in_password_err')}}";
@@ -68,6 +37,7 @@
     var select_package_to_subscribe = "{{ __('errors.select_package_to_subscribe')}}";
     var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
     var verify_store = "{{ __('users.verify_store')}}";
+    var please_add_payment_details = "{{ __('errors.please_add_payment_details')}}";
 </script>
   <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
   <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>
@@ -158,7 +128,7 @@
 											
 											<div class="col-md-offset-1 col-md-4 packages-section">
 												<div class="packages-subscribe">
-													<div class="packages-heading"  onclick='subscribe_package("{{$i}}")' style="cursor:pointer;">
+													<div class="packages-heading hand-icon"  onclick='subscribe_package("{{$i}}")'>
 														<h3>{{$data['title']}}</h3>
 														<div class="packages-price">{{$data['amount']}} kr/{{$data['validity_days']}} Days</div>
 													</div>
@@ -173,7 +143,7 @@
 															<input type="hidden" name="p_name" value="{{$data['title']}}" id="p_name_{{$i}}" class="p_name">
 															<input type="hidden" name="validity_days" value="{{$data['validity_days']}}" id="validity_days_{{$i}}" class="validity_days">
 															<input type="hidden" name="amount" value="{{$data['amount']}}" id="amount_{{$i}}" class="amount">     
-															<!-- <button type="button" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn btnsubscribePackage" onclick='subscribe_package("{{$i}}")'>{{ __('users.subscribe_btn')}}</button> -->
+														
 														</form>
 													</div>
 												</div>
@@ -185,37 +155,93 @@
                                         <div>{{ __('users.noPackagesFound')}}</div>  
                                        @endif
 
-									<div id="html_snippet" class="klarna_html"></div>  
+								<!-- 	<div id="html_snippet" class="klarna_html"></div>   -->
 								</div> 
 									
-								<div class="pull-right register_second_btn">	
+								<!-- <div class="pull-right register_second_btn">	 -->
 								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
 								<input type="button" name="next" class="next btn debg_color action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
-								</div>
+								<!-- </div> -->
 							</fieldset> 
 										
 								   
 							<fieldset class="seller_register_third">
-								<div class="form-card">
+								<div class="form-card"> 
+									<div class="pull-right payment_info">
+              						<div class="info payment_info_card">{{ __('users.payment_method_info')}}</div>
+          							</div>
 									<form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
-                                        <!-- <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label> -->
-										<input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}} *">
+										<input type="hidden" name="selected_package_name" id="selected_package_name" class="form-control" value="" >
+										<!-- <input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}} *">
 										<span class="invalid-feedback" id="err_fname" style="margin-top: -28px;margin-left: 10px;"></span>
 
-                                        <!-- <label>{{ __('users.last_name_label')}}<span class="de_col">*</span></label> -->
 										<input type="text" name="lname" id="lname" class="form-control" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}} *">
 										<span class="invalid-feedback" id="err_lname" style="margin-top: -27px;margin-left: 10px;"></span>
-
-                                        <!-- <label>{{ __('users.address_label')}}</label> -->
 										<textarea  id="address" class="form-control" name="address" placeholder="{{ __('users.address_label')}} " rows="5" cols="30"  tabindex="5"></textarea>
+										<input type="text" name="postcode" id="postcode" class="form-control" placeholder="{{ __('users.postal_code_label')}}" value=""> -->
 
-                                        <!-- <label>{{ __('users.postal_code_label')}}</label>  -->
-										<input type="text" name="postcode" id="postcode" class="form-control" placeholder="{{ __('users.postal_code_label')}}" value="">
-										
+										<p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>
+							            <div class="login_box payment_detail_box klarna_payment" style="margin-top: 20px;">
+
+							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock klarna_payment_lock" aria-hidden="true"></i></div>
+							              <p><img src="{{url('/')}}/uploads/Images/klarna-payment-logo.png" width="90" height="80"></p>
+							              <div class="form-group">
+								              <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="">
+								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
+							              </div>
+							    
+							              <div class="form-group">
+								              <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="">
+								              <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
+							              </div>
+
+											<div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
+							            </div>
+							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.easy_peyment_title')}}</p>
+							            <div class="login_box payment_detail_box swish_payment" style="margin-top: 20px;">
+							          
+							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
+							              <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="80"></p>
+							              <div class="form-group">
+								              <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="">
+								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('swish_api_key')) {{ $errors->first('swish_api_key') }}@endif</span>
+							              </div>
+
+							              <div class="form-group">
+								              <input type="text" class="form-control" name="swish_merchant_account" id="swish_merchant_account" placeholder="{{ __('users.swish_merchant_account_label')}}" value="">
+								              <span class="invalid-feedback">@if($errors->has('swish_merchant_account')) {{ $errors->first('swish_merchant_account') }}@endif</span>
+							              </div>
+
+							              <div class="form-group">
+								              <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="">
+								              <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
+							              </div>
+							              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div> 
+										 
+							            </div>
+							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
+							            <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">
+							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div>
+							              <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="200" height="50"></p>
+							              <div class="form-group">
+								              <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="">
+								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('strip_api_key')) {{ $errors->first('strip_api_key') }}@endif</span>
+							              </div>
+
+							              <div class="form-group">
+								              <input type="text" class="form-control" name="strip_secret" id="strip_secret" placeholder="{{ __('users.stripe_secret_label')}}" value="">
+								              <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
+							              </div>
+
+							              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>  
+							             
+							            </div>
+							             
 									</form>                          
 								</div> 
-								<!--<input type="button" name="previous" class="previous action-button-previous" value="{{ __('users.prev_step_btn')}}" /> -->
-								<input type="button" name="next" class="next btn debg_color action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>
+								<input type="button" name="next" class="next btn debg_color action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>	
+								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 								 
+								
 							</fieldset>
 
 			   
@@ -228,7 +254,7 @@
                                             
                                             <input type="hidden" class="form-control login_input" name="verify_btn_click" id="verify_btn_click" value="">
 											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
-											<input type="button" name="check-store-unique" class="btn debg_color"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-top: 11px;font-weight: 500;" /> 
+											<input type="button" name="check-store-unique" class="btn debg_color register_store_verify"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
 
 										<div class="form-group increment cloned">
@@ -256,8 +282,12 @@
 											<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor">&nbsp;{{ __('users.terms_of_use')}} </a> <a href="{{url('/')}}/page/villkor">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="{{url('/')}}/page/villkor">{{ __('users.store_terms')}}</a></span>	
 										</div>
 									</form>
+									</div>
+									<!-- <div class="pull-right" style="display: flex;"> -->
+									<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
 									<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
-								</div>
+							<!-- 	</div> -->
+								
 							</fieldset>
 							
 						</div>
@@ -269,11 +299,10 @@
 </div>
 
 <script type="text/javascript">
+	/* second step */
     function subscribe_package(i){
-      
-         
-    
-    let user_id  = $("#user_id").val();
+       
+    //let user_id  = $("#user_id").val();
     let p_id     = $("#p_id_"+i).val();
     let p_name  = $("#p_name_"+i).val();
     let validity_days = $("#validity_days_"+i).val(); 
@@ -307,19 +336,33 @@
                 headers: {
                             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
                          },
-                url: "{{url('/')}}"+'/klarna-payment',
+                url: "{{url('/')}}"+'/seller-register-second-step',
                 type: 'post',
                 async: false,
                 data:{amount:amount, validity_days:validity_days, p_id:p_id,p_name:p_name},
                 success: function(data){
 
                        $(".loader").hide();
-                    if(data.success=="package subscribed"){
-                        console.log(data.success);
-                        console.log("second step complete");  
-                        $(".package-html").hide();
-                        $(".klarna_html").html(data.html_snippet).show();
-                        //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+                    if(data.success=="second step success"){
+                        console.log(data.success);    
+                        console.log(data.package_name);
+                        $('#selected_package_name').val(data.package_name);
+                       // console.log("second step complete");  
+                       var selected_package_name =$('#selected_package_name').val();
+						if(selected_package_name == "Tijara Bas"){
+							//alert("bas")
+							$('.klarna_payment :input').attr('disabled', true);
+							$('.stripe_payment :input').attr('disabled', true);
+							$(".swish_payment_lock").removeClass("fa-lock");
+						}else{
+							//alert("pro")
+						    $(".klarna_payment_lock").removeClass("fa-lock");
+						    $(".swish_payment_lock").removeClass("fa-lock");
+						    $(".stripe_payment_lock").removeClass("fa-lock");
+					  	}
+                        error = 0;
+                        //$(".klarna_html").html(data.html_snippet).show();
+                       //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     }else{
                         showErrorMessage(data.error_msg);
                         error=1;
@@ -328,82 +371,93 @@
             });
 
             ////$('#klarna_form').submit();
-            var current_fs, next_fs, previous_fs; //fieldsets
-            var opacity;
+            if(error==0){
+            	var current_fs, next_fs, previous_fs; //fieldsets
+	            var opacity;
 
-            $(".next").click(function(){
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
+	            $(".next").click(function(){
+	            current_fs = $(this).parent();
+	            next_fs = $(this).parent().next();
 
-            //Add Class Active
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	            //Add Class Active
+	            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({opacity: 0}, {
-            step: function(now) {
-            // for making fielset appear animation
-            opacity = 1 - now;
+	            //show the next fieldset
+	            next_fs.show();
+	            //hide the current fieldset with style
+	            current_fs.animate({opacity: 0}, {
+	            step: function(now) {
+	            // for making fielset appear animation
+	            opacity = 1 - now;
 
-            current_fs.css({
-            'display': 'none',
-            'position': 'relative'
-            });
-            next_fs.css({'opacity': opacity});
-            },
-            duration: 600
-            });
-            });
+	            current_fs.css({
+	            'display': 'none',
+	            'position': 'relative'
+	            });
+	            next_fs.css({'opacity': opacity});
+	            },
+	            duration: 600
+	            });
+	            });
+            }
+            
         }
     }
 
 $(document).ready(function(){
+	/*var selected_package_name =$('#selected_package_name').val();
+	if(selected_package_name == "Tijara Bas"){
+		//$('.klarna_payment_detail_box').attr('disabled', 'disabled');
+		$('.klarna_payment :input').attr('disabled', true);
+		$('.stripe_payment :input').attr('disabled', true);
+		$(".swish_payment_lock").removeClass("fa-lock");
+	}else{
+	    $(".klarna_payment_lock").removeClass("fa-lock");
+	    $(".swish_payment_lock").removeClass("fa-lock");
+	    $(".stripe_payment_lock").removeClass("fa-lock");
+  	}*/
 
-    if($('#current_step_button').val() != 1){
-        var curr_step=  $('input#current_step_button').val();
+if($('#current_step_button').val() != 1){
+    var curr_step=  $('input#current_step_button').val();
+    $( "fieldset" ).each(function() {
+      $( this ).css({
+                'display': 'none',
+                'position': 'relative'
+                });
+    });
+   
 
-        $( "fieldset" ).each(function() {
-          $( this ).css({
-                    'display': 'none',
-                    'position': 'relative'
-                    });
-        });
-        //$( "li" ).each(function() {
-       //  $( this ).removeClass('active');
-      // });
- 
-        //setTimeout(function(){ $('input.'+curr_step).trigger('click')}, 500);
-        current_fs = $('input.'+curr_step).parent();
-        next_fs = $('input.'+curr_step).parent().next();
+    current_fs = $('input.'+curr_step).parent();
+    next_fs = $('input.'+curr_step).parent().next();
 
-        //Add Class Active
-        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-        if(curr_step==3){
-             $("#progressbar li").eq($("fieldset").index(current_fs)).addClass("active");
-        }
-        if(curr_step==4){
-
-             current_fs_prev = $('input.'+curr_step).parent().prev();
-            $("#progressbar li").eq($("fieldset").index(current_fs_prev)).addClass("active");
-        }
-        //show the next fieldset
-        next_fs.show();
-        //hide the current fieldset with style
-        current_fs.animate({opacity: 0}, {
-        step: function(now) {
-        // for making fielset appear animation
-        opacity = 1 - now;
-
-        current_fs.css({
-        'display': 'none',
-        'position': 'relative'
-        });
-        next_fs.css({'opacity': opacity});
-        },
-        duration: 600
-        });
+    //Add Class Active
+    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+  
+    if(curr_step==3){
+         $("#progressbar li").eq($("fieldset").index(current_fs)).addClass("active");
     }
+    if(curr_step==4){
+
+         current_fs_prev = $('input.'+curr_step).parent().prev();
+        $("#progressbar li").eq($("fieldset").index(current_fs_prev)).addClass("active");
+    }
+    //show the next fieldset
+    next_fs.show();
+    //hide the current fieldset with style
+    current_fs.animate({opacity: 0}, {
+    step: function(now) {
+    // for making fielset appear animation
+    opacity = 1 - now;
+
+    current_fs.css({
+    'display': 'none',
+    'position': 'relative'
+    });
+    next_fs.css({'opacity': opacity});
+    },
+    duration: 600
+    });
+}
 
 /*function to save first form data and validate it before save*/
     $('#first-step').click(function(e) {  
@@ -524,86 +578,17 @@ $(document).ready(function(){
 /*second step*/
 
 $('#second-step').click(function(e) { 
+    var selected_package_name =$('#selected_package_name').val();
+    //alert("dsjh"+selected_package_name)
 
-    let user_id  = $("#user_id").val();
     var err = 0
-    if(user_id == ''){
+    if(selected_package_name == ''){
         showErrorMessage(select_package_to_subscribe);
         err = 1;
     }
     
-        if(err == 0){
-            return true
-        }else{
-            return false
-        }
-});
-
-/*third step*/
-$('#third-step').click(function(e) {  
-     
-    e.preventDefault();
-
-    let fname     = $("#fname").val();
-    let lname  = $("#lname").val();   
-    let address     = $("#address").val();
-    let postcode  = $("#postcode").val();   
-    let third_step_err = 0;
-
-    if(fname == '')
-    {
-        $("#err_fname").html(fill_in_first_name_err).show();
-        $("#err_fname").parent().addClass('jt-error');
-        third_step_err = 1;
-    }
-    else
-    {
-        $("#err_fname").html('').show();
-    }
-    if(lname == '')
-    {
-        $("#err_lname").html(fill_in_last_name_err).show();
-        $("#err_lname").parent().addClass('jt-error');
-        third_step_err = 1;
-    }
-    else
-    {
-        $("#err_lname").html('');
-    }
- 
-  if(third_step_err == 1)
-  {
-    return false;
-  }
-  else
-  {
-    $(".loader-seller").css("display","block");
-    $.ajax({
-                headers: {
-                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                         },
-                url: "{{url('/')}}"+'/third-step-seller-register',
-                type: 'post',
-                async: false,
-                data:{fname:fname, lname:lname, address:address,postcode:postcode},
-                success: function(data){
-                    if(data.success=="third step success"){
-                        $(".loader-seller").css("display","none");
-                        console.log(data.success);
-                        console.log("third step complete"); 
-                        third_step_err = 0;                   
-                    }else{
-                       
-                        third_step_err=1;
-                    }
-                }
-            });
-   
-  }
-
-
-        //show next step
-        if(third_step_err==0){
+        if(err == 0){ 
+             //show next step
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
             current_fs = $(this).parent();
@@ -629,7 +614,94 @@ $('#third-step').click(function(e) {
                 },
                 duration: 600
             }); 
-        }         
+	        
+        }else{ 
+            return false
+        }
+});
+
+/*third step*/
+$('#third-step').click(function(e) {  
+     
+    e.preventDefault();
+
+    let klarna_username      	= $("#klarna_username").val();
+    let klarna_password  	 	= $("#klarna_password").val();   
+    let swish_api_key        	= $("#swish_api_key").val();
+    let swish_merchant_account  = $("#swish_merchant_account").val(); 
+    let swish_client_key        = $("#swish_client_key").val();
+    let strip_api_key           = $("#strip_api_key").val(); 
+    let strip_secret  			= $("#strip_secret").val();   
+    var selected_package_name   = $('#selected_package_name').val(); 
+    let third_step_err = 0;
+
+   if((klarna_username != '' && klarna_password!= '') || (swish_api_key != '' && swish_merchant_account !='' && swish_client_key != '') || (strip_api_key != '' && strip_secret == ''))
+    {
+        third_step_err = 0;
+    }else
+    {
+       third_step_err = 1;
+    }
+   
+	 if(third_step_err == 1)
+	  {
+	  	showErrorMessage(please_add_payment_details);
+	    return false;
+	  }
+	  else
+	  {
+	    $(".loader-seller").css("display","block");
+	    $.ajax({
+	                headers: {
+	                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+	                         },
+	                url: "{{url('/')}}"+'/third-step-seller-register',
+	                type: 'post',
+	                async: false,
+	                data:{klarna_username:klarna_username, klarna_password:klarna_password, swish_api_key:swish_api_key,swish_merchant_account:swish_merchant_account,swish_client_key:swish_client_key,strip_api_key:strip_api_key,strip_secret:strip_secret},
+	                success: function(data){
+	                    if(data.success=="third step success"){
+	                        $(".loader-seller").css("display","none");
+	                        console.log(data.success);
+	                        console.log("third step complete"); 
+	                        third_step_err = 0;                   
+	                    }else{
+	                       
+	                        third_step_err=1;
+	                    }
+	                }
+	            });
+	  }
+
+
+    //show next step
+    if(third_step_err==0){
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+
+        //Add Class Active
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+        //show the next fieldset
+        next_fs.show();
+
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+        step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+
+            current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+            });
+                next_fs.css({'opacity': opacity});
+            },
+            duration: 600
+        }); 
+    }         
 });
 
 /*last step*/
@@ -682,9 +754,7 @@ $('#last-step').click(function(e) {
                     if(data.success=="last step success"){
                         console.log(data.success);
                         console.log("last step success"); 
-                        window.location = "{{ route('frontRegisterSuccess') }}";
-
-                           
+                        window.location = "{{ route('frontRegisterSuccess') }}";        
 
                     }
                 }
@@ -774,45 +844,39 @@ $('body').on('change', '#seller_logo_img', function () {
 
 /*function for previous button click*/
 $(".previous").click(function(){
-    if($(this).hasClass("package-previous")){
-         if($(".klarna_html").is(":visible")){
-            $(".package-html").show();
-            $(".klarna_html").hide();
-            return 1;
-         }
-    }
-    current_fs = $(this).parent();
-    previous_fs = $(this).parent().prev();
+	current_fs = $(this).parent();
+	previous_fs = $(this).parent().prev();
 
-    //Remove class active
-    $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+	//Remove class active
+	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
-    //show the previous fieldset
-    previous_fs.show();
+	//show the previous fieldset
+	previous_fs.show();
 
-    //hide the current fieldset with style
-    current_fs.animate({opacity: 0}, {
-        step: function(now) {
-            // for making fielset appear animation
-            opacity = 1 - now;
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+	step: function(now) {
+	// for making fielset appear animation
+	opacity = 1 - now;
 
-            current_fs.css({
-            'display': 'none',
-            'position': 'relative'
-            });
-            previous_fs.css({'opacity': opacity});
-        },
-        duration: 600
-    });
+	current_fs.css({
+	'display': 'none',
+	'position': 'relative'
+	});
+	previous_fs.css({'opacity': opacity});
+	},
+	duration: 600
+	});
 });
 
+
 $('.radio-group .radio').click(function(){
-$(this).parent().find('.radio').removeClass('selected');
-$(this).addClass('selected');
+	$(this).parent().find('.radio').removeClass('selected');
+	$(this).addClass('selected');
 });
 
 $(".submit").click(function(){
-return false;
+	return false;
 })
 
 });

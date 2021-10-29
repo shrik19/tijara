@@ -22,6 +22,7 @@
                   <th>{{ __('users.package_name_thead')}}</th>
                   <th>{{ __('users.start_date_thead')}}</th>
                   <th>{{ __('users.end_date_thead')}}</th>
+                  <th>{{ __('users.is_trial_package')}}</th>
                   <th data-orderable="false">{{ __('lang.status_label')}}</th>
                   </tr>
                 </thead>
@@ -31,7 +32,7 @@
 
                     $i=1;
                     foreach($details as $data){ ?>
-                      
+                     
                       <tr>
                         <td><?php echo $i;?></td>
                         <td><?php echo $data['title'];?></td>
@@ -39,7 +40,7 @@
                         <td><?php echo date("Y-m-d",strtotime($data['end_date']));?></td>
                         <?php 
 	                      	$curdate=strtotime(date('Y-m-d'));
-			                $exp_date=strtotime($data['end_date']);
+			                   $exp_date=strtotime($data['end_date']);
 
 			                if($curdate > $exp_date)
 			                {
@@ -48,9 +49,13 @@
 			                }else{
 			                	$status = '<a href="javascript:void(0)"  class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
 			                }
-                        ?>
+
+                      $action = '<a href="'.route('adminSellerExtendPackage', base64_encode($data['id'])).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+
+                      ?>
 
                         <td><?php echo $status;?></td>
+                        <td><?php echo $action;?></td>
                     </tr>
                   <?php    $i++;
                     } 

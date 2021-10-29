@@ -118,5 +118,7 @@
      'wait_for_image_uplaod' => 'Vänta medan du laddar upp produktbilder',
      'please_uplaod_service_image' => 'Vänligen tjänste bilder',
      'old_password_not_match' => 'Ange rätt gammalt lösenord',
+     'please_active_your_account' => 'vänligen verifiera registrerat e-post-ID innan du loggar in',
+       'please_add_payment_details' => 'Lägg till minst en betalningsinformation',
  ]
 ?>

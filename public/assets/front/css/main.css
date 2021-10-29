@@ -166,8 +166,13 @@ margin-top: 15px;
   font-size: 16px;
   margin-left: 30px;
 }
-
-.klarna_payment_detail_box{
+.payment_info{
+  width:300px;
+}
+.payment_info_card{
+  background-color: #e6f2ff;padding: 20px;margin-bottom: 10px;
+}
+.payment_detail_box{
   border: #efe8e8 solid 2px;
   padding: 25px;
   border-radius: 20px;
@@ -178,8 +183,7 @@ margin-top: 15px;
   margin-top: -15px;
 }
 
-.klarna_payment_lock{
-    
+.payment_lock{
     border: 1px solid #d0caca;
     padding: 7px;
     border-radius: 30px;
@@ -205,6 +209,46 @@ margin-top: 15px;
 }
 .package-body{
   min-height: auto;overflow: auto;padding: 25px;
+}
+
+  /*seller register css*/
+   .loader{
+    position: absolute;
+    top:0px;
+    right:0px;
+    width:100%;
+    height:100%;
+    background-color:#eceaea;
+    background-image:url('{{url('/')}}/assets/front/img/ajax-loader.gif');
+    background-size: 50px;
+    background-repeat:no-repeat;
+    background-position:center;
+    z-index:10000000;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    display:none;
+}
+.jconfirm .jconfirm-box.jconfirm-type-green {
+    border-top: solid 7px #03989e;
+    -webkit-animation-name: type cyan;
+    animation-name: type-cyan;
+}
+
+.jconfirm .jconfirm-box.jconfirm-type-green .jconfirm-title-c .jconfirm-icon-c {
+    color: #03989e !important;
+}
+.placeholder{
+  font-size: 14px !important;
+  color: #777 !important;
+  font-weight: 300 !important;
+}
+
+.hand-icon{
+  cursor:pointer;
+}
+
+.register_store_verify{
+  margin-top: 11px;font-weight: 500;
 }
 .package_width{width: 70%; margin: 0 15%;}
 #instafeed img.img-fluid {
@@ -357,25 +401,6 @@ span.subscribe_err {
 .jconfirm .jconfirm-box.jconfirm-type-orange,
 .jconfirm .jconfirm-box.jconfirm-type-animated {
     border-top: 7px solid #03989e !important;
-}
-/*order deatils print*/
-  @media print {
-   a[href]:after {
-      display: none;
-      visibility: hidden;
-   }
-   .modal-header{
-    display: none;
-      visibility: hidden;
-   }
- .ft_middle_container, .container-inner-section, .ft_copyright,.container,.tijara-sidebar{
-    display: none;
-    visibility: hidden;
- }
- .modal-body-wrapper{
-  margin-top :0px !important;
-  padding-top: 0px !important;
- }
 }
 
 i.fas.fa-exclamation-triangle,
@@ -2746,4 +2771,39 @@ span.pro-text {
     height: 175px;
     object-fit: cover;
 }
+}
+
+/*order deatils print*/
+@media print {
+  a[href]:after {
+    display: none;
+    visibility: hidden;
+  }
+  .modal-header{
+    display: none;
+    visibility: hidden;
+    height: 0px !important;
+    margin-top :0px !important;
+    padding-top: 0px !important;
+  }
+  .ft_middle_container, 
+  .container-inner-section, 
+  .ft_copyright,.container,
+  .tijara-sidebar{
+    display: none;
+    visibility: hidden;
+  }
+
+  .p_155,
+  .card-body,
+  .modal-dialog.modal-lg,
+  .modal-dialog .modal-body,
+  .modal-body .tijara-content h2{
+    margin-top :0px !important;
+    padding-top: 0px !important;
+  }
+  
+  .modal-body .tijara-content table {
+    margin-bottom :0px !important;
+  }
 }

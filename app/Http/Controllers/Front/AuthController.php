@@ -86,20 +86,24 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
-        $checkUser   = User::select('id','status','role_id','is_verified')->where('email','=', trim($request->input('email')))->where('is_shop_closed','=','0')->get();
+        $checkUser   = User::select('id','status','role_id','is_verified','activation_status')->where('email','=', trim($request->input('email')))->where('is_shop_closed','=','0')->get();
 
         if(!isset($checkUser[0]))
         {
             Session::flash('error', trans('errors.invalid_credentials_try_again_err'));
                 return redirect()->back();
         }
+        if($checkUser[0]['activation_status'] == 'pending'){
 
+            Session::flash('error', trans('errors.please_active_your_account'));
+            return redirect()->back();
+        }
+        /*
         if($checkUser[0]['role_id'] == 2 && $checkUser[0]['is_verified'] == 0){
 
             Session::flash('error', trans('errors.account_blocked_contact_admin_err'));
-            // return redirect(route('frontLogin'));
             return redirect()->back();
-        }
+        }*/
         if($checkUser[0]['role_id'] != trim($request->input('role_id'))){
             if($checkUser[0]['role_id'] == 2){
                 Session::flash('error', trans('errors.please_check_your_profile'));
@@ -292,7 +296,6 @@ class AuthController extends Controller
                         ];
            
            // if(!empty($user_id)){
-                
 
                 $email = trim($request->input('email'));
                 //echo "-->".$email;exit;
@@ -391,10 +394,34 @@ class AuthController extends Controller
         }   
     }
 
+    public function sellerRegisterSecondStep(Request $request){
+        //$user_id       = $request->input('user_id');
+        $amount         = $request->input('amount');
+        $validity_days = $request->input('validity_days');
+        $package_id    = $request->input('p_id');
+        $package_name = $request->input('p_name');
+
+        $start_date = date("Y-m-d H:i:s");
+        $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
+        if(!empty(Session::get('new_seller_package_name')) && !empty($package_name)){
+            Session::forget('new_seller_package_name');
+            Session::put('new_seller_package_name', $package_name);  
+        }else{
+            Session::put('new_seller_package_name', $package_name);  
+        }
+        Session::put('new_seller_package_id', $package_id);
+        Session::put('new_seller_package_status', 'active');
+        Session::put('new_seller_package_start_date', $start_date);
+        Session::put('new_seller_package_end_date', $ExpiredDate);
+        Session::forget('next_step');
+        Session::put('next_step', 3);
+        return response()->json(['success'=>'second step success','package_name'=>$package_name]);
+    }
+
     /*function to save third step seller registration form values*/
     public function thirdStepsellerRegister(Request $request){
-     
-        $session_user_id = Session::get('new_seller_user_id');
+     //echo "FGklj".$request->input('swish_api_key');exit;
+        /*$session_user_id = Session::get('new_seller_user_id');
 
         $arrUpdate = [
                 'fname'        => trim($request->input('fname')),
@@ -409,8 +436,189 @@ class AuthController extends Controller
         Session::forget('next_step');
         Session::forget('StepsHeadingTitle');
         Session::put('next_step',4);
-        Session::put('StepsHeadingTitle',trans('users.sell_with_tijara_head'));
+        Session::put('StepsHeadingTitle',trans('users.sell_with_tijara_head'));*/
+      //  echo "<pre>";print_r($_POST);exit;
+            $klarna_username        = trim($request->input('klarna_username'));
+            $klarna_password        = base64_encode(trim($request->input('klarna_password')));
+            $swish_api_key          = trim($request->input('swish_api_key'));
+            $swish_merchant_account = trim($request->input('swish_merchant_account'));
+            $swish_client_key       = trim($request->input('swish_client_key'));
+            $strip_api_key          = trim($request->input('strip_api_key'));
+            $strip_secret           = trim($request->input('strip_secret'));
+            //echo $swish_client_key;exit;
+            if(!empty($klarna_username) && !empty($klarna_password)){
+                Session::put('new_seller_klarna_username', $klarna_username);
+                Session::put('new_seller_klarna_password', $klarna_password);
+            }
+
+            if(!empty($swish_api_key) && !empty($swish_merchant_account) && !empty($swish_client_key)){
+                Session::put('new_seller_swish_api_key', $swish_api_key);
+                Session::put('new_seller_swish_merchant_account', $swish_merchant_account);
+                Session::put('new_seller_swish_client_key', $swish_client_key);
+            }
+
+             if(!empty($strip_api_key) && !empty($strip_secret)){
+                Session::put('new_seller_strip_api_key', $strip_api_key);
+                Session::put('new_seller_strip_secret', $strip_secret);
+            }
+            Session::forget('next_step');
+            Session::put('next_step', 4);
         return response()->json(['success'=>'third step success']);
+    }
+
+
+    /**
+     * function to save last step data of seller registration procee and remove all session variable.
+     *
+     * @return null
+     */
+    public function seller_info_page(Request $request)
+    {
+        $email      = Session::get('new_seller_email');
+        $password   = Session::get('new_seller_password');
+        $cpassword  = Session::get('new_seller_cpassword', );
+        $status     = Session::get('new_seller_status');
+        $role_id    = Session::get('new_seller_role_id');
+        $verification_token = hash_hmac('sha256',Str::random(40), config('app.key'));
+  
+        //first step insert
+         $arrInsert = [
+                          'email'         => $email,
+                          'password'      => bcrypt($password),
+                          'status'        => $status,
+                          'role_id'       => $role_id,     
+                          'activation_token' => $verification_token,
+                          'activation_status' => 'pending',                 
+                    ];
+
+        $user_id = User::create($arrInsert)->id;
+//echo "===>".$user_id;
+        //second step insert
+        $package_id = Session::get('new_seller_package_id');
+        $package_status = Session::get('new_seller_package_status');
+        $start_date = Session::get('new_seller_package_start_date');
+        $ExpiredDate = Session::get('new_seller_package_end_date');
+        $package_name = Session::put('new_seller_package_name',);
+        //return response()->json(['success'=>'second step success']);
+
+         $arrInsertFreePackage = [
+                              'user_id'    => $user_id,
+                              'package_id' => $package_id,
+                              'status'     => $package_status,
+                              'start_date' => $start_date,
+                              'end_date'   => $ExpiredDate,
+                              'is_trial'   => '1',
+                            ];
+
+        UserPackages::create($arrInsertFreePackage);
+
+        /*third step insert*/
+        $arrPaymentDetailsUpdate = array();
+        $swish_api_key = Session::get('new_seller_swish_api_key');
+        $swish_merchant_account = Session::get('new_seller_swish_merchant_account');
+        $swish_client_key = Session::get('new_seller_swish_client_key');
+        
+        if(!empty($swish_api_key) && !empty($swish_merchant_account) && !empty($swish_client_key)){
+
+            $arrPaymentDetailsUpdate = [              
+                'swish_api_key'          => trim($swish_api_key),
+                'swish_merchant_account' => trim($swish_merchant_account),
+                'swish_client_key'       => trim($swish_client_key),  
+            ];
+        }
+
+        $klarna_username = Session::get('new_seller_klarna_username');
+        $klarna_password = Session::get('new_seller_klarna_password');
+        if(!empty($klarna_username) && !empty($klarna_password)){
+            $arrPaymentDetailsUpdate = [
+                'klarna_username'        => trim($klarna_username),
+                'klarna_password'        => base64_encode(trim($klarna_password)),
+            ];
+        }
+
+        $strip_api_key = Session::get('new_seller_strip_api_key');
+        $strip_secret  = Session::get('new_seller_strip_secret');
+
+        if(!empty($strip_api_key) && !empty($strip_secret)){
+            $arrPaymentDetailsUpdate = [
+                'strip_api_key'         => trim($strip_api_key),
+                'strip_secret'          => trim($strip_secret),
+            ];
+        }
+     
+        UserMain::where('id','=',$user_id)->update($arrPaymentDetailsUpdate);
+
+        /* 4th step insert */
+        $UpdateStore  =   array();
+        $UpdateStore = [
+                'store_name'      => trim($request->input('store_name')),
+        ];
+         if(!empty($UpdateStore)) {
+                UserMain::where('id',$user_id)->update($UpdateStore);
+        }
+
+        $details=SellerPersonalPage::where('user_id',$user_id)->first();
+
+        $toUpdateData  =   array();
+        $toUpdateData = [
+                'user_id'     => $user_id,
+                'header_img'  => trim($request->input('banner_image')),
+                'logo'        => trim($request->input('logo_image')),
+        ];
+    
+        if(!empty($toUpdateData)) {
+            if(!empty($details)){
+                SellerPersonalPage::where('user_id',$user_id)->update($toUpdateData);
+            }
+            else
+            {
+                $toUpdateData['user_id']=$user_id;
+                SellerPersonalPage::insert($toUpdateData);
+            }
+        }
+
+         
+        $name   =   'Seller';
+        $url =url('user/verify', $verification_token);
+        $GetEmailContents = getEmailContents('Buyer Register');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+
+        $contents = str_replace(['##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],
+        [$email,url('/'),$url,env('FROM_MAIL')],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
+            $message->to($email, $name)->subject
+                ($subject);
+            $message->from( env('FROM_MAIL'),'Tijara');
+        });
+           
+
+        Session::forget('new_seller_email');
+        Session::forget('new_seller_password');
+        Session::forget('new_seller_cpassword');
+        Session::forget('new_seller_status');
+        Session::forget('new_seller_role_id');
+  
+        Session::forget('new_seller_package_id');
+        Session::forget('new_seller_package_status');
+        Session::forget('new_seller_package_start_date');
+        Session::forget('new_seller_package_end_date');
+        Session::forget('new_seller_package_name');
+
+        Session::forget('new_seller_swish_api_key');
+        Session::forget('new_seller_swish_merchant_account');
+        Session::forget('new_seller_swish_client_key');
+
+        Session::forget('new_seller_klarna_username');
+        Session::forget('new_seller_klarna_password');
+
+        Session::forget('new_seller_strip_api_key');
+        Session::forget('new_seller_strip_secret');
+
+        Session::forget('next_step');
+        return response()->json(['success'=>'last step success']);
     }
 
     public function register_success()
@@ -519,7 +727,19 @@ class AuthController extends Controller
         $data['siteDetails']   = $site_details;
         $user_id = Auth::guard('user')->id();
         $details = UserMain::get_Seller($user_id);
-        $data['sellerDetails']          = $details;
+
+        $currentDate = date('Y-m-d H:i:s');
+        $is_subscriber = DB::table('user_packages')
+                    ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+                    ->where('packages.is_deleted','!=',1)
+                    ->where('user_packages.end_date','>=',$currentDate)
+                    ->where('user_id','=',$user_id)
+                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
+                    ->orderByRaw('user_packages.id ASC')
+                    ->get();
+       
+        $data['selected_package']    = $is_subscriber[0]->title;
+        $data['sellerDetails']       = $details;
         if($user_id) {
             return view('Front/seller_payment_details', $data);
            
@@ -862,77 +1082,6 @@ class AuthController extends Controller
         $data['seller_link']=$seller_link;
         $data['details']=$details;
         return view('Front/seller_personal_page', $data);
-    }
-
-
-    /**
-     * function to save last step data of seller registration procee and remove all session variable.
-     *
-     * @return null
-     */
-    public function seller_info_page(Request $request)
-    {
-
-        $session_user_id = Session::get('new_seller_user_id');
-        $UpdateStore  =   array();
-        $UpdateStore = [
-                'store_name'      => trim($request->input('store_name')),
-        ];
-         if(!empty($UpdateStore)) {
-                UserMain::where('id',$session_user_id)->update($UpdateStore);
-        }
-
-        $details=SellerPersonalPage::where('user_id',$session_user_id)->first();
-
-        $toUpdateData  =   array();
-        $toUpdateData = [
-                'user_id'      => $session_user_id,
-                'header_img'        => trim($request->input('banner_image')),
-                'logo'        => trim($request->input('logo_image')),
-        ];
-    
-        if(!empty($toUpdateData)) {
-            if(!empty($details)){
-                SellerPersonalPage::where('user_id',$session_user_id)->update($toUpdateData);
-            }
-            else
-            {
-                $toUpdateData['user_id']=$session_user_id;
-                SellerPersonalPage::insert($toUpdateData);
-            }
-        }
-
-        $email =   Session::get('new_seller_email');
-        $name  = Session::get('new_seller_fname').' '.Session::get('new_seller_lname');
-        $admin_email = env('ADMIN_EMAIL');
-        $admin_name  = env('ADMIN_NAME');
-        
-        $GetEmailContents = getEmailContents('Seller Register Admin');
-        $subject = $GetEmailContents['subject'];
-        $contents = $GetEmailContents['contents'];
-
-        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##'],[$name,$email,url('/'),route('adminSellerEdit', base64_encode($session_user_id))],$contents);
-
-        $arrMailData = ['email_body' => $contents];
-
-        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
-             $message->to($admin_email, $admin_name)->subject
-                 ($subject);
-             $message->from( env('FROM_MAIL'),'Tijara');
-         });
-
-
-        Session::forget('new_seller_user_id');
-        Session::forget('new_seller_email');
-        Session::forget('new_seller_fname');
-        Session::forget('new_seller_lname');
-        Session::forget('new_seller_password');
-        Session::forget('new_seller_cpassword');
-        Session::forget('new_seller_status');
-        Session::forget('new_seller_role_id');
-        Session::forget('next_step');
-        Session::forget('seller_register_form_id');
-        return response()->json(['success'=>'last step success']);
     }
 
 
@@ -1841,7 +1990,6 @@ class AuthController extends Controller
             return view('Front/Packages/payment_integration',$html_data); 
         }else{
 
-        
             Session::put('new_seller_package_id', $package_id);
             Session::put('new_seller_package_status', 'block');
             Session::put('new_seller_package_start_date', $start_date);

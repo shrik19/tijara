@@ -180,6 +180,8 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	    Route::get('/exportdata','SellerController@exportdata')->name('adminSellerexportdata');
 	
 		Route::get('/showpackages/{id}','SellerController@showpackages')->name('adminSellerShowPackages');
+		Route::get('/extend-package/{id}','SellerController@extendPackage')->name('adminSellerExtendPackage');
+		Route::any('/extend-package-update/{id}','SellerController@PackageExtendUpdate')->name('adminPackageExtendUpdate');
 	});
 
 

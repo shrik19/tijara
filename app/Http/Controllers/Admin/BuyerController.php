@@ -512,6 +512,7 @@ use File;
         $recordDetails = $buyerProducts->offset($request->input('start'))->limit($request->input('length'))->get();
 
         $arr = [];
+//echo count($recordDetails);exit;
         if (count($recordDetails) > 0) {
             $recordDetails = $recordDetails->toArray();
             foreach ($recordDetails as $recordDetailsKey => $recordDetailsVal) {

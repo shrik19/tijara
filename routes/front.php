@@ -78,6 +78,8 @@ Route::post('/reset-password','Front\AuthController@resetPassword')->name('front
 /*seller registration*/
 Route::any('/new-seller-register','Front\AuthController@newsellerRegister')->name('frontNewSellerRegister');
 Route::any('/klarna-payment', 'Front\AuthController@klarnaPayment')->name('frontklarnaPayment');
+Route::any('/seller-register-second-step', 'Front\AuthController@sellerRegisterSecondStep')->name('frontsellerRegisterSecondStep');
+
 Route::post('/subscribe-package', 'Front\AuthController@subscribePackage')->name('frontSubscribePackage');
 
 Route::any('/package_callback', 'Front\AuthController@packageCallback')->name('frontPackageCallback');

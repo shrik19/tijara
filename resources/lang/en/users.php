@@ -357,6 +357,8 @@ cancellation of service works.',
     'close_store_btn' => 'Close Store',
     'cancel_btn' => 'Cancel',
     'confirm_btn' => 'Confirm!',
+    'is_trial_package' => 'Is Trial',
+    'extend_trial_package' => 'Extend Trial Package',
 
  ]
 ?>

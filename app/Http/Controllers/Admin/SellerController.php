@@ -675,7 +675,7 @@ class SellerController extends Controller
         $packageDetails = UserPackages::where('user_packages.user_id', $id)
         ->Join('packages', 'user_packages.package_id', '=', 'packages.id')
         ->Join('users', 'users.id', '=', 'user_packages.user_id')
-        ->select('user_packages.*','packages.id','packages.title','users.id','users.fname','users.lname')->get();
+        ->select('user_packages.*','packages.id as package_id','packages.title','users.id as user_id','users.fname','users.lname')->get();
 
         $data = [];
         $data['pageTitle']              = trans('users.package_history_title');
@@ -690,4 +690,82 @@ class SellerController extends Controller
         return view('Admin/Seller/packageHistory', $data);
     }
 
+
+    /**
+     * Function to Extend trial package period.
+     * @param  $id = User package Id
+     */
+    public function extendPackage($id) {
+        if(empty($id)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect()->back();
+        }
+
+        $data = $details = [];
+         
+       /* $data['id'] = $id;
+        $id = base64_decode($id);
+        $details=UserMain::get_Seller($id);
+
+        $imagedetails=  UserMain::where('id', $id)->with(['getImages'])->first();
+
+        if(empty($details)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect()->back();   
+         }
+*/
+        $id = base64_decode($id);
+        $packageDetails = UserPackages::where('user_packages.id', $id)
+        ->Join('packages', 'user_packages.package_id', '=', 'packages.id')
+        ->select('user_packages.*','packages.id as package_id','packages.title')->get();
+       //echo "<pre>";print_r($packageDetails[0]->user_id);exit;
+       
+        $data['id'] = $id;
+        $data['pageTitle']              = trans('users.extend_trial_package');
+        $data['current_module_name']    = trans('users.extend_trial_package');
+        $data['module_name']            = trans('users.extend_trial_package');
+        $data['module_url']             = route('adminSellerShowPackages',base64_encode($packageDetails[0]->user_id));
+        $data['packageDetails']          = $packageDetails;
+
+        return view('Admin/Seller/packageExtend', $data);
+    }
+
+      /**
+     * extend seller trial package
+     * @param  $id = package Id
+     */
+    public function PackageExtendUpdate(Request $request, $id) {
+        if(empty($id)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect()->back();
+        }
+        
+        $id = base64_decode($id);
+
+        $rules = [
+            'end_date'         => 'required',
+        ];
+
+        $messages = [
+            'end_date.required'         => trans('lang.required_message'),
+        ];
+
+        $validator = validator::make($request->all(), $rules, $messages);
+        if($validator->fails())  {
+            $messages = $validator->messages();
+            return redirect()->back()->withInput($request->all())->withErrors($messages);
+        }
+        else {
+         
+            $arrUpdate = [ 
+                            'end_date'        => trim($request->input('end_date')),
+                        ];
+            UserPackages::where('id', '=', $id)->update($arrUpdate);   
+            $packageDetails = UserPackages::where('user_packages.id', $id)->get();
+            Session::flash('success', trans('messages.package_extend_success'));
+            return redirect(route('adminSellerShowPackages',base64_encode($packageDetails[0]->user_id)));
+        }
+    }
+
+    
 }

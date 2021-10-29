@@ -1669,7 +1669,7 @@ class CartController extends Controller
              {
                  "captured_amount" : $Total
              }
-         DATA;
+DATA;
 
      $curl = curl_init();
      curl_setopt($curl, CURLOPT_URL,$capture_url);
@@ -2382,9 +2382,9 @@ class CartController extends Controller
     }
 
 
-    function showOrderDetails($id)
+    function showOrderDetails($id,$is_print = false)
     {
-
+		$data['is_print'] = $is_print;
       $user_id = Auth::guard('user')->id();
       $is_seller = 0;
       $is_buyer_order = 0;
@@ -2931,7 +2931,7 @@ class CartController extends Controller
                   $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
                   /* $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i style="color:#2EA8AB;" class="fas fa-eye open_order_details"></i> </a>&nbsp;&nbsp;
                   <a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i style="color:gray;" class="fas fa-file-download"></i> </a>';*/
-                  $action = '<a href="javascript:void(0)" title="'. trans('lang.txt_view').'" onclick="print_window('.$id.')"><i style="color:#2EA8AB;" class="fas fa-eye"></i> </a>&nbsp;&nbsp;
+                  $action = '<a href="javascript:void(0)" class="seller_odr_dtls" title="'. trans('lang.txt_view').'" onclick="print_window('.$id.')" product_link="'.route('frontShowOrderDetails', base64_encode($id)).'"><i style="color:#2EA8AB;" class="fas fa-eye"></i> </a>&nbsp;&nbsp;
                   <a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i style="color:gray;" class="fas fa-file-download"></i> </a>';
 
                   if(!empty($request['is_seller']) && $request['is_seller'] == '1') 

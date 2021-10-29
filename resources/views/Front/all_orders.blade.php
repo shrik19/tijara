@@ -185,15 +185,18 @@ function print_window(id){
 }
 
  function printDiv() {
+	 
+	var product_link= $('.seller_odr_dtls').attr('product_link')+'?print=1';
+	window.open(product_link, '_blank');
       
-  const section = $(".mid-section");
+  /*const section = $(".mid-section");
   const modalBody = $(".modal-body").detach();
   const content = $(".tijara-content").detach();
   section.append(modalBody);
   window.print();
   section.empty();
   section.append(content);
-  $(".modal-body-wrapper").append(modalBody);
+  $(".modal-body-wrapper").append(modalBody);*/
 
 }
 

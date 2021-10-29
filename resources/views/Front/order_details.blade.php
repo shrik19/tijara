@@ -1,7 +1,10 @@
+<?php 
+if (@$_GET['print'])  
+{
+?>
+	@include('Front.layout.header');
 
-
-<div class="loader"></div>
-
+<?php } ?>
     
     <div class="row">
         <?php /*@if($is_seller==1)
@@ -129,7 +132,6 @@
             </table>
         </div>
     </div>
-</div></div>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -140,5 +142,12 @@
     <div class="col-md-12">&nbsp;</div>
 </div>
 
+<?php if (@$_GET['print'])  {
+	?>
+<script type="text/javascript">
+	
+	window.print();
+	
+</script>
 
-
+<?php } ?>

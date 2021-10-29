@@ -54,6 +54,11 @@ header{
     background-color: #A0A0A0;
     color: #fff;
 }
+
+button.btn.print_btn, .download_btn.debg_color {
+    color: #fff;
+}
+
 .bookingRequestCalender .fc-event, .fc-event-dot {
     background-color: #03989e!important;
     border: #03989e!important;

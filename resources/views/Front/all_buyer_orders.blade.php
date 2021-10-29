@@ -150,18 +150,12 @@
   $("#monthYear").on('change', function() {
     this.form.submit();
   });
-
-
-  function printDiv() {
-    const section = $(".mid-section");
-    const modalBody = $(".modal-body").detach();
-    const content = $(".tijara-content").detach();
-    section.append(modalBody);
-    window.print();
-    section.empty();
-    section.append(content);
-    $(".modal-body-wrapper").append(modalBody);
-  }
+  
+  
+function printDiv() {		
+	var product_link= $('.buyer-product-img').attr('product_link')+'?print=1';
+	window.open(product_link, '_blank');
+}
 
   function downloadPdf(DownloadLink) {
     if(DownloadLink !=''){

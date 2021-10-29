@@ -714,7 +714,8 @@ $('#last-step').click(function(e) {
     e.preventDefault();
     let store_name     = $("#store_name").val();
     let verify_btn_click = $("#verify_btn_click").val();
-    
+    let last_step_err = 0;
+
     if(store_name==''){
        last_step_err = 1;
        showErrorMessage(please_enter_store_name)

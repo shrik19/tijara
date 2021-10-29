@@ -355,8 +355,11 @@ class AuthController extends Controller
             }
             
         }
-
-        return redirect('/front-login/buyer')->with('success', $status);
+        if($verifyUser->role_id=='2'){
+            return redirect('/front-login/seller')->with('success', $status);
+        }else{
+            return redirect('/front-login/buyer')->with('success', $status);
+        }
     }
 
      public function newsellerRegister(Request $request)

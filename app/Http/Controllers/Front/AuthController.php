@@ -63,7 +63,7 @@ class AuthController extends Controller
                 setcookie('tijara_front_password', '', time() + (86400 * 30), "/");
                 setcookie('tijara_remember_me', '', time() + (86400 * 30), "/");
         }
-//echo Auth::guard('user')->id();exit;
+        //echo Auth::guard('user')->id();exit;
         if(Auth::guard('user')->id()) {
             return redirect(route('frontHome'));
         }
@@ -104,8 +104,8 @@ class AuthController extends Controller
             Session::flash('error', trans('errors.account_blocked_contact_admin_err'));
             return redirect()->back();
         }*/
-        if($checkUser[0]['role_id'] != trim($request->input('role_id'))){
-            if($checkUser[0]['role_id'] == 2){
+        if($checkUser[0]->role_id != trim($request->input('role_id'))){
+            if($checkUser[0]->role_id == 2){
                 Session::flash('error', trans('errors.please_check_your_profile'));
                 return redirect(route('frontLogin'));
             }else{
@@ -408,8 +408,9 @@ class AuthController extends Controller
         $validity_days = $request->input('validity_days');
         $package_id    = $request->input('p_id');
         $package_name = $request->input('p_name');
-
+        $trial_days = 30;
         $start_date = date("Y-m-d H:i:s");
+        $start_date = date('Y-m-d H:i:s', strtotime($start_date.'+'.$trial_days.' days'));
         $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
         if(!empty(Session::get('new_seller_package_name')) && !empty($package_name)){
             Session::forget('new_seller_package_name');
@@ -1826,7 +1827,7 @@ class AuthController extends Controller
                     ->where('packages.is_deleted','!=',1)
                     ->where('user_packages.end_date','>=',$currentDate)
                     ->where('user_id','=',$user_id)
-                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
+                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
                     ->orderByRaw('user_packages.id ASC')
                     ->get();
 
@@ -1840,7 +1841,9 @@ class AuthController extends Controller
             $date_diff = round($diff / 86400);
         }
 
-
+        if($is_subscriber[0]->is_trial == 1){
+            $data['trial_package_msg'] = trans('messages.trial_package_active');
+        }
 
         if(count($is_subscriber) == 0 || $date_diff <= 30){
             $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
@@ -1879,7 +1882,6 @@ class AuthController extends Controller
         $data['subscribedPackage'] = $is_subscriber;
         $data['ramainingDays']     = $date_diff;
         $data['expiryDate']        = $ExpiredDate;
-
 
         return view('Front/Packages/index', $data);
         
@@ -2635,12 +2637,7 @@ DATA;
         $shopData = User::whereDate('shop_close_date','<=', $currentDate)->get();
       //  echo "<pre>";print_r($shopData);exit;
         if (!empty($shopData) && count($shopData) > 0) {
-          //  echo "in";exit;
-  /*          DB::enableQueryLog();//enable query logging
-
-$user = User::find(5);
-
-print_r(DB::getQueryLog());*/
+  
             $users = User::where('shop_close_date','<=',  $currentDate)->update(['is_shop_closed' => '0']);
             $message = trans('messages.shop_close_sucess');
         }else{
@@ -2648,29 +2645,26 @@ print_r(DB::getQueryLog());*/
             $message = trans('messages.your_shop_disapper_msg');
         }
         echo $message;
-        /*
-        if(empty($id)) {
-            Session::flash('error', trans('errors.refresh_your_page_err'));
-            return redirect(route('frontSellerPersonalPage'));
-        }
-
-        $id = base64_decode($id);
-        $result = User::find($id);
-
-        if (!empty($result)) {
-            $currentDate = date('Y-m-d H:i:s');
-            $shop_close_date = date('Y-m-d H:i:s', strtotime($currentDate. ' + 30 days'));
-            if(!empty($result->shop_close_date) && $result->shop_close_date != '0000-00-00 00:00:00'){
-                return response()->json(['success'=>trans('messages.already_shop_close_req')]);
-            }else{
-               $users = User::where('id', $id)->update(['shop_close_date' => $shop_close_date]);
-            }
-            
-            return response()->json(['success'=>trans('messages.your_shop_disapper_msg')]);
-
-        } else {
-            return response()->json(['error'=>trans('errors.something_went_wrong')]);
-        } */
+      
     }
+
+     /*cron to check is trial package*/
+    /*public function packageCron(Request $request){
+
+        $currentDate = date('Y-m-d H:i:s');
+
+        $shopData = User::whereDate('shop_close_date','<=', $currentDate)->get();
+      //  echo "<pre>";print_r($shopData);exit;
+        if (!empty($shopData) && count($shopData) > 0) {
+  
+            $users = User::where('shop_close_date','<=',  $currentDate)->update(['is_shop_closed' => '0']);
+            $message = trans('messages.shop_close_sucess');
+        }else{
+           
+            $message = trans('messages.your_shop_disapper_msg');
+        }
+        echo $message;
+      
+    }*/
     
 }

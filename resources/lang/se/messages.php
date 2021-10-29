@@ -102,5 +102,6 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
     'already_shop_close_req' => 'Du har redan begärt att butiken ska stängas',
     'shop_close_sucess' => 'Butiken stängd framgångsrikt!',
     'package_extend_success' => 'Your shop is closed.',
+    'trial_package_active'  => 'För närvarande är provpaketet aktivt för ditt konto.'
  ]
 ?>

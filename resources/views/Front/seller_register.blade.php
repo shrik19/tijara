@@ -361,18 +361,18 @@
 						    $(".swish_payment_lock").removeClass("fa-lock");
 						    $(".stripe_payment_lock").removeClass("fa-lock");
 					  	}
-                        error = 0;
+                        err = 0;
                         //$(".klarna_html").html(data.html_snippet).show();
                        //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     }else{
                         showErrorMessage(data.error_msg);
-                        error=1;
+                        err=1;
                     }
                 }
             });
 
             ////$('#klarna_form').submit();
-            if(error==0){
+            if(err==0){
             	var current_fs, next_fs, previous_fs; //fieldsets
 	            var opacity;
 

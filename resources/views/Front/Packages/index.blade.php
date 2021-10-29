@@ -17,6 +17,13 @@
 		  {{$package_exp_msg}}
 		</div>
 		@endif
+
+		@if(!empty($trial_package_msg))
+  		<div class="alert trial_package_msg" role="alert">
+		  {{$trial_package_msg}}
+		</div>
+		@endif
+
 		<div class="seller_info">
 				@php
 					$active ='package-basic';
@@ -64,7 +71,7 @@
 					    </tr>
 					    <tr>
 					    	<td >{{ __('lang.status_label')}}</td>
-					    	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="CAPTURED" )
+					    	@if(($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=="CAPTURED") || $row->start_date >= date('Y-m-d H:i:s'))
 					  			<td><a href="javascript:void(0)" class="btn btn-warning tj-btn-waring"> {{ __('users.not_activated_label')}}</a></td>
 					  		@elseif($row->payment_status=="checkout_incomplete")
 					  		<td><a href="javascript:void(0)" class="btn btn-danger"> {{ __('lang.pending_label')}}</a>

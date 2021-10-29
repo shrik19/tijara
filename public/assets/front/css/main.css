@@ -215,7 +215,12 @@ margin-top: 15px;
 .package-body{
   min-height: auto;overflow: auto;padding: 25px;
 }
-
+.trial_package_msg{
+  background-color: #03989e !important;
+  color: #fff !important;
+  font-size: 16px;
+  font-weight: 500;
+}
   /*seller register css*/
    .loader{
     position: absolute;
@@ -232,6 +237,7 @@ margin-top: 15px;
     opacity: 0.4;
     filter: alpha(opacity=40);
     display:none;
+}
 }
 .jconfirm .jconfirm-box.jconfirm-type-green {
     border-top: solid 7px #03989e;

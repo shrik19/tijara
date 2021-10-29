@@ -172,6 +172,7 @@
           							</div>
 									<form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
 										<input type="hidden" name="selected_package_name" id="selected_package_name" class="form-control" value="" >
+										<input type="hidden" name="session_package_name" id="session_package_name" class="form-control" value="{{ Session::get('new_seller_package_name')}}" >
 										<!-- <input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}} *">
 										<span class="invalid-feedback" id="err_fname" style="margin-top: -28px;margin-left: 10px;"></span>
 
@@ -307,7 +308,7 @@
     let p_name  = $("#p_name_"+i).val();
     let validity_days = $("#validity_days_"+i).val(); 
     let amount = $("#amount_"+i).val();
-
+	$('#selected_package_name').val(p_name);
 
         let err = 0;
         if(p_id == ''){
@@ -578,11 +579,12 @@ if($('#current_step_button').val() != 1){
 /*second step*/
 
 $('#second-step').click(function(e) { 
-    var selected_package_name =$('#selected_package_name').val();
+   // var session_package_name =$('#session_package_name').val();
+      var selected_package_name =$('#selected_package_name').val();
     //alert("dsjh"+selected_package_name)
 
     var err = 0
-    if(selected_package_name == ''){
+    if(selected_package_name==''){
         showErrorMessage(select_package_to_subscribe);
         err = 1;
     }
@@ -635,18 +637,18 @@ $('#third-step').click(function(e) {
     var selected_package_name   = $('#selected_package_name').val(); 
     let third_step_err = 0;
 
-   if((klarna_username != '' && klarna_password!= '') || (swish_api_key != '' && swish_merchant_account !='' && swish_client_key != '') || (strip_api_key != '' && strip_secret == ''))
+   if((klarna_username != '' && klarna_password!= '') || (swish_api_key != '' && swish_merchant_account !='' && swish_client_key != '') || (strip_api_key != '' && strip_secret != ''))
     {
         third_step_err = 0;
     }else
     {
        third_step_err = 1;
     }
-   
+
 	 if(third_step_err == 1)
 	  {
 	  	showErrorMessage(please_add_payment_details);
-	    return false;
+	    third_step_err = 1;
 	  }
 	  else
 	  {
@@ -657,7 +659,7 @@ $('#third-step').click(function(e) {
 	                         },
 	                url: "{{url('/')}}"+'/third-step-seller-register',
 	                type: 'post',
-	                async: false,
+	               
 	                data:{klarna_username:klarna_username, klarna_password:klarna_password, swish_api_key:swish_api_key,swish_merchant_account:swish_merchant_account,swish_client_key:swish_client_key,strip_api_key:strip_api_key,strip_secret:strip_secret},
 	                success: function(data){
 	                    if(data.success=="third step success"){
@@ -673,9 +675,9 @@ $('#third-step').click(function(e) {
 	            });
 	  }
 
-
     //show next step
-    if(third_step_err==0){
+    if(third_step_err == 0){
+
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;
         current_fs = $(this).parent();
@@ -701,7 +703,9 @@ $('#third-step').click(function(e) {
             },
             duration: 600
         }); 
-    }         
+    } else{
+    	return false;
+    }        
 });
 
 /*last step*/
@@ -721,19 +725,19 @@ $('#last-step').click(function(e) {
        showErrorMessage(verify_store)
     }
 
-    if($("#chk_privacy_policy").is(':checked')){
-       last_step_err = 0;
-    } else {
+    if(!$("#chk_privacy_policy").is(':checked')){
+       last_step_err = 1;
+        showErrorMessage(please_check_privacy_policy);
+    } /*else {
         showErrorMessage(please_check_privacy_policy);
         last_step_err = 1;
 
-    }
-
-    if(last_step_err == 1){
-            return false;
-    }
-    else 
+    }*/
+	//alert(last_step_err)
+    
+   if(last_step_err == 0)
     {
+    
     let logo_image   = $("#logo_image").val();
     let banner_image = $("#banner_image").val();
     let store_name   = $("#store_name").val();
@@ -746,7 +750,7 @@ $('#last-step').click(function(e) {
                          },
                 url: "{{url('/')}}"+'/seller-info-page',
                 type: 'post',
-                async: false,
+        
                 data:{banner_image:banner_image,logo_image:logo_image,store_name:store_name},
             
                 success: function(data){

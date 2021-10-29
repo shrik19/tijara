@@ -306,8 +306,8 @@ class AuthController extends Controller
                 $subject = $GetEmailContents['subject'];
                 $contents = $GetEmailContents['contents'];
 
-                $contents = str_replace(['##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],
-                [$email,url('/'),$url,env('FROM_MAIL')],$contents);
+                $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],
+                [$name,$email,url('/'),$url,env('FROM_MAIL')],$contents);
 
                 $arrMailData = ['email_body' => $contents];
                 Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
@@ -498,7 +498,7 @@ class AuthController extends Controller
         $package_status = Session::get('new_seller_package_status');
         $start_date = Session::get('new_seller_package_start_date');
         $ExpiredDate = Session::get('new_seller_package_end_date');
-        $package_name = Session::put('new_seller_package_name',);
+        $package_name = Session::get('new_seller_package_name');
         //return response()->json(['success'=>'second step success']);
 
          $arrInsertFreePackage = [
@@ -584,8 +584,8 @@ class AuthController extends Controller
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
 
-        $contents = str_replace(['##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],
-        [$email,url('/'),$url,env('FROM_MAIL')],$contents);
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],
+        [$name,$email,url('/'),$url,env('FROM_MAIL')],$contents);
 
         $arrMailData = ['email_body' => $contents];
         Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {

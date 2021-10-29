@@ -101,6 +101,6 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
     'your_shop_disapper_msg' => 'din butik försvinner om 30 dagar.',
     'already_shop_close_req' => 'Du har redan begärt att butiken ska stängas',
     'shop_close_sucess' => 'Butiken stängd framgångsrikt!',
-    //'shop_closed_login_msg' => 'Your shop is closed.',
+    'package_extend_success' => 'Your shop is closed.',
  ]
 ?>

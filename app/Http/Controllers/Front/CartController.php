@@ -786,20 +786,19 @@ class CartController extends Controller
       $user_id = Auth::guard('user')->id();
       if($user_id && Auth::guard('user')->getUser()->role_id == 1)
       {
-        $orderId = base64_decode($orderId);
-        
+        $order_id = base64_decode($orderId);
+       // echo $order_id;exit;
         $checkExisting = TmpOrders::join('temp_orders_details', 'temp_orders.id', '=', 'temp_orders_details.order_id')
                         ->join('products', 'products.id', '=', 'temp_orders_details.product_id')
                         ->join('users', 'users.id', '=', 'products.user_id')
                         ->select(['users.*'])                          
-                        ->where('temp_orders.id','=',$orderId)->first();
+                        ->where('temp_orders.id','=',$order_id)->first();
 
-         //echo "<pre>";print_r($checkExistingOrders);exit;
         if(empty($checkExisting))
         {
           return redirect(route('frontShowCart'));
         }
-        Session::put('current_checkout_order_id', $orderId);
+        Session::put('current_checkout_order_id', $order_id);
         $paymentOptionAvailable = array(); $isPaymentOptionAvailable= 0;
 
         if($checkExisting->klarna_username!='' && $checkExisting->klarna_password!='') {
@@ -818,7 +817,7 @@ class CartController extends Controller
           $blade_data['error_messages']= trans('errors.seller_credentials_err');
           return view('Front/payment_error',$blade_data); 
         }
-        //echo '<pre>';print_r($checkExisting);exit;
+
         //if(count($paymentOptionAvailable)>1) 
         $customerDetails=UserMain::where('id',$user_id)->first();
         {
@@ -836,7 +835,7 @@ class CartController extends Controller
             foreach($checkExistingOrder as $tmpOrder)
             { 
 
-              $OrderId = $tmpOrder['id'];
+            //  $OrderId = $tmpOrder['id'];
 
                $checkExistingOrderProduct = TmpOrdersDetails::
               join('products', 'temp_orders_details.product_id', '=', 'products.id')
@@ -844,7 +843,7 @@ class CartController extends Controller
               ->join("variant_product",function($join){
               $join->on("variant_product.product_id","=","products.id")
                   ->on("variant_product.id","=","temp_orders_details.variant_id");
-              })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*','variant_product.image','products.title','temp_orders.sub_total','temp_orders.shipping_total','temp_orders.total'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->orderBy('temp_orders_details.id','ASC')->groupBy('temp_orders_details.variant_id')->get()->toArray();
+              })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*','variant_product.image','products.title','temp_orders.sub_total','temp_orders.shipping_total','temp_orders.total'])->where('order_id','=',$order_id)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->orderBy('temp_orders_details.id','ASC')->groupBy('temp_orders_details.variant_id')->get()->toArray();
 
               if(!empty($checkExistingOrderProduct))
               {
@@ -852,7 +851,7 @@ class CartController extends Controller
                 $shippingTotal  = 0;
                 $total          = 0; 
                 foreach($checkExistingOrderProduct as $details)
-                {
+                { 
                   $product_shipping_amount = 0;
                   $discount_price = 0;
                   $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
@@ -950,14 +949,18 @@ class CartController extends Controller
                     'order_status'        => 'PENDING',
                 ];
       
-                TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+                TmpOrders::where('id',$order_id)->update($arrOrderUpdate);
               }//if end
-               $updatedOrder = TmpOrders::where('id','=',$tmpOrder['id'])->first()->toArray();
-               $orderDetails[$OrderId] = ['subTotal' => $updatedOrder['sub_total'], 'Total' => $updatedOrder['total'], 'shippingTotal' => $updatedOrder['shipping_total']];
-               $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
-               
+               $updatedOrder = TmpOrders::where('id','=',$order_id)->first()->toArray();
+               $orderDetails[$order_id] = ['subTotal' => $updatedOrder['sub_total'], 'Total' => $updatedOrder['total'], 'shippingTotal' => $updatedOrder['shipping_total']];
+              // DB::enableQueryLog();
+              // $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$order_id)->where('user_id','=',$user_id)->get()->toArray();
+               //echo "<pre>";print_r($checkExistingOrderProduct);exit;
+              // dd(DB::getQueryLog());
               if(!empty($checkExistingOrderProduct)){
                 foreach($checkExistingOrderProduct as $details){
+                  //echo "<pre>";print_r($details);
+                 
                   $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
                               ->join('categories', 'categories.id', '=', 'category_products.category_id')
                               ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
@@ -970,11 +973,12 @@ class CartController extends Controller
                               ->where('subcategories.status','=','active')
                               ->where('products.id','=',$details['product_id'])
                               ->where('variant_product.id','=',$details['variant_id'])
+                              ->where('products.user_id','=',$checkExisting->id)
                               ->orderBy('products.id', 'DESC')
                               ->orderBy('variant_product.id', 'ASC')
                               ->groupBy('products.id')
                               ->get();
-
+                
                   if(count($TrendingProducts)>0) {
                     foreach($TrendingProducts as $Product)
                     {
@@ -999,11 +1003,11 @@ class CartController extends Controller
                       if($SellerData['role_id'] == 1)
                       {
                         $is_buyer_product = 1;
-                        $orderDetails[$OrderId]['is_buyer_product'] = 1;
+                        $orderDetails[$order_id]['is_buyer_product'] = 1;
                       }
                       else
                       {
-                        $orderDetails[$OrderId]['is_buyer_product'] = 0;
+                        $orderDetails[$order_id]['is_buyer_product'] = 0;
                       }
                       $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                       if(!empty($SellerData['store_name'])){
@@ -1030,29 +1034,27 @@ class CartController extends Controller
                           $details['sellerLogo'] = $sellerLogoImage['logo'];
                       }
                       $details['product'] = $Product;
-                      $orderDetails[$OrderId]['details'][] = $details;
+                      $orderDetails[$order_id]['details'][] = $details;
                       
                     }
                   }
-                }//endforeach
+                }//endforeach 
+               
               }///endif
               else
               {
-                unset($orderDetails[$OrderId]);
-                $tmpOrder = TmpOrders::find($OrderId);
+                unset($orderDetails[$order_id]);
+                $tmpOrder = TmpOrders::find($order_id);
                 $tmpOrder->delete();
                 
               }
             }//foreach end
-          }
-         //  echo "<pre>";print_r($orderDetails);exit; 
-           //dd(DB::getQueryLog());
-        // echo "<pre>";print_r($checkExistingOrderProduct);exit;
-          $data['orderId']=$orderId;
+          } 
+
+          $data['orderId']=$order_id;
           $data['payment_options']  = $paymentOptionAvailable;
           $data['details']= $customerDetails;
           $data['seller_data'] = $checkExisting;
-          //$data['product_details'] = $checkExistingOrderProduct; 
           $data['orderDetails'] = $orderDetails;
           return view('Front/shopping_payment_options',$data);
         }

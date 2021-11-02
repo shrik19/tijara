@@ -2373,12 +2373,11 @@ DATA;
             $data['totalAmount'] = getTotalAmount($currentMonth,$currentYear,$user_id);
             $currentDate = date('Y-m-d H:i:s');
             $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->where('user_packages.status','=','active')->where('user_packages.start_date','<=',$currentDate)->orderBy('user_packages.id','DESC')->select('packages.id','packages.title','packages.amount','packages.validity_days','user_packages.end_date')->first();
-        
-           //  echo "<pre>";print_r( $userpackage);exit;
-            /*if(!empty($userpackage))
-            {
-                dd($userpackage);
-            }*/
+
+            if(empty($userpackage)){
+                $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->where('user_packages.status','=','active')->where('user_packages.is_trial','=','1')->orderBy('user_packages.id','DESC')->select('packages.id','packages.title','packages.amount','packages.validity_days','user_packages.end_date')->first();
+            }
+           
             $data['userpackage'] = $userpackage;
             $data['currentDate'] = $currentMonth.'-'.$currentYear;
             return view('Front/dashboard', $data);

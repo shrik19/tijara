@@ -53,8 +53,7 @@ class CartController extends Controller
           $productQuntity = $request->product_quantity;
          
           if(!empty($request->from_wishlist) && $request->from_wishlist == 1)
-          {
-            echo "in";exit;
+          { 
             $wishlistId = Wishlist::where([['user_id','=',$user_id],['variant_id','=',$productVariant]])->first();
             if(!empty($wishlistId))
             {
@@ -360,10 +359,10 @@ class CartController extends Controller
             join('products', 'temp_orders_details.product_id', '=', 'products.id')->join("variant_product",function($join){
             $join->on("variant_product.product_id","=","products.id")
                 ->on("variant_product.id","=","temp_orders_details.variant_id");
-            })->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+            })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
 
 
-            //print_r(DB::getQueryLog());exit;
+           // print_r(DB::getQueryLog());exit;
             //  echo "<pre>";print_r($checkExistingOrderProduct);exit;
             if(!empty($checkExistingOrderProduct))
             {
@@ -373,6 +372,7 @@ class CartController extends Controller
 
                 foreach($checkExistingOrderProduct as $details)
                 {
+                  
                     $product_shipping_amount = 0;
                     $discount_price = 0;
                     $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
@@ -394,34 +394,38 @@ class CartController extends Controller
                     } 
 
                     //Get Seller Shipping Informations
-                    $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges')->where('users.id','=',$details['product_user'])->first()->toArray();
- 
-                    if(!empty($details['shipping_method']) && !empty($details['shipping_charges']))
-                    {
-                      if($details['shipping_method'] == trans('users.flat_shipping_charges'))
+                    $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges','users.is_pick_from_store')->where('users.id','=',$details['product_user'])->first()->toArray();
+                    
+                    if(!empty($details['shipping_method']) && !empty($details['shipping_charges'])){
+                      if($details['shipping_method'] == "Platta fraktkostnader")
                       {
-                       
+                 
                         $product_shipping_type = 'flat';
                         $product_shipping_amount = $details['shipping_charges'];
                       }
-                      else if($details['shipping_method'] == trans('users.prcentage_shipping_charges'))
+                      else if($details['shipping_method'] ==  'Andel fraktkostnader')
                       {
-                        
+                    
                         $product_shipping_type = 'percentage';
                         $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
                       }
                   
                     }
                     else if(empty($SellerShippingData['free_shipping']))
-                    {
+                    { 
                         if(!empty($SellerShippingData['shipping_method']) && !empty($SellerShippingData['shipping_charges']))
                         {
-                            if($SellerShippingData['shipping_method'] == trans('users.flat_shipping_charges'))
+                          //echo $SellerShippingData['shipping_method'];exit;
+                            /*if($SellerShippingData['shipping_method'] == trans('users.flat_shipping_charges'))*/
+                            if($SellerShippingData['shipping_method'] == "Platta fraktkostnader")
+                            
                             {
+
                               $product_shipping_type = 'flat';
                               $product_shipping_amount = $SellerShippingData['shipping_charges'];
                             }
-                            elseif($SellerShippingData['shipping_method'] == trans('users.prcentage_shipping_charges'))
+                           /* elseif($SellerShippingData['shipping_method'] == trans('users.prcentage_shipping_charges'))*/
+                            elseif($SellerShippingData['shipping_method'] == 'Andel fraktkostnader')
                             {
                               $product_shipping_type = 'percentage';
                               $product_shipping_amount = ((float)$discount_price * $SellerShippingData['shipping_charges']) / 100;
@@ -429,20 +433,31 @@ class CartController extends Controller
                         }else{
                           $product_shipping_type='free';
                         }
-                    }
+
+                    }  
                     else
                     {
                       $product_shipping_type = 'free';
                     }
 
-                    
+                    //echo "<pre>";print_r($details['is_pick_from_store']);exit;
+                    if(!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1))
+                    {
+                      $product_shipping_amount = 0;
+                      $product_shipping_type='free';
+                    }elseif(!empty($SellerShippingData['is_pick_from_store']) && ($SellerShippingData['is_pick_from_store'] ==1))
+                    {
+                      $product_shipping_amount=0;
+                      $product_shipping_type='free';
+                    }
+                 
 
                     $arrOrderDetailsUpdate = [
                       'price'                => $discount_price,
                       'shipping_type'        => $product_shipping_type,
                       'shipping_amount'      => $product_shipping_amount,
                     ];
-                   // echo "<pre>";print_r($arrOrderDetailsUpdate);exit;
+                    //echo "<pre>";print_r($arrOrderDetailsUpdate);exit;
                     TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                     $subTotal += $discount_price * $details['quantity'];
@@ -479,6 +494,7 @@ class CartController extends Controller
           {
               foreach($checkExistingOrderProduct as $details)
               {
+
                   //$orderDetails[] = $details;
 
                   $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
@@ -515,7 +531,12 @@ class CartController extends Controller
 
                       $Product->product_link  = $product_link;
 
-                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id','store_name')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id','store_name','is_pick_from_store','store_pick_address','store_pick_address')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      if($Product['is_pick_from_store'] != 1){
+                      // echo "<pre>";print_r($Product['is_pick_from_store']);exit;
+                        $Product->is_pick_from_store = $SellerData['is_pick_from_store'];
+                        $Product->store_pick_address = $SellerData['store_pick_address'];
+                      }
                       if($SellerData['role_id'] == 1)
                       {
                         $is_buyer_product = 1;
@@ -532,7 +553,6 @@ class CartController extends Controller
                           $Product->store_name  = $Product->seller;
                        }
                      
-
                       $Product->quantity = $details['quantity'];
                       $Product->image    = explode(',',$Product->image)[0];
                    
@@ -773,6 +793,8 @@ class CartController extends Controller
                         ->join('users', 'users.id', '=', 'products.user_id')
                         ->select(['users.*'])                          
                         ->where('temp_orders.id','=',$orderId)->first();
+
+         //echo "<pre>";print_r($checkExistingOrders);exit;
         if(empty($checkExisting))
         {
           return redirect(route('frontShowCart'));
@@ -800,9 +822,238 @@ class CartController extends Controller
         //if(count($paymentOptionAvailable)>1) 
         $customerDetails=UserMain::where('id',$user_id)->first();
         {
+          
+         // DB::enableQueryLog();
+           $checkExistingOrder = TmpOrders::where('user_id','=',$customerDetails->id)->where('show_in_cart','=',1)->get()->toArray();
+            if(!empty($checkExistingOrder))
+          {
+            $subTotal       = 0;
+            $shippingTotal  = 0;
+            $total          = 0;
+            $product_shipping_type = '';
+            $product_shipping_amount = 0;
+
+            foreach($checkExistingOrder as $tmpOrder)
+            { 
+
+              $OrderId = $tmpOrder['id'];
+
+               $checkExistingOrderProduct = TmpOrdersDetails::
+              join('products', 'temp_orders_details.product_id', '=', 'products.id')
+              ->join('temp_orders', 'temp_orders.id', '=', 'temp_orders_details.order_id')
+              ->join("variant_product",function($join){
+              $join->on("variant_product.product_id","=","products.id")
+                  ->on("variant_product.id","=","temp_orders_details.variant_id");
+              })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*','variant_product.image','products.title','temp_orders.sub_total','temp_orders.shipping_total','temp_orders.total'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->orderBy('temp_orders_details.id','ASC')->groupBy('temp_orders_details.variant_id')->get()->toArray();
+
+              if(!empty($checkExistingOrderProduct))
+              {
+                $subTotal       = 0;
+                $shippingTotal  = 0;
+                $total          = 0; 
+                foreach($checkExistingOrderProduct as $details)
+                {
+                  $product_shipping_amount = 0;
+                  $discount_price = 0;
+                  $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();
+                  if(empty($checkVariant))
+                  {
+                    $tmpOrderDetails = TmpOrdersDetails::find($details['id']);
+                    $tmpOrderDetails->delete();
+                    continue;
+                  }
+                  if(!empty($details['discount']))
+                  {
+                    $discount = number_format((($details['product_price'] * $details['discount']) / 100),2,'.','');
+                    $discount_price = $details['product_price'] - $discount;
+                  }
+                  else
+                  {
+                    $discount_price = $details['product_price'];
+                  } 
+
+                  //Get Seller Shipping Informations
+                  $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges','users.is_pick_from_store')->where('users.id','=',$details['product_user'])->first()->toArray();
+                   //echo "<pre>";print_r($SellerShippingData);exit;
+                   if(!empty($details['shipping_method']) && !empty($details['shipping_charges'])){
+                      if($details['shipping_method'] ==  "Platta fraktkostnader")
+                      {
+                        $product_shipping_type = 'flat';
+                        $product_shipping_amount = $details['shipping_charges'];
+                      }
+                      else if($details['shipping_method'] ==  'Andel fraktkostnader')
+                      {
+                  
+                        $product_shipping_type = 'percentage';
+                        $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
+                      }
+                  
+                    }else if(empty($SellerShippingData['free_shipping']))
+                    { 
+                        if(!empty($SellerShippingData['shipping_method']) && !empty($SellerShippingData['shipping_charges']))
+                        {
+                          //echo $SellerShippingData['shipping_method'];exit;
+                            /*if($SellerShippingData['shipping_method'] == trans('users.flat_shipping_charges'))*/
+                            if($SellerShippingData['shipping_method'] == "Platta fraktkostnader")
+                            
+                            {
+
+                              $product_shipping_type = 'flat';
+                              $product_shipping_amount = $SellerShippingData['shipping_charges'];
+                            }
+                           /* elseif($SellerShippingData['shipping_method'] == trans('users.prcentage_shipping_charges'))*/
+                            elseif($SellerShippingData['shipping_method'] == 'Andel fraktkostnader')
+                            {
+                              $product_shipping_type = 'percentage';
+                              $product_shipping_amount = ((float)$discount_price * $SellerShippingData['shipping_charges']) / 100;
+                            }
+                        }else{
+                          $product_shipping_type='free';
+                        }
+
+                    } else
+                    {
+                      $product_shipping_type = 'free';
+                    }
+
+                    if(!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1))
+                    {
+                      $product_shipping_amount = 0;
+                      $product_shipping_type='free';
+                    }elseif(!empty($SellerShippingData['is_pick_from_store']) && ($SellerShippingData['is_pick_from_store'] ==1))
+                    {
+                      $product_shipping_amount=0;
+                      $product_shipping_type='free';
+                    }
+
+                    $arrOrderDetailsUpdate = [
+                      'price'                => $discount_price,
+                      'shipping_type'        => $product_shipping_type,
+                      'shipping_amount'      => $product_shipping_amount,
+                    ];
+                    //echo "<pre>";print_r($arrOrderDetailsUpdate);exit;
+                    TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
+
+                    $subTotal += $discount_price * $details['quantity'];
+                    $shippingTotal += $product_shipping_amount;
+                }//foreach end
+
+                $total = $subTotal+$shippingTotal;
+
+                $arrOrderUpdate = [
+                    'user_id'             => $user_id,
+                    'sub_total'           => $subTotal,
+                    'shipping_total'      => $shippingTotal,
+                    'total'               => $total,
+                    'payment_details'     => NULL,
+                    'payment_status'      => NULL,
+                    'order_status'        => 'PENDING',
+                ];
+      
+                TmpOrders::where('id',$OrderId)->update($arrOrderUpdate);
+              }//if end
+               $updatedOrder = TmpOrders::where('id','=',$tmpOrder['id'])->first()->toArray();
+               $orderDetails[$OrderId] = ['subTotal' => $updatedOrder['sub_total'], 'Total' => $updatedOrder['total'], 'shippingTotal' => $updatedOrder['shipping_total']];
+               $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
+               
+              if(!empty($checkExistingOrderProduct)){
+                foreach($checkExistingOrderProduct as $details){
+                  $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                              ->join('categories', 'categories.id', '=', 'category_products.category_id')
+                              ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                              ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+                              ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                              //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
+                              ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+                              ->where('products.status','=','active')
+                              ->where('categories.status','=','active')
+                              ->where('subcategories.status','=','active')
+                              ->where('products.id','=',$details['product_id'])
+                              ->where('variant_product.id','=',$details['variant_id'])
+                              ->orderBy('products.id', 'DESC')
+                              ->orderBy('variant_product.id', 'ASC')
+                              ->groupBy('products.id')
+                              ->get();
+
+                  if(count($TrendingProducts)>0) {
+                    foreach($TrendingProducts as $Product)
+                    {
+                      $productCategories = $this->getProductCategories($Product->id);
+                      //dd($productCategories);
+
+                      $product_link = url('/').'/product';
+
+                      $product_link .=  '/'.$productCategories[0]['category_slug'];
+                      $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+
+                      $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
+
+                      $Product->product_link  = $product_link;
+
+                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id','store_name','is_pick_from_store','store_pick_address','store_pick_address')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      if($Product['is_pick_from_store'] != 1){
+                      // echo "<pre>";print_r($Product['is_pick_from_store']);exit;
+                        $Product->is_pick_from_store = $SellerData['is_pick_from_store'];
+                        $Product->store_pick_address = $SellerData['store_pick_address'];
+                      }
+                      if($SellerData['role_id'] == 1)
+                      {
+                        $is_buyer_product = 1;
+                        $orderDetails[$OrderId]['is_buyer_product'] = 1;
+                      }
+                      else
+                      {
+                        $orderDetails[$OrderId]['is_buyer_product'] = 0;
+                      }
+                      $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
+                      if(!empty($SellerData['store_name'])){
+                         $Product->store_name  = $SellerData['store_name'];
+                       }else{
+                          $Product->store_name  = $Product->seller;
+                       }
+                     
+                      $Product->quantity = $details['quantity'];
+                      $Product->image    = explode(',',$Product->image)[0];
+                   
+                      $sellerLogoImage = SellerPersonalPage::where('user_id',$Product->user_id)->first();
+
+                      $seller_name = $SellerData['fname'].' '.$SellerData['lname'];
+
+                      $seller_name = str_replace( array( '\'', '"', 
+                      ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+                      $seller_name = str_replace(" ", '-', $seller_name);
+                      $seller_name = strtolower($seller_name);
+                      
+                      $seller_link = url('/').'/seller/'.$seller_name."/". base64_encode($Product->user_id)."/products"; 
+                      $Product->seller_link  = $seller_link;
+                      if(!empty($sellerLogoImage['logo'])){
+                          $details['sellerLogo'] = $sellerLogoImage['logo'];
+                      }
+                      $details['product'] = $Product;
+                      $orderDetails[$OrderId]['details'][] = $details;
+                      
+                    }
+                  }
+                }//endforeach
+              }///endif
+              else
+              {
+                unset($orderDetails[$OrderId]);
+                $tmpOrder = TmpOrders::find($OrderId);
+                $tmpOrder->delete();
+                
+              }
+            }//foreach end
+          }
+         //  echo "<pre>";print_r($orderDetails);exit; 
+           //dd(DB::getQueryLog());
+        // echo "<pre>";print_r($checkExistingOrderProduct);exit;
           $data['orderId']=$orderId;
           $data['payment_options']  = $paymentOptionAvailable;
           $data['details']= $customerDetails;
+          $data['seller_data'] = $checkExisting;
+          //$data['product_details'] = $checkExistingOrderProduct; 
+          $data['orderDetails'] = $orderDetails;
           return view('Front/shopping_payment_options',$data);
         }
        // else 

@@ -359,6 +359,14 @@ cancellation of service works.',
     'confirm_btn' => 'Confirm!',
     'is_trial_package' => 'Is Trial',
     'extend_trial_package' => 'Extend Trial Package',
-
+    'pick_from_store' => 'Pick From Store',
+    'pick_up_address' => 'Pick up address',
+    'to_delivery_address' => 'To delivery address',
+    'articles_title' => 'Articles',
+    'change_order_title' => 'Change Order',
+    'complete_purchase_btn' => 'Complete purchase',
+    'select_payment_option' => 'please Select Payment Method.',
+    'back_to_the_cart_btn' => 'Back to the cart',
+    'checkout_cart_title' => 'Checkout',
  ]
 ?>

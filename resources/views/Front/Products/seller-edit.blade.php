@@ -301,9 +301,17 @@
                         <div class="col-md-12">
                          <label class="col-md-3"> {{ __('users.free_shipping_label')}}</label>
                           <div class="col-md-8">
-                            <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping ==  "free_shipping"){ echo "checked"; } ?>>
+                            <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping == "free_shipping"){ echo "checked"; } ?>>
                           </div>
                           </div>
+<?php //echo "<pre>";print_r($product);exit;?>
+                          <div class="col-md-12">
+                        <label  class="col-md-3"> {{ __('users.pick_from_store')}}  </label>
+                        <div class="col-md-8">
+                           <input type="checkbox" class="col-md-2" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($product->is_pick_from_store ==  "1"){ echo "checked"; } ?>>
+                          <input type="text" class="col-md-6 ge_input" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="{{ (old('store_pick_address')) ? old('store_pick_address') : $product->store_pick_address}}">
+                        </div>              
+                      </div>
                     </div>
                   </div>
                   <div class="row tijara-content">

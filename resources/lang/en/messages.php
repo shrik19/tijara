@@ -102,5 +102,6 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
      'shop_close_sucess' => 'Shop Closed successfully!',
      'package_extend_success' => 'Paketförlängning lyckades.',
      'trial_package_active'  => 'Currently Trial package is active for your account.',
+     'delivery_label' => 'Delivery',
  ]
 ?>

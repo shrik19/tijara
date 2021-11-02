@@ -62,7 +62,7 @@
                   @if(!empty($tmpOrderProduct))
                    @php   $inc=1; @endphp
                     @foreach($tmpOrderProduct['details'] as $orderProduct)
-                
+               
                     <tr>
                         <td class="col-sm-4 col-md-4">
                             @if($inc==1)
@@ -98,6 +98,7 @@
                             <div class="media-body" style="padding-left:10px;padding-top:10px;">
                                 <h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
                                 <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']);?> </h5>
+                                <h4  class="media-heading product_sorting_filter_option"> {{ __('users.pick_up_address')}} : {{$orderProduct['product']->store_pick_address}}</h4>
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
                         </div></td>

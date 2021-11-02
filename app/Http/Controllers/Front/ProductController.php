@@ -400,7 +400,7 @@ class ProductController extends Controller
 
         if(!Auth::guard('user')->id()) 
         {
-                return redirect(route('frontLogin'));
+            return redirect(route('frontLogin'));
         }
         $currentDate = date('Y-m-d H:i:s');
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
@@ -417,7 +417,6 @@ class ProductController extends Controller
                         ->get();
                         
             if(count($isSubscribed)<=0) {
-                
                 $data['subscribedError']   =    trans('messages.subscribe_package_to_manage_prod_attri');
             }
         }
@@ -570,7 +569,9 @@ class ProductController extends Controller
 
 				'sort_order'       	=> trim($request->input('sort_order')),
                
-				'user_id'			=>	Auth::guard('user')->id()
+				'user_id'			=>	Auth::guard('user')->id(),
+                'store_pick_address'  => trim($request->input('store_pick_address')),
+                'is_pick_from_store'  => trim($request->input('is_pick_from_store')),
             ];
 
 

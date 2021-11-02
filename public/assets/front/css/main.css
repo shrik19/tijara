@@ -72,7 +72,12 @@ button.btn.print_btn, .download_btn.debg_color {
   color: #222222 !important;
   font-weight: 400;
 }
-
+.store_pick_address{
+  width:89%;
+}
+.is_pick_from_store {
+  padding-top: 10px;
+}
 .product_sorting_filter_option{
   font-size: 14px !important;
   color: #222222 !important;

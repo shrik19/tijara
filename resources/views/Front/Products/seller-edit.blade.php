@@ -304,14 +304,21 @@
                             <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping == "free_shipping"){ echo "checked"; } ?>>
                           </div>
                           </div>
-<?php //echo "<pre>";print_r($product);exit;?>
-                          <div class="col-md-12">
-                        <label  class="col-md-3"> {{ __('users.pick_from_store')}}  </label>
-                        <div class="col-md-8">
-                           <input type="checkbox" class="col-md-2" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($product->is_pick_from_store ==  "1"){ echo "checked"; } ?>>
-                          <input type="text" class="col-md-6 ge_input" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="{{ (old('store_pick_address')) ? old('store_pick_address') : $product->store_pick_address}}">
-                        </div>              
-                      </div>
+
+
+                      <div class="form-group col-md-12">
+                      <label  class="col-md-3"> {{ __('users.pick_from_store')}} </label>
+                      <div class="col-md-8">
+                        <div class="row">
+                        <div class="col-md-1"  class="is_pick_from_store">
+                           <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($product->is_pick_from_store ==  "1"){ echo "checked"; } ?>>
+                       </div>
+                       <div class="col-md-8">
+                         <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="{{ (old('store_pick_address')) ? old('store_pick_address') : $product->store_pick_address}}">
+                       </div>
+                        </div>
+                      </div>              
+                    </div>
                     </div>
                   </div>
                   <div class="row tijara-content">

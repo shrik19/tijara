@@ -102,11 +102,17 @@
 
             <div class="form-group col-md-6">
               <label> {{ __('users.pick_from_store')}}  </label>
-              <div>
+              <div class="row">
+                <div class="col-md-1" class="is_pick_from_store">
                  <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($sellerDetails[0]->is_pick_from_store ==  "1"){ echo "checked"; } ?>>
+               </div>
+               <div class="col-md-11">
                 <input type="text" class="form-control ge_input" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="{{ (old('store_pick_address')) ? old('store_pick_address') : $sellerDetails[0]->store_pick_address}}">
+              </div>
               </div>              
             </div>
+            
+         
               <?php /*
            
           

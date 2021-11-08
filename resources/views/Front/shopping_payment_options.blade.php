@@ -17,12 +17,13 @@
 </style>
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
 <script type="text/javascript">
     var select_payment_option="{{ __('users.select_payment_option')}}";
 </script>
-  <div class="container-inner-section" style="background-color: #ddd;">
-  <div class="row">       
-      <div class="col-md-12">
+  <div class="container-inner-section checkoutContainer">
+  <div class="">       
+      <div class="">
         <div class="card">
           <div class="card-header row">
             
@@ -31,16 +32,17 @@
 
             <form method="POST" action="" class="needs-validation tijara-form" novalidate="">
               @csrf
-              <div class="col-md-12">
+              <div >
                 <a href="{{route('frontShowCart')}}">&nbsp;{{ __('users.back_to_the_cart_btn')}} </a> 
-                <h2>{{ __('users.checkout_cart_title')}}</h2>
-                <hr class="heading_line">
+                <h2 class="checkoutHeading text-center">{{ __('users.checkout_cart_title')}}</h2>              
               </div>
-              <div class="col-md-12 login_box">
-                <div class="col-md-6" style="background-color: #fff;">
+              <div class="rowlogin_box">
+                <div class="col-md-7" >
+                <div class="checkoutPageBox">
                   <div class="col-md-12 checkout_billing_info">
+
                     <div class="col-md-5">
-                      <h4><strong>{{ __('messages.txt_billing_address')}}</strong></h4>
+                      <h4>{{ __('messages.txt_billing_address')}}</h4>
                       <div class="form-group">
                         <input type="text" class="form-control login_input " name="billing_given_name" id="billing_given_name" 
                         placeholder="{{ __('users.first_name_label')}}" 
@@ -58,7 +60,7 @@
                         <span class="invalid-feedback" id="err_billing_family_name"></span>
                       </div>
                     </div>
-                    <div class="col-md-2"></div>
+                   
                   </div>
 
                   <div class="col-md-12">
@@ -68,7 +70,7 @@
                     value="{{ (old('billing_email')) ?  old('billing_email') : $details->email}}">
                     <span class="invalid-feedback" id="err_billing_email"></span>
                    </div>
-                   <div class="col-md-2"></div>
+                   
                   </div>
 
                   <div class="col-md-12">
@@ -78,7 +80,7 @@
                     value="{{ (old('billing_address')) ?  old('billing_address') : $details->address}}">
                       <span class="invalid-feedback" id="err_billing_address"></span>
                     </div>
-                   <div class="col-md-2"></div>
+                  
                   </div>
 
                     <div class="col-md-12">
@@ -109,22 +111,23 @@
                         value="{{ (old('billing_phone_number')) ?  old('billing_phone_number') : $details->phone_number}}">
                         <span class="invalid-feedback" id="err_billing_phone_number"></span>
                       </div> 
-                      <div class="col-md-2"></div>
+                      
+                     </div>
                      </div>
 
-
                      <!-- le -->
+                     <div class="checkoutPageBox m-50">
                      <div class="col-md-12 checkout_billing_info">
                     <div class="col-md-5">
-                      <h4><strong>{{ __('messages.txt_shipping_address')}}</strong>
-                      <div>
+                      <h4>{{ __('messages.txt_shipping_address')}}
+                      <div class="rememberContainer p-15">
                           <input type="checkbox" name="same_as_billing" 
-                          id="same_as_billing" value=""><span class="remember-text">
+                          id="same_as_billing" value=""><span class="remember-text-checkout">
                           Samma som fakturering
                           </span>  
                       </div>
                       </h4>
-                       <div class="form-group">
+                       <div class="form-group ">
                         <input type="text" class="form-control login_input " name="shipping_given_name" id="shipping_given_name" 
                         placeholder="{{ __('users.first_name_label')}}" 
                         value="{{ (old('shipping_given_name')) ?  old('shipping_given_name') : $details->fname}}">
@@ -134,14 +137,14 @@
 
                     <div class="col-md-5">
                       <h4>&nbsp;<div>&nbsp;&nbsp;</div></h4>
-                      <div class="form-group">
+                      <div class="form-group p-15">
                         <input type="text" class="form-control login_input " name="shipping_family_name" id="shipping_family_name"
                         placeholder="{{ __('users.last_name_label')}}" 
                         value="{{ (old('shipping_family_name')) ?  old('shipping_family_name') : $details->lname}}">
                         <span class="invalid-feedback" id="err_shipping_family_name"></span>
                       </div>
                     </div>
-                    <div class="col-md-2"></div>
+                    
                   </div>
 
                   <div class="col-md-12">
@@ -151,7 +154,7 @@
                       value="{{ (old('shipping_email')) ?  old('shipping_email') : $details->email}}">
                       <span class="invalid-feedback" id="err_shipping_email"></span>
                     </div>
-                   <div class="col-md-2"></div>
+                  
                   </div>
 
                   <div class="col-md-12">
@@ -161,7 +164,7 @@
                       value="{{ (old('shipping_address')) ?  old('shipping_address') : $details->address}}">
                       <span class="invalid-feedback" id="err_shipping_address"></span>
                     </div>
-                   <div class="col-md-2"></div>
+                 
                   </div>
 
                     <div class="col-md-12">
@@ -182,7 +185,7 @@
                           <span class="invalid-feedback" id="err_shipping_postcode"></span>
                         </div>
                       </div>
-                      <div class="col-md-2"></div>
+                     
                     </div>
 
                     <div class="col-md-12">
@@ -192,21 +195,22 @@
                       value="{{ (old('shipping_phone_number')) ?  old('shipping_phone_number') : $details->phone_number}}">
                       <span class="invalid-feedback" id="err_shipping_phone_number"></span>
                     </div>
-                      <div class="col-md-2"></div>
+                      
                      </div>
-
+                    </div>
                       <!-- 3rd -->
+                      <div class="checkoutPageBox m-50">
                       <div class="col-md-12">
                          <div class="form-group col-md-10">
                          
                            <h4>{{ __('messages.delivery_label')}}</h4>
                            <div class="pick_up_fromt_store" style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;">   
                               <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                   <input type="radio" name="pick_from_store" value="1"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
                                   <p  style="margin-left:26px;">@if(!empty($seller_data['store_pick_address']) && $seller_data['is_pick_from_store'] == '1'){{$seller_data['store_pick_address']}}@endif</p>
                                 </div>
-                                <div class="col-md-6" style="margin-top: 8px;">
+                                <div class="col-md-5" style="margin-top: 8px;">
                                   <span>0.00kr</span> 
                                 </div>
                               </div>                                   
@@ -215,11 +219,11 @@
 
                            <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;"> 
                                 <div class="row">
-                                    <div class="col-md-6">                           
+                                    <div class="col-md-5">                           
                                         <input type="radio" name="shipping_amount" value=""> <span style="margin-left:10px;">{{ __('users.shipping_btn')}}</span>
                                          <p  style="margin-left:26px;">{{ __('users.to_delivery_address')}}</p>
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 8px;">
+                                    <div class="col-md-5" style="margin-top: 8px;">
                                        @php
                                           $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3);
                                           $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
@@ -230,10 +234,11 @@
                                 </div>
                            </div>
                           </div>
-                            <div class="col-md-2"></div>
+                           
                         </div>
-
+                      </div>
                      <!-- 4rd -->
+                       <div class="checkoutPageBox m-50">
                       <div class="col-md-12 checkout_billing_info">
                          <div class="form-group col-md-10">
                            <h4>{{ __('users.payment_btn')}}</h4>  
@@ -258,18 +263,22 @@
                           value="{{ (old('shipping_phone_number')) ?  old('shipping_phone_number') : $details->phone_number}}">
                           <span class="invalid-feedback" id="err_shipping_phone_number"></span> -->
                         </div>
-                          <div class="col-md-2"></div>
+                         
                          
                       </div>
-
+</div>
                     
                 </div>
 
-                <div class="col-md-6" style="background-color: #fff;">
+                <div class="col-md-5">
+                <div class="checkoutPageRightBox">
                   @if(!empty($orderDetails))
-                  <div><h4> {{count($orderDetails[$orderId]['details'])}} {{ __('users.articles_title')}}</h4>
+                  <div class="checkoutPageRightBoxHeader">
+                    <h4> {{count($orderDetails[$orderId]['details'])}} {{ __('users.articles_title')}}</h4>
                   <a href="{{route('frontShowCart')}}" style="float: right;color: #000 !important;">{{ __('users.change_order_title')}}</a>
                   </div>
+                  <div class="clerarfix"></div>
+                  <hr class="hr_line"/> 
                     @foreach($orderDetails as $orderId => $tmpOrderProduct)
                       @if(!empty($tmpOrderProduct))
                         @foreach($tmpOrderProduct['details'] as $key=>$orderProduct)
@@ -281,15 +290,15 @@
                         @endif
                         </div>
 
-                          <div class="col-md-12">
-                          <div class="col-md-4">
+                          <div class="col-md-12 checkoutProducts">
+                          <div class="col-md-3">
                             @if(!empty($orderProduct['product']['image']))
-                               <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object seller-show-icon">
+                               <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object checkoutProductImg">
                             @else
                               <img src="{{url('/')}}/uploads/ProductImages/productIcons/no-image.png" class="media-object" style="width: 72px; height: 72px;">
                             @endif
                           </div>
-                          <div class="col-md-8">
+                          <div class="col-md-9 checkoutProductDetails">
                             <h4>{{$orderProduct['product']['title']}}</h4>
                             <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['product']['variant_attribute_id']);?> </h5>
                             <p>{{ __('lang.shopping_cart_quantity')}}:  {{$orderProduct['product']['quantity']}}</p>
@@ -306,9 +315,11 @@
                     
                     @endforeach
                   @endif
-                  <hr> 
+                  <div class="clerarfix"></div>
+                  <hr class="hr_line"/> 
+                
                 <div class="col-md-12">
-                  <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;">
+                  <div class="checkoutAmountBorder">
                     @php
                         $sub_total_tbl = str_split(strrev($orderDetails[$orderId]['subTotal']), 3);
                         $sub_total_tbl = strrev(implode(" ", $sub_total_tbl));
@@ -317,7 +328,7 @@
                     <span>{{ __('lang.shopping_cart_subtotal')}}:</span>
                     <span style="float: right;">{{@$sub_total_tbl}} kr</span>
                   </div>
-                  <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;">
+                  <div class="checkoutAmountBorder">
                     @php 
                         $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3);
                         $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
@@ -325,7 +336,7 @@
                     @endphp
                   <span>{{ __('lang.shopping_cart_shipping')}}:</span><span style="float: right;">{{@$shipping_total_tbl}} kr</span>
                 </div>
-                <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;">
+                <div class="checkoutAmountBorder">
                   @php 
                     $total_tbl = str_split(strrev($orderDetails[$orderId]['Total']), 3);
                     $total_tbl = strrev(implode(" ", $total_tbl));
@@ -334,10 +345,8 @@
                   <span>{{ __('lang.shopping_cart_total')}}:</span><span style="float: right;">{{@$total_tbl}} kr</span>
                 </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 text-center">
                   <!-- <button type="button" id="" name="next" class="btn btn-black debg_color login_btn " value="{{ __('users.complete_purchase_btn')}}"/>{{ __('users.complete_purchase_btn')}}</button> -->
-                    <button  type="button"  class="btn btn-black debg_color login_btn pay_through_btn">{{ __('users.complete_purchase_btn')}}</button>
-
               </div>
                 </div>
                  
@@ -357,6 +366,7 @@
               </div> -->
               </form>
           </div>
+        </div>
         </div>
       </div>
 

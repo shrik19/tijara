@@ -9,7 +9,7 @@
      'block_label'=>'Blockera',
      'save_btn'=>'Spara',
      'cancel_btn'=>'Avbryt',
-     'close_btn'=>'Stänga',
+     'close_btn'=>'Stäng',
      'register_btn'=>'Registrera',
      'back_to_login_btn'=>'Tillbaka till login?',
      'login_btn'=>'Logga in',
@@ -320,6 +320,8 @@
     'book_service_btn'=>'Slutför bokning',
     'continue_to_swish'=>'Fortsätt till Swish',
     'swish_payment_not_proceed'=>'Betalningen går inte vidare. Vänligen försök igen senare',
+    'dashboard_total_users' => 'total users',
+    'dashboard_total_ads' => 'total ads',
 
     //strip
     'name_on_card'  =>   'namn på kort',
@@ -341,7 +343,7 @@
     'category_product_title'=>'Produkter',
     'category_service_title'=>'Tjänster',
     'butik_info_heading' =>'Butiksinformation',
-    'buyer_ad_title' => 'Köpare Annonser',
+    'buyer_ad_title' => 'Annonser',
 
  ]
 ?>

@@ -13,6 +13,8 @@ use Auth;
 use Session;
 use flash;
 use Validator;
+use App\Models\UserMain;
+use App\Models\Products;
 
 class AuthController extends Controller
 {
@@ -204,7 +206,8 @@ class AuthController extends Controller
         $data['productCount'] = getTotalProducts($currentMonth,$currentYear);
         $data['servicesCount'] = getTotalServices($currentMonth,$currentYear);
         $data['totalAmount'] = getTotalAmount($currentMonth,$currentYear);
-
+        $data['totalUsers'] = UserMain::get_buyers_count();
+        $data['totalAds'] = Products::get_product_count();
         $data['currentDate'] = $currentMonth.'-'.$currentYear;
         return view('Admin/dashboard', $data);
     }

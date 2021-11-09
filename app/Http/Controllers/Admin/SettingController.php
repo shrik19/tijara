@@ -68,7 +68,7 @@ class SettingController extends Controller
             $image->move(public_path('uploads/Images'), $imageName);
 
             $path = public_path().'/uploads/Images/'.$imageName;			
-            $arrInsertSettings[] = ['header_logo' => $imageName];
+            $arrInsertSettings['header_logo'] = $imageName;
         }
      
         if($request->hasfile('footer_logo')){
@@ -77,7 +77,7 @@ class SettingController extends Controller
             $footer_logo->move(public_path('uploads/Images'), $footerLogo);
 
             $path = public_path().'/uploads/Images/'.$footerLogo;			
-            $arrInsertSettings[]=['footer_logo' => $footerLogo];
+            $arrInsertSettings['footer_logo']=$footerLogo;
         }
 
        

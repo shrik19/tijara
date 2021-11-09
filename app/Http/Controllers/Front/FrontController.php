@@ -1010,6 +1010,7 @@ public function getCatSubList(Request $request) {
     {
 		
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
+		$data['meta_title'] 	= 'CategoryPage';
 		$data['current_role_id']	=	'2';
 		$cities = DB::table('users')
 			->where('is_deleted','=',0)

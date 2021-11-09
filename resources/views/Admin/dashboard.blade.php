@@ -66,6 +66,26 @@
         </div>
       </div>
 
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <h4 class="card-title">{{ __('lang.dashboard_total_users')}}</h4>
+            <br />
+            <h2>{{ $totalUsers }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <h4 class="card-title">{{ __('lang.dashboard_total_ads')}}</h4>
+            <br />
+            <h2>{{ $totalAds }}</h2>
+          </div>
+        </div>
+      </div>
+
       
       
     </div>  

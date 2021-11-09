@@ -20,7 +20,18 @@ class UserMain extends Model
                    ->get();
 
         return $buyer;
-    }    
+    }   
+    
+    /* function to get buyers count*/
+    public static function get_buyers_count(){
+        $buyer = DB::table('users')
+                   ->where('is_deleted','!=',1)
+                   ->where('role_id','=',1)
+                   ->where('is_verified','=',1)
+                   ->get();
+        $buyer_count = count($buyer);
+        return $buyer_count;
+    } 
 
     /* function to get sellers*/
     public static function get_seller($id){

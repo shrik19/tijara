@@ -76,14 +76,14 @@
             <div class="text-danger">{{$errors->first('city')}}</div>
           </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>{{ __('users.swish_number_label')}} </label>
               <input type="text" class="form-control" name="swish_number" id="swish_number" tabindex="8" value="{{ (old('swish_number')) ? old('swish_number') : $sellerDetails[0]->swish_number}}">
               <div class="invalid-feedback">
                {{ __('errors.fill_in_swish_number_err')}}
               </div>
               <div class="text-danger">{{$errors->first('swish_number')}}</div>
-            </div>
+            </div> -->
 
 
           </div>
@@ -102,14 +102,14 @@
               <div class="text-danger">{{$errors->first('store_name')}}</div>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>{{ __('users.paypal_email_address_label')}}</label>
               <input type="text" class="form-control" name="paypal_email" id="paypal_email" tabindex="10" value="{{ (old('paypal_email')) ? old('paypal_email') : $sellerDetails[0]->paypal_email}}">
               <div class="invalid-feedback">
                 {{ __('errors.paypal_email_address_err')}}
               </div>
               <div class="text-danger">{{$errors->first('paypal_email')}}</div>
-            </div>
+            </div> -->
 
             <!-- <div class="form-group">
               <label>Where did you find us?</label>

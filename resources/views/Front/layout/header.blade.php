@@ -112,7 +112,7 @@
                   <button class="search_icon_btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 p-0">
                   <ul class="right-icons">
                   <li>
 
@@ -148,7 +148,7 @@
   <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></h3></a> 
   @endif              
 @else
-<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></a></h3>
+<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="40" /></a></h3>
 @endif
 
 </div>
@@ -158,7 +158,7 @@
                    <!--  <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> -->
                      <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{ route('frontLogin')}}" @else href="{{ route('frontLogin') }}" @endif>
 
-                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" style="width: 35px;"  />
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" style="width: 50px;"  />
                       </a>
                       @php
                         $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
@@ -172,9 +172,9 @@
                     </li>
 
                     <li>
-                    <div class="cart_details"  style="padding-left:0px;">
+                    <div class="cart_details"  style="padding-left:0px;padding-right:0">
                     <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else href="{{ route('frontLogin') }}" @endif>
-                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" style="width: 20px; margin-top: 4px;"  />
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" style="width: 28px; margin-top: 4px;"  />
                     </a>
 
                     @php

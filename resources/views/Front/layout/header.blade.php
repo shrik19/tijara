@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>@if(isset($meta_title)) {{$meta_title}} @else {{$siteDetails->site_title}} @endif</title>
-  <meta name="description" content="">
+  <meta name="description" content=" @if(isset($meta_description)) {{$meta_description}} @endif ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="_token" content="{{ csrf_token() }}">
   <link rel="apple-touch-icon" href="{{url('/')}}/assets/front/apple-touch-icon.png">

@@ -276,6 +276,7 @@
 
      'txt_average_rating' => 'Average Rating',
      'txt_your_comments' => 'Your Comments',
+     'txt_your_review' => 'Your Review',
      'txt_comments' => 'Comments',
      'txt_comments_err' => 'Please enter your Comments.',
      'txt_comments_success' => 'Product review added Successfully.',

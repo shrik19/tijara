@@ -498,7 +498,7 @@ i.fas.fa-check-circle {
     color: #222222;
   }
   .policies{
-    margin-left: -20px;
+    margin-left: 0px;
   }
 /*FAQ page css*/
 
@@ -590,7 +590,6 @@ summary.active::after {
     width: 100%;
     display: flex;
     border-radius: 30px;
-    border: 2px solid #ededed;
 }
 .feature_seller h3 a:hover{    text-decoration: none;}
 .featured_seller_container{width: 90%; margin: 0 auto;}
@@ -1458,7 +1457,7 @@ span.remember-text {
 .ft_page_links li{list-style: none;    font-size: 15px;
     padding: 9px 0;}
 .ft_page_links li a{ color: #828282; font-size: 16px; font-weight: 300; }
-.ft_page_links p{color: #828282; line-height: 30px; font-size: 16px;}
+.ft_page_links p{color: #828282; line-height: 30px; font-size: 14px; font-weight: 300;}
 .sub_box input{width: 60%; border: none; height: 36px; float: left; border-radius: 23px; padding:0 39px 0 14px;}
 .sub_btn{color: #fff; background-color: #03989e;    border-radius: 23px;
     margin-left: -35px;
@@ -1509,7 +1508,7 @@ overflow: hidden;margin-top: 155px;}
     margin-right: 50px; width: 100%;}
 
 .slider_item img{overflow: hidden;}
-.slider_content{    padding-left: 60px;
+.slider_content{    padding-left: 40px;
     position: absolute;width: 92%;
      top:6vh}
 .slider_content h3{color: black; font-size: 35px; margin: 0;}
@@ -1600,7 +1599,7 @@ overflow: hidden;margin-top: 155px;}
   color: #222222;
 }
 .seller_search{margin-top: 43px;}
-.tijara_front_container{margin: 0 auto; width: 74%;}
+.tijara_front_container{margin: 0 auto; width: 92%;}
 .all_cat_sidebar_label{   
  font-size: 24px;
  color: #222222;
@@ -1621,6 +1620,8 @@ overflow: hidden;margin-top: 155px;}
     color: #03989e;
     font-size: 18px;
 	  font-weight: 300;
+    margin: 0% 10%;
+    margin-top: 25px;
 }
 .store_eye_icon a{color: #000000;}
 .visa_img{background-color: #03989e; height: 20px; width: 30px;   padding: 6px 9px 0; border-radius: 3px;}
@@ -1715,7 +1716,7 @@ overflow: hidden;margin-top: 155px;}
     margin-top: -15px;
     margin-bottom: 20px;
     border: 0;
-    border-top: 1px solid #f9f9f9;
+    border-top: 1px solid #eee;
 }
 hr{
   /*border-top: 1px solid #f9f9f9 !important;*/
@@ -1749,7 +1750,7 @@ hr{
   width: 40px;
   background: #03989e;
   text-align: center;
-  padding: 11px 14px;
+  padding: 4px 8px;
   font-size: 20px;
   border-radius: 50%;
   margin-top: 0px; }
@@ -1785,7 +1786,7 @@ hr{
 /* .best_seller li{width: 23%;} */
 .best_seller_container{margin-top: 40px; float: left;width: 100%; padding-bottom: 40px;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
-.best_seller_container h2{margin-left: 20px !important;margin: 0;padding-bottom: 30px;}
+.best_seller_container h2{margin-left: 25px !important;margin: 0;padding-bottom: 30px;}
 .instagram_imgs{list-style: none;}
 .instagram_imgs li{       float: left;
   width: 19%;
@@ -2015,7 +2016,7 @@ hr{
 .ptb-15{position: relative; margin: 16px 0;}
 ul.tijara_front_box.row {
     width: 98%;
-    margin: auto 1%;
+    margin: auto;
     text-align: center;
 }
 .invalid-feedback{position: absolute;    padding-top: 4px;}
@@ -2023,19 +2024,22 @@ ul.tijara_front_box.row {
 .tijara_front_box li {
     list-style: none;
     float: left;
-   
+    
     width: 32.1%;
-    margin: 10px;
-    padding: 20px 0;
+    margin: 0px 10px;
+    padding: 0px 0px;
+    margin-bottom: 25px;
 }
-.tijara_front_box li img{width: 42%; height: auto;}
+.tijara_front_box li img{width: 45%; height: auto;margin: 10px 27%; margin-top: 10ch;}
 .tijara_front_inner h4{     
     color: #03989e;
     text-align: left;
-    line-height: 35px;
-    font-size: 1.4vw;
+    line-height: 30px;
+    font-size: 24px;
     padding: 0 23px;
-    font-weight: 400;
+    font-weight: 600;
+    vertical-align: bottom;
+    padding-bottom: 25px;
 }
 /* .tijara_front_inner {width: 300px; height: 300px; } */
 .product_data {
@@ -2054,8 +2058,8 @@ ul.tijara_front_box.row {
 }
 #msform{padding: 20px 0;}
 .p-0{padding: 0;}
-.colr-box {padding: 20px;}
-.tijara_front_box li h3{text-align: left; font-size: 24px; color: #737373;margin-left: 35px;font-weight: 300;}
+.colr-box {padding: 20px;min-height: 25vw;}
+.tijara_front_box li h3{text-align: left; font-size: 18px; color: #737373;margin-left: 35px;font-weight: 300;}
 
 
 
@@ -2458,7 +2462,7 @@ span.pro-text {
   background-color: #919191!important; height: 0px!important;
 }
 .slider-handle{height: 14px!important; width: 14px!important;}
-.product_section{padding-top: 35px;}
+.product_section{padding-top: 0px;}
 .checkoutPageBox{background: #fff; float: left;width: 85%;padding: 10px; }
 .checkoutPageRightBox{background: #fff; float: left;padding:40px 15px;width: 100%;  }
 .checkoutPageRightBoxHeader{padding: 20px 1px; float: left;width: 100%;}
@@ -2860,3 +2864,12 @@ span.pro-text {
   display:none;
 
 } */
+
+.product_section .form-control{
+  color: #222;
+  font-weight: 300;
+}
+
+.reviews-container{
+  margin-left: 20px;
+}

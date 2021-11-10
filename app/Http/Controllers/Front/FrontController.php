@@ -1013,7 +1013,7 @@ public function getCatSubList(Request $request) {
 		if(!empty($category_slug)){
 			$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
 			$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
-			$data['meta_title'] 	=  $getCategoryName['category_name'].' | '.$getSubCategoryName['subcategory_name'];
+			$data['meta_title'] 	=  $getCategoryName['category_name'].' - '.$getSubCategoryName['subcategory_name'];
 			$data['meta_description'] 	=  strip_tags($getCategoryName['description']);
 		}
 		$data['current_role_id']	=	'2';

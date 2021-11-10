@@ -285,6 +285,7 @@
 
      'txt_average_rating' => 'Genomsnittligt betyg',
      'txt_your_comments' => 'Era kommentarer',
+     'txt_your_review' => 'Omdöme',
      'txt_comments' => 'Kommentarer',
      'txt_comments_err' => 'Ange dina kommentarer.',
      'txt_comments_success' => 'Produktrecension har lagts till.',

@@ -194,7 +194,7 @@
       @if(!empty($productReviews))
       <?php $i = 1; ?>
       @foreach($productReviews as $review)
-      <div class="row"> 
+      <div class="row reviews-container"> 
         <div class="col-md-1">
        
           @if(!empty($review['profile']))

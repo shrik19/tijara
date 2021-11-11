@@ -185,7 +185,7 @@
                 @if(!empty($serviceReviews))
                   @php $i=1; @endphp
                   @foreach($serviceReviews as $review)
-                  <div class="row"> 
+                  <div class="row reviews-container"> 
                     <div class="col-md-1">
                       @if(!empty($review['profile']))
                       <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
@@ -386,7 +386,7 @@ $(".service_rating").each(function(){
    if (typeof(event) !== 'undefined') {
  
      $.confirm({
-        title: '{{ __('lang.txt_your_comments')}}',
+        title: '{{ __('lang.txt_your_review')}}',
         content: '' +
         '<form action="" class="formName">' +
         '<div class="form-group">' +
@@ -396,7 +396,7 @@ $(".service_rating").each(function(){
         '</form>',
         buttons: {
             formSubmit: {
-                text: 'Submit',
+                text: 'Skicka', //submit
                 btnClass: 'btn-blue',
                 action: function () {
                     var comments = this.$content.find('.name').val();
@@ -436,8 +436,11 @@ $(".service_rating").each(function(){
                   });
                 }
             },
-            cancel: function () {
+            cancel: {
+              text: 'Avbryt', //cancel 
+              action: function () {
                 //close
+              }
             },
         },
         onContentReady: function () {

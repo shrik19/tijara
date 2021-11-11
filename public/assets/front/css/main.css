@@ -570,6 +570,7 @@ summary.active::after {
   color: #222222 !important;
   font-weight: 500;
   line-height: 22px;
+  padding: 0px 15px;
 }
 .feature_seller h3{font-size: 25px; font-weight: 600; padding-top: 10px;   white-space: nowrap; 
     width: 95%; 
@@ -587,7 +588,7 @@ summary.active::after {
     background-color: #ffffff!important;
     padding: 5px;
     float: left;
-    width: 100%;
+    width: 280px;
     display: flex;
     border-radius: 30px;
 }
@@ -1189,7 +1190,7 @@ span.remember-text {
     background-color: #dbdbdb;
 }
 /* .containerfluid{margin-top: 71px;} */
-.right-icons{list-style-type: none;float:right; }
+.right-icons{list-style-type: none;float:right;width:max-content; }
 .right-icons li{float: left; width: auto;}
 .right-icons li i{font-size: 23px;}
 /*
@@ -1610,7 +1611,8 @@ overflow: hidden;margin-top: 155px;}
 }
 .tijara_front_read_more {
   text-align: center;
-	margin: 30px 0;
+	margin-top: 60px;
+  margin-bottom: 0px;
 }
 .col_black{ color: #222222 !important;}
 .tijara_front_read_more a {
@@ -1639,6 +1641,7 @@ overflow: hidden;margin-top: 155px;}
     min-height: 1px;
     padding-right: 10px;
     padding-left: 10px;
+    padding-bottom: 15px;
 }
 .col-xs-15 {
     width: 20%;
@@ -1774,7 +1777,12 @@ hr{
 .subscribe-packages ul{padding: 20px;}
 
 
-.product_img{text-align: center;background-color: #e5e5e5; display: block;}
+.product_img{text-align: center;background-color: #e5e5e5; display: block; }
+.product_img img{
+  object-fit: cover;
+  object-position: center center;
+  min-width: 250px;
+  min-height: 250px;}
 .product_img:hover ~ .product_info h4{font-size: 16px; color: #03989e;; font-weight: normal; }
 .product_info h4:hover{text-decoration: none; }
 .sale_details{text-align: center; padding-top: 10%;}
@@ -1784,7 +1792,7 @@ hr{
 .sale_details pre{font-size: 20px;color: white; font-weight: 400;}
 .sale_btn{padding: 10px 32px; color: #fff; border: 1px solid #fff; border-radius: 30px;background: transparent; font-size: 25px; margin-top: 20px;}
 /* .best_seller li{width: 23%;} */
-.best_seller_container{margin-top: 40px; float: left;width: 100%; padding-bottom: 40px;}
+.best_seller_container{float: left;width: 100%; padding-bottom: 40px;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
 .best_seller_container h2{margin-left: 25px !important;margin: 0;padding-bottom: 30px;}
 .instagram_imgs{list-style: none;}

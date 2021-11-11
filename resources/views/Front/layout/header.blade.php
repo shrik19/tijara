@@ -55,6 +55,7 @@
   
     var wishlist_service_remove_success = "{{trans('messages.wishlist_service_remove_success')}}";
     var txt_your_comments = "{{ __('lang.txt_your_comments')}}";
+    var txt_your_review = "{{ __('lang.txt_your_review')}}";
     var txt_comments = "{{ __('lang.txt_comments')}}";
     var txt_comments_err = "{{ __('lang.txt_comments_err')}}";
     var login_buyer_required = "{{ __('errors.login_buyer_required')}}";

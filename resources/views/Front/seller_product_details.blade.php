@@ -345,7 +345,7 @@ $(".product_rating").each(function(){
    if (typeof(event) !== 'undefined') {
  
      $.confirm({
-        title: '{{ __('lang.txt_your_comments')}}',
+        title: '{{ __('lang.txt_your_review')}}',
         content: '' +
         '<form action="" class="formName">' +
         '<div class="form-group">' +
@@ -355,7 +355,7 @@ $(".product_rating").each(function(){
         '</form>',
         buttons: {
             formSubmit: {
-                text: 'Submit',
+                text: 'Skicka', //submit
                 btnClass: 'btn-blue',
                 action: function () {
                     var comments = this.$content.find('.name').val();
@@ -394,8 +394,11 @@ $(".product_rating").each(function(){
                   });
                 }
             },
-            cancel: function () {
+            cancel: {
+              text: 'Avbryt', //cancel 
+              action: function () {
                 //close
+              }
             },
         },
         onContentReady: function () {

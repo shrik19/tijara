@@ -66,14 +66,14 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 .show-custom {
 	width: 500px;
 	height: 500px;
-	margin-left: 70px;
+	margin-left: 120px;
   position: relative;
   }
   
 .show-custom img#show-img {
     height: 100%;
     width: 100%;
-    position: absolute; object-fit: contain;
+    position: absolute; object-fit: cover;
 }
   .small-img .icon-left, .small-img .icon-right {
 	width: 12px;
@@ -104,7 +104,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
     width: 18%;
     position: relative;
     max-height: 400px;
-    overflow: scroll;
+    /*overflow: scroll;*/
     overflow-x: hidden;
     left: 0!important;
   }
@@ -259,14 +259,15 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 /*tijara design fixes by developer */
 .product_data {
   height: 335px;
+  max-width: 250px;
 }
 .product_img {
   min-height: 200px !important;
-  height: 200px;
+  height: 250px;
 }
 
 .product_img img {
-  width: 100%;
+  /*width: 100%;*/
   object-fit: cover;
 }
 /* .slider_content h2 {
@@ -283,8 +284,9 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   object-fit: cover !important;
 }
 .featured_seller_section {
-  height: 250px !important;
+  height: 280px !important;
   padding: 0px !important;
+  margin: 0px 15px;
 }
 .buy_now_hover_details li {
   /* top: -73px !important; */
@@ -341,4 +343,12 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 
 textarea {
   resize: none;
+}
+
+small-img-roll{
+  overflow: hidden;
+}
+
+.filter_product_list .product_img{
+  height: 220px !important;
 }

@@ -75,6 +75,11 @@
     $('.description').richText({
            // uploads
             imageUpload: true,
+            /*
+            imageErrorCallback: false,
+            imageUploadParam: "file",
+            imageUploadURL: "/public/uploads/cms/",
+            */
             fileUpload: true,
 
     });

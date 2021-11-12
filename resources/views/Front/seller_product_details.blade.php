@@ -41,9 +41,10 @@
                   <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
               @endif
               </div>
-              
-              <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 12px;">{{ __('users.report_product_btn')}} </a>
-            </div>
+              <div style="margin-top: 20px;margin-left: 120px;text-align: center;">
+                <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 10px;margin-left: -20px;">{{ __('users.report_product_btn')}} </a>
+              </div>
+              </div>
 
             <div class="col-md-offset-1 col-md-5">
                 <div class="product_details_info">
@@ -142,7 +143,7 @@
                                 <div class="clearfix"></div>
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
-                                    <option value="1"></option>
+                                    <option value="1" selected></option>
                                     <option value="2"></option>
                                     <option value="3"></option>
                                     <option value="4"></option>

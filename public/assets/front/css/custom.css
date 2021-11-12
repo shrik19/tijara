@@ -352,3 +352,11 @@ small-img-roll{
 .filter_product_list .product_img{
   height: 220px !important;
 }
+
+.br-theme-fontawesome-stars .br-widget a{
+  font-size: 15px !important;
+}
+
+.slider-horizontal{
+  width:97% !important;
+}

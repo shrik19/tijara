@@ -21,7 +21,7 @@
              <div class="seller_logo seller_details_img">
              <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif
              <div class="seller_info border-none seller_details">
-              <h2>{{ $seller_name }}</h2>
+              <h2>{{ $store_name }}</h2>
               <p>{{ $city_name }}</p>
               <div class="star-rating">
                 <select class='rating product_rating' data-rating="{{$totalRating}}">
@@ -182,7 +182,7 @@
           <div class="col-md-2">
             <h2  class="review_title" style="margin-left:-12px;">{{ __('users.store_terms')}}</h2>
           </div>
-        <div class="col-md-9" style="margin-top: 25px; margin-left: 5vw;">
+        <div class="col-md-9" style="margin-top: 25px;">
 
           <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>

@@ -22,8 +22,7 @@
            </div>
          
             <div class="col-md-12">
-              <div class="col-md-3"> </div>
-              <div class="col-md-7" style="text-align:center">
+              <div class="col-md-12" style="text-align:center">
                 <img src="{{url('/')}}/assets/img/tijara_ann.jpeg" height="200">
               </div>
             </div>

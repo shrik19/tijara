@@ -1097,6 +1097,7 @@ public function getCatSubList(Request $request) {
 		
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+		$data['store_name']			= 	$Seller['store_name'];
 		$data['description']		= 	$Seller['description'];
 		$data['city_name']		    =	$Seller['city'];
 		$data['seller_email']       =   $Seller['email'];

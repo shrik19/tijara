@@ -42,14 +42,14 @@
 
 
               </div>
-              <div style="margin-top: 10px;">
-               <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_ad_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 13px;margin-left: -38px;">{{ __('users.report_ad_btn')}} </a>
+              <div style="margin-top: 20px;margin-left: 120px;text-align: center;">
+               <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_ad_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 10px;margin-left: -20px;">{{ __('users.report_ad_btn')}} </a>
               </div>
               <!-- Secondary carousel image thumbnail gallery -->
              
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-offset-1 col-md-5">
                 <div class="product_details_info" style="min-height: 385px;position: relative;">
                     <h2 class="product_title_details">{{$Product->title}}</h2>
                    <!--  <h4 class="product_price" id="product_variant_price" style="color:#03989e;"><span>{{ __('lang.price_label')}} :</span>{{ number_format($first['price'],2) }} kr  {{ number_format($first['discount_price'],2) }} kr</h4> -->
@@ -82,7 +82,7 @@
             <div class="row">
                           <div class="col-xs-12 col-md-12">    
                                        
-                               <a href="{{route('frontProductCreate')}}"  class="annonser_btn">{{ __('lang.back_to_ads')}}</a>
+                               <a href="{{route('AllbuyerProductListing')}}"  class="annonser_btn">{{ __('lang.back_to_ads')}}</a>
                            
                           </div>
                       </div>

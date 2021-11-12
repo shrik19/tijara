@@ -130,7 +130,7 @@
 
             */?>
             <hr class="row solid-horizontal-line">
-             <h2 class="col-md-12" style="margin-top: 40px;margin-bottom: 20px;">{{ __('users.payment_setting')}}</h2>
+             <h2 class="col-md-12"  id="scroll_to_payment_details" style="margin-top: 40px;margin-bottom: 20px;">{{ __('users.payment_setting')}}</h2>
              <div class="col-md-12">
               <div class="col-md-6" style="margin-left: -15px;">
 

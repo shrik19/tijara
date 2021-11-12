@@ -11,19 +11,19 @@
           <div class="card-body">
             <div class="form-group">
               <label>{{ __('users.package_name_thead')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="package_title" id="package_title" required tabindex="1" value="{{ (old('package_title')) ?  old('package_title') : $packageDetails[0]->title}}" readonly="readonly">
+              <input type="text" class="form-control" name="package_title" id="package_title" required tabindex="1" value="{{ ($packageDetails[0]->is_trial == 1) ?  'Tijara Trial' : $packageDetails[0]->title}}" readonly="readonly">
               <input type="hidden"  name="hid" id="hid"  value="{{$packageDetails[0]->id}}">
             </div>
 
             <div class="form-group">
               <label>{{ __('users.start_date_thead')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="start_date" id="start_date" required tabindex="1" value="{{ (old('start_date')) ?  old('start_date') : $packageDetails[0]->start_date}}" readonly="readonly">
+              <input type="text" class="form-control" name="start_date" id="start_date" required tabindex="1" value="{{ ($packageDetails[0]->is_trial == 1) ?  $packageDetails[0]->trial_start_date : $packageDetails[0]->start_date}}" readonly="readonly">
               <div class="text-danger">{{$errors->first('start_date')}}</div>
             </div>
 
             <div class="form-group">
               <label>{{ __('users.end_date_thead')}} <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="end_date" id="datetimepicker" id="datetimepicker1" required tabindex="3" value="{{ (old('end_date')) ? old('end_date') : $packageDetails[0]->end_date}}">
+              <input type="text" class="form-control" name="end_date" id="datetimepicker" id="datetimepicker1" required tabindex="3" value="{{($packageDetails[0]->is_trial == 1) ? $packageDetails[0]->trial_end_date : $packageDetails[0]->end_date}}">
         <!--  <input type="text" id="datetimepicker"/> -->
                <div class="text-danger">{{$errors->first('end_date')}}</div>
             </div>

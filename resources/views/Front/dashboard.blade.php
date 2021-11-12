@@ -94,10 +94,18 @@
         <div class="card">
            <div class="buyer-prod-msg-bottom" style="height:150px;">
             <?php
-              $title = (!empty($userpackage['title'])) ? $userpackage['title'] : '-';
-              $amount = (!empty($userpackage['amount'])) ? $userpackage['amount']." kr" : '-';
-              $validity_days = (!empty($userpackage['validity_days'])) ? " /".$userpackage['validity_days']." Days" : '-';
-              $payment_date = (!empty($userpackage['end_date'])) ? date('Y-m-d',strtotime($userpackage['end_date'])) : '-';
+             
+              if($userpackage['is_trial']==1){
+                 $title =  'Tijara Trial';
+                $amount = 'Free';
+                $validity_days = "/ 30 Days";
+                $payment_date = (!empty($userpackage['trial_end_date'])) ? date('Y-m-d',strtotime($userpackage['trial_end_date'])) : '-';
+              }else{
+                $title = (!empty($userpackage['title'])) ? $userpackage['title'] : '-';
+                $amount = (!empty($userpackage['amount'])) ? $userpackage['amount']." kr" : '-';
+                $validity_days = (!empty($userpackage['validity_days'])) ? " /".$userpackage['validity_days']." Days" : '-';
+                $payment_date = (!empty($userpackage['end_date'])) ? date('Y-m-d',strtotime($userpackage['end_date'])) : '-';
+              }
              ?>
             <h2 class="buyer-prod-head">{{__('users.your_subscribed_label')}}</h2>
             <p class="buyer-prod-content col_black">{{__('users.Package_title')}} : {{$title}} {{$amount}} {{$validity_days}} </p>

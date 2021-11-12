@@ -55,7 +55,7 @@
                   @endif
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-offset-1 col-md-5">
                 <div class="product_details_info">
                     <h2 class="product_title_details">{{$Service->title}}</h2>
                      <h4 class="service_time_css">@if(!empty($Service->session_time)){{$Service->session_time}} min @endif</h4>

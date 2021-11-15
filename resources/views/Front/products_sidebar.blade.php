@@ -41,7 +41,11 @@
    
       @if(!empty($Categories[$CategoryId]['subcategory']))
 
-        <li class="expandCollapseSubcategory  <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#subcategories<?php echo $i; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#" id="main_cat_name<?php echo $i; ?>" @if(Request::segment(1) =='seller') class = 'seller_page_botton_border' @endif>{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
+        <li class="expandCollapseSubcategory  <?php echo $cls; ?>" @if(empty($is_seller)) 
+           href="{{url('/')}}/{{$productsads}}/{{ $Category['category_slug'] }}" @else 
+           href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}" @endif aria-expanded="true" aria-controls="collapseOne"><a @if(empty($is_seller)) 
+           href="{{url('/')}}/{{$productsads}}/{{ $Category['category_slug'] }}" @else 
+           href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}" @endif  id="main_cat_name<?php echo $i; ?>" @if(Request::segment(1) =='seller') class = 'seller_page_botton_border' @endif>{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
 
         <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse  <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
 
@@ -75,7 +79,7 @@
     @endphp
 <?/*else if( $j==1) $cls  =       'activeservicemaincategory';*/?>
     @if(!empty($ServiceCategories[$CategoryId]['subcategory']))
-      <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>" data-toggle="collapse" data-parent="#accordion" href="#servicesubcategories<?php echo $j; ?>" aria-expanded="true" aria-controls="collapseOne"><a href="#">{{$Category['category_name']}} <span style="float: right;" id="serviceCount_{{$j}}"></span></a></li>
+      <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>"  href="{{url('/')}}/services/{{ $Category['category_slug'] }}" aria-expanded="true" aria-controls="collapseOne"><a href="{{url('/')}}/services/{{ $Category['category_slug'] }}">{{$Category['category_name']}} <span style="float: right;" id="serviceCount_{{$j}}"></span></a></li>
 
       <ul id="servicesubcategories<?php echo $j; ?>" class="service_subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
       @foreach($ServiceCategories[$CategoryId]['subcategory'] as $subcategory)

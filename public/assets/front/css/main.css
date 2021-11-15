@@ -911,7 +911,7 @@ select.list-dt:focus {
  .store-active-btn{
     color: #222222 !important;
     font-size: 20px;
-    border-right: 2px solid;
+  /*   border-right: 2px solid; */
     margin-right: 10px;
     padding-right: 10px;
     padding-top: 4px;
@@ -1603,7 +1603,7 @@ overflow: hidden;margin-top: 155px;}
   color: #222222;
 }
 .seller_search{margin-top: 43px;}
-.tijara_front_container{margin: 0 auto; width: 92%;}
+.tijara_front_container{margin: 0 auto; width: 92%;margin-top: 60px;margin-bottom: 60 px;}
 .all_cat_sidebar_label{   
  font-size: 24px;
  color: #222222;
@@ -1795,7 +1795,7 @@ hr{
 .sale_details pre{font-size: 20px;color: white; font-weight: 400;}
 .sale_btn{padding: 10px 32px; color: #fff; border: 1px solid #fff; border-radius: 30px;background: transparent; font-size: 25px; margin-top: 20px;}
 /* .best_seller li{width: 23%;} */
-.best_seller_container{float: left;width: 100%; padding-bottom: 40px;margin-top: 30px;}
+.best_seller_container{float: left;width: 100%; padding-bottom: 40px;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
 .best_seller_container h2{margin-left: 25px !important;margin: 0;padding-bottom: 30px;}
 .instagram_imgs{list-style: none;}
@@ -2048,7 +2048,7 @@ ul.tijara_front_box.row {
     line-height: 30px;
     font-size: 24px;
     padding: 0 23px;
-    font-weight: 600;
+    font-weight: 400;
     vertical-align: bottom;
     padding-bottom: 25px;
 }
@@ -2884,4 +2884,13 @@ span.pro-text {
 
 .reviews-container{
   margin-left: 20px;
+}
+
+.border_right_link{
+  border-left: 2px solid;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+.border_left_link{
+  border-right: 2px solid;
 }

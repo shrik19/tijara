@@ -49,7 +49,7 @@ class FrontController extends Controller
 
     /* function to display home page*/
     public function index() {
-
+		
         /*get slider images*/
         $SliderDetails 		=  Sliders::select('id','title','sliderImage','description','link','status')->where('status','=','active')->orderBy('sequence_no')->get();
         $banner 			=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Home')->first();

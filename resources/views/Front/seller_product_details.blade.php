@@ -418,6 +418,7 @@ $(".product_rating").each(function(){
 }); 
 function addtoCartFromProduct()
 {
+
     var product_quantity = $("#product_quantity").val();
     var variant = $("#product_variant_id").val();
     
@@ -447,6 +448,7 @@ function addtoCartFromProduct()
         {
           var currentValue = $(".add_to_cart_count").text();
           var newValue = parseInt(parseFloat(currentValue)) + 1;
+          $(".bag_cart_count").show();
           $(".add_to_cart_count").text(newValue);
           //showSuccessMessage(product_add_success,'reload');
         }

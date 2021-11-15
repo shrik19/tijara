@@ -330,7 +330,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   border-radius: 0px;
 }
 .category_button .active {
-  border-bottom: 3px solid #c5c1c1dd !important;
+  border-bottom: 3px solid #03989e !important;
 }
 .tablink-active{
   border: 0px;

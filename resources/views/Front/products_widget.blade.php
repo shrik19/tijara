@@ -60,25 +60,13 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         </div>
 
         @if(!empty($product->price))
-          @if(strpos(@$path, 'annonser') !== false)
-            <h6 class="product_price" style="margin-top: 6px;"><span>{{$product->price}} kr </span></h6>
-          @else
-            <h6 class="product_price" style="margin-top: 6px;"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span>
-              @if( Request::path() != "/")
-                <span @if(!empty($product->discount)) class="dic_percent" @endif >@if(!empty($product->discount)) (<?php echo $product->discount."% off";?>) @endif</span>
-              @endif
-            </h6>
-          @endif      
+          <h6 class="product_price" style="margin-top: 6px;"><span>{{$product->price}} kr </span></h6>    
         @endif
            <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->seller}}</h5></a>
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
 
-          @if(Request::segment(1) !='product' &&  strpos(@$path, 'annonser') == false)
-           <a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> 
-          @endif
           <a href="{{$product->product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
-         @if(Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
         <div class="star-rating" style="font-size:15px;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
@@ -88,23 +76,10 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
             <option value="5" >5</option>
           </select>
         </div>  
-        @endif
         @if(!empty($product->price))
-         @if(strpos(@$path, 'annonser') !== false)
-            <h6 class="product_price" style="margin-top: 6px;"><span>{{$product->price}} kr </span></h6>
-          @else
-            <h6 class="product_price" style="margin-top: 6px;"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span>
-              @if( Request::path() != "/")
-                <span @if(!empty($product->discount)) class="dic_percent" @endif >@if(!empty($product->discount)) (<?php echo $product->discount."% off";?>) @endif</span>
-              @endif
-            </h6>
-          @endif
+          <h6 class="product_price" style="margin-top: 6px;"><span>{{$product->price}} kr </span></h6>
         @endif
-
-         
-        @if(Request::segment(1) !='products' && Request::segment(1) != 'get_product_listing')
-         <a href="{{$seller_link}}"><h5>{{$product->seller}}</h5></a>
-        @endif
+        <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->seller}}</h5></a>
 
         @endif
         

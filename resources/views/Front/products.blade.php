@@ -22,8 +22,7 @@
            </div>
          
             <div class="col-md-12">
-              <div class="col-md-3"> </div>
-              <div class="col-md-7" style="text-align:center">
+              <div class="col-md-12" style="text-align:center">
                 <img src="{{url('/')}}/assets/img/tijara_ann.jpeg" height="200">
               </div>
             </div>
@@ -69,7 +68,7 @@
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
             <span class="current_search_string" style="display:none;">{{$search_string}}</span>
             <span class="current_role_id" style="display:none;">{{$current_role_id}}</span>
-            <div class="product_container">
+            <div class="product_container filter_product_list">
                
                 <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
@@ -152,7 +151,7 @@ function getListing()
               var product_id = split_id[1]; // postid
 
               $.confirm({
-                 title: txt_your_comments,
+                 title: txt_your_review,
                  content: '' +
                  '<form action="" class="formName">' +
                  '<div class="form-group">' +
@@ -162,7 +161,7 @@ function getListing()
                  '</form>',
                  buttons: {
                      formSubmit: {
-                         text: 'Submit',
+                         text: 'Skicka', //submit
                          btnClass: 'btn-blue',
                          action: function () {
                              var comments = this.$content.find('.name').val();
@@ -202,8 +201,11 @@ function getListing()
                            });
                          }
                      },
-                     cancel: function () {
+                     cancel: {
+                        text: 'Avbryt', //cancel 
+                        action: function () {
                          //close
+                        }
                      },
                  },
                  onContentReady: function () {

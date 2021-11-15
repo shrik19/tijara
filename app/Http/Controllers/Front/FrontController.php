@@ -49,7 +49,7 @@ class FrontController extends Controller
 
     /* function to display home page*/
     public function index() {
-
+		
         /*get slider images*/
         $SliderDetails 		=  Sliders::select('id','title','sliderImage','description','link','status')->where('status','=','active')->orderBy('sequence_no')->get();
         $banner 			=  Banner::select('banner.*')->where('is_deleted','!=',1)->where('status','=','active')->where('display_on_page','=','Home')->first();
@@ -1010,7 +1010,12 @@ public function getCatSubList(Request $request) {
     {
 		
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
-		$data['meta_title'] 	= 'CategoryPage';
+		if(!empty($category_slug)){
+			$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
+			$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
+			$data['meta_title'] 	=  $getCategoryName['category_name'].' - '.$getSubCategoryName['subcategory_name'];
+			$data['meta_description'] 	=  strip_tags($getCategoryName['description']);
+		}
 		$data['current_role_id']	=	'2';
 		$cities = DB::table('users')
 			->where('is_deleted','=',0)
@@ -1092,6 +1097,7 @@ public function getCatSubList(Request $request) {
 		
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+		$data['store_name']			= 	$Seller['store_name'];
 		$data['description']		= 	$Seller['description'];
 		$data['city_name']		    =	$Seller['city'];
 		$data['seller_email']       =   $Seller['email'];

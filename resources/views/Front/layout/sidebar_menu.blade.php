@@ -6,6 +6,7 @@
 
     @if(Auth::guard('user')->getUser()->role_id==2)
        @php
+
         if((Request::segment(1)=='seller-dashboard')){
         $activeClass = 'leftsideactivemainmenu';
         }
@@ -19,13 +20,30 @@
         $showProductMenu  = 0;
       @endphp
 
+<?php
+//disable menus if package not subscibed
+   $currentDate = date('Y-m-d H:i:s');
+  $is_subscriber = DB::table('user_packages')
+                            ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+                            ->where('packages.is_deleted','!=',1)
+                            ->where('user_packages.end_date','>=',$currentDate)
+                            ->where('user_id','=',Auth::guard('user')->id())
+                            ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.status','user_packages.payment_status')
+                            ->orderByRaw('user_packages.id ASC')
+                            ->get();
+?>
+@if($is_subscriber[0]->payment_status=='checkout_incomplete' || $is_subscriber[0]->payment_status=='' || $is_subscriber[0]->is_trial== 0)
+  
+       <input type="hidden" name="is_disabled" id="disable_side_menu" value="1">
+@endif
+
       <li class="{{$activeClass }}"><a href="{{route('frontDashboard')}}">{{ __('lang.summary_menu')}}</a></li>
     @endif
 
     <li><h2>{{ __('users.manage_label')}}</h2></li>
 
     @if(Auth::guard('user')->getUser()->role_id==2)
-      <li class="{{ request()->is('seller-personal-page') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
+      <li class="{{ request()->is('seller-personal-page') ? 'leftsideactivemainmenu' : ''}} make_disabled"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
     @endif
 
     <?php 
@@ -38,7 +56,7 @@
     ?>
     @if(Auth::guard('user')->getUser()->role_id==2)
       @if(@$showProductMenu !=0)
-        <li class="{{$activeClass}}"><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
+        <li class="{{$activeClass}} make_disabled"><a href="{{route('manageFrontProducts')}}">{{ __('lang.manage_products_menu')}}</a></li>
       @endif
     @endif
     <?php 
@@ -51,7 +69,7 @@
     ?>
 
     @if(Auth::guard('user')->getUser()->role_id==2)
-    <li  class="{{$activeClass}}"><a href="{{route('manageFrontServices')}}">{{ __('lang.manage_services_menu')}}</a></li>                   
+    <li  class="{{$activeClass}} make_disabled"><a href="{{route('manageFrontServices')}}">{{ __('lang.manage_services_menu')}}</a></li>                   
 
     @endif
 
@@ -64,15 +82,15 @@
     $activeClass = '';
     }
     ?>
-    <li class="{{ $activeClass }}"><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('users.all_orders_menu')}} @endif</a></li>
+    <li class="{{ $activeClass }} make_disabled"><a href="{{route('frontAllOrders')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.manage_orders_menu')}} @else {{ __('users.all_orders_menu')}} @endif</a></li>
 
-    <li  class="{{ request()->is('booking-request') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontAllbookingRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('users.booking_request_label')}} @endif</a></li>
+    <li  class="{{ request()->is('booking-request') ? 'leftsideactivemainmenu' : ''}} make_disabled"><a href="{{route('frontAllbookingRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('users.booking_request_label')}} @endif</a></li>
  <?php /*  <li  class="{{ request()->is('all-service-request') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontAllServiceRequest')}}">@if(Auth::guard('user')->getUser()->role_id==1) {{ __('lang.my_service_request')}} @else {{ __('lang.all_service_request')}} @endif</a></li> */?>
 
-     <li  class="{{ request()->is('seller-payment-details') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontSellerPaymentDetails')}}">@if(Auth::guard('user')->getUser()->role_id==2) {{ __('users.payment_btn')}} @endif</a></li> 
+     <li  class="{{ request()->is('seller-payment-details') ? 'leftsideactivemainmenu' : ''}} make_disabled"><a href="{{route('frontSellerPaymentDetails')}}">@if(Auth::guard('user')->getUser()->role_id==2) {{ __('users.payment_btn')}} @endif</a></li> 
 
     @if(Auth::guard('user')->getUser()->role_id==2)                   
-    <li class="{{ request()->is('seller-packages') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
+    <li class="{{ request()->is('seller-packages') ? 'leftsideactivemainmenu' : ''}} make_disabled"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
 
     @endif
     <?php 
@@ -102,7 +120,7 @@
     }
     ?>
     @if($showProductMenu !=0)
-    <li  class="{{$activeClass}}"><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
+    <li  class="{{$activeClass}} make_disabled"><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li>
     @endif
 
     <!--     @if(Auth::guard('user')->getUser()->role_id==2)
@@ -111,7 +129,7 @@
     <li class="{{ request()->is('seller-packages') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
 
     @endif -->
-    <li class="{{ request()->is('change-password') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
+    <li class="{{ request()->is('change-password') ? 'leftsideactivemainmenu' : ''}} make_disabled"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
     <li class="{{ request()->is('front-logout') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
   </ul>
 
@@ -121,3 +139,29 @@
 
 
 </div>
+<script type="text/javascript">
+
+  var seller_account_freeze     = "{{trans('errors.seller_account_freeze')}}";
+
+$( document ).ready(function() {
+  var is_disabled = $("#disable_side_menu").val();
+  if(is_disabled==1){
+     showErrorMessage(seller_account_freeze);
+
+    
+    // Handler for .ready() called.
+    $('html, body').animate({
+        scrollTop: $('#scroll_to_payment_details').offset().top
+    }, 'slow');
+
+    $('.seller_cat_list li.make_disabled').on('click', function(event) {
+      event.preventDefault();
+    });
+    
+
+
+  }
+
+
+});
+</script>

@@ -345,8 +345,8 @@
                   <span>{{ __('lang.shopping_cart_total')}}:</span><span style="float: right;">{{@$total_tbl}} kr</span>
                 </div>
                 </div>
-                <div class="col-md-12 text-center">
-                  <!-- <button type="button" id="" name="next" class="btn btn-black debg_color login_btn " value="{{ __('users.complete_purchase_btn')}}"/>{{ __('users.complete_purchase_btn')}}</button> -->
+                <div class="col-md-12 text-center" style="margin-top: 30px;">
+                  <button type="button" id="" name="next" class="btn btn-black debg_color login_btn pay_through_btn" value="{{ __('users.complete_purchase_btn')}}"/>{{ __('users.complete_purchase_btn')}}</button>
               </div>
                 </div>
                  

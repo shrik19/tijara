@@ -20,7 +20,11 @@
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
   <!-- added custom css for custom chnages -->
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/custom.css">
- 
+ <style type="text/css">
+ 	.invalid-feedback {
+   	 position: relative;
+	}
+ </style>
    <!-- end custom css for custom chnages -->
   <script src="{{url('/')}}/assets/front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 	<script type="text/javascript">
@@ -256,6 +260,7 @@
                                             <input type="hidden" class="form-control login_input" name="verify_btn_click" id="verify_btn_click" value="">
 											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
 											<input type="button" name="check-store-unique" class="btn debg_color register_store_verify"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> 
+
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
 
 										<div class="form-group increment cloned">
@@ -637,18 +642,22 @@ $('#third-step').click(function(e) {
     var selected_package_name   = $('#selected_package_name').val(); 
     let third_step_err = 0;
 
-   if((klarna_username != '' && klarna_password!= '') || (swish_api_key != '' && swish_merchant_account !='' && swish_client_key != '') || (strip_api_key != '' && strip_secret != ''))
+	if((klarna_username != '' && klarna_password!= '') || (swish_api_key != '' && swish_merchant_account !='' && swish_client_key != '') || (strip_api_key != '' && strip_secret != ''))
     {
         third_step_err = 0;
+       
     }else
     {
        third_step_err = 1;
     }
+ 	
+  
 
 	 if(third_step_err == 1)
 	  {
-	  	showErrorMessage(please_add_payment_details);
+	  	//showErrorMessage(please_add_payment_details);
 	    third_step_err = 1;
+
 	  }
 	  else
 	  {
@@ -674,6 +683,7 @@ $('#third-step').click(function(e) {
 	                }
 	            });
 	  }
+
 
     //show next step
     if(third_step_err == 0){
@@ -703,9 +713,10 @@ $('#third-step').click(function(e) {
             },
             duration: 600
         }); 
-    } else{
-    	return false;
-    }        
+    }  else{
+    	showErrorMessage(please_add_payment_details);
+    	return false;    
+    }
 });
 
 /*last step*/
@@ -717,16 +728,24 @@ $('#last-step').click(function(e) {
     let last_step_err = 0;
 
     if(store_name==''){
-       last_step_err = 1;
-       showErrorMessage(please_enter_store_name)
-    } 
+       
+       
+        $("#err_store_name").html(please_enter_store_name).show();
+       // $("#err_store_name").parent().addClass('jt-error');
+         last_step_err = 1; 
+      // showErrorMessage(please_enter_store_name)
+    }   else
+        {
+           // $("#err_store_name").parent().removeClass('jt-error');
+            $("#err_store_name").html('');
+        }
 
     if(verify_btn_click==''){
        last_step_err = 1;
        showErrorMessage(verify_store)
     }
 
-    if(!$("#chk_privacy_policy").is(':checked')){
+    else if(!$("#chk_privacy_policy").is(':checked')){
        last_step_err = 1;
         showErrorMessage(please_check_privacy_policy);
     } /*else {
@@ -764,7 +783,9 @@ $('#last-step').click(function(e) {
                     }
                 }
             });
-        }  
+        }   else{
+    	return false;
+    }  
 });
 
 /*function to upload seller banner image*/
@@ -975,6 +996,9 @@ function showSuccessMessage(strContent,redirect_url = '')
       }
     });
 }
+
+ 
+
 </script>
 </body>
 </html>

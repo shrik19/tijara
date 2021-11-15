@@ -354,7 +354,7 @@
               var product_id = split_id[1]; // postid
 
               $.confirm({
-                 title: txt_your_comments,
+                 title: txt_your_review,
                  content: '' +
                  '<form action="" class="formName">' +
                  '<div class="form-group">' +
@@ -364,7 +364,7 @@
                  '</form>',
                  buttons: {
                      formSubmit: {
-                         text: 'Submit',
+                         text: 'Skicka', //submit
                          btnClass: 'btn-blue',
                          action: function () {
                              var comments = this.$content.find('.name').val();
@@ -404,8 +404,11 @@
                            });
                          }
                      },
-                     cancel: function () {
+                     cancel: {
+                        text: 'Avbryt', //cancel 
+                        action: function () {
                          //close
+                        }
                      },
                  },
                  onContentReady: function () {
@@ -449,7 +452,7 @@ $(".service_rating").each(function(){
               var service_id = split_id[1]; // postid
 
               $.confirm({
-                 title: txt_your_comments,
+                 title: txt_your_review,
                  content: '' +
                  '<form action="" class="formName">' +
                  '<div class="form-group">' +
@@ -459,7 +462,7 @@ $(".service_rating").each(function(){
                  '</form>',
                  buttons: {
                      formSubmit: {
-                         text: 'Submit',
+                         text: 'Skicka', //submit
                          btnClass: 'btn-blue',
                          action: function () {
                              var comments = this.$content.find('.name').val();
@@ -499,8 +502,11 @@ $(".service_rating").each(function(){
                            });
                          }
                      },
-                     cancel: function () {
+                     cancel: {
+                        text: 'Avbryt', //cancel 
+                        action: function () {
                          //close
+                        }
                      },
                  },
                  onContentReady: function () {

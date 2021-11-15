@@ -1087,7 +1087,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
               var product_id = split_id[1]; // postid
 
               $.confirm({
-                 title: txt_your_comments,
+                 title: txt_your_review,
                  content: '' +
                  '<form action="" class="formName">' +
                  '<div class="form-group">' +
@@ -1097,7 +1097,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
                  '</form>',
                  buttons: {
                      formSubmit: {
-                         text: 'Submit',
+                         text: 'Skicka', //submit
                          btnClass: 'btn-blue',
                          action: function () {
                              var comments = this.$content.find('.name').val();
@@ -1137,8 +1137,11 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
                            });
                          }
                      },
-                     cancel: function () {
-                         //close
+                     cancel: {
+                      text: 'Avbryt', //cancel 
+                      action: function () {
+                       //close
+                      }
                      },
                  },
                  onContentReady: function () {
@@ -1253,7 +1256,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
               var service_id = split_id[1]; // postid
 
               $.confirm({
-                 title: txt_your_comments,
+                 title: txt_your_review,
                  content: '' +
                  '<form action="" class="formName">' +
                  '<div class="form-group">' +
@@ -1263,7 +1266,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
                  '</form>',
                  buttons: {
                      formSubmit: {
-                         text: 'Submit',
+                         text: 'Skicka', //submit
                          btnClass: 'btn-blue',
                          action: function () {
                              var comments = this.$content.find('.name').val();
@@ -1303,8 +1306,11 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
                            });
                          }
                      },
-                     cancel: function () {
-                         //close
+                     cancel: {
+                      text: 'Avbryt', //cancel 
+                      action: function () {
+                       //close
+                      }
                      },
                  },
                  onContentReady: function () {
@@ -1355,6 +1361,7 @@ function addToCart(product_variant)
       {
           var currentValue = $(".add_to_cart_count").text();
           var newValue = parseInt(parseFloat(currentValue)) + 1;
+          $(".bag_cart_count").show();
           $(".add_to_cart_count").text(newValue);
           //showSuccessMessage(product_add_success,'reload');
       }

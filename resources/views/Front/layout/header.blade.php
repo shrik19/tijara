@@ -7,9 +7,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>@if(isset($meta_title)) {{$meta_title}} @else {{$siteDetails->site_title}} @endif</title>
-  <meta name="description" content="">
+  <meta name="description" content=" @if(isset($meta_description)) {{$meta_description}} @endif ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="_token" content="{{ csrf_token() }}">
+  <link rel="shortcut icon" href="{{url('/')}}/assets/img/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="{{url('/')}}/assets/front/apple-touch-icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" />
@@ -55,6 +56,7 @@
   
     var wishlist_service_remove_success = "{{trans('messages.wishlist_service_remove_success')}}";
     var txt_your_comments = "{{ __('lang.txt_your_comments')}}";
+    var txt_your_review = "{{ __('lang.txt_your_review')}}";
     var txt_comments = "{{ __('lang.txt_comments')}}";
     var txt_comments_err = "{{ __('lang.txt_comments_err')}}";
     var login_buyer_required = "{{ __('errors.login_buyer_required')}}";
@@ -122,7 +124,7 @@
   @if(Auth::guard('user')->getUser()->role_id == 1)
    <div class="pull-right">
                 @if(Auth::guard('user')->id())
-                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></h3></a>
+                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="35" /></h3></a>
                 <ul class="dropdown-menu">
 
                   <li style="width:100%"><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
@@ -148,7 +150,9 @@
   <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="30" /></h3></a> 
   @endif              
 @else
+
 <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" width="40" /></a></h3>
+
 @endif
 
 </div>
@@ -158,7 +162,7 @@
                    <!--  <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> -->
                      <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{ route('frontLogin')}}" @else href="{{ route('frontLogin') }}" @endif>
 
-                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" style="width: 50px;"  />
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" style="width: 50px;margin-top:-7px"  />
                       </a>
                       @php
                         $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
@@ -174,17 +178,19 @@
                     <li>
                     <div class="cart_details"  style="padding-left:0px;padding-right:0">
                     <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else href="{{ route('frontLogin') }}" @endif>
-                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" style="width: 28px; margin-top: 4px;"  />
+
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" style="width: 27px;"  />
+
                     </a>
 
                     @php
                       $productCnt = getOrderProducts(Auth::guard('user')->id());
                     @endphp
-                    @if($productCnt > 0)
-                    <div class="cart_count">
+   
+                    <div class="cart_count bag_cart_count" @if($productCnt <= 0) style="display: none;" @endif>
                       <span class="add_to_cart_count">{{$productCnt}}</span>
                     </div>
-                    @endif
+      
                   </div>
                     </li>
                     

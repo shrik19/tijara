@@ -55,13 +55,13 @@
                   @endif
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-offset-1 col-md-5">
                 <div class="product_details_info">
                     <h2 class="product_title_details">{{$Service->title}}</h2>
                      <h4 class="service_time_css">@if(!empty($Service->session_time)){{$Service->session_time}} min @endif</h4>
                     <h4 class="service_store_name" style="margin-top: 0px;"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>
                     <!-- <h4 class="product_price product_original_price"><a href="{{$seller_link}}" class="de_col">{{ $Service->service_price }} Kr</a></h4> -->
-                    <span class="product_original_price" style="padding-top: 25px;">{{ $Service->service_price }} Kr</span>
+                    <span class="product_original_price" style="padding-top: 25px;">{{ $Service->service_price }} kr</span>
 
                       <div class="star-rating" style="font-size:15px;">
                         <select class='rating service_rating' id='rating_{{$Service->id}}' data-id='rating_{{$Service->id}}' data-rating='{{$Service->rating}}'>
@@ -185,7 +185,7 @@
                 @if(!empty($serviceReviews))
                   @php $i=1; @endphp
                   @foreach($serviceReviews as $review)
-                  <div class="row"> 
+                  <div class="row reviews-container"> 
                     <div class="col-md-1">
                       @if(!empty($review['profile']))
                       <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
@@ -386,7 +386,7 @@ $(".service_rating").each(function(){
    if (typeof(event) !== 'undefined') {
  
      $.confirm({
-        title: '{{ __('lang.txt_your_comments')}}',
+        title: '{{ __('lang.txt_your_review')}}',
         content: '' +
         '<form action="" class="formName">' +
         '<div class="form-group">' +
@@ -396,7 +396,7 @@ $(".service_rating").each(function(){
         '</form>',
         buttons: {
             formSubmit: {
-                text: 'Submit',
+                text: 'Skicka', //submit
                 btnClass: 'btn-blue',
                 action: function () {
                     var comments = this.$content.find('.name').val();
@@ -436,8 +436,11 @@ $(".service_rating").each(function(){
                   });
                 }
             },
-            cancel: function () {
+            cancel: {
+              text: 'Avbryt', //cancel 
+              action: function () {
                 //close
+              }
             },
         },
         onContentReady: function () {

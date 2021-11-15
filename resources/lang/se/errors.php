@@ -119,6 +119,7 @@
      'please_uplaod_service_image' => 'Vänligen tjänste bilder',
      'old_password_not_match' => 'Ange rätt gammalt lösenord',
      'please_active_your_account' => 'vänligen verifiera registrerat e-post-ID innan du loggar in',
-       'please_add_payment_details' => 'Lägg till minst en betalningsinformation',
+     'please_add_payment_details' => 'Lägg till minst en betalningsinformation',
+     'seller_account_freeze' => 'ditt konto är låst vänligen ange dina kortuppgifter för att automatiskt prenumerera på paketet',
  ]
 ?>

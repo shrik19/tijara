@@ -8,6 +8,7 @@ use App\Models\UserMain;
 use App\Models\City;
 use App\Models\SellerImages;
 use App\Models\UserPackages;
+use App\Models\Package;
 
 /*Uses*/
 use Auth;
@@ -756,12 +757,22 @@ class SellerController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
         else {
-         
+                $packageDetails = UserPackages::where('user_packages.id', $id)->get();
+        $trial_end_date = trim($request->input('end_date'));
+        $p_id = $packageDetails[0]->package_id;
+  
+        $validity_days = Package::where('id', $p_id)->get();
+        $validity_days = $validity_days[0]->validity_days; 
+        $start_date = date('Y-m-d H:i:s', strtotime($trial_end_date.'+1 days'));
+        $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
+       
             $arrUpdate = [ 
-                            'end_date'        => trim($request->input('end_date')),
+                            'trial_end_date' => $trial_end_date,
+                            'end_date'       => $ExpiredDate,
+                            'start_date'     => $start_date,
                         ];
             UserPackages::where('id', '=', $id)->update($arrUpdate);   
-            $packageDetails = UserPackages::where('user_packages.id', $id)->get();
+        
             Session::flash('success', trans('messages.package_extend_success'));
             return redirect(route('adminSellerShowPackages',base64_encode($packageDetails[0]->user_id)));
         }

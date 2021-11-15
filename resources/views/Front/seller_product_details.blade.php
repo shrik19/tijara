@@ -41,9 +41,10 @@
                   <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
               @endif
               </div>
-              
-              <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 12px;">{{ __('users.report_product_btn')}} </a>
-            </div>
+              <div style="margin-top: 20px;margin-left: 120px;text-align: center;">
+                <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 10px;margin-left: -20px;">{{ __('users.report_product_btn')}} </a>
+              </div>
+              </div>
 
             <div class="col-md-offset-1 col-md-5">
                 <div class="product_details_info">
@@ -142,7 +143,7 @@
                                 <div class="clearfix"></div>
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
-                                    <option value="1"></option>
+                                    <option value="1" selected></option>
                                     <option value="2"></option>
                                     <option value="3"></option>
                                     <option value="4"></option>
@@ -194,7 +195,7 @@
       @if(!empty($productReviews))
       <?php $i = 1; ?>
       @foreach($productReviews as $review)
-      <div class="row"> 
+      <div class="row reviews-container"> 
         <div class="col-md-1">
        
           @if(!empty($review['profile']))
@@ -345,7 +346,7 @@ $(".product_rating").each(function(){
    if (typeof(event) !== 'undefined') {
  
      $.confirm({
-        title: '{{ __('lang.txt_your_comments')}}',
+        title: '{{ __('lang.txt_your_review')}}',
         content: '' +
         '<form action="" class="formName">' +
         '<div class="form-group">' +
@@ -355,7 +356,7 @@ $(".product_rating").each(function(){
         '</form>',
         buttons: {
             formSubmit: {
-                text: 'Submit',
+                text: 'Skicka', //submit
                 btnClass: 'btn-blue',
                 action: function () {
                     var comments = this.$content.find('.name').val();
@@ -394,8 +395,11 @@ $(".product_rating").each(function(){
                   });
                 }
             },
-            cancel: function () {
+            cancel: {
+              text: 'Avbryt', //cancel 
+              action: function () {
                 //close
+              }
             },
         },
         onContentReady: function () {
@@ -414,6 +418,7 @@ $(".product_rating").each(function(){
 }); 
 function addtoCartFromProduct()
 {
+
     var product_quantity = $("#product_quantity").val();
     var variant = $("#product_variant_id").val();
     
@@ -443,6 +448,7 @@ function addtoCartFromProduct()
         {
           var currentValue = $(".add_to_cart_count").text();
           var newValue = parseInt(parseFloat(currentValue)) + 1;
+          $(".bag_cart_count").show();
           $(".add_to_cart_count").text(newValue);
           //showSuccessMessage(product_add_success,'reload');
         }

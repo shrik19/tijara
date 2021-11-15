@@ -32,15 +32,27 @@
 
                     $i=1;
                     foreach($details as $data){ ?>
-                     
+                     <?php 
+                       if($data['is_trial']==1){
+                          $title='Tijara Trial';
+                          $start_date=date("Y-m-d",strtotime($data['trial_start_date']));
+                          $end_date=date("Y-m-d",strtotime($data['trial_end_date']));
+                          $exp_date=strtotime($data['trial_end_date']);
+                       }else{
+                          $title=$data['title'];
+                          $start_date=date("Y-m-d",strtotime($data['start_date']));
+                          $end_date=date("Y-m-d",strtotime($data['end_date']));
+                          $exp_date=strtotime($data['end_date']);
+                       }
+                     ?>
                       <tr>
                         <td><?php echo $i;?></td>
-                        <td><?php echo $data['title'];?></td>
-                        <td><?php echo date("Y-m-d",strtotime($data['start_date']));?></td>
-                        <td><?php echo date("Y-m-d",strtotime($data['end_date']));?></td>
+                        <td><?php echo $title;?></td>
+                        <td><?php echo $start_date;?></td>
+                        <td><?php echo $end_date;?></td>
                         <?php 
 	                      	$curdate=strtotime(date('Y-m-d'));
-			                   $exp_date=strtotime($data['end_date']);
+			                   
 
 			                if($curdate > $exp_date)
 			                {

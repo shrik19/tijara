@@ -127,7 +127,16 @@ class AuthController extends Controller
          
                // if($checkUser[0]['is_verified'] == 1){
                 if(($checkUser[0]->is_shop_closed != 1) && ($checkUser[0]->role_id == 2)){
-
+                    $currentDate = date('Y-m-d H:i:s');
+                    $is_subscriber = DB::table('user_packages')
+                            ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+                            ->where('packages.is_deleted','!=',1)
+                            ->where('user_packages.end_date','>=',$currentDate)
+                            ->where('user_id','=',$checkUser[0]['id'])
+                            ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.status','user_packages.payment_status')
+                            ->orderByRaw('user_packages.id ASC')
+                            ->get();
+                       
                     if(Auth::guard('user')->loginUsingId($checkUser[0]['id'])){
 
                         //Session::flash('success', 'Login successfull.');
@@ -152,7 +161,12 @@ class AuthController extends Controller
                         //$_SESSION['currentUser']=$currentUser;
                         session($currentUser);
                         if($getRoleId->role_id==2){
-                            return redirect(route('frontDashboard'));
+                            if($is_subscriber[0]->payment_status=='checkout_incomplete' || $is_subscriber[0]->payment_status=='' || $is_subscriber[0]->is_trial== 0){
+                                return redirect(route('frontSellerProfile'));
+                            }else{
+                                 return redirect(route('frontDashboard'));
+                            }
+                           
                         }else{
                             return redirect(route('frontHome'));
                         }
@@ -408,7 +422,7 @@ class AuthController extends Controller
         $validity_days = $request->input('validity_days');
         $package_id    = $request->input('p_id');
         $package_name = $request->input('p_name');
-        $trial_days = 30;
+        $trial_days = 31;
         $start_date = date("Y-m-d H:i:s");
         $start_date = date('Y-m-d H:i:s', strtotime($start_date.'+'.$trial_days.' days'));
         $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
@@ -509,7 +523,9 @@ class AuthController extends Controller
         $ExpiredDate = Session::get('new_seller_package_end_date');
         $package_name = Session::get('new_seller_package_name');
         //return response()->json(['success'=>'second step success']);
-
+        $trial_days = 30;
+        $trial_start_date = date("Y-m-d H:i:s");
+        $trial_end_date = date('Y-m-d H:i:s', strtotime($trial_start_date.'+'.$trial_days.' days'));
          $arrInsertFreePackage = [
                               'user_id'    => $user_id,
                               'package_id' => $package_id,
@@ -517,6 +533,8 @@ class AuthController extends Controller
                               'start_date' => $start_date,
                               'end_date'   => $ExpiredDate,
                               'is_trial'   => '1',
+                              'trial_start_date' =>  $trial_start_date,
+                              'trial_end_date' => $trial_end_date,
                             ];
 
         UserPackages::create($arrInsertFreePackage);
@@ -585,7 +603,7 @@ class AuthController extends Controller
                 SellerPersonalPage::insert($toUpdateData);
             }
         }
-
+/*get authorization token for customer token*/
          
         $name   =   'Seller';
         $url =url('user/verify', $verification_token);
@@ -860,6 +878,7 @@ class AuthController extends Controller
                 //'klarna_username'  => trim($request->input('klarna_username')),
                 //'klarna_password' => base64_encode(trim($request->input('klarna_password'))),
             ];
+
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);
             Session::flash('success', trans('messages.status_updated_success'));
@@ -1829,7 +1848,7 @@ class AuthController extends Controller
                     ->where('packages.is_deleted','!=',1)
                     ->where('user_packages.end_date','>=',$currentDate)
                     ->where('user_id','=',$user_id)
-                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
+                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.status','user_packages.payment_status')
                     ->orderByRaw('user_packages.id ASC')
                     ->get();
 
@@ -1884,6 +1903,7 @@ class AuthController extends Controller
         $data['subscribedPackage'] = $is_subscriber;
         $data['ramainingDays']     = $date_diff;
         $data['expiryDate']        = $ExpiredDate;
+        $data['is_trial']          = $is_subscriber[0]->is_trial;
 
         return view('Front/Packages/index', $data);
         
@@ -2372,10 +2392,10 @@ DATA;
             $data['servicesCount'] = getTotalServices($currentMonth,$currentYear,$user_id);
             $data['totalAmount'] = getTotalAmount($currentMonth,$currentYear,$user_id);
             $currentDate = date('Y-m-d H:i:s');
-            $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->where('user_packages.status','=','active')->where('user_packages.start_date','<=',$currentDate)->orderBy('user_packages.id','DESC')->select('packages.id','packages.title','packages.amount','packages.validity_days','user_packages.end_date')->first();
+            $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->where('user_packages.status','=','active')->where('user_packages.start_date','<=',$currentDate)->orderBy('user_packages.id','DESC')->select('packages.id','packages.title','packages.amount','packages.validity_days','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.is_trial')->first();
 
             if(empty($userpackage)){
-                $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->where('user_packages.status','=','active')->where('user_packages.is_trial','=','1')->orderBy('user_packages.id','DESC')->select('packages.id','packages.title','packages.amount','packages.validity_days','user_packages.end_date')->first();
+                $userpackage = UserPackages::join('packages','packages.id','=','user_packages.package_id')->where('user_packages.user_id','=',$user_id)->where('user_packages.status','=','active')->where('user_packages.is_trial','=','1')->orderBy('user_packages.id','DESC')->select('packages.id','packages.title','packages.amount','packages.validity_days','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.is_trial')->first();
             }
            
             $data['userpackage'] = $userpackage;

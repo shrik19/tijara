@@ -23,5 +23,5 @@ return [
  'buyer_product'=>'12',
  'Front_Products_limits'=>'10',
  'Front_Services_limits'=>'10',
- 'Popular_Product_limits'=>'5',
+ 'Popular_Product_limits'=>'10',
 ];

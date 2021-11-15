@@ -595,10 +595,6 @@ summary.active::after {
     width: 280px;
     display: flex;
     border-radius: 30px;
-<<<<<<< HEAD
-    /* border: 2px solid #ededed; */
-=======
->>>>>>> bc955f390ca7c612ee87670d67fa1fe2b44d52e6
 }
 .feature_seller h3 a:hover{    text-decoration: none;}
 .featured_seller_container{width: 90%; margin: 0 auto;}
@@ -2053,30 +2049,14 @@ ul.tijara_front_box.row {
 
 .tijara_front_box li {
     list-style: none;
-    float: left;
-<<<<<<< HEAD
-   
+    float: left;    
     width: 31.1%;
-    margin: 10px;
-    padding: 20px 0;
-=======
-    
-    width: 32.1%;
     margin: 0px 10px;
     padding: 0px 0px;
     margin-bottom: 25px;
->>>>>>> bc955f390ca7c612ee87670d67fa1fe2b44d52e6
 }
 .tijara_front_box li img{width: 45%; height: auto;margin: 10px 27%; margin-top: 10ch;}
 .tijara_front_inner h4{     
-<<<<<<< HEAD
-  color: #03989e;
-  text-align: left;
-  line-height: 27px;
-  font-size: 1.4vw;
-  padding: 0 23px;
-  font-weight: 600;
-=======
     color: #03989e;
     text-align: left;
     line-height: 30px;
@@ -2085,7 +2065,6 @@ ul.tijara_front_box.row {
     font-weight: 400;
     vertical-align: bottom;
     padding-bottom: 25px;
->>>>>>> bc955f390ca7c612ee87670d67fa1fe2b44d52e6
 }
 /* .tijara_front_inner {width: 300px; height: 300px; } */
 .product_data {
@@ -2104,17 +2083,8 @@ ul.tijara_front_box.row {
 }
 #msform{padding: 20px 0;}
 .p-0{padding: 0;}
-<<<<<<< HEAD
-.colr-box {padding: 20px;}
-.tijara_front_box li h3{text-align: left;
-  font-size: 1.3vw;
-  color: #737373;
-  margin-left: 15px;
-  font-weight: 300;}
-=======
 .colr-box {padding: 20px;min-height: 25vw;}
 .tijara_front_box li h3{text-align: left; font-size: 18px; color: #737373;margin-left: 35px;font-weight: 300;}
->>>>>>> bc955f390ca7c612ee87670d67fa1fe2b44d52e6
 
 
 
@@ -2520,11 +2490,9 @@ span.pro-text {
   background-color: #919191!important; height: 0px!important;
 }
 .slider-handle{height: 14px!important; width: 14px!important;}
-<<<<<<< HEAD
-/* .product_section{padding-top: 35px;} */
-=======
+
 .product_section{padding-top: 0px;}
->>>>>>> bc955f390ca7c612ee87670d67fa1fe2b44d52e6
+
 .checkoutPageBox{background: #fff; float: left;width: 85%;padding: 10px; }
 .checkoutPageRightBox{background: #fff; float: left;padding:40px 15px;width: 100%;  }
 .checkoutPageRightBoxHeader{padding: 20px 1px; float: left;width: 100%;}

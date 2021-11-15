@@ -1421,7 +1421,8 @@ span.remember-text {
 
 	.seller_register_container .seller_register_second input[type=button]:nth-child(even) {
 		float: left;
-		margin-left: 4%;
+		/*margin-left: 4%;*/
+    margin-left: 60%;
 	}
 	
 .heading{font-weight: 600; font-size: 42px; margin-left: 10px;}
@@ -2444,7 +2445,9 @@ span.pro-text {
     font-size: 0;
     line-height: 0;
     position: absolute;
-    top: 43%!important;;}
+    top: 43%!important;
+    border-radius: 10px !important;
+  }
     .slider.slider-horizontal .slider-track {
       height: 3px!important;
       width: 100%;

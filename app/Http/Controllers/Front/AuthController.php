@@ -422,7 +422,7 @@ class AuthController extends Controller
         $validity_days = $request->input('validity_days');
         $package_id    = $request->input('p_id');
         $package_name = $request->input('p_name');
-        $trial_days = 30;
+        $trial_days = 31;
         $start_date = date("Y-m-d H:i:s");
         $start_date = date('Y-m-d H:i:s', strtotime($start_date.'+'.$trial_days.' days'));
         $ExpiredDate = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
@@ -523,7 +523,7 @@ class AuthController extends Controller
         $ExpiredDate = Session::get('new_seller_package_end_date');
         $package_name = Session::get('new_seller_package_name');
         //return response()->json(['success'=>'second step success']);
-        $trial_days = 31;
+        $trial_days = 30;
         $trial_start_date = date("Y-m-d H:i:s");
         $trial_end_date = date('Y-m-d H:i:s', strtotime($trial_start_date.'+'.$trial_days.' days'));
          $arrInsertFreePackage = [
@@ -603,7 +603,7 @@ class AuthController extends Controller
                 SellerPersonalPage::insert($toUpdateData);
             }
         }
-
+/*get authorization token for customer token*/
          
         $name   =   'Seller';
         $url =url('user/verify', $verification_token);
@@ -878,6 +878,7 @@ class AuthController extends Controller
                 //'klarna_username'  => trim($request->input('klarna_username')),
                 //'klarna_password' => base64_encode(trim($request->input('klarna_password'))),
             ];
+
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);
             Session::flash('success', trans('messages.status_updated_success'));

@@ -180,6 +180,7 @@
 </div>
 
 
+
 <style>
 .ge_input {
   width: 100%;
@@ -187,6 +188,7 @@
   color: #999 !important;
 }
 </style>
+ 
 <script>
   /*function to check unique store name
 * @param : store name
@@ -210,7 +212,6 @@
     $('#phone_number').mask('00 000 00000');
   });
 
-   
 
 </script>
 <!-- Template CSS -->

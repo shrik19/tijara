@@ -181,11 +181,11 @@
                     @php
                       $productCnt = getOrderProducts(Auth::guard('user')->id());
                     @endphp
-                    @if($productCnt > 0)
-                    <div class="cart_count">
+   
+                    <div class="cart_count bag_cart_count" @if($productCnt <= 0) style="display: none;" @endif>
                       <span class="add_to_cart_count">{{$productCnt}}</span>
                     </div>
-                    @endif
+      
                   </div>
                     </li>
                     

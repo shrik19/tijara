@@ -996,60 +996,9 @@ function showSuccessMessage(strContent,redirect_url = '')
       }
     });
 }
-try {
-  Klarna.Payments.init({
-    client_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIifQ.dtxWM6MIcgoeMgH87tGvsNDY6cHWL6MGW4LeYvnm1JA'
-  })
-} catch (e) {
-  // Handle error.
-}
-Klarna.Payments.authorize({
-  payment_method_category: "pay_later"
-}, {
-  purchase_country: "SE",
-  purchase_currency: "SEK",
-  locale: "sv-SE",
-  billing_address: {
-    given_name: "Håkan",
-    family_name: "Larsson",
-    email: "hakan.larsson.test@klarna.com",
-    street_address: "Lars Väg 399",
-    postal_code: "11354",
-    city: "Stockholm",
-    phone: "0765260000",
-    country: "SE"
-  },
-  shipping_address: {
-    given_name: "Håkan",
-    family_name: "Larsson",
-    email: "hakan.larsson.test@klarna.com",
-    street_address: "Lars Väg 399",
-    postal_code: "11354",
-    city: "Stockholm",
-    phone: "0765260000",
-    country: "SE"
-  },
-  order_amount: 10,
-  order_tax_amount: 0,
-  order_lines: [{
-    type: "physical",
-    reference: "19-402",
-    name: "Battery Power Pack",
-    quantity: 1,
-    unit_price: 10,
-    tax_rate: 0,
-    total_amount: 10,
-    total_discount_amount: 0,
-    total_tax_amount: 0,
-    product_url: "https://www.estore.com/products/f2a8d7e34",
-    image_url: "https://www.exampleobjects.com/logo.png"
-  }],
-  customer: {
-    national_identification_number: "410321-9202",
-  },
-}, function(res) {
-  console.debug(res);
-})
+
+ 
+
 </script>
 </body>
 </html>

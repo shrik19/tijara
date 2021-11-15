@@ -1361,6 +1361,7 @@ function addToCart(product_variant)
       {
           var currentValue = $(".add_to_cart_count").text();
           var newValue = parseInt(parseFloat(currentValue)) + 1;
+          $(".bag_cart_count").show();
           $(".add_to_cart_count").text(newValue);
           //showSuccessMessage(product_add_success,'reload');
       }

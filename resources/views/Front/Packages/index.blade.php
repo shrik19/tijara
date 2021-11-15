@@ -11,7 +11,7 @@
     	<div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
-      	<div class="col-md-10">
+      	<div class="col-md-10" style="margin-bottom: 30px;">
   		@if(!empty($package_exp_msg))
   		<div class="alert alert-danger" role="alert">
 		  {{$package_exp_msg}}
@@ -72,9 +72,9 @@
 					    	<td >{{ __('lang.status_label')}}</td>
 					    	@if(($row->trial_start_date >= date('Y-m-d H:i:s')))
 					  			<td><a href="javascript:void(0)" class="btn btn-warning tj-btn-waring"> {{ __('users.not_activated_label')}}</a></td>
-					  		@elseif($row->trial_start_date <= date('Y-m-d H:i:s'))
+					  		@elseif($row->trial_end_date >= date('Y-m-d H:i:s'))
 					  		<td>					  			
-					  			<a href="" class="btn btn-warning tj-btn-waring"> trial period over</a>
+					  			<a href="" class="btn btn-warning tj-btn-sucess"> {{ __('users.activated')}}</a>
 					  		</td>
 					  		@elseif($row->status=="active")
 					  			<td><a href="javascript:void(0)" class="btn btn-success tj-btn-sucess"> {{ __('users.activated')}} </a></td>
@@ -83,12 +83,13 @@
 					  </tbody>
 					</table>
 				</div>
-				</div>
+					<div class="panel-heading bold package_footer  	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $active }}@endif"></div>
+				</div></div>
 		@endif
 	      	 <div class="col-md-6 ">
 				   <br/><br/>
 				<div class="panel panel-default subscribe-packages package_width">
-				<div class="panel-heading bold package_heading @if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $active }}@endif">{{$row->title}}</div>
+				<div class="panel-heading bold package_heading @if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $inactive }}@endif">{{$row->title}}</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="package-body">
@@ -139,7 +140,7 @@
 				    </table>
 				</div>
 
-				<div class="panel-heading bold package_footer  	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $active }}@endif"></div>
+				<div class="panel-heading bold package_footer  	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $inactive }}@endif"></div>
 				</div>
 			</div>
 			@endforeach

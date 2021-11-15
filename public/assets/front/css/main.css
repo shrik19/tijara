@@ -248,6 +248,10 @@ margin-top: 15px;
 
 .register_store_verify{
   margin-top: 11px;font-weight: 500;
+  height: 50px;
+    padding: 1px 32px!important;
+    margin-top: 12px!important;
+    margin-left: -6px!important;
 }
 .package_width{width: 70%; margin: 0 15%;}
 #instafeed img.img-fluid {
@@ -1152,14 +1156,14 @@ span.remember-text {
     right: 0;
     top: 335px;}
 
-.cart_details{padding: 0 1vw; position: relative;}
+.cart_details{    padding: 0 13px 0 9px; position: relative;}
 .header_left_container{width: 100%;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}
 .cart_count{
     background-color: #03989e;  height: 16px; width: 16px;border-radius: 50%; color: #fff;position: absolute;
     top: -7px;
-    right: 6px;
+    right: 4px;
 }
 
 .cart_count.count_wishlist{
@@ -1177,7 +1181,7 @@ span.remember-text {
 .cart_count span{font-size: 10px;text-align: center; color: #fff;    position: absolute;
     top: 2px;
     left: 5px;
-    right:5px;
+    right:4px;
   }
     .search_now_input_box{position: relative; float: left;width: 100%;}
     .search_icon_btn{border: none;background-color: transparent;       margin-left: -35px;
@@ -1219,7 +1223,7 @@ span.remember-text {
 	.login_banner,
 	.register_banner{
 		/* min-height: 800px; */
-		padding: 10% 10% 10% 14%;
+		padding:2% 10% 10% 2%;
 		background-repeat: no-repeat !important;
 		background-size: cover !important;
 		background-position: 80% 10% !important;
@@ -1232,7 +1236,7 @@ span.remember-text {
 	.register_banner-header h1{
 		color: #ffffff;
 		font-size: 40px;
-		font-weight: bold;
+		font-weight: bold;line-height: 55px;
 	}
 	
 	.login_banner-footer,
@@ -1348,13 +1352,22 @@ span.remember-text {
 	#seller-personal-form .remember-section span.remember-text {
 		margin-left: 6px;
 		font-weight: 600;
-        font-size: 17px;
+        font-size: 14px;
 	}
 	
-	.seller_register_container .register_banner {
+	.seller_register_container {
 		min-height: 900px;
 	}
-	
+	.register_banner {
+    width: 32%;
+    background-position: center center;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+	}
 	.seller_register_container .seller_register_second .packages-section {
 		margin-bottom: 3%;
 	}
@@ -1777,7 +1790,7 @@ hr{
     color: #fff;
     padding: 6px 13px;
 }
-.product_info a{text-decoration: none;}
+.product_info a{text-decoration: none; font-size: 15px!important;}
 .subscribe-packages ul{padding: 20px;}
 
 
@@ -1796,6 +1809,7 @@ hr{
 .sale_details pre{font-size: 20px;color: white; font-weight: 400;}
 .sale_btn{padding: 10px 32px; color: #fff; border: 1px solid #fff; border-radius: 30px;background: transparent; font-size: 25px; margin-top: 20px;}
 /* .best_seller li{width: 23%;} */
+
 .best_seller_container{float: left;width: 100%; padding-bottom: 40px;}
 .best_seller_container h3{font-size: 20px; font-weight: 300; color: #515151;margin: 6px 0;}
 .best_seller_container h2{margin-left: 25px !important;margin: 0;padding-bottom: 30px;}
@@ -2035,9 +2049,8 @@ ul.tijara_front_box.row {
 
 .tijara_front_box li {
     list-style: none;
-    float: left;
-    
-    width: 32.1%;
+    float: left;    
+    width: 31.1%;
     margin: 0px 10px;
     padding: 0px 0px;
     margin-bottom: 25px;
@@ -2055,7 +2068,7 @@ ul.tijara_front_box.row {
 }
 /* .tijara_front_inner {width: 300px; height: 300px; } */
 .product_data {
-    height: 460px;
+    height: 405px;
     overflow: hidden;
 }
 /* .tijara_front_box li{height: 300px;margin: 10px;} */
@@ -2477,7 +2490,9 @@ span.pro-text {
   background-color: #919191!important; height: 0px!important;
 }
 .slider-handle{height: 14px!important; width: 14px!important;}
+
 .product_section{padding-top: 0px;}
+
 .checkoutPageBox{background: #fff; float: left;width: 85%;padding: 10px; }
 .checkoutPageRightBox{background: #fff; float: left;padding:40px 15px;width: 100%;  }
 .checkoutPageRightBoxHeader{padding: 20px 1px; float: left;width: 100%;}
@@ -2503,7 +2518,7 @@ span.pro-text {
 .checkoutButton{padding: 15px 50px; margin-top: 30px; font-size: 16px; border-radius: 6px;}
 .checkoutProductDetails h4{font-weight: 300;margin-top: 20px;}
 .checkoutProductDetails h5{font-weight: 300;}
-
+.card-title{font-weight: 500;}
 
 
 

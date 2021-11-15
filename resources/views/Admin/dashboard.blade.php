@@ -1,6 +1,6 @@
 @extends('Admin.layout.template')
 @section('middlecontent')
-
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
   <form method="POST" name="filterForm" id="filterForm" action="{{route('adminDashboard')}}">
     @csrf
     <div class="row">

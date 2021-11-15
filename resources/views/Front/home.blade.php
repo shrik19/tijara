@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
 <hr class="categoryGrayLine">
  <!-- Carousel Default -->
 <div class="slider_cotnainer_section">
@@ -50,7 +51,7 @@
     </div>
  <!-- end slider section -->
 
-<section class="product_section">
+<section class="pt-0">
     
     <div class="container-fluid">
       <!-- Example row of columns -->
@@ -225,7 +226,7 @@
 			<div class="tijara_front_container">
 				<ul class="tijara_front_box">
 					<li >
-            <div class="colr-box colr-1">
+            <div class="colr-box colr-1 text-center">
               <div class="tijara_front_inner ">
               <img src="{{url('/')}}/assets/img/icon1.png"  />
               <h4>{{ __('users.Unik_title')}}<br/>
@@ -235,7 +236,7 @@
               <h3>{{ __('users.unique_marketplace_info')}}</h3>
 					</li>
 					<li>
-            <div class="colr-box colr-2">
+            <div class="colr-box colr-2 text-center">
               <div class="tijara_front_inner">
               <img src="{{url('/')}}/assets/img/icon2.png"/>
               <h4>{{ __('users.promote_title')}}<br/>
@@ -245,7 +246,7 @@
               <h3>{{ __('users.entrepreneurship_info')}}</h3>
 					</li>
 					<li>
-                    <div class="colr-box colr-3">
+                    <div class="colr-box colr-3 text-center">
 						<div class="tijara_front_inner">
                         <img src="{{url('/')}}/assets/img/icon3.png"/>
                         <h4>{{ __('users.encourages_to_title')}}<br/>

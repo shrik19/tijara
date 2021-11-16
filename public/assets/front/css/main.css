@@ -1168,7 +1168,7 @@ span.remember-text {
 
 .cart_count.count_wishlist{
   top: -7px;
-    right: 16px;
+    right: 10px;
 }
 .service_wishlist_h2{
   margin-left: 60px !important;
@@ -1195,7 +1195,7 @@ span.remember-text {
 }
 /* .containerfluid{margin-top: 71px;} */
 .right-icons{list-style-type: none;float:right;width:max-content; }
-.right-icons li{float: left; width: auto;}
+.right-icons li{float: left; width: auto;padding: 0 3px;}
 .right-icons li i{font-size: 23px;}
 /*
 ** Login and registration page

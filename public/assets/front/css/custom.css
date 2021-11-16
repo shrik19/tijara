@@ -101,7 +101,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   }
   
   .small-container div {
-    width: 18%;
+    width: 30%;
     position: relative;
     max-height: 400px;
     /*overflow: scroll;*/
@@ -115,7 +115,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
     margin-right: 6px;
     cursor: pointer;
     /* float: left; */
-    display: block;margin: 5px 0;
+    display: block;margin: 0px 0 10px 0;
   }
   
   .small-container .show-small-img:last-of-type { margin-right: 0; }

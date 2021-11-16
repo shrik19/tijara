@@ -24,7 +24,7 @@
               <h2>{{ $seller_name }}</h2>
               <p>{{ $city_name }}</p>
               <div class="star-rating">
-                <select class='rating service_rating' data-rating="{{$totalRating}}">
+                <select class='rating service_rating' data-rating="{{$totalRating}}" style="font-size: 18px;margin-top: 3px;">
                   <option value="1" >1</option>
                   <option value="2" >2</option>
                   <option value="3" >3</option>
@@ -77,9 +77,11 @@
 						<p class="store_info">{!! $store_information !!}</p>
 					@endif
                     </div>
+                     @if(@$_GET['frompage']==1)
                    <div class="col-md-3 text-right">
                     <a href="{{route('frontSellerPersonalPage')}}" title=""><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>
                   </div>
+                  @endif
                   </div>                  
                 </div>
                 <div><div class="col-md-12">&nbsp;</div></div>
@@ -267,7 +269,7 @@ $(document).ready(function() {
 			var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
 			$(this).empty().html(newStr);
 			$(this).append( '<span class="more-text">' + myStr.substring(0, maxLength) + removedStr + '</span>');
-			$(this).append(' <a href="javascript:void(0);" class="read-more">...'+read_more_btn+'</a>');
+			$(this).append(' <a href="javascript:void(0);" class="read-more de_col">...'+read_more_btn+'</a>');
 		}
 	});	
 	$(".more-text").hide();

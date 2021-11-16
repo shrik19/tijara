@@ -100,9 +100,9 @@
   <div>&nbsp;</div>
  <div style="margin-left: 4px;"> 
   <div class="category_button">
-  <button class="show_all_cat">{{ __('users.all_btn')}}</button>
-  <button class="show_product_cat">{{ __('lang.product_label')}}</button>
-  <button class="show_service_cat">{{ __('lang.service_label')}}</button>
+  <button class="show_all_cat"  product_link="{{url('/')}}/products">{{ __('users.all_btn')}}</button>
+  <button class="show_product_cat"  product_link="{{url('/')}}/products">{{ __('lang.product_label')}}</button>
+  <button class="show_service_cat" service_link="{{url('/')}}/services">{{ __('lang.service_label')}}</button>
 </div>
 </div>
 @endif
@@ -120,8 +120,22 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-   $(".show_all_cat").addClass('active');
+    var pageURL = $(location).attr("href");
+    var array = pageURL.split('/');
+    var lastsegment = array[array.length-1];
+    
+    if(lastsegment == 'products'){
+       $(".show_product_cat").addClass('active');
+     }else if(lastsegment == 'services'){
+        $(".show_service_cat").addClass('active');
+     }else{
+        $(".show_all_cat").addClass('active');
+     }
+
+   //$(".show_all_cat").addClass('active');
   $(document).on('click', '.show_all_cat', function(){  
+      var attr_val = $(this).attr('product_link');
+      window.location.href = attr_val;
       $(this).addClass('active');
       $('.show_product_cat').removeClass('active');
       $('.show_service_cat').removeClass('active');
@@ -131,6 +145,8 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.show_product_cat', function(){  
+    var attr_val = $(this).attr('product_link');
+    window.location.href = attr_val;
     $(this).addClass('active');
     $('.show_all_cat').removeClass('active');
     $('.show_service_cat').removeClass('active');
@@ -140,6 +156,8 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.show_service_cat', function(){  
+    var attr_val = $(this).attr('service_link');
+    window.location.href = attr_val;
     $(this).addClass('active');
     $('.show_all_cat').removeClass('active');
     $('.show_product_cat').removeClass('active');

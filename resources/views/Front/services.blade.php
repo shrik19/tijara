@@ -5,7 +5,7 @@
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
  <!-- Carousel Default -->
 <section class="product_section">
-    <div class="container-fluid">
+    <div class="container-fluid p_155">
       <!-- Example row of columns -->
       <div class="container-inner-section">
       <div class="row">

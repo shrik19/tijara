@@ -190,6 +190,32 @@
 </style>
  
 <script>
+  function showErrorMessage(strContent,redirect_url = '')
+{
+  $.alert({
+      title: 'Oops!',
+      content: strContent,
+      type: 'red',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-times-circle",
+      buttons: {
+        Ok: function () {
+            if(redirect_url != '')
+            {
+              if(redirect_url == 'reload')
+              {
+                location.reload(true);
+              }
+              else
+              {
+                window.location.href = redirect_url;
+              }
+            }
+        },
+      }
+    });
+}
   /*function to check unique store name
 * @param : store name
 */
@@ -207,6 +233,21 @@
     });
   }
 
+  var seller_account_freeze     = "{{trans('errors.seller_account_freeze')}}";
+  var is_disabled = $("#disable_side_menu").val();
+  
+  if(is_disabled==1 && ( $("#card_fname").val() =="" || $("#card_lname").val() =="" || $("#card_number").val() =="" || $("#card_security_code").val() =='' ||  $("#card_exp_date").val() =="" )){
+     showErrorMessage(seller_account_freeze);
+
+    // Handler for .ready() called.
+    $('html, body').animate({
+        scrollTop: $('#scroll_to_payment_details').offset().top
+    }, 'slow');
+
+    $('.seller_cat_list li.make_disabled').on('click', function(event) {
+      event.preventDefault();
+    });
+  }
 
   $(document).ready(function () {
     $('#phone_number').mask('00 000 00000');
@@ -214,9 +255,6 @@
 
 
 </script>
-<!-- Template CSS -->
-<link rel="stylesheet" href="{{url('/')}}/assets/css/sweetalert.css">
-<!-- General JS Scripts -->
-<script src="{{url('/')}}/assets/js/sweetalert.js"></script><!-- 
-<script src="{{url('/')}}/assets/js/jquery.mask.min.js"></script> -->
+
+
 @endsection

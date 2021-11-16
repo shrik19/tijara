@@ -139,29 +139,3 @@
 
 
 </div>
-<script type="text/javascript">
-
-  var seller_account_freeze     = "{{trans('errors.seller_account_freeze')}}";
-
-$( document ).ready(function() {
-  var is_disabled = $("#disable_side_menu").val();
-  if(is_disabled==1){
-     showErrorMessage(seller_account_freeze);
-
-    
-    // Handler for .ready() called.
-    $('html, body').animate({
-        scrollTop: $('#scroll_to_payment_details').offset().top
-    }, 'slow');
-
-    $('.seller_cat_list li.make_disabled').on('click', function(event) {
-      event.preventDefault();
-    });
-    
-
-
-  }
-
-
-});
-</script>

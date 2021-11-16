@@ -1391,6 +1391,7 @@ public function getCatSubList(Request $request) {
 									 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
 									->where('products.status','=','active')
 									->where('products.is_deleted','=','0')
+									->where('products.is_buyer_product','=','1')
 									->where('categories.status','=','active')
 									->where('subcategories.status','=','active')
 									->where('users.status','=','active')

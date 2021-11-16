@@ -55,8 +55,8 @@
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
                           <h4 class="service_store_name"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>             
-                            <span class="product_original_price" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @endif">{{ number_format($first['price'],2) }} kr</span>
-                            @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif
+                            <span class="product_original_price" id="product_variant_price"><span style="margin-left: -12px;">@if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span><span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @endif">{{ number_format($first['price'],2) }} kr</span>
+                            
 
                           <?php /*   <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span> */?>
                           </span> 
@@ -137,7 +137,7 @@
                      
                         
                      
-                        <div class="col-xs-6 col-md-6 p-0"  >
+                        <div class="col-xs-6 col-md-6 p-0" style="display: none;">
                               <div class="quantity_box">
                                 <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
                                 <div class="clearfix"></div>

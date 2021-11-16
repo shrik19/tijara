@@ -37,10 +37,12 @@
                       </div>
                       <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
                   </div>
-
+                <?php 
+                  $service_image = explode(',',$Service->images);
+                ?>
                  @if(isset($image) && !empty($image))
-                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}">
-                    <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$image}}" id="show-img">
+                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$service_image[0]}}">
+                    <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$service_image[0]}}" id="show-img">
                   </div>
                    @else
                   <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/no-image.png">

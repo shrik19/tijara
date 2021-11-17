@@ -368,5 +368,6 @@ avbokning av tjänst fungerar.',
     'select_payment_option' => 'vänligen välj betalningsmetod.',
     'back_to_the_cart_btn' => 'Tillbaka till varukorgen',
     'checkout_cart_title' => 'Kassan',
+    'country_label'       => 'Land',
  ]
 ?>

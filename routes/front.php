@@ -43,6 +43,7 @@ Route::post('/contact-store', 'Front\FrontController@contactStore')->name('Front
 Route::any('/getCatSubList','Front\FrontController@getCatSubList')->name('getCatSubList');
 Route::any('/getServiceCatSubcatList','Front\FrontController@getServiceCatSubcatList')->name('getServiceCatSubcatList');
 Route::post('/report-product', 'Front\FrontController@reportProduct')->name('FrontReportProduct');
+Route::post('/report-service', 'Front\FrontController@reportService')->name('FrontReportService');
 
 //services
 Route::get('/seller/{seller_name}/{seller_id}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');

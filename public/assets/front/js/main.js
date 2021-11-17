@@ -783,6 +783,8 @@ $(".seller-profile-update").click(function(e){
   e.preventDefault();
   let fname   = $("#fname").val();
   let lname   = $("#lname").val();
+  let city   = $("#city").val();
+  let country   = $("#country").val();
 
   let email     = $("#email").val();
 
@@ -828,6 +830,27 @@ $(".seller-profile-update").click(function(e){
     $("#err_email").html('').hide();
   }
 
+    if(city == '')
+  {
+    $("#err_city").html(required_field_error).show();
+    $("#err_city").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_city").html('');
+  }
+
+    if(country == '')
+  {
+    $("#err_country").html(required_field_error).show();
+    $("#err_country").parent().addClass('jt-error');
+    error = 1;
+  }
+  else
+  {
+    $("#err_country").html('');
+  }
   if(error == 1)
   {
     return false;
@@ -1038,8 +1061,9 @@ if($('.product_listings').length>0) {
 
 function get_product_listing(page,category_slug='',subcategory_slug='',
   sellers ='',price='',city='', search_string='',search_seller_product='',current_role_id='') {
-  // alert(search_string);
-   
+  
+ var city = $('#city_name').val();
+
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
   $.ajax({

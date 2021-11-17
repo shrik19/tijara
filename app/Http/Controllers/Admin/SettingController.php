@@ -36,13 +36,13 @@ class SettingController extends Controller
           
         $rules = [
             'site_title'       => 'required',
-            'footer_address'   => 'required',
+            //'footer_address'   => 'required',
             'copyright_content'      => 'required',
             // 'footer_logo'      => 'required',
         ];
         $messages = [
             'site_title.required'      => trans('errors.fill_in_site_title_err'),
-            'footer_address.required'  => trans('errors.fill_in_footer_address_err'),
+            //'footer_address.required'  => trans('errors.fill_in_footer_address_err'),
             'header_logo.required'     => trans('errors.upload_header_logo_err'),
             'footer_logo.required'     => trans('errors.upload_footer_logo_err'),
             'copyright_content.required'     => trans('lang.required_field_error'),
@@ -57,7 +57,7 @@ class SettingController extends Controller
 
         $arrInsertSettings = [                                
                                 'site_title'  =>trim($request->input('site_title')),          
-                                'footer_address' =>trim($request->input('footer_address')),  
+                                //'footer_address' =>trim($request->input('footer_address')),  
                                 'copyright_content' =>trim($request->input('copyright_content')),
 
                             ];

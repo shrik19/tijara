@@ -1,6 +1,11 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 <div class="mid-section p_155">
+<style type="text/css">
+  .invalid-feedback {
+    position: relative;
+  }
+</style>
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
@@ -68,13 +73,19 @@
               <span class="invalid-feedback" id="err_address">@if($errors->has('postcode')) {{ $errors->first('postcode') }}@endif</span>
             </div>
            
-            <?php /*
+            
             <div class="form-group  col-md-6" style="margin-top: ">
-              <label>{{ __('users.city_label')}}</label>
+              <!--`<label>{{ __('users.city_label')}}</label> -->
               <input type="text" class="form-control ge_input" name="city" id="city" placeholder="{{ __('users.city_label')}}" value="{{ (old('city')) ? old('city') : $sellerDetails[0]->city}}">
               <span class="invalid-feedback" id="err_city">@if($errors->has('city')) {{ $errors->first('city') }}@endif</span>
             </div>
-            */?>
+
+            <div class="form-group  col-md-6" style="margin-top: ">
+              <!--`<label>{{ __('users.city_label')}}</label> -->
+              <input type="text" class="form-control ge_input" name="country" id="country" placeholder="{{ __('users.country_label')}}" value="{{ (old('country')) ? old('country') : $sellerDetails[0]->country}}">
+              <span class="invalid-feedback" id="err_country">@if($errors->has('country')) {{ $errors->first('country') }}@endif</span>
+            </div>
+            
             <div style="margin-top: 40px;">
               <hr class="row solid-horizontal-line">
             </div>

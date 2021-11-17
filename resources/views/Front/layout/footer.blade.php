@@ -13,7 +13,11 @@
       <div class="container-inner-section">
         <div class="row">
         <div class="col-md-3">
-            <img class="footer_logo"  src="{{url('/')}}/assets/img/logo.png"     height="50px" />
+          
+          @if(!empty($siteDetails->footer_logo))
+            <img class="footer_logo"  src="{{url('/')}}/uploads/Images/{{$siteDetails->footer_logo}}"     height="50px" />
+            @endif
+            <!--  <img class="footer_logo"  src="{{url('/')}}/assets/img/logo.png"     height="50px" /> -->
             <!-- <article class="address_container">
               <p>{!!$siteDetails->footer_address!!}			 
               </p>

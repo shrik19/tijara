@@ -80,14 +80,14 @@
             <div class="text-danger">{{$errors->first('city')}}</div>
           </div>
 
-          <div class="form-group">
+          <?php /* <div class="form-group">
             <label>{{ __('users.swish_number_label')}} </label>
             <input type="text" class="form-control" name="swish_number" id="swish_number" tabindex="8" value="{{ !empty($buyerDetails[0]->swish_number) ?  $buyerDetails[0]->swish_number : old('swish_number')}}">
             <div class="invalid-feedback">
               {{ __('errors.fill_in_swish_number_err')}}
             </div>
             <div class="text-danger">{{$errors->first('swish_number')}}</div>
-          </div>
+          </div> */?>
 
         </div>
       </div>
@@ -104,6 +104,7 @@
               echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Buyer/resized/'.$buyerDetails[0]->profile.'" style="width:200px;height:200px;"></div>';
               echo '</div>';
               echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
+              echo '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>';
             }
             @endphp
 
@@ -147,6 +148,12 @@
   $(document).ready(function () {
     $('#phone_number').mask('00 000 000');
   });
+
+$('body').on('click', '.remove_image', function () {
+    $('.existing-images').parent("div").remove();
+    $(this).remove();
+});
+
 
 
   /*function to validate letters for fname*/

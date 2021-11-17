@@ -34,15 +34,28 @@
                 </div>
                 <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
               </div>
-              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}">
+              <div class="show-custom product_custom_img" href="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}">
               @if(isset($first['images'][0]) && !empty($first['images'][0]))
                 <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
                @else
                   <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
               @endif
+               <div class="buy_now_hover_details one_icon">
+          <ul>
+              
+              <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) 
+                    onclick="addToWishlist('{{$Product->variant_id}}');event.stopPropagation();" 
+                    @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif>
+                    <i class="far fa-heart"></i>
+                  </a>
+              </li>
+          </ul>
+      </div>
               </div>
+             
+
               <div style="margin-top: 20px;margin-left: 120px;text-align: center;">
-                <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 10px;margin-left: -20px;">{{ __('users.report_product_btn')}} </a>
+                <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}">{{ __('users.report_product_btn')}} </a>
               </div>
               </div>
 
@@ -55,7 +68,7 @@
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
                           <h4 class="service_store_name"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>             
-                            <span class="product_original_price" id="product_variant_price"><span style="margin-left: -12px;">@if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span><span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @endif">{{ number_format($first['price'],2) }} kr</span>
+                            <span class="product_original_price" id="product_variant_price"><span style="margin-left: -12px;">@if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span><span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @else margin-left: 10px; @endif">{{ number_format($first['price'],2) }} kr</span>
                             
 
                           <?php /*   <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span> */?>
@@ -206,7 +219,15 @@
         </div>
 
         <div class="col-md-5" style="margin-left: 30px;">
-          <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+          <p class="ratingUname">
+            <?php 
+                if(!empty($review['fname']) && !empty($review['lname'])){
+                    $review_name = $review['fname']." ".$review['lname'];
+                  }else{
+                    $review_name = 'Anonymous';
+                  }
+                  
+                  echo $review_name.", ".date('d F, Y',strtotime($review['updated_at']));?></p>
 
           <div class="star-rating" style="font-size:15px;pointer-events: none;">
             <select class='rating product_rating' id='rating_{{$Product->id}}_{{$i}}' data-id='rating_{{$Product->id}}_{{$i}}' data-rating="{{$review['product_rating']}}">

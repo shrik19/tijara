@@ -34,7 +34,7 @@ use App\Models\ServiceRequest;
 use App\Models\ServiceReview;
 use App\Models\ContactStore;
 use App\Models\ReportProduct;
-
+use App\Models\ReportService;
 use App\Models\BuyerProducts;
 
 use DB;
@@ -98,7 +98,7 @@ class FrontController extends Controller
 
      /*Function to get treding seller*/
     function getFeaturedProductsOld($category_slug='',$subcategory_slug='',$role_id=''){
-    	DB::enableQueryLog();
+    	//DB::enableQueryLog();
 		// and then you can get query log
 	
     	$currentDate = date('Y-m-d H:i:s'); 
@@ -176,7 +176,7 @@ class FrontController extends Controller
     }
 
 	function getFeaturedProducts($category_slug='',$subcategory_slug='',$role_id=''){
-    	DB::enableQueryLog();
+    	//DB::enableQueryLog();
 		// and then you can get query log
 	
     	$currentDate = date('Y-m-d H:i:s'); 
@@ -253,7 +253,7 @@ class FrontController extends Controller
     }
 	//get category & subcategory listings
 	public function getCategorySubcategoryList($seller_id='',$category_slug='', $subcategory_slug='') {
-		DB::enableQueryLog();
+		//DB::enableQueryLog();
 		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
 								->where('subcategories.status','=','active')
@@ -606,7 +606,7 @@ public function getCatSubList(Request $request) {
 	//get popular products
 	function getPopularProducts($category_slug='',$subcategory_slug='') {
 		$currentDate = date('Y-m-d H:i:s');
-		DB::enableQueryLog();
+		//DB::enableQueryLog();
 		$PopularProducts 	= Products::join('orders_details', 'products.id', '=', 'orders_details.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
@@ -1100,6 +1100,7 @@ public function getCatSubList(Request $request) {
 		$data['store_name']			= 	$Seller['store_name'];
 		$data['description']		= 	$Seller['description'];
 		$data['city_name']		    =	$Seller['city'];
+		$data['country_name']		    =	$Seller['country'];
 		$data['seller_email']       =   $Seller['email'];
 		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
 		$data['header_image']       = '';
@@ -1378,8 +1379,9 @@ public function getCatSubList(Request $request) {
 
 			//echo "<pre>";print_r($data);exit;
 			$currentDate = date('Y-m-d H:i:s');
-		
-			$similarProducts	=   Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
+
+
+/*			$similarProducts	=   Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
 									->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 									->join('category_products', 'products.id', '=', 'category_products.product_id')
 									->join('categories', 'categories.id', '=', 'category_products.category_id')
@@ -1403,21 +1405,44 @@ public function getCatSubList(Request $request) {
 									})
 									->orderBy('variant_product.id', 'ASC')
 									->groupBy('products.id')
-									->offset(0)->limit(config('constants.Popular_Product_limits'));
-			if(isset($category_slug) && $category_slug!='') {
+									->offset(0)->limit(config('constants.Popular_Product_limits'));*/
+						//DB::enableQueryLog();
+						$similarProducts	=   Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
+									->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+									->join('users', 'products.user_id', '=', 'users.id')
+									->select(['products.*',
+									 DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") ,
+									 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+									->where('products.status','=','active')
+									->where('products.is_deleted','=','0')
+									->where('products.is_buyer_product','=','1')
+									->where('users.status','=','active')
+									->where('users.is_deleted','=','0')
+									->where(function($q) use ($currentDate) {
+
+										$q->where([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+									})
+									->orderBy('variant_product.id', 'ASC')
+									->groupBy('products.id')
+									->offset(0)->limit(config('constants.similar_product_limits'));
+	//	dd(DB::getQueryLog());
+
+			/*if(isset($category_slug) && $category_slug!='') {
 
 				$similarProducts=	$similarProducts->where('categories.category_slug','=',$category_slug);
 			}
 			else {
 				$similarProducts=	$similarProducts->where('categories.id','=',$Product->catId);
 			
-			}
+			}*/
 			$similarProducts	=	$similarProducts->where('products.id','!=',$Product->id)->get();
 			//echo $Product->catId;exit;
+	
 			$product_sold_data = BuyerProducts::where('product_id',$Product->id)->first();
-			$data['product_location'] = $product_sold_data['location'];
+			$data['product_location'] = @$product_sold_data['location'];
 			$data['product_seller_name'] = $product_sold_data['user_name'];
 			$data['similarProducts']	=	$similarProducts;
+			
 			$data['buyer_product_details']	=	BuyerProducts::where('product_id',$Product->id)->first();
 
 			return view('Front/buyer_product_details', $data);
@@ -1828,10 +1853,18 @@ public function getCatSubList(Request $request) {
 		
 		$sellerLink = route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Service['user_id'])]);
 		$data['seller_link'] = $sellerLink;
+		$data['service_link']	= url()->full();
+
+		if(Auth::guard('user')->id()) {
+			$loginUserData = UserMain::where('id',Auth::guard('user')->id())->where('is_deleted','=','0')->first();
+			$data['loginUserEmail']	= $loginUserData['email'];
+		}else{
+			$data['loginUserEmail']='';
+		}
 
 		$data['serviceReviews']= $this->getReviews('services','',$Service->id);
 
-		
+		$data['service_id'] = $Services[0]->id;
 		$data['serviceAvailability']=   ServiceAvailability::where('service_id',$Service->id)->get();
       
 		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Service['user_id'])->first();
@@ -1916,6 +1949,7 @@ public function getCatSubList(Request $request) {
 		$Seller = UserMain::where('id',$id)->first()->toArray();
 		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
 		$data['city_name']		    =	$Seller['city'];
+		$data['country_name']		    =	$Seller['country'];
 		$data['seller_email']       =   $Seller['email'];
 		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
 		$data['description']		= 	$Seller['description'];
@@ -2335,18 +2369,64 @@ public function getCatSubList(Request $request) {
              $message->from( env('FROM_MAIL'),'Tijara');
          });
 
-			/*exit;
-	        $arrMailData = ['name' => $name, 'email' => $from_email, 'user_message'=> $user_message,'seller_name' => $seller_name];
-
-	            Mail::send('emails/contact_seller', $arrMailData, function($message) use ($to_email,$seller_name) {
-	            $message->to($to_email, $seller_name)->subject
-	                (trans('users.subject_product_report'));
-	            $message->from( env('FROM_MAIL'),'Tijara');
-	        });*/
 	       $success_msg = trans('users.mail_sent_message');
-        /*}else{
-        	$err_msg = trans('users.please_login_alert');
-        }*/
+      
+        return response()->json(['success'=>$success_msg,'error'=>$err_msg]);
+   }
+
+          /*
+	*function to report product
+	*@param: seller_email,message
+    */
+   public function reportService(Request $request) { 
+      	
+      	$success_msg = $err_msg='';
+   		//if(Auth::guard('user')->id()) {
+   			$user_message = $request->user_message;
+   			$user_email = $request->user_email;
+   			$service_id = $request->service_id;
+   			$service_link = $request->service_link;
+   			$seller_name = $request->seller_name;
+   			//$to_email = $request->seller_email;
+	   		$to_email = env('ADMIN_EMAIL');
+	   		//$id = $request->seller_id;
+	   		
+           	/*$loginUser = UserMain::where('id',Auth::guard('user')->id())->first();
+           	$from_email=$loginUser->email;
+			$name = $loginUser->fname." ".$loginUser->lname;*/
+			$currentDate = date('Y-m-d H:i:s');
+
+			$arrInsert = [
+				'buyer_email'  => $user_email,
+				'service_id'   => $service_id,
+				'service_link' => $service_link,
+				'message'      => $user_message,
+				'seller_name'  => $seller_name,
+				'created_at'   => $currentDate,
+				'updated_at'   => $currentDate,
+			 ];
+
+			ReportService::create($arrInsert);
+
+		$admin_email = env('ADMIN_EMAIL');
+        $admin_name  = env('ADMIN_NAME');
+        
+        $GetEmailContents = getEmailContents('Buyer Service Report');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+
+        $contents = str_replace(['##SERVICE_NO##','##EMAIL##','##SERVICE_LINK##','##MESSAGE##','##SITE_URL##'],[$service_id,$user_email,$service_link,$user_message,url('/')],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
+             $message->to($admin_email, $admin_name)->subject
+                 ($subject);
+             $message->from( env('FROM_MAIL'),'Tijara');
+         });
+
+	       $success_msg = trans('users.mail_sent_message');
+      
         return response()->json(['success'=>$success_msg,'error'=>$err_msg]);
    }
 

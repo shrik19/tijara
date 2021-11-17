@@ -540,14 +540,14 @@ use File;
                 }
 
                /* $action = '<a href="'.route('adminBuyersEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+               */
+                $action = '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminBuyersAdsDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminBuyersDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';*/
-
-                $arr[] = [$image,$title, $created_at, $status];
+                $arr[] = [$image, $title, $created_at, $status, $action];
             }
         } 
         else {
-            $arr[] = ['', '', trans('lang.datatables.sEmptyTable'), ''];
+            $arr[] = ['', trans('lang.datatables.sEmptyTable'), '','', ''];
         }
 
         $json_arr = [
@@ -569,7 +569,7 @@ use File;
        
         if(empty($id)) {
             Session::flash('error', trans('errors.refresh_your_page_err'));
-            return redirect(route('adminBuyers'));
+            return redirect(route('adminBuyersAd'));
         }
 
         $id = base64_decode($id); echo $id;
@@ -580,6 +580,30 @@ use File;
             Session::flash('success', trans('messages.status_updated_success'));
             return redirect()->back();
         } else {
+            Session::flash('error', trans('errors.something_wrong_err'));
+            return redirect()->back();
+        }
+    }
+
+      /**
+    * Delete Record
+    * @param  $id = Id
+    */
+    public function deleteBuyersAd($id) {
+        if(empty($id)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect(route('adminBuyersAd'));
+        }
+
+        $id = base64_decode($id);
+        $result = Products::find($id);
+        if (!empty($result)) {
+            $products = Products::where('id', $id)->update(['is_deleted' =>1]);
+            DB::table('buyer_products')->where('product_id', $id)->delete();
+            Session::flash('success', trans('messages.record_deleted_success'));
+            return redirect()->back();
+        } 
+        else {
             Session::flash('error', trans('errors.something_wrong_err'));
             return redirect()->back();
         }

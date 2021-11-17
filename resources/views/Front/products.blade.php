@@ -23,7 +23,7 @@
          
             <div class="col-md-12">
               <div class="col-md-12" style="text-align:center">
-                <img src="{{url('/')}}/assets/img/tijara_ann.jpeg" height="200">
+                <img src="{{url('/')}}/assets/img/tijara_ann.jpeg">
               </div>
             </div>
            @endif
@@ -102,9 +102,15 @@
 
 <script type="text/javascript">
 
+/*$( document ).ready(function() {
+   $slider = $("#price_filter");
+    var value = $slider.data('slider').getValue();
+    $slider.data('slider').max = 100;
+    $slider.slider('setValue', value);
+});*/
 function getListing()
 {
-  
+
   var category_slug = $('.current_category').text();
   var subcategory_slug = $('.current_subcategory').text();
   var sellers = $('.current_sellers').text();
@@ -114,6 +120,7 @@ function getListing()
   var sort_by = $("#sort_by").val();
   var search_string = $(".current_search_string").text();
   var current_role_id = $(".current_role_id").text();
+
   $.ajax({
     url:siteUrl+"/get_product_listing",
     headers: {

@@ -55,6 +55,10 @@
                   <!-- Secondary carousel image thumbnail gallery -->
                 
                   @endif
+
+                  <div style="margin-top: 20px;margin-left: 120px;text-align: center;">
+                <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" service_link="{{$service_link}}" seller_name="{{$seller_name}}" service_id="{{$service_id}}">{{ __('users.report_product_btn')}} </a>
+              </div>
             </div>
 
             <div class="col-md-offset-1 col-md-5">
@@ -196,7 +200,14 @@
                     @endif
                     </div>
                     <div class="col-md-5" style="margin-left: 30px;">
-                       <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+                       <p class="ratingUname"><?php 
+                       if(!empty($review['fname']) && !empty($review['lname'])){
+                        $review_name = $review['fname']." ".$review['lname'];
+                      }else{
+                        $review_name = 'Anonymous';
+                      }
+                  
+                      echo $review_name.", ".date('d F, Y',strtotime($review['updated_at']));?></p>
                     <div class="star-rating" style="font-size:unset;pointer-events: none;">
                         <select class='rating service_rating' data-rating="{{$review['service_rating']}}" id='rating_{{$Service->id}}_{{$i}}' data-id='rating_{{$Service->id}}_{{$i}}'>
                           <option value="1" >1</option>
@@ -274,7 +285,117 @@
     </div>
 </section>
 
+
+<!-- add report product model Form -->
+ <div class="modal fade" id="reportProductmodal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ __('users.report_product_btn')}}</h4>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="loader-seller" style="display: none;"></div>
+        <div class="modal-body">
+            <div class="container">
+            <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
+              @csrf
+                  <input type="hidden" name="seller_name" class="seller_name" id="seller_name" value="">
+                  <input type="hidden" name="service_link" class="service_link" id="service_link" value="">
+                  <input type="hidden" name="service_id" class="service_id" id="service_id" value="">
+
+                <div class="form-group">
+                  <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
+                
+                  <input type="text" name="user_email" class="form-control user_email" id="user_email" placeholder="{{ __('users.email_label')}}" value="" style="width: 500px;">
+                   <span class="invalid-feedback col-md-12"  id="err_email" ></span>
+                </div>
+
+                <div class="form-group">
+                  <label style="margin-top:10px;">{{ __('users.your_message_label')}} <span class="text-danger">*</span></label>
+                  <textarea class="user_message form-control contact-store-message" name="user_message" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}"  placeholder="{{ __('users.subcategory_name_label')}}" id="user_message"required></textarea>
+               
+                </div>
+            </form>
+            </div>
+        </div>
+        
+       <div class="modal-footer">
+        <button type="submit" class="send_report_product btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
+        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal">{{ __('lang.close_btn')}}</button>
+        </div>        
+      </div>
+    </div>
+  </div>
+  
+  <!-- end report product model Form -->
 <script type="text/javascript">
+  $(document).on("click",".report_product",function(event) {
+      
+        $('#reportProductmodal').find('.user_email').val($(this).attr('user_email'));
+        $('#reportProductmodal').find('.service_link').val($(this).attr('service_link'));
+        $('#reportProductmodal').find('.seller_name').val($(this).attr('seller_name')); 
+        $('#reportProductmodal').find('.service_id').val($(this).attr('service_id'));  
+       // $('#reportProductmodal').find('.message').val($(this).attr('message'));  
+       
+         $('#reportProductmodal').modal('show');
+});
+
+$(document).on("click",".send_report_product",function(event) {
+       //storeContactform 
+      let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+      let error = 0;
+     if($('#reportProductmodal').find('.user_email').val()=='') {
+        $("#err_email").html(fill_in_email_err).show();
+        $("#err_email").parent().addClass('jt-error');
+        error = 1;
+     }else if(!email_pattern.test($('#reportProductmodal').find('.user_email').val())) {
+      $("#err_email").html(fill_in_valid_email_err).show();
+      $("#err_email").parent().addClass('jt-error');
+      error = 1;
+    }else{
+      $("#err_email").parent().removeClass('jt-error');
+      $("#err_email").html('').hide();
+    }
+    if($('#reportProductmodal').find('.user_message').val()==''){
+       showErrorMessage(required_field_error);
+       error = 1;
+    }
+    if(error == 1){
+      return false;
+    }else{
+    
+        let user_message   = $("#user_message").val();
+        let user_email     = $("#user_email").val();
+        let seller_id      = $("#seller_id").val();
+        let seller_name    = $("#seller_name").val();
+        let service_link   = $("#service_link").val();
+        let service_id     = $("#service_id").val();
+       $(".loader-seller").show();
+        setTimeout(function(){
+    $.ajax({
+          url:"{{ route('FrontReportService') }}",
+          headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+          },
+          type: 'POST',
+          async: false,
+          data:{user_message:user_message,user_email:user_email,service_link:service_link,service_id:service_id,seller_name:seller_name},
+          success: function(output){
+        
+             $(".loader-seller").hide();
+             $('#reportProductmodal').modal('hide');  
+           
+            if(output.success !=''){
+              showSuccessMessage(output.success);
+              let user_message   = $("#user_message").val('');
+            }else{
+              showErrorMessage(output.error);
+            }
+          }
+        });}, 300);
+      }   
+    });
+
 function sendServiceRequest()
 {
   if($('.service_title').val()=='' || $('.location').val()=='' || $('.service_date').val()==''
@@ -372,7 +493,7 @@ $("#show-img").next('div').next('div').css('z-index','999');
 
 
 /*service rating*/
-$(".service_rating").each(function(){
+$(".service_rating").each(function(){ 
   var currentRating = $(this).data('rating');
   $(this).barrating({
     theme: 'fontawesome-stars',

@@ -22,7 +22,7 @@
            
              <div class="seller_info border-none seller_details">
               <h2>{{ $seller_name }}</h2>
-              <p>{{ $city_name }}</p>
+              <p>@if(!empty($city_name) && !empty($country_name)){{ $city_name }}, {{$country_name}} @endif</p>
               <div class="star-rating">
                 <select class='rating service_rating' data-rating="{{$totalRating}}" style="font-size: 18px;margin-top: 3px;">
                   <option value="1" >1</option>
@@ -131,7 +131,14 @@
                 </div>
 
                 <div class="col-md-5">
-                  <p class="ratingUname"><?php echo $review['fname']." ".$review['lname'].", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+                  <p class="ratingUname"><?php 
+                  if(!empty($review['fname']) && !empty($review['lname'])){
+                    $review_name = $review['fname']." ".$review['lname'];
+                  }else{
+                    $review_name = 'Anonymous';
+                  }
+
+                  echo $review_name.", ".date('d F, Y',strtotime($review['updated_at']));?></p>
 
                   <div class="star-rating" style="font-size:unset;pointer-events: none;">
                     <select class='rating service_rating' data-rating="{{$review['service_rating']}}">
@@ -176,7 +183,7 @@
           <div class="col-md-2">
             <h2  class="review_title" style="margin-left:-12px;">{{ __('users.store_terms')}}</h2>
           </div>
-        <div class="col-md-9" style="margin-top: 25px;">
+        <div class="col-md-9 store_term_div">
           <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>

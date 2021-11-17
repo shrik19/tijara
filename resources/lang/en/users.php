@@ -368,5 +368,6 @@ cancellation of service works.',
     'select_payment_option' => 'please Select Payment Method.',
     'back_to_the_cart_btn' => 'Back to the cart',
     'checkout_cart_title' => 'Checkout',
+    'country_label'       => 'Country',
  ]
 ?>

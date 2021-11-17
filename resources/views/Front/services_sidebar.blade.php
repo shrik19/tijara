@@ -100,7 +100,7 @@
   <div>&nbsp;</div>
  <div style="margin-left: 4px;"> 
   <div class="category_button">
-  <button class="show_all_cat"  product_link="{{url('/')}}/products">{{ __('users.all_btn')}}</button>
+  <button class="show_all_cat"  product_link="{{url('/')}}/products?all=1">{{ __('users.all_btn')}}</button>
   <button class="show_product_cat"  product_link="{{url('/')}}/products">{{ __('lang.product_label')}}</button>
   <button class="show_service_cat" service_link="{{url('/')}}/services">{{ __('lang.service_label')}}</button>
 </div>

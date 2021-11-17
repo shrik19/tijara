@@ -24,4 +24,5 @@ return [
  'Front_Products_limits'=>'10',
  'Front_Services_limits'=>'10',
  'Popular_Product_limits'=>'10',
+ 'similar_product_limits' => '5',
 ];

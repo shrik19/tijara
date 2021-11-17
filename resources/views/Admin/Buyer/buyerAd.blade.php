@@ -22,6 +22,7 @@
 <th>{{ __('lang.product_label')}}</th>
 <th>{{ __('lang.dated_label')}}</th>
 <th data-orderable="false">{{ __('lang.status_label')}}</th>
+<th data-orderable="false">{{ __('lang.action_label')}}</th>
 </tr>
 </thead>
 <tbody id="result">

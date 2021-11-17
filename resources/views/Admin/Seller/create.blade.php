@@ -73,7 +73,7 @@
               </div>
               <div class="text-danger">{{$errors->first('city')}}</div>
             </div>
-
+            <?php /*
             <div class="form-group">
               <label>{{ __('users.swish_number_label')}}</label>
               <input type="text" class="form-control" name="swish_number" id="swish_number" tabindex="8" value="{{ old('swish_number')}}">
@@ -82,6 +82,7 @@
               </div>
               <div class="text-danger">{{$errors->first('swish_number')}}</div>
             </div>
+            */?>
 
             <div class="form-group">
               <label>{{ __('users.store_name_label')}}</label>
@@ -99,7 +100,7 @@
       <div class="col-12 col-md-6 col-lg-6">
         <div class="card">
           <div class="card-body">
-
+             <?php /*
             <div class="form-group">
               <label>{{ __('users.paypal_email_address_label')}}</label>
               <input type="text" class="form-control" name="paypal_email" id="paypal_email" tabindex="10" value="{{ old('paypal_email')}}">
@@ -108,7 +109,7 @@
               </div>
               <div class="text-danger">{{$errors->first('paypal_email')}}</div>
             </div>
-
+            */?>
             <!-- <div class="form-group">
               <label>Where did you find us?</label>
               <input type="text" class="form-control" name="find_us" id="find_us" tabindex="9" value="{{ old('find_us') }}">

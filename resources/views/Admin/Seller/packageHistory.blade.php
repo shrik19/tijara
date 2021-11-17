@@ -22,8 +22,8 @@
                   <th>{{ __('users.package_name_thead')}}</th>
                   <th>{{ __('users.start_date_thead')}}</th>
                   <th>{{ __('users.end_date_thead')}}</th>
-                  <th>{{ __('users.is_trial_package')}}</th>
-                  <th data-orderable="false">{{ __('lang.status_label')}}</th>
+                  <th>{{ __('lang.status_label')}}</th>
+                  <th data-orderable="false">{{ __('lang.action_label')}}</th>
                   </tr>
                 </thead>
                   <tbody id="result">
@@ -62,8 +62,11 @@
 			                	$status = '<a href="javascript:void(0)"  class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
 			                }
 
-                      $action = '<a href="'.route('adminSellerExtendPackage', base64_encode($data['id'])).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
-
+                      if($data['is_trial']==1){
+                        $action = '<a href="'.route('adminSellerExtendPackage', base64_encode($data['id'])).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                      }else{
+                        $action='';
+                      }
                       ?>
 
                         <td><?php echo $status;?></td>

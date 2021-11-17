@@ -151,6 +151,7 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::get('/buyer-Ads','BuyerController@buyerAds')->name('adminBuyersAd');
 		Route::any('/getBuyerAds','BuyerController@getBuyerAds')->name('adminBuyerGetAds');
 		Route::get('/changeAdsStatus/{id}/{status}','BuyerController@changeAdsStatus')->name('adminBuyersAdsChangeStatus');
+		Route::get('/delete/{id}','BuyerController@deleteBuyersAd')->name('adminBuyersAdsDelete');
 	});
 
 	/* City */

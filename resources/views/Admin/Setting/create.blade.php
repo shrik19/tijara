@@ -20,12 +20,13 @@
               <div class="text-danger">{{ ($errors->has('site_title')) ? $errors->first('site_title') : '' }}</div>
             </div>
 
-            <div class="form-group">
+            <?php /*
+            <div class="form-group" style="display: none">
               <label>{{ __('users.footer_details_label')}}  <span class="text-danger">*</span></label>
               <textarea class="form-control description" name="footer_address" id="footer_address" spellcheck="true" >{{ (old('footer_address')) ?  old('footer_address') : $sitedata[0]->footer_address}}</textarea>
               <div class="text-danger">{{ ($errors->has('footer_address')) ? $errors->first('footer_address') : '' }}</div>
             </div>
-            
+            */?>
             <div class="form-group">
               <label>{{ __('users.upload_header_logo_label')}}  <span class="text-danger"></span></label>				<img src="{{url('/')}}/uploads/Images/{{$sitedata[0]->header_logo}}" height="50">
                <input type="file" name="header_logo" class="form-control" value="{{old('header_logo')}}">

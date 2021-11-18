@@ -40,7 +40,7 @@
                @else
                   <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
               @endif
-               <div class="buy_now_hover_details one_icon">
+               <div class="buy_now_hover_details product_wish_icon">
           <ul>
               
               <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) 

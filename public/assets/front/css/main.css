@@ -1169,7 +1169,7 @@ span.remember-text {
     padding: 12px 28px;
     position: absolute;
     right: 0;
-    top: 335px;}
+    top: 260px;}
 
 .cart_details{    padding: 0 13px 0 9px; position: relative;}
 .header_left_container{width: 100%;}
@@ -1540,7 +1540,7 @@ overflow: hidden;margin-top: 155px;}
 .slider_item img{overflow: hidden;}
 .slider_content{    padding-left: 60px;
     position: absolute;width: 92%;
-     top:6vh}
+     top:15vh}
 .slider_content h3{color: black; font-size: 35px; margin: 0;}
 .slider_content h2{font-size: 54px; font-weight: 600; color: #fff; line-height: 80px; padding-left: 51px !important;line-height: 49px ;
     padding-left: 10% ;}
@@ -1673,7 +1673,7 @@ overflow: hidden;margin-top: 155px;}
     min-height: 1px;
     padding-right: 10px;
     padding-left: 10px;
-    padding-bottom: 15px;
+    padding-top: 15px;
 }
 .col-xs-15 {
     width: 20%;
@@ -1681,6 +1681,8 @@ overflow: hidden;margin-top: 155px;}
 }
 .filter_lable{font-size: 24px; color:#222; font-weight: 400;}
 .slider-horizontal{margin-left: 9px;}
+
+
 @media (min-width: 768px) {
 .col-sm-15 {
         width: 20%;
@@ -2083,7 +2085,7 @@ ul.tijara_front_box.row {
 }
 /* .tijara_front_inner {width: 300px; height: 300px; } */
 .product_data {
-    height: 405px;
+    height: 390px;
     overflow: hidden;
 }
 /* .tijara_front_box li{height: 300px;margin: 10px;} */
@@ -2534,6 +2536,17 @@ span.pro-text {
 .checkoutProductDetails h4{font-weight: 300;margin-top: 20px;}
 .checkoutProductDetails h5{font-weight: 300;}
 .card-title{font-weight: 500;}
+.product_wish_icon{
+  top: 0px;
+  position: absolute;
+  left: 29px;
+  margin-left: -30px;
+}
+.product_wish_icon ul {list-style: none;}
+.product_wish_icon li{top: -55px;
+      left: 50%; cursor: pointer;
+      position: absolute;
+      margin-left: 135px;}
 
 
 

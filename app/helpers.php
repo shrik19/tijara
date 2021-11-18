@@ -16,20 +16,23 @@ use App\Models\Services;
 /** Get all Custom Pages. */
 function getCustomPages()
 {
-    $allPages = Page::where('slug_en','!=','contact-us')->where('slug_en','!=','faq')->where('slug_en','!=','how-to-sell')->where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();
+    /*$allPages = Page::where('slug_en','!=','contact-us')->where('slug_en','!=','faq')->where('slug_en','!=','how-to-sell')->where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();*/
+    $allPages = Page::where('display_in_section','=','About Tijara')->where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();
     return $allPages;
 }
 /** Get FAQ Custom Pages. */
 function getCustomerServicePage()
 {
-    $getCustomerServicePage = Page::where('slug_en','=','contact-us')->orwhere('slug_en','=','faq')->where([['status','=','active'],['is_deleted','=', '0']])->orderBy('pages.id','DESC')->get()->toArray();
+  /*  $getCustomerServicePage = Page::where('slug_en','=','contact-us')->orwhere('slug_en','=','faq')->where([['status','=','active'],['is_deleted','=', '0']])->orderBy('pages.id','DESC')->get()->toArray();*/
+
+    $getCustomerServicePage = Page::where('display_in_section','=','Customer service')->where([['status','=','active'],['is_deleted','=', '0']])->orderBy('pages.id','DESC')->get()->toArray();
     return $getCustomerServicePage;
 }
 
 /** Get How to Sell Custom Pages. */
 function getHowToSellPage()
 {
-    $getHowToSellPage = Page::where('slug_en','=','how-to-sell')->where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();
+    $getHowToSellPage = Page::where('display_in_section','=','Sell')->where([['status','=','active'],['is_deleted','=', '0']])->get()->toArray();
     return $getHowToSellPage;
 }
 

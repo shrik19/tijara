@@ -1196,7 +1196,7 @@ public function getCatSubList(Request $request) {
 	public function getReviews($type='',$sellerid='',$ids=''){
 
 		if($type=='products'){
-		 	$getAllReviews = ProductReview::join('products','product_review.product_id','products.id','')->join('users','product_review.user_id','users.id','')->select(['products.id','product_review.rating as product_rating','product_review.comments','users.id','users.fname','users.lname','users.profile','product_review.updated_at']);
+		 	$getAllReviews = ProductReview::join('products','product_review.product_id','products.id','')->join('users','product_review.user_id','users.id','')->select(['products.id','product_review.rating as product_rating','product_review.id as rating_id','product_review.product_id','product_review.comments','product_review.user_id as user_id','users.id','users.fname','users.lname','users.profile','product_review.updated_at']);
 		 	if(!empty($sellerid)){
 		 		$getAllReviews = $getAllReviews->where('products.user_id','=',$sellerid);
 		 	}
@@ -1208,7 +1208,7 @@ public function getCatSubList(Request $request) {
 		 	$getAllReviews =  $getAllReviews->orderBy('product_review.id', 'DESC');	
 		}else{
 
-			$getAllReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.comments','users.id','users.fname','users.lname','users.profile','service_review.updated_at']);
+			$getAllReviews = ServiceReview::join('services','service_review.service_id','services.id','')->join('users','service_review.user_id','users.id','')->select(['services.id','service_review.rating as service_rating','service_review.service_id','service_review.id as rating_id','service_review.user_id as user_id','service_review.comments','users.id','users.fname','users.lname','users.profile','service_review.updated_at']);
 			if(!empty($sellerid)){
 		 		$getAllReviews = $getAllReviews->where('services.user_id','=',$sellerid);
 		 	}
@@ -1369,8 +1369,8 @@ public function getCatSubList(Request $request) {
 		}else{
 			$data['loginUserEmail']='';
 		}
-		
-		
+
+
 		//dd($loginUserData);
 		if($tmpSellerData['role_id']==2){// echo "<pre>";print_r($data);exit;
         	return view('Front/seller_product_details', $data);
@@ -2176,6 +2176,88 @@ public function getCatSubList(Request $request) {
         exit;
 	}
 
+	/*function to update product review*/
+	public function updateProductReview(Request $request)
+	{
+		$user_id = Auth::guard('user')->id();
+        $is_added = 1;
+        $is_login_err = 0;
+        $txt_msg = trans('lang.txt_comments_success');
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
+        {
+			$rating = $request->rating;
+			$product_id = $request->product_id;
+			$comments = $request->comments;
+			$id = $request->rating_id;
+			
+
+				$currentDate = date('Y-m-d H:i:s');
+				$arrUpdateReview = [
+								'user_id'    => $user_id,
+								'comments'   => $comments,
+								'rating'     => $rating,
+								'is_approved' => '1',
+								'updated_at' => $currentDate,
+							 ];
+							
+			ProductReview::where('id', '=', $id)->update($arrUpdateReview);  
+
+				$getAllratings = ProductReview::where([['product_id','=',$product_id]]);
+
+				$ratingCnt 	 = $getAllratings->count();
+				$totalRating = $getAllratings->sum('rating');
+						 
+				$avgRating 	 = 0.00;
+				if(!empty($ratingCnt))
+				{
+					$avgRating = ($totalRating / $ratingCnt);
+					$avgRating = number_format($avgRating,2);
+					$arrUpdate = ['rating' => $avgRating,'rating_count' => $ratingCnt];
+					Products::where('id',$product_id)->update($arrUpdate);
+				}
+			
+
+		}
+		else
+        {
+          $is_added = 0;
+          $is_login_err = 1;
+          if($user_id && Auth::guard('user')->getUser()->role_id != 1)
+          {
+            $is_login_err = 0;
+          }
+          $txt_msg = trans('errors.login_buyer_required');
+        }
+        echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+        exit;
+	}
+
+	/*function to delete product review
+	@parama:rating id
+	*/
+	public function deleteProductReview(Request $request){
+		$id = $request->rating_id;
+		if(empty($id)) {
+           $txt_msg = trans('errors.something_went_wrong');
+           $is_deleted = 0;
+        }
+
+        $id = base64_decode($id);
+
+        $result = ProductReview::find($id);
+
+        if (!empty($result)) {
+           $res=ProductReview::where('id',$id)->delete();
+            $txt_msg =trans('lang.record_delete');
+            $is_deleted = 1;
+        } else {
+        	$txt_msg = trans('errors.something_went_wrong');
+            $is_deleted = 0;   
+        }
+
+        echo json_encode(array('status'=>$is_deleted,'msg'=>$txt_msg));
+        exit;
+	}
 	/*function to add service review*/
 	public function addServiceReview(Request $request)
 	{
@@ -2188,6 +2270,7 @@ public function getCatSubList(Request $request) {
 			$rating = $request->rating;
 			$service_id = $request->service_id;
 			$comments = $request->comments;
+			
 			$checkExistsServiceReq = ServiceRequest::where([['user_id','=',$user_id],['service_id','=',$service_id]])->get()->toArray();
 			if(empty($checkExistsServiceReq))
 			{
@@ -2251,6 +2334,87 @@ public function getCatSubList(Request $request) {
         exit;
 	}
 
+	/*function to update product review*/
+	public function updateServiceReview(Request $request)
+	{
+		$user_id = Auth::guard('user')->id();
+        $is_added = 1;
+        $is_login_err = 0;
+        $txt_msg = trans('lang.txt_comments_success');
+        if($user_id && Auth::guard('user')->getUser()->role_id == 1)
+        {
+			$rating = $request->rating;
+			$comments = $request->comments;
+			$id = $request->rating_id;
+			$product_id = $request->product_id;
+
+				$currentDate = date('Y-m-d H:i:s');
+				$arrUpdateReview = [
+								'user_id'    => $user_id,
+								'comments'   => $comments,
+								'rating'     => $rating,
+								'is_approved' => '1',
+								'updated_at' => $currentDate,
+							 ];
+							
+			ServiceReview::where('id', '=', $id)->update($arrUpdateReview);  
+
+				$getAllratings = ProductReview::where([['product_id','=',$product_id]]);
+
+				$ratingCnt 	 = $getAllratings->count();
+				$totalRating = $getAllratings->sum('rating');
+						 
+				$avgRating 	 = 0.00;
+				if(!empty($ratingCnt))
+				{
+					$avgRating = ($totalRating / $ratingCnt);
+					$avgRating = number_format($avgRating,2);
+					$arrUpdate = ['rating' => $avgRating,'rating_count' => $ratingCnt];
+					Services::where('id',$product_id)->update($arrUpdate);
+				}
+			
+
+		}
+		else
+        {
+          $is_added = 0;
+          $is_login_err = 1;
+          if($user_id && Auth::guard('user')->getUser()->role_id != 1)
+          {
+            $is_login_err = 0;
+          }
+          $txt_msg = trans('errors.login_buyer_required');
+        }
+        echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+        exit;
+	}
+
+	/*function to delete product review
+	@parama:rating id
+	*/
+	public function deleteServiceReview(Request $request){
+		$id = $request->rating_id;
+		if(empty($id)) {
+           $txt_msg = trans('errors.something_went_wrong');
+           $is_deleted = 0;
+        }
+
+        $id = base64_decode($id);
+
+        $result = ServiceReview::find($id);
+
+        if (!empty($result)) {
+           $res=ServiceReview::where('id',$id)->delete();
+            $txt_msg =trans('lang.record_delete');
+            $is_deleted = 1;
+        } else {
+        	$txt_msg = trans('errors.something_went_wrong');
+            $is_deleted = 0;   
+        }
+
+        echo json_encode(array('status'=>$is_deleted,'msg'=>$txt_msg));
+        exit;
+	}
 
 	public function getCity(Request $request) {
      	if($request->get('query')){

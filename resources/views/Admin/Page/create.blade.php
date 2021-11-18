@@ -47,6 +47,20 @@
             <div class="text-danger">{{$errors->first('description_en')}}</div>
           </div>
 
+           <div class="form-group"> 
+              <label>{{ __('users.select_section_label')}}  <span class="text-danger">*</span></label>
+              <select class="form-control" id="display_in_section" name="display_in_section" tabindex="1" >
+                 <option value="">{{ __('users.select_section_label')}}</option>
+                 <option value="Sell">{{ __('users.footer_sell_label')}}</option>
+                 <option value="About Tijara">{{ __('lang.about_tijara_label')}}</option>
+                 <option value="Customer service">{{ __('lang.customer_service_label')}}</option>
+              </select>
+           <div class="invalid-feedback">
+              {{ __('errors.display_in_section')}}
+           </div>
+           <div class="text-danger">{{$errors->first('display_in_section')}}</div>
+         </div>
+
           <div class="form-group">
             <label>{{ __('lang.status_thead')}}</label>
             <select class="form-control" name="status">

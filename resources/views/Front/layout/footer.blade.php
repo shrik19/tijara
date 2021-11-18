@@ -33,6 +33,7 @@
           $allPages   = getCustomPages();
           $getCustomerServicePage = getCustomerServicePage();
           $getHowToSellPage = getHowToSellPage();
+        //  echo "<pre>";print_r($getHowToSellPage);exit;
         @endphp
 		<div class="col-md-2">
 			<div class="ft_page_links">

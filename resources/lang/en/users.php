@@ -369,5 +369,6 @@ cancellation of service works.',
     'back_to_the_cart_btn' => 'Back to the cart',
     'checkout_cart_title' => 'Checkout',
     'country_label'       => 'Country',
+    'select_section_label' => 'Select page Section',
  ]
 ?>

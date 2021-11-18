@@ -380,7 +380,7 @@
                 <input type="hidden" name="user_rating_hid" class="user_rating_hid" id="user_rating_hid" value="">
 
                 <div class="form-group">
-                  <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
+                  <label>{{ __('lang.sort_by_rating')}} <span class="text-danger">*</span></label>
                     <div class="star-rating" style="font-size:15px;">
                       <select class='rating user_rating' id='' data-id='' data-rating="">
                         <option value="1" >1</option>

@@ -291,7 +291,7 @@
                
 
                 <div class="form-group">
-                  <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
+                  <label>{{ __('lang.sort_by_rating')}} <span class="text-danger">*</span></label>
                     <div class="star-rating" style="font-size:15px;">
                       <select class='rating user_rating' id='' data-id='' data-rating="4">
                         <option value="1" >1</option>

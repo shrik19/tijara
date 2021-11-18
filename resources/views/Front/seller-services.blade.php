@@ -152,7 +152,13 @@
                   
                   <p class="ratingComment">{{$review['comments']}}</p>
                 </div>
-              <div class="col-md-6"></div>
+              <div class="col-md-6">
+                @if(Auth::guard('user')->id()==$review['user_id'])
+                  <a href="javascript:void(0)" title="{{trans('lang.edit_label')}}" style="color:#06999F;" class="edit_service_review" review_comment="{{$review['comments']}}" user_rating_hid="{{$review['service_rating']}}" rating_id="{{$review['rating_id']}}" service_id="{{$review['service_id']}}"><i class="fas fa-edit"></i> </a>
+
+                  <a href="javascript:void(0)" style="color:#06999F;" onclick="deleteServiceReview('<?php echo base64_encode($review['rating_id']); ?>')"  title="{{trans('lang.delete_title')}}" class=""><i class="fas fa-trash"></i></a>
+                @endif
+              </div>
               </div>
               <hr>
               @endforeach
@@ -257,10 +263,74 @@
   <!-- end contact seller model Form -->
 
 
+<!-- service review edit model Form -->
+ <div class="modal fade" id="editReviewmodal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ __('lang.txt_your_review')}}</h4>
+          <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="loader-seller loader-review" style="display: none;"></div>
+        <div class="modal-body">
+            <div class="container">
+            <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
+              @csrf
+                <input type="hidden" name="rating_id" class="rating_id" id="rating_id" value="">
+                 <input type="hidden " name="service_id" class="service_id" id="service_id" value="">
+                <input type="hidden" name="user_rating_hid" class="user_rating_hid" id="user_rating_hid" value="">
+
+                <div class="form-group">
+                  <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
+                    <div class="star-rating" style="font-size:15px;">
+                      <select class='rating user_rating' id='' data-id='' data-rating="">
+                        <option value="1" >1</option>
+                        <option value="2" >2</option>
+                        <option value="3" >3</option>
+                        <option value="4" >4</option>
+                        <option value="5" >5</option>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label style="margin-top:10px;">{{ __('lang.txt_comments')}} <span class="text-danger">*</span></label>
+                  <textarea class="user_review form-control contact-store-message review_comment" name="user_review" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}" id="user_review" required></textarea>
+
+               
+                </div>
+            </form>
+            </div>
+        </div>
+        
+       <div class="modal-footer">
+        <button type="submit" class="update_service_review btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
+        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal">{{ __('lang.close_btn')}}</button>
+        </div>        
+      </div>
+    </div>
+  </div>
+   
+  <!-- end product review edit  model Form -->
+
+
     </div> <!-- /container -->
 </section>
 
 <script type="text/javascript">
+
+$(".user_rating").each(function(){
+  var currentRating = $(this).data('rating');
+  $(this).barrating({
+    theme: 'fontawesome-stars',
+    initialRating: currentRating,
+     onSelect: function(value, text, event) {
+        $(".user_rating").attr("data-rating",value);
+        $(".user_rating_hid").val(value);
+
+     }
+  })
+});
 
 $(document).ready(function() {
   var read_more_btn = "{{ __('users.read_more_btn')}}";
@@ -450,5 +520,114 @@ $(".page-link").click(function(){
     window.location.href = attr_val; 
   }
 });
+
+
+
+/*edit review start*/
+$(document).on("click",".edit_service_review",function(event) {
+        $('#editReviewmodal').find('.rating_id').val($(this).attr('rating_id'));  
+        $('#editReviewmodal').find('.user_rating_hid').val($(this).attr('user_rating_hid'));
+        $('#editReviewmodal').find('.service_id').val($(this).attr('service_id'));  
+        $('#editReviewmodal').find('.user_review').val($(this).attr('review_comment'));  
+        $('#editReviewmodal').modal('show');
+});
+
+/*update review*/
+$(document).on("click",".update_service_review",function(event) {
+       //storeContactform 
+      let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+      let error = 0;
+     
+    if($('#editReviewmodal').find('.review_comment').val()==''){
+       showErrorMessage(required_field_error);
+       error = 1;
+    }
+    if(error == 1){
+      return false;
+    }else{
+    
+        let user_rating_hid   = $("#user_rating_hid").val();
+        let user_review       = $("#user_review").val();
+        let rating_id         = $("#rating_id").val();
+       $(".loader-review").show();
+        setTimeout(function(){
+    $.ajax({
+          url:"{{ route('FrontUpdateServiceReview') }}",
+          headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+          },
+          type: 'POST',
+          async: false,
+          data:{rating_id:rating_id,comments:user_review,rating:user_rating_hid},
+          success: function(data){
+        
+             $(".loader-review").hide();
+             $('#editReviewmodal').modal('hide');  
+          
+              var responseObj = $.parseJSON(data);
+              if(responseObj.status == 1)
+              {
+                showSuccessMessage(responseObj.msg,'reload');
+              }
+              else
+              {
+                if(responseObj.is_login_err == 0)
+                {
+                  showErrorMessage(responseObj.msg);
+                }
+                else
+                {
+                  showErrorMessage(responseObj.msg,'/front-login');
+                }
+              }
+         }
+        });}, 300);
+      }   
+    }); 
+
+function deleteServiceReview(rating_id){
+
+$.confirm({
+      title: js_confirm_msg,
+      content: are_you_sure_message,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          ok: function () {
+            $(".review_loader").show();
+            $.ajax({
+          url:"{{ route('frontDeleteServiceReview') }}",
+          headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+          },
+          type: 'POST',
+          async: false,
+          data:{rating_id:rating_id},
+          success: function(data){
+        
+             $(".review_loader").hide();
+          
+              var responseObj = $.parseJSON(data);
+
+              if(responseObj.status == 1)
+              {
+                showSuccessMessage(responseObj.msg,'reload');
+              }
+              else
+              {
+                showErrorMessage(responseObj.msg);
+              }
+          }
+        })
+          },
+          Avbryt: function () {
+            
+          },
+      }
+  });
+
+}
 </script>
 @endsection

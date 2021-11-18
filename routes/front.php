@@ -200,6 +200,11 @@ Route::post('/get-product-options','Front\FrontController@getProductOptions')->n
 Route::post('/add-review','Front\FrontController@addReview')->name('frontAddReview');
 
 Route::post('/add-service-review','Front\FrontController@addServiceReview')->name('frontAddServiceReview');
+Route::post('/update-product-review', 'Front\FrontController@updateProductReview')->name('FrontUpdateProductReview');
+Route::post('/delete-product-review','Front\FrontController@deleteProductReview')->name('frontDeleteProductReview');
+
+Route::post('/update-service-review', 'Front\FrontController@updateServiceReview')->name('FrontUpdateServiceReview');
+Route::post('/delete-service-review','Front\FrontController@deleteServiceReview')->name('frontDeleteServiceReview');
 
 Route::any('/paymentoptions/{id}','Front\CartController@showPaymentOptions')->name('frontShowPaymentOptions');
 Route::any('/checkout/{id}/{paymentoption}','Front\CartController@showCheckout')->name('frontShowCheckout');

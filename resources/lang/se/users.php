@@ -202,7 +202,7 @@
     'admin_email_subject' => 'Tijara - Nya säljarregistreringar',
 
     //Backend Orders
-    'order_title' => 'Order',
+    'order_title' => 'Beställningar',
 
     // Backend Emails
     'email_title'=>'E-post',
@@ -369,5 +369,6 @@ avbokning av tjänst fungerar.',
     'back_to_the_cart_btn' => 'Tillbaka till varukorgen',
     'checkout_cart_title' => 'Kassan',
     'country_label'       => 'Land',
+    'select_section_label' => 'Välj sida Sektion',
  ]
 ?>

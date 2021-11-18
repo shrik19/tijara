@@ -139,12 +139,14 @@ class PageController extends Controller
         'description'       => 'required',
         'title_en'             => 'required',
         'description_en'       => 'required',
+        'display_in_section' => 'required',
         ];
         $messages = [
             'title.required'              => trans('errors.fill_in_title'),
             'description.required'        => trans('errors.fill_in_page_content'),
             'title_en.required'              => trans('errors.fill_in_title_en'),
             'description_en.required'        => trans('errors.fill_in_page_content_en'),
+            'display_in_section.required' => trans('lang.required_field_error'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -165,6 +167,7 @@ class PageController extends Controller
             'title_en'          => trim($request->input('title_en')),
             'slug_en'           => $slug_en,
             'contents_en'       => trim($request->input('description_en')),
+            'display_in_section'       => trim($request->input('display_in_section')),
             'status'            => trim($request->input('status')),
             'created_by'        => $userId,
             'updated_by'        => $userId,
@@ -223,12 +226,14 @@ class PageController extends Controller
         'description'       => 'required',
         'title_en'             => 'required',
         'description_en'       => 'required',
+         'display_in_section' => 'required',
         ];
         $messages = [
             'title.required'              => trans('errors.fill_in_title'),
             'description.required'        => trans('errors.fill_in_page_content'),
             'title_en.required'              => trans('errors.fill_in_title_en'),
             'description_en.required'        => trans('errors.fill_in_page_content_en'),
+            'display_in_section.required' => trans('lang.required_field_error'),
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
@@ -245,6 +250,7 @@ class PageController extends Controller
                 'contents'           => trim($request->input('description')),
                 'title_en'           => trim($request->input('title_en')),
                 'contents_en'        => trim($request->input('description_en')),
+                'display_in_section'       => trim($request->input('display_in_section')),
                 'status'             => trim($request->input('status')),
                 'updated_by'         => $userId,
                 'updated_at'         => $updated_at,

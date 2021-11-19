@@ -47,9 +47,9 @@ class CkuploadController extends Controller
 
 		// Allowed image properties  
 		$imgset = array( 
-			'maxsize' => 2000, 
-			'maxwidth' => 1024, 
-			'maxheight' => 800, 
+			'maxsize' => 200000, 
+			'maxwidth' => 4096, 
+			'maxheight' => 3200, 
 			'minwidth' => 10, 
 			'minheight' => 10, 
 			'type' => array('bmp', 'gif', 'jpg', 'jpeg', 'png'), 

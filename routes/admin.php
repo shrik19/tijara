@@ -244,4 +244,6 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::post('/store','SettingController@store')->name('adminSettingStore');
 		
 	});
+	
+	Route::any('/ck_upload','CkuploadController@index')->name('adminCkupload');
 });

@@ -39,7 +39,7 @@
 
             <div class="form-group">
               <label>{{ __('users.description_label_en')}}<span class="text-danger">*</span></label>
-               <textarea class="form-control description_en" name="description_en" id="description_en" spellcheck="true" required > <?php if(!empty($PageDetails['contents_en'])){ echo $PageDetails['contents_en']; }?></textarea>
+               <textarea class="form-control description_en" name="editor" id="editor"spellcheck="true" required > <?php if(!empty($PageDetails['contents_en'])){ echo $PageDetails['contents_en']; }?></textarea>
                <div class="invalid-feedback">
                {{ __('errors.fill_in_page_content_en')}}
               </div>
@@ -82,18 +82,12 @@
     </div>
   </form>
 </div>
-<link rel="stylesheet" href="{{url('/')}}/assets/front/css/richtext.min.css">
-<script src="{{url('/')}}/assets/front/js/jquery.richtext.js"></script>
+<script src="{{url('/')}}/assets/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('.description').richText({
-           // uploads
-            imageUpload: true,
-            fileUpload: true,
-
+  CKEDITOR.replace('editor', {
+        filebrowserUploadUrl: '{{ route('adminCkupload') }}',
+        filebrowserUploadMethod: 'form'
     });
-
-    $('.description_en').richText();
-  });
 </script>
 @endsection('middlecontent')
+

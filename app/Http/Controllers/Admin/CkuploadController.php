@@ -38,8 +38,9 @@ class CkuploadController extends Controller
     /**
      * Function for Show Login
      */
-    public function index() {
+    public function index(Request $request) {
         // Define file upload path 
+		 $image = $request->file('upload');
 		$upload_dir = array( 
 			'img'=> public_path().'/uploads/AdminpagesImages/', 
 		); 
@@ -98,10 +99,12 @@ class CkuploadController extends Controller
 			$f_name = $this->setFName($_SERVER['DOCUMENT_ROOT'] .'/'. $upload_dir, F_NAME, ".$type", 0); 
 			$uploadpath = $upload_dir . $f_name; 
 			
-		 
+	
+		// $uploadpath= "/public_html/public/uploads/ProductImages/apple-store.png";
 			// If no errors, upload the image, else, output the errors 
 			if($re == ''){ 
-				if(move_uploaded_file($_FILES['upload']['tmp_name'], $uploadpath)) { 
+				//if(move_uploaded_file($_FILES['upload']['tmp_name'], $uploadpath)) { 
+				if($image->move(public_path().'/uploads/AdminpagesImages/', $f_name)){
 					$CKEditorFuncNum = $_GET['CKEditorFuncNum']; 
 					$url = url('/').'/uploads/AdminpagesImages/'. $f_name; 
 					$msg = F_NAME .'.'. $type .' successfully uploaded: \\n- Size: '. number_format($_FILES['upload']['size']/1024, 2, '.', '') .' KB'; 

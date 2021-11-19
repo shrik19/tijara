@@ -12,9 +12,12 @@
     </div>
   </div>
 <script type="text/javascript">
+    var siteUrl = "{{url('/')}}";
   /*translation*/
   var input_letter_no_err="{{ __('errors.input_letter_no_err')}}";
   var category_name_req="{{ __('errors.category_name_req')}}";
+  var select_placeholder = "{{ __('lang.select_label')}}";
+  var required_field_error="{{ __('lang.required_field_error')}}";
 </script>
   <script src="{{url('/')}}/assets/admin/js/prism.js"></script>
   

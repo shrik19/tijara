@@ -1996,6 +1996,13 @@ hr{
     position: absolute;
     font-size: 24px;
 }
+
+.service_original_price{
+    padding-top: 2px;
+    color: #03989e;
+    font-weight: 500;
+    font-size: 24px;
+}
 .select_product_color{list-style: none;width: 100%;margin-top: 8px;}
 .select_product_color li{float: left;
     margin: 0px 6px;

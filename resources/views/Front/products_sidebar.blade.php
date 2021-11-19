@@ -32,7 +32,7 @@
         }else{
         $product_count = '';
         }
-
+//echo "<pre>";print_r($Category['category_slug']);echo "<br>--";print_r($category_slug);
         if($category_slug==$Category['category_slug'])
         $cls  ='activemaincategory';
               
@@ -47,7 +47,7 @@
            href="{{url('/')}}/{{$productsads}}/{{ $Category['category_slug'] }}" @else 
            href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}" @endif  id="main_cat_name<?php echo $i; ?>" @if(Request::segment(1) =='seller') class = 'seller_page_botton_border' @endif>{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
 
-        <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse  <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
+        <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse  <?php if($cls!='') echo 'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
 
         @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
           <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug'])
@@ -106,7 +106,7 @@
       <label class="price_label">{{ __('lang.sort_by_price')}}</label>
 
       <div>&nbsp;</div>
-      <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="150000" data-slider-step="500" data-slider-value="[0,150000]"/>
+      <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="10000" data-slider-step="500" data-slider-value="[0,10000]"/>
     </div>
       <!-- <b>€ 1000</b> -->
       <div>&nbsp;</div>

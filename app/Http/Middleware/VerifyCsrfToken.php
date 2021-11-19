@@ -21,7 +21,7 @@ class VerifyCsrfToken extends Middleware
         'getSwishPaymentMethods',
         'swishInitiatePayment',
         'checkoutSubmitAdditionalDetails',
-        'checkout-swish-ipn'
-
+        'checkout-swish-ipn',
+		'admin/ck_upload'
     ];
 }

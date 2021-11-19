@@ -41,7 +41,7 @@ class CkuploadController extends Controller
     public function index() {
         // Define file upload path 
 		$upload_dir = array( 
-			'img'=> public_path().'/uploads/AdminpagesInages/', 
+			'img'=> public_path().'/uploads/AdminpagesImages/', 
 		); 
 
 		// Allowed image properties  
@@ -103,7 +103,7 @@ class CkuploadController extends Controller
 			if($re == ''){ 
 				if(move_uploaded_file($_FILES['upload']['tmp_name'], $uploadpath)) { 
 					$CKEditorFuncNum = $_GET['CKEditorFuncNum']; 
-					$url = url('/').'/uploads/AdminpagesInages/'. $f_name; 
+					$url = url('/').'/uploads/AdminpagesImages/'. $f_name; 
 					$msg = F_NAME .'.'. $type .' successfully uploaded: \\n- Size: '. number_format($_FILES['upload']['size']/1024, 2, '.', '') .' KB'; 
 					$re = in_array($type, $imgset['type']) ? "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>":'<script>var cke_ob = window.parent.CKEDITOR; for(var ckid in cke_ob.instances) { if(cke_ob.instances[ckid].focusManager.hasFocus) break;} cke_ob.instances[ckid].insertHtml(\' \', \'unfiltered_html\'); alert("'. $msg .'"); var dialog = cke_ob.dialog.getCurrent();dialog.hide();</script>'; 
 				}else{ 

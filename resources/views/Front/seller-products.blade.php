@@ -364,7 +364,7 @@ $(document).ready(function() {
 });
 
   function get_product_count(argument) {
-    $('.activeservicesubcategories').removeClass('activeservicesubcategories').removeClass('in');
+   // $('.activeservicesubcategories').removeClass('activeservicesubcategories').removeClass('in');
 
     $.ajax({
     url:siteUrl+"/getCatSubList",

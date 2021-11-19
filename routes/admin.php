@@ -109,11 +109,17 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	    Route::any('/getRecords','ProductController@getRecords')->name('adminProductGetRecords');	   
 	    Route::get('/edit/{id}','ProductController@edit')->name('adminProductEdit');	    	    
 	    Route::get('/delete/{id}','ProductController@delete')->name('adminProductDelete');	    
-	    Route::get('/changeStatus/{id}/{status}','ProductController@changeStatus')->name('adminProductChangeStatus');	   	
+	    Route::get('/changeStatus/{id}/{status}','ProductController@changeStatus')->name('adminProductChangeStatus');	
+
+	    Route::post('/upload-variant-image','ProductController@uploadVariantImage')->name('uploadVariantImage');
+	      Route::get('/getattributevaluebyattributeid','ProductController@getattributevaluebyattributeid')->name('getattributevaluebyattributeid');
+   	
 	});	/*end Product Management  */
 
+	   
 	/* product Attributes */
 	Route::group(['prefix'=>'product_attributes'], function() {
+
 	    Route::get('/','ProductAttributesController@index')->name('adminProductAttributes');
 	    Route::get('/create','ProductAttributesController@create')->name('adminAttributeCreate');
 	    Route::post('/store','ProductAttributesController@store')->name('adminAttributeStore');

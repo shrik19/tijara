@@ -8,8 +8,8 @@
       @include('Admin.alert_messages')
       <div class="card">
         <div class="card-header">
-          <h4>All Product List</h4>
-          <a href="{{route('adminProductCreate')}}" title="Add Product" class="btn btn-icon btn-success" style="margin-left:650px;"><span>Add Product</span> </a>
+          <h4>{{ __('users.product_list_page')}}</h4>
+         <!--  <a href="{{route('adminProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-icon btn-success" style="margin-left:650px;"><span>{{ __('lang.add_product')}}</span> </a> -->
         </div>
 
         <div class="card-body">
@@ -19,13 +19,14 @@
               <table class="table table-striped" id="productTable">
                 <thead>
                   <tr>
-				  <th>Seller</th>
-                  <th>Product</th>
-                  <th>Sell Price</th>
-                  <th>List Price</th>
-                  <th>Sort Order</th>                  
-                  <th data-orderable="false">Status</th>
-                  <th data-orderable="false">Action</th>
+                  <th data-orderable="false">{{ __('lang.image_label')}}</th>
+				          <th>{{ __('users.sellers_title')}}</th>
+                  <th>{{ __('lang.product_label')}}</th>
+                   <th>{{ __('lang.sku_label')}}</th>
+                  <th>{{ __('lang.price_label')}}</th>
+                  <th data-orderable="false">{{ __('lang.category_label')}}</th>                 
+                  <th>{{ __('lang.dated_label')}}</th>
+                  <th data-orderable="false">{{ __('lang.action_label')}}</th>
                   </tr>
                 </thead>
                   <tbody id="result">
@@ -49,9 +50,24 @@
     "serverSide": true,
     "paging": true,
     "searching": true,
+     "language": {
+        "sSearch": "<?php echo __('lang.datatables.search');?>",
+        "sInfo": "<?php echo __('lang.datatables.sInfo');?>",
+        "sLengthMenu": "<?php echo __('lang.datatables.sLengthMenu');?>",
+        "sInfoEmpty": "<?php echo __('lang.datatables.sInfoEmpty');?>",
+        "sLoadingRecords": "<?php echo __('lang.datatables.sLoadingRecords');?>",
+        "sProcessing": "<?php echo __('lang.datatables.sProcessing');?>",      
+        "sZeroRecords": "<?php echo __('lang.datatables.sZeroRecords');?>",
+        "oPaginate": {
+              "sFirst":    "<?php echo __('lang.datatables.first');?>",
+              "sLast":    "<?php echo __('lang.datatables.last');?>",
+              "sNext":    "<?php echo __('lang.datatables.next');?>",
+              "sPrevious": "<?php echo __('lang.datatables.previous');?>",
+          },
+        },
     columnDefs: [
           {
-              targets: [4,5],
+              targets: [4,6],
               className: "text-center",
           }
         ],
@@ -66,13 +82,13 @@
   });
 
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
-  '<option value="">Select Status</option>'+
-  '<option value="active">Active</option>'+
-  '<option value="block">Inactive</option>'+
+  '<option value="">{{ __("lang.status_label")}}</option>'+
+  '<option value="active">{{ __("lang.active_label")}}</option>'+
+  '<option value="block">{{ __("lang.block_label")}}</option>'+
   '</select></div>').appendTo("#productTable_length");
 
-  $('<span class="export btn button export-btn">'+
-  'Export</span></div>').appendTo("#productTable_wrapper .dataTables_filter");
+  // $('<span class="export btn button export-btn">'+
+  // 'Export</span></div>').appendTo("#productTable_wrapper .dataTables_filter");
 
   $(".dataTables_filter label").addClass("pull-right");
   $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');

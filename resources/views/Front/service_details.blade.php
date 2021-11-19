@@ -67,7 +67,7 @@
                      <h4 class="service_time_css">@if(!empty($Service->session_time)){{$Service->session_time}} min @endif</h4>
                     <h4 class="service_store_name" style="margin-top: 0px;"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>
                     <!-- <h4 class="product_price product_original_price"><a href="{{$seller_link}}" class="de_col">{{ $Service->service_price }} Kr</a></h4> -->
-                    <span class="product_original_price" style="padding-top: 25px;">{{ $Service->service_price }} kr</span>
+                    <span class="service_original_price" style="padding-top: 25px;">{{ $Service->service_price }} kr</span>
 
                       <div class="star-rating" style="font-size:15px;">
                         <select class='rating service_rating' id='rating_{{$Service->id}}' data-id='rating_{{$Service->id}}' data-rating='{{$Service->rating}}'>
@@ -193,14 +193,14 @@
                   @foreach($serviceReviews as $review)
 
                   <div class="row reviews-container"> 
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                       @if(!empty($review['profile']))
                       <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
                     @else 
                       <img src="{{url('/')}}/uploads/Buyer/buyerIcons/no-image.png" class="ratingUserIcon">
                     @endif
                     </div>
-                    <div class="col-md-5" style="margin-left: 30px;">
+                    <div class="col-md-5">
                        <p class="ratingUname"><?php 
                        if(!empty($review['fname']) && !empty($review['lname'])){
                         $review_name = $review['fname']." ".$review['lname'];
@@ -221,7 +221,7 @@
                     <p class="ratingComment">{{$review['comments']}}</p>
                    
                   </div>
-                   <div class="col-md-6">
+                   <div class="col-md-4">
                       @if(Auth::guard('user')->id()==$review['user_id'])
                       <a href="javascript:void(0)" title="{{trans('lang.edit_label')}}" style="color:#06999F;" class="edit_service_review" review_comment="{{$review['comments']}}" user_rating_hid="{{$review['service_rating']}}" rating_id="{{$review['rating_id']}}" service_id="{{$review['service_id']}}"><i class="fas fa-edit"></i> </a>
 
@@ -402,6 +402,95 @@ $(".user_rating").each(function(){
   })
 });
 
+$(".service_rating").each(function(){
+
+  var currentRating = $(this).data('rating');
+  $(this).barrating({
+    theme: 'fontawesome-stars',
+    initialRating: currentRating,
+
+  onSelect: function(value, text, event) {
+
+   // Get element id by data-id attribute
+   var el = this;
+   var el_id = el.$elem.data('id');
+
+   // rating was selected by a user
+   if (typeof(event) !== 'undefined') {
+ 
+     $.confirm({
+        title: '{{ __('lang.txt_your_review')}}',
+        content: '' +
+        '<form action="" class="formName">' +
+        '<div class="form-group">' +
+        '<label>{{ __('lang.txt_comments')}}</label>' +
+        '<textarea class="name form-control" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}" required></textarea>' +
+        '</div>' +
+        '</form>',
+        buttons: {
+            formSubmit: {
+                text: 'Skicka', //submit
+                btnClass: 'btn-blue',
+                action: function () {
+                    var comments = this.$content.find('.name').val();
+                    if(!comments){
+                      showErrorMessage('{{ __('lang.txt_comments_err')}}');
+                      return false;
+                    }
+                    $(".loader").show();
+                    $.ajax({
+                    url:siteUrl+"/add-service-review",
+                    headers: {
+                      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                    },
+                    type: 'post',
+                    data : {'rating': value, 'service_id' : '{{$Service->id}}', 'comments' : comments},
+                    success:function(data)
+                    {
+                      $(".loader").hide();
+                      var responseObj = $.parseJSON(data);
+                      if(responseObj.status == 1)
+                      {
+                        showSuccessMessage(review_add_success,'reload');
+                      }
+                      else
+                      {
+                        if(responseObj.is_login_err == 0)
+                        {
+                          showErrorMessage(responseObj.msg);
+                        }
+                        else
+                        {
+                          showErrorMessage(responseObj.msg,'/front-login');
+                        }
+                      }
+
+                    }
+                  });
+                }
+            },
+            cancel: {
+              text: 'Avbryt', //cancel 
+              action: function () {
+                //close
+              }
+            },
+        },
+        onContentReady: function () {
+            // bind to events
+            var jc = this;
+            this.$content.find('form').on('submit', function (e) {
+                // if the user submits the form by pressing enter in the field.
+                e.preventDefault();
+                jc.$$formSubmit.trigger('click'); // reference the button and click it
+            });
+        }
+    });
+   }
+  }
+ });   
+});    
+
   $(document).on("click",".report_product",function(event) {
       
         $('#reportProductmodal').find('.user_email').val($(this).attr('user_email'));
@@ -566,93 +655,6 @@ $("#show-img").next('div').next('div').css('z-index','999');
 
 
 /*service rating*/
-$(".service_rating").each(function(){ 
-  var currentRating = $(this).data('rating');
-  $(this).barrating({
-    theme: 'fontawesome-stars',
-    initialRating: currentRating,
-
-  onSelect: function(value, text, event) {
-
-   // Get element id by data-id attribute
-   var el = this;
-   var el_id = el.$elem.data('id');
-
-   // rating was selected by a user
-   if (typeof(event) !== 'undefined') {
- 
-     $.confirm({
-        title: '{{ __('lang.txt_your_review')}}',
-        content: '' +
-        '<form action="" class="formName">' +
-        '<div class="form-group">' +
-        '<label>{{ __('lang.txt_comments')}}</label>' +
-        '<textarea class="name form-control" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}" required></textarea>' +
-        '</div>' +
-        '</form>',
-        buttons: {
-            formSubmit: {
-                text: 'Skicka', //submit
-                btnClass: 'btn-blue',
-                action: function () {
-                    var comments = this.$content.find('.name').val();
-                    if(!comments){
-                      showErrorMessage('{{ __('lang.txt_comments_err')}}');
-                      return false;
-                    }
-                    $(".loader").show();
-                    $.ajax({
-                    url:siteUrl+"/add-service-review",
-                    headers: {
-                      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                    },
-                    type: 'post',
-                    data : {'rating': value, 'service_id' : '{{$Service->id}}', 'comments' : comments},
-                    success:function(data)
-                    {
-                      $(".loader").hide();
-                      var responseObj = $.parseJSON(data);
-                      if(responseObj.status == 1)
-                      {
-                        showSuccessMessage(review_add_success,'reload');
-                      }
-                      else
-                      {
-                        if(responseObj.is_login_err == 0)
-                        {
-                          showErrorMessage(responseObj.msg);
-                        }
-                        else
-                        {
-                          showErrorMessage(responseObj.msg,'/front-login');
-                        }
-                      }
-
-                    }
-                  });
-                }
-            },
-            cancel: {
-              text: 'Avbryt', //cancel 
-              action: function () {
-                //close
-              }
-            },
-        },
-        onContentReady: function () {
-            // bind to events
-            var jc = this;
-            this.$content.find('form').on('submit', function (e) {
-                // if the user submits the form by pressing enter in the field.
-                e.preventDefault();
-                jc.$$formSubmit.trigger('click'); // reference the button and click it
-            });
-        }
-    });
-   }
-  }
- });   
-});    
 
 
 /*edit review start*/

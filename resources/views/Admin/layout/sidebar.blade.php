@@ -23,9 +23,9 @@
         <li class="nav-item dropdown">
           <a href="{{route('adminServiceCat')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.service_category_menu')}}</span></a>
         </li>
-<!--
+
         <li class="nav-item dropdown">
-          <a href="{{route('adminProduct')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>Products</span></a></li>  -->
+          <a href="{{route('adminProduct')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>Products</span></a></li>  
         <li class="nav-item dropdown">         
           <a href="{{route('adminSlider')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.sliders_menu')}}</span></a>        
         </li>

@@ -370,5 +370,16 @@ avbokning av tjänst fungerar.',
     'checkout_cart_title' => 'Kassan',
     'country_label'       => 'Land',
     'select_section_label' => 'Välj sida Sektion',
+    'service_list_page'=>'Tjänstelista',
+    /*annouser cat subcat*/
+    'annonser_category_title'=>'Annonser Kategori',
+    'add_annonser_subcategory'=>'Lägg till Annonser Underkategori',
+    'annonser_category_list'=>'Annonser Kategori Lista',
+    'add_annonser_category_title' => 'Lägg till Annonser Kategori',
+    'edit_annonser_category_title'=>'Redigera Annonser Kategori',
+    'add_annonser_cat_details_info'=>'Lägg till Annonser Kategori detaljer.',
+    'edit_annonser_cat_details_info'=>'Redigera Annonser Kategori detaljer.',
+    'all_annonser_subcategory_list'=>'Allt Annonser Underkategori Lista',
+    'annonser_subcategory_title'=>'Annonser Underkategori',
  ]
 ?>

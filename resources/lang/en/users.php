@@ -370,5 +370,16 @@ cancellation of service works.',
     'checkout_cart_title' => 'Checkout',
     'country_label'       => 'Country',
     'select_section_label' => 'Select page Section',
+    'service_list_page'=>'Service List',
+    /*annouser cat subcat*/
+    'annonser_category_title'=>'Ads Category',
+    'add_annonser_subcategory'=>'Add Ads Subcategory',
+    'annonser_category_list'=>'Ads Category List',
+    'add_annonser_category_title'=>'Add Ads Category',
+    'edit_annonser_category_title'=>'Edit Ads Category',
+    'add_annonser_cat_details_info'=>'Add Ads Category details.',
+    'edit_annonser_cat_details_info'=>'Edit Ads Category details.',
+    'all_annonser_subcategory_list'=>'All Ads Subcategory List',
+    'annonser_subcategory_title'=>'Ads Subcategory',
  ]
 ?>

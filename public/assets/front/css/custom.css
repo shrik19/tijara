@@ -63,12 +63,13 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 /*END : Price Slider*/
 
 /*START : Product Details */
-.show-custom {
-	width: 500px;
-	height: 500px;
-	margin-left: 120px;
+/* .show-custom {
+  width: 100%;
+  margin-left: 120px;
   position: relative;
-  }
+  float: left;
+  height: 500px;
+  } */
   
 .show-custom img#show-img {
     height: 100%;

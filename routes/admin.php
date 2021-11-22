@@ -85,6 +85,35 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	    Route::post('/subCategoryStore', 'ServiceSubcatController@subCategoryStore')->name('adminServiceSubCatStore');
 	    Route::get('/changeStatus/{id}/{status}','ServiceSubcatController@changeStatus')->name('adminServiceSubcatChangeStatus');
 	});
+ 
+		/*annouser Category  */
+	Route::group(['prefix'=>'AnnonserCategory'], function() {
+		Route::get('/check-slugname/','AnnonserCatController@checkUniqueSlugName')->name('adminAnnonserCatUniqueSlug');
+	    Route::get('/','AnnonserCatController@index')->name('adminAnnonserCat');
+	    Route::get('/create','AnnonserCatController@create')->name('adminAnnonserCatCreate');
+	    Route::post('/store','AnnonserCatController@store')->name('adminAnnonserCatStore');
+	    Route::any('/getRecords','AnnonserCatController@getRecords')->name('adminAnnonserCatGetRecords');
+	    Route::get('/edit/{id}','AnnonserCatController@edit')->name('adminAnnonserCatEdit');
+	    Route::post('/updateCategory/{id}','AnnonserCatController@update')->name('adminAnnonserCatUpdate');
+	    Route::get('/delete/{id}','AnnonserCatController@delete')->name('adminAnnonserCatDelete');
+	    Route::get('/changeStatus/{id}/{status}','AnnonserCatController@changeStatus')->name('adminAnnonserCatChangeStatus');
+	});
+	
+		  /*Annonser  SubCategory */
+	Route::group(['prefix'=>'AnnonserSubcategory'], function() {
+		
+		Route::get('/check-unique-subcat/','AnnonserSubcatController@checkUniqueSubcat')->name('adminAnnonserSubcatUniqueSubcat');
+		Route::get('/check-slugname/','AnnonserSubcatController@checkUniqueSlugName')->name('adminAnnonserSubcatUniqueSlug');
+	    Route::get('/{id}','AnnonserSubcatController@index')->name('adminAnnonserSubcat');
+	    Route::any('/getRecords/{id}','AnnonserSubcatController@getRecords')->name('adminAnnonserSubcatGetRecords');
+ 		Route::get('/edit/{id}','AnnonserSubcatController@edit')->name('adminAnnonserSubCatEdit');
+	    Route::post('/update/{id}','AnnonserSubcatController@update')->name('adminAnnonserSubcatUpdate');
+	    Route::get('/delete/{id}','AnnonserSubcatController@delete')->name('adminAnnonserSubcatDelete');
+	    Route::post('/subCategoryStore', 'AnnonserSubcatController@subCategoryStore')->name('adminAnnonserSubCatStore');
+	    Route::get('/changeStatus/{id}/{status}','AnnonserSubcatController@changeStatus')->name('adminAnnonserSubcatChangeStatus');
+	});
+ 
+ 
 
 	/* Slider Management  */
 	Route::group(['prefix'=>'slider'], function() {
@@ -115,6 +144,16 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	      Route::get('/getattributevaluebyattributeid','ProductController@getattributevaluebyattributeid')->name('getattributevaluebyattributeid');
    	
 	});	/*end Product Management  */
+
+
+		/* service Management  */	
+	Route::group(['prefix'=>'service'], function() {	
+	    Route::get('/','ServiceController@index')->name('adminService');	
+	    Route::any('/getRecords','ServiceController@getRecords')->name('adminServiceGetRecords');	 
+	    Route::get('/delete/{id}','ServiceController@delete')->name('adminServiceDelete');	    
+	     	
+	});	/*end Product Management  */
+
 
 	   
 	/* product Attributes */

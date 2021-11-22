@@ -76,7 +76,7 @@
      'product_saved_success'=>'Produktinformation Infogad framgångsrikt!',
      'products_title'=>'Produkter',
      'something_went_wrong'=>'Något gick fel',
-     'record_delete'=>'Spelet har tagits bort',
+     'record_delete'=>'Posten har raderats',
      'status_updated_successfullly'=>'Status uppdaterades',
      'image_deleted_success'=>'Den valda bilden har tagits bort',
      /*header*/
@@ -114,6 +114,7 @@
      'buyer_menu'=>'Köpare',
      'product_category_menu'=>'Produkt kategori',
      'service_category_menu'=>'Service kategori',
+     'buyerAd_category_menu'=>'Annonser kategori',
      'sliders_menu'=>'Skjutreglage',
      'banners_menu'=>'Banderoller',
      'sellers_menu'=>'Säljare',

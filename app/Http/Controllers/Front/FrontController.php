@@ -1356,7 +1356,7 @@ public function getCatSubList(Request $request) {
 		$seller_name = str_replace(" ", '-', $seller_name);
 		$seller_name = strtolower($seller_name);
 				
-		$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Product['user_id'])]);
+		$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
 		$data['seller_link'] = $sellerLink;
 		/*get product review*/
 		$data['productReviews']= $this->getReviews('products','',$Product->id);
@@ -1855,7 +1855,7 @@ public function getCatSubList(Request $request) {
 		$seller_name = str_replace(" ", '-', $seller_name);
 		$seller_name = strtolower($seller_name);
 		
-		$sellerLink = route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Service['user_id'])]);
+		$sellerLink = route('sellerServiceListingByCategory',['seller_name' => $seller_name]);
 		$data['seller_link'] = $sellerLink;
 		$data['service_link']	= url()->full();
 

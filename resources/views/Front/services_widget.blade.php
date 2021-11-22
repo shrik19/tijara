@@ -27,7 +27,23 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         $category_name = str_replace(" ", '-', $category_name);
         $category_name = strtolower($category_name);
         $service_cat_link= url('/').'/services/'.$category_name; 
-      @endphp
+		
+		$store_name = $service->store_name;
+          $store_name = str_replace( array( '\'', '"', 
+          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+          $store_name = str_replace(" ", '-', $store_name);
+          $store_name = strtolower($store_name);
+
+          $seller_link= url('/').'/seller/'.$store_name."/services";
+		  
+          $seller_name = $service->seller;
+          $seller_name = str_replace( array( '\'', '"', 
+          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+          $seller_name = str_replace(" ", '-', $seller_name);
+          $seller_name = strtolower($seller_name);
+
+        @endphp
+
 
       @if( Request::path() == "/")
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
@@ -46,10 +62,10 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
           <h6>{{$service->service_price}} kr</h6>
         @endif
 
-        <a href="{{$service_cat_link}}"><h5>{{$service['category_name']}}</h5></a>
+        <a href="{{$seller_link}}"><h5>{{$service->seller}}</h5></a>
       @else
            @if(Request::segment(1) !='service')
-           <a href="{{$service_cat_link}}"><h5>{{$service['category_name']}}</h5></a>
+           <a href="{{$seller_link}}"><h5>{{$service->seller}}</h5></a>
            @endif
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
         @if(Request::segment(1) !='services' && Request::segment(1) != 'get_service_listing')
@@ -69,19 +85,9 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         @endif
 
         <!-- below code is for seller name  -->
-        @php 
-          $seller_name = $service->seller;
-          $seller_name = str_replace( array( '\'', '"', 
-          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
-          $seller_name = str_replace(" ", '-', $seller_name);
-          $seller_name = strtolower($seller_name);
 
-          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($service->user_id)."/services"; 
-        @endphp
+        <a href="{{$seller_link}}"><h5>{{$service->seller}}</h5></a>
 
-        @if(Request::segment(1) !='services' && Request::segment(1) != 'get_service_listing')
-          <a href="{{$seller_link}}"><h5>{{$service->seller}}</h5></a>
-        @endif
       @endif
     </div>
   </div>

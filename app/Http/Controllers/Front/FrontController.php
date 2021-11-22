@@ -751,8 +751,9 @@ public function getCatSubList(Request $request) {
 			$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 			$Product->product_link	=	$product_link;
 
-			$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+			$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Product->user_id)->first()->toArray();
 			$Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+			$Product->store_name	=	$SellerData['store_name'];
 
 			$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
 			foreach($variantProduct as $vp)
@@ -915,8 +916,9 @@ public function getCatSubList(Request $request) {
 
 				$Product->product_link	=	$product_link;
 
-				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Product->user_id)->first()->toArray();
 				$Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+				$Product->store_name	=	$SellerData['store_name'];
 
 				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
 				foreach($variantProduct as $vp)
@@ -1668,8 +1670,9 @@ public function getCatSubList(Request $request) {
 
 				$Service->service_link	=	$service_link;
 
-				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Service->user_id)->first()->toArray();
+				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Service->user_id)->first()->toArray();
 				$Service->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+				$Service->store_name	=	$SellerData['store_name'];
 
 				$Service->image = explode(",",$Service->images)[0];
 				//echo'<pre>';print_r($Service);
@@ -1920,9 +1923,9 @@ public function getCatSubList(Request $request) {
 
 				$service_link	.=	'/'.$Service->service_slug.'-S-'.$Service->service_code;
 
-				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Service->user_id)->first()->toArray();
+				$SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Service->user_id)->first()->toArray();
 				$Service->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
-
+				$Service->store_name	=	$SellerData['store_name'];
 				$Service->service_link	=	$service_link;
 
 				$Service->image = explode(",",$Service->images)[0];

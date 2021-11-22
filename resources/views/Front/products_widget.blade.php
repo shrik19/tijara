@@ -13,14 +13,19 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
       @endif
 
       @php 
-
           $seller_name = $product->seller;
           $seller_name = str_replace( array( '\'', '"', 
           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
           $seller_name = str_replace(" ", '-', $seller_name);
           $seller_name = strtolower($seller_name);
-                      
-          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($product->user_id)."/products"; 
+		  
+		  $store_name = $product->store_name;
+          $store_name = str_replace( array( '\'', '"', 
+          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+          $store_name = str_replace(" ", '-', $store_name);
+          $store_name = strtolower($store_name);
+		  
+          $seller_link= url('/').'/seller/'.$store_name."/products"; 
         @endphp
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
       <div class="buy_now_hover_details one_icon">

@@ -43,6 +43,7 @@ use Validator;
 use Session;
 use Flash;
 use Mail;
+use Stripe;
 
 class FrontController extends Controller
 {
@@ -2605,5 +2606,62 @@ public function getCatSubList(Request $request) {
       
         return response()->json(['success'=>$success_msg,'error'=>$err_msg]);
    }
+   
+   public function stripePackageSubscription() {
+	//\DB::connection()->enableQueryLog();
+		$currentDate = date('Y-m-d H:i:s');
+		$ending_subscriptions = DB::table('user_packages')
+		->join('packages', 'packages.id', '=', 'user_packages.package_id')
+		->join('users', 'users.id', '=', 'user_packages.user_id')
+		->where('packages.is_deleted','!=',1)
+		->where('users.is_deleted','!=',1)
+		->where('users.stripe_customer_id','!=','')
+		->selectRaw('max(user_packages.id) as id')
+		->groupBy('users.id')
+		->get();
+		//print_r(\DB::getQueryLog());
+		
+		if(!empty($ending_subscriptions)) {
+				foreach($ending_subscriptions as $subscriptionId) {
+					$subscription = DB::table('user_packages')
+					->join('packages', 'packages.id', '=', 'user_packages.package_id')
+					->join('users', 'users.id', '=', 'user_packages.user_id')
+					->where('user_packages.id',$subscriptionId->id)
+					->select('user_packages.id','user_packages.package_id','user_packages.end_date','packages.amount',
+					'packages.validity_days','packages.recurring_payment',
+					'user_packages.user_id','users.stripe_customer_id')
+					->first();
+					
+					if($subscription->end_date <= date('Y-m-d H:i:s') && $subscription->recurring_payment=='Yes') {
+						Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+		
+						$response = Stripe\Charge::create ([
+							"amount" => ($subscription->amount*100),
+							"currency" => "INR",
+							"customer" => $subscription->stripe_customer_id,
+							"description" => "Package Subscription payment for UserId 
+							#".$subscription->user_id.' & package Id #'.$subscription->package_id ,
+							
+						]);
+						if($response->id){
+							$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));
+							$ExpiredDate = date('Y-m-d H:i:s', strtotime($startDate.'+'.$subscription->validity_days.' days'));
+							$arrInsertPackage = [
+								'user_id'    => $subscription->user_id,
+								'package_id' => $subscription->package_id,
+								'status'     => "active",
+								'start_date' => $startDate,
+								'end_date'   => $ExpiredDate,
+								'order_id'   => $response->id,
+								'payment_status' => 'CAPTURED',
+								'payment_response'	=>	json_encode($response)
+							];
+
+							UserPackages::create($arrInsertPackage);
+						}
+					}
+				}
+		}
+    }
 
 }

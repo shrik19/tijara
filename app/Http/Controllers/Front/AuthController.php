@@ -28,6 +28,7 @@ use Hash;
 use Log;
 use Mail;
 use File;
+use Stripe;
 
 
 class AuthController extends Controller
@@ -738,6 +739,18 @@ class AuthController extends Controller
 
         $data['sellerDetails']          = $details;
         $data['imagedetails']           =  $imagedetails;
+		
+		$data['cardDetails']    =   array();
+        if($imagedetails->stripe_customer_id!='') {
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET_KEY'));
+            $data['cardDetails']=$stripe->paymentMethods->all([
+                'customer' => 'cus_KdoGCC7zaLqu8e',
+                'type' => 'card',
+            ])->data[0]->card;
+            //echo'<pre>';print_r(          $data['cardDetails']);exit;
+        }
+		
         return view('Front/seller_profile', $data);
     }
 
@@ -868,18 +881,27 @@ class AuthController extends Controller
                 'free_shipping'      => trim($request->input('free_shipping')),
                 'shipping_method'    => trim($request->input('shipping_method_ddl')),
                 'shipping_charges'   => trim($request->input('shipping_charges')),
-                'card_fname'         => trim($request->input('card_fname')),
-                'card_lname'         => trim($request->input('card_lname')),
-                'card_number'        => trim($request->input('card_number')),
-                'card_exp_date'      => trim($request->input('card_exp_date')),
-                'card_security_code' => trim($request->input('card_security_code')),
+                //'card_fname'         => trim($request->input('card_fname')),
+                //'card_lname'         => trim($request->input('card_lname')),
+                //'card_number'        => trim($request->input('card_number')),
+                //'card_exp_date'      => trim($request->input('card_exp_date')),
+                //'card_security_code' => trim($request->input('card_security_code')),				
                 'store_pick_address'      => trim($request->input('store_pick_address')),
                 'is_pick_from_store'    => trim($request->input('is_pick_from_store')),
                 //'klarna_username'  => trim($request->input('klarna_username')),
                 //'klarna_password' => base64_encode(trim($request->input('klarna_password'))),
             ];
 
-
+			if($request->input('stripeToken')) {
+                Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        
+                $customer = \Stripe\Customer::create(array(
+                    "email" => trim($request->input('email')),
+                    "source" => trim($request->input('stripeToken')),
+                ));
+                $arrUpdate['stripe_customer_id']    =  $customer->id; 
+            }
+			
             UserMain::where('id','=',$user_id)->update($arrUpdate);
             Session::flash('success', trans('messages.status_updated_success'));
             return redirect(route('frontSellerProfile'));

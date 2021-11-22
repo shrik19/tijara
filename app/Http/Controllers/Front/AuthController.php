@@ -19,6 +19,7 @@ use App\Models\SellerPersonalPage;
 use App\Models\SubscribedUsers;
 /*Uses*/
 use Socialite;
+use Stripe;
 use DB;
 use Validator;
 use Session;
@@ -672,8 +673,9 @@ class AuthController extends Controller
         if(count($details) == 0){
              return redirect(route('frontHome'));
         }
-
+        
         $imagedetails=  UserMain::where('id', $user_id)->with(['getImages'])->first();
+        
         /*check if  seller package expiry and show alert if less than 30 day is remaining to expire*/
         $currentDate = date('Y-m-d H:i:s');
         /*$is_subscriber = DB::table('user_packages')
@@ -735,9 +737,20 @@ class AuthController extends Controller
         $data['id'] = $user_id;
         $data['registertype'] =  trans('users.sellers_title');
         $data['role_id']      = 2;
+        $data['strip_api_key']      = env('STRIPE_API_KEY');
 
         $data['sellerDetails']          = $details;
         $data['imagedetails']           =  $imagedetails;
+
+        $data['cardDetails']    =   array();
+        if($imagedetails->stripe_customer_id!='') {
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET_KEY'));
+            $data['cardDetails']=$stripe->paymentMethods->all([
+                'customer' => 'cus_KdoGCC7zaLqu8e',
+                'type' => 'card',
+            ])->data[0]->card;
+        }
         return view('Front/seller_profile', $data);
     }
 
@@ -850,7 +863,7 @@ class AuthController extends Controller
         }
         else
         {
-
+            
             $arrUpdate = [
                 'role_id'      => 2,
                 'fname'        => trim($request->input('fname')),
@@ -868,17 +881,25 @@ class AuthController extends Controller
                 'free_shipping'      => trim($request->input('free_shipping')),
                 'shipping_method'    => trim($request->input('shipping_method_ddl')),
                 'shipping_charges'   => trim($request->input('shipping_charges')),
-                'card_fname'         => trim($request->input('card_fname')),
+                /*'card_fname'         => trim($request->input('card_fname')),
                 'card_lname'         => trim($request->input('card_lname')),
                 'card_number'        => trim($request->input('card_number')),
                 'card_exp_date'      => trim($request->input('card_exp_date')),
-                'card_security_code' => trim($request->input('card_security_code')),
+                'card_security_code' => trim($request->input('card_security_code')),*/
                 'store_pick_address'      => trim($request->input('store_pick_address')),
                 'is_pick_from_store'    => trim($request->input('is_pick_from_store')),
                 //'klarna_username'  => trim($request->input('klarna_username')),
                 //'klarna_password' => base64_encode(trim($request->input('klarna_password'))),
             ];
-
+            if($request->input('stripeToken')) {
+                Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        
+                $customer = \Stripe\Customer::create(array(
+                    "email" => trim($request->input('email')),
+                    "source" => trim($request->input('stripeToken')),
+                ));
+                $arrUpdate['stripe_customer_id']    =  $customer->id; 
+            }
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);
             Session::flash('success', trans('messages.status_updated_success'));

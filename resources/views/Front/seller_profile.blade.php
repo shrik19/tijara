@@ -19,7 +19,8 @@
             <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>
           </div>
       @endif
-    <form id="seller-profile-form" action="{{route('frontSellerProfileUpdate')}}" method="post" enctype="multipart/form-data">
+    <form id="seller-profile-form" action="{{route('frontSellerProfileUpdate')}}" method="post"
+     enctype="multipart/form-data"  cc-on-file="false" stripe-publishable-key="{{$strip_api_key}}">
             @csrf
       @include ('Front.alert_messages')
       <div class="col-md-12">
@@ -145,29 +146,51 @@
              <div class="col-md-12">
               <div class="col-md-6" style="margin-left: -15px;">
 
-                <div class="form-group">
-                  <input type="text" class="form-control ge_input" name="card_fname" id="card_fname" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('card_fname')) ?  old('card_fname') : $sellerDetails[0]->card_fname}}">
-                  <span class="invalid-feedback" id="err_card_fname">@if($errors->has('card_fname')) {{ $errors->first('card_fname') }}@endif </span>
-                </div>
+               
+               <?php
+                  if(!empty($cardDetails)) {
+                    ?>
+                    <div class="cardAddedDiv">
+                        <label></label> <?php echo $cardDetails->brand ?>
+                        <br><label>{{ __('users.card_number_label')}}</label> ***********<?php echo $cardDetails->last4 ?>
+                        <br><label>{{ __('users.card_expiry_date_lable')}}</label> <?php echo $cardDetails->exp_month ?> / <?php echo $cardDetails->exp_year ?>
+                        <br><a href="javascript:void(0);" onclick="return confirm('Är du säker på att ta bort kortuppgifter?');" 
+                        style="color:red;" class="removeCard">{{ __('users.remove_btn')}}</a>
+                    </div>
+                    <?php
+                  } 
+                  ?> 
+                  <div class="saveCardDetailsDiv" <?php if(!empty($cardDetails)) echo'style="display:none;"' ?>>
+                      <div class="form-group">
+                        <input type="text" class="form-control ge_input" name="card_lname" 
+                        id="card_lname" placeholder="{{ __('lang.name_on_card')}}" value="{{ (old('card_lname')) ?  old('card_lname') : ''}}">
+                        <span class="invalid-feedback" id="err_card_lname">@if($errors->has('card_lname')) {{ $errors->first('card_lname') }}@endif</span>
+                      </div>
 
-                 <div class="form-group">
-                  <input type="text" class="form-control ge_input" name="card_lname" id="card_lname" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('card_lname')) ?  old('card_lname') : $sellerDetails[0]->card_lname}}">
-                  <span class="invalid-feedback" id="err_card_lname">@if($errors->has('card_lname')) {{ $errors->first('card_lname') }}@endif</span>
-                </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control ge_input card-number" name="card_number" id="card_number" 
+                        placeholder="{{ __('users.card_number_label')}}" value="{{ (old('card_number')) ?  old('card_number') : ''}}">
+                        <span class="invalid-feedback" id="card_number">@if($errors->has('card_number')) {{ $errors->first('card_number') }}@endif</span>
+                      </div>
+                      
+                      <div class="form-group">
+                        <input maxlength="3" type="text" class="form-control ge_input card-cvc" name="card_security_code" id="card_security_code"
+                        placeholder="{{ __('users.security_code_label')}}" value="{{ (old('card_security_code')) ?  old('card_security_code') : ''}}">
+                        <span class="invalid-feedback" id="card_security_code">@if($errors->has('card_security_code')) {{ $errors->first('card_security_code') }}@endif</span>
+                      </div>
+                      <div class="form-group">
+                        <input maxLength="5" type="text" class="form-control ge_input card-expiry-month" name="card_exp_month" id="card_exp_month" 
+                        placeholder="{{ __('lang.expiration_month')}}" value="{{ (old('card_exp_month')) ?  old('card_exp_month') : ''}}">
+                        <span class="invalid-feedback" id="card_exp_month">@if($errors->has('card_exp_month')) {{ $errors->first('card_exp_month') }}@endif</span>
+                      </div>
 
-                <div class="form-group">
-                  <input type="text" class="form-control ge_input" name="card_number" id="card_number" placeholder="{{ __('users.card_number_label')}}" value="{{ (old('card_number')) ?  old('card_number') : $sellerDetails[0]->card_number}}">
-                  <span class="invalid-feedback" id="card_number">@if($errors->has('card_number')) {{ $errors->first('card_number') }}@endif</span>
-                </div>
-
-                <div class="form-group">
-                  <input maxLength="5" type="text" class="form-control ge_input" name="card_exp_date" id="card_exp_date" placeholder="{{ __('users.card_expiry_date_lable')}}" value="{{ (old('card_exp_date')) ?  old('card_exp_date') : $sellerDetails[0]->card_exp_date}}">
-                  <span class="invalid-feedback" id="card_exp_date">@if($errors->has('card_exp_date')) {{ $errors->first('card_exp_date') }}@endif</span>
-                </div>
-
-                <div class="form-group">
-                  <input maxlength="3" type="text" class="form-control ge_input" name="card_security_code" id="card_security_code" placeholder="{{ __('users.security_code_label')}}" value="{{ (old('card_security_code')) ?  old('card_security_code') : $sellerDetails[0]->card_security_code}}">
-                  <span class="invalid-feedback" id="card_security_code">@if($errors->has('card_security_code')) {{ $errors->first('card_security_code') }}@endif</span>
+                      <div class="form-group">
+                        <input maxLength="5" type="text" class="form-control ge_input card-expiry-year" name="card_exp_year" id="card_exp_year" 
+                        placeholder="{{ __('lang.expiration_year')}}" value="{{ (old('card_exp_year')) ?  old('card_exp_year') : ''}}">
+                        <span class="invalid-feedback" id="card_exp_year">@if($errors->has('card_exp_year')) {{ $errors->first('card_exp_year') }}@endif</span>
+                      </div>
+                      
+                          <div style="color:red;display:none;" class='col-md-12 carderror error'>{{ __('lang.strip_error_message')}}</div>
                 </div>
                 
               </div>
@@ -200,6 +223,108 @@
 }
 </style>
  
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+
+<script type="text/javascript">
+$( ".removeCard" ).click(function() {
+    $('.saveCardDetailsDiv').show();
+    $('.cardAddedDiv').remove();
+    
+});
+$(function() {
+
+    var $form         = $("form#seller-profile-form");
+
+  $('form').bind('submit', function(e) {
+
+    var $form         = $("form#seller-profile-form"),
+
+        inputSelector = ['input[type=text]:visible'].join(', '),
+
+        $inputs       = $form.find('.required').find(inputSelector),
+
+        $errorMessage = $form.find('div.error'),
+
+        valid         = true;
+
+        $errorMessage.addClass('hide');
+
+ 
+
+        $('.has-error').removeClass('has-error');
+
+    $inputs.each(function(i, el) {
+
+      var $input = $(el);
+
+      if ($input.val() === '') {
+
+        $input.parent().addClass('has-error');
+
+        $errorMessage.removeClass('hide');
+
+        e.preventDefault();
+
+      }
+
+    });
+
+  
+
+    if (!$form.data('cc-on-file') && $('.card-number').is(":visible")) {
+
+      e.preventDefault();
+      
+      Stripe.setPublishableKey($form.attr('stripe-publishable-key'));
+
+      Stripe.createToken({
+
+        number: $('.card-number').val(),
+
+        cvc: $('.card-cvc').val(),
+
+        exp_month: $('.card-expiry-month').val(),
+
+        exp_year: $('.card-expiry-year').val()
+
+      }, stripeResponseHandler);
+
+    }
+
+  });
+
+  function stripeResponseHandler(status, response) {
+
+        if (response.error) {
+
+            $('.carderror') .show().removeClass('hide')             
+                .text(response.error.message);
+
+        } else {
+
+            // token contains id, last4, and card type
+            $('.carderror') .hide()    ;
+            var token = response['id'];
+
+            // insert the token into the form so it gets submitted to the server
+
+            $form.find('input[type=text]').empty();
+
+            $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+
+            $form.get(0).submit();
+
+        }
+
+    }
+
+  
+
+});
+
+</script>
+
 <script>
   function showErrorMessage(strContent,redirect_url = '')
 {

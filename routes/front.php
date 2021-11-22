@@ -22,7 +22,7 @@ Route::get('/config-cache', function() {
 Route::get('/', 'Front\FrontController@index')->name('frontHome');
 
 //products
-Route::get('/seller/{seller_name}/{seller_id}/products/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
+Route::get('/seller/{seller_name}/products/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
 Route::any('/get_product_listing/','Front\FrontController@getProductsByParameter')->name('getProductsyParameter'); 
 Route::any('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
@@ -46,7 +46,7 @@ Route::post('/report-product', 'Front\FrontController@reportProduct')->name('Fro
 Route::post('/report-service', 'Front\FrontController@reportService')->name('FrontReportService');
 
 //services
-Route::get('/seller/{seller_name}/{seller_id}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');
+Route::get('/seller/{seller_name}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');
 Route::any('/get_service_listing/','Front\FrontController@getServicesByParameter')->name('getServicesyParameter'); 
 Route::any('/services/','Front\FrontController@serviceListing')->name('AllserviceListing');
 Route::get('/services/{category_slug}','Front\FrontController@serviceListing')->name('serviceListingByCategory');

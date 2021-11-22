@@ -100,7 +100,7 @@
 <div>
 
 <div>&nbsp;</div>
-  @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
+  @if(Request::path() != "/" && Request::segment(3) !='products' && Request::segment(3) !='services')
      @if(Request::segment(1) !='annonser')
       <div style="margin-left: 4px;"> 
       <label class="price_label">{{ __('lang.sort_by_price')}}</label>

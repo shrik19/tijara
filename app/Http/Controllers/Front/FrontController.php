@@ -809,14 +809,14 @@ public function getCatSubList(Request $request) {
 
 								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
+								
 
 							//   ->when( "users.role_id" == 2 , function ($query) {
 							// 		return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
 							//   }, function ($query) use ($currentDate) {
 							// 	return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 							// });
-
-
+			
 			if($request->category_slug !='') {
 				$category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
 				$Products	=	$Products->where('category_products.category_id','=',$category['id']);
@@ -902,7 +902,7 @@ public function getCatSubList(Request $request) {
 
 		
 		//$data['show_products'] =$Products[0]->role_id;
-	//print_r(DB::getQueryLog());exit;
+		//print_r(DB::getQueryLog());exit;
 		if(count($Products)>0) {
 			foreach($Products as $Product) {
 				$product_link	=	url('/').'/product';
@@ -1075,9 +1075,16 @@ public function getCatSubList(Request $request) {
 	}
 	
 	/* function to display products page*/
-    public function sellerProductListing($seller_name ='', $seller_id = '', $category_slug = null, $subcategory_slug= null, Request $request)
+    public function sellerProductListing($seller_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
     {
-    	$data = [];
+    	$explode_seller_user = explode("-",$seller_name);
+		$seller_user = collect( \App\User::where([['fname',$explode_seller_user[0]],['lname',$explode_seller_user[1]]])->first())->toArray();
+		
+		$seller_id = base64_encode($seller_user['id']);
+		
+		//print '<pre>'; print_r($seller_user); exit;
+		
+		$data = [];
     	$data['path'] = @$request->path;
         $data['pageTitle'] 	= 'Sellers Products';
 
@@ -1927,9 +1934,14 @@ public function getCatSubList(Request $request) {
 								return $PopularServices;
 	}
 	/* function to display services page*/
-    public function sellerServiceListing($seller_name ='', $seller_id = '', $category_slug = null, $subcategory_slug= null, Request $request)
+    public function sellerServiceListing($seller_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
     {
-        $data['pageTitle'] 	= 'Sellers Services';
+        $explode_seller_user = explode("-",$seller_name);
+		$seller_user = collect( \App\User::where([['fname',$explode_seller_user[0]],['lname',$explode_seller_user[1]]])->first())->toArray();
+		
+		$seller_id = base64_encode($seller_user['id']);
+		
+		$data['pageTitle'] 	= 'Sellers Services';
         $data['path'] = @$request->path;
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 		$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);

@@ -69,7 +69,7 @@
 <div>
 
 <div>&nbsp;</div>
- @if(Request::path() != "/" && Request::segment(4) !='products' && Request::segment(4) !='services')
+ @if(Request::path() != "/" && Request::segment(3) !='products' && Request::segment(3) !='services')
  
   <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
   <script src="{{url('/')}}/assets/front/js/bootstrap-slider.js"></script>

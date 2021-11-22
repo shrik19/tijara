@@ -54,8 +54,8 @@
         <div class="col-md-9">
            <div>
 		   <div class="col-md-9 text-center">
-       <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.products_title')}}" class=" @if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a>
-				<a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url, 'seller_id' => base64_encode($seller_id)])}}" title="{{ __('lang.service_label')}} " class=" border_right_link @if(Request::segment(4)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.category_service_title')}}  </a>
+       <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url])}}" title="{{ __('lang.products_title')}}" class=" @if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a>
+				<a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url])}}" title="{{ __('lang.service_label')}} " class=" border_right_link @if(Request::segment(3)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.category_service_title')}}  </a>
 				
 			</div>
             <!-- contact shop -->

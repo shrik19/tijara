@@ -104,7 +104,9 @@
                            
                         </div>
                         @php
-                         $seller_name = $fea_seller->fname." ".$fea_seller->lname;
+                         //$seller_name = $fea_seller->fname." ".$fea_seller->lname;
+						 
+						 $seller_name = $fea_seller->store_name;
               
                           $seller_name = str_replace( array( '\'', '"', 
                           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);

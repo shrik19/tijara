@@ -1075,14 +1075,11 @@ public function getCatSubList(Request $request) {
 	}
 	
 	/* function to display products page*/
-    public function sellerProductListing($seller_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
+    public function sellerProductListing($store_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
     {
-    	$explode_seller_user = explode("-",$seller_name);
-		$seller_user = collect( \App\User::where([['fname',$explode_seller_user[0]],['lname',$explode_seller_user[1]]])->first())->toArray();
-		
-		$seller_id = base64_encode($seller_user['id']);
-		
-		//print '<pre>'; print_r($seller_user); exit;
+		$store_name = str_replace('-', " ", $store_name);		
+		$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
+		$seller_id = base64_encode($seller_user['id']);		
 		
 		$data = [];
     	$data['path'] = @$request->path;
@@ -1098,7 +1095,7 @@ public function getCatSubList(Request $request) {
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
     	$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
-		$data['link_seller_name']		=	$seller_name;
+		$data['link_seller_name']		=	$store_name;
 		$id = base64_decode($seller_id);
 		$data['seller_id']			=	$id;
 		
@@ -1109,7 +1106,7 @@ public function getCatSubList(Request $request) {
 		$data['city_name']		    =	$Seller['city'];
 		$data['country_name']		    =	$Seller['country'];
 		$data['seller_email']       =   $Seller['email'];
-		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
+		$data['seller_name_url']		=	$store_name = str_replace(" ", '-', $store_name);	
 		$data['header_image']       = '';
 		$data['logo']       = '';
 		$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
@@ -1350,7 +1347,7 @@ public function getCatSubList(Request $request) {
 		$data['ProductAttributes']	= $ProductAttributes;
 
 		$tmpSellerData = UserMain::where('id',$Product['user_id'])->first()->toArray();
-		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+		$seller_name = $tmpSellerData['store_name'];
 		$data['seller_name'] = $seller_name;
 		$data['store_name'] = $tmpSellerData['store_name'];
 
@@ -1358,7 +1355,7 @@ public function getCatSubList(Request $request) {
 		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
 		$seller_name = str_replace(" ", '-', $seller_name);
 		$seller_name = strtolower($seller_name);
-		
+				
 		$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($Product['user_id'])]);
 		$data['seller_link'] = $sellerLink;
 		/*get product review*/
@@ -1850,7 +1847,7 @@ public function getCatSubList(Request $request) {
 		$data['Service']			= $Service;
 		//echo "<pre>";print_r($Service);exit;
 		$tmpSellerData = UserMain::where('id',$Service['user_id'])->first()->toArray();
-		$seller_name = $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+		$seller_name = $tmpSellerData['store_name'];
 		$data['seller_name'] = $seller_name;
 		$data['store_name'] = $tmpSellerData['store_name'];
 		$seller_name = str_replace( array( '\'', '"', 
@@ -1934,12 +1931,12 @@ public function getCatSubList(Request $request) {
 								return $PopularServices;
 	}
 	/* function to display services page*/
-    public function sellerServiceListing($seller_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
+    public function sellerServiceListing($store_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
     {
-        $explode_seller_user = explode("-",$seller_name);
-		$seller_user = collect( \App\User::where([['fname',$explode_seller_user[0]],['lname',$explode_seller_user[1]]])->first())->toArray();
-		
+        $store_name = str_replace('-', " ", $store_name);		
+		$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
 		$seller_id = base64_encode($seller_user['id']);
+		
 		
 		$data['pageTitle'] 	= 'Sellers Services';
         $data['path'] = @$request->path;
@@ -1954,7 +1951,7 @@ public function getCatSubList(Request $request) {
 		
     	$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
-		$data['link_seller_name']		=	$seller_name;
+		$data['link_seller_name']		=	$store_name;
 		$id = base64_decode($seller_id);
 		$data['seller_id']			=	$id;
 		
@@ -1963,7 +1960,7 @@ public function getCatSubList(Request $request) {
 		$data['city_name']		    =	$Seller['city'];
 		$data['country_name']		    =	$Seller['country'];
 		$data['seller_email']       =   $Seller['email'];
-		$data['seller_name_url']		=	strtolower($Seller['fname']).'-'.strtolower($Seller['lname']);
+		$data['seller_name_url']		=	$store_name = str_replace(" ", '-', $store_name);
 		$data['description']		= 	$Seller['description'];
 		
 		$data['header_image']       = '';

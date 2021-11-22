@@ -24,8 +24,21 @@
           <a href="{{route('adminServiceCat')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.service_category_menu')}}</span></a>
         </li>
 
+         <li class="nav-item dropdown">
+          <a href="{{route('adminAnnonserCat')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.buyerAd_category_menu')}}</span></a>
+        </li>
+
         <li class="nav-item dropdown">
-          <a href="{{route('adminProduct')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>Products</span></a></li>  
+          <a href="{{route('adminProduct')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.products_title')}}</span></a></li>  
+          
+          <li class="nav-item dropdown">
+          <a href="{{route('adminService')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.manage_services_menu')}}</span></a></li> 
+
+
+        <li class="nav-item dropdown">
+          <a href="{{route('adminBuyersAd')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.buyer_ad_title')}} </span></a>
+        </li> 
+
         <li class="nav-item dropdown">         
           <a href="{{route('adminSlider')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.sliders_menu')}}</span></a>        
         </li>
@@ -45,10 +58,6 @@
         <li class="nav-item dropdown">
           <a href="{{route('adminPackage')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.packages_menu')}} </span></a>
         </li>  
-
-        <li class="nav-item dropdown">
-          <a href="{{route('adminBuyersAd')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.buyer_ad_title')}} </span></a>
-        </li> 
         
         <li class="nav-item dropdown">
           <a href="{{route('adminPage')}}" class="nav-link"><i class="fas fa-copy"></i> <span>{{ __('lang.pages_menu')}} </span></a>

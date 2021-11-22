@@ -127,6 +127,7 @@
      'buyer_menu'=>'Buyer',
      'product_category_menu'=>'Product Category',
      'service_category_menu'=>'Service Category',
+     'buyerAd_category_menu'=>'Ads Category',
      'sliders_menu'=>'Sliders',
      'banners_menu'=>'Banners',
      'sellers_menu'=>'Sellers',

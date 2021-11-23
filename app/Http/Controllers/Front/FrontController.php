@@ -1063,17 +1063,28 @@ public function getCatSubList(Request $request) {
 
         if(!empty($request['search']))
         	$data['search_string']	= $request['search'];
-        $data['all_cat_link'] = url('/')."/products";
+        	$data['all_cat_link'] = url('/')."/products";
         
         if(!empty($category_slug)){
-        	$data['category_link'] = url('/')."/products/".$category_slug;
-        	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
-        	
+        	 if($current_uri[0]=='annonser'){ 
+        	 	$data['category_link'] = url('/')."/annonser/".$category_slug;
+        	 	$getCategoryName = AnnonserCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
+        	 }else{
+        	 	$data['category_link'] = url('/')."/products/".$category_slug;
+        	 	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
+        	 }
         	$data['category_name'] = $getCategoryName['category_name'];
         	if(!empty($subcategory_slug)){
-         		$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
-         		$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
-        		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+        		 if($current_uri[0]=='annonser'){
+        		 	$getSubCategoryName = AnnonserSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
+	         		$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
+	        		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+        		 }else{
+        		 
+	         		$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
+	         		$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
+	        		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+        		}
         	}
         }else{
         	//$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();

@@ -548,7 +548,7 @@ public function getCatSubList(Request $request) {
 				  		$subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
 				  	}
 					
-					$sellerProducts	=	$sellerProducts->where('category_products.subcategory_id','=',$subcategory['id']);
+					$sellerProducts	=	$sellerProducts->where('category_products.subcategory_id','=',@$subcategory['id']);
 				  }
 				  if($price_filter !='')
 				  {

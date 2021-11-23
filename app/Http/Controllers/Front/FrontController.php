@@ -791,7 +791,8 @@ public function getCatSubList(Request $request) {
 	//function to get products list by provided parameters
 	public function getProductsByParameter(Request $request) {
 		DB::enableQueryLog();
-		//print_r($request->all());exit;
+		
+		//print_r($request->path);exit;
 		$currentDate = date('Y-m-d H:i:s');
 		$data = [];
 		$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
@@ -824,12 +825,22 @@ public function getCatSubList(Request $request) {
 							// });
 			
 			if($request->category_slug !='') {
-				$category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
+				if(strpos(@$request->path, 'annonser') !== false){
+					$category 		=  AnnonserCategories::select('id')->where('category_slug','=',$request->category_slug)->first();
+				}else{
+					$category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
+				}
+				
 				$Products	=	$Products->where('category_products.category_id','=',$category['id']);
 				//$Products	=	$Products->where('categories.category_slug','=',$request->category_slug);
 			}
 			if($request->subcategory_slug !='') {
-				$subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
+				if(strpos(@$request->path, 'annonser') !== false){
+					$subcategory 		=  AnnonserSubcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
+				}else{
+					$subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
+				}
+				
 				$Products	=	$Products->where('category_products.subcategory_id','=',$subcategory['id']);
 				//$Products	=	$Products->where('subcategories.subcategory_slug','=',$request->subcategory_slug);
 			}

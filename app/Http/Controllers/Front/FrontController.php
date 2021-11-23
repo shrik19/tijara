@@ -532,11 +532,13 @@ public function getCatSubList(Request $request) {
 				  {
 			  		if(strpos(@$request->path, 'annonser') !== false){
 			  			$category 		=  AnnonserCategories::select('id')->where('category_slug','=',$category_slug)->first();
+			  			$sellerProducts	=	$sellerProducts->where('category_products.category_id','=',$category['id']);
 			  		}else{
 			  			$category 		=  Categories::select('id')->where('category_slug','=',$category_slug)->first();
+			  			$sellerProducts	=	$sellerProducts->where('category_products.category_id','=',$category['id']);
 			  		}
 					
-					$sellerProducts	=	$sellerProducts->where('category_products.category_id','=',$category['id']);
+					
 				  }
 				  if($subcategory_slug !='')
 				  {

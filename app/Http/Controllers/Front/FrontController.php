@@ -869,12 +869,12 @@ public function getCatSubList(Request $request) {
 					$category 		=  Categories::select('id')->where('category_slug','=',$request->category_slug)->first();
 				}
 				
-				$Products	=	$Products->where('category_products.category_id','=',$category['id']);
+				$Products	=	$Products->where('category_products.category_id','=',@$category['id']);
 				//$Products	=	$Products->where('categories.category_slug','=',$request->category_slug);
 			}
 			if($request->subcategory_slug !='') {
 				if(strpos(@$request->path, 'annonser') !== false){
-					$subcategory 		=  AnnonserSubcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
+					$subcategory 		=  AnnonserSubcategories::select('id')->where('subcategory_slug','=',@$request->subcategory_slug)->first();
 				}else{
 					$subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
 				}

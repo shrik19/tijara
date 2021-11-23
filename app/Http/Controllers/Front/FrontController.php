@@ -808,7 +808,38 @@ public function getCatSubList(Request $request) {
 		//print_r($request->path);exit;
 		$currentDate = date('Y-m-d H:i:s');
 		$data = [];
-		$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
+		
+								
+
+							//   ->when( "users.role_id" == 2 , function ($query) {
+							// 		return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+							//   }, function ($query) use ($currentDate) {
+							// 	return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+							// });
+			if(strpos(@$request->path, 'annonser') !== false){
+
+				$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
+							  ->leftJoin('annonsercategories', 'annonsercategories.id', '=', 'category_products.category_id')
+							  ->leftJoin('annonserSubcategories', 'annonsercategories.id', '=', 'annonserSubcategories.category_id')
+							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+							  ->join('users', 'products.user_id', '=', 'users.id')
+							  ->leftJoin('orders_details', 'variant_product.id', '=', 'orders_details.variant_id')
+							  ->select(['products.*','annonsercategories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id','users.role_id',DB::raw("count(orders_details.id) as totalOrderedProducts")])
+							  ->where('products.status','=','active')
+							  ->where('products.is_deleted','=','0')
+							  ->where('annonsercategories.status','=','active')
+							  ->where('annonserSubcategories.status','=','active')
+							  ->where('users.status','=','active')
+							  ->where('users.is_deleted','=','0')
+							  ->where('users.role_id','=',$request->role_id)
+
+							  ->where(function($q) use ($currentDate) {
+
+								$q->where([['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+								});
+			}else{
+				$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->leftJoin('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->leftJoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -825,18 +856,12 @@ public function getCatSubList(Request $request) {
 							  ->where('users.is_deleted','=','0')
 							  ->where('users.is_shop_closed','=','0')
 							  ->where('users.role_id','=',$request->role_id)
+							  ->where('variant_product.quantity','>',0)
 							  ->where(function($q) use ($currentDate) {
 
-								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+								$q->Where([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
-								
-
-							//   ->when( "users.role_id" == 2 , function ($query) {
-							// 		return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
-							//   }, function ($query) use ($currentDate) {
-							// 	return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
-							// });
-			
+			}
 			if($request->category_slug !='') {
 				if(strpos(@$request->path, 'annonser') !== false){
 					$category 		=  AnnonserCategories::select('id')->where('category_slug','=',$request->category_slug)->first();

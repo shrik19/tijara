@@ -581,6 +581,7 @@ class ProductController extends Controller
 
 		} else {
 			$id		= $request->input('product_id');
+
 			Products::where('id', $request->input('product_id'))->where('user_id', Auth::guard('user')->id())->update($arrProducts);
 		}
 
@@ -597,10 +598,11 @@ class ProductController extends Controller
             $buyerProductArray['user_phone_no']=$request->input('user_phone_no');
             $buyerProductArray['country']=$request->input('country');
             $buyerProductArray['location']=$request->input('location');
+            // echo "<pre>";print_r($buyerProductArray);exit;
             //$buyerProductArray['price']=$request->input('price');
             BuyerProducts::create($buyerProductArray);
         }
-        //echo'<pre>';print_r($_POST);exit;
+       
 		$producVariant=[];
 		if(!empty($request->input('sku'))) {
             
@@ -615,7 +617,7 @@ class ProductController extends Controller
                     }else{
                           $producIsSold['is_sold']     =   '1';
                     }
-                    
+                   
                     Products::where('id', $id)->where('user_id', Auth::guard('user')->id())->update($producIsSold);
 		            $producVariant['product_id']=   $id;
 		            $producVariant['price']     =   $_POST['price'][$variant_key];

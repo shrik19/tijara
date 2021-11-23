@@ -103,5 +103,6 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
      'package_extend_success' => 'Package Extend successfully.!',
      'trial_package_active'  => 'Currently Trial package is active for your account.',
      'delivery_label' => 'Delivery',
+     'delete_card_details_confirm' => 'Are you sure you want to delete card details?',
  ]
 ?>

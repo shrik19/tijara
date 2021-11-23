@@ -114,7 +114,6 @@
 });*/
 function getListing()
 {
-
   var category_slug = $('.current_category').text();
   var subcategory_slug = $('.current_subcategory').text();
   var sellers = $('.current_sellers').text();

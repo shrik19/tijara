@@ -152,9 +152,10 @@
                     ?>
                     <div class="cardAddedDiv">
                         <label></label> <?php echo $cardDetails->brand ?>
-                        <br><label>{{ __('users.card_number_label')}}</label> ***********<?php echo $cardDetails->last4 ?>
-                        <br><label>{{ __('users.card_expiry_date_lable')}}</label> <?php echo $cardDetails->exp_month ?> / <?php echo $cardDetails->exp_year ?>
-                        <br><a href="javascript:void(0);" onclick="return confirm('Är du säker på att ta bort kortuppgifter?');" 
+                        <br><label>{{ __('lang.name_on_card')}}</label> :<span id="card_name"><?php echo $sellerDetails[0]->card_name ?></span>
+                        <br><label>{{ __('users.card_number_label')}}</label> :<span id="seller_card_number"> ***********<?php echo $cardDetails->last4 ?></span>
+                        <br><label>{{ __('users.card_expiry_date_lable')}}</label> :<span id="seller_card_expiry"> <?php echo $cardDetails->exp_month ?> / <?php echo $cardDetails->exp_year ?></span>
+                        <br><a href="javascript:void(0);" onclick="ConfirmCancelFunction();" 
                         style="color:red;" class="removeCard">{{ __('users.remove_btn')}}</a>
                     </div>
                     <?php
@@ -163,7 +164,7 @@
                   <div class="saveCardDetailsDiv" <?php if(!empty($cardDetails)) echo'style="display:none;"' ?>>
                       <div class="form-group">
                         <input type="text" class="form-control ge_input" name="card_lname" 
-                        id="card_lname" placeholder="{{ __('lang.name_on_card')}}" value="{{ (old('card_lname')) ?  old('card_lname') : ''}}">
+                        id="card_lname" placeholder="{{ __('lang.name_on_card')}}" value="{{ (old('card_name')) ?  old('card_name') : ''}}">
                         <span class="invalid-feedback" id="err_card_lname">@if($errors->has('card_lname')) {{ $errors->first('card_lname') }}@endif</span>
                       </div>
 
@@ -227,11 +228,11 @@
 
 
 <script type="text/javascript">
-$( ".removeCard" ).click(function() {
+/*$( ".removeCard" ).click(function() {
     $('.saveCardDetailsDiv').show();
     $('.cardAddedDiv').remove();
     
-});
+});*/
 $(function() {
 
     var $form         = $("form#seller-profile-form");
@@ -326,6 +327,28 @@ $(function() {
 </script>
 
 <script>
+  function ConfirmCancelFunction(url, id = false) {
+    var message = close_store_confirm_msg;
+
+  $.confirm({
+      title: 'confirm!',
+      content: delete_card_details_confirm,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          okay: function () {
+             $('.saveCardDetailsDiv').show();
+             $('.cardAddedDiv').remove();
+          },
+          cancel: function () {
+            
+          },
+      }
+  });
+}
+
   function showErrorMessage(strContent,redirect_url = '')
 {
   $.alert({
@@ -371,8 +394,8 @@ $(function() {
 
   var seller_account_freeze     = "{{trans('errors.seller_account_freeze')}}";
   var is_disabled = $("#disable_side_menu").val();
-  
-  if(is_disabled==1 && ( $("#card_fname").val() =="" || $("#card_lname").val() =="" || $("#card_number").val() =="" || $("#card_security_code").val() =='' ||  $("#card_exp_date").val() =="" )){
+
+  if(is_disabled==1 && ( $("#card_name").text() =="" || $("#seller_card_number").text() =="" || $("#seller_card_expiry").text() =="")){
      showErrorMessage(seller_account_freeze);
 
     // Handler for .ready() called.

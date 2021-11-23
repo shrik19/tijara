@@ -739,7 +739,7 @@ class AuthController extends Controller
 
         $data['sellerDetails']          = $details;
         $data['imagedetails']           =  $imagedetails;
-		
+		$data['strip_api_key']      = env('STRIPE_API_KEY');
 		$data['cardDetails']    =   array();
         if($imagedetails->stripe_customer_id!='') {
             $stripe = new \Stripe\StripeClient(
@@ -748,7 +748,7 @@ class AuthController extends Controller
                 'customer' => 'cus_KdoGCC7zaLqu8e',
                 'type' => 'card',
             ])->data[0]->card;
-            //echo'<pre>';print_r(          $data['cardDetails']);exit;
+          //  echo'<pre>';print_r($data['cardDetails']);exit;
         }
 		
         return view('Front/seller_profile', $data);
@@ -881,8 +881,8 @@ class AuthController extends Controller
                 'free_shipping'      => trim($request->input('free_shipping')),
                 'shipping_method'    => trim($request->input('shipping_method_ddl')),
                 'shipping_charges'   => trim($request->input('shipping_charges')),
-                //'card_fname'         => trim($request->input('card_fname')),
-                //'card_lname'         => trim($request->input('card_lname')),
+                'card_name'         => trim($request->input('card_lname')),
+                //'card_lname'         => trim($request->input('card_name')),
                 //'card_number'        => trim($request->input('card_number')),
                 //'card_exp_date'      => trim($request->input('card_exp_date')),
                 //'card_security_code' => trim($request->input('card_security_code')),				

@@ -59,7 +59,11 @@
                 </div>
                 </div>
         <div class="col-md-3">
+          @if(Request::segment(1) =='annonser')
+            @include('Front.annonser_sidebar')
+          @else
             @include('Front.products_sidebar')
+          @endif
         </div>
         <div class="col-md-9 products-page">
 

@@ -36,6 +36,8 @@ use App\Models\ContactStore;
 use App\Models\ReportProduct;
 use App\Models\ReportService;
 use App\Models\BuyerProducts;
+use App\Models\AnnonserCategories;
+use App\Models\AnnonserSubcategories;
 
 use DB;
 use Auth;
@@ -269,39 +271,6 @@ class FrontController extends Controller
 		$currentDate = date('Y-m-d H:i:s');
 	
 		foreach($Categories as $category) {
-	/*		$CategoriesArray[$category['id']]['product_count']=0;
-			DB::enableQueryLog();
-			$productCount 			= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-			  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-			  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-			  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-			  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-			  ->join('users', 'products.user_id', '=', 'users.id')
-			  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
-			  ->select(['products.id','products.title','categories.category_name'])
-			  ->where('products.status','=','active')
-			  ->where('products.is_deleted','=','0')
-			  ->where('categories.status','=','active')
-			  ->where('subcategories.status','=','active')
-			  ->where('users.status','=','active')
-			  ->where('category_products.category_id','=',$category['id'])
-			  ->where(function($q) use ($currentDate) {
-
-				$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
-				});
-
-		
-			if(!empty($seller_id)){
-					
-				$seller_id=base64_decode($seller_id);
-				$productCount = $productCount->where('products.user_id','=',$seller_id);
-			}
-
-			$productCount = $productCount->groupBy('products.id')->get()->toArray();
-
-			//and then you can get query log
-			print_r(DB::getQueryLog());echo "<br><br>";
-			$CategoriesArray[$category['id']]['product_count'] =  count($productCount);*/
 					
 			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
 			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
@@ -309,6 +278,41 @@ class FrontController extends Controller
 		}
 
 			//echo "<pre>";print_r($CategoriesArray);exit;
+		return $CategoriesArray;
+	}
+
+	public function getAnnonserCategorySubcategoryList($seller_id='',$category_slug='', $subcategory_slug='') {
+		//DB::enableQueryLog();
+		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
+								->where('subcategories.status','=','active')
+								->where('categories.status','=','active')
+								->orderBy('categories.sequence_no')
+								->orderBy('subcategories.sequence_no')
+								//->groupBy('categories.id')
+								->get()
+								->toArray();
+		$Categories 		= AnnonserCategories::join('annonserSubcategories', 'annonsercategories.id', '=', 'annonserSubcategories.category_id')
+								->select('annonsercategories.id','annonsercategories.category_name','annonsercategories.category_slug','annonserSubcategories.subcategory_name','annonserSubcategories.subcategory_slug')
+								->where('annonserSubcategories.status','=','active')
+								->where('annonsercategories.status','=','active')
+								->orderBy('annonsercategories.sequence_no')
+								->orderBy('annonserSubcategories.sequence_no')
+								//->groupBy('categories.id')
+								->get()
+								->toArray();
+		//print_r(DB::getQueryLog());exit;
+		$CategoriesArray	=	array();
+		$currentDate = date('Y-m-d H:i:s');
+	
+		foreach($Categories as $category) {
+					
+			$CategoriesArray[$category['id']]['category_name']= $category['category_name'];
+			$CategoriesArray[$category['id']]['category_slug']= $category['category_slug'];
+			$CategoriesArray[$category['id']]['subcategory'][]= array('subcategory_name'=>$category['subcategory_name'],'subcategory_slug'=>$category['subcategory_slug']);
+		}
+
+			
 		return $CategoriesArray;
 	}
 
@@ -607,7 +611,7 @@ public function getCatSubList(Request $request) {
 	//get popular products
 	function getPopularProducts($category_slug='',$subcategory_slug='') {
 		$currentDate = date('Y-m-d H:i:s');
-		//DB::enableQueryLog();
+		DB::enableQueryLog();
 		$PopularProducts 	= Products::join('orders_details', 'products.id', '=', 'orders_details.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
@@ -685,8 +689,8 @@ public function getCatSubList(Request $request) {
 			}
 		}
 
-		//dd($PopularProducts);
-								return $PopularProducts;
+		//echo "pre";print_r($PopularProducts);exit;
+			return $PopularProducts;
 	}
 	// get trending products
 	function getTrendingProducts($category_slug='',$subcategory_slug='',$role_id='') {
@@ -1033,10 +1037,17 @@ public function getCatSubList(Request $request) {
 		return view('Front/products', $data);
 	}
     public function productListingFunction($request,$category_slug='',$subcategory_slug='')
-    {
-		
+    {  
+    	$current_uri = request()->segments();
         $data['pageTitle'] 	= 'Home';
-		$data['Categories'] = $this->getCategorySubcategoryList();
+        if($current_uri[0]=='annonser'){
+        	$data['Categories'] = $this->getAnnonserCategorySubcategoryList();
+        }else{
+        	$data['Categories'] = $this->getCategorySubcategoryList();
+        }
+		
+			
+		
     	$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
     	$data['category_slug']		=	'';
@@ -1353,12 +1364,14 @@ public function getCatSubList(Request $request) {
 		$seller_name = $tmpSellerData['store_name'];
 		$data['seller_name'] = $seller_name;
 		$data['store_name'] = $tmpSellerData['store_name'];
-
+		if(empty($seller_name)){
+			$seller_name =  $tmpSellerData['fname'].' '.$tmpSellerData['lname'];
+		}
 		$seller_name = str_replace( array( '\'', '"', 
 		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
 		$seller_name = str_replace(" ", '-', $seller_name);
 		$seller_name = strtolower($seller_name);
-				
+		
 		$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
 		$data['seller_link'] = $sellerLink;
 		/*get product review*/

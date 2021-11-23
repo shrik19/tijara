@@ -7,33 +7,23 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\UserMain;
-
 use App\Models\Products;
-
 use App\Models\City;
-
 use App\Models\ProductImages;
-
 use App\Models\UserPackages;
-
 use App\Models\Categories;
-
 use App\Models\Subcategories;
-
 use App\Models\ProductCategory;
-
 use App\Models\Attributes;
-
-use App\Models\ AttributesValues;
-
-use App\Models\ VariantProductAttribute;
-
-use App\Models\ VariantProduct;
-
+use App\Models\AttributesValues;
+use App\Models\VariantProductAttribute;
+use App\Models\VariantProduct;
 use App\Models\Package;
 use App\Models\AdminOrders;
 use App\Models\TmpAdminOrders;
 use App\Models\BuyerProducts;
+use App\Models\AnnonserCategories;
+use App\Models\AnnonserSubcategories;
 
 use App\CommonLibrary;
 
@@ -434,9 +424,16 @@ class ProductController extends Controller
         $data['module_name']            = 'Products';
 
         $data['module_url']             = route('manageFrontProducts');		
+
+        if($is_seller==0){
+            $categories                     =  AnnonserCategories::Leftjoin('annonserSubcategories', 'annonsercategories.id', '=', 'annonserSubcategories.category_id')->where('annonsercategories.status','=','active')->where('annonserSubcategories.status','=','active')
+                                            ->select('*')->get();
+        }else{
+            $categories                     =  Categories::Leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')->where('categories.status','=','active')->where('subcategories.status','=','active')
+                                            ->select('*')->get();
+        }
+
 		
-		$categories						=  Categories::Leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')->where('categories.status','=','active')->where('subcategories.status','=','active')
-											->select('*')->get();
 											
 		$categoriesArray				=	array();
 		
@@ -679,8 +676,32 @@ class ProductController extends Controller
 
 		}
 		ProductCategory::where('product_id', $id)->delete();
+        
+          if(!empty($request->input('user_name'))) {
+            if(empty($request->input('categories'))) {  
+           // echo "in";exit;
+             $category  =   AnnonserSubcategories::where('subcategory_name','Uncategorized')->first();
+            $request->input('categories')[]=  $category->id;
+            $producCategories['product_id']    =   $id;
+            $producCategories['category_id']   =   $category->category_id;
+            $producCategories['subcategory_id']    =   $category->id;
+            ProductCategory::create($producCategories);
+            } 
 
-		if(empty($request->input('categories'))) {	
+            if(!empty($request->input('categories'))) {
+                 
+                 foreach($request->input('categories') as $subcategory) {
+                     $category  =   AnnonserSubcategories::where('id',$subcategory)->first();
+                     $producCategories['product_id']    =   $id;
+                     $producCategories['category_id']   =   $category->category_id;
+                     $producCategories['subcategory_id']    =   $category->id;
+                     ProductCategory::create($producCategories);
+                     
+                 }
+             }
+
+          }else{
+            if(empty($request->input('categories'))) {  
            // echo "in";exit;
              $category  =   Subcategories::where('subcategory_name','Uncategorized')->first();
             $request->input('categories')[]=  $category->id;
@@ -688,18 +709,20 @@ class ProductController extends Controller
             $producCategories['category_id']   =   $category->category_id;
             $producCategories['subcategory_id']    =   $category->id;
             ProductCategory::create($producCategories);
-        } 
-        if(!empty($request->input('categories'))) {
-			 
-			 foreach($request->input('categories') as $subcategory) {
-				 $category	=	Subcategories::where('id',$subcategory)->first();
-				 $producCategories['product_id']	=	$id;
-				 $producCategories['category_id']	=	$category->category_id;
-				 $producCategories['subcategory_id']	=	$category->id;
-				 ProductCategory::create($producCategories);
-				 
-			 }
-		 } 
+            } 
+            if(!empty($request->input('categories'))) {
+                 
+                 foreach($request->input('categories') as $subcategory) {
+                     $category  =   Subcategories::where('id',$subcategory)->first();
+                     $producCategories['product_id']    =   $id;
+                     $producCategories['category_id']   =   $category->category_id;
+                     $producCategories['subcategory_id']    =   $category->id;
+                     ProductCategory::create($producCategories);
+                     
+                 }
+             }
+          }
+		 
    
 
 

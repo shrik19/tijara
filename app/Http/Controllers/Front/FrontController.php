@@ -1122,12 +1122,12 @@ public function getCatSubList(Request $request) {
         	 	$data['category_link'] = url('/')."/products/".$category_slug;
         	 	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
         	 }
-        	$data['category_name'] = $getCategoryName['category_name'];
+        	$data['category_name'] = @$getCategoryName['category_name'];
         	if(!empty($subcategory_slug)){
         		 if($current_uri[0]=='annonser'){
         		 	$getSubCategoryName = AnnonserSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
-	         		$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
-	        		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+	         		$data['subcategory_link'] = url('/')."/annonser/".$category_slug."/".$subcategory_slug;
+	        		$data['subcategory_name'] = @$getSubCategoryName['subcategory_name'];
         		 }else{
         		 
 	         		$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();

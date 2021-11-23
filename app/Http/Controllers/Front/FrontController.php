@@ -1305,8 +1305,20 @@ public function getCatSubList(Request $request) {
 
 	public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') 
 	{
-
-		$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+	 $current_uri = request()->segments();
+     
+      if(@$_GET['annonser'] ==1){
+      	$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+										->join('annonsercategories', 'annonsercategories.id', '=', 'category_products.category_id')
+										->join('annonserSubcategories', 'annonsercategories.id', '=', 'annonserSubcategories.category_id')
+										->select(['products.*','products.id as product_id','annonsercategories.id as catId'])
+										->where('products.status','=','active')
+										->where('products.is_deleted','=','0')
+										->where('annonsercategories.status','=','active')
+										->where('annonserSubcategories.status','=','active');
+										
+      }else{
+      	$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 										->join('categories', 'categories.id', '=', 'category_products.category_id')
 										->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 										->select(['products.*','products.id as product_id','categories.id as catId'])
@@ -1314,6 +1326,9 @@ public function getCatSubList(Request $request) {
 										->where('products.is_deleted','=','0')
 										->where('categories.status','=','active')
 										->where('subcategories.status','=','active');
+      }
+
+		
 										
 							  			
 	
@@ -1344,11 +1359,19 @@ public function getCatSubList(Request $request) {
 			return redirect(route('AllproductListing'));
 		}
 		if(isset($category_slug) && $category_slug!='') {
-
-			$Products		=	$Products->where('categories.category_slug','=',$category_slug);
+			if(@$_GET['annonser'] ==1){
+				$Products		=	$Products->where('annonsercategories.category_slug','=',$category_slug);
+			}else{
+				$Products		=	$Products->where('categories.category_slug','=',$category_slug);
+			}
 		}
 		if(isset($subcategory_slug) && $subcategory_slug!='') {
-			$Products		=	$Products->where('subcategories.subcategory_slug','=',$subcategory_slug);
+			if(@$_GET['annonser'] ==1){
+				$Products		=	$Products->where('annonserSubcategories.subcategory_slug','=',$subcategory_slug);
+			}else{
+				$Products		=	$Products->where('subcategories.subcategory_slug','=',$subcategory_slug);
+			}
+			
 		}
 		if(isset($product_slug) && $product_slug!='') {
 
@@ -1412,8 +1435,11 @@ public function getCatSubList(Request $request) {
 			}
 
 		}
-		
-		$data['Categories'] = $this->getCategorySubcategoryList()	;
+		if(@$_GET['annonser'] ==1){
+			$data['Categories'] = $this->getAnnonserCategorySubcategoryList();
+		}else{
+			$data['Categories'] = $this->getCategorySubcategoryList();
+		}
 		
 		$data['PopularProducts']	= $this->getPopularProducts();
 		$data['Product']			= $Product;

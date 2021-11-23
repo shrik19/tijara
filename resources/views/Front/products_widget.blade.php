@@ -1,10 +1,16 @@
 @php
 $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'products') !== false) ? 'col-md-3':'col-md-15';
+
+if(strpos(@$path, 'annonser') !== false){
+  $product_link = $product->product_link.'?annonser=1';
+}else{
+   $product_link = $product->product_link;
+}
 @endphp
 
 <li class="{{$class}}">
 
-  <div class="product_data product_link_js" product_link="{{$product->product_link}}" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
+  <div class="product_data product_link_js" product_link="{{$product_link}}" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
     <div class="product_img" style="min-height:280px;display:inline-block;background-color: white;">
       @if($product->image)
           <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" >

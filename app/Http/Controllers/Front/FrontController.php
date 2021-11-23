@@ -491,7 +491,7 @@ public function getCatSubList(Request $request) {
 	}
 
     //get seller listings
-	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',$city_filter = '',  $search_string = '',$productsServices='') {
+	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',$city_filter = '',  $search_string = '',$productsServices='',$path='') {
 	
     	$today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
@@ -511,7 +511,7 @@ public function getCatSubList(Request $request) {
 		$Sellers	=   $Sellers->orderBy('users.id')
 						->get()
 						->toArray();
-
+//echo "<pre>";print_r($path);exit;//if(strpos(@$request->path, 'annonser') !== false){
 		$SellersArray	=	array();
 		if($productsServices=='products') {
 			
@@ -527,14 +527,25 @@ public function getCatSubList(Request $request) {
 											->where('products.is_deleted','=','0')
 											->where('categories.status','=','active')
 											->where('subcategories.status','=','active');
+
 				  if($category_slug !='')
 				  {
-					$category 		=  Categories::select('id')->where('category_slug','=',$category_slug)->first();
+			  		if(strpos(@$request->path, 'annonser') !== false){
+			  			$category 		=  AnnonserCategories::select('id')->where('category_slug','=',$category_slug)->first();
+			  		}else{
+			  			$category 		=  Categories::select('id')->where('category_slug','=',$category_slug)->first();
+			  		}
+					
 					$sellerProducts	=	$sellerProducts->where('category_products.category_id','=',$category['id']);
 				  }
 				  if($subcategory_slug !='')
 				  {
-					$subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
+				  	if(strpos(@$request->path, 'annonser') !== false){
+				  		$subcategory 		=  AnnonserSubcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
+				  	}else{
+				  		$subcategory 		=  Subcategories::select('id')->where('subcategory_slug','=',$subcategory_slug)->first();
+				  	}
+					
 					$sellerProducts	=	$sellerProducts->where('category_products.subcategory_id','=',$subcategory['id']);
 				  }
 				  if($price_filter !='')
@@ -963,7 +974,7 @@ public function getCatSubList(Request $request) {
 
 		//dd(is_object($data['Products']));
 
-		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products');
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products',@$request->path);
 	//	echo "<pre>";$Sellers[$request->sellers]['product_cnt']);
 		$sellerData = '';
 		if(!empty($Sellers))

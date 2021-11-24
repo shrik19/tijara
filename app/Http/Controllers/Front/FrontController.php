@@ -38,6 +38,7 @@ use App\Models\ReportService;
 use App\Models\BuyerProducts;
 use App\Models\AnnonserCategories;
 use App\Models\AnnonserSubcategories;
+use App\Models\UserPackages;
 
 use DB;
 use Auth;

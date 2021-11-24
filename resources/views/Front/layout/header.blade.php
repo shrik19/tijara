@@ -69,6 +69,7 @@
     var cancel_js_btn = "{{ __('users.cancel_btn')}}";
     var js_confirm_msg = "{{ __('users.confirm_btn')}}";
     var delete_card_details_confirm = "{{ __('messages.delete_card_details_confirm')}}";
+    var image_upload_height_width = "{{ __('errors.image_upload_height_width')}}";
 
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)

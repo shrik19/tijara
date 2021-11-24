@@ -290,8 +290,9 @@
 									</form>
 									</div>
 									<!-- <div class="pull-right" style="display: flex;"> -->
-									<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
 									<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
+									<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
+									
 							<!-- 	</div> -->
 								
 							</fieldset>

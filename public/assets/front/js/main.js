@@ -141,12 +141,41 @@ $('#variant_table').on('change', '.variant_image', function () {
         var variant_id  = $(this).attr('variant_id');
         
         var validExtensions = ["jpg","jpeg","gif","png"];
+        var minwidth  = 230;
+        var minheight = 230;
+
         var file = $(this).val().split('.').pop();
         if (validExtensions.indexOf(file) == -1) {
                 showErrorMessage(invalid_files_err);
                 $(this).val('');
                 return false;
         }
+         var reader = new FileReader();
+            //Read the contents of Image File.
+            reader.readAsDataURL(fileUpload.files[0]);
+            reader.onload = function (e) {
+                //Initiate the JavaScript Image object.
+                var image = new Image();
+ 
+                //Set the Base64 string return from FileReader as source.
+                image.src = e.target.result;
+                       
+                //Validate the File Height and Width.
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    if (height < minwidth || width < minheight) {
+ 
+                       //show width and height to user
+                        showErrorMessage(image_upload_height_width);
+                        $(this).val('');
+                        return false;
+                    }
+                   
+                    return true;
+                };
+ 
+            }
 
         var formData = new FormData();
       
@@ -1694,7 +1723,9 @@ function updateCart(OrderDetailsId)
 }
 
 function showErrorMessage(strContent,redirect_url = '')
-{
+{ 
+  jQuery.noConflict();
+
   $.alert({
       title: 'Oops!',
       content: strContent,

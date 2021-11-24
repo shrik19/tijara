@@ -2726,12 +2726,15 @@ public function getCatSubList(Request $request) {
 					->join('packages', 'packages.id', '=', 'user_packages.package_id')
 					->join('users', 'users.id', '=', 'user_packages.user_id')
 					->where('user_packages.id',$subscriptionId->id)
-					->select('user_packages.id','user_packages.package_id','user_packages.end_date','packages.amount',
+					->select('user_packages.id','user_packages.package_id','user_packages.end_date','packages.amount','user_packages.trial_end_date','user_packages.is_trial',
 					'packages.validity_days','packages.recurring_payment',
 					'user_packages.user_id','users.stripe_customer_id')
 					->first();
-					
-					if($subscription->end_date <= date('Y-m-d H:i:s') && $subscription->recurring_payment=='Yes') {
+					if($subscription->is_trial==1)
+							$currentEndDate	=	$subscription->trial_end_date;
+					else
+							$currentEndDate	=	$subscription->end_date;
+					if($currentEndDate <= date('Y-m-d H:i:s') && $subscription->recurring_payment=='Yes') {
 						Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 		
 						$response = Stripe\Charge::create ([

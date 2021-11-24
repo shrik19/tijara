@@ -123,6 +123,6 @@
      'please_active_your_account' => 'please verify registered Email-Id before login',
      'please_add_payment_details' => 'Please Add at least one Payment Details',
      'seller_account_freeze' => 'your account is freeze please entered your card deatils in order to auto subscribe the package',
-    
+     'image_upload_height_width' => 'Height and Width must greater than 230px.',    
  ]
 ?>

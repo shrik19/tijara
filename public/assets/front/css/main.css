@@ -1343,8 +1343,13 @@ span.remember-text {
 	}
 	
 	.seller_register_container .seller_register_fourth input[type=button]{
-		margin: 0;
+		/*margin: 0;*/
 	}
+
+   .seller_register_container .seller_register_fourth input[type=submit],
+    .seller_register_container .seller_register_fourth input[type=button]{
+    margin-top: 0%;
+}
 	
 	.seller-link-section {
 		margin-top: 15px;
@@ -1356,7 +1361,13 @@ span.remember-text {
     font-size: 12px !important;
     font-weight: 500;
 	}
-	
+	form#third-step-form {
+    clear: both;
+}
+
+.seller_register_container .seller_register_third #third-step-form {
+    padding-top: 0;
+}
 	
 	#sign-up-form .remember-section,
 	#seller-personal-form .remember-section {
@@ -1371,8 +1382,9 @@ span.remember-text {
 	}
 	
 	.seller_register_container {
-		min-height: 900px;
+		min-height: 600px;
 	}
+
 	.register_banner {
     width: 32%;
     background-position: center center;

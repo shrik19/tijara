@@ -121,5 +121,6 @@
      'please_active_your_account' => 'vänligen verifiera registrerat e-post-ID innan du loggar in',
      'please_add_payment_details' => 'Lägg till minst en betalningsinformation',
      'seller_account_freeze' => 'ditt konto är låst vänligen ange dina kortuppgifter för att automatiskt prenumerera på paketet',
+     'image_upload_height_width' => 'Höjd och bredd måste vara större än 230 pixlar.',
  ]
 ?>

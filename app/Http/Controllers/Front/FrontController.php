@@ -2735,7 +2735,7 @@ public function getCatSubList(Request $request) {
 							$currentEndDate	=	$subscription->trial_end_date;
 					else
 							$currentEndDate	=	$subscription->end_date;
-					if($currentEndDate <= date('Y-m-d H:i:s') && $subscription->recurring_payment=='Yes') {
+					if($currentEndDate < date('Y-m-d H:i:s') && $subscription->recurring_payment=='Yes') {
 						Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 		
 						$response = Stripe\Charge::create ([
@@ -2750,17 +2750,20 @@ public function getCatSubList(Request $request) {
 							$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));
 							$ExpiredDate = date('Y-m-d H:i:s', strtotime($startDate.'+'.$subscription->validity_days.' days'));
 							$arrInsertPackage = [
-								'user_id'    => $subscription->user_id,
-								'package_id' => $subscription->package_id,
+								//'user_id'    => $subscription->user_id,
+								//'package_id' => $subscription->package_id,
 								'status'     => "active",
 								'start_date' => $startDate,
 								'end_date'   => $ExpiredDate,
 								'order_id'   => $response->id,
-								'payment_status' => 'CAPTURED',
-								'payment_response'	=>	json_encode($response)
+								'is_trial'   => '0',
+								'trial_start_date' => '0000-00-00 00:00:00',
+								'trial_end_date'   =>'0000-00-00 00:00:00',
+								'payment_status'   => 'CAPTURED',
+								'payment_response' =>	json_encode($response)
 							];
 
-							UserPackages::create($arrInsertPackage);
+							UserPackages::update($arrInsertPackage)->where('user_packages.id',$subscription->id);
 						}
 					}
 				}

@@ -2762,8 +2762,8 @@ public function getCatSubList(Request $request) {
 								'payment_status'   => 'CAPTURED',
 								'payment_response' =>	json_encode($response)
 							];
-
-							UserPackages::update($arrInsertPackage)->where('user_packages.id',$subscription->id);
+						UserPackages::where('user_packages.id',$subscription->id)->update($arrInsertPackage);
+							
 						}
 					}
 				}

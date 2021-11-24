@@ -106,12 +106,7 @@
 
 <script type="text/javascript">
 
-/*$( document ).ready(function() {
-   $slider = $("#price_filter");
-    var value = $slider.data('slider').getValue();
-    $slider.data('slider').max = 100;
-    $slider.slider('setValue', value);
-});*/
+
 function getListing()
 {
   var category_slug = $('.current_category').text();
@@ -133,7 +128,7 @@ function getListing()
     data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 
       'sellers' : sellers, 'price_filter' : price_filter,'city_filter' : city_filter, 
        'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string
-       , 'role_id' : current_role_id },
+       , 'role_id' : current_role_id,'path':window.location.pathname },
     success:function(data)
     {
      //$('.product_listings').html(data);
@@ -240,11 +235,15 @@ function getListing()
     }
    });
 }
+var segment = "<?php echo Request::segment(1);?>";
 
-var price_filter = $("#price_filter").slider({});
-price_filter.on('slideStop',function(){
-    getListing();
-});
+if(segment !='annonser'){
+  var price_filter = $("#price_filter").slider({});
+  price_filter.on('slideStop',function(){
+      getListing();
+  });
+}
+
 
 $("#city_name").on("input", function() {
   getListing();

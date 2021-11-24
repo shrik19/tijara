@@ -804,7 +804,6 @@ public function getCatSubList(Request $request) {
 	//function to get products list by provided parameters
 	public function getProductsByParameter(Request $request) {
 		DB::enableQueryLog();
-		
 		//print_r($request->path);exit;
 		$currentDate = date('Y-m-d H:i:s');
 		$data = [];
@@ -825,7 +824,7 @@ public function getCatSubList(Request $request) {
 							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')
 							  ->leftJoin('orders_details', 'variant_product.id', '=', 'orders_details.variant_id')
-							  ->select(['products.*','annonsercategories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id','users.role_id',DB::raw("count(orders_details.id) as totalOrderedProducts")])
+							  ->select(['products.*','annonsercategories.category_name','variant_product.image','variant_product.price as discounted_price','variant_product.id as variant_id','users.role_id',DB::raw("count(orders_details.id) as totalOrderedProducts")])
 							  ->where('products.status','=','active')
 							  ->where('products.is_deleted','=','0')
 							  ->where('annonsercategories.status','=','active')
@@ -839,6 +838,7 @@ public function getCatSubList(Request $request) {
 								$q->where([['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
 			}else{
+
 				$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->leftJoin('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->leftJoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
@@ -856,10 +856,9 @@ public function getCatSubList(Request $request) {
 							  ->where('users.is_deleted','=','0')
 							  ->where('users.is_shop_closed','=','0')
 							  ->where('users.role_id','=',$request->role_id)
-							  ->where('variant_product.quantity','>',0)
 							  ->where(function($q) use ($currentDate) {
 
-								$q->Where([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
 			}
 			if($request->category_slug !='') {
@@ -894,7 +893,7 @@ public function getCatSubList(Request $request) {
 			}
 
 			if($request->city_filter != '')
-			{
+			{ 
 				$Products	=	$Products->where('users.city', 'like', '%' . $request->city_filter . '%');
 			}
 
@@ -955,7 +954,7 @@ public function getCatSubList(Request $request) {
 
 		$Products 			= $Products->paginate(config('constants.Products_limits'));
 
-		
+		//echo "<pre>";print_r($Products);exit;
 		//$data['show_products'] =$Products[0]->role_id;
 		//print_r(DB::getQueryLog());exit;
 		if(count($Products)>0) {
@@ -993,7 +992,8 @@ public function getCatSubList(Request $request) {
 
 			}
      		 $data['Products']	= $Products;
-      //dd($Products);
+     		// echo "djhjghghgjh";exit;
+    //  dd($Products);
 		}
 		else {
 		$data['Products']	= 'Inga produkter tillgängliga.';

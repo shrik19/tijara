@@ -263,15 +263,17 @@
 				</div>
             </div>			
 			
-            <div class="best_seller_container">
-                <!--<h3>{{ __('lang.follow_us_on_head')}}</h3>-->
-                <h2 class="product_heading">{{ __('lang.instagram_label')}}</h2>
-                <div class="social_img_section">
-                    <ul class="instagram_imgs" id="instafeed">
+            <div class="col-md-12">
+				<div class="best_seller_container">
+					<!--<h3>{{ __('lang.follow_us_on_head')}}</h3>-->
+					<h2 class="product_heading">{{ __('lang.instagram_label')}}</h2>
+					<div class="social_img_section">
+						<ul class="instagram_imgs" id="instafeed">
 
-                    </ul>
-                </div>
-            </div>
+						</ul>
+					</div>
+				</div>
+			</div>
 
         </div>
         </div>

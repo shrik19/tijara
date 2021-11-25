@@ -1757,8 +1757,8 @@ class CartController extends Controller
       }
 
       public function swishIpnUrl(Request $request){
-        $checkAdminOrderExisting = TmpAdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
-        $checkOrderExisting = TmpOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
+        $checkAdminOrderExisting = TmpAdminOrders::where('id','=',$_REQUEST['merchantReference'])->first();
+        $checkOrderExisting = TmpOrders::where('id','=',$_REQUEST['merchantReference'])->first();
         
         if(!empty($checkAdminOrderExisting)) 
         {

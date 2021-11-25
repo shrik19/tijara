@@ -1395,7 +1395,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
 
 function addToCart(product_variant)
 {
-  //alert("here")
+  alert("here")
   //return 1;
   var product_quantity = $("#product_quantity_"+product_variant).val();
   $(".loader").show();

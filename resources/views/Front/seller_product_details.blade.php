@@ -512,7 +512,8 @@ $(".product_rating").each(function(){
 function addtoCartFromProduct()
 {
 
-    var product_quantity = $("#product_quantity").val();
+    //var product_quantity = $("#product_quantity").val();
+    var product_quantity = 1;
     var variant = $("#product_variant_id").val();
     
     if(product_quantity == '')

@@ -18,8 +18,9 @@
                 $first = reset($variantData);
                 @endphp
               @endif
+          <input type="hidden" name="product_quantity_{{$first['attributes'][0]->variant_id}}" id="product_quantity_{{$first['attributes'][0]->variant_id}}" value="1">
  <!-- Secondary carousel image thumbnail gallery -->
- <div class="small-img">
+              <div class="small-img">
                 <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
                 <div class="small-container">
                   <div id="small-img-roll">
@@ -44,7 +45,7 @@
           <ul>
               
               <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) 
-                    onclick="addToWishlist('{{$Product->variant_id}}');event.stopPropagation();" 
+                    onclick="addToWishlist('{{$first['attributes'][0]->variant_id}}');event.stopPropagation();" 
                     @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif>
                     <i class="far fa-heart"></i>
                   </a>
@@ -53,7 +54,7 @@
       </div>
               </div>
              
-
+      
               <div style="margin-top: 20px;margin-left: 120px;text-align: center;">
                 <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}">{{ __('users.report_product_btn')}} </a>
               </div>

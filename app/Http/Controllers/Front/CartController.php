@@ -1731,7 +1731,7 @@ class CartController extends Controller
       //END : Create Order Details.
       return $NewOrderId;
     }
-    public function checkoutSwishIpn(Request $request){
+    public function checkoutSwishIpn(){
       if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
           $order_id = $_REQUEST['merchantReference'];
               
@@ -1769,6 +1769,7 @@ class CartController extends Controller
         }
         else if(!empty($checkOrderExisting)) { 
           $formAction = url('/').'/checkout-swish-ipn';
+          $this->checkoutSwishIpn();
         }
         else
         return '[accepted]';
@@ -2534,7 +2535,7 @@ DATA;
 
 
     public function addToWishlist(Request $request)
-    {
+    { 
         $user_id = Auth::guard('user')->id();
         $is_added = 1;
         $is_login_err = 0;

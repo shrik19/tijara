@@ -573,7 +573,7 @@ class ProductController extends Controller
 
         $currentDate = date('Y-m-d H:i:s');
 		if($request->input('product_id')==0) {
-            $arrProducts = ['created_at'             => $currentDate]
+            $arrProducts = ['created_at'             => $currentDate];
 			$id = Products::create($arrProducts)->id;
             //unique product code
             $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

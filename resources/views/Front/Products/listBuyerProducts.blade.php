@@ -46,7 +46,7 @@
             else{
             $image  =     url('/').'/uploads/ProductImages/resized/no-image.png';
             }
-            $dated      =   date('Y-m-d',strtotime($value['updated_at']));
+            $dated      =   date('Y-m-d',strtotime($value['created_at']));
             $title = (!empty($value['title'])) ? substr($value['title'], 0, 50) : '-';
             $price = $value['price'];
             $id =  $value['id'];

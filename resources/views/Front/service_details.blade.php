@@ -56,7 +56,7 @@
                 
                   @endif
 
-                  <div style="margin-top: 20px;margin-left: 120px;text-align: center;">
+                  <div class="report_product_div">
                 <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" service_link="{{$service_link}}" seller_name="{{$seller_name}}" service_id="{{$service_id}}">{{ __('users.report_product_btn')}} </a>
               </div>
             </div>

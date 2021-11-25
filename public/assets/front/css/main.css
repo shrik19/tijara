@@ -515,6 +515,12 @@ i.fas.fa-check-circle {
     margin-left:96px;
   }
 
+.report_product_div{
+  margin-top: 20px;
+  margin-left: 90px;
+  text-align: center;
+}
+
 .report_product {
   font-size: 10px;
   float: left;

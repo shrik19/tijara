@@ -1755,8 +1755,9 @@ class CartController extends Controller
       }
 
       public function swishIpnUrl(Request $request){
-        $checkAdminOrderExisting = AdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
-        $checkOrderExisting = Orders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
+        $checkAdminOrderExisting = TmpAdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
+        $checkOrderExisting = TmpOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
+        
         if(!empty($checkAdminOrderExisting)) 
         {
           $formAction = url('/').'/swish-ipn-callback';
@@ -1774,7 +1775,7 @@ class CartController extends Controller
         $html .=  '<script>document.getElementById("ipnform").submit();</script>';
         echo $html;
     }
-    
+
     /* function for klarna payment callback*/
     public function checkoutKlarnaCallback(Request $request)
     {

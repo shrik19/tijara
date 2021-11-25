@@ -540,6 +540,7 @@ class ProductController extends Controller
            // echo "<pre>";print_r( $messages );exit;
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
+        $arrProducts = array();
 
         $arrProducts = [
 
@@ -573,7 +574,7 @@ class ProductController extends Controller
 
         $currentDate = date('Y-m-d H:i:s');
 		if($request->input('product_id')==0) {
-            $arrProducts = ['created_at'             => $currentDate];
+            $arrProducts['created_at'] = $currentDate;
 			$id = Products::create($arrProducts)->id;
             //unique product code
             $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -582,7 +583,7 @@ class ProductController extends Controller
 
 		} else {
 			$id		= $request->input('product_id');
-            $arrProducts = ['updated_at'             => $currentDate];
+            $arrProducts['updated_at']  = $currentDate;
 			Products::where('id', $request->input('product_id'))->where('user_id', Auth::guard('user')->id())->update($arrProducts);
 		}
 

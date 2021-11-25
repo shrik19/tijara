@@ -946,7 +946,7 @@ class ProductController extends Controller
         }
     }
 
-public function swishIpnCallback(Request $request){
+public function swishIpnCallback(){
     if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
         $order_id = $_REQUEST['merchantReference'];
             

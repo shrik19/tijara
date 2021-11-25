@@ -1765,12 +1765,14 @@ class CartController extends Controller
         if(!empty($checkAdminOrderExisting)) 
         {
           $formAction = url('/').'/swish-ipn-callback';
+          app('App\Http\Controllers\Front\ProductController')->swishIpnCallback();
         }
         else if(!empty($checkOrderExisting)) { 
           $formAction = url('/').'/checkout-swish-ipn';
         }
         else
         return '[accepted]';
+/*
         $parameters='1=1';
       foreach($request->all() as $key=>$value)
           $parameters .='&'.$key.'='.$value;
@@ -1780,7 +1782,7 @@ class CartController extends Controller
         $html .=  '<input type="hidden" name="'.$key.'" value="'.$value.'">';
         $html .=  '</form>';
         $html .=  '<script>document.getElementById("ipnform").submit();</script>';
-        echo $html;
+        echo $html;*/
     }
 
     /* function for klarna payment callback*/

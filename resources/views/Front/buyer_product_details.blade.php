@@ -42,7 +42,7 @@
 
 
               </div>
-              <div class="report_product_div">
+              <div class="report_product_div" style="margin-left: 108px;">
                <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_ad_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}" style="font-size: 10px;margin-left: -20px;">{{ __('users.report_ad_btn')}} </a>
               </div>
               <!-- Secondary carousel image thumbnail gallery -->

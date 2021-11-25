@@ -1771,7 +1771,10 @@ class CartController extends Controller
         }
         else
         return '[accepted]';
-        
+        $parameters='1=1';
+      foreach($request->all() as $key=>$value)
+          $parameters .='&'.$key.'='.$value;
+        header('Location: '.$formAction.'?'.$parameters);
         $html ='<form id="ipnform" action="'.$formAction.'">';
         foreach($request->all() as $key=>$value)
         $html .=  '<input type="hidden" name="'.$key.'" value="'.$value.'">';

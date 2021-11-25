@@ -228,6 +228,8 @@ Route::any('/product-checkout/{id}','Front\CartController@showBuyerCheckout')->n
 Route::any('/seller-dashboard', 'Front\AuthController@dashboard')->name('frontDashboard');
 
 Route::get('/result/{id}/{type}', 'Front\ProductController@result')->name('result');
+Route::match(['get', 'post'],'/swish-ipn-url', 'Front\CartController@swishIpnUrl')->name('swishIpnUrl');
+
 Route::match(['get', 'post'],'/swish-ipn-callback', 'Front\ProductController@swishIpnCallback')->name('swishIpnCallback');
 Route::post('/api/getPaymentMethods', 'Front\ProductController@getPaymentMethods');
 Route::post('/api/initiatePayment', 'Front\ProductController@initiatePayment');

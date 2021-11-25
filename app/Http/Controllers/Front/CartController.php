@@ -24,6 +24,7 @@ use App\Models\UserMain;
 use App\Models\Services;
 use App\Models\ServiceCategory;
 use App\Models\SellerPersonalPage;
+use App\Models\AdminOrders;
 
 use App\Http\AdyenClient;
 use Stripe;
@@ -1752,6 +1753,28 @@ class CartController extends Controller
        }
             return '[accepted]';
       }
+
+      public function swishIpnUrl(Request $request){
+        $checkAdminOrderExisting = AdminOrders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
+        $checkOrderExisting = Orders::where('klarna_order_reference','=',$_REQUEST['pspReference'])->first();
+        if(!empty($checkAdminOrderExisting)) 
+        {
+          $formAction = url('/').'/swish-ipn-callback';
+        }
+        else if(!empty($checkOrderExisting)) { 
+          $formAction = url('/').'/checkout-swish-ipn';
+        }
+        else
+        return '[accepted]';
+        
+        $html ='<form id="ipnform" action="'.$formAction.'">';
+        foreach($request->all() as $key=>$value)
+        $html .=  '<input type="hidden" name="'.$key.'" value="'.$value.'">';
+        $html .=  '</form>';
+        $html .=  '<script>document.getElementById("ipnform").submit();</script>';
+        echo $html;
+    }
+    
     /* function for klarna payment callback*/
     public function checkoutKlarnaCallback(Request $request)
     {

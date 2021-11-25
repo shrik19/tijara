@@ -32,10 +32,14 @@ header{
   color: #222222 !important;
   font-weight: 600 !important;
 }
+
+h2.instagram_heading {
+    padding-bottom: 0px !important;
+}
 .go_to_tijara_ads_btn{
     color: #000 !important;
     background-color: #f9b78e;
-    margin-bottom: 55px;
+    margin-bottom: 25px;
     margin-top: 55px;
     margin-left: 40px;
     border-radius: 20px;
@@ -1704,7 +1708,11 @@ overflow: hidden;margin-top: 155px;}
 @media (min-width: 992px) {
     .col-md-15 {
         width: 20%;
+        height: 23vw !important;
         float: left;
+    }
+    .col-md-3.product_img_wrapper {
+        height: 20vw !important;
     }
 }
 @media (min-width: 1200px) {
@@ -1743,16 +1751,22 @@ overflow: hidden;margin-top: 155px;}
   font-weight: 500;
   margin-top: 6px !important;
 }
-.product_img{position: relative;}
+
 .product_img{position: relative;
     background-color: #ffffff!important;
-    height: 300px;
+    /*height: 300px;*/
+    height: 15vw !important;
     display: flex!important;
     vertical-align: middle;
     padding: 0px;
     overflow: hidden;
-  justify-content: center;
+    justify-content: center;
+    
       /* border: 1px solid #e5e5e5; */
+}
+
+.col-md-3 .product_img{
+    height: 13vw !important;
 }
 .border-none{border: none!important;}
 .dic_price{
@@ -2109,8 +2123,10 @@ ul.tijara_front_box.row {
 }
 /* .tijara_front_inner {width: 300px; height: 300px; } */
 .product_data {
-    height: 390px;
+   /* height: 390px;*/
     overflow: hidden;
+    max-width: 100% !important;
+    height: auto !important;
 }
 /* .tijara_front_box li{height: 300px;margin: 10px;} */
 .colr-1{

@@ -1,12 +1,12 @@
 
 @php
-$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false) ? 'col-md-3':'col-md-15';
+$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false) ? 'col-md-3 product_img_wrapper':'col-md-15';
 @endphp
 
 <li class="{{$class}}">
 
   <div class="product_data services-data" service_link="{{$service->service_link}}" >
-    <div class="product_img" style="min-height:280px;display:inline-block;background-color: white;">
+    <div class="product_img" style="display:inline-block;background-color: white;">
       @if($service->images)
         <img src="{{url('/')}}/uploads/ServiceImages/resized/{{$service->image}}" style="width:100%;">
       @else

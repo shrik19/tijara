@@ -928,13 +928,13 @@ class AuthController extends Controller
         $details=SellerPersonalPage::join('users', 'users.id', '=', 'seller_personal_page.user_id')->where('user_id',$user_id)->first();
         $sellerName=UserMain::where('id',$user_id)->first();
 
-          $seller_name = $sellerName['fname']." ".$sellerName['lname'];
+          $seller_name = $sellerName['store_name'];
           $seller_name = str_replace( array( '\'', '"', 
           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
           $seller_name = str_replace(" ", '-', $seller_name);
           $seller_name = strtolower($seller_name);
                       
-          $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($user_id)."/products"; 
+          $seller_link= url('/').'/seller/'.$seller_name."/products"; 
         
         $toUpdateData  =   array();
         if($request->input('store_information'))

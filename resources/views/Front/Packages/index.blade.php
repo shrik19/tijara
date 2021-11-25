@@ -93,10 +93,10 @@
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="package-body">
-					  	<!-- <tr>
+					  	<?php /* <tr>
 					  		<td class="bold">{{ __('users.description_label')}}</td>
 					  		<td><?php echo $row->description; ?></td>
-					    </tr> -->
+					    </tr> */?>
 
 					    <tr>
 					  		<td>{{ __('users.amount_label')}}</td>
@@ -145,6 +145,7 @@
 			</div>
 			@endforeach
 		@endif
+		<?php /*
 		@if(count($packageDetails) != 0 && !empty($packageDetails))
 			  <div class="col-md-12">
 				<h2>{{ __('users.subscribe_package_label')}} </h2>
@@ -173,29 +174,11 @@
 						<div class="panel-heading bold package_footer package-pro"></div>
 						</div>
 					</div>
-					<!--  <div class="col-md-4">
-						<div class="panel panel-default subscribe-packages">
-						<div class="panel-heading">{{$data['title']}}</div>
-						<div class="panel-body" style="max-height: 215px;overflow: auto;">
-		>>>>>>> 868a036965efb2dd19a88736f85859b8f9f95956
-							<p>{{ __('users.description_label')}} : <?php echo $data->description; ?></p>
-							<p>{{ __('users.amount_label')}} : {{$data['amount']}} kr</p>
-							<p>{{ __('users.validity_label')}} : {{$data['validity_days']}} Days</p>
-							<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">
-								 {{ csrf_field() }}
-								<input type="hidden" name="user_id" value="{{$user_id}}">
-								<input type="hidden" name="p_id" value="{{$data['id']}}">
-								<input type="hidden" name="p_name" value="{{$data['title']}}">
-								<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
-								<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
-								<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn">{{ __('users.subscribe_btn')}}</button>
-							 </form>
-						</div>
-						</div>
-					</div> -->
+				
 					@endforeach
 			   </div>
 			   @endif
+			  */ ?>
 			</div>
 			</div>
 </div>

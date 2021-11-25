@@ -259,12 +259,12 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 
 /*tijara design fixes by developer */
 .product_data {
-  height: 335px;
-  max-width: 250px;
+/*  height: 335px;
+  max-width: 250px;*/
 }
 .product_img {
-  min-height: 200px !important;
-  height: 250px;
+ /* min-height: 200px !important;
+  height: 250px;*/
 }
 
 .product_img img {
@@ -351,7 +351,7 @@ small-img-roll{
 }
 
 .filter_product_list .product_img{
-  height: 220px !important;
+  /*height: 220px !important;*/
 }
 
 .br-theme-fontawesome-stars .br-widget a{

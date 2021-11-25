@@ -1437,6 +1437,7 @@ function addToCart(product_variant)
 
 function addToWishlist(product_variant)
 {
+
   var product_quantity = $("#product_quantity_"+product_variant).val();
   $(".loader").show();
   $.ajax({
@@ -1724,8 +1725,6 @@ function updateCart(OrderDetailsId)
 
 function showErrorMessage(strContent,redirect_url = '')
 { 
-  jQuery.noConflict();
-
   $.alert({
       title: 'Oops!',
       content: strContent,

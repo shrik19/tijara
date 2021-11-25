@@ -351,7 +351,7 @@
             <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
               @csrf
                 <input type="hidden" name="rating_id" class="rating_id" id="rating_id" value="">
-                 <input type="hidden " name="service_id" class="service_id" id="service_id" value="">
+                 <input type="hidden" name="service_id" class="service_id" id="service_id" value="">
                 <input type="hidden" name="user_rating_hid" class="user_rating_hid" id="user_rating_hid" value="">
 
                 <div class="form-group">

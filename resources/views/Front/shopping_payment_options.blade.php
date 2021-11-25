@@ -21,7 +21,8 @@
 <script type="text/javascript">
     var select_payment_option="{{ __('users.select_payment_option')}}";
 </script>
-  <div class="container-inner-section checkoutContainer">
+ <div class="checkoutContainer">   
+  <div class="container-inner-section container">
   <div class="">       
       <div class="">
         <div class="card">
@@ -371,6 +372,7 @@
       </div>
 
   </div>
+</div>
 </div>
  <!-- /container -->
 <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>

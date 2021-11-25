@@ -3004,7 +3004,7 @@ DATA;
         }
        
         $orders       = $orders->orderby('orders.id', 'DESC');
-        //$orders       = $orders->groupBy('orders.id')->orderby('orders.id', 'DESC');
+        $orders       = $orders->groupBy('orders.id')->orderby('orders.id', 'DESC');
         $orders       = $orders->paginate(config('constants.buyer_product'));
 
         $data['ordersDetails']  = $orders;

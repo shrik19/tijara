@@ -1751,6 +1751,8 @@ class CartController extends Controller
                   $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
       
                   $this->sendMailAboutOrder($newOrderDetails);
+                   $temp_orders = TmpOrders::find($order_id);
+                    $temp_orders->delete();
               }
        }
             return '[accepted]';

@@ -1105,7 +1105,7 @@ public function swishIpnCallback(Request $request){
                 if(empty($ProductData['categories'])) 
                 {	
                 
-                    $category  =   Subcategories::where('subcategory_name','Uncategorized')->first();
+                    $category  =   AnnonserSubcategories::where('subcategory_name','Uncategorized')->first();
                     $ProductData['categories'][]        =  $category->id;
                     $producCategories['product_id']     =   $id;
                     $producCategories['category_id']    =   $category->category_id;
@@ -1113,7 +1113,7 @@ public function swishIpnCallback(Request $request){
                     $subCategorySlug = $category->subcategory_slug;
                     ProductCategory::create($producCategories);
 
-                    $mainCategory = Categories::where('id',$category->category_id)->first();
+                    $mainCategory = AnnonserCategories::where('id',$category->category_id)->first();
                     $categorySlug = $mainCategory->category_slug;
 
                 } 
@@ -1121,14 +1121,14 @@ public function swishIpnCallback(Request $request){
                 {
                     
                     foreach($ProductData['categories'] as $subcategory) {
-                        $category	=	Subcategories::where('id',$subcategory)->first();
+                        $category	=	AnnonserSubcategories::where('id',$subcategory)->first();
                         $producCategories['product_id']	=	$id;
                         $producCategories['category_id']	=	$category->category_id;
                         $producCategories['subcategory_id']	=	$category->id;
                         $subCategorySlug = $category->subcategory_slug;
                         ProductCategory::create($producCategories);
                         
-                        $mainCategory = Categories::where('id',$category->category_id)->first();
+                        $mainCategory = AnnonserCategories::where('id',$category->category_id)->first();
                         $categorySlug = $mainCategory->category_slug;
                         
                     }
@@ -1178,7 +1178,8 @@ public function swishIpnCallback(Request $request){
                     $message->from( env('FROM_MAIL'),'Tijara');
                 });
                 //END : Send success email to Seller.
-            
+                $temp_orders = TmpAdminOrders::find($order_id);
+                    $temp_orders->delete();
                 
                 
         }

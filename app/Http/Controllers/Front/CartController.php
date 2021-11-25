@@ -28,7 +28,7 @@ use App\Models\AdminOrders;
 
 use App\Http\AdyenClient;
 use Stripe;
-Use Tmpadminorders
+Use Tmpadminorders;
 
 use DB;
 use Auth;

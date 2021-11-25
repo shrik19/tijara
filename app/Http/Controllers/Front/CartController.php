@@ -2979,7 +2979,7 @@ DATA;
          }
           
         $monthYearDropdown    .= "</select>";
-          
+
         $orders  = Orders::join('orders_details', 'orders.id', '=', 'orders_details.order_id')
                   ->join('products', 'products.id', '=', 'orders_details.product_id')
                 ->join('variant_product as v1', 'products.id', '=', 'v1.product_id')
@@ -3002,9 +3002,10 @@ DATA;
           ->whereYear('orders.created_at',$month_year_explod[1]);
 
         }
-       
+
+        $orders       = $orders->groupBy('orders_details.id');
         $orders       = $orders->orderby('orders.id', 'DESC');
-        $orders       = $orders->groupBy('orders.id')->orderby('orders.id', 'DESC');
+        //$orders       = $orders->groupBy('orders_details.id')->orderby('orders.id', 'DESC');
         $orders       = $orders->paginate(config('constants.buyer_product'));
 
         $data['ordersDetails']  = $orders;

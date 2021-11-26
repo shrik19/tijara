@@ -1397,7 +1397,9 @@ public function findCurrency($type){
       $OrderId = base64_decode($id);
       $checkOrder = TmpAdminOrders::where('id','=',$OrderId)->first()->toArray();
       $checkAdminOrder = AdminOrders::where('tmp_order_id','=',$OrderId)->first()->toArray();
-
+       echo "<pre>";print_r($checkOrder);
+      echo "<br><pre>";print_r($checkAdminOrder);
+echo "<br>orderid_____".$OrderId;exit;
       if(!empty($checkOrder) || !empty($checkAdminOrder)) {
 
         if($checkOrder['user_id'] == $user_id || $checkAdminOrder['user_id'] == $user_id)

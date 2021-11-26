@@ -1055,7 +1055,7 @@ function ConfirmCloseStoreFunction(url, id = false) {
                 }
                 else
                 {
-                    showErrorMessage(data.error,'/front-login');
+                    showErrorMessage(data.error,'/front-login/seller');
                 }
         
               }
@@ -1182,7 +1182,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
                                  }
                                  else
                                  {
-                                   showErrorMessage(responseObj.msg,'/front-login');
+                                   showErrorMessage(responseObj.msg,'/front-login/buyer');
                                  }
                                }
          
@@ -1351,7 +1351,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
                                  }
                                  else
                                  {
-                                   showErrorMessage(responseObj.msg,'/front-login');
+                                   showErrorMessage(responseObj.msg,'/front-login/buyer');
                                  }
                                }
          
@@ -1395,7 +1395,6 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
 
 function addToCart(product_variant)
 {
-  alert("here")
   //return 1;
   var product_quantity = $("#product_quantity_"+product_variant).val();
   $(".loader").show();
@@ -1426,7 +1425,7 @@ function addToCart(product_variant)
         }
         else
         {
-          showErrorMessage(responseObj.msg,'/front-login');
+          showErrorMessage(responseObj.msg,'/front-login/buyer');
         }
       }
 
@@ -1502,7 +1501,7 @@ function addToWishlistServices(service_id)
         }
         else
         {
-          showErrorMessage(responseObj.msg,'/front-login');
+          showErrorMessage(responseObj.msg,'/front-login/buyer');
         }
       }
 
@@ -1539,7 +1538,7 @@ function addToCartWishlist(product_variant)
         }
         else
         {
-          showErrorMessage(responseObj.msg,'/front-login');
+          showErrorMessage(responseObj.msg,'/front-login/buyer');
         }
       }
 
@@ -1630,7 +1629,7 @@ function removeCartProduct(OrderDetailsId)
                 }
                 else
                 {
-                    showErrorMessage(responseObj.msg,'/front-login');
+                    showErrorMessage(responseObj.msg,'/front-login/buyer');
                 }
         
               }
@@ -1673,7 +1672,7 @@ function removeWishlistProduct(OrderDetailsId)
                 }
                 else
                 {
-                    showErrorMessage(responseObj.msg,'/front-login');
+                    showErrorMessage(responseObj.msg,'/front-login/buyer');
                 }
         
               }
@@ -1710,7 +1709,7 @@ function updateCart(OrderDetailsId)
       {
         if(responseObj.is_login_err)
         {
-          showErrorMessage(responseObj.msg,'/front-login');
+          showErrorMessage(responseObj.msg,'/front-login/buyer');
         }
         else
         {

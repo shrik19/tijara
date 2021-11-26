@@ -481,7 +481,7 @@ $(".product_rating").each(function(){
                         }
                         else
                         {
-                          showErrorMessage(responseObj.msg,'/front-login');
+                          showErrorMessage(responseObj.msg,'/front-login/buyer');
                         }
                       }
                     }
@@ -554,7 +554,7 @@ function addtoCartFromProduct()
           }
           else
           {
-            showErrorMessage(responseObj.msg,'/front-login');
+            showErrorMessage(responseObj.msg,'/front-login/buyer');
           }
         }
       }
@@ -846,7 +846,7 @@ $(document).on("click",".update_product_review",function(event) {
                 }
                 else
                 {
-                  showErrorMessage(responseObj.msg,'/front-login');
+                  showErrorMessage(responseObj.msg,'/front-login/buyer');
                 }
               }
          }

@@ -461,7 +461,7 @@ $(".service_rating").each(function(){
                         }
                         else
                         {
-                          showErrorMessage(responseObj.msg,'/front-login');
+                          showErrorMessage(responseObj.msg,'/front-login/buyer');
                         }
                       }
 
@@ -711,7 +711,7 @@ $(document).on("click",".update_service_review",function(event) {
                 }
                 else
                 {
-                  showErrorMessage(responseObj.msg,'/front-login');
+                  showErrorMessage(responseObj.msg,'/front-login/buyer');
                 }
               }
          }

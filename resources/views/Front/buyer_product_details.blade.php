@@ -439,7 +439,7 @@ $(".product_rating").each(function(){
                         }
                         else
                         {
-                          showErrorMessage(responseObj.msg,'/front-login');
+                          showErrorMessage(responseObj.msg,'/front-login/buyer');
                         }
                       }
 

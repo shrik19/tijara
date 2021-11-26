@@ -188,15 +188,15 @@ class FrontController extends Controller
     							->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 								->join('category_products', 'products.id', '=', 'category_products.product_id')
-								->join('categories', 'categories.id', '=', 'category_products.category_id')
-								->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+								->join('annonsercategories', 'annonsercategories.id', '=', 'category_products.category_id')
+								->join('annonserSubcategories', 'annonsercategories.id', '=', 'annonserSubcategories.category_id')
 								->select('products.*','users.id as user_id','users.fname',
-								'users.lname','users.email','users.store_name','users.description','variant_product.image','variant_product.price','variant_product.id as variant_id','categories.category_name')
+								'users.lname','users.email','users.store_name','users.description','variant_product.image','variant_product.price','variant_product.id as variant_id','annonsercategories.category_name')
 								
 								->where('users.is_deleted','=','0')								
                 			    ->where('users.is_shop_closed','=','0')
 								//->where('users.is_featured','=','1')
-								//->where('users.is_verified','=','1')
+								->where('products.is_buyer_product','=','1')
 								->where('users.status','=','active')
 								
 								->orderBy('users.id', 'DESC')
@@ -208,7 +208,7 @@ class FrontController extends Controller
 
 		if(count($featuredproducts)>0) {
 			foreach($featuredproducts as $Product) {
-        $productCategories = $this->getProductCategories($Product->id);
+        $productCategories = $this->getProductCategories($Product->id,$annonser=1);
 
 				$product_link	=	url('/').'/product';
 		if($category_slug!='')
@@ -226,8 +226,8 @@ class FrontController extends Controller
           $product_link	.=	'/'.@$productCategories[0]['subcategory_slug'];
         }
 
-				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
-
+				$product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code.'?annonser=1';
+				//$product_link	.=	$Product->product_slug.'?annonser=1';
        // $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
        // $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 
@@ -1604,16 +1604,24 @@ public function getCatSubList(Request $request) {
         return view('Front/pages', $data);
 	}
 
-  function getProductCategories($productId)
+  function getProductCategories($productId,$annonser='')
   {
     $productCategories = [];
     if(!empty($productId))
     {
-      $productCategories = ProductCategory::join('categories', 'categories.id', '=', 'category_products.category_id')
+	    if($annonser == 1){
+	    	$productCategories = ProductCategory::join('annonsercategories', 'annonsercategories.id', '=', 'category_products.category_id')
+                         ->join('annonserSubcategories', 'annonserSubcategories.id', '=', 'category_products.subcategory_id')
+                         ->select(['category_products.*','annonsercategories.category_name', 'annonsercategories.category_slug', 'annonserSubcategories.subcategory_name', 'annonserSubcategories.subcategory_slug'])
+                         ->where('category_products.product_id','=',$productId)
+                         ->get()->toArray();
+	    }else{
+	    	$productCategories = ProductCategory::join('categories', 'categories.id', '=', 'category_products.category_id')
                          ->join('subcategories', 'subcategories.id', '=', 'category_products.subcategory_id')
                          ->select(['category_products.*','categories.category_name', 'categories.category_slug', 'subcategories.subcategory_name', 'subcategories.subcategory_slug'])
                          ->where('category_products.product_id','=',$productId)
                          ->get()->toArray();
+	    }
     }
     return $productCategories;
   }

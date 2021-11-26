@@ -151,7 +151,7 @@
     this.form.submit();
   });
 
-  .$("#page-link").on('change', function() {
+  $(".page-link").on('change', function() {
     alert("zx");
      
   });

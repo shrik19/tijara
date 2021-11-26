@@ -1,5 +1,5 @@
 <li class="col-xs-15">
-  <div class="product_data product_link_js" product_link="{{$product->product_link}}">
+  <div class="product_data annouser_link_js" annouser_link="{{$product->product_link}}">
     <div class="product_img" style="display:inline-block;background-color: white;">
       @if($product->image)
           <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" >
@@ -38,8 +38,8 @@
 
 </li>
 <script type="text/javascript">
-  $(".product_link_js").click(function(){
-  var attr_val = $(this).attr('product_link');
+  $(".annouser_link_js").click(function(){
+  var attr_val = $(this).attr('annouser_link');
   if(attr_val !=''){
     window.location.href = attr_val; 
   }

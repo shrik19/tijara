@@ -23,9 +23,10 @@
        // $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
        // $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
 
-        $product_link  = $product_link;
+        $product_link  = $product_link.'?annonser=1';
+        
           ?>
-  <div  product_link="{{$product_link}}" class="product_data" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif >
+  <div  product_link="{{$product_link}}" class="product_data similar_annouser_data" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif >
     <div class="product_img" style="min-height:280px;display:inline-block;background-color: white;">
       @if($product->image)
       @php 
@@ -60,7 +61,7 @@
 
 </li>
 <script type="text/javascript">
-  $(".product_data").click(function(){
+  $(".similar_annouser_data").click(function(){
   var attr_val = $(this).attr('product_link');
   if(attr_val !=''){
     window.location.href = attr_val; 

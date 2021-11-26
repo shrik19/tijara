@@ -1400,15 +1400,16 @@ public function findCurrency($type){
 
       if(!empty($checkOrder) || !empty($checkAdminOrder)) {
 
-        if($checkOrder['user_id'] != $user_id && $checkAdminOrder['user_id'] != $user_id)
-        {
-            Session::flash('error', trans('errors.not_authorize_order'));
-            return redirect(route('frontHome'));
-        }
-        else
+        if($checkOrder['user_id'] == $user_id || $checkAdminOrder['user_id'] == $user_id)
         {
             $data['OrderId'] = $OrderId;
             return view('Front/Products/order_success', $data);
+          
+        }
+        else
+        {
+            Session::flash('error', trans('errors.not_authorize_order'));
+            return redirect(route('frontHome'));
         }
         /*$temp_orders = TmpAdminOrders::find($checkOrder['id']);
                 $temp_orders->delete();*/

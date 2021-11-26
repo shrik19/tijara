@@ -167,7 +167,7 @@
     'validity_label'=>'Validity days',
     'purchased_date_label'=>'Purchased date',
     'expiry_date_label'=>'Expiry date',
-    'not_activated_label'=>'Yet not activated',
+    'not_activated_label'=>'not activated',
     'subscribe_btn'=>'Subscribe',
     'subscribe_package_label'=>'Subscribe packages',
     'package_exp_message'=>"Subscribe new package before validity ends. see package Subscription option here.",
@@ -381,5 +381,7 @@ cancellation of service works.',
     'edit_annonser_cat_details_info'=>'Edit Ads Category details.',
     'all_annonser_subcategory_list'=>'All Ads Subcategory List',
     'annonser_subcategory_title'=>'Ads Subcategory',
+    'oops_heading' =>'Oops!',
+    'success_heading' =>'Success!',
  ]
 ?>

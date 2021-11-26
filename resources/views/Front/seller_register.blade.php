@@ -306,6 +306,8 @@
 </div>
 
 <script type="text/javascript">
+	var oops_heading = "{{ __('users.oops_heading')}}";
+    var success_heading = "{{ __('users.success_heading')}}";
 	/* second step */
     function subscribe_package(i){
        
@@ -945,7 +947,7 @@ $(document).ready(function(){
 function showErrorMessage(strContent,redirect_url = '')
 {
   $.alert({
-      title: 'Oops!',
+      title: oops_heading,
       content: strContent,
       type: 'red',
       typeAnimated: true,

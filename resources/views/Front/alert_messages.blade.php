@@ -18,7 +18,7 @@
    <button class="close" data-dismiss="alert">
       <span>&times;</span>
    </button>
-   <strong>Oops!</strong> {{Session::get('error')}}
+   <strong>{{ __('users.oops_heading')}}</strong> {{Session::get('error')}}
    </div>
 </div>
 </div>

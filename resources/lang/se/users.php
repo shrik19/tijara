@@ -166,7 +166,7 @@
     'validity_label'=>'Giltighetsdagar',
     'purchased_date_label'=>'Inköpt datum',
     'expiry_date_label'=>'Utgångsdatum',
-    'not_activated_label'=>'Ändå inte aktiverad',
+    'not_activated_label'=>'Inte aktiverad',
     'subscribe_btn'=>'Prenumerera',
     'subscribe_package_label'=>'Prenumerera på paket',
     'package_exp_message'=>"Prenumerera på nytt paket innan giltigheten upphör. se paketet Prenumerationsalternativ här.",
@@ -381,5 +381,7 @@ avbokning av tjänst fungerar.',
     'edit_annonser_cat_details_info'=>'Redigera Annonser Kategori detaljer.',
     'all_annonser_subcategory_list'=>'Allt Annonser Underkategori Lista',
     'annonser_subcategory_title'=>'Annonser Underkategori',
+    'oops_heading' =>'Hoppsan!',
+    'success_heading' =>'Framgång!',
  ]
 ?>

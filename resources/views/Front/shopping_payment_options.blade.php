@@ -463,7 +463,7 @@ $( ".pay_through_btn" ).click(function() {
 function showErrorMessage(strContent,redirect_url = '')
 {
   $.alert({
-      title: 'Oops!',
+      title: oops_heading,
       content: strContent,
       type: 'red',
       typeAnimated: true,

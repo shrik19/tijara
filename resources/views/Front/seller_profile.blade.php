@@ -331,18 +331,18 @@ $(function() {
     var message = close_store_confirm_msg;
 
   $.confirm({
-      title: 'confirm!',
+      title: js_confirm_msg,
       content: delete_card_details_confirm,
       type: 'orange',
       typeAnimated: true,
       columnClass: 'medium',
       icon: 'fas fa-exclamation-triangle',
       buttons: {
-          okay: function () {
+          ok: function () {
              $('.saveCardDetailsDiv').show();
              $('.cardAddedDiv').remove();
           },
-          cancel: function () {
+          Avbryt: function () {
             
           },
       }
@@ -352,7 +352,7 @@ $(function() {
   function showErrorMessage(strContent,redirect_url = '')
 {
   $.alert({
-      title: 'Oops!',
+      title: oops_heading,
       content: strContent,
       type: 'red',
       typeAnimated: true,

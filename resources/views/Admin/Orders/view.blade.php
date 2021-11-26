@@ -148,14 +148,14 @@
             var order_id = "{{ $order['id'] }}";
             
             $.confirm({
-                title: 'Confirm!',
+                title: js_confirm_msg,
                 content: "{{ __('lang.order_status_confirm')}}",
                 type: 'orange',
                 typeAnimated: true,
                 columnClass: 'medium',
                 icon: 'fas fa-exclamation-triangle',
                 buttons: {
-                    okay: function () 
+                    ok: function () 
                     {
                         $(".loader").show();
 
@@ -189,7 +189,7 @@
                         }
                         });
                     },
-                    cancel: function () {
+                    Avbryt: function () {
                         
                     },
                 }

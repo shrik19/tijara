@@ -164,7 +164,7 @@ var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}
 function showErrorMessage(strContent,redirect_url = '')
 {
   $.alert({
-      title: 'Oops!',
+      title: oops_heading,
       content: strContent,
       type: 'red',
       typeAnimated: true,
@@ -193,14 +193,14 @@ function showSuccessMessage(strContent,redirect_url = '')
 {
     
   $.alert({
-      title: 'Success!',
+      title: success_heading,
       content: strContent,
       type: 'green',
       typeAnimated: true,
       columnClass: 'medium',
       icon : "fas fa-check-circle",
       buttons: {
-        okay: function () {
+        ok: function () {
           if(redirect_url != '')
           {
             if(redirect_url == 'reload')

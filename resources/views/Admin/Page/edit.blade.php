@@ -87,12 +87,20 @@
 	
 	CKEDITOR.replace('description', {
         filebrowserUploadUrl: '{{ route('adminCkupload') }}',
-        filebrowserUploadMethod: 'form'
+        filebrowserUploadMethod: 'form',
+        allowedContent : true,
+        extraAllowedContent: 'main; summary;' 
+
+
     });
 	
 	CKEDITOR.replace('description_en', {
         filebrowserUploadUrl: '{{ route('adminCkupload') }}',
-        filebrowserUploadMethod: 'form'
+        filebrowserUploadMethod: 'form',
+        allowedContent : true,
+        extraAllowedContent: 'main; summary;' 
+
+
     });
 </script>
 @endsection('middlecontent')

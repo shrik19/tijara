@@ -676,7 +676,7 @@ class SellerController extends Controller
         $packageDetails = UserPackages::where('user_packages.user_id', $id)
         ->Join('packages', 'user_packages.package_id', '=', 'packages.id')
         ->Join('users', 'users.id', '=', 'user_packages.user_id')
-        ->select('user_packages.*','packages.id as package_id','packages.title','users.id as user_id','users.fname','users.lname')->get();
+        ->select('user_packages.*','packages.id as package_id','packages.title','users.id as user_id','users.fname','users.lname')->orderby('user_packages.id','DESC')->get();
 
         $data = [];
         $data['pageTitle']              = trans('users.package_history_title');

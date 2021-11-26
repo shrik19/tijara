@@ -30,7 +30,6 @@
             
           </div>
           <div class="card-body">
-
             <form method="POST" action="" class="needs-validation tijara-form" novalidate="">
               @csrf
               <div >
@@ -219,7 +218,19 @@
                               <div class="row">
                                 <div class="col-md-5">
                                   <input type="radio" name="pick_from_store" value="1"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
-                                  <p  style="margin-left:26px;">@if(!empty($seller_data['store_pick_address']) && $seller_data['is_pick_from_store'] == '1'){{$seller_data['store_pick_address']}}@endif</p>
+                                  <?php 
+                                    if($orderDetails[$orderId]['details'][0]['product']->is_pick_from_store==1){
+                                      if(!empty($orderDetails[$orderId]['details'][0]['product']->store_pick_address)){
+                                        $store_pick_address = $orderDetails[$orderId]['details'][0]['product']->store_pick_address;
+                                      }
+                                    }elseif(!empty($seller_data['store_pick_address']) && $seller_data['is_pick_from_store'] == 1){
+                                        $store_pick_address = $seller_data['store_pick_address']; 
+                                      
+                                    }else{
+                                      $store_pick_address ='';
+                                    }
+                                  ?>
+                                  <p  style="margin-left:26px;">{{ $store_pick_address}} </p>
                                 </div>
                                 <div class="col-md-5" style="margin-top: 8px;">
                                   <span>0.00kr</span> 
@@ -232,7 +243,7 @@
                                 <div class="row">
                                     <div class="col-md-5">                           
                                         <input type="radio" name="shipping_amount" value=""> <span style="margin-left:10px;">{{ __('users.shipping_btn')}}</span>
-                                         <p  style="margin-left:26px;">{{ __('users.to_delivery_address')}}</p>
+                                         <p>{{ __('users.to_delivery_address')}}</p>
                                     </div>
                                     <div class="col-md-5" style="margin-top: 8px;">
                                        @php

@@ -2512,7 +2512,7 @@ DATA;
                               $Service->service_link  = $service_link;
 
                               $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Service->user_id)->first();
-                              $Service->seller  = $SellerData['fname'].' '.$SellerData['lname'];
+                              $Service->seller  = @$SellerData['fname'].' '.$SellerData['lname'];
                               $Service->quantity = 1;
                               $Service->images    = explode(',',$Service->images)[0];
                               $serviceDetails['service'] = $Service;

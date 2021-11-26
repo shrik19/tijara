@@ -1,13 +1,9 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="containerfluid">
-  <div class="col-md-6 hor_strip debg_color">
-  </div>
-  <div class="col-md-6 hor_strip gray_bg_color">
-  </div>
-
-</div>
+<div class="mid-section p_155">
+<div class="container-fluid">
+<div class="container-inner-section-1">
 <div class="container">
     <!-- Example row of columns -->
     <div class="row">
@@ -42,5 +38,8 @@
       </div>
     </div>
 </div> <!-- /container -->
+</div>
+</div>
+</div>
 
 @endsection

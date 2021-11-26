@@ -2968,18 +2968,19 @@ DATA;
               $year =$value['year'];
               $month =  date("M", strtotime("$i/12/10"));
               $new_date = $value['new_date'];
+             
               if($new_date==$request['monthYear']){
                 $selected = "selected";
               }else{
                 $selected = "";
               }
-          
-              $monthYearDropdown    .=  "<option  value='".$new_date."' ".$selected.">$month $year</option>";
+         
+              $monthYearDropdown    .=  "<option value='".$new_date."' ".$selected.">$month $year</option>";
             }
          }
           
         $monthYearDropdown    .= "</select>";
-
+ 
         $orders  = Orders::join('orders_details', 'orders.id', '=', 'orders_details.order_id')
                   ->join('products', 'products.id', '=', 'orders_details.product_id')
                 ->join('variant_product as v1', 'products.id', '=', 'v1.product_id')

@@ -2562,8 +2562,13 @@ span.pro-text {
 .checkoutPageRightBoxHeader h4{font-size: 30px; font-weight: 500; float: left;width: 60%; }
 .checkoutPageRightBoxHeader a{font-size: 22px;}
 .m-50{margin-top: 50px;}
-.checkoutContainer{
-  background-color: #ddd;float:left; width: 100%;
+
+.checkoutContainer {
+    background-color: #ddd;
+    width: 100%;
+    height: auto;
+    padding-bottom: 100px;
+    min-height: 100%;
 }
 .checkoutProductImg{width: 100%; object-fit: cover;}
 .checkoutProducts{padding: 15px 0;}
@@ -3033,4 +3038,58 @@ span.pro-text {
 }
 .border_left_link{
   border-right: 2px solid;
+}
+
+
+.checkoutContainer .checkout-back a {
+    color: #000;
+}
+
+.checkoutHeader {
+    margin-bottom: 35px;
+}
+
+h1.checkoutHeading {
+    font-weight: bold;
+}
+
+.checkoutHeader .col-md-3{
+  padding-left: 0px;
+}
+
+.checkoutHeader a.navbar-brand.tj-logo {
+    padding-top: 18px;
+  padding-left: 0px;
+}
+
+.checkoutHeader img.logo {
+    width: 160px;
+  padding-top:0px; 
+  margin:0px;
+}
+
+.checkoutContainer .arrow-border{
+  border: 1px solid #aaa;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: #FAFAFA;
+    font-size: 10px;
+}
+
+.checkoutContainer .arrow {
+    border: solid black;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 2px;
+    margin-bottom: 1px;
+    margin-left: 1px;
+}
+
+.checkoutContainer .left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.checkout_stripe_info_title{
+  margin-top: 14px;
 }

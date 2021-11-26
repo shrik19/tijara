@@ -150,8 +150,12 @@
   $("#monthYear").on('change', function() {
     this.form.submit();
   });
-  
-  
+
+  .$("#page-link").on('change', function() {
+    alert("zx");
+     
+  });
+
 function printDiv() {		
 	var product_link= $('.buyer-product-img').attr('product_link')+'?print=1';
 	window.open(product_link, '_blank');

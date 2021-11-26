@@ -17,12 +17,11 @@
                     <div class="panel-heading display-table" >
 
                         <div class="row display-tr" >
-
-                            <h3 class="panel-title display-td" >{{ __('lang.strip_payment_details')}}</h3>
-
-                            <div class="display-td" >                            
-
-                                <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                             <div class="col-md-6" >                            
+                                <h3 class="panel-title display-td checkout_stripe_info_title" >{{ __('lang.strip_payment_details')}}</h3>
+                            </div>
+                            <div class="display-td col-md-6" >                          
+                                <img class="img-responsive pull-right" src="{{url('/')}}/uploads/Images/stripe-payment-logo.png">
 
                             </div>
 

@@ -21,7 +21,7 @@
 <script type="text/javascript">
     var select_payment_option="{{ __('users.select_payment_option')}}";
 </script>
- <div class="checkoutContainer">   
+  <div class="checkoutContainer">
   <div class="container-inner-section container">
   <div class="">       
       <div class="">
@@ -34,8 +34,18 @@
             <form method="POST" action="" class="needs-validation tijara-form" novalidate="">
               @csrf
               <div >
-                <a href="{{route('frontShowCart')}}">&nbsp;{{ __('users.back_to_the_cart_btn')}} </a> 
-                <h2 class="checkoutHeading text-center">{{ __('users.checkout_cart_title')}}</h2>              
+        <div class="col-md-12 checkout-back">
+          <span class="arrow-border"><i class="arrow left"></i></span><a href="{{route('frontShowCart')}}">&nbsp;{{ __('users.back_to_the_cart_btn')}} </a> 
+        </div>
+        <div class="col-md-12 checkoutHeader">
+          <div class="col-md-3">
+            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/assets/img/logo.png"/></a>
+          </div>
+          <div class="col-md-6">
+            <h1 class="checkoutHeading text-center">{{ __('users.checkout_cart_title')}}</h1>  
+          </div>  
+          <div class="col-md-3"></div>
+        </div>        
               </div>
               <div class="rowlogin_box">
                 <div class="col-md-7" >
@@ -372,8 +382,7 @@
       </div>
 
   </div>
-</div>
-</div>
+</div></div>
  <!-- /container -->
 <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
 <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>

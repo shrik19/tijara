@@ -98,11 +98,11 @@
                                 $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($value->seller_id)."/services"; 
 
                                 $service_link = url('/').'/service/'.$value->service_slug.'-S-'.$value->service_code;
-                                 // echo "<pre>";print_r($value['location']);exit;
+                                 //echo "<pre>";print_r($value);exit;
                                    $description=strip_tags($value->description);
 
                                    $location = $value['location'];
-                                   $service_time=$value['time'];
+                                   $service_time=$value['service_time'];
                                     ?> 
                                     <div class="col-sm-3">
                                         <div class="card product-card">

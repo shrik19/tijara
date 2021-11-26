@@ -75,7 +75,7 @@
                   <?php    $i++;
                     } 
                     }else{ ?>
-                    	  <td colspan="5" class="text-center">
+                    	  <td colspan="6" class="text-center">
                         {{ __('lang.datatables.sEmptyTable')}}
                         </td>
                    <?php  } ?>

@@ -10,9 +10,6 @@ use App\Models\UserMain;
 
 use App\Models\Services;
 
-use App\Models\City;
-
-use App\Models\UserPackages;
 
 use App\Models\ServiceCategories;
 
@@ -20,14 +17,11 @@ use App\Models\ServiceSubcategories;
 
 use App\Models\ServiceCategory;
 
-use App\Models\Package;
 
-use App\Models\ServiceRequest;
 
-use App\Models\ServiceAvailability;
 
 use App\CommonLibrary;
-use Intervention\Image\Facades\Image;
+
 /*Uses*/
 
 use Auth;
@@ -157,7 +151,11 @@ class ServiceController extends Controller
      */
 
     public function getRecords(Request $request) {
+      DB::enableQueryLog();
 
+// and then you can get query log
+
+echo "ghjkhkjdfg";exit;
     if(!empty($request['category']) || !empty($request['subcategory'])) {
         $ServicesDetails = Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id')  
                                             ->select(['services.*'])
@@ -257,7 +255,8 @@ class ServiceController extends Controller
         $recordsTotal = $ServicesDetails->get()->count();
         
         $recordDetails = $ServicesDetails->offset($request->input('start'))->limit($request->input('length'))->get();
-
+        echo "<pre>";
+print_r(DB::getQueryLog());exit;
         $arr = [];
 
         if (count($recordDetails) > 0) {

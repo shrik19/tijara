@@ -145,7 +145,7 @@
 			</div>
 			@endforeach
 		@endif
-		<?php /*
+
 		@if(count($packageDetails) != 0 && !empty($packageDetails))
 			  <div class="col-md-12">
 				<h2>{{ __('users.subscribe_package_label')}} </h2>
@@ -178,7 +178,7 @@
 					@endforeach
 			   </div>
 			   @endif
-			  */ ?>
+			
 			</div>
 			</div>
 </div>

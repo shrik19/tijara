@@ -985,6 +985,7 @@ public function swishIpnCallback(){
                     'created_at' => $currentDate,
                     'updated_at' => $currentDate,
                     'klarna_order_reference' => $_REQUEST['pspReference'],
+                    'tmp_order_id' => $order_id
                 ];
                 $NewOrderId = AdminOrders::create($arrOrderInsert)->id;
                 //Create Product
@@ -1395,10 +1396,11 @@ public function findCurrency($type){
     {
       $OrderId = base64_decode($id);
       $checkOrder = TmpAdminOrders::where('id','=',$OrderId)->first()->toArray();
+      $checkAdminOrder = AdminOrders::where('tmp_order_id','=',$OrderId)->first()->toArray();
 
-      if(!empty($checkOrder)) {
+      if(!empty($checkOrder) || !empty($checkAdminOrder)) {
 
-        if($checkOrder['user_id'] != $user_id)
+        if($checkOrder['user_id'] != $user_id && $checkAdminOrder['user_id'] != $user_id)
         {
             Session::flash('error', trans('errors.not_authorize_order'));
             return redirect(route('frontHome'));
@@ -1408,8 +1410,8 @@ public function findCurrency($type){
             $data['OrderId'] = $OrderId;
             return view('Front/Products/order_success', $data);
         }
-        $temp_orders = TmpAdminOrders::find($checkOrder['id']);
-                $temp_orders->delete();
+        /*$temp_orders = TmpAdminOrders::find($checkOrder['id']);
+                $temp_orders->delete();*/
       }
       
     }

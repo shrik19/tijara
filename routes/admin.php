@@ -148,8 +148,9 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 
 		/* service Management  */	
 	Route::group(['prefix'=>'service'], function() {	
+		Route::any('/getRecords','ServiceController@getRecords')->name('adminServiceGetRecords');
 	    Route::get('/','ServiceController@index')->name('adminService');	
-	    Route::any('/getRecords','ServiceController@getRecords')->name('adminServiceGetRecords');	 
+	    	 
 	    Route::get('/delete/{id}','ServiceController@delete')->name('adminServiceDelete');	    
 	     	
 	});	/*end Product Management  */

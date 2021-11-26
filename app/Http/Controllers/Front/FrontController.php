@@ -216,14 +216,14 @@ class FrontController extends Controller
 				      $product_link	.=	'/'.$category_slug;
         }
         else {
-          $product_link	.=	'/'.$productCategories[0]['category_slug'];
+          $product_link	.=	'/'.@$productCategories[0]['category_slug'];
         }
 				if($subcategory_slug!='')
         {
 				      $product_link	.=	'/'.$subcategory_slug;
         }
         else {
-          $product_link	.=	'/'.$productCategories[0]['subcategory_slug'];
+          $product_link	.=	'/'.@$productCategories[0]['subcategory_slug'];
         }
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;

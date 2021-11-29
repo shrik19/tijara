@@ -1019,14 +1019,14 @@ function ConfirmCloseStoreFunction(url, id = false) {
     var message = close_store_confirm_msg;
 
   $.confirm({
-      title: 'confirm!',
+      title: js_confirm_msg,
       content: close_store_confirm_msg,
       type: 'orange',
       typeAnimated: true,
       columnClass: 'medium',
       icon: 'fas fa-exclamation-triangle',
       buttons: {
-          okay: function () {
+          ok: function () {
             $(".loader").show();
             $.ajax({
               url:url,
@@ -1061,7 +1061,7 @@ function ConfirmCloseStoreFunction(url, id = false) {
               }
             });
           },
-          cancel: function () {
+          Avbryt: function () {
             
           },
       }
@@ -1603,14 +1603,14 @@ $('#shipping_charges').keyup(function(){
 function removeCartProduct(OrderDetailsId)
 {
   $.confirm({
-      title: 'Confirm!',
+      title: js_confirm_msg,
       content: product_remove_confirm,
       type: 'orange',
       typeAnimated: true,
       columnClass: 'medium',
       icon: 'fas fa-exclamation-triangle',
       buttons: {
-          okay: function () {
+          ok: function () {
             $(".loader").show();
             $.ajax({
               url:siteUrl+"/remove-from-cart",
@@ -1635,7 +1635,7 @@ function removeCartProduct(OrderDetailsId)
               }
             });
           },
-          cancel: function () {
+          Avbryt: function () {
             
           },
       }
@@ -1646,14 +1646,14 @@ function removeCartProduct(OrderDetailsId)
 function removeWishlistProduct(OrderDetailsId)
 {
   $.confirm({
-      title: 'Confirm!',
+      title: js_confirm_msg,
       content: wishlist_product_remove,
       type: 'orange',
       typeAnimated: true,
       columnClass: 'medium',
       icon: 'fas fa-exclamation-triangle',
       buttons: {
-          okay: function () {
+          ok: function () {
             $(".loader").show();
             $.ajax({
               url:siteUrl+"/remove-from-wishlist",
@@ -1678,7 +1678,7 @@ function removeWishlistProduct(OrderDetailsId)
               }
             });
           },
-          cancel: function () {
+          Avbryt: function () {
             
           },
       }
@@ -1724,7 +1724,7 @@ function updateCart(OrderDetailsId)
 function showErrorMessage(strContent,redirect_url = '')
 { 
   $.alert({
-      title: 'Oops!',
+      title: oops_heading,
       content: strContent,
       type: 'red',
       typeAnimated: true,
@@ -1753,7 +1753,7 @@ function showSuccessMessage(strContent,redirect_url = '')
 {
     
   $.alert({
-      title: 'Success!',
+      title: success_heading,
       content: strContent,
       type: '#03989e',
       typeAnimated: true,

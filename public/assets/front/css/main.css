@@ -1408,7 +1408,14 @@ span.remember-text {
 	.seller_register_container .seller_register_second .packages-section {
 		margin-bottom: 3%;
 	}
-		
+
+	.selectedActivePackage{
+    border: 2px solid #03989e;
+    padding: 1px;
+    border-radius: 16px;
+
+  }	
+
 	.seller_register_container .seller_register_second .packages-heading {
 		border-radius: 10px;
 		text-align: center;

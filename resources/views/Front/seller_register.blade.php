@@ -126,13 +126,13 @@
 								<div class="form-card">
 									@include ('Front.alert_messages')   
                                     @if(!empty($packageDetails))           
-									  <div class="col-md-offset-2 col-md-10 package-html">
+									  <div class="col-md-offset-2 col-md-10 package-html package-wrapper">
 										<?php $i=1; ?>
 											@foreach($packageDetails as $data)
 											
 											<div class="col-md-offset-1 col-md-4 packages-section">
-												<div class="packages-subscribe">
-													<div class="packages-heading hand-icon"  onclick='subscribe_package("{{$i}}")'>
+												<div class="packages-subscribe" onclick='subscribe_package("{{$i}}",this)'>
+													<div class="packages-heading hand-icon">
 														<h3>{{$data['title']}}</h3>
 														<div class="packages-price">{{$data['amount']}} kr/{{$data['validity_days']}} Days</div>
 													</div>
@@ -309,8 +309,18 @@
 	var oops_heading = "{{ __('users.oops_heading')}}";
     var success_heading = "{{ __('users.success_heading')}}";
 	/* second step */
-    function subscribe_package(i){
-       
+    function subscribe_package(i,val){
+    	$(".packages-subscribe").each(function() {
+       $(this).removeClass("selectedActivePackage");
+     });
+//if($($(val)).parent('div').hasClass('.active')){
+	//$($(val)).parent('div').removeClass("active");
+
+	
+	//packages-subscribe
+	//$(".packages-subscribe").removeClass("active");
+//}
+    $($(val)).addClass("selectedActivePackage");
     //let user_id  = $("#user_id").val();
     let p_id     = $("#p_id_"+i).val();
     let p_name  = $("#p_name_"+i).val();

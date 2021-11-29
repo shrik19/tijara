@@ -324,8 +324,8 @@
     'book_service_btn'=>'Book Service',
     'continue_to_swish'=>'Continue to swish',
     'swish_payment_not_proceed'=>'Payment not proceed. please try again later',
-    'dashboard_total_users' => 'total users',
-    'dashboard_total_ads' => 'total ads',
+    'dashboard_total_users' => 'Total users',
+    'dashboard_total_ads' => 'Total ads',
 
 
     //strip

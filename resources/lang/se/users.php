@@ -383,5 +383,7 @@ avbokning av tjänst fungerar.',
     'annonser_subcategory_title'=>'Annonser Underkategori',
     'oops_heading' =>'Hoppsan!',
     'success_heading' =>'Framgång!',
+    'all_review_list' => 'Allt Omdömen Lista',
+    'user_name_thead' => 'Användarnamn',
  ]
 ?>

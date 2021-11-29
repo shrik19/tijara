@@ -162,7 +162,7 @@ class AuthController extends Controller
                         //$_SESSION['currentUser']=$currentUser;
                         session($currentUser);
                         if($getRoleId->role_id==2){
-                            if($is_subscriber[0]->payment_status=='checkout_incomplete' || $is_subscriber[0]->payment_status=='' || $is_subscriber[0]->is_trial== 0){
+                            if(@$is_subscriber[0]->payment_status=='checkout_incomplete' || @$is_subscriber[0]->payment_status=='' || $is_subscriber[0]->is_trial== 0){
                                 return redirect(route('frontSellerProfile'));
                             }else{
                                  return redirect(route('frontDashboard'));
@@ -339,15 +339,16 @@ class AuthController extends Controller
     }
 
     /*code to verify user*/
-      public function verifyUser($token)
+      public function verifyUser(Request $request,$token)
     {
-
+        if(Auth::guard('user')->id())
+        {
+            $loginUser = User::where('id', Auth::guard('user')->id())->first();
+            $request->session()->forget('email');
+            $request->session()->flush();
+        }
         
         $verifyUser = User::where('activation_token', $token)->first();
-
-        // if(isset($verifyUser)){
-        //      $status = trans('messages.email_already_verified_msg');
-        // }else
 
         if(isset($verifyUser) ){
             $user = $verifyUser->activation_token;
@@ -370,6 +371,7 @@ class AuthController extends Controller
             }
             
         }
+
         if($verifyUser->role_id=='2'){
             return redirect('/front-login/seller')->with('success', $status);
         }else{
@@ -677,7 +679,7 @@ class AuthController extends Controller
         $imagedetails=  UserMain::where('id', $user_id)->with(['getImages'])->first();
         /*check if  seller package expiry and show alert if less than 30 day is remaining to expire*/
         $currentDate = date('Y-m-d H:i:s');
-        /*$is_subscriber = DB::table('user_packages')
+       /* $is_subscriber = DB::table('user_packages')
                     ->join('packages', 'packages.id', '=', 'user_packages.package_id')
                     ->where('packages.is_deleted','!=',1)
                     ->where('user_packages.end_date','>=',$currentDate)
@@ -685,6 +687,11 @@ class AuthController extends Controller
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status')
                     ->orderByRaw('user_packages.id')
                     ->get();
+                    echo "<pre>";print_r($is_subscriber);exit;
+                     if(count($is_subscriber) != 0){
+
+                     }*/
+        /*
 
         $date_diff='';
 
@@ -708,14 +715,22 @@ class AuthController extends Controller
                    // ->where('user_packages.end_date','>=',$currentDate)
                     ->where('user_packages.status','=','active')
                     ->where('user_id','=',$user_id)
-                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
+                    ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status','user_packages.is_trial','user_packages.trial_start_date','user_packages.trial_end_date')
                     ->orderByRaw('user_packages.id DESC')
                     ->get();
+
+        if($show_exp_message[0]->is_trial==0 && $show_exp_message[0]->end_date <= $currentDate){
+            $data['noActivePackage']=1;
+        } else{
+             $data['noActivePackage']=0;
+        }
+                    //echo "<pre>";print_r($show_exp_message);exit;
         if(count($show_exp_message) == 0  ){
   
             $data['package_exp_msg'] = trans('messages.products_with_active_subscription');
         }
         else {
+         
                 $next_date = date('Y-m-d', strtotime($currentDate. ' + 30 days'));
 
                 if (count($show_exp_message) <= 1 && $show_exp_message[0]->end_date <=$next_date ) {

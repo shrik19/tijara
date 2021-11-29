@@ -32,7 +32,9 @@
         <div class="login_box seller_mid_cont" style="margin-top: 40px;">
           
             <h2 class="col-md-12 contact-info seller_mid_header">{{ __('users.contact_person')}}</h2>
-          
+            @if($noActivePackage == 1)
+              <input type="hidden" name="is_disabled" id="disable_side_menu" value="1">
+            @endif
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <p class="contact_person_head" style="margin-top: 40px;margin-left: 16px;margin-bottom: 20px;">Kontaktperson:</p>
 

@@ -66,6 +66,7 @@
         <li class="nav-item dropdown">
           <a href="{{route('adminOrder')}}" class="nav-link"><i class="fas fa-file-invoice"></i> <span>{{ __('users.order_title')}} </span></a>
         </li>
+
         <li class="nav-item dropdown">
           <a href="{{route('adminEmail')}}" class="nav-link"><i class="fas fa-envelope-open-text"></i> <span>{{ __('lang.email_menu')}} </span></a>
         </li>

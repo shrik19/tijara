@@ -754,13 +754,12 @@ $('#last-step').click(function(e) {
         }
 
     if(verify_btn_click==''){
+      showErrorMessage(verify_store)
        last_step_err = 1;
-       showErrorMessage(verify_store)
     }
-
     else if(!$("#chk_privacy_policy").is(':checked')){
-       last_step_err = 1;
-        showErrorMessage(please_check_privacy_policy);
+       showErrorMessage(please_check_privacy_policy);
+       last_step_err = 1;   
     } /*else {
         showErrorMessage(please_check_privacy_policy);
         last_step_err = 1;
@@ -768,36 +767,35 @@ $('#last-step').click(function(e) {
     }*/
 	//alert(last_step_err)
     
-   if(last_step_err == 0)
+   if(last_step_err == 1)
     {
-    
-    let logo_image   = $("#logo_image").val();
-    let banner_image = $("#banner_image").val();
-    let store_name   = $("#store_name").val();
-
-    let chk_privacy_policy   = $("#chk_privacy_policy").val();
-            $(".loader-seller").css("display","block");
-            $.ajax({
-                headers: {
-                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                         },
-                url: "{{url('/')}}"+'/seller-info-page',
-                type: 'post',
-        
-                data:{banner_image:banner_image,logo_image:logo_image,store_name:store_name},
-            
-                success: function(data){
-                    $(".loader-seller").css("display","none");
-                    if(data.success=="last step success"){
-                        console.log(data.success);
-                        console.log("last step success"); 
-                        window.location = "{{ route('frontRegisterSuccess') }}";        
-
-                    }
-                }
-            });
-        }   else{
     	return false;
+    }else{
+    	 let logo_image   = $("#logo_image").val();
+	    let banner_image = $("#banner_image").val();
+	    let store_name   = $("#store_name").val();
+	    let chk_privacy_policy   = $("#chk_privacy_policy").val();
+
+	            $(".loader-seller").css("display","block");
+	            $.ajax({
+	                headers: {
+	                            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+	                         },
+	                url: "{{url('/')}}"+'/seller-info-page',
+	                type: 'post',
+	        
+	                data:{banner_image:banner_image,logo_image:logo_image,store_name:store_name},
+	            
+	                success: function(data){
+	                    $(".loader-seller").css("display","none");
+	                    if(data.success=="last step success"){
+	                        console.log(data.success);
+	                        console.log("last step success"); 
+	                        window.location = "{{ route('frontRegisterSuccess') }}";        
+
+	                    }
+	                }
+	            });
     }  
 });
 

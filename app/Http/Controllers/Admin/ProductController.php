@@ -358,11 +358,11 @@ class ProductController extends Controller
 
 
 
-                $action = '<a href="'.route('adminProductEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('adminProductEdit', base64_encode($id)).'" title="Edit" class="btn btn-icon btn-success"><i class="fas fa-comments"></i></a>&nbsp;&nbsp;';
 */
+                 $action = '<a href="'.route('adminReviews' ,['product',base64_encode($id)]).'" title="'.trans('users.review_title').'" class="btn btn-icon btn-success"><i class="fas fa-comments"></i></a>&nbsp;&nbsp;';
 
-
-                $action = '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminProductDelete', base64_encode($id)).'\');"  title="Delete" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminProductDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
 
 

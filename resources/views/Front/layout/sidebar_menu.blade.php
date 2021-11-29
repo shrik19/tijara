@@ -20,24 +20,7 @@
         $showProductMenu  = 0;
       @endphp
 
-<?php
-//disable menus if package not subscibed
-   $currentDate = date('Y-m-d H:i:s');
-  $is_subscriber = DB::table('user_packages')
-                            ->join('packages', 'packages.id', '=', 'user_packages.package_id')
-                            ->where('packages.is_deleted','!=',1)
-                            ->where('user_packages.end_date','>=',$currentDate)
-                            ->where('user_id','=',Auth::guard('user')->id())
-                            ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.status','user_packages.payment_status')
-                            ->orderByRaw('user_packages.id ASC')
-                            ->get();
-?>
-@if($is_subscriber[0]->payment_status=='checkout_incomplete' || $is_subscriber[0]->payment_status=='' || $is_subscriber[0]->is_trial== 0)
-  
-       <input type="hidden" name="is_disabled" id="disable_side_menu" value="1">
-@endif
-
-      <li class="{{$activeClass }}"><a href="{{route('frontDashboard')}}">{{ __('lang.summary_menu')}}</a></li>
+      <li class="{{$activeClass }} make_disabled"><a href="{{route('frontDashboard')}}">{{ __('lang.summary_menu')}}</a></li>
     @endif
 
     <li><h2>{{ __('users.manage_label')}}</h2></li>

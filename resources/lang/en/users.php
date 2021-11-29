@@ -383,5 +383,7 @@ cancellation of service works.',
     'annonser_subcategory_title'=>'Ads Subcategory',
     'oops_heading' =>'Oops!',
     'success_heading' =>'Success!',
+    'all_review_list' => 'All Review List',
+    'user_name_thead' => 'User Name',
  ]
 ?>

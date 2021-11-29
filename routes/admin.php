@@ -141,8 +141,7 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	    Route::get('/changeStatus/{id}/{status}','ProductController@changeStatus')->name('adminProductChangeStatus');	
 
 	    Route::post('/upload-variant-image','ProductController@uploadVariantImage')->name('uploadVariantImage');
-	      Route::get('/getattributevaluebyattributeid','ProductController@getattributevaluebyattributeid')->name('getattributevaluebyattributeid');
-   	
+	    Route::get('/getattributevaluebyattributeid','ProductController@getattributevaluebyattributeid')->name('getattributevaluebyattributeid');
 	});	/*end Product Management  */
 
 
@@ -155,8 +154,14 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 	     	
 	});	/*end Product Management  */
 
+	/*manage review*/
+	Route::group(['prefix'=>'review'], function() {	
+	    Route::get('/{page}/{id}','ReviewController@index')->name('adminReviews');	
+		Route::any('/getRecords','ReviewController@getRecords')->name('adminReviewGetRecords'); 		    
+	    Route::get('/delete/{page}/{id}','ReviewController@delete')->name('adminReviewDelete');	    
+	  
+	});
 
-	   
 	/* product Attributes */
 	Route::group(['prefix'=>'product_attributes'], function() {
 

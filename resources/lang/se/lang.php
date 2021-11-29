@@ -322,8 +322,8 @@
     'book_service_btn'=>'Slutför bokning',
     'continue_to_swish'=>'Fortsätt till Swish',
     'swish_payment_not_proceed'=>'Betalningen går inte vidare. Vänligen försök igen senare',
-    'dashboard_total_users' => 'total users',
-    'dashboard_total_ads' => 'total ads',
+    'dashboard_total_users' => 'totalt antal användare',
+    'dashboard_total_ads' => 'Totalt antal annonser',
 
     //strip
     'name_on_card'  =>   'namn på kort',

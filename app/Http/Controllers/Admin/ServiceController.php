@@ -85,18 +85,11 @@ class ServiceController extends Controller
      */
 
     public function getRecords(Request $request) {
+        DB::enableQueryLog();
 
-         if(!empty($request['category']) || !empty($request['subcategory'])) {
-        $ServicesDetails = Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id')  
-                                            ->select(['services.*'])
-                                            ->where('services.is_deleted','!=',1)->where('services.user_id',Auth::guard('user')->id());
-
-         
-    }
-    else {
-        $ServicesDetails = Services::select(['services.*'])
-                            ->where('services.is_deleted','!=',1)->where('services.user_id',Auth::guard('user')->id());
-    }
+        $ServicesDetails = Services::Leftjoin('users', 'users.id', '=', 'services.user_id')->select(['services.*','users.fname','users.lname'])
+                            ->where('services.is_deleted','!=',1)->where('users.is_deleted','!=',1);;
+    
         if(!empty($request['search']['value'])) {
 
             
@@ -149,7 +142,7 @@ class ServiceController extends Controller
 
         }
         
-        if(!empty($request['category']) || !empty($request['subcategory'])) {
+      /*  if(!empty($request['category']) || !empty($request['subcategory'])) {
             if(!empty($request['category'])) {
 
                 $ServicesDetails = $ServicesDetails->Where('category_services.category_id', '=', $request['category']);
@@ -162,7 +155,7 @@ class ServiceController extends Controller
 
             }
             
-        }
+        }*/
         $ServicesDetails = $ServicesDetails->groupBy('services.id');
         if(isset($request['order'][0])){
 
@@ -183,9 +176,9 @@ class ServiceController extends Controller
        
         
         $recordsTotal = $ServicesDetails->get()->count();
-        
+       
         $recordDetails = $ServicesDetails->offset($request->input('start'))->limit($request->input('length'))->get();
-
+        //print_r(DB::getQueryLog());exit;
         $arr = [];
 
         if (count($recordDetails) > 0) {
@@ -199,7 +192,7 @@ class ServiceController extends Controller
                 $action = $status = $image = '-';
 
                 $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
-
+                $uname = (!empty($recordDetailsVal['fname'])) ? $recordDetailsVal['fname'].' '.$recordDetailsVal['lname'] : '-';
                 
                 $title = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
 
@@ -227,12 +220,13 @@ class ServiceController extends Controller
                 title="'.trans('lang.edit_label').'" style="color:#06999F;" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';*/
 
 
+                 $action = '<a href="'.route('adminReviews' ,['service',base64_encode($id)]).'" title="'.trans('users.review_title').'" class="btn btn-icon btn-success"><i class="fas fa-comments"></i></a>&nbsp;&nbsp;';
 
-                $action = '<a href="javascript:void(0)" style="color:red;" onclick=" return ConfirmDeleteFunction(\''.route('adminServiceDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class=""><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminServiceDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
             
 
-                $arr[] = [ $title, $categoriesData, $dated, $action];
+                $arr[] = [ $title,$uname,$categoriesData, $dated, $action];
 
             }
 
@@ -240,7 +234,7 @@ class ServiceController extends Controller
 
         else {
 
-            $arr[] = [ '',trans('lang.datatables.sEmptyTable'), '',''];
+            $arr[] = [ '','',trans('lang.datatables.sEmptyTable'), '',''];
 
         }
 

@@ -148,29 +148,51 @@
 
 		@if(count($packageDetails) != 0 && !empty($packageDetails))
 			  <div class="col-md-12">
-				<h2>{{ __('users.subscribe_package_label')}} </h2>
-				<hr class="heading_line"/>
+				<h2 class="page_heading" style="margin: 60px 0px 30px 0px;">{{ __('users.subscribe_package_label')}} </h2>
+			
 					@foreach($packageDetails as $data)
-					 <div class="col-md-4">
+					 <div class="col-md-6">
 						<div class="panel panel-default subscribe-packages">
 						<div class="panel-heading package_heading package-pro">{{$data['title']}}</div>
-						<div class="panel-body pacakge_feature_list" >
+						
+				<div class="panel-body package-body">
+					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
+					  <tbody class="package-body">
+					  	<?php /* <tr>
+					  		<td class="bold">{{ __('users.description_label')}}</td>
+					  		<td><?php echo $row->description; ?></td>
+					    </tr> */?>
 
-							<p><span class="bold">{{ __('users.description_label')}} :</span> <?php echo $data->description; ?></p>
-							<div class="package_bt">
-							<p><span class="bold">{{ __('users.amount_label')}} : </span> {{$data['amount']}} kr</p>
-							<p><span class="bold">{{ __('users.validity_label')}} : </span>{{$data['validity_days']}} Days</p>
-							<form method="POST" action="{{route('frontklarnaPayment')}}" class="needs-validation" novalidate="">
-								 {{ csrf_field() }}
-								<input type="hidden" name="user_id" value="{{$user_id}}">
-								<input type="hidden" name="p_id" value="{{$data['id']}}">
-								<input type="hidden" name="p_name" value="{{$data['title']}}">
-								<input type="hidden" name="validity_days" value="{{$data['validity_days']}}">
-								<input type="hidden" name="amount" value="{{$data['amount']}}">					 	
-								<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn  tj-btn-sucess">{{ __('users.subscribe_btn')}}</button>
-							 </form>
-							 </div>
-						</div>
+					    <tr>
+					  		<td>{{ __('users.amount_label')}}</td>
+					  		<td> {{$data['amount']}} kr</td>
+					    </tr>
+					    <tr>
+					  		<td>{{ __('users.validity_label')}}</td>
+					  		<td>{{$data['validity_days']}} Days.</td>
+					    </tr>
+					    <tr>
+					  		<td >{{ __('users.purchased_date_label')}}</td>
+					  		@if($data['start_date'] >= date('Y-m-d H:i:s'))
+					  			<td>{{date('l, d F Y',strtotime($data['start_date']))}}</td>
+					  			
+					  		@else
+					  			<td>{{date('l, d F Y',strtotime($data['start_date']))}}</td>
+					  		@endif
+					    </tr>
+					    <tr>
+					  		<td >{{ __('users.expiry_date_label')}}</td>
+					  		<td>{{date('l, d F Y',strtotime($data['end_date']))}}</td>
+					    </tr>
+					    <tr>
+					    	<td >
+					  		<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn  tj-btn-sucess">{{ __('users.subscribe_btn')}}</button>
+					  		</td>
+					    </tr>
+					  	
+					  </tbody>
+				    </table>
+				</div>
 						<div class="panel-heading bold package_footer package-pro"></div>
 						</div>
 					</div>

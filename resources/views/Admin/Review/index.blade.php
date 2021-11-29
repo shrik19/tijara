@@ -8,27 +8,28 @@
       @include('Admin.alert_messages')
       <div class="card">
         <div class="card-header">
-          <h4>{{ __('users.service_list_page')}}</h4>
+        <h4>{{ __('users.all_review_list')}}</h4>
+     
         </div>
-
         <div class="card-body">
-          <form id="" action="" method="post">
+          <form id="vendorMultipleAction" action="" method="post">
+            <input type="hidden" name="current_page" id="current_page" value="{{$page}}">
+            <input type="hidden" name="current_id" id="current_id" value="{{$current_id}}">
             @csrf
             <div class="table-responsive">
-              <table class="table table-striped" id="serviceTable">
+              <table class="table table-striped" id="reviewTable">
                 <thead>
                   <tr>
-                  <th>{{ __('servicelang.service_label')}}</th>
-                  <th>{{ __('users.sellers_title')}}</th>
-				          <th  data-orderable="false">{{ __('lang.category_label')}}</th>
-                  <th>{{ __('lang.dated_label')}}</th>
-                  
-                  <th data-orderable="false">{{ __('lang.action_label')}}</th>
+                    <th>{{ __('users.user_name_thead')}}</th> 
+                    <th>{{ __('lang.product_label')}}</th>
+                     <th>{{ __('users.review_title')}}</th>
+                     <th data-orderable="false">{{ __('lang.action_thead')}}</th>
                   </tr>
                 </thead>
-                  <tbody id="result">
-                  </tbody>
+                <tbody id="result">
+                </tbody>
               </table>
+              
             </div>
           </form>  
         </div>
@@ -37,18 +38,23 @@
   </div>
 </div>
 
+
+<span content="{{ csrf_token() }}" class="csrf_token"></span>
+<span content="{{ csrf_token() }}" class="csrf_token"></span>
 <script src="{{url('/')}}/assets/admin/js/jquery.dataTables.min.js"></script>
 <script src="{{url('/')}}/assets/admin/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{url('/')}}/assets/admin/js/dataTables.buttons.min.js"></script>
-<script src="{{url('/')}}/assets/admin/js/buttons.html5.min.js"></script>
-<script type="text/javascript">
 
-  var dataTable = $('#serviceTable').DataTable({
-    "processing": true,
-    "serverSide": true,
-    "paging": true,
-    "searching": true,
-     "language": {
+<script type="text/javascript">
+  
+  
+
+  var dataTable = $('#reviewTable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "paging": true,
+        "searching": true,
+
+        "language": {
         "sSearch": "<?php echo __('lang.datatables.search');?>",
         "sInfo": "<?php echo __('lang.datatables.sInfo');?>",
         "sLengthMenu": "<?php echo __('lang.datatables.sLengthMenu');?>",
@@ -62,22 +68,25 @@
               "sNext":    "<?php echo __('lang.datatables.next');?>",
               "sPrevious": "<?php echo __('lang.datatables.previous');?>",
           },
-        },
-    columnDefs: [
-          {
-              targets: [1,3],
-              className: "text-center",
-          }
-        ],
-    "ajax": {
-      headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
-      url : '{{route("adminServiceGetRecords")}}',
-      'data': function(data){
-        data.status = $("#status").val();
       },
-       type:'post',
-    },
+        "ajax": {
+          headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+          url : '{{route("adminReviewGetRecords")}}',
+          data :{ current_id:$('#current_id').val(),current_page:$('#current_page').val()},
+          type:'post',
+        },
+        "initComplete":function( settings, json){
+		}
   });
+
+
+ 
+ 
+$('.nav-link').click( function() {
+  document.getElementById("reviewTable").removeAttribute("style");
+});
+
+
 
 </script>
 @endsection('middlecontent')

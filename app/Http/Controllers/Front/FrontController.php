@@ -2729,7 +2729,7 @@ public function getCatSubList(Request $request) {
 		->get();
 		//print_r(\DB::getQueryLog());
 		
-		if(!empty($ending_subscriptions)) {
+		if(!empty($ending_subscriptions)) {  
 				foreach($ending_subscriptions as $subscriptionId) {
 					$subscription = DB::table('user_packages')
 					->join('packages', 'packages.id', '=', 'user_packages.package_id')

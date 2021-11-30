@@ -1903,10 +1903,16 @@ class AuthController extends Controller
             $data['trial_package_msg'] = trans('messages.trial_package_active');
         }
 
-        //if(count($is_subscriber) == 0 || $date_diff <= 30){
-        $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->where('packages.id','!=',$is_subscriber[0]->package_id)->get();
-        //}
-   
+       /* $selectedPackages = DB::table('user_packages')
+        ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+        ->where('packages.is_deleted','!=',1)
+        ->where('user_packages.status','=','block')
+        ->selectRaw('max(user_packages.id) as id,user_packages.package_id')
+        ->get();*/
+
+        
+        $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();    
+    
         $show_exp_message=   DB::table('user_packages')
                     ->join('packages', 'packages.id', '=', 'user_packages.package_id')
                     ->where('packages.is_deleted','!=',1)
@@ -1962,7 +1968,7 @@ class AuthController extends Controller
                 ];
                 UserPackages::where('user_id',Auth::guard('user')->id())->where('status','=','active')->orderBy('user_id','DESC')->update($arrUpdate);
                 //print_r(DB::getQueryLog());exit;
-                $message = "package selected successfully";
+                $message = trans("messages.package_select_success");
                 $status =1;
             }else{
                 $start_date = date('Y-m-d H:i:s', strtotime($checkCurrentPackage[0]->end_date.'+'.'1 days')); 

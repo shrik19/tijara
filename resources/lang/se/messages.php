@@ -105,5 +105,6 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
     'trial_package_active'  => 'För närvarande är provpaketet aktivt för ditt konto.',
     'delivery_label' => 'Leverans',
     'delete_card_details_confirm' => 'Är du säker på att ta bort kortuppgifter?',
+    'package_select_success' => 'Paketet har valts',
  ]
 ?>

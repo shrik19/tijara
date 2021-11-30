@@ -1902,9 +1902,17 @@ class AuthController extends Controller
         if($is_subscriber[0]->is_trial == 1){
             $data['trial_package_msg'] = trans('messages.trial_package_active');
         }
-
+        
+        $selectedPackages = DB::table('user_packages')
+        ->join('packages', 'packages.id', '=', 'user_packages.package_id')
+        ->where('packages.is_deleted','!=',1)
+        ->selectRaw('max(user_packages.id) as id,user_packages.package_id')
+        ->get();
+        //echo "<pre>";print_r($selectedPackages[0]->package_id);exit;
         //if(count($is_subscriber) == 0 || $date_diff <= 30){
-        $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->where('packages.id','!=',$is_subscriber[0]->package_id)->get();
+        // $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->where('packages.id','!=',$is_subscriber[0]->package_id)->orwhere('packages.id','!=',$selectedPackages[0]->package_id)->get();
+         $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->where('packages.id','!=',$selectedPackages[0]->package_id)->get();
+        /* $selected_package = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->where('packages.id','!=',$is_subscriber[0]->package_id)->get();*/
         //}
    
         $show_exp_message=   DB::table('user_packages')

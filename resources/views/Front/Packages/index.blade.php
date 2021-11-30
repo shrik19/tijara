@@ -210,7 +210,7 @@
 	      data: { package_id:package_id,validity_days:validity_days},
 	      success: function(output){
 	      	var responseObj = $.parseJSON(output);
-	      	if($status ==1){
+	      	if(responseObj.status ==1){
 	      		showSuccessMessage(responseObj.msg,'reload');
 	      	}else{
 	      		showErrorMessage(responseObj.msg);

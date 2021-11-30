@@ -127,11 +127,20 @@
 									@include ('Front.alert_messages')   
                                     @if(!empty($packageDetails))           
 									  <div class="col-md-offset-2 col-md-10 package-html package-wrapper">
-										<?php $i=1; ?>
-											@foreach($packageDetails as $data)
+									  	<!-- <input type="hidden " name="selected_package_name" id="selected_package_name" class="form-control" value="" > -->
+										<input type="hidden" name="session_package_name" id="session_package_name" class="form-control" value="{{ Session::get('new_seller_package_name')}}" >
+										<?php 
+											$i=1;$class=''; 
 											
+										?>
+											@foreach($packageDetails as $data)
+											<?php
+											if(!empty(Session::get('new_seller_package_name')) && $data['title'] == Session::get('new_seller_package_name')){
+												$class = "selectedActivePackage";
+											}
+											?>
 											<div class="col-md-offset-1 col-md-4 packages-section">
-												<div class="packages-subscribe" onclick='subscribe_package("{{$i}}",this)'>
+												<div class="packages-subscribe {{$class}}" onclick='subscribe_package("{{$i}}",this)' package_name="{{$data['title']}}">
 													<div class="packages-heading hand-icon">
 														<h3>{{$data['title']}}</h3>
 														<div class="packages-price">{{$data['amount']}} kr/{{$data['validity_days']}} Days</div>
@@ -163,7 +172,7 @@
 								</div> 
 									
 								<!-- <div class="pull-right register_second_btn">	 -->
-								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
+								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous second-step-previous" value="{{ __('users.prev_step_btn')}}" /> 
 								<input type="button" name="next" class="next btn debg_color action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
 								<!-- </div> -->
 							</fieldset> 
@@ -175,8 +184,7 @@
               						<div class="info payment_info_card">{{ __('users.payment_method_info')}}</div>
           							</div>
 									<form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
-										<input type="hidden" name="selected_package_name" id="selected_package_name" class="form-control" value="" >
-										<input type="hidden" name="session_package_name" id="session_package_name" class="form-control" value="{{ Session::get('new_seller_package_name')}}" >
+										                 
 										<!-- <input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}} *">
 										<span class="invalid-feedback" id="err_fname" style="margin-top: -28px;margin-left: 10px;"></span>
 
@@ -187,16 +195,15 @@
 
 										<p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>
 							            <div class="login_box payment_detail_box klarna_payment" style="margin-top: 20px;">
-
 							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock klarna_payment_lock" aria-hidden="true"></i></div>
 							              <p><img src="{{url('/')}}/uploads/Images/klarna-payment-logo.png" width="90" height="80"></p>
 							              <div class="form-group">
-								              <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="">
+								              <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ Session::get('new_seller_klarna_username')}}">
 								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
 							              </div>
 							    
 							              <div class="form-group">
-								              <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="">
+								              <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ Session::get('new_seller_klarna_password')}}">
 								              <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
 							              </div>
 
@@ -204,21 +211,21 @@
 							            </div>
 							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.easy_peyment_title')}}</p>
 							            <div class="login_box payment_detail_box swish_payment" style="margin-top: 20px;">
-							          
+                
 							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
 							              <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="80"></p>
 							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="">
+								              <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="{{ Session::get('new_seller_swish_api_key')}}">
 								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('swish_api_key')) {{ $errors->first('swish_api_key') }}@endif</span>
 							              </div>
 
 							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_merchant_account" id="swish_merchant_account" placeholder="{{ __('users.swish_merchant_account_label')}}" value="">
+								              <input type="text" class="form-control" name="swish_merchant_account" id="swish_merchant_account" placeholder="{{ __('users.swish_merchant_account_label')}}" value="{{ Session::get('new_seller_swish_merchant_account')}}">
 								              <span class="invalid-feedback">@if($errors->has('swish_merchant_account')) {{ $errors->first('swish_merchant_account') }}@endif</span>
 							              </div>
 
 							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="">
+								              <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="{{ Session::get('new_seller_swish_client_key')}}">
 								              <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
 							              </div>
 							              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div> 
@@ -229,12 +236,12 @@
 							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div>
 							              <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="200" height="50"></p>
 							              <div class="form-group">
-								              <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="">
+								              <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="{{Session::get('new_seller_strip_api_key')}}">
 								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('strip_api_key')) {{ $errors->first('strip_api_key') }}@endif</span>
 							              </div>
 
 							              <div class="form-group">
-								              <input type="text" class="form-control" name="strip_secret" id="strip_secret" placeholder="{{ __('users.stripe_secret_label')}}" value="">
+								              <input type="text" class="form-control" name="strip_secret" id="strip_secret" placeholder="{{ __('users.stripe_secret_label')}}" value="{{Session::get('new_seller_strip_secret')}}">
 								              <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
 							              </div>
 
@@ -245,11 +252,10 @@
 									</form>                          
 								</div> 
 								<input type="button" name="next" class="next btn debg_color action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>	
-								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 								 
+								<input type="button" name="previous" class="previous btn gray_color action-button-previous step-third-previous" value="{{ __('users.prev_step_btn')}}" /> 								 
 								
 							</fieldset>
 
-			   
 							<fieldset class="seller_register_fourth">
 								<div class="form-card">
 									<form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data" id="seller_personal_info">
@@ -291,7 +297,7 @@
 									</div>
 									<!-- <div class="pull-right" style="display: flex;"> -->
 									<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
-									<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous" value="{{ __('users.prev_step_btn')}}" /> 
+									<input type="button" name="previous" class="previous btn gray_color action-button-previous forth-step-previous" value="{{ __('users.prev_step_btn')}}" /> 
 									
 							<!-- 	</div> -->
 								
@@ -306,6 +312,14 @@
 </div>
 
 <script type="text/javascript">
+   window.onbeforeunload = function() {
+
+        return "Dude, are you sure you want to leave? Think of the kittens!";
+    }
+	function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+// To disable f5
+    /* jQuery < 1.7 */
+$(document).on("keydown", disableF5);
 	var oops_heading = "{{ __('users.oops_heading')}}";
     var success_heading = "{{ __('users.success_heading')}}";
 	/* second step */
@@ -313,6 +327,9 @@
     	$(".packages-subscribe").each(function() {
        $(this).removeClass("selectedActivePackage");
      });
+    	/*var package_name = $($(val)).attr("package_name");
+    	alert($($(val)).attr("package_name"))
+    	if()*/
 //if($($(val)).parent('div').hasClass('.active')){
 	//$($(val)).parent('div').removeClass("active");
 
@@ -328,6 +345,25 @@
     let amount = $("#amount_"+i).val();
 	$('#selected_package_name').val(p_name);
 
+	if(p_name == 'Tijara Bas'){
+			$('.klarna_payment :input').attr('disabled', true);
+			$('.stripe_payment :input').attr('disabled', true);
+			$(".swish_payment_lock").removeClass("fa-lock");
+			$(".klarna_payment_lock").addClass("fa-lock");
+			$(".stripe_payment_lock").addClass("fa-lock");
+			$('#klarna_username').val('');
+			$('#klarna_password').val('');
+			$('#strip_api_key').val('');
+			$('#strip_secret').val('');
+	}
+
+	if(p_name=="Tijara pro"){
+		$('.klarna_payment :input').attr('disabled', false);
+		$('.stripe_payment :input').attr('disabled', false);
+	    $(".klarna_payment_lock").removeClass("fa-lock");
+	    $(".swish_payment_lock").removeClass("fa-lock");
+	    $(".stripe_payment_lock").removeClass("fa-lock");
+  	}
         let err = 0;
         if(p_id == ''){
 
@@ -368,17 +404,16 @@
                         $('#selected_package_name').val(data.package_name);
                        // console.log("second step complete");  
                        var selected_package_name =$('#selected_package_name').val();
-						if(selected_package_name == "Tijara Bas"){
-							//alert("bas")
+						/*if(selected_package_name == "Tijara Bas"){
+							
 							$('.klarna_payment :input').attr('disabled', true);
 							$('.stripe_payment :input').attr('disabled', true);
 							$(".swish_payment_lock").removeClass("fa-lock");
 						}else{
-							//alert("pro")
 						    $(".klarna_payment_lock").removeClass("fa-lock");
 						    $(".swish_payment_lock").removeClass("fa-lock");
 						    $(".stripe_payment_lock").removeClass("fa-lock");
-					  	}
+					  	}*/
                         err = 0;
                         //$(".klarna_html").html(data.html_snippet).show();
                        //$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -593,12 +628,23 @@ if($('#current_step_button').val() != 1){
         } 
 });
 
+$('.second-step-previous').click(function(e) { 
+	$('.seller_register_first').show();
+}); 
 
+$('.step-third-previous').click(function(e) { 
+	$('.seller_register_second').show();
+}); 
+
+$('.forth-step-previous').click(function(e) { 
+	$('.seller_register_third').show();
+}); 
+   // var session_package_name =$('#session_package_name').val();
 /*second step*/
 
 $('#second-step').click(function(e) { 
    // var session_package_name =$('#session_package_name').val();
-      var selected_package_name =$('#selected_package_name').val();
+      var selected_package_name =$('#session_package_name').val();
     //alert("dsjh"+selected_package_name)
 
     var err = 0
@@ -760,7 +806,10 @@ $('#last-step').click(function(e) {
     else if(!$("#chk_privacy_policy").is(':checked')){
        showErrorMessage(please_check_privacy_policy);
        last_step_err = 1;   
-    } /*else {
+    } else{
+    	last_step_err = 0;
+    }
+    /*else {
         showErrorMessage(please_check_privacy_policy);
         last_step_err = 1;
 
@@ -769,6 +818,7 @@ $('#last-step').click(function(e) {
     
    if(last_step_err == 1)
     {
+    	$('.seller_register_fourth').show();
     	return false;
     }else{
     	 let logo_image   = $("#logo_image").val();
@@ -913,6 +963,7 @@ $('.radio-group .radio').click(function(){
 });
 
 $(".submit").click(function(){
+	alert("ewjh")
 	return false;
 })
 

@@ -127,11 +127,10 @@
 									@include ('Front.alert_messages')   
                                     @if(!empty($packageDetails))           
 									  <div class="col-md-offset-2 col-md-10 package-html package-wrapper">
-									  	<input type="hidden " name="selected_package_name" id="selected_package_name" class="form-control" value="" >
+									  	<input type="hidden" name="selected_package_name" id="selected_package_name" class="form-control" value="" >
 										<input type="hidden" name="session_package_name" id="session_package_name" class="form-control" value="{{ Session::get('new_seller_package_name')}}" >
 										<?php 
-											$i=1;$class=''; 
-											
+											$i=1;											
 										?>
 											@foreach($packageDetails as $data)
 											<?php
@@ -140,7 +139,7 @@
 											}*/
 											?>
 											<div class="col-md-offset-1 col-md-4 packages-section">
-												<div class="packages-subscribe {{$class}}" onclick='subscribe_package("{{$i}}",this)' package_name="{{$data['title']}}">
+												<div class="packages-subscribe" onclick='subscribe_package("{{$i}}",this)' package_name="{{$data['title']}}">
 													<div class="packages-heading hand-icon">
 														<h3>{{$data['title']}}</h3>
 														<div class="packages-price">{{$data['amount']}} kr/{{$data['validity_days']}} Days</div>
@@ -646,7 +645,7 @@ $('.forth-step-previous').click(function(e) {
 $('#second-step').click(function(e) { 
    // var session_package_name =$('#session_package_name').val();
       var selected_package_name =$('#selected_package_name').val();
-    alert(selected_package_name)
+    //alert(selected_package_name)
 
     var err = 0
     if(selected_package_name==''){
@@ -764,7 +763,7 @@ $('#third-step').click(function(e) {
         step: function(now) {
             // for making fielset appear animation
             opacity = 1 - now;
-alert(current_fs)
+
             current_fs.css({
                 'display': 'none',
                 'position': 'relative'

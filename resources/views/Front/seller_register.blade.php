@@ -627,7 +627,7 @@ if($('#current_step_button').val() != 1){
         } 
 });
 
-$('.second-step-previous').click(function(e) { 
+/*$('.second-step-previous').click(function(e) { 
 	$('.seller_register_first').show();
 }); 
 
@@ -638,7 +638,7 @@ $('.step-third-previous').click(function(e) {
 $('.forth-step-previous').click(function(e) { 
 	    e.preventDefault();
 	$('.seller_register_third').show();
-}); 
+}); */
    // var session_package_name =$('#session_package_name').val();
 /*second step*/
 

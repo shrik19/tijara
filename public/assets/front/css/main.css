@@ -523,9 +523,9 @@ i.fas.fa-check-circle {
 
 .report_product {
   font-size: 10px;
-  float: right;
+  float: left;
   margin-bottom: 35px;
-  margin-right: -64px;
+  margin-left: 25px;
   padding: 5px;
   background: #efefef;
   color: #000;

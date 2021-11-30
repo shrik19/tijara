@@ -88,8 +88,17 @@
 		@endif
 	      	 <div class="col-md-6 ">
 				   <br/><br/>
+				   <?php 
+				   	if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){
+				   		$class = $inactive;
+				   	} elseif($row->start_date <= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' && $row->end_date >= date('Y-m-d H:i:s')){
+				   		$class = $active;
+				   	}elseif($row->status=='block' && $row->start_date >= date('Y-m-d H:i:s') ){
+				   		$class = $inactive;
+				   	}
+				   ?>
 				<div class="panel panel-default subscribe-packages package_width">
-				<div class="panel-heading bold package_heading @if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} @elseif($row->start_date <= date('Y-m-d H:i:s') && $row->end_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED')	@elseif($row->status=='active') {{ $inactive }}@elseif($row->status=='block' && $row->start_date >= date('Y-m-d H:i:s') ) {{ $inactive }} @endif">{{$row->title}}</div>
+				<div class="panel-heading bold package_heading {{$class}}">{{$row->title}}</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="package-body">
@@ -140,7 +149,7 @@
 				    </table>
 				</div>
 
-				<div class="panel-heading bold package_footer  	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $inactive }} @elseif($row->status=='block' && $row->start_date >= date('Y-m-d H:i:s') ) {{ $inactive }} @endif"></div>
+				<div class="panel-heading bold package_footer {{$class}}"></div>
 				</div>
 			</div>
 			@endforeach

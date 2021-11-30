@@ -1888,7 +1888,7 @@ class AuthController extends Controller
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.status','user_packages.payment_status')
                     ->orderByRaw('user_packages.id ASC')
                     ->get();
-
+        //echo "<pre>";print_r($is_subscriber[0]->package_id);exit;
         if(count($is_subscriber) != 0){
            //calculate expiry date
             $ExpiredDate = date('Y-m-d H:i:s', strtotime($is_subscriber[0]->start_date.'+'.$is_subscriber[0]->validity_days.' days'));
@@ -1903,9 +1903,9 @@ class AuthController extends Controller
             $data['trial_package_msg'] = trans('messages.trial_package_active');
         }
 
-        if(count($is_subscriber) == 0 || $date_diff <= 30){
-            $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();
-        }
+        //if(count($is_subscriber) == 0 || $date_diff <= 30){
+        $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->where('packages.id','!=',$is_subscriber[0]->package_id)->get();
+        //}
    
         $show_exp_message=   DB::table('user_packages')
                     ->join('packages', 'packages.id', '=', 'user_packages.package_id')
@@ -1944,6 +1944,51 @@ class AuthController extends Controller
 
         return view('Front/Packages/index', $data);
         
+    }
+
+    /*function to select package*/
+    public function selectPackage(Request $request){   
+            $checkCurrentPackage = UserPackages::where('user_id',Auth::guard('user')->id())->orderBy('user_id','DESC')->where('status','=','active')->get();
+            //echo "<pre>";print_r($checkCurrentPackage[0]);exit;
+           // DB::enableQueryLog();
+       // echo "df".Auth::guard('user')->id();exit;
+        $message = '';
+        $validity_days = $request->validity_days;
+     //   echo "<pre>";print_r( $end_date);exit;
+        if(!empty($request->package_id)){
+            if($checkCurrentPackage[0]->is_trial == 1){
+                $arrUpdate = [
+                'package_id'=> $request->package_id
+                ];
+                UserPackages::where('user_id',Auth::guard('user')->id())->where('status','=','active')->orderBy('user_id','DESC')->update($arrUpdate);
+                //print_r(DB::getQueryLog());exit;
+                $message = "package selected successfully";
+                $status =1;
+            }else{
+                $start_date = date('Y-m-d H:i:s', strtotime($checkCurrentPackage[0]->end_date.'+'.'1 days')); 
+                $end_date = date('Y-m-d H:i:s', strtotime($start_date.'+'.$validity_days.' days'));
+                
+                    $arrInsert = [
+                'package_id' => $request->package_id,
+                'user_id'      => Auth::guard('user')->id(),
+                'start_date'  => $start_date,
+                'end_date'   => $end_date,
+                'status' => 'block',
+                /*'seller_name'  => $seller_name,
+                'created_at'   => $currentDate,
+                'updated_at'   => $currentDate,*/
+                ];
+
+                UserPackages::create($arrInsert);
+                 $message = "package selected successfully";
+                $status =1;
+            }
+            
+        }else{
+             $message = trans("errors.payment_failed_err");
+             $status =0;
+        }
+        echo json_encode(array('msg'=>$message,'status'=>$status));exit;
     }
 
     public function klarnaPayment(Request $request){

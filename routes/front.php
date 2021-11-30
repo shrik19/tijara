@@ -85,6 +85,7 @@ Route::post('/subscribe-package', 'Front\AuthController@subscribePackage')->name
 
 Route::any('/package_callback', 'Front\AuthController@packageCallback')->name('frontPackageCallback');
 Route::get('/seller-packages', 'Front\AuthController@sellerPackages')->name('frontSellerPackages');
+Route::any('/select-package', 'Front\AuthController@selectPackage')->name('frontSelectPackage');
 
 Route::any('/third-step-seller-register','Front\AuthController@thirdStepsellerRegister')->name('frontThirdStepSellerRegister');
 Route::post('/upload-seller-banner-image','Front\AuthController@uploadSellerBannerImage')->name('uploadSellerBannerImage');

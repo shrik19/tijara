@@ -89,7 +89,7 @@
 	      	 <div class="col-md-6 ">
 				   <br/><br/>
 				<div class="panel panel-default subscribe-packages package_width">
-				<div class="panel-heading bold package_heading @if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $inactive }}@endif">{{$row->title}}</div>
+				<div class="panel-heading bold package_heading @if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $inactive }}@elseif($row->status=='block' && $row->start_date >= date('Y-m-d H:i:s') ) {{ $inactive }} @endif">{{$row->title}}</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="package-body">
@@ -140,7 +140,7 @@
 				    </table>
 				</div>
 
-				<div class="panel-heading bold package_footer  	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $inactive }}@endif"></div>
+				<div class="panel-heading bold package_footer  	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $inactive }} @elseif($row->status=='block' && $row->start_date >= date('Y-m-d H:i:s') ) {{ $inactive }} @endif"></div>
 				</div>
 			</div>
 			@endforeach
@@ -162,7 +162,12 @@
 					  		<td class="bold">{{ __('users.description_label')}}</td>
 					  		<td><?php echo $row->description; ?></td>
 					    </tr> */?>
-
+					    <input type="hidden" name="selected_package_id" id="selected_package_id" class="selected_package_id" value="{{$data['id']}}">
+					    <input type="hidden" id="validity_days" name="validity_days" value="{{$data['validity_days']}}">
+					    <tr>
+					  		<td>{{ __('users.description_label')}}</td>
+					  		<td>{{ strip_tags($row->description)}}</td>
+					    </tr>
 					    <tr>
 					  		<td>{{ __('users.amount_label')}}</td>
 					  		<td> {{$data['amount']}} kr</td>
@@ -171,19 +176,7 @@
 					  		<td>{{ __('users.validity_label')}}</td>
 					  		<td>{{$data['validity_days']}} Days.</td>
 					    </tr>
-					    <tr>
-					  		<td >{{ __('users.purchased_date_label')}}</td>
-					  		@if($data['start_date'] >= date('Y-m-d H:i:s'))
-					  			<td>{{date('l, d F Y',strtotime($data['start_date']))}}</td>
-					  			
-					  		@else
-					  			<td>{{date('l, d F Y',strtotime($data['start_date']))}}</td>
-					  		@endif
-					    </tr>
-					    <tr>
-					  		<td >{{ __('users.expiry_date_label')}}</td>
-					  		<td>{{date('l, d F Y',strtotime($data['end_date']))}}</td>
-					    </tr>
+					  
 					    <tr>
 					    	<td >
 					  		<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn  tj-btn-sucess">{{ __('users.subscribe_btn')}}</button>
@@ -207,4 +200,25 @@
 </div> <!-- /container -->
 </div>
 </div>
+<script type="text/javascript">
+	$("#btnsubscribePackage").on('click', function(event){
+		var package_id = $("#selected_package_id").val();
+		var validity_days = $("#validity_days").val();
+		$.ajax({
+	      url:siteUrl+'/select-package',
+	      type: 'get',
+	      data: { package_id:package_id,validity_days:validity_days},
+	      success: function(output){
+	      	var responseObj = $.parseJSON(output);
+	      	if(responseObj.status ==1){
+	      		showSuccessMessage(responseObj.msg,'reload');
+	      	}else{
+	      		showErrorMessage(responseObj.msg);
+	      	}
+	      	
+	       // slug = output;
+	      }
+	    });
+	});
+</script>
 @endsection

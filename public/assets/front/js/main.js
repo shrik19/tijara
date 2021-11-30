@@ -941,6 +941,7 @@ $(".cloned-danger").html('')
 
 function ConfirmDeleteFunction(url, id = false)
 {  
+  //$.noConflict(); 
   $.confirm({
       title: js_confirm_msg,
       content: are_you_sure_message,

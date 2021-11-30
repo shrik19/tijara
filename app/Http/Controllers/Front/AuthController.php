@@ -1968,7 +1968,7 @@ class AuthController extends Controller
                 ];
                 UserPackages::where('user_id',Auth::guard('user')->id())->where('status','=','active')->orderBy('user_id','DESC')->update($arrUpdate);
                 //print_r(DB::getQueryLog());exit;
-                $message = "package selected successfully";
+                $message = trans("messages.package_select_success");
                 $status =1;
             }else{
                 $start_date = date('Y-m-d H:i:s', strtotime($checkCurrentPackage[0]->end_date.'+'.'1 days')); 

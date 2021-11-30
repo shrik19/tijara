@@ -190,6 +190,7 @@
               <!-- </div> -->
                 @if(!empty($serviceReviews))
                   @php $i=1; @endphp
+                  <div class="seller_loader review_loader" style="display: :none"></div>
                   @foreach($serviceReviews as $review)
 
                   <div class="row reviews-container"> 
@@ -225,7 +226,7 @@
                       @if(Auth::guard('user')->id()==$review['user_id'])
                       <a href="javascript:void(0)" title="{{trans('lang.edit_label')}}" style="color:#06999F;" class="edit_service_review" review_comment="{{$review['comments']}}" user_rating_hid="{{$review['service_rating']}}" rating_id="{{$review['rating_id']}}" service_id="{{$review['service_id']}}"><i class="fas fa-edit"></i> </a>
 
-                      <a href="javascript:void(0)" style="color:#06999F;" onclick="deleteProductReview('<?php echo base64_encode($review['rating_id']); ?>')"  title="{{trans('lang.delete_title')}}" class=""><i class="fas fa-trash"></i></a>
+                      <a href="javascript:void(0)" style="color:#06999F;" onclick="deleteServiceReview('<?php echo base64_encode($review['rating_id']); ?>')"  title="{{trans('lang.delete_title')}}" class=""><i class="fas fa-trash"></i></a>
                     @endif
                    </div>
                   </div>
@@ -388,6 +389,50 @@
   <!-- end service review edit  model Form -->
 
 <script type="text/javascript">
+function deleteServiceReview(rating_id){
+
+$.confirm({
+      title: js_confirm_msg,
+      content: are_you_sure_message,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          ok: function () {
+            $(".review_loader").show();
+            $.ajax({
+          url:"{{ route('frontDeleteServiceReview') }}",
+          headers: {
+            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+          },
+          type: 'POST',
+          async: false,
+          data:{rating_id:rating_id},
+          success: function(data){
+        
+             $(".review_loader").hide();
+          
+              var responseObj = $.parseJSON(data);
+
+              if(responseObj.status == 1)
+              {
+                showSuccessMessage(responseObj.msg,'reload');
+              }
+              else
+              {
+                showErrorMessage(responseObj.msg);
+              }
+          }
+        })
+          },
+          Avbryt: function () {
+            
+          },
+      }
+  });
+
+}
 
 $(".user_rating").each(function(){
   var currentRating = $(this).data('rating');

@@ -622,7 +622,7 @@ summary.active::after {
     border-radius: 30px;
 }
 .feature_seller h3 a:hover{    text-decoration: none;}
-.featured_seller_container{width: 90%; margin: 0 auto;}
+.featured_seller_container{width: 1230px; margin: 0 auto;}
 
 .featured_seller_section img.img-fluid {
     width: 100%;
@@ -920,7 +920,7 @@ select.list-dt:focus {
     object-fit: cover
 }
 
-
+.container-inner-section-1{width: 1230px;margin: 0 auto;}
 .loader-seller {
     position: absolute;
     top: 0px;
@@ -1017,6 +1017,7 @@ nav ul {
 } 
 .nav > li > a { 
   margin-bottom: 1px;
+  padding: 10px 7px;
 }
 
 .nav > li:first-child { 
@@ -2153,7 +2154,7 @@ ul.tijara_front_box.row {
 }
 #msform{padding: 20px 0;}
 .p-0{padding: 0;}
-.colr-box {padding: 20px;min-height: 25vw;}
+.colr-box {padding: 20px;min-height: 16vw;}
 .tijara_front_box li h3{text-align: left; font-size: 18px; color: #737373;margin-left: 35px;font-weight: 300;}
 
 
@@ -2173,8 +2174,8 @@ ul.tijara_front_box.row {
   margin-left:25px;}
 .mainMenu{ width: 100%;margin: 15px 0 0 0;}
 .tj-topmenu{background-color: rgba(255, 255, 255, 0.9); float: left; width: 100%;}
-.product_view{width: 90%; margin: 0 auto;}
-.container-inner-section{width: 90%; margin: 0 auto;}
+.product_view{width: 1230px; margin: 0 auto;}
+.container-inner-section{width: 1230px; margin: 0 auto;}
 .mtb-20{margin: 20px 0;}
 .m-0{margin: 0!important; position: relative; min-height: 0;}
 .toggle_btn{      position: fixed;

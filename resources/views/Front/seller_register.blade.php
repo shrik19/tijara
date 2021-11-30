@@ -311,14 +311,13 @@
 </div>
 
 <script type="text/javascript">
-   window.onbeforeunload = function() {
-
-        return "Dude, are you sure you want to leave? Think of the kittens!";
-    }
+	/*window.onbeforeunload = function() {
+		return "Dude, are you sure you want to leave? Think of the kittens!";
+	}
 	function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
-// To disable f5
-    /* jQuery < 1.7 */
-$(document).on("keydown", disableF5);
+
+	$(document).on("keydown", disableF5);*/
+
 	var oops_heading = "{{ __('users.oops_heading')}}";
     var success_heading = "{{ __('users.success_heading')}}";
 	/* second step */

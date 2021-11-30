@@ -1903,12 +1903,12 @@ class AuthController extends Controller
             $data['trial_package_msg'] = trans('messages.trial_package_active');
         }
 
-        $selectedPackages = DB::table('user_packages')
+       /* $selectedPackages = DB::table('user_packages')
         ->join('packages', 'packages.id', '=', 'user_packages.package_id')
         ->where('packages.is_deleted','!=',1)
         ->where('user_packages.status','=','block')
         ->selectRaw('max(user_packages.id) as id,user_packages.package_id')
-        ->get();
+        ->get();*/
 
         
         $details = Package::select('packages.*')->where('status','=','active')->where('packages.is_deleted','!=',1)->get();    

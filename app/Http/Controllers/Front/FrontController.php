@@ -2728,7 +2728,7 @@ public function getCatSubList(Request $request) {
 		->groupBy('users.id')
 		->get();
 		//print_r(\DB::getQueryLog());
-		
+		//echo "<pre>";print_r($ending_subscriptions );exit;
 		if(!empty($ending_subscriptions)) {  
 				foreach($ending_subscriptions as $subscriptionId) {
 					$subscription = DB::table('user_packages')

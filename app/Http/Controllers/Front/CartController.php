@@ -3351,8 +3351,8 @@ DATA;
        $data =[
              "payeePaymentReference"=> "0123456789",
               "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
-              "payerAlias"=> "4671234768",
-              "payeeAlias"=> "1231181189",
+              "payerAlias"=> "46739866319",// 4671234768
+              "payeeAlias"=> "1233144318",// 1231181189
               "amount"=> $amount,
               "currency"=> "SEK",
               "message"=> "Kingston USB Flash Drive 8 GB"

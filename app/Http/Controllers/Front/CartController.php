@@ -3356,6 +3356,43 @@ DATA;
       return $headers;
   }
 
+  public function getPaymentRequest($location) {
+    
+    $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
+    $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.pem';
+    $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.key';
+
+    $ch = curl_init($location);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, '1');
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, '1');
+    curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
+    curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
+    curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
+
+    curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+      function($curl, $header) use (&$headers) {
+        // this function is called by curl for each header received
+          $len = strlen($header);
+          $header = explode(':', $header, 2);
+          if (count($header) < 2) {
+            // ignore invalid headers
+              return $len;
+          } 
+
+          $name = strtolower(trim($header[0]));
+          echo "[". $name . "] => " . $header[1];
+
+          return $len;
+       }
+    );                                                                                                               
+
+    if(!$response = curl_exec($ch)) { 
+          trigger_error(curl_error($ch)); 
+      }
+    curl_close($ch);
+  }
+
+
   public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
     
     $instructionUUID = CartController::guidv4();
@@ -3447,7 +3484,9 @@ DATA;
        // echo "<pre>";print_r($headers['Date']);
         //dd($password);
        $location =  $headers['Location']; 
-       echo $location;
+      // echo $location;
+       $getPaymentRequest = getPaymentRequest($location);
+        echo "<pre>";print_r($getPaymentRequest);
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);
            echo $error_msg;

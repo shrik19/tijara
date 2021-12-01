@@ -3345,7 +3345,7 @@ DATA;
     
   $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.pem';
    // $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_TechnicalSupplier_TestCertificate_9871065216.key';
-   $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestSigningCertificate_1234679304.key';
+   $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.key';
   
     $username ='1231181189.p12';
      $password ="swish";
@@ -3358,7 +3358,7 @@ DATA;
               "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
               "payerAlias"=> "46739866319",// 4671234768
               "payeeAlias"=> "1233144318",// 1231181189
-              "amount"=> $amount,
+              "amount"=> "100",
               "currency"=> "SEK",
               "message"=> "Kingston USB Flash Drive 8 GB"
         ];
@@ -3384,7 +3384,7 @@ DATA;
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, '');
-        curl_setopt($ch, CURLOPT_SSLKEYPASSWD, '');
+        curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
 curl_setopt($ch, CURLOPT_VERBOSE, 0);////
                                     curl_setopt($ch, CURLOPT_SSLVERSION, 4);////
                                     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);

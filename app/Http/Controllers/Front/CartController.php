@@ -3380,7 +3380,7 @@ DATA;
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         //curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_SSLCERTTYPE, "p12");
+        curl_setopt($ch, CURLOPT_SSLCERTTYPE, "PKCS12");
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);

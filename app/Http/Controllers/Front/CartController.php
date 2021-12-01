@@ -3380,7 +3380,9 @@ DATA;
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, '');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, '');
-
+curl_setopt($ch, CURLOPT_VERBOSE, 0);////
+                                    curl_setopt($ch, CURLOPT_SSLVERSION, 4);////
+                                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         
         $result = curl_exec($ch);
         echo "<pre>=======";print_r($result);

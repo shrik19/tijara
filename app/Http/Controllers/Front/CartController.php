@@ -3335,6 +3335,27 @@ DATA;
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
   }
 
+  function headersToArray( $str )
+  {
+      $headers = array();
+      $headersTmpArray = explode( "\r\n" , $str );
+      for ( $i = 0 ; $i < count( $headersTmpArray ) ; ++$i )
+      {
+          // we dont care about the two \r\n lines at the end of the headers
+          if ( strlen( $headersTmpArray[$i] ) > 0 )
+          {
+              // the headers start with HTTP status codes, which do not contain a colon so we can filter them out too
+              if ( strpos( $headersTmpArray[$i] , ":" ) )
+              {
+                  $headerName = substr( $headersTmpArray[$i] , 0 , strpos( $headersTmpArray[$i] , ":" ) );
+                  $headerValue = substr( $headersTmpArray[$i] , strpos( $headersTmpArray[$i] , ":" )+1 );
+                  $headers[$headerName] = $headerValue;
+              }
+          }
+      }
+      return $headers;
+  }
+
   public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
     
     $instructionUUID = CartController::guidv4();
@@ -3388,8 +3409,8 @@ DATA;
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
-curl_setopt($ch, CURLOPT_HEADER, 1);
-      $location =  curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+    /*  $location =  curl_setopt($ch, CURLOPT_HEADERFUNCTION,
       function($ch, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);
@@ -3407,7 +3428,7 @@ curl_setopt($ch, CURLOPT_HEADER, 1);
          }
           //return $len;
        }
-    );
+    );*/
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
         /*curl_setopt($ch, CURLOPT_VERBOSE, 0);
@@ -3415,19 +3436,27 @@ curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
         
         $result = curl_exec($ch);
-        echo "<pre>=======";print_r($location);
+        // how big are the headers
+        $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
+        $headerStr = substr( $result , 0 , $headerSize );
+        $bodyStr = substr( $result , $headerSize );
+
+        // convert headers to array
+        $headers = $this->headersToArray( $headerStr );
+       // echo "<pre>=======";print_r($headers['location']);
         //dd($password);
-         
+       $location =  $headers['location']; 
+       echo $location;
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);
            echo $error_msg;
         }
         curl_close($ch);
         
-        $response = json_decode($result,true);
+        //$response = json_decode($result,true);
 
-echo "<pre>---------";print_r($response);
-       exit;
+/*echo "<pre>---------";print_r($response);
+       exit;*/
        
 
        

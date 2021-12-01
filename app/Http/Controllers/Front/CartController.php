@@ -3377,13 +3377,13 @@ DATA;
        // curl_setopt($ch, CURLOPT_TIMEOUT_MS, 50000); //in miliseconds
 
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+        //curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
-        curl_setopt($ch, CURLOPT_SSLCERTPASSWD, '');
+        curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
 curl_setopt($ch, CURLOPT_VERBOSE, 0);////
                                     curl_setopt($ch, CURLOPT_SSLVERSION, 4);////

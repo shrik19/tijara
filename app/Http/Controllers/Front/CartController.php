@@ -3383,7 +3383,7 @@ DATA;
 
         
         $result = curl_exec($ch);
-        echo "<pre>";print_r($result);
+        echo "<pre>=======";print_r($result);
         //dd($password);
          
         if (curl_errno($ch)) {
@@ -3394,7 +3394,7 @@ DATA;
         
         $response = json_decode($result);
 
-
+echo "<pre>---------";print_r($response);
        exit;
        
 

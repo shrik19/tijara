@@ -3356,7 +3356,7 @@ DATA;
        $data =[
              "payeePaymentReference"=> "0123456789",
               "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
-             // "payerAlias"=> "46739866319",// 4671234768
+              "payerAlias"=> "46739866319",// 4671234768
               "payeeAlias"=> "1233144318",// 1231181189
               "amount"=> "100",
               "currency"=> "SEK",
@@ -3373,14 +3373,14 @@ DATA;
        //curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-       // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data)));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+       // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data)));
        // curl_setopt($ch, CURLOPT_TIMEOUT_MS, 50000); //in miliseconds
 
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         //curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_PROXY_SSLCERTTYPE, "p12");
+       //curl_setopt($ch, CURLOPT_PROXY_SSLCERTTYPE, "p12");
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);

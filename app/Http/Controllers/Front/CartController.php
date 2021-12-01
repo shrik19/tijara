@@ -3357,7 +3357,7 @@ DATA;
   }
 
   public function getPaymentRequest($location) {
-    
+
     $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
     $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.pem';
     $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.key';
@@ -3368,8 +3368,8 @@ DATA;
     curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
     curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
     curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
-
-    curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+    curl_setopt($ch, CURLOPT_HEADER, 1);
+    /*curl_setopt($ch, CURLOPT_HEADERFUNCTION,
       function($curl, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);
@@ -3384,7 +3384,15 @@ DATA;
 
           return $len;
        }
-    );                                                                                                               
+    ); */                                                                                                          $result = curl_exec($ch);
+        // how big are the headers
+        $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
+        $headerStr = substr( $result , 0 , $headerSize );
+        $bodyStr = substr( $result , $headerSize );
+
+        // convert headers to array
+        $headers = $this->headersToArray( $headerStr );
+        echo "<pre>";print_r($headers);     
 
     if(!$response = curl_exec($ch)) { 
           trigger_error(curl_error($ch)); 

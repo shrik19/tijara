@@ -3389,8 +3389,8 @@ DATA;
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
 curl_setopt($ch, CURLOPT_HEADER, 1);
-        //curl_setopt($ch, CURLOPT_HEADERFUNCTION,
-      /*function($ch, $header) use (&$headers) {
+      $location =  curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+      function($ch, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);
           $header = explode(':', $header, 2);
@@ -3401,11 +3401,13 @@ curl_setopt($ch, CURLOPT_HEADER, 1);
 
           $name = strtolower(trim($header[0]));
          echo "[". $name . "] => " . $header[1];
-         $resultArr[$name] = $header[1];
-         
-          return $len;
+        // $resultArr[$name] = $header[1];
+         if($name=="location"){
+          return $header[1];
+         }
+          //return $len;
        }
-    );*/
+    );
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
         /*curl_setopt($ch, CURLOPT_VERBOSE, 0);
@@ -3413,7 +3415,7 @@ curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
         
         $result = curl_exec($ch);
-        echo "<pre>=======";print_r($result);
+        echo "<pre>=======";print_r($location);
         //dd($password);
          
         if (curl_errno($ch)) {
@@ -3422,7 +3424,7 @@ curl_setopt($ch, CURLOPT_HEADER, 1);
         }
         curl_close($ch);
         
-        $response = json_decode($result);
+        $response = json_decode($result,true);
 
 echo "<pre>---------";print_r($response);
        exit;

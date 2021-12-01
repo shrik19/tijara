@@ -3493,7 +3493,7 @@ DATA;
         //dd($password);
        $location =  $headers['Location']; 
       // echo $location;
-       $getPaymentRequest = getPaymentRequest($location);
+       $getPaymentRequest =$this->getPaymentRequest($location);
         echo "<pre>";print_r($getPaymentRequest);
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);

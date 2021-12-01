@@ -3337,7 +3337,7 @@ DATA;
 
   public function createPaymentRequest($amount, $message,$payerAlias) {
     
-   // $instructionUUID = CartController::guidv4();
+    $instructionUUID = CartController::guidv4();
  //echo $id = uuid.NewV4().String();exit;
     $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
     //echo  file_exists($rootCert);exit;
@@ -3345,8 +3345,8 @@ DATA;
     $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_TechnicalSupplier_TestCertificate_9871065216.key';
     $username ='1231181189.p12';
      $password ="swish";
-      $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
-    // $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
+    //  $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
+    $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
       
        $data =[
              "payeePaymentReference"=> "0123456789",

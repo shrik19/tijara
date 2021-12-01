@@ -1352,7 +1352,7 @@ class CartController extends Controller
            $amount  = $param['Total'];
            $message = "test";
            $number = trim($request->swish_number);
-           $this->createPaymentRequest($amount,$message,$number);
+           $this->createPaymentRequest($amount,$message,$number,$OrderId);
           /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
           
           return view('Front/checkout_swish', $responseFromFun);*/
@@ -3335,7 +3335,7 @@ DATA;
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
   }
 
-  public function createPaymentRequest($amount, $message,$payerAlias) {
+  public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
     
     $instructionUUID = CartController::guidv4();
  //echo $id = uuid.NewV4().String();exit;
@@ -3350,8 +3350,9 @@ DATA;
     $username ='1231181189.p12';
      $password ="swish";
     //  $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
-    //$url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
-    $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
+    $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+    //"https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests"
+    //$url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
       
        $data =[
              "payeePaymentReference"=> "0123456789",
@@ -3373,17 +3374,38 @@ DATA;
        //curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, '1');
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, '1');
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
        // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data)));
        // curl_setopt($ch, CURLOPT_TIMEOUT_MS, 50000); //in miliseconds
 
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        //curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         //curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
        //curl_setopt($ch, CURLOPT_PROXY_SSLCERTTYPE, "p12");
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
+        
+        curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+      function($ch, $header) use (&$headers) {
+        // this function is called by curl for each header received
+          $len = strlen($header);
+          $header = explode(':', $header, 2);
+          if (count($header) < 2) {
+            // ignore invalid headers
+              return $len;
+          } 
+
+          $name = strtolower(trim($header[0]));
+          echo "[". $name . "] => " . $header[1];
+
+          return $len;
+       }
+    );
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
         /*curl_setopt($ch, CURLOPT_VERBOSE, 0);

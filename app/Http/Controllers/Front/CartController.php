@@ -3375,8 +3375,6 @@ DATA;
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, '1');
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, '1');
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
        // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data)));
@@ -3389,7 +3387,7 @@ DATA;
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
-        
+
         curl_setopt($ch, CURLOPT_HEADERFUNCTION,
       function($ch, $header) use (&$headers) {
         // this function is called by curl for each header received

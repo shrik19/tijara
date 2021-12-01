@@ -3443,9 +3443,9 @@ DATA;
 
         // convert headers to array
         $headers = $this->headersToArray( $headerStr );
-        echo "<pre>=======";print_r($headers);
+       // echo "<pre>=======";print_r($headers['Date']);
         //dd($password);
-       //$location =  $headers['location']; 
+       $location =  $headers['location']; 
        echo $location;
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);

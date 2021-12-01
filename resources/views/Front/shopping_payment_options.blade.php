@@ -280,10 +280,12 @@
 
                            </div>
                            @endforeach
-                       <!--    <input type="phone_number" class="form-control login_input " name="shipping_phone_number" id="shipping_phone_number"
-                          placeholder="{{ __('users.phone_number_label')}}" 
-                          value="{{ (old('shipping_phone_number')) ?  old('shipping_phone_number') : $details->phone_number}}">
-                          <span class="invalid-feedback" id="err_shipping_phone_number"></span> -->
+                           <span>
+                           <input type="radio" name="payment_method" class="swish_number payment_radio" value="swish_number"> <span style="margin-left:10px;"> <input type="phone_number" class="form-control login_input " name="swish_number" id="shipping_phone_number"
+                          placeholder="swish number" 
+                          value=""></span>
+                         
+                         <!--  <span class="invalid-feedback" id="err_shipping_phone_number"></span> -->
                         </div>
                          
                          
@@ -455,6 +457,10 @@ $( ".pay_through_btn" ).click(function() {
       
       if(btnid=='strip')
       $('form').attr('action',"{{route('frontShowCheckout', ['id' => base64_encode($orderId),'paymentoption'=>'strip'])}}");
+
+       if(btnid=='swish_number')
+      $('form').attr('action',"{{route('frontShowCheckout', ['id' => base64_encode($orderId),'paymentoption'=>'swish_number'])}}");
+      
       
       $('form').submit();
     }

@@ -1348,6 +1348,15 @@ class CartController extends Controller
           $data['Total']  = $param['Total'];
           return view('Front/checkout_strip', $data);
         }
+        if($paymetOption=='swish_number') {
+           $amount  = $param['Total'];
+           $message = "test";
+           $number = trim($request->swish_number);
+           $this->createPaymentRequest($amount,$message,$number);
+          /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
+          
+          return view('Front/checkout_swish', $responseFromFun);*/
+        }
       }
     }
     public function checkoutStripProcess(Request $request) {
@@ -3310,5 +3319,106 @@ DATA;
     }
     echo json_encode(array('status'=>$is_updated,'msg'=>$txt_msg,'is_login_err' => $is_login_err));
     exit;
+  }
+
+  public function guidv4($data = null) {
+    // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
+    $data = $data ?? random_bytes(16);
+    assert(strlen($data) == 16);
+
+    // Set version to 0100
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+    // Set bits 6-7 to 10
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+
+    // Output the 36 character UUID.
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+  }
+
+  public function createPaymentRequest($amount, $message,$payerAlias) {
+    
+   // $instructionUUID = CartController::guidv4();
+ //echo $id = uuid.NewV4().String();exit;
+    $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
+    //echo  file_exists($rootCert);exit;
+    $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_TechnicalSupplier_TestCertificate_9871065216.pem';
+    $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_TechnicalSupplier_TestCertificate_9871065216.key';
+    $username ='1231181189.p12';
+     $password ="swish";
+      $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
+    // $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
+      
+       $data =[
+             "payeePaymentReference"=> "0123456789",
+              "callbackUrl"=>  url("/")."/checkout-swish-callback",
+              "payerAlias"=> "4671234768",
+              "payeeAlias"=> "1231181189",
+              "amount"=> $amount,
+              "currency"=> "SEK",
+              "message"=> "Kingston USB Flash Drive 8 GB"
+        ];
+         $data = json_encode($data);
+        $data =str_replace("\/\/", "//", $data);
+        $data =str_replace("\/", "/", $data);
+        /* echo "<pre>";
+         print_r($data );exit;*/
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_PUT, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      //  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data_string)));
+       // curl_setopt($ch, CURLOPT_TIMEOUT_MS, 50000); //in miliseconds
+
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+        curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
+        curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
+        curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
+        curl_setopt($ch, CURLOPT_SSLCERTPASSWD, '');
+        curl_setopt($ch, CURLOPT_SSLKEYPASSWD, '');
+
+        
+        $result = curl_exec($ch);
+        echo "<pre>";print_r($result);
+        //dd($password);
+         
+        if (curl_errno($ch)) {
+           $error_msg = curl_error($ch);
+           echo $error_msg;
+        }
+        curl_close($ch);
+        
+        $response = json_decode($result);
+
+
+       exit;
+       
+
+       
+    /*const data = {
+      payeeAlias: '1231111111',
+      currency: 'SEK',
+      callbackUrl: 'https://your-callback-url.com',
+      amount,
+      message,
+    };
+
+    try {
+      const response = await client.put(
+        `https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/${instructionUUID}`,
+        data
+      );
+
+      if (response.status === 201) {
+        const { paymentrequesttoken } = response.headers;
+        return { id: instructionUUID, token: paymentrequesttoken };
+      }
+    } catch (error) {
+      console.error(error);
+    }*/
   }
 }

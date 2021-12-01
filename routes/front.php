@@ -251,3 +251,4 @@ Route::post('/swishInitiatePayment', 'Front\CartController@swishInitiatePayment'
 Route::post('/checkoutSubmitAdditionalDetails', 'Front\CartController@checkoutSubmitAdditionalDetails');
 Route::post('/checkout-strip-process', 'Front\CartController@checkoutStripProcess')->name('checkoutStripProcess');
 Route::get('stripe-packages-subscriptions','Front\FrontController@stripePackageSubscription')->name('stripePackageSubscription');
+Route::match(['get', 'post'],'/checkout-swish-number-callback', 'Front\CartController@CheckoutSwishNumberCallback')->name('CheckoutSwishNumberCallback');

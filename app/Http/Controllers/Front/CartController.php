@@ -3350,7 +3350,7 @@ DATA;
       
        $data =[
              "payeePaymentReference"=> "0123456789",
-              "callbackUrl"=>  url("/")."/checkout-swish-callback",
+              "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
               "payerAlias"=> "4671234768",
               "payeeAlias"=> "1231181189",
               "amount"=> $amount,
@@ -3421,4 +3421,10 @@ echo "<pre>---------";print_r($response);
       console.error(error);
     }*/
   }
+
+
+  public function CheckoutSwishNumberCallback(Request $request) {
+    echo "<pre>";print_r($request->all());exit;
+  }
+    
 }

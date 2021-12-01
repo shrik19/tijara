@@ -397,7 +397,7 @@ class CartController extends Controller
                     } 
 
                     //Get Seller Shipping Informations
-                    $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges','users.is_pick_from_store')->where('users.id','=',$details['product_user'])->first()->toArray();
+                    $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges','users.is_pick_from_store')->where('users.id','=',$details['product_user'])->first();
                     
                     if(!empty($details['shipping_method']) && !empty($details['shipping_charges'])){
                       if($details['shipping_method'] == "Platta fraktkostnader")

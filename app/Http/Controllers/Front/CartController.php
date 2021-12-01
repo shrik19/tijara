@@ -3443,7 +3443,7 @@ DATA;
 
         // convert headers to array
         $headers = $this->headersToArray( $headerStr );
-        echo "<pre>=======";print_r($headers['location']);
+        echo "<pre>=======";print_r($headers);
         //dd($password);
        //$location =  $headers['location']; 
        echo $location;

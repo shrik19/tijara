@@ -3363,8 +3363,8 @@ DATA;
     $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.key';
 
     $ch = curl_init($location);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, '1');
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, '1');
+    //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, '1');
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
     curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
     curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);

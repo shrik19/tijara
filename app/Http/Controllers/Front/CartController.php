@@ -3351,6 +3351,7 @@ DATA;
      $password ="swish";
     //  $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
     $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+    $resultArr=array();
     //"https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests"
     //$url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
       
@@ -3387,9 +3388,9 @@ DATA;
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
-
-        curl_setopt($ch, CURLOPT_HEADERFUNCTION,
-      function($ch, $header) use (&$headers) {
+curl_setopt($ch, CURLOPT_HEADER, 1);
+        //curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+      /*function($ch, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);
           $header = explode(':', $header, 2);
@@ -3399,11 +3400,12 @@ DATA;
           } 
 
           $name = strtolower(trim($header[0]));
-          echo "[". $name . "] => " . $header[1];
-
+         echo "[". $name . "] => " . $header[1];
+         $resultArr[$name] = $header[1];
+         
           return $len;
        }
-    );
+    );*/
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
         /*curl_setopt($ch, CURLOPT_VERBOSE, 0);

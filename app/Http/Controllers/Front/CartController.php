@@ -3343,9 +3343,9 @@ DATA;
     //echo  file_exists($rootCert);exit;
    // $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_TechnicalSupplier_TestCertificate_9871065216.pem';
     
-  $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.p12:swish';
+  $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.pem';
    // $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_TechnicalSupplier_TestCertificate_9871065216.key';
-   $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.key';
+   $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestSigningCertificate_1234679304.key';
   
     $username ='1231181189.p12';
      $password ="swish";

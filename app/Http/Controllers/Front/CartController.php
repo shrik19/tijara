@@ -534,7 +534,7 @@ class CartController extends Controller
 
                       $Product->product_link  = $product_link;
 
-                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id','store_name','is_pick_from_store','store_pick_address','store_pick_address')->where('users.id','=',$Product->user_id)->first()->toArray();
+                      $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.role_id','store_name','is_pick_from_store','store_pick_address','store_pick_address')->where('users.id','=',$Product->user_id)->first();
                       if($Product['is_pick_from_store'] != 1){
                       // echo "<pre>";print_r($Product['is_pick_from_store']);exit;
                         $Product->is_pick_from_store = $SellerData['is_pick_from_store'];

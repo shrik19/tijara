@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Storage;
-
+use View;
 use App\Models\Sliders;
 use App\Models\Banner;
 use App\Models\Categories;

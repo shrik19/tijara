@@ -3429,7 +3429,7 @@ echo "<url>-->".$location."<br>";
        $data =[
              "payeePaymentReference"=> "0123456789",
               "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
-              "payerAlias"=> "46739866319",// 4671234768
+             // "payerAlias"=> "46739866319",// 4671234768
               "payeeAlias"=> "1233144318",// 1231181189
               "amount"=> "100",
               "currency"=> "SEK",
@@ -3442,8 +3442,8 @@ echo "<url>-->".$location."<br>";
          print_r($data );exit;*/
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
-        //curl_setopt($ch, CURLOPT_PUT, true);
-       curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_PUT, true);
+       //curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
@@ -3486,6 +3486,7 @@ echo "<url>-->".$location."<br>";
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
         
         $result = curl_exec($ch);
+         echo "<pre>";print_r($result);
         // how big are the headers
         $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
         $headerStr = substr( $result , 0 , $headerSize );
@@ -3493,7 +3494,7 @@ echo "<url>-->".$location."<br>";
 
         // convert headers to array
         $headers = $this->headersToArray( $headerStr );
-        // echo "<pre>";print_r($headers);
+         echo "<pre>";print_r($headers);exit;
        // echo "<pre>";print_r($headers['Date']);
         //dd($password);
        $location =  $headers['Location']; 

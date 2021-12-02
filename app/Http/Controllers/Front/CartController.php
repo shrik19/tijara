@@ -3415,7 +3415,7 @@ echo "<url>-->".$location."<br>";
 
   
   public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
-       return view('Front/swish_number_checkout'); exit;
+       return View('Front/swish_number_checkout'); exit;
     $instructionUUID = CartController::guidv4();
  //echo $id = uuid.NewV4().String();exit;
     $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';

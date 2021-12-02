@@ -3545,12 +3545,13 @@ if (curl_errno($curl)) {
    
 
     $QRdata['QRCode'] = base64_encode($QRresult);
-/*    if (View::exists('Front/checkout_swish_number')) {
+    echo "<pre>";print_r($QRdata);exit;
+    if (View::exists('Front/checkout_swish_number')) {
     echo "yes";exit;
 }else{
   echo "no";exit;
-}*/
-    return View('Front/checkout_swish_number',$QRdata); 
+}
+    return view('Front/checkout_swish_number',$QRdata); 
 //return view('Front/checkout_swish_number',$QRdata); 
         //$response = json_decode($result,true);
 

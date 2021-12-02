@@ -3420,8 +3420,8 @@ echo "<url>-->".$location."<br>";
   
     $username ='1231181189.p12';
      $password ="swish";
-    //  $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
-    $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+      $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
+    //$url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
     $resultArr=array();
     //"https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests"
     //$url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;

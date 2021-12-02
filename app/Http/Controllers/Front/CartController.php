@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Sliders;
 use App\Models\Banner;
 use App\Models\Categories;
@@ -3581,7 +3583,13 @@ if (curl_errno($curl)) {
 
 
   public function CheckoutSwishNumberCallback(Request $request) {
-    echo "<pre>";print_r($request->all());exit;
+   // echo "<pre>";print_r($request->all());exit;
+    $path ='test.json';
+    
+      $file = Storage::path($path);
+      $file=fopen($file,'w');
+    fwrite($file,json_encode($_REQUEST));
+    fclose($file);
   }
     
 }

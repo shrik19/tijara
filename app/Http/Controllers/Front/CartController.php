@@ -3385,6 +3385,7 @@ DATA;
           return $len;
        }
     ); */                                                                                                          $result = curl_exec($ch);
+    echo "<pre>-->result-->";print_r($result);
         // how big are the headers
         $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
         $headerStr = substr( $result , 0 , $headerSize );
@@ -3392,7 +3393,7 @@ DATA;
 
         // convert headers to array
         $headers = $this->headersToArray( $headerStr );
-        echo "<pre>";print_r($headers);     
+        echo "<pre>->header arr-->";print_r($headers);     
 
     if(!$response = curl_exec($ch)) { 
           trigger_error(curl_error($ch)); 

@@ -3413,7 +3413,9 @@ echo "<url>-->".$location."<br>";
     curl_close($ch);
   }
 
-
+  public function showQRCode($QRCode){
+    echo "dfi";exit;
+  }
   public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
     
     $instructionUUID = CartController::guidv4();
@@ -3532,7 +3534,7 @@ $appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$
 
   curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
 $QRresult = curl_exec($curl);
-$QRdata['QRCode'] = $QRresult;
+//$QRdata['QRCode'] = $QRresult;
    
 //echo "<pre>";print_r($QRresult);
 if (curl_errno($curl)) {
@@ -3540,7 +3542,8 @@ if (curl_errno($curl)) {
            echo $err_msg;
         }
         curl_close($curl);
-return view('Front/checkout_swish_number',$QRdata); 
+        $this->showQRCode($QRresult)
+//return view('Front/checkout_swish_number',$QRdata); 
         //$response = json_decode($result,true);
 
 /*echo "<pre>---------";print_r($response);

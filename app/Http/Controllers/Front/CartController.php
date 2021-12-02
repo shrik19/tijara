@@ -3585,9 +3585,9 @@ if (curl_errno($curl)) {
   public function CheckoutSwishNumberCallback(Request $request) {
    // echo "<pre>";print_r($request->all());exit;
     $path ='request.json';
-    $get "get.json";
+    $get = "get.json";
     $post = "post.json";
-    
+
       $file = Storage::path($path);
       $file=fopen($file,'w');
       $file1 = Storage::path($get);

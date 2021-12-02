@@ -3418,11 +3418,11 @@ echo "<url>-->".$location."<br>";
     $QR = base64_encode($QRCode);
    // echo "dfi00----->".$QR;exit;
     //header('Content-type: image/png');
-    echo '<img src="data:image/png;base64,'.$QR.'"/>';exit;
+   // echo '<img src="data:image/png;base64,'.$QR.'"/>';exit;
     //echo $QRCode;exit;
    
 
-    $data['QRCode'] = $QRCode;
+    $data['QRCode'] = $QR;
     return view('Front/checkout_swish_number',$data); 
   }
   public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {

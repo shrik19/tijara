@@ -3441,9 +3441,9 @@ echo "<url>-->".$location."<br>";
         /* echo "<pre>";
          print_r($data );exit;*/
         $ch = curl_init();
-       // curl_setopt($ch, CURLOPT_URL,$url);
-       curl_setopt($ch, CURLOPT_PUT, true);
-       curl_setopt($ch, CURLOPT_POST, true);
+       curl_setopt($ch, CURLOPT_URL,$url);
+      curl_setopt($ch, CURLOPT_PUT, true);
+       //curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 

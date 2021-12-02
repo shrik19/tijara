@@ -2690,7 +2690,7 @@ DATA;
 
     function showOrderDetails($id,$is_print = false)
     {
-		$data['is_print'] = $is_print;
+    $data['is_print'] = $is_print;
       $user_id = Auth::guard('user')->id();
       $is_seller = 0;
       $is_buyer_order = 0;
@@ -3628,7 +3628,8 @@ return $QRCode;
 
         Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
       }*/
-
+$file3 = Storage::path($test);
+      $file3=fopen($file3,'w');
      fwrite($file3,$order_status);
     fclose($file);
   }

@@ -3536,13 +3536,14 @@ $appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$
 $QRresult = curl_exec($curl);
 //$QRdata['QRCode'] = $QRresult;
    
-//echo "<pre>";print_r($QRresult);
+echo "<pre>";print_r($QRresult);
+$this->showQRCode($QRresult)
 if (curl_errno($curl)) {
            $err_msg = curl_error($curl);
            echo $err_msg;
         }
         curl_close($curl);
-        $this->showQRCode($QRresult)
+        
 //return view('Front/checkout_swish_number',$QRdata); 
         //$response = json_decode($result,true);
 

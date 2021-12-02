@@ -3541,14 +3541,10 @@ if (curl_errno($curl)) {
            echo $err_msg;
         }
         curl_close($curl);
-          $QR = base64_encode($QRCode);
-   // echo "dfi00----->".$QR;exit;
-    //header('Content-type: image/png');
-   // echo '<img src="data:image/png;base64,'.$QR.'"/>';exit;
-    //echo $QRCode;exit;
+  
    
 
-    $data['QRCode'] = $QR;
+    $data['QRCode'] = base64_encode($QRresult);
     return view('Front/checkout_swish_number',$data); 
 //return view('Front/checkout_swish_number',$QRdata); 
         //$response = json_decode($result,true);

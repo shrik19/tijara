@@ -3417,7 +3417,7 @@ echo "<url>-->".$location."<br>";
 
   
   public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
-       
+       echo $amount;exit;
     $instructionUUID = CartController::guidv4();
  //echo $id = uuid.NewV4().String();exit;
     $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
@@ -3437,7 +3437,7 @@ echo "<url>-->".$location."<br>";
    // $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
    
        $data =[
-             "payeePaymentReference"=> "0123456789",
+             "payeePaymentReference"=> $order_id,
               "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
              // "payerAlias"=> "46739866319",// 4671234768
               "payeeAlias"=> "1233144318",// 1231181189
@@ -3589,16 +3589,38 @@ return $QRCode;
 
   public function CheckoutSwishNumberCallback(Request $request) {
    // echo "<pre>";print_r($request->all());exit;
-   /* $path ='request.json';
-    $get = "get.json";
-    $post = "post.json";*/
-    $test = "mytest.json";
-
-   $order_status = $request->status;
-     
      /*create file to check push request recieved or not*/
-     
-     /*if($order_status == 'CAPTURED')
+    $test = "mytest.json";
+    $file3 = Storage::path($test);
+      $file3=fopen($file3,'w');
+     fwrite($file3,$order_status);
+    fclose($file);
+
+    $order_status = $request->status;
+    $order_id = $request->payeePaymentReference;
+     $currentDate = date('Y-m-d H:i:s');
+   
+     $current_checkout_order_id  = session('current_checkout_order_id');
+    Session::put('current_checkout_order_id', '');
+    if($request->status=='PAID') {
+
+      $arrOrderUpdate = [
+        'show_in_cart'  => 0,
+        
+      ];
+  
+      TmpOrders::where('id',$current_checkout_order_id)->update($arrOrderUpdate);
+
+      $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
+      $data['OrderId']=0;
+      return view('Front/order_success', $data);
+    }
+    else {
+      $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
+          return view('Front/payment_error',$blade_data); 
+    }
+
+     /*if($order_status == 'PAID')
      {
         $Total = (float)ceil($checkExisting['total']);
         $paymentDetails = ['captures' => $response->captures, 'klarna_reference' => $response->klarna_reference];
@@ -3628,10 +3650,7 @@ return $QRCode;
 
         Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
       }*/
-$file3 = Storage::path($test);
-      $file3=fopen($file3,'w');
-     fwrite($file3,$order_status);
-    fclose($file);
+
   }
     
 }

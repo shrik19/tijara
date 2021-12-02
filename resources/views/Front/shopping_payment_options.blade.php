@@ -272,6 +272,9 @@
                             @if($p == 'swish')
                               <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
                             @endif
+                            @if($p == 'swish_number')
+                              <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
+                            @endif
                             @if($p == 'strip')
                               <img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
                             @endif
@@ -280,10 +283,10 @@
 
                            </div>
                            @endforeach
-                           <span>
+                           <!-- <span>
                            <input type="radio" name="payment_method" class="swish_number payment_radio" value="swish_number"> <span style="margin-left:10px;"> <input type="phone_number" class="form-control login_input " name="swish_number" id="shipping_phone_number"
                           placeholder="swish number" 
-                          value=""></span>
+                          value=""></span> -->
                          
                          <!--  <span class="invalid-feedback" id="err_shipping_phone_number"></span> -->
                         </div>

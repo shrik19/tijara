@@ -796,7 +796,7 @@ class CartController extends Controller
                         ->join('users', 'users.id', '=', 'products.user_id')
                         ->select(['users.*'])                          
                         ->where('temp_orders.id','=',$order_id)->first();
-
+        //echo "<pre>";print_r($checkExisting);exit;
         if(empty($checkExisting))
         {
           return redirect(route('frontShowCart'));
@@ -812,6 +812,12 @@ class CartController extends Controller
           $paymentOptionAvailable[]='swish';
           $isPaymentOptionAvailable = 1;
         }
+
+        if($checkExisting->is_swish_number!='' && $checkExisting->seller_swish_number!='') {
+          $paymentOptionAvailable[]='swish_number';
+          $isPaymentOptionAvailable = 1;
+        }
+
         if($checkExisting->strip_api_key!='' && $checkExisting->strip_secret!='' ) {
           $paymentOptionAvailable[]='strip';
           $isPaymentOptionAvailable = 1;
@@ -3491,7 +3497,7 @@ echo "<url>-->".$location."<br>";
 
         // convert headers to array
         $headers = $this->headersToArray( $headerStr );
-       echo "<pre>";print_r($headers);exit;
+       //echo "<pre>";print_r($headers);exit;
        // echo "<pre>";print_r($headers['Date']);
         //dd($password);
         $PaymentRequestToken =$headers['PaymentRequestToken'];
@@ -3518,6 +3524,31 @@ $appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$
         }
         curl_close($ch);
         
+        $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/commerce";
+        $QRData =[
+             "format"=> "png",
+              "size"=>  300,
+              "token"=> $PaymentRequestToken 
+        ];
+
+         $curl = curl_init();
+       curl_setopt($curl, CURLOPT_URL,$QRUrl);
+      //curl_setopt($ch, CURLOPT_PUT, true);
+       curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+ curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+
+  curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
+$QRresult = curl_exec($curl);
+
+
+if (curl_errno($curl)) {
+           $err_msg = curl_error($curl);
+           echo $err_msg;
+        }
+        curl_close($curl);
+
         //$response = json_decode($result,true);
 
 /*echo "<pre>---------";print_r($response);

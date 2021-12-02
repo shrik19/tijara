@@ -227,6 +227,12 @@
 								              <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="{{ Session::get('new_seller_swish_client_key')}}">
 								              <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
 							              </div>
+
+							              <div class="form-group" style="display: flex;">
+							               <input type="checkbox" name="is_swish_number" class="is_swish_number" id="is_swish_number" value="1" style="margin-top: 30px;"> 
+							               <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="swish number" value="" style="margin-left: 10px;">
+							              </div>
+
 							              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div> 
 										 
 							            </div>
@@ -695,12 +701,16 @@ $('#third-step').click(function(e) {
     let swish_api_key        	= $("#swish_api_key").val();
     let swish_merchant_account  = $("#swish_merchant_account").val(); 
     let swish_client_key        = $("#swish_client_key").val();
+
+    let is_swish_number  		= $("#is_swish_number").val(); 
+    let swish_number            = $("#swish_number").val();
+
     let strip_api_key           = $("#strip_api_key").val(); 
     let strip_secret  			= $("#strip_secret").val();   
     var selected_package_name   = $('#selected_package_name').val(); 
     let third_step_err = 0;
 
-	if((klarna_username != '' && klarna_password!= '') || (swish_api_key != '' && swish_merchant_account !='' && swish_client_key != '') || (strip_api_key != '' && strip_secret != ''))
+	if((klarna_username != '' && klarna_password!= '') || (swish_api_key != '' && swish_merchant_account !='' && swish_client_key != '') || (strip_api_key != '' && strip_secret != '') || (is_swish_number != '' && swish_number != ''))
     {
         third_step_err = 0;
        
@@ -727,7 +737,7 @@ $('#third-step').click(function(e) {
 	                url: "{{url('/')}}"+'/third-step-seller-register',
 	                type: 'post',
 	               
-	                data:{klarna_username:klarna_username, klarna_password:klarna_password, swish_api_key:swish_api_key,swish_merchant_account:swish_merchant_account,swish_client_key:swish_client_key,strip_api_key:strip_api_key,strip_secret:strip_secret},
+	                data:{klarna_username:klarna_username, klarna_password:klarna_password, swish_api_key:swish_api_key,swish_merchant_account:swish_merchant_account,swish_client_key:swish_client_key,strip_api_key:strip_api_key,strip_secret:strip_secret,is_swish_number:is_swish_number,swish_number:swish_number},
 	                success: function(data){
 	                    if(data.success=="third step success"){
 	                        $(".loader-seller").css("display","none");

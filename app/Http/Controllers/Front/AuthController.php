@@ -469,9 +469,11 @@ class AuthController extends Controller
             $swish_api_key          = trim($request->input('swish_api_key'));
             $swish_merchant_account = trim($request->input('swish_merchant_account'));
             $swish_client_key       = trim($request->input('swish_client_key'));
+            $is_swish_number        = trim($request->input('is_swish_number'));
+            $swish_number           = trim($request->input('swish_number'));
             $strip_api_key          = trim($request->input('strip_api_key'));
             $strip_secret           = trim($request->input('strip_secret'));
-            //echo $swish_client_key;exit;
+          
             if(!empty($klarna_username) && !empty($klarna_password)){
                 Session::put('new_seller_klarna_username', $klarna_username);
                 Session::put('new_seller_klarna_password', $klarna_password);
@@ -483,10 +485,16 @@ class AuthController extends Controller
                 Session::put('new_seller_swish_client_key', $swish_client_key);
             }
 
-             if(!empty($strip_api_key) && !empty($strip_secret)){
+            if(!empty($strip_api_key) && !empty($strip_secret)){
                 Session::put('new_seller_strip_api_key', $strip_api_key);
                 Session::put('new_seller_strip_secret', $strip_secret);
             }
+
+            if(!empty($swish_number) && !empty($swish_number)){
+                Session::put('new_seller_is_swish_number', $is_swish_number);
+                Session::put('new_seller_swish_number', $swish_number);
+            }
+
             Session::forget('next_step');
             Session::put('next_step', 4);
         return response()->json(['success'=>'third step success']);
@@ -548,12 +556,23 @@ class AuthController extends Controller
         $swish_merchant_account = Session::get('new_seller_swish_merchant_account');
         $swish_client_key = Session::get('new_seller_swish_client_key');
         
+        $is_swish_number = Session::get('new_seller_is_swish_number');
+        $swish_number    = Session::get('new_seller_swish_number');
+
         if(!empty($swish_api_key) && !empty($swish_merchant_account) && !empty($swish_client_key)){
 
             $arrPaymentDetailsUpdate = [              
                 'swish_api_key'          => trim($swish_api_key),
                 'swish_merchant_account' => trim($swish_merchant_account),
                 'swish_client_key'       => trim($swish_client_key),  
+            ];
+        }
+
+        if(!empty($is_swish_number) && !empty($swish_number)){
+
+            $arrPaymentDetailsUpdate = [              
+                'is_swish_number'   => trim($is_swish_number),
+                'seller_swish_number'      => trim($swish_number),
             ];
         }
 
@@ -828,8 +847,10 @@ class AuthController extends Controller
                 'swish_api_key'          => trim($request->input('swish_api_key')),
                 'swish_merchant_account' => trim($request->input('swish_merchant_account')),
                 'swish_client_key'       => trim($request->input('swish_client_key')),
+                'is_swish_number'        => trim($request->input('is_swish_number')),
+                'seller_swish_number'    => trim($request->input('swish_number')),
                 'strip_api_key'          => trim($request->input('strip_api_key')),
-                'strip_secret'          => trim($request->input('strip_secret')),
+                'strip_secret'           => trim($request->input('strip_secret')),
             ];
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);

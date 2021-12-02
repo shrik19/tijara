@@ -65,8 +65,20 @@
               <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="{{ (old('swish_client_key')) ? old('swish_client_key') : $sellerDetails[0]->swish_client_key}}">
               <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
               </div>
-              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div> 
-			 
+              
+              <div class="form-group" style="display: flex;">
+                <?php 
+                  $checked = "";
+                  if($sellerDetails[0]->is_swish_number == 1) {
+                    $checked = "checked";
+                  }
+                ?>
+               <input type="checkbox" name="is_swish_number" class="swish_number payment_radio" value="1" style="margin-top: 10px;" {{$checked}}> 
+               <input type="phone_number" class="form-control login_input " name="swish_number" id="shipping_phone_number" placeholder="swish number" value="{{ (old('seller_swish_number')) ? old('seller_swish_number') : $sellerDetails[0]->seller_swish_number}}" style="margin-left: 10px;">
+              </div>
+			         
+               <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div> 
+
             </div>
             <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
             <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">

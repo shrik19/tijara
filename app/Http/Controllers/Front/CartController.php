@@ -3486,7 +3486,7 @@ echo "<url>-->".$location."<br>";
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
         
         $result = curl_exec($ch);
-         echo "<pre>";print_r($result);
+        // echo "<pre>";print_r($result);
         // how big are the headers
         $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
         $headerStr = substr( $result , 0 , $headerSize );
@@ -3494,18 +3494,24 @@ echo "<url>-->".$location."<br>";
 
         // convert headers to array
         $headers = $this->headersToArray( $headerStr );
-         echo "<pre>";print_r($headers);exit;
+        // echo "<pre>";print_r($headers);exit;
        // echo "<pre>";print_r($headers['Date']);
         //dd($password);
+        $PaymentRequestToken =$headers['PaymentRequestToken'];
        $location =  $headers['Location']; 
-        $transactionId = explode("/", $location)[sizeOf(explode("/", $location)) - 1];
+$transactionId = explode("/", $location)[sizeOf(explode("/", $location)) - 1];
+$callbackUrl = url("/")."/checkout-swish-number-callback?ref=".$transactionId;
+//`https://myfrontend.com/receipt?ref=${paymentRequest.id}`;
+$appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$callbackUrl;
+
+        
        // echo "tid-->".$transactionId;exit;
          header('Content-Type: application/json');
                 //return '{"transactionId":"' . $transactionId . '","transactionURL":"' . $locationURL . '"}';
        // return $this->renderText('{"transactionId":"' . $transactionId . '","transactionURL":"' . $location . '"}');
           //`swish://paymentrequest?token=${paymentRequest.token}&callbackurl=${callback}`;
         //$location  url("/")."/checkout-swish-number-callback",
-         return redirect($location."&callbackurl=".url("/")."/checkout-swish-number-callback");
+         return redirect($appUrl);
       // echo $location;
       // $getPaymentRequest =$this->getPaymentRequest($location);
      //   echo "<pre>";print_r($getPaymentRequest);

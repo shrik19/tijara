@@ -10,7 +10,7 @@
         <div id="payment-page">
           <div class="container container-fluid p_155">
             <div class="payment-container">
-            <img src="{{QRCode}}">
+            <img src="{{$QRCode}}">
                 
             </div>
           </div>

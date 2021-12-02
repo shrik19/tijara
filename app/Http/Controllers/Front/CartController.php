@@ -3498,10 +3498,13 @@ echo "<url>-->".$location."<br>";
         //dd($password);
        $location =  $headers['Location']; 
         $transactionId = explode("/", $location)[sizeOf(explode("/", $location)) - 1];
-        echo "tid-->".$transactionId;exit;
+       // echo "tid-->".$transactionId;exit;
+         header('Content-Type: application/json');
+                //return '{"transactionId":"' . $transactionId . '","transactionURL":"' . $locationURL . '"}';
+        return $this->renderText('{"transactionId":"' . $transactionId . '","transactionURL":"' . $location . '"}');
       // echo $location;
-       $getPaymentRequest =$this->getPaymentRequest($location);
-        echo "<pre>";print_r($getPaymentRequest);
+      // $getPaymentRequest =$this->getPaymentRequest($location);
+     //   echo "<pre>";print_r($getPaymentRequest);
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);
            echo $error_msg;

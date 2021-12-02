@@ -3545,7 +3545,7 @@ if (curl_errno($curl)) {
    
 
     $QRdata['QRCode'] = base64_encode($QRresult);
-    return view('Front/checkout_swish_number',$QRdata); 
+    return view('Front/checkout_swish_number'); 
 //return view('Front/checkout_swish_number',$QRdata); 
         //$response = json_decode($result,true);
 

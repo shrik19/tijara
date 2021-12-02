@@ -3454,7 +3454,7 @@ echo "<url>-->".$location."<br>";
 
         //curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         //curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
        //curl_setopt($ch, CURLOPT_PROXY_SSLCERTTYPE, "p12");
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);

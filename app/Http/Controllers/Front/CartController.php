@@ -3497,6 +3497,8 @@ echo "<url>-->".$location."<br>";
        // echo "<pre>";print_r($headers['Date']);
         //dd($password);
        $location =  $headers['Location']; 
+        $transactionId = explode("/", $location)[sizeOf(explode("/", $location)) - 1];
+        echo "tid-->".$transactionId;exit;
       // echo $location;
        $getPaymentRequest =$this->getPaymentRequest($location);
         echo "<pre>";print_r($getPaymentRequest);

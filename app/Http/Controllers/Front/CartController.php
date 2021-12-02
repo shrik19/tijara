@@ -3415,11 +3415,11 @@ echo "<url>-->".$location."<br>";
 
   public function showQRCode($QRCode){
     
-    $QR =base64_encode($QRCode);
+    $QR = base64_encode($QRCode);
    // echo "dfi00----->".$QR;exit;
-    header('Content-type: image/png');
-    //echo '<img src="data:image/png;base64,'.$QRCode.'"/>';exit;
-    echo $QRCode;exit;
+    //header('Content-type: image/png');
+    echo '<img src="data:image/png;base64,'.$QR.'"/>';exit;
+    //echo $QRCode;exit;
    
 
     $data['QRCode'] = $QRCode;

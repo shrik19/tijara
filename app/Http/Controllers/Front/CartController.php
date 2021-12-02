@@ -3416,9 +3416,8 @@ echo "<url>-->".$location."<br>";
   public function showQRCode($QRCode){
     
     $QR =base64_encode($QRCode);
-    echo "dfi00----->".$QR;exit;
-    /*echo '<img src="data:image/png;base64,  base64_encode(
-    '".$QRCode."')" /><br>';exit;*/
+   // echo "dfi00----->".$QR;exit;
+    echo '<img src="$QRCode" />';
    
 
     $data['QRCode'] = $QRCode;

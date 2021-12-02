@@ -3369,7 +3369,7 @@ DATA;
     curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
     curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
     curl_setopt($ch, CURLOPT_HEADER, 1);
-   // curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+   curl_setopt($ch, CURLOPT_HEADERFUNCTION,
       function($curl, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);

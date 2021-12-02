@@ -3587,6 +3587,7 @@ if (curl_errno($curl)) {
     $path ='request.json';
     $get = "get.json";
     $post = "post.json";
+    $test = "test.json";
 
       $file = Storage::path($path);
       $file=fopen($file,'w');
@@ -3594,9 +3595,12 @@ if (curl_errno($curl)) {
       $file1=fopen($file1,'w');
       $file2 = Storage::path($post);
       $file2=fopen($file2,'w');
+      $file3 = Storage::path($test);
+      $file3=fopen($file3,'w');
     fwrite($file,json_encode($_REQUEST));
     fwrite($file1,json_encode($_GET));
     fwrite($file2,json_encode($_POST));
+     fwrite($file3,json_encode($request->all()));
     fclose($file);
   }
     

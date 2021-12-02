@@ -3502,7 +3502,9 @@ echo "<url>-->".$location."<br>";
          header('Content-Type: application/json');
                 //return '{"transactionId":"' . $transactionId . '","transactionURL":"' . $locationURL . '"}';
        // return $this->renderText('{"transactionId":"' . $transactionId . '","transactionURL":"' . $location . '"}');
-         return redirect($location);
+          //`swish://paymentrequest?token=${paymentRequest.token}&callbackurl=${callback}`;
+        //$location  url("/")."/checkout-swish-number-callback",
+         return redirect($location."&callbackurl=".url("/")."/checkout-swish-number-callback");
       // echo $location;
       // $getPaymentRequest =$this->getPaymentRequest($location);
      //   echo "<pre>";print_r($getPaymentRequest);

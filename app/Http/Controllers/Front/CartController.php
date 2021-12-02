@@ -3460,7 +3460,7 @@ echo "<url>-->".$location."<br>";
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
         curl_setopt($ch, CURLOPT_HEADER, 1);
-    /*  $location =  curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+      $location =  curl_setopt($ch, CURLOPT_HEADERFUNCTION,
       function($ch, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);
@@ -3478,7 +3478,7 @@ echo "<url>-->".$location."<br>";
          }
           //return $len;
        }
-    );*/
+    );
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
         /*curl_setopt($ch, CURLOPT_VERBOSE, 0);
@@ -3486,7 +3486,7 @@ echo "<url>-->".$location."<br>";
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
         
         $result = curl_exec($ch);
-        // echo "<pre>";print_r($result);
+         echo "<pre>";print_r($result);exit;
         // how big are the headers
         $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
         $headerStr = substr( $result , 0 , $headerSize );

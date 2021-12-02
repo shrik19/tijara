@@ -3502,7 +3502,7 @@ echo "<url>-->".$location."<br>";
 $transactionId = explode("/", $location)[sizeOf(explode("/", $location)) - 1];
 $callbackUrl = url("/")."/checkout-swish-number-callback?ref=".$transactionId;
 //`https://myfrontend.com/receipt?ref=${paymentRequest.id}`;
-$appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$callbackUrl;
+$appUrl = $location."?token=".$PaymentRequestToken."&callbackurl=".$callbackUrl;
 
      echo $appUrl;   
        // echo "tid-->".$transactionId;exit;

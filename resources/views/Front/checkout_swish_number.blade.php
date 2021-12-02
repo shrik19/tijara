@@ -2,7 +2,7 @@
 @section('middlecontent')
 
 
-
+<?php echo "sdjhk";exit;?>
 <section class=""> 
 <div class="loader"></div>
 <div class="row" style="margin-bottom:60px;">

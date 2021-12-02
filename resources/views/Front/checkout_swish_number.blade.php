@@ -8,8 +8,9 @@
         <div id="payment-page">
           <div class="container container-fluid p_155">
             <div class="payment-container">
-              <img src="data:image/png;base64, {{$QRCode}}" /><br>
-              
+              <div style="text-align: center;">
+              <img src="data:image/png;base64, {{$QRCode}}" />
+            </div>
             </div>
           </div>
         </div>

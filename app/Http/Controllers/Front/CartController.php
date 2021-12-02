@@ -3435,9 +3435,9 @@ echo "<url>-->".$location."<br>";
               "currency"=> "SEK",
               "message"=> "Kingston USB Flash Drive 8 GB"
         ];
-         $data = json_encode($data);
+       /*  $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
-        $data =str_replace("\/", "/", $data);
+        $data =str_replace("\/", "/", $data);*/
         /* echo "<pre>";
          print_r($data );exit;*/
         $ch = curl_init();

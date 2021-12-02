@@ -3593,19 +3593,43 @@ return $QRCode;
     $get = "get.json";
     $post = "post.json";*/
     $test = "test.json";
+    
+   $order_status = $request->status;
+     
+     /*create file to check push request recieved or not*/
+     
+     /*if($order_status == 'CAPTURED')
+     {
+        $Total = (float)ceil($checkExisting['total']);
+        $paymentDetails = ['captures' => $response->captures, 'klarna_reference' => $response->klarna_reference];
+        
+        //START : Create Order
+        $arrOrderUpdate = [
+                            'payment_details' => json_encode($paymentDetails),
+                            'payment_status' => $order_status,
+                            'order_status' => 'PENDING',
+                            'order_complete_at' => '',
+                            'updated_at' => $currentDate,
+                          ];
+        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
 
-   /*   $file = Storage::path($path);
-      $file=fopen($file,'w');
-      $file1 = Storage::path($get);
-      $file1=fopen($file1,'w');
-      $file2 = Storage::path($post);
-      $file2=fopen($file2,'w');
-      $file3 = Storage::path($test);
-      $file3=fopen($file3,'w');
-    fwrite($file,json_encode($_REQUEST));
-    fwrite($file1,json_encode($_GET));
-    fwrite($file2,json_encode($_POST));*/
-     fwrite($file3,json_encode($request->all()));
+        $this->sendMailAboutOrder($checkExisting);
+
+      }
+      else
+      {
+        $arrOrderUpdate = [
+          'payment_details' => json_encode($response),
+          'payment_status' => $order_status,
+          'order_status' => 'PENDING',
+          'order_complete_at' => '',
+          'updated_at' => $currentDate,
+        ];
+
+        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+      }*/
+
+     fwrite($file3,json_encode($order_status));
     fclose($file);
   }
     

@@ -3369,7 +3369,7 @@ DATA;
     curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
     curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
     curl_setopt($ch, CURLOPT_HEADER, 1);
-    /*curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+   // curl_setopt($ch, CURLOPT_HEADERFUNCTION,
       function($curl, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);
@@ -3384,8 +3384,8 @@ DATA;
 
           return $len;
        }
-    ); */                                                                                                          $result = curl_exec($ch);
-    echo "<pre>-->result-->";print_r($result);
+    );                                                                                                           $result = curl_exec($ch);
+    echo "<br><pre>-->result-->";print_r($result);
         // how big are the headers
         $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
         $headerStr = substr( $result , 0 , $headerSize );
@@ -3395,9 +3395,13 @@ DATA;
         $headers = $this->headersToArray( $headerStr );
         echo "<pre>->header arr-->";print_r($headers);     
 
-    if(!$response = curl_exec($ch)) { 
+   /* if(!$response = curl_exec($ch)) { 
           trigger_error(curl_error($ch)); 
-      }
+      }*/
+      if (curl_errno($ch)) {
+           $error_msg = curl_error($ch);
+           echo $error_msg;
+        }
     curl_close($ch);
   }
 

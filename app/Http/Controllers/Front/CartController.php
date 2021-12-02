@@ -3421,10 +3421,10 @@ echo "<url>-->".$location."<br>";
     $username ='1231181189.p12';
      $password ="swish";
       //$url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
-    $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+  //  $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
     $resultArr=array();
     //"https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests"
-    //$url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
+    $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
       
        $data =[
              "payeePaymentReference"=> "0123456789",
@@ -3441,8 +3441,8 @@ echo "<url>-->".$location."<br>";
         /* echo "<pre>";
          print_r($data );exit;*/
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,$url);
-       //curl_setopt($ch, CURLOPT_PUT, true);
+       // curl_setopt($ch, CURLOPT_URL,$url);
+       curl_setopt($ch, CURLOPT_PUT, true);
        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -3460,7 +3460,7 @@ echo "<url>-->".$location."<br>";
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
         curl_setopt($ch, CURLOPT_HEADER, 1);
-      $location =  curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+    /*  $location =  curl_setopt($ch, CURLOPT_HEADERFUNCTION,
       function($ch, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);
@@ -3478,7 +3478,7 @@ echo "<url>-->".$location."<br>";
          }
           //return $len;
        }
-    );
+    );*/
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_VERBOSE, true);

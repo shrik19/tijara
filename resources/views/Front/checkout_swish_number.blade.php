@@ -1,7 +1,6 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<?php echo "djhjkhjkk";exit;?>
 <section class=""> 
 <div class="loader"></div>
 <div class="row" style="margin-bottom:60px;">

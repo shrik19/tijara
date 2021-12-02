@@ -3502,7 +3502,7 @@ echo "<url>-->".$location."<br>";
          header('Content-Type: application/json');
                 //return '{"transactionId":"' . $transactionId . '","transactionURL":"' . $locationURL . '"}';
        // return $this->renderText('{"transactionId":"' . $transactionId . '","transactionURL":"' . $location . '"}');
-         return redirect('{"transactionId":"' . $transactionId . '","transactionURL":"' . $location . '"}');
+         return redirect($location);
       // echo $location;
       // $getPaymentRequest =$this->getPaymentRequest($location);
      //   echo "<pre>";print_r($getPaymentRequest);

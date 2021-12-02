@@ -9,9 +9,9 @@
         <div id="payment-page">
           <div class="container container-fluid p_155">
             <div class="payment-container">
-              <img src="data:image/png;base64, {!! base64_encode(QRCode) !!}" /><br>
-           <!--  <img src="{{$QRCode}}"> -->
-                  {!! $QRCode !!}
+              <img src="data:image/png;base64, {{$QRCode}}" /><br>
+          
+              
             </div>
           </div>
         </div>

@@ -3537,7 +3537,7 @@ $QRresult = curl_exec($curl);
 //$QRdata['QRCode'] = $QRresult;
    
 echo "<pre>";print_r($QRresult);
-$this->showQRCode($QRresult)
+$this->showQRCode($QRresult);
 if (curl_errno($curl)) {
            $err_msg = curl_error($curl);
            echo $err_msg;

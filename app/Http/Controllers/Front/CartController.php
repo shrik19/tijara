@@ -3454,13 +3454,13 @@ echo "<url>-->".$location."<br>";
 
         //curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         //curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($data));
        //curl_setopt($ch, CURLOPT_PROXY_SSLCERTTYPE, "p12");
         curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
         curl_setopt($ch, CURLOPT_HEADER, 1);
-    /*  $location =  curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+    curl_setopt($ch, CURLOPT_HEADERFUNCTION,
       function($ch, $header) use (&$headers) {
         // this function is called by curl for each header received
           $len = strlen($header);
@@ -3473,12 +3473,12 @@ echo "<url>-->".$location."<br>";
           $name = strtolower(trim($header[0]));
          echo "[". $name . "] => " . $header[1];
         // $resultArr[$name] = $header[1];
-         if($name=="location"){
+         /*if($name=="location"){
           return $header[1];
-         }
+         }*/
           //return $len;
        }
-    );*/
+    );
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_VERBOSE, true);

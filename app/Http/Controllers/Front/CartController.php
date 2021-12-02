@@ -1360,7 +1360,9 @@ class CartController extends Controller
            $amount  = $param['Total'];
            $message = "test";
            $number = trim($request->swish_number);
-           $this->createPaymentRequest($amount,$message,$number,$OrderId);
+           $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);
+           $data['QRCode'] = $getQR;
+         return view('Front/checkout_swish_number',$data); 
           /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
           
           return view('Front/checkout_swish', $responseFromFun);*/
@@ -3415,7 +3417,7 @@ echo "<url>-->".$location."<br>";
 
   
   public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
-       return View('Front/swish_number_checkout'); exit;
+       
     $instructionUUID = CartController::guidv4();
  //echo $id = uuid.NewV4().String();exit;
     $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
@@ -3544,14 +3546,15 @@ if (curl_errno($curl)) {
   
    
 
-    $QRdata['QRCode'] = base64_encode($QRresult);
+    $QRCode = base64_encode($QRresult);
    // echo "<pre>";print_r($QRdata);exit;
    /* if (View::exists('Front/checkout_swish_number')) {
     echo "yes";exit;
 }else{
   echo "no";exit;
 }*/
-    return view('Front/checkout_swish_number',$QRdata); 
+return $QRCode;
+    //return view('Front/checkout_swish_number',$QRdata); 
 //return view('Front/checkout_swish_number',$QRdata); 
         //$response = json_decode($result,true);
 

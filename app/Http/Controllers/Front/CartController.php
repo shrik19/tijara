@@ -3503,7 +3503,7 @@ $transactionId = explode("/", $location)[sizeOf(explode("/", $location)) - 1];
 $callbackUrl = url("/")."/checkout-swish-number-callback?ref=".$transactionId;
 //`https://myfrontend.com/receipt?ref=${paymentRequest.id}`;
 //$appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$callbackUrl;
-  return redirect('{"transactionId":"' . $transactionId . '","transactionURL":"' . $locationURL . '"}');
+  return redirect('{"transactionId":"' . $location . '","transactionURL":"' . $location . '"}');
      echo $appUrl;   
        // echo "tid-->".$transactionId;exit;
          header('Content-Type: application/json');

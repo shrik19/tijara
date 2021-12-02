@@ -3491,7 +3491,7 @@ echo "<url>-->".$location."<br>";
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
         
         $result = curl_exec($ch);
-         echo "<pre>";print_r($result);
+      //   echo "<pre>";print_r($result);
         // how big are the headers
         $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
         $headerStr = substr( $result , 0 , $headerSize );
@@ -3584,11 +3584,19 @@ if (curl_errno($curl)) {
 
   public function CheckoutSwishNumberCallback(Request $request) {
    // echo "<pre>";print_r($request->all());exit;
-    $path ='test.json';
+    $path ='request.json';
+    $get "get.json";
+    $post = "post.json";
     
       $file = Storage::path($path);
       $file=fopen($file,'w');
+      $file1 = Storage::path($get);
+      $file1=fopen($file1,'w');
+      $file2 = Storage::path($post);
+      $file2=fopen($file2,'w');
     fwrite($file,json_encode($_REQUEST));
+    fwrite($file1,json_encode($_GET));
+    fwrite($file2,json_encode($_POST));
     fclose($file);
   }
     

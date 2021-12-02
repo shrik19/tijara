@@ -774,6 +774,7 @@ class AuthController extends Controller
         $data['sellerDetails']          = $details;
         $data['imagedetails']           =  $imagedetails;
 		$data['strip_api_key']      = env('STRIPE_API_KEY');
+        echo env('STRIPE_API_KEY');exit;
 		$data['cardDetails']    =   array();
         if($imagedetails->stripe_customer_id!='') {
             $stripe = new \Stripe\StripeClient(

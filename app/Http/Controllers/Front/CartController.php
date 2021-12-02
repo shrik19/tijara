@@ -1363,7 +1363,7 @@ class CartController extends Controller
            if($SellerData['is_swish_number'] == '1'){
             $number = $SellerData['seller_swish_number'];
            }
-           echo $number;exit;
+           //echo $number;exit;
            $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);
            $data['QRCode'] = $getQR;
          return view('Front/checkout_swish_number',$data); 
@@ -3335,20 +3335,7 @@ DATA;
     exit;
   }
 
-  public function guidv4($data = null) {
-    // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
-    $data = $data ?? random_bytes(16);
-    assert(strlen($data) == 16);
-
-    // Set version to 0100
-    $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
-    // Set bits 6-7 to 10
-    $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
-
-    // Output the 36 character UUID.
-    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
-  }
-
+  /*function to convert header to array*/
   function headersToArray( $str )
   {
       $headers = array();
@@ -3370,290 +3357,126 @@ DATA;
       return $headers;
   }
 
-  public function getPaymentRequest($location) {
+  
+  /*function to create payment request using swish number*/
+  public function createPaymentRequest($amount, $message,$payeeAlias,$order_id) {
 
     $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
     $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.pem';
     $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.key';
-echo "<url>-->".$location."<br>";
-    $ch = curl_init($location);
-    //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, '1');
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+    $username ='1231181189.p12';
+    $password ="swish";
+    $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+    $resultArr=array();
+
+    $data =[
+      "payeePaymentReference"=> $order_id,
+      "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
+      // "payerAlias"=> "46739866319",// 4671234768
+      "payeeAlias"=> "1233144318",// $payeeAlias
+      "amount"=> $amount,
+      "currency"=> "SEK",
+      "message"=> "Kingston USB Flash Drive 8 GB"
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($data));
     curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
     curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
     curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
     curl_setopt($ch, CURLOPT_HEADER, 1);
-   curl_setopt($ch, CURLOPT_HEADERFUNCTION,
-      function($curl, $header) use (&$headers) {
-        // this function is called by curl for each header received
-          $len = strlen($header);
-          $header = explode(':', $header, 2);
-          if (count($header) < 2) {
-            // ignore invalid headers
-              return $len;
-          } 
+    curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
+    curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
+    curl_setopt($ch, CURLOPT_VERBOSE, true);
 
-          $name = strtolower(trim($header[0]));
-          echo "[". $name . "] => " . $header[1];
+    $result = curl_exec($ch);
+    //   echo "<pre>";print_r($result);
+    // how big are the headers
+    $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
+    $headerStr = substr( $result , 0 , $headerSize );
+    $bodyStr = substr( $result , $headerSize );
+    // convert headers to array
+    $headers = $this->headersToArray( $headerStr );
+    $PaymentRequestToken =$headers['PaymentRequestToken'];
 
-          return $len;
-       }
-    );                                                                                                           $result = curl_exec($ch);
-    echo "<br><pre>-->result-->";print_r($result);
-        // how big are the headers
-        $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
-        $headerStr = substr( $result , 0 , $headerSize );
-        $bodyStr = substr( $result , $headerSize );
-
-        // convert headers to array
-        $headers = $this->headersToArray( $headerStr );
-        echo "<pre>->header arr-->";print_r($headers);     
-
-   /* if(!$response = curl_exec($ch)) { 
-          trigger_error(curl_error($ch)); 
-      }*/
-      if (curl_errno($ch)) {
-           $error_msg = curl_error($ch);
-           echo $error_msg;
-        }
+    if (curl_errno($ch)) {
+      $error_msg = curl_error($ch);
+      echo $error_msg;
+    }
     curl_close($ch);
-  }
 
-  
-  public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
-       
-    $instructionUUID = CartController::guidv4();
- //echo $id = uuid.NewV4().String();exit;
-    $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
-    //echo  file_exists($rootCert);exit;
-   // $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_TechnicalSupplier_TestCertificate_9871065216.pem';
-    
-  $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.pem';
-   // $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_TechnicalSupplier_TestCertificate_9871065216.key';
-   $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.key';
-  
-    $username ='1231181189.p12';
-     $password ="swish";
-      //$url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
-  $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
-    $resultArr=array();
-    //"https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests"
-   // $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
-   
-       $data =[
-             "payeePaymentReference"=> $order_id,
-              "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
-             // "payerAlias"=> "46739866319",// 4671234768
-              "payeeAlias"=> "1233144318",// 1231181189
-              "amount"=> $amount,
-              "currency"=> "SEK",
-              "message"=> "Kingston USB Flash Drive 8 GB"
-        ];
-       /*  $data = json_encode($data);
-        $data =str_replace("\/\/", "//", $data);
-        $data =str_replace("\/", "/", $data);*/
-        /* echo "<pre>";
-         print_r($data );exit;*/
-        $ch = curl_init();
-       curl_setopt($ch, CURLOPT_URL,$url);
-      //curl_setopt($ch, CURLOPT_PUT, true);
-       curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    /*curl call to generate QR code*/
+    $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/commerce";
+    $QRData =[
+      "format"=> "png",
+      "size"=>  300,
+      "token"=> $PaymentRequestToken 
+    ];
 
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL,$QRUrl);
+    //curl_setopt($ch, CURLOPT_PUT, true);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-       // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data)));
-       // curl_setopt($ch, CURLOPT_TIMEOUT_MS, 50000); //in miliseconds
+    $QRresult = curl_exec($curl);
+    //echo "<pre>";print_r($QRresult);
 
-        //curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        //curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($data));
-       //curl_setopt($ch, CURLOPT_PROXY_SSLCERTTYPE, "p12");
-        curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
-        curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
-        curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-    // curl_setopt($ch, CURLOPT_HEADERFUNCTION,
-    //   function($ch, $header) use (&$headers) {
-    //     // this function is called by curl for each header received
-    //       $len = strlen($header);
-    //       $header = explode(':', $header, 2);
-    //       if (count($header) < 2) {
-    //         // ignore invalid headers
-    //           return $len;
-    //       } 
-
-    //       $name = strtolower(trim($header[0]));
-    //      echo "[". $name . "] => " . $header[1];
-        
-    //    }
-    // );
-        curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
-        curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        /*
-        curl_setopt($ch, CURLOPT_SSLVERSION, 4);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
-        
-        $result = curl_exec($ch);
-      //   echo "<pre>";print_r($result);
-        // how big are the headers
-        $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
-        $headerStr = substr( $result , 0 , $headerSize );
-        $bodyStr = substr( $result , $headerSize );
-
-        // convert headers to array
-        $headers = $this->headersToArray( $headerStr );
-       //echo "<pre>";print_r($headers);exit;
-       // echo "<pre>";print_r($headers['Date']);
-        //dd($password);
-        $PaymentRequestToken =$headers['PaymentRequestToken'];
-       $location =  $headers['Location']; 
-$transactionId = explode("/", $location)[sizeOf(explode("/", $location)) - 1];
-$callbackUrl = url("/")."/checkout-swish-number-callback?ref=".$transactionId;
-//`https://myfrontend.com/receipt?ref=${paymentRequest.id}`;
-$appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$callbackUrl;
-
-        if (curl_errno($ch)) {
-           $error_msg = curl_error($ch);
-           echo $error_msg;
-        }
-        curl_close($ch);
-        
-        $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/commerce";
-        $QRData =[
-             "format"=> "png",
-              "size"=>  300,
-              "token"=> $PaymentRequestToken 
-        ];
-
-         $curl = curl_init();
-       curl_setopt($curl, CURLOPT_URL,$QRUrl);
-      //curl_setopt($ch, CURLOPT_PUT, true);
-       curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
- curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-
-  curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
-$QRresult = curl_exec($curl);
-
-//$QRdata['QRCode'] = $QRresult;
-   
-//echo "<pre>";print_r($QRresult);
-if (curl_errno($curl)) {
-           $err_msg = curl_error($curl);
-           echo $err_msg;
-        }
-        curl_close($curl);
-  
-   
+    if (curl_errno($curl)) {
+      $err_msg = curl_error($curl);
+      echo $err_msg;
+    }
+    curl_close($curl);
 
     $QRCode = base64_encode($QRresult);
-   // echo "<pre>";print_r($QRdata);exit;
-   /* if (View::exists('Front/checkout_swish_number')) {
-    echo "yes";exit;
-}else{
-  echo "no";exit;
-}*/
-return $QRCode;
-    //return view('Front/checkout_swish_number',$QRdata); 
-//return view('Front/checkout_swish_number',$QRdata); 
-        //$response = json_decode($result,true);
+    return $QRCode;
 
-/*echo "<pre>---------";print_r($response);
-       exit;*/
-       
-
-       
-    /*const data = {
-      payeeAlias: '1231111111',
-      currency: 'SEK',
-      callbackUrl: 'https://your-callback-url.com',
-      amount,
-      message,
-    };
-
-    try {
-      const response = await client.put(
-        `https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/${instructionUUID}`,
-        data
-      );
-
-      if (response.status === 201) {
-        const { paymentrequesttoken } = response.headers;
-        return { id: instructionUUID, token: paymentrequesttoken };
-      }
-    } catch (error) {
-      console.error(error);
-    }*/
   }
 
-
+  /*swish number call back url*/
   public function CheckoutSwishNumberCallback(Request $request) {
    // echo "<pre>";print_r($request->all());exit;
      /*create file to check push request recieved or not*/
     $test = "mytest.json";
     $file3 = Storage::path($test);
-      $file3=fopen($file3,'w');
-     fwrite($file3,$order_status);
+    $file3=fopen($file3,'w');
+    fwrite($file3,$order_status);
     fclose($file);
 
     $order_status = $request->status;
     $order_id = $request->payeePaymentReference;
-     $currentDate = date('Y-m-d H:i:s');
+    $currentDate = date('Y-m-d H:i:s');
    
-     $current_checkout_order_id  = session('current_checkout_order_id');
+    $current_checkout_order_id  = session('current_checkout_order_id');
     Session::put('current_checkout_order_id', '');
     if($request->status=='PAID') {
+       $checkOrderExisting = Orders::where('klarna_order_reference','=',$request->paymentReference)->first();
 
-      $arrOrderUpdate = [
-        'show_in_cart'  => 0,
-        
-      ];
-  
-      TmpOrders::where('id',$current_checkout_order_id)->update($arrOrderUpdate);
-
-      $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
-      $data['OrderId']=0;
-      return view('Front/order_success', $data);
-    }
-    else {
-      $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
-          return view('Front/payment_error',$blade_data); 
-    }
-
-     /*if($order_status == 'PAID')
+    if(empty($checkOrderExisting))
      {
-        $Total = (float)ceil($checkExisting['total']);
-        $paymentDetails = ['captures' => $response->captures, 'klarna_reference' => $response->klarna_reference];
-        
-        //START : Create Order
-        $arrOrderUpdate = [
-                            'payment_details' => json_encode($paymentDetails),
-                            'payment_status' => $order_status,
-                            'order_status' => 'PENDING',
-                            'order_complete_at' => '',
-                            'updated_at' => $currentDate,
-                          ];
-        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
+       $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
+       if(!empty($checkExisting)) {
+                //$ProductData = json_decode($checkExisting['product_details'],true);
+            $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','') ;
+            $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
 
-        $this->sendMailAboutOrder($checkExisting);
-
-      }
-      else
-      {
-        $arrOrderUpdate = [
-          'payment_details' => json_encode($response),
-          'payment_status' => $order_status,
-          'order_status' => 'PENDING',
-          'order_complete_at' => '',
-          'updated_at' => $currentDate,
-        ];
-
-        Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
-      }*/
+            $this->sendMailAboutOrder($newOrderDetails);
+            $temp_orders = TmpOrders::find($order_id);
+            $temp_orders->delete();
+        }
+     }
+            
+    }
+   
 
   }
     

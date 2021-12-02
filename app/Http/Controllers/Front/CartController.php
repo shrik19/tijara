@@ -3507,14 +3507,14 @@ $callbackUrl = url("/")."/checkout-swish-number-callback?ref=".$transactionId;
 //`https://myfrontend.com/receipt?ref=${paymentRequest.id}`;
 $appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$callbackUrl;
   //return redirect('{"transactionId":"' . $location . '","transactionURL":"' . $location . '"}');
-    echo $appUrl;   
+    //echo $appUrl;   
        // echo "tid-->".$transactionId;exit;
-         header('Content-Type: application/json');
+      //   header('Content-Type: application/json');
                 //return '{"transactionId":"' . $transactionId . '","transactionURL":"' . $locationURL . '"}';
        // return $this->renderText('{"transactionId":"' . $transactionId . '","transactionURL":"' . $location . '"}');
           //`swish://paymentrequest?token=${paymentRequest.token}&callbackurl=${callback}`;
         //$location  url("/")."/checkout-swish-number-callback",
-         return redirect($appUrl);
+         //return redirect($appUrl);
       // echo $location;
       // $getPaymentRequest =$this->getPaymentRequest($location);
      //   echo "<pre>";print_r($getPaymentRequest);
@@ -3542,7 +3542,7 @@ $appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$
   curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
 $QRresult = curl_exec($curl);
 
-
+echo "<pre>";print_r($QRresult)
 if (curl_errno($curl)) {
            $err_msg = curl_error($curl);
            echo $err_msg;

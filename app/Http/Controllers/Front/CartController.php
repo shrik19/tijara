@@ -3415,7 +3415,7 @@ echo "<url>-->".$location."<br>";
 
   public function showQRCode($QRCode){
     // echo "dfi00----->".$QRCode;exit;
-    echo '<img src="data:image/png;base64, {!! base64_encode(QRCode) !!}" /><br>';exit;
+    echo '<img src="data:image/png;base64,  base64_encode($QRCode)" /><br>';exit;
     $data['QRCode'] = $QRCode;
     return view('Front/checkout_swish_number',$data); 
   }

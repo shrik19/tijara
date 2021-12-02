@@ -1319,7 +1319,7 @@ class CartController extends Controller
 
                   $Product->product_link  = $product_link;
 
-                  $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->first()->toArray();
+                  $SellerData = UserMain::select('users.*')->where('users.id','=',$Product->user_id)->first()->toArray();
                   $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                   $Product->quantity = $details['quantity'];
                   $Product->image    = explode(',',$Product->image)[0];
@@ -1359,8 +1359,11 @@ class CartController extends Controller
         if($paymetOption=='swish_number') {
            $amount  = $param['Total'];
            $message = "test";
-           $number = trim($request->swish_number);
-           echo $amount;exit;
+          // $number = trim($request->swish_number);
+           if($SellerData['is_swish_number'] == '1'){
+            $number = $SellerData['seller_swish_number'];
+           }
+           echo $number;exit;
            $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);
            $data['QRCode'] = $getQR;
          return view('Front/checkout_swish_number',$data); 

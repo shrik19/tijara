@@ -3421,11 +3421,11 @@ echo "<url>-->".$location."<br>";
     $username ='1231181189.p12';
      $password ="swish";
       //$url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/11A86BE70EA346E4B1C39C874173F088";
-  //  $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+  $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
     $resultArr=array();
     //"https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests"
-    $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
-      
+   // $url ="https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/".$instructionUUID;
+   
        $data =[
              "payeePaymentReference"=> "0123456789",
               "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
@@ -3442,8 +3442,8 @@ echo "<url>-->".$location."<br>";
          print_r($data );exit;*/
         $ch = curl_init();
        curl_setopt($ch, CURLOPT_URL,$url);
-      curl_setopt($ch, CURLOPT_PUT, true);
-       //curl_setopt($ch, CURLOPT_POST, true);
+      //curl_setopt($ch, CURLOPT_PUT, true);
+       curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
@@ -3460,25 +3460,21 @@ echo "<url>-->".$location."<br>";
         curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
         curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
         curl_setopt($ch, CURLOPT_HEADER, 1);
-    curl_setopt($ch, CURLOPT_HEADERFUNCTION,
-      function($ch, $header) use (&$headers) {
-        // this function is called by curl for each header received
-          $len = strlen($header);
-          $header = explode(':', $header, 2);
-          if (count($header) < 2) {
-            // ignore invalid headers
-              return $len;
-          } 
+    // curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+    //   function($ch, $header) use (&$headers) {
+    //     // this function is called by curl for each header received
+    //       $len = strlen($header);
+    //       $header = explode(':', $header, 2);
+    //       if (count($header) < 2) {
+    //         // ignore invalid headers
+    //           return $len;
+    //       } 
 
-          $name = strtolower(trim($header[0]));
-         echo "[". $name . "] => " . $header[1];
-        // $resultArr[$name] = $header[1];
-         /*if($name=="location"){
-          return $header[1];
-         }*/
-          //return $len;
-       }
-    );
+    //       $name = strtolower(trim($header[0]));
+    //      echo "[". $name . "] => " . $header[1];
+        
+    //    }
+    // );
         curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
         curl_setopt($ch, CURLOPT_VERBOSE, true);
@@ -3487,7 +3483,7 @@ echo "<url>-->".$location."<br>";
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
         
         $result = curl_exec($ch);
-         echo "<pre>";print_r($result);exit;
+         echo "<pre>";print_r($result);
         // how big are the headers
         $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
         $headerStr = substr( $result , 0 , $headerSize );
@@ -3495,7 +3491,7 @@ echo "<url>-->".$location."<br>";
 
         // convert headers to array
         $headers = $this->headersToArray( $headerStr );
-        // echo "<pre>";print_r($headers);exit;
+       echo "<pre>";print_r($headers);exit;
        // echo "<pre>";print_r($headers['Date']);
         //dd($password);
         $PaymentRequestToken =$headers['PaymentRequestToken'];

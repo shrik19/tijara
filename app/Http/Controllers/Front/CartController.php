@@ -3543,14 +3543,15 @@ $appUrl = "swish://paymentrequest?token=".$PaymentRequestToken."&callbackurl=".$
 
   curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
 $QRresult = curl_exec($curl);
-
+$QRdata['QRCode'] = $QRresult;
+   
 //echo "<pre>";print_r($QRresult);
 if (curl_errno($curl)) {
            $err_msg = curl_error($curl);
            echo $err_msg;
         }
         curl_close($curl);
-
+return view('Front/checkout_swish_number',$QRdata); 
         //$response = json_decode($result,true);
 
 /*echo "<pre>---------";print_r($response);
@@ -3584,12 +3585,12 @@ if (curl_errno($curl)) {
 
   public function CheckoutSwishNumberCallback(Request $request) {
    // echo "<pre>";print_r($request->all());exit;
-    $path ='request.json';
+   /* $path ='request.json';
     $get = "get.json";
-    $post = "post.json";
+    $post = "post.json";*/
     $test = "test.json";
 
-      $file = Storage::path($path);
+   /*   $file = Storage::path($path);
       $file=fopen($file,'w');
       $file1 = Storage::path($get);
       $file1=fopen($file1,'w');
@@ -3599,7 +3600,7 @@ if (curl_errno($curl)) {
       $file3=fopen($file3,'w');
     fwrite($file,json_encode($_REQUEST));
     fwrite($file1,json_encode($_GET));
-    fwrite($file2,json_encode($_POST));
+    fwrite($file2,json_encode($_POST));*/
      fwrite($file3,json_encode($request->all()));
     fclose($file);
   }

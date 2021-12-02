@@ -1360,6 +1360,7 @@ class CartController extends Controller
            $amount  = $param['Total'];
            $message = "test";
            $number = trim($request->swish_number);
+           echo $amount;exit;
            $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);
            $data['QRCode'] = $getQR;
          return view('Front/checkout_swish_number',$data); 
@@ -3417,7 +3418,7 @@ echo "<url>-->".$location."<br>";
 
   
   public function createPaymentRequest($amount, $message,$payerAlias,$order_id) {
-       echo $amount;exit;
+       
     $instructionUUID = CartController::guidv4();
  //echo $id = uuid.NewV4().String();exit;
     $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
@@ -3441,7 +3442,7 @@ echo "<url>-->".$location."<br>";
               "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
              // "payerAlias"=> "46739866319",// 4671234768
               "payeeAlias"=> "1233144318",// 1231181189
-              "amount"=> "100",
+              "amount"=> $amount,
               "currency"=> "SEK",
               "message"=> "Kingston USB Flash Drive 8 GB"
         ];

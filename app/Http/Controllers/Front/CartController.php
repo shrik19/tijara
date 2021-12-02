@@ -3592,8 +3592,8 @@ return $QRCode;
    /* $path ='request.json';
     $get = "get.json";
     $post = "post.json";*/
-    $test = "test.json";
-    
+    $test = "mytest.json";
+
    $order_status = $request->status;
      
      /*create file to check push request recieved or not*/
@@ -3629,7 +3629,7 @@ return $QRCode;
         Orders::where('id',$checkExisting['id'])->update($arrOrderUpdate);
       }*/
 
-     fwrite($file3,json_encode($order_status));
+     fwrite($file3,$order_status);
     fclose($file);
   }
     

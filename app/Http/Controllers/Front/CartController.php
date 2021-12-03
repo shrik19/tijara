@@ -3424,7 +3424,7 @@ DATA;
       "payee"     =>[
           'value' => '1233144318',
           'editable' => false
-          ]
+          ],
       "amount"       => [
           'value' => $amount,
           'editable' => false

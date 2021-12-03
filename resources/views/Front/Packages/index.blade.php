@@ -89,7 +89,7 @@
 	      	 <div class="col-md-6 ">
 				   <br/><br/>
 				   <?php 
-				   $class='';
+				   $class=$inactive;
 				   	if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){
 				   		$class = $inactive;
 				   	} elseif($row->start_date <= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' && $row->end_date >= date('Y-m-d H:i:s')){
@@ -189,7 +189,7 @@
 					  
 					    <tr>
 					    	<td >
-					  		<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn  tj-btn-sucess">{{ __('users.subscribe_btn')}}</button>
+					  		<button type="submit" name="btnsubscribePackage" id="btnsubscribePackage" class="btn btn-black debg_color login_btn  tj-btn-sucess" onclick="change_package(<?php echo $data['id']?>,<?php echo $data['validity_days']; ?>)" selected_package_id="{{$data['id']}}" validity_days="{{$data['validity_days']}}">{{ __('users.subscribe_btn')}}</button>
 					  		</td>
 					    </tr>
 					  	
@@ -211,7 +211,27 @@
 </div>
 </div>
 <script type="text/javascript">
-	$("#btnsubscribePackage").on('click', function(event){
+	function change_package(id,val){
+		/*alert(id)
+		var package_id = $(this).attr('selected_package_id');
+		var validity_days       = $(this).attr('validity_days');
+		alert(selected_package_id)*/
+		$.ajax({
+	      url:siteUrl+'/select-package',
+	      type: 'get',
+	      data: { package_id:id,validity_days:val},
+	      success: function(output){
+	      	var responseObj = $.parseJSON(output);
+	      	if(responseObj.status ==1){
+	      		showSuccessMessage(responseObj.msg,'reload');
+	      	}else{
+	      		showErrorMessage(responseObj.msg);
+	      	}
+	       // slug = output;
+	      }
+	    });
+	}
+	/*$("#btnsubscribePackage").on('click', function(event){
 		var package_id = $("#selected_package_id").val();
 		var validity_days = $("#validity_days").val();
 		$.ajax({
@@ -229,6 +249,6 @@
 	       // slug = output;
 	      }
 	    });
-	});
+	});*/
 </script>
 @endsection

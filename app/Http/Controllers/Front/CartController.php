@@ -1723,11 +1723,11 @@ class CartController extends Controller
                           'updated_at' => $currentDate,
                           'klarna_order_reference' => $checkExisting['klarna_order_reference'],
                         ];
-      $test1 = "orderNew.json";
+     /* $test1 = "orderNew.json";
     $file1 = Storage::path($test1);
     $file1=fopen($file1,'w');
     fwrite($file1,$arrOrderInsert);
-    fclose($file1);
+    fclose($file1);*/
       $NewOrderId = Orders::create($arrOrderInsert)->id;
       $temp_orders = TmpOrders::find($checkExisting['id']);
       $temp_orders->delete();
@@ -3421,7 +3421,7 @@ DATA;
     curl_close($ch);
 
     /*curl call to generate QR code*/
-    $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/commerce";
+    $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/prefilled";
     $QRData =[
       "format"=> "png",
       "size"=>  300,
@@ -3460,11 +3460,11 @@ DATA;
     $currentDate = date('Y-m-d H:i:s');
     $PaymentRequestToken = Session::get('PaymentRequestToken');
 
-   /* $test = "mytest111.json";
+    $test = "mytest111.json";
     $file3 = Storage::path($test);
     $file3=fopen($file3,'w');
-    fwrite($file3,$request->all());
-    fclose($file);*/
+    fwrite($file3,$request->id);
+    fclose($file);
 /*
     $test1 = "order.json";
     $file1 = Storage::path($test1);

@@ -3400,7 +3400,7 @@ DATA;
     curl_setopt($ch, CURLOPT_VERBOSE, true);
 
     $result = curl_exec($ch);
-      echo "<pre>";print_r($result);
+    //  echo "<pre>";print_r($result);
     // how big are the headers
     $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
     $headerStr = substr( $result , 0 , $headerSize );
@@ -3421,16 +3421,15 @@ DATA;
     $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/prefilled";
     $QRData =[
       "format"=> "png",
-      "payee" =>  [
-        
-          "value"    => "1233144318",
-          "editable" => false
-        ],
-      "amount" =>  [
-        
-          "value"    => $amount,
-          "editable" => false
-        ],
+      "payee"     =>(object) [
+          'value' => '1233144318',
+          'editable' => false
+          ]
+      "amount"       =>(object) [
+          'value' => $amount,
+          'editable' => false
+          ],
+     
       "size"=>  300,
       "token"=> $PaymentRequestToken ,
 

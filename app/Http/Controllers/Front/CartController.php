@@ -3483,11 +3483,7 @@ DATA;
      {
        $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
        if(!empty($checkExisting)) {
-           $test1 = "ordermnm.json";
-    $file1 = Storage::path($test1);
-    $file1=fopen($file1,'w');
-    fwrite($file1,$checkExisting);
-    fclose($file1);
+           
                 //$ProductData = json_decode($checkExisting['product_details'],true);
             $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','') ;
             $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
@@ -3497,7 +3493,11 @@ DATA;
             $temp_orders->delete();
         }
      }
-            
+        $test1 = "ordermnm.json";
+    $file1 = Storage::path($test1);
+    $file1=fopen($file1,'w');
+    fwrite($file1,$checkExisting);
+    fclose($file1);    
     }
   }
 

@@ -708,7 +708,7 @@ public function getCatSubList(Request $request) {
 	}
 	// get trending products
 	function getTrendingProducts($category_slug='',$subcategory_slug='',$role_id='') {
-	//DB::enableQueryLog();
+		DB::enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$roleId = 2;
 		$TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
@@ -721,7 +721,9 @@ public function getCatSubList(Request $request) {
 							  ->select(['products.*','categories.category_name','variant_product.image','variant_product.price','variant_product.id as variant_id','users.role_id']) //
 							  ->where(function($q) use ($currentDate) {
 
-								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])
+								->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])
+								->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								})
 							  ->where('products.status','=','active')
 							  ->where('products.is_deleted','=','0')
@@ -738,7 +740,7 @@ public function getCatSubList(Request $request) {
 								$TrendingProducts->where('users.role_id','=',$role_id);
 
 								$TrendingProducts	=$TrendingProducts->get();
-                //dd(DB::getQueryLog());
+          //   print_r(DB::getQueryLog());exit;
 		//dd($TrendingProducts);
                 //dd(count($TrendingProducts));
 		if(count($TrendingProducts)>0) 

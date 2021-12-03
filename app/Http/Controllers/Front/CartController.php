@@ -1366,8 +1366,8 @@ class CartController extends Controller
            //echo $number;exit;
            $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);    
           // echo "<pre>";print_r($getQR); 
-           // $checkOrderExisting = Orders::where('klarna_order_reference','=',$request->paymentReference)->first();
-   
+           $checkOrderExist = Orders::where('klarna_order_reference','=',$getQR['PaymentRequestToken'])->first();
+   echo "<pre>"
           $data['PaymentRequestToken'] = $getQR['PaymentRequestToken'];
           $data['QRCode'] = $getQR['QRCode'];
          return view('Front/checkout_swish_number',$data); 
@@ -3455,11 +3455,23 @@ DATA;
     $file3=fopen($file3,'w');
     fwrite($file3,$order_status);
     fclose($file);
-
-    $order_status = $request->status;
+$order_status = $request->status;
     $order_id = $request->payeePaymentReference;
     $currentDate = date('Y-m-d H:i:s');
-   
+
+    $test1 = "order_id.json";
+    $file1 = Storage::path($test1);
+    $file1=fopen($file1,'w');
+    fwrite($file1,$order_id);
+    fclose($file1);
+
+    
+   $arrOrderUpdate = [
+          
+          'klarna_order_reference'  => $order_id,
+          
+        ];
+        TmpOrders::where('id',$order_id)->update($request->paymentReference);
     $current_checkout_order_id  = session('current_checkout_order_id');
     Session::put('current_checkout_order_id', '');
     if($request->status=='PAID') {

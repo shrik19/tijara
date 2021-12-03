@@ -8,7 +8,7 @@
         <div id="payment-page">
           <div class="container container-fluid p_155">
             <div class="payment-container">
-              <?php echo "<pre>";print_r($PaymentRequestToken);exit;?>
+             
               <input type="hidden " name="PaymentRequestToken" id="PaymentRequestToken" class="PaymentRequestToken" value="{{$PaymentRequestToken}}">
               <div style="text-align: center;">
               <img src="data:image/png;base64, {{$QRCode}}" />

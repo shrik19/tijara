@@ -9,7 +9,7 @@
           <div class="container container-fluid p_155">
             <div class="payment-container">
              
-              <input type="hidden " name="order_id" id="order_id" class="PaymentRequestToken" value="{{$order_id}}">
+              <input type="hidden" name="order_id" id="order_id" class="PaymentRequestToken" value="{{$order_id}}">
               <div style="text-align: center;">
               <img src="data:image/png;base64, {{$QRCode}}" />
             </div>

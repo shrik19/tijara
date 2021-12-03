@@ -3408,7 +3408,7 @@ DATA;
     // convert headers to array
     $headers = $this->headersToArray( $headerStr );
     $PaymentRequestToken =$headers['PaymentRequestToken'];
-
+    Session::put('PaymentRequestToken', $PaymentRequestToken);
     if (curl_errno($ch)) {
       $error_msg = curl_error($ch);
       echo $error_msg;
@@ -3450,10 +3450,10 @@ DATA;
   public function CheckoutSwishNumberCallback(Request $request) {
    // echo "<pre>";print_r($request->all());exit;
      /*create file to check push request recieved or not*/
-     $order_status = $request->status;
+    $order_status = $request->status;
     $order_id = $request->payeePaymentReference;
     $currentDate = date('Y-m-d H:i:s');
-
+    $PaymentRequestToken = Session::get('PaymentRequestToken');
 
    /* $test = "mytest111.json";
     $file3 = Storage::path($test);
@@ -3470,19 +3470,24 @@ DATA;
     
    $arrOrderUpdate = [
           
-          'klarna_order_reference'  => $request->paymentReference,
+          'klarna_order_reference'  => $PaymentRequestToken,
           
         ];
         TmpOrders::where('id',$order_id)->update($arrOrderUpdate);
     $current_checkout_order_id  = session('current_checkout_order_id');
     Session::put('current_checkout_order_id', '');
     if($request->status=='PAID') {
-       $checkOrderExisting = Orders::where('klarna_order_reference','=',$request->paymentReference)->first();
+       $checkOrderExisting = Orders::where('klarna_order_reference','=',$PaymentRequestToken)->first();
 
     if(empty($checkOrderExisting))
      {
        $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
        if(!empty($checkExisting)) {
+           $test1 = "order.json";
+    $file1 = Storage::path($test1);
+    $file1=fopen($file1,'w');
+    fwrite($file1,$checkExisting);
+    fclose($file1);
                 //$ProductData = json_decode($checkExisting['product_details'],true);
             $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','') ;
             $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();

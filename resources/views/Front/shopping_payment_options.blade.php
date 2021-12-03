@@ -34,7 +34,7 @@
               @csrf
               <div >
         <div class="col-md-12 checkout-back">
-          <span class="arrow-border"><i class="arrow left"></i></span><a href="{{route('frontShowCart')}}">&nbsp;{{ __('users.back_to_the_cart_btn')}} </a> 
+          <span class="arrow-border"><i class="arrow left show_cart"></i></span><a href="{{route('frontShowCart')}}">&nbsp;{{ __('users.back_to_the_cart_btn')}} </a> 
         </div>
         <div class="col-md-12 checkoutHeader">
           <div class="col-md-3">
@@ -495,6 +495,11 @@ function showErrorMessage(strContent,redirect_url = '')
       }
     });
 }
+
+$(".show_cart").click(function(){
+   window.location = "{{ route('frontShowCart') }}";
+});
+
 $( document ).ready(function() {
   if($('.is_pick_from_store').text() != 1){
     $('.pick_up_fromt_store').hide();

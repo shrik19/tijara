@@ -3470,10 +3470,10 @@ DATA;
     
    $arrOrderUpdate = [
           
-          'klarna_order_reference'  => $order_id,
+          'klarna_order_reference'  => $request->paymentReference,
           
         ];
-        TmpOrders::where('id',$order_id)->update($request->paymentReference);
+        TmpOrders::where('id',$order_id)->update($arrOrderUpdate);
     $current_checkout_order_id  = session('current_checkout_order_id');
     Session::put('current_checkout_order_id', '');
     if($request->status=='PAID') {

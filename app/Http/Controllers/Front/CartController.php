@@ -3455,11 +3455,11 @@ DATA;
     $currentDate = date('Y-m-d H:i:s');
 
 
-    $test = "mytest111.json";
+   /* $test = "mytest111.json";
     $file3 = Storage::path($test);
     $file3=fopen($file3,'w');
     fwrite($file3,$request->all());
-    fclose($file);
+    fclose($file);*/
 
     $test1 = "order.json";
     $file1 = Storage::path($test1);

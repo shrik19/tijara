@@ -1367,7 +1367,7 @@ class CartController extends Controller
            $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);    
           // echo "<pre>";print_r($getQR); 
           
-          $data['order_id'] = $getQR['order_id'];
+          $data['order_id'] = $getQR['orderId'];
           $data['QRCode'] = $getQR['QRCode'];
          return view('Front/checkout_swish_number',$data); 
           /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         

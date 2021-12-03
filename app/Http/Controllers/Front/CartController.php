@@ -3453,7 +3453,7 @@ DATA;
     $test = "mytest.json";
     $file3 = Storage::path($test);
     $file3=fopen($file3,'w');
-    fwrite($file3,$order_status);
+    fwrite($file3,$request->all());
     fclose($file);
 $order_status = $request->status;
     $order_id = $request->payeePaymentReference;

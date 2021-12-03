@@ -463,7 +463,7 @@ class AuthController extends Controller
         Session::forget('StepsHeadingTitle');
         Session::put('next_step',4);
         Session::put('StepsHeadingTitle',trans('users.sell_with_tijara_head'));*/
-      //  echo "<pre>";print_r($_POST);exit;
+      // echo "<pre>";print_r($_POST);exit;
             $klarna_username        = trim($request->input('klarna_username'));
             $klarna_password        = base64_encode(trim($request->input('klarna_password')));
             $swish_api_key          = trim($request->input('swish_api_key'));
@@ -558,41 +558,35 @@ class AuthController extends Controller
         
         $is_swish_number = Session::get('new_seller_is_swish_number');
         $swish_number    = Session::get('new_seller_swish_number');
-
+        $arrPaymentDetailsUpdate =array();
         if(!empty($swish_api_key) && !empty($swish_merchant_account) && !empty($swish_client_key)){
 
-            $arrPaymentDetailsUpdate = [              
-                'swish_api_key'          => trim($swish_api_key),
-                'swish_merchant_account' => trim($swish_merchant_account),
-                'swish_client_key'       => trim($swish_client_key),  
-            ];
+            $arrPaymentDetailsUpdate['swish_api_key']          = trim($swish_api_key);
+            $arrPaymentDetailsUpdate['swish_merchant_account'] = trim($swish_merchant_account);
+            $arrPaymentDetailsUpdate['swish_client_key']       = trim($swish_client_key);  
+            
         }
 
-        if(!empty($is_swish_number) && !empty($swish_number)){
-
-            $arrPaymentDetailsUpdate = [              
-                'is_swish_number'   => trim($is_swish_number),
-                'seller_swish_number'      => trim($swish_number),
-            ];
+        if(!empty($is_swish_number) && !empty($swish_number)){          
+            $arrPaymentDetailsUpdate['is_swish_number']     = trim($is_swish_number);
+            $arrPaymentDetailsUpdate['seller_swish_number'] = trim($swish_number);
         }
 
         $klarna_username = Session::get('new_seller_klarna_username');
         $klarna_password = Session::get('new_seller_klarna_password');
         if(!empty($klarna_username) && !empty($klarna_password)){
-            $arrPaymentDetailsUpdate = [
-                'klarna_username'        => trim($klarna_username),
-                'klarna_password'        => base64_encode(trim($klarna_password)),
-            ];
+            $arrPaymentDetailsUpdate['klarna_username']        = trim($klarna_username);
+            $arrPaymentDetailsUpdate['klarna_password']        = base64_encode(trim($klarna_password));
+           
         }
 
         $strip_api_key = Session::get('new_seller_strip_api_key');
         $strip_secret  = Session::get('new_seller_strip_secret');
 
         if(!empty($strip_api_key) && !empty($strip_secret)){
-            $arrPaymentDetailsUpdate = [
-                'strip_api_key'         => trim($strip_api_key),
-                'strip_secret'          => trim($strip_secret),
-            ];
+            $arrPaymentDetailsUpdate['strip_api_key']  = trim($strip_api_key);
+            $arrPaymentDetailsUpdate['strip_secret']   = trim($strip_secret);
+          
         }
      
         UserMain::where('id','=',$user_id)->update($arrPaymentDetailsUpdate);

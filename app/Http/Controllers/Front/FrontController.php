@@ -1172,6 +1172,10 @@ public function getCatSubList(Request $request) {
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
     	$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
+		$store_name = str_replace( array( '\'', '"', 
+		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+		$store_name = str_replace(" ", '-', $store_name);
+		$store_name = strtolower($store_name);
 		$data['link_seller_name']		=	$store_name;
 		$id = base64_decode($seller_id);
 		$data['seller_id']			=	$id;
@@ -2065,6 +2069,10 @@ public function getCatSubList(Request $request) {
 		
     	$data['category_slug']		=	'';
 		$data['subcategory_slug']	=	'';
+		$store_name = str_replace( array( '\'', '"', 
+		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+		$store_name = str_replace(" ", '-', $store_name);
+		$store_name = strtolower($store_name);
 		$data['link_seller_name']		=	$store_name;
 		$id = base64_decode($seller_id);
 		$data['seller_id']			=	$id;

@@ -257,12 +257,17 @@
                 @if(!empty($Categories[$CategoryId]['subcategory']))
 				<?php $current_path = explode("/",request()->path()); ?>
                 <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="<?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>">{{$Category['category_name']}}</a>
-
+                  <?php /*
                 <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
                   @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
                   <li class="<?php if(in_array($subcategory['subcategory_slug'], $current_path)) echo'activesubmenu';?>" ><a @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
                   @endforeach
-                </ul>
+                </ul> */?>
+                 <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
+                  @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
+                  <li class="<?php if(in_array($subcategory['subcategory_slug'], $current_path)) echo'activesubmenu';?>" ><a  href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}">{{ $subcategory['subcategory_name'] }}</a></li>
+                  @endforeach
+                </ul> 
                 </li>
                 @endif
             @endforeach

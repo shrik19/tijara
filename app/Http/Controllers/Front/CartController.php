@@ -3504,9 +3504,9 @@ DATA;
   {
     //echo "<pre>";print_r($request->order_id);
     $checkOrderStatus = Orders::where('klarna_order_reference','=',$request->order_id)->first();
- $//order_status = $checkOrderStatus['payment_status'];
+    $payment_status = $checkOrderStatus['payment_status'];
     //echo "<pre>";print_r($checkOrderStatus);exit;
-    if($checkOrderStatus['payment_status'] == "PAID"){
+    if($payment_status == "PAID"){
       $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
       return view('Front/order_success', $data);
     }

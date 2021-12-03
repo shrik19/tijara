@@ -1408,7 +1408,7 @@ class CartController extends Controller
 
         TmpOrders::where('id',$orderRef)->update($arrOrderUpdate);
         //echo'<pre>';print_r($response);exit;
-        $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','') ;
+        $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$orderRef,'checkout_complete','','','') ;
         //Session::flash('success', 'Payment successful!');
         $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
       
@@ -1704,7 +1704,7 @@ class CartController extends Controller
       
     }
     
-    function checkoutProcessedFunction($checkExisting,$TmpOrderId,$order_status,$address='',$orderLines='') {
+    function checkoutProcessedFunction($checkExisting,$TmpOrderId,$order_status,$address='',$orderLines='',$swishpaymentDetails='') {
       $currentDate = date('Y-m-d H:i:s');
       //START : Create Order
       $arrOrderInsert = [
@@ -1714,7 +1714,7 @@ class CartController extends Controller
                           'sub_total'   => $checkExisting['sub_total'],
                           'shipping_total' => $checkExisting['shipping_total'],
                           'total' => $checkExisting['total'],
-                          'payment_details' => '',
+                          'payment_details' => $swishpaymentDetails,
                           'payment_status' => $order_status,
                           'order_status' => 'PENDING',
                           'order_complete_at' => '',
@@ -1774,7 +1774,7 @@ class CartController extends Controller
               $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
               if(!empty($checkExisting)) {
                   //$ProductData = json_decode($checkExisting['product_details'],true);
-                  $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'checkout_complete','','') ;
+                  $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'checkout_complete','','','') ;
                   $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
       
                   $this->sendMailAboutOrder($newOrderDetails);
@@ -1890,7 +1890,7 @@ class CartController extends Controller
         
         else
         {
-          $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$TmpOrderId,$order_status,$address,$orderLines);
+          $NewOrderId = $this->checkoutProcessedFunction($checkExisting,$TmpOrderId,$order_status,$address,$orderLines,'');
         }
 
         return redirect(route('frontCheckoutSuccess',['id' => base64_encode($NewOrderId)]));
@@ -3013,7 +3013,7 @@ DATA;
                 ->join('variant_product as v1', 'products.id', '=', 'v1.product_id')
                 ->join('variant_product as v2', 'orders_details.variant_id', '=', 'v2.id')
                ->join('users','users.id','=','products.user_id')
-               ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','v2.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
+               ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','v2.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.store_name','users.id as seller_id')->where('orders.user_id','=',$user_id);
 
 
 
@@ -3381,7 +3381,7 @@ DATA;
       "payeeAlias"=> "1233144318",// $payeeAlias
       "amount"=> $amount,
       "currency"=> "SEK",
-      "message"=> "Kingston USB Flash Drive 8 GB"
+      "message"=> "Tijara payment for order #".$order_id
     ];
 
     $ch = curl_init();
@@ -3421,9 +3421,22 @@ DATA;
     $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/prefilled";
     $QRData =[
       "format"=> "png",
+      "payee" =>  stdClass Object
+        (
+          "value"    => "1233144318",
+          "editable" => false
+        ),
+      "amount" => stdClass Object
+        (
+          "value"    => $amount,
+          "editable" => false
+        ),
       "size"=>  300,
-      "token"=> $PaymentRequestToken 
+      "token"=> $PaymentRequestToken ,
+
     ];
+
+  
 
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL,$QRUrl);
@@ -3488,7 +3501,7 @@ DATA;
        if(!empty($checkExisting)) {
 
                 //$ProductData = json_decode($checkExisting['product_details'],true);
-            $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','') ;
+            $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','',$request->all());
             $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
 
             $this->sendMailAboutOrder($newOrderDetails);

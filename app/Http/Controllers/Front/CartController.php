@@ -3381,7 +3381,7 @@ DATA;
       "payeeAlias"=> "1233144318",// $payeeAlias
       "amount"=> $amount,
       "currency"=> "SEK",
-      "message"=> "Tijara payment for order #".$order_id
+      "message"=> "Tijara payment for order ".$order_id
     ];
 
     $ch = curl_init();

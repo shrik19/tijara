@@ -3440,7 +3440,7 @@ DATA;
       echo $err_msg;
     }
     curl_close($curl);
-    $sendData['PaymentRequestToken'] = $$PaymentRequestToken;
+    $sendData['PaymentRequestToken'] = $PaymentRequestToken;
     $sendData['QRCode'] = base64_encode($QRresult);
     return $sendData;
 

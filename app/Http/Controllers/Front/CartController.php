@@ -3428,8 +3428,8 @@ DATA;
         }],
       "amount" =>  [
         {
-          "value"    => $amount,
-          "editable" => false
+          "value"    : $amount,
+          "editable" : false
         }],
       "size"=>  300,
       "token"=> $PaymentRequestToken ,

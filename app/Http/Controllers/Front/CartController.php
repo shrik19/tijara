@@ -3423,13 +3423,13 @@ DATA;
       "format"=> "png",
       "payee" =>  [
         
-          "value"    : "1233144318",
-          "editable" : false
+          "value"    => "1233144318",
+          "editable" => false
         ],
       "amount" =>  [
         
-          "value"    : $amount,
-          "editable" : false
+          "value"    => $amount,
+          "editable" => false
         ],
       "size"=>  300,
       "token"=> $PaymentRequestToken ,

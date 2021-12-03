@@ -3421,11 +3421,11 @@ DATA;
     $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/prefilled";
     $QRData =[
       "format"=> "png",
-      "payee"     =>(object) [
+      "payee"     =>[
           'value' => '1233144318',
           'editable' => false
           ]
-      "amount"       =>(object) [
+      "amount"       => [
           'value' => $amount,
           'editable' => false
           ],

@@ -3423,8 +3423,8 @@ DATA;
       "format"=> "png",
       "payee" =>  [
         {
-          "value"    => "1233144318",
-          "editable" => false
+          "value"    : "1233144318",
+          "editable" : false
         }],
       "amount" =>  [
         {

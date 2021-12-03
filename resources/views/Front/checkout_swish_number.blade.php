@@ -8,8 +8,8 @@
         <div id="payment-page">
           <div class="container container-fluid p_155">
             <div class="payment-container">
-              <?php echo "<pre>";print_r($QRCode);exit;?>
-              <input type="hidden " name="order_id" id="order_id" class="order_id">
+              <?php echo "<pre>";print_r($PaymentRequestToken);exit;?>
+              <input type="hidden " name="PaymentRequestToken" id="PaymentRequestToken" class="PaymentRequestToken" value="{{$PaymentRequestToken}}">
               <div style="text-align: center;">
               <img src="data:image/png;base64, {{$QRCode}}" />
             </div>
@@ -20,12 +20,12 @@
     </div>
 </section>        
 <script type="text/javascript">
-  var order_id = $("#order_id").val();
+  var PaymentRequestToken = $("#PaymentRequestToken").val();
   $.ajax({
       headers: {
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
       },
-      url: "{{url('/')}}"+'/check-order-status/'+order_id,
+      url: "{{url('/')}}"+'/check-order-status/'+PaymentRequestToken,
       type: 'get',
       // async: false,
       data:{},

@@ -1368,8 +1368,8 @@ class CartController extends Controller
           // echo "<pre>";print_r($getQR); 
            // $checkOrderExisting = Orders::where('klarna_order_reference','=',$request->paymentReference)->first();
    
-            $data['OrderId'] = $OrderId;
-           $data['QRCode'] = $getQR;
+          $data['PaymentRequestToken'] = $getQR['PaymentRequestToken'];
+          $data['QRCode'] = $getQR['QRCode'];
          return view('Front/checkout_swish_number',$data); 
           /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
           

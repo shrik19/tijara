@@ -252,3 +252,4 @@ Route::post('/checkoutSubmitAdditionalDetails', 'Front\CartController@checkoutSu
 Route::post('/checkout-strip-process', 'Front\CartController@checkoutStripProcess')->name('checkoutStripProcess');
 Route::get('stripe-packages-subscriptions','Front\FrontController@stripePackageSubscription')->name('stripePackageSubscription');
 Route::match(['get', 'post'],'/checkout-swish-number-callback', 'Front\CartController@CheckoutSwishNumberCallback')->name('CheckoutSwishNumberCallback');
+Route::any('check-order-status/{order_id}','Front\CartController@CheckOrderStatus')->name('SwishCheckOrderStatus');

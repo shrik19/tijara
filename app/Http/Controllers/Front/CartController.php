@@ -3505,15 +3505,16 @@ DATA;
     //echo "<pre>";print_r($request->order_id);
     $checkOrderStatus = Orders::where('klarna_order_reference','=',$request->order_id)->first();
     $payment_status = $checkOrderStatus['payment_status'];
-    //echo "<pre>";print_r($checkOrderStatus);exit;
-    if($payment_status == "PAID"){
+    return response()->json(['payment_status'=> $payment_status]);
+   // echo "<pre>";print_r($checkOrderStatus);exit;
+/*    if($payment_status == "PAID"){
       $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
       return view('Front/order_success', $data);
     }
     else {
       $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
       return view('Front/payment_error',$blade_data); 
-    }
+    }*/
   }
     
 }

@@ -32,6 +32,8 @@
           // async: false,
           data:{},
           success: function(data){
+            alert(data);
+            console.log(data)
             $('#orderDetailsmodal').modal('show');
             $('#order_details_box').html(data);
           }

@@ -3478,15 +3478,15 @@ DATA;
     Session::put('current_checkout_order_id', '');
     if($request->status=='PAID') {
        $checkOrderExisting = Orders::where('klarna_order_reference','=',$PaymentRequestToken)->first();
-
-    if(empty($checkOrderExisting))
-     {
-       $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
-       $test1 = "one.json";
+$test1 = "one.json";
     $file1 = Storage::path($test1);
     $file1=fopen($file1,'w');
     fwrite($file1,$checkExisting);
-    fclose($file1);  
+    fclose($file1); 
+    if(empty($checkOrderExisting))
+     {
+       $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
+        
        if(!empty($checkExisting)) {
 
                 //$ProductData = json_decode($checkExisting['product_details'],true);

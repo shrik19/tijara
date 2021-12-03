@@ -1364,7 +1364,11 @@ class CartController extends Controller
             $number = $SellerData['seller_swish_number'];
            }
            //echo $number;exit;
-           $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);
+           $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);    
+          // echo "<pre>";print_r($getQR); 
+           // $checkOrderExisting = Orders::where('klarna_order_reference','=',$request->paymentReference)->first();
+   
+            $data['OrderId'] = $OrderId;
            $data['QRCode'] = $getQR;
          return view('Front/checkout_swish_number',$data); 
           /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
@@ -3436,9 +3440,9 @@ DATA;
       echo $err_msg;
     }
     curl_close($curl);
-
-    $QRCode = base64_encode($QRresult);
-    return $QRCode;
+    $sendData['PaymentRequestToken'] = $$PaymentRequestToken
+    $sendData['QRCode'] = base64_encode($QRresult);
+    return $sendData;
 
   }
 
@@ -3476,8 +3480,19 @@ DATA;
      }
             
     }
-   
+  }
 
+  public function CheckOrderStatus(Request $request)
+  {
+    echo "<pre>";print_r($request->all());
+    if($order_status == "PAID"){
+      $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
+      return view('Front/order_success', $data);
+    }
+    else {
+      $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
+      return view('Front/payment_error',$blade_data); 
+    }
   }
     
 }

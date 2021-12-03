@@ -110,17 +110,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
     left: 0!important;
   }
   
-  .small-container .show-small-img {
-    width: 70px;
-    height: 70px;
-    margin-right: 6px;
-    cursor: pointer;
-    /* float: left; */
-    display: block;margin: 0px 0 10px 0;
-  }
-  
-  .small-container .show-small-img:last-of-type { margin-right: 0; }
-  
+
   .btn span.glyphicon {    			
 	  opacity: 0;				
   }
@@ -249,7 +239,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   @media screen and (max-width: 991px) {
 	.product_details_section {
 	  /* Apply some styles */
-	  padding-top:140px !important;
+	  padding-top:35px !important;
 	}
   }
 

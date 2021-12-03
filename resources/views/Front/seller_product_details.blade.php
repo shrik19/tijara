@@ -55,7 +55,7 @@
               </div>
              
       
-              <div class="report_product_div" style="margin-top: 20px;margin-left: 90px;text-align: center;">
+              <div class="report_product_div" >
                 <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}">{{ __('users.report_product_btn')}} </a>
               </div>
               </div>

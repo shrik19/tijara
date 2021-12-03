@@ -2669,13 +2669,26 @@ span.pro-text {
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
       .show-custom {
-        width: 100%;
-        margin-left: 120px;
+        width: 85%;
+        margin-left: 62px;
         position: relative;
         float: left;
         height: 300px;
-      
     }
+    .small-container div {
+      width: 27%;
+      position: relative;
+      max-height: 318px;
+      /* overflow: scroll; */
+      overflow-x: hidden;
+      left: 0!important;
+  }
+  .report_product_div {
+    margin-top: 20px;
+    margin-left: 36px;
+    text-align: center;
+}
+    .product_details_info{clear: both;padding-top:30px; float: left;}
         .toggle_btn{display: block;}
         .containerfluid{margin-top: 110px;}
         .nav > li {
@@ -3107,6 +3120,16 @@ h1.checkoutHeading {
 .checkout_stripe_info_title{
   margin-top: 14px;
 }
+.small-container .show-small-img {
+  width: 70px;
+  height: 70px;
+  margin-right: 6px;
+  cursor: pointer;
+  /* float: left; */
+  display: block;margin: 0px 0 10px 0;
+}
+
+.small-container .show-small-img:last-of-type { margin-right: 0; }
 
 
 
@@ -3134,6 +3157,18 @@ h1.checkoutHeading {
     margin: 0px 10px;
     padding: 0px 0px;
     margin-bottom: 25px;}
+    .top_login h3 img,.top_icon_css img{
+      width: 25px!important;
+    }
+    .small-container .show-small-img {
+      width: 50px;
+      height: 50px;
+      margin-right: 6px;
+      cursor: pointer;
+      /* float: left; */
+      display: block;
+      margin: 0px 0 10px 0;
+  }
 }
  
 /* Extra large devices (large desktops, 1200px and up) */

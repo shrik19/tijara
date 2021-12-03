@@ -279,7 +279,7 @@
                               <img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
                             @endif
                             
-                             <input type="radio" name="payment_method" class="{{$p}} payment_radio" value="{{$p}}"> <span style="margin-left:10px;">if($p == 'swish_number') swish number @else {{@$p}} @endif</span>
+                             <input type="radio" name="payment_method" class="{{$p}} payment_radio" value="{{$p}}"> <span style="margin-left:10px;">@if($p == 'swish_number') swish number @else {{@$p}} @endif</span>
 
                            </div>
                            @endforeach

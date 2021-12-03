@@ -32,10 +32,12 @@
           // async: false,
           data:{},
           success: function(data){
-            alert(data);
-            console.log(data.payment_status)
-            $('#orderDetailsmodal').modal('show');
-            $('#order_details_box').html(data);
+            if(data.payment_status=="PAID"){
+              window.location = "{{ route('SwishOrderSuccess') }}";
+            }else{
+              window.location = "{{ route('SwishPaymentError') }}";
+            }
+         
           }
         });
 

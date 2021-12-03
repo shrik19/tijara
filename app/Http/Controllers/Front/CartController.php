@@ -3516,5 +3516,15 @@ DATA;
       return view('Front/payment_error',$blade_data); 
     }*/
   }
-    
+   public function orderSuccess(Request $request)
+  {
+    $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
+    return view('Front/order_success', $data);
+  }
+
+  public function paymentError(Request $request)
+  {
+    $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
+    return view('Front/payment_error',$blade_data); 
+  }
 }

@@ -3437,16 +3437,7 @@ DATA;
     ];
 
   
-"TRANS_LANGUAGE": [
-        {
-            "C": 102,
-            "L": 10203
-        },
-        {
-            "C": 101,
-            "L": 10101
-        }
-    ]
+
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL,$QRUrl);
     //curl_setopt($ch, CURLOPT_PUT, true);

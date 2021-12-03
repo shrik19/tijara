@@ -3447,7 +3447,7 @@ DATA;
     curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
 
     $QRresult = curl_exec($curl);
-    //echo "<pre>";print_r($QRresult);
+    echo "<pre>";print_r($QRresult);
 
     if (curl_errno($curl)) {
       $err_msg = curl_error($curl);

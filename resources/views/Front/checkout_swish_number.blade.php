@@ -28,7 +28,7 @@
           'X-CSRF-Token': $('meta[name="_token"]').attr('content')
           },
           url: "{{url('/')}}"+'/check-order-status/'+order_id,
-          type: 'get',
+          type: 'post',
           // async: false,
           data:{},
           success: function(data){
@@ -36,7 +36,7 @@
             $('#order_details_box').html(data);
           }
         });
-      
+
          /* console.log('it works' + new Date());*/
       },5000);
 

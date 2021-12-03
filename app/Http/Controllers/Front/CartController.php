@@ -1722,11 +1722,7 @@ class CartController extends Controller
                           'updated_at' => $currentDate,
                           'klarna_order_reference' => $checkExisting['klarna_order_reference'],
                         ];
-     /* $test1 = "orderNew.json";
-    $file1 = Storage::path($test1);
-    $file1=fopen($file1,'w');
-    fwrite($file1,$arrOrderInsert);
-    fclose($file1);*/
+ 
       $NewOrderId = Orders::create($arrOrderInsert)->id;
       $temp_orders = TmpOrders::find($checkExisting['id']);
       $temp_orders->delete();
@@ -3461,11 +3457,11 @@ DATA;
     $currentDate = date('Y-m-d H:i:s');
     $PaymentRequestToken = Session::get('PaymentRequestToken');
 
-    $test = "mytest111.json";
-    $file3 = Storage::path($test);
-    $file3=fopen($file3,'w');
-    fwrite($file3,$request->id);
-    fclose($file);
+    // $test = "mytest111.json";
+    // $file3 = Storage::path($test);
+    // $file3=fopen($file3,'w');
+    // fwrite($file3,$request->id);
+    // fclose($file);
 /*
     $test1 = "order.json";
     $file1 = Storage::path($test1);
@@ -3506,6 +3502,7 @@ DATA;
 
   public function CheckOrderStatus(Request $request)
   {
+    echo "<pre>";print_r($request->order_id);
     $checkOrderStatus = Orders::where('klarna_order_reference','=',$request->order_id)->first();
  
     echo "<pre>";print_r($checkOrderStatus);exit;

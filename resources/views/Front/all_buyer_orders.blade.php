@@ -52,7 +52,8 @@
                     $product_price = (!empty($value->price)) ? $value->price * $value->quantity: '-';
                     $storeName = (!empty($value->store_name)) ?$value->store_name : '-';
 
-                    $seller_name = $value->fname." ".$value->lname;
+                   // $seller_name = $value->fname." ".$value->lname;
+                     $seller_name = $storeName;
 
                     $seller_name = str_replace( array( '\'', '"', 
                     ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
@@ -60,7 +61,7 @@
                     $seller_name = strtolower($seller_name);
 
 
-                    $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($value->seller_id)."/products"; 
+                    $seller_link= url('/').'/seller/'.$seller_name."/products"; 
 
                     $product_link = url('/').'/product/'.$value->product_slug.'-P-'.$value->product_code;
 

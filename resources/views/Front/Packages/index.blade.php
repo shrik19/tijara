@@ -89,7 +89,7 @@
 	      	 <div class="col-md-6 ">
 				   <br/><br/>
 				   <?php 
-				   $class='';
+				   $class='test';
 				   	if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){
 				   		$class = $inactive;
 				   	} elseif($row->start_date <= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' && $row->end_date >= date('Y-m-d H:i:s')){

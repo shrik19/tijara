@@ -3381,7 +3381,7 @@ DATA;
       "payeeAlias"=> "1233144318",// $payeeAlias
       "amount"=> $amount,
       "currency"=> "SEK",
-      "message"=> "Tijara payment for order ".$order_id
+      "message"=> "Tijara payment for order".$order_id
     ];
 
     $ch = curl_init();
@@ -3481,8 +3481,11 @@ DATA;
     fwrite($file1,$order_id);
     fclose($file1);*/
 
-    
-   $arrOrderUpdate = [
+       $paymentDetails = ['id' => $request->id, 'payeePaymentReference' => $request->payeePaymentReference,'paymentReference' => $request->paymentReference, 'status' => $request->status,'amount' => $request->amount, 'datePaid' => $request->datePaid];
+        
+      
+
+    $arrOrderUpdate = [
           
           'klarna_order_reference'  => $order_id,
           
@@ -3500,7 +3503,7 @@ DATA;
        if(!empty($checkExisting)) {
 
                 //$ProductData = json_decode($checkExisting['product_details'],true);
-            $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','',$request->all());
+            $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','',json_encode($paymentDetails));
             $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
 
             $this->sendMailAboutOrder($newOrderDetails);
@@ -3516,8 +3519,13 @@ DATA;
   {
     //echo "<pre>";print_r($request->order_id);
     $checkOrderStatus = Orders::where('klarna_order_reference','=',$request->order_id)->first();
-    $payment_status = $checkOrderStatus['payment_status'];
-    return response()->json(['payment_status'=> $payment_status]);
+    if(!empty($checkOrderStatus)){
+      $payment_status = $checkOrderStatus['payment_status'];
+      return response()->json(['payment_status'=> $payment_status]);
+    }else{
+      return response()->json(['payment_status'=> "FAILED"]);
+    }
+    
    // echo "<pre>";print_r($checkOrderStatus);exit;
 /*    if($payment_status == "PAID"){
       $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';

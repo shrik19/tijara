@@ -20,19 +20,27 @@
     </div>
 </section>        
 <script type="text/javascript">
-  var order_id = $("#order_id").val();
-  $.ajax({
-      headers: {
-      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-      },
-      url: "{{url('/')}}"+'/check-order-status/'+order_id,
-      type: 'get',
-      // async: false,
-      data:{},
-      success: function(data){
-        $('#orderDetailsmodal').modal('show');
-        $('#order_details_box').html(data);
-      }
-    });
+  $( document ).ready(function() {
+    setInterval(function () {
+      var order_id = $("#order_id").val();
+      $.ajax({
+          headers: {
+          'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+          },
+          url: "{{url('/')}}"+'/check-order-status/'+order_id,
+          type: 'get',
+          // async: false,
+          data:{},
+          success: function(data){
+            $('#orderDetailsmodal').modal('show');
+            $('#order_details_box').html(data);
+          }
+        });
+      
+         /* console.log('it works' + new Date());*/
+      },5000);
+
+
+  });
 </script>
 @endsection

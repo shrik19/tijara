@@ -33,7 +33,7 @@
           data:{},
           success: function(data){
             alert(data);
-            console.log(data)
+            console.log(data.payment_status)
             $('#orderDetailsmodal').modal('show');
             $('#order_details_box').html(data);
           }

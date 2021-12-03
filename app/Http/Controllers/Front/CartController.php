@@ -3460,12 +3460,12 @@ DATA;
     $file3=fopen($file3,'w');
     fwrite($file3,$request->all());
     fclose($file);*/
-
+/*
     $test1 = "order.json";
     $file1 = Storage::path($test1);
     $file1=fopen($file1,'w');
     fwrite($file1,$order_id);
-    fclose($file1);
+    fclose($file1);*/
 
     
    $arrOrderUpdate = [

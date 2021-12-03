@@ -3400,7 +3400,7 @@ DATA;
     curl_setopt($ch, CURLOPT_VERBOSE, true);
 
     $result = curl_exec($ch);
-     echo "<pre>";print_r($result);
+    // echo "<pre>";print_r($result);
     // how big are the headers
     $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
     $headerStr = substr( $result , 0 , $headerSize );

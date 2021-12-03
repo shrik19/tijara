@@ -3013,7 +3013,7 @@ DATA;
                 ->join('variant_product as v1', 'products.id', '=', 'v1.product_id')
                 ->join('variant_product as v2', 'orders_details.variant_id', '=', 'v2.id')
                ->join('users','users.id','=','products.user_id')
-               ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','v2.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.store_name','users.id as seller_id')->where('orders.user_id','=',$user_id);
+               ->select('orders.created_at','orders.id as order_id','products.title','products.product_code','products.product_slug','orders_details.quantity','users.store_name','v2.image','orders_details.price','products.id as product_id','users.fname','users.lname','users.id as seller_id')->where('orders.user_id','=',$user_id);
 
 
 

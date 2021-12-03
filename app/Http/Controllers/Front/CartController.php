@@ -3450,16 +3450,18 @@ DATA;
   public function CheckoutSwishNumberCallback(Request $request) {
    // echo "<pre>";print_r($request->all());exit;
      /*create file to check push request recieved or not*/
-    $test = "mytest.json";
+     $order_status = $request->status;
+    $order_id = $request->payeePaymentReference;
+    $currentDate = date('Y-m-d H:i:s');
+
+
+    $test = "mytest111.json";
     $file3 = Storage::path($test);
     $file3=fopen($file3,'w');
     fwrite($file3,$request->all());
     fclose($file);
-$order_status = $request->status;
-    $order_id = $request->payeePaymentReference;
-    $currentDate = date('Y-m-d H:i:s');
 
-    $test1 = "order_id.json";
+    $test1 = "order.json";
     $file1 = Storage::path($test1);
     $file1=fopen($file1,'w');
     fwrite($file1,$order_id);

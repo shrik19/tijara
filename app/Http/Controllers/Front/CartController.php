@@ -1368,7 +1368,7 @@ class CartController extends Controller
           // echo "<pre>";print_r($getQR); 
            $checkOrderExist = Orders::where('klarna_order_reference','=',$getQR['PaymentRequestToken'])->first();
 
-          $data['PaymentRequestToken'] = $getQR['PaymentRequestToken'];
+          $data['order_id'] = $getQR['order_id'];
           $data['QRCode'] = $getQR['QRCode'];
          return view('Front/checkout_swish_number',$data); 
           /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
@@ -3410,6 +3410,8 @@ DATA;
     $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
     $headerStr = substr( $result , 0 , $headerSize );
     $bodyStr = substr( $result , $headerSize );
+
+    Session::put('current_checkout_order_id', $order_id);
     // convert headers to array
     $headers = $this->headersToArray( $headerStr );
     $PaymentRequestToken =$headers['PaymentRequestToken'];
@@ -3445,7 +3447,7 @@ DATA;
       echo $err_msg;
     }
     curl_close($curl);
-    $sendData['PaymentRequestToken'] = $PaymentRequestToken;
+    $sendData['orderId'] = $order_id;
     $sendData['QRCode'] = base64_encode($QRresult);
     return $sendData;
 
@@ -3475,14 +3477,14 @@ DATA;
     
    $arrOrderUpdate = [
           
-          'klarna_order_reference'  => $PaymentRequestToken,
+          'klarna_order_reference'  => $order_id,
           
         ];
         TmpOrders::where('id',$order_id)->update($arrOrderUpdate);
     $current_checkout_order_id  = session('current_checkout_order_id');
-    Session::put('current_checkout_order_id', '');
+    //Session::put('current_checkout_order_id',$order_id);
     if($request->status=='PAID') {
-       $checkOrderExisting = Orders::where('klarna_order_reference','=',$PaymentRequestToken)->first();
+       $checkOrderExisting = Orders::where('klarna_order_reference','=',$order_id)->first();
  
     if(empty($checkOrderExisting))
      {
@@ -3505,7 +3507,9 @@ DATA;
 
   public function CheckOrderStatus(Request $request)
   {
-    echo "<pre>";print_r($request->all());
+    $checkOrderStatus = Orders::where('klarna_order_reference','=',$request->order_id)->first();
+ 
+    echo "<pre>";print_r($checkOrderStatus);exit;
     if($order_status == "PAID"){
       $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
       return view('Front/order_success', $data);

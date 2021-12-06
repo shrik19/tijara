@@ -88,7 +88,7 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
-        $checkUser   = User::select('id','status','role_id','is_verified','activation_status')->where('email','=', trim($request->input('email')))->where('is_shop_closed','=','0')->get();
+        $checkUser   = User::select('id','status','role_id','is_verified','activation_status')->where('email','=', trim($request->input('email')))->where('is_shop_closed','=','0')->where('is_deleted','=','0')->get();
 
         if(!isset($checkUser[0]))
         {

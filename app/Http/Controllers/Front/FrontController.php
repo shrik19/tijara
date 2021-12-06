@@ -2582,7 +2582,7 @@ public function getCatSubList(Request $request) {
       	$success_msg = $err_msg='';
    		if(Auth::guard('user')->id()) {
    			$user_message = $request->user_message;
-	   		$to_email = $request->seller_email;
+	   		$to_email = $request->user_email;
 	   		$id = $request->seller_id;
 	   		$seller_name = $request->seller_name;
            	$loginUser = UserMain::where('id',Auth::guard('user')->id())->first();
@@ -2599,13 +2599,31 @@ public function getCatSubList(Request $request) {
 			 ];
 
 			ContactStore::create($arrInsert);
-	        $arrMailData = ['name' => $name, 'email' => $from_email, 'user_message'=> $user_message,'seller_name' => $seller_name];
+	        // $arrMailData = ['name' => $name, 'email' => $from_email, 'user_message'=> $user_message,'seller_name' => $seller_name];
 
-	            Mail::send('emails/contact_seller', $arrMailData, function($message) use ($to_email,$seller_name) {
-	            $message->to($to_email, $seller_name)->subject
+	        //     Mail::send('emails/contact_seller', $arrMailData, function($message) use ($to_email,$seller_name) {
+	        //     $message->to($to_email, $seller_name)->subject
+	        //         (trans('users.message_from_buyer_sub'));
+	        //     $message->from( env('FROM_MAIL'),'Tijara');
+	        // });
+		//echo  env('FROM_MAIL');exit;
+
+
+        
+        $GetEmailContents = getEmailContents('Contact Seller');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+
+        $contents = str_replace(['##SELLER_NAME##','##NAME##','##EMAIL##','##MESSAGE##','##SITE_URL##'],[$seller_name,$name,$from_email,$user_message,url('/')],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($to_email,$seller_name) {
+            $message->to($to_email, $seller_name)->subject
 	                (trans('users.message_from_buyer_sub'));
-	            $message->from( env('FROM_MAIL'),'Tijara');
-	        });
+	        $message->from( env('FROM_MAIL'),'Tijara');
+         });
+
 	       $success_msg = trans('users.mail_sent_to_seller_alert');
         }else{
         	$err_msg = trans('users.please_login_alert');

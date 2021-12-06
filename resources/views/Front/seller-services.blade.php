@@ -473,7 +473,7 @@ $(document).on("click",".conact-store-save",function(event) {
           },
           type: 'POST',
           async: false,
-          data:{user_message:user_message,seller_email:seller_email,seller_id:seller_id,seller_name:seller_name},
+          data:{user_message:user_message,user_email:seller_email,seller_id:seller_id,seller_name:seller_name},
           success: function(output){
             
 			$(".loader").hide();

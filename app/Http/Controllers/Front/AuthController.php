@@ -17,6 +17,7 @@ use App\Models\Package;
 use App\Models\UserPackages;
 use App\Models\SellerPersonalPage;
 use App\Models\SubscribedUsers;
+
 /*Uses*/
 use Socialite;
 use DB;
@@ -415,7 +416,7 @@ class AuthController extends Controller
             Session::put('new_seller_role_id', $role_id);
             Session::put('next_step', 2);
        
-            return response()->json(['success'=>'Got Simple Ajax Request']);
+            return response()->json(['success'=>'Got Simple Ajax Request']);exit;
         }   
     }
 
@@ -441,7 +442,7 @@ class AuthController extends Controller
         Session::put('new_seller_package_end_date', $ExpiredDate);
         Session::forget('next_step');
         Session::put('next_step', 3);
-        return response()->json(['success'=>'second step success','package_name'=>$package_name]);
+        return response()->json(['success'=>'second step success','package_name'=>$package_name]);exit;
     }
 
     /*function to save third step seller registration form values*/
@@ -497,7 +498,7 @@ class AuthController extends Controller
 
             Session::forget('next_step');
             Session::put('next_step', 4);
-        return response()->json(['success'=>'third step success']);
+        return response()->json(['success'=>'third step success']);exit;
     }
 
 

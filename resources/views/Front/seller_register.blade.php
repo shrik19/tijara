@@ -134,12 +134,13 @@
 										?>
 											@foreach($packageDetails as $data)
 											<?php
-											/*if(!empty(Session::get('new_seller_package_name')) && $data['title'] == Session::get('new_seller_package_name')){
-												$class = "selectedActivePackage";
-											}*/
+											$packageClass="";
+											if(!empty($data['title']) && $data['title'] == Session::get('new_seller_package_name')){
+												$packageClass = Session::get('new_seller_package_name');
+											}
 											?>
 											<div class="col-md-offset-1 col-md-4 packages-section">
-												<div class="packages-subscribe" onclick='subscribe_package("{{$i}}",this)' package_name="{{$data['title']}}">
+												<div class="packages-subscribe {{$packageClass}}" onclick='subscribe_package("{{$i}}",this)' package_name="{{$data['title']}}">
 													<div class="packages-heading hand-icon">
 														<h3>{{$data['title']}}</h3>
 														<div class="packages-price">{{$data['amount']}} kr/{{$data['validity_days']}} Days</div>
@@ -341,6 +342,7 @@
 	//packages-subscribe
 	//$(".packages-subscribe").removeClass("active");
 //}
+
     $($(val)).addClass("selectedActivePackage");
     //let user_id  = $("#user_id").val();
     let p_id     = $("#p_id_"+i).val();
@@ -446,7 +448,7 @@
 	            current_fs.animate({opacity: 0}, {
 	            step: function(now) {
 	            // for making fielset appear animation
-	            opacity = 1 - now;
+	            opacity = 0.6 - now;
 
 	            current_fs.css({
 	            'display': 'none',
@@ -463,17 +465,35 @@
     }
 
 $(document).ready(function(){
-	/*var selected_package_name =$('#selected_package_name').val();
-	if(selected_package_name == "Tijara Bas"){
-		//$('.klarna_payment_detail_box').attr('disabled', 'disabled');
-		$('.klarna_payment :input').attr('disabled', true);
-		$('.stripe_payment :input').attr('disabled', true);
-		$(".swish_payment_lock").removeClass("fa-lock");
-	}else{
+	/*$( ".packages-subscribe" ).hasClass(session_package_name)
+	var session_package_name =$('#session_package_name').val();
+	if(session_package_name !=''){
+		alert(session_package_name)
+	}
+*/
+$(".Bas").addClass("selectedActivePackage");
+$(".pro").addClass("selectedActivePackage");
+ var session_package_name =$('#session_package_name').val();
+	if(session_package_name == 'Tijara Bas'){
+			$('.klarna_payment :input').attr('disabled', true);
+			$('.stripe_payment :input').attr('disabled', true);
+			$(".swish_payment_lock").removeClass("fa-lock");
+			$(".klarna_payment_lock").addClass("fa-lock");
+			$(".stripe_payment_lock").addClass("fa-lock");
+			$('#klarna_username').val('');
+			$('#klarna_password').val('');
+			$('#strip_api_key').val('');
+			$('#strip_secret').val('');
+	}
+
+	if(session_package_name=="Tijara pro"){
+		$('.klarna_payment :input').attr('disabled', false);
+		$('.stripe_payment :input').attr('disabled', false);
 	    $(".klarna_payment_lock").removeClass("fa-lock");
 	    $(".swish_payment_lock").removeClass("fa-lock");
 	    $(".stripe_payment_lock").removeClass("fa-lock");
-  	}*/
+  	}
+
 
 if($('#current_step_button').val() != 1){
     var curr_step=  $('input#current_step_button').val();
@@ -505,7 +525,7 @@ if($('#current_step_button').val() != 1){
     current_fs.animate({opacity: 0}, {
     step: function(now) {
     // for making fielset appear animation
-    opacity = 1 - now;
+    opacity = 0.6 - now;
 
     current_fs.css({
     'display': 'none',
@@ -618,8 +638,9 @@ if($('#current_step_button').val() != 1){
             //hide the current fieldset with style
             current_fs.animate({opacity: 0}, {
             step: function(now) {
+            	//console.log("next-->"+now)
                 // for making fielset appear animation
-                opacity = 1 - now;
+                opacity = 0.6 - now;
 
                 current_fs.css({
                     'display': 'none',
@@ -648,15 +669,18 @@ $('.forth-step-previous').click(function(e) {
 /*second step*/
 
 $('#second-step').click(function(e) { 
-   // var session_package_name =$('#session_package_name').val();
-      var selected_package_name =$('#selected_package_name').val();
+    var session_package_name =$('#session_package_name').val();
+     var selected_package_name =$('#selected_package_name').val();
     //alert(selected_package_name)
-
+    
     var err = 0
-    if(selected_package_name==''){
-        showErrorMessage(select_package_to_subscribe);
-        err = 1;
+    if(session_package_name ==''){
+    	if(selected_package_name==''){
+	        showErrorMessage(select_package_to_subscribe);
+	        err = 1;
+    	}
     }
+   
     
         if(err == 0){ 
              //show next step
@@ -675,7 +699,7 @@ $('#second-step').click(function(e) {
             current_fs.animate({opacity: 0}, {
             step: function(now) {
                 // for making fielset appear animation
-                opacity = 1 - now;
+                opacity = 0.6 - now;
 
                 current_fs.css({
                     'display': 'none',
@@ -771,7 +795,7 @@ $('#third-step').click(function(e) {
         current_fs.animate({opacity: 0}, {
         step: function(now) {
             // for making fielset appear animation
-            opacity = 1 - now;
+            opacity = 0.6 - now;
 
             current_fs.css({
                 'display': 'none',
@@ -942,7 +966,6 @@ $('body').on('change', '#seller_logo_img', function () {
 $(".previous").click(function(){
 	current_fs = $(this).parent();
 	previous_fs = $(this).parent().prev();
-
 	//Remove class active
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
@@ -952,8 +975,9 @@ $(".previous").click(function(){
 	//hide the current fieldset with style
 	current_fs.animate({opacity: 0}, {
 	step: function(now) {
+	//console.log(now)
 	// for making fielset appear animation
-	opacity = 1 - now;
+	opacity = 0.6 - now;
 
 	current_fs.css({
 	'display': 'none',
@@ -972,7 +996,7 @@ $('.radio-group .radio').click(function(){
 });
 
 $(".submit").click(function(){
-	alert("ewjh")
+	//alert("ewjh")
 	return false;
 })
 

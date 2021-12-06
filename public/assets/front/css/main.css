@@ -143,13 +143,7 @@ margin-top: 15px;
 }
 .btn:hover{color: #fff}
 
-.service_validation_err{
- /* text-align: center;
-  margin-top: 75px;
-  margin-left: -630px;*/
-/*  margin-top: 50px;
-  margin-left: -877px;*/
-}
+
 
 .pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
     z-index: 2;
@@ -1359,9 +1353,7 @@ span.remember-text {
 		font-size: 18px;
 	}
 	
-	.seller_register_container .seller_register_fourth input[type=button]{
-		/*margin: 0;*/
-	}
+
 
    .seller_register_container .seller_register_fourth input[type=submit],
     .seller_register_container .seller_register_fourth input[type=button]{
@@ -1801,9 +1793,7 @@ overflow: hidden;margin-top: 155px;}
     border: 0;
     border-top: 1px solid #eee;
 }
-hr{
-  /*border-top: 1px solid #f9f9f9 !important;*/
-}
+
 .add_ads_btn{
   float: right;margin-top: -70px;
 }
@@ -2659,7 +2649,9 @@ span.pro-text {
     }
       }
 
-
+#filter-buyer-order,#filter-service-booking{
+  margin-top: -45px;
+}
 
 
 
@@ -2668,6 +2660,13 @@ span.pro-text {
                     .package_width{width: 90%; margin: 0 5%;}
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
+     #filter-service-booking, #filter-buyer-order{
+        margin-top: 15px;
+      }
+      .input_box_css {
+        width: 319px !important;
+        height: 20px !important;
+    }
       .show-custom {
         width: 85%;
         margin-left: 62px;
@@ -2675,6 +2674,22 @@ span.pro-text {
         float: left;
         height: 300px;
     }
+    .checkoutProductImg {
+      width: auto;
+      object-fit: cover;
+  }
+    .tablink {
+      border: none;
+      background: none;
+      padding: 3px 4px;
+      margin: 0px 20px;
+  }
+  .checkoutPageBox {
+    background: #fff;
+    float: left;
+    width: 100%;
+    padding: 10px;
+}
     .small-container div {
       width: 27%;
       position: relative;
@@ -3169,11 +3184,12 @@ h1.checkoutHeading {
       display: block;
       margin: 0px 0 10px 0;
   }
+  .container-inner-section-1{width: 100%;}
 }
  
 /* Extra large devices (large desktops, 1200px and up) */
 
 @media only screen and (min-device-width: 993px) and (max-device-width: 1140px){  
-  .container-inner-section,.featured_seller_container,.product_view{width: 100%;}
+  .container-inner-section,.featured_seller_container,.container-inner-section-1,.product_view{width: 100%;}
 
 }

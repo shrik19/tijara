@@ -18,7 +18,7 @@
               <div class="col-md-12">
                 <div class="card-body">
                     <div class="card">
-                    <div class="col-md-12" style="margin-bottom: 40px;margin-top: -45px;">
+                    <div class="col-md-12" >
                     <div class="col-md-9"></div>
                     <div  class="col-md-3">
                     <form id="filter-buyer-order" action="{{route('frontAllBuyerOrders')}}" method="post">

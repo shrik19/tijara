@@ -5,7 +5,6 @@
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
-
 <section class="product_section p_155">
     @if(!empty($header_image))
       <img class="seller_banner" src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
@@ -490,7 +489,8 @@ $(document).on("click",".conact-store-save",function(event) {
         let user_email   = $("#seller_email").val();
         let product_link      = $("#product_link").val();
         let seller_name      = $("#seller_name").val();
-		
+        let seller_id      = $("#seller_id").val();
+	
        $(".loader").show();
 
         setTimeout(function(){
@@ -501,7 +501,7 @@ $(document).on("click",".conact-store-save",function(event) {
           },
           type: 'POST',
           async: false,
-          data:{user_message:user_message,user_email:user_email,product_link:product_link,seller_name:seller_name},
+          data:{user_message:user_message,user_email:user_email,product_link:product_link,seller_name:seller_name,seller_id:seller_id},
           success: function(output){
 			  
 			       $(".loader").hide();

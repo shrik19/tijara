@@ -33,7 +33,7 @@
                             <div  class="col-md-3"><?php echo $monthYearHtml;?></div>
                         </div> -->
                         <div class="card">
-                              <div class="col-md-12" style="margin-bottom: 40px;margin-top: -45px;">
+                              <div class="col-md-12" >
                                 <div class="col-md-9"></div>
                                     <div  class="col-md-3">
                                         <form id="filter-service-booking" action="{{route('frontAllServiceRequest')}}" method="post">

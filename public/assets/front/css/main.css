@@ -1778,7 +1778,7 @@ overflow: hidden;margin-top: 155px;}
 }
 
 .col-md-3 .product_img{
-    height: 13vw !important;
+    height: 13vw;
 }
 .border-none{border: none!important;}
 .dic_price{
@@ -2656,10 +2656,31 @@ span.pro-text {
 
 
                     @media only screen and (min-device-width: 1024px) and (max-device-width: 1400px){
-
+                   
+                   
                     .package_width{width: 90%; margin: 0 5%;}
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
+      .login_banner {
+        height: 40vh;
+    }
+      .seller_register_container .register_banner {
+        /* min-height: 900px; */
+        height: 40vh;
+    }
+    .register_banner {
+      width: 99%;
+      background-position: center center;
+      position: relative;
+      height: 100%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+  }
+  /* .right-section{
+    padding-top: 82%;
+  } */
      #filter-service-booking, #filter-buyer-order{
         margin-top: 15px;
       }
@@ -2790,13 +2811,14 @@ span.pro-text {
             padding: 6px 5px;
         }
         .go_to_tijara_ads_btn {
-            color: #000 !important;
-            background-color: #ffcc99;
-            padding: 10px;
-            margin-bottom: 97px;
-            margin-top: 42px;
-            margin-left: -14px;
-            border-radius: 10px;
+          color: #000 !important;
+          background-color: #ffcc99;
+          padding: 10px;
+          margin-bottom: 134px;
+          margin-top: 42px;
+          margin-left: -14px;
+          border-radius: 10px;
+          height: auto;
         }
         .product_img{position: relative;}
         .buy_now_hover_details{position: absolute; top: 0px;  height: 100%;
@@ -3185,11 +3207,28 @@ h1.checkoutHeading {
       margin: 0px 0 10px 0;
   }
   .container-inner-section-1{width: 100%;}
+  .seller_info {
+    border-left: none;
+    border-top: 1px solid #dadada;
+}
+.seller_mid_cont {
+  margin-left: 0px;
+}
+.store_eye_icon {
+  margin-left: 0;
+  margin-top: 30px;
+}
+.tijara-content{
+  clear: both;
+}
+.p_155 {
+  padding-top: 0px!important;
+}
 }
  
 /* Extra large devices (large desktops, 1200px and up) */
 
 @media only screen and (min-device-width: 993px) and (max-device-width: 1140px){  
-  .container-inner-section,.featured_seller_container,.container-inner-section-1,.product_view{width: 100%;}
+  .container-inner-section,.container-inner-section, .featured_seller_container,.container-inner-section-1,.product_view{width: 100%;}
 
 }

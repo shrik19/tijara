@@ -2415,7 +2415,7 @@ DATA;
        $emailSeller = trim($GetSeller['email']);
        $nameSeller  = trim($GetSeller['fname']).' '.trim($GetSeller['lname']);
 
-       $admin_email = 'shrik.techbee@gmail.com';
+       $admin_email = env('ADMIN_EMAIL');
        $admin_name  = 'Tijara Admin';
        
       //  $arrMailData = ['name' => $nameSeller, 'email' => $emailSeller, 'order_details_link' => url('/').'/order-details/'.base64_encode($NewOrderId)];

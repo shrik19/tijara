@@ -188,6 +188,16 @@ jQuery("#monthYear").on('change', function() {
   this.form.submit();
 });
 
+$(".page-link").click(function(){  
+  var monthYear = $("#monthYear").val();
+ 
+  if(monthYear != ''){
+    $(this).attr('href', function() {
+        return this.href + '&monthYear='+monthYear;
+    });
+  }
+    
+});
 jQuery(document).on("click",".serviceReqDetails",function(event) {      
   
     jQuery.noConflict();

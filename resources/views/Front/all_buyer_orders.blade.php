@@ -152,10 +152,17 @@
     this.form.submit();
   });
 
-  $(".page-link").on('change', function() {
-    alert("zx");
-     
-  });
+ 
+$(".page-link").click(function(){  
+  var monthYear = $("#monthYear").val();
+ 
+  if(monthYear != ''){
+    $(this).attr('href', function() {
+        return this.href + '&monthYear='+monthYear;
+    });
+  }
+    
+});
 
 function printDiv() {		
 	var product_link= $('.buyer-product-img').attr('product_link')+'?print=1';

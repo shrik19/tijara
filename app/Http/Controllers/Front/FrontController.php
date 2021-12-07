@@ -2014,6 +2014,12 @@ public function getCatSubList(Request $request) {
 	//get popular services
 	function getPopularServices($category_slug='',$subcategory_slug='') {
 		$currentDate = date('Y-m-d H:i:s');
+		$current_uri = request()->segments();
+		if(!empty($current_uri[0]) && @$current_uri[0]=='services'){
+        	$limit = config('constants.similar_product_limits');
+		}else{
+			$limit = config('constants.Popular_Product_limits');
+		}
 		$PopularServices 	= Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')								
 								->join('category_services', 'services.id', '=', 'category_services.service_id')
 								->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
@@ -2039,8 +2045,10 @@ public function getCatSubList(Request $request) {
 								//->orwhere([['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]])
 								->orderBy('totalOrderedServices', 'DESC')
 								->groupBy('services.id')
-								->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
-
+								->offset(0)->limit($limit)->get();
+	
+        //echo $current_uri[0];exit;
+        
 		if(count($PopularServices)>0) {
 			foreach($PopularServices as $Service) {
 				$serviceCategories = $this->getServiceCategories($Service->id);

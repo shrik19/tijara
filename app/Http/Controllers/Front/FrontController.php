@@ -644,7 +644,7 @@ public function getCatSubList(Request $request) {
 								->where('users.is_deleted','=','0')
 								->where(function($q) use ($currentDate) {
 
-									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								})
 								// ->when( "users.role_id" == 2 , function ($query) use ($currentDate) {
 								// 	return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);

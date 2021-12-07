@@ -595,7 +595,10 @@ class AuthController extends Controller
         /* 4th step insert */
         $UpdateStore  =   array();
         $UpdateStore = [
-                'store_name'      => trim($request->input('store_name')),
+                'store_name'   => trim($request->input('store_name')),
+                'city'         => trim($request->input('city_name')),
+                'country'      => trim($request->input('country_name'))
+
         ];
          if(!empty($UpdateStore)) {
                 UserMain::where('id',$user_id)->update($UpdateStore);

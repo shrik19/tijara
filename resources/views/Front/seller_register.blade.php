@@ -275,6 +275,18 @@
 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
 
+										<div class="form-group">
+                                            <label class="placeholder">{{ __('users.city_label')}}</label>                      
+											<input type="text" class="form-control login_input" name="city_name" id="city_name" placeholder="{{ __('users.city_label')}} *">
+										</div> 
+										<span class="invalid-feedback" id="err_city_name"></span>
+
+										<div class="form-group">
+                                            <label class="placeholder">{{ __('users.country_label')}}</label>
+                                         	<input type="text" class="form-control login_input" name="country_name" id="country_name" placeholder="{{ __('users.country_label')}} *">
+										</div> 
+										<span class="invalid-feedback" id="err_country_name"></span>
+
 										<div class="form-group increment cloned">
 											<div class="col-md-4 seller_banner_upload" style="margin-top: 20px;"></div>
 											<label class="placeholder" style="margin-left: -144px;">{{ __('users.seller_header_img_label')}}</label>
@@ -325,8 +337,10 @@
 
 	$(document).on("keydown", disableF5);*/
 
-	var oops_heading = "{{ __('users.oops_heading')}}";
-    var success_heading = "{{ __('users.success_heading')}}";
+	var oops_heading        = "{{ __('users.oops_heading')}}";
+    var success_heading     = "{{ __('users.success_heading')}}";
+    var fill_in_city_err    = "{{ __('errors.fill_in_city_err')}}";
+    var fill_in_country_err = "{{ __('errors.fill_in_country_err')}}";
 	/* second step */
     function subscribe_package(i,val){
     	$(".packages-subscribe").each(function() {
@@ -815,22 +829,36 @@ $('#third-step').click(function(e) {
 $('#last-step').click(function(e) {  
 
     e.preventDefault();
-    let store_name     = $("#store_name").val();
+    let store_name       = $("#store_name").val();
     let verify_btn_click = $("#verify_btn_click").val();
+    var city_name        =  $("#city_name").val();
+    var country_name     = $("#country_name").val();
+
     let last_step_err = 0;
 
     if(store_name==''){
-       
-       
         $("#err_store_name").html(please_enter_store_name).show();
        // $("#err_store_name").parent().addClass('jt-error');
          last_step_err = 1; 
       // showErrorMessage(please_enter_store_name)
-    }   else
-        {
+    }  else  {
            // $("#err_store_name").parent().removeClass('jt-error');
             $("#err_store_name").html('');
-        }
+    }
+
+    if(city_name==''){
+        $("#err_city_name").html(fill_in_city_err).show();
+         last_step_err = 1; 
+    }  else  {
+            $("#err_city_name").html('');
+    }
+
+    if(country_name==''){
+        $("#err_country_name").html(fill_in_country_err).show();
+         last_step_err = 1; 
+    }  else  {
+            $("#err_country_name").html('');
+    }
 
     if(verify_btn_click==''){
       showErrorMessage(verify_store)
@@ -838,9 +866,14 @@ $('#last-step').click(function(e) {
     }
     else if(!$("#chk_privacy_policy").is(':checked')){
        showErrorMessage(please_check_privacy_policy);
-       last_step_err = 1;   
+       	last_step_err = 1; 
+         
     } else{
-    	last_step_err = 0;
+    	if(last_step_err !=1){
+    		last_step_err = 0;
+    	}else{
+    		last_step_err = 1;
+    	}
     }
     /*else {
         showErrorMessage(please_check_privacy_policy);
@@ -867,7 +900,7 @@ $('#last-step').click(function(e) {
 	                url: "{{url('/')}}"+'/seller-info-page',
 	                type: 'post',
 	        
-	                data:{banner_image:banner_image,logo_image:logo_image,store_name:store_name},
+	                data:{banner_image:banner_image,logo_image:logo_image,store_name:store_name,city_name:city_name,country_name:country_name},
 	            
 	                success: function(data){
 	                    $(".loader-seller").css("display","none");

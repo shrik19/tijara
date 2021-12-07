@@ -15,7 +15,7 @@ use App\Models\ServiceCategories;
 use App\Models\ServiceSubcategories;
 use App\Models\ServiceCategory;
 use App\Models\ServiceRequest;
-
+use Intervention\Image\Facades\Image;
 
 use App\CommonLibrary;
 

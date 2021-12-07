@@ -1710,7 +1710,14 @@ public function getCatSubList(Request $request) {
 							  ->where('users.status','=','active')
 							  ->where('users.is_deleted','=','0')
 							  ->where('users.is_shop_closed','=','0')
-							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
+							  ->where(function($q) use ($currentDate) {
+								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);
+								
+								});
+							  //->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+							  //->orwhere([['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);
+
 			if($request->category_slug !='') {
 				$category 		=  ServiceCategories::select('id')->where('category_slug','=',$request->category_slug)->first();
 				$Services	=	$Services->where('category_services.category_id','=',$category['id']);
@@ -2021,7 +2028,15 @@ public function getCatSubList(Request $request) {
 								->where('users.status','=','active')
 								->where('users.is_deleted','=','0')
                 			    ->where('users.is_shop_closed','=','0')
-								->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+                			    ->where(function($q) use ($currentDate) {
+
+								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);
+								
+								})
+
+								//->orwhere([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+								//->orwhere([['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]])
 								->orderBy('totalOrderedServices', 'DESC')
 								->groupBy('services.id')
 								->offset(0)->limit(config('constants.Popular_Product_limits'))->get();

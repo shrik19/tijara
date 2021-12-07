@@ -32,7 +32,7 @@
               
                   </div>
                   
-                  <div class="col-md-3" style="margin-left: -15px;">
+                  <div class="col-md-3">
                   
                     <div class="form-group">
                       <label class="product_sorting_filter">{{ __('lang.sort_by_order')}} : </label>

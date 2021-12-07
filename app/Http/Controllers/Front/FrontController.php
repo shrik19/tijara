@@ -644,12 +644,8 @@ public function getCatSubList(Request $request) {
 								->where('users.is_deleted','=','0')
 								->where(function($q) use ($currentDate) {
 
-									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])
-									
-									->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								})
-
-
 								// ->when( "users.role_id" == 2 , function ($query) use ($currentDate) {
 								// 	return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
 								// }, function ($query) use ($currentDate) {
@@ -658,16 +654,17 @@ public function getCatSubList(Request $request) {
 								//->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 								->orderBy('totalOrderedProducts', 'DESC')
 								->orderBy('variant_product.id', 'ASC')
-								->groupBy('products.id');
-							
-         $current_uri = request()->segments();
+								->groupBy('products.id')
+								->offset(0)->limit(config('constants.similar_product_limits'))->get();
+		//print_r(DB::getQueryLog());	exit;
+		/*$current_uri = request()->segments();
         
         if(!empty($current_uri[0]) && @$current_uri[0]=='products'){
-        	$PopularProducts->offset(0)->limit(config('constants.similar_product_limits'))->get();
+        	$PopularProducts->offset(0)->limit(20)->get();
 		}else{
 			$PopularProducts->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
-		}
-	//echo "<pre>";print_r($PopularProducts->all());exit;
+		}*/
+
 		if(count(array($PopularProducts))>0) {
 			foreach($PopularProducts as $Product) {
         $productCategories = $this->getProductCategories($Product->id);
@@ -714,7 +711,7 @@ public function getCatSubList(Request $request) {
 			}
 		}
 
-		//echo "<pre>";print_r($PopularProducts);exit;
+		//echo "pre";print_r($PopularProducts);exit;
 			return $PopularProducts;
 	}
 	// get trending products
@@ -873,7 +870,7 @@ public function getCatSubList(Request $request) {
 							  ->where(function($q) use ($currentDate) {
 
 								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])
-									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])
+									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate],['variant_product.quantity', '>', 30]])
 								->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
 			}
@@ -1082,7 +1079,6 @@ public function getCatSubList(Request $request) {
     {
 		
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
-
 		if(!empty($category_slug)){
 			$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
 			$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
@@ -1112,8 +1108,9 @@ public function getCatSubList(Request $request) {
         	$data['Categories'] = $this->getCategorySubcategoryList();
         }
 		
+			
+		
     	$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
-    	//echo "<pre>";print_r($data['PopularProducts']);exit;
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
     	$data['category_slug']		=	'';
     	$data['subcategory_slug']	=	'';

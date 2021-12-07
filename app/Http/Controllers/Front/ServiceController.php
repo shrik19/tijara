@@ -152,7 +152,6 @@ class ServiceController extends Controller
 
 // and then you can get query log
 
-echo "ghjkhkjdfg";exit;
     if(!empty($request['category']) || !empty($request['subcategory'])) {
         $ServicesDetails = Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id')  
                                             ->select(['services.*'])
@@ -252,8 +251,8 @@ echo "ghjkhkjdfg";exit;
         $recordsTotal = $ServicesDetails->get()->count();
         
         $recordDetails = $ServicesDetails->offset($request->input('start'))->limit($request->input('length'))->get();
-        echo "<pre>";
-print_r(DB::getQueryLog());exit;
+       // echo "<pre>";
+        //print_r(DB::getQueryLog());exit;
         $arr = [];
 
         if (count($recordDetails) > 0) {

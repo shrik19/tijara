@@ -665,7 +665,7 @@ public function getCatSubList(Request $request) {
 			$PopularProducts->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
 		}*/
 
-		if(count(array($PopularProducts))>0) {
+		if(count($PopularProducts)>0) {
 			foreach($PopularProducts as $Product) {
         $productCategories = $this->getProductCategories($Product->id);
 
@@ -849,7 +849,7 @@ public function getCatSubList(Request $request) {
 								$q->where([['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
 			}else{
-
+		//DB::enableQueryLog();
 				$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->leftJoin('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->leftJoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
@@ -870,7 +870,7 @@ public function getCatSubList(Request $request) {
 							  ->where(function($q) use ($currentDate) {
 
 								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])
-									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate],['variant_product.quantity', '>', 30]])
+									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])
 								->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
 			}
@@ -966,7 +966,7 @@ public function getCatSubList(Request $request) {
 		//$data['ProductsTotal'] = $Products->count();
 
 		$Products 			= $Products->paginate(config('constants.Products_limits'));
-
+		//print_r(DB::getQueryLog());exit;
 		//echo "<pre>";print_r($Products);exit;
 		//$data['show_products'] =$Products[0]->role_id;
 		//print_r(DB::getQueryLog());exit;

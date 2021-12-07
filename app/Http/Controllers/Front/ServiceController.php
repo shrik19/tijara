@@ -6,18 +6,31 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
+
 use App\Models\UserMain;
 
 use App\Models\Services;
 
+use App\Models\City;
+
+use App\Models\UserPackages;
 
 use App\Models\ServiceCategories;
+
 use App\Models\ServiceSubcategories;
+
 use App\Models\ServiceCategory;
+
+use App\Models\Package;
+
 use App\Models\ServiceRequest;
-use Intervention\Image\Facades\Image;
+
+use App\Models\ServiceAvailability;
+
 
 use App\CommonLibrary;
+use Intervention\Image\Facades\Image;
 
 /*Uses*/
 

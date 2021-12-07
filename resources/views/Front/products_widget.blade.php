@@ -73,7 +73,14 @@ if(strpos(@$path, 'annonser') !== false){
         </div>
 
         @if(!empty($product->price))
-          <h6 class="product_price" style="margin-top: 6px;"><span>{{$product->price}} kr </span></h6>    
+      <!--     <h6 class="product_price" style="margin-top: 6px;"><span>{{$product->price}} kr </span></h6>    --> 
+     <!--  <h6 class="product_price" style="margin-top: 6px;"><span @if(!empty($product->discount_price)) style="text-decoration: line-through;" @endif>{{$product->price}} kr</span>@if(!empty($product->discount_price)) &nbsp;&nbsp;{{$product->discount_price}} kr @endif</h6> -->
+      <h6 class="product_price" style="margin-top: 6px;"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span>
+              
+                
+            
+            </h6>
+
         @endif
            <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->seller}}</h5></a>
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>

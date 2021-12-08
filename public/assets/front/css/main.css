@@ -2704,6 +2704,9 @@ span.pro-text {
         /* min-height: 900px; */
         height: 52vh;
     }
+    .register_banner-1 {
+      min-height: 392px;
+  }
     .register_banner {
       width: 99%;
       background-position: center center;

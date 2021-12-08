@@ -19,10 +19,10 @@
             <div class="card-header row">
             <div class="col-md-10">
 
-            <h2 class="page_heading" style="margin-bottom: 60px;">{{ __('users.buyer_product_list_title')}}</h2>
+            <h2 class="page_heading new_add_heading" >{{ __('users.buyer_product_list_title')}}</h2>
             <!-- <hr class="heading_line"/> -->
             </div>
-            <div class="col-md-1" style="margin-left: -61px;">
+            <div class="col-md-1 new_add">
             <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" ><span>+ {{ __('users.add_ads_btn')}}</span> </a>
             </div>
             </div>

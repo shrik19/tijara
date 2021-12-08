@@ -59,8 +59,8 @@
                 <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}">{{ __('users.report_product_btn')}} </a>
               </div>
               </div>
-
-            <div class="col-md-offset-1 col-md-5">
+             
+            <div class="col-md-offset-1 col-md-5 cleardiv">
                 <div class="product_details_info">
                     <h2 class="product_title_details">{{$Product->title}}</h2>
 

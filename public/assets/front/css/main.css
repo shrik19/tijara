@@ -3209,7 +3209,7 @@ h1.checkoutHeading {
 
 
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 992px) { 
+@media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
   .container-inner-section,.featured_seller_container,.product_view{width: 100%;}
   .product_img{height: 48vh!important;}
   .all_cat_sidebar_label {
@@ -3276,4 +3276,171 @@ h1.checkoutHeading {
 @media only screen and (min-device-width: 993px) and (max-device-width: 1140px){  
   .container-inner-section,.container-inner-section, .featured_seller_container,.container-inner-section-1,.product_view{width: 100%;}
 
+}
+.new_add{margin-left: -61px;}
+.new_add_heading{margin-bottom: 60px;}
+@media only screen and (min-device-width: 650px) and (max-device-width: 770px){  
+  .container-inner-section,.featured_seller_container,.product_view{width: 100%;}
+  .container-inner-section,.container-inner-section, .featured_seller_container,.container-inner-section-1,.product_view{width: 100%;}
+  .search_now_input_box {
+    position: relative;
+    float: left;
+    width: 72%;
+}
+.new_add{float: right;margin-bottom: 0px; margin-top: -33px;}
+.login_banner {
+  height: 27vh;
+}
+.buyer-product-img {
+  height: 152px;
+  width: 100%;
+  /* border: 2px solid #ccc; */
+  object-fit: cover;
+  cursor: pointer;
+}
+.buyer-button a {
+  margin: 8px auto;
+  min-width: 150px;
+  border-radius: 7px;
+  color: #fff;
+}
+.subscribe-packages {
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  width: 70%;
+  margin: 41px 15%;
+}
+.checkoutProductImg {
+  width: auto;
+  object-fit: contain;
+}
+.store_eye_icon {
+  margin-left: 0;
+  margin-top: 30px;
+}
+.tj-logo img {
+  padding: 0;
+  width: 96%;
+  padding-top: 33px;
+  margin-left: 6px;
+}
+.checkoutPageBox {
+  background: #fff;
+  float: left;
+  width: 100%;
+  padding: 10px;
+}
+.checkoutPageRightBox {
+  background: #fff;
+  float: left;
+  padding: 40px 15px;
+  width: 100%;
+  margin-top: 41px;
+}
+
+#filter-buyer-order, #filter-service-booking {
+  margin-top: -39px;
+  width: 29%;
+  float: right;
+}
+.seller_register_container .register_banner {
+  /* min-height: 900px; */
+  height: 34vh;
+}
+.register_banner {
+  width: 100%;
+  background-position: center center;
+  position: relative;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.login_container .right-section .form-section, .register_container .right-section .form-section {
+  padding-top: 4%;
+}
+.login_banner-header h1, .register_banner-header h1 {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 49px;
+}
+.seller_register_container .seller_register_second input[type=button]:nth-child(even) {
+  float: left;
+  /* margin-left: 4%; */
+  margin-left: 75%;
+  margin-bottom: 26px;
+}
+ul.breadcrumb-category {
+  padding: 10px 16px;
+  list-style: none;
+  margin-bottom: 23px;
+  margin-top: 43px;
+}
+.all_cat_sidebar_label {
+  font-size: 24px;
+  color: #222222;
+  font-weight: 400;
+  /* padding: 20px 0 0 0; */
+  margin-bottom: 30px;
+  margin-left: 5px;
+  margin-top: 12px!important;
+}
+.product_img {
+
+  height: 40vw !important;
+  width: 333px;
+  /* border: 1px solid #e5e5e5; */
+}
+.product_details_info h2{clear: both;}
+.show-custom {
+  width: 84%;
+  margin-left: 80px;
+  position: relative;
+  float: left;
+  height: 405px;
+  margin-top: 121px;
+}
+.product_details_info{clear: both;}
+.small-container {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 124px;
+}
+.report_product_div {
+  margin-top: 20px;
+  margin-left: 56px;
+  text-align: center;
+}
+.cleardiv{clear: both;}
+.tijara_front_box li {
+  list-style: none;
+  float: left;
+  width: 29.1%;
+  margin: 0px 10px;
+  padding: 0px 0px;
+  margin-bottom: 25px;
+}
+.tijara_front_inner h4 {
+  color: #03989e;
+  text-align: left;
+  line-height: 25px;
+  font-size: 18px;
+  padding: 0 23px;
+  font-weight: 400;
+  vertical-align: bottom;
+  padding-bottom: 25px;
+}
+.colr-box {
+  padding: 0;
+  min-height: 11vw;
+}
+.tijara-content{
+  clear: both;
+}
 }

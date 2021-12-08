@@ -2661,12 +2661,48 @@ span.pro-text {
                     .package_width{width: 90%; margin: 0 5%;}
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
+      .seller_register_container .seller_register_second input[type=button]:nth-child(even) {
+        float: left;
+        /* margin-left: 4%; */
+        margin-left: 60%;
+        margin-bottom: 23px;
+    }
+    #progressbar li {
+      list-style-type: none;
+      font-size: 12px;
+      width: 25%;
+      float: left;
+      position: relative;
+      text-align: center;
+      font-weight: 500;
+  }
+  #progressbar li span {
+    position: absolute;
+    top: 3px;
+    left: 47%;
+    color: #fff;
+}
+#progressbar li:before {
+  width: 24px;
+  height: 24px;
+  line-height: 45px;
+  display: block;
+  font-size: 18px;
+  color: transparent;
+  background: #fff;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  padding: 2px;
+  border: 5px solid #ccc;
+  background: #03989e;
+  border: 5px solid #03989e;
+}
       .login_banner {
-        height: 40vh;
+        height: 52vh;
     }
       .seller_register_container .register_banner {
         /* min-height: 900px; */
-        height: 40vh;
+        height: 52vh;
     }
     .register_banner {
       width: 99%;
@@ -3223,6 +3259,12 @@ h1.checkoutHeading {
 }
 .p_155 {
   padding-top: 0px!important;
+}
+.login_banner-header h1, .register_banner-header h1 {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 40px;
 }
 }
  

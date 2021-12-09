@@ -2827,10 +2827,10 @@ public function getCatSubList(Request $request) {
 							#".$subscription->user_id.' & package Id #'.$subscription->package_id ,
 							
 						]);
-						$package_recurrig = "package_recurring_subscription_".date('Y-m-d').".log";
+						$package_recurrig = "logs/package_recurring_subscription.log";
 					    $package_recurrig_file = Storage::path($package_recurrig);
-					    $package_recurrig_file=fopen($package_recurrig_file,'w');
-					    fwrite($package_recurrig_file,$response);
+					    $package_recurrig_file=fopen($package_recurrig_file,'a+');
+					    fwrite($package_recurrig_file,json_encode($response));
 					    fclose($package_recurrig_file);
 						if($response->id){
 							//$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));

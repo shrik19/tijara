@@ -687,10 +687,11 @@ public function getCatSubList(Request $request) {
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
-        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->where('users.is_deleted','=','0')->first()->toArray();
+        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Product->user_id)->where('users.is_deleted','=','0')->first()->toArray();
         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+        $Product->store_name	=	$SellerData['store_name'];
 
-				$Product->product_link	=	$product_link;
+		$Product->product_link	=	$product_link;
 
 				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
 				foreach($variantProduct as $vp)
@@ -1896,6 +1897,16 @@ public function getCatSubList(Request $request) {
         	$data['category_name'] = $getCategoryName['category_name'];*/
         	$data['category_name'] = trans('lang.all_category');
         }
+        $cities = DB::table('users')
+			->where('is_deleted','=',0)
+			->where('users.is_shop_closed','=','0')
+			->where('status','=','active')
+			->where('city','!=','')
+	        ->groupBy('city')
+	        ->select('id','city')
+	        ->get();
+	       
+	    $data['allCities'] = $cities;
 			//echo "<pre>";print_r($data['PopularServices']);exit;
 		 return view('Front/services', $data);
 	 }
@@ -2810,14 +2821,15 @@ public function getCatSubList(Request $request) {
 		
 						$response = Stripe\Charge::create ([
 							"amount" => ($subscription->amount*100),
-							"currency" => "INR",
+							"currency" => "SEK",
 							"customer" => $subscription->stripe_customer_id,
 							"description" => "Package Subscription payment for UserId 
 							#".$subscription->user_id.' & package Id #'.$subscription->package_id ,
 							
 						]);
 						if($response->id){
-							$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));
+							//$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));
+							$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate));
 							$ExpiredDate = date('Y-m-d H:i:s', strtotime($startDate.'+'.$subscription->validity_days.' days'));
 							$arrInsertPackage = [
 								//'user_id'    => $subscription->user_id,

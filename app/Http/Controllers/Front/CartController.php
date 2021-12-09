@@ -1759,11 +1759,7 @@ class CartController extends Controller
       return $NewOrderId;
     }
     public function checkoutSwishIpn(){
-      $swish_checkout_order = "logs/swish_checkout_order.log";
-      $swish_checkout_order_file = storage_path($swish_checkout_order);
-      $swish_checkout_order_file=fopen($swish_checkout_order_file,'a+');
-      fwrite($swish_checkout_order_file,json_encode($_REQUEST));
-      fclose($swish_checkout_order_file);
+
 
       if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
           $order_id = $_REQUEST['merchantReference'];
@@ -1904,7 +1900,11 @@ class CartController extends Controller
   }
 
   public function CheckoutswishCallback(Request $request) {
-    
+      $swish_checkout_order = "logs/swish_number_order.log";
+      $swish_checkout_order_file = storage_path($swish_checkout_order);
+      $swish_checkout_order_file=fopen($swish_checkout_order_file,'a+');
+      fwrite($swish_checkout_order_file,json_encode($request->all()));
+      fclose($swish_checkout_order_file);
     $current_checkout_order_id  = session('current_checkout_order_id');
     Session::put('current_checkout_order_id', '');
     if($request->status=='success' || $request->status=='pending') {

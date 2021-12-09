@@ -313,7 +313,7 @@ margin-top: 15px;
   padding: 9px 16px !important;
 }
 .store_eye_icon{
-  margin-left: 950px;
+  margin-left: 855px;
   margin-top: 30px;
 }
 
@@ -511,7 +511,7 @@ i.fas.fa-check-circle {
 
 .report_product_div{
   margin-top: 20px;
-  margin-left: 90px;
+  margin-left: 57px;
   text-align: center;
 }
 
@@ -1709,7 +1709,11 @@ overflow: hidden;margin-top: 155px;}
 }
 .filter_lable{font-size: 24px; color:#222; font-weight: 400;}
 .slider-horizontal{margin-left: 9px;}
+.product_img_wrapper>.product_data>.product_img{
+  width: 200px!important;
+  height: 200px!important;
 
+}
 
 @media (min-width: 768px) {
 .col-sm-15 {
@@ -1720,11 +1724,11 @@ overflow: hidden;margin-top: 155px;}
 @media (min-width: 992px) {
     .col-md-15 {
         width: 20%;
-        height: 23vw !important;
+        height: 24vw !important;
         float: left;
     }
     .col-md-3.product_img_wrapper {
-        height: 20vw !important;
+        height: 22vw !important;
     }
 }
 @media (min-width: 1200px) {
@@ -2620,32 +2624,35 @@ span.pro-text {
 
   @media only screen and (min-device-width: 1024px) and (max-device-width:1399px){
     .show-custom {
-      width: 100%;
-      margin-left: 90px;
+      width: 96%;
+      margin-left: 82px;
       position: relative;
       float: left;
-      height:500px;
+      height: 500px;
+  
     
   }
     }
 
   @media only screen and (min-device-width: 1400px) and (max-device-width: 1800px){
     .show-custom {
-      width: 100%;
-      margin-left: 100px;
+      width: 96%;
+      margin-left: 82px;
       position: relative;
       float: left;
-      height:550px;
+      height: 500px;
+  
     
   }
     }
     @media only screen and (min-device-width: 1801px) and (max-device-width: 3000px){
       .show-custom {
-        width: 100%;
-        margin-left: 120px;
+        width: 96%;
+        margin-left: 82px;
         position: relative;
         float: left;
-        height: 700px;
+        height: 500px;
+    
       
     }
       }

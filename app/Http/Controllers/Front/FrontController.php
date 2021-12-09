@@ -2820,7 +2820,7 @@ public function getCatSubList(Request $request) {
 						Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 		
 						$response = Stripe\Charge::create ([
-							"amount" => 1*100,//($subscription->amount*100),
+							"amount" => 6*100,//($subscription->amount*100),
 							"currency" => "SEK",
 							"customer" => $subscription->stripe_customer_id,
 							"description" => "Package Subscription payment for UserId 

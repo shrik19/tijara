@@ -3482,7 +3482,7 @@ DATA;
       $swish_number_order_file = Storage::path($swish_number_order);
       $swish_number_order_file=fopen($swish_number_order_file,'w');
       fwrite($swish_number_order_file,$paymentDetails);
-      fclose($swish_number_order_file);
+     // fclose($swish_number_order_file);
 
     $arrOrderUpdate = [
           

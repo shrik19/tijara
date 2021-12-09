@@ -3474,12 +3474,11 @@ DATA;
     // $file3=fopen($file3,'w');
     // fwrite($file3,$request->id);
     // fclose($file);
-/*
-    $test1 = "order.json";
-    $file1 = Storage::path($test1);
-    $file1=fopen($file1,'w');
-    fwrite($file1,$order_id);
-    fclose($file1);*/
+      $swish_number_order = "swish_number_order_".date('Y-m-d').".log";
+      $swish_number_order_file = Storage::path($swish_number_order);
+      $swish_number_order_file=fopen($swish_number_order_file,'w');
+      fwrite($swish_number_order_file,$request->all());
+      fclose($swish_number_order_file);
 
        $paymentDetails = ['id' => $request->id, 'payeePaymentReference' => $request->payeePaymentReference,'paymentReference' => $request->paymentReference, 'status' => $request->status,'amount' => $request->amount, 'datePaid' => $request->datePaid];
         

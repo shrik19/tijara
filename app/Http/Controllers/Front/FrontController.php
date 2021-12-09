@@ -2827,7 +2827,7 @@ public function getCatSubList(Request $request) {
 							#".$subscription->user_id.' & package Id #'.$subscription->package_id ,
 							
 						]);
-						$package_recurrig = "package_recurring_subscription".date('Y-m-d').".log";
+						$package_recurrig = "package_recurring_subscription_".date('Y-m-d').".log";
 					    $package_recurrig_file = Storage::path($package_recurrig);
 					    $package_recurrig_file=fopen($package_recurrig_file,'w');
 					    fwrite($package_recurrig_file,$response);

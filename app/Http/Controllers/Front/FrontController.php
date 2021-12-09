@@ -687,10 +687,11 @@ public function getCatSubList(Request $request) {
 
 				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
 
-        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email')->where('users.id','=',$Product->user_id)->where('users.is_deleted','=','0')->first()->toArray();
+        $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Product->user_id)->where('users.is_deleted','=','0')->first()->toArray();
         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
+        $Product->store_name	=	$SellerData['store_name'];
 
-				$Product->product_link	=	$product_link;
+		$Product->product_link	=	$product_link;
 
 				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
 				foreach($variantProduct as $vp)

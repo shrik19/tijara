@@ -30,7 +30,6 @@ if(strpos(@$path, 'annonser') !== false){
           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
           $store_name = str_replace(" ", '-', $store_name);
           $store_name = strtolower($store_name);
-		  
           $seller_link= url('/').'/seller/'.$store_name."/products"; 
         @endphp
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->

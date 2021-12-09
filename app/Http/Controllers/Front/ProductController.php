@@ -1327,6 +1327,12 @@ public function findCurrency($type){
     /* function for klarna payment callback*/
     public function checkoutCallback(Request $request)
     {
+      $klarna_checkout_order = "logs/klarna_order.log";
+      $klarna_checkout_order_file = storage_path($klarna_checkout_order);
+      $klarna_checkout_order_file=fopen($klarna_checkout_order_file,'a+');
+      fwrite($klarna_checkout_order_file,json_encode($request->all()));
+      fclose($klarna_checkout_order_file);
+
       $order_id = $request->order_id;
       $username = env('KLORNA_USERNAME');
       $password = env('KLORNA_PASSWORD');

@@ -779,10 +779,10 @@ class AuthController extends Controller
             $stripe = new \Stripe\StripeClient(
                 env('STRIPE_SECRET_KEY'));
             $data['cardDetails']=$stripe->paymentMethods->all([
-                'customer' => $details[0]->stripe_customer_id,//'cus_KdoGCC7zaLqu8e',
+                'customer' => $imagedetails->stripe_customer_id,//'cus_KdoGCC7zaLqu8e',
                 'type' => 'card',
             ])->data[0]->card;
-          //  echo'<pre>';print_r($data['cardDetails']);exit;
+            echo'<pre>';print_r($data['cardDetails']);exit;
         }
 		
         return view('Front/seller_profile', $data);

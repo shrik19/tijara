@@ -782,20 +782,8 @@ class AuthController extends Controller
                 'customer' => $imagedetails->stripe_customer_id,
                 'type' => 'card',
             ])->data[0]->card;
-        }/*else{
-            echo "out";exit;
         }
-        if(!empty($imagedetails->stripe_customer_id) && isset($imagedetails->stripe_customer_id)) {
-            echo "ffggf";exit;
-            $stripe = new \Stripe\StripeClient(
-                env('STRIPE_SECRET_KEY'));
-            $data['cardDetails']=$stripe->paymentMethods->all([
-                'customer' => $imagedetails->stripe_customer_id,
-                'type' => 'card',
-            ])->data[0]->card;
-            //echo'<pre>';print_r($data['cardDetails']);exit;
-        }*/
-		
+        
         return view('Front/seller_profile', $data);
     }
 

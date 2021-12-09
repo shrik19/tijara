@@ -3478,11 +3478,11 @@ DATA;
 
     $paymentDetails = ['id' => $request->id, 'payeePaymentReference' => $request->payeePaymentReference,'paymentReference' => $request->paymentReference, 'status' => $request->status,'amount' => $request->amount, 'datePaid' => $request->datePaid];
         
-      $swish_number_order = "swish_number_order_".date('Y-m-d').".txt";
+      $swish_number_order = "swish_number_order.log";
       $swish_number_order_file = Storage::path($swish_number_order);
-      $swish_number_order_file=fopen($swish_number_order_file,'w');
+      $swish_number_order_file=fopen($swish_number_order_file,'a+');
       fwrite($swish_number_order_file,$paymentDetails);
-     // fclose($swish_number_order_file);
+      fclose($swish_number_order_file);
 
     $arrOrderUpdate = [
           

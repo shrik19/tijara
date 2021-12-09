@@ -1897,6 +1897,16 @@ public function getCatSubList(Request $request) {
         	$data['category_name'] = $getCategoryName['category_name'];*/
         	$data['category_name'] = trans('lang.all_category');
         }
+        $cities = DB::table('users')
+			->where('is_deleted','=',0)
+			->where('users.is_shop_closed','=','0')
+			->where('status','=','active')
+			->where('city','!=','')
+	        ->groupBy('city')
+	        ->select('id','city')
+	        ->get();
+	       
+	    $data['allCities'] = $cities;
 			//echo "<pre>";print_r($data['PopularServices']);exit;
 		 return view('Front/services', $data);
 	 }
@@ -2810,7 +2820,7 @@ public function getCatSubList(Request $request) {
 						Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 		
 						$response = Stripe\Charge::create ([
-							"amount" => ($subscription->amount*100),
+							"amount" => 1,//($subscription->amount*100),
 							"currency" => "INR",
 							"customer" => $subscription->stripe_customer_id,
 							"description" => "Package Subscription payment for UserId 

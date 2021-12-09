@@ -1394,7 +1394,7 @@ class CartController extends Controller
       Stripe\Stripe::setApiKey($UserData['strip_secret']);
       
         $response = Stripe\Charge::create ([
-                "amount" => $orderTotal,
+                "amount" => 1,//$orderTotal,
                 "currency" => "INR",
                 "source" => $request->stripeToken,
                 "description" => "Tijara payment for order #".$orderRef ,

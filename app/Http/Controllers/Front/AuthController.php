@@ -775,6 +775,16 @@ class AuthController extends Controller
         //echo "<pre>";print_r($details[0]->stripe_customer_id);exit;
        //echo env('STRIPE_API_KEY');exit;
 		$data['cardDetails']    =   array();
+        if(!empty($imagedetails->stripe_customer_id)){
+             $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET_KEY'));
+            $data['cardDetails']=$stripe->paymentMethods->all([
+                'customer' => $imagedetails->stripe_customer_id,
+                'type' => 'card',
+            ])->data[0]->card;
+        }/*else{
+            echo "out";exit;
+        }
         if(!empty($imagedetails->stripe_customer_id) && isset($imagedetails->stripe_customer_id)) {
             echo "ffggf";exit;
             $stripe = new \Stripe\StripeClient(
@@ -784,7 +794,7 @@ class AuthController extends Controller
                 'type' => 'card',
             ])->data[0]->card;
             //echo'<pre>';print_r($data['cardDetails']);exit;
-        }
+        }*/
 		
         return view('Front/seller_profile', $data);
     }

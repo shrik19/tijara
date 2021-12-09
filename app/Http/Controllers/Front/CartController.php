@@ -3481,7 +3481,7 @@ DATA;
       $swish_number_order = "swish_number_order.log";
       $swish_number_order_file = Storage::path($swish_number_order);
       $swish_number_order_file=fopen($swish_number_order_file,'a+');
-      fwrite($swish_number_order_file,$paymentDetails);
+      fwrite($swish_number_order_file,json_encode($paymentDetails));
       fclose($swish_number_order_file);
 
     $arrOrderUpdate = [

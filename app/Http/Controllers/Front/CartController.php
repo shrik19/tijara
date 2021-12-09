@@ -1759,6 +1759,12 @@ class CartController extends Controller
       return $NewOrderId;
     }
     public function checkoutSwishIpn(){
+      $swish_checkout_order = "logs/swish_checkout_order.log";
+      $swish_checkout_order_file = storage_path($swish_checkout_order);
+      $swish_checkout_order_file=fopen($swish_checkout_order_file,'a+');
+      fwrite($swish_checkout_order_file,json_encode($_REQUEST));
+      fclose($swish_checkout_order_file);
+
       if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
           $order_id = $_REQUEST['merchantReference'];
               

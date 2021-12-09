@@ -772,13 +772,14 @@ class AuthController extends Controller
         $data['sellerDetails']          = $details;
         $data['imagedetails']           =  $imagedetails;
 		$data['strip_api_key']      = env('STRIPE_API_KEY');
-       // echo env('STRIPE_API_KEY');exit;
+        //echo "<pre>";print_r($details[0]->stripe_customer_id);exit;
+       //echo env('STRIPE_API_KEY');exit;
 		$data['cardDetails']    =   array();
         if($imagedetails->stripe_customer_id!='') {
             $stripe = new \Stripe\StripeClient(
                 env('STRIPE_SECRET_KEY'));
             $data['cardDetails']=$stripe->paymentMethods->all([
-                'customer' => 'cus_KdoGCC7zaLqu8e',
+                'customer' => $details[0]->stripe_customer_id,//'cus_KdoGCC7zaLqu8e',
                 'type' => 'card',
             ])->data[0]->card;
           //  echo'<pre>';print_r($data['cardDetails']);exit;

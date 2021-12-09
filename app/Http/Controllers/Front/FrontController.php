@@ -2821,7 +2821,7 @@ public function getCatSubList(Request $request) {
 		
 						$response = Stripe\Charge::create ([
 							"amount" => 1*100,//($subscription->amount*100),
-							"currency" => "INR",
+							"currency" => "SEK",
 							"customer" => $subscription->stripe_customer_id,
 							"description" => "Package Subscription payment for UserId 
 							#".$subscription->user_id.' & package Id #'.$subscription->package_id ,

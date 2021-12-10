@@ -2062,7 +2062,7 @@ DATA;
     $klarna_checkout_order = "logs/klarna_order.log";
     $klarna_checkout_order_file = storage_path($klarna_checkout_order);
     $klarna_checkout_order_file=fopen($klarna_checkout_order_file,'a+');
-    fwrite($klarna_checkout_order_file,json_encode($request->all()));
+    fwrite($klarna_checkout_order_file,$res);
     fclose($klarna_checkout_order_file);
      /*create file to check push request recieved or not*/
      

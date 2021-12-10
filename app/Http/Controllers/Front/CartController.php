@@ -1957,12 +1957,7 @@ class CartController extends Controller
   /*push notification request from Klarna*/
   public function pushNotification(Request $request)
   {
-    $klarna_checkout_order = "logs/klarna_order.log";
-    $klarna_checkout_order_file = storage_path($klarna_checkout_order);
-    $klarna_checkout_order_file=fopen($klarna_checkout_order_file,'a+');
-    fwrite($klarna_checkout_order_file,json_encode($request->all()));
-    fclose($klarna_checkout_order_file);
-    
+
     /*get order from klarm by order id*/
     $order_id = $request->order_id;
     $currentDate = date('Y-m-d H:i:s');
@@ -2063,6 +2058,12 @@ DATA;
      $response = json_decode($res);
      $order_status = $response->status;
      
+
+    $klarna_checkout_order = "logs/klarna_order.log";
+    $klarna_checkout_order_file = storage_path($klarna_checkout_order);
+    $klarna_checkout_order_file=fopen($klarna_checkout_order_file,'a+');
+    fwrite($klarna_checkout_order_file,json_encode($request->all()));
+    fclose($klarna_checkout_order_file);
      /*create file to check push request recieved or not*/
      
      if($order_status == 'CAPTURED')

@@ -74,7 +74,7 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
 .show-custom img#show-img {
     height: 100%;
     width: 100%;
-    position: absolute; object-fit: cover;
+    position: absolute; object-fit: contain;
 }
   .small-img .icon-left, .small-img .icon-right {
 	width: 12px;

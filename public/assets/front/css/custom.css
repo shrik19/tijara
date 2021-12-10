@@ -275,9 +275,19 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   object-fit: cover !important;
 }
 .featured_seller_section {
-  height: 280px !important;
-  padding: 0px !important;
-  margin: 0px 15px;
+  background: #fff;
+  overflow: hidden;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  background-color: #ffffff!important;
+  padding: 5px;
+  float: left;
+  width: 292px!important;
+  display: flex;
+  border-radius: 30px;
+  height: 292px!important;
+
 }
 .buy_now_hover_details li {
   /* top: -73px !important; */

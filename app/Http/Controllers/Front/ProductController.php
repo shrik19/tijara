@@ -1831,32 +1831,60 @@ public function findCurrency($type){
             
                                 $old_y = imageSY($src_img);
                                     
-                                $width = 500;
-                                $height = 500;
+                                $width = 600;
+                                $height = 600;
                                // echo "here".$old_x;exit;$img    = Image::make($image->getRealPath());
                                 // we need to resize image, otherwise it will be cropped 
                                 $imageNew = Image::make($path);
 
-                                if ($old_x < $width) { 
-                                    $imageNew->resize($width, null, function ($constraint) {
+                                // if ($old_x < $width) { 
+                                //     $imageNew->resize($width, null, function ($constraint) {
+                                //         $constraint->aspectRatio();
+                                //     });
+                                // }
+
+                                // if ($old_y < $height) {
+                                //     $imageNew->resize(null, $height, function ($constraint) {
+                                //         $constraint->aspectRatio();
+                                //     }); 
+                                // }
+                                 $imageNew->resize($width, $height, function ($constraint) {
                                         $constraint->aspectRatio();
                                     });
-                                }
-
-                                if ($old_y < $height) {
-                                    $imageNew->resize(null, $height, function ($constraint) {
-                                        $constraint->aspectRatio();
-                                    }); 
-                                }
 
                                 $imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
+                              /*  $imageNew->fit($width, $height, function ($constraint) {
+                                    $constraint->upsize();
+                                });*/
                                 $imageNew->save(public_path("uploads/ProductImages/{$fileName}"));
+                                $img = Image::make(public_path("uploads/ProductImages/{$fileName}"));
+/*$img->resize(400, 400, function ($constraint) {
+    $constraint->aspectRatio();
+    $constraint->upsize();
+});
+     */                           $img->resize(300, 300, function ($constraint) {
+    $constraint->aspectRatio();
+    $constraint->upsize();
+})->save(public_path().'/uploads/ProductImages/resized/' . $fileName);
+     $img->destroy();
+      $img = Image::make(public_path("uploads/ProductImages/{$fileName}"));
+                                $img->resize(600, 600, function ($constraint) {
+    $constraint->aspectRatio();
+    $constraint->upsize();
+})->save(public_path().'/uploads/ProductImages/productDetails/' . $fileName);
+                                $img->destroy();
+                                 $img = Image::make(public_path("uploads/ProductImages/{$fileName}"));
+                                $img->resize(100, 100, function ($constraint) {
+    $constraint->aspectRatio();
+    $constraint->upsize();
+})->save(public_path().'/uploads/ProductImages/productIcons/' . $fileName);
+                                $img->destroy();
 
-                                           
+                     /*                      
                                 $newWidth = 230;
             
                                 $newHeight = 230;
-            
+                       
             
             
                                 if($old_x > $old_y) {
@@ -1911,10 +1939,10 @@ public function findCurrency($type){
             
                                 imagedestroy($dst_img);
             
-                                imagedestroy($src_img);
+                                imagedestroy($src_img);*/
 
                          /*resized for product details page*/
-                        $mime = getimagesize($path);
+                       /* $mime = getimagesize($path);
             
             
             
@@ -1992,11 +2020,11 @@ public function findCurrency($type){
             
                                 imagedestroy($dst_img);
             
-                                imagedestroy($src_img);
+                                imagedestroy($src_img);*/
             
         
                         /*resized for product details page small image*/
-                        $mime = getimagesize($path);
+                       /* $mime = getimagesize($path);
             
             
             
@@ -2074,7 +2102,7 @@ public function findCurrency($type){
             
                                 imagedestroy($dst_img);
             
-                                imagedestroy($src_img);        
+                                imagedestroy($src_img);   */     
             
                             } else {
             

@@ -97,7 +97,7 @@
         <div class="row logo-slider">               
                 @if(!empty($FeaturedSellers))
                     @foreach($FeaturedSellers as $fea_seller)
-                    <div class="col-md-3 feature_seller">
+                    <div class="feature_seller">
                         <div class="featured_seller_section"  >
                             <img class="img-fluid" src="{{url('/')}}/uploads/Seller/resized/<?php echo $fea_seller['logo'];?>" />
                             <div class="clearfix"></div>

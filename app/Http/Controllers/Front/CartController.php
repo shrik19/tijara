@@ -1759,6 +1759,8 @@ class CartController extends Controller
       return $NewOrderId;
     }
     public function checkoutSwishIpn(){
+
+
       if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
           $order_id = $_REQUEST['merchantReference'];
               
@@ -1898,7 +1900,11 @@ class CartController extends Controller
   }
 
   public function CheckoutswishCallback(Request $request) {
-    
+      $swish_checkout_order = "logs/swish_number_order.log";
+      $swish_checkout_order_file = storage_path($swish_checkout_order);
+      $swish_checkout_order_file=fopen($swish_checkout_order_file,'a+');
+      fwrite($swish_checkout_order_file,json_encode($request->all()));
+      fclose($swish_checkout_order_file);
     $current_checkout_order_id  = session('current_checkout_order_id');
     Session::put('current_checkout_order_id', '');
     if($request->status=='success' || $request->status=='pending') {
@@ -1951,6 +1957,7 @@ class CartController extends Controller
   /*push notification request from Klarna*/
   public function pushNotification(Request $request)
   {
+
     /*get order from klarm by order id*/
     $order_id = $request->order_id;
     $currentDate = date('Y-m-d H:i:s');
@@ -2051,6 +2058,12 @@ DATA;
      $response = json_decode($res);
      $order_status = $response->status;
      
+
+    $klarna_checkout_order = "logs/klarna_order.log";
+    $klarna_checkout_order_file = storage_path($klarna_checkout_order);
+    $klarna_checkout_order_file=fopen($klarna_checkout_order_file,'a+');
+    fwrite($klarna_checkout_order_file,$res);
+    fclose($klarna_checkout_order_file);
      /*create file to check push request recieved or not*/
      
      if($order_status == 'CAPTURED')
@@ -3474,16 +3487,15 @@ DATA;
     // $file3=fopen($file3,'w');
     // fwrite($file3,$request->id);
     // fclose($file);
-/*
-    $test1 = "order.json";
-    $file1 = Storage::path($test1);
-    $file1=fopen($file1,'w');
-    fwrite($file1,$order_id);
-    fclose($file1);*/
-
-       $paymentDetails = ['id' => $request->id, 'payeePaymentReference' => $request->payeePaymentReference,'paymentReference' => $request->paymentReference, 'status' => $request->status,'amount' => $request->amount, 'datePaid' => $request->datePaid];
-        
       
+
+    $paymentDetails = ['id' => $request->id, 'payeePaymentReference' => $request->payeePaymentReference,'paymentReference' => $request->paymentReference, 'status' => $request->status,'amount' => $request->amount, 'datePaid' => $request->datePaid];
+        
+      $swish_number_order = "logs/swish_number_order.log";
+      $swish_number_order_file = storage_path($swish_number_order);
+      $swish_number_order_file=fopen($swish_number_order_file,'a+');
+      fwrite($swish_number_order_file,json_encode($paymentDetails));
+      fclose($swish_number_order_file);
 
     $arrOrderUpdate = [
           

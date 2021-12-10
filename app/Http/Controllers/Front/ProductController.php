@@ -947,6 +947,13 @@ class ProductController extends Controller
     }
 
 public function swishIpnCallback(){
+
+    $klarna_checkout_order = "logs/klarna_order.log";
+    $klarna_checkout_order_file = storage_path($klarna_checkout_order);
+    $klarna_checkout_order_file=fopen($klarna_checkout_order_file,'a+');
+    fwrite($klarna_checkout_order_file,json_encode($_REQUEST));
+    fclose($klarna_checkout_order_file);
+
     if(isset($_REQUEST['success']) && $_REQUEST['success']==true) {
         $order_id = $_REQUEST['merchantReference'];
             

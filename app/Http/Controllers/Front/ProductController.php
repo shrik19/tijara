@@ -948,7 +948,7 @@ class ProductController extends Controller
 
 public function swishIpnCallback(){
 
-    $klarna_checkout_order = "logs/klarna_order.log";
+    $klarna_checkout_order = "logs/buyer_product_add_order.log";
     $klarna_checkout_order_file = storage_path($klarna_checkout_order);
     $klarna_checkout_order_file=fopen($klarna_checkout_order_file,'a+');
     fwrite($klarna_checkout_order_file,json_encode($_REQUEST));

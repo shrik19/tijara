@@ -254,7 +254,7 @@ margin-top: 15px;
 .package_width{width: 70%; margin: 0 15%;}
 #instafeed img.img-fluid {
   width: 100%;
-  height: 15vw !important;
+  height: 230px !important;
   object-fit: cover;
 }
 .buyer_profile_update_img{
@@ -607,7 +607,7 @@ summary.active::after {
     text-overflow: ellipsis;
     text-decoration: none;
      }
-.featured_seller_section {
+/* .featured_seller_section {
     background: #fff;
     overflow: hidden;
     border-radius: 10px;
@@ -620,8 +620,12 @@ summary.active::after {
     width: 280px;
     display: flex;
     border-radius: 30px;
-}
-.slick-slide{padding: 0 10px;}
+} */
+.slick-slide{margin: 0 10px;}
+
+/* .slick-initialized .slick-slide{
+  width: 292px!import;
+} */
 .p-0{
 padding: 0!important;
 }
@@ -1891,23 +1895,26 @@ padding-left: 0px!important;
 .instagram_imgs{list-style: none;}
 .instagram_imgs li{       
   float: left;
-  width: 20%;
+  width: 230px;
   /*margin: .5%;*/
   position: relative;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 15px;
+  height: 230px;
 	}
     
     .instagram_imgs li:before {
-        position: absolute;
-        height: 50px;
-        width: 50px;
-        content: "\f16d";
-        font-family: "Font Awesome 5 Brands";
-        right: -6px;
-        font-size: 30px;
-        color: #fff;
+      position: absolute;
+    height: 50px;
+    width: 50px;
+    content: "\f16d";
+    font-family: "Font Awesome 5 Brands";
+    right: -7px;
+    font-size: 30px;
+    color: #fff;
+    top: 21px;
+
     }
 .steps_section{position: relative;    height: 300px;
     margin: 29px 0;}
@@ -2692,6 +2699,28 @@ span.pro-text {
         margin-left: 60%;
         margin-bottom: 23px;
     }
+    .instagram_imgs li:before {
+      position: absolute;
+      height: 50px;
+      width: 50px;
+      content: "\f16d";
+      font-family: "Font Awesome 5 Brands";
+      right: 22px;
+      font-size: 30px;
+      color: #fff;
+      top: 21px;
+  }
+    .instagram_imgs li {
+      float: left;
+      width: 230px;
+      /* margin: .5%; */
+      position: relative;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 15px;
+      height: 230px;
+      margin: 10px 0;
+  }
     #progressbar li {
       list-style-type: none;
       font-size: 12px;

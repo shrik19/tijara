@@ -1749,7 +1749,7 @@ padding-left: 0px!important;
 @media (min-width: 992px) {
     .col-md-15 {
         width: 20%;
-        height: 24vw !important;
+        height: 335px !important;
         float: left;
     }
     .col-md-3.product_img_wrapper {

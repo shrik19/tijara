@@ -1050,7 +1050,7 @@ class AuthController extends Controller
                  
                     $imageNew->save(public_path("uploads/Seller/{$fileName}"));
                     $img = Image::make(public_path("uploads/Seller/{$fileName}"));
-                    $img->resize(1900, 400, function ($constraint) {
+                    $img->resize(1800, 350, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                     })->save(public_path().'/uploads/Seller/resized/' . $fileName);

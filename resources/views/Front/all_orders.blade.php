@@ -92,10 +92,12 @@
 </div>
 </div> <!-- /container -->
 
+<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/dataTables.bootstrap4.min.css">
 <script src="{{url('/')}}/assets/front/js/jquery.dataTables.min.js"></script>
-<script src="{{url('/')}}/assets/front/js/bootstrap.min.js"></script>
-
+<script src="{{url('/')}}/assets/front/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
+<script src="{{url('/')}}/assets/front/js/jquery-confirm.min1.js"></script>
 <script type="text/javascript">
   var dataTable = $('#productTable').DataTable({
     "processing": true,

@@ -152,7 +152,7 @@ $('#variant_table').on('change', '.variant_image', function () {
         }
          var reader = new FileReader();
             //Read the contents of Image File.
-            reader.readAsDataURL(fileUpload.files[0]);
+           /* reader.readAsDataURL(fileUpload.files[0]);
             reader.onload = function (e) {
                 //Initiate the JavaScript Image object.
                 var image = new Image();
@@ -175,7 +175,7 @@ $('#variant_table').on('change', '.variant_image', function () {
                     return true;
                 };
  
-            }
+            }*/
 
         var formData = new FormData();
       

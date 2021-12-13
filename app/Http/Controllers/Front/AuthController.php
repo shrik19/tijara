@@ -18,6 +18,8 @@ use App\Models\UserPackages;
 use App\Models\SellerPersonalPage;
 use App\Models\SubscribedUsers;
 
+use Intervention\Image\Facades\Image;
+
 /*Uses*/
 use Socialite;
 use DB;
@@ -1199,7 +1201,26 @@ class AuthController extends Controller
             
                 $old_x = imageSX($src_img);
                 $old_y = imageSY($src_img);
-                $newWidth = 300;
+                $width = 1900;
+                $height = 400;
+                // we need to resize image, otherwise it will be cropped 
+                $imageNew = Image::make($path);
+
+               
+                 $imageNew->resize($width, $height, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+
+                $imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
+             
+                $imageNew->save(public_path("uploads/Seller/{$fileName}"));
+                $img = Image::make(public_path("uploads/Seller/{$fileName}"));
+                $img->resize(1900, 400, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+                })->save(public_path().'/uploads/Seller/resized/' . $fileName);
+                $img->destroy();
+           /*     $newWidth = 300;
                 $newHeight = 300;
             
                 if($old_x > $old_y) {
@@ -1230,7 +1251,7 @@ class AuthController extends Controller
 
                 if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
                 imagedestroy($dst_img);
-                imagedestroy($src_img);
+                imagedestroy($src_img);*/
 
             } else {
 
@@ -1273,7 +1294,26 @@ class AuthController extends Controller
             
                 $old_x = imageSX($src_img);
                 $old_y = imageSY($src_img);
-                $newWidth = 300;
+                $width = 300;
+                $height = 300;
+                // we need to resize image, otherwise it will be cropped 
+                $imageNew = Image::make($path);
+
+               
+                 $imageNew->resize($width, $height, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+
+                $imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
+             
+                $imageNew->save(public_path("uploads/Seller/{$fileName}"));
+                $img = Image::make(public_path("uploads/Seller/{$fileName}"));
+                $img->resize(300, 300, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+                })->save(public_path().'/uploads/Seller/resized/' . $fileName);
+                $img->destroy();
+                /*$newWidth = 300;
                 $newHeight = 300;
             
                 if($old_x > $old_y) {
@@ -1304,7 +1344,7 @@ class AuthController extends Controller
 
                 if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
                 imagedestroy($dst_img);
-                imagedestroy($src_img);
+                imagedestroy($src_img);*/
 
             } else {
 

@@ -1294,8 +1294,8 @@ class AuthController extends Controller
             
                 $old_x = imageSX($src_img);
                 $old_y = imageSY($src_img);
-                $width = 300;
-                $height = 300;
+                $width = 400;
+                $height = 400;
                 // we need to resize image, otherwise it will be cropped 
                 $imageNew = Image::make($path);
 

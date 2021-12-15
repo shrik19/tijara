@@ -1031,10 +1031,8 @@ class AuthController extends Controller
 
                     $old_x = imageSX($src_img);
                     $old_y = imageSY($src_img);
-                        /*
-                    $newWidth = 1800;
-                    $newHeight = 700;*/
-                    $old_x = imageSX($src_img);
+               
+                /*    $old_x = imageSX($src_img);
                     $old_y = imageSY($src_img);
                     $width = 1900;
                     $height = 400;
@@ -1055,7 +1053,12 @@ class AuthController extends Controller
                     $constraint->upsize();
                     })->save(public_path().'/uploads/Seller/resized/' . $fileName);
                     $img->destroy();
-                /*    $newWidth = 1800;
+                  $old_x = imageSX($src_img);
+                    $old_y = imageSY($src_img);*/
+                        /*
+                    $newWidth = 1800;
+                    $newHeight = 700;*/
+                    $newWidth = 1800;
                     $newHeight = 350;
 
                     if($old_x > $old_y){
@@ -1085,7 +1088,7 @@ class AuthController extends Controller
                     if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
 
                     imagedestroy($dst_img);
-                    imagedestroy($src_img);*/
+                    imagedestroy($src_img);
                 }
                 else {
                     $fileError = 1;
@@ -1134,7 +1137,7 @@ class AuthController extends Controller
 
                    /* $newWidth = 400;
                     $newHeight = 150;*/
-                $width = 400;
+               /* $width = 400;
                 $height = 400;
                 // we need to resize image, otherwise it will be cropped 
                 $imageNew = Image::make($path);
@@ -1152,9 +1155,9 @@ class AuthController extends Controller
                 $constraint->aspectRatio();
                 $constraint->upsize();
                 })->save(public_path().'/uploads/Seller/resized/' . $fileName);
-                $img->destroy();
-                   /* $newWidth = 120;
-                    $newHeight = 120;
+                $img->destroy();*/
+                   $newWidth = 300;
+                    $newHeight = 300;
 
                     if($old_x > $old_y){
                         $thumb_w    =   $newWidth;
@@ -1183,7 +1186,7 @@ class AuthController extends Controller
                     if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
 
                     imagedestroy($dst_img);
-                    imagedestroy($src_img);*/
+                    imagedestroy($src_img);
                 }
                 else {
                     $fileError = 1;
@@ -1241,7 +1244,7 @@ class AuthController extends Controller
             
                 $old_x = imageSX($src_img);
                 $old_y = imageSY($src_img);
-                $width = 1900;
+                /*$width = 1900;
                 $height = 400;
                 // we need to resize image, otherwise it will be cropped 
                 $imageNew = Image::make($path);
@@ -1259,8 +1262,8 @@ class AuthController extends Controller
                 $constraint->aspectRatio();
                 $constraint->upsize();
                 })->save(public_path().'/uploads/Seller/resized/' . $fileName);
-                $img->destroy();
-           /*     $newWidth = 300;
+                $img->destroy();*/
+                $newWidth = 300;
                 $newHeight = 300;
             
                 if($old_x > $old_y) {
@@ -1291,7 +1294,7 @@ class AuthController extends Controller
 
                 if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
                 imagedestroy($dst_img);
-                imagedestroy($src_img);*/
+                imagedestroy($src_img);
 
             } else {
 
@@ -1332,7 +1335,7 @@ class AuthController extends Controller
                 if($mime['mime']=='image/jpeg'){ $src_img = imagecreatefromjpeg($path); }
                 if($mime['mime']=='image/pjpeg'){ $src_img = imagecreatefromjpeg($path); }
             
-                $old_x = imageSX($src_img);
+               /* $old_x = imageSX($src_img);
                 $old_y = imageSY($src_img);
                 $width = 400;
                 $height = 400;
@@ -1352,8 +1355,10 @@ class AuthController extends Controller
                 $constraint->aspectRatio();
                 $constraint->upsize();
                 })->save(public_path().'/uploads/Seller/resized/' . $fileName);
-                $img->destroy();
-                /*$newWidth = 300;
+                $img->destroy();*/
+                $old_x = imageSX($src_img);
+                $old_y = imageSY($src_img);
+                $newWidth = 300;
                 $newHeight = 300;
             
                 if($old_x > $old_y) {
@@ -1384,7 +1389,7 @@ class AuthController extends Controller
 
                 if($mime['mime']=='image/pjpeg'){ $result = imagejpeg($dst_img,$new_thumb_loc,80); }
                 imagedestroy($dst_img);
-                imagedestroy($src_img);*/
+                imagedestroy($src_img);
 
             } else {
 

@@ -2923,15 +2923,26 @@ span.pro-text {
             color: #fff;
             padding: 6px 5px;
         }
+        .product_heading {
+          margin-top: 60px !important;
+          margin-bottom: 25px !important;
+          font-size: 25px !important;
+          color: #222222 !important;
+          font-weight: 600 !important;
+      }
         .go_to_tijara_ads_btn {
           color: #000 !important;
           background-color: #ffcc99;
           padding: 10px;
           margin-bottom: 134px;
-          margin-top: 42px;
+          margin-top: 61px;
           margin-left: -14px;
           border-radius: 10px;
           height: auto;
+        }
+        .featured_seller_section{
+          margin-left: 1%;
+          width: 99%!important;
         }
         .product_img{position: relative;}
         .buy_now_hover_details{position: absolute; top: 0px;  height: 100%;
@@ -3352,11 +3363,59 @@ h1.checkoutHeading {
 
 @media only screen and (min-device-width: 993px) and (max-device-width: 1140px){  
   .container-inner-section,.container-inner-section, .featured_seller_container,.container-inner-section-1,.product_view{width: 100%;}
-
+  .featured_seller_section {
+    background: #fff;
+    overflow: hidden;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    background-color: #ffffff!important;
+    padding: 0px;
+    float: left;
+    width: 100%!important;
+    display: flex;
+    border-radius: 30px;
+    height: 292px!important;
+}
+.instagram_imgs li {
+  float: left;
+  width: 18.3%;
+  margin: 0 10px;
+  position: relative;
+  padding-top: 15px;
+  height: 233px;
+}
+.seller_register_container .seller_register_second input[type=button]:nth-child(even){
+  margin-bottom: 20px;
+}
+.sel_cat_list h3, .sel_cat_list h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
 }
 .new_add{margin-left: -61px;}
 .new_add_heading{margin-bottom: 60px;}
 @media only screen and (min-device-width: 650px) and (max-device-width: 770px){  
+
+
+  .product_data {
+    /* height: 390px; */
+    overflow: hidden;
+    max-width: 100% !important;
+    height: 400px !important;
+}
+.product_details li {
+  float: left;
+  display: block;
+  cursor: pointer;
+  /* height: 100%; */
+  position: relative;
+  margin: 8px;
+  width: 46%;
+}
+.product_details li:nth-child(9), .product_details li:nth-child(19) {
+  padding-right: 10px!important;
+}
   .container-inner-section,.featured_seller_container,.product_view{width: 100%;}
   .container-inner-section,.container-inner-section, .featured_seller_container,.container-inner-section-1,.product_view{width: 100%;}
   .search_now_input_box {

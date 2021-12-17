@@ -71,7 +71,7 @@
                             @if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo']))
                               <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object seller-show-icon">
                             @else
-                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" class="media-object seller-show-icon">
+                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object seller-show-icon">
                             @endif
                                                       
                             </a>

@@ -2798,7 +2798,7 @@ span.pro-text {
         margin-top: 15px;
       }
       .input_box_css {
-        width: 319px !important;
+        width: 300px !important;
         height: 20px !important;
     }
       .show-custom {
@@ -2872,7 +2872,7 @@ span.pro-text {
         }
         .search_now_input_box {
             position: relative;
-            width: 53%;
+            width: 51%;
             float: left;
         }
     
@@ -3396,7 +3396,7 @@ h1.checkoutHeading {
   font-weight: 700;
 }
 }
-.new_add{margin-left: -61px;}
+.new_add{padding-right: 0px;}
 .new_add_heading{margin-bottom: 60px;}
 @media only screen and (min-device-width: 650px) and (max-device-width: 770px){  
 

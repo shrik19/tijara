@@ -17,12 +17,12 @@
             <div class="seller_info border-none">
             <div class="card">
             <div class="card-header row">
-            <div class="col-md-10">
+            <div class="col-md-9">
 
             <h2 class="page_heading new_add_heading" >{{ __('users.buyer_product_list_title')}}</h2>
             <!-- <hr class="heading_line"/> -->
             </div>
-            <div class="col-md-1 new_add">
+            <div class="col-md-3 new_add text-right">
             <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" ><span>+ {{ __('users.add_ads_btn')}}</span> </a>
             </div>
             </div>

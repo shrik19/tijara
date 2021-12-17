@@ -3397,7 +3397,11 @@ h1.checkoutHeading {
 .new_add_heading{margin-bottom: 60px;}
 @media only screen and (min-device-width: 650px) and (max-device-width: 770px){  
 
-
+.buy_now_hover_details li {
+    position: absolute !important;
+    top: -12%;
+    left: 70%;
+}
   .product_data {
     /* height: 390px; */
     overflow: hidden;

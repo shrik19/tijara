@@ -2171,7 +2171,7 @@ ul.tijara_front_box.row {
 .product_data {
    /* height: 390px;*/
     overflow: hidden;
-    max-width: 100% !important;
+    max-width: 230px !important;
     height: auto !important;
 }
 /* .tijara_front_box li{height: 300px;margin: 10px;} */
@@ -2667,22 +2667,22 @@ span.pro-text {
 
   @media only screen and (min-device-width: 1400px) and (max-device-width: 1800px){
     .show-custom {
-      width: 96%;
+      width: 561px;
       margin-left: 82px;
       position: relative;
       float: left;
-      height: 500px;
+      height: 561px;
   
     
   }
     }
     @media only screen and (min-device-width: 1801px) and (max-device-width: 3000px){
       .show-custom {
-        width: 96%;
+        width: 561px;
         margin-left: 82px;
         position: relative;
         float: left;
-        height: 500px;
+        height: 561px;
     
       
     }

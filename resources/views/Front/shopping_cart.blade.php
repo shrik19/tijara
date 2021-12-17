@@ -106,7 +106,7 @@
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
                         </div></td>
-                        <td class="col-sm-1 col-md-1 bg-white" style="text-align: center">
+                        <td class="col-sm-1 col-md-1 bg-white tijara_quantity" style="text-align: center">
                         <select name="quantity_{{ $orderProduct['id'] }}" id="quantity_{{ $orderProduct['id'] }}" class="form-control" onchange="updateCart('{{ $orderProduct['id'] }}')">
                             <option value="1" @if($orderProduct['quantity'] == 1) selected="selected" @endif>1</option>
                             <option value="2" @if($orderProduct['quantity'] == 2) selected="selected" @endif>2</option>

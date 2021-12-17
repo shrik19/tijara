@@ -3295,6 +3295,9 @@ h1.checkoutHeading {
 
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
+  .tijara_quantity select {
+    padding: 6px 4px;
+}
   .container-inner-section,.featured_seller_container,.product_view{width: 100%;}
   /* .product_img{height: 48vh!important;} */
   .all_cat_sidebar_label {
@@ -3396,6 +3399,10 @@ h1.checkoutHeading {
 .new_add{margin-left: -61px;}
 .new_add_heading{margin-bottom: 60px;}
 @media only screen and (min-device-width: 650px) and (max-device-width: 770px){  
+
+.tijara_quantity select {
+    padding: 6px 4px;
+}
 
 .buy_now_hover_details li {
     position: absolute !important;

@@ -1719,10 +1719,20 @@ overflow: hidden;margin-top: 155px;}
 }
 .filter_lable{font-size: 24px; color:#222; font-weight: 400;}
 .slider-horizontal{margin-left: 9px;}
+.product_img_wrapper{
+  width: 200px!important;
+  /* height: 200px!important; */
+}
+
 .product_img_wrapper>.product_data>.product_img{
   width: 200px!important;
   height: 200px!important;
-
+}
+.product_img_wrapper>.product_data>.product_img>img{
+  width: 200px!important;
+  height: 200px!important;
+      min-width: 200px; 
+    min-height: 200px;
 }
 .pleft-0{
 padding-left: 0px!important;

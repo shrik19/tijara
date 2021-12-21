@@ -740,7 +740,7 @@ class AuthController extends Controller
 
         if($show_exp_message[0]->is_trial==0 && $show_exp_message[0]->end_date <= $currentDate){
             $data['noActivePackage']=1;
-        } elseif($show_exp_message[0]->is_trial==1 && $show_exp_message[0]->end_date <= $trial_end_date){
+        } elseif($show_exp_message[0]->is_trial==1 && $show_exp_message[0]->trial_end_date <= $currentDate){
              $data['noActivePackage']=1;
         }else{
              $data['noActivePackage']=0;

@@ -1388,19 +1388,16 @@ class CartController extends Controller
                         ->select(['users.*'])                          
                         ->where('temp_orders.id','=',$orderRef)->first()->toArray();
 
-      //echo'<pre>';print_r($UserData['address']);exit;
+      //echo'<pre>';print_r($UserData);exit;
       $checkExisting = TmpOrders::where('id','=',$orderRef)->first()->toArray();
       $orderTotal = (int)ceil($checkExisting['total']) * 100;
       Stripe\Stripe::setApiKey($UserData['strip_secret']);
       
         $response = Stripe\Charge::create ([
-                'name' => 'test',
                 "amount" => $orderTotal,
                 "currency" => "SEK",
                 "source" => $request->stripeToken,
                 "description" => "Tijara payment for order #".$orderRef ,
-                "address" => $UserData['address']
-
                 
         ]);
         $arrOrderUpdate = [

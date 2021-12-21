@@ -1388,7 +1388,7 @@ class CartController extends Controller
                         ->select(['users.*'])                          
                         ->where('temp_orders.id','=',$orderRef)->first()->toArray();
 
-      //echo'<pre>';print_r($UserData);exit;
+      echo'<pre>';print_r($UserData);exit;
       $checkExisting = TmpOrders::where('id','=',$orderRef)->first()->toArray();
       $orderTotal = (int)ceil($checkExisting['total']) * 100;
       Stripe\Stripe::setApiKey($UserData['strip_secret']);

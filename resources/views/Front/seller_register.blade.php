@@ -207,7 +207,7 @@
 								              <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
 							              </div>
 
-											<div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
+											<div class="payment_explanation_text">{{ __('messages.klarna_description_step_1')}}</br>{{ __('messages.klarna_description_step_2')}}</br>{{ __('messages.klarna_description_step_3')}}</br>{{ __('messages.klarna_description_step_4')}}</div>
 							            </div>
 							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.easy_peyment_title')}}</p>
 							            <div class="login_box payment_detail_box swish_payment" style="margin-top: 20px;">
@@ -234,7 +234,7 @@
 							               <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="swish number" value="" style="margin-left: 10px;">
 							              </div>
 
-							              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div> 
+							              <div class="payment_explanation_text">{{ __('messages.swish_description_step_1')}}</br>{{ __('messages.swish_description_step_2')}}</br>{{ __('messages.swish_description_step_3')}}</div> 
 										 
 							            </div>
 							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
@@ -251,7 +251,7 @@
 								              <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
 							              </div>
 
-							              <div class="payment_explanation_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>  
+							              <div class="payment_explanation_text">{{ __('messages.strip_description_step_1')}}</br>{{ __('messages.strip_description_step_2')}}</br>{{ __('messages.strip_description_step_3')}}</div>  
 							             
 							            </div>
 							             

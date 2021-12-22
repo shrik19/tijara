@@ -2208,12 +2208,13 @@ ul.tijara_front_box.row {
 .wid-20 a{
   padding: 15px 4px;
 }
-.wid-85{width: 80%; float: left;}
+.wid-85{width: 85%; float: left;}
 .tj-navbar{box-shadow: none;border: none; background-image: none; float: left;width: 100%; background: #fff;}
 .tj-logo img{    padding: 0;
   width: 70%;
   padding-top: 33px; 
-  margin-left:25px;}
+  /*margin-left:25px;*/
+  }
 .mainMenu{ width: 100%;margin: 15px 0 0 0;}
 .tj-topmenu{background-color: rgba(255, 255, 255, 0.9); float: left; width: 100%;}
 .product_view{width: 1230px; margin: 0 auto;}
@@ -3600,4 +3601,11 @@ ul.breadcrumb-category {
 .tijara-content{
   clear: both;
 }
+}
+
+/*****************************************************************/
+/*							22-12-2021							 */
+/*****************************************************************/
+.navbar-form{
+	padding: 0px !important;
 }

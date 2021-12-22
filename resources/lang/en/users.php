@@ -385,5 +385,7 @@ cancellation of service works.',
     'success_heading' =>'Success!',
     'all_review_list' => 'All Review List',
     'user_name_thead' => 'User Name',
+	'your_package_history'=>'Package History',
+	'history_button'=>'History',
  ]
 ?>

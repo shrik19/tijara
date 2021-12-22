@@ -2058,6 +2058,42 @@ class AuthController extends Controller
         return view('Front/Packages/index', $data);
         
     }
+	
+	
+	
+	/**
+     * Show packages history to seller.
+     *
+     * @return null
+     */
+    public function sellerPackagesHistory($id){
+
+        if(empty($id)) {
+            Session::flash('error', trans('errors.refresh_your_page_err'));
+            return redirect()->back();
+        }
+
+        
+        $id = base64_decode($id);
+        $packageDetails = UserPackages::where('user_packages.user_id', $id)
+        ->Join('packages', 'user_packages.package_id', '=', 'packages.id')
+        ->Join('users', 'users.id', '=', 'user_packages.user_id')
+        ->select('user_packages.*','packages.id as package_id','packages.title','users.id as user_id','users.fname','users.lname')->orderby('user_packages.id','DESC')->get();
+
+        $data = [];
+        $data['pageTitle']              = trans('users.package_history_title');
+        $data['current_module_name']    = trans('users.package_history_title');
+        $data['module_name']            = trans('users.package_history_title');
+        $data['module_url']             = route('adminSeller');
+        $data['recordsTotal']           = 0;
+        $data['currentModule']          = '';
+        $data['id'] = $id;
+        $data['details']           =  $packageDetails;
+
+        return view('Front/Packages/packageHistory', $data);
+		
+	}
+
 
     /*function to select package*/
     public function selectPackage(Request $request){   

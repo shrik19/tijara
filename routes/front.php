@@ -256,3 +256,7 @@ Route::any('check-order-status/{order_id}','Front\CartController@CheckOrderStatu
 Route::any('order-success','Front\CartController@orderSuccess')->name('SwishOrderSuccess');
 Route::any('payment-error','Front\CartController@paymentError')->name('SwishPaymentError');
 
+/*Package*/
+Route::group(['prefix'=>'package'], function() {
+	Route::get('/package-history/{id}','Front\AuthController@sellerPackagesHistory')->name('frontPackage');
+});

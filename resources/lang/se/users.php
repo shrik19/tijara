@@ -385,5 +385,7 @@ avbokning av tjänst fungerar.',
     'success_heading' =>'Framgång!',
     'all_review_list' => 'Allt Omdömen Lista',
     'user_name_thead' => 'Användarnamn',
+	'your_package_history'=>'Pakethistorik',
+	'history_button'=>'Historia',
  ]
 ?>

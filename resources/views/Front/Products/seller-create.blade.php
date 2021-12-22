@@ -228,7 +228,7 @@
                       <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                       <span class="invalid-feedback col-md-8" id="err_variant_image" style="margin-left:-1px;"></span>  
                       <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span> 
-                      <p class="seller-logo-info col-md-8" style="font-size: 13px;">Lägg till en bild i storlek (1080x1080px)</p>  
+                      <p class="seller-logo-info col-md-8" style="font-size: 13px;">Lägg till en bild i storlek (600x600px)</p>  
                     </div>
                     
                                   

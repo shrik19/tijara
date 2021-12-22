@@ -106,5 +106,15 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
     'delivery_label' => 'Leverans',
     'delete_card_details_confirm' => 'Är du säker på att ta bort kortuppgifter?',
     'package_select_success' => 'Paketet har valts',
+	'strip_description_step_1' => '1).logga in på ditt stripe-konto eller klicka på länken nedan https://dashboard.stripe.com/login',
+	'strip_description_step_2' => '2).på instrumentpanelen ser du för utvecklarsektionen därifrån kan du generera publicerbar nyckel och hemlig nyckel',
+	'strip_description_step_3' => '3). klistra in hemlig nyckel i första inmatningsrutan och publicerbar nyckel i andra rutan',
+	'swish_description_step_1' => '1).Logga in på swish adyne-kontot',
+	'swish_description_step_2' => '2). Gå till Utvecklare > API-uppgifter och välj användarnamnet för din integration, till exempel ws@company.techbee.',
+	'swish_description_step_3' => '3).Autentisering, välj Generera Ny API-nyckel',
+	'klarna_description_step_1' => '1)logga in på klarna.',
+	'klarna_description_step_2' => '2).klicka på inställningar->Klarna API Credentials form sidebar.',
+	'klarna_description_step_3' => '3).Klicka sedan på Generate new Klarna API credentials',
+	'klarna_description_step_4' => '4).Kopiera användar-ID och lösenord och paster här',
  ]
 ?>

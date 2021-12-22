@@ -1396,6 +1396,7 @@ class CartController extends Controller
         $response = Stripe\Charge::create ([
                 "amount" => $orderTotal,
                 "currency" => "SEK",
+                   //"customer" => $UserData['stripe_customer_id'],
                 "source" => $request->stripeToken,
                 "description" => "Tijara payment for order #".$orderRef ,
                 

@@ -155,7 +155,7 @@
 			</div>
 			@endforeach
 		@endif
-
+		
 		@if(count($packageDetails) != 0 && !empty($packageDetails))
 			  <div class="col-md-12">
 				<h2 class="page_heading" style="margin: 60px 0px 30px 0px;">{{ __('users.subscribe_package_label')}} </h2>
@@ -203,7 +203,7 @@
 					@endforeach
 			   </div>
 			   @endif
-			
+			<div class="col-md-12"><a href="{{route('frontPackage', base64_encode($user_id))}}" class="btn btn-black btn-sm debg_color a_btn login_btn">{{ __('users.history_button')}}</a></div>
 			</div>
 			</div>
 </div>

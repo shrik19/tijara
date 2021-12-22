@@ -105,5 +105,15 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
      'delivery_label' => 'Delivery',
      'delete_card_details_confirm' => 'Are you sure you want to delete card details?',
      'package_select_success' => 'Package Selected Successfully',
+	 'strip_description_step_1' => '1).login to your stripe account or click on below link https://dashboard.stripe.com/login',
+	 'strip_description_step_2' => '2).on dashboard you see for developer section from there you can generate Publishable key and Secret key', 
+	 'strip_description_step_3' => '3).paste secret key in first input box and Publishable key in second box',
+	 'swish_description_step_1' => '1).Login to swish adyne account',
+	 'swish_description_step_2' => '2).Go to Developers > API credentials, and select the credential username for your integration, for example ws@company.techbee.',
+	 'swish_description_step_3' => '3).Authentication, select Generate New API Key',
+	 'klarna_description_step_1' => '1)login to klarna.',
+	 'klarna_description_step_2' => '2).click on settings->Klarna API Credentials form sidebar.',
+	 'klarna_description_step_3' => '3).Then click on Generate new Klarna API credentials',
+	 'klarna_description_step_4' => '4).Copy user Id and password and paster here',
  ]
 ?>

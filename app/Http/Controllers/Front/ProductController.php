@@ -1840,8 +1840,8 @@ public function findCurrency($type){
                                  $imageNew->resize($width, $height, function ($constraint) {
                                         $constraint->aspectRatio();
                                     });
-
-                                $imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
+								$imageNew->fit(600, 600);
+                                //$imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
                              
                                 $imageNew->save(public_path("uploads/ProductImages/{$fileName}"));
                                 $img = Image::make(public_path("uploads/ProductImages/{$fileName}"));

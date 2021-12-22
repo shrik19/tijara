@@ -58,25 +58,27 @@
                   </div>
                 </div>
                 </div>
-        <div class="col-md-3">
-          @if(Request::segment(1) =='annonser')
-            @include('Front.annonser_sidebar')
-          @else
-            @include('Front.products_sidebar')
-          @endif
-        </div>
-        <div class="col-md-9 products-page">
+        <div class="row">
+			<div class="col-md-3">
+			  @if(Request::segment(1) =='annonser')
+				@include('Front.annonser_sidebar')
+			  @else
+				@include('Front.products_sidebar')
+			  @endif
+			</div>
+			<div class="col-md-9 products-page">
 
-            <span class="current_category" style="display:none;">{{$category_slug}}</span>
-            <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
-            <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
-            <span class="current_search_string" style="display:none;">{{$search_string}}</span>
-            <span class="current_role_id" style="display:none;">{{$current_role_id}}</span>
-            <div class="product_container filter_product_list">
-               
-                <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
-            </div>
-        </div>
+				<span class="current_category" style="display:none;">{{$category_slug}}</span>
+				<span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
+				<span class="current_sellers" style="display:none;">{{$seller_id}}</span>
+				<span class="current_search_string" style="display:none;">{{$search_string}}</span>
+				<span class="current_role_id" style="display:none;">{{$current_role_id}}</span>
+				<div class="product_container filter_product_list">
+				   
+					<span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+				</div>
+			</div>
+		</div>
     </div>
     </div>
 

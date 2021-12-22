@@ -52,7 +52,7 @@
                         <th class="text-right">{{ __('lang.shopping_cart_price')}}</th>
                         <th class="text-right">{{ __('lang.shopping_cart_shipping')}}</th>
                         <th class="text-right">{{ __('lang.shopping_cart_total')}}</th>
-                        <th> </th>
+                        <th class="table_blank"> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -140,10 +140,10 @@
                     @php $inc++; @endphp
                   @endforeach
                     <tr class="ttl-sec">
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
                         <td class="bg-white bbvbvb"><h5  class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
                         <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
                             @php 
@@ -156,10 +156,10 @@
 						<td class="bg-white">   </td>
                     </tr>
                     <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank" >   </td>
+                        <td class="table_blank">   </td>
                         <td class="bg-white"><h5 class="product_sorting_filter_option dddddd">{{ __('lang.shopping_cart_shipping')}}</h5></td>
                         <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
 
@@ -173,10 +173,10 @@
 						<td class="bg-white">   </td>
                     </tr>
                     <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
                         <td class="bg-white"><h4 class="cart_total_css">{{ __('lang.shopping_cart_total')}}</h4></td>
                         <td class="text-right bg-white"><h4 class="cart_total_css">
                             @php 
@@ -189,11 +189,11 @@
 						<td class="bg-white">   </td>
                     </tr>
                     <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
+                        <td class="table_blank">   </td>
                         <td>
                         <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" @if($tmpOrderProduct['is_buyer_product']) onclick="location.href='{{route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])}}'" @else  onclick="location.href='{{route('frontShowPaymentOptions', ['id' => base64_encode($orderId)])}}'" @endif>
                         {{ __('lang.shopping_cart_checkout')}} <span class="glyphicon glyphicon-play"></span>

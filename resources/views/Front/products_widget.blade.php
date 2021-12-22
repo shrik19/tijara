@@ -1,5 +1,5 @@
 @php
-$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'products') !== false) ? 'col-md-3 product_img_wrapper':'col-md-15';
+$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'products') !== false) ? 'product_img_wrapper':'col-md-15';
 
 if(strpos(@$path, 'annonser') !== false){
   $product_link = $product->product_link.'?annonser=1';

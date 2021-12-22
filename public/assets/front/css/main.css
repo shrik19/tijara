@@ -1722,6 +1722,7 @@ overflow: hidden;margin-top: 155px;}
 .product_img_wrapper{
   width: 200px!important;
   /* height: 200px!important; */
+  margin: 10px;
 }
 
 .product_img_wrapper>.product_data>.product_img{
@@ -2710,6 +2711,21 @@ span.pro-text {
                     .package_width{width: 90%; margin: 0 5%;}
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
+      table td[class*=col-], table th[class*=col-]{
+        display: table-row!important;
+      }
+      .shopping_cart_page.seller_info{background: transparent;}
+      .shopping_cart>thead{
+        display: none;
+
+      }
+      .table_blank{
+        display: none;
+      }
+      .shopping_cart>tbody>tr>td{
+        width: 80vw!important;
+        float: left!important;
+      }
       .social_icon {
         padding-top: 4px;
         padding-bottom: 19px;
@@ -2906,7 +2922,13 @@ span.pro-text {
             position: absolute;
             padding: 3px 19px;
             font-size: 17px;
+            right: 0;
         }
+        h1.checkoutHeading {
+          font-weight: bold;
+          font-size: 22px;
+          padding-top: 16px;
+      }
         .ft_page_links h3 {
             color: #fff;
             padding-top: 25px;
@@ -3307,6 +3329,13 @@ h1.checkoutHeading {
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
   .tijara_quantity select {
     padding: 6px 4px;
+}
+.product_img_wrapper{
+  width: 100%!important;
+}
+.product_data{
+  max-width: 100%!important;
+  width: 100%!important;
 }
   .container-inner-section,.featured_seller_container,.product_view{width: 100%;}
   /* .product_img{height: 48vh!important;} */

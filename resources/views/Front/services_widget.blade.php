@@ -1,6 +1,6 @@
 
 @php
-$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false) ? 'col-md-3 product_img_wrapper':'col-md-15';
+$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false) ? 'product_img_wrapper':'col-md-15';
 @endphp
 
 <li class="{{$class}}">

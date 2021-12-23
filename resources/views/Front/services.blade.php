@@ -27,7 +27,7 @@
                     <!-- <h2>{{ __('lang.trending_service_head')}}</h2>
                     <hr class="heading_line"/> -->
                   </div>
-                  <div class="col-md-3" style="margin-left: -16px;">
+                  <div class="col-md-3 prod-service-filter" style="margin-left: -16px;">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="listServices()">
@@ -37,7 +37,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3 prod-service-filter">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="listServices()">

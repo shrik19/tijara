@@ -32,7 +32,7 @@
               
                   </div>
                   
-                  <div class="col-md-3">
+                  <div class="col-md-3 prod-service-filter">
                   
                     <div class="form-group">
                       <label class="product_sorting_filter">{{ __('lang.sort_by_order')}} : </label>
@@ -43,7 +43,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3 prod-service-filter">
                     <div class="form-group">
                       <label class="product_sorting_filter">{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="getListing()">

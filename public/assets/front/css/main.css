@@ -1722,7 +1722,8 @@ overflow: hidden;margin-top: 155px;}
 .product_img_wrapper{
   width: 200px!important;
   /* height: 200px!important; */
-  margin: 10px;
+  margin: 10px 13px;
+  min-height: 285px;
 }
 
 .product_img_wrapper>.product_data>.product_img{

@@ -266,12 +266,13 @@
                          <div class="form-group col-md-10">
                            <h4>{{ __('users.payment_btn')}}</h4>  
                            @foreach($payment_options as $p)
+                             @if($p != 'swish')
                            <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;">
                             @if($p == 'klarna')
                             <img src="{{url('/')}}/uploads/Images/klarna_logo_pink.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
                             @endif
-                            @if($p == 'swish')
-                              <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
+                            @if($p != 'swish')
+                             <?php /*  <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;"> */?>
                             @endif
                             @if($p == 'swish_number')
                               <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
@@ -279,10 +280,11 @@
                             @if($p == 'strip')
                               <img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
                             @endif
-                            
+                          
                              <input type="radio" name="payment_method" class="{{$p}} payment_radio" value="{{$p}}"> <span style="margin-left:10px;">@if($p == 'swish_number') swish number @else {{@$p}} @endif</span>
-
+                           
                            </div>
+                              @endif
                            @endforeach
                            <!-- <span>
                            <input type="radio" name="payment_method" class="swish_number payment_radio" value="swish_number"> <span style="margin-left:10px;"> <input type="phone_number" class="form-control login_input " name="swish_number" id="shipping_phone_number"

@@ -49,8 +49,8 @@
           
                 <div class="payment-lock-icon"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
               <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="80"></p>
+              <?php /*
               <div class="form-group">
-                  
               <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="{{ (old('swish_api_key')) ? old('swish_api_key') : $sellerDetails[0]->swish_api_key}}">
               <span class="invalid-feedback" style="position: relative;">@if($errors->has('swish_api_key')) {{ $errors->first('swish_api_key') }}@endif</span>
                 </div>
@@ -61,10 +61,10 @@
               </div>
 
 
-              <div class="form-group">
+            <div class="form-group">
               <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="{{ (old('swish_client_key')) ? old('swish_client_key') : $sellerDetails[0]->swish_client_key}}">
               <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
-              </div>
+              </div> */?>
               
               <div class="form-group" style="display: flex;">
                 <?php 

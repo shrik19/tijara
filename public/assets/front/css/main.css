@@ -2236,7 +2236,7 @@ ul.tijara_front_box.row {
 /*******************************/
 /*        23-08-2021           */   
 /*******************************/
-
+.p-d-0{padding: 0;}
 span.pro-text {
     margin-left: 5px;
 }
@@ -3329,12 +3329,16 @@ h1.checkoutHeading {
 }
 
 .small-container .show-small-img:last-of-type { margin-right: 0; }
-
+.logo-slider{margin: 0;}
 
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
+  .p-d-0{padding: 0 15px;}
   .tijara_quantity select {
     padding: 6px 4px;
+}
+.header_left_container{
+  border: none!important;
 }
 .product_img_wrapper{
   width: 100%!important;

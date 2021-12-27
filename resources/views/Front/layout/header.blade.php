@@ -92,9 +92,9 @@
     <nav class="navbar navbar-default navbar-fixed-top tj-navbar" role="navigation">
       <hr class="top_line"/>
 <div class="product_view">
-      <div class="container-fluid">
+      <div class="container-fluid p-d-0">
         <div>
-          <div class="tj-topmenu row">
+          <div class="tj-topmenu">
           <div class="wid-20 col-sm-12">
             <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/assets/img/logo.png"/></a>
           </div>

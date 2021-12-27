@@ -92,8 +92,8 @@
     </div>
 </div>
     <div class="featured-banner" style="margin-left: 10px;">
-    <div class="featured_seller_container">
-    <div class="container-fluid">
+    <div class="featured_seller_container ">
+    <div class="container-fluid p-d-0">
         <div class="row logo-slider">               
                 @if(!empty($FeaturedSellers))
                     @foreach($FeaturedSellers as $fea_seller)

@@ -12,7 +12,7 @@
 </div>
 <!-- <div class="container"> -->
   <!-- Example row of columns -->
-  <div class="row">
+  <div class="product_view">
     <div class="cmspageDiv">
      
         <h2>{{ $details['title'] }}</h2>

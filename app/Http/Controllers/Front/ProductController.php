@@ -1837,30 +1837,39 @@ public function findCurrency($type){
                                 $imageNew = Image::make($path);
 
                                
-                                 $imageNew->resize($width, $height, function ($constraint) {
+                                $imageNew->resize($width, $height, function ($constraint) {
                                         $constraint->aspectRatio();
                                     });
-								$imageNew->fit(600, 600);
+								//$imageNew->fit(600, 600);
                                 //$imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
                              
                                 $imageNew->save(public_path("uploads/ProductImages/{$fileName}"));
                                 $img = Image::make(public_path("uploads/ProductImages/{$fileName}"));
-                                $img->resize(300, 300, function ($constraint) {
-                                $constraint->aspectRatio();
-                                $constraint->upsize();
-                                })->save(public_path().'/uploads/ProductImages/resized/' . $fileName);
+                                // $img->resize(300, 300, function ($constraint) {
+                                // $constraint->aspectRatio();
+                                // $constraint->upsize();
+                                // })
+                                $img->fit(300, 300);
+                                $img->save(public_path().'/uploads/ProductImages/resized/' . $fileName);
                                 $img->destroy();
+
                                 $img = Image::make(public_path("uploads/ProductImages/{$fileName}"));
-                                $img->resize(600, 600, function ($constraint) {
+                                $img->resizeCanvas($width, $height, 'center', false, '#ffffff');
+                                /*$img->resize(600, 600, function ($constraint) {
                                 $constraint->aspectRatio();
                                 $constraint->upsize();
-                                })->save(public_path().'/uploads/ProductImages/productDetails/' . $fileName);
+                                })*/
+                                $img->save(public_path().'/uploads/ProductImages/productDetails/' . $fileName);
                                 $img->destroy();
+
+
                                 $img = Image::make(public_path("uploads/ProductImages/{$fileName}"));
-                                $img->resize(100, 100, function ($constraint) {
-                                $constraint->aspectRatio();
-                                $constraint->upsize();
-                                })->save(public_path().'/uploads/ProductImages/productIcons/' . $fileName);
+                                // $img->resize(100, 100, function ($constraint) {
+                                // $constraint->aspectRatio();
+                                // $constraint->upsize();
+                                // })
+                                $img->fit(100, 100);
+                                $img->save(public_path().'/uploads/ProductImages/productIcons/' . $fileName);
                                 $img->destroy();
 
                 

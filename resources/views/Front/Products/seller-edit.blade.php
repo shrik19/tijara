@@ -244,7 +244,7 @@
                                         @foreach($images as $image)
                                           <div>
                                             <input type="hidden" class="form-control ge_input hidden_images" value="{{$image}}"  name="hidden_images[{{$i}}][]" placeholder="{{ __('lang.image_label')}}">
-                                            <img src="{{url('/')}}/uploads/ProductImages/{{$image}}" width="78" height="80">
+                                            <img src="{{url('/')}}/uploads/ProductImages/resized/{{$image}}" width="78" height="80">
                                             <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
                                           </div>
                                         @endforeach

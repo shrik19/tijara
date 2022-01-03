@@ -1819,7 +1819,7 @@ $('body').on('change', '.service_image', function () {
                   $(".loader").hide();   
                       
                   elm.prev('div.images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
-                    '<img src="'+siteUrl+'/uploads/ServiceImages/'+data+'" width="78" height="80">'+
+                    '<img src="'+siteUrl+'/uploads/ServiceImages/resized/'+data+'" width="78" height="80">'+
                                       '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
                 }
 

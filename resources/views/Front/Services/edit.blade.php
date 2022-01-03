@@ -200,7 +200,7 @@ td.fc-week-number {
   @if($image!='')
   <div>
   <input type="hidden" class="form-control login_input hidden_images" value="{{$image}}"  name="hidden_images[]">
-  <img src="{{url('/')}}/uploads/ServiceImages/{{$image}}" width="78" height="80">
+  <img src="{{url('/')}}/uploads/ServiceImages/resized/{{$image}}" width="78" height="80">
   <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
 </div>
   @endif

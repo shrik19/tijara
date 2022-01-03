@@ -515,6 +515,7 @@ class CartController extends Controller
                               ->where('products.id','=',$details['product_id'])
                               ->where('variant_product.id','=',$details['variant_id'])
                               ->orderBy('products.id', 'DESC')
+                               ->where('products.is_deleted','=',0)
                               ->orderBy('variant_product.id', 'ASC')
                               ->groupBy('products.id')
                               ->get();
@@ -575,6 +576,9 @@ class CartController extends Controller
                       if(!empty($sellerLogoImage['logo'])){
                           $details['sellerLogo'] = $sellerLogoImage['logo'];
                       }
+                  
+                      $details['product'] = $Product;
+                  
                       $details['product'] = $Product;
                       $orderDetails[$OrderId]['details'][] = $details;
                       
@@ -593,7 +597,7 @@ class CartController extends Controller
         }
         
         $data['details'] = $orderDetails;
-        
+      //  echo "<pre>";print_r( $orderDetails);exit;
         return view('Front/shopping_cart', $data);
       }
       else {
@@ -2482,6 +2486,7 @@ DATA;
                           ->where('products.status','=','active')
                           ->where('categories.status','=','active')
                           ->where('subcategories.status','=','active')
+                          ->where('products.is_deleted','=',0)
                           ->where('products.id','=',$details['product_id'])
                           ->where('variant_product.id','=',$details['variant_id'])
                           ->orderBy('products.id', 'DESC')
@@ -2532,6 +2537,7 @@ DATA;
                           ->where('services.status','=','active')
                           ->where('servicecategories.status','=','active')
                           ->where('serviceSubcategories.status','=','active')
+                          ->where('services.is_deleted','=',0)
                           ->where('services.id','=',$serviceDetails['service_id'])
                           ->orderBy('services.id', 'DESC')
                           ->groupBy('services.id')

@@ -24,6 +24,7 @@ use App\Models\TmpAdminOrders;
 use App\Models\BuyerProducts;
 use App\Models\AnnonserCategories;
 use App\Models\AnnonserSubcategories;
+use App\Models\TmpOrdersDetails;
 
 use App\CommonLibrary;
 
@@ -1979,7 +1980,8 @@ public function findCurrency($type){
         if (!empty($result)) {
 
            $product = Products::where('id', $id)->update(['is_deleted' =>1]);
-
+          
+           $result=TmpOrdersDetails::where('product_id','=',$id)->delete();
           // Session::flash('success', trans('lang.record_delete'));
 
              //   return redirect()->back();  

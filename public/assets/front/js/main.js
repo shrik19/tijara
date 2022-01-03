@@ -199,7 +199,7 @@ $('#variant_table').on('change', '.variant_image', function () {
                                             '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');*/
 
                       elm.prev('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
-                          '<img src="'+siteUrl+'/uploads/ProductImages/productIcons/'+data+'" width="78" height="80">'+
+                          '<img src="'+siteUrl+'/uploads/ProductImages/resized/'+data+'" width="78" height="80">'+
                                             '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');          
                       }
 

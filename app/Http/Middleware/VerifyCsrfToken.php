@@ -23,6 +23,6 @@ class VerifyCsrfToken extends Middleware
         'checkoutSubmitAdditionalDetails',
         'checkout-swish-ipn',
 		'admin/ck_upload',
-        'swish-ipn-url','checkout-swish-number-callback'
+        'swish-ipn-url','checkout-swish-number-callback','CheckoutSwishNumberCallback'
     ];
 }

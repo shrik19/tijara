@@ -60,7 +60,7 @@ width:100% !important;
             </div>
           <div class="seller_mid_cont"  style="margin-top: 20px;">
 
-          <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckout','swish')}}" method="post" enctype="multipart/form-data">
+          <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckoutNumber','swish')}}" method="post" enctype="multipart/form-data">
  
           @csrf
 

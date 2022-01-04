@@ -952,7 +952,7 @@ class ProductController extends Controller
           
           $data['order_id'] = $getQR['orderId'];
           $data['QRCode'] = $getQR['QRCode'];
-         return view('Front/buyer_checkout_swish_number.blade.php',$data); 
+         return view('Front/buyer_checkout_swish_number',$data); 
           //  return view('Front/buyer_product_swish', $data);
         }
 

@@ -27,7 +27,7 @@
           headers: {
           'X-CSRF-Token': $('meta[name="_token"]').attr('content')
           },
-          url: "{{url('/')}}"+'/buyer-check-order-statuss/'+order_id,
+          url: "{{url('/')}}"+'/buyer-check-order-status/'+order_id,
           type: 'post',
           // async: false,
           data:{},

@@ -1289,10 +1289,10 @@ class ProductController extends Controller
                     }
                 }
 
-                $product_link   =   url('/').'/products';
-                $product_link   .=  '/'.$categorySlug;
-                $product_link   .=  '/'.$subCategorySlug;
-                $product_link   .=  '/'.$slug.'-P-'.$product_code;
+                $product_link   =   url('/').'/product';
+               // $product_link   .=  '/'.$categorySlug;
+               // $product_link   .=  '/'.$subCategorySlug;
+                $product_link   .=  '/'.$slug.'-P-'.$product_code.'?annonser=1';
 
 
                 $GetOrder = AdminOrders::join('users', 'users.id', '=', 'admin_orders.user_id')->select('users.fname','users.lname','users.email','admin_orders.*')->where('admin_orders.id','=',$NewOrderId)->get()->toArray();

@@ -2721,7 +2721,12 @@ text-align: right;
                     .package_width{width: 90%; margin: 0 5%;}
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
-      table td[class*=col-], table th[class*=col-]{
+      
+		.cmspageDiv {
+			margin: 20px;
+		}
+
+	  table td[class*=col-], table th[class*=col-]{
         display: table-row!important;
       }
       .shopping_cart_page.seller_info{background: transparent;}

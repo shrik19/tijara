@@ -1337,6 +1337,8 @@ class ProductController extends Controller
 
     }
 }
+
+
  /*   $arrOrderUpdate = [
           
           'klarna_order_reference'  => $order_id,
@@ -1365,6 +1367,31 @@ class ProductController extends Controller
      }
           
     }*/
+  }
+
+
+   public function BuyerCheckOrderStatus(Request $request)
+  {
+    //echo "<pre>";print_r($request->order_id);
+    $checkOrderStatus = AdminOrders::where('klarna_order_reference','=',$request->order_id)->first();
+    if(!empty($checkOrderStatus)){
+      $payment_status = $checkOrderStatus['payment_status'];
+      return response()->json(['payment_status'=> $payment_status]);
+    }else{
+      return response()->json(['payment_status'=> "FAILED"]);
+    }
+  }
+
+     public function orderSuccess(Request $request)
+  {
+    $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
+    return view('Front/swish_number_order_success', $data);
+  }
+
+  public function paymentError(Request $request)
+  {
+    $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
+    return view('Front/swish_number_payment_error',$blade_data); 
   }
 
 

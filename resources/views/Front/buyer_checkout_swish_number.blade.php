@@ -32,10 +32,10 @@
           // async: false,
           data:{},
           success: function(data){
-            if(data.payment_status=="PAID"){
-              window.location = "{{ route('SwishOrderSuccess') }}";
+            if(data.payment_status=="Success"){
+              window.location = "{{ route('SwishNumberOrderSuccess') }}";
             }else{
-              window.location = "{{ route('SwishPaymentError') }}";
+              window.location = "{{ route('SwishNumberPaymentError') }}";
             }
          
           }

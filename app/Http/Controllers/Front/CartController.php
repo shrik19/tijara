@@ -3391,7 +3391,8 @@ DATA;
 
     $username ='1231181189.p12';
     $password ="swish";
-    $url = "https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+    $url =  env('SWISH_NUMBER_API');
+  //"https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
     $resultArr=array();
 
     $data =[
@@ -3468,7 +3469,7 @@ DATA;
 
     $QRresult = curl_exec($curl);
     //echo "<pre>";print_r($QRresult);
-
+   
     if (curl_errno($curl)) {
       $err_msg = curl_error($curl);
       echo $err_msg;
@@ -3555,6 +3556,19 @@ DATA;
       return view('Front/payment_error',$blade_data); 
     }*/
   }
+
+  public function BuyerCheckOrderStatus(Request $request)
+  {
+    //echo "<pre>";print_r($request->order_id);
+    $checkOrderStatus = AdminOrders::where('klarna_order_reference','=',$request->order_id)->first();
+    if(!empty($checkOrderStatus)){
+      $payment_status = $checkOrderStatus['payment_status'];
+      return response()->json(['payment_status'=> $payment_status]);
+    }else{
+      return response()->json(['payment_status'=> "FAILED"]);
+    }
+  }
+
    public function orderSuccess(Request $request)
   {
     $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';

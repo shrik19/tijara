@@ -952,7 +952,7 @@ class ProductController extends Controller
           
           $data['order_id'] = $getQR['orderId'];
           $data['QRCode'] = $getQR['QRCode'];
-         return view('Front/checkout_swish_number',$data); 
+         return view('Front/buyer_checkout_swish_number.blade.php',$data); 
           //  return view('Front/buyer_product_swish', $data);
         }
 
@@ -1185,7 +1185,7 @@ class ProductController extends Controller
                     'order_lines' => '',
                     'payment_details' => json_encode($paymentDetails),
                     'payment_status' => $order_status,
-                    'order_status' => 'COMPLETE',
+                    'order_status' => 'PAID',
                     'updated_at' => $currentDate,
                     'product_id' => $id,
                 ];

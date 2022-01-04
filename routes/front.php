@@ -258,6 +258,7 @@ Route::any('check-order-status/{order_id}','Front\CartController@CheckOrderStatu
 Route::any('order-success','Front\CartController@orderSuccess')->name('SwishOrderSuccess');
 Route::any('payment-error','Front\CartController@paymentError')->name('SwishPaymentError');
 Route::match(['get', 'post'],'/checkout-swish-number-callback', 'Front\ProductController@CheckoutSwishNumberCallback')->name('CheckoutSwishNumberCallback');
+Route::any('buyer-check-order-status/{order_id}','Front\CartController@BuyerCheckOrderStatus')->name('BuyerSwishCheckOrderStatus');
 /*Package*/
 Route::group(['prefix'=>'package'], function() {
 	Route::get('/package-history/{id}','Front\AuthController@sellerPackagesHistory')->name('frontPackage');

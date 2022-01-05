@@ -361,3 +361,10 @@ small-img-roll{
 .slider-horizontal{
   width:97% !important;
 }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 640px){
+      
+	.slider-horizontal {
+		width: 80% !important;
+	}
+}

@@ -26,7 +26,7 @@
             <div class="row">
            
        
-                <table class="table table-hover" style="margin-bottom:60px;">
+                <table class="table table-hover wishlist-table" style="margin-bottom:60px;">
                     <thead>
                         <tr>
                             <th>{{ __('lang.shopping_cart_product')}}</th>
@@ -91,7 +91,7 @@
             <div class="row">
                 
               </div>
-                <table class="table table-hover" style="margin-bottom:60px;">
+                <table class="table table-hover wishlist-table" style="margin-bottom:60px;">
                     <thead>
                         <tr>
                             <th>{{ __('lang.service_label')}}</th>
@@ -105,7 +105,7 @@
                         <tr>
                             <td class="col-sm-4 col-md-4">
                             <div class="media">
-                                <a class="thumbnail pull-left" href="{{$reqService['service']->service_link}}"> 
+                                <a class="thumbnail pull-left custom_thumbnail" href="{{$reqService['service']->service_link}}"> 
                                 @if($reqService['service']['images'])
                                   <img src="{{url('/')}}/uploads/ServiceImages/resized/{{$reqService['service']->images}}" class="media-object" style="width: 72px; height: 72px;">
                                 @else
@@ -114,12 +114,12 @@
                                   
                                 </a>
                                 <div class="media-body" style="padding-left:10px;padding-top:10px;">
-                                    <h4 class="media-heading"><a href="{{$reqService['service']->service_link}}">{{ $reqService['service']->title }}</a></h4>
+                                    <h4 class="media-heading product_sorting_filter_option"><a href="{{$reqService['service']->service_link}}">{{ $reqService['service']->title }}</a></h4>
                                    <!--  <h5 class="media-heading"> {{$reqService['variant_attribute_id']}} </h5> -->
                                     <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                                 </div>
                             </div></td>
-                            <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format((float)$reqService['service']->service_price,2) }} kr</strong></td>
+                            <td class="col-sm-2 col-md-2 text-right"><h4 class="cart_total_css">{{ number_format((float)$reqService['service']->service_price,2) }} kr</h4></td>
                             <td class="col-sm-1 col-md-1 text-right">
                          <!--    <button class="btn btn-success" onclick="addToCartWishlist('{{ $reqService['id'] }}')" title="Add"><i class="glyphicon glyphicon-shopping-cart"></i></button> -->
                             <a href="{{$reqService['service']->service_link}}" style="color:#05999F;" class="">{{ __('lang.book_service')}}</i></a>

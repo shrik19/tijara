@@ -2668,10 +2668,21 @@ text-align: right;
       margin-left: 80px;
       position: relative;
       float: left;
-      height: 400px;
-    
-  }
+      height: 400px;    
+	}
+	
+	.instagram_imgs li {
+      margin: 8px;
     }
+	
+	.instagram_imgs li:nth-child(1) {
+	  margin-left: 8px;
+	}
+	
+	.instagram_imgs li:nth-child(5) {
+	  margin-right: 8px;
+	}
+  }
 
 
   @media only screen and (min-device-width: 1024px) and (max-device-width:1399px){
@@ -2721,7 +2732,11 @@ text-align: right;
                     .package_width{width: 90%; margin: 0 5%;}
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
-      .product_original_price{width:150px}
+      
+	    .nav > li:last-child {
+			text-align: left;
+		}
+	  .product_original_price{width:100%;}
       
 		.cmspageDiv {
 			margin: 20px;
@@ -2730,6 +2745,10 @@ text-align: right;
 	  table td[class*=col-], table th[class*=col-]{
         display: table-row!important;
       }
+	  
+	  .wishlist-table td[class*=col-], .wishlist-table th[class*=col-] {
+		display: table-cell !important;
+	}
       .shopping_cart_page.seller_info{background: transparent;}
       .shopping_cart>thead{
         display: none;
@@ -2879,7 +2898,7 @@ text-align: right;
     margin-left: 36px;
     text-align: center;
 }
-    .product_details_info{clear: both;padding-top:30px; float: left;}
+    .product_details_info{clear: both;padding-top:30px; float: left;width: 100%;}
         .toggle_btn{display: block;}
         .containerfluid{margin-top: 110px;}
         .nav > li {
@@ -2999,7 +3018,7 @@ text-align: right;
             transition: .3s ease;
             background-color: rgba(0,0,0,0.1);}
             .buy_now_hover_details ul{padding-top: 104px;}
-        .buy_now_hover_details li{padding: 40px; width: 20%; left: 88%}
+        .buy_now_hover_details li{padding: 40px; width: 20%; left: 65%; top: 0;}
         .buy_now_hover_details li a {color: #fff; height: 40px;width: 40px;background: #5dc9ff; text-align: center; padding: 13px 15px; font-size: 16px; }
         .product_img:hover  .buy_now_hover_details{ opacity: 1;}
         
@@ -3419,6 +3438,16 @@ h1.checkoutHeading {
   font-weight: bold;
   line-height: 40px;
 }
+
+	.annonser-image{
+		width: 100%;
+	}	
+	.annonser-image img {
+		width: 100%;
+	}
+	.col-annonser-sidebar {
+		padding-left: 30px;
+	}
 }
  
 /* Extra large devices (large desktops, 1200px and up) */
@@ -3459,14 +3488,18 @@ h1.checkoutHeading {
 .new_add_heading{margin-bottom: 60px;}
 @media only screen and (min-device-width: 650px) and (max-device-width: 770px){  
 
+.review_title {
+    margin-top: 25px !important;
+}
+
 .tijara_quantity select {
     padding: 6px 4px;
 }
 
 .buy_now_hover_details li {
     position: absolute !important;
-    top: -12%;
-    left: 70%;
+    top: 15%;
+    left: 90%;
 }
   .product_data {
     /* height: 390px; */

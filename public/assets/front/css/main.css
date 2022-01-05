@@ -2110,7 +2110,7 @@ padding-left: 0px!important;
 .quantity_box h3{float: left; font-size: 18px;color: #03989e; font-weight: 300; margin: 0; line-height: 40px;}
 
 .drop_down_select{width: 80%; padding: 10px 15px 10px 15px; background-color: #fff; border: 1px solid #03989e; border-radius: 40px; float: right;}
-.add_to_cart_btn{background-color: #03989e; padding: 10px 30px; color: #fff; font-size: 20px; border-radius: 28px;margin-top: 21px; font-weight: 300; width:93%}
+.add_to_cart_btn{background-color: #03989e; padding: 10px 30px; color: #fff; font-size: 20px; border-radius: 28px;margin-top: 21px; font-weight: 300; width:auto}
 .marging_0{margin: 0;}
 
 .upload-btn-wrapper {
@@ -2721,6 +2721,7 @@ text-align: right;
                     .package_width{width: 90%; margin: 0 5%;}
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
+      .product_original_price{width:150px}
       
 		.cmspageDiv {
 			margin: 20px;

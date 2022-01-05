@@ -2733,7 +2733,11 @@ text-align: right;
                     }
     @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
       
-	    .nav > li:last-child {
+	    .slider-horizontal {
+			width: 85% !important;
+		}
+		
+		.nav > li:last-child {
 			text-align: left;
 		}
 	  .product_original_price{width:100%;}

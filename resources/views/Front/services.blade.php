@@ -7,8 +7,8 @@
 <section class="product_section">
     <div class="container-fluid p_155">
       <!-- Example row of columns -->
-      <div class="container-inner-section">
-      <div class="row">
+      <div class="row container-inner-section">
+      <div class="">
         
        @if(Request::segment(1) =='services' || Request::segment(1) =='products')
           @include('Front.category_breadcrumb')
@@ -27,7 +27,7 @@
                     <!-- <h2>{{ __('lang.trending_service_head')}}</h2>
                     <hr class="heading_line"/> -->
                   </div>
-                  <div class="col-md-3 prod-service-filter" style="margin-left: -16px;">
+                  <div class="col-md-3 prod-service-filter" >
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="listServices()">

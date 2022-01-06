@@ -83,7 +83,7 @@
        <div class="col-md-6">
        
         
-        <div class="login_box">
+        <div class="login_box" style="margin-left:-31px;">
           <!-- <div class="form-group">
             <label>{{ __('users.swish_number_label')}} </label>
             <input type="text" class="form-control login_input" name="swish_number" id="swish_number" placeholder="{{ __('users.swish_number_label')}}" value="{{ (old('swish_number')) ? old('swish_number') : $buyerDetails[0]->swish_number}}">

@@ -92,7 +92,7 @@
 </div>
 </div> <!-- /container -->
 
-<script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<!-- <script src="{{url('/')}}/assets/front/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script> -->
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/dataTables.bootstrap4.min.css">
 <script src="{{url('/')}}/assets/front/js/jquery.dataTables.min.js"></script>
 <script src="{{url('/')}}/assets/front/js/dataTables.bootstrap4.min.js"></script>
@@ -178,7 +178,7 @@ function print_window(id){
        // async: false,
         data:{},
         success: function(data){
-            console.log(data)
+            //console.log(data)
              $('#orderDetailsmodal').modal('show');
            $('#order_details_box').html(data);
         }

@@ -58,8 +58,10 @@
                   </div>
                 </div>
                 </div>
-        <div class="row">
+
+        <div class="">
 			<div class="col-md-3 col-annonser-sidebar">
+
 			  @if(Request::segment(1) =='annonser')
 				@include('Front.annonser_sidebar')
 			  @else

@@ -3502,8 +3502,7 @@ DATA;
       $sendData['QRCode'] = base64_encode($QRresult);
       return $sendData;
     }else{  
-      $sendData['error_messages'] = trans('errors.payment_req_token_not_generated');
-      return  $sendData['error_messages'] = $err_message;
+      return  $sendData['error_messages'] = trans('errors.payment_req_token_not_generated');
     }
 
   }

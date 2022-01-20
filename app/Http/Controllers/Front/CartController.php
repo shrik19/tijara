@@ -1372,24 +1372,11 @@ class CartController extends Controller
            if(!empty($getQR['error_messages'])) {
               $blade_data['error_messages']= $getQR['error_messages'];
               return view('Front/payment_request_error',$blade_data); 
+           }else{
+              $data['order_id'] = $getQR['orderId'];
+              $data['QRCode'] = $getQR['QRCode'];
+              return view('Front/checkout_swish_number',$data);
            }
-     
-        /*  $checkOrderID =   Orders::where('klarna_order_reference',$OrderId)->first();
-          if(!empty($checkOrderID)){
-            $arrOrderUpdate = [          
-              'payment_status'  => 'WAITING',
-              'order_status' => 'WAITING',
-          
-            ];
-              Orders::where('klarna_order_reference',$OrderId)->update($arrOrderUpdate);
-          }*/
-           
-          $data['order_id'] = $getQR['orderId'];
-          $data['QRCode'] = $getQR['QRCode'];
-         return view('Front/checkout_swish_number',$data); 
-          /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
-          
-          return view('Front/checkout_swish', $responseFromFun);*/
         }
       }
     }

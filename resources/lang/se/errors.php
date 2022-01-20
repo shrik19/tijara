@@ -124,5 +124,6 @@
      'image_upload_height_width' => 'Höjd och bredd måste vara större än 230 pixlar.',
      'fill_in_country_err'=>'Vänligen fyll i ditt land',
      'payment_req_token_not_generated' => 'Det verkar som att säljaren inte har konfigurerat betalningsalternativet korrekt. Kontakta administratören för mer information.',
+     'please_check_swish_checkbox' =>'Vänligen kryssa i kryssrutan bredvid Swish-nummer.',
  ]
 ?>

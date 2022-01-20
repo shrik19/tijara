@@ -75,8 +75,8 @@
 					  }
 				  }
                 ?>
-               <input type="checkbox" name="is_swish_number" class="swish_number payment_radio" value="1" style="margin-top: 10px;" {{$checked}}> 
-               <input type="phone_number" class="form-control login_input " name="swish_number" id="shipping_phone_number" placeholder="swish number" value="{{ (old('seller_swish_number')) ? old('seller_swish_number') : $sellerDetails[0]->seller_swish_number}}" style="margin-left: 10px;">
+               <input type="checkbox" name="is_swish_number" id="is_swish_number" class="swish_number payment_radio" value="1" style="margin-top: 10px;" {{$checked}}> 
+               <input type="phone_number" class="form-control login_input " name="swish_number" id="seller_swish_number" placeholder="swish number" value="{{ (old('seller_swish_number')) ? old('seller_swish_number') : $sellerDetails[0]->seller_swish_number}}" style="margin-left: 10px;">
               </div>
 			         
                <div class="payment_explanation_text">{{ __('messages.swish_description_step_1')}}</br>{{ __('messages.swish_description_step_2')}}</br>{{ __('messages.swish_description_step_3')}}</div> 
@@ -102,7 +102,7 @@
             </div>
              <div style="margin-top: 30px;">
              
-                <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
+                <button type="submit" name="btnCountryCreate" id="btnSaveDetails" class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
                 <a href="{{url()->previous()}}" class="btn btn-black gray_color login_btn"> {{ __('lang.cancel_btn')}}</a>
 
                </div>
@@ -141,6 +141,20 @@ $(document).ready(function(){
     $(".swish_payment_lock").removeClass("fa-lock");
     $(".stripe_payment_lock").removeClass("fa-lock");
   }
+
+  
+  $("#btnSaveDetails").on("click", function(){
+    var error = 0;
+    var swish_number = $("#seller_swish_number").val();
+    if(swish_number !=''){
+        if($("#is_swish_number").is(':checked')){
+            error = 0;
+        } else{
+          showErrorMessage(please_check_swish_number);
+        }
+
+    }
+  });
 });
 </script>
 @endsection

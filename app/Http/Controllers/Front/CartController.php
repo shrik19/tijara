@@ -1372,7 +1372,8 @@ class CartController extends Controller
            if(!empty($getQR['error_messages'])) {
               $blade_data['error_messages']= $getQR['error_messages'];
               return view('Front/payment_request_error',$blade_data); 
-           }else{
+           }
+           if(!empty($getQR['orderId']) && !empty($getQR['QRCode'])){
               $data['order_id'] = $getQR['orderId'];
               $data['QRCode'] = $getQR['QRCode'];
               return view('Front/checkout_swish_number',$data);

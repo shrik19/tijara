@@ -13,6 +13,7 @@
               <div style="text-align: center;">
               <img src="data:image/png;base64, {{$QRCode}}" />
             </div>
+             <a href="#" class="btn btn-black gray_color login_btn cancel_payment"> {{ __('lang.cancel_btn')}}</a>
             </div>
           </div>
         </div>
@@ -32,10 +33,15 @@
           // async: false,
           data:{},
           success: function(data){
-            if(data.payment_status=="Success"){
+            if(data.payment_status=="PAID"){
               window.location = "{{ route('SwishNumberOrderSuccess') }}";
-            }else{
+            }
+            else if(data.payment_status=="ERROR"){
               window.location = "{{ route('SwishNumberPaymentError') }}";
+            }else if(data.payment_status=="CANCELLED"){
+              window.location = "{{ route('frontProductCreate') }}";
+            }else if(data.payment_status=="DECLINED"){
+              window.location = "{{ route('SwishPaymentError') }}";
             }
          
           }
@@ -43,6 +49,27 @@
 
          /* console.log('it works' + new Date());*/
       },5000);
+
+
+     $(".cancel_payment").on("click", function() { 
+      var order_id = $("#order_id").val();
+     $.ajax({
+          headers: {
+          'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+          },
+          url: "{{url('/')}}"+'/update-admin-order-status/'+order_id,
+          type: 'post',
+          // async: false,
+          data:{},
+          success: function(data){
+            if(data.payment_status=="CANCELLED"){
+              window.location = "{{ route('frontProductCreate') }}";
+            }
+           
+          }
+        });
+
+  });
 
 
   });

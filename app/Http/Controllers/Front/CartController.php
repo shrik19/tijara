@@ -1369,8 +1369,17 @@ class CartController extends Controller
            }
            //echo $number;exit;
            $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);    
-          // echo "<pre>";print_r($getQR); 
+          // echo "<pre>";print_r($getQR);
+        /*  $checkOrderID =   Orders::where('klarna_order_reference',$OrderId)->first();
+          if(!empty($checkOrderID)){
+            $arrOrderUpdate = [          
+              'payment_status'  => 'WAITING',
+              'order_status' => 'WAITING',
           
+            ];
+              Orders::where('klarna_order_reference',$OrderId)->update($arrOrderUpdate);
+          }*/
+           
           $data['order_id'] = $getQR['orderId'];
           $data['QRCode'] = $getQR['QRCode'];
          return view('Front/checkout_swish_number',$data); 
@@ -3177,7 +3186,7 @@ DATA;
 
     public function getRecords(Request $request) 
     {
-      
+         DB::enableQueryLog(); 
       if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
       {
           $orders = Orders::join('users','users.id','=','orders.user_id')->join('orders_details','orders_details.order_id','=','orders.id')->join('products','products.id','=','orders_details.product_id')->select('orders.*','users.fname','users.lname','users.email')->where('products.user_id','=',$request['user_id']);
@@ -3248,7 +3257,11 @@ DATA;
         
      
           $recordDetails = $orders->offset($request->input('start'))->limit($request->input('length'))->get();
-    
+
+
+// and then you can get query log
+          //echo "<pre>";
+          //print_r(DB::getQueryLog());exit;
           $arr = [];
 
           if (count($recordDetails) > 0) {
@@ -3385,29 +3398,33 @@ DATA;
   /*function to create payment request using swish number*/
   public function createPaymentRequest($amount, $message,$payeeAlias,$order_id) {
 
-    $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
-    $SSLCERT = base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.pem';
-    $SSLKEY =base_path().'/Getswish_Test_Certificates/Swish_Merchant_TestCertificate_1234679304.key';
+    $CAINFO  = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
+    $SSLCERT = base_path().'/Getswish_Test_Certificates/swish_certificate_202201101436.pem';
+    $SSLKEY  = base_path().'/Getswish_Test_Certificates/private.key';
 
-    $username ='1231181189.p12';
-    $password ="swish";
+    $password ="Sami@2022!";
     $url =  env('SWISH_NUMBER_API');
-  //"https://mss.cpc.getswish.net/swish-cpcapi/api/v1/paymentrequests";
+
     $resultArr=array();
 
     $data =[
       "payeePaymentReference"=> $order_id,
       "callbackUrl"=>  url("/")."/checkout-swish-number-callback",
       // "payerAlias"=> "46739866319",// 4671234768
-      "payeeAlias"=> "1233144318",// $payeeAlias
+      "payeeAlias"=> $payeeAlias,
       "amount"=> $amount,
       "currency"=> "SEK",
       "message"=> "Tijara payment for order".$order_id
     ];
 
+
+    $fp = fopen(dirname(__FILE__).'/errorlog.txt', 'w');
+
     $ch = curl_init();
+
     curl_setopt($ch, CURLOPT_URL,$url);
     curl_setopt($ch, CURLOPT_POST, true);
+
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -3415,13 +3432,20 @@ DATA;
     curl_setopt($ch, CURLOPT_CAINFO, $CAINFO);
     curl_setopt($ch, CURLOPT_SSLCERT, $SSLCERT);
     curl_setopt($ch, CURLOPT_SSLKEY, $SSLKEY);
+    curl_setopt($ch, CURLOPT_SSLCERTTYPE, 'pem');
     curl_setopt($ch, CURLOPT_HEADER, 1);
-    curl_setopt($ch, CURLOPT_SSLCERTPASSWD, 'swish');
-    curl_setopt($ch, CURLOPT_SSLKEYPASSWD, 'swish');
+    curl_setopt($ch, CURLOPT_SSLCERTPASSWD, $password);
+    curl_setopt($ch, CURLOPT_SSLKEYPASSWD, $password);
+    curl_setopt($ch, CURLOPT_STDERR, $fp);
     curl_setopt($ch, CURLOPT_VERBOSE, true);
 
     $result = curl_exec($ch);
-    // echo "<pre>";print_r($result);
+    if (curl_errno($ch)) {
+      $error_msg = curl_error($ch);
+       $err_message = trans('errors.payment_req_token_not_generated')." (".$error_msg.")";
+        $this->createPaymentRequestError($err_message);
+    }
+  //  echo "<pre>------==>";print_r($result);exit;
     // how big are the headers
     $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
     $headerStr = substr( $result , 0 , $headerSize );
@@ -3430,131 +3454,181 @@ DATA;
     Session::put('current_checkout_order_id', $order_id);
     // convert headers to array
     $headers = $this->headersToArray( $headerStr );
-    $PaymentRequestToken =$headers['PaymentRequestToken'];
-    Session::put('PaymentRequestToken', $PaymentRequestToken);
-    if (curl_errno($ch)) {
-      $error_msg = curl_error($ch);
-      echo $error_msg;
-    }
     curl_close($ch);
-
-    /*curl call to generate QR code*/
-    $QRUrl = "https://mpc.getswish.net/qrg-swish/api/v1/prefilled";
-    $QRData =[
-      "format"=> "png",
-      "payee"     =>[
-          'value' => '1233144318',
-          'editable' => false
-          ],
-      "amount"       => [
-          'value' => $amount,
-          'editable' => false
-          ],
+    if(!empty($headers['PaymentRequestToken'])){
+      $PaymentRequestToken =$headers['PaymentRequestToken'];
+      Session::put('PaymentRequestToken', $PaymentRequestToken);
+      /*curl call to generate QR code*/
      
-      "size"=>  300,
-      "token"=> $PaymentRequestToken ,
+      $QRUrl = env('SWISH_NUMEBR_QR_API');
+      $QRData =[
+        "format"=> "png",
+        "payee"     =>[
+            'value' => $payeeAlias,
+            'editable' => false
+            ],
+        "amount"       => [
+            'value' => $amount,
+            'editable' => false
+            ],
+       
+        "size"=>  300,
+        "token"=> $PaymentRequestToken ,
+      ];
 
-    ];
+      $curl = curl_init();
+      curl_setopt($curl, CURLOPT_URL,$QRUrl);
+      //curl_setopt($ch, CURLOPT_PUT, true);
+      curl_setopt($curl, CURLOPT_POST, true);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
 
-  
-
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL,$QRUrl);
-    //curl_setopt($ch, CURLOPT_PUT, true);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    curl_setopt($curl, CURLOPT_POSTFIELDS,json_encode($QRData));
-
-    $QRresult = curl_exec($curl);
-    //echo "<pre>";print_r($QRresult);
-   
-    if (curl_errno($curl)) {
-      $err_msg = curl_error($curl);
-      echo $err_msg;
+      $QRresult = curl_exec($curl);
+      //echo "<pre>";print_r($QRresult);
+     
+      if (curl_errno($curl)) {
+        $err_msg = curl_error($curl);
+        $err_message = trans('errors.payment_req_token_not_generated')." (".$err_msg.")";
+        $this->createPaymentRequestError($err_message);
+      }
+      curl_close($curl);
+      $sendData['orderId'] = $order_id;
+      $sendData['QRCode'] = base64_encode($QRresult);
+      return $sendData;
+    }else{  
+      $err_message = trans('errors.payment_req_token_not_generated');
+      $this->createPaymentRequestError($err_message);
     }
-    curl_close($curl);
-    $sendData['orderId'] = $order_id;
-    $sendData['QRCode'] = base64_encode($QRresult);
-    return $sendData;
 
   }
 
   /*swish number call back url*/
   public function CheckoutSwishNumberCallback(Request $request) {
-   // echo "<pre>";print_r($request->all());exit;
-     /*create file to check push request recieved or not*/
+ 
+    /*create file to check push request recieved or not*/
     $order_status = $request->status;
     $order_id = $request->payeePaymentReference;
     $currentDate = date('Y-m-d H:i:s');
     $PaymentRequestToken = Session::get('PaymentRequestToken');
 
-    // $test = "mytest111.json";
-    // $file3 = Storage::path($test);
-    // $file3=fopen($file3,'w');
-    // fwrite($file3,$request->id);
-    // fclose($file);
-      
-
-    $paymentDetails = ['id' => $request->id, 'payeePaymentReference' => $request->payeePaymentReference,'paymentReference' => $request->paymentReference, 'status' => $request->status,'amount' => $request->amount, 'datePaid' => $request->datePaid];
-        
-      $swish_number_order = "logs/swish_number_order.log";
-      $swish_number_order_file = storage_path($swish_number_order);
-      $swish_number_order_file=fopen($swish_number_order_file,'a+');
-      fwrite($swish_number_order_file,json_encode($paymentDetails));
-      fclose($swish_number_order_file);
+    $paymentDetails = ['id' => $request->id, 'payeePaymentReference' => $request->payeePaymentReference,'paymentReference' => $request->paymentReference, 'status' => $request->status,'amount' => $request->amount, 'datePaid' => $request->datePaid,'currentDate' => $currentDate];
+        $numberNewline = $currentDate .PHP_EOL;
+    $swish_number_order = "logs/swish_number_order.log";
+    $swish_number_order_file = storage_path($swish_number_order);
+    $swish_number_order_file = fopen($swish_number_order_file,'a+');   
+    fwrite($swish_number_order_file,json_encode($paymentDetails)."\r\n");
+    fclose($swish_number_order_file);
 
     $arrOrderUpdate = [
-          
           'klarna_order_reference'  => $order_id,
-          
-        ];
-        TmpOrders::where('id',$order_id)->update($arrOrderUpdate);
+    ];
+
+    TmpOrders::where('id',$order_id)->update($arrOrderUpdate);
     $current_checkout_order_id  = session('current_checkout_order_id');
-    //Session::put('current_checkout_order_id',$order_id);
+
     if($request->status=='PAID') {
        $checkOrderExisting = Orders::where('klarna_order_reference','=',$order_id)->first();
- 
-    if(empty($checkOrderExisting))
-     {
-       $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
+      if(empty($checkOrderExisting))
+       {
+         $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
 
-       if(!empty($checkExisting)) {
-
-                //$ProductData = json_decode($checkExisting['product_details'],true);
-            $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','',json_encode($paymentDetails));
-            $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
-
-            $this->sendMailAboutOrder($newOrderDetails);
-            $temp_orders = TmpOrders::find($order_id);
-            $temp_orders->delete();
-        }
-     }
+         if(!empty($checkExisting)) {
+              $NewOrderId=  $this->checkoutProcessedFunction($checkExisting,$order_id,'PAID','','',json_encode($paymentDetails));
+              $newOrderDetails = Orders::where('id','=',$NewOrderId)->first()->toArray();
+              $this->sendMailAboutOrder($newOrderDetails);
+          }
+       }
           
+    }else{
+     
+        $checkOrderExisting = Orders::where('klarna_order_reference','=',$order_id)->first();
+        if(empty($checkOrderExisting)) {
+          
+        $dateCancelled = date('Y-m-d H:i:s');
+        $paymentDetails = ['id' => $request->id, 'payeePaymentReference' => $request->payeePaymentReference,'paymentReference' => $request->paymentReference, 'status' => $request->status,'amount' => $request->amount, 'datePaid' => $dateCancelled];
+            $checkExisting = TmpOrders::where('id','=',$order_id)->first()->toArray();
+            $checkExistingTmpOrderDetails =  TmpOrdersDetails::where('order_id','=',$order_id)->first()->toArray();
+         
+        $arrOrderInsert = [
+                              'user_id'     => $checkExisting['user_id'],
+                              'address'     => $checkExisting['address'],
+                              'sub_total'   => $checkExisting['sub_total'],
+                              'shipping_total' => $checkExisting['shipping_total'],
+                              'total' => $checkExisting['total'],
+                              'payment_details' => json_encode($paymentDetails),
+                              'payment_status' => $request->status,
+                              'order_status' => $request->status,
+                              'order_complete_at' =>  $dateCancelled,
+                              'klarna_order_reference' => $order_id,
+                            ];
+
+        $NewOrderId = Orders::create($arrOrderInsert)->id;  
+
+        $arrOrderDetailsInsert = [
+            'order_id'     => $NewOrderId,
+            'user_id'     => $checkExistingTmpOrderDetails['user_id'],
+            'product_id' => $checkExistingTmpOrderDetails['product_id'],
+            'variant_id'   => $checkExistingTmpOrderDetails['variant_id'],
+            'variant_attribute_id' => $checkExistingTmpOrderDetails['variant_attribute_id'],
+            'price' => $checkExistingTmpOrderDetails['price'],
+            'quantity' => $checkExistingTmpOrderDetails['quantity'],
+            'shipping_type' => $checkExistingTmpOrderDetails['shipping_type'],
+            'shipping_amount' => $checkExistingTmpOrderDetails['shipping_amount'],
+            'status' => $checkExistingTmpOrderDetails['status'],
+            'created_at' => $dateCancelled,
+            'updated_at' => $dateCancelled
+
+        ];
+
+        OrdersDetails::create($arrOrderDetailsInsert)->id;
+
+        $arrTmpOrderInsert = [
+                              'user_id'     => $checkExisting['user_id'],
+                              'sub_total'   => $checkExisting['sub_total'],
+                              'shipping_total' => $checkExisting['shipping_total'],
+                              'address'     => $checkExisting['address'],                             
+                              'total' => $checkExisting['total'],
+                              'created_at' =>  $dateCancelled
+                            ];
+        $NewTmpOrderInsertId = TmpOrders::create($arrTmpOrderInsert)->id;  
+
+        $arrOrderDetailsInsert = [
+                    'order_id'             => $NewTmpOrderInsertId,
+                    'user_id'              => $checkExistingTmpOrderDetails['user_id'],
+                    'product_id'           => $checkExistingTmpOrderDetails['product_id'],
+                    'variant_id'           => $checkExistingTmpOrderDetails['variant_id'],
+                    'variant_attribute_id' => $checkExistingTmpOrderDetails['variant_attribute_id'],
+                    'price'                => $checkExistingTmpOrderDetails['price'],
+                    'quantity'             => $checkExistingTmpOrderDetails['quantity'],
+                    'shipping_type'        => $checkExistingTmpOrderDetails['shipping_type'],
+                    'shipping_amount'      => $checkExistingTmpOrderDetails['shipping_amount'],
+                    'status'               => 'PENDING',
+                    'created_at'           => $dateCancelled,
+        ];
+
+        $OrderDetailsId = TmpOrdersDetails::create($arrOrderDetailsInsert)->id;
+
+        $temp_orders = TmpOrders::find($order_id);
+        $temp_orders->delete();
+        $deleted = DB::table('temp_orders_details')->where('order_id', '=',$order_id)->delete();
+
+        }
     }
+     echo '[accepted]';
   }
 
   public function CheckOrderStatus(Request $request)
   {
-    //echo "<pre>";print_r($request->order_id);
     $checkOrderStatus = Orders::where('klarna_order_reference','=',$request->order_id)->first();
     if(!empty($checkOrderStatus)){
       $payment_status = $checkOrderStatus['payment_status'];
       return response()->json(['payment_status'=> $payment_status]);
     }else{
-      return response()->json(['payment_status'=> "FAILED"]);
+      return response()->json(['payment_status'=> "WAITING"]);
     }
-    
-   // echo "<pre>";print_r($checkOrderStatus);exit;
-/*    if($payment_status == "PAID"){
-      $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
-      return view('Front/order_success', $data);
-    }
-    else {
-      $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
-      return view('Front/payment_error',$blade_data); 
-    }*/
+ 
   }
 
    public function orderSuccess(Request $request)
@@ -3568,4 +3642,15 @@ DATA;
     $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
     return view('Front/payment_error',$blade_data); 
   }
+  public function createPaymentRequestError($message){
+     $blade_data['error_messages']= $message;
+     return view('Front/payment_request_error',$data); 
+  }
+
+  public function updateOrderStatus(Request $request){
+      $order_id = $request->order_id;        
+      return response()->json(['payment_status'=> 'CANCELLED']);
+  }
+
 }
+

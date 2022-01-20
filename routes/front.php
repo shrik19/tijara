@@ -255,9 +255,11 @@ Route::post('/checkout-strip-process', 'Front\CartController@checkoutStripProces
 Route::get('stripe-packages-subscriptions','Front\FrontController@stripePackageSubscription')->name('stripePackageSubscription');
 Route::match(['get', 'post'],'/checkout-swish-number-callback', 'Front\CartController@CheckoutSwishNumberCallback')->name('CheckoutSwishNumberCallback');
 Route::any('check-order-status/{order_id}','Front\CartController@CheckOrderStatus')->name('SwishCheckOrderStatus');
+Route::any('update-order-status/{order_id}','Front\CartController@updateOrderStatus')->name('SwishUpdateOrderStatus');
+Route::any('update-admin-order-status/{order_id}','Front\ProductController@updateOrderStatus')->name('SwishUpdateOrderStatus');
 Route::any('order-success','Front\CartController@orderSuccess')->name('SwishOrderSuccess');
 Route::any('payment-error','Front\CartController@paymentError')->name('SwishPaymentError');
-Route::match(['get', 'post'],'/checkout-swish-number-callback', 'Front\ProductController@CheckoutSwishNumberCallback')->name('CheckoutSwishNumberCallback');
+Route::match(['get', 'post'],'/buyer-swish-number-callback', 'Front\ProductController@BuyerSwishNumberCallback')->name('BuyerSwishNumberCallback');
 Route::any('buyer-check-order-status/{order_id}','Front\ProductController@BuyerCheckOrderStatus')->name('BuyerSwishCheckOrderStatus');
 Route::any('order-success-swish','Front\ProductController@orderSuccess')->name('SwishNumberOrderSuccess');
 Route::any('payment-error-swish','Front\ProductController@paymentError')->name('SwishNumberPaymentError');

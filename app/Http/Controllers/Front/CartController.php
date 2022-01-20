@@ -3643,9 +3643,8 @@ DATA;
     return view('Front/payment_error',$blade_data); 
   }
   public function createPaymentRequestError($message){
-    echo "--".$message;exit;
      $blade_data['error_messages']= $message;
-     return view('Front/payment_request_error',$blade_data); 
+     return view('Front/payment_request_error',$blade_data); exit;
   }
 
   public function updateOrderStatus(Request $request){

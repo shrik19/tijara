@@ -1368,13 +1368,12 @@ class CartController extends Controller
             $number = $SellerData['seller_swish_number'];
            }
            //echo $number;exit;
-           $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);   
-           echo "<pre>";print_r($getQR);exit;
+           $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);
+
            if(!empty($getQR['error_messages'])) {
               $blade_data['error_messages']= $getQR['error_messages'];
               return view('Front/payment_request_error',$blade_data); 
-           }
-           elseif(!empty($getQR['orderId']) && !empty($getQR['QRCode'])){
+           }else{
               $data['order_id'] = $getQR['orderId'];
               $data['QRCode'] = $getQR['QRCode'];
               return view('Front/checkout_swish_number',$data);
@@ -3436,7 +3435,8 @@ DATA;
     if (curl_errno($ch)) {
       $error_msg = curl_error($ch);
       $err_message = trans('errors.payment_req_token_not_generated')." (".$error_msg.")";
-      return  $sendData['error_messages'] = $err_message;
+      $sendData['error_messages'] = $err_message;
+      return $sendData;
     }
   //  echo "<pre>------==>";print_r($result);exit;
     // how big are the headers
@@ -3484,7 +3484,8 @@ DATA;
       if (curl_errno($curl)) {
         $err_msg = curl_error($curl);
         $err_message = trans('errors.payment_req_token_not_generated')." (".$err_msg.")";
-        return  $sendData['error_messages'] = $err_message;
+        $sendData['error_messages'] = $err_message;
+        return $sendData;
       }
       curl_close($curl);
       $sendData['orderId'] = $order_id;

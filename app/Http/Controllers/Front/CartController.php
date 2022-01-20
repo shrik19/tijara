@@ -1369,11 +1369,12 @@ class CartController extends Controller
            }
            //echo $number;exit;
            $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);   
+           echo "<pre>";print_r($getQR);exit;
            if(!empty($getQR['error_messages'])) {
               $blade_data['error_messages']= $getQR['error_messages'];
               return view('Front/payment_request_error',$blade_data); 
            }
-           if(!empty($getQR['orderId']) && !empty($getQR['QRCode'])){
+           elseif(!empty($getQR['orderId']) && !empty($getQR['QRCode'])){
               $data['order_id'] = $getQR['orderId'];
               $data['QRCode'] = $getQR['QRCode'];
               return view('Front/checkout_swish_number',$data);

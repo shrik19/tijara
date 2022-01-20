@@ -3499,7 +3499,7 @@ DATA;
       return $sendData;
     }else{  
       $err_message = trans('errors.payment_req_token_not_generated');
-      return $this->createPaymentRequestError($err_message);
+      $this->createPaymentRequestError($err_message);exit;
     }
 
   }

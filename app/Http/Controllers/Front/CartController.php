@@ -1369,7 +1369,7 @@ class CartController extends Controller
            }
            //echo $number;exit;
            $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);    
-          // echo "<pre>";print_r($getQR);
+          echo "<pre>";print_r($getQR);exit;
         /*  $checkOrderID =   Orders::where('klarna_order_reference',$OrderId)->first();
           if(!empty($checkOrderID)){
             $arrOrderUpdate = [          
@@ -3644,7 +3644,7 @@ DATA;
   }
   public function createPaymentRequestError($message){
      $blade_data['error_messages']= $message;
-     return redirect(route('SwishCreatePaymentError'));// view('Front/payment_request_error',$blade_data); 
+     return view('Front/payment_request_error',$blade_data); 
   }
 
   public function updateOrderStatus(Request $request){

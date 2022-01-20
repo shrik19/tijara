@@ -3499,7 +3499,7 @@ DATA;
       return $sendData;
     }else{  
       $err_message = trans('errors.payment_req_token_not_generated');
-      $this->createPaymentRequestError($err_message);
+      return $this->createPaymentRequestError($err_message);
     }
 
   }
@@ -3644,7 +3644,7 @@ DATA;
   }
   public function createPaymentRequestError($message){
      $blade_data['error_messages']= $message;
-     return view('Front/payment_request_error',$blade_data); exit;
+     return view('Front/payment_request_error',$blade_data); 
   }
 
   public function updateOrderStatus(Request $request){

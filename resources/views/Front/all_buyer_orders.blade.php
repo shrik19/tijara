@@ -9,24 +9,23 @@
           @include('Front.alert_messages')
           <div class="seller_info border-none">
             <div class="card">
-              <div class="card-header row">
-                <h2 class="page_heading" style="margin-left: 27px;">{{ __('users.my_order_title')}}</h2>
+				<div class="card-header ml-0 row">							
+							<div class="col-md-9 pl-0">
+								<h2 class="page_heading">{{ __('users.my_order_title')}}</h2>
+								<!-- <hr class="heading_line"/> -->
+							</div>
+							<div  class="col-md-3 new_add text-right">
+								<form id="filter-buyer-order" action="{{route('frontAllBuyerOrders')}}" method="post">
+								@csrf
+								<?php echo $monthYearHtml;?>
+								</form>
+							</div>
+                        </div>
               </div>
             </div>
 
-            <div class="seller_mid_cont">
-              <div class="col-md-12">
                 <div class="card-body">
                     <div class="card">
-                    <div class="col-md-12" >
-                    <div class="col-md-9"></div>
-                    <div  class="col-md-3">
-                    <form id="filter-buyer-order" action="{{route('frontAllBuyerOrders')}}" method="post">
-                    @csrf
-                    <?php echo $monthYearHtml;?>
-                    </form>
-                    </div>
-                    </div>
                     <div class="card-body"  style="margin-top: 20px;">
                     <div class="row">
                     @if(!empty($ordersDetails) && count($ordersDetails) > 0)
@@ -97,8 +96,6 @@
 
                   {!! $ordersDetails->links() !!}
                 </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

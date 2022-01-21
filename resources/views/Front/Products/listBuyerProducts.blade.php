@@ -9,15 +9,15 @@
       <div class="row">
         <div class="col-md-12">
 
-          <div class="col-md-12 tijara-content">
+          <div class="tijara-content">
             @if($subscribedError)
               <div class="alert alert-danger">{{$subscribedError}}</div>
             @endif
             @include('Front.alert_messages')
             <div class="seller_info border-none">
             <div class="card">
-            <div class="card-header row">
-            <div class="col-md-9">
+            <div class="card-header ml-0 row">
+            <div class="col-md-9 pl-0">
 
             <h2 class="page_heading new_add_heading" >{{ __('users.buyer_product_list_title')}}</h2>
             <!-- <hr class="heading_line"/> -->
@@ -27,7 +27,7 @@
             </div>
             </div>
             </div>
-            <div class="seller_mid_cont"  style="margin-top: 20px;">
+            <div style="margin-top: 20px;">
 
             <div class="card">
 
@@ -101,10 +101,12 @@
 
            
             <div class="col-md-12">
+			<div class="row">
             <div class="buyer-prod-msg tijara-info-section">
             <h1 class="buyer-prod-head">{{__('messages.Obs_head')}}</h1>
             <p  class="buyer-prod-content">{{__('messages.buyer_product_msg')}}</p>
             </div>
+			</div>
             </div>
           </div>
           </div>

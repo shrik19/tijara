@@ -15,12 +15,21 @@
                 <div class="seller_info border-none">
 
                     <div class="card">
-                        <div class="card-header row">
-                        <h2 class="page_heading" style="margin-left: 13px;">{{ __('users.my_booking_title')}}</h2>
-                        <!-- <hr class="heading_line"/> -->
+                        <div class="card-header ml-0 row">
+							
+							<div class="col-md-9 pl-0">
+								<h2 class="page_heading">{{ __('users.my_booking_title')}}</h2>
+								<!-- <hr class="heading_line"/> -->
+							</div>
+							<div  class="col-md-3 new_add text-right">
+								<form id="filter-service-booking" action="{{route('frontAllServiceRequest')}}" method="post">
+								@csrf
+								<?php echo $monthYearHtml;?>
+								</form>
+							</div>
                         </div>
                     </div>
-                    <div class="seller_mid_cont"  style="margin-top: 20px;">
+                    <div style="margin-top: 20px;">
                     
                         <!-- <div class="col-md-12">
                             <div class="tijara-info-section">
@@ -33,15 +42,6 @@
                             <div  class="col-md-3"><?php echo $monthYearHtml;?></div>
                         </div> -->
                         <div class="card">
-                              <div class="col-md-12" >
-                                <div class="col-md-9"></div>
-                                    <div  class="col-md-3">
-                                        <form id="filter-service-booking" action="{{route('frontAllServiceRequest')}}" method="post">
-                                        @csrf
-                                        <?php echo $monthYearHtml;?>
-                                        </form>
-                                    </div>
-                              </div>
                             <div class="card-body"  style="margin-top: 20px;">
                                 <div class="row">
                                     @if(!empty($buyerBookingRequest) && count($buyerBookingRequest) > 0)

@@ -9,7 +9,7 @@
 </style>
 <div class="mid-section p_155">
 <div class="container-fluid">
-  <div class="container container-inner-section-1">
+  <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
 
@@ -17,20 +17,22 @@
       @include ('Front.alert_messages')
        <div class="seller_info border-none">
         <div class="card">
-        <div class="card-header row">
-          <h2 class="page_heading label_margin">{{ __('users.buyer_profile_update_title')}}</h2>
-          <!-- <hr class="heading_line"/> -->
+		<div class="card-header ml-0 row">							
+			<div class="col-md-9 pl-0">
+				<h2 class="page_heading">{{ __('users.buyer_profile_update_title')}}</h2>
+				<!-- <hr class="heading_line"/> -->
+			</div>
           </div>
         </div>
-        <div class="seller_mid_cont"  style="margin-top: 20px;">
+        <div style="margin-top: 20px;">
     
       <form id="buyer-update-form" action="{{route('frontBuyerProfileUpdate')}}" method="post"  enctype="multipart/form-data">
             @csrf
-      <div class="col-md-6">
+      <div class="col-md-6 pl-0">
         <!-- <h2> {{ __('users.buyer_profile_update_title')}}</h2>
         <hr class="heading_line"/> -->
         
-        <div class="login_box" style="margin-left:-31px;">
+        <div class="login_box">
           
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <div class="form-group">
@@ -80,10 +82,10 @@
       </div>
       
 
-       <div class="col-md-6">
+       <div class="col-md-6 pr-0">
        
         
-        <div class="login_box" style="margin-left:-31px;">
+        <div class="login_box">
           <!-- <div class="form-group">
             <label>{{ __('users.swish_number_label')}} </label>
             <input type="text" class="form-control login_input" name="swish_number" id="swish_number" placeholder="{{ __('users.swish_number_label')}}" value="{{ (old('swish_number')) ? old('swish_number') : $buyerDetails[0]->swish_number}}">

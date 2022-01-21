@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
-<div class="container-fluid p_155">
+<div class="mid-section p_155">
+<div class="container-fluid">
 <div class="container">
   <div class="row">
      
@@ -29,5 +29,5 @@
     </div>
   </div>
 </div> <!-- /container -->
-
+</div>
 @endsection

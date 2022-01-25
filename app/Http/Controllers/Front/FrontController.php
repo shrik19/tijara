@@ -1163,8 +1163,11 @@ public function getCatSubList(Request $request) {
 	}
 	
 	/* function to display products page*/
-    public function sellerProductListing($store_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
+    public function sellerProductListing($store_name ='', $category_slug = '', $subcategory_slug= '', Request $request)
     {
+    	//echo "<pre>---".print_r($request->category_slug);exit;
+    	$category_slug=$request->category_slug;
+    	$subcategory_slug=$request->$subcategory_slug;
     	if($request->hidden_type == "products" || empty($request->hidden_type)){
 
     		$store_name = str_replace('-', " ", $store_name);		
@@ -1181,7 +1184,7 @@ public function getCatSubList(Request $request) {
 			}else{
 				$data['Categories'] = $this->getCategorySubcategoryList();
 			}
-			
+			$subcategory_slug = $request->subcategory_slug;
 			$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
 			$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
 	    	$data['category_slug']		=	'';
@@ -1299,6 +1302,8 @@ public function getCatSubList(Request $request) {
 			$data['pageTitle'] 	= 'Sellers Services';
 	        $data['path'] = @$request->path;
 			$data['Categories'] = $this->getCategorySubcategoryList()	;
+			$subcategory_slug = $request->subcategory_slug;
+    		//echo "<pre>---".print_r($subcategory_slug);exit;
 			$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
 			if($request->segment(4)=='services'){
 				$data['ServiceCategories'] = $this->getServiceCategorySubcategoryList($seller_id);

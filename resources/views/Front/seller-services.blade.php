@@ -45,7 +45,7 @@
             </div>
             <ul class="seller_cat_list">
                 <li>
-                  <a href="{{route('AllserviceListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+                  <a href="javascript:void(0);" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
                 </li>
               </ul>
 
@@ -118,7 +118,7 @@
         <div class="col-md-12">
           <hr>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <h2  class="review_title">{{ __('users.review_title')}}</h2>
           </div>
 
@@ -327,7 +327,7 @@
 $(".productSelect").click(function(){
 
    var form = $('#productServicePage');
-   // var action = $(this).data('href');
+   //\\ var action = $(this).data('href');
     var page = $(".productSelect").attr('page')
     //form.attr('action', action);
   $("#hidden_type").val(page)
@@ -349,6 +349,18 @@ $(".serviceSelect").click(function(){
     form.submit();
 
   }); 
+
+$(".cat_subcat_redirect").click(function(){
+
+  var form = $('#productServicePage');
+  var page = "services";
+  var action = $(this).attr('sub');
+  form.attr('action', action);
+  $("#hidden_type").val(page)
+  form.submit();
+
+});
+
 $(".user_rating").each(function(){
   var currentRating = $(this).data('rating');
   $(this).barrating({
@@ -424,6 +436,12 @@ function listService() {
     $('.current_sellers').text(),$('#price_filter').val(),$(".current_search_string").text(),$("#seller_product_filter").val()) ;
 }
 
+var price_filter = $("#price_filter").slider({});
+price_filter.on('slideStop',function(){
+     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".current_search_string").text(),$("#seller_product_filter").val()) ;
+     get_service_count();
+});
 
 /*function getListing()
 {

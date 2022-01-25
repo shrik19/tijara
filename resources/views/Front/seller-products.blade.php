@@ -132,7 +132,7 @@
         
         <div class="col-md-12">
           <hr>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <h2 class="review_title" style="margin-left:-12px;">{{ __('users.review_title')}}</h2>
           </div>
           <div class="col-md-9">
@@ -370,7 +370,16 @@ $(".serviceSelect").click(function(){
 
 }); 
 
+$(".cat_subcat_redirect").click(function(){
 
+  var form = $('#productServicePage');
+  var page = "products";
+  var action = $(this).attr('sub');
+  form.attr('action', action);
+  $("#hidden_type").val(page)
+  form.submit();
+
+});
 
 $(document).ready(function() {
 

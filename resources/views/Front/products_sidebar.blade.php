@@ -41,11 +41,11 @@
    
       @if(!empty($Categories[$CategoryId]['subcategory']))
 
-        <li class="expandCollapseSubcategory  <?php echo $cls; ?>" @if(empty($is_seller)) 
+        <li class="expandCollapseSubcategory <?php echo $cls; ?>" @if(empty($is_seller)) 
            href="{{url('/')}}/{{$productsads}}/{{ $Category['category_slug'] }}" @else 
            href="{{url('/')}}/seller/{{ $link_seller_name }}/{{ base64_encode($seller_id) }}/products/{{ $Category['category_slug'] }}" @endif aria-expanded="true" aria-controls="collapseOne"><a @if(empty($is_seller)) 
            href="{{url('/')}}/{{$productsads}}/{{ $Category['category_slug'] }}" @else 
-           href="{{url('/')}}/seller/{{ $link_seller_name }}/products/{{ $Category['category_slug'] }}" @endif  id="main_cat_name<?php echo $i; ?>" @if(Request::segment(1) =='seller') class = 'seller_page_botton_border' @endif>{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
+           href="javascript:void(0);" sub="{{url('/')}}/seller/{{ $link_seller_name }}/{{ $Category['category_slug'] }}" @endif  id="main_cat_name<?php echo $i; ?>" @if(Request::segment(1) =='seller') class = 'seller_page_botton_border cat_subcat_redirect' @endif>{{$Category['category_name']}} <span style="float: right;" id="productCount_{{$CategoryId}}"></span></a></li>
 
         <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse  <?php if($cls!='') echo 'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
 
@@ -53,7 +53,7 @@
           <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug'])
            class="activesubcategory" @endif  @if(empty($is_seller)) 
            href="{{url('/')}}/{{$productsads}}/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else 
-           href="{{url('/')}}/seller/{{ $link_seller_name }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
+           href="javascript:void(0)" sub="{{url('/')}}/seller/{{ $link_seller_name }}/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" class="cat_subcat_redirect" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
         @endforeach
         </ul>
       @endif
@@ -114,7 +114,6 @@
     @endif
     <div style="margin-left: 4px;"> 
   <label class="price_label">{{ __('users.place_label')}}</label>
-  <!--   <input type="text" name="city_name" id="city_name" class="form-control input-lg" placeholder="{{ __('users.enter_city_placeholder')}}" /> -->
    <select class="form-control" name="city_name" id="city_name">
       <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
       @if(!empty($allCities))

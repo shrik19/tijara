@@ -1,6 +1,6 @@
 
 @php
-$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false) ? 'product_img_wrapper':'col-md-15';
+$class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false || strpos(@$path, 'products') !== false ) ? 'product_img_wrapper':'col-md-15';
 @endphp
 
 <li class="{{$class}}">
@@ -62,13 +62,13 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
           <h6>{{$service->service_price}} kr</h6>
         @endif
 
-        <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
+        
       @else
-           @if(Request::segment(1) !='service')
+          <!--  @if(Request::segment(1) !='service')
            <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
-           @endif
+           @endif -->
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
-        @if(Request::segment(1) !='services' && Request::segment(1) != 'get_service_listing')
+        @if(Request::segment(1) !='services' && Request::segment(1) != 'seller')
           <div class="star-rating" style="font-size:15px;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
           <option value="1" >1</option>

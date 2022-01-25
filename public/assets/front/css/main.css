@@ -2125,7 +2125,7 @@ padding-left: 0px!important;
 }
 
 .service_original_price{
-    padding-top: 2px;
+    padding-top: 2px !important;
     color: #03989e;
     font-weight: 500;
     font-size: 24px;
@@ -3424,6 +3424,9 @@ h1.checkoutHeading {
   .p-d-0{padding: 0 15px;}
   .tijara_quantity select {
     padding: 6px 4px;
+}
+.tijara_top_menu {
+    overflow: unset !important;
 }
 .header_left_container{
   border: none!important;

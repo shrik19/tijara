@@ -91,7 +91,7 @@
   <header>
     <nav class="navbar navbar-default navbar-fixed-top tj-navbar" role="navigation">
       <hr class="top_line"/>
-<div class="product_view">
+<div class="product_view tijara_top_menu">
       <div class="container-fluid p-d-0">
         <div>
           <div class="tj-topmenu">

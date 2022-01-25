@@ -25,7 +25,7 @@ Route::get('/', 'Front\FrontController@index')->name('frontHome');
 
 //products
 
-Route::any('/seller/{seller_name}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
+Route::any('/seller/{seller_name}/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
 
 //Route::get('/seller/{seller_name}/products/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
 Route::any('/get_product_listing/','Front\FrontController@getProductsByParameter')->name('getProductsyParameter'); 

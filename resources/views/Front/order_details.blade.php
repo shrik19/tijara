@@ -72,7 +72,7 @@ if (@$_GET['print'])
                               
                             </a>
                             <div class="media-body" style="padding-left:10px;padding-top:10px;">
-                                <h4 class="media-heading"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
+                                <h4 class="media-heading">@if($orderProduct['product']->is_deleted !=1)<a href="{{$orderProduct['product']->product_link}} ">{{ $orderProduct['product']->title }}</a>@else {{ $orderProduct['product']->title }} @endif </h4>
                                 <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5>
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>

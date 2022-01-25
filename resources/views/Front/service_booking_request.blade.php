@@ -53,7 +53,8 @@
                 $user_name =$availability['fname']." ".$availability['lname'];
                 $description = strip_tags($availability['description']);
               @endphp
-              <input type="hidden" id="{{$availability['id']}}" class="form-control service_availability " value="{{$service_time}}"  name="service_availability[]" user_name="{{$user_name}}" title="{{$availability['service_title']}}" description="{{$description}}" location="{{$availability['location']}}" service_time="{{$service_time}}" service_price="{{$availability['service_price']}}">
+              <input type="hidden" id="{{$availability['id']}}" class="form-control service_availability " value="{{$service_time}}"  name="service_availability[]" user_name="{{$user_name}}" title="{{$availability['service_title']}}" description="{{$description}}" location="{{$availability['location']}}" service_time="{{$service_time}}" service_price="{{$availability['service_price']}}" buyer_email="{{$availability['email']}}" buyer_address="{{$availability['address']}}">
+        
 
             @endforeach
             @endif
@@ -88,9 +89,10 @@
   <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_time')}} :</td><td class="service_time" style="padding-left: 10px;"></td></tr>
   <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_total_cost')}} :</td><td class="service_price" style="padding-left: 10px;"></td></tr>
   <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.location')}} :</td><td class="location" style="padding-left: 10px;"></td></tr>
-
+  <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.email_label')}} :</td><td class="buyer_email" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.address_label')}} :</td><td class="buyer_address" style="padding-left: 10px;"></td></tr>
   </table>
-  </div>
+  </div> 
 
   </div>
   </div>
@@ -122,6 +124,8 @@
         location :$(this).attr('location'),
         service_time :$(this).attr('service_time'),
         service_price :$(this).attr('service_price'),
+        buyer_address :$(this).attr('buyer_address'),
+        buyer_email :$(this).attr('buyer_email'),
         });
       });
     }
@@ -176,6 +180,9 @@
         var service_time = calEvent.service_time;
         var service_price = calEvent.service_price;
 
+        var buyer_address = calEvent.buyer_address;
+        var buyer_email = calEvent.buyer_email;
+
         $('#serviceReqDetailsmodal').find('.id').text(id);
         $('#serviceReqDetailsmodal').find('.user_name').text(user_name);
         $('#serviceReqDetailsmodal').find('.title').text(service_name);
@@ -183,7 +190,9 @@
         $('#serviceReqDetailsmodal').find('.location').text(location);
         $('#serviceReqDetailsmodal').find('.service_time').text(service_time);
         $('#serviceReqDetailsmodal').find('.service_price').text(service_price);
-
+        $('#serviceReqDetailsmodal').find('.buyer_address').text(buyer_address);
+        $('#serviceReqDetailsmodal').find('.buyer_email').text(buyer_email);
+  
         $('#serviceReqDetailsmodal').modal('show');
       },
     });

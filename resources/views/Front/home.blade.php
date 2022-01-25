@@ -113,7 +113,7 @@
                           $seller_name = str_replace(" ", '-', $seller_name);
                           $seller_name = strtolower($seller_name);
                                       
-                          $seller_link= url('/').'/seller/'.$seller_name."/products"; 
+                          $seller_link= url('/').'/seller/'.$seller_name; 
                             
                         @endphp
                         <h3><a href="{{$seller_link}}" title="{{$fea_seller['store_name']}}" class="Featured_shop_heading">{{ $fea_seller['store_name'] }}</a></h3><!-- 

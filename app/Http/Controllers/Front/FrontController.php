@@ -1165,127 +1165,247 @@ public function getCatSubList(Request $request) {
 	/* function to display products page*/
     public function sellerProductListing($store_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
     {
-		$store_name = str_replace('-', " ", $store_name);		
-		$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
-		$seller_id = base64_encode($seller_user['id']);		
-		
-		$data = [];
-    	$data['path'] = @$request->path;
-        $data['pageTitle'] 	= 'Sellers Products';
+    	if($request->hidden_type == "products" || empty($request->hidden_type)){
 
-		if($request->segment(4)=='products'){
-			$data['Categories'] = $this->getCategorySubcategoryList($seller_id,$category_slug, $subcategory_slug);
-		}else{
-			$data['Categories'] = $this->getCategorySubcategoryList();
-		}
-		
-		$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
-		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
-    	$data['category_slug']		=	'';
-		$data['subcategory_slug']	=	'';
-		$store_name = str_replace( array( '\'', '"', 
-		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
-		$store_name = str_replace(" ", '-', $store_name);
-		$store_name = strtolower($store_name);
-		$data['link_seller_name']		=	$store_name;
-		$id = base64_decode($seller_id);
-		$data['seller_id']			=	$id;
-		
-		$Seller = UserMain::where('id',$id)->first()->toArray();
-		$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
-		$data['store_name']			= 	$Seller['store_name'];
-		$data['description']		= 	$Seller['description'];
-		$data['city_name']		    =	$Seller['city'];
-		$data['country_name']		    =	$Seller['country'];
-		$data['seller_email']       =   $Seller['email'];
-		$data['seller_name_url']		=	$store_name = str_replace(" ", '-', $store_name);	
-		$data['header_image']       = '';
-		$data['logo']       = '';
-		$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
-		if(!empty($sellerImages))
-		{
-			$sellerImages = $sellerImages->toArray();
+    		$store_name = str_replace('-', " ", $store_name);		
+			$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
+			$seller_id = base64_encode($seller_user['id']);		
 			
-			if(!empty($sellerImages['header_img']))
-			{
-				$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
-			}
-			if(!empty($sellerImages['logo']))
-			{
-				$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
-			}
-			if(!empty($sellerImages['store_information']))
-			{
-				$data['store_information']       = $sellerImages['store_information'];
-			}
-		}
+			$data = [];
+			$data['hidden_type'] = $request->hidden_type;
+	    	$data['path'] = @$request->path;
+	        $data['pageTitle'] 	= 'Sellers Products';
 
-		$avgProductRating 	 = 0.00;
-		$getAllProductRatings = ProductReview::join('products','product_review.product_id','products.id','')->select(['products.id','product_review.rating as product_rating'])->where('products.user_id','=',$id)->get();
-
-		// and then you can get query log
-	
-		
-		$productsRatingCnt 	 = $getAllProductRatings->count();
-		if($productsRatingCnt>0){
-			$totalProductRating = $getAllProductRatings->sum('product_rating');
-			$avgProductRating = ($totalProductRating / $productsRatingCnt);
-			$avgProductRating = number_format($avgProductRating,2);	
-		}
+			if($request->segment(4)=='products'){
+				$data['Categories'] = $this->getCategorySubcategoryList($seller_id,$category_slug, $subcategory_slug);
+			}else{
+				$data['Categories'] = $this->getCategorySubcategoryList();
+			}
 			
+			$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
+			$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
+	    	$data['category_slug']		=	'';
+			$data['subcategory_slug']	=	'';
+			$store_name = str_replace( array( '\'', '"', 
+			',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+			$store_name = str_replace(" ", '-', $store_name);
+			$store_name = strtolower($store_name);
+			$data['link_seller_name']		=	$store_name;
+			$id = base64_decode($seller_id);
+			$data['seller_id']			=	$id;
+			
+			$Seller = UserMain::where('id',$id)->first()->toArray();
+			$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+			$data['store_name']			= 	$Seller['store_name'];
+			$data['description']		= 	$Seller['description'];
+			$data['city_name']		    =	$Seller['city'];
+			$data['country_name']		    =	$Seller['country'];
+			$data['seller_email']       =   $Seller['email'];
+			$data['seller_name_url']		=	$store_name = str_replace(" ", '-', $store_name);	
+			$data['header_image']       = '';
+			$data['logo']       = '';
+			$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
+			if(!empty($sellerImages))
+			{
+				$sellerImages = $sellerImages->toArray();
+				
+				if(!empty($sellerImages['header_img']))
+				{
+					$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
+				}
+				if(!empty($sellerImages['logo']))
+				{
+					$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
+				}
+				if(!empty($sellerImages['store_information']))
+				{
+					$data['store_information']       = $sellerImages['store_information'];
+				}
+			}
 
+			$avgProductRating 	 = 0.00;
+			$getAllProductRatings = ProductReview::join('products','product_review.product_id','products.id','')->select(['products.id','product_review.rating as product_rating'])->where('products.user_id','=',$id)->get();
 
-		$avgServiceRating 	 = 0.00;
+			// and then you can get query log
 		
-		$getAllServiceRatings = ServiceReview::join('services','service_review.service_id','services.id','')->select(['services.id','service_review.rating as service_rating'])->where('services.user_id','=',$id)->get();
+			
+			$productsRatingCnt 	 = $getAllProductRatings->count();
+			if($productsRatingCnt>0){
+				$totalProductRating = $getAllProductRatings->sum('product_rating');
+				$avgProductRating = ($totalProductRating / $productsRatingCnt);
+				$avgProductRating = number_format($avgProductRating,2);	
+			}
+				
 
-		$ServicesRatingCnt 	 = $getAllServiceRatings->count();
 
-		if($ServicesRatingCnt>0){
-			$totalServiceRating = $getAllServiceRatings->sum('service_rating');
-			$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
-			$avgServiceRating = number_format($avgServiceRating,2);	
-		}
-		$ratingSum = $avgProductRating + $avgServiceRating;
-		$totalRating = 0.00;
-		if($ratingSum>0){
-			$totalRating = $ratingSum/2;
-		}
-		
-    	if($category_slug!='')
-    		$data['category_slug']	= $category_slug;
+			$avgServiceRating 	 = 0.00;
+			
+			$getAllServiceRatings = ServiceReview::join('services','service_review.service_id','services.id','')->select(['services.id','service_review.rating as service_rating'])->where('services.user_id','=',$id)->get();
 
-    	if($subcategory_slug!='')
-    		$data['subcategory_slug']	= $subcategory_slug;
+			$ServicesRatingCnt 	 = $getAllServiceRatings->count();
 
-		// and then you can get query log
+			if($ServicesRatingCnt>0){
+				$totalServiceRating = $getAllServiceRatings->sum('service_rating');
+				$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+				$avgServiceRating = number_format($avgServiceRating,2);	
+			}
+			$ratingSum = $avgProductRating + $avgServiceRating;
+			$totalRating = 0.00;
+			if($ratingSum>0){
+				$totalRating = $ratingSum/2;
+			}
+			
+	    	if($category_slug!='')
+	    		$data['category_slug']	= $category_slug;
 
-    	/*get product review*/   	
-		$data['productReviews']= $this->getReviews('products',$id,'');
+	    	if($subcategory_slug!='')
+	    		$data['subcategory_slug']	= $subcategory_slug;
 
-    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+			// and then you can get query log
 
-    	$data['all_cat_link'] = url('/')."/products";
-    	if(!empty($category_slug)){
-	    	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
-	    	$data['category_link'] = url('/')."/products/".$category_slug;
-	    	if(!empty($subcategory_slug)){
-	        	$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
-	        	$data['category_name'] = $getCategoryName['category_name'];
-	           	$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
-	           	$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
+	    	/*get product review*/   	
+			$data['productReviews']= $this->getReviews('products',$id,'');
+
+	    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+
+	    	$data['all_cat_link'] = url('/')."/products";
+	    	if(!empty($category_slug)){
+		    	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();
+		    	$data['category_link'] = url('/')."/products/".$category_slug;
+		    	if(!empty($subcategory_slug)){
+		        	$getSubCategoryName = Subcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
+		        	$data['category_name'] = $getCategoryName['category_name'];
+		           	$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+		           	$data['subcategory_link'] = url('/')."/products/".$category_slug."/".$subcategory_slug;
+		        }
+	    	}else{
+	        	/*$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
+	        	$data['category_name'] = $getCategoryName['category_name'];*/
+	        	$data['category_name'] = trans('lang.all_category');
 	        }
-    	}else{
-        	/*$getCategoryName = Categories::orderBy('sequence_no', 'asc')->first();
-        	$data['category_name'] = $getCategoryName['category_name'];*/
-        	$data['category_name'] = trans('lang.all_category');
-        }
-       // echo "<pre>";print_r($data['PopularProducts']);exit;
-        $data['role_id'] 			= 2;
-		$data['is_seller'] 			= 1;
-		$data['totalRating']  		= $totalRating;
-		$data['getTerms']  			= $getTerms;
-        return view('Front/seller-products', $data);
+	       // echo "<pre>";print_r($data['PopularProducts']);exit;
+	        $data['role_id'] 			= 2;
+			$data['is_seller'] 			= 1;
+			$data['totalRating']  		= $totalRating;
+			$data['getTerms']  			= $getTerms;
+	        return view('Front/seller-products', $data);
+    	}else if($request->hidden_type == "services"){
+
+    		$store_name = str_replace('-', " ", $store_name);		
+			$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
+			$seller_id = base64_encode($seller_user['id']);
+			
+			$data['hidden_type'] = $request->hidden_type;
+			$data['pageTitle'] 	= 'Sellers Services';
+	        $data['path'] = @$request->path;
+			$data['Categories'] = $this->getCategorySubcategoryList()	;
+			$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
+			if($request->segment(4)=='services'){
+				$data['ServiceCategories'] = $this->getServiceCategorySubcategoryList($seller_id);
+			}else{
+				$data['ServiceCategories'] = $this->getServiceCategorySubcategoryList();
+			}
+			
+			
+	    	$data['category_slug']		=	'';
+			$data['subcategory_slug']	=	'';
+			$store_name = str_replace( array( '\'', '"', 
+			',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+			$store_name = str_replace(" ", '-', $store_name);
+			$store_name = strtolower($store_name);
+			$data['link_seller_name']		=	$store_name;
+			$id = base64_decode($seller_id);
+			$data['seller_id']			=	$id;
+			
+			$Seller = UserMain::where('id',$id)->first()->toArray();
+			$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
+			$data['store_name']			= 	$Seller['store_name'];
+			$data['city_name']		    =	$Seller['city'];
+			$data['country_name']		    =	$Seller['country'];
+			$data['seller_email']       =   $Seller['email'];
+			$data['seller_name_url']		=	$store_name = str_replace(" ", '-', $store_name);
+			$data['description']		= 	$Seller['description'];
+			
+			$data['header_image']       = '';
+			$data['logo']       = '';
+			$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
+			if(!empty($sellerImages))
+			{
+				$sellerImages = $sellerImages->toArray();
+				
+				if(!empty($sellerImages['header_img']))
+				{
+					$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
+				}
+				if(!empty($sellerImages['logo']))
+				{
+					$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
+				}
+				if(!empty($sellerImages['store_information']))
+				{
+					$data['store_information']       = $sellerImages['store_information'];
+				}
+			}
+			
+			$avgProductRating 	 = 0.00;
+			$getAllProductRratings = Products::where('user_id','=',$id)->get();
+			$productsRatingCnt 	 = $getAllProductRratings->count();
+			$totalProductRating = $getAllProductRratings->sum('rating');
+
+			if(!empty($productsRatingCnt)){
+				$avgProductRating = ($totalProductRating / $productsRatingCnt);
+			}
+
+			$avgProductRating = number_format($avgProductRating,2);		
+
+
+			$avgServiceRating 	 = 0.00;
+			$getAllServiceRratings = Services::where('user_id','=',$id)->get();
+			$ServicesRatingCnt 	 = $getAllServiceRratings->count();
+			$totalServiceRating = $getAllServiceRratings->sum('rating');
+
+			if(!empty($ServicesRatingCnt)){
+				$avgServiceRating = ($totalServiceRating / $ServicesRatingCnt);
+	    	}
+
+			$avgServiceRating = number_format($avgServiceRating,2);	
+			
+			$data['totalRating'] = ($avgProductRating + $avgServiceRating)/2;
+			
+
+	    	if($category_slug!='')
+	    		$data['category_slug']	= $category_slug;
+
+	    	if($subcategory_slug!='')
+	    		$data['subcategory_slug']	= $subcategory_slug;
+	    	 $data['all_cat_link'] = url('/')."/services";
+	    	if(!empty($category_slug)){
+	        	$getCategoryName = ServiceCategories::where('category_slug','like', '%' .$category_slug.'%')->first();
+	        	$data['category_name'] = $getCategoryName['category_name'];
+	        	$data['category_link'] = url('/')."/services/".$category_slug;
+	        	if(!empty($subcategory_slug)){
+	        		$getSubCategoryName = ServiceSubcategories::where('subcategory_slug','like', '%' .$subcategory_slug.'%')->where('category_id','=',$getCategoryName['id'])->first();
+	        		$data['subcategory_name'] = $getSubCategoryName['subcategory_name'];
+	        		$data['subcategory_link'] = url('/')."/services/".$category_slug."/".$subcategory_slug;
+	        	}
+			}else{
+	        	// $getCategoryName = ServiceCategories::orderBy('sequence_no', 'asc')->first();
+	        	// $data['category_name'] = $getCategoryName['category_name'];
+	        	$data['category_name'] = trans('lang.all_category');
+	        }
+	    	/*get service review*/   
+			$data['serviceReviews']= $this->getReviews('services',$id,'','');
+	    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+			$data['is_seller'] = 1;	
+			$data['getTerms']  			= $getTerms;
+			//echo "hg".$store_name;exit;
+	        return view('Front/seller-services', $data);
+    	}
+    	/*if(Session::get('hidservice_selected_page')=="services"){
+    		$this->sellerServiceListing($store_name ='', $category_slug = null, $subcategory_slug= null, Request $request);
+    	}*/
+    	//echo Session::get('hidservice_selected_page');exit;
+		
     }
 
     /*function to get revirew for product and services*/
@@ -1418,7 +1538,8 @@ public function getCatSubList(Request $request) {
 	
 		$Product = $Products[0]; 
 		/*$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();*/
-		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>',0)->orderBy('id','ASC')->get();
+		//$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>',0)->orderBy('id','ASC')->get();
+		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();
 			//echo "<pre>";print_r($ProductVariants);exit;
 		foreach($ProductVariants as $variant)
 		{
@@ -1846,13 +1967,17 @@ public function getCatSubList(Request $request) {
 				',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
 				$seller_name = str_replace(" ", '-', $seller_name);
 				$seller_name = strtolower($seller_name);
-				if(!empty($Seller['service_cnt']) && $Seller['service_cnt'] > 0){
+				/*if(!empty($Seller['service_cnt']) && $Seller['service_cnt'] > 0){
 					$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerServiceListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$Seller['name'].' ( '.$Seller['service_cnt'].' )</span></a></li>';
+				}*/
+				if(!empty($Seller['service_cnt']) && $Seller['service_cnt'] > 0){
+					$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';">'.$Seller['name'].' ( '.$Seller['service_cnt'].' )</span></a></li>';
 				}
 			}
 			$sellerData .= '</ul>';
 		}
 		$data['path'] = @$request->path;
+
 		$serviceListing = view('Front/services_list', $data)->render();
 			echo json_encode(array('services'=>$serviceListing,'sellers'=>$sellerData));
 		exit;
@@ -2001,15 +2126,23 @@ public function getCatSubList(Request $request) {
 		$seller_name = str_replace(" ", '-', $seller_name);
 		$seller_name = strtolower($seller_name);
 		
-		$sellerLink = route('sellerServiceListingByCategory',['seller_name' => $seller_name]);
+		//$sellerLink = route('sellerServiceListingByCategory',['seller_name' => $seller_name]);
+		$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
 		$data['seller_link'] = $sellerLink;
 		$data['service_link']	= url()->full();
 
 		if(Auth::guard('user')->id()) {
 			$loginUserData = UserMain::where('id',Auth::guard('user')->id())->where('is_deleted','=','0')->first();
+
+			$data['loginUserFname']	= $loginUserData['fname'];
+			$data['loginUserLname']	= $loginUserData['lname'];
 			$data['loginUserEmail']	= $loginUserData['email'];
+			$data['loginUserId']	= $loginUserData['id'];			
+			$data['loginUserAddress']	= $loginUserData['address'];
+			$data['loginUserPostcode']	= $loginUserData['postcode'];
+			$data['loginUserCity']	= $loginUserData['city'];
 		}else{
-			$data['loginUserEmail']='';
+			$data['loginUserFname']=$data['loginUserFname']=$data['loginUserEmail']=$data['loginUserId']=$data['loginUserAddress']=$data['loginUserPostcode']=$data['loginUserCity']='';
 		}
 
 		$data['serviceReviews']= $this->getReviews('services','',$Service->id);
@@ -2857,4 +2990,53 @@ public function getCatSubList(Request $request) {
 		}
     }
 
+    public function sellerAutoSuggest(Request $request)
+	{
+
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products',@$request->path);
+
+		if(!empty($Sellers))
+		{
+			
+			
+			$output='';
+			
+			foreach($Sellers as $SellerId => $Seller)
+			{
+				
+
+				$tmpSellerData = UserMain::join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
+    							
+								->select('users.*','seller_personal_page.logo')
+								->where('users.id',$SellerId)
+								->where('users.role_id','=','2')
+								->where('users.is_deleted','=','0')
+                			    ->where('users.is_shop_closed','=','0')
+                			    ->where('users.store_name', 'like','%' .$request['query']. '%')
+								->first();//UserMain::where('id',$SellerId)->first()->toArray();
+								if(!empty($tmpSellerData['logo'])){
+									$logoPath = url('/').'/uploads/Seller/resized/'.$tmpSellerData['logo'];
+								}else{
+									$logoPath = url('/').'/uploads/Seller/resized/no-image.png';
+								}
+				
+				if(!empty($tmpSellerData)> 0){
+				$seller_name = $tmpSellerData['store_name'];
+				$seller_name = str_replace( array( '\'', '"', 
+				',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+				$seller_name = str_replace(" ", '-', $seller_name);
+				$seller_name = strtolower($seller_name);
+			
+				if(!empty($tmpSellerData['store_name'])){
+					$display_name = $tmpSellerData['store_name'];
+				}
+				if(!empty($Seller['product_cnt']) && $Seller['product_cnt'] > 0){
+				//$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$display_name.' ( '.$Seller['product_cnt'].' )</span></a></li>';
+					$output .= '<li class="seller_autocomplete_search" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';"><img src="'.$logoPath.'" style="height:50px;width:50px;"><p style="padding:10px;">'.$display_name.'</p></li>';
+				}
+				}
+			}
+		}
+		echo $output;
+	}
 }

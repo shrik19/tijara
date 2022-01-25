@@ -116,5 +116,8 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
 	'klarna_description_step_2' => '2).klicka på inställningar->Klarna API Credentials form sidebar.',
 	'klarna_description_step_3' => '3).Klicka sedan på Generate new Klarna API credentials',
 	'klarna_description_step_4' => '4).Kopiera användar-ID och lösenord och paster här',
+    'product_out_stock' => 'Slut i lager.',
+    'make_payment_on_swish_number' => 'Betala på detta swishnummer.',
+    'order_placed_success' => 'Beställningen genomförd.',
  ]
 ?>

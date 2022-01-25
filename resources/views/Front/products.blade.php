@@ -28,9 +28,19 @@
             </div>
            @endif
          <div class="col-md-12">
-                  <div class="col-md-6">
-              
-                  </div>
+            <div class="col-md-3"></div>
+              <div class="col-md-3">
+                <label class="checkbox toggle candy" onclick=""  style="width:100px">
+                  <input id="view" type="checkbox" />
+                  <p>
+                    <span class="product_sorting_filter" id="productSearchFilter" >{{ __('lang.category_product_title')}}</span>
+                    <span class="product_sorting_filter" id="serviceSearchFilter">{{ __('lang.category_service_title')}}</span>
+                  </p>                  
+                  <a class="slide-button"></a>                  
+                 </label>
+                <!-- <button class="product_sorting_filter" id="productSearchFilter" style="">{{ __('lang.category_product_title')}}</button>
+                <button class="product_sorting_filter" id="serviceSearchFilter" >{{ __('lang.category_service_title')}}</button>  -->                   
+              </div>
                   
                   <div class="col-md-3 prod-service-filter">
                   
@@ -78,6 +88,7 @@
 				<div class="product_container filter_product_list">
 				   
 					<span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+            <span class="service_listings"><div style="text-align:center;margin-top:50px;display: none"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
 				</div>
 			</div>
 		</div>
@@ -109,7 +120,12 @@
 @endif
 
 <script type="text/javascript">
-
+$( document ).ready(function() {
+  $("#productSearchFilter").addClass("filterActive");
+  $("#serviceSearchFilter").addClass("inactiveFilter");
+  $('.service_listings').hide();
+});
+   
 
 function getListing()
 {

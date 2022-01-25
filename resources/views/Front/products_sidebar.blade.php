@@ -2,7 +2,7 @@
   <h2 class="all_cat_sidebar_label" id="all_cat_label" style="margin-top: -60px;">{{ __('lang.category_title')}}</h2>
   <ul class="seller_cat_list">
     <li>
-      <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+      <a href="#" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
     </li>
   </ul>
 @endif
@@ -129,7 +129,7 @@
 
   
   @if(Request::segment(1) !='annonser')
-    <div>&nbsp;</div>
+ <!--    <div>&nbsp;</div>
     <div style="margin-left: 4px;"> 
     <label  class="price_label">{{ __('users.type_label')}}</label>
     <div class="category_button">
@@ -137,7 +137,7 @@
     <button class="show_product_cat" product_link="{{url('/')}}/products">{{ __('lang.category_product_title')}}</button>
     <button class="show_service_cat" service_link="{{url('/')}}/services">{{ __('lang.category_service_title')}}</button>
     </div>
-    </div>
+    </div> -->
   @endif
   <div>&nbsp;</div>
   @if(Request::path() != "/" && Request::segment(1) !='products' && Request::segment(1) !='services' && Request::segment(1) !='annonser')

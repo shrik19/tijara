@@ -28,13 +28,13 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         $category_name = strtolower($category_name);
         $service_cat_link= url('/').'/services/'.$category_name; 
 		
-		$store_name = $service->store_name;
+		      $store_name = $service->store_name;
           $store_name = str_replace( array( '\'', '"', 
           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
           $store_name = str_replace(" ", '-', $store_name);
           $store_name = strtolower($store_name);
 
-          $seller_link= url('/').'/seller/'.$store_name."/services";
+          $seller_link= url('/').'/seller/'.$store_name;
 		  
           $seller_name = $service->seller;
           $seller_name = str_replace( array( '\'', '"', 
@@ -48,7 +48,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
       @if( Request::path() == "/")
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
 
-     <div class="star-rating" style="font-size:15px;">
+        <div class="star-rating" style="font-size:15px;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
           <option value="1" >1</option>
           <option value="2" >2</option>
@@ -62,10 +62,10 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
           <h6>{{$service->service_price}} kr</h6>
         @endif
 
-        <a href="{{$seller_link}}"><h5>{{$service->seller}}</h5></a>
+        <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
       @else
            @if(Request::segment(1) !='service')
-           <a href="{{$seller_link}}"><h5>{{$service->seller}}</h5></a>
+           <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
            @endif
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
         @if(Request::segment(1) !='services' && Request::segment(1) != 'get_service_listing')
@@ -86,7 +86,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
 
         <!-- below code is for seller name  -->
 
-        <a href="{{$seller_link}}"><h5>{{$service->seller}}</h5></a>
+        <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
 
       @endif
     </div>

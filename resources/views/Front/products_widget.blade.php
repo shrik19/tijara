@@ -30,7 +30,7 @@ if(strpos(@$path, 'annonser') !== false){
           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
           $store_name = str_replace(" ", '-', $store_name);
           $store_name = strtolower($store_name);
-          $seller_link= url('/').'/seller/'.$store_name."/products"; 
+          $seller_link= url('/').'/seller/'.$store_name; 
         @endphp
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
       @if(strpos(@$path, 'annonser') == false)
@@ -75,7 +75,7 @@ if(strpos(@$path, 'annonser') !== false){
       <h6 class="product_price" style="margin-top: 6px;"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span></h6>
 
         @endif
-           <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->seller}}</h5></a>
+           <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->store_name}}</h5></a>
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
 
@@ -92,7 +92,7 @@ if(strpos(@$path, 'annonser') !== false){
         @if(!empty($product->price))
               <h6 class="product_price" style="margin-top: 6px;"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span></h6>          
         @endif
-        <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->seller}}</h5></a>
+        <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->store_name}}</h5></a>
 
         @endif
         

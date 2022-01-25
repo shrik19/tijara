@@ -34,13 +34,13 @@
           
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <div class="form-group">
-              <label class="label_css">{{ __('users.first_name_label')}} <span class="de_col"></span></label>
+              <label class="label_css">{{ __('users.first_name_label')}} <span class="de_col">*</span></label>
               <input type="text" class="form-control login_input input_box_css" name="fname" id="fname" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('fname')) ?  old('fname') : $buyerDetails[0]->fname}}">
               <span class="invalid-feedback" id="err_fname" >@if($errors->has('fname')) {{ $errors->first('fname') }}@endif </span>
             </div>
 
             <div class="form-group" style="margin-top: 25px;">
-              <label  class="label_css">{{ __('users.last_name_label')}} <span class="de_col"></span></label>
+              <label  class="label_css">{{ __('users.last_name_label')}} <span class="de_col">*</span></label>
               <input type="text" class="form-control login_input input_box_css" name="lname" id="lname" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('lname')) ?  old('lname') : $buyerDetails[0]->lname}}">
               <span class="invalid-feedback" id="err_lname" >@if($errors->has('lname')) {{ $errors->first('lname') }}@endif</span>
             </div>
@@ -59,19 +59,19 @@
             </div>
             */?>
             <div class="form-group">
-              <label  class="label_css">{{ __('users.address_label')}} </label>
+              <label  class="label_css">{{ __('users.address_label')}} <span class="de_col">*</span></label>
                 <textarea class="form-control input_box_css" id="address" name="address" rows="5" cols="30" style="height:auto" tabindex="5" placeholder="{{ __('users.address_label')}}"><?php if(!empty($buyerDetails[0]->address)){ echo $buyerDetails[0]->address; }?></textarea>
               <span class="invalid-feedback" id="err_address">@if($errors->has('address')) {{ $errors->first('address') }}@endif</span>
             </div>
 
             <div class="form-group">
-              <label  class="label_css">{{ __('users.postal_code_label')}} </label>
+              <label  class="label_css">{{ __('users.postal_code_label')}} <span class="de_col">*</span></label>
               <input type="text" class="form-control login_input input_box_css" name="postcode" id="postcode" placeholder="{{ __('users.postal_code_label')}}" value="{{ (old('postcode')) ? old('postcode') : $buyerDetails[0]->postcode}}">
               <span class="invalid-feedback" id="err_address">@if($errors->has('postcode')) {{ $errors->first('postcode') }}@endif</span>
             </div>
 
             <div class="form-group">
-              <label  class="label_css">{{ __('users.location_label')}} </label>
+              <label  class="label_css">{{ __('users.location_label')}} <span class="de_col">*</span></label>
               <input type="text" class="form-control login_input input_box_css" name="city" id="city" placeholder="{{ __('users.location_label')}}" value="{{ (old('city')) ? old('city') : $buyerDetails[0]->city}}">
               <span class="invalid-feedback" id="err_city">@if($errors->has('city')) {{ $errors->first('city') }}@endif</span>
             </div>

@@ -88,14 +88,14 @@
 
                                     $id =  $value['id'];
 
-                                $seller_name = @$getStoreName[0]->fname." ".@$getStoreName[0]->lname;
+                                $seller_name = @$getStoreName[0]->store_name;
                  
                                 $seller_name = str_replace( array( '\'', '"', 
                                   ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
                                 $seller_name = str_replace(" ", '-', $seller_name);
                                 $seller_name = strtolower($seller_name);
 
-                                $seller_link= url('/').'/seller/'.$seller_name."/". base64_encode($value->seller_id)."/services"; 
+                                $seller_link= url('/').'/seller/'.$seller_name; 
 
                                 $service_link = url('/').'/service/'.$value->service_slug.'-S-'.$value->service_code;
                                  //echo "<pre>";print_r($value);exit;

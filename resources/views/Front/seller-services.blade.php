@@ -53,11 +53,15 @@
         </div>
         <div class="col-md-9">
            <div>
+
+      <form id="productServicePage" method="post">
+         @csrf
 		   <div class="col-md-9 text-center">
-       <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url])}}" title="{{ __('lang.products_title')}}" class=" @if(Request::segment(4)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a>
-				<a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url])}}" title="{{ __('lang.service_label')}} " class=" border_right_link @if(Request::segment(3)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.category_service_title')}}  </a>
-				
+       <a href="javascript:void(0);" title="{{ __('lang.products_title')}}" class=" @if($hidden_type == 'products' || $hidden_type =='') store-active-btn  @else store-inactive-btn @endif productSelect" >{{ __('lang.products_title')}} </a>
+				<a href="javascript:void(0);" title="{{ __('lang.service_label')}} " class=" border_right_link @if($hidden_type =='services') store-active-btn  @else store-inactive-btn @endif serviceSelect">{{ __('lang.category_service_title')}}  </a>
+        <input type="hidden" name="hidden_type" class="hidden_type" id="hidden_type">
 			</div>
+    </form>
             <!-- contact shop -->
 			<div class="col-md-3">
 				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
@@ -319,6 +323,32 @@
 
 <script type="text/javascript">
 
+
+$(".productSelect").click(function(){
+
+   var form = $('#productServicePage');
+   // var action = $(this).data('href');
+    var page = $(".productSelect").attr('page')
+    //form.attr('action', action);
+  $("#hidden_type").val(page)
+   
+    form.submit();
+
+  }); 
+
+
+$(".serviceSelect").click(function(){
+
+   var form = $('#productServicePage');
+    //var action = $(this).data('href');
+    var page = $(".serviceSelect").attr('page')
+    $("#hidden_type").val(page)
+    //form.attr('action', action);
+   //alert(page)
+   
+    form.submit();
+
+  }); 
 $(".user_rating").each(function(){
   var currentRating = $(this).data('rating');
   $(this).barrating({

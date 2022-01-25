@@ -115,5 +115,8 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
 	 'klarna_description_step_2' => '2).click on settings->Klarna API Credentials form sidebar.',
 	 'klarna_description_step_3' => '3).Then click on Generate new Klarna API credentials',
 	 'klarna_description_step_4' => '4).Copy user Id and password and paster here',
+      'product_out_stock' => 'Out of stock.',
+      'make_payment_on_swish_number' => 'Make payment on this swish number.',
+      'order_placed_success' => 'Order Placed successfully.',
  ]
 ?>

@@ -127,5 +127,6 @@
      'fill_in_country_err'=>'Please fill in your Country',
      'payment_req_token_not_generated' => 'Looks like seller did not configure payment option properly, Please contact admin for more details.',
      'please_check_swish_checkbox' =>'Please Check Checkbox next to Swish Number.',
+     'complete_buyer_profile' => 'To Book Order First Update All Profile Details. Click here to update buyer profile',
  ]
 ?>

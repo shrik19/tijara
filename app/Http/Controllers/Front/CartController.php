@@ -1368,16 +1368,24 @@ class CartController extends Controller
             $number = $SellerData['seller_swish_number'];
            }
            //echo $number;exit;
-           $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);
-
-           if(!empty($getQR['error_messages'])) {
-              $blade_data['error_messages']= $getQR['error_messages'];
-              return view('Front/payment_request_error',$blade_data); 
-           }else{
-              $data['order_id'] = $getQR['orderId'];
-              $data['QRCode'] = $getQR['QRCode'];
-              return view('Front/checkout_swish_number',$data);
-           }
+           $getQR = $this->createPaymentRequest($amount,$message,$number,$OrderId);    
+          // echo "<pre>";print_r($getQR);
+        /*  $checkOrderID =   Orders::where('klarna_order_reference',$OrderId)->first();
+          if(!empty($checkOrderID)){
+            $arrOrderUpdate = [          
+              'payment_status'  => 'WAITING',
+              'order_status' => 'WAITING',
+          
+            ];
+              Orders::where('klarna_order_reference',$OrderId)->update($arrOrderUpdate);
+          }*/
+           
+          $data['order_id'] = $getQR['orderId'];
+          $data['QRCode'] = $getQR['QRCode'];
+         return view('Front/checkout_swish_number',$data); 
+          /*$responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
+          
+          return view('Front/checkout_swish', $responseFromFun);*/
         }
       }
     }
@@ -3435,8 +3443,7 @@ DATA;
     if (curl_errno($ch)) {
       $error_msg = curl_error($ch);
       $err_message = trans('errors.payment_req_token_not_generated')." (".$error_msg.")";
-      $sendData['error_messages'] = $err_message;
-      return $sendData;
+      $this->createPaymentRequestError($err_message);
     }
   //  echo "<pre>------==>";print_r($result);exit;
     // how big are the headers
@@ -3484,16 +3491,15 @@ DATA;
       if (curl_errno($curl)) {
         $err_msg = curl_error($curl);
         $err_message = trans('errors.payment_req_token_not_generated')." (".$err_msg.")";
-        $sendData['error_messages'] = $err_message;
-        return $sendData;
+        $this->createPaymentRequestError($err_message);
       }
       curl_close($curl);
       $sendData['orderId'] = $order_id;
       $sendData['QRCode'] = base64_encode($QRresult);
       return $sendData;
     }else{  
-       $sendData['error_messages'] = trans('errors.payment_req_token_not_generated');
-       return $sendData;
+      $err_message = trans('errors.payment_req_token_not_generated');
+      $this->createPaymentRequestError($err_message);
     }
 
   }
@@ -3635,6 +3641,10 @@ DATA;
   {
     $blade_data['error_messages']= trans('lang.swish_payment_not_proceed');
     return view('Front/payment_error',$blade_data); 
+  }
+  public function createPaymentRequestError($message){
+     $blade_data['error_messages']= $message;
+     return view('Front/payment_request_error',$blade_data); 
   }
 
   public function updateOrderStatus(Request $request){

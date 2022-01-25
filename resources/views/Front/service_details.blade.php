@@ -40,17 +40,23 @@
                 <?php 
                   $service_image = explode(',',$Service->images);
                 ?>
+                <div class="show-custom product_custom_img" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$service_image[0]}}">
                  @if(isset($image) && !empty($image))
-                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$service_image[0]}}">
+                  <!-- <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$service_image[0]}}"> -->
                     <img src="{{url('/')}}/uploads/ServiceImages/serviceDetails/{{$service_image[0]}}" id="show-img">
-                  </div>
+                  <!-- </div> -->
                    @else
-                  <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/no-image.png">
+                <!--   <div class="show-custom" href="{{url('/')}}/uploads/ServiceImages/no-image.png"> -->
                     <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" id="show-img">
-                  </div>
+                  <!-- </div> -->
                    @endif
-
-                 
+              <div class="buy_now_hover_details product_wish_icon">
+                <ul>
+                 <?php /*<li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>*/?>
+                  <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$Service->id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="far fa-heart"></i></a></li>
+                </ul>
+              </div>
+            </div>
                   @if($Service->images!='')
                   <!-- Secondary carousel image thumbnail gallery -->
                 
@@ -85,6 +91,7 @@
                      
                         <div class="row">
                           <div class="col-md-12" style="padding-right: 70px; padding-top: 12px;">
+
                           <!-- <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
                            style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a> -->
                            <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn sub_btn book_service_button" title="{{ __('users.see_available_time_btn')}}" id="reset_option">{{ __('users.see_available_time_btn')}}<i class="far fa-calendar-alt" style="margin-left: 10px;font-size: 20px;"></i></a>
@@ -112,6 +119,16 @@
                                   <label>{{ __('lang.location')}}</label>
                                   <input type="text"  id="" class="location form-control" value="@if(!empty($Service->address)) {{$Service->address}} @endif" placeholder="{{ __('lang.location')}}" readonly>
                                 </div>
+                                 <!-- <div class="form-group col-md-6">
+                                  <label>{{ __('lang.product_buyer_email')}}</label>
+                                  <input type="text"  id="" class="location form-control" value="@if(!empty($Service->address)) {{$Service->address}} @endif" placeholder="{{ __('lang.location')}}" readonly>
+                                </div>
+                                 <div class="form-group col-md-6">
+                                  <label>{{ __('users.postal_code_label')}}</label>
+                                  <input type="text"  id="" class="location form-control" value="@if(!empty($Service->address)) {{$Service->address}} @endif" placeholder="{{ __('lang.location')}}" readonly>
+                                </div> -->
+
+
                                 <div class="form-group col-md-6">
                                   <label>{{ __('lang.service_date')}}</label>
                                   <select  class="service_date form-control">
@@ -159,11 +176,28 @@
                                   <input type="text"  value="{{$Service->service_price}} kr" id="" readonly 
                                   class=" form-control service_price" 
                                   placeholder="{{ __('lang.service_total_cost')}}">
-                                  <p style="font-size: 12px;">Betalning sker på plats</p>
+                                  <p style="font-size: 12px;">Betalning sker på plats </p>
                                 </div>
-                              
+                            
+                                <?php 
+                             
+                                 if(!empty($loginUserFname) && !empty($loginUserLname) && !empty($loginUserEmail) && !empty($loginUserAddress) && !empty($loginUserPostcode) && !empty($loginUserCity)){
+                                      $styleDisable ="";
+                                      $fillDetailsErr="";
+                                  }else{
+                                    $styleDisable   = "disabled";
+                                    $fillDetailsErr = trans('errors.complete_buyer_profile');
+
+                                  }
+                                ?>
+                                <p style="color:red;font-size: 12px;">{{$fillDetailsErr}}
+                                    @if(!empty($fillDetailsErr))
+                                    <a href="{{route('frontBuyerProfile')}}" class="de_col">Buyer Profile</a> 
+                                    @endif
+                                </p>
+                                
                                 <div class="form-group">
-                                    <button style="width: 60%;    margin-left: 18%;    height: 45px;" type="button" class="btn sub_btn" @if(Auth::guard('user')->id()) onclick="sendServiceRequest();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> {{ __('lang.book_service_btn')}}  </button>
+                                    <button style="width: 60%;    margin-left: 18%;    height: 45px;" type="button" class="btn sub_btn" @if(Auth::guard('user')->id()) onclick="sendServiceRequest();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif {{$styleDisable}}> {{ __('lang.book_service_btn')}}  </button>
                                 </div>
                               </div>
                              
@@ -388,7 +422,8 @@
    
   <!-- end service review edit  model Form -->
 
-<script type="text/javascript">
+<script type="text/javascript">   
+
 function deleteServiceReview(rating_id){
 
 $.confirm({

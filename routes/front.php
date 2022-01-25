@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Session;
+
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
     // return what you want
@@ -22,7 +24,10 @@ Route::get('/config-cache', function() {
 Route::get('/', 'Front\FrontController@index')->name('frontHome');
 
 //products
-Route::get('/seller/{seller_name}/products/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
+
+Route::any('/seller/{seller_name}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
+
+//Route::get('/seller/{seller_name}/products/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerProductListing')->name('sellerProductListingByCategory');
 Route::any('/get_product_listing/','Front\FrontController@getProductsByParameter')->name('getProductsyParameter'); 
 Route::any('/products/','Front\FrontController@productListing')->name('AllproductListing');
 Route::get('/products/{category_slug}','Front\FrontController@productListing')->name('productListingByCategory');
@@ -46,7 +51,8 @@ Route::post('/report-product', 'Front\FrontController@reportProduct')->name('Fro
 Route::post('/report-service', 'Front\FrontController@reportService')->name('FrontReportService');
 
 //services
-Route::get('/seller/{seller_name}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');
+//Route::get('/seller/{seller_name}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');
+//Route::get('/seller/{seller_name}/services/{category_slug?}/{subcategory_slug?}','Front\FrontController@sellerServiceListing')->name('sellerServiceListingByCategory');
 Route::any('/get_service_listing/','Front\FrontController@getServicesByParameter')->name('getServicesyParameter'); 
 Route::any('/services/','Front\FrontController@serviceListing')->name('AllserviceListing');
 Route::get('/services/{category_slug}','Front\FrontController@serviceListing')->name('serviceListingByCategory');
@@ -264,6 +270,10 @@ Route::any('buyer-check-order-status/{order_id}','Front\ProductController@BuyerC
 Route::any('order-success-swish','Front\ProductController@orderSuccess')->name('SwishNumberOrderSuccess');
 Route::any('payment-error-swish','Front\ProductController@paymentError')->name('SwishNumberPaymentError');
 
+Route::any('get-seller-list','Front\FrontController@sellerAutoSuggest')->name('FrontGetSellersList');
+Route::any('swish-number-payment','Front\CartController@swishNumberPayment')->name('FrontSwishNumberPayment');
+
+Route::any('swish-number-order','Front\CartController@swishNumberOrder')->name('SwishNumberOrderplaced');
 /*Package*/
 Route::group(['prefix'=>'package'], function() {
 	Route::get('/package-history/{id}','Front\AuthController@sellerPackagesHistory')->name('frontPackage');

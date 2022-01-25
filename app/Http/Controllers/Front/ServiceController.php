@@ -1174,23 +1174,7 @@ class ServiceController extends Controller
         $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')
           ->join('services','services.id','=','service_requests.service_id')
           ->select('services.title','services.description','users.fname','users.lname','users.email'
-          ,'service_requests.*')->where('service_requests.is_deleted','!=',1)->where('services.user_id','=',$user_id)->groupBy('service_requests.id')->orderby('service_requests.id', 'DESC')->get();
-
-      /*  if($User->role_id==2) {
-          //seller
-          $serviceRequest = $serviceRequest->where('services.user_id','=',$request['user_id']);
-        }
-        else 
-        {
-          $serviceRequest = $serviceRequest->where('service_requests.user_id','=',$request['user_id']);
-        }*/
-
-    
-       
-        
-         // $recordsTotal = $serviceRequest->groupBy('service_requests.id')->get()->count();
-      
-        //  $serviceRequest = $serviceRequest->groupBy('service_requests.id')->orderby('service_requests.id', 'DESC')->get();
+          ,'users.address','users.postcode','users.city','service_requests.*')->where('service_requests.is_deleted','!=',1)->where('services.user_id','=',$user_id)->groupBy('service_requests.id')->orderby('service_requests.id', 'DESC')->get();
           
         $data['bookingRequest']    = $serviceRequest;
         $data['is_seller']         = $is_seller;

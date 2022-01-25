@@ -45,6 +45,41 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 
+
+  /*search by seller name */
+ $('#search_string').keyup(function(){ 
+    if( this.value.length > 1 ) {
+      var query = $(this).val();
+
+        if(query != '')
+        {
+         var _token = $('input[name="_token"]').val();
+         $.ajax({
+          url: siteUrl+'/get-seller-list',
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+            if(data != '' ){
+              $('#sellerListFilter').fadeIn();  
+              $('#sellerListFilter').html('<ul class="dropdown-menu" style="display:block; position:relative;width:100%">'+data+'</ul>');
+            }
+           
+          }
+         });
+        }
+    }
+        
+  });
+
+  $(document).on('click', '.seller_autocomplete_search', function(){  
+    $('#search_string').val($(this).text());  
+    $('#sellerListFilter').fadeOut();  
+  });  
+
+  $(window).click(function() {
+    $('#sellerListFilter').fadeOut(); 
+  });
+
 /*js code for policy tabs*/
 function openPage(pageName,elmnt) {
     var i, tabcontent, tablinks;
@@ -1083,8 +1118,6 @@ if($('.product_listings').length>0) {
       $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
       $(".current_search_string").text(),'',$(".current_role_id").text());
    });
-
-
 }
 
 
@@ -1230,12 +1263,29 @@ if($('.service_listings').length>0) {
       var page = $(this).attr('href').split('page=')[1];
       get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text());
    });
-
-
 }
 
+$(document).on('click', '#productSearchFilter', function(event){
+      event.preventDefault();
+      $('.product_listings').show();
+      $('.service_listings').hide();
+      $(this).addClass("filterActive");
+      $("#serviceSearchFilter").removeClass("filterActive");
+     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+      $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
+      $(".current_search_string").text(),'',$(".current_role_id").text());
+});
 
+$(document).on('click', '#serviceSearchFilter', function(event){
+      event.preventDefault();
+      $('.product_listings').hide();
+      $('.service_listings').show();
+      $(this).addClass("filterActive");
+      $("#productSearchFilter").removeClass("filterActive");
+      $("#productSearchFilter").addClass("inactiveFilter");
+      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text());
 
+});
 // function get_service_listing(page,category_slug='',subcategory_slug='',sellers ='',price='', search_string='') {
 //   var sort_by_order = $("#sort_by_order").val();
 //   var sort_by = $("#sort_by").val();

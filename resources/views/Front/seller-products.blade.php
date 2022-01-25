@@ -41,10 +41,17 @@
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
             <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
             </div>
-            
+            <?php 
+
+            $seller_name_link = str_replace( array( '\'', '"', 
+            ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+            $seller_name_link = str_replace(" ", '-', $seller_name_link);
+            $seller_name_link = strtolower($seller_name_link);
+            ?>
             <ul class="seller_cat_list">
             <li>
-              <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+
+              <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_link])}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
             </li>
           </ul>
             <div class="current_role_id" style="display: none">{{$role_id}}</div>
@@ -54,9 +61,14 @@
         <div class="col-md-9">
           <div>
 		<!-- 	<div class="col-md-1"></div> -->
+
+    <form id="productServicePage" method="post">
+          @csrf
 			<div class="col-md-9 text-center">
-				<a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_url])}}" title="{{ __('lang.products_title')}}" class="border_left_link @if(Request::segment(3)=='products') store-active-btn  @else store-inactive-btn @endif" >{{ __('lang.products_title')}} </a><a href="{{route('sellerServiceListingByCategory',['seller_name' => $seller_name_url])}}" title="{{ __('lang.service_label')}} " class="@if(Request::segment(3)=='services') store-active-btn  @else store-inactive-btn @endif">{{ __('lang.category_service_title')}}  </a>
+				<a href="javascript:void(0);" title="{{ __('lang.products_title')}}" page="products" class="border_left_link @if($hidden_type =='products' || $hidden_type =='') store-active-btn  @else store-inactive-btn @endif productSelect" >{{ __('lang.products_title')}} </a><a href="javascript:void(0);" title="{{ __('lang.service_label')}} " page="services" class="@if($hidden_type =='services') store-active-btn  @else store-inactive-btn @endif serviceSelect">{{ __('lang.category_service_title')}}  </a>
+        <input type="hidden" name="hidden_type" class="hidden_type" id="hidden_type">
 			</div>
+    </form>
             <!-- contact shop -->
 			<div class="col-md-3">
 				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{__('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
@@ -337,7 +349,33 @@ $(".user_rating").each(function(){
      }
   })
 });
-$(document).ready(function() { 
+
+
+$(".productSelect").click(function(){
+
+  var form = $('#productServicePage');
+  var page = $(".productSelect").attr('page');
+  $("#hidden_type").val(page)
+  form.submit();
+
+}); 
+
+
+$(".serviceSelect").click(function(){
+
+  var form = $('#productServicePage');
+  var page = $(".serviceSelect").attr('page')
+  $("#hidden_type").val(page)
+  form.submit();
+
+}); 
+
+
+
+$(document).ready(function() {
+
+
+
   var read_more_btn = "{{ __('users.read_more_btn')}}";
   var read_less_btn = "{{ __('users.read_less_btn')}}";
 	get_product_count();

@@ -18,6 +18,7 @@
                 $first = reset($variantData);
                 @endphp
               @endif
+
           <input type="hidden" name="product_quantity_{{$first['attributes'][0]->variant_id}}" id="product_quantity_{{$first['attributes'][0]->variant_id}}" value="1">
  <!-- Secondary carousel image thumbnail gallery -->
               <div class="small-img">
@@ -42,16 +43,16 @@
                   <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
               @endif
                <div class="buy_now_hover_details product_wish_icon">
-          <ul>
-              
-              <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) 
-                    onclick="addToWishlist('{{$first['attributes'][0]->variant_id}}');event.stopPropagation();" 
-                    @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif>
-                    <i class="far fa-heart"></i>
-                  </a>
-              </li>
-          </ul>
-      </div>
+                <ul>
+                    
+                    <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) 
+                          onclick="addToWishlist('{{$first['attributes'][0]->variant_id}}');event.stopPropagation();" 
+                          @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif>
+                          <i class="far fa-heart"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
               </div>
              
       
@@ -184,11 +185,21 @@
                         </div> -->
                 </div>
                 <div class="col-xs-6 col-md-12 p-0">
-                            <div class="quantity_box">
-                               <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >           
-                               <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
-                            </div>
-                        </div>
+                  <?php
+                  $btn_disabled = $outOfStock = '';
+                    if($first['quantity']==0){
+                      $btn_disabled ='disabled';
+                      $outOfStock='display:block';
+                    }
+
+                   ?>
+                  <div class="quantity_box">
+                     <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >          
+                     <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif {{$btn_disabled}}>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
+                  </div>
+                  <p class="productStockOut" style="{{$outOfStock}}">{{ __('messages.product_out_stock') }}</p> 
+                </div>
+
             </div>
 
         </div>

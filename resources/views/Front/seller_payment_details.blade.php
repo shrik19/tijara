@@ -151,9 +151,21 @@ $(document).ready(function(){
             error = 0;
         } else{
           showErrorMessage(please_check_swish_number);
+          error = 1;
         }
 
     }
+
+    if(error == 1)
+    {
+    return false;
+    }
+    else
+    {
+    $('#seller-payment-form').submit();
+    return true;
+    }
+  
   });
 });
 </script>

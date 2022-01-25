@@ -125,5 +125,6 @@
      'fill_in_country_err'=>'Vänligen fyll i ditt land',
      'payment_req_token_not_generated' => 'Det verkar som att säljaren inte har konfigurerat betalningsalternativet korrekt. Kontakta administratören för mer information.',
      'please_check_swish_checkbox' =>'Vänligen kryssa i kryssrutan bredvid Swish-nummer.',
+     'complete_buyer_profile' => 'För att boka beställning Uppdatera först alla profildetaljer. Klicka här för att uppdatera köparprofilen',
  ]
 ?>

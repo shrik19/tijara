@@ -1086,6 +1086,7 @@ public function getCatSubList(Request $request) {
 			$data['meta_title'] 	=  $getCategoryName['category_name'].' - '.$getSubCategoryName['subcategory_name'];
 			$data['meta_description'] 	=  strip_tags($getCategoryName['description']);
 		}
+		$data['PopularServices']	= $this->getPopularServices($category_slug,$subcategory_slug);
 		$data['current_role_id']	=	'2';
 		$cities = DB::table('users')
 			->where('is_deleted','=',0)

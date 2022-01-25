@@ -1268,7 +1268,9 @@ if($('.service_listings').length>0) {
 $(document).on('click', '#productSearchFilter', function(event){
       event.preventDefault();
       $('.product_listings').show();
+      $('#other_watched_products').show();
       $('.service_listings').hide();
+      $('#other_watched_services').hide();
       $(this).addClass("filterActive");
       $("#serviceSearchFilter").removeClass("filterActive");
      get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
@@ -1280,6 +1282,8 @@ $(document).on('click', '#serviceSearchFilter', function(event){
       event.preventDefault();
       $('.product_listings').hide();
       $('.service_listings').show();
+      $('#other_watched_services').show();
+      $('#other_watched_products').hide();
       $(this).addClass("filterActive");
       $("#productSearchFilter").removeClass("filterActive");
       $("#productSearchFilter").addClass("inactiveFilter");

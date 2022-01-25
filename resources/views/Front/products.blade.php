@@ -104,11 +104,18 @@
             <div class="best_seller_container">
                 <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
                 <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
-                <ul class="product_details best_seller" style="margin-left:4px;">
-					@foreach($PopularProducts as $product)
-                    @include('Front.products_widget')
-					@endforeach
-				 </ul>
+                <ul class="product_details best_seller" id="other_watched_products" style="margin-left:4px;">
+        					@foreach($PopularProducts as $product)
+                            @include('Front.products_widget')
+        					@endforeach
+        				 </ul>
+
+                 <ul class="product_details best_seller" id="other_watched_services" style="margin-left:4px;display: none;">                 
+                  @foreach($PopularServices as $service)
+                    @include('Front.services_widget')
+                  @endforeach
+                 
+                 </ul>
             </div>
 
 

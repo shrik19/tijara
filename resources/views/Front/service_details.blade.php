@@ -192,7 +192,7 @@
                                 ?>
                                 <p style="color:red;font-size: 12px;">{{$fillDetailsErr}}
                                     @if(!empty($fillDetailsErr))
-                                    <a href="{{route('frontBuyerProfile')}}" class="de_col">Buyer Profile</a> 
+                                    <a href="{{route('frontBuyerProfile')}}" class="de_col">{{ __('users.buyer_profile_title')}}</a> 
                                     @endif
                                 </p>
                                 

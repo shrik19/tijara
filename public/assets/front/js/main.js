@@ -276,7 +276,7 @@ $('#buyer_profile_image').on("change", function(){
                       success: function(data) {
                         $(".loader").hide();
                   
-                        $(".existing-images").prepend('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images">'+
+                        $(".existing-images").replaceWith('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images">'+
                           '<img src="'+siteUrl+'/uploads/Buyer/'+data+'" class="buyer_profile_update_img">'+
                                             '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');
                       }

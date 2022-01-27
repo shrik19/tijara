@@ -1848,12 +1848,12 @@ public function getCatSubList(Request $request) {
 
 			if($request->category_slug !='') {
 				$category 		=  ServiceCategories::select('id')->where('category_slug','=',$request->category_slug)->first();
-				$Services	=	$Services->where('category_services.category_id','=',$category['id']);
+				$Services	=	$Services->where('category_services.category_id','=',@$category['id']);
 				//$Services	=	$Services->where('servicecategories.category_slug','=',$request->category_slug);
 			}
 			if($request->subcategory_slug !='') {
 				$subcategory 		=  ServiceSubcategories::select('id')->where('subcategory_slug','=',$request->subcategory_slug)->first();
-				$Services	=	$Services->where('category_services.subcategory_id','=',$subcategory['id']);
+				$Services	=	$Services->where('category_services.subcategory_id','=',@$subcategory['id']);
 				//$Services	=	$Services->where('serviceSubcategories.subcategory_slug','=',$request->subcategory_slug);
 			}
 			if($request->sellers != '')

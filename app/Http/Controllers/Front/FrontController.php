@@ -593,7 +593,10 @@ public function getCatSubList(Request $request) {
 				  if($category_slug !='')
 				  {
 					$category 		=  ServiceCategories::select('id')->where('category_slug','=',$category_slug)->first();
-					$sellerServices	=	$sellerServices->where('category_services.category_id','=',$category['id']);
+					if(!empty($category['id'])){
+						$sellerServices	=	$sellerServices->where('category_services.category_id','=',$category['id']);
+					}
+					
 				  }
 				  if($subcategory_slug !='')
 				  {

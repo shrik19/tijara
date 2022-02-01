@@ -115,7 +115,7 @@
                   <div class="col-md-10">
                 <div class=" form-group search_now_input_box">
                   <!-- <input type="text" placeholder="Email" class="form-control search_now_input"> -->
-                  <input type="text" class="form-control search_now_input current_search_string" placeholder="{{ __('lang.search_placeholder')}}" name="search" id="search_string">
+                  <input type="text" class="form-control search_now_input current_search_string" placeholder="{{ __('lang.search_placeholder')}}" name="search" id="search_string" autocomplete="off">
                    <div id="sellerListFilter"></div>
                   <button class="search_icon_btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>

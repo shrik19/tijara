@@ -72,7 +72,7 @@
                     </div>
                     <!-- <hr class="heading_line"/> -->
                     <ul class="product_details">
-					@foreach($TrendingProducts as $product)
+					@foreach($PopularProducts as $product)
                         @include('Front.products_widget')
 						@endforeach
                        </ul>

@@ -13,7 +13,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" style="width:100%;">
       @endif
       <div class="buy_now_hover_details one_icon">
-        <ul>
+      <ul>
          <?php /*<li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>*/?>
           <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="far fa-heart"></i></a></li>
         </ul>
@@ -61,6 +61,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
         @if(!empty($service->service_price))
           <h6>{{$service->service_price}} kr</h6>
         @endif
+          <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
 
         
       @else

@@ -53,7 +53,7 @@
                 $user_name =$availability['fname']." ".$availability['lname'];
                 $description = strip_tags($availability['description']);
               @endphp
-              <input type="hidden" id="{{$availability['id']}}" class="form-control service_availability " value="{{$service_time}}"  name="service_availability[]" user_name="{{$user_name}}" title="{{$availability['service_title']}}" description="{{$description}}" location="{{$availability['location']}}" service_time="{{$service_time}}" service_price="{{$availability['service_price']}}" buyer_email="{{$availability['email']}}" buyer_address="{{$availability['address']}}">
+              <input type="hidden" id="{{$availability['id']}}" class="form-control service_availability " value="{{$service_time}}"  name="service_availability[]" user_name="{{$user_name}}" title="{{$availability['service_title']}}" description="{{$description}}" location="{{$availability['location']}}" service_time="{{$service_time}}" service_price="{{$availability['service_price']}}" buyer_email="{{$availability['email']}}" buyer_address="{{$availability['address']}}" buyer_postnummber="{{$availability['postcode']}}" buyer_location="{{$availability['city']}}">
         
 
             @endforeach
@@ -91,6 +91,8 @@
   <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.location')}} :</td><td class="location" style="padding-left: 10px;"></td></tr>
   <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.email_label')}} :</td><td class="buyer_email" style="padding-left: 10px;"></td></tr>
   <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.address_label')}} :</td><td class="buyer_address" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.postal_code_label')}} :</td><td class="buyer_postnummber" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.location_label')}} :</td><td class="buyer_location" style="padding-left: 10px;"></td></tr>
   </table>
   </div> 
 
@@ -126,6 +128,8 @@
         service_price :$(this).attr('service_price'),
         buyer_address :$(this).attr('buyer_address'),
         buyer_email :$(this).attr('buyer_email'),
+        buyer_postnummber :$(this).attr('buyer_postnummber'),
+        buyer_location :$(this).attr('buyer_location'),
         });
       });
     }
@@ -182,6 +186,8 @@
 
         var buyer_address = calEvent.buyer_address;
         var buyer_email = calEvent.buyer_email;
+        var buyer_postnummber  = calEvent.buyer_postnummber;
+        var buyer_location     = calEvent.buyer_location;
 
         $('#serviceReqDetailsmodal').find('.id').text(id);
         $('#serviceReqDetailsmodal').find('.user_name').text(user_name);
@@ -192,6 +198,8 @@
         $('#serviceReqDetailsmodal').find('.service_price').text(service_price);
         $('#serviceReqDetailsmodal').find('.buyer_address').text(buyer_address);
         $('#serviceReqDetailsmodal').find('.buyer_email').text(buyer_email);
+        $('#serviceReqDetailsmodal').find('.buyer_postnummber').text(buyer_postnummber);
+        $('#serviceReqDetailsmodal').find('.buyer_location').text(buyer_location);
   
         $('#serviceReqDetailsmodal').modal('show');
       },

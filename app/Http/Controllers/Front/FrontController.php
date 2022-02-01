@@ -701,11 +701,11 @@ public function getCatSubList(Request $request) {
 
 								$TrendingProducts	=$TrendingProducts->get();
 								//echo "<pre>";print_r(count($TrendingProducts));exit;
-								$merged = $PopularProducts->merge($TrendingProducts);
+								$PopularProducts = $PopularProducts->merge($TrendingProducts);
 
 		}
-		if(count($merged)>0) {
-			foreach($merged as $Product) {
+		if(count($PopularProducts)>0) {
+			foreach($PopularProducts as $Product) {
         $productCategories = $this->getProductCategories($Product->id);
 
 				$product_link	=	url('/').'/product';
@@ -752,7 +752,7 @@ public function getCatSubList(Request $request) {
 		}
 
 		
-			return $merged;
+			return $PopularProducts;
 		
 		
 	}

@@ -2,7 +2,7 @@
   <h2 class="all_cat_sidebar_label" id="all_cat_label">{{ __('lang.category_title')}}</h2>
   <ul class="seller_cat_list">
     <li>
-      <a href="javascript:void(0);" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+      <a href="{{route('AllserviceListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
     </li>
   </ul>
 @endif

@@ -61,8 +61,8 @@
             @include('Front.products_sidebar')
         </div>-->
         <div class="product_view">
-        <div class="col-md-12">             
-                <div class="product_container">
+        <div class="col-md-12 pl-w-0 pr-w-0">             
+                <div class="product_container product_container-list-5">
                 <div class="loader"></div>
                     <!-- <h4>{{ __('lang.popular_items_in_market_head')}}</h4> -->
              
@@ -137,8 +137,8 @@
 
       <div class="row">
        <div class="product_view">
-        <div class="col-md-12">             
-                <div class="product_container">
+        <div class="col-md-12 pl-w-0 pr-w-0">             
+                <div class="product_container product_container-list-5">
                 <div class="loader"></div>
                     <div >
                     <h2 class="heading product_heading">{{ __('lang.popular_services_head')}}</h2>     
@@ -168,8 +168,8 @@
       <!-- Example row of columns -->
     <div class="row">
     <div class="product_view">
-    <div class="col-md-12">             
-        <div class="product_container">
+    <div class="col-md-12 pl-w-0 pr-w-0">             
+        <div class="product_container product_container-list-5">
         <div class="loader"></div>
             <div style="display: flex;">
             <h2 class="heading product_heading">{{ __('lang.feature_product_head')}}</h2>
@@ -264,7 +264,7 @@
 				</div>
             </div>			
 			
-            <div class="col-md-12">
+            <div class="col-md-12 pl-w-0 pr-w-0">
 				<div class="best_seller_container">
 					<!--<h3>{{ __('lang.follow_us_on_head')}}</h3>-->
 					<h2 class="product_heading instagram_heading">{{ __('lang.instagram_label')}}</h2>

@@ -1846,6 +1846,11 @@ $('body').on('change', '.service_image', function () {
 
   var fileUpload  = $(this)[0];
   var elm         =   $(this);
+  var variant_id  = $(this).attr('variant_id');
+        
+  var validExtensions = ["jpg","jpeg","gif","png"];
+  var minwidth  = 600;
+  var minheight = 600;
   
   var validExtensions = ["jpg","jpeg","gif","png"];
   var file = $(this).val().split('.').pop();
@@ -1854,33 +1859,56 @@ $('body').on('change', '.service_image', function () {
           $(this).val('');
           return false;
   }
+  
+  var reader = new FileReader();
+	//Read the contents of Image File.
+	reader.readAsDataURL(fileUpload.files[0]);
+	reader.onload = function (e) {
+		//Initiate the JavaScript Image object.
+		var image = new Image();
 
-  var formData = new FormData();
+		//Set the Base64 string return from FileReader as source.
+		image.src = e.target.result;
+			   
+		//Validate the File Height and Width.
+		image.onload = function () {
+			var height = this.height;
+			var width = this.width;
+			if (height < minwidth || width < minheight) {
 
-  if (fileUpload.files.length > 0) {
+			   //show width and height to user
+				showErrorMessage(image_upload_height_width);
+				$(this).val('');
+				return false;
 
-         formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
-          $(".loader").show();
-          $.ajax({
-              headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
-                url: siteUrl+'/manage-services/upload-image',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
+			}
+			var formData = new FormData();
 
-                success: function(data) {
-                  $(".loader").hide();   
-                      
-                  elm.prev('div.images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
-                    '<img src="'+siteUrl+'/uploads/ServiceImages/resized/'+data+'" width="78" height="80">'+
-                                      '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
-                }
+			if (fileUpload.files.length > 0) {
 
-          });
-  }
+				formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+				$(".loader").show();
+				$.ajax({
+					headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+					url: siteUrl+'/manage-services/upload-image',
+					type: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
 
+					success: function(data) {
+						$(".loader").hide();   
+						  
+						elm.prev('div.images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
+						'<img src="'+siteUrl+'/uploads/ServiceImages/resized/'+data+'" width="78" height="80">'+
+										  '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
+					}
+				});
+			}
 
+		};
+ 
+	}
 
 });
 $('#phone_number').keydown(function (e) {

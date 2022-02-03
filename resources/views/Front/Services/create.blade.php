@@ -8,6 +8,9 @@
   .select2 select2-container select2-container--default{
   width:100%;
 }
+.invalid-feedback {
+    position: relative !important;
+}
 
  .images {
    background-image: url(../../uploads/Images/multiple_no_images.png);
@@ -184,7 +187,7 @@ td.fc-week-number {
                 <input type="file" class="col-md-8 login_input image service_image form-control" >                
                   <span class="invalid-feedback col-md-8" id="err_service_image"></span>  
                   <span class="invalid-feedback col-md-12" id="err_service_hid_image"></span>  
-                  <p class="seller-logo-info col-md-8" style="font-size: 13px;">Lägg till en bild i storlek (1080x1080px)</p>   
+                  <p class="seller-logo-info col-md-8" style="font-size: 13px;">Lägg till en bild i storlek (600x600px)</p>   
                 </div>
               </div>
               <div class="loader"></div>

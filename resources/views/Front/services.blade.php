@@ -17,17 +17,12 @@
             @include('Front.services_sidebar')
         </div>
         <div class="col-md-9 services-page">
-            <span class="current_category" style="display:none;">{{$category_slug}}</span>
-            <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
-            <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
-            <span class="current_search_string" style="display:none;">{{$search_string}}</span>
-            <div class="product_container">
-                <div class="row">
+			<div class="row">
                   <div class="col-md-6">
                     <!-- <h2>{{ __('lang.trending_service_head')}}</h2>
                     <hr class="heading_line"/> -->
                   </div>
-                  <div class="col-md-3 prod-service-filter" >
+                  <div class="col-md-3 prod-service-filter pr-w-0" >
 
                     <div class="form-group">
                       <label>{{ __('lang.sort_by_order')}} : </label>
@@ -38,7 +33,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-3 prod-service-filter">
+                  <div class="col-md-3 prod-service-filter pr-w-0">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="listServices()">
@@ -54,6 +49,12 @@
                     </div>
                   </div>
                 </div>
+            <span class="current_category" style="display:none;">{{$category_slug}}</span>
+            <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
+            <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
+            <span class="current_search_string" style="display:none;">{{$search_string}}</span>
+            <div class="row product_container product_container-list-4">
+                
                 <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
         </div>
@@ -67,11 +68,11 @@
     <div class="container-fluid">
     <div class="container-inner-section">
         <div class="row">
-            <div class="best_seller_container">
+            <div class="best_seller_container col-md-12 product_container-list-5">
                 <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
                 <!-- <h2>{{ __('lang.best_seller_head')}}</h2> -->
                 <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
-                <ul class="product_details best_seller" style="margin-left:4px;">
+                <ul class="product_details best_seller">
                   @foreach($PopularServices as $service)
                             @include('Front.services_widget')
                   @endforeach

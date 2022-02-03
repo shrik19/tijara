@@ -210,10 +210,10 @@
                                     <span class="invalid-feedback col-md-8" id="err_sku" ></span>
                                   </div>
                                   </div>
-                                  <div class="form-group  col-md-12" >
+                                  <!-- <div class="form-group  col-md-12" >
                                     <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col">*</span></label>
                                     <div class="col-md-8">
-                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 variant_field ge_input select_attribute preselected_attribute" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
+                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 variant_field ge_input select_attribute preselected_attribute" name="attribute[<?php //echo $i;?>][<?php //echo $i;?>]" variant_id="<?php //echo $i;?>" >
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                         @foreach ($attributesToSelect as $attr)
@@ -225,14 +225,35 @@
                                           @endif
                                         @endforeach
                                     </select>
-                                    <select style="margin-left: 10px; width: 32%;" selected_attribute_value="{{$attribute['attribute_value_id']}}" class="variant_field {{$attribute['id']}} col-md-4 ge_input select_attribute_value" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]">
+                                    <select style="margin-left: 10px; width: 32%;" selected_attribute_value="{{$attribute['attribute_value_id']}}" class="variant_field {{$attribute['id']}} col-md-4 ge_input select_attribute_value" name="attribute_value[<?php //echo $i;?>][<?php //echo $i;?>]">
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
 
                                     </select>
                                     <span class="invalid-feedback col-md-8"  id="err_sku" ></span>
 
                                   </div>
-                                  </div>
+                                  </div> -->
+								  
+								  <div class="form-group  col-md-12 producterrDiv" >
+									<label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col">*</span></label>
+									<div class="col-md-8" >
+									@foreach ($attributesToSelect as $attr)
+										<div class="row form-group producterrDiv" >
+											<label class="col-md-4">{{ $attr->name }} <span class="de_col">*</span></label>
+											<?php
+											$selected_attr_value ="";
+											foreach ($variant['attributes'] as $attr1){	
+												if($attr1['attribute_id']==$attr->id)
+													$selected_attr_value =  $attr1['attribute_value_id'];
+											}
+											?>
+											<select attribute_id="{{ $attr->id }}" style="width: 34%;" selected_attribute_value="{{ $selected_attr_value }}" 
+											class=" variant_field col-md-4 ge_input select_attribute_value variant_field" name="attribute_value[<?php echo $i;?>][{{ $attr->id }}]">
+											</select>
+										</div>	
+									@endforeach
+									</div>
+								  </div>
                                   
                                   <div class="form-group  col-md-12" >
                                     <label class="col-md-3">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
@@ -353,7 +374,34 @@
 
 $( document ).ready(function() {
   $('.select2-search__field').attr("placeholder", select_placeholder);
+  
+  $('.select_attribute_value').each(function(){
+	var attr_id = $(this).attr('attribute_id');
+	var selected_attr_id = $(this).attr('selected_attribute_value');
+	get_attribute_values(attr_id, $(this), selected_attr_id);
+	
+	
+  });
+  
+  
+  
 });
+
+function get_attribute_values(select_attribute, element, selected_attr_id) {
+
+	$.ajax({
+		  url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+		   data: {attribute_id: select_attribute},
+		   type: 'get',
+		   success: function(output) {
+						//console.log(output);
+						element.html(output);
+						element.val(selected_attr_id).change();
+						//elm.parent('div').find('.select_attribute_value').html(output);
+					}
+	});
+
+}
 
 </script>
 

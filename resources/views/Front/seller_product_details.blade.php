@@ -651,7 +651,7 @@ function showAvailableOptions(attribute_id,attribute_value)
         allImages+='<img src="'+siteUrl+'/uploads/ProductImages/productIcons/'+image+'" class="show-small-img" alt="">';
       });
       $("#small-img-roll").html(allImages);
-      $('.show-custom').find('div').remove();
+      //$('.show-custom').find('div').remove();
       //$('.show-custom').zoomImage();
       $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
       $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');
@@ -674,12 +674,11 @@ function showAvailableOptions(attribute_id,attribute_value)
       $("#product_variant_id").val(responseObj.current_variant.id);
       if(responseObj.current_variant.discount_price)
       {
-        $("#product_variant_price").html('<span style="text-decoration: line-through;">'+number_format(responseObj.current_variant.price,2)+'  kr</span> &nbsp;&nbsp;'+ number_format(responseObj.current_variant.discount_price,2)+'  kr');
-        
+		$("#product_variant_price").html('<span style="margin-left: -12px;"> &nbsp;&nbsp;'+ number_format(responseObj.current_variant.discount_price,2)+' kr </span><span style=" text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; ">'+number_format(responseObj.current_variant.price,2)+' kr</span>');
       }
       else
       {
-        $("#product_variant_price").html(number_format(responseObj.current_variant.price,2)+'  kr');
+        $("#product_variant_price").html('<span style="margin-left: -12px;"></span><span style=" margin-left: 10px; ">'+number_format(responseObj.current_variant.price,2)+' kr</span>');
       }
       
       

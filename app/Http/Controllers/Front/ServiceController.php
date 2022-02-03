@@ -359,7 +359,7 @@ class ServiceController extends Controller
            
            
            
-                           if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
+                            if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
            
                                $fileName = 'service-'.date('YmdHis').'.'.$fileExt;
            
@@ -388,13 +388,13 @@ class ServiceController extends Controller
                                $old_y = imageSY($src_img);
            
            
-                                $width = 500;
-                                $height = 500;
+                                $width = 600;
+                                $height = 600;
                                // echo "here".$old_x;exit;$img    = Image::make($image->getRealPath());
                                 // we need to resize image, otherwise it will be cropped 
                                 $imageNew = Image::make($path);
 
-                                if ($old_x < $width) { 
+                                /*if ($old_x < $width) { 
                                     $imageNew->resize($width, null, function ($constraint) {
                                         $constraint->aspectRatio();
                                     });
@@ -405,33 +405,45 @@ class ServiceController extends Controller
                                         $constraint->aspectRatio();
                                     }); 
                                 }
-
                                 $imageNew->resizeCanvas($width, $height, 'center', false, '#ffffff');
+								*/
+								
+								$imageNew->resize($width, $height, function ($constraint) {
+                                        $constraint->aspectRatio();
+								});		
                                 $imageNew->save(public_path("uploads/ServiceImages/{$fileName}"));
+                                $img = Image::make(public_path("uploads/ServiceImages/{$fileName}"));
+								
+                                //$img->resize(300, 300, function ($constraint) {
+                                //$constraint->aspectRatio();
+                                //$constraint->upsize();
+                                //})->save(public_path().'/uploads/ServiceImages/resized/' . $fileName);
+                                //$img->destroy();
+								
+								$img->fit(300, 300);
+                                $img->save(public_path().'/uploads/ServiceImages/resized/' . $fileName);
+                                $img->destroy();
+								
+								
+                                $img = Image::make(public_path("uploads/ServiceImages/{$fileName}"));
+								$img->resizeCanvas($width, $height, 'center', false, '#ffffff');
+                                //$img->resize(600, 600, function ($constraint) {
+                                //$constraint->aspectRatio();
+                                //$constraint->upsize();
+                                //})
+								$img->save(public_path().'/uploads/ServiceImages/serviceDetails/' . $fileName);
+                                $img->destroy();
+                                $img = Image::make(public_path("uploads/ServiceImages/{$fileName}"));
+                                //$img->resize(100, 100, function ($constraint) {
+                                //$constraint->aspectRatio();
+                                //$constraint->upsize();
+                                //})
+								$img->fit(100, 100);
+								$img->save(public_path().'/uploads/ServiceImages/serviceIcons/' . $fileName);
+                                $img->destroy();
 
-                                $img = Image::make(public_path("uploads/ServiceImages/{$fileName}"));
-                                $img->resize(300, 300, function ($constraint) {
-                                $constraint->aspectRatio();
-                                $constraint->upsize();
-                                })->save(public_path().'/uploads/ServiceImages/resized/' . $fileName);
-                                $img->destroy();
-                                $img = Image::make(public_path("uploads/ServiceImages/{$fileName}"));
-                                $img->resize(600, 600, function ($constraint) {
-                                $constraint->aspectRatio();
-                                $constraint->upsize();
-                                })->save(public_path().'/uploads/ServiceImages/serviceDetails/' . $fileName);
-                                $img->destroy();
-                                $img = Image::make(public_path("uploads/ServiceImages/{$fileName}"));
-                                $img->resize(100, 100, function ($constraint) {
-                                $constraint->aspectRatio();
-                                $constraint->upsize();
-                                })->save(public_path().'/uploads/ServiceImages/serviceIcons/' . $fileName);
-                                $img->destroy();
-
-                             
-                    /*service detail page images*/
-                    
-                           } else {
+                   
+                            } else {
            
                                    $fileError = 1;
            

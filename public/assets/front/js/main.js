@@ -176,18 +176,19 @@ $('#variant_table').on('change', '.variant_image', function () {
         var variant_id  = $(this).attr('variant_id');
         
         var validExtensions = ["jpg","jpeg","gif","png"];
-        var minwidth  = 230;
-        var minheight = 230;
+        var minwidth  = 600;
+        var minheight = 600;
+       
 
         var file = $(this).val().split('.').pop();
         if (validExtensions.indexOf(file) == -1) {
                 showErrorMessage(invalid_files_err);
                 $(this).val('');
-                return false;
+                return false;  
         }
          var reader = new FileReader();
             //Read the contents of Image File.
-           /* reader.readAsDataURL(fileUpload.files[0]);
+            reader.readAsDataURL(fileUpload.files[0]);
             reader.onload = function (e) {
                 //Initiate the JavaScript Image object.
                 var image = new Image();
@@ -205,41 +206,42 @@ $('#variant_table').on('change', '.variant_image', function () {
                         showErrorMessage(image_upload_height_width);
                         $(this).val('');
                         return false;
+
                     }
-                   
-                    return true;
+                 
+                      var formData = new FormData();
+      
+                      if (fileUpload.files.length > 0) {
+
+                             formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+
+                              $(".loader").show();
+                              $.ajax({
+                                  headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+                                    url: siteUrl+'/manage-products/upload-variant-image',
+                                    type: 'POST',
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+
+                                    success: function(data) {
+                                      $(".loader").hide();
+                                    /* elm.parent('div').next().next('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
+                                        '<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="50" height="50">'+
+                                                          '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');*/
+
+                                    elm.prev('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
+                                        '<img src="'+siteUrl+'/uploads/ProductImages/resized/'+data+'" width="78" height="80">'+
+                                                          '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');          
+                                    }
+
+                              });
+                      }
                 };
  
-            }*/
+            }
 
-        var formData = new FormData();
       
-        if (fileUpload.files.length > 0) {
-
-               formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
-
-                $(".loader").show();
-                $.ajax({
-                    headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
-                      url: siteUrl+'/manage-products/upload-variant-image',
-                      type: 'POST',
-                      data: formData,
-                      processData: false,
-                      contentType: false,
-
-                      success: function(data) {
-                        $(".loader").hide();
-                      /* elm.parent('div').next().next('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
-                          '<img src="'+siteUrl+'/uploads/ProductImages/'+data+'" width="50" height="50">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');*/
-
-                      elm.prev('div.selected_images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images['+variant_id+'][]">'+
-                          '<img src="'+siteUrl+'/uploads/ProductImages/resized/'+data+'" width="78" height="80">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');          
-                      }
-
-                });
-        }
 
 });
 
@@ -483,7 +485,7 @@ $(".saveproduct").click(function(e){
 
   }
 
- /* if(variant_image == '')
+/*  if(variant_image == '')
   {
     $("#err_variant_image").html(required_field_error).show();
     $("#err_variant_image").parent().addClass('jt-error');
@@ -500,11 +502,14 @@ $(".saveproduct").click(function(e){
     $("#err_variant_hid_image").html(wait_while_upload).show();
     $("#err_variant_hid_image").parent().addClass('jt-error');
     error = 1;
+  }else if(variant_image == ''){
+     $("#err_variant_image").html(required_field_error).show();
+    $("#err_variant_image").parent().addClass('jt-error');
+    error = 1;
   }
   else
   {
     $("#err_variant_hid_image").html('').show();
-
   }
 
  /*  $( ".variant_image:visible" ).each(function() {
@@ -1103,10 +1108,58 @@ function ConfirmCloseStoreFunction(url, id = false) {
       }
   });
 }
+function showProductsServices(OrderDetailsId=1)
+{
+  $.confirm({
+      title: js_confirm_msg,
+      content: product_remove_confirm,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          products: function () {
+            $(".loader").show();
+             window.location.href = siteUrl+"/products"; 
+            /*$.ajax({
+              url:siteUrl+"/remove-from-cart",
+              headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              },
+              type: 'post',
+              data : {'OrderDetailsId': OrderDetailsId},
+              success:function(data)
+              {
+                $(".loader").hide();services
+                var responseObj = $.parseJSON(data);
+                if(responseObj.status == 1)
+                {
+                    showSuccessMessage(responseObj.msg,'reload');
+                }
+                else
+                {
+                    showErrorMessage(responseObj.msg,'/front-login/buyer');
+                }
+        
+              }
+            });*/
+          },
+          services: function () {
+             window.location.href = siteUrl+"/services"; 
+          },
+      }
+  });
+
+}
+
+$(".search_icon_btn").click(function(){
+  showProductsServices("sjhdh",'/front-login/buyer');
+});
 
 if($('.product_listings').length>0) {
   var page = 1;
-
+//function showSuccessMessage(strContent,redirect_url = '')
+  //showProductsServices("sjhdh",'/front-login/buyer');
   get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
   $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
   $(".current_search_string").text(),'',$(".current_role_id").text());
@@ -1265,7 +1318,7 @@ if($('.service_listings').length>0) {
    });
 }
 
-$(document).on('click', '#productSearchFilter', function(event){
+/*$(document).on('click', '#productSearchFilter', function(event){
       event.preventDefault();
       $('.product_listings').show();
       $('#other_watched_products').show();
@@ -1289,7 +1342,7 @@ $(document).on('click', '#serviceSearchFilter', function(event){
       $("#productSearchFilter").addClass("inactiveFilter");
       get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text());
 
-});
+});*/
 // function get_service_listing(page,category_slug='',subcategory_slug='',sellers ='',price='', search_string='') {
 //   var sort_by_order = $("#sort_by_order").val();
 //   var sort_by = $("#sort_by").val();

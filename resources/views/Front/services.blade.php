@@ -16,6 +16,7 @@
         <div class="col-md-3">
             @include('Front.services_sidebar')
         </div>
+
         <div class="col-md-9 services-page">
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
             <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
@@ -26,7 +27,20 @@
                   <div class="col-md-6">
                     <!-- <h2>{{ __('lang.trending_service_head')}}</h2>
                     <hr class="heading_line"/> -->
+                    @if( Request::segment(1) !='annonser')
+                      <div class="col-md-3">
+                        <label class="checkbox toggle candy" onclick=""  style="width:100px">
+                          <input id="view" type="checkbox" />
+                          <p>
+                            <span class="product_sorting_filter" id="productSearchFilter"  product_link="{{route('AllproductListing')}}">{{ __('lang.category_product_title')}}</span>
+                            <span class="product_sorting_filter" id="serviceSearchFilter" service_link="{{route('AllserviceListing')}}">{{ __('lang.category_service_title')}}</span>
+                          </p>                  
+                          <a class="slide-button"></a>                  
+                         </label>                   
+                      </div>
+                    @endif
                   </div>
+
                   <div class="col-md-3 prod-service-filter" >
 
                     <div class="form-group">
@@ -55,6 +69,7 @@
                   </div>
                 </div>
                 <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+             <!--    <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span> -->
             </div>
         </div>
     </div>
@@ -76,7 +91,14 @@
                             @include('Front.services_widget')
                   @endforeach
 				 </ul>
-            </div>
+<!-- 
+          <ul class="product_details best_seller" id="other_watched_products" style="margin-left:4px;display:none">
+                  @foreach($PopularProducts as $product)
+                            @include('Front.products_widget')
+                  @endforeach
+                 </ul>
+      -->
+        </div>
 
 
 </div>
@@ -85,6 +107,26 @@
 </section>
 
 <script type="text/javascript">
+  $( document ).ready(function() {
+  $("#productSearchFilter").addClass("filterActive");
+  $("#serviceSearchFilter").addClass("inactiveFilter");
+ // $('.product_listings').hide();
+});
+  $("#productSearchFilter").click(function(){
+  var attr_val = $(this).attr('product_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+
+});
+
+  $("#serviceSearchFilter").click(function(){
+  var attr_val = $(this).attr('service_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+
+});
 function listServices(){
 
   var sort_by_order = $("#sort_by_order").val();

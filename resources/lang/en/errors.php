@@ -123,7 +123,7 @@
      'please_active_your_account' => 'please verify registered Email-Id before login',
      'please_add_payment_details' => 'Please Add at least one Payment Details',
      'seller_account_freeze' => 'your account is freeze please entered your card deatils in order to auto subscribe the package',
-     'image_upload_height_width' => 'Height and Width must greater than 230px.',    
+     'image_upload_height_width' => 'Height and Width must greater than 600px.',    
      'fill_in_country_err'=>'Please fill in your Country',
      'payment_req_token_not_generated' => 'Looks like seller did not configure payment option properly, Please contact admin for more details.',
      'please_check_swish_checkbox' =>'Please Check Checkbox next to Swish Number.',

@@ -34,8 +34,8 @@
                 <label class="checkbox toggle candy" onclick=""  style="width:100px">
                   <input id="view" type="checkbox" />
                   <p>
-                    <span class="product_sorting_filter" id="productSearchFilter" >{{ __('lang.category_product_title')}}</span>
-                    <span class="product_sorting_filter" id="serviceSearchFilter">{{ __('lang.category_service_title')}}</span>
+                    <span class="product_sorting_filter" id="productSearchFilter" product_link="{{route('AllproductListing')}}">{{ __('lang.category_product_title')}}</span>
+                    <span class="product_sorting_filter" id="serviceSearchFilter" service_link="{{route('AllserviceListing')}}">{{ __('lang.category_service_title')}}</span>
                   </p>                  
                   <a class="slide-button"></a>                  
                  </label>                   
@@ -132,6 +132,21 @@ $( document ).ready(function() {
   $('.service_listings').hide();
 });
    
+ $("#productSearchFilter").click(function(){
+  var attr_val = $(this).attr('product_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+
+});
+
+  $("#serviceSearchFilter").click(function(){
+  var attr_val = $(this).attr('service_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+
+});
 
 function getListing()
 {

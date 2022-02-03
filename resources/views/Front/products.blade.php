@@ -15,6 +15,7 @@
           @include('Front.category_breadcrumb')
          
         @endif
+
         <div class="">
 			  @if(Request::segment(1) =='annonser')
 				<div class="col-md-3 col-annonser-sidebar">
@@ -138,6 +139,21 @@ $( document ).ready(function() {
   $('.service_listings').hide();
 });
    
+ $("#productSearchFilter").click(function(){
+  var attr_val = $(this).attr('product_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+
+});
+
+  $("#serviceSearchFilter").click(function(){
+  var attr_val = $(this).attr('service_link');
+  if(attr_val !=''){
+    window.location.href = attr_val; 
+  }
+
+});
 
 function getListing()
 {

@@ -310,7 +310,7 @@
 </div> <!-- /container -->
 </div>
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">

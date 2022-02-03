@@ -288,4 +288,12 @@
     </nav>
   </header>
 
+  <script type="text/javascript">
+     function saveValue(e){
+            var id = e.id;  // get the sender's id to save it . 
+            var val = e.value; // get the value. 
+            localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override . 
+        }
+  </script>
+
  

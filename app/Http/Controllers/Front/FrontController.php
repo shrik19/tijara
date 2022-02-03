@@ -1590,6 +1590,7 @@ public function getCatSubList(Request $request) {
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();
 	
 		$Product = $Products[0]; 
+
 		/*$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();*/
 		//$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>',0)->orderBy('id','ASC')->get();
 		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();
@@ -1633,7 +1634,58 @@ public function getCatSubList(Request $request) {
 			$data['Categories'] = $this->getCategorySubcategoryList();
 		}
 		
-		$data['PopularProducts']	= $this->getPopularProducts(5);
+		//$Product->id limit 5
+/*DB::enableQueryLog();
+
+// and then you can get query log
+
+
+  OrdersDetails::join('products', 'products.id', '=', 'orders_details.product_id')
+  select('orders_details.*')->where('orders_details.product_id','!=',80)->whereIn('orders_details.order_id', function($query){
+    $query->select('orders_details.order_id')
+    ->from('orders_details')    
+    ->where('orders_details.product_id','=',$Product->id);
+})->get();
+print_r(DB::getQueryLog());exit;*/
+//echo "<pre>";print_r($Products[0]['id']);exit;
+DB::enableQueryLog();
+$p_id =$Products[0]['id'];
+//echo $p_id;exit;
+
+	$currentDate = date('Y-m-d H:i:s');
+		$PopularProducts	= OrdersDetails::join('products', 'products.id', '=', 'orders_details.product_id')
+									->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+									->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+									->join('category_products', 'products.id', '=', 'category_products.product_id')
+									->join('categories', 'categories.id', '=', 'category_products.category_id')
+									->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+									->join('users', 'products.user_id', '=', 'users.id')
+									->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')//DB::raw("DATEDIFF(products.created_at, '".$currentDate."') AS posted_days")
+									->select(['products.*',DB::raw("DATEDIFF('".$currentDate."', products.sold_date) as sold_days"), DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") , DB::raw("count(orders_details.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id','categories.category_name','products.discount'])
+									->where('products.status','=','active')
+									->where('products.is_deleted','=','0')
+									->where('categories.status','=','active')
+									->where('subcategories.status','=','active')
+									->where('users.status','=','active')
+									->where('users.is_shop_closed','=','0')
+									->where('users.is_deleted','=','0')
+									->select('products.*')->where('orders_details.product_id','!=',$p_id)->whereIn('orders_details.order_id', function($query)use ($p_id){
+
+									$query->select('orders_details.order_id')
+									->from('orders_details')
+									->where('orders_details.product_id','=',$p_id);  
+									//->where('orders_details.product_id','=',$p_id);
+									})->groupBy('products.id')
+									->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
+								
+									if(count($PopularProducts)>0){
+										$data['PopularProducts']=$PopularProducts;
+									}else{
+										$data['PopularProducts']	= $this->getPopularProducts(5);
+									}
+
+										
+
 		$data['Product']			= $Product;
 		$data['variantData']		= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;
@@ -2219,7 +2271,7 @@ public function getCatSubList(Request $request) {
 		}else{
 			$limit = config('constants.Popular_Product_limits');
 		}
-		$PopularServices 	= Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')								
+	/*	$PopularServices 	= Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')								
 								->join('category_services', 'services.id', '=', 'category_services.service_id')
 								->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
 								->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
@@ -2240,57 +2292,34 @@ public function getCatSubList(Request $request) {
 								
 								})
 
-								//->orwhere([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
-								//->orwhere([['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]])
 								->orderBy('totalOrderedServices', 'DESC')
 								->groupBy('services.id')
-								->offset(0)->limit($limit)->get();
-	//echo "<pre>";print_r($PopularServices);exit;
-        //echo $current_uri[0];exit;
-									DB::enableQueryLog();
-		if(count($PopularServices)<10){
-
-			$number =10-count($PopularServices);
-			//echo $number;exit;
-		
-			$currentDate = date('Y-m-d H:i:s');
-			$roleId = 2;
-		$TrendingServices 	= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
-							  ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-							  ->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
-							  ->join('users', 'services.user_id', '=', 'users.id')
-							  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
-							  ->select(['services.*','servicecategories.category_name','users.role_id']) //
-							  ->where(function($q) use ($currentDate) {
+								->offset(0)->limit($limit)->get();*/
+	$PopularServices 	= Services::leftjoin('service_requests', 'services.id', '=', 'service_requests.service_id')								
+								->join('category_services', 'services.id', '=', 'category_services.service_id')
+								->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
+								->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
+								->join('users', 'services.user_id', '=', 'users.id')
+								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
+								->select(['services.*',DB::raw("count(service_requests.id) as totalOrderedServices"),'servicecategories.category_name'])
+								->where('services.status','=','active')
+								->where('services.is_deleted','=','0')
+								->where('servicecategories.status','=','active')
+							  	->where('serviceSubcategories.status','=','active')
+								->where('users.status','=','active')
+								->where('users.is_deleted','=','0')
+                			    ->where('users.is_shop_closed','=','0')
+                			    ->where(function($q) use ($currentDate) {
 
 								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
-								->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);
+									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);
+								
 								})
-							  ->where('services.status','=','active')
-							  ->where('services.is_deleted','=','0')
-                			  ->where('users.status','=','active')
-                			  ->where('users.is_deleted','=','0')
-                			  ->where('users.is_shop_closed','=','0')
-							  ->where('servicecategories.status','=','active')
-							  ->where('serviceSubcategories.status','=','active')
-							  ->orderBy('services.id', 'DESC')
-							  //->orderBy('variant_id', 'ASC')
-							  ->groupBy('services.id')
-							// ->offset(0)->limit(config('constants.Front_Products_limits'));
-							    ->offset(0)->limit($number);
-							  if($roleId!='')
-								$TrendingServices->where('users.role_id','=',$roleId);
 
-								$TrendingServices	=$TrendingServices->get();
-								//echo "<pre>";print_r(count($TrendingProducts));exit;
-								$PopularServices = $PopularServices->merge($TrendingServices);
-//echo "<pre>";print_r($PopularServices1);exit;
+								->orderBy('service_requests.service_id', 'DESC')
+								->groupBy('services.id')
+								->offset(0)->limit($limit)->get();
 
-		}	
-		//echo "<pre>";
-	//	print_r(DB::getQueryLog());exit;
-		//exit;	
-        //echo "<pre>";print_r(count($PopularServices));exit;
 		if(count($PopularServices)>0) {
 			foreach($PopularServices as $Service) {
 				$serviceCategories = $this->getServiceCategories($Service->id);

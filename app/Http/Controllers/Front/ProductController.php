@@ -651,14 +651,13 @@ class ProductController extends Controller
                     else{
 		              $variant_id=VariantProduct::create($producVariant)->id;
                     }
-
-		            foreach($_POST['attribute'][$variant_key] as $attr_key=>$attribute) {
-                       
-		                if($_POST['attribute'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
+					
+		            foreach($_POST['attribute_value'][$variant_key] as $attr_key=>$attribute) {
+		                if($_POST['attribute_value'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
 		                {
 		                    $productVariantAttr['product_id']   =   $id;
     		                $productVariantAttr['variant_id']   =   $variant_id;
-    		                $productVariantAttr['attribute_id'] =   $_POST['attribute'][$variant_key][$attr_key];
+    		                $productVariantAttr['attribute_id'] =   $attr_key;
     		                $productVariantAttr['attribute_value_id'] =   $_POST['attribute_value'][$variant_key][$attr_key];
                             if(isset($_POST['variant_attribute_id'][$variant_key][$attr_key])) {
                                 $checkRecordExist   =   VariantProductAttribute::where('id', $_POST['variant_attribute_id'][$variant_key][$attr_key])->first();
@@ -676,6 +675,7 @@ class ProductController extends Controller
 		                }
 		                
 		            }
+
 		        }
 		    }
 

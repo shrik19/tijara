@@ -149,15 +149,20 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.select_attribute').attr('variant_id',variant_id);
     $trNew.find('.clone_tr').remove();
     $trNew.find('.select_attribute').val('');
-    $trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
+    //$trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
     $trNew.find('tr.attribute_tr:gt(0)').remove();
     $trNew.find('img').remove();
     $trNew.find('.remove_image').remove();
     if($trNew.find('.add_attribute_group_td').find('.remove_variant_btn').length<=0)
     $trNew.find('.remove_variant_div').html("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>");
-    $trNew.find('.variant_attribute_id').attr('value','').attr('name','variant_attribute_id['+variant_id+'][0]');
-    $trNew.find('.select_attribute').removeClass('preselected_attribute').attr('id','0').attr('name','attribute['+variant_id+'][0]');
-    $trNew.find('.select_attribute_value').removeClass('preselected_attribute').attr('name','attribute_value['+variant_id+'][0]');
+
+	$trNew.find('.select_attribute_value').each(function() { 
+         $(this).attr('name','attribute_value['+variant_id+']['+$(this).attr('attribute_id')+']');
+     });
+
+    //$trNew.find('.variant_attribute_id').attr('name','variant_attribute_id['+variant_id+'][0]');
+    //$trNew.find('.select_attribute').removeClass('preselected_attribute').attr('id','0').attr('name','attribute['+variant_id+'][0]');
+    //$trNew.find('.select_attribute_value').removeClass('preselected_attribute').attr('name','attribute_value['+variant_id+'][0]');
 
     $trLast.after($trNew);
 

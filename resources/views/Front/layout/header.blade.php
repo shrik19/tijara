@@ -110,7 +110,7 @@
               else
                 $formUrl  = route('AllproductListing');
               @endphp
-                <form method="POST" action="{{$formUrl}}" class="navbar-form navbar-left header_left_container" role="form">
+                <form method="POST" action="{{$formUrl}}" class="navbar-form navbar-left header_left_container" role="form" onSubmit="return false">
                   @csrf
                   <div class="col-md-10">
                 <div class=" form-group search_now_input_box">

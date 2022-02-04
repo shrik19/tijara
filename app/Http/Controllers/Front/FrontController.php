@@ -665,7 +665,7 @@ public function getCatSubList(Request $request) {
 			$PopularProducts->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
 		}*/
 
-		if(count($PopularProducts)<10){
+		if(count($PopularProducts)<10 && $limit ==10){
 			$number =10-count($PopularProducts);
 			DB::enableQueryLog();
 			$currentDate = date('Y-m-d H:i:s');
@@ -1159,7 +1159,7 @@ public function getCatSubList(Request $request) {
 		
 			
 		
-    	$data['PopularProducts']	= $this->getPopularProducts($category_slug,$subcategory_slug);
+    	$data['PopularProducts']	= $this->getPopularProducts(config('constants.similar_product_limits'),$category_slug,$subcategory_slug);
 		$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
     	$data['category_slug']		=	'';
     	$data['subcategory_slug']	=	'';
@@ -1669,7 +1669,7 @@ $p_id =$Products[0]['id'];
 									->where('users.status','=','active')
 									->where('users.is_shop_closed','=','0')
 									->where('users.is_deleted','=','0')
-									->select('products.*')->where('orders_details.product_id','!=',$p_id)->whereIn('orders_details.order_id', function($query)use ($p_id){
+									->where('orders_details.product_id','!=',$p_id)->whereIn('orders_details.order_id', function($query)use ($p_id){
 
 									$query->select('orders_details.order_id')
 									->from('orders_details')
@@ -2271,6 +2271,7 @@ $p_id =$Products[0]['id'];
 		}else{
 			$limit = config('constants.Popular_Product_limits');
 		}
+	
 	/*	$PopularServices 	= Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')								
 								->join('category_services', 'services.id', '=', 'category_services.service_id')
 								->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')

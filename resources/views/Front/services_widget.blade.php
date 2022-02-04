@@ -69,7 +69,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
            <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
            @endif -->
         <a href="{{$service->service_link}}" title="{{$service->title}}"><h4>@php echo substr($service->title, 0, 50) @endphp</h4></a>
-        @if(Request::segment(1) !='services' && Request::segment(1) != 'seller')
+
           <div class="star-rating" style="font-size:15px;">
           <select class='rating service_rating' id='rating_{{$service->id}}' data-id='rating_{{$service->id}}' data-rating='{{$service->rating}}'>
           <option value="1" >1</option>
@@ -79,7 +79,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
           <option value="5" >5</option>
           </select>
           </div> 
-        @endif
+
 
         @if(!empty($service->service_price))
           <h6 class="product_price" style="margin-top: 6px;">{{$service->service_price}} kr</h6>

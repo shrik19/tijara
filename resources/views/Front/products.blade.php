@@ -45,6 +45,7 @@
 				   @endif
 				 <div class="col-md-12 pr-0"> 
 				  @if( Request::segment(1) !='annonser')
+         
 					  <div class="col-md-4 pr-0" style="padding-left: 30px;">
 						<label class="checkbox toggle candy" onclick="" style="width:100px">
 						  <input id="view" type="checkbox" />
@@ -55,6 +56,7 @@
 						  <a class="slide-button"></a>                  
 						 </label>                   
 					  </div>
+   
 					@else
 						<div class="col-md-4"></div>
 					@endif
@@ -137,22 +139,23 @@ $( document ).ready(function() {
   $("#productSearchFilter").addClass("filterActive");
   $("#serviceSearchFilter").addClass("inactiveFilter");
   $('.service_listings').hide();
+  $("#productSearchFilter").click(function(){
+  $("#product_service_search_type").val('products');
+  $('#product_service_search_from').attr('action',siteUrl+"/products");
+  $('#product_service_search_from').attr('onSubmit','');
+  $('#product_service_search_from').submit();
+
+ 
+});
 });
    
- $("#productSearchFilter").click(function(){
-  var attr_val = $(this).attr('product_link');
-  if(attr_val !=''){
-    window.location.href = attr_val; 
-  }
 
-});
 
   $("#serviceSearchFilter").click(function(){
-  var attr_val = $(this).attr('service_link');
-  if(attr_val !=''){
-    window.location.href = attr_val; 
-  }
-
+    $("#product_service_search_type").val('products');
+    $('#product_service_search_from').attr('action',siteUrl+"/services");
+    $('#product_service_search_from').attr('onSubmit','');
+    $('#product_service_search_from').submit();
 });
 
 function getListing()

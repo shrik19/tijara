@@ -26,6 +26,7 @@
                 <div class="small-container">
                   <div id="small-img-roll">
                    @if(isset($first['images'][0]) && !empty($first['images'][0]))
+                   
                     @foreach($first['images'] as $image)
                       <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$image}}" class="show-small-img" alt="">
                     @endforeach

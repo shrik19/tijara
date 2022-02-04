@@ -93,13 +93,7 @@
                             @include('Front.services_widget')
                   @endforeach
 				 </ul>
-<!-- 
-          <ul class="product_details best_seller" id="other_watched_products" style="margin-left:4px;display:none">
-                  @foreach($PopularProducts as $product)
-                            @include('Front.products_widget')
-                  @endforeach
-                 </ul>
-      -->
+   
         </div>
 
 
@@ -110,23 +104,24 @@
 
 <script type="text/javascript">
   $( document ).ready(function() {
-  $("#productSearchFilter").addClass("filterActive");
-  $("#serviceSearchFilter").addClass("inactiveFilter");
- // $('.product_listings').hide();
+  $("#serviceSearchFilter").addClass("filterActive");
+  $("#productSearchFilter").addClass("inactiveFilter");
+ // $("#serviceSearchFilter").addClass("inactiveFilter");
 });
-  $("#productSearchFilter").click(function(){
-  var attr_val = $(this).attr('product_link');
-  if(attr_val !=''){
-    window.location.href = attr_val; 
-  }
+  
+$("#productSearchFilter").click(function(){
+  $("#product_service_search_type").val('products');
+  $('#product_service_search_from').attr('action',siteUrl+"/products");
+  $('#product_service_search_from').attr('onSubmit','');
+  $('#product_service_search_from').submit();
 
 });
 
   $("#serviceSearchFilter").click(function(){
-  var attr_val = $(this).attr('service_link');
-  if(attr_val !=''){
-    window.location.href = attr_val; 
-  }
+  $("#product_service_search_type").val('products');
+    $('#product_service_search_from').attr('action',siteUrl+"/services");
+    $('#product_service_search_from').attr('onSubmit','');
+    $('#product_service_search_from').submit();
 
 });
 function listServices(){

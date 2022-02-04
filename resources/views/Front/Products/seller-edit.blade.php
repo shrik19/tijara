@@ -235,11 +235,11 @@
                                   </div> -->
 								  
 								  <div class="form-group  col-md-12 producterrDiv" >
-									<label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col">*</span></label>
+									<label class="col-md-3">{{ __('lang.select_attribute_label')}} </label>
 									<div class="col-md-8" >
 									@foreach ($attributesToSelect as $attr)
 										<div class="row form-group producterrDiv" >
-											<label class="col-md-4">{{ $attr->name }} <span class="de_col">*</span></label>
+											<label class="col-md-4">{{ $attr->name }}</label>
 											<?php
 											$selected_attr_value ="";
 											foreach ($variant['attributes'] as $attr1){	
@@ -248,7 +248,7 @@
 											}
 											?>
 											<select attribute_id="{{ $attr->id }}" style="width: 34%;" selected_attribute_value="{{ $selected_attr_value }}" 
-											class=" variant_field col-md-4 ge_input select_attribute_value variant_field" name="attribute_value[<?php echo $i;?>][{{ $attr->id }}]">
+											class="col-md-4 ge_input select_attribute_value " name="attribute_value[<?php echo $i;?>][{{ $attr->id }}]">
 											</select>
 										</div>	
 									@endforeach

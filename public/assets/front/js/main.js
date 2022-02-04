@@ -507,15 +507,18 @@ $(".saveproduct").click(function(e){
     $("#err_variant_hid_image").html(wait_while_upload).show();
     $("#err_variant_hid_image").parent().addClass('jt-error');
     error = 1;
-  }else if(variant_image == ''){
+  }else if(hidden_images =='' && variant_image == ''){
+
      $("#err_variant_image").html(required_field_error).show();
     $("#err_variant_image").parent().addClass('jt-error');
     error = 1;
   }
   else
   {
+
     $("#err_variant_hid_image").html('').show();
   }
+
 
  /*  $( ".variant_image:visible" ).each(function() {
  
@@ -534,6 +537,7 @@ $(".saveproduct").click(function(e){
   
 
   $( ".variant_field:visible" ).each(function() {
+
       if($(this).val()=='') {
           $(this).next('.invalid-feedback').html(required_field_error);
           error = 1;
@@ -542,6 +546,7 @@ $(".saveproduct").click(function(e){
       $(this).next('.invalid-feedback').html('');
   });
   $( ".add_attribute_group_td" ).each(function() {
+  
     if($(this).find('.added_attributes_each_div').length<=0) {
         $(this).find('.added_attributes').html('<span style="color:red;">'+required_field_error+'</span>');
         error = 1;
@@ -1124,33 +1129,18 @@ function showProductsServices(OrderDetailsId=1)
       icon: 'fas fa-exclamation-triangle',
       buttons: {
           products: function () {
-            $(".loader").show();
-             window.location.href = siteUrl+"/products"; 
-            /*$.ajax({
-              url:siteUrl+"/remove-from-cart",
-              headers: {
-                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-              },
-              type: 'post',
-              data : {'OrderDetailsId': OrderDetailsId},
-              success:function(data)
-              {
-                $(".loader").hide();services
-                var responseObj = $.parseJSON(data);
-                if(responseObj.status == 1)
-                {
-                    showSuccessMessage(responseObj.msg,'reload');
-                }
-                else
-                {
-                    showErrorMessage(responseObj.msg,'/front-login/buyer');
-                }
-        
-              }
-            });*/
+            $("#product_service_search_type").val('products');
+            $('#product_service_search_from').attr('action',siteUrl+"/products");
+            $('#product_service_search_from').attr('onSubmit','');
+            $('#product_service_search_from').submit();
+            
           },
           services: function () {
-             window.location.href = siteUrl+"/services"; 
+          //  alert("service");return
+           $("#product_service_search_type").val('services');
+           $('#product_service_search_from').attr('action',siteUrl+"/services");
+            $('#product_service_search_from').attr('onSubmit','');
+            $('#product_service_search_from').submit();
           },
       }
   });
@@ -1182,7 +1172,7 @@ if($('.product_listings').length>0) {
 
 function get_product_listing(page,category_slug='',subcategory_slug='',
   sellers ='',price='',city='', search_string='',search_seller_product='',current_role_id='') {
-  
+ 
  var city = $('#city_name').val();
 
   var sort_by_order = $("#sort_by_order").val();

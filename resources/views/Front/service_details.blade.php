@@ -143,7 +143,7 @@
 
                                         
                                         @if(!in_array($availability->service_date,$usedDates) && $availability->service_date >= date('Y-m-d'))
-                                          <option value="{{$availability->service_date}}">{{$availability->service_date}}</option>
+                                          <option value="{{$availability->service_date}}" class="service_time_option">{{$availability->service_date}}</option>
                                         @endif
                                         @php $usedDates[]=$availability->service_date; @endphp
                                        @endforeach
@@ -428,8 +428,9 @@
 
 <script type="text/javascript">   
 $( document ).ready(function() {
-  var service_d = $('.service_time').val();
-  if(service_d == ''){
+  var service_d = $('.service_time_option').val();
+
+  if(service_d == '' || typeof service_d=='undefined'){
     $('.productStockOut').show();
     $('.book_service_button').attr('disabled', 'disabled');
   }

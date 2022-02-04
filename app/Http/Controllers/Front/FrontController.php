@@ -1661,7 +1661,7 @@ $p_id =$Products[0]['id'];
 									->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 									->join('users', 'products.user_id', '=', 'users.id')
 									->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')//DB::raw("DATEDIFF(products.created_at, '".$currentDate."') AS posted_days")
-									->select(['products.*',DB::raw("DATEDIFF('".$currentDate."', products.sold_date) as sold_days"), DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") , DB::raw("count(orders_details.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id','categories.category_name','products.discount'])
+									->select(['products.*',DB::raw("DATEDIFF('".$currentDate."', products.sold_date) as sold_days"), DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") , DB::raw("count(orders_details.id) as totalOrderedProducts"),'variant_product.image','variant_product.price','variant_product.id as variant_id','categories.category_name','products.discount','users.store_name'])
 									->where('products.status','=','active')
 									->where('products.is_deleted','=','0')
 									->where('categories.status','=','active')

@@ -119,5 +119,6 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
     'product_out_stock' => 'Slut i lager.',
     'make_payment_on_swish_number' => 'Betala på detta swishnummer.',
     'order_placed_success' => 'Beställningen genomförd.',
+    'service_not_available' => 'Tjänsten är inte tillgänglig just nu.',
  ]
 ?>

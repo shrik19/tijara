@@ -97,6 +97,10 @@
                            <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn sub_btn book_service_button" title="{{ __('users.see_available_time_btn')}}" id="reset_option">{{ __('users.see_available_time_btn')}}<i class="far fa-calendar-alt" style="margin-left: 10px;font-size: 20px;"></i></a>
                          </div>
                         </div>
+
+                        <div class="col-xs-6 col-md-12 p-0">
+                        <sapn class="productStockOut">{{ __('messages.service_not_available') }}</span> 
+                        </div>
                         
                         <!-- Modal -->
                         <div class="modal fade" id="bookServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -423,6 +427,13 @@
   <!-- end service review edit  model Form -->
 
 <script type="text/javascript">   
+$( document ).ready(function() {
+  var service_d = $('.service_time').val();
+  if(service_d == ''){
+    $('.productStockOut').show();
+    $('.book_service_button').attr('disabled', 'disabled');
+  }
+});
 
 function deleteServiceReview(rating_id){
 

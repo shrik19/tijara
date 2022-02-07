@@ -1826,6 +1826,46 @@ padding-left: 0px!important;
 .pr-w-0{
 	padding-Right: 0px !important;
 }
+
+/*********************** Search popup ************************/
+.productServicePopup .jconfirm-title-c {
+    width: 65px;
+    margin: 40px auto 10px;
+}
+
+.productServicePopup .jconfirm-title-c .jconfirm-icon-c {
+    background: #03989e;
+    padding: 20px;
+    color: #ffffff !important;
+    border-radius: 30px;
+}
+
+.productServicePopup .jconfirm-content {
+    text-align: center;
+}
+
+.productServicePopup .jconfirm-buttons {
+    float: none !important;
+    text-align: center;
+	margin-bottom: 30px
+}
+
+.productServicePopup .jconfirm-buttons button.btn.btn-default {
+    font-size: 25px !important;
+    margin: 10px 15px !important;
+    width: 180px;
+    height: 180px;
+    border-radius: 10px !important;
+    box-shadow: -10px 10px 10px -3px #aaa !important;
+    text-transform: capitalize !important;
+}
+
+.productServicePopup .jconfirm-buttons .btn:last-child {
+	background-color: #D9D9D9 !important;
+}
+
+/*************************************************************/
+
 @media (min-width: 768px) {
 .col-sm-15 {
         width: 20%;

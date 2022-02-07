@@ -1120,10 +1120,10 @@ function ConfirmCloseStoreFunction(url, id = false) {
 }
 function showProductsServices()
 {
-  $.confirm({
-      title: js_confirm_msg,
-      content: select_what_to_search,
-      type: 'orange',
+  var a = $.confirm({
+      title: '',
+      content: '<h1>'+select_what_to_search+'</h1>',
+      type: 'white',
       typeAnimated: true,
       columnClass: 'medium',
       icon: 'fas fa-check',
@@ -1139,11 +1139,14 @@ function showProductsServices()
           //  alert("service");return
            $("#product_service_search_type").val('services');
            $('#product_service_search_from').attr('action',siteUrl+"/services");
-            $('#product_service_search_from').attr('onSubmit','');
-            $('#product_service_search_from').submit();
+           $('#product_service_search_from').attr('onSubmit','');
+           $('#product_service_search_from').submit();
           },
       }
   });
+  
+  a.open();
+  $('.jconfirm').addClass('productServicePopup');
 
 }
 

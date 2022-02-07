@@ -73,6 +73,8 @@
     var oops_heading = "{{ __('users.oops_heading')}}";
     var success_heading = "{{ __('users.success_heading')}}";
     var cancel_btn = "{{ __('lang.cancel_btn')}}";
+    var select_what_to_search = "{{ __('messages.select_what_to_search')}}";
+
 
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)

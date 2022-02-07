@@ -1118,15 +1118,15 @@ function ConfirmCloseStoreFunction(url, id = false) {
       }
   });
 }
-function showProductsServices(OrderDetailsId=1)
+function showProductsServices()
 {
   $.confirm({
       title: js_confirm_msg,
-      content: product_remove_confirm,
+      content: select_what_to_search,
       type: 'orange',
       typeAnimated: true,
       columnClass: 'medium',
-      icon: 'fas fa-exclamation-triangle',
+      icon: 'fas fa-check',
       buttons: {
           products: function () {
             $("#product_service_search_type").val('products');
@@ -1148,7 +1148,16 @@ function showProductsServices(OrderDetailsId=1)
 }
 
 $(".search_icon_btn").click(function(){
-  showProductsServices("sjhdh",'/front-login/buyer');
+  var serach_val = $("#search_string").val();
+  if(serach_val==''){
+    $("#product_service_search_type").val('products');
+    $('#product_service_search_from').attr('action',siteUrl+"/products");
+    $('#product_service_search_from').attr('onSubmit','');
+    $('#product_service_search_from').submit();
+  }else{
+    showProductsServices();
+  }
+  
 });
 
 if($('.product_listings').length>0) {

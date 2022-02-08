@@ -1119,7 +1119,12 @@ public function getCatSubList(Request $request) {
 	        ->groupBy('city')
 	        ->select('id','city')
 	        ->get();
-	       
+	    $tmpSBuyerData = UserMain::where('id',Auth::guard('user')->id())->first();
+	    if(!empty($tmpSBuyerData) && $tmpSBuyerData->role_id=='1'){
+	    	$data['role_id'] = $tmpSBuyerData->role_id;
+	    }else{
+	    	$data['role_id'] =2;
+	    }
 	    $data['allCities'] = $cities;
 		return view('Front/products', $data);
 	}

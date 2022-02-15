@@ -1589,11 +1589,11 @@ public function getCatSubList(Request $request) {
 
 
 			$Products		=	$Products->first();
-			if(@$_GET['annonser'] ==1){
+			/*if(@$_GET['annonser'] ==1){
 		   		return redirect('/product/'.$Products->product_slug.'-P-'.$Products->product_code.'?annonser=1');
-		    }else{
+		    }else{*/
 		   		return redirect('/product/'.$Products->product_slug.'-P-'.$Products->product_code);
-		    }
+		    //}
 			
 			if(count($Products)<=0)
 			return redirect(route('AllproductListing'));

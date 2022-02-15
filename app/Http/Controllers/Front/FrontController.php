@@ -1502,9 +1502,8 @@ public function getCatSubList(Request $request) {
 
 	public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') 
 	{
-		echo "dfhj";
 	 $current_uri = request()->segments();
-     
+     echo "<pre>0000----";print_r($_GET['annonser']);exit;
       if(@$_GET['annonser'] ==1){
       	$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 										->join('annonsercategories', 'annonsercategories.id', '=', 'category_products.category_id')
@@ -1801,7 +1800,7 @@ $p_id =$Products[0]['id'];
 			$data['similarProducts']	=	$similarProducts;
 			
 			$data['buyer_product_details']	=	BuyerProducts::where('product_id',$Product->id)->first();
-echo "<pre>";print_r($data['buyer_product_details']);exit;
+
 			return view('Front/buyer_product_details', $data);
 		}
 			

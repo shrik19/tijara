@@ -1586,7 +1586,7 @@ public function getCatSubList(Request $request) {
 				$Products	=	$Products->where('products.product_slug','=',$product_parts[0]);
 			if(isset($product_parts[1]))
 				$Products	=	$Products->Orwhere('products.product_code','=',$product_parts[1]);
-
+print_r(DB::getQueryLog());exit;
 			$Products		=	$Products->first();
 			return redirect('/product/'.$Products->product_slug.'-P-'.$Products->product_code);
 			if(count($Products)<=0)
@@ -1594,7 +1594,7 @@ public function getCatSubList(Request $request) {
 		}
 
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();
-print_r(DB::getQueryLog());exit;	
+	
 		$Product = $Products[0]; 
 echo "<pre>";print_r($Product );exit;
 		/*$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();*/

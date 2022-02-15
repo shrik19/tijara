@@ -701,7 +701,7 @@ $(".saveBuyerProduct").click(function(e){
     error = 1;
   }else if(hidden_images =='' && variant_image == ''){
    
-     $("#err_variant_image").html(required_field_error).show();
+    $("#err_variant_image").html(required_field_error).show();
     $("#err_variant_image").parent().addClass('jt-error');
     error = 1;
   }

@@ -241,6 +241,7 @@
 <nav class="navbar sticky-top navbar-expand-lg bg-dark m-0 ">
     <div class="container-fluid">    
       <div class="row">
+        <div class="col-md-10">
         <div class="product_view">
       <div class="">
       <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -275,10 +276,16 @@
                 </li>
                 @endif
             @endforeach
+
         </ul>
       </div>
+
       </div>
     </div>
+  </div>
+</div>
+  <div class="col-md-2">
+    <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a>
   </div>
 </div>
   </nav>

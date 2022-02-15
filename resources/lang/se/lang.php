@@ -88,7 +88,7 @@
      'change_password_menu'=>'Ändra lösenord',
      'logout_label'=>'Logga ut',
      'buy_now_btn'=>'Köp nu',
-     'browse_now_btn'=>'Utforska marknaden',
+     'browse_now_btn'=>'Klicka här!',
      'search_placeholder'=>'Sök',
      /*footer*/
      'information_label'=>'Information',
@@ -318,7 +318,7 @@
     'payment_policy' => 'Betalning Policy',
     'all_category' => 'Alla kategorier',
     'popular_product_head'=>'Populära produkter',
-    'instagram_label'=>'Inlägg frän Instagram',
+    'instagram_label'=>'Instagramflöde',
     'book_service_btn'=>'Slutför bokning',
     'continue_to_swish'=>'Fortsätt till Swish',
     'swish_payment_not_proceed'=>'Betalningen går inte vidare. Vänligen försök igen senare',

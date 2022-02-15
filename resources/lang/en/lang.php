@@ -101,7 +101,7 @@
      'change_password_menu'=>'Change Password',
      'logout_label'=>'Logout',
      'buy_now_btn'=>'Buy Now',
-     'browse_now_btn'=>'Explore the market',
+     'browse_now_btn'=>'Click here!',
      'search_placeholder'=>'Search',
      /*footer front*/
      'information_label'=>'Information',
@@ -320,7 +320,7 @@
     'payment_policy' => 'Payment Policy',
     'all_category' => 'All Category',
     'popular_product_head'=>'Popular Products',
-    'instagram_label'=>'Instagram',
+    'instagram_label'=>'Instagram feed',
     'book_service_btn'=>'Book Service',
     'continue_to_swish'=>'Continue to swish',
     'swish_payment_not_proceed'=>'Payment not proceed. please try again later',

@@ -1587,7 +1587,7 @@ public function getCatSubList(Request $request) {
 			if(isset($product_parts[1]))
 				$Products	=	$Products->Orwhere('products.product_code','=',$product_parts[1]);
 
-			$Products		=	$Products->first(); echo "<pre>0000----";print_r($Products);
+			$Products		=	$Products->first(); echo "<pre>0000----";print_r($Products);exit;
 			return redirect('/product/'.$Products->product_slug.'-P-'.$Products->product_code);
 			if(count($Products)<=0)
 			return redirect(route('AllproductListing'));

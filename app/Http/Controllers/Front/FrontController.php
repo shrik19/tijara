@@ -1502,7 +1502,7 @@ public function getCatSubList(Request $request) {
 
 	public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') 
 	{
-		echo "dfhj";exit;
+		echo "dfhj";
 	 $current_uri = request()->segments();
      
       if(@$_GET['annonser'] ==1){

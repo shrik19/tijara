@@ -280,7 +280,7 @@
      'txt_your_review' => 'Your Review',
      'txt_comments' => 'Comments',
      'txt_comments_err' => 'Please enter your Comments.',
-     'txt_comments_success' => 'Product review added Successfully.',
+     'txt_comments_success' => 'Your changes have been saved.',
      'featured_seller_head'=>'Selected Stores',
      'popular_services_head' => 'Popular Services',
      'remove_title' => 'remove',
@@ -349,5 +349,6 @@
     'category_service_title'=>'Services',
     'butik_info_heading' =>'Store Information',
     'buyer_ad_title' => 'Buyer Ads',
+    'review_del_success' => 'Your review has been deleted.',
  ]  
 ?>

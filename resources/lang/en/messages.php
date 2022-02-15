@@ -120,5 +120,6 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
       'order_placed_success' => 'Order Placed successfully.',
       'service_not_available' => 'Service Not Available at this moment.',
       'select_what_to_search' => 'Choose what you are looking for',
+     'review_add_msg' => 'Your review has been added.',
  ]
 ?>

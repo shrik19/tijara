@@ -201,6 +201,7 @@ var read_less_btn = "{{ __('users.read_less_btn')}}";
 var wait_while_upload = "{{ __('errors.wait_for_image_uplaod')}}";
 var please_uplaod_service_image = "{{ __('errors.please_uplaod_service_image')}}";
 var please_check_swish_number = "{{ __('errors.please_check_swish_checkbox')}}";
+var review_add_msg = "{{ __('messages.review_add_msg')}}";
 </script>
         <!-- <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

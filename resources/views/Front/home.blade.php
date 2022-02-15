@@ -391,7 +391,7 @@
                                var responseObj = $.parseJSON(data);
                                if(responseObj.status == 1)
                                {
-                                 showSuccessMessage(product_add_success,'reload');
+                                 showSuccessMessageReview(review_add_msg,'reload');
                                }
                                else
                                {
@@ -489,7 +489,7 @@ $(".service_rating").each(function(){
                                var responseObj = $.parseJSON(data);
                                if(responseObj.status == 1)
                                {
-                                 showSuccessMessage(review_add_success,'reload');
+                                 showSuccessMessageReview(review_add_msg,'reload');
                                }
                                else
                                {

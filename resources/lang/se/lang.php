@@ -289,7 +289,7 @@
      'txt_your_review' => 'Omdöme',
      'txt_comments' => 'Kommentarer',
      'txt_comments_err' => 'Ange dina kommentarer.',
-     'txt_comments_success' => 'Produktrecension har lagts till.',
+     'txt_comments_success' => 'Dina ändringar har sparats.',
      'featured_seller_head'=>'Utvalda butiker',
      'popular_services_head' => 'Populära tjänster',
      'remove_title' => 'Ta bort',
@@ -346,6 +346,7 @@
     'category_service_title'=>'Tjänster',
     'butik_info_heading' =>'Butiksinformation',
     'buyer_ad_title' => 'Annonser',
+    'review_del_success' => 'Ditt omdöme har raderats.',
 
  ]
 ?>

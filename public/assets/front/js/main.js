@@ -1273,7 +1273,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
                                var responseObj = $.parseJSON(data);
                                if(responseObj.status == 1)
                                {
-                                 showSuccessMessage(product_add_success,'reload');
+                                 showSuccessMessage(review_add_msg,'reload');
                                }
                                else
                                {
@@ -1978,6 +1978,36 @@ $('body').on('change', '.service_image', function () {
 	}
 
 });
+
+function showSuccessMessageReview(strContent,redirect_url = '')
+{
+    
+  $.alert({
+      title: "Klart!",
+      content: strContent,
+      type: '#03989e',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-check-circle",
+      buttons: {
+        ok: function () {
+          if(redirect_url != '')
+          {
+            if(redirect_url == 'reload')
+            {
+              location.reload(true);
+            }
+            else
+            {
+              window.location.href = redirect_url;
+            }
+          }
+        },
+      }
+    });
+}
+
+
 $('#phone_number').keydown(function (e) {
     var key = e.which || e.charCode || e.keyCode || 0;
     $phone = $(this);

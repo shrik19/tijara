@@ -121,5 +121,6 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
     'order_placed_success' => 'Beställningen genomförd.',
     'service_not_available' => 'Tjänsten är inte tillgänglig just nu.',
     'select_what_to_search' => 'Välj vad du söker efter',
+    'review_add_msg' => 'Ditt omdöme har lagts till.',
  ]
 ?>

@@ -483,7 +483,7 @@ $(".product_rating").each(function(){
                       var responseObj = $.parseJSON(data);
                       if(responseObj.status == 1)
                       {
-                        showSuccessMessage(product_add_success,'reload');
+                        showSuccessMessage(review_add_msg,'reload');
                       }
                       else
                       {
@@ -847,7 +847,7 @@ $(document).on("click",".update_product_review",function(event) {
               var responseObj = $.parseJSON(data);
               if(responseObj.status == 1)
               {
-                showSuccessMessage(responseObj.msg,'reload');
+                showSuccessMessageReview(responseObj.msg,'reload');
               }
               else
               {
@@ -893,7 +893,7 @@ $.confirm({
 
               if(responseObj.status == 1)
               {
-                showSuccessMessage(responseObj.msg,'reload');
+                showSuccessMessageReview(responseObj.msg,'reload');
               }
               else
               {

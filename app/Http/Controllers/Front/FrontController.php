@@ -2690,7 +2690,7 @@ $p_id =$Products[0]['id'];
 
         if (!empty($result)) {
            $res=ProductReview::where('id',$id)->delete();
-            $txt_msg =trans('lang.record_delete');
+            $txt_msg =trans('lang.review_del_success');
             $is_deleted = 1;
         } else {
         	$txt_msg = trans('errors.something_went_wrong');

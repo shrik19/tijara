@@ -1798,7 +1798,7 @@ $p_id =$Products[0]['id'];
 			$data['product_location'] = @$product_sold_data['location'];
 			$data['product_seller_name'] = $product_sold_data['user_name'];
 			$data['similarProducts']	=	$similarProducts;
-			
+			echo "<pre>";print_r($product_sold_data );exit;
 			$data['buyer_product_details']	=	BuyerProducts::where('product_id',$Product->id)->first();
 
 			return view('Front/buyer_product_details', $data);

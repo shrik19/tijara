@@ -1503,6 +1503,7 @@ public function getCatSubList(Request $request) {
 	public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') 
 	{
 	 $current_uri = request()->segments();
+     DB::enableQueryLog();
       if(@$_GET['annonser'] ==1){
       	$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 										->join('annonsercategories', 'annonsercategories.id', '=', 'category_products.category_id')
@@ -1579,7 +1580,6 @@ public function getCatSubList(Request $request) {
 		$Products			=	$Products->get();// ->groupBy('products.id')
 
 		if(isset($product_slug) && count($Products)<=0) {
-			//echo "in";exit;
 			$product_parts	=	explode('-P-',$product_slug);
 			$Products		=	Products::where('products.status','=','active');
 			if(isset($product_parts[0]))
@@ -1587,23 +1587,16 @@ public function getCatSubList(Request $request) {
 			if(isset($product_parts[1]))
 				$Products	=	$Products->Orwhere('products.product_code','=',$product_parts[1]);
 
-
 			$Products		=	$Products->first();
-			/*if(@$_GET['annonser'] ==1){
-		   		return redirect('/product/'.$Products->product_slug.'-P-'.$Products->product_code.'?annonser=1');
-		    }else{*/
-		   		return redirect('/product/'.$Products->product_slug.'-P-'.$Products->product_code);
-		    //}
-			
+			return redirect('/product/'.$Products->product_slug.'-P-'.$Products->product_code);
 			if(count($Products)<=0)
 			return redirect(route('AllproductListing'));
 		}
 
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();
-	
+print_r(DB::getQueryLog());exit;	
 		$Product = $Products[0]; 
-
-    
+echo "<pre>";print_r($Product );exit;
 		/*$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();*/
 		//$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>',0)->orderBy('id','ASC')->get();
 		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();
@@ -1661,7 +1654,7 @@ public function getCatSubList(Request $request) {
 })->get();
 print_r(DB::getQueryLog());exit;*/
 //echo "<pre>";print_r($Products[0]['id']);exit;
-DB::enableQueryLog();
+
 $p_id =$Products[0]['id'];
 //echo $p_id;exit;
 

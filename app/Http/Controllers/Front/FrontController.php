@@ -1577,8 +1577,9 @@ public function getCatSubList(Request $request) {
 			$Products		=	$Products->where('products.product_slug','=',$product_parts[0])->where('products.product_code','=',$product_parts[1]);
 		}
 		$Products			=	$Products->get();// ->groupBy('products.id')
- echo "<pre>0000----";print_r($Products);exit;
+ echo "<pre>0000----";print_r($Products);
 		if(isset($product_slug) && count($Products)<=0) {
+			echo "in";exit;
 			$product_parts	=	explode('-P-',$product_slug);
 			$Products		=	Products::where('products.status','=','active');
 			if(isset($product_parts[0]))
@@ -1591,7 +1592,7 @@ public function getCatSubList(Request $request) {
 			if(count($Products)<=0)
 			return redirect(route('AllproductListing'));
 		}
-
+echo "out";exit;
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();
 	
 		$Product = $Products[0]; 

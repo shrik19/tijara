@@ -71,7 +71,7 @@
 <div>
 
 <div>&nbsp;</div>
- @if(Request::path() != "/" && Request::segment(3) !='products' && Request::segment(3) !='services')
+ @if(Request::path() != "/" && Request::segment(3) !='products' && Request::segment(3) !='services' &&  Request::segment(1) != 'seller')
  
     <div style="margin-left: 4px;"> 
       <label class="price_label">{{ __('lang.sort_by_price')}}</label>
@@ -82,6 +82,7 @@
       <!-- <b>€ 1000</b> -->
       <div>&nbsp;</div>
       <div>&nbsp;</div>
+   @if(Request::segment(1) != 'seller')
    <div style="margin-left: 4px;"> 
   <label class="filter_lable">{{ __('users.place_label')}}</label>
   <select class="form-control" name="city_name" id="service_city">
@@ -93,6 +94,7 @@
       @endif
     </select>
   </div>
+  @endif
 
 
 <!--   <div>&nbsp;</div>
@@ -163,6 +165,7 @@ $(document).ready(function(){
     $('.show_product_cat_sidebar').hide();
     $('.all_cat_label').hide();
   });
+
 
   var search_string = $(".current_search_string").text();
    if(search_string !=''){

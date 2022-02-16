@@ -251,7 +251,7 @@
 
      'order_status_success' => 'Orderstatus har ändrats.',
      'noProductsFound' => 'Produkten hittades inte.',
-     'noServicesFound'=> 'Tjänsten hittades inte',
+     'noServicesFound'=> 'Inga tjänster tillgängliga',
      'sendRequest' =>   'Skicka förfrågan',
      'newRequestReceived'=>'Ny serviceförfrågan mottagen',
      'customer'=>'Kund',
@@ -261,8 +261,6 @@
      'serviceRequestSent'=>'Serviceförfrågan skickad',
 
      'order_status_success' => 'Orderstatus har ändrats.',
-     'noProductsFound' => 'Produkten hittades inte.',
-     'noServicesFound'=> 'Tjänsten hittades inte',
      'my_service_request' => 'Min serviceförfrågan',
      'all_service_request' => 'All serviceförfrågan',
      'service_no_head' => 'Servicenummer',

@@ -306,7 +306,7 @@
     'next_payment_label' => 'Your next payment',
     'report_product_btn' => 'Report',
     'subject_product_report' => 'Message From Buyer Regarding Product Report',
-    'mail_sent_message' => 'Mail Sent',
+    'mail_sent_message' => 'Email message has sent.',
     'report_ad_btn' => 'Report Ad',
     'butik_info_placeholder' => 'Give a brief description of your store / service to yours
 customers. If you have a visiting address, you can

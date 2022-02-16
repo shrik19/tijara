@@ -427,19 +427,19 @@ function get_service_count(){
 $( "#seller_product_filter" ).keyup(function() {
 
      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".current_search_string").text(),$("#seller_product_filter").val()) ;
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".current_search_string").text(),$("#seller_product_filter").val(),window.location.pathname) ;
      get_service_count();
 });
 
 function listService() {
    get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),$(".current_search_string").text(),$("#seller_product_filter").val()) ;
+    $('.current_sellers').text(),$('#price_filter').val(),$(".current_search_string").text(),$("#seller_product_filter").val(),window.location.pathname) ;
 }
 
 var price_filter = $("#price_filter").slider({});
 price_filter.on('slideStop',function(){
      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".current_search_string").text(),$("#seller_product_filter").val()) ;
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".current_search_string").text(),$("#seller_product_filter").val(),window.location.pathname) ;
      get_service_count();
 });
 

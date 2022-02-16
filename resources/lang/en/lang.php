@@ -246,7 +246,7 @@
      'order_status_confirm' => 'Are you sure, you want to change the status of Order?',
      'order_status_success' => 'Order status changed Successfully.',
      'noProductsFound' => 'Product not found.',
-     'noServicesFound'=> 'Service not found',
+     'noServicesFound'=> 'No services available',
 
      'my_service_request' => 'My Service Request',
      'all_service_request' => 'All Service Request',

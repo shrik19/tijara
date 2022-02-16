@@ -130,7 +130,7 @@
             </div>
         </div>
         
-        <div class="col-md-12">
+        <div class="col-md-12" id="show-all-review">
           <hr>
           <div class="col-md-3">
             <h2 class="review_title" style="margin-left:-12px;">{{ __('users.review_title')}}</h2>
@@ -443,14 +443,14 @@ $(document).ready(function() {
 
 $( "#seller_product_filter" ).keyup(function() {
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text());
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text(),window.location.pathname);
     get_product_count();
   
 });
 
 function listProducts(){
    get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text());
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text(),window.location.pathname);
 }
 
 /*
@@ -485,7 +485,7 @@ function getListing()
 var price_filter = $("#price_filter").slider({});
 price_filter.on('slideStop',function(){
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
-    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text());
+    $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text(),window.location.pathname);
     get_product_count();
 });
 
@@ -583,8 +583,17 @@ $(".page-link").click(function(){
   if(attr_val !='' && attr_val != undefined){
     window.location.href = attr_val; 
   }
+  //$(document).on('click', '.page-link', function(){ 
+
+  
 });
 
+let searchParams = new URLSearchParams(window.location.search)
+if(searchParams.has('page')==true){
+     $('html, body').animate({
+          scrollTop: $('#show-all-review').offset().top
+      }, 'slow');
+}
 
 /*edit review start*/
 $(document).on("click",".edit_product_review",function(event) {
@@ -691,7 +700,7 @@ $.confirm({
   });
 
 }
-
+  
 </script>
 @endsection
 

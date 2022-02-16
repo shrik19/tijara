@@ -1,6 +1,12 @@
 
 @php
 $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false || strpos(@$path, 'products') !== false ) ? 'product_img_wrapper':'col-md-15';
+
+$heartStyle='';
+
+if(strpos(@$path, 'seller') != false){
+  $heartStyle='left:11px !important';
+}
 @endphp
 
 <li class="{{$class}}">
@@ -12,7 +18,7 @@ $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== f
       @else
         <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" style="width:100%;">
       @endif
-      <div class="buy_now_hover_details one_icon">
+      <div class="buy_now_hover_details one_icon" style="{{$heartStyle}}">
       <ul>
          <?php /*<li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>*/?>
           <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="far fa-heart"></i></a></li>

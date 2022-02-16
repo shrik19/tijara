@@ -27,8 +27,8 @@
                         <label class="checkbox toggle candy" onclick=""  style="width:100px">
                           <input id="view" type="checkbox" />
                           <p>
-                            <span class="product_sorting_filter" id="productSearchFilter"  product_link="{{route('AllproductListing')}}">{{ __('lang.category_product_title')}}</span>
-                            <span class="product_sorting_filter" id="serviceSearchFilter" service_link="{{route('AllserviceListing')}}">{{ __('lang.category_service_title')}}</span>
+                            <span class="product_sorting_filter" id="productSearchFilter"  product_link="{{route('AllproductListing')}}" style="margin-left: 14px;">{{ __('lang.category_product_title')}}</span>
+                            <span class="product_sorting_filter" id="serviceSearchFilter" service_link="{{route('AllserviceListing')}}" style="margin-left: 14px;">{{ __('lang.category_service_title')}}</span>
                           </p>                  
                           <a class="slide-button"></a>                  
                          </label>                   

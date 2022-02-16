@@ -31,10 +31,16 @@ if(strpos(@$path, 'annonser') !== false){
           $store_name = str_replace(" ", '-', $store_name);
           $store_name = strtolower($store_name);
           $seller_link= url('/').'/seller/'.$store_name; 
+
+          $heartStyle='';
+
+          if(strpos(@$path, 'seller') != false){
+            $heartStyle='left:11px !important';
+          }
         @endphp
       <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
       @if(strpos(@$path, 'annonser') == false)
-      <div class="buy_now_hover_details one_icon">
+      <div class="buy_now_hover_details one_icon" style="{{$heartStyle}}">
           <ul>
               <!--<li><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
               <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToCart('{{$product->variant_id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="glyphicon glyphicon-shopping-cart"></i></a></li>

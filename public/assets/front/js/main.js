@@ -1135,14 +1135,14 @@ function showProductsServices()
       columnClass: 'medium',
       icon: 'fas fa-check',
       buttons: {
-          products: function () {
+          Produkter: function () {
             $("#product_service_search_type").val('products');
             $('#product_service_search_from').attr('action',siteUrl+"/products");
             $('#product_service_search_from').attr('onSubmit','');
             $('#product_service_search_from').submit();
             
           },
-          services: function () {
+          Tjänster: function () {
           //  alert("service");return
            $("#product_service_search_type").val('services');
            $('#product_service_search_from').attr('action',siteUrl+"/services");
@@ -1191,7 +1191,7 @@ if($('.product_listings').length>0) {
 
 function get_product_listing(page,category_slug='',subcategory_slug='',
   sellers ='',price='',city='', search_string='',search_seller_product='',current_role_id='') {
- 
+
  var city = $('#city_name').val();
 
   var sort_by_order = $("#sort_by_order").val();

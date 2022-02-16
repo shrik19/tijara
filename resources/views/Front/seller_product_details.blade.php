@@ -791,7 +791,7 @@ $(document).on("click",".send_report_product",function(event) {
              $('#reportProductmodal').modal('hide');  
            
             if(output.success !=''){
-              showSuccessMessage(output.success);
+              showSuccessMessageReview(output.success,'reload');
               let user_message   = $("#user_message").val('');
             }else{
               showErrorMessage(output.error);

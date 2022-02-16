@@ -307,7 +307,7 @@
     'next_payment_label' => 'Din nästa betalning',
     'report_product_btn' => 'Rapportera',
     'subject_product_report' => 'Meddelande från köparen angående produktrapport',
-    'mail_sent_message' => 'Mail skickat',
+    'mail_sent_message' => 'Epostmeddelande har skickats.',
     'report_ad_btn' => 'Rapportera',
     'butik_info_placeholder' => 'Ge kort beskrivning om din butik/tjänst till dina
 kunder. Om du har en besöksadress kan du skriva den här.',

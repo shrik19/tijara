@@ -91,7 +91,7 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
     'Obs_head' => 'Obs!',
     'info_head'=>'Information',
     'my_order_info'=>'Här kan. du se dina beställningar som du har gjort. Om du frågor gällande din/dina beställningar vänligen kontakta ansvarig butik.',
-    'news_letter_subscribe_success' => 'Nyhetsbrev Prenumerera framgångsrikt',
+    'news_letter_subscribe_success' => 'Välkommen. Du är nu registrerad.',
     'service_booking_msg' => 'Här kan du se dina dina bokningar och göra avbokningar på dina bokade tjänster. Om du har frågor gällande den tjänst du har bokat. Vänligen kontakta ansvarig företag.',
 
     'email_verified_msg'         => 'Din e-post är verifierad. Du kan nu logga in.',

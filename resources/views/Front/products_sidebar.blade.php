@@ -5,6 +5,7 @@
       <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
     </li>
   </ul>
+
 @endif
 
  <link rel="stylesheet" href="{{url('/')}}/assets/front/js/css/bootstrap-slider.css" />
@@ -16,7 +17,7 @@
    <?php /*  <li>
       <a href="{{route('AllproductListing')}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
     </li> */?>
-    @php $i=0; $j=0;
+    @php $i=0; $j=0; 
     if(isset($current_role_id) && $current_role_id==1)
       $productsads='annonser';
     else
@@ -101,9 +102,9 @@
 
 <div>&nbsp;</div>
   @if(Request::path() != "/" && Request::segment(3) !='products' && Request::segment(3) !='services')
-     @if(Request::segment(1) !='annonser')
+     @if(Request::segment(1) !='annonser' && Request::segment(1) != 'seller')
       <div style="margin-left: 4px;"> 
-      <label class="price_label">{{ __('lang.sort_by_price')}}</label>
+      <label class="price_label">{{ __('lang.sort_by_price')}} </label>
 
       <div>&nbsp;</div>
       <input id="price_filter" type="text" class="span2" value="" data-slider-min="0" data-slider-max="10000" data-slider-step="500" data-slider-value="[0,10000]"/>
@@ -112,17 +113,20 @@
       <div>&nbsp;</div>
       <div>&nbsp;</div>
     @endif
+
+    @if(Request::segment(1) != 'seller')
     <div style="margin-left: 4px;"> 
-  <label class="price_label">{{ __('users.place_label')}}</label>
-   <select class="form-control" name="city_name" id="city_name">
-      <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
-      @if(!empty($allCities))
-        @foreach($allCities as $city)
-        <option value="{{@$city->city}}" class="product_sorting_filter_option">{{@$city->city}}</option>       
-        @endforeach
+    <label class="price_label">{{ __('users.place_label')}}</label>
+     <select class="form-control" name="city_name" id="city_name">
+        <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
+        @if(!empty($allCities))
+          @foreach($allCities as $city)
+          <option value="{{@$city->city}}" class="product_sorting_filter_option">{{@$city->city}}</option>       
+          @endforeach
+        @endif
+      </select>
+      </div>
       @endif
-    </select>
-    </div>
 <!--   <div id="cityList"></div> -->
   <div>&nbsp;</div>
 

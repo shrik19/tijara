@@ -253,15 +253,17 @@
     <!-- <span>( @php count($Categories) @endphp)</span> -->
         @php $i=0; @endphp
         @foreach($Categories as $CategoryId=>$Category)
-        @php $i++;
-        $cls='';
+        <?php $i++;
+       /* $cls='';
         if($category_slug==$Category['category_slug'])
         $cls  =       'activemainmenu';
         else if($category_slug=='' && $i==1) $cls  =       'activemainmenu';
-         @endphp
+        <a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="<?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>">{{$Category['category_name']}}</a>
+        */
+        ?>
                 @if(!empty($Categories[$CategoryId]['subcategory']))
 				<?php $current_path = explode("/",request()->path()); ?>
-                <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="<?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>">{{$Category['category_name']}}</a>
+                <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="">{{$Category['category_name']}}</a>
                   <?php /*
                 <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
                   @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)

@@ -3154,7 +3154,7 @@ $p_id =$Products[0]['id'];
 									$logoPath = url('/').'/uploads/Seller/resized/no-image.png';
 								}
 				
-				if(!empty($tmpSellerData) && count($tmpSellerData) > 0){
+				if(!empty($tmpSellerData) && count((array)$tmpSellerData) > 0){
 					echo "in";
 					$seller_name = $tmpSellerData['store_name'];
 					$seller_name = str_replace( array( '\'', '"', 

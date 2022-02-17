@@ -493,7 +493,7 @@ public function getCatSubList(Request $request) {
 
     //get seller listings
 	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',$city_filter = '',  $search_string = '',$productsServices='',$path='') {
-	DB::enableQueryLog();
+	
     	$today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
@@ -512,8 +512,7 @@ public function getCatSubList(Request $request) {
 		$Sellers	=   $Sellers->orderBy('users.id')
 						->get()
 						->toArray();
-						print_r(DB::getQueryLog());exit;
-echo "<pre>";print_r($Sellers);exit;//if(strpos(@$request->path, 'annonser') !== false){
+//echo "<pre>";print_r($path);exit;//if(strpos(@$request->path, 'annonser') !== false){
 		$SellersArray	=	array();
 		if($productsServices=='products') {
 			
@@ -3127,29 +3126,48 @@ $p_id =$Products[0]['id'];
     public function sellerAutoSuggest(Request $request)
 	{
 
-		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products',@$request->path);
+		//$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products',@$request->path);
+	$today          = date('Y-m-d H:i:s');
+	/*	$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
+								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
+								->where('users.role_id','=','2')
+								->where('users.status','=','active')
+								->where('users.is_deleted','=','0')
+								->where('users.is_shop_closed','=','0')
+								->where('user_packages.status','=','active')
+								->where('user_packages.start_date','<=', $today)
+								->where('user_packages.end_date','>=', $today);
+		
+		
+			
+		$Sellers	=   $Sellers->orderBy('users.id')
+						->get()
+						->toArray();*/
 
-		if(!empty($Sellers))
-		{
+		//if(!empty($Sellers))
+		//{
 			
 			
 			$output='';
 			
-			foreach($Sellers as $SellerId => $Seller)
-			{
+			// foreach($Sellers as $SellerId => $Seller)
+			// {
 				DB::enableQueryLog();
 
 				$tmpSellerData = UserMain::join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
-    							
+    							->join('user_packages', 'users.id', '=', 'user_packages.user_id')
 								->select('users.*','seller_personal_page.logo')
-								->where('users.id',$SellerId)
+								->where('users.status','=','active')
 								->where('users.role_id','=','2')
 								->where('users.is_deleted','=','0')
                 			    ->where('users.is_shop_closed','=','0')
                 			    ->where('users.store_name', 'like','%' .$request['query']. '%')
+                			    ->where('user_packages.status','=','active')
+                			    ->where('user_packages.start_date','<=', $today)
+								->where('user_packages.end_date','>=', $today);
 								->first();//UserMain::where('id',$SellerId)->first()->toArray();
-//print_r(DB::getQueryLog());
-echo $SellerId."<br>";
+print_r(DB::getQueryLog());exit;
+echo ."<br>";
 								if(!empty($tmpSellerData['logo'])){
 									$logoPath = url('/').'/uploads/Seller/resized/'.$tmpSellerData['logo'];
 								}else{
@@ -3172,8 +3190,8 @@ echo $SellerId."<br>";
 						$output .= '<li class="seller_autocomplete_search" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';"><img src="'.$logoPath.'" style="height:50px;width:50px;"><p style="padding:10px;">'.$display_name.'</p></li>';
 					}
 				}
-			} exit;
-		}
+			//} //xit;
+		//}
 		echo $output;
 	}
 }

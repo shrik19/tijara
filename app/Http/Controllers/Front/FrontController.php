@@ -3164,7 +3164,7 @@ $p_id =$Products[0]['id'];
                 			    ->where('users.store_name', 'like','%' .$request['query']. '%')
                 			    ->where('user_packages.status','=','active')
                 			    ->where('user_packages.start_date','<=', $today)
-								->where('user_packages.end_date','>=', $today);
+								->where('user_packages.end_date','>=', $today)
 								->first();//UserMain::where('id',$SellerId)->first()->toArray();
 print_r(DB::getQueryLog());exit;
 echo ."<br>";

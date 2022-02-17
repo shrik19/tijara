@@ -1312,7 +1312,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
             }
             else
             {
-              showErrorMessage(login_buyer_required);
+              window.location.href = siteUrl+"/front-login/buyer"; 
             }
            }
           
@@ -1502,7 +1502,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
             }
             else
             {
-              showErrorMessage(login_buyer_required);
+              window.location.href = siteUrl+"/front-login/buyer"; 
             }
            }
           

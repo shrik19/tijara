@@ -2253,9 +2253,10 @@ $p_id =$Products[0]['id'];
 			$data['loginUserId']	= $loginUserData['id'];			
 			$data['loginUserAddress']	= $loginUserData['address'];
 			$data['loginUserPostcode']	= $loginUserData['postcode'];
-			$data['loginUserCity']	= $loginUserData['city'];
-		}else{
-			$data['loginUserFname']=$data['loginUserFname']=$data['loginUserEmail']=$data['loginUserId']=$data['loginUserAddress']=$data['loginUserPostcode']=$data['loginUserCity']='';
+			$data['loginUserCity']	    = $loginUserData['city'];
+			$data['loginUserRoleId']	= $loginUserData['role_id'];
+		}else{ 
+			$data['loginUserFname']=$data['loginUserFname']=$data['loginUserEmail']=$data['loginUserId']=$data['loginUserAddress']=$data['loginUserPostcode']=$data['loginUserCity']=$data['loginUserRoleId']='';
 		}
 
 		$data['serviceReviews']= $this->getReviews('services','',$Service->id);
@@ -2955,7 +2956,12 @@ $p_id =$Products[0]['id'];
    			$user_email = $request->user_email;
    			$product_id = $request->product_id;
    			$product_link = $request->product_link;
-   			$seller_name = $request->seller_name;
+   			if(!empty($request->seller_name)){
+   				$seller_name = $request->seller_name;
+   			}else{
+   				$seller_name = 'Anonymous';
+   			}
+   			
    			//$to_email = $request->seller_email;
 	   		$to_email = env('ADMIN_EMAIL');
 	   		//$id = $request->seller_id;

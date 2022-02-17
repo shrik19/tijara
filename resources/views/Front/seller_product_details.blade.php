@@ -214,7 +214,7 @@
     <div class="row">
       <div class="best_seller_container">
       <div class="col-md-12" style="margin-left: -33px;">
-      <div class="col-md-6">
+      <div class="col-md-6"  id="show-all-review">
       <h2 class="review_title">{{ __('users.review_title')}}</h2>
       <hr class="hr_product_details">
      <!--  <div class="col-md-9"> -->
@@ -493,7 +493,8 @@ $(".product_rating").each(function(){
                         }
                         else
                         {
-                          showErrorMessage(responseObj.msg,'/front-login/buyer');
+                          window.location.href = siteUrl+"/front-login/buyer";
+                          //showErrorMessage(responseObj.msg,'/front-login/buyer');
                         }
                       }
                     }
@@ -566,7 +567,8 @@ function addtoCartFromProduct()
           }
           else
           {
-            showErrorMessage(responseObj.msg,'/front-login/buyer');
+            window.location.href = siteUrl+"/front-login/buyer";
+            //showErrorMessage(responseObj.msg,'/front-login/buyer');
           }
         }
       }
@@ -857,7 +859,8 @@ $(document).on("click",".update_product_review",function(event) {
                 }
                 else
                 {
-                  showErrorMessage(responseObj.msg,'/front-login/buyer');
+                  window.location.href = siteUrl+"/front-login/buyer";
+                  //showErrorMessage(responseObj.msg,'/front-login/buyer');
                 }
               }
          }
@@ -908,6 +911,13 @@ $.confirm({
       }
   });
 
+}
+
+let searchParams = new URLSearchParams(window.location.search)
+if(searchParams.has('page')==true){
+     $('html, body').animate({
+          scrollTop: $('#show-all-review').offset().top
+      }, 'slow');
 }
 </script>
 @endsection

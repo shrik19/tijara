@@ -387,5 +387,6 @@ cancellation of service works.',
     'user_name_thead' => 'User Name',
 	'your_package_history'=>'Package History',
 	'history_button'=>'History',
+    'you_need_buyer_profile' => "To book service you need buyer profile.",
  ]
 ?>

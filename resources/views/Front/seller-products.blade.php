@@ -337,6 +337,34 @@
 </section>
   
 <script type="text/javascript">
+
+  function showContactSuccessMessage(strContent,redirect_url = '')
+{
+    
+  $.alert({
+      title: "Tack!",
+      content: strContent,
+      type: '#03989e',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-check-circle",
+      buttons: {
+        ok: function () {
+          if(redirect_url != '')
+          {
+            if(redirect_url == 'reload')
+            {
+              location.reload(true);
+            }
+            else
+            {
+              window.location.href = redirect_url;
+            }
+          }
+        },
+      }
+    });
+}
 $(".user_rating").each(function(){
   var currentRating = $(this).data('rating');
   $(this).barrating({
@@ -555,10 +583,11 @@ $(document).on("click",".conact-store-save",function(event) {
 			       $('#contactStoremodal').modal('hide');	 
            
             if(output.success !=''){
-              showSuccessMessage(output.success);
+              showContactSuccessMessage(output.success);
               let user_message   = $("#user_message").val('');
             }else{
-              showErrorMessage(output.error);
+              //showErrorMessage(output.error); 
+              window.location.href = "{{ route('frontLogin') }}"; 
             }
           }
         });}, 300);

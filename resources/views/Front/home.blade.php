@@ -428,7 +428,8 @@
              });
             }
             @else
-                showErrorMessage("{{ __('errors.login_buyer_required')}}");
+              window.location.href = "{{ route('frontLogin') }}"; 
+               // showErrorMessage("{{ __('errors.login_buyer_required')}}");
             @endif
            }
           
@@ -526,7 +527,8 @@ $(".service_rating").each(function(){
              });
             }
             @else
-                showErrorMessage("{{ __('errors.login_buyer_required')}}");
+                //showErrorMessage("{{ __('errors.login_buyer_required')}}");
+                window.location.href = "{{ route('frontLogin') }}"; 
             @endif
            }
           

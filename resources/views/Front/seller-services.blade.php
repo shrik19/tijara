@@ -115,7 +115,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" id="show-all-review">
           <hr>
 
           <div class="col-md-3">
@@ -676,6 +676,13 @@ $.confirm({
       }
   });
 
+}
+
+let searchParams = new URLSearchParams(window.location.search)
+if(searchParams.has('page')==true){
+     $('html, body').animate({
+          scrollTop: $('#show-all-review').offset().top
+      }, 'slow');
 }
 </script>
 @endsection

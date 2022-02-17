@@ -277,7 +277,8 @@ function getListing()
              });
             }
             @else
-                showErrorMessage("{{ __('errors.login_buyer_required')}}");
+              window.location.href = "{{ route('frontLogin') }}"; 
+              //showErrorMessage("{{ __('errors.login_buyer_required')}}");
             @endif
            }
           

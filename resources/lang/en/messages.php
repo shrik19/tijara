@@ -118,7 +118,7 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
       'product_out_stock' => 'Out of stock.',
       'make_payment_on_swish_number' => 'Make payment on this swish number.',
       'order_placed_success' => 'Order Placed successfully.',
-      'service_not_available' => 'Service Not Available at this moment.',
+      'service_not_available' => 'No available times.',
       'select_what_to_search' => 'Choose what you are looking for',
      'review_add_msg' => 'Your review has been added.',
  ]

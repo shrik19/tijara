@@ -91,10 +91,10 @@
                      
                         <div class="row">
                           <div class="col-md-12" style="padding-right: 70px; padding-top: 12px;">
-
+                            <input type="hidden" name="loginUserRoleId" id="loginUserRoleId" value="{{$loginUserRoleId}}">
                           <!-- <a href="javascript:void(0);"  data-toggle="modal" data-target="#bookServiceModal" 
                            style="color:#ff0000;" id="reset_option">{{ __('lang.book_service')}}</a> -->
-                           <a href="javascript:void(0);" data-toggle="modal" data-target="#bookServiceModal"  class="btn sub_btn book_service_button" title="{{ __('users.see_available_time_btn')}}" id="reset_option">{{ __('users.see_available_time_btn')}}<i class="far fa-calendar-alt" style="margin-left: 10px;font-size: 20px;"></i></a>
+                           <a href="javascript:void(0);" class="btn sub_btn book_service_button" title="{{ __('users.see_available_time_btn')}}" id="reset_option">{{ __('users.see_available_time_btn')}}<i class="far fa-calendar-alt" style="margin-left: 10px;font-size: 20px;"></i></a>
                          </div>
                         </div>
 
@@ -223,7 +223,7 @@
             <div class="best_seller_container">
               <div class="col-md-12"  style="margin-left: -33px;">
               <div class="col-md-6">
-              <h2  class="review_title">{{ __('users.review_title')}}</h2>
+              <h2  class="review_title"  id="show-all-review">{{ __('users.review_title')}}</h2>
               <hr class="hr_product_details">
               <!-- </div> -->
                 @if(!empty($serviceReviews))
@@ -434,6 +434,17 @@ $( document ).ready(function() {
     $('.productStockOut').show();
     $('.book_service_button').attr('disabled', 'disabled');
   }
+
+  $(document).on("click",".book_service_button",function(event) {
+     var role_id =$("#loginUserRoleId").val();
+     if(role_id==2){
+      showErrorMessage(you_need_buyer_profile);
+     }else if(role_id==1){
+      $('#bookServiceModal').modal('show');
+     }else{
+       window.location.href = "{{ route('frontLogin') }}"; 
+     }
+  });
 });
 
 function deleteServiceReview(rating_id){
@@ -553,7 +564,8 @@ $(".service_rating").each(function(){
                         }
                         else
                         {
-                          showErrorMessage(responseObj.msg,'/front-login/buyer');
+                          window.location.href = siteUrl+"/front-login/buyer";
+                          //showErrorMessage(responseObj.msg,'/front-login/buyer');
                         }
                       }
 
@@ -674,7 +686,7 @@ function sendServiceRequest()
       {
         $(".loader").hide();
         var responseObj = $.parseJSON(data);
-        showSuccessMessage("{{ __('lang.serviceRequestSent')}}");
+        showSuccessMessageReview("{{ __('lang.serviceRequestSent')}}");
         location.reload();
       }
      });
@@ -803,7 +815,8 @@ $(document).on("click",".update_service_review",function(event) {
                 }
                 else
                 {
-                  showErrorMessage(responseObj.msg,'/front-login/buyer');
+                  window.location.href = siteUrl+"/front-login/buyer";
+                  //showErrorMessage(responseObj.msg,'/front-login/buyer');
                 }
               }
          }
@@ -854,6 +867,13 @@ $.confirm({
       }
   });
 
+}
+
+let searchParams = new URLSearchParams(window.location.search)
+if(searchParams.has('page')==true){
+     $('html, body').animate({
+          scrollTop: $('#show-all-review').offset().top
+      }, 'slow');
 }
 </script>
 @endsection

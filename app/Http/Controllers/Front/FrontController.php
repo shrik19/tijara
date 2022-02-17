@@ -3127,7 +3127,7 @@ $p_id =$Products[0]['id'];
 	{
 
 		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products',@$request->path);
-
+echo "<pre>";print_r($Sellers);exit;
 		if(!empty($Sellers))
 		{
 			

@@ -3136,7 +3136,7 @@ $p_id =$Products[0]['id'];
 			
 			foreach($Sellers as $SellerId => $Seller)
 			{
-				
+				DB::enableQueryLog();
 
 				$tmpSellerData = UserMain::join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
     							
@@ -3147,7 +3147,8 @@ $p_id =$Products[0]['id'];
                 			    ->where('users.is_shop_closed','=','0')
                 			    ->where('users.store_name', 'like','%' .$request['query']. '%')
 								->first();//UserMain::where('id',$SellerId)->first()->toArray();
-
+print_r(DB::getQueryLog());
+echo "<br>";
 								if(!empty($tmpSellerData['logo'])){
 									$logoPath = url('/').'/uploads/Seller/resized/'.$tmpSellerData['logo'];
 								}else{
@@ -3155,7 +3156,7 @@ $p_id =$Products[0]['id'];
 								}
 				
 				if(!empty($tmpSellerData) && count((array)$tmpSellerData) > 0){
-					echo "in";
+					
 					$seller_name = $tmpSellerData['store_name'];
 					$seller_name = str_replace( array( '\'', '"', 
 					',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
@@ -3170,7 +3171,7 @@ $p_id =$Products[0]['id'];
 						$output .= '<li class="seller_autocomplete_search" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';"><img src="'.$logoPath.'" style="height:50px;width:50px;"><p style="padding:10px;">'.$display_name.'</p></li>';
 					}
 				}
-			}
+			} exit;
 		}
 		echo $output;
 	}

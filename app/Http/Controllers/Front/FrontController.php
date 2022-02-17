@@ -493,7 +493,7 @@ public function getCatSubList(Request $request) {
 
     //get seller listings
 	function getSellersList($category_slug = '',$subcategory_slug = '', $price_filter = '',$city_filter = '',  $search_string = '',$productsServices='',$path='') {
-	
+	DB::enableQueryLog();
     	$today          = date('Y-m-d H:i:s');
 		$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
@@ -512,6 +512,7 @@ public function getCatSubList(Request $request) {
 		$Sellers	=   $Sellers->orderBy('users.id')
 						->get()
 						->toArray();
+						print_r(DB::getQueryLog());exit;
 echo "<pre>";print_r($Sellers);exit;//if(strpos(@$request->path, 'annonser') !== false){
 		$SellersArray	=	array();
 		if($productsServices=='products') {

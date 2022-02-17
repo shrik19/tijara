@@ -3147,8 +3147,8 @@ $p_id =$Products[0]['id'];
                 			    ->where('users.is_shop_closed','=','0')
                 			    ->where('users.store_name', 'like','%' .$request['query']. '%')
 								->first();//UserMain::where('id',$SellerId)->first()->toArray();
-print_r(DB::getQueryLog());
-echo "<br>";
+//print_r(DB::getQueryLog());
+echo $SellerId."<br>";
 								if(!empty($tmpSellerData['logo'])){
 									$logoPath = url('/').'/uploads/Seller/resized/'.$tmpSellerData['logo'];
 								}else{

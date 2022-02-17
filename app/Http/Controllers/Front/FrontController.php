@@ -501,9 +501,15 @@ public function getCatSubList(Request $request) {
 								->where('users.status','=','active')
 								->where('users.is_deleted','=','0')
 								->where('users.is_shop_closed','=','0')
-								->where('user_packages.status','=','active')
+								//->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today);
+
+								->where(function($q) use ($today) {
+
+								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$today],['end_date','>=',$today]])
+								->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$today],['trial_end_date','>=',$today]]);
+								})
 		
 		if($city_filter != ''){
 			$Sellers	=	$Sellers->where('users.city','like', '%' .$city_filter.'%');
@@ -3126,72 +3132,50 @@ $p_id =$Products[0]['id'];
     public function sellerAutoSuggest(Request $request)
 	{
 
-		//$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products',@$request->path);
-	$today          = date('Y-m-d H:i:s');
-	/*	$Sellers 		= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
-								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id')
-								->where('users.role_id','=','2')
-								->where('users.status','=','active')
-								->where('users.is_deleted','=','0')
-								->where('users.is_shop_closed','=','0')
-								->where('user_packages.status','=','active')
-								->where('user_packages.start_date','<=', $today)
-								->where('user_packages.end_date','>=', $today);
-		
-		
-			
-		$Sellers	=   $Sellers->orderBy('users.id')
-						->get()
-						->toArray();*/
+		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products',@$request->path);
 
-		//if(!empty($Sellers))
-		//{
+		if(!empty($Sellers))
+		{
 			
 			
 			$output='';
 			
-			// foreach($Sellers as $SellerId => $Seller)
-			// {
-				DB::enableQueryLog();
+			foreach($Sellers as $SellerId => $Seller)
+			{
+				
 
 				$tmpSellerData = UserMain::join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
-    							->join('user_packages', 'users.id', '=', 'user_packages.user_id')
+    							
 								->select('users.*','seller_personal_page.logo')
-								->where('users.status','=','active')
+								->where('users.id',$SellerId)
 								->where('users.role_id','=','2')
 								->where('users.is_deleted','=','0')
                 			    ->where('users.is_shop_closed','=','0')
                 			    ->where('users.store_name', 'like','%' .$request['query']. '%')
-                			    ->where('user_packages.status','=','active')
-                			    ->where('user_packages.start_date','<=', $today)
-								->where('user_packages.end_date','>=', $today)
 								->first();//UserMain::where('id',$SellerId)->first()->toArray();
-print_r(DB::getQueryLog());exit;
-
 								if(!empty($tmpSellerData['logo'])){
 									$logoPath = url('/').'/uploads/Seller/resized/'.$tmpSellerData['logo'];
 								}else{
 									$logoPath = url('/').'/uploads/Seller/resized/no-image.png';
 								}
 				
-				if(!empty($tmpSellerData) && count((array)$tmpSellerData) > 0){
-					
-					$seller_name = $tmpSellerData['store_name'];
-					$seller_name = str_replace( array( '\'', '"', 
-					',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
-					$seller_name = str_replace(" ", '-', $seller_name);
-					$seller_name = strtolower($seller_name);
-				
-					if(!empty($tmpSellerData['store_name'])){
-						$display_name = $tmpSellerData['store_name'];
-					}
-					if(!empty($Seller['product_cnt']) && $Seller['product_cnt'] > 0){
-					//$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$display_name.' ( '.$Seller['product_cnt'].' )</span></a></li>';
-						$output .= '<li class="seller_autocomplete_search" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';"><img src="'.$logoPath.'" style="height:50px;width:50px;"><p style="padding:10px;">'.$display_name.'</p></li>';
-					}
+				if(!empty($tmpSellerData)> 0){
+				$seller_name = $tmpSellerData['store_name'];
+				$seller_name = str_replace( array( '\'', '"', 
+				',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+				$seller_name = str_replace(" ", '-', $seller_name);
+				$seller_name = strtolower($seller_name);
+			
+				if(!empty($tmpSellerData['store_name'])){
+					$display_name = $tmpSellerData['store_name'];
 				}
-			//} //xit;
-		//}
+				if(!empty($Seller['product_cnt']) && $Seller['product_cnt'] > 0){
+				//$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$display_name.' ( '.$Seller['product_cnt'].' )</span></a></li>';
+					$output .= '<li class="seller_autocomplete_search" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';"><img src="'.$logoPath.'" style="height:50px;width:50px;"><p style="padding:10px;">'.$display_name.'</p></li>';
+				}
+				}
+			}
+		}
 		echo $output;
 	}
 }

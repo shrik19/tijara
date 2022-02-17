@@ -512,7 +512,7 @@ public function getCatSubList(Request $request) {
 		$Sellers	=   $Sellers->orderBy('users.id')
 						->get()
 						->toArray();
-//echo "<pre>";print_r($path);exit;//if(strpos(@$request->path, 'annonser') !== false){
+echo "<pre>";print_r($Sellers);exit;//if(strpos(@$request->path, 'annonser') !== false){
 		$SellersArray	=	array();
 		if($productsServices=='products') {
 			

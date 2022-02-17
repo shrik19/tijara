@@ -501,14 +501,9 @@ public function getCatSubList(Request $request) {
 								->where('users.status','=','active')
 								->where('users.is_deleted','=','0')
 								->where('users.is_shop_closed','=','0')
-								//->where('user_packages.status','=','active')
-								->where('user_packages.start_date','<=', $today)
-								->where('user_packages.end_date','>=', $today);
-
 								->where(function($q) use ($today) {
-
-								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$today],['end_date','>=',$today]])
-								->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$today],['trial_end_date','>=',$today]]);
+									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$today],['end_date','>=',$today]])
+									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$today],['trial_end_date','>=',$today]]);
 								})
 		
 		if($city_filter != ''){

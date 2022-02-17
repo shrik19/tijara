@@ -3147,28 +3147,28 @@ $p_id =$Products[0]['id'];
                 			    ->where('users.is_shop_closed','=','0')
                 			    ->where('users.store_name', 'like','%' .$request['query']. '%')
 								->first();//UserMain::where('id',$SellerId)->first()->toArray();
-								echo "<pre>";print_r($tmpSellerData);
-								echo "<br>";
+
 								if(!empty($tmpSellerData['logo'])){
 									$logoPath = url('/').'/uploads/Seller/resized/'.$tmpSellerData['logo'];
 								}else{
 									$logoPath = url('/').'/uploads/Seller/resized/no-image.png';
 								}
 				
-				if(!empty($tmpSellerData)> 0){
-				$seller_name = $tmpSellerData['store_name'];
-				$seller_name = str_replace( array( '\'', '"', 
-				',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
-				$seller_name = str_replace(" ", '-', $seller_name);
-				$seller_name = strtolower($seller_name);
-			
-				if(!empty($tmpSellerData['store_name'])){
-					$display_name = $tmpSellerData['store_name'];
-				}
-				if(!empty($Seller['product_cnt']) && $Seller['product_cnt'] > 0){
-				//$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$display_name.' ( '.$Seller['product_cnt'].' )</span></a></li>';
-					$output .= '<li class="seller_autocomplete_search" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';"><img src="'.$logoPath.'" style="height:50px;width:50px;"><p style="padding:10px;">'.$display_name.'</p></li>';
-				}
+				if(!empty($tmpSellerData) && count($tmpSellerData) > 0){
+					echo "in";
+					$seller_name = $tmpSellerData['store_name'];
+					$seller_name = str_replace( array( '\'', '"', 
+					',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
+					$seller_name = str_replace(" ", '-', $seller_name);
+					$seller_name = strtolower($seller_name);
+				
+					if(!empty($tmpSellerData['store_name'])){
+						$display_name = $tmpSellerData['store_name'];
+					}
+					if(!empty($Seller['product_cnt']) && $Seller['product_cnt'] > 0){
+					//$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$display_name.' ( '.$Seller['product_cnt'].' )</span></a></li>';
+						$output .= '<li class="seller_autocomplete_search" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';"><img src="'.$logoPath.'" style="height:50px;width:50px;"><p style="padding:10px;">'.$display_name.'</p></li>';
+					}
 				}
 			}
 		}

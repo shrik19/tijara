@@ -3127,7 +3127,7 @@ $p_id =$Products[0]['id'];
 	{
 
 		$Sellers = $this->getSellersList($request->category_slug,$request->subcategory_slug,$request->price_filter,$request->city_filter,$request->search_string,'products',@$request->path);
-echo "<pre>";print_r($Sellers);exit;
+
 		if(!empty($Sellers))
 		{
 			
@@ -3147,6 +3147,8 @@ echo "<pre>";print_r($Sellers);exit;
                 			    ->where('users.is_shop_closed','=','0')
                 			    ->where('users.store_name', 'like','%' .$request['query']. '%')
 								->first();//UserMain::where('id',$SellerId)->first()->toArray();
+								echo "<pre>";print_r($tmpSellerData);
+								echo "<br>";
 								if(!empty($tmpSellerData['logo'])){
 									$logoPath = url('/').'/uploads/Seller/resized/'.$tmpSellerData['logo'];
 								}else{

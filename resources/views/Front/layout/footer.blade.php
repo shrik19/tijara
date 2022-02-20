@@ -57,7 +57,7 @@
               <li><a href="{{ $howToSellUrl }}">{{ $howToSellPage }} </a></li>
            @endif
 					<li><a  href="{{route('seller_register')}}" >{{ __('users.footer_open_a_shop_link')}}</a></li>
-					<li><a style="cursor: pointer;" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{route('frontDashboard')}}" @else onclick="showErrorMessage('{{trans('errors.login_seller_required')}}','{{ route('frontLoginSeller') }}');"  @endif>{{ __('users.footer_my_pages_link')}}</a></li>
+					<li><a style="cursor: pointer;" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{route('frontDashboard')}}" @else href="{{ route('frontLoginSeller')}}"  @endif>{{ __('users.footer_my_pages_link')}}</a></li>
 
 				</ul>
 			</div>

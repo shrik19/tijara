@@ -86,7 +86,7 @@
      'fill_in_page_content_en'=>'Please enter page contents (English)',
 
      'login_required' => 'Please login as Buyer/Seller first to access the pages.',
-     'login_buyer_required' => 'Please login as Buyer first to access the pages.',
+     'login_buyer_required' => 'You are login as seller, you need to be buyer to add product in wishlist.',
      'payment_failed_err'=>'Something went wrong. Please try again later',
      'same_seller_product_err' => 'Products from different sellers are not allowed for Order please select products from same seller.',
      'unique_attr_name_err'=>'Please enter different attribute, its already added',

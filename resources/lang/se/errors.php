@@ -85,7 +85,7 @@
      'fill_in_page_content_en'=>'Vänligen ange sidans innehåll (engelska)',
 
      'login_required' => 'Logga in som köpare / säljare först för att komma åt sidorna.',
-     'login_buyer_required' => 'Logga in som köpare först för att komma åt sidorna.',
+     'login_buyer_required' => 'Du är inloggad som säljare, du måste vara köpare för att lägga till produkten i önskelistan.',
      'payment_failed_err' => 'Något gick fel. Vänligen försök igen senare',
      'same_seller_product_err' => 'Produkter från olika säljare är inte tillåtna för beställning, välj produkter från samma säljare.',
      'unique_attr_name_err'=>'Ange ett annat attribut, det har redan lagts till',

@@ -894,7 +894,7 @@ class ProductController extends Controller
 
     //function to create peyment request for buyer product using admin swish number
    public function showCheckoutSwishNumber(Request $request) {
-   
+ 
      $product_slug = $request->input('product_slug');
         $slug =   CommonLibrary::php_cleanAccents($product_slug);
         $user_id = Auth::guard('user')->id();
@@ -944,7 +944,13 @@ class ProductController extends Controller
                 'orderId'=>$orderId,
                 'paymentAmount'=>env('PRODUCT_POST_AMOUNT')*100
             );
-             $amount=env('PRODUCT_POST_AMOUNT')*100;
+             $data = array(
+                'type' => $request->type,
+                'clientKey' => env('CLIENT_KEY'),
+                'orderId'=>$orderId,
+                'paymentAmount'=>env('PRODUCT_POST_AMOUNT')
+            );
+             $amount=env('PRODUCT_POST_AMOUNT');
              $admin_swish_number =env('ADMIN_SWISH_NUMBER');
              $message = "Tijara payment for order".$orderId;
 

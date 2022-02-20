@@ -66,7 +66,7 @@ if(strpos(@$path, 'annonser') !== false){
       $product_cat_link= url('/').'/products/'.$category_name; @endphp
 
         @if( Request::path() == "/")
-         <a href="{{$product->product_link}}" title="{{$product->title}}" style="margin-top: 8px;"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+         <a href="{{$product_link}}" title="{{$product->title}}" style="margin-top: 8px;"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
          <div class="star-rating" style="font-size:15px;margin-top: 0px;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>
@@ -85,7 +85,7 @@ if(strpos(@$path, 'annonser') !== false){
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
 
-          <a href="{{$product->product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+          <a href="{{$product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         <div class="star-rating" style="font-size:15px;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>

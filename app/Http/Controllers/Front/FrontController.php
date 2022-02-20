@@ -628,7 +628,7 @@ public function getCatSubList(Request $request) {
 	function getPopularProducts($limit,$category_slug='',$subcategory_slug='') {
 	
 		$currentDate = date('Y-m-d H:i:s');
-		DB::enableQueryLog();
+		//DB::enableQueryLog();
 		$PopularProducts 	= Products::join('orders_details', 'products.id', '=', 'orders_details.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
@@ -670,7 +670,7 @@ public function getCatSubList(Request $request) {
 
 		if(count($PopularProducts)<10 && $limit ==10){
 			$number =10-count($PopularProducts);
-			DB::enableQueryLog();
+			//DB::enableQueryLog();
 			$currentDate = date('Y-m-d H:i:s');
 			$roleId = 2;
 			$TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
@@ -761,7 +761,7 @@ public function getCatSubList(Request $request) {
 	}
 	// get trending products
 	function getTrendingProducts($number,$category_slug='',$subcategory_slug='',$role_id='') {
-		DB::enableQueryLog();
+		//DB::enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$roleId = 2;
 		$TrendingProducts 	= Products::join('category_products', 'products.id', '=', 'category_products.product_id')
@@ -1212,8 +1212,8 @@ public function getCatSubList(Request $request) {
         	
         }
           
-		//return $data;
-		echo'<pre>';print_r($data);exit;
+		return $data;
+		//echo'<pre>';print_r($data);exit;
        //echo $data['category_name'];exit;
         
 	}
@@ -1503,9 +1503,10 @@ public function getCatSubList(Request $request) {
 	//function for product details page
 
 	public function productDetails($first_parameter='',$second_parameter='',$third_parameter='') 
-	{
+	{	
+		//echo "here".$_GET['annonser'];exit;
 	 $current_uri = request()->segments();
-     DB::enableQueryLog();
+    // DB::enableQueryLog();
       if(@$_GET['annonser'] ==1){
       	$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
 										->join('annonsercategories', 'annonsercategories.id', '=', 'category_products.category_id')
@@ -1644,19 +1645,19 @@ public function getCatSubList(Request $request) {
 		}
 		
 		//$Product->id limit 5
-/*DB::enableQueryLog();
+		/*DB::enableQueryLog();
 
-// and then you can get query log
+		// and then you can get query log
 
 
-  OrdersDetails::join('products', 'products.id', '=', 'orders_details.product_id')
-  select('orders_details.*')->where('orders_details.product_id','!=',80)->whereIn('orders_details.order_id', function($query){
-    $query->select('orders_details.order_id')
-    ->from('orders_details')    
-    ->where('orders_details.product_id','=',$Product->id);
-})->get();
-print_r(DB::getQueryLog());exit;*/
-//echo "<pre>";print_r($Products[0]['id']);exit;
+		  OrdersDetails::join('products', 'products.id', '=', 'orders_details.product_id')
+		  select('orders_details.*')->where('orders_details.product_id','!=',80)->whereIn('orders_details.order_id', function($query){
+		    $query->select('orders_details.order_id')
+		    ->from('orders_details')    
+		    ->where('orders_details.product_id','=',$Product->id);
+		})->get();
+		print_r(DB::getQueryLog());exit;*/
+		//echo "<pre>";print_r($Products[0]['id']);exit;
 
 $p_id =$Products[0]['id'];
 //echo $p_id;exit;
@@ -1728,44 +1729,15 @@ $p_id =$Products[0]['id'];
 		}else{
 			$data['loginUserEmail']='';
 		}
-
-
+//echo $tmpSellerData['role_id'];exit;
 		//dd($loginUserData);
 		if($tmpSellerData['role_id']==2){// echo "<pre>";print_r($data);exit;
         	return view('Front/seller_product_details', $data);
         }
 		else {
-
-			//echo "<pre>";print_r($data);exit;
+DB::enableQueryLog();
 			$currentDate = date('Y-m-d H:i:s');
 
-
-/*			$similarProducts	=   Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
-									->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
-									->join('category_products', 'products.id', '=', 'category_products.product_id')
-									->join('categories', 'categories.id', '=', 'category_products.category_id')
-									->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
-									->join('users', 'products.user_id', '=', 'users.id')
-									->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')//DB::raw("DATEDIFF(products.created_at, '".$currentDate."') AS posted_days")
-									->select(['products.*',
-									 DB::raw("DATEDIFF('".$currentDate."', products.created_at) as created_days") ,
-									 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
-									->where('products.status','=','active')
-									->where('products.is_deleted','=','0')
-									->where('products.is_buyer_product','=','1')
-									->where('categories.status','=','active')
-									->where('subcategories.status','=','active')
-									->where('users.status','=','active')
-									->where('users.is_deleted','=','0')
-									->where('users.is_shop_closed','=','0')
-									->where(function($q) use ($currentDate) {
-
-										$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
-									})
-									->orderBy('variant_product.id', 'ASC')
-									->groupBy('products.id')
-									->offset(0)->limit(config('constants.Popular_Product_limits'));*/
-						//DB::enableQueryLog();
 						$similarProducts	=   Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
 									->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 									->join('users', 'products.user_id', '=', 'users.id')
@@ -1779,13 +1751,13 @@ $p_id =$Products[0]['id'];
 									->where('users.is_deleted','=','0')
 									->where(function($q) use ($currentDate) {
 
-										$q->where([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+										$q->where([["users.role_id",'=',"1"],['is_sold','=','0']])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 									})
 									->orderBy('variant_product.id', 'ASC')
 									->groupBy('products.id')
-									->offset(0)->limit(config('constants.similar_product_limits'));
-	//	dd(DB::getQueryLog());
-
+									->where('products.id','!=',$Product->id)->offset(0)->limit(config('constants.similar_product_limits'));
+									
+	//print_r(DB::getQueryLog());exit;
 			/*if(isset($category_slug) && $category_slug!='') {
 
 				$similarProducts=	$similarProducts->where('categories.category_slug','=',$category_slug);
@@ -1794,9 +1766,9 @@ $p_id =$Products[0]['id'];
 				$similarProducts=	$similarProducts->where('categories.id','=',$Product->catId);
 			
 			}*/
-			$similarProducts	=	$similarProducts->where('products.id','!=',$Product->id)->get();
+			//$similarProducts	=	$similarProducts;
 			//echo $Product->catId;exit;
-	
+		
 			$product_sold_data = BuyerProducts::where('product_id',$Product->id)->first();
 			$data['product_location'] = @$product_sold_data['location'];
 			$data['product_seller_name'] = $product_sold_data['user_name'];

@@ -1579,6 +1579,7 @@ public function getCatSubList(Request $request) {
 			$Products		=	$Products->where('products.product_slug','=',$product_parts[0])->where('products.product_code','=',$product_parts[1]);
 		}
 		$Products			=	$Products->get();// ->groupBy('products.id')
+		echo "<pre>";print_r($Products);exit;
 	//print_r(DB::getQueryLog());exit;
 		if(isset($product_slug) && count($Products)<=0) {
 			$product_parts	=	explode('-P-',$product_slug);
@@ -1590,8 +1591,10 @@ public function getCatSubList(Request $request) {
 
 			$Products		=	$Products->first();
 			return redirect('/product/'.$Products->product_slug.'-P-'.$Products->product_code);
-			if(count($Products)<=0)
-			return redirect(route('AllproductListing'));
+			if(count($Products)<=0){
+				return redirect(route('AllproductListing'));
+			}
+			
 		}
 
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();

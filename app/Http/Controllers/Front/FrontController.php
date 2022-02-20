@@ -193,7 +193,8 @@ class FrontController extends Controller
 								->select('products.*','users.id as user_id','users.fname',
 								'users.lname','users.email','users.store_name','users.description','variant_product.image','variant_product.price','variant_product.id as variant_id','annonsercategories.category_name')
 								
-								->where('users.is_deleted','=','0')								
+								->where('users.is_deleted','=','0')	
+								->where('products.is_deleted','=','0')									
                 			    ->where('users.is_shop_closed','=','0')
 								//->where('users.is_featured','=','1')
 								->where('products.is_buyer_product','=','1')
@@ -1579,8 +1580,7 @@ public function getCatSubList(Request $request) {
 			$Products		=	$Products->where('products.product_slug','=',$product_parts[0])->where('products.product_code','=',$product_parts[1]);
 		}
 		$Products			=	$Products->get();// ->groupBy('products.id')
-		//echo "<pre>";print_r($Products);exit;
-	print_r(DB::getQueryLog());exit;
+	    //print_r(DB::getQueryLog());exit;
 		if(isset($product_slug) && count($Products)<=0) {
 			$product_parts	=	explode('-P-',$product_slug);
 			$Products		=	Products::where('products.status','=','active');

@@ -1212,8 +1212,8 @@ public function getCatSubList(Request $request) {
         	
         }
           
-		return $data;
-		//echo'<pre>';print_r($data);exit;
+		//return $data;
+		echo'<pre>';print_r($data);exit;
        //echo $data['category_name'];exit;
         
 	}

@@ -53,7 +53,7 @@
               <div class="buy_now_hover_details product_wish_icon">
                 <ul>
                  <?php /*<li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>*/?>
-                  <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$Service->id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="far fa-heart"></i></a></li>
+                  <li><a @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$Service->id}}');event.stopPropagation();" @else href="{{ route('frontLogin') }}" @endif><i class="far fa-heart"></i></a></li>
                 </ul>
               </div>
             </div>

@@ -46,9 +46,9 @@
                <div class="buy_now_hover_details product_wish_icon">
                 <ul>
                     
-                    <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) 
+                    <li><a @if(Auth::guard('user')->id()) 
                           onclick="addToWishlist('{{$first['attributes'][0]->variant_id}}');event.stopPropagation();" 
-                          @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif>
+                          @else href="{{ route('frontLogin') }}" @endif>
                           <i class="far fa-heart"></i>
                         </a>
                     </li>

@@ -72,6 +72,7 @@
             <!-- contact shop -->
 			<div class="col-md-3">
 				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{__('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+        <input type="hidden" name="is_login" id="is_login" value="{{Auth::guard('user')->id()}}">
 			</div>
             
           </div>
@@ -550,11 +551,15 @@ function selectSellers()
   });
 
 $(document).on("click",".contact-store",function(event) {
-        
-        $('#contactStoremodal').find('.seller_id').val($(this).attr('id'));
-        $('#contactStoremodal').find('.seller_email').val($(this).attr('seller_email')); 
-        $('#contactStoremodal').find('.seller_name').val($(this).attr('seller_name'));      
-        $('#contactStoremodal').modal('show'); 
+        var is_login = $("#is_login").val();
+        if(is_login==''){
+          window.location.href = "{{ route('frontLogin') }}";  
+        }else{
+          $('#contactStoremodal').find('.seller_id').val($(this).attr('id'));
+          $('#contactStoremodal').find('.seller_email').val($(this).attr('seller_email')); 
+          $('#contactStoremodal').find('.seller_name').val($(this).attr('seller_name'));      
+          $('#contactStoremodal').modal('show'); 
+        }
 });
 
 $(document).on("click",".conact-store-save",function(event) {

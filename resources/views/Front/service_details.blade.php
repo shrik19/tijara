@@ -394,7 +394,7 @@
                 <input type="hidden" name="user_rating_hid" class="user_rating_hid" id="user_rating_hid" value="">
 
                 <div class="form-group">
-                  <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
+                  <label>{{ __('lang.sort_by_rating')}} <span class="text-danger">*</span></label>
                     <div class="star-rating" style="font-size:15px;">
                       <select class='rating user_rating' id='' data-id='' data-rating="">
                         <option value="1" >1</option>
@@ -448,7 +448,6 @@ $( document ).ready(function() {
 });
 
 function deleteServiceReview(rating_id){
-
 $.confirm({
       title: js_confirm_msg,
       content: are_you_sure_message,
@@ -475,7 +474,7 @@ $.confirm({
 
               if(responseObj.status == 1)
               {
-                showSuccessMessage(responseObj.msg,'reload');
+                showSuccessMessageReview(responseObj.msg,'reload');
               }
               else
               {
@@ -554,7 +553,7 @@ $(".service_rating").each(function(){
                       var responseObj = $.parseJSON(data);
                       if(responseObj.status == 1)
                       {
-                        showSuccessMessage(review_add_success,'reload');
+                        showSuccessMessageReview(responseObj.msg,'reload');
                       }
                       else
                       {
@@ -805,7 +804,7 @@ $(document).on("click",".update_service_review",function(event) {
               var responseObj = $.parseJSON(data);
               if(responseObj.status == 1)
               {
-                showSuccessMessage(responseObj.msg,'reload');
+                showSuccessMessageReview(responseObj.msg,'reload');
               }
               else
               {
@@ -823,51 +822,6 @@ $(document).on("click",".update_service_review",function(event) {
         });}, 300);
       }   
     }); 
-
-function deleteServiceReview(rating_id){
-
-$.confirm({
-      title: js_confirm_msg,
-      content: are_you_sure_message,
-      type: 'orange',
-      typeAnimated: true,
-      columnClass: 'medium',
-      icon: 'fas fa-exclamation-triangle',
-      buttons: {
-          ok: function () {
-            $(".review_loader").show();
-            $.ajax({
-          url:"{{ route('frontDeleteServiceReview') }}",
-          headers: {
-            'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-          },
-          type: 'POST',
-          async: false,
-          data:{rating_id:rating_id},
-          success: function(data){
-        
-             $(".review_loader").hide();
-          
-              var responseObj = $.parseJSON(data);
-
-              if(responseObj.status == 1)
-              {
-                showSuccessMessage(responseObj.msg,'reload');
-              }
-              else
-              {
-                showErrorMessage(responseObj.msg);
-              }
-          }
-        })
-          },
-          Avbryt: function () {
-            
-          },
-      }
-  });
-
-}
 
 let searchParams = new URLSearchParams(window.location.search)
 if(searchParams.has('page')==true){

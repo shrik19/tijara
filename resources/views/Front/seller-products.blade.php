@@ -667,7 +667,7 @@ $(document).on("click",".update_product_review",function(event) {
               var responseObj = $.parseJSON(data);
               if(responseObj.status == 1)
               {
-                showSuccessMessage(responseObj.msg,'reload');
+                showSuccessMessageReview(responseObj.msg,'reload');
               }
               else
               {
@@ -713,7 +713,7 @@ $.confirm({
 
               if(responseObj.status == 1)
               {
-                showSuccessMessage(responseObj.msg,'reload');
+                showSuccessMessageReview(responseObj.msg,'reload');
               }
               else
               {

@@ -1644,23 +1644,9 @@ public function getCatSubList(Request $request) {
 			$data['Categories'] = $this->getCategorySubcategoryList();
 		}
 		
-		//$Product->id limit 5
-		/*DB::enableQueryLog();
+		
 
-		// and then you can get query log
-
-
-		  OrdersDetails::join('products', 'products.id', '=', 'orders_details.product_id')
-		  select('orders_details.*')->where('orders_details.product_id','!=',80)->whereIn('orders_details.order_id', function($query){
-		    $query->select('orders_details.order_id')
-		    ->from('orders_details')    
-		    ->where('orders_details.product_id','=',$Product->id);
-		})->get();
-		print_r(DB::getQueryLog());exit;*/
-		//echo "<pre>";print_r($Products[0]['id']);exit;
-
-$p_id =$Products[0]['id'];
-//echo $p_id;exit;
+	$p_id =$Products[0]['id'];
 
 	$currentDate = date('Y-m-d H:i:s');
 		$PopularProducts	= OrdersDetails::join('products', 'products.id', '=', 'orders_details.product_id')
@@ -1729,13 +1715,13 @@ $p_id =$Products[0]['id'];
 		}else{
 			$data['loginUserEmail']='';
 		}
-//echo $tmpSellerData['role_id'];exit;
+		//echo $tmpSellerData['role_id'];exit;
 		//dd($loginUserData);
 		if($tmpSellerData['role_id']==2){// echo "<pre>";print_r($data);exit;
         	return view('Front/seller_product_details', $data);
         }
 		else {
-DB::enableQueryLog();
+			//DB::enableQueryLog();
 			$currentDate = date('Y-m-d H:i:s');
 
 						$similarProducts	=   Products::join('variant_product', 'products.id', '=', 'variant_product.product_id')
@@ -1749,26 +1735,16 @@ DB::enableQueryLog();
 									->where('products.is_buyer_product','=','1')
 									->where('users.status','=','active')
 									->where('users.is_deleted','=','0')
+									->where('products.id','!=',$Product->id)
 									->where(function($q) use ($currentDate) {
 
 										$q->where([["users.role_id",'=',"1"],['is_sold','=','0']])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 									})
-									->orderBy('variant_product.id', 'ASC')
+									->orderBy('variant_product.id', 'DESC')
 									->groupBy('products.id')
-									->where('products.id','!=',$Product->id)->offset(0)->limit(config('constants.similar_product_limits'));
-									
-	//print_r(DB::getQueryLog());exit;
-			/*if(isset($category_slug) && $category_slug!='') {
-
-				$similarProducts=	$similarProducts->where('categories.category_slug','=',$category_slug);
-			}
-			else {
-				$similarProducts=	$similarProducts->where('categories.id','=',$Product->catId);
-			
-			}*/
-			//$similarProducts	=	$similarProducts;
-			//echo $Product->catId;exit;
-		
+									->offset(0)->limit(config('constants.similar_product_limits'))
+									->get();
+											
 			$product_sold_data = BuyerProducts::where('product_id',$Product->id)->first();
 			$data['product_location'] = @$product_sold_data['location'];
 			$data['product_seller_name'] = $product_sold_data['user_name'];

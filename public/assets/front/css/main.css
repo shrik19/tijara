@@ -47,7 +47,16 @@ h2.instagram_heading {
     margin-bottom: 25px;
     margin-top: 55px;
     margin-left: 40px;
-    border-radius: 20px;
+}
+.go_to_tijara_ads_btn_top{
+  color: #000 !important;
+  background-color: #f9b78e;
+  margin-top: 11px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+font-size: 12px!important;
+
+  border-radius: 20px;
 }
 .swish_payment_ad_img{
   border: solid 1px #DDD;width: 210px;height: 65px;
@@ -1056,6 +1065,7 @@ nav ul {
   /* border-bottom: 4px #aaa solid;  
   width:16%;*/
   margin-right: 1px;  
+  padding: 0 0.78vw;
 } 
 .nav > li > a { 
   margin-bottom: 1px;
@@ -1063,7 +1073,7 @@ nav ul {
 }
 
 .nav > li:first-child { 
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;    padding-left: 0!important;
 } 
 .nav > li:first-child > a { 
   border-radius: 4px 0 0 0;
@@ -2289,7 +2299,7 @@ ul.tijara_front_box.row {
     padding: 0px 0px;
     margin-bottom: 25px;
 }
-.tijara_front_box li img{width: 45%; height: auto;margin: 10px 27%; margin-top: 10ch;}
+.tijara_front_box li img{width: 45%; height: auto;margin: 10px 27%; margin-top:7ch;}
 .tijara_front_inner h4{     
     color: #03989e;
     text-align: left;
@@ -2319,7 +2329,8 @@ ul.tijara_front_box.row {
 }
 #msform{padding: 20px 0;}
 .p-0{padding: 0;}
-.colr-box {padding: 20px;min-height: 16vw;}
+.colr-box {padding: 20px;min-height: 16vw;  height: 340px;width: 340px;
+}
 .tijara_front_box li h3{text-align: left; font-size: 18px; color: #737373;margin-left: 35px;font-weight: 300;}
 
 
@@ -2654,8 +2665,8 @@ text-align: right;
     /* font-family: 'Glyphicons Halflings'!important; */
     font-style: normal;
     font-weight: normal;
-    content:"<"!important;
-    color: white!important;
+    content:"\e092";
+    color: rgb(0, 0, 0)!important;
  
     font-size: 30px!important;  
   }
@@ -2670,7 +2681,7 @@ text-align: right;
     color: transparent;
     border: none;
     outline: 0;
-    background: #ccc!important;
+    background: transparent;
     padding: 15px 3px!important;
   }
 .slick-next:focus, .slick-next:hover, .slick-prev:focus, .slick-prev:hover{
@@ -2681,17 +2692,18 @@ text-align: right;
     /* font-family: 'Glyphicons Halflings'!important; */
     font-style: normal;
     font-weight: normal;
-    content:">"!important; 
-    color: white!important;
+    content:"\f105";
+    font-family: fon;
+    color: rgb(0, 0, 0)!important;
   
     font-size: 30px!important;
    
   } 
   .slick-next {
-    right: 16px!important;;
+    right: -42px!important;;
 }
 .slick-prev {
-  left: 16px!important;;
+  left: -42px!important;;
   z-index: 1;
 }
 .slick-next, .slick-prev {
@@ -3158,9 +3170,7 @@ text-align: right;
           color: #000 !important;
           background-color: #ffcc99;
           padding: 10px;
-          margin-bottom: 134px;
-          margin-top: 61px;
-          margin-left: -14px;
+       
           border-radius: 10px;
           height: auto;
         }
@@ -3844,8 +3854,7 @@ ul.breadcrumb-category {
 }
 .colr-box {
   padding: 0;
-  min-height: 11vw;
-}
+  min-height: 11vw;}
 .tijara-content{
   clear: both;
 }

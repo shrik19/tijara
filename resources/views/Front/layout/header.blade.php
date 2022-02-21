@@ -90,7 +90,7 @@
 
 </head>
 <body>
-  <header>
+  <header class="product_view">
     <nav class="navbar navbar-default navbar-fixed-top tj-navbar" role="navigation">
       <hr class="top_line"/>
 <div class="product_view tijara_top_menu">
@@ -133,7 +133,7 @@
   @if(Auth::guard('user')->getUser()->role_id == 1)
    <div class="pull-right">
                 @if(Auth::guard('user')->id())
-                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="35" /></h3></a>
+                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" /></h3></a>
                 <ul class="dropdown-menu">
 
                   <li style="width:100%"><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
@@ -156,11 +156,11 @@
 
               </div>
   @else
-  <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="35" /></h3></a> 
+  <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" /></h3></a> 
   @endif              
 @else
 
-<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="35"/></a></h3>
+<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30"/></a></h3>
 
 @endif
 
@@ -171,7 +171,7 @@
                    <!--  <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> -->
                      <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{ route('frontLogin')}}" @else href="{{ route('frontLogin') }}" @endif>
 
-                    <img class="m-7" src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" height="35" />
+                    <img class="m-7" src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" height="30" />
                       </a>
                       @php
                         $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
@@ -188,7 +188,7 @@
                     <div class="cart_details"  style="padding-left:0px;padding-right:0">
                     <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else href="{{ route('frontLogin') }}" @endif>
 
-                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" height="35" />
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" height="30" />
 
                     </a>
 
@@ -238,10 +238,10 @@
 @if(!empty($Categories))
 <div class="clearfix"></div>
 
-<nav class="navbar sticky-top navbar-expand-lg bg-dark m-0 ">
+<nav class="navbar sticky-top navbar-expand-lg bg-dark product_view">
     <div class="container-fluid">    
       <div class="row">
-        <div class="col-md-10">
+        <div >
         <div class="product_view">
       <div class="">
       <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -249,7 +249,7 @@
   </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav mainMenu">
+      <ul class="nav mainMenu pull-left">
     <!-- <span>( @php count($Categories) @endphp)</span> -->
         @php $i=0; @endphp
         @foreach($Categories as $CategoryId=>$Category)
@@ -280,15 +280,17 @@
             @endforeach
 
         </ul>
+        <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn_top pull-right">{{ __('users.go_to_announse_page')}}</a>
+
       </div>
 
       </div>
     </div>
   </div>
 </div>
-  <div class="col-md-2">
+  <!-- <div class="col-md-2">
     <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a>
-  </div>
+  </div> -->
 </div>
   </nav>
   <hr class="categoryGrayLine">

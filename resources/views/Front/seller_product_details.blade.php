@@ -196,7 +196,8 @@
                    ?>
                   <div class="quantity_box">
                      <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >          
-                     <button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif {{$btn_disabled}}>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>
+                     <?php /*<button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif {{$btn_disabled}}>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>  */?>
+                     <a class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else href="{{ route('frontLogin') }}" @endif {{$btn_disabled}}> {{ __('lang.add_to_cart')}}<i class="glyphicon glyphicon-shopping-cart cart_icon"></i></a>
                   </div>
                   <p class="productStockOut" style="{{$outOfStock}}">{{ __('messages.product_out_stock') }}</p> 
                 </div>

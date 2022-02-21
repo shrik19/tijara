@@ -1273,7 +1273,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
                                var responseObj = $.parseJSON(data);
                                if(responseObj.status == 1)
                                {
-                                 showSuccessMessage(review_add_msg,'reload');
+                                 showSuccessMessageReview(review_add_msg,'reload');
                                }
                                else
                                {
@@ -1463,7 +1463,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
                                var responseObj = $.parseJSON(data);
                                if(responseObj.status == 1)
                                {
-                                 showSuccessMessage(review_add_success,'reload');
+                                 showSuccessMessageReview(responseObj.msg,'reload');
                                }
                                else
                                {
@@ -1981,7 +1981,6 @@ $('body').on('change', '.service_image', function () {
 
 function showSuccessMessageReview(strContent,redirect_url = '')
 {
-    
   $.alert({
       title: "Klart!",
       content: strContent,

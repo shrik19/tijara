@@ -6,6 +6,7 @@
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
  <!-- Carousel Default -->
 <section class="product_section p_155">
+
   @if(!empty($header_image))
       <img class="seller_banner" src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
     @endif
@@ -65,6 +66,7 @@
             <!-- contact shop -->
 			<div class="col-md-3">
 				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+        <input type="hidden" name="is_login" id="is_login" value="{{Auth::guard('user')->id()}}">
 			</div>
           </div>
             <span class="current_category" style="display:none;">{{$category_slug}}</span>
@@ -496,11 +498,17 @@ function selectSellers()
 
 
 $(document).on("click",".contact-store",function(event) {
-        
-        $('#contactStoremodal').find('.seller_id').val($(this).attr('id'));
-        $('#contactStoremodal').find('.seller_email').val($(this).attr('seller_email')); 
-        $('#contactStoremodal').find('.seller_name').val($(this).attr('seller_name'));      
-        $('#contactStoremodal').modal('show'); 
+        var is_login = $("#is_login").val();
+        if(is_login==''){
+          window.location.href = "{{ route('frontLogin') }}";  
+        }else{
+          $('#contactStoremodal').find('.seller_id').val($(this).attr('id'));
+          $('#contactStoremodal').find('.seller_email').val($(this).attr('seller_email')); 
+          $('#contactStoremodal').find('.seller_name').val($(this).attr('seller_name'));      
+          $('#contactStoremodal').modal('show');
+        }
+   
+         
 });
 
 $(document).on("click",".conact-store-save",function(event) {
@@ -528,7 +536,7 @@ $(document).on("click",".conact-store-save",function(event) {
 			$('#contactStoremodal').modal('hide'); 
 			
 			if(output.success !=''){
-              showSuccessMessage(output.success);
+              showContactSuccessMessage(output.success);
               let user_message   = $("#user_message").val('');
             }else{
               showErrorMessage(output.error);
@@ -539,6 +547,34 @@ $(document).on("click",".conact-store-save",function(event) {
           showErrorMessage(please_add_your_message);
       }    
     });
+
+  function showContactSuccessMessage(strContent,redirect_url = '')
+{
+    
+  $.alert({
+      title: "Tack!",
+      content: strContent,
+      type: '#03989e',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-check-circle",
+      buttons: {
+        ok: function () {
+          if(redirect_url != '')
+          {
+            if(redirect_url == 'reload')
+            {
+              location.reload(true);
+            }
+            else
+            {
+              window.location.href = redirect_url;
+            }
+          }
+        },
+      }
+    });
+}
 
 /*js code for policy tabs*/
 function openPage(pageName,elmnt) {
@@ -615,7 +651,7 @@ $(document).on("click",".update_service_review",function(event) {
               var responseObj = $.parseJSON(data);
               if(responseObj.status == 1)
               {
-                showSuccessMessage(responseObj.msg,'reload');
+                showSuccessMessageReview(responseObj.msg,'reload');
               }
               else
               {
@@ -661,7 +697,7 @@ $.confirm({
 
               if(responseObj.status == 1)
               {
-                showSuccessMessage(responseObj.msg,'reload');
+                showSuccessMessageReview(responseObj.msg,'reload');
               }
               else
               {

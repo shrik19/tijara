@@ -2518,11 +2518,12 @@ public function getCatSubList(Request $request) {
 			}
 
 			$checkExists = ProductReview::where([['user_id','=',$user_id],['product_id','=',$product_id]])->get()->toArray();
+
 			if(!empty($checkExists))
 			{
 				$is_added = 0;
                 $txt_msg = trans('errors.product_review_error');
-                echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
+               echo json_encode(array('status'=>$is_added,'msg'=>$txt_msg, 'is_login_err' => $is_login_err));
                 exit;
 			}
 			else
@@ -2659,7 +2660,7 @@ public function getCatSubList(Request $request) {
 		$user_id = Auth::guard('user')->id();
         $is_added = 1;
         $is_login_err = 0;
-        $txt_msg = trans('lang.txt_comments_success');
+        $txt_msg = trans('messages.review_add_msg');
         if($user_id && Auth::guard('user')->getUser()->role_id == 1)
         {
 			$rating = $request->rating;
@@ -2800,7 +2801,7 @@ public function getCatSubList(Request $request) {
 
         if (!empty($result)) {
            $res=ServiceReview::where('id',$id)->delete();
-            $txt_msg =trans('lang.record_delete');
+            $txt_msg =trans('lang.review_del_success');
             $is_deleted = 1;
         } else {
         	$txt_msg = trans('errors.something_went_wrong');

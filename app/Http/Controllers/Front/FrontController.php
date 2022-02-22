@@ -2644,6 +2644,25 @@ public function getCatSubList(Request $request) {
 
         if (!empty($result)) {
            $res=ProductReview::where('id',$id)->delete();
+
+       		$getAllratings = ProductReview::where([['product_id','=',$result->product_id]]);
+
+			$ratingCnt 	 = $getAllratings->count();
+			$totalRating = $getAllratings->sum('rating');
+				 
+			$avgRating 	 = 0.00;
+			if(!empty($ratingCnt))
+			{
+				$avgRating = ($totalRating / $ratingCnt);
+				$avgRating = number_format($avgRating,2);
+				$arrUpdate = ['rating' => $avgRating,'rating_count' => $ratingCnt];
+				Products::where('id',$product_id)->update($arrUpdate);
+			}else{
+
+				$arrUpdate = ['rating' => "0.00",'rating_count' => $ratingCnt];
+				Products::where('id',$result->product_id)->update($arrUpdate);
+			}
+
             $txt_msg =trans('lang.review_del_success');
             $is_deleted = 1;
         } else {
@@ -2801,6 +2820,25 @@ public function getCatSubList(Request $request) {
 
         if (!empty($result)) {
            $res=ServiceReview::where('id',$id)->delete();
+           
+
+			$getAllratings = ServiceReview::where([['service_id','=',$result->service_id]]);
+
+				$ratingCnt 	 = $getAllratings->count();
+				$totalRating = $getAllratings->sum('rating');
+						 
+				$avgRating 	 = 0.00;
+				if(!empty($ratingCnt))
+				{
+					$avgRating = ($totalRating / $ratingCnt);
+					$avgRating = number_format($avgRating,2);
+					$arrUpdate = ['rating' => $avgRating,'rating_count' => $ratingCnt];
+					Services::where('id',$service_id)->update($arrUpdate);
+				}else{
+					$arrUpdate = ['rating' => "0.00",'rating_count' => $ratingCnt];
+					Services::where('id',$result->service_id)->update($arrUpdate);
+				}
+
             $txt_msg =trans('lang.review_del_success');
             $is_deleted = 1;
         } else {

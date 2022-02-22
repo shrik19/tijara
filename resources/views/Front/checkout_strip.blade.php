@@ -36,7 +36,7 @@
 
                                                         data-cc-on-file="false"
 
-                                                        data-stripe-publishable-key="{{$strip_api_key}}"
+                                                        data-stripe-publishable-key="{{$strip_secret}}"
 
                                                         id="payment-form">
 

@@ -2149,7 +2149,7 @@ padding-left: 0px!important;
     float: left;
     width: 100%; }
 
-.p_155{padding-top: 155px!important;}
+.p_155{padding-top: 175px!important;}
   .star-rating input {
     display:none;
   }
@@ -2665,7 +2665,7 @@ text-align: right;
     /* font-family: 'Glyphicons Halflings'!important; */
     font-style: normal;
     font-weight: normal;
-    content:"\e092";
+    content:"<"!important;
     color: rgb(0, 0, 0)!important;
  
     font-size: 30px!important;  
@@ -2692,8 +2692,7 @@ text-align: right;
     /* font-family: 'Glyphicons Halflings'!important; */
     font-style: normal;
     font-weight: normal;
-    content:"\f105";
-    font-family: fon;
+    content:">"!important;
     color: rgb(0, 0, 0)!important;
   
     font-size: 30px!important;

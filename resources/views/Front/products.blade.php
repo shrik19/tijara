@@ -51,8 +51,8 @@
 						<label class="checkbox toggle candy" onclick="" style="width:100px">
 						  <input id="view" type="checkbox" />
 						  <p>
-							<span class="product_sorting_filter" id="productSearchFilter" >{{ __('lang.category_product_title')}}</span>
-							<span class="product_sorting_filter" id="serviceSearchFilter">{{ __('lang.category_service_title')}}</span>
+							<span class="product_sorting_filter" id="productSearchFilter" style="cursor: pointer;">{{ __('lang.category_product_title')}}</span>
+							<span class="product_sorting_filter" id="serviceSearchFilter"  style="cursor: pointer;">{{ __('lang.category_service_title')}}</span>
 						  </p>                  
 						  <a class="slide-button"></a>                  
 						 </label>                   

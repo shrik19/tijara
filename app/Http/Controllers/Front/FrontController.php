@@ -625,7 +625,7 @@ public function getCatSubList(Request $request) {
 
 
 	//get popular products
-	function getPopularProducts($limit,$category_slug='',$subcategory_slug='') {
+	function getPopularProducts($limit,$category_slug='',$subcategory_slug='',$product_id='') {
 	
 		$currentDate = date('Y-m-d H:i:s');
 		//DB::enableQueryLog();
@@ -645,6 +645,7 @@ public function getCatSubList(Request $request) {
 								->where('users.status','=','active')
                 			    ->where('users.is_shop_closed','=','0')
 								->where('users.is_deleted','=','0')
+								->where('products.id','!=',$product_id)
 								->where(function($q) use ($currentDate) {
 
 									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
@@ -695,6 +696,7 @@ public function getCatSubList(Request $request) {
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
 							  ->orderBy('products.id', 'DESC')
+							  ->where('products.id','!=',$product_id)
 							  //->orderBy('variant_id', 'ASC')
 							  ->groupBy('products.id')
 							// ->offset(0)->limit(config('constants.Front_Products_limits'));
@@ -755,7 +757,7 @@ public function getCatSubList(Request $request) {
 		}
 
 		
-			return $PopularProducts;
+		return $PopularProducts;
 		
 		
 	}
@@ -1673,15 +1675,28 @@ public function getCatSubList(Request $request) {
 									//->where('orders_details.product_id','=',$p_id);
 									})->groupBy('products.id')
 									->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
-								
+					
 									if(count($PopularProducts)>0){
-										$data['PopularProducts']=$PopularProducts;
+									
+										if(count($PopularProducts)<6){
+											$popularLimit = 5 - count($PopularProducts);
+
+											$getPopular = $this->getPopularProducts($popularLimit,'','',$p_id);		
+
+											$PopularProducts = $PopularProducts->merge($getPopular);
+											
+											$data['PopularProducts']=$PopularProducts;
+
+										}else{
+											$data['PopularProducts']=$PopularProducts;
+										}
+										
 									}else{
+										
 										$data['PopularProducts']	= $this->getPopularProducts(5);
 									}
 
 										
-
 		$data['Product']			= $Product;
 		$data['variantData']		= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;

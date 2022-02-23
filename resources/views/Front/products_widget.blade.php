@@ -6,11 +6,13 @@ if(strpos(@$path, 'annonser') !== false){
 }else{
    $product_link = $product->product_link;
 }
+
+$order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product->product_code;
 @endphp
 
 <li class="{{$class}}">
 
-  <div class="product_data product_link_js" product_link="{{$product_link}}" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
+  <div class="product_data product_link_js" product_link="@if(!empty($product_link)){{$product_link}}@else{{$order_product_link}}@endif" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
     <div class="product_img" style="display:inline-block;background-color: white;">
       @if($product->image)
           <img src="{{url('/')}}/uploads/ProductImages/resized/{{$product->image}}" >
@@ -85,7 +87,7 @@ if(strpos(@$path, 'annonser') !== false){
           <?php /*<a href="{{$product_cat_link}}"><h5>{{$product->category_name}}</h5></a> */?>
         @else
 
-          <a href="{{$product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
+          <a href="@if(!empty($product_link)){{$product_link}}@else{{$order_product_link}}@endif" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         <div class="star-rating" style="font-size:15px;">
           <select class='rating product_rating' id='rating_{{$product->id}}' data-id='rating_{{$product->id}}' data-rating='{{$product->rating}}'>
             <option value="1" >1</option>

@@ -625,7 +625,7 @@ public function getCatSubList(Request $request) {
 
 
 	//get popular products
-	function getPopularProducts($limit,$category_slug='',$subcategory_slug='',$product_id='') {
+	function getPopularProducts($limit,$category_slug='',$subcategory_slug='',$product_id=array()) {
 	
 		$currentDate = date('Y-m-d H:i:s');
 		//DB::enableQueryLog();
@@ -644,23 +644,18 @@ public function getCatSubList(Request $request) {
 							  	->where('subcategories.status','=','active')
 								->where('users.status','=','active')
                 			    ->where('users.is_shop_closed','=','0')
-								->where('users.is_deleted','=','0')
-								->where('products.id','!=',$product_id)
+								->where('users.is_deleted','=','0')								
+							    ->whereNotIn('products.id',$product_id)
 								->where(function($q) use ($currentDate) {
 
 									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								})
-								// ->when( "users.role_id" == 2 , function ($query) use ($currentDate) {
-								// 	return $query->join('user_packages', 'user_packages.user_id', '=', 'users.id')->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
-								// }, function ($query) use ($currentDate) {
-								// 	return $query->where([['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
-								// })
-								//->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+								
 								->orderBy('totalOrderedProducts', 'DESC')
 								->orderBy('variant_product.id', 'ASC')
 								->groupBy('products.id')
 								->offset(0)->limit($limit)->get();
-		//print_r(DB::getQueryLog());	exit;
+		//echo "<pre>";print_r($PopularProducts);	exit;
 		/*$current_uri = request()->segments();
         
         if(!empty($current_uri[0]) && @$current_uri[0]=='products'){
@@ -668,7 +663,7 @@ public function getCatSubList(Request $request) {
 		}else{
 			$PopularProducts->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
 		}*/
-
+//echo count($PopularProducts);exit;
 		if(count($PopularProducts)<10 && $limit ==10){
 			$number =10-count($PopularProducts);
 			//DB::enableQueryLog();
@@ -696,7 +691,8 @@ public function getCatSubList(Request $request) {
 							  ->where('categories.status','=','active')
 							  ->where('subcategories.status','=','active')
 							  ->orderBy('products.id', 'DESC')
-							  ->where('products.id','!=',$product_id)
+							  
+							  ->whereNotIn('products.id',$product_id)
 							  //->orderBy('variant_id', 'ASC')
 							  ->groupBy('products.id')
 							// ->offset(0)->limit(config('constants.Front_Products_limits'));
@@ -756,7 +752,7 @@ public function getCatSubList(Request $request) {
 			}
 		}
 
-		
+		//echo "<pre>";print_r($PopularProducts);exit;
 		return $PopularProducts;
 		
 		
@@ -1531,8 +1527,9 @@ public function getCatSubList(Request $request) {
       }
 
 		
-										
-							  			
+				
+
+
 	
 		if($first_parameter!='' && $second_parameter!='' && $third_parameter!='' && strpos($third_parameter, '-P-') !== false){
 
@@ -1540,6 +1537,7 @@ public function getCatSubList(Request $request) {
 			$subcategory_slug=	$second_parameter;
 			$product_slug	=	$third_parameter;
 		}
+
 		if($first_parameter=='' || $second_parameter=='' || $third_parameter=='') {
 
 			if(strpos($first_parameter, '-P-') !== false)
@@ -1675,13 +1673,19 @@ public function getCatSubList(Request $request) {
 									//->where('orders_details.product_id','=',$p_id);
 									})->groupBy('products.id')
 									->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
-					
+					//echo "<pre>";print_r($PopularProducts);	exit;
 									if(count($PopularProducts)>0){
 									
 										if(count($PopularProducts)<6){
 											$popularLimit = 5 - count($PopularProducts);
+											$popularProductIDS =array();
+											foreach ($PopularProducts as $key => $value) {
+												
+												$popularProductIDS [] = $value['id'];
+											}
+											$popularProductIDS [] =$p_id;
 
-											$getPopular = $this->getPopularProducts($popularLimit,'','',$p_id);		
+											$getPopular = $this->getPopularProducts($popularLimit,'','',$popularProductIDS);		
 
 											$PopularProducts = $PopularProducts->merge($getPopular);
 											
@@ -1691,12 +1695,11 @@ public function getCatSubList(Request $request) {
 											$data['PopularProducts']=$PopularProducts;
 										}
 										
-									}else{
-										
+									}else{										
 										$data['PopularProducts']	= $this->getPopularProducts(5);
 									}
-
-										
+									//echo "<pre>";print_r($Product);exit;
+												
 		$data['Product']			= $Product;
 		$data['variantData']		= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;
@@ -2231,7 +2234,7 @@ public function getCatSubList(Request $request) {
 		$data['serviceAvailability']=   ServiceAvailability::where('service_id',$Service->id)->get();
       
 		$data['getTerms'] =  SellerPersonalPage::where('user_id',$Service['user_id'])->first();
-
+//echo "in";exit;
         return view('Front/service_details', $data);
     }
 	
@@ -2244,31 +2247,7 @@ public function getCatSubList(Request $request) {
 		}else{
 			$limit = config('constants.Popular_Product_limits');
 		}
-	
-	/*	$PopularServices 	= Services::join('service_requests', 'services.id', '=', 'service_requests.service_id')								
-								->join('category_services', 'services.id', '=', 'category_services.service_id')
-								->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
-								->join('serviceSubcategories', 'servicecategories.id', '=', 'serviceSubcategories.category_id')
-								->join('users', 'services.user_id', '=', 'users.id')
-								->join('user_packages', 'user_packages.user_id', '=', 'users.id')
-								->select(['services.*',DB::raw("count(service_requests.id) as totalOrderedServices"),'servicecategories.category_name'])
-								->where('services.status','=','active')
-								->where('services.is_deleted','=','0')
-								->where('servicecategories.status','=','active')
-							  	->where('serviceSubcategories.status','=','active')
-								->where('users.status','=','active')
-								->where('users.is_deleted','=','0')
-                			    ->where('users.is_shop_closed','=','0')
-                			    ->where(function($q) use ($currentDate) {
 
-								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
-									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);
-								
-								})
-
-								->orderBy('totalOrderedServices', 'DESC')
-								->groupBy('services.id')
-								->offset(0)->limit($limit)->get();*/
 	$PopularServices 	= Services::leftjoin('service_requests', 'services.id', '=', 'service_requests.service_id')								
 								->join('category_services', 'services.id', '=', 'category_services.service_id')
 								->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')

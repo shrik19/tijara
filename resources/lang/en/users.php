@@ -388,5 +388,7 @@ cancellation of service works.',
 	'your_package_history'=>'Package History',
 	'history_button'=>'History',
     'you_need_buyer_profile' => "To book service you need buyer profile.",
+    'header_logo_size_info' => 'please upload logo of size 672px * 140px.',
+    'footer_logo_size_info'=>'please upload logo of size 1000px * 350px.',
  ]
 ?>

@@ -98,7 +98,7 @@
         <div>
           <div class="tj-topmenu">
           <div class="wid-20 col-sm-12">
-            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/assets/img/logo.png"/></a>
+            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}"/></a>
           </div>
 
           <div class="wid-85 col-xm-12">

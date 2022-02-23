@@ -27,7 +27,7 @@
                           <div id="small-img-roll">
                         @if(isset($image) && !empty($image))
                             @foreach(explode(',',$Service->images) as $image)
-                              <img src="{{url('/')}}/uploads/ServiceImages/serviceIcons/{{$image}}" class="show-small-img" alt="">
+                              <img src="{{url('/')}}/uploads/ServiceImages/serviceIcons/{{$image}}" class="show-small-img" alt="{{$image}}">
                             @endforeach
                         @else
                             <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" class="show-small-img">
@@ -220,7 +220,7 @@
     <div class="container-fluid">
     <div class="container-inner-section">
         <div class="row">
-            <div class="best_seller_container">
+            <div class="best_seller_container" style="margin-top:60px;margin-bottom:25px;">
               <div class="col-md-12"  style="margin-left: -33px;">
               <div class="col-md-6">
               <h2  class="review_title"  id="show-all-review">{{ __('users.review_title')}}</h2>
@@ -685,8 +685,8 @@ function sendServiceRequest()
       {
         $(".loader").hide();
         var responseObj = $.parseJSON(data);
-        showSuccessMessageReview("{{ __('lang.serviceRequestSent')}}");
-        location.reload();
+        showSuccessMessageReview("{{ __('lang.serviceRequestSent')}}",'reload');
+        //location.reload();
       }
      });
 }

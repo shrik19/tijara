@@ -213,7 +213,7 @@
 <div class="container-fluid">
   <div class="container-inner-section">
     <div class="row">
-      <div class="best_seller_container">
+      <div class="best_seller_container"  style="margin-top:60px;margin-bottom:25px;">
       <div class="col-md-12" style="margin-left: -33px;">
       <div class="col-md-6"  id="show-all-review">
       <h2 class="review_title">{{ __('users.review_title')}}</h2>

@@ -34,13 +34,18 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
           $store_name = strtolower($store_name);
           $seller_link= url('/').'/seller/'.$store_name; 
 
-          $heartStyle='';
+          $heartStyle = $iconSize='';
 
           if(strpos(@$path, 'seller') != false){
-            $heartStyle='left:11px !important';
+            $heartStyle='left:18px !important';
+            $iconSize = 'font-size: 15px !important';
           }
+          if(strpos(@$path, 'products') != false){
+            $iconSize = 'font-size: 13px !important';
+          }
+         
         @endphp
-      <!-- <div class="buy_now_hover_details" style="height:280px !important;"> -->
+      <!-- <div class="buy_now_hover_details" style="height:280px !important;">  || strpos(@$path, 'products') != false-->
       @if(strpos(@$path, 'annonser') == false)
       <div class="buy_now_hover_details one_icon" style="{{$heartStyle}}">
           <ul>
@@ -49,7 +54,7 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
               -->
               <li><a  @if(Auth::guard('user')->id()) 
                     onclick="addToWishlist('{{$product->variant_id}}');event.stopPropagation();" 
-                    @else href="{{ route('frontLogin') }}" @endif>
+                    @else href="{{ route('frontLogin') }}" @endif style="{{$iconSize}}">
                     <i class="far fa-heart"></i>
                   </a>
               </li>

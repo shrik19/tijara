@@ -388,5 +388,7 @@ avbokning av tjänst fungerar.',
 	'your_package_history'=>'Pakethistorik',
 	'history_button'=>'Historia',
     'you_need_buyer_profile' => "För att boka tjänst behöver du köparprofil.",
+    'header_logo_size_info' => 'ladda upp logotyp i storlek 55 * 160px.',
+    'footer_logo_size_info'=>'ladda upp logotyp i storlek 55 * 160px.',
  ]
 ?>

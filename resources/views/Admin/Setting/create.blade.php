@@ -30,12 +30,14 @@
             <div class="form-group">
               <label>{{ __('users.upload_header_logo_label')}}  <span class="text-danger"></span></label>				<img src="{{url('/')}}/uploads/Images/{{$sitedata[0]->header_logo}}" height="50">
                <input type="file" name="header_logo" class="form-control" value="{{old('header_logo')}}">
+               ( {{ __('users.header_logo_size_info')}} )
               <div class="text-danger err-letter">{{ ($errors->has('header_logo')) ? $errors->first('header_logo') : '' }}</div>
             </div>
 
             <div class="form-group">
               <label>{{ __('users.upload_footer_logo_label')}}  <span class="text-danger"></span></label>				<img src="{{url('/')}}/uploads/Images/{{$sitedata[0]->footer_logo}}" height="50">
                <input type="file" name="footer_logo" class="form-control" value="{{old('footer_logo')}}">
+               <p>( {{ __('users.footer_logo_size_info')}} ) </p>
               <div class="text-danger err-letter">{{ ($errors->has('footer_logo')) ? $errors->first('footer_logo') : '' }}</div>
             </div>
 

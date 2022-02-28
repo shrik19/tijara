@@ -231,7 +231,7 @@
                                       $store_pick_address ='';
                                     }
                                   ?>
-                                  <p  style="margin-left:26px;">{{ $store_pick_address}} </p>
+                                  <p  style="margin-left:26px;">{{ @$store_pick_address}} </p>
                                 </div>
                                 <div class="col-md-5" style="margin-top: 8px;">
                                   <span>0.00kr</span> 

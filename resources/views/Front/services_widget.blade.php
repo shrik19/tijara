@@ -2,10 +2,11 @@
 @php
 $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false || strpos(@$path, 'products') !== false ) ? 'product_img_wrapper':'col-md-15';
 
-$heartStyle='';
+$heartStyle = $iconSize = '';
 
 if(strpos(@$path, 'seller') != false){
   $heartStyle='left:11px !important';
+   $iconSize = 'font-size: 13px !important';
 }
 @endphp
 
@@ -21,7 +22,7 @@ if(strpos(@$path, 'seller') != false){
       <div class="buy_now_hover_details one_icon" style="{{$heartStyle}}">
       <ul>
          <?php /*<li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>*/?>
-          <li><a @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');event.stopPropagation();" @else  href="{{ route('frontLogin') }}" @endif><i class="far fa-heart"></i></a></li>
+          <li><a @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');event.stopPropagation();" @else  href="{{ route('frontLogin') }}" @endif style="{{$iconSize}}"><i class="far fa-heart"></i></a></li>
         </ul>
       </div>
     </div>

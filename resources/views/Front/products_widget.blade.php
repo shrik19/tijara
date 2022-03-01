@@ -1,4 +1,5 @@
 @php
+
 $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'products') !== false) ? 'product_img_wrapper':'col-md-15';
 
 if(strpos(@$path, 'annonser') !== false){
@@ -38,7 +39,7 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
 
           if(strpos(@$path, 'seller') != false){
             $heartStyle='left:18px !important';
-            $iconSize = 'font-size: 15px !important';
+            $iconSize = 'font-size: 13px !important';
           }
           if(strpos(@$path, 'products') != false){
             $iconSize = 'font-size: 13px !important';

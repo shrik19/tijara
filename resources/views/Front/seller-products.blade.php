@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
-<section class="product_section p_155">
+<section class="product_section" style="padding-top: 156px!important;">
     @if(!empty($header_image))
       <img class="seller_banner" src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
     @endif

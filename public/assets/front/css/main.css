@@ -55,7 +55,7 @@ h2.instagram_heading {
   border-radius: 20px;
   margin-bottom: 8px;
 font-size: 12px!important;
-
+margin-right: 6px;
   border-radius: 20px;
 }
 .swish_payment_ad_img{
@@ -686,10 +686,10 @@ padding: 0!important;
 html {
     height: 100%
 }
-
+.col-products-sidebar{padding-left: 5px;}
 /*category pages breadcrumb*/
   ul.breadcrumb-category {
-  padding: 10px 16px;
+  padding: 10px 7px;
   list-style: none;
   /*margin-bottom: 50px;
   margin-top: 30px;*/
@@ -2684,7 +2684,7 @@ text-align: right;
     background: transparent;
     padding: 15px 3px!important;
   }
-.slick-next:focus, .slick-next:hover, .slick-prev:focus, .slick-prev:hover{
+ .slick-next:hover, .slick-prev:hover{
     
     background: #03989e!important; 
   }
@@ -3556,7 +3556,7 @@ h1.checkoutHeading {
     margin-left: 5px;
     margin: 0px!important;}
     ul.breadcrumb-category {
-      padding: 10px 16px;
+      padding: 10px 0px;
       list-style: none;
       margin-bottom: 14px;
       margin-top: 3px;
@@ -3789,7 +3789,7 @@ h1.checkoutHeading {
   margin-bottom: 26px;
 }
 ul.breadcrumb-category {
-  padding: 10px 16px;
+  padding: 10px 0px;
   list-style: none;
   margin-bottom: 23px;
   margin-top: 43px;

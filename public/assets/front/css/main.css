@@ -1242,12 +1242,12 @@ span.remember-text {
     margin: 4px;}
 .cart_count{
     background-color: #03989e;  height: 16px; width: 16px;border-radius: 50%; color: #fff;position: absolute;
-    top: -7px;
+    top: -6px;
     right: 4px;
 }
 
 .cart_count.count_wishlist{
-  top: -7px;
+  top: -6px;
     right: 10px;
 }
 .service_wishlist_h2{
@@ -1260,7 +1260,7 @@ span.remember-text {
 }
 .cart_count span{font-size: 10px;text-align: center; color: #fff;    position: absolute;
     top: 2px;
-    left: 5px;
+    left: 4px;
     right:4px;
   }
     .search_now_input_box{position: relative; float: left;width: 100%;}
@@ -1681,9 +1681,9 @@ overflow: hidden;margin-top: 155px;}
     height: auto;
     display: flex;
     margin-right: 10px;
-    /* float: left; */
+    float: left;
   }
-  .product_listings,.service_listings{
+  .product_listings{
     margin-left: 23px;
     float: left;
   }
@@ -2676,8 +2676,8 @@ text-align: right;
     font-size: 30px!important;  
   }
   .slick-next, .slick-prev{
-    width: auto!important;
-    height: auto!important;
+    width: 50px!important;
+    height: 50px!important;
     padding: 0;
     -webkit-transform: translate(0,-50%);
     -ms-transform: translate(0,-50%);
@@ -2687,7 +2687,6 @@ text-align: right;
     border: none;
     outline: 0;
     background: transparent;
-    padding: 15px 3px!important;
   }
  .slick-next:hover, .slick-prev:hover{
     
@@ -2704,10 +2703,10 @@ text-align: right;
    
   } 
   .slick-next {
-    right: -42px!important;;
+    right: -55px!important;;
 }
 .slick-prev {
-  left: -42px!important;;
+  left: -55px!important;;
   z-index: 1;
 }
 .slick-next, .slick-prev {
@@ -2715,7 +2714,7 @@ text-align: right;
     line-height: 0;
     position: absolute;
     top: 43%!important;
-    border-radius: 10px !important;
+    border-radius: 50% !important;
   }
     .slider.slider-horizontal .slider-track {
       height: 3px!important;

@@ -19,7 +19,7 @@ if(strpos(@$path, 'seller') != false){
       @else
         <img src="{{url('/')}}/uploads/ServiceImages/no-image.png" style="width:100%;">
       @endif
-      <div class="buy_now_hover_details one_icon" style="{{$heartStyle}}">
+      <div class="buy_now_hover_details one_icon">
       <ul>
          <?php /*<li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>*/?>
           <li><a @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');event.stopPropagation();" @else  href="{{ route('frontLogin') }}" @endif style="{{$iconSize}}"><i class="far fa-heart"></i></a></li>

@@ -123,6 +123,8 @@
                     @endforeach
                 @endif
         </div>
+        <p class="left">left</p>
+        <p class="right">right</p>
     </div>
 </div>
 </div>
@@ -558,6 +560,8 @@ $(".service_rating").each(function(){
     autoplay: false,
     autoplaySpeed: 2000,
     infinite: true,
+    // prevArrow:"<button type='button' class='slick-prev pull-left'>left</button>",
+    //         nextArrow:"<button type='button' class='slick-next pull-right'>Right</button>",
     responsive: [
         {
           breakpoint: 1024,
@@ -577,5 +581,12 @@ $(".service_rating").each(function(){
       ],
   });
 
+  $('.left').click(function(){
+  $('.slider').slick('slickPrev');
+})
+
+$('.right').click(function(){
+  $('.slider').slick('slickNext');
+})
 </script>
 @endsection

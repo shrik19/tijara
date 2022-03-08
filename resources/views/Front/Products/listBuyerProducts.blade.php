@@ -58,9 +58,9 @@
             }
 
             ?> 
-            <div class="col-sm-3">
-            <div class="card product-card">
-            <img class="card-img-top buyer-product-img" src="{{$image}}" >
+         <div class="col-md-15 buyer-ht">
+                    <div class="card product-card product_data_img product_link_js">
+            <img class="card-img-top buyer-product-img product_img_prd" src="{{$image}}" >
             <div class="card-body product_all">
             <h5 class="card-title">{{$dated}}</h5>
             <p class="card-text buyer-product-title">{{$title}}</p>

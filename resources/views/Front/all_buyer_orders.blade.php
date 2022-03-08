@@ -67,10 +67,10 @@
                     $id =  $value['id'];
                    
                     ?> 
-                    <div class="col-sm-3">
-                    <div class="card product-card">
+                    <div class="col-md-15">
+                    <div class="card product-card product_data_img product_link_js">
 
-                    <img class="card-img-top buyer-product-img" order_id="{{base64_encode($value->order_id)}}" src="{{$image}}" product_link="{{route('frontShowOrderDetails', base64_encode($value->order_id))}}" title="{{ __('lang.txt_view')}}">
+                    <img class="card-img-top buyer-product-img product_img_prd" order_id="{{base64_encode($value->order_id)}}" src="{{$image}}" product_link="{{route('frontShowOrderDetails', base64_encode($value->order_id))}}" title="{{ __('lang.txt_view')}}">
                     <div class="card-body product_all">
                     <h5 class="card-title">{{$dated}}</h5>
                     <p class="card-text buyer-product-title">

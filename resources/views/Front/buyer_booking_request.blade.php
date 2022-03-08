@@ -104,9 +104,9 @@
                                    $location = $value['location'];
                                    $service_time=$value['service_time'];
                                     ?> 
-                                    <div class="col-sm-3">
-                                        <div class="card product-card">
-                                            <img class="card-img-top buyer-product-img ServiceImgCard serviceReqDetails" src="{{$image}}"user_name="'.$user.'" serviceName="{{$serviceName}}" dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}">
+                                     <div class="col-md-15 buyer-ht">
+                                     <div class="card product-card product_data_img product_link_js">
+                                            <img class="card-img-top buyer-product-img ServiceImgCard serviceReqDetails product_img_prd" src="{{$image}}"user_name="'.$user.'" serviceName="{{$serviceName}}" dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}">
 
 
                                             <div class="card-body product_all">

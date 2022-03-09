@@ -110,7 +110,7 @@
 <section>
     <div class="container-fluid">
         <div class="container-inner-section">
-          <div class="row">
+          <div>
             <div class="best_seller_container col-md-12 product_container-list-5">
                 <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
                 <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>

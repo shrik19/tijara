@@ -239,8 +239,9 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   @media screen and (max-width: 991px) {
 	.product_details_section {
 	  /* Apply some styles */
-	  padding-top:35px !important;
+	  padding-top:175px !important;
 	}
+  .product_listings{margin: 0;}
   }
 
 
@@ -363,7 +364,9 @@ small-img-roll{
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
-      
+      .navbar{
+        min-height: 0;
+      }
 	.slider-horizontal {
 		width: 80% !important;
 	}

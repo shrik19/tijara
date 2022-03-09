@@ -123,8 +123,6 @@
                     @endforeach
                 @endif
         </div>
-        <p class="left">left</p>
-        <p class="right">right</p>
     </div>
 </div>
 </div>

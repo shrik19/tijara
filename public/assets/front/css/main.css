@@ -1671,7 +1671,7 @@ overflow: hidden;margin-top: 155px;}
 .category_list li a.active{color: #fff;background: #03989e;}
 .category_list li a{font-size: 18px; color: #717171; font-weight: 300;display: block;}
 .product_details{list-style: none;}
-.service_list{padding-left: 20px;}
+.service_list{padding-left: 23px;}
 .product_details li{
  float: left; 
  display: block; 

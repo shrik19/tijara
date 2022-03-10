@@ -68,7 +68,7 @@
             <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
             <span class="current_search_string" style="display:none;">{{$search_string}}</span>
-            <div class="row product_container product_container-list-4">
+            <div class="row product_container product_container-list-4 service_page">
                 
                 <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
              <!--    <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span> -->
@@ -88,7 +88,7 @@
                 <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
                 <!-- <h2>{{ __('lang.best_seller_head')}}</h2> -->
                 <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
-                <ul class="product_details best_seller">
+                <ul class="product_details best_seller pl-0">
                   @foreach($PopularServices as $service)
                             @include('Front.services_widget')
                   @endforeach

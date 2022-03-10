@@ -318,7 +318,7 @@
         <div class="row">
             <div class="best_seller_container col-md-12 product_container-list-5">
                 <h2  class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
-                <ul class="product_details best_seller">
+                <ul class="product_details best_seller pl-0">
 
       					@foreach($PopularProducts as $key=>$product)
                  @php if($key>4){continue;}@endphp

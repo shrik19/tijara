@@ -686,10 +686,10 @@ padding: 0!important;
 html {
     height: 100%
 }
-.col-products-sidebar{padding-left: 5px;}
+.col-products-sidebar{padding-left: 2px;}
 /*category pages breadcrumb*/
   ul.breadcrumb-category {
-  padding: 10px 7px;
+  padding: 10px 7px 7px 2px;
   list-style: none;
   /*margin-bottom: 50px;
   margin-top: 30px;*/
@@ -1817,9 +1817,11 @@ padding-left: 0px!important;
   }
   
   .product_container.product_container-list-4 {
-	 margin-left: 18px;
+	 margin-left: 40px;
   }
-  
+  .service_page{
+    margin-left: 18px!important;
+  }
   .product_container-list-4 .product_details li:nth-child(1),
   .product_container-list-4 .product_details li:nth-child(9),
   .product_container-list-4 .product_details li:nth-child(17),

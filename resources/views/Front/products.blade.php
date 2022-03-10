@@ -35,6 +35,7 @@
 					<div class="col-md-6">
 					  <div class="annonser-image" style="text-align:center; width:100%;">
 						<img src="{{url('/')}}/assets/img/tijara_ann.jpeg" style="width:100%;">
+            
 					  </div>
 					</div>
 			   
@@ -48,7 +49,7 @@
 				  @if( Request::segment(1) !='annonser')
          
 					  <div class="col-md-4 pr-0" style="padding-left: 30px;">
-						<label class="checkbox toggle candy" onclick="" style="width:100px">
+						<label class="checkbox toggle candy" onclick="" >
 						  <input id="view" type="checkbox" />
 						  <p>
 							<span class="product_sorting_filter" id="productSearchFilter" style="cursor: pointer;">{{ __('lang.category_product_title')}}</span>
@@ -94,7 +95,7 @@
 				<span class="current_sellers" style="display:none;">{{$seller_id}}</span>
 				<span class="current_search_string" style="display:none;">{{$search_string}}</span>
 				<span class="current_role_id" style="display:none;">{{$current_role_id}}</span>
-				<div class="row product_container filter_product_list product_container-list-4">
+				<div class="row product_container filter_product_list product_container-list-4 service_page">
 				   
 					<span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             <span class="service_listings"><div style="text-align:center;margin-top:50px;display: none"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>

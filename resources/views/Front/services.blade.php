@@ -5,7 +5,7 @@
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
  <!-- Carousel Default -->
 <section class="product_section">
-    <div class="container-fluid p_155">
+    <div class="container-fluid-1 p_155">
       <!-- Example row of columns -->
       <div class="row container-inner-section">
       <div class="">
@@ -13,7 +13,7 @@
        @if(Request::segment(1) =='services' || Request::segment(1) =='products')
           @include('Front.category_breadcrumb')
         @endif
-        <div class="col-md-3">
+        <div class="col-md-3 p-0">
             @include('Front.services_sidebar')
         </div>
 

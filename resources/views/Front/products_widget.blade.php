@@ -35,13 +35,17 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
           $store_name = strtolower($store_name);
           $seller_link= url('/').'/seller/'.$store_name; 
 
-          $heartStyle = $iconSize='';
+          $heartStyle = $iconSize= $paddingleft = '';
 
           if(strpos(@$path, 'seller') != false){
             $heartStyle='left:18px !important';
             $iconSize = 'font-size: 13px !important';
+            $paddingleft = "margin-left: 0!important; padding-left: 0!important";
           }
           if(strpos(@$path, 'products') != false){
+            $iconSize = 'font-size: 13px !important';
+          }
+          if(strpos(@$path, 'services') != false){
             $iconSize = 'font-size: 13px !important';
           }
          
@@ -53,10 +57,10 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
               <!--<li><a href="{{$product->product_link}}"><i class="fa fa-search"></i></a></li>
               <li><a href="javascript:void(0);" @if(Auth::guard('user')->id()) onclick="addToCart('{{$product->variant_id}}');event.stopPropagation();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');event.stopPropagation();" @endif><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
               -->
-              <li><a  @if(Auth::guard('user')->id()) 
+              <li style="{{$paddingleft}}"><a  @if(Auth::guard('user')->id()) 
                     onclick="addToWishlist('{{$product->variant_id}}');event.stopPropagation();" 
                     @else href="{{ route('frontLogin') }}" @endif style="{{$iconSize}}">
-                    <i class="far fa-heart"></i>
+                    <i class="far fa-heart wishlisticon"></i>
                   </a>
               </li>
           </ul>

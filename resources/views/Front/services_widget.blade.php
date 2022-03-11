@@ -2,11 +2,12 @@
 @php
 $class = (strpos(@$path, 'annonser') !== false || strpos(@$path, 'seller') !== false || strpos(@$path, 'services') !== false || strpos(@$path, 'products') !== false ) ? 'product_img_wrapper':'col-md-15';
 
-$heartStyle = $iconSize = '';
+$heartStyle = $iconSize = $paddingleft = '';
 
 if(strpos(@$path, 'seller') != false){
   $heartStyle='left:11px !important';
    $iconSize = 'font-size: 13px !important';
+   $paddingleft = "margin-left: 0!important; padding-left: 0!important";
 }
 if(strpos(@$path, 'services') != false){
             $iconSize = 'font-size: 13px !important';
@@ -25,7 +26,7 @@ if(strpos(@$path, 'services') != false){
       <div class="buy_now_hover_details one_icon">
       <ul>
          <?php /*<li><a href="{{$service->service_link}}"><i class="fa fa-search"></i></a></li>*/?>
-          <li><a @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');event.stopPropagation();" @else  href="{{ route('frontLogin') }}" @endif style="{{$iconSize}}"><i class="far fa-heart"></i></a></li>
+          <li  style="{{$paddingleft}}"><a @if(Auth::guard('user')->id()) onclick="addToWishlistServices('{{$service->id}}');event.stopPropagation();" @else  href="{{ route('frontLogin') }}" @endif style="{{$iconSize}}"><i class="far fa-heart"></i></a></li>
         </ul>
       </div>
     </div>

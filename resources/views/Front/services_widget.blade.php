@@ -8,6 +8,9 @@ if(strpos(@$path, 'seller') != false){
   $heartStyle='left:11px !important';
    $iconSize = 'font-size: 13px !important';
 }
+if(strpos(@$path, 'services') != false){
+            $iconSize = 'font-size: 13px !important';
+          }
 @endphp
 
 <li class="{{$class}}">

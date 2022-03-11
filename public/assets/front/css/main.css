@@ -1679,6 +1679,13 @@ overflow: hidden;margin-top: 155px;}
  /*height: 100%; */
  position: relative;
 }
+.mt-2{
+  margin-top:2px
+}
+.pl-10{padding-left: 15px;}
+.ml-0{margin-left: 0px!important;}
+.mt-20{margin: 0; margin-top: 20px;}
+/* .wishlisticon{font-size: 17px;} */
 .seller_logo{    width: 100%;
     height: auto;
     display: flex;

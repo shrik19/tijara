@@ -90,8 +90,8 @@
                   <div>
                     <div class="col-md-9">
 					@if(!empty($store_information))
-						<h2 class="butik_info_heading">{{ __('lang.butik_info_heading')}} </h2>
-						<p class="store_info"><?php echo $store_information; ?></p>
+						<h2 class="butik_info_heading pl-10">{{ __('lang.butik_info_heading')}} </h2>
+						<p class="store_info pl-10"><?php echo $store_information; ?></p>
 					@endif
                     </div>
                     @if(@$_GET['frompage']==1)
@@ -139,7 +139,7 @@
           <div class="col-md-9">
           @if(!empty($productReviews))
             @foreach($productReviews as $review)
-             <div class="row">
+             <div class="row" style="margin-left:10px">
               <div class="col-md-1">
                 @if(!empty($review['profile']))
                   <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">

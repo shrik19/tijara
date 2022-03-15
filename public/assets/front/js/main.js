@@ -77,7 +77,7 @@ for (i = 0; i < acc.length; i++) {
   });  
 
   $(window).click(function() {
-    $('#sellerListFilter').fadeOut(); 
+    jQuery('#sellerListFilter').fadeOut(); 
   });
 
 /*js code for policy tabs*/
@@ -177,7 +177,7 @@ $( ".number" ).each(function() {
 });
 
 $('#variant_table').on('change', '.variant_image', function () {
-        var fileUpload  = $(this)[0];
+       m
         var elm         =   $(this);
         var variant_id  = $(this).attr('variant_id');
         

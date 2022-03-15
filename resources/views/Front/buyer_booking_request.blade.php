@@ -103,15 +103,18 @@
 
                                    $location = $value['location'];
                                    $service_time=$value['service_time'];
+                                   $telephone_number = $value['telephone_number'];
+
                                     ?> 
                                      <div class="col-md-15 buyer-ht">
                                      <div class="card product-card product_data_img product_link_js">
-                                            <img class="card-img-top buyer-product-img ServiceImgCard serviceReqDetails product_img_prd" src="{{$image}}"user_name="'.$user.'" serviceName="{{$serviceName}}" dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}">
+                                            <img class="card-img-top buyer-product-img ServiceImgCard serviceReqDetails product_img_prd" src="{{$image}}"user_name="'.$user.'" serviceName="{{$serviceName}}" dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}" telephone_number="{{$telephone_number}}">
+
 
 
                                             <div class="card-body product_all">
                                                 <h5 class="card-title">{{$dated}}</h5>
-                                                <p class="card-text buyer-product-title serviceReqDetails"  dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}"><a style="color: #000 !important">{{$serviceName}}</a></p>
+                                                <p class="card-text buyer-product-title serviceReqDetails"  dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}" telephone_number="{{$telephone_number}}"><a style="color: #000 !important">{{$serviceName}}</a></p>
                                                 <p class="card-text" >  
                                                 <span class="buyer-price  booking-service-price" id="product_variant_price">
                                                 {{$service_price}}
@@ -165,6 +168,7 @@
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_time')}} :</td><td class="service_time" style="padding-left: 10px;"></td></tr>
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_total_cost')}} :</td><td class="service_price" style="padding-left: 10px;"></td></tr>
             <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.location')}} :</td><td class="location" style="padding-left: 10px;"></td></tr>
+            <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.product_buyer_phone_no')}} :</td><td class="telephone_number" style="padding-left: 10px;"></td></tr>
 
           </table>
         </div>
@@ -208,7 +212,7 @@ jQuery(document).on("click",".serviceReqDetails",function(event) {
         jQuery('#serviceReqDetailsmodal').find('.location').text(jQuery(this).attr('location'));
         jQuery('#serviceReqDetailsmodal').find('.service_time').text(jQuery(this).attr('service_time'));
         jQuery('#serviceReqDetailsmodal').find('.service_price').text(jQuery(this).attr('service_price'));
-
+        jQuery('#serviceReqDetailsmodal').find('.telephone_number').text(jQuery(this).attr('telephone_number'));
         jQuery('#serviceReqDetailsmodal').modal('show');
         //$('.modal-backdrop').attr('style','position: relative;');
     }); 

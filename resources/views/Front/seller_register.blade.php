@@ -42,6 +42,7 @@
     var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
     var verify_store = "{{ __('users.verify_store')}}";
     var please_add_payment_details = "{{ __('errors.please_add_payment_details')}}";
+    var please_select_one_payment_method = "{{ __('errors.please_select_one_payment_method')}}";
 </script>
   <script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
   <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>
@@ -140,8 +141,8 @@
 											}
 											?>
 											<div class="col-md-offset-1 col-md-4 packages-section">
-												<div class="packages-subscribe {{$packageClass}}" onclick='subscribe_package("{{$i}}",this)' package_name="{{$data['title']}}">
-													<div class="packages-heading hand-icon">
+												<div package_name="{{$data['title']}}">
+													<div class="packages-heading hand-icon packages-subscribe {{$packageClass}}" onclick='subscribe_package("{{$i}}",this)'>
 														<h3>{{$data['title']}}</h3>
 														<div class="packages-price">{{$data['amount']}} kr/{{$data['validity_days']}} Days</div>
 													</div>
@@ -195,25 +196,32 @@
 
 										<p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>
 							            <div class="login_box payment_detail_box klarna_payment" style="margin-top: 20px;">
-							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock klarna_payment_lock" aria-hidden="true"></i></div>
-							              <p><img src="{{url('/')}}/uploads/Images/klarna-payment-logo.png" width="90" height="80"></p>
+							                <div class="payment-lock-icon lock_klarna"><i class="fa fa-lock payment_lock klarna_payment_lock" aria-hidden="true"></i></div>
+
+							              <p><img src="{{url('/')}}/uploads/Images/klarna-payment-logo.png" class="register_klarna_logo"></p>
 							              <div class="form-group">
 								              <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ Session::get('new_seller_klarna_username')}}">
+								              <span class="register_credentials_ex">T.ex. K1234567_dc0a9aclc532</span>
 								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
 							              </div>
 							    
 							              <div class="form-group">
 								              <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ Session::get('new_seller_klarna_password')}}">
+								              <span  class="register_credentials_ex">T.ex. abcDEF123ghij567</span>
 								              <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
 							              </div>
 
-											<div class="payment_explanation_text">{{ __('messages.klarna_description_step_1')}}</br>{{ __('messages.klarna_description_step_2')}}</br>{{ __('messages.klarna_description_step_3')}}</br>{{ __('messages.klarna_description_step_4')}}</div>
+											<div class="payment_explanation_text">{{ __('messages.klarna_description_step_1')}} <a target="_blank" href="https://auth.eu.portal.klarna.com/auth/realms/merchants/protocol/openid-connect/auth?client_id=merchant-portal&redirect_uri=https%3A%2F%2Fportal.klarna.com%2F%3F_ga%3D2.246934660.126610679.1646642154-1734669118.1646642154&state=a4c4cce6-9787-49a3-9131-ca7362164c5c&response_mode=fragment&response_type=code&scope=openid&nonce=f23358b1-1fb6-4f06-87e3-3ca8281be740&code_challenge=HCL30L02B40414ZxJeU5kOw8XqhetiyzuAgBZeqnaX0&code_challenge_method=S256">här</a></br>{{ __('messages.klarna_description_step_2')}}</br>{{ __('messages.klarna_description_step_3')}}</br>{{ __('messages.klarna_description_step_4')}}</br></br>
+											{{__('messages.contact_klarna_support_description')}}
+											</div>
 							            </div>
 							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.easy_peyment_title')}}</p>
 							            <div class="login_box payment_detail_box swish_payment" style="margin-top: 20px;">
                 
-							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
-							              <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="80"></p>
+							                <div class="payment-lock-icon lock_swish_number"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
+
+							              <!--  <div class="payment-lock-icon unlock_swish_number"><input type="checkbox"name="is_swish_number" id="is_swish_number" class=" payment_lock is_swish_number" value=""></div> -->
+							            <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" class="register_swish_logo"></p>
 							              <?php /*
 							              <div class="form-group">
 								              <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="{{ Session::get('new_seller_swish_api_key')}}">
@@ -231,28 +239,36 @@
 							              </div>
 							              */?>
 							              <div class="form-group" style="display: flex;">
-							               <input type="checkbox" name="is_swish_number" class="is_swish_number" id="is_swish_number" value="1" style="margin-top: 30px;"> 
-							               <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="swish number" value="" style="margin-left: 10px;">
+							            <!--    <input type="checkbox" name="is_swish_number" class="is_swish_number" id="is_swish_number" value="1" style="margin-top: 30px;">  -->
+							               <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="Swish-nummer" value="">
 							              </div>
 
-							              <div class="payment_explanation_text">{{ __('messages.swish_description_step_1')}}</br>{{ __('messages.swish_description_step_2')}}</br>{{ __('messages.swish_description_step_3')}}</div> 
-										 
+							              <div class="payment_explanation_text">
+							              	{{ __('messages.swish_number_step_description')}}	
 							            </div>
 							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
 							            <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">
-							                <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div>
-							              <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="200" height="50"></p>
+							               <!--  <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div> -->
+
+
+							                <div class="payment-lock-icon lock_stripe_payment"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div>
+
+							         <!--       <div class="payment-lock-icon unlock_stripe_payment"><input type="checkbox"name="is_stripe_payment" id="is_stripe_payment" class="payment_lock is_stripe_payment" value=""></div> -->
+
+							              <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" class="register_stripe_logo"></p>
 							              <div class="form-group">
 								              <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="{{Session::get('new_seller_strip_api_key')}}">
+								               <span class="register_credentials_ex">Publicerbar nyckel</span>
 								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('strip_api_key')) {{ $errors->first('strip_api_key') }}@endif</span>
 							              </div>
 
 							              <div class="form-group">
 								              <input type="text" class="form-control" name="strip_secret" id="strip_secret" placeholder="{{ __('users.stripe_secret_label')}}" value="{{Session::get('new_seller_strip_secret')}}">
+								               <span class="register_credentials_ex">Hemlig nyckel</span>
 								              <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
 							              </div>
 
-							              <div class="payment_explanation_text">{{ __('messages.strip_description_step_1')}}</br>{{ __('messages.strip_description_step_2')}}</br>{{ __('messages.strip_description_step_3')}}</div>  
+							              <div class="payment_explanation_text">{{ __('messages.strip_description_step_1')}} <a target="_blank" href=" https://dashboard.stripe.com/login">här</a></br>{{ __('messages.strip_description_step_2')}}</br>{{ __('messages.strip_description_step_3')}}</br></br>{{ __('messages.register_stripe_description')}}</div>  
 							             
 							            </div>
 							             
@@ -369,9 +385,16 @@
 	if(p_name == 'Tijara Bas'){
 			$('.klarna_payment :input').attr('disabled', true);
 			$('.stripe_payment :input').attr('disabled', true);
-			$(".swish_payment_lock").removeClass("fa-lock");
-			$(".klarna_payment_lock").addClass("fa-lock");
-			$(".stripe_payment_lock").addClass("fa-lock");
+			//$(".swish_payment_lock").hide();
+			$('.lock_klarna').show();
+			//$('.unlock_klarna').hide();
+			$('.lock_swish_number').hide();
+			//$('.unlock_swish_number').show();
+			$('.lock_stripe_payment').show();
+			//$('.unlock_stripe_payment').hide();
+			//$(".swish_payment_lock").removeClass("fa-lock");
+			//$(".klarna_payment_lock").addClass("fa-lock");
+			//$(".stripe_payment_lock").addClass("fa-lock");
 			$('#klarna_username').val('');
 			$('#klarna_password').val('');
 			$('#strip_api_key').val('');
@@ -381,9 +404,15 @@
 	if(p_name=="Tijara pro"){
 		$('.klarna_payment :input').attr('disabled', false);
 		$('.stripe_payment :input').attr('disabled', false);
-	    $(".klarna_payment_lock").removeClass("fa-lock");
-	    $(".swish_payment_lock").removeClass("fa-lock");
-	    $(".stripe_payment_lock").removeClass("fa-lock");
+		$('.lock_klarna').hide();
+		//$('.unlock_klarna').show();
+		$('.lock_swish_number').hide();
+		//$('.unlock_swish_number').show();
+		$('.lock_stripe_payment').hide();
+		//$('.unlock_stripe_payment').show();
+	    //$(".klarna_payment_lock").removeClass("fa-lock");
+	   // $(".swish_payment_lock").removeClass("fa-lock");
+	    //$(".stripe_payment_lock").removeClass("fa-lock");
   	}
         let err = 0;
         if(p_id == ''){
@@ -492,9 +521,15 @@ $(".pro").addClass("selectedActivePackage");
 	if(session_package_name == 'Tijara Bas'){
 			$('.klarna_payment :input').attr('disabled', true);
 			$('.stripe_payment :input').attr('disabled', true);
-			$(".swish_payment_lock").removeClass("fa-lock");
-			$(".klarna_payment_lock").addClass("fa-lock");
-			$(".stripe_payment_lock").addClass("fa-lock");
+			//$(".swish_payment_lock").removeClass("fa-lock");
+			$('.lock_klarna').show();
+			//$('.unlock_klarna').hide();
+			$('.lock_swish_number').hide();
+			//$('.unlock_swish_number').show();
+			$('.lock_stripe_payment').show();
+			//$('.unlock_stripe_payment').hide();
+			//$(".klarna_payment_lock").addClass("fa-lock");
+			//$(".stripe_payment_lock").addClass("fa-lock");
 			$('#klarna_username').val('');
 			$('#klarna_password').val('');
 			$('#strip_api_key').val('');
@@ -504,13 +539,20 @@ $(".pro").addClass("selectedActivePackage");
 	if(session_package_name=="Tijara pro"){
 		$('.klarna_payment :input').attr('disabled', false);
 		$('.stripe_payment :input').attr('disabled', false);
-	    $(".klarna_payment_lock").removeClass("fa-lock");
-	    $(".swish_payment_lock").removeClass("fa-lock");
-	    $(".stripe_payment_lock").removeClass("fa-lock");
+		$('.lock_klarna').hide();
+		//$('.unlock_klarna').show();
+		$('.lock_swish_number').hide();
+		//$('.unlock_swish_number').show();
+		$('.lock_stripe_payment').hide();
+		//$('.unlock_stripe_payment').show();
+	   // $(".klarna_payment_lock").removeClass("fa-lock");
+	   // $(".swish_payment_lock").removeClass("fa-lock");
+	    //$(".stripe_payment_lock").removeClass("fa-lock");
   	}
 
 
 if($('#current_step_button').val() != 1){
+
     var curr_step=  $('input#current_step_button').val();
     $( "fieldset" ).each(function() {
       $( this ).css({
@@ -525,7 +567,7 @@ if($('#current_step_button').val() != 1){
 
     //Add Class Active
     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-  
+ 
     if(curr_step==3){
          $("#progressbar li").eq($("fieldset").index(current_fs)).addClass("active");
     }
@@ -736,38 +778,35 @@ $('#third-step').click(function(e) {
     e.preventDefault();
 
     let klarna_username      	= $("#klarna_username").val();
-    let klarna_password  	 	= $("#klarna_password").val();   
-    let swish_api_key        	= $("#swish_api_key").val();
+    let klarna_password  	 	= $("#klarna_password").val();  
+    
+    /*let swish_api_key        	= $("#swish_api_key").val();
     let swish_merchant_account  = $("#swish_merchant_account").val(); 
-    let swish_client_key        = $("#swish_client_key").val();
+    let swish_client_key        = $("#swish_client_key").val();*/
 
-    let is_swish_number  		= $("#is_swish_number").val(); 
+   // let is_swish_number  		= $("#is_swish_number").val(); 
     let swish_number            = $("#swish_number").val();
 
     let strip_api_key           = $("#strip_api_key").val(); 
     let strip_secret  			= $("#strip_secret").val();   
     var selected_package_name   = $('#selected_package_name').val(); 
+	
+
     let third_step_err = 0;
 
-	if((klarna_username != '' && klarna_password!= '') || (swish_api_key != '' && swish_merchant_account !='' && swish_client_key != '') || (strip_api_key != '' && strip_secret != '') || (is_swish_number != '' && swish_number != ''))
-    {
-        third_step_err = 0;
-       
+	if ((klarna_username != '' && klarna_password != '') || (swish_number != '') || (strip_api_key != '' && strip_secret != '')){
+		 third_step_err = 0;
+	 	
     }else
     {
        third_step_err = 1;
+	 	showErrorMessage(please_add_payment_details);
+	 	return false;
     }
- 	
-  
-
-	 if(third_step_err == 1)
-	  {
-	  	//showErrorMessage(please_add_payment_details);
-	    third_step_err = 1;
-
-	  }
-	  else
-	  {
+    	
+ 
+	 if(third_step_err == 0){
+	
 	    $(".loader-seller").css("display","block");
 	    $.ajax({
 	                headers: {
@@ -776,7 +815,7 @@ $('#third-step').click(function(e) {
 	                url: "{{url('/')}}"+'/third-step-seller-register',
 	                type: 'post',
 	               
-	                data:{klarna_username:klarna_username, klarna_password:klarna_password, swish_api_key:swish_api_key,swish_merchant_account:swish_merchant_account,swish_client_key:swish_client_key,strip_api_key:strip_api_key,strip_secret:strip_secret,is_swish_number:is_swish_number,swish_number:swish_number},
+	                data:{klarna_username:klarna_username, klarna_password:klarna_password,strip_api_key:strip_api_key,strip_secret:strip_secret,swish_number:swish_number},
 	                success: function(data){
 	                    if(data.success=="third step success"){
 	                        $(".loader-seller").css("display","none");
@@ -789,12 +828,8 @@ $('#third-step').click(function(e) {
 	                    }
 	                }
 	            });
-	  }
 
-
-    //show next step
-    if(third_step_err == 0){
-
+	    //show next step
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;
         current_fs = $(this).parent();
@@ -819,11 +854,12 @@ $('#third-step').click(function(e) {
                 next_fs.css({'opacity': opacity});
             },
             duration: 600
-        }); 
-    }  else{
-    	showErrorMessage(please_add_payment_details);
-    	return false;    
-    }
+        });
+	  }
+
+
+    
+
 });
 
 /*last step*/
@@ -998,8 +1034,10 @@ $('body').on('change', '#seller_logo_img', function () {
 
 /*function for previous button click*/
 $(".previous").click(function(){
+
 	current_fs = $(this).parent();
 	previous_fs = $(this).parent().prev();
+
 	//Remove class active
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 

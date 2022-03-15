@@ -131,24 +131,12 @@
                 </div>
                 </div>
                 <div class="col-md-12 text-center" style="margin-top: 30px;">
-                  <button type="button" id="makeSwishPayment" name="next" class="btn btn-black debg_color login_btn makeSwishPayment" value="{{ __('users.err_msg_okay')}}"/>{{ __('users.err_msg_okay')}}</button>
+                  <button type="button" id="makeSwishPayment" name="next" class="btn btn-black debg_color login_btn makeSwishPayment" value="{{ __('users.finish_btn')}}"/>{{ __('users.finish_btn')}}</button>
               </div>
                 </div>
                  
               </div>
-              
-              
-              <!-- <div class="col-md-12">
-                  <div class="col-md-2"></div>
-                @foreach($payment_options as $p)
-                  <div class="col-md-3 text-center">
-                    <button id="{{$p}}" type="button" class="btn buy_now_btn debg_color pay_through_btn" style="font-size:18px;"
-                    >
-                      {{ __('lang.pay_through')}} {{$p}} <span class="glyphicon glyphicon-play"></span>
-                    </button>
-                  </div>
-                  @endforeach
-              </div> -->
+           
               </form>
           </div>
         </div>

@@ -51,7 +51,7 @@
      'service'=>'Service',
      'message'=>'Message',
      'messageRequired'=> 'Message Required',
-     'serviceRequestSent'  =>   'Service request sent',
+     'serviceRequestSent'  => 'The booking is complete. You can see your bookings below My pages.',
      /*Product*/
      'your_products_label'=>'Your Products',
      'add_product'=>'Add new product',
@@ -230,8 +230,8 @@
      'shopping_cart_already_removed' => 'Product already removed from Cart.',
      'shopping_cart_updated' => 'Product quantity updated successfully.',
 
-     'msg_order_success' => 'Your order placed successfully, please check order by clicking below button.',
-     'txt_order_success_btn' => 'Check Order',
+     'msg_order_success' => 'You come within short to get one order confirmation on your email. You can too see your orders under my pages.',
+     'txt_order_success_btn' => 'Check your order',
 
      'txt_view' => 'View Order',
      'txt_order_number' => 'Order Number',
@@ -329,11 +329,11 @@
 
 
     //strip
-    'name_on_card'  =>   'Name on card',
+    'name_on_card'  =>   'Full name of the card',
     'card_number'   =>   'Card Number',
     'cvc'           =>  'CVC',
-    'expiration_month'=>    'Expiration month',
-    'expiration_year'=>'Expiration year',
+    'expiration_month'=>    'Expiration month (MM)',
+    'expiration_year'=>'Expiration year (AA)',
     'strip_payment_details'=>'Stripe payment details',
     'pay_now'   =>  'Pay now',
     'strip_error_message'=>'Please correct the errors and try again.',
@@ -350,5 +350,20 @@
     'butik_info_heading' =>'Store Information',
     'buyer_ad_title' => 'Buyer Ads',
     'review_del_success' => 'Your review has been deleted.',
+    'continue_action_btn' => 'Continue act',
+    'booking_deleted' => 'The service is now canceled.',
+    'not_found_payment_info' =>'Could not find payment information',
+    'not_valid_credit_card_no' => 'The card number is not a valid credit card number.',
+    'card_declined_err' =>'Your card is not supported.',
+    'invalid_exp_month_err' => "The card's expiration month is invalid.",
+    'invalid_exp_year_err' => "The card's expiration year is invalid",
+    'incorrect_card_number_err' => 'The card number is incorrect.',
+    'rate_limit_err' => "An error occurred due to requests hitting the API too quickly. Please let us know if you're consistently running into this error.",
+    'processing_error' => 'An error occurred while processing the card.',
+    'missing_err' => 'There is no card on a customer that is being charged.',
+    'incorrect_zip_err' => "The card's zip code failed validation.",
+    'incorrect_cvc_err' => "The card's security code is incorrect.",
+    'expired_card_err' => 'The card has expired.',
+    'invalid_cvc_err' => "The card's security code is invalid.",
  ]  
 ?>

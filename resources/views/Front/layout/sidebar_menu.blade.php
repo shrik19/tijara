@@ -1,7 +1,8 @@
 <div class="pull-left sidebar_menu">
 
   @if(Auth::guard('user')->id())
-  <ul class="seller_cat_list sel_cat_list" style="margin-top: 20px;">
+ 
+  <ul class="seller_cat_list sel_cat_list" style="margin-top: 20px;" >
     <li><h3>{{ __('users.intrumentpanel_label')}}</h3></li>
 
     @if(Auth::guard('user')->getUser()->role_id==2)
@@ -113,7 +114,7 @@
 
     @endif -->
     <li class="{{ request()->is('change-password') ? 'leftsideactivemainmenu' : ''}} make_disabled"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
-    <li class="{{ request()->is('front-logout') ? 'leftsideactivemainmenu' : ''}}"><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
+    <li class="{{ request()->is('front-logout') ? 'leftsideactivemainmenu' : ''}}" ><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
   </ul>
 
   @else

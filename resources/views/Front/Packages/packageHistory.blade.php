@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="containerfluid">
 <div class="container-inner-section-1">
   <div class="row">
@@ -14,7 +14,7 @@
 
 		<div class="seller_info">
 		<div class="seller_header">
-      	    <h2 class="page_heading">{{ __('users.your_package_history')}}</h2>
+      	    <h2>{{ __('users.your_package_history')}}</h2>
         	<!-- <hr class="heading_line"/> -->
 		</div>
 		<div class="col-md-12">
@@ -24,10 +24,10 @@
 				  <table class="table table-striped" id="packageHistTable">
 					<thead>
 					  <tr>
-					  <th data-orderable="false">{{ __('users.sr_no_thead')}}</th>
-					  <th>{{ __('users.package_name_thead')}}</th>
-					  <th>{{ __('users.start_date_thead')}}</th>
-					  <th>{{ __('users.end_date_thead')}}</th>
+					  <th class="product_table_heading" data-orderable="false">{{ __('users.sr_no_thead')}}</th>
+					  <th class="product_table_heading" >{{ __('users.package_name_thead')}}</th>
+					  <th class="product_table_heading" >{{ __('users.start_date_thead')}}</th>
+					  <th class="product_table_heading" >{{ __('users.end_date_thead')}}</th>
 					  </tr>
 					</thead>
 					  <tbody id="result">

@@ -1,12 +1,13 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
   
   <div class="row">
+      <input type="hidden" name="user_id" id="user_id" value="{{$user_id}}">
     @if($is_seller==1)
       <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
@@ -21,7 +22,7 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-      <h2 class="page_heading" style="margin-left: 16px;">{{ __('users.my_order_title')}}</h2>
+      <h2 style="margin-left: 16px;">{{ __('users.my_order_title')}}</h2>
       <!-- <hr class="heading_line"/> -->
       </div>
     </div>
@@ -44,17 +45,17 @@
 			  <table class="table table-striped" id="productTable">
 				<thead>
 				  <tr>
-				  <th data-orderable="false">{{ __('lang.txt_order_number')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.txt_order_number')}}</th>
           @if($is_seller)
-          <th data-orderable="false">{{ __('lang.txt_name')}}</th>
+          <th class="product_table_heading" data-orderable="false">{{ __('lang.txt_name')}}</th>
           @endif
-				  <th data-orderable="false">{{ __('lang.txt_subtotal')}}</th>
-				  <th data-orderable="false">{{ __('lang.txt_shipping')}}</th>
-				  <th data-orderable="false">{{ __('lang.txt_total')}}</th>
-				  <th data-orderable="false">{{ __('lang.txt_payment_status')}}</th> 
-				  <th data-orderable="false">{{ __('lang.txt_order_status')}}</th>
-				  <th data-orderable="false">{{ __('lang.txt_date')}}</th>
-				  <th data-orderable="false">{{ __('lang.action_label')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.txt_subtotal')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.txt_shipping')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.txt_total')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.txt_payment_status')}}</th> 
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.txt_order_status')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.txt_date')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('users.order_table_action')}}</th>
 				  </tr>
 				</thead>
 				  <tbody id="result">
@@ -99,6 +100,22 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
 <script src="{{url('/')}}/assets/front/js/jquery-confirm.min1.js"></script>
 <script type="text/javascript">
+  $(document).ready(function() {
+    var user_id = $("#user_id").val();
+  $.ajax({
+    url: siteUrl+'/update-orders-notification/?user_id='+user_id,
+    type: 'get',
+    async: false,
+    data: { },
+    success: function(output){
+      if(output.success ==1){
+        $('#notification_count').html(output.notification_count);
+        $('#allSellerOrders').html(output.orders_count);
+        $('#allSellerBookings').html(output.bookings_count);
+      }    
+    }
+});
+}); 
   var dataTable = $('#productTable').DataTable({
     "processing": true,
     "serverSide": true,
@@ -152,9 +169,8 @@
   });
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
   '<option value="">{{ __("lang.status_label")}}</option>'+
-  '<option value="PENDING">PENDING</option>'+
+  '<option value="PENDING">{{ __("users.pending_order_status")}}</option>'+
   '<option value="SHIPPED">SHIPPED</option>'+
-  '<option value="COMPLETE">COMPLETE</option>'+
   '<option value="CANCELLED">CANCELLED</option>'+
   '</select></div>').appendTo("#productTable_filter");  
   
@@ -181,6 +197,15 @@ function print_window(id){
             //console.log(data)
              $('#orderDetailsmodal').modal('show');
            $('#order_details_box').html(data);
+           var order_status = $('#order_status :selected').val();
+           if(order_status == "PENDING"){
+            $('#order_status').css('background-color','red');
+             $('#order_status').css('color','white');
+           }else if(order_status == "SHIPPED" || order_status == "CANCELLED"){
+            $('#order_status').css('background-color','green');
+            $('#order_status').css('color','white');
+           }
+          
         }
     });
 

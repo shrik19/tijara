@@ -15,7 +15,7 @@
 <div class="seller_info">
     <div class="card">
         <div class="card-header row seller_header">
-            <h2 class="page_heading service_wishlist_h2">{{ __('lang.shopping_cart_product')}} {{ __('messages.txt_wishlist')}}</h2>       
+            <h2 class="page_heading service_wishlist_h2">{{ __('users.your_favourite_title')}}</h2>       
         </div>
     </div>
     <section class="product_details_section-1">
@@ -29,14 +29,15 @@
                 <table class="table table-hover wishlist-table" style="margin-bottom:60px;">
                     <thead>
                         <tr>
-                            <th>{{ __('lang.shopping_cart_product')}}</th>
+                            <th>{{ __('lang.products_title')}}</th>
                             <th class="text-right">{{ __('lang.shopping_cart_price')}}</th>
                             <th> </th>
                         </tr>
                     </thead>
                     <tbody>
                       @if(!empty($details))
-                      @foreach($details as $orderProduct)       
+                      @foreach($details as $orderProduct) 
+
                         <tr>
                             <td class="col-sm-4 col-md-4">
                             <div class="media">
@@ -54,7 +55,17 @@
                                     <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                                 </div>
                             </div></td>
-                            <td class="col-sm-2 col-md-2 text-right"><h4 class="cart_total_css">{{ number_format($orderProduct['product']->price,2) }} kr</td></h4></td>
+                            <td class="col-sm-2 col-md-2 text-right"><h4 class="cart_total_css">
+
+                                 @php 
+                            
+                                    $product_total =$orderProduct['product']->price;
+                                    $total_tbl = str_split(strrev($product_total), 3);
+                                    $total_price_tbl = strrev(implode(" ", $total_tbl));
+                                    $total_price_tbl = $total_price_tbl.",00";
+                                @endphp
+                               {{ $total_price_tbl }} kr
+                            </td></h4></td>
                             <td class="col-sm-1 col-md-1 text-right">
                             <a href="javascript:void(0);" class="" style="color:#05999F;" 
                             onclick="addToCartWishlist('{{ $orderProduct['variant_id'] }}')"
@@ -79,9 +90,7 @@
 
 <!-- services wishlist -->
     <div class="card">
-        <div class="card-header row seller_header">
-            <h2 class="page_heading service_wishlist_h2">{{ __('lang.service_label')}} {{ __('messages.txt_wishlist')}}</h2>
-        </div>
+      
     </div>
     <section class="product_details_section-1">
     <div class="loader"></div>
@@ -119,7 +128,15 @@
                                     <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                                 </div>
                             </div></td>
-                            <td class="col-sm-2 col-md-2 text-right"><h4 class="cart_total_css">{{ number_format((float)$reqService['service']->service_price,2) }} kr</h4></td>
+                            <td class="col-sm-2 col-md-2 text-right"><h4 class="cart_total_css">
+                                  @php 
+                                    $service_total =$reqService['service']->service_price;
+                                    $service_total_tbl = str_split(strrev($service_total), 3);
+                                    $service_total_price_tbl = strrev(implode(" ", $service_total_tbl));
+                                    $service_total_price_tbl = $service_total_price_tbl.",00";
+                                @endphp
+                               {{ $service_total_price_tbl }} kr
+                            </h4></td>
                             <td class="col-sm-1 col-md-1 text-right">
                          <!--    <button class="btn btn-success" onclick="addToCartWishlist('{{ $reqService['id'] }}')" title="Add"><i class="glyphicon glyphicon-shopping-cart"></i></button> -->
                             <a href="{{$reqService['service']->service_link}}" style="color:#05999F;" class="">{{ __('lang.book_service')}}</i></a>

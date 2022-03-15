@@ -1,6 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 <style>
+  ::placeholder{
+    font-weight: 300 !important;
+    color: #999 !important;
+  }
   .login_box
   {
     width:100% !important;
@@ -50,7 +54,7 @@ td.fc-week-number {
 }
 </style>
 
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
@@ -67,29 +71,21 @@ td.fc-week-number {
     <div class="col-md-10">
          @include ('Front.alert_messages')
          <div class="seller_info">
-        <div class="card">
-        <div class="card-header row seller_header">
-        <!-- <h2 class="page_heading">{{ __('users.my_order_title')}}</h2> -->
-        <!-- <hr class="heading_line"/> -->
-        <div class="col-md-10">
-            <h2  class="page_heading">{{ __('servicelang.service_form_label')}}</h2>
-            
-        </div>
-        <div class="col-md-2 text-right" style="margin-top:30px;">
-            <a href="{{route('manageFrontServices')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
-        </div>
-        </div>
-        </div>
-        <div class="seller_mid_cont">
+          <div class="seller_header">
+            <h2 class="" style="margin-left: 11px;">{{ __('servicelang.service_form_label')}}</h2>
+          </div>
+      
         <div class="col-md-12">
-
+          <div class="col-md-12 text-right" style="margin-top:30px;">
+            <a href="{{route('manageFrontServices')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
+         </div>
           <div class="login_box">
               <h2 class="col-md-12 product_add_h2">{{ __('servicelang.step_1')}}</h2>
 
               <input type="hidden" name="service_id" value="{{$service_id}}">
 
               <div class="form-group row">
-                <label class="col-md-3">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
+                <label class="col-md-3 product_table_heading">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input form-control" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="checkServiceUniqueSlugName();">
                 <span  class="invalid-feedback col-md-8 service_validation_err" id="err_title" >@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
@@ -97,7 +93,7 @@ td.fc-week-number {
               </div>
 
               <div class="form-group row" style="display:none;">
-                <label class="col-md-3">{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
+                <label class="col-md-3 product_table_heading">{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input slug-name form-control" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{old('service_slug')}}" tabindex="1" readonly="readonly">
                 <span class="invalid-feedback col-md-8 slug-name-err service_validation_err" id="err_title" >@if($errors->has('service_slug')) {{ $errors->first('service_slug') }}@endif </span>
@@ -105,7 +101,7 @@ td.fc-week-number {
               </div>
 
               <div class="form-group row">
-                <label class="col-md-3">{{ __('servicelang.session_time_label')}} <span class="de_col">*</span></label>
+                <label class="col-md-3 product_table_heading">{{ __('servicelang.session_time_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
                 placeholder="{{ __('servicelang.session_time_placeholder')}} " value="{{old('session_time')}}" 
@@ -115,7 +111,7 @@ td.fc-week-number {
               </div>
 
               <div class="form-group row">
-                <label class="col-md-3">{{ __('users.address_label')}} <span class="de_col">*</span></label>
+                <label class="col-md-3 product_table_heading">{{ __('users.address_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input address form-control" name="address" id="address" 
                 placeholder="{{ __('users.service_address_placeholder')}} " value="{{old('address')}}" 
@@ -125,7 +121,17 @@ td.fc-week-number {
               </div>
 
               <div class="form-group row">
-              <label class="col-md-3">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
+                <label class="col-md-3 product_table_heading">{{ __('lang.product_buyer_phone_no')}} <span class="de_col">*</span></label>
+                <div class="col-md-8">
+                <input type="text" class="col-md-8 login_input telephone_number form-control" name="telephone_number" id="telephone_number" 
+                placeholder="{{ __('lang.product_buyer_phone_no')}}" value="{{old('telephone_number')}}" 
+                tabindex="1" >
+                <span class="invalid-feedback col-md-8 session_time-err" id="telephone_number" >@if($errors->has('telephone_number')) {{ $errors->first('telephone_number') }}@endif </span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+              <label class="col-md-3 product_table_heading">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
                   
               <div class="col-md-8">
                   <textarea class="col-md-12 login_input form-control" name="description" rows="5" cols="5" placeholder="{{ __('users.service_description_placeholder')}}" value="" tabindex="2">{{old('description')}}</textarea>
@@ -134,7 +140,7 @@ td.fc-week-number {
               </div>
 
               <div class="form-group row">
-                <label class="col-md-3">{{ __('lang.category_label')}} <span class="de_col">*</span></label>
+                <label class="col-md-3 product_table_heading">{{ __('lang.category_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
                   <option></option>
@@ -153,7 +159,7 @@ td.fc-week-number {
 
 
               <div class="form-group" style="display:none;">
-                  <label class="col-md-3">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
+                  <label class="col-md-3 product_table_heading">{{ __('lang.sort_order_label')}} <span class="de_col"></span></label>
                   <div class="col-md-8">
                   <input type="tel" class="col-md-8 login_input form-control" name="sort_order" id="sort_order" placeholder="{{ __('lang.sort_order_label')}}" value="{{(old('sort_order')) ?  old('sort_order') : $max_seq_no}}" tabindex="7">
                   <span class="invalid-feedback col-md-8" id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
@@ -161,7 +167,7 @@ td.fc-week-number {
               </div>
 
               <div class="form-group row">
-                <label class="col-md-3">{{ __('lang.status_label')}} <span class="de_col">*</span> </label>
+                <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span> </label>
                 <div class="col-md-8">
                 <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8">
                   <option value="active">{{ __('lang.active_label')}}</option>
@@ -173,7 +179,7 @@ td.fc-week-number {
 
             
               <div class="form-group row">
-                  <label class="col-md-3">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
+                  <label class="col-md-3 product_table_heading">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
                   <div class="col-md-8">
                   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price" placeholder="{{ __('users.service_price_placeholder')}}" value="{{(old('service_price')) ?  old('service_price') :''}}" tabindex="7">
                   <span class="invalid-feedback col-md-8 service_validation_err" id="service_price">@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
@@ -181,13 +187,13 @@ td.fc-week-number {
               </div>
 
               <div class="form-group row">
-                <label class="col-md-3">{{ __('lang.images')}} <span class="de_col">*</span></label>
+                <label class="col-md-3 product_table_heading">{{ __('lang.images')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <div class="images col-md-12"></div>
                 <input type="file" class="col-md-8 login_input image service_image form-control" >                
                   <span class="invalid-feedback col-md-8" id="err_service_image"></span>  
                   <span class="invalid-feedback col-md-12" id="err_service_hid_image"></span>  
-                  <p class="seller-logo-info col-md-8" style="font-size: 13px;">Lägg till en bild i storlek (600x600px)</p>   
+                  <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
                 </div>
               </div>
               <div class="loader"></div>
@@ -197,7 +203,7 @@ td.fc-week-number {
                <div class="row">
                  <div class="col-md-9">
               <div class="form-group col-md-3">
-                    <label class="col-md-12">{{ __('lang.from_service_year')}}<!-- <span class="de_col">*</span> --></label>
+                    <label class="col-md-12 product_table_heading">{{ __('lang.from_service_year')}}<!-- <span class="de_col">*</span> --></label>
                     
                     <select class="col-md-12 service_year form-control" name="service_year" id="service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -212,7 +218,7 @@ td.fc-week-number {
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
               </div>
               <div class="form-group col-md-3">
-                    <label class="col-md-12">{{ __('lang.from_service_month')}}<!-- <span class="de_col">*</span> --></label>
+                    <label class="col-md-12 product_table_heading">{{ __('lang.from_service_month')}}<!-- <span class="de_col">*</span> --></label>
                     <select class="col-md-12 service_month form-control" name="service_month" id="service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
@@ -226,7 +232,7 @@ td.fc-week-number {
                     </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
               </div>
               <div class="form-group col-md-3">
-                  <label class="col-md-12">{{ __('lang.from_service_date')}}<!-- <span class="de_col">*</span> --></label>
+                  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_date')}}<!-- <span class="de_col">*</span> --></label>
                   <select class="col-md-12 service_date form-control" name="service_date" id="service_date" >
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php
@@ -243,13 +249,13 @@ td.fc-week-number {
             </div>
             <div class="col-md-3" style="display: flex;">
               <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 65px;">
-                <label class="col-md-12">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
+                <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
                 <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7" >
             <!--     <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span> -->
               </div>
 
               <div class="col-md-1 text-center" style="margin-top: 65px !important;">
-                <label class="col-md-12">Action</label>
+                <label class="col-md-12 product_table_heading">Action</label>
              <!--    <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_btn')}}</a> -->
                 <select name="del_start_time" id="del_start_time" class="form-control" style="margin-top: 25px;width: 100px;">
                   <option value="" >{{ __('lang.select_label')}}</option>
@@ -264,7 +270,7 @@ td.fc-week-number {
             <div class="col-md-12" style="margin-left: -32px;">
                  <div class="col-md-9">
               <div class="form-group col-md-3">
-                    <label class="col-md-12">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
+                    <label class="col-md-12 product_table_heading">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
                     
                     <select class="col-md-12 to_service_year form-control" name="to_service_year" id="to_service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -279,7 +285,7 @@ td.fc-week-number {
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
               </div>
               <div class="form-group col-md-3">
-                    <label class="col-md-12">{{ __('lang.to_service_month')}}<!-- <span class="de_col">*</span> --></label>
+                    <label class="col-md-12 product_table_heading">{{ __('lang.to_service_month')}}<!-- <span class="de_col">*</span> --></label>
                     <select class="col-md-12 to_service_month form-control" name="to_service_month" id="to_service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
@@ -293,7 +299,7 @@ td.fc-week-number {
                     </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
               </div>
               <div class="form-group col-md-3">
-                  <label class="col-md-12">{{ __('lang.to_service_date')}}<!-- <span class="de_col">*</span> --></label>
+                  <label class="col-md-12 product_table_heading">{{ __('lang.to_service_date')}}<!-- <span class="de_col">*</span> --></label>
                   <select class="col-md-12 to_service_date form-control" name="to_service_date" id="to_service_date" >
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php
@@ -331,7 +337,7 @@ td.fc-week-number {
 
             <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
           </div>
-        </div>
+  <!--       </div> -->
       </div>
   </form>
                     </div>
@@ -341,6 +347,30 @@ td.fc-week-number {
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">
+  function ConfirmDeleteTime(msg,cal_id)
+{  
+  //$.noConflict(); 
+  $.confirm({
+      title: js_confirm_msg,
+      content: msg,
+      type: 'orange',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon: 'fas fa-exclamation-triangle',
+      buttons: {
+          ok: function () {
+             // showSuccessMessage(msg);
+              $('.service_availability#'+cal_id).remove();
+              $('#calendar').fullCalendar('removeEvents',cal_id);
+              
+          },
+          Avbryt: function () {
+          },
+      }
+  });
+
+}
+
   /*function to check unique Slug name
   * @param : Slug name
   */
@@ -500,7 +530,8 @@ $('#saveservicebtn').click(function(){
          {
           
         // var dateselect = calEvent.start.format('Y-M-D');
-         var result = confirm("{{ __('lang.areYouSureToDeleteServiceTime')}}");
+         //var result = confirm("{{ __('lang.areYouSureToDeleteServiceTime')}}");
+       ConfirmDeleteTime("{{ __('lang.areYouSureToDeleteServiceTime')}}",calEvent.id);
           if (result) {
             $('.service_availability#'+calEvent.id).remove();
             $('#calendar').fullCalendar('removeEvents',calEvent.id);

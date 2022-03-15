@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
@@ -19,7 +19,7 @@
 	  <div class="card">
 		<div class="card-header row seller_header">
 		<div class="col-md-10">
-		  <h2 class="page_heading">{{ __('lang.manage_attributes_menu')}} </h2>
+		  <h2>{{ __('lang.manage_attributes_menu')}} </h2>
 		  <!-- <hr class="heading_line"/> -->
 		  </div>
 		 
@@ -38,8 +38,8 @@
 			   <table class="table table-striped" id="attributeTable">
                 <thead>
                   <tr>
-                    <th data-orderable="false">&nbsp;</th>
-                    <th>{{ __('lang.attribute_label')}}</th>
+                    <th class="product_table_heading" data-orderable="false">&nbsp;</th>
+                    <th class="product_table_heading" >{{ __('lang.attribute_label')}}</th>
                     <th data-orderable="false">{{ __('lang.action_label')}}</th>
                   </tr>
                 </thead>

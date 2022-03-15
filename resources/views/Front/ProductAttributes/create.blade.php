@@ -1,7 +1,12 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
-<div class="mid-section p_155">
+<style type="text/css">
+   ::placeholder{
+    font-weight: 300 !important;
+    color: #999 !important;
+  }
+</style>
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
@@ -27,13 +32,13 @@
              {{ csrf_field() }}
 
             <div class="form-group col-md-12">
-              <label>{{ __('lang.attribute_label')}} <span class="de_col">*</span></label>
+              <label class="product_table_heading">{{ __('lang.attribute_label')}} <span class="de_col">*</span></label>
               <input type="text" class="form-control login_input col-md-12" id="name" name="name" placeholder="{{ __('lang.attribute_label')}} " value="{{ old('name') }}" />
               <span class="invalid-feedback" id="err_fname">@if($errors->has('name')) {{ $errors->first('name') }}@endif </span>
             </div>
 
             <div class="form-group col-md-12">
-              <label>{{ __('lang.attribute_value_label')}} <span class="de_col">*</span></label>
+              <label class="product_table_heading">{{ __('lang.attribute_value_label')}} <span class="de_col">*</span></label>
               <select class="form-control login_input col-md-12" id="type" name="type">
                 <option value="">{{ __('lang.select_label')}} </option>
               <!--   <option value="radio">{{ __('lang.radio_label')}}</option>  --> 

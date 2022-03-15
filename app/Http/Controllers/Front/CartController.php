@@ -826,7 +826,7 @@ class CartController extends Controller
         }
 
         if($checkExisting->strip_api_key!='' && $checkExisting->strip_secret!='' ) {
-          $paymentOptionAvailable[]='strip';
+          $paymentOptionAvailable[]='Kortbetalning';//'strip';
           $isPaymentOptionAvailable = 1;
         }
         if($isPaymentOptionAvailable==0) {
@@ -1067,11 +1067,14 @@ class CartController extends Controller
             }//foreach end
           } 
 
+          $site_details          = Settings::first();
+          $data['siteDetails']   = $site_details;
           $data['orderId']=$order_id;
           $data['payment_options']  = $paymentOptionAvailable;
           $data['details']= $customerDetails;
           $data['seller_data'] = $checkExisting;
           $data['orderDetails'] = $orderDetails;
+
           return view('Front/shopping_payment_options',$data);
         }
        // else 
@@ -1353,12 +1356,14 @@ class CartController extends Controller
           
           return view('Front/checkout_swish', $responseFromFun);
         }
-        if($paymetOption=='strip') {
+        if($paymetOption=='Kortbetalning') {
          // $responseFromFun=  $this->showCheckoutStrip($seller_id,$checkExisting);         
           $data['strip_secret'] = $strip_secret;
           $data['strip_api_key']= $strip_api_key;
           $data['order_id']= $OrderId;
           $data['Total']  = $param['Total'];
+          $site_details          = Settings::first();
+          $data['siteDetails']   = $site_details;
           return view('Front/checkout_strip', $data);
         }
         if($paymetOption=='swish_number') {
@@ -2331,13 +2336,13 @@ DATA;
 
  }
  function sendMailAboutOrder($checkExisting) {
-      $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','orders.*')->where('orders.id','=',$checkExisting['id'])->get()->toArray();
+      $GetOrder = Orders::join('users', 'users.id', '=', 'orders.user_id')->select('users.fname','users.lname','users.email','users.seller_swish_number','orders.*')->where('orders.id','=',$checkExisting['id'])->get()->toArray();
 
       //START : Send success email to User.
         $email = trim($GetOrder[0]['email']);
         $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
 
-      
+        $seller_swish_number = $GetOrder[0]['seller_swish_number'];
 
         $mailOrderDetails = array(); $mail_order_details  = '<table width="800">
         <tbody>
@@ -2459,12 +2464,13 @@ DATA;
         </table>';
         $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
 
-              $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
+              $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name','users.seller_swish_number')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
 
         $overview  = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; 
         ">Butik: '.$GetSeller['store_name'].'</p>
         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Ordernummer: #'.$checkExisting['id'].' </p>
-        <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$checkExisting['created_at'].' </p>';
+        <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$checkExisting['created_at'].' </p>
+         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Swishnumer: '.$GetSeller['seller_swish_number'].' </p>';
 
         $GetEmailContents = getEmailContents('Order Success');
         $subject = $GetEmailContents['subject'];
@@ -2696,7 +2702,7 @@ DATA;
       if($user_id)
       {
         $getWishlist = Wishlist::where('user_id','=',$user_id)->get()->toArray();
-        
+
         if(!empty($getWishlist))
         {
           foreach($getWishlist as $details)
@@ -2845,15 +2851,19 @@ DATA;
                   $attrIds = '';  
                   foreach($variantAttrs as $variantAttr)
                   {
+                    
                     if($attrIds == '')
                     {
                       $attrIds = $variantAttr->name.' : '.$variantAttr->attribute_values;
                     }
                     else
                     {
-                      $attrIds.= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
+                       if(strpos($attrIds, $attrIds) === false){
+                        $attrIds .= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
+                       }
                     }
                   }   
+
 
                   $created_at = date('Y-m-d H:i:s');
                   $arrOrderInsert = [
@@ -3319,12 +3329,13 @@ DATA;
         {
           $is_seller = 1;
         }
-
-
+ $currentYear = date('Y');
+  $currentMonth = date('m');
+ $currentDate = $currentMonth.'-'.$currentYear;
         /*month year filter*/
         $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
         $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'>";
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'><option value='all_month' >".trans('users.all_months_option')."</option>";
         //$monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";
 
       
@@ -3342,8 +3353,12 @@ DATA;
                   $year =$value['year'];
                   $month =  date("M", strtotime("$i/12/10"));
                   $new_date = $value['new_date'];
-              
-                  $monthYearDropdown    .=  "<option  value='".$new_date."'>$month $year</option>";
+                  $selected='';
+                  if($currentDate == $key){ 
+                    $selected="selected"; 
+                  }
+
+                  $monthYearDropdown    .=  "<option  value='".$new_date."' selected='".$selected."'>$month $year</option>";
                 }
              }else{
                  $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";  
@@ -3457,8 +3472,9 @@ DATA;
             $orders = $orders->Where('orders.order_status', '=', $request['status']);
 
         }
+      
 
-        if(!empty($request->monthYear)) {
+        if(!empty($request->monthYear) &&  ($request->monthYear != 'all_month')) {
           $month_year_explod =explode("-",$request->monthYear);
           $orders = $orders->whereMonth('orders.created_at', '=', $month_year_explod[0])
           ->whereYear('orders.created_at',$month_year_explod[1]);
@@ -3508,8 +3524,15 @@ DATA;
                   $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
                   /* $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i style="color:#2EA8AB;" class="fas fa-eye open_order_details"></i> </a>&nbsp;&nbsp;
                   <a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i style="color:gray;" class="fas fa-file-download"></i> </a>';*/
-                  $action = '<a href="javascript:void(0)" class="seller_odr_dtls" title="'. trans('lang.txt_view').'" onclick="print_window('.$id.')" product_link="'.route('frontShowOrderDetails', base64_encode($id)).'"><i style="color:#2EA8AB;" class="fas fa-eye"></i> </a>&nbsp;&nbsp;
-                  <a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i style="color:gray;" class="fas fa-file-download"></i> </a>';
+                 if($order_status=='PENDING'){
+                   $action = '<a href="javascript:void(0)" class="seller_odr_dtls" title="'. trans('lang.txt_view').'" onclick="print_window('.$id.')" product_link="'.route('frontShowOrderDetails', base64_encode($id)).'"><i style="color:red !important;" class="fa fa-exclamation-circle"></i> </a>';
+                 }else if($order_status=='SHIPPED' || $order_status=='CANCELLED'){
+                   $action = '<a href="javascript:void(0)" class="seller_odr_dtls" title="'. trans('lang.txt_view').'" onclick="print_window('.$id.')" product_link="'.route('frontShowOrderDetails', base64_encode($id)).'"><i style="color:green !important;" class="fas fa-check-circle"></i> </a>';
+                 }else{
+                     $action = '<a href="javascript:void(0)" class="seller_odr_dtls" title="'. trans('lang.txt_view').'" onclick="print_window('.$id.')" product_link="'.route('frontShowOrderDetails', base64_encode($id)).'"><i style="color:#2EA8AB;" class="fas fa-eye"></i> </a>';
+                 }
+                 
+                  $action .= '&nbsp;&nbsp<a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i style="color:gray;" class="fas fa-file-download"></i> </a>';
 
                   if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
                   {
@@ -3923,9 +3946,36 @@ DATA;
 
   public function swishNumberOrder(Request $request)
   {
-    $data['swish_message'] = trans('messages.order_placed_success');
+   $data['swish_message1'] = trans('messages.order_placed_success1');
+    $data['swish_message2'] = trans('messages.order_placed_success2');
     return view('Front/order_placed_success', $data);
   }
+
+  public function ordersView(Request $request) {
+    
+        $user_id = $request->user_id;
+       // echo $user_id;exit;
+      if(empty($user_id)) {
+        Session::flash('error', 'Something went wrong. Reload your page!');
+        return redirect(route('frontAllOrders'));
+      }
+      
+      $allOrders = Orders::join('orders_details', 'orders_details.order_id', '=', 'orders.id')->join('products','products.id','=','orders_details.product_id')->where('products.user_id','=',$user_id)->where('orders.is_new','=','1')->get()->toArray();
+
+       $getTotalOrders = $getTotalBookings = $totalNotifications = '';
+      if(!empty($allOrders)) {
+          foreach($allOrders as $orderIDs){ 
+             $order = Orders::where('id', $orderIDs['id'])->update(['is_new' =>0]);
+          }
+          $getTotalOrders = getNewOrders(Auth::guard('user')->id());
+          $getTotalBookings = getNewBookings(Auth::guard('user')->id());
+          $totalNotifications = $getTotalOrders + $getTotalBookings;
+          //$notification_count=
+          return response()->json(['success'=>1,'notification_count'=> $totalNotifications,'orders_count'=>$getTotalOrders,'bookings_count'=>$getTotalBookings]); 
+      }else{
+        return response()->json(['error'=>0]);
+      }           
+    }
 
 }
 

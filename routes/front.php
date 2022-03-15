@@ -176,6 +176,8 @@ Route::group(['middleware'=>['front-login']],function()
 	Route::get('/seller-profile/{edit?}', 'Front\AuthController@sellerProfile')->name('frontSellerProfile');
    Route::any('/seller-personal-page', 'Front\AuthController@seller_personal_page')->name('frontSellerPersonalPage');
 	Route::post('/seller-profile-update', 'Front\AuthController@sellerProfileUpdate')->name('frontSellerProfileUpdate');
+  Route::any('/delete-card-details', 'Front\AuthController@deleteCardDetails')->name('frontSellerDeleteCardDetails');
+  
 	Route::get('/delete-image/{id}','Front\AuthController@deleteImage')->name('SellerImageDelete');
 	Route::get('/buyer-profile/{edit?}', 'Front\AuthController@buyerProfile')->name('frontBuyerProfile');
 	Route::post('/buyer-profile-update', 'Front\AuthController@buyerProfileUpdate')->name('frontBuyerProfileUpdate');
@@ -194,7 +196,8 @@ Route::group(['middleware'=>['front-login']],function()
 });
  Route::any('/upload-profile-image','Front\AuthController@uploadProfileImage')->name('uploadProfileImage');
 
- Route::any('/remove-banner-image','Front\AuthController@removeBannerImage')->name('removeBannerImage');
+Route::any('/remove-banner-image','Front\AuthController@removeBannerImage')->name('removeBannerImage');
+Route::any('/remove-logo-image','Front\AuthController@removeLogoImage')->name('removeLogoImage');
 Route::post('/add-to-cart','Front\CartController@addToCart')->name('frontAddToCart');
 Route::get('/show-cart','Front\CartController@showCart')->name('frontShowCart');
 Route::post('/remove-from-cart','Front\CartController@removeCartProduct')->name('frontRemoveCartProduct');
@@ -278,3 +281,6 @@ Route::any('swish-number-order','Front\CartController@swishNumberOrder')->name('
 Route::group(['prefix'=>'package'], function() {
 	Route::get('/package-history/{id}','Front\AuthController@sellerPackagesHistory')->name('frontPackage');
 });
+
+Route::any('/update-booking-notification', 'Front\ServiceController@ServiceRequestView')->name('frontServiceRequestView');
+Route::any('/update-orders-notification', 'Front\CartController@ordersView')->name('frontOrdersView');

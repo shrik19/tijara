@@ -8,7 +8,7 @@
 </style>
 
 
-<div class="mid-section p_155">
+<div class="mid-section p_155" style="background: #dddddd;">
 <div class="container-fluid">
 <div class="container-inner-section-1">
 <div class="row">
@@ -128,8 +128,27 @@
                             @endphp
                                {{ $price_tbl }} kr
                         <?php /*{{ number_format($orderProduct['price'],2) }} kr */ ?></p></td>
-                        <td class="col-sm-1 col-md-1 text-right bg-white"><p  class="product_sorting_filter_option">{{ number_format($orderProduct['shipping_amount'],2)}} kr</p></td>
-                        <td class="col-sm-2 col-md-2 text-right bg-white"><p  class="product_sorting_filter_option">{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</p></td>
+                        <td class="col-sm-1 col-md-1 text-right bg-white"><p  class="product_sorting_filter_option">
+                            @php 
+                                $shipping_array_tbl = str_split(strrev($orderProduct['shipping_amount']), 3);
+                                $shipping_tbl = strrev(implode(" ", $shipping_array_tbl));
+                                $shipping_tbl = $shipping_tbl.",00";
+                            @endphp
+                            {{$shipping_tbl}} kr
+                       <?php /*  {{ number_format($orderProduct['shipping_amount'],2)}} kr */ ?></p></td>
+                        <td class="col-sm-2 col-md-2 text-right bg-white">
+                            <p  class="product_sorting_filter_option">
+                                @php 
+                                    $amt_total =(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']);
+                                    $total_tbl = str_split(strrev($amt_total), 3);
+                                    $total_price_tbl = strrev(implode(" ", $total_tbl));
+                                    $total_price_tbl = $total_price_tbl.",00";
+                                @endphp
+                               {{ $total_price_tbl }} kr
+                               
+                                <?php /*{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr */ ?>
+                            </p>
+                        </td>
                         <td class="col-sm-1 col-md-1 text-right bg-white">
                         <a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
                         <!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('{{ $orderProduct['id'] }}')">

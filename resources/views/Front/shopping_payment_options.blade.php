@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-12 checkoutHeader">
           <div class="col-md-3">
-            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/assets/img/logo.png"/></a>
+            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}"/></a>
           </div>
           <div class="col-md-6">
             <h1 class="checkoutHeading text-center">{{ __('users.checkout_cart_title')}}</h1>  
@@ -215,7 +215,40 @@
                          <div class="form-group col-md-10">
                          
                            <h4>{{ __('messages.delivery_label')}}</h4>
-                           <div class="pick_up_fromt_store" style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;">   
+                            <?php for($i=0;$i<count($orderDetails[$orderId]['details']);$i++){ 
+                              if($orderDetails[$orderId]['details'][$i]['product']->is_pick_from_store==1){
+                                      if(!empty($orderDetails[$orderId]['details'][$i]['product']->store_pick_address)){
+                                        $store_pick_address = $orderDetails[$orderId]['details'][$i]['product']->store_pick_address;
+                                      }
+                                    }elseif(!empty($seller_data['store_pick_address']) && $seller_data['is_pick_from_store'] == 1){
+                                        $store_pick_address = $seller_data['store_pick_address']; 
+                                      
+                                    }else{
+                                      $store_pick_address ='';
+                                    }
+
+                                   
+
+                            }?>
+
+                            @if($store_pick_address!='')
+                              <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;"> 
+                                <div class="row">
+                                    <div class="col-md-6">                           
+                                        <input type="radio" name="shipping_amount" class="radio-button-shipping" value="0"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
+                                         <p style="margin-left:24px;">{{ __('users.to_delivery_address')}}</p>
+                                    </div>
+                                    <div class="col-md-6" style="margin-top: 20px;">
+                                       
+                                        <span>{{ @$store_pick_address}} </span> 
+                                      </div>
+                                </div>
+                             </div>
+                            @endif
+
+
+
+                           <div class="pick_up_fromt_store" style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;display: none">   
                               <div class="row">
                                 <div class="col-md-5">
                                   <input type="radio" name="pick_from_store" value="1"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
@@ -242,11 +275,11 @@
 
                            <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;"> 
                                 <div class="row">
-                                    <div class="col-md-5">                           
-                                        <input type="radio" name="shipping_amount" value=""> <span style="margin-left:10px;">{{ __('users.shipping_btn')}}</span>
-                                         <p>{{ __('users.to_delivery_address')}}</p>
+                                    <div class="col-md-6">                           
+                                        <input type="radio" name="shipping_amount" class="radio-button-shipping" value="1"> <span style="margin-left:10px;margin-top: 8px;">{{ __('users.shipping_btn')}}</span>
+                                         <!-- <p style="margin-left:24px;">{{ __('users.to_delivery_address')}}</p> -->
                                     </div>
-                                    <div class="col-md-5" style="margin-top: 8px;">
+                                    <div class="col-md-6" style="margin-top: 8px;">
                                        @php
                                           $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3);
                                           $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
@@ -256,6 +289,7 @@
                                       </div>
                                 </div>
                            </div>
+                           <span class="invalid-feedback" id="select_shipping"></span>
                           </div>
                            
                         </div>
@@ -275,13 +309,13 @@
                              <?php /*  <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;"> */?>
                             @endif
                             @if($p == 'swish_number')
-                              <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
+                              <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70"  class="swish_checkout_logo">
                             @endif
-                            @if($p == 'strip')
-                              <img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
+                            @if($p == 'Kortbetalning')
+                              <img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="100" height="70" class="stripe_checkout_logo">
                             @endif
                           
-                             <input type="radio" name="payment_method" class="{{$p}} payment_radio" value="{{$p}}"> <span style="margin-left:10px;">@if($p == 'swish_number') swish number @else {{@$p}} @endif</span>
+                             <input type="radio" name="payment_method" class="{{$p}} payment_radio" value="{{$p}}"> <span style="margin-left:10px;">@if($p == 'swish_number') Swish @else {{ucfirst(@$p)}} @endif</span>
                            
                            </div>
                               @endif
@@ -292,11 +326,10 @@
                           value=""></span> -->
                          
                          <!--  <span class="invalid-feedback" id="err_shipping_phone_number"></span> -->
-                        </div>
-                         
-                         
+                          <span class="invalid-feedback" id="select_payment_option_err"></span>
+                        </div>               
                       </div>
-</div>
+                  </div>
                     
                 </div>
 
@@ -356,7 +389,8 @@
                         $sub_total_tbl = $sub_total_tbl.",00";
                     @endphp
                     <span>{{ __('lang.shopping_cart_subtotal')}}:</span>
-                    <span style="float: right;">{{@$sub_total_tbl}} kr</span>
+                   
+                    <span style="float: right;" class="get_subtotal">{{@$sub_total_tbl}} kr</span>
                   </div>
                   <div class="checkoutAmountBorder">
                     @php 
@@ -364,7 +398,7 @@
                         $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
                         $shipping_total_tbl = $shipping_total_tbl.",00";
                     @endphp
-                  <span>{{ __('lang.shopping_cart_shipping')}}:</span><span style="float: right;">{{@$shipping_total_tbl}} kr</span>
+                  <span>{{ __('lang.shopping_cart_shipping')}}:</span><span style="float: right;" class="decide_shipping">{{@$shipping_total_tbl}} kr</span>
                 </div>
                 <div class="checkoutAmountBorder">
                   @php 
@@ -372,7 +406,7 @@
                     $total_tbl = strrev(implode(" ", $total_tbl));
                     $total_tbl = $total_tbl.",00";
                   @endphp
-                  <span>{{ __('lang.shopping_cart_total')}}:</span><span style="float: right;">{{@$total_tbl}} kr</span>
+                  <span>{{ __('lang.shopping_cart_total')}}:</span><span style="float: right;" class="decide_total">{{@$total_tbl}} kr</span>
                 </div>
                 </div>
                 <div class="col-md-12 text-center" style="margin-top: 30px;">
@@ -407,7 +441,7 @@
 <script src="{{url('/')}}/assets/front/js/vendor/bootstrap.min.js"></script>
 <script src="{{url('/')}}/assets/front/js/jquery-confirm.min.js"></script>
 <script>
-
+var oops_heading = "{{ __('users.oops_heading')}}";
   $('#same_as_billing').change(function() {
         if(this.checked) {
             $('#shipping_given_name').val($('#billing_given_name').val());
@@ -442,16 +476,28 @@ $( ".pay_through_btn" ).click(function() {
       }      
     });
 
+     
+    $("input:radio").each(function(){
+        if($("input:radio[name=shipping_amount]:checked").length == 0){
+            error = 1;
+            $('#select_shipping').text('Detta fält är obligatoriskt');
+        }  else {
+          $('#select_shipping').text('');
+        }  
+    });
+
     var check = true;
     $("input:radio").each(function(){
         if($("input:radio[name=payment_method]:checked").length == 0){
             check = false;
         }
     });
-        
-    if(!check){
-      showErrorMessage(select_payment_option);
-    }
+
+    if(!check){      
+      $('#select_payment_option_err').text(select_payment_option);
+    } else {
+      $('#select_payment_option_err').text('');
+    } 
         
 
     if(error==0) { 
@@ -461,8 +507,8 @@ $( ".pay_through_btn" ).click(function() {
       if(btnid=='swish')
       $('form').attr('action',"{{route('frontShowCheckout', ['id' => base64_encode($orderId),'paymentoption'=>'swish'])}}");
       
-      if(btnid=='strip')
-      $('form').attr('action',"{{route('frontShowCheckout', ['id' => base64_encode($orderId),'paymentoption'=>'strip'])}}");
+      if(btnid=='Kortbetalning')
+      $('form').attr('action',"{{route('frontShowCheckout', ['id' => base64_encode($orderId),'paymentoption'=>'Kortbetalning'])}}");
 
        if(btnid=='swish_number')
       $('form').attr('action',"{{route('frontShowCheckout', ['id' => base64_encode($orderId),'paymentoption'=>'swish_number'])}}");
@@ -472,35 +518,24 @@ $( ".pay_through_btn" ).click(function() {
     }
       //window.location.href = "{{route('frontShowCheckout', ['id' => base64_encode($orderId),'paymentoption'=>$p])}}";
   });
-function showErrorMessage(strContent,redirect_url = '')
-{
-  $.alert({
-      title: oops_heading,
-      content: strContent,
-      type: 'red',
-      typeAnimated: true,
-      columnClass: 'medium',
-      icon : "fas fa-times-circle",
-      buttons: {
-        Ok: function () {
-            if(redirect_url != '')
-            {
-              if(redirect_url == 'reload')
-              {
-                location.reload(true);
-              }
-              else
-              {
-                window.location.href = redirect_url;
-              }
-            }
-        },
-      }
-    });
-}
+
 
 $(".show_cart").click(function(){
    window.location = "{{ route('frontShowCart') }}";
+});
+
+$('.radio-button-shipping').click(function() {
+  if($('.radio-button-shipping').is(':checked')) 
+  { 
+     var is_free_shipping = $(this).val();      
+     var free_ship ="0,00 kr";
+     var subtotal= $(".get_subtotal").text();
+      if(is_free_shipping==0){
+          //  alert("sdh")
+            $(".decide_shipping").text(free_ship);
+            $(".decide_total").text(subtotal);
+      }
+  }                      
 });
 
 $( document ).ready(function() {

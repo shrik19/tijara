@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
@@ -13,7 +13,7 @@
     <div class="seller_info">
     <div class="card">
 		  <div class="card-header row seller_header">
-        <h2 class="page_heading">{{ __('lang.summary_menu')}}</h2>
+        <h2 class="page_heading seller_page_heading">{{ __('lang.summary_menu')}}</h2>
         <!-- <hr class="heading_line"/> -->
       </div>
     </div>
@@ -22,11 +22,12 @@
   <form method="POST" name="filterForm" id="filterForm" class="seller-dashboard-form" action="{{route('frontDashboard')}}">
     @csrf
     <div class="row">
-      <div class="summary_page">
+      <div class="summary_page sel_cat_list">
      <h3 class="pull-left" style="margin-left: 10px;">{{ __('lang.dashboard_statistics_period')}} : </h3>
      
      
       <select name="filter_date" id="filter_date" class="form-control" onchange="jQuery('#filterForm').submit();">
+        <option value="all_month" >{{ __('users.all_months_option')}} </option>
           @foreach($filterDate as $key => $data)
           <option value="{{$key}}" @if($currentDate == $key) selected="selected" @endif >{{$data}}</option>
           @endforeach
@@ -35,7 +36,7 @@
       </div>
     </div>
     <div class="row"><div class="col-md-12">&nbsp;</div></div>
-    <div class="row text-center">
+    <div class="row text-center sel_cat_list">
       <div class="col-md-15" >
       
         <div class="card buyer-prod-card">
@@ -85,12 +86,27 @@
           <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_total_sales')}}</h2>
             <br />
-            <h2>{{ $totalAmount }} Kr</h2>
+            <h2>
+              @php
+              if(!empty($totalAmount)){
+                $order_total_tbl = str_split(strrev($totalAmount), 3);
+                $order_total_price_tbl = strrev(implode(" ", $order_total_tbl));
+                if (strpos($order_total_price_tbl, ".") !== false) {
+                  $order_total_price_tbl=str_replace('.',',',$order_total_price_tbl);
+                }else{
+                    $order_total_price_tbl = $order_total_price_tbl.",00";
+                 }
+              }else{
+                  $order_total_price_tbl = '0';
+              }
+              @endphp
+              {{ $order_total_price_tbl }} Kr
+            </h2>
           </div>
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6" style="margin: 10px;">
         <div class="card">
            <div class="buyer-prod-msg-bottom" style="height:150px;">
             <?php

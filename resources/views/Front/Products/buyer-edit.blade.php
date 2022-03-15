@@ -57,7 +57,7 @@ width:100% !important;
           <!-- <hr class="heading_line"/> -->
           </div>
           </div>
-          <div class="seller_mid_cont m-0">
+          <div class="seller_mid_cont m-0" style="margin-top: 20px !important;">
 
       
           <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">

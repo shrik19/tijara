@@ -1,10 +1,20 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <style type="text/css">
   .invalid-feedback {
-    position: relative;
+    position: absolute;
   }
+  ::placeholder{
+    font-weight: 300 !important;
+    color: #999 !important;
+  }
+  .ge_input {
+  width: 100%;
+}
+.form-group {
+    margin-bottom: 26px;
+}
 </style>
 <div class="container-fluid">
   <div class="container-inner-section-1">
@@ -26,17 +36,22 @@
       <div class="col-md-12">
         <div class="seller_info">
       <div class="card-header row seller_header">
-        <h2 class="page_heading">{{ __('users.profile_update_title')}}</h2>
+        <h2>{{ __('users.profile_update_title')}}</h2>
         <!-- <hr class="heading_line"> -->
      </div>  
-        <div class="login_box seller_mid_cont" style="margin-top: 40px;">
+        <div class="login_box seller_profile_content">
           
-            <h2 class="col-md-12 contact-info seller_mid_header">{{ __('users.contact_person')}}</h2>
+            <h2 class="col-md-12 contact-info seller_profile_subheader">{{ __('users.contact_person')}}</h2>
             @if($noActivePackage == 1)
               <input type="hidden" name="is_disabled" id="disable_side_menu" value="1">
             @endif
+            @if($noTrialPackageActive == 1)
+              <input type="hidden" name="noTrialPackageActive" id="noTrialPackageActive" value="1">
+            @else
+            <input type="hidden" name="noTrialPackageActive" id="noTrialPackageActive" value="0">
+            @endif
             <input type="hidden" name="role_id" value="{{$role_id}}">
-            <p class="contact_person_head" style="margin-top: 40px;margin-left: 16px;margin-bottom: 20px;">Kontaktperson:</p>
+            <p class="contact_person_head">Kontaktperson:</p>
 
             <div class="form-group col-md-6">
              <!--  <label>{{ __('users.first_name_label')}}<span class="de_col">*</span></label> -->
@@ -89,13 +104,13 @@
               <span class="invalid-feedback" id="err_country">@if($errors->has('country')) {{ $errors->first('country') }}@endif</span>
             </div>
             
-            <div style="margin-top: 40px;">
+       <!--      <div style="margin-top: 40px;">
               <hr class="row solid-horizontal-line">
-            </div>
+            </div> -->
 
             <h2 class="col-md-12" style="margin-top: 40px;margin-bottom: 20px;">{{ __('users.shipping_setting')}}</h2>
             <div class="form-group col-md-6" id="shipping_method_ddl_div">
-              <label>{{ __('users.shipping_method_label')}}</label>
+              <label  class="product_table_heading">{{ __('users.shipping_method_label')}}</label>
              <select class="form-control ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
                <option  <?php if($sellerDetails[0]->shipping_method ==  __('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
@@ -104,24 +119,25 @@
             </div>
 
             <div class="form-group col-md-6" id="shipping_charges_div">
-              <label>{{ __('users.shipping_charges_label')}}</label>
+              <label  class="product_table_heading">{{ __('users.shipping_charges_label')}}</label>
               <input type="text" class="form-control ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $sellerDetails[0]->shipping_charges}}">
             </div>
 
             <div class="form-group col-md-6">
-            <label>{{ __('users.free_shipping_label')}} </label>
+            <label  class="product_table_heading">{{ __('users.free_shipping_label')}} </label>
               <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($sellerDetails[0]->free_shipping ==  "free_shipping"){ echo "checked"; } ?> style="float: right">
            
             </div>
 
             <div class="form-group col-md-6">
-              <label> {{ __('users.pick_from_store')}}  </label>
+              <label  class="product_table_heading" > {{ __('users.pick_from_store')}}  </label>
               <div class="row">
                 <div class="col-md-1" class="is_pick_from_store">
-                 <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($sellerDetails[0]->is_pick_from_store ==  "1"){ echo "checked"; } ?>>
+                 <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($sellerDetails[0]->is_pick_from_store ==  "1"){ echo "checked"; } ?> style="margin-top: 15px;">
                </div>
                <div class="col-md-11">
                 <input type="text" class="form-control ge_input" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="{{ (old('store_pick_address')) ? old('store_pick_address') : $sellerDetails[0]->store_pick_address}}">
+                 <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
               </div>
               </div>              
             </div>
@@ -143,7 +159,7 @@
             </div>
 
             */?>
-            <hr class="row solid-horizontal-line">
+            <!-- <hr class="row solid-horizontal-line"> -->
              <h2 class="col-md-12"  id="scroll_to_payment_details" style="margin-top: 40px;margin-bottom: 20px;">{{ __('users.payment_setting')}}</h2>
              <div class="col-md-12">
               <div class="col-md-6">
@@ -153,10 +169,10 @@
                   if(!empty($cardDetails)) {
                     ?>
                     <div class="cardAddedDiv">
-                        <label></label> <?php echo $cardDetails->brand ?>
-                        <br><label>{{ __('lang.name_on_card')}}</label> :<span id="card_name"><?php echo $sellerDetails[0]->card_name ?></span>
-                        <br><label>{{ __('users.card_number_label')}}</label> :<span id="seller_card_number"> ***********<?php echo $cardDetails->last4 ?></span>
-                        <br><label>{{ __('users.card_expiry_date_lable')}}</label> :<span id="seller_card_expiry"> <?php echo $cardDetails->exp_month ?> / <?php echo $cardDetails->exp_year ?></span>
+                        <label></label> <?php echo ucfirst($cardDetails->brand); ?>
+                        <br><label  class="product_table_heading">{{ __('lang.name_on_card')}}</label> :<span id="card_name"><?php echo $sellerDetails[0]->card_name ?></span>
+                        <br><label  class="product_table_heading">{{ __('users.card_number_label')}}</label> :<span id="seller_card_number"> ***********<?php echo $cardDetails->last4 ?></span>
+                        <br><label  class="product_table_heading">{{ __('users.card_expiry_date_lable')}}</label> :<span id="seller_card_expiry"> <?php echo $cardDetails->exp_month ?> / <?php echo $cardDetails->exp_year ?></span>
                         <br><a href="javascript:void(0);" onclick="ConfirmCancelFunction();" 
                         style="color:red;" class="removeCard">{{ __('users.remove_btn')}}</a>
                     </div>
@@ -216,19 +232,8 @@
 </div> <!-- /container -->
 </div>
 
-
-
-<style>
-.ge_input {
-  width: 100%;
-  font-weight: 300 !important;
-  color: #999 !important;
-}
-</style>
  
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
-
 <script type="text/javascript">
 /*$( ".removeCard" ).click(function() {
     $('.saveCardDetailsDiv').show();
@@ -242,7 +247,6 @@ $(function() {
   $('form').bind('submit', function(e) {
 
     var $form         = $("form#seller-profile-form"),
-
         inputSelector = ['input[type=text]:visible'].join(', '),
 
         $inputs       = $form.find('.required').find(inputSelector),
@@ -274,37 +278,58 @@ $(function() {
     });
 
   
+    var noTrialPackageActive =$("#noTrialPackageActive").val();
+    if(noTrialPackageActive !=1){
+      if (!$form.data('cc-on-file') && $('.card-number').is(":visible")) {
 
-    if (!$form.data('cc-on-file') && $('.card-number').is(":visible")) {
+        e.preventDefault();
+        
+        Stripe.setPublishableKey($form.attr('stripe-publishable-key'));
 
-      e.preventDefault();
-      
-      Stripe.setPublishableKey($form.attr('stripe-publishable-key'));
+        Stripe.createToken({
 
-      Stripe.createToken({
+          number: $('.card-number').val(),
 
-        number: $('.card-number').val(),
+          cvc: $('.card-cvc').val(),
 
-        cvc: $('.card-cvc').val(),
+          exp_month: $('.card-expiry-month').val(),
 
-        exp_month: $('.card-expiry-month').val(),
+          exp_year: $('.card-expiry-year').val()
 
-        exp_year: $('.card-expiry-year').val()
+        }, stripeResponseHandler);
 
-      }, stripeResponseHandler);
+      }
 
     }
-
+    
   });
 
   function stripeResponseHandler(status, response) {
-
-        if (response.error) {
-
+      var errorMessages = {
+            missing_payment_information:not_found_payment_info,
+            incorrect_number: incorrect_card_number_err,
+            invalid_number: not_valid_credit_card_no,
+            invalid_expiry_month: invalid_exp_month_err,
+            invalid_expiry_year: invalid_exp_year_err,
+            invalid_cvc:invalid_cvc_err,
+            expired_card: expired_card_err,
+            incorrect_cvc: incorrect_cvc_err,
+            incorrect_zip: incorrect_zip_err,
+            card_declined: card_declined_err,
+            missing: missing_err,
+            processing_error: processing_error,
+            rate_limit:  rate_limit_err
+          };
+    if (response.error) {
+      if(response.error.code=='invalid_number' && response.error.message.indexOf("exp_month") !=-1){ 
+        response.error.code = 'invalid_expiry_month';
+      }else if(response.error.code=='invalid_number' && response.error.message.indexOf("exp_year") !=-1){
+        response.error.code ='invalid_expiry_year';
+      }
             $('.carderror') .show().removeClass('hide')             
-                .text(response.error.message);
+                .text(errorMessages[response.error.code] );
 
-        } else {
+      } else {
 
             // token contains id, last4, and card type
             $('.carderror') .hide()    ;
@@ -332,6 +357,7 @@ $(function() {
   function ConfirmCancelFunction(url, id = false) {
     var message = close_store_confirm_msg;
 
+   
   $.confirm({
       title: js_confirm_msg,
       content: delete_card_details_confirm,
@@ -343,6 +369,28 @@ $(function() {
           ok: function () {
              $('.saveCardDetailsDiv').show();
              $('.cardAddedDiv').remove();
+              $.ajax({
+              url:siteUrl+"/delete_card_details",
+              headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              },
+              type: 'get',
+              data : {},
+              success:function(data)
+              {
+                $(".loader").hide();
+                
+                 if(data.success)
+                {
+                    showSuccessMessageReview(data.success,'reload');
+                }
+                else
+                {
+                    showErrorMessage(data.error,'/front-login/buyer');
+                }
+        
+              }
+            });
           },
           Avbryt: function () {
             

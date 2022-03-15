@@ -96,7 +96,7 @@
                     </div>
                     @if(@$_GET['frompage']==1)
                     <div class="col-md-3 text-right">
-          						<a href="{{route('frontSellerPersonalPage')}}" title=""><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>
+          						<a href="{{route('frontSellerPersonalPage')}}" title="{{ __('users.back_to_butik_setting')}}" class="de_col"><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>
           					</div>
                     @endif
                   </div>

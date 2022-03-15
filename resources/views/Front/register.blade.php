@@ -158,8 +158,7 @@ var password_not_matched="{{ __('errors.password_not_matched')}}";
 var password_min_6_char="{{ __('errors.password_min_6_char')}}";
 var password_not_matched="{{ __('errors.password_not_matched')}}";
 var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
-
-
+var oops_heading = "{{ __('users.oops_heading')}}";
 
 function showErrorMessage(strContent,redirect_url = '')
 {

@@ -41,24 +41,23 @@ width:100% !important;
         @if($subscribedError)
           <div class="alert alert-danger">{{$subscribedError}}</div>
         @endif
-
-        
+        <div class="tijara-content">
+         <div class="seller_info border-none">
           <div class="card">
-          <div class="card-header row seller_header">
-          <!-- <h2 class="page_heading">{{ __('users.my_order_title')}}</h2> -->
-            <div class="col-md-10">
-               <h2 class="page_heading" style="margin-left: 33px;">{{ __('users.buyer_product_form_label')}}</h2>
+          <div class="card-header ml-0 row">
+                <div class="col-md-9 pl-0">
+                  <h2 class="page_heading new_add_heading" style="margin-left: 20px;">{{ __('users.buyer_product_form_label')}}</h2>
               <!--  <hr class="heading_line"/> -->
                </div>
-               <div class="col-md-2 text-right" style="margin-top:30px;margin-left: -14px;">
+               <div class="col-md-3 new_add text-right" style="margin-top:30px;margin-left: -14px;">
                <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
           </div>
           <!-- <hr class="heading_line"/> -->
           </div>
           </div>
-          <div class="seller_mid_cont" style="margin-top: 20px;">
+          <div class="row" style="margin-top: 20px;">
 
-        <div class="col-md-12">
+      
           <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
           @csrf
         
@@ -277,7 +276,7 @@ width:100% !important;
                 </div>
 
                  <div class="form-group">
-                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)">&nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> <a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="javascript:void(0)">{{ __('users.store_terms')}}</a></span>  
+                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a>  {{ __('users.and_label')}}  &nbsp;<a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a> <a href="javascript:void(0)">{{ __('users.store_terms')}}</a></span>  
                </div>
 
                </div>
@@ -301,9 +300,11 @@ width:100% !important;
           </div>
           </form>
         <!-- </div> -->
-      </div>
+
     </div> <!-- /col-10 -->
 </div>
+</div>
+  </div>
   </div>
 </div>
   </div>

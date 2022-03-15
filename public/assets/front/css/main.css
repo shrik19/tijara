@@ -96,6 +96,7 @@ button.btn.print_btn, .download_btn.debg_color {
 .is_pick_from_store {
   padding-top: 10px;
 }
+
 .product_sorting_filter_option{
   font-size: 14px !important;
   color: #222222 !important;
@@ -116,7 +117,7 @@ button.btn.print_btn, .download_btn.debg_color {
 }
 .register-success-page {
   margin-top: 60px !important;
-  margin-bottom: 30px !important;
+  margin: 85px 0;
 }
 h1.buyer-prod-head {
     font-size: 24px;
@@ -185,8 +186,9 @@ margin-top: 15px;
 
 .payment_method_title{
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 18px;
   margin-left: 30px;
+  color: #222222;
 }
 .payment_info{
   width:300px;
@@ -232,6 +234,10 @@ margin-top: 15px;
 .package-body{
   min-height: auto;overflow: auto;padding: 25px;
 }
+.package_history_btn{
+  margin-top: 15px;
+  margin-left: -27px;
+}
 .trial_package_msg{
   background-color: #03989e !important;
   color: #fff !important;
@@ -272,7 +278,12 @@ margin-top: 15px;
   object-fit: cover;
 }
 .buyer_profile_update_img{
-  width:200px;height:200px;margin-top:10px;border-radius: 100px;
+  width:200px;
+  height:200px;
+  margin-top:10px;
+  border-radius: 100px;
+  margin-left: 16px;
+  margin-bottom: 10px;
 }
 .buyer_profile_update_btn{
   color:#fff !important;background-color: #03989e !important;font-weight: bold !important;
@@ -301,6 +312,17 @@ margin-top: 15px;
 .seller-show-icon{
   width: 30px !important; height: 30px !important;padding: 1px !important;
 }
+.seller_profile_subheader{
+  margin-bottom:20px !important;
+}
+.seller_profile_content{
+  margin-top: 30px;
+}
+.contact_person_head{
+  margin-top: 40px !important;
+  margin-left: 16px !important;
+  margin-bottom: 20px !important;  
+}
 .seller_autocomplete_search{
   display:flex;
   border-bottom:1px solid #e5e5e5; 
@@ -324,7 +346,7 @@ margin-top: 15px;
 }
 .input_box_css{
   width:500px !important;
-  height: 20px !important;
+  height: 34px !important;
 }
 .top_icon_css{
   cursor: pointer;
@@ -413,9 +435,9 @@ span.subscribe_err {
     font-size: 14px;
 }
 .product_add_h2{
-    font-size: 30px !important;
+    font-size: 24px !important;
     font-weight: 400 !important;
-    color: #c1c1c1;
+    color: #222222 !important;
     padding: 40px;
 }
 .meta-data{
@@ -1318,6 +1340,10 @@ span.remember-text {
 		font-size: 40px;
 		font-weight: bold;line-height: 55px;
 	}
+
+  .login_banner-header h1{
+    margin-left: 30px;
+  }
 	
 	.login_banner-footer,
 	.register_banner-footer{
@@ -1345,16 +1371,17 @@ span.remember-text {
 	#third-step-form input.form-control,
 	#seller-personal-form input.form-control{
 		border-radius: 5px;
-		box-shadow: 0px 0px 0px 2px #ddd;
+		/*box-shadow: 0px 0px 0px 2px #ddd;*/
 		border: 1px solid #ddd;
 		height: 45px;
 		font-size: 14px;
-        margin: 15px 0 0 0;
+    margin: 15px 0 0 0;
+    color: #222222;
 	}
 	
-	#third-step-form input.form-control{
+	/*#third-step-form input.form-control{
 		margin-bottom: 25px;
-	}
+	}*/
 	
 	#third-step-form textarea.form-control{
 		border-radius: 5px;
@@ -1463,7 +1490,7 @@ span.remember-text {
 	}
 
 	.selectedActivePackage{
-    border: 2px solid #03989e;
+    border: 2px solid #03989e !important;
     padding: 1px;
     border-radius: 16px;
 
@@ -1688,12 +1715,21 @@ overflow: hidden;margin-top: 155px;}
   justify-content: center;
   object-fit: cover; border-radius: 3px;
 }
+div.seller_product_varint_info{
+  background-color: #e6f2ff;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
 .seller_info{float: left; padding-bottom: 5px;width: 100%;}
-.seller_info h2{    font-size: 22px;
+.seller_info h2{    
+    font-size: 26px;
     font-weight: 600;
     margin: 0; 
     margin-top: 20px;
-    line-height: 25px;}
+    line-height: 25px;
+    color: #222222;
+  }
 .seller_info p{font-size: 18px;
   margin: 6px 0 3px 0;
   color: #999;
@@ -2437,15 +2473,34 @@ span.pro-text {
   font-size: 16px;
   font-weight: 500;
 }
-.sel_cat_list h3, .sel_cat_list h2{    font-size: 26px;
-    font-weight: 700;}
-    .seller_info{border-left: 1px solid #dadada;border-top: 1px solid #dadada; }
+.sel_cat_list h3 {
+    
+}
+.sel_cat_list h3, .sel_cat_list h2{    
+  font-size: 20px;
+  font-weight: 500;
+  color: #222222;
+}
+
+.seller_info{
+  border-left: 1px solid #dadada;/*border-top: 1px solid #dadada; */
+}
     .seller_header{
-        margin: 0;padding: 20px; /*background-color: #efefef;*/
+     
+      margin: 0;
+      padding: 20px;
+      background-color: #efefef;
     }
     .seller_mid_header{
         margin: 25px 0;
 
+    }
+    .seller_page_heading{
+      font-size: 26px !important;
+    }
+
+    .sellers_top_padding{
+      padding-top: 116px !important;
     }
     .seller_mid_cont{margin-left: 25px;}
 
@@ -2541,6 +2596,9 @@ text-align: right;
     overflow: hidden;
   
     text-overflow: ellipsis;}
+  .product_table_heading{
+      font-weight: 500;
+    }
 .buyer_prduct_header{font-size: 36px!important;}
 .seller_search {
     margin-top: 20px !important;
@@ -2602,7 +2660,7 @@ text-align: right;
 .seller-payment-form .form-control,
 #product-form .ge_input,
 .payment_explanation_text {
-    color: #999 !important;
+    color: #222222 !important;
     font-weight: 300 !important;
 }
 
@@ -2686,7 +2744,7 @@ text-align: right;
   }
 .slick-next:focus, .slick-next:hover, .slick-prev:focus, .slick-prev:hover{
     
-    background: #03989e!important; 
+    background: #03989e !important; 
   }
   .slick-next:before {
     /* font-family: 'Glyphicons Halflings'!important; */
@@ -2758,7 +2816,24 @@ text-align: right;
     padding-bottom: 100px;
     min-height: 100%;
 }
-.checkoutProductImg{width: 100%; object-fit: cover;}
+.swish_checkout_logo{
+  float: right; 
+  margin-top: -25px;
+  border-radius: 5px;
+  height: 90px;
+}
+.stripe_checkout_logo{
+  float: right;
+  margin-top: -2px;
+  border-radius: 5px;
+  height:41px;
+  margin-right: -92px;
+  width: 150px;
+}
+.strip_html_label{
+  font-weight: 500;
+}
+.checkoutProductImg{width: 100%;height: 85px; object-fit: cover;}
 .checkoutProducts{padding: 15px 0;}
 .checkout_billing_info h4{font-size: 18px; font-weight: 300; }
 .remember-text-checkout{font-size: 13px; margin: 10px 0;}
@@ -2772,7 +2847,7 @@ text-align: right;
   margin-top: 6px;
 }
 .checkoutButton{padding: 15px 50px; margin-top: 30px; font-size: 16px; border-radius: 6px;}
-.checkoutProductDetails h4{font-weight: 300;margin-top: 20px;}
+.checkoutProductDetails h4{font-weight: 300;margin-top: 0px;}
 .checkoutProductDetails h5{font-weight: 300;}
 .card-title{font-weight: 500;}
 .product_wish_icon{
@@ -4037,5 +4112,32 @@ ul.breadcrumb-category {
     color: #fff;
   }
 
+  img.tijara-login-logo{
+    width: 221px;
+    height: 80px;
+   filter: brightness(0) invert(1);
+  }
+
+  img.register_klarna_logo{
+    width: 130px;
+    filter: contrast(5.5);
+    height: 95px;
+  }
+
+  img.register_swish_logo{
+    filter: contrast(5.5);
+    width: 130px;
+    height: 105px;
+  }
+
+  img.register_stripe_logo{
+    filter: contrast(1.5);
+  }
+
+  span.register_credentials_ex{
+    font-size: 12px !important;
+    color: #777 !important;
+    font-weight: 300 !important;
+  }
 
 }

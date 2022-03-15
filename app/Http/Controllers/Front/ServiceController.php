@@ -563,6 +563,7 @@ class ServiceController extends Controller
             'session_time'  => 'required',
             'categories'  => 'required',
             'address'  => 'required',
+            'telephone_number'  => 'required',
             //'service_availability'  => 'required',
           
            /* 'categories'  => 'required',
@@ -598,11 +599,12 @@ class ServiceController extends Controller
             'status.required'            =>trans('lang.required_field_error'),
             'categories.required'  => trans('lang.required_field_error'), 
             'address.required'  => trans('lang.required_field_error'), 
+            'telephone_number.required'    =>trans('lang.required_field_error'),
             //  'service_availability.required'  => trans('lang.required_field_error'),
             /*'service_year.required'  => trans('lang.required_field_error'),           
             'service_month.required' => trans('lang.required_field_error'), 
             'service_date.required'  => trans('lang.required_field_error'),           
-            'start_time.required'    =>trans('lang.required_field_error'), */
+            */
             
         ];
 
@@ -628,7 +630,9 @@ class ServiceController extends Controller
 
                 'address'            => trim($request->input('address')),
 
-                'service_price'            => trim($request->input('service_price')),
+                'telephone_number'   => trim($request->input('telephone_number')),
+
+                'service_price'      => trim($request->input('service_price')),
                 
                 'sort_order'        => trim($request->input('sort_order')),
 
@@ -959,7 +963,7 @@ class ServiceController extends Controller
         $serviceRequest = serviceRequest::join('users','users.id','=','service_requests.user_id')
           ->join('services','services.id','=','service_requests.service_id')
 
-          ->select('services.user_id as seller_id','services.title','services.service_price as price','services.images','services.description','services.service_slug','services.service_code','users.fname','users.lname','users.email'
+          ->select('services.user_id as seller_id','services.title','services.service_price as price','services.images','services.description','services.service_slug','services.telephone_number','services.service_code','users.fname','users.lname','users.email'
           ,'users.store_name','service_requests.*')->where('service_requests.is_deleted','!=',1)->where('service_requests.user_id','=',$user_id);
 
         /*if($User->role_id==2) {
@@ -1221,10 +1225,70 @@ class ServiceController extends Controller
 
       if (!empty($result)) {
         $service = ServiceRequest::where('id', $id)->update(['is_deleted' =>1]);
-        return response()->json(['success'=>trans('lang.record_delete')]); 
+        return response()->json(['success'=>trans('lang.booking_deleted')]); 
       } else {
          return response()->json(['error'=>trans('errors.something_went_wrong')]);
       }
+    }
+
+    /*public function ServiceRequestView(Request $request) {
+    
+        $user_id = $request->user_id;
+      if(empty($user_id)) {
+        Session::flash('error', 'Something went wrong. Reload your page!');
+        return redirect(route('frontAllServiceRequest'));
+      }
+
+      $getBookedServices = Services::where('user_id', $user_id)->get()->toArray();
+      $serviceIds=array();
+      if(!empty($getBookedServices)) {
+          foreach($getBookedServices as $services){ 
+            $serviceIds []=$services['id'];
+          }
+      }
+
+      $getNew  = ServiceRequest::select('service_requests.service_id')->where('is_new','=', 1)->get()->toArray();
+       $NewServiceIds=array();
+       if(!empty($getNew)){
+        foreach($getNew as $new){       
+            $NewServiceIds []=$new['service_id'];
+        }
+       }
+      
+       $result = array_intersect($serviceIds, $NewServiceIds);
+        if(!empty($result)){
+            foreach($result as $service_id){ 
+                  $service = ServiceRequest::where('service_id', $service_id)->update(['is_new' =>0]);
+                }
+                return response()->json(['success'=>1]); 
+        } else {
+         return response()->json(['error'=>0]);
+      }      
+    }*/
+
+    public function ServiceRequestView(Request $request) {
+    
+        $user_id = $request->user_id;
+       // echo $user_id;exit;
+      if(empty($user_id)) {
+        Session::flash('error', 'Something went wrong. Reload your page!');
+        return redirect(route('frontAllOrders'));
+      }
+      
+       $allBookings = ServiceRequest::join('services', 'service_requests.service_id', '=', 'services.id')->where('services.user_id','=',$user_id)->where('service_requests.is_new','=','1')->where("services.is_deleted",'=','0')->get()->toArray();
+
+       $getTotalOrders = $getTotalBookings = $totalNotifications = '';
+      if(!empty($allBookings)) {
+          foreach($allBookings as $serviceIDs){ 
+             $service = ServiceRequest::where('service_id', $serviceIDs['id'])->update(['is_new' =>0]);
+          }
+          $getTotalOrders = getNewOrders(Auth::guard('user')->id());
+          $getTotalBookings = getNewBookings(Auth::guard('user')->id());
+          $totalNotifications = $getTotalOrders + $getTotalBookings;
+          return response()->json(['success'=>1,'notification_count'=> $totalNotifications,'orders_count'=>$getTotalOrders,'bookings_count'=>$getTotalBookings]); 
+      }else{
+        return response()->json(['error'=>0]);
+      }           
     }
 }
 

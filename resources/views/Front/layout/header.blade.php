@@ -74,6 +74,24 @@
     var success_heading = "{{ __('users.success_heading')}}";
     var cancel_btn = "{{ __('lang.cancel_btn')}}";
     var select_what_to_search = "{{ __('messages.select_what_to_search')}}";
+    var del_variant_confirm_box = "{{ __('messages.del_variant_confirm_box')}}";
+    var select_shopping_method_err = "{{ __('errors.select_shopping_method_err')}}";
+    var not_found_payment_info = "{{ __('lang.not_found_payment_info')}}";
+    var not_valid_credit_card_no = "{{ __('lang.not_valid_credit_card_no')}}";
+    var card_declined_err = "{{ __('lang.card_declined_err')}}";
+    var invalid_exp_month_err = "{{ __('lang.invalid_exp_month_err')}}";
+    var invalid_exp_year_err = "{{ __('lang.invalid_exp_year_err')}}";
+    var incorrect_card_number_err = "{{ __('lang.incorrect_card_number_err')}}";
+    var rate_limit_err = "{{ __('lang.rate_limit_err')}}";
+    var processing_error = "{{ __('lang.processing_error')}}";
+    var missing_err =  "{{ __('lang.missing_err')}}";
+    var incorrect_zip_err =  "{{ __('lang.incorrect_zip_err')}}";  
+    var incorrect_cvc_err =  "{{ __('lang.incorrect_cvc_err')}}";
+    var expired_card_err =  "{{ __('lang.expired_card_err')}}";    
+    var invalid_cvc_err =  "{{ __('lang.invalid_cvc_err')}}";
+    var enter_all_fields_err =  "{{ __('errors.enter_all_fields_err')}}";
+
+
 
 
     var is_login = 0;
@@ -156,7 +174,51 @@
 
               </div>
   @else
-  <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" /></h3></a> 
+   <?php /* <div class="pull-right">
+      @if(Auth::guard('user')->id())
+      <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><!-- <img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" /> --><i class="fas fa-bell"><span class='badge badge-pill'>
+          @php
+            $getTotalOrders = getNewOrders(Auth::guard('user')->id());
+            $getTotalBookings = getNewBookings(Auth::guard('user')->id());
+            $totalNotifications = $getTotalOrders + $getTotalBookings;
+        @endphp
+
+      {{$totalNotifications}}</span></i></h3></a>
+
+      <ul class="dropdown-menu">
+        <li style="width:100%"><a href="{{route('frontAllbookingRequest')}}">{{ __('users.my_booking_title')}} <span class='badge badge-pill'>{{ $getTotalBookings}}</span></a></li>
+
+        <li  style="width:100%"><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} <span class='badge badge-pill'>{{ $getTotalOrders}}</span></a></li>
+      </ul>
+      @endif
+    </div>
+*/?>
+ <div class="cart_details">
+         @php
+            $getTotalOrders = getNewOrders(Auth::guard('user')->id());
+            $getTotalBookings = getNewBookings(Auth::guard('user')->id());
+            $totalNotifications = $getTotalOrders + $getTotalBookings;
+
+        @endphp
+                     <a class="top_icon_css"  href="/profile">
+
+                    <img class="m-7" src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" />
+                      </a>
+              
+                      @if($totalNotifications > 0)
+                      <div class="cart_count notification_count">
+                         
+                        <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" style="cursor: pointer">{{$totalNotifications}}</span>
+            <ul class="dropdown-menu">
+        <li style="width:100%"><a href="{{route('frontAllbookingRequest')}}">{{ __('users.my_booking_title')}} <p class='badge badge-pill debg_color' id="allSellerBookings">{{ $getTotalBookings}}</p></a></li>
+
+        <li  style="width:100%"><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} <p class='badge badge-pill debg_color' id="allSellerOrders">{{ $getTotalOrders}}</p></a></li>
+      </ul>
+                      </div>
+            
+                      @endif
+                  </div>
+<!--   <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" /></h3></a>  -->
   @endif              
 @else
 

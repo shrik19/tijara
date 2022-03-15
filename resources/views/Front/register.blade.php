@@ -89,7 +89,7 @@
 					<h1>Sveriges första kulturella marknadsplats</h1>
 				</div>
 				<div class="register_banner-footer text-right">
-					<img src="{{url('/')}}/uploads/Images/tijara-image.png" />
+					<img src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" class="tijara-login-logo"/>
 				</div> 
 				</div>
 			</div>

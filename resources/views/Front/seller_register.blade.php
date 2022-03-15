@@ -65,7 +65,7 @@
 					</div>
 					<div class="register_banner-footer text-right">
 						<h2>Säljare</h2>
-						<img src="{{url('/')}}/uploads/Images/tijara-image.png" />
+						<img src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" class="tijara-login-logo"/>						
 					</div> 
 				</div>
                 @endif

@@ -65,7 +65,7 @@
     </form>
             <!-- contact shop -->
 			<div class="col-md-3">
-				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right contact-btn" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
         <input type="hidden" name="is_login" id="is_login" value="{{Auth::guard('user')->id()}}">
 			</div>
           </div>

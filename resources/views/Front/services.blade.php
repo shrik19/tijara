@@ -24,7 +24,7 @@
                     <hr class="heading_line"/> -->
                     @if( Request::segment(1) !='annonser')
                       <div class="col-md-3">
-                        <label class="checkbox toggle candy" onclick="">
+                        <label class="checkbox toggle candy label_width" onclick="">
                           <input id="view" type="checkbox" />
                           <p>
                             <span class="product_sorting_filter" id="productSearchFilter"  product_link="{{route('AllproductListing')}}" style="margin-left: 14px;cursor: pointer;">{{ __('lang.category_product_title')}}</span>

@@ -111,6 +111,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {  
+ //alert($("#notification_count").text());return
+  
      var user_id = $("#user_id").val();
   $.ajax({
     url: siteUrl+'/update-booking-notification/?user_id='+user_id,
@@ -122,6 +124,9 @@ $(document).ready(function() {
         $('#notification_count').html(output.notification_count);
         $('#allSellerOrders').html(output.orders_count);
         $('#allSellerBookings').html(output.bookings_count);
+        if($("#notification_count").text()==0){
+          $(".notification_count").css('display','none')
+        }
       } 
 }
   }); 

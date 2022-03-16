@@ -101,7 +101,8 @@
 <script src="{{url('/')}}/assets/front/js/jquery-confirm.min1.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-    var user_id = $("#user_id").val();
+
+  var user_id = $("#user_id").val();
   $.ajax({
     url: siteUrl+'/update-orders-notification/?user_id='+user_id,
     type: 'get',
@@ -109,10 +110,12 @@
     data: { },
     success: function(output){
       if(output.success ==1){
-        alert("xhghj")
         $('#notification_count').html(output.notification_count);
         $('#allSellerOrders').html(output.orders_count);
         $('#allSellerBookings').html(output.bookings_count);
+        if($("#notification_count").text()==0){
+          $(".notification_count").css('display','none')
+        }
       }    
     }
 });

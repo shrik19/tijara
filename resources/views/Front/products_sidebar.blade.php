@@ -98,12 +98,12 @@
 
   </div>
 
-<div>
+<div >
 
 <div>&nbsp;</div>
   @if(Request::path() != "/" && Request::segment(3) !='products' && Request::segment(3) !='services')
      @if(Request::segment(1) !='annonser' && Request::segment(1) != 'seller')
-      <div style="margin-left: 4px;"> 
+      <div class="mobile_view_spacing" style="margin-left: 4px;"> 
       <label class="price_label">{{ __('lang.sort_by_price')}} </label>
 
       <div>&nbsp;</div>
@@ -115,7 +115,7 @@
     @endif
 
     @if(Request::segment(1) != 'seller')
-    <div style="margin-left: 4px;"> 
+    <div class="mobile_view_spacing" style="margin-left: 4px;"> 
     <label class="price_label">{{ __('users.place_label')}}</label>
      <select class="form-control" name="city_name" id="city_name">
         <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>

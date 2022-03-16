@@ -16,13 +16,13 @@
          
         @endif
 
-        <div class="">
+        <div class="cat-details">
 			  @if(Request::segment(1) =='annonser')
-				<div class="col-md-3 col-annonser-sidebar">
+				<div class="col-md-3 col-annonser-sidebar  desktop-view">
 					@include('Front.annonser_sidebar')
 				</div>
 			  @else
-				<div class="col-md-3 col-products-sidebar">
+				<div class="col-md-3 col-products-sidebar desktop-view">
 					@include('Front.products_sidebar')
 				</div>
 			  @endif
@@ -48,8 +48,8 @@
 				 <div class="col-md-12 pr-0"> 
 				  @if( Request::segment(1) !='annonser')
          
-					  <div class="col-md-4 pr-0" style="padding-left: 30px;">
-						<label class="checkbox toggle candy" onclick="" >
+					  <div class="col-md-3 pr-0" style="padding-left: 30px;">
+						<label class="checkbox toggle candy label_width" onclick="" >
 						  <input id="view" type="checkbox" />
 						  <p>
 							<span class="product_sorting_filter" id="productSearchFilter" style="cursor: pointer;">{{ __('lang.category_product_title')}}</span>
@@ -58,7 +58,7 @@
 						  <a class="slide-button"></a>                  
 						 </label>                   
 					  </div>
-   
+            <div>&nbsp;</div>
 					@else
 						<div class="col-md-4"></div>
 					@endif
@@ -101,6 +101,20 @@
             <span class="service_listings"><div style="text-align:center;margin-top:50px;display: none"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
 				</div>
 			</div>
+      <!-- @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
+          @include('Front.category_breadcrumb')
+         
+        @endif
+      <div class="cat-details">
+			  @if(Request::segment(1) =='annonser')
+				<div class="col-md-3 col-annonser-sidebar  mobile-view">
+					@include('Front.annonser_sidebar')
+				</div>
+			  @else
+				<div class="col-md-3 col-products-sidebar  mobile-view">
+					@include('Front.products_sidebar')
+				</div>
+			  @endif -->
 		</div>
     </div>
     </div>

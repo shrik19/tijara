@@ -16,14 +16,15 @@
   }
 
 </style>
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
 <div class="container-inner-section-1">
 <!-- Example row of columns -->
 
 <div class="row">
+  <input type="hidden" name="user_id" id="user_id" value="{{$user_id}}">
   @if($is_seller==1)
-  <div class="col-md-2 tijara-sidebar">
+  <div class="col-md-2 tijara-sidebar" style="margin-bottom: 60px;">
     @include ('Front.layout.sidebar_menu')
   </div>
   <div class="col-md-10 tijara-content">
@@ -34,9 +35,9 @@
     @include('Front.alert_messages')
     <div class="seller_info">
     <div class="card">
-      <div class="card-header row seller_header">
+      <div class="card-header row seller_header" style="margin-bottom: 60px;">
         <div class="col-md-11">
-        <h2 class="page_heading" style="margin-bottom: 60px;">{{ __('users.booking_request_label')}}</h2>
+        <h2>{{ __('users.booking_request_label')}}</h2>
         <!-- <hr class="heading_line"/> -->
         </div>
       </div>
@@ -81,18 +82,18 @@
   <table>
   <!--  <tr><td style="font-weight: 700px;"></td>:<td></td></tr> -->
   @if(session('role_id')==2)  
-  <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.cust_label')}} {{ __('lang.txt_name')}} :</td><td class="user_name" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.cust_label')}} :</td><td class="user_name" style="padding-left: 10px;"></td></tr>
   @endif
   <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.sevice_name_head')}} :</td><td class="title" style="padding-left: 10px;"></td></tr>
-  <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_label')}} {{ __('lang.product_description_label')}} :</td><td class="description" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.product_description_label')}} :</td><td class="description" style="padding-left: 10px;"></td></tr>
 
   <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_time')}} :</td><td class="service_time" style="padding-left: 10px;"></td></tr>
   <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.service_total_cost')}} :</td><td class="service_price" style="padding-left: 10px;"></td></tr>
   <tr><td style="font-weight: bold;padding: 5px;">{{ __('lang.location')}} :</td><td class="location" style="padding-left: 10px;"></td></tr>
-  <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.email_label')}} :</td><td class="buyer_email" style="padding-left: 10px;"></td></tr>
-  <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.address_label')}} :</td><td class="buyer_address" style="padding-left: 10px;"></td></tr>
-  <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.postal_code_label')}} :</td><td class="buyer_postnummber" style="padding-left: 10px;"></td></tr>
-  <tr><td style="font-weight: bold;padding: 5px;">{{__('lang.buyer_menu')}} {{ __('users.location_label')}} :</td><td class="buyer_location" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;">{{ __('users.email_label')}} :</td><td class="buyer_email" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;"> {{ __('users.address_label')}} :</td><td class="buyer_address" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;"> {{ __('users.postal_code_label')}} :</td><td class="buyer_postnummber" style="padding-left: 10px;"></td></tr>
+  <tr><td style="font-weight: bold;padding: 5px;"> {{ __('users.location_label')}} :</td><td class="buyer_location" style="padding-left: 10px;"></td></tr>
   </table>
   </div> 
 
@@ -109,7 +110,31 @@
 <script src="{{url('/')}}/assets/js/sweetalert.js"></script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
+$(document).ready(function() {  
+ //alert($("#notification_count").text());return
+  
+     var user_id = $("#user_id").val();
+  $.ajax({
+    url: siteUrl+'/update-booking-notification/?user_id='+user_id,
+    type: 'get',
+    async: false,
+    data: { },
+    success: function(output){
+      if(output.success ==1){
+        $('#notification_count').html(output.notification_count);
+        $('#allSellerOrders').html(output.orders_count);
+        $('#allSellerBookings').html(output.bookings_count);
+        if($("#notification_count").text()==0){
+          $(".notification_count").css('display','none')
+        }
+      } 
+}
+  }); 
+
+/*  }); 
+  $(document).ready(function() {*/
+ 
+
     var events_array = [];
 
     if($('.service_availability').length>0) {

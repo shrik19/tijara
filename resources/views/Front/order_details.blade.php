@@ -5,7 +5,7 @@ if (@$_GET['print'])
 	@include('Front.layout.header');
 
 <?php } ?>
-    
+
     <div class="row">
         <?php /*@if($is_seller==1)
         <div class="col-md-2 tijara-sidebar">
@@ -37,7 +37,7 @@ if (@$_GET['print'])
                 @endif
                 @if(!empty($shippingAddress))
                 <div class="col-sm-12 col-md-6 text-right">
-                    <h4><strong>{{ __('messages.txt_billing_address')}}</strong></h4>
+                    <h4><strong>{{ __('messages.txt_shipping_address')}}</strong></h4>
                     <span style="font-size:16px;">{{ $shippingAddress['given_name'] }} {{ $shippingAddress['family_name'] }}<br />
                     {{ $shippingAddress['email'] }}<br />
                     {{ $shippingAddress['street_address'] }}<br />
@@ -47,7 +47,7 @@ if (@$_GET['print'])
                 @endif
             </div>
             <div class="row"><div class="col-md-12">&nbsp;</div></div>
-            <table class="table table-hover" style="margin-bottom:60px;">
+            <table class="table table-hover shopping_cart" style="margin-bottom:60px;">
                 <thead>
                     <tr>
                         <th>{{ __('lang.shopping_cart_product')}}</th>
@@ -63,41 +63,88 @@ if (@$_GET['print'])
                     <tr>
                         <td class="col-sm-4 col-md-4">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="{{$orderProduct['product']->product_link}}"> 
+                            <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
                             @if($orderProduct['product']['image'])
-                              <img src="{{url('/')}}/uploads/ProductImages/resized/{{$orderProduct['product']->image}}" class="media-object" style="width: 72px; height: 72px;">
+                              <img src="{{url('/')}}/uploads/ProductImages/resized/{{$orderProduct['product']->image}}" class="media-object show-cart-product" style="width: 72px; height: 72px;padding: 1px;">
                             @else
-                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" style="width: 72px; height: 72px;">
+                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object" style="width: 72px; height: 72px;padding: 1px;">
                             @endif
                               
                             </a>
-                            <div class="media-body" style="padding-left:10px;padding-top:10px;">
-                                <h4 class="media-heading">@if($orderProduct['product']->is_deleted !=1)<a href="{{$orderProduct['product']->product_link}} ">{{ $orderProduct['product']->title }}</a>@else {{ $orderProduct['product']->title }} @endif </h4>
-                                <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5>
+                            <div class="media-body"  style="padding-left:10px;padding-top:10px;">
+                                <h4 class="media-heading product_sorting_filter_option">@if($orderProduct['product']->is_deleted !=1)<a href="{{$orderProduct['product']->product_link}} ">{{ $orderProduct['product']->title }}</a>@else {{ $orderProduct['product']->title }} @endif </h4>
+                                <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']);?></h5>
                                 <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
                             </div>
                         </div></td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                         <span id="quantity_{{ $orderProduct['id'] }}" > {{ $orderProduct['quantity'] }} </span>
                         </td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($orderProduct['price'],2) }} kr</strong></td>
-                        <td class="col-sm-1 col-md-1 text-right"><strong>{{ number_format($orderProduct['shipping_amount'],2)}} kr</strong></td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right">
+                            <p class="product_sorting_filter_option">
+                                 @php 
+                                    $order_product_amount = str_split(strrev($orderProduct['price']), 3);
+                                    $order_product_amount_tbl = strrev(implode(" ", $order_product_amount));
+                                    $order_product_amount_tbl = $order_product_amount_tbl.",00";
+                                @endphp
+                                {{$order_product_amount_tbl}} kr
+                            
+                            </p>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-right">
+                            <p class="product_sorting_filter_option">
+                                @php 
+                                    $shipping_amount = str_split(strrev($orderProduct['shipping_amount']), 3);
+                                    $shipping_tbl = strrev(implode(" ", $shipping_amount));
+                                    $shipping_tbl = $shipping_tbl.",00";
+                                @endphp
+                                {{$shipping_tbl}} kr
+                            </p>
+                        </td>
+                        <td class="col-sm-2 col-md-2 text-right">
+                            <p class="product_sorting_filter_option">
+                                 @php 
+                                    $total_product_amount = str_split(strrev(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']), 3);
+                                    $total_product_amount_tbl = strrev(implode(" ", $total_product_amount));
+                                    $total_product_amount_tbl = $total_product_amount_tbl.",00";
+                                @endphp
+                                {{$total_product_amount_tbl}} kr
+                                
+                            </p>
+                        </td>
                     </tr>
                   @endforeach
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h5>{{ __('lang.shopping_cart_subtotal')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($subTotal,2)}} kr</strong></h5></td>
+                        <td><p class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</p></td>
+                        <td class="text-right">
+                            <p class="product_sorting_filter_option">
+                                @php 
+                                    $subTotal_amount = str_split(strrev($subTotal), 3);
+                                    $subTotal_tbl = strrev(implode(" ", $subTotal_amount));
+                                    $subTotal_tbl = $subTotal_tbl.",00";
+                                @endphp
+                                {{$subTotal_tbl}} kr
+                            </p>
+                    </td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h5>{{ __('lang.shopping_cart_shipping')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($shippingTotal,2)}} kr</strong></h5></td>
+                        <td><p class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</p></td>
+                        <td class="text-right">
+                            <p class="product_sorting_filter_option">
+                                @php 
+                                    $shippingTotal_amount = str_split(strrev($shippingTotal), 3);
+                                    $shippingTotal_tbl = strrev(implode(" ", $shippingTotal_amount));
+                                    $shippingTotal_tbl = $shippingTotal_tbl.",00";
+                                @endphp
+                                {{$shippingTotal_tbl}} kr
+                            </p>
+                        </td>
                     </tr>
                     <tr>
                         <td> 
@@ -107,10 +154,9 @@ if (@$_GET['print'])
                             {{ __('messages.txt_order_status')}} : 
                             @if($is_seller || $is_buyer_order) 
                             <select name="order_status" id="order_status" onchange="change_order_status(<?php echo $order['id']; ?>)" order_id="{{$order['id']}}" class="form-control" style="width: 50%;display: inline-block;">
-                                <option value="PENDING" @if($order['order_status'] == 'PENDING') selected="selected" @endif>PENDING</option>
-                                <option value="SHIPPED" @if($order['order_status'] == 'SHIPPED') selected="selected" @endif>SHIPPED</option>
-                                <option value="COMPLETE" @if($order['order_status'] == 'COMPLETE') selected="selected" @endif>COMPLETE</option>
-                                <option value="CANCELLED" @if($order['order_status'] == 'CANCELLED') selected="selected" @endif>CANCELLED</option>
+                                <option value="PENDING" @if($order['order_status'] == 'PENDING') selected="selected" @endif style="background-color: red;">{{ __("users.pending_order_status")}}</option>
+                                <option value="SHIPPED" @if($order['order_status'] == 'SHIPPED') selected="selected" @endif style="background-color: green;">{{ __("users.shipped_order_status")}}</option>
+                                <option value="CANCELLED" @if($order['order_status'] == 'CANCELLED') selected="selected" @endif style="background-color: green;">{{ __("users.cancelled_order_status")}}</option>
 
                             </select> 
                             @else 
@@ -120,8 +166,17 @@ if (@$_GET['print'])
                         </td>
                         <td>   </td>
                         <td>   </td>
-                        <td><h3>{{ __('lang.shopping_cart_total')}}</h3></td>
-                        <td class="text-right"><h4><strong>{{number_format($Total,2)}} kr</strong></h4></td>
+                        <td><p class="product_sorting_filter_option">{{ __('lang.shopping_cart_total')}}</p></td>
+                        <td class="text-right">
+                            <p class="product_sorting_filter_option">
+                                @php 
+                                    $Total_amount = str_split(strrev($Total), 3);
+                                    $Total_tbl = strrev(implode(" ", $Total_amount));
+                                    $Total_tbl = $Total_tbl.",00";
+                                @endphp
+                                {{$Total_tbl}} kr
+                            </p>
+                        </td>
                     </tr>
                     @else
                     <tr>

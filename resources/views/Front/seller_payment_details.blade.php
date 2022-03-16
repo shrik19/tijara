@@ -1,7 +1,12 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
-<div class="mid-section p_155">
+<style type="text/css">
+  ::placeholder{
+    font-weight: 300 !important;
+    color: #999 !important;
+  }
+</style>
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
 <div class="container-inner-section-1">
   <!-- Example row of columns -->
@@ -68,14 +73,14 @@
               
               <div class="form-group" style="display: flex;">
                 <?php 
-                  $checked = "";
+            /*      $checked = "";
 				  if(!empty($sellerDetails[0]->is_swish_number)){
 					  if($sellerDetails[0]->is_swish_number == 1) {
 						$checked = "checked";
 					  }
-				  }
+				  }*/
                 ?>
-               <input type="checkbox" name="is_swish_number" id="is_swish_number" class="swish_number payment_radio" value="1" style="margin-top: 10px;" {{$checked}}> 
+            <!--    <input type="checkbox" name="is_swish_number" id="is_swish_number" class="swish_number payment_radio" value="1" style="margin-top: 10px;" >  -->
                <input type="phone_number" class="form-control login_input " name="swish_number" id="seller_swish_number" placeholder="swish number" value="{{ (old('seller_swish_number')) ? old('seller_swish_number') : $sellerDetails[0]->seller_swish_number}}" style="margin-left: 10px;">
               </div>
 			         
@@ -109,7 +114,7 @@
                 </form>
           </div>
           <div class="col-md-4">
-              <div class="info" style="background-color: #e6f2ff;padding: 20px;margin-bottom: 10px;">{{ __('users.payment_method_info')}}</div>
+              <div class="info" style="background-color: #e6f2ff;padding: 20px;margin-bottom: 10px;">{{ __('users.payment_method_info_seller_backend')}}</div>
           </div>
             <div class="col-md-2"></div>
         
@@ -135,18 +140,36 @@ $(document).ready(function(){
     //$('.klarna_payment_detail_box').attr('disabled', 'disabled');
     $('.klarna_payment :input').attr('disabled', true);
     $('.stripe_payment :input').attr('disabled', true);
-    $(".swish_payment_lock").removeClass("fa-lock");
+    $(".swish_payment_lock").hide();
   }else{
-    $(".klarna_payment_lock").removeClass("fa-lock");
-    $(".swish_payment_lock").removeClass("fa-lock");
-    $(".stripe_payment_lock").removeClass("fa-lock");
+    $(".payment-lock-icon").hide();
+   /* $(".swish_payment_lock").hide();
+    $(".stripe_payment_lock").hide();*/
   }
 
   
   $("#btnSaveDetails").on("click", function(){
     var error = 0;
-    var swish_number = $("#seller_swish_number").val();
-    if(swish_number !=''){
+    var swish_number    = $("#seller_swish_number").val();
+    let klarna_username       = $("#klarna_username").val();
+    let klarna_password     = $("#klarna_password").val();  
+    let strip_api_key           = $("#strip_api_key").val(); 
+    let strip_secret        = $("#strip_secret").val();  
+
+    if ((klarna_username != '' && klarna_password != '') || (swish_number != '') || (strip_api_key != '' && strip_secret != '')){
+     error = 0;
+    
+    }else
+    {
+      error = 1;
+      showErrorMessage(please_add_payment_details);
+      return false;
+    }
+
+
+
+
+   /* if(swish_number !=''){
         if($("#is_swish_number").is(':checked')){
             error = 0;
         } else{
@@ -154,7 +177,7 @@ $(document).ready(function(){
           error = 1;
         }
 
-    }
+    }*/
 
     if(error == 1)
     {

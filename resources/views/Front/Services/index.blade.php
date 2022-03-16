@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
@@ -38,12 +38,12 @@
 			  <table class="table table-striped" id="serviceTable">
 				<thead>
 				  <tr>
-				  <th>{{ __('servicelang.service_label')}}</th>
+				  <th class="product_table_heading">{{ __('servicelang.service_label')}}</th>
 				  
-				  <th data-orderable="false">{{ __('lang.category_label')}}</th> 
-				  <th>{{ __('lang.sort_order_label')}}</th>
-				  <th>{{ __('lang.dated_label')}}</th>
-				  <th data-orderable="false">{{ __('lang.action_label')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.category_label')}}</th> 
+				  <th class="product_table_heading">{{ __('lang.sort_order_label')}}</th>
+				  <th class="product_table_heading">{{ __('lang.dated_label')}}</th>
+				  <th class="product_table_heading" data-orderable="false">{{ __('lang.action_label')}}</th>
 				  </tr>
 				</thead>
 				  <tbody id="result">

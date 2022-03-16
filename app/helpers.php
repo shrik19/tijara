@@ -148,9 +148,14 @@ function getFirstOrderYear()
   return $tmpOrderData;
 }
 
-function getTotalOrders($filterMonth, $filterYear, $sellerId = 0)
+function getTotalOrders($filterMonth='', $filterYear='', $sellerId = 0)
 {
-  $orderCount = Orders::where('orders.created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  if($filterMonth!='' &&  $filterYear!=''){
+    $orderCount = Orders::where('orders.created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  }else{
+    $orderCount = Orders::select('orders.id');
+  }
+
   if($sellerId)
   { 
     $orderCount = $orderCount->join('orders_details','orders_details.order_id', '=', 'orders.id');
@@ -163,7 +168,12 @@ function getTotalOrders($filterMonth, $filterYear, $sellerId = 0)
 
 function getTotalServiceRequests($filterMonth, $filterYear, $sellerId = 0)
 {
-  $serviceRequestCount = ServiceRequest::where('service_requests.service_date', 'like', $filterYear.'-'.$filterMonth. '%')->where('service_requests.is_deleted', '=', '0');
+  if($filterMonth!='' &&  $filterYear!=''){
+      $serviceRequestCount = ServiceRequest::where('service_requests.service_date', 'like', $filterYear.'-'.$filterMonth. '%')->where('service_requests.is_deleted', '=', '0');
+  }else{
+      $serviceRequestCount = ServiceRequest::select('service_requests.id')->where('service_requests.is_deleted', '=', '0');
+  }
+
   if($sellerId)
   { 
     $serviceRequestCount = $serviceRequestCount->join('services','services.id', '=', 'service_requests.service_id');
@@ -176,7 +186,12 @@ function getTotalServiceRequests($filterMonth, $filterYear, $sellerId = 0)
 
 function getTotalProducts($filterMonth, $filterYear, $sellerId = 0)
 {
-  $productCount = Products::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%')->where('is_deleted', '=', '0');
+  if($filterMonth!='' &&  $filterYear!=''){
+      $productCount = Products::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%')->where('is_deleted', '=', '0');
+  }else{
+        $productCount = Products::select('products.id')->where('is_deleted', '=', '0');
+  }
+
   if($sellerId)
   { 
     $productCount = $productCount->where('products.user_id', '=', $sellerId);
@@ -187,7 +202,11 @@ function getTotalProducts($filterMonth, $filterYear, $sellerId = 0)
 
 function getTotalServices($filterMonth, $filterYear, $sellerId = 0)
 {
-  $servicesCount = Services::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%')->where('is_deleted', '=', '0');
+  if($filterMonth!='' &&  $filterYear!=''){
+      $servicesCount = Services::where('created_at', 'like', $filterYear.'-'.$filterMonth. '%')->where('is_deleted', '=', '0');
+  } else {
+    $servicesCount = Services::select('services.id')->where('is_deleted', '=', '0');
+  }
   if($sellerId)
   { 
     $servicesCount = $servicesCount->where('services.user_id', '=', $sellerId);
@@ -198,7 +217,11 @@ function getTotalServices($filterMonth, $filterYear, $sellerId = 0)
 
 function getTotalAmount($filterMonth, $filterYear, $sellerId = 0)
 {
-  $orderTotal = Orders::where('orders.created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  if($filterMonth!='' &&  $filterYear!=''){
+     $orderTotal = Orders::where('orders.created_at', 'like', $filterYear.'-'.$filterMonth. '%');
+  } else {
+    $orderTotal = Orders::select('orders.id');
+  }
   if($sellerId)
   { 
     $orderTotal = $orderTotal->join('orders_details','orders_details.order_id', '=', 'orders.id');
@@ -206,6 +229,23 @@ function getTotalAmount($filterMonth, $filterYear, $sellerId = 0)
     $orderTotal = $orderTotal->where('products.user_id', '=', $sellerId);
   }
   $orderTotal = $orderTotal->sum('total');
+  
   return number_format($orderTotal,2,'.','');
 }
 
+function getNewOrders($userId)
+{
+
+ $allOrders = Orders::join('orders_details', 'orders_details.order_id', '=', 'orders.id')->join('products','products.id','=','orders_details.product_id')->where('products.user_id','=',$userId)->where('orders.is_new','=','1')->get()->toArray();
+
+  return count($allOrders);
+}
+
+function getNewBookings($userId)
+{
+//DB::enableQueryLog();
+
+  $allBookings = ServiceRequest::join('services', 'service_requests.service_id', '=', 'services.id')->where('services.user_id','=',$userId)->where('service_requests.is_new','=','1')->where("services.is_deleted",'=','0')->get()->toArray();
+
+  return count($allBookings);
+}

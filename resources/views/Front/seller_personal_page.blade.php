@@ -2,11 +2,15 @@
 @section('middlecontent')
 <style type="text/css">
   ::placeholder{
-    font-weight: 300;
-    color: #999;
+    font-weight: 300 !important;
+    color: #999 !important;
   }
+ textarea.form-control.login_input {
+    color: #222222 !important;
+    font-weight: 300 !important;
+}
 </style>
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
@@ -135,14 +139,14 @@
               if(!empty($details->logo))
               {
                 echo '<div class="row">';
-                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" class="logo-existing-img" id="previewLogo"></div>';
+                echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Seller/resized/'.$details->logo.'" class="seller_logo" id="previewLogo"><a href="javascript:void(0);" class="remove_logo_image"><i class="fas fa-trash"></i></a></div>';
                 echo '</div>';
                 echo '<div class="row"><div class="col-md-12">&nbsp;</div></div>';
               }else{
 
               echo '<div class="logoImage" style="display: none;">';
               echo '<div class="row">';
-              echo '<div class="col-md-4 existing-images"><img src="" class="logo-existing-img" id="previewLogo"></div>';
+              echo '<div class="col-md-4 existing-images"><img src="" class="seller_logo" id="previewLogo"><a href="javascript:void(0);" class="remove_logo_image"><i class="fas fa-trash"></i></a>1</div>';
               echo '</div>';
               echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
                 
@@ -177,12 +181,24 @@
             </div>
 </div> <!-- /container -->
 <script type="text/javascript">
+function createCookie(name,value,minutes) {
+    if (minutes) {
+        var date = new Date();
+        date.setTime(date.getTime()+(minutes*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    } else {
+        var expires = "";
+    }
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+
 bannerInp.onchange = evt => {
   const [file] = bannerInp.files
   if (file) {
     $('.bannerImage').css('display','block');
     $('.banner_existing-images').css('display','block');
     previewBanner.src = URL.createObjectURL(file)
+    createCookie("seller_banner_preview", URL.createObjectURL(file), 15);
   }
 }
 
@@ -191,6 +207,7 @@ logoInp.onchange = evt => {
   if (file) {
     $('.logoImage').css('display','block');
     previewLogo.src = URL.createObjectURL(file)
+    createCookie("seller_logo_preview", URL.createObjectURL(file), 15);
   }
 }
 
@@ -211,7 +228,7 @@ function checkStoreName(){
              showErrorMessage(output);
             }else{
                 //alert(store_name_is_verified);
-                showSuccessMessage(store_name_is_verified);
+                showSuccessMessageReview(store_name_is_verified);
             }
             }
         });
@@ -236,6 +253,28 @@ $('body').on('click', '.remove_banner_image', function () {
              
               if(output.message==0){
                 $('.banner_existing-images').css('display','none');
+                $(this).remove();
+              }
+             
+          }
+    });
+});
+
+$('body').on('click', '.remove_logo_image', function () {
+    var path = $('#previewLogo').attr('src');
+    var Filename= path.split('/').pop();
+    $(".loader").css("display","block");
+
+    $.ajax({
+          headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+            url: "{{url('/')}}"+'/remove-logo-image?image_path='+Filename,
+            type: 'post',
+            data: {},
+          success: function(output){
+              $(".loader").css("display","none");
+             
+              if(output.message==0){
+                $('.existing-images').css('display','none');
                 $(this).remove();
               }
              

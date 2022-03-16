@@ -4,7 +4,7 @@
 
      'fill_in_email_err'=>'Fyll i din e-postadress',
      'invalid_email_err'=>'Ange giltig e -postadress',
-     'fill_in_password_err'=>'fyll i ditt nya lösenord',
+     'fill_in_password_err'=>'Fyll i ditt lösenord',
      'fill_in_confirm_password_err'=>'Fyll i ditt bekräfta lösenord',
      'fill_in_first_name_err'=>'Fyll i förnamn',
      'fill_in_last_name_err'=>'Vänligen fyll i Efternamn',
@@ -98,7 +98,7 @@
 
      'seller_credentials_err' => 'Säljarens klarna-uppgifter saknas.',
      'same_buyer_product_err' => 'Du får inte lägga till dina egna produkter.',
-     'quantity_err' => 'Vald mängd som inte är tillgänglig för produkten. (Tillgängligt :',
+     'quantity_err' => 'Vald mängd är inte tillgänglig för produkten. (Tillgängligt :',
 
      'product_review_error' => 'Du har redan granskat Produkten.',
      'product_review_not_error' => 'Du har inte tillåtelse att betygsätta den här produkten, eftersom du inte har någon order på produkten.',
@@ -126,5 +126,8 @@
      'payment_req_token_not_generated' => 'Det verkar som att säljaren inte har konfigurerat betalningsalternativet korrekt. Kontakta administratören för mer information.',
      'please_check_swish_checkbox' =>'Vänligen kryssa i kryssrutan bredvid Swish-nummer.',
      'complete_buyer_profile' => 'För att boka beställning Uppdatera först alla profildetaljer. Klicka här för att uppdatera köparprofilen',
+     'please_select_one_payment_method' => 'Välj minst en betalningsmetod.',
+     'select_shopping_method_err' => 'Välj fraktmetod',
+     'enter_all_fields_err' => 'Ange alla fält.',
  ]
 ?>

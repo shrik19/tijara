@@ -1424,7 +1424,7 @@ class ProductController extends Controller
   }
 
  public function orderSuccess(Request $request){
-    $data['swish_message'] = 'Din betalning behandlas, du kommer att få information inom en tid';
+    $data['swish_message'] = trans('messages.ad_save_success');
     return view('Front/swish_number_order_success', $data);
   }
 

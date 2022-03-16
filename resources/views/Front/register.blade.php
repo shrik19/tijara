@@ -89,7 +89,7 @@
 					<h1>Sveriges första kulturella marknadsplats</h1>
 				</div>
 				<div class="register_banner-footer text-right">
-					<img src="{{url('/')}}/uploads/Images/tijara-image.png" />
+					<img src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" class="tijara-login-logo"/>
 				</div> 
 				</div>
 			</div>
@@ -158,8 +158,7 @@ var password_not_matched="{{ __('errors.password_not_matched')}}";
 var password_min_6_char="{{ __('errors.password_min_6_char')}}";
 var password_not_matched="{{ __('errors.password_not_matched')}}";
 var please_check_privacy_policy = "{{ __('errors.please_check_privacy_policy')}}";
-
-
+var oops_heading = "{{ __('users.oops_heading')}}";
 
 function showErrorMessage(strContent,redirect_url = '')
 {

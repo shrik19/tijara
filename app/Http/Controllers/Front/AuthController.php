@@ -387,6 +387,7 @@ class AuthController extends Controller
 
         $rules = [
             'email'      => 'required|email|unique:users,email',          
+            'email'=> "required|email|unique:users,email,NULL,id,is_deleted,0"
         ];
         $messages = [
             'email.required'                    => trans('errors.fill_in_email_err'),
@@ -472,7 +473,7 @@ class AuthController extends Controller
             $swish_api_key          = trim($request->input('swish_api_key'));
             $swish_merchant_account = trim($request->input('swish_merchant_account'));
             $swish_client_key       = trim($request->input('swish_client_key'));
-            $is_swish_number        = trim($request->input('is_swish_number'));
+            //$is_swish_number        = trim($request->input('is_swish_number'));
             $swish_number           = trim($request->input('swish_number'));
             $strip_api_key          = trim($request->input('strip_api_key'));
             $strip_secret           = trim($request->input('strip_secret'));
@@ -494,7 +495,7 @@ class AuthController extends Controller
             }
 
             if(!empty($swish_number) && !empty($swish_number)){
-                Session::put('new_seller_is_swish_number', $is_swish_number);
+               // Session::put('new_seller_is_swish_number', $is_swish_number);
                 Session::put('new_seller_swish_number', $swish_number);
             }
 
@@ -559,7 +560,7 @@ class AuthController extends Controller
         $swish_merchant_account = Session::get('new_seller_swish_merchant_account');
         $swish_client_key = Session::get('new_seller_swish_client_key');
         
-        $is_swish_number = Session::get('new_seller_is_swish_number');
+       // $is_swish_number = Session::get('new_seller_is_swish_number');
         $swish_number    = Session::get('new_seller_swish_number');
         $arrPaymentDetailsUpdate =array();
         if(!empty($swish_api_key) && !empty($swish_merchant_account) && !empty($swish_client_key)){
@@ -571,7 +572,7 @@ class AuthController extends Controller
         }
 
         if(!empty($is_swish_number) && !empty($swish_number)){          
-            $arrPaymentDetailsUpdate['is_swish_number']     = trim($is_swish_number);
+            //$arrPaymentDetailsUpdate['is_swish_number']     = trim($is_swish_number);
             $arrPaymentDetailsUpdate['seller_swish_number'] = trim($swish_number);
         }
 
@@ -656,10 +657,6 @@ class AuthController extends Controller
         Session::forget('new_seller_package_end_date');
         Session::forget('new_seller_package_name');
 
-        Session::forget('new_seller_swish_api_key');
-        Session::forget('new_seller_swish_merchant_account');
-        Session::forget('new_seller_swish_client_key');
-
         Session::forget('new_seller_klarna_username');
         Session::forget('new_seller_klarna_password');
 
@@ -682,7 +679,7 @@ class AuthController extends Controller
      */
     public function sellerProfile($edit = '')
     {
-
+        $data = array();
         $data['pageTitle'] = trans('users.seller_profile_title');
         if(!Auth::guard('user')->id())
         {
@@ -740,10 +737,13 @@ class AuthController extends Controller
 
         if($show_exp_message[0]->is_trial==0 && $show_exp_message[0]->end_date <= $currentDate){
             $data['noActivePackage']=1;
+            $data['noTrialPackageActive']=0;
         } elseif($show_exp_message[0]->is_trial==1 && $show_exp_message[0]->trial_end_date <= $currentDate){
+            $data['noTrialPackageActive']=1;
              $data['noActivePackage']=1;
         }else{
-             $data['noActivePackage']=0;
+            $data['noActivePackage']=0;
+            $data['noTrialPackageActive']=0;
         }
                     //echo "<pre>";print_r($show_exp_message);exit;
         if(count($show_exp_message) == 0  ){
@@ -791,6 +791,25 @@ class AuthController extends Controller
         return view('Front/seller_profile', $data);
     }
 
+     /**
+     * Show the Seller Profile Page.
+     *
+     * @return null
+     */
+    public function deleteCardDetails()
+    {
+
+        $user_id = Auth::guard('user')->id();
+             $arrUpdate = [
+                'card_name'         => '',
+                'card_number'        => '',
+                'stripe_customer_id'=> '',
+                'card_security_code' => '',  
+            ];
+        UserMain::where('id','=',$user_id)->update($arrUpdate);
+        return response()->json(['success'=>'removed card details']);
+
+    }
       /*
     *function to show seller payment
     */
@@ -814,8 +833,12 @@ class AuthController extends Controller
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status')
                     ->orderByRaw('user_packages.id ASC')
                     ->get();
-       
-        $data['selected_package']    = $is_subscriber[0]->title;
+       if(!empty( $is_subscriber[0])){
+         $data['selected_package']    = $is_subscriber[0]->title;
+        }else{
+            $data['selected_package']='';
+        }
+        
         $data['sellerDetails']       = $details;
         if($user_id) {
             return view('Front/seller_payment_details', $data);
@@ -857,7 +880,7 @@ class AuthController extends Controller
             ];
 
             UserMain::where('id','=',$user_id)->update($arrUpdate);
-            Session::flash('success', trans('messages.status_updated_success'));
+            Session::flash('success', trans('messages.payment_info_updated'));
             return redirect(route('frontSellerPaymentDetails'));
         }
     }
@@ -973,8 +996,8 @@ class AuthController extends Controller
           $seller_name = str_replace(" ", '-', $seller_name);
           $seller_name = strtolower($seller_name);
                       
-          $seller_link= url('/').'/seller/'.$seller_name."/products"; 
-        
+        //  $seller_link= url('/').'/seller/'.$seller_name."/products"; 
+        $seller_link= url('/').'/seller/'.$seller_name;
         $toUpdateData  =   array();
         if($request->input('store_information'))
             $toUpdateData['store_information']  =   trim($request->input('store_information'));
@@ -1021,6 +1044,7 @@ class AuthController extends Controller
                 $fileExt  = strtolower($image->getClientOriginalExtension());
                 if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
                     $fileName = 'header_'.date('YmdHis').'.'.$fileExt;
+
                     $toUpdateData['header_img']=$fileName;
                     $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
                     $path = public_path().'/uploads/Seller/'.$fileName;
@@ -1200,18 +1224,25 @@ class AuthController extends Controller
                     return redirect()->back();
                 }
             }
+          
+            
             if(!empty($toUpdateData)) {
-                if(!empty($details))
+                if(!empty($details)){
+                    setcookie('seller_logo_preview', null, -1, '/'); 
+                    setcookie('seller_banner_preview', null, -1, '/'); 
                     SellerPersonalPage::where('user_id',$user_id)->update($toUpdateData);
+                }
                 else
                 {
+                    setcookie('seller_logo_preview', null, -1, '/'); 
+                    setcookie('seller_banner_preview', null, -1, '/'); 
                     $toUpdateData['user_id']=$user_id;
                     SellerPersonalPage::insert($toUpdateData);
                 }
                 Session::flash('success', trans('users.seller_personal_info_saved'));
                     return redirect()->back();
             }
-            
+
         $data['seller_id']=$user_id;
         $data['seller_link']=$seller_link;
         $data['details']=$details;
@@ -2616,13 +2647,18 @@ DATA;
             }
 
             $data['filterDate'] = $filterData;
-        
-            if($request->input('filter_date') != null)
+            if($request->input('filter_date') == 'all_month')
+            {
+                $currentMonth=$currentYear='';
+            }
+
+            if(($request->input('filter_date') != null) && ($request->input('filter_date') != 'all_month'))
             {
                 $tempDate = explode('-',$request->input('filter_date'));
                 $currentMonth = $tempDate[0];
                 $currentYear = $tempDate[1];
             }
+
 
             $data['orderCount'] = getTotalOrders($currentMonth,$currentYear,$user_id);
             $data['serviceRequestCount'] = getTotalServiceRequests($currentMonth,$currentYear,$user_id);
@@ -2847,6 +2883,32 @@ DATA;
 
             if (!empty($Filename)) {
                 SellerPersonalPage::where('header_img','like',$Filename.'%')->update(['header_img' => null]);
+                $image_path = public_path("/uploads/Seller/".$Filename);
+                        $resized_image_path = public_path("/uploads/Seller/resized".$Filename);
+                        if (File::exists($image_path)) {
+                    
+                            File::delete($image_path);
+                        }
+                        if (File::exists($resized_image_path)) {
+                            File::delete($resized_image_path);
+                        }
+            }else{
+                $return_text =1;
+            }
+            return response()->json(['message'=>$return_text]);
+        }
+    }
+
+
+    /*function to remove logo image*/
+    public function removeLogoImage(Request $request){
+
+        if(!empty($request->image_path)){
+            $Filename = $request->image_path;
+            $return_text = 0;
+
+            if (!empty($Filename)) {
+                SellerPersonalPage::where('logo','like',$Filename.'%')->update(['logo' => null]);
                 $image_path = public_path("/uploads/Seller/".$Filename);
                         $resized_image_path = public_path("/uploads/Seller/resized".$Filename);
                         if (File::exists($image_path)) {

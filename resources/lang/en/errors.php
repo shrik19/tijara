@@ -4,7 +4,7 @@
 
      'fill_in_email_err'=>'Please fill in your email',
      'invalid_email_err'=>'Please Enter valid email',
-     'fill_in_password_err'=>'please fill in your new password',
+     'fill_in_password_err'=>'Enter your password',
      'fill_in_confirm_password_err'=>'Please fill in your confirm password',
      'fill_in_first_name_err'=>'Please fill in First Name',
      'fill_in_last_name_err'=>'Please fill in Last Name',
@@ -128,5 +128,8 @@
      'payment_req_token_not_generated' => 'Looks like seller did not configure payment option properly, Please contact admin for more details.',
      'please_check_swish_checkbox' =>'Please Check Checkbox next to Swish Number.',
      'complete_buyer_profile' => 'To Book Order First Update All Profile Details. Click here to update buyer profile',
+     'please_select_one_payment_method' => 'Please select atleast one payment method.',
+     'select_shopping_method_err' => 'Please Select shipping Method',
+     'enter_all_fields_err' => 'Enter all fields.',
  ]
 ?>

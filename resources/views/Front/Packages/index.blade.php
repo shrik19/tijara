@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="mid-section p_155">
+<div class="mid-section sellers_top_padding">
 <div class="containerfluid">
 <div class="container-inner-section-1">
   <div class="row">
@@ -31,9 +31,10 @@
 				@endphp
 		@if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
 		<div class="seller_header">
-      	    <h2 class="page_heading">{{ __('users.your_active_package')}}</h2>
+      	    <h2>{{ __('users.your_active_package')}}</h2>
         	<!-- <hr class="heading_line"/> -->
 		</div>
+		<div class="col-md-12 package_history_btn"><a href="{{route('frontPackage', base64_encode($user_id))}}" class="btn btn-black btn-sm debg_color a_btn login_btn pull-right">{{ __('users.history_button')}}</a></div>
 	
 	      	@foreach($subscribedPackage as $row)
 	      		@if($is_trial == 1) 
@@ -203,7 +204,7 @@
 					@endforeach
 			   </div>
 			   @endif
-			<div class="col-md-12"><a href="{{route('frontPackage', base64_encode($user_id))}}" class="btn btn-black btn-sm debg_color a_btn login_btn">{{ __('users.history_button')}}</a></div>
+			
 			</div>
 			</div>
 </div>

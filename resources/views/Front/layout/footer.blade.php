@@ -203,6 +203,7 @@ var please_uplaod_service_image = "{{ __('errors.please_uplaod_service_image')}}
 var please_check_swish_number = "{{ __('errors.please_check_swish_checkbox')}}";
 var review_add_msg = "{{ __('messages.review_add_msg')}}";
 var you_need_buyer_profile = "{{ __('users.you_need_buyer_profile')}}";
+var please_add_payment_details = "{{ __('errors.please_add_payment_details')}}";
 </script>
         <!-- <script>window.jQuery || document.write('<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"><\/script>')</script> -->
 

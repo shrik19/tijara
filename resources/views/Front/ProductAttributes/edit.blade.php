@@ -1,7 +1,12 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
-<div class="mid-section p_155">
+<style type="text/css">
+   ::placeholder{
+    font-weight: 300 !important;
+    color: #999 !important;
+  }
+</style>
+<div class="mid-section sellers_top_padding">
   <div class="container-fluid">
     <div class="container-inner-section-1">
       <div class="row">
@@ -17,32 +22,28 @@
           <div class="col-md-10 tijara-content">
             <div class="seller_info">
               <div class="card">
-            <div class="col-md-10">
             <div class="card-header row seller_header">
                <h2>{{ __('lang.attribute_form_label')}}</h2>
             </div>
-            </div>
 
-            <div class="col-md-2 text-right" style="margin-top:30px;">
-              <a href="{{route('frontProductAttributes')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
+            <div class="col-md-12 text-right" style="margin-top:30px;">
+              <a href="{{route('frontProductAttributes')}}" title="{{ __('lang.back_to_list_label')}}" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
             </div>
-
-            <!-- <div class="col-md-1"></div>  -->
-            <div class="seller_mid_cont">
             <div class="col-md-6">
               <div class="login_box">
+
                 <form method="POST" id="product_attribute_form" action="{{route('frontAttributeUpdate', $id)}}" class="needs-validation" novalidate="">
                 <!-- class="needs-validation" novalidate="" -->
                 @csrf
 
                 <div class="form-group">
-                  <label>{{ __('lang.attribute_label')}} <span class="de_col">*</span></label>
+                  <label class="product_table_heading">{{ __('lang.attribute_label')}} <span class="de_col">*</span></label>
                   <input type="text" class="form-control login_input" name="name" id="name" required tabindex="1" value="{{ (old('name')) ?  old('name') : $attributesDetails['name']}}">
                   <span class="invalid-feedback" id="err_fname">@if($errors->has('name')) {{ $errors->first('name') }}@endif </span>
                 </div>
 
                 <div class="form-group">
-                  <label>{{ __('lang.type_label')}} <span class="de_col">*</span></label>
+                  <label class="product_table_heading">{{ __('lang.type_label')}} <span class="de_col">*</span></label>
                   <select class="form-control login_input" id="type" name="type">
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php /*<option value="radio"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='radio')) {{ 'selected' }} @endif>{{ __('lang.radio_label')}}</option>  */?>
@@ -55,7 +56,7 @@
                 <!--  edit values -->
                 @if(!empty($segment) && $segment=='edit')
                 <div class="form-group">
-                  <label>{{ __('lang.type_label')}} <span class="de_col">*</span></label>
+                  <label class="product_table_heading">{{ __('lang.type_label')}} <span class="de_col">*</span></label>
                   <div class="field_wrapper">
                   @if(!empty($attributesValues) && count($attributesValues) !=0)
                   @foreach ($attributesValues as $key=>$values)
@@ -81,7 +82,7 @@
                 <!--  add values -->
                 @else
                 <div class="form-group">
-                  <label>Attribute Values <span class="de_col">*</span></label>
+                  <label class="product_table_heading">Attribute Values <span class="de_col">*</span></label>
                   <div class="field_wrapper">
                   <input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:25px;">
                   <span class="invalid-feedback" id="err_fname" style="float:left;margin-left: 15px;margin-top:10px;"></span>
@@ -93,7 +94,6 @@
                 
               </div>
             </div>
-          </div>
           </div>
         </div>
           </div>

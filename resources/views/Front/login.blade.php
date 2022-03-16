@@ -76,7 +76,7 @@
 						<h1>Sveriges första kulturella marknadsplats</h1>
 					</div>
 					<div class="login_banner-footer text-right">
-          <a href="{{url('/')}}"><img src="{{url('/')}}/uploads/Images/tijara-image.png" /></a>
+          <a href="{{url('/')}}"><img src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" class="tijara-login-logo"/></a>
 					</div> 
 					</div>
 				@endif
@@ -87,7 +87,7 @@
 						</div>
 						<div class="login_banner-footer text-right">
 							<h2>Säljare</h2>
-							<a href="{{url('/')}}"><img src="{{url('/')}}/uploads/Images/tijara-image.png" /></a>
+							<a href="{{url('/')}}"><img src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" class="tijara-login-logo" /></a>
 						</div> 
 					</div>
 				@endif

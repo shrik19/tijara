@@ -177,7 +177,7 @@ $( ".number" ).each(function() {
 });
 
 $('#variant_table').on('change', '.variant_image', function () {
-       m
+        var fileUpload  = $(this)[0];
         var elm         =   $(this);
         var variant_id  = $(this).attr('variant_id');
         
@@ -901,10 +901,9 @@ $(".seller-profile-update").click(function(e){
   let lname   = $("#lname").val();
   let city   = $("#city").val();
   let country   = $("#country").val();
-
   let email     = $("#email").val();
-
   let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+  let pick_up_address = $("#store_pick_address").val();
   let error = 0;
 
   if(fname == '')

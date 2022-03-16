@@ -2,6 +2,11 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
+<style type="text/css">
+    label{
+      max-width: 500px;
+    }
+</style>
 <!-- new design start -->       
 <div class="checkoutContainer">
     <div class="container-inner-section container">
@@ -59,7 +64,7 @@
 
                                                                             data-cc-on-file="false"
 
-                                                                            data-stripe-publishable-key="{{$strip_secret}}"
+                                                                            data-stripe-publishable-key="{{$strip_api_key}}"
 
                                                                             id="payment-form">
 
@@ -111,7 +116,7 @@
 
                                                     <div class='col-xs-12 col-md-4 form-group expiration required'>
 
-                                                        <label class='control-label strip_html_label'>{{ __('lang.expiration_month')}}</label> <input
+                                                        <label class='control-label strip_html_label' style="width:170px;">{{ __('lang.expiration_month')}}</label> <input
 
                                                             class='form-control card-expiry-month' placeholder='MM' size='2'
 
@@ -182,10 +187,24 @@
 
 <!-- end new design -->
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
+<script src="{{url('/')}}/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
 
 <script type="text/javascript">
-
+var not_found_payment_info = "{{ __('lang.not_found_payment_info')}}";
+var not_valid_credit_card_no = "{{ __('lang.not_valid_credit_card_no')}}";
+var card_declined_err = "{{ __('lang.card_declined_err')}}";
+var invalid_exp_month_err = "{{ __('lang.invalid_exp_month_err')}}";
+var invalid_exp_year_err = "{{ __('lang.invalid_exp_year_err')}}";
+var incorrect_card_number_err = "{{ __('lang.incorrect_card_number_err')}}";
+var rate_limit_err = "{{ __('lang.rate_limit_err')}}";
+var processing_error = "{{ __('lang.processing_error')}}";
+var missing_err =  "{{ __('lang.missing_err')}}";
+var incorrect_zip_err =  "{{ __('lang.incorrect_zip_err')}}";  
+var incorrect_cvc_err =  "{{ __('lang.incorrect_cvc_err')}}";
+var expired_card_err =  "{{ __('lang.expired_card_err')}}";    
+var invalid_cvc_err =  "{{ __('lang.invalid_cvc_err')}}";
+var enter_all_fields_err =  "{{ __('errors.enter_all_fields_err')}}";
+    
 $(function() {
 
     var $form         = $(".require-validation");
@@ -257,16 +276,36 @@ $(function() {
   
 
   function stripeResponseHandler(status, response) {
+    var errorMessages = {
+            missing_payment_information:not_found_payment_info,
+            incorrect_number: incorrect_card_number_err,
+            invalid_number: not_valid_credit_card_no,
+            invalid_expiry_month: invalid_exp_month_err,
+            invalid_expiry_year: invalid_exp_year_err,
+            invalid_cvc:invalid_cvc_err,
+            expired_card: expired_card_err,
+            incorrect_cvc: incorrect_cvc_err,
+            incorrect_zip: incorrect_zip_err,
+            card_declined: card_declined_err,
+            missing: missing_err,
+            processing_error: processing_error,
+            rate_limit:  rate_limit_err
+          };
+           /*if (response.error) {
+     
+            $('.carderror') .show().removeClass('hide')             
+                .text(errorMessages[response.error.code] );*/
+
+    /*  } else {*/
+
 
         if (response.error) {
-
-            $('.error')
-
-                .removeClass('hide')
-
-                .find('.alert')
-
-                .text(response.error.message);
+             if(response.error.code=='invalid_number' && response.error.message.indexOf("exp_month") !=-1){ 
+                response.error.code = 'invalid_expiry_month';
+              }else if(response.error.code=='invalid_number' && response.error.message.indexOf("exp_year") !=-1){
+                response.error.code ='invalid_expiry_year';
+              }
+            $('.error').removeClass('hide').find('.alert').text(errorMessages[response.error.code]);
 
         } else {
 

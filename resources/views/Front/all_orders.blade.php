@@ -109,6 +109,7 @@
     data: { },
     success: function(output){
       if(output.success ==1){
+        alert("xhghj")
         $('#notification_count').html(output.notification_count);
         $('#allSellerOrders').html(output.orders_count);
         $('#allSellerBookings').html(output.bookings_count);
@@ -264,7 +265,7 @@ function change_order_status(order_id) {
                   var responseObj = $.parseJSON(data);
                   if(responseObj.status == 1)
                   {
-                      showSuccessMessage(responseObj.msg);
+                      showSuccessMessage(responseObj.msg,'reload');
                   }
                   else
                   {

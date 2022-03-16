@@ -267,8 +267,9 @@
             <div class="col-md-12 pl-w-0 pr-w-0">
 				<div class="best_seller_container">
 					<!--<h3>{{ __('lang.follow_us_on_head')}}</h3>-->
-					<h2 class="product_heading instagram_heading">{{ __('lang.instagram_label')}}</h2>
-					<div class="social_img_section">
+					<h2 class="product_heading instagram_heading" style="
+    margin-left: 25px !important;">{{ __('lang.instagram_label')}}</h2>
+					<div class="social_img_section insta_social_images">
 						<ul class="instagram_imgs" id="instafeed">
 
 						</ul>

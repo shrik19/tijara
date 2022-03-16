@@ -181,12 +181,24 @@
             </div>
 </div> <!-- /container -->
 <script type="text/javascript">
+function createCookie(name,value,minutes) {
+    if (minutes) {
+        var date = new Date();
+        date.setTime(date.getTime()+(minutes*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    } else {
+        var expires = "";
+    }
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+
 bannerInp.onchange = evt => {
   const [file] = bannerInp.files
   if (file) {
     $('.bannerImage').css('display','block');
     $('.banner_existing-images').css('display','block');
     previewBanner.src = URL.createObjectURL(file)
+    createCookie("seller_banner_preview", URL.createObjectURL(file), 15);
   }
 }
 
@@ -195,6 +207,7 @@ logoInp.onchange = evt => {
   if (file) {
     $('.logoImage').css('display','block');
     previewLogo.src = URL.createObjectURL(file)
+    createCookie("seller_logo_preview", URL.createObjectURL(file), 15);
   }
 }
 

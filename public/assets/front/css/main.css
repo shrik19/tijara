@@ -41,6 +41,9 @@ header{
 h2.instagram_heading {
     padding-bottom: 0px !important;
 }
+.insta_social_images{
+  margin-left: 15px;
+}
 .go_to_tijara_ads_btn{
     color: #000 !important;
     background-color: #f9b78e;
@@ -2544,7 +2547,15 @@ span.pro-text {
     }
     .seller_mid_cont{margin-left: 25px;}
 
-    .ge_input{line-height:40px; border:1px solid #dadada; border-radius:3px;width:67%; height:40px}
+    .ge_input{
+      line-height:40px; 
+      border:1px solid #dadada; 
+      border-radius:3px;
+      width:67%; 
+      height:40px;
+      font-weight: 300 !important;
+      color: #222222 !important;
+    }
     .fc-scroller > .fc-day-grid, .fc-scroller > .fc-time-grid{background-color: transparent!important;}
     .fc-basic-view th.fc-week-number, .fc-basic-view th.fc-day-number{
         padding: 20px 2px!important;;
@@ -2605,8 +2616,8 @@ text-align: right;
                     -webkit-border-top-right-radius: 30px;
                     -moz-border-radius-topleft: 30px;
                     -moz-border-radius-topright: 30px;
-                    border-top-left-radius: 30px;
-                    border-top-right-radius: 30px;
+                    border-top-left-radius: 100px;
+                    border-top-right-radius: 100px;
                 }
 
                     .package_footer{
@@ -2614,8 +2625,8 @@ text-align: right;
                         -webkit-border-bottom-left-radius: 30px;
                         -moz-border-radius-bottomright: 30px;
                         -moz-border-radius-bottomleft: 30px;
-                        border-bottom-right-radius: 30px;
-                        border-bottom-left-radius: 30px;
+                        border-bottom-right-radius: 100px;
+                        border-bottom-left-radius: 100px;
                     }
                     .tj-btn-sucess{border: none; padding: 5px 15px; color: #fff; font-size: 20px; background-color: #38aeb3; background-image: none;}
                     .tj-btn-sucess:hover{

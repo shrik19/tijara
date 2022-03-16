@@ -80,9 +80,38 @@ if (@$_GET['print'])
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                         <span id="quantity_{{ $orderProduct['id'] }}" > {{ $orderProduct['quantity'] }} </span>
                         </td>
-                        <td class="col-sm-2 col-md-2 text-right"><p class="product_sorting_filter_option">{{ number_format($orderProduct['price'],2) }} kr</p></td>
-                        <td class="col-sm-1 col-md-1 text-right"><p class="product_sorting_filter_option">{{ number_format($orderProduct['shipping_amount'],2)}} kr</p></td>
-                        <td class="col-sm-2 col-md-2 text-right"><p class="product_sorting_filter_option">{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</p></td>
+                        <td class="col-sm-2 col-md-2 text-right">
+                            <p class="product_sorting_filter_option">
+                                 @php 
+                                    $order_product_amount = str_split(strrev($orderProduct['price']), 3);
+                                    $order_product_amount_tbl = strrev(implode(" ", $order_product_amount));
+                                    $order_product_amount_tbl = $order_product_amount_tbl.",00";
+                                @endphp
+                                {{$order_product_amount_tbl}} kr
+                            
+                            </p>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-right">
+                            <p class="product_sorting_filter_option">
+                                @php 
+                                    $shipping_amount = str_split(strrev($orderProduct['shipping_amount']), 3);
+                                    $shipping_tbl = strrev(implode(" ", $shipping_amount));
+                                    $shipping_tbl = $shipping_tbl.",00";
+                                @endphp
+                                {{$shipping_tbl}} kr
+                            </p>
+                        </td>
+                        <td class="col-sm-2 col-md-2 text-right">
+                            <p class="product_sorting_filter_option">
+                                 @php 
+                                    $total_product_amount = str_split(strrev(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']), 3);
+                                    $total_product_amount_tbl = strrev(implode(" ", $total_product_amount));
+                                    $total_product_amount_tbl = $total_product_amount_tbl.",00";
+                                @endphp
+                                {{$total_product_amount_tbl}} kr
+                                
+                            </p>
+                        </td>
                     </tr>
                   @endforeach
                     <tr>
@@ -90,14 +119,32 @@ if (@$_GET['print'])
                         <td>   </td>
                         <td>   </td>
                         <td><p class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</p></td>
-                        <td class="text-right"><p class="product_sorting_filter_option">{{number_format($subTotal,2)}} kr</p></td>
+                        <td class="text-right">
+                            <p class="product_sorting_filter_option">
+                                @php 
+                                    $subTotal_amount = str_split(strrev($subTotal), 3);
+                                    $subTotal_tbl = strrev(implode(" ", $subTotal_amount));
+                                    $subTotal_tbl = $subTotal_tbl.",00";
+                                @endphp
+                                {{$subTotal_tbl}} kr
+                            </p>
+                    </td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td><p class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</p></td>
-                        <td class="text-right"><p class="product_sorting_filter_option">{{number_format($shippingTotal,2)}} kr</p></td>
+                        <td class="text-right">
+                            <p class="product_sorting_filter_option">
+                                @php 
+                                    $shippingTotal_amount = str_split(strrev($shippingTotal), 3);
+                                    $shippingTotal_tbl = strrev(implode(" ", $shippingTotal_amount));
+                                    $shippingTotal_tbl = $shippingTotal_tbl.",00";
+                                @endphp
+                                {{$shippingTotal_tbl}} kr
+                            </p>
+                        </td>
                     </tr>
                     <tr>
                         <td> 
@@ -120,7 +167,16 @@ if (@$_GET['print'])
                         <td>   </td>
                         <td>   </td>
                         <td><p class="product_sorting_filter_option">{{ __('lang.shopping_cart_total')}}</p></td>
-                        <td class="text-right"><p class="product_sorting_filter_option">{{number_format($Total,2)}} kr</p></td>
+                        <td class="text-right">
+                            <p class="product_sorting_filter_option">
+                                @php 
+                                    $Total_amount = str_split(strrev($Total), 3);
+                                    $Total_tbl = strrev(implode(" ", $Total_amount));
+                                    $Total_tbl = $Total_tbl.",00";
+                                @endphp
+                                {{$Total_tbl}} kr
+                            </p>
+                        </td>
                     </tr>
                     @else
                     <tr>

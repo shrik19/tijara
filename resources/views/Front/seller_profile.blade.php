@@ -125,7 +125,7 @@
 
             <div class="form-group col-md-6">
             <label  class="product_table_heading">{{ __('users.free_shipping_label')}} </label>
-              <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($sellerDetails[0]->free_shipping ==  "free_shipping"){ echo "checked"; } ?> style="float: right">
+              <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($sellerDetails[0]->free_shipping ==  "free_shipping"){ echo "checked"; } ?> style="margin-left: 15px;">
            
             </div>
 

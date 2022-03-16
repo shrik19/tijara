@@ -820,7 +820,7 @@ class CartController extends Controller
           $isPaymentOptionAvailable = 1;
         }
 
-        if($checkExisting->is_swish_number!='' && $checkExisting->seller_swish_number!='') {
+        if($checkExisting->seller_swish_number!='') {
           $paymentOptionAvailable[]='swish_number';
           $isPaymentOptionAvailable = 1;
         }
@@ -1622,7 +1622,7 @@ class CartController extends Controller
                         ->select(['users.*'])                          
                         ->where('temp_orders.id','=',$orderRef)->first()->toArray();
 
-      //echo'<pre>';print_r($UserData);exit;
+     
       $checkExisting = TmpOrders::where('id','=',$orderRef)->first()->toArray();
       $orderTotal = (int)ceil($checkExisting['total']) * 100;
       Stripe\Stripe::setApiKey($UserData['strip_secret']);
@@ -1634,7 +1634,7 @@ class CartController extends Controller
                 "source" => $request->stripeToken,
                 "description" => "Tijara payment for order #".$orderRef ,
                 
-        ]);
+        ]); echo'<pre>';print_r($response);exit;
         $arrOrderUpdate = [
           
           'klarna_order_reference'  => $response->id,
@@ -3964,13 +3964,13 @@ DATA;
 
        $getTotalOrders = $getTotalBookings = $totalNotifications = '';
       if(!empty($allOrders)) {
-          foreach($allOrders as $orderIDs){ 
-             $order = Orders::where('id', $orderIDs['id'])->update(['is_new' =>0]);
+          foreach($allOrders as $orderIDs){  
+             $order = Orders::where('id', $orderIDs['order_id'])->update(['is_new' =>0]);
           }
           $getTotalOrders = getNewOrders(Auth::guard('user')->id());
           $getTotalBookings = getNewBookings(Auth::guard('user')->id());
           $totalNotifications = $getTotalOrders + $getTotalBookings;
-          //$notification_count=
+  
           return response()->json(['success'=>1,'notification_count'=> $totalNotifications,'orders_count'=>$getTotalOrders,'bookings_count'=>$getTotalBookings]); 
       }else{
         return response()->json(['error'=>0]);

@@ -864,7 +864,7 @@ public function getCatSubList(Request $request) {
 	//function to get products list by provided parameters
 	public function getProductsByParameter(Request $request) {
 
-		//DB::enableQueryLog();
+		DB::enableQueryLog();
 		//print_r($request->path);exit;
 		$currentDate = date('Y-m-d H:i:s');
 		$data = [];
@@ -1015,7 +1015,7 @@ public function getCatSubList(Request $request) {
 
 		//$data['ProductsTotal'] = $Products->count();
 
-		$Products 			= $Products->paginate(config('constants.Products_limits'));
+		$Products 			= $Products->paginate(config('constants.Front_Products_limits'));
 		//print_r(DB::getQueryLog());exit;
 		//echo "<pre>";print_r(count($Products));exit;
 		//$data['show_products'] =$Products[0]->role_id;
@@ -1266,14 +1266,22 @@ public function getCatSubList(Request $request) {
 			{
 				$sellerImages = $sellerImages->toArray();
 				
-				if(!empty($sellerImages['header_img']))
+				if(isset($_COOKIE['seller_banner_preview']) && $_COOKIE['seller_banner_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
+					$data['header_image']       = $_COOKIE['seller_banner_preview'];
+				}
+				else if(!empty($sellerImages['header_img']))
 				{
 					$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
 				}
-				if(!empty($sellerImages['logo']))
+
+				if(isset($_COOKIE['seller_logo_preview']) && $_COOKIE['seller_logo_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
+					$data['logo']       = $_COOKIE['seller_logo_preview'];
+				}
+				else if(!empty($sellerImages['logo']))
 				{
 					$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
 				}
+
 				if(!empty($sellerImages['store_information']))
 				{
 					$data['store_information']       = $sellerImages['store_information'];
@@ -1391,12 +1399,19 @@ public function getCatSubList(Request $request) {
 			if(!empty($sellerImages))
 			{
 				$sellerImages = $sellerImages->toArray();
-				
-				if(!empty($sellerImages['header_img']))
+
+				if(isset($_COOKIE['seller_banner_preview']) && $_COOKIE['seller_banner_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
+					$data['header_image']       = $_COOKIE['seller_banner_preview'];
+				}
+				else if(!empty($sellerImages['header_img']))
 				{
 					$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
 				}
-				if(!empty($sellerImages['logo']))
+
+				if(isset($_COOKIE['seller_logo_preview']) && $_COOKIE['seller_logo_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
+					$data['logo']       = $_COOKIE['seller_logo_preview'];
+				}
+				else if(!empty($sellerImages['logo']))
 				{
 					$data['logo']       = url('/').'/uploads/Seller/'.$sellerImages['logo'];
 				}
@@ -3154,10 +3169,9 @@ public function getCatSubList(Request $request) {
 				if(!empty($tmpSellerData['store_name'])){
 					$display_name = $tmpSellerData['store_name'];
 				}
-				if(!empty($Seller['product_cnt']) && $Seller['product_cnt'] > 0){
-				//$sellerData .= '<li><a href="javascript:void(0)"><input onclick="selectSellers();" type="checkbox" name="seller" value="'.$SellerId.'" class="sellerList" '.$strChecked.'>&nbsp;&nbsp;<span style="cursor:pointer;" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name, 'seller_id' => base64_encode($SellerId)]).'\';">'.$display_name.' ( '.$Seller['product_cnt'].' )</span></a></li>';
+				//if(!empty($Seller['product_cnt']) && $Seller['product_cnt'] > 0){
 					$output .= '<li class="seller_autocomplete_search" onclick="location.href=\''.route('sellerProductListingByCategory',['seller_name' => $seller_name]).'\';"><img src="'.$logoPath.'" style="height:50px;width:50px;"><p style="padding:10px;">'.$display_name.'</p></li>';
-				}
+				//}
 				}
 			}
 		}

@@ -233,17 +233,6 @@ function getTotalAmount($filterMonth, $filterYear, $sellerId = 0)
   return number_format($orderTotal,2,'.','');
 }
 
-function getNewOrderBookings($userId)
-{
-
-  $allOrders = Orders::where('user_id','=',$userId)->get()->where('is_new','=',1)->toArray();
-  $allBookings = ServiceRequest::where('user_id','=',$userId)->get()->where('is_new','=',1)->toArray();
-
-  $totalCount = count($allOrders) + count($allBookings);
-  echo "==".count($allOrders);exit;
-  return $totalCount;
-}
-
 function getNewOrders($userId)
 {
 

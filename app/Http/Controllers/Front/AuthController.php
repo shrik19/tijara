@@ -996,8 +996,8 @@ class AuthController extends Controller
           $seller_name = str_replace(" ", '-', $seller_name);
           $seller_name = strtolower($seller_name);
                       
-          $seller_link= url('/').'/seller/'.$seller_name."/products"; 
-        
+        //  $seller_link= url('/').'/seller/'.$seller_name."/products"; 
+        $seller_link= url('/').'/seller/'.$seller_name;
         $toUpdateData  =   array();
         if($request->input('store_information'))
             $toUpdateData['store_information']  =   trim($request->input('store_information'));
@@ -1044,6 +1044,7 @@ class AuthController extends Controller
                 $fileExt  = strtolower($image->getClientOriginalExtension());
                 if(in_array($fileExt, ['jpg', 'jpeg', 'png'])) {
                     $fileName = 'header_'.date('YmdHis').'.'.$fileExt;
+
                     $toUpdateData['header_img']=$fileName;
                     $image->move(public_path().'/uploads/Seller/', $fileName);  // your folder path
                     $path = public_path().'/uploads/Seller/'.$fileName;
@@ -1223,18 +1224,25 @@ class AuthController extends Controller
                     return redirect()->back();
                 }
             }
+          
+            
             if(!empty($toUpdateData)) {
-                if(!empty($details))
+                if(!empty($details)){
+                    setcookie('seller_logo_preview', null, -1, '/'); 
+                    setcookie('seller_banner_preview', null, -1, '/'); 
                     SellerPersonalPage::where('user_id',$user_id)->update($toUpdateData);
+                }
                 else
                 {
+                    setcookie('seller_logo_preview', null, -1, '/'); 
+                    setcookie('seller_banner_preview', null, -1, '/'); 
                     $toUpdateData['user_id']=$user_id;
                     SellerPersonalPage::insert($toUpdateData);
                 }
                 Session::flash('success', trans('users.seller_personal_info_saved'));
                     return redirect()->back();
             }
-            
+
         $data['seller_id']=$user_id;
         $data['seller_link']=$seller_link;
         $data['details']=$details;

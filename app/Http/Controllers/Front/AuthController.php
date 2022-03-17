@@ -990,7 +990,7 @@ class AuthController extends Controller
             curl_close($curl);
         }
         if($error==1) {
-                
+                Session::flash('error', $messages);
                 return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
         if($error==0)

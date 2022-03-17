@@ -1265,11 +1265,11 @@ class ServiceController extends Controller
         $contents_buyer = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
         ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##',
             '##CUSTOMERADDRESS##','##SELLER##'],
-        [$customername,$customername,$service,$service_time,$service_date,$service_request->location,
+        [$customername,"Shrik",$service,$service_time,$service_date,$service_request->location,
         $service_request->service_price,url('/'),$customeraddress,$sellername],$contents);
 
         $arrMailDataBuyer = ['email_body' => $contents_buyer];
-echo "<pre>";print_r($contents_buyer);exit;
+echo "<pre>".$customername;print_r($contents_buyer);exit;
         Mail::send('emails/dynamic_email_template', $arrMailDataBuyer, function($message) use ($buyer_email,$customername,$subject) {
             $message->to($buyer_email, $customername)->subject
                 ($subject);

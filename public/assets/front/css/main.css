@@ -1555,7 +1555,7 @@ span.remember-text {
 	
 	.seller_register_container .seller_register_second input[type=button]:nth-child(odd) {
 		float: right;
-		margin-right: 33%;
+		margin-right: 22%;
 	}
 
   .register_second_btn {

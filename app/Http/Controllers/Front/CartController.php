@@ -1879,21 +1879,30 @@ class CartController extends Controller
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-        
+
+        $credentials = base64_encode($username.":".trim($password));
+        $headers = array(
+            'Content-Type:application/json',
+            'Authorization: Basic '. $credentials
+        );
+       
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+       // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+        curl_setopt($ch, CURLOPT_USERPWD, $credentials);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $result = curl_exec($ch);
         
         //
          $httpcode = curl_getinfo($ch,CURLINFO_HTTP_CODE);
-         dd($httpcode);
+        // dd($httpcode);
+
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);
         }

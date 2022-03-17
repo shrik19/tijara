@@ -1879,7 +1879,7 @@ class CartController extends Controller
         $data = json_encode($data);
         $data =str_replace("\/\/", "//", $data);
         $data =str_replace("\/", "/", $data);
-echo $username.":".$password;
+
         $credentials = base64_encode($username.":".$password);
         $headers = array(
             'Content-Type:application/json',
@@ -1901,7 +1901,7 @@ echo $username.":".$password;
         
         //
          $httpcode = curl_getinfo($ch,CURLINFO_HTTP_CODE);
- dd($httpcode);
+ 
 
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);

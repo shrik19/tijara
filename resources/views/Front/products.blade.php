@@ -100,26 +100,12 @@
 					<span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             <span class="service_listings"><div style="text-align:center;margin-top:50px;display: none"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
 				</div>
-			</div>
-      <!-- @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
-          @include('Front.category_breadcrumb')
-         
-        @endif
-      <div class="cat-details">
-			  @if(Request::segment(1) =='annonser')
-				<div class="col-md-3 col-annonser-sidebar  mobile-view">
-					@include('Front.annonser_sidebar')
-				</div>
-			  @else
-				<div class="col-md-3 col-products-sidebar  mobile-view">
-					@include('Front.products_sidebar')
-				</div>
-			  @endif -->
+			</div>     
 		</div>
     </div>
     </div>
 
-    </div> <!-- /container -->
+    </div> 
 </section>
 @if(Request::segment(1) !='annonser')
 <section>

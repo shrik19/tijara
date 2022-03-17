@@ -1249,8 +1249,8 @@ class ServiceController extends Controller
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
         ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##',
             '##CUSTOMERADDRESS##','##SELLER##'],
-        [$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
-        $request->input('service_price'),url('/'),$customeraddress,$sellername],$contents);
+        [$customername,$seller,$service,$service_time,$service_date,$service_request->location,
+        $service_request->service_price,url('/'),$customeraddress,$sellername],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

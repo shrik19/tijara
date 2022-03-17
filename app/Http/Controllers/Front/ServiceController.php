@@ -1262,16 +1262,15 @@ class ServiceController extends Controller
         });
 
 
-        $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
+        $contents_buyer = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
         ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##',
             '##CUSTOMERADDRESS##','##SELLER##'],
         [$customername,$customername,$service,$service_time,$service_date,$service_request->location,
         $service_request->service_price,url('/'),$customeraddress,$sellername],$contents);
 
-        $arrMailData = ['email_body' => $contents];
-        
+        $arrMailDataBuyer = ['email_body' => $contents_buyer];
 
-        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($buyer_email,$customername,$subject) {
+        Mail::send('emails/dynamic_email_template', $arrMailDataBuyer, function($message) use ($buyer_email,$customername,$subject) {
             $message->to($buyer_email, $customername)->subject
                 ($subject);
             $message->from( env('FROM_MAIL'),'Tijara');

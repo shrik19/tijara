@@ -43,7 +43,7 @@
 
               <div class="form-group">
                    <!-- <label>{{ __('users.klarna_password_label')}}</label> -->
-              <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : $sellerDetails[0]->klarna_password}}">
+              <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : base64_decode($sellerDetails[0]->klarna_password)}}">
               <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
                 </div>
 

@@ -1020,7 +1020,7 @@ class ServiceController extends Controller
         $data['monthYearHtml']     = $monthYearDropdown;
         $data['is_seller']         = $is_seller;
         $data['user_id']           = $user_id;
-
+echo base64_encode("cBOTxaf1HCmdyzTi");exit;
         return view('Front/buyer_booking_request', $data);
       }
       else 

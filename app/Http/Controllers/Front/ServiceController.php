@@ -1224,8 +1224,11 @@ class ServiceController extends Controller
       $result = ServiceRequest::find($id);
 
       if (!empty($result)) {
-        $service_request = Services::join('users', 'users.id', '=', 'services.user_id')                ->where('services.id', '=', $id)->first();
-        
+        $service_request = Services::join('users', 'users.id', '=', 'services.user_id')
+                            ->join('service_requests', 'services.id', '=', 'service_requests.service_id')
+                            ->where('service_requests.id', '=', $id)
+                            ->where('service_requests.user_id', '=', Auth::guard('user')->id())->first();
+                            
         $user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
         $customername = $user->fname;
         $customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;

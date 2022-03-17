@@ -1228,7 +1228,7 @@ class ServiceController extends Controller
                             ->join('service_requests', 'services.id', '=', 'service_requests.service_id')
                             ->where('service_requests.id', '=', $id)
                             ->where('service_requests.user_id', '=', Auth::guard('user')->id())->first();
-                            
+
         $user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
         $customername = $user->fname;
         $customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;
@@ -1236,9 +1236,9 @@ class ServiceController extends Controller
 
         $service    =   $service_request->title;
         $email      =   $service_request->email;
-        $servicemessage =   $request->input('message');
-        $service_date=  $request->input('service_date');
-        $service_time=  $request->input('service_time');
+        //$servicemessage =   $request->input('message');
+        $service_date=  $service_request->service_date;
+        $service_time=  $service_request->service_time;
         //$service_time =   date('Y-m-d H:i:s',strtotime($service_time));
         $seller =   $service_request->fname;
         

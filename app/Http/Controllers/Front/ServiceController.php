@@ -1224,6 +1224,39 @@ class ServiceController extends Controller
       $result = ServiceRequest::find($id);
 
       if (!empty($result)) {
+        $service_request = Services::join('users', 'users.id', '=', 'services.user_id')                ->where('services.id', '=', $id)->first();
+        
+        $user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
+        $customername = $user->fname;
+        $customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;
+        $sellername     =$service_request->fname;
+
+        $service    =   $service_request->title;
+        $email      =   $service_request->email;
+        $servicemessage =   $request->input('message');
+        $service_date=  $request->input('service_date');
+        $service_time=  $request->input('service_time');
+        //$service_time =   date('Y-m-d H:i:s',strtotime($service_time));
+        $seller =   $service_request->fname;
+        
+        $GetEmailContents = getEmailContents('Delete Service Request');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+        
+        $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
+        ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##',
+            '##CUSTOMERADDRESS##','##SELLER##'],
+        [$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
+        $request->input('service_price'),url('/'),$customeraddress,$sellername],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$seller,$subject) {
+            $message->to($email, $seller)->subject
+                ($subject);
+            $message->from( env('FROM_MAIL'),'Tijara');
+        });
+
         $service = ServiceRequest::where('id', $id)->update(['is_deleted' =>1]);
         return response()->json(['success'=>trans('lang.booking_deleted')]); 
       } else {

@@ -929,7 +929,7 @@ class AuthController extends Controller
         } 
         $error= 0;
         if(trim($request->input('klarna_username'))!='' && trim($request->input('klarna_password'))) {
-            $checkKlarnaExist=UserMain::where('klarna_username','=',trim($request->input('klarna_username')))->first();
+            $checkKlarnaExist=UserMain::where('klarna_username','=',trim($request->input('klarna_username')))->where('id','!=',$user_id)->first();
                 
              if(!empty($checkKlarnaExist)) {
                 $error=1;

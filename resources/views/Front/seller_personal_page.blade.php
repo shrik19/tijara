@@ -146,7 +146,7 @@
 
               echo '<div class="logoImage" style="display: none;">';
               echo '<div class="row">';
-              echo '<div class="col-md-4 existing-images"><img src="" class="seller_logo" id="previewLogo"><a href="javascript:void(0);" class="remove_logo_image"><i class="fas fa-trash"></i></a>1</div>';
+              echo '<div class="col-md-4 existing-images"><img src="" class="seller_logo" id="previewLogo"><a href="javascript:void(0);" class="remove_logo_image"><i class="fas fa-trash"></i></a></div>';
               echo '</div>';
               echo '<div class="row"><div class="col-md-12">&nbsp;</div></div></div>';
                 
@@ -206,6 +206,7 @@ logoInp.onchange = evt => {
   const [file] = logoInp.files
   if (file) {
     $('.logoImage').css('display','block');
+    $('.existing-images').css('display','block');
     previewLogo.src = URL.createObjectURL(file)
     createCookie("seller_logo_preview", URL.createObjectURL(file), 15);
   }

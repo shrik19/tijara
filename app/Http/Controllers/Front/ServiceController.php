@@ -1269,7 +1269,7 @@ class ServiceController extends Controller
         $service_request->service_price,url('/'),$customeraddress,$sellername],$contents);
 
         $arrMailDataBuyer = ['email_body' => $contents_buyer];
-
+echo "<pre>";print_r($contents_buyer);exit;
         Mail::send('emails/dynamic_email_template', $arrMailDataBuyer, function($message) use ($buyer_email,$customername,$subject) {
             $message->to($buyer_email, $customername)->subject
                 ($subject);

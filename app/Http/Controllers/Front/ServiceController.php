@@ -40,7 +40,7 @@ use flash;
 use Validator;
 
 use DB;
-
+use Mail;
 
 
 class ServiceController extends Controller
@@ -1230,6 +1230,7 @@ class ServiceController extends Controller
                             ->where('service_requests.user_id', '=', Auth::guard('user')->id())->first();
 
         $user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
+        $buyer_email =$user->email;
         $customername = $user->fname;
         $customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;
         $sellername     =$service_request->fname;
@@ -1256,6 +1257,12 @@ class ServiceController extends Controller
 
         Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$seller,$subject) {
             $message->to($email, $seller)->subject
+                ($subject);
+            $message->from( env('FROM_MAIL'),'Tijara');
+        });
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($buyer_email,$customername,$subject) {
+            $message->to($buyer_email, $customername)->subject
                 ($subject);
             $message->from( env('FROM_MAIL'),'Tijara');
         });

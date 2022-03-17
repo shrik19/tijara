@@ -932,7 +932,9 @@ class AuthController extends Controller
             $checkKlarnaExist=UserMain::where('klarna_username','=',trim($request->input('klarna_username')))->first();
                 
              if(!empty($checkKlarnaExist)) {
-                 return response()->json(['error'=>"Klarna-detaljerna är redan sparade"]);exit;
+                $error=1;
+                $messages  =   array("Klarna-detaljerna är redan sparade");
+                //return response()->json(['error'=>"Klarna-detaljerna är redan sparade"]);exit;
              }
              $url = env('BASE_API_URL');
             
@@ -2263,7 +2265,7 @@ class AuthController extends Controller
     /*function to select package*/
     public function selectPackage(Request $request){   
             $checkCurrentPackage = UserPackages::where('user_id',Auth::guard('user')->id())->orderBy('user_id','DESC')->where('status','=','active')->get();
-            //echo "<pre>";print_r($checkCurrentPackage[0]);exit;
+            echo "<pre>";print_r($checkCurrentPackage[0]);exit;
            // DB::enableQueryLog();
        // echo "df".Auth::guard('user')->id();exit;
         $message = '';

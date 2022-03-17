@@ -1261,15 +1261,16 @@ class ServiceController extends Controller
             $message->from( env('FROM_MAIL'),'Tijara');
         });
 
-
+        $GetEmailContents = getEmailContents('Delete Service Request');
+        $subject = $GetEmailContents['subject'];
+        $contents_buyer = $GetEmailContents['contents'];
         $contents_buyer = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
         ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##',
             '##CUSTOMERADDRESS##','##SELLER##'],
-        [$customername,"Shrik",$service,$service_time,$service_date,$service_request->location,
-        $service_request->service_price,url('/'),$customeraddress,$sellername],$contents);
+        [$customername,$customername,$service,$service_time,$service_date,$service_request->location,
+        $service_request->service_price,url('/'),$customeraddress,$sellername],$contents_buyer);
 
         $arrMailDataBuyer = ['email_body' => $contents_buyer];
-echo "<pre>".$customername;print_r($contents_buyer);exit;
         Mail::send('emails/dynamic_email_template', $arrMailDataBuyer, function($message) use ($buyer_email,$customername,$subject) {
             $message->to($buyer_email, $customername)->subject
                 ($subject);

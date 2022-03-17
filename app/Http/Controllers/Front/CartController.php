@@ -1892,7 +1892,7 @@ class CartController extends Controller
         $result = curl_exec($ch);
         
         //
-         $httpcode = curl_getinfo($curl,CURLINFO_HTTP_CODE);
+         $httpcode = curl_getinfo($ch,CURLINFO_HTTP_CODE);
          dd($httpcode);
         if (curl_errno($ch)) {
            $error_msg = curl_error($ch);

@@ -98,9 +98,13 @@
 								}else{
 									$next_step = $next_step;
 								}
+								if(!isset($_COOKIE['tijara_register_current_step']))
+									$_COOKIE['tijara_register_current_step']='seller_register_first';
+								$current_step=$_COOKIE['tijara_register_current_step'];
 								
 							 ?>
 								  
+							<input type="hidden" name="" id="current_step" value="{{$current_step}}">
 							<input type="hidden" name="" id="current_step_button" value="{{$next_step}}">
 							<!-- fieldsets -->
 							<fieldset class="seller_register_first">
@@ -326,7 +330,7 @@
 											</div>
 									   </div>
 										<div class="remember-section row">
-											<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor">&nbsp;{{ __('users.terms_of_use')}} </a> <a href="{{url('/')}}/page/villkor">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="{{url('/')}}/page/villkor">{{ __('users.store_terms')}}</a></span>	
+											<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="product_table_heading " style=" font-size: 12px !important;">&nbsp;{{ __('users.terms_of_use')}} </a> <a href="{{url('/')}}/page/villkor" class="product_table_heading " style=" font-size: 12px !important;">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="{{url('/')}}/page/villkor" class="product_table_heading " style=" font-size: 12px !important;">{{ __('users.store_terms')}}</a></span>	
 										</div>
 									</form>
 									</div>
@@ -552,46 +556,47 @@ $(".pro").addClass("selectedActivePackage");
 
 
 if($('#current_step_button').val() != 1){
+	setTimeout(function(){
+		var curr_step=  $('input#current_step_button').val();
+		$( "fieldset" ).each(function() {
+		  $( this ).css({
+					'display': 'none',
+					'position': 'relative'
+					});
+		});
+	   
 
-    var curr_step=  $('input#current_step_button').val();
-    $( "fieldset" ).each(function() {
-      $( this ).css({
-                'display': 'none',
-                'position': 'relative'
-                });
-    });
-   
+		current_fs = $('input.'+curr_step).parent();
+		next_fs = $('input.'+curr_step).parent().next();
 
-    current_fs = $('input.'+curr_step).parent();
-    next_fs = $('input.'+curr_step).parent().next();
+		//Add Class Active
+		$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	 
+		if(curr_step==3){
+			 $("#progressbar li").eq($("fieldset").index(current_fs)).addClass("active");
+		}
+		if(curr_step==4){
 
-    //Add Class Active
-    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
- 
-    if(curr_step==3){
-         $("#progressbar li").eq($("fieldset").index(current_fs)).addClass("active");
-    }
-    if(curr_step==4){
+			 current_fs_prev = $('input.'+curr_step).parent().prev();
+			$("#progressbar li").eq($("fieldset").index(current_fs_prev)).addClass("active");
+		}
+		//show the next fieldset
+		next_fs.show();
+		//hide the current fieldset with style
+		current_fs.animate({opacity: 0}, {
+		step: function(now) {
+		// for making fielset appear animation
+		opacity = 0.6 - now;
 
-         current_fs_prev = $('input.'+curr_step).parent().prev();
-        $("#progressbar li").eq($("fieldset").index(current_fs_prev)).addClass("active");
-    }
-    //show the next fieldset
-    next_fs.show();
-    //hide the current fieldset with style
-    current_fs.animate({opacity: 0}, {
-    step: function(now) {
-    // for making fielset appear animation
-    opacity = 0.6 - now;
-
-    current_fs.css({
-    'display': 'none',
-    'position': 'relative'
-    });
-    next_fs.css({'opacity': opacity});
-    },
-    duration: 600
-    });
+		current_fs.css({
+		'display': 'none',
+		'position': 'relative'
+		});
+		next_fs.css({'opacity': opacity});
+		},
+		duration: 600
+		});
+	}, 1000);
 }
 
 /*function to save first form data and validate it before save*/
@@ -670,7 +675,8 @@ if($('#current_step_button').val() != 1){
                     $(".loader-seller").css("display","none");
                     if(data.success=="Got Simple Ajax Request"){
                         console.log(data.success);
-                        console.log("first step complete");              
+                        console.log("first step complete");    
+						createCookie("tijara_register_current_step", 'seller_register_second', 20);
                     }else{
                         showErrorMessage(data.error_msg.email);
                         error=1;
@@ -745,7 +751,7 @@ $('#second-step').click(function(e) {
             var opacity;
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
-
+			createCookie("tijara_register_current_step", 'seller_register_third', 20);
             //Add Class Active
             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
@@ -800,12 +806,11 @@ $('#third-step').click(function(e) {
     }else
     {
        third_step_err = 1;
-	 	showErrorMessage(please_add_payment_details);
-	 	return false;
+	 	
     }
     	
- 
-	 if(third_step_err == 0){
+	
+	if(third_step_err == 0){
 	
 	    $(".loader-seller").css("display","block");
 	    $.ajax({
@@ -819,44 +824,58 @@ $('#third-step').click(function(e) {
 	                success: function(data){
 	                    if(data.success=="third step success"){
 	                        $(".loader-seller").css("display","none");
+							createCookie("tijara_register_current_step", 'seller_register_fourth', 20);
 	                        console.log(data.success);
 	                        console.log("third step complete"); 
-	                        third_step_err = 0;                   
+	                        third_step_err = 0;  
+							//show next step
+							var current_fs, next_fs, previous_fs; //fieldsets
+							var opacity;
+							current_fs = $('#third-step').parent().parent();
+							next_fs = $('#third-step').parent().parent().next();
+
+							//Add Class Active
+							$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+							//show the next fieldset
+							next_fs.show();
+
+							//hide the current fieldset with style
+							current_fs.animate({opacity: 0}, {
+							step: function(now) {
+								// for making fielset appear animation
+								opacity = 0.6 - now;
+
+								current_fs.css({
+									'display': 'none',
+									'position': 'relative'
+								});
+									next_fs.css({'opacity': opacity});
+								},
+								duration: 600
+							});
 	                    }else{
-	                       
-	                        third_step_err=1;
+	                       $(".loader-seller").css("display","none");
+	                        showErrorMessage(data.error);
+							setTimeout(function(){
+							$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');
+							
+							return false;
+							}, 1000);
 	                    }
 	                }
 	            });
 
-	    //show next step
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var opacity;
-        current_fs = $(this).parent();
-        next_fs = $(this).parent().next();
-
-        //Add Class Active
-        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-        //show the next fieldset
-        next_fs.show();
-
-        //hide the current fieldset with style
-        current_fs.animate({opacity: 0}, {
-        step: function(now) {
-            // for making fielset appear animation
-            opacity = 0.6 - now;
-
-            current_fs.css({
-                'display': 'none',
-                'position': 'relative'
-            });
-                next_fs.css({'opacity': opacity});
-            },
-            duration: 600
-        });
+	    
 	  }
-
+	else { 
+	showErrorMessage(please_add_payment_details);
+	setTimeout(function(){
+		$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');
+		
+	 	return false;
+		}, 1000);
+    }
 
     
 
@@ -921,8 +940,12 @@ $('#last-step').click(function(e) {
     
    if(last_step_err == 1)
     {
-    	$('.seller_register_fourth').show();
-    	return false;
+    	
+		setTimeout(function(){
+		$('.seller_register_fourth').attr('style','display: block;position: relative;');
+		
+	 	return false;
+		}, 900);
     }else{
     	 let logo_image   = $("#logo_image").val();
 	    let banner_image = $("#banner_image").val();
@@ -952,6 +975,24 @@ $('#last-step').click(function(e) {
     }  
 });
 
+function createCookie(name,value,minutes) {
+    if (minutes) {
+        var date = new Date();
+        date.setTime(date.getTime()+(minutes*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    } else {
+        var expires = "";
+    }
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+if($('#current_step').val()!='') {
+	setTimeout(function(){
+		if($('#current_step').val()=='seller_register_fourth') {
+			$('.'+$('#current_step').val()).attr('style','display: block;position: relative;opacity: 0.6;');
+			$('.'+$('#current_step').val()+' .form-card').attr('style','display: block;position: relative;opacity: 1;');
+		}
+	}, 1000);
+}
 /*function to upload seller banner image*/
 $('body').on('change', '#seller_banner_img', function () {
 
@@ -1035,15 +1076,25 @@ $('body').on('change', '#seller_logo_img', function () {
 /*function for previous button click*/
 $(".previous").click(function(){
 
-	current_fs = $(this).parent();
-	previous_fs = $(this).parent().prev();
-
+	if($(this).hasClass('step-third-previous')) {
+		current_fs = $(this).parent().parent();
+		previous_fs = $(this).parent().parent().prev();
+	}
+	else {
+		current_fs = $(this).parent();
+		previous_fs = $(this).parent().prev();
+	}
 	//Remove class active
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
 	//show the previous fieldset
 	previous_fs.show();
-
+	if($(this).hasClass('forth-step-previous')) {
+		setTimeout(function(){
+		previous_fs.find('.form-card').attr('style','display: block;position: relative;opacity: 1;');
+		
+		}, 1000);
+	}
 	//hide the current fieldset with style
 	current_fs.animate({opacity: 0}, {
 	step: function(now) {
@@ -1056,6 +1107,7 @@ $(".previous").click(function(){
 	'position': 'relative'
 	});
 	previous_fs.css({'opacity': opacity});
+	
 	},
 	duration: 600
 	});

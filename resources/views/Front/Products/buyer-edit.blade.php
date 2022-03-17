@@ -209,7 +209,7 @@ width:100% !important;
 
                 <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="margin-top: 3px;margin-left: 2px;"></span>  
                 <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="margin-top: 3px;margin-left: 2px;"></span>   
-
+                 <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
                 </div>
 
                 

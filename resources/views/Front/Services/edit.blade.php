@@ -219,8 +219,8 @@ td.fc-week-number {
   </div>
   </div>
 
-
-  <hr class="solid-horizontal-line">
+<!-- 
+  <hr class="solid-horizontal-line"> -->
   <h2 class="col-md-12 product_add_h2">{{ __('servicelang.step_2')}}</h2>
   <div class="col-md-12" style="margin-left: -32px;">
   <div class="col-md-9">

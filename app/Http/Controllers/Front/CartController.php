@@ -3249,7 +3249,7 @@ DATA;
       if($user_id)
       {
            
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'><option value=''>".trans('lang.select_label')."</option>";
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff !important, pieces);margin-top: -2px;'><option value=''>".trans('lang.select_label')."</option>";
         
           
         $monthYearSql = Orders::select(DB::raw('count(id) as `orders`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))->where('user_id','=',$user_id)->groupby('year','month')

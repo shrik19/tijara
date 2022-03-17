@@ -25,6 +25,10 @@ header{
     width: 100%;
     margin-bottom: 40px;
 }
+.form-control {
+    font-weight:300 !important;   
+    color: #222222 !important;
+  }
 
 .mid-section {
     min-height: 600px;
@@ -1551,7 +1555,7 @@ span.remember-text {
 	
 	.seller_register_container .seller_register_second input[type=button]:nth-child(odd) {
 		float: right;
-		margin-right: 4%;
+		margin-right: 33%;
 	}
 
   .register_second_btn {
@@ -1562,8 +1566,7 @@ span.remember-text {
 
 	.seller_register_container .seller_register_second input[type=button]:nth-child(even) {
 		float: left;
-		/*margin-left: 4%;*/
-    margin-left: 60%;
+    margin-left: 40%;
 	}
 	
 .heading{font-weight: 600; font-size: 42px; margin-left: 10px;}

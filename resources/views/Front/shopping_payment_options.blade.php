@@ -231,7 +231,7 @@
 
                             }?>
 
-                            @if($store_pick_address!='')
+                            @if(@$store_pick_address!='')
                               <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;"> 
                                 <div class="row">
                                     <div class="col-md-6">                           

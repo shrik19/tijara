@@ -127,7 +127,7 @@ class AuthController extends Controller
 
             if(Auth::guard('user')->attempt(['email' => $request->input('email'),'password' => $request->input('password')]))
             {
-               // echo "<pre>";print_r($checkUser[0]);exit;
+               // echo "<pre>";print_r($is_subscriber);exit;
          
                // if($checkUser[0]['is_verified'] == 1){
                 if(($checkUser[0]->is_shop_closed != 1) && ($checkUser[0]->role_id == 2)){
@@ -140,7 +140,7 @@ class AuthController extends Controller
                             ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.status','user_packages.payment_status')
                             ->orderByRaw('user_packages.id ASC')
                             ->get();
-                       
+                     //echo "<pre>";print_r($is_subscriber[0]);exit;  
                     if(Auth::guard('user')->loginUsingId($checkUser[0]['id'])){
 
                         //Session::flash('success', 'Login successfull.');
@@ -159,13 +159,21 @@ class AuthController extends Controller
                         $getRoleId = DB::table('users')
                             ->where('id', $user_id)->first();
 
+/*echo "<pre>";print_r($getRoleId);exit;
 
+
+
+
+*/
                         //session_start();
                         $currentUser=array('role_id'=>$getRoleId->role_id,'name'=>$getRoleId->fname.' '.$getRoleId->lname);
                         //$_SESSION['currentUser']=$currentUser;
                         session($currentUser);
                         if($getRoleId->role_id==2){
-                            if(@$is_subscriber[0]->payment_status=='checkout_incomplete' || @$is_subscriber[0]->payment_status=='' || $is_subscriber[0]->is_trial== 0){
+                            if(empty($getRoleId->fname) || empty($getRoleId->lname) || empty($getRoleId->email) || empty($getRoleId->country) || empty($getRoleId->city)){
+                                return redirect(route('frontSellerProfile'));
+                            }
+                            if(@$is_subscriber[0]->payment_status=='checkout_incomplete' || @$is_subscriber[0]->payment_status==''){
                                 return redirect(route('frontSellerProfile'));
                             }else{
                                  return redirect(route('frontDashboard'));
@@ -479,6 +487,37 @@ class AuthController extends Controller
             $strip_secret           = trim($request->input('strip_secret'));
           
             if(!empty($klarna_username) && !empty($klarna_password)){
+                $checkKlarnaExist=UserMain::where('klarna_username','=',$klarna_username)->first();
+                
+                 if(!empty($checkKlarnaExist)) {
+                     return response()->json(['error'=>"Klarna-detaljerna är redan sparade"]);exit;
+                 }
+
+                 $url = env('BASE_API_URL');//"https://api.klarna.com/checkout/v3/orders";
+                
+                  $curl = curl_init();
+                    $credentials = base64_encode($klarna_username.":".trim($request->input('klarna_password')));
+                    curl_setopt_array($curl, array(
+                      CURLOPT_URL =>  env('BASE_API_URL'),
+                      CURLOPT_RETURNTRANSFER => true,
+                      CURLOPT_ENCODING => '',
+                      CURLOPT_MAXREDIRS => 10,
+                      CURLOPT_TIMEOUT => 0,
+                      CURLOPT_FOLLOWLOCATION => true,
+                      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                      CURLOPT_CUSTOMREQUEST => 'GET',
+                      CURLOPT_HTTPHEADER => array(
+                        'Authorization: Basic '.$credentials
+                      ),
+                    ));
+                    
+                    $response = curl_exec($curl);
+                    $httpcode = curl_getinfo($curl,CURLINFO_HTTP_CODE);
+                    
+                     if($httpcode==401) {
+                         return response()->json(['error'=>"Sätt klarna detaljer ordentligt"]);exit;
+                     }
+                  curl_close($curl);
                 Session::put('new_seller_klarna_username', $klarna_username);
                 Session::put('new_seller_klarna_password', $klarna_password);
             }
@@ -490,6 +529,29 @@ class AuthController extends Controller
             }
 
             if(!empty($strip_api_key) && !empty($strip_secret)){
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => env('STRIPE_BASE_URL'),
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => '',
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => 'POST',
+                  CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer '.$strip_api_key
+                  ),
+                ));
+
+                $response = curl_exec($curl);
+                $response   =   (array)json_decode($response);
+                
+                if(isset($response['error'])) {
+                    return response()->json(['error'=>"Stripe key ogiltig"]);exit;
+                }
+                curl_close($curl);
                 Session::put('new_seller_strip_api_key', $strip_api_key);
                 Session::put('new_seller_strip_secret', $strip_secret);
             }
@@ -864,7 +926,72 @@ class AuthController extends Controller
         if($validator->fails()) {
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
-        } else
+        } 
+        $error= 0;
+        if(trim($request->input('klarna_username'))!='' && trim($request->input('klarna_password'))) {
+            $checkKlarnaExist=UserMain::where('klarna_username','=',trim($request->input('klarna_username')))->first();
+                
+             if(!empty($checkKlarnaExist)) {
+                 return response()->json(['error'=>"Klarna-detaljerna är redan sparade"]);exit;
+             }
+             $url = env('BASE_API_URL');
+            
+              $curl = curl_init();
+                $credentials = base64_encode(trim($request->input('klarna_username')).":".trim($request->input('klarna_password')));
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => $url,
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => '',
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => 'GET',
+                  CURLOPT_HTTPHEADER => array(
+                    'Authorization: Basic '.$credentials
+                  ),
+                ));
+                
+                $response = curl_exec($curl);
+                $httpcode = curl_getinfo($curl,CURLINFO_HTTP_CODE);
+                
+                 if($httpcode==401) {
+                     $error=1;
+                     $messages  =   array("Sätt klarna detaljer ordentligt");
+                 }
+              curl_close($curl);
+        }
+        if(trim($request->input('strip_api_key'))!='' && trim($request->input('strip_secret'))!='') {
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => env('STRIPE_BASE_URL'),
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'POST',
+              CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer '.trim($request->input('strip_api_key'))
+              ),
+            ));
+
+            $response = curl_exec($curl);
+            $response   =   (array)json_decode($response);
+            
+            if(isset($response['error'])) {
+                $$error=1;
+                $messages   =   array("Stripe key ogiltig");
+            }
+            curl_close($curl);
+        }
+        if($error==1) {
+                
+                return redirect()->back()->withInput($request->all())->withErrors($messages);
+        }
+        if($error==0)
         {
 
             $arrUpdate = [

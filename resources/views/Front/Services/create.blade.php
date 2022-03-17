@@ -200,7 +200,7 @@ td.fc-week-number {
 
              
               <h2  class="col-md-12 product_add_h2">{{ __('servicelang.step_2')}}</h2>
-               <div class="row">
+               <div  class="col-md-12" style="margin-left: -32px;margin-bottom: -85px;">
                  <div class="col-md-9">
               <div class="form-group col-md-3">
                     <label class="col-md-12 product_table_heading">{{ __('lang.from_service_year')}}<!-- <span class="de_col">*</span> --></label>

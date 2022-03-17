@@ -934,6 +934,8 @@ class AuthController extends Controller
              if(!empty($checkKlarnaExist)) {
                 $error=1;
                 $messages  =   array("Klarna-detaljerna är redan sparade");
+                Session::flash('error', $messages[0]);
+                return redirect()->back()->withInput($request->all())->withErrors($messages);
                 //return response()->json(['error'=>"Klarna-detaljerna är redan sparade"]);exit;
              }
              $url = env('BASE_API_URL');
@@ -960,6 +962,8 @@ class AuthController extends Controller
                  if($httpcode==401) {
                      $error=1;
                      $messages  =   array("Sätt klarna detaljer ordentligt");
+                     Session::flash('error', $messages[0]);
+                     return redirect()->back()->withInput($request->all())->withErrors($messages);
                  }
               curl_close($curl);
         }
@@ -986,6 +990,8 @@ class AuthController extends Controller
             if(isset($response['error'])) {
                 $$error=1;
                 $messages   =   array("Stripe key ogiltig");
+                Session::flash('error', $messages[0]);
+                return redirect()->back()->withInput($request->all())->withErrors($messages);
             }
             curl_close($curl);
         }

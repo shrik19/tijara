@@ -3259,7 +3259,7 @@ DATA;
       if($user_id)
       {
            
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff !important, pieces);margin-top: -2px;'><option value=''>".trans('lang.select_label')."</option>";
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff !important;margin-top: -28px;'><option value=''>".trans('lang.select_label')."</option>";
         
           
         $monthYearSql = Orders::select(DB::raw('count(id) as `orders`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))->where('user_id','=',$user_id)->groupby('year','month')
@@ -3956,7 +3956,7 @@ DATA;
 
   public function swishNumberOrder(Request $request)
   {
-   $data['swish_message1'] = trans('messages.order_placed_success1');
+    $data['swish_message1'] = trans('messages.order_placed_success1');
     $data['swish_message2'] = trans('messages.order_placed_success2');
     return view('Front/order_placed_success', $data);
   }

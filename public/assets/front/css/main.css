@@ -1747,7 +1747,7 @@ div.seller_product_varint_info{
     font-weight: 600;
     margin: 0; 
     margin-top: 20px;
-
+    color: #222222 !important;
     /*line-height: 25px;*/
   }
 /*.seller_info p{font-size: 0.82vw;

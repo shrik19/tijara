@@ -244,7 +244,7 @@
 							              */?>
 							              <div class="form-group" style="display: flex;">
 							            <!--    <input type="checkbox" name="is_swish_number" class="is_swish_number" id="is_swish_number" value="1" style="margin-top: 30px;">  -->
-							               <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="Swish-nummer" value="">
+							               <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="Swish-nummer" value="{{Session::get('new_seller_swish_number')}}">
 							              </div>
 
 							              <div class="payment_explanation_text">
@@ -554,7 +554,7 @@ $(".pro").addClass("selectedActivePackage");
 	    //$(".stripe_payment_lock").removeClass("fa-lock");
   	}
 
-
+/*
 if($('#current_step_button').val() != 1){
 	setTimeout(function(){
 		var curr_step=  $('input#current_step_button').val();
@@ -598,7 +598,7 @@ if($('#current_step_button').val() != 1){
 		});
 	}, 1000);
 }
-
+*/
 /*function to save first form data and validate it before save*/
     $('#first-step').click(function(e) {  
 
@@ -987,7 +987,25 @@ function createCookie(name,value,minutes) {
 }
 if($('#current_step').val()!='') {
 	setTimeout(function(){
-		if($('#current_step').val()=='seller_register_fourth') {
+		$( "fieldset" ).each(function() {
+		  $( this ).css({
+					'display': 'none',
+					'position': 'relative'
+					});
+		});
+		$("#progressbar li").each(function() {
+		   $(this).removeClass("active");
+		 });
+		 if($('#current_step').val()=='seller_register_first') 
+			 $("#account").addClass('active');
+		 if($('#current_step').val()=='seller_register_second') 
+			 $("#personal").addClass('active');
+		 if($('#current_step').val()=='seller_register_third') 
+			 $("#payment").addClass('active');
+		 if($('#current_step').val()=='seller_register_fourth') 
+			 $("#confirm").addClass('active');
+		//if($('#current_step').val()=='seller_register_fourth') 
+		{
 			$('.'+$('#current_step').val()).attr('style','display: block;position: relative;opacity: 0.6;');
 			$('.'+$('#current_step').val()+' .form-card').attr('style','display: block;position: relative;opacity: 1;');
 		}

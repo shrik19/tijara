@@ -2270,7 +2270,7 @@ class AuthController extends Controller
 
     /*function to select package*/
     public function selectPackage(Request $request){   
-            $checkCurrentPackage = UserPackages::where('user_id',Auth::guard('user')->id())->orderBy('user_id','DESC')->where('status','=','active')->get();
+            $checkCurrentPackage = UserPackages::where('user_id',Auth::guard('user')->id())->orderBy('id','DESC')->where('status','=','active')->get();
           // echo "<pre>";print_r($checkCurrentPackage[0]);exit;
            // DB::enableQueryLog();
        // echo "df".Auth::guard('user')->id();exit;

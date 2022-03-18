@@ -58,7 +58,7 @@ width:100% !important;
                 </div>
 
                 <div class="col-md-2 text-right" style="margin-top:30px;">
-                  <a href="{{route('manageFrontProducts')}}" title="" class=" " ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
+                  <a href="{{route('manageFrontProducts')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
                 </div>
               </div>
             </div>
@@ -257,7 +257,7 @@ width:100% !important;
 
            
 
-              <div class="form-group" style="margin-top: 40px;">
+              <div class="form-group" style="margin-top: 50px;">
                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="de_col">&nbsp;{{ __('users.terms_of_use')}} </a> {{ __('users.and_label')}} <a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a></span>  
               </div>
               

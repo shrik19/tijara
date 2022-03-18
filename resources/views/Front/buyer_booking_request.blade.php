@@ -123,8 +123,9 @@
                                                 <p class="card-text order-product-store-title" style="margin-bottom: 20px"><?php /* {{ __('users.butik_btn')}} : */?><a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>
 
 
+
                                                 <div class="buyer-button">
-                                                <a href="javascript:void(0)" onclick='return ConfirmDeleteFunction("{{route("frontServiceRequestDel", base64_encode($id))}}");'  title="{{ __('lang.remove_title')}}" class="btn btn-black btn-sm login_btn remove-btn-col">{{ __('users.cancel_service')}}</a>
+                                                <a href="javascript:void(0)" onclick='return ConfirmDeleteFunction("{{route("frontServiceRequestDel", base64_encode($id))}}");'  title="{{ __('lang.remove_title')}}" class="btn btn-black btn-sm login_btn remove-btn-col" @if($dated < date("Y-m-d")) disabled @endif>{{ __('users.cancel_service')}}</a>
                                                 </div>
                                             </div>
                                         </div>

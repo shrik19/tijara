@@ -897,39 +897,9 @@ class ServiceController extends Controller
           $is_seller = 1;
         }  
 
-        /*month year filter*/
-       /* $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
-        $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;'>";
-        $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";  
-        for ($i = 0; $i <= 12; ++$i) {
-            $time = strtotime(sprintf('+%d months', $i));
-            $label = date('F ', $time);
-            $value = date('m', $time);
-      
-           
-            $time_year = strtotime(sprintf('-%d years', $i));
-            $value_year = date('Y', $time);
-            $label_year = date('Y ', $time);
-            $selected = ( $value==$month &&  $value_year== $year ) ? ' selected=true' : '';
-            $month_year = $value."-".$value_year;
-            $get_curr_month_yr = date('m Y');
-            $explod_mY = explode(' ', $get_curr_month_yr);
-           
-            $curr_month_yr = $explod_mY[0]."-".$explod_mY[1];
-
-            if($curr_month_yr==$month_year){
-              $selected= "selected";
-            }else{
-               $selected='';
-            }
-
-            $monthYearDropdown    .=  "<option  value='".$month_year."' ".$selected.">$label $label_year</option>";
-        }
-           
-        $monthYearDropdown    .= "</select>";*/
+     
         
-          $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'>";
+          $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff !important;margin-top: -2px;'>";
           $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(service_date, '%m-%Y') new_date"),  DB::raw('YEAR(service_date) year, MONTH(service_date) month'));
             if($userRole == 1){
                 $monthYearSql = $monthYearSql->where('user_id','=',$user_id);
@@ -965,42 +935,7 @@ class ServiceController extends Controller
 
           ->select('services.user_id as seller_id','services.title','services.service_price as price','services.images','services.description','services.service_slug','services.telephone_number','services.service_code','users.fname','users.lname','users.email'
           ,'users.store_name','service_requests.*')->where('service_requests.is_deleted','!=',1)->where('service_requests.user_id','=',$user_id);
-
-        /*if($User->role_id==2) {
-          //seller
-          $serviceRequest = $serviceRequest->where('services.user_id','=',$request['user_id']);
-      }
-      else 
-      {
-        $serviceRequest = $serviceRequest->where('service_requests.user_id','=',$request['user_id']);
-      }*/
-/*
-      if(!empty($request['search']['value'])) 
-      {
-            $field = ['users.fname','users.lname','users.email','services.title'];
-            $namefield = ['users.fname','users.lname','users.email','services.title'];
-            $search=($request['search']['value']);
-            
-            $serviceRequest = $serviceRequest->Where(function ($query) use($search, $field,$namefield) 
-            { 
-                if(strpos($search, ' ') !== false)
-                {
-                      $s=explode(' ',$search);
-                      foreach($s as $val) {
-                          for ($i = 0; $i < count($namefield); $i++){
-                              $query->orwhere($namefield[$i], 'like',  '%' . $val .'%');
-                          }  
-                      }
-                  }
-                  else 
-                  {
-                    for ($i = 0; $i < count($field); $i++){
-                        $query->orwhere($field[$i], 'like',  '%' . $search .'%');
-                  }  
-
-                }        
-              }); 
-      }*/               
+           
 
         if(!empty($request['monthYear'])) {
               
@@ -1020,7 +955,6 @@ class ServiceController extends Controller
         $data['monthYearHtml']     = $monthYearDropdown;
         $data['is_seller']         = $is_seller;
         $data['user_id']           = $user_id;
-echo base64_encode("cBOTxaf1HCmdyzTi");exit;
         return view('Front/buyer_booking_request', $data);
       }
       else 

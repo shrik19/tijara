@@ -11,17 +11,18 @@
         @include ('Front.layout.sidebar_menu')
       </div>
       <div class="col-md-10 tijara-content">
+         @include('Front.alert_messages')
       <div class="seller_info">
 		@if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
-	  @include('Front.alert_messages')
+	 
 	   
 	  <div class="card">
 		<div class="card-header row seller_header">
 		<div class="col-md-10">
 		    
-		  <h2  class="page_heading">{{ __('lang.service_label')}}</h2>
+		  <h2>{{ __('lang.service_label')}}</h2>
 		  <!-- <hr class="heading_line"/> -->
 		  </div>
 		 

@@ -13,7 +13,10 @@
 				
 			</div>
 			<div class="card-body">
-				<h1 style="text-align: center;color: red">{{$error_messages}}</h1>
+         <div class="login_box">
+          <div class="alert alert-danger">{{$error_messages}}</div>
+        </div>
+				
 				<a href="{{route('frontProductCreate')}}" class="btn btn-black debg_color login_btn" style="margin-left: 450px;">{{ __('lang.try_again_btn')}}</a>
 			</div>
 		</div>

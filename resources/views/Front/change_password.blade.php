@@ -15,13 +15,14 @@
 			<!-- Example row of columns -->
 			<div class="row">
 				<div class="col-md-12">
-					@include ('Front.alert_messages')
+					
 
 					@if($is_seller==1)
 						<div class="col-md-2 tijara-sidebar">
 							@include ('Front.layout.sidebar_menu')
 						</div>
 						<div class="col-md-10 tijara-content">
+							@include ('Front.alert_messages')
 							<div class="seller_info">
 								<div class="card-header row seller_header">
 									<h2>{{ __('users.change_password_title')}}</h2>					  
@@ -29,6 +30,7 @@
 
 					@else
 						<div class="row tijara-content">
+							@include ('Front.alert_messages')
 							<div class="seller_info border-none">
 								<div class="card">
 									<div class="card-header row">
@@ -99,9 +101,7 @@
  	var old_password = $("#old_password").val();
  	var password = $("#password").val();
  	var password_confirmation = $("#password_confirmation").val();
- 	var error = 0;
-
- 	 
+ 	var error = 0; 	 
 
  	if(old_password==''){
  		$("#err_old_password").html(required_field_error).show();
@@ -110,9 +110,14 @@
  	}else{
  		$("#err_old_password").html('');
  		 //checkPassword(old_password)
-	   $.ajax({
+	  
+ 	}
+
+ 	if(old_password !=''){
+ 		 $.ajax({
 	    url: siteUrl+'/check-old-password',
 	    type: 'get',
+	    async:false,
 	    data: { old_password:old_password},
 	    success: function(output){
 	      if(output.error !=''){
@@ -121,6 +126,7 @@
 	      }
 	    }
 	  });
+ 
  	}
 
 	if(password == '')
@@ -144,7 +150,7 @@
   {
     $("#err_confirm_password").html('');
   }
- 
+
   if(error == 1)
   {
     return false;

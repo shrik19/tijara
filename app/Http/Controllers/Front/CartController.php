@@ -3345,7 +3345,7 @@ DATA;
         /*month year filter*/
         $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
         $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff;margin-top: -2px;'><option value='all_month' >".trans('users.all_months_option')."</option>";
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff !important;margin-top: -2px;'><option value='all_month' >".trans('users.all_months_option')."</option>";
         //$monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";
 
       

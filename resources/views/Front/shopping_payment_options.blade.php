@@ -232,7 +232,7 @@
                             }?>
 
                             @if(!empty(@$store_pick_address) && @$store_pick_address!='')
-                              <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;"> 
+                              <div class="pick_input" > 
                                 <div class="row">
                                     <div class="col-md-6">                           
                                         <input type="radio" name="shipping_amount" class="radio-button-shipping" value="0"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
@@ -248,7 +248,7 @@
 
 
 
-                           <div class="pick_up_fromt_store" style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;display: none">   
+                           <div class="pick_up_fromt_store">   
                               <div class="row">
                                 <div class="col-md-5">
                                   <input type="radio" name="pick_from_store" value="1"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
@@ -273,13 +273,13 @@
                            </div>
                          
 
-                           <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;"> 
+                           <div class="pick_input"> 
                                 <div class="row">
                                     <div class="col-md-6">                           
                                         <input type="radio" name="shipping_amount" class="radio-button-shipping" value="1"> <span style="margin-left:10px;margin-top: 8px;">{{ __('users.shipping_btn')}}</span>
                                          <!-- <p style="margin-left:24px;">{{ __('users.to_delivery_address')}}</p> -->
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 8px;">
+                                    <div class="col-md-6 mt-8 m-m-t-15">
                                        @php
                                           $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3);
                                           $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
@@ -301,9 +301,9 @@
                            <h4>{{ __('users.payment_btn')}}</h4>  
                            @foreach($payment_options as $p)
                              @if($p != 'swish')
-                           <div style="border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;">
+                           <div class="pick_input">
                             @if($p == 'klarna')
-                            <img src="{{url('/')}}/uploads/Images/klarna_logo_pink.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;">
+                            <img class="pick-img" src="{{url('/')}}/uploads/Images/klarna_logo_pink.png" width="90" height="70" style="">
                             @endif
                             @if($p != 'swish')
                              <?php /*  <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;"> */?>

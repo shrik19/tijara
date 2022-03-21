@@ -16,8 +16,8 @@
 <div class="seller_info shopping_cart_page border-none">
     <div class="card">
         <div class="card-header row">
-            <div class="col-md-6">
-            <h2 class="page_heading" style="margin-left: 12px;">{{ __('lang.shopping_cart')}}</h2> 
+            <div class="col-md-6 p-m-0">
+            <h2 class="page_heading m-l-12">{{ __('lang.shopping_cart')}}</h2> 
             </div> 
             <div class="col-md-6 text-right">
       <!--      <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='{{route('frontHome')}}';">
@@ -31,7 +31,7 @@
 <div class="loader"></div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12 col-md-12">
+        <div class="col-sm-12 col-md-12 p-m-0">
         <div class="row">
             <!-- <div class="col-md-6">
               <h2>{{ __('lang.shopping_cart')}}</h2>
@@ -64,7 +64,7 @@
                     @foreach($tmpOrderProduct['details'] as $orderProduct)
                
                     <tr>
-                        <td class="col-sm-4 col-md-4">
+                        <td class="col-sm-4 col-md-4 p-m-0">
                             @if($inc==1)
                         <div class="media cart-store-sec bg-white">
                             <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 

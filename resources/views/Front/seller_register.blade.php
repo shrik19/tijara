@@ -362,6 +362,7 @@
     var success_heading     = "{{ __('users.success_heading')}}";
     var fill_in_city_err    = "{{ __('errors.fill_in_city_err')}}";
     var fill_in_country_err = "{{ __('errors.fill_in_country_err')}}";
+    var invalid_files_err="{{ __('errors.invalid_files_err')}}";
 	/* second step */
     function subscribe_package(i,val){
     	$(".packages-subscribe").each(function() {

@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="mid-section p_155">
+<div class="p_155">
   <div class="container-fluid">
     <div class="container-inner-section-1">
       <div class="row">
@@ -9,12 +9,12 @@
           @include('Front.alert_messages')
           <div class="seller_info border-none">
             <div class="card">
-				<div class="card-header ml-0 row">							
+			     	<div class="card-header ml-0 row">							
 							<div class="col-md-9 pl-0">
 								<h2 class="page_heading">{{ __('users.my_order_title')}}</h2>
 								<!-- <hr class="heading_line"/> -->
 							</div>
-							<div  class="col-md-3 new_add text-right">
+							<div  class="col-md-3 new_add text-right p-m-0">
 								<form id="filter-buyer-order" action="{{route('frontAllBuyerOrders')}}" method="post">
 								@csrf
 								<?php echo $monthYearHtml;?>
@@ -23,7 +23,7 @@
                         </div>
               </div>
             </div>
-
+              <div class="clearfix"></div>
                 <div class="card-body">
                     <div class="card">
                     <div class="card-body"  style="margin-top: 20px;">

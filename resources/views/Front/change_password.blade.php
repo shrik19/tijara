@@ -29,7 +29,7 @@
 								</div>
 
 					@else
-						<div class="row tijara-content">
+						<div class="tijara-content m-30">
 							@include ('Front.alert_messages')
 							<div class="seller_info border-none">
 								<div class="card">

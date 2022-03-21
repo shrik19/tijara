@@ -133,7 +133,7 @@ https://dashboard.stripe.com/register',
     'ad_save_success' => 'Tack! Din annons kommer att publiceras inom kort',
     'del_variant_confirm_box' => 'Är du säker på att du vill ta bort Variant?',
     'add_attribute_info' => 'Ändra eller lägg till nya egenskaper till vänster under Attribut',
-    'product_img_upload_info' => 'Lägg till en bild i storlek (1800x1800px)',
+    'product_img_upload_info' => 'Lägg till en bild i storlek (1800x1800px). För flera bilder, lägg till en i taget.',
      'seller_product_varint_info' => 'Lägg till andra varianter av din produkt, så som färg eller storlek etc.',
      'payment_info_updated' => 'Betalningsinformation uppdaterad',
  ]

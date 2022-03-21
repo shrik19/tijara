@@ -871,10 +871,11 @@ $('#third-step').click(function(e) {
 	else { 
 	showErrorMessage(please_add_payment_details);
 	setTimeout(function(){
+		$('#progressbar .confirm').removeClass('active');
 		$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');
 		
 	 	return false;
-		}, 1000);
+		}, 1500);
     }
 
     
@@ -998,12 +999,21 @@ if($('#current_step').val()!='') {
 		 });
 		 if($('#current_step').val()=='seller_register_first') 
 			 $("#account").addClass('active');
-		 if($('#current_step').val()=='seller_register_second') 
+		 if($('#current_step').val()=='seller_register_second')  {
+			 $("#account").addClass('active');
 			 $("#personal").addClass('active');
-		 if($('#current_step').val()=='seller_register_third') 
+		 }
+		 if($('#current_step').val()=='seller_register_third') {
+			 $("#account").addClass('active');
+			 $("#personal").addClass('active');
 			 $("#payment").addClass('active');
-		 if($('#current_step').val()=='seller_register_fourth') 
+		 }
+		 if($('#current_step').val()=='seller_register_fourth') {
+			 $("#account").addClass('active');
+			 $("#personal").addClass('active');
+			 $("#payment").addClass('active');
 			 $("#confirm").addClass('active');
+		 }
 		//if($('#current_step').val()=='seller_register_fourth') 
 		{
 			$('.'+$('#current_step').val()).attr('style','display: block;position: relative;opacity: 0.6;');
@@ -1113,6 +1123,26 @@ $(".previous").click(function(){
 		
 		}, 1000);
 	}
+	$("#progressbar li").each(function() {
+		   $(this).removeClass("active");
+		 });
+		 if(previous_fs.attr('class')=='seller_register_first') 
+			 $("#account").addClass('active');
+		 if(previous_fs.attr('class')=='seller_register_second')  {
+			 $("#account").addClass('active');
+			 $("#personal").addClass('active');
+		 }
+		 if(previous_fs.attr('class')=='seller_register_third') {
+			 $("#account").addClass('active');
+			 $("#personal").addClass('active');
+			 $("#payment").addClass('active');
+		 }
+		 if(previous_fs.attr('class')=='seller_register_fourth') {
+			 $("#account").addClass('active');
+			 $("#personal").addClass('active');
+			 $("#payment").addClass('active');
+			 $("#confirm").addClass('active');
+		 }
 	//hide the current fieldset with style
 	current_fs.animate({opacity: 0}, {
 	step: function(now) {

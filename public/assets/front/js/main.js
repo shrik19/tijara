@@ -30,6 +30,10 @@ function checkUniqueSlugName(inputText){
   });
   return slug;
 }
+
+
+
+
 var acc = document.getElementsByClassName("accordion-faq");
 var i;
 

@@ -733,7 +733,24 @@ class AuthController extends Controller
     {
         return view('Front/register_success');
     }
-
+    /*function to check seller fname lname fill or not*/
+     public function  checkSellerSetting(){
+        $user_id = Auth::guard('user')->id();
+        $successMsg = $errorMsg = '';
+        $userdetails =  User::where('id', $user_id)->first();
+             
+        if(empty($userdetails->fname) && empty($userdetails->lname)){
+            $errorMsg = trans('errors.fill_in_flname_err');
+        }
+        else if(empty($userdetails->fname)){
+            $errorMsg = trans('errors.fill_in_first_name_err');
+        } else if(empty($userdetails->lname)){
+            $errorMsg = trans('errors.fill_in_last_name_err');
+        }else{
+            $successMsg = 'fname and lname are filled';
+        }
+        return response()->json(['success'=>$successMsg,'error'=>$errorMsg]);
+     }
     /**
      * Show the Seller Profile Page.
      *
@@ -796,17 +813,32 @@ class AuthController extends Controller
                     ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.status','user_packages.payment_status','user_packages.is_trial','user_packages.trial_start_date','user_packages.trial_end_date')
                     ->orderByRaw('user_packages.id DESC')
                     ->get();
+//echo "<pre>";print_r($show_exp_message[0]);exit;
+         if($show_exp_message[0]->is_trial==1 && $show_exp_message[0]->trial_end_date >= $currentDate){
+            $data['noTrialPackageActive']=1;
+        }else{
+            $data['noTrialPackageActive']=0;
+        }
 
-        if($show_exp_message[0]->is_trial==0 && $show_exp_message[0]->end_date <= $currentDate){
+        if($show_exp_message[0]->is_trial==0 && $show_exp_message[0]->end_date <= $currentDate){ 
+            $data['noActivePackage']=1;
+        }else{
+            $data['noActivePackage']=0;
+        }
+
+        /*if($show_exp_message[0]->is_trial==0 && $show_exp_message[0]->end_date <= $currentDate){
+            echo "1";exit;
             $data['noActivePackage']=1;
             $data['noTrialPackageActive']=0;
         } elseif($show_exp_message[0]->is_trial==1 && $show_exp_message[0]->trial_end_date <= $currentDate){
+            echo "2";exit;
             $data['noTrialPackageActive']=1;
              $data['noActivePackage']=1;
         }else{
+            echo "3";exit;
             $data['noActivePackage']=0;
             $data['noTrialPackageActive']=0;
-        }
+        }*/
                     //echo "<pre>";print_r($show_exp_message);exit;
         if(count($show_exp_message) == 0  ){
   

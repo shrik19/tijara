@@ -177,7 +177,6 @@ Route::group(['middleware'=>['front-login']],function()
    Route::any('/seller-personal-page', 'Front\AuthController@seller_personal_page')->name('frontSellerPersonalPage');
 	Route::post('/seller-profile-update', 'Front\AuthController@sellerProfileUpdate')->name('frontSellerProfileUpdate');
   Route::any('/delete-card-details', 'Front\AuthController@deleteCardDetails')->name('frontSellerDeleteCardDetails');
-  
 	Route::get('/delete-image/{id}','Front\AuthController@deleteImage')->name('SellerImageDelete');
 	Route::get('/buyer-profile/{edit?}', 'Front\AuthController@buyerProfile')->name('frontBuyerProfile');
 	Route::post('/buyer-profile-update', 'Front\AuthController@buyerProfileUpdate')->name('frontBuyerProfileUpdate');
@@ -284,3 +283,4 @@ Route::group(['prefix'=>'package'], function() {
 
 Route::any('/update-booking-notification', 'Front\ServiceController@ServiceRequestView')->name('frontServiceRequestView');
 Route::any('/update-orders-notification', 'Front\CartController@ordersView')->name('frontOrdersView');
+Route::any('/check-seller-setting', 'Front\AuthController@checkSellerSetting')->name('frontCheckSellerSetting');

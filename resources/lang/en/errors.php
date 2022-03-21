@@ -8,6 +8,7 @@
      'fill_in_confirm_password_err'=>'Please fill in your confirm password',
      'fill_in_first_name_err'=>'Please fill in First Name',
      'fill_in_last_name_err'=>'Please fill in Last Name',
+     'fill_in_flname_err' => 'Please fill in First name and Last name',
      'fill_in_phone_number_err'=>'Please fill in Phone Number',
      'fill_in_address_err'=>'Please fill in your Address',
      'fill_in_postal_code_err'=>'Please fill in your Postal Code',

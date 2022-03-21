@@ -222,7 +222,7 @@
       
         <div style="text-align: center">
           <button class="btn btn-black debg_color seller-profile-update login_btn">{{ __('lang.update_btn')}}</button>
-          <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16">{{ __('lang.cancel_btn')}}</a>
+          <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn check_seller_setting" tabindex="16">{{ __('lang.cancel_btn')}}</a>
         </div>
         </div>
       </form>
@@ -447,7 +447,7 @@ $(function() {
 
   if(is_disabled==1 && ( $("#card_name").text() =="" || $("#seller_card_number").text() =="" || $("#seller_card_expiry").text() =="")){
      showErrorMessage(seller_account_freeze);
-
+    $('.check_seller_setting').attr( "disabled", "disabled" );
     // Handler for .ready() called.
     $('html, body').animate({
         scrollTop: $('#scroll_to_payment_details').offset().top

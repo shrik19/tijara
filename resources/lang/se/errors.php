@@ -8,6 +8,7 @@
      'fill_in_confirm_password_err'=>'Fyll i ditt bekräfta lösenord',
      'fill_in_first_name_err'=>'Fyll i förnamn',
      'fill_in_last_name_err'=>'Vänligen fyll i Efternamn',
+     'fill_in_flname_err' => 'Vänligen fyll i förnamn och efternamn',
      'fill_in_phone_number_err'=>'Fyll i telefonnummer',
      'fill_in_address_err'=>'Fyll i din adress',
      'fill_in_postal_code_err'=>'Fyll i ditt postnummer',

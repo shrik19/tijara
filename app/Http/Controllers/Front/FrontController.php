@@ -1125,6 +1125,7 @@ public function getCatSubList(Request $request) {
 	    }else{
 	    	$data['role_id'] =2;
 	    }
+	    $data['user_id'] = Auth::guard('user')->id();
 	    $data['allCities'] = $cities;
 		return view('Front/products', $data);
 	}

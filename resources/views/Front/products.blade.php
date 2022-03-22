@@ -39,7 +39,7 @@
 					  </div>
 					</div>
 			   
-              @if($role_id =='1')
+              @if($role_id =='1' || $user_id == '')
     					   <div class="col-md-5 pr-w-0">
     					     <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn add_ads_btn" style="margin-bottom: 10px;"><span>+ {{ __('users.add_ads_btn')}}</span> </a>
     					   </div>				 

@@ -239,7 +239,7 @@
                                          <p style="margin-left:24px;">{{ __('users.to_delivery_address')}}</p>
                                     </div>
                                     <div class="col-md-6">                                       
-                                        <span class="store_address" title={{ @$store_pick_address}}>{{ @$store_pick_address}} </span> 
+                                        <span class="store_address" title="{{@$store_pick_address}}">{{ @$store_pick_address}} </span> 
                                       </div>
                                 </div>
                              </div>

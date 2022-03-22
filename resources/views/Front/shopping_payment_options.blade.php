@@ -238,9 +238,8 @@
                                         <input type="radio" name="shipping_amount" class="radio-button-shipping" value="0"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
                                          <p style="margin-left:24px;">{{ __('users.to_delivery_address')}}</p>
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 20px;">
-                                       
-                                        <span>{{ @$store_pick_address}} </span> 
+                                    <div class="col-md-6">                                       
+                                        <span class="store_address" title={{ @$store_pick_address}}>{{ @$store_pick_address}} </span> 
                                       </div>
                                 </div>
                              </div>

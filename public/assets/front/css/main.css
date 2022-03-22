@@ -3124,7 +3124,14 @@ h1.checkoutHeading {
     background: #FAFAFA;
     font-size: 10px;
 }
-
+.store_address{
+  overflow: hidden;
+    float: left;
+    width: 179px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 34px;
+}
 .checkoutContainer .arrow {
     border: solid black;
     border-width: 0 1px 1px 0;
@@ -3218,6 +3225,16 @@ h1.checkoutHeading {
   font-size: 22px;
   font-weight: 700;
 
+}
+.productServicePopup .jconfirm-buttons button.btn.btn-default {
+  font-size: 21px !important;
+  margin: 10px 15px !important;
+  width: auto;
+  height: auto;
+  border-radius: 10px !important;
+  box-shadow: -10px 10px 10px -3px #aaa !important;
+  text-transform: capitalize !important;
+  padding: 10px;
 }
 .show-custom img#show-img {
   height: 100%;

@@ -303,7 +303,7 @@
 @if(!empty($Categories))
 <div class="clearfix"></div>
 
-<nav class="navbar sticky-top navbar-expand-lg bg-dark product_view">
+<nav class="navbar sticky-top navbar-expand-lg bg-dark product_view mo_view_menu">
     <div class="container-fluid">    
       <div class="row">
         <div >
@@ -314,7 +314,7 @@
   </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav mainMenu pull-left">
+      <ul class="nav mainMenu pull-left"> 
     <!-- <span>( @php count($Categories) @endphp)</span> -->
         @php $i=0; @endphp
         @foreach($Categories as $CategoryId=>$Category)

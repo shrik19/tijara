@@ -63,7 +63,7 @@
 						<div class="col-md-4"></div>
 					@endif
 						  <div class="col-md-2"></div>
-						  <div class="col-md-offset-1 col-md-3 prod-service-filter">
+						  <div class="@if(Request::segment(1) !='annonser') col-md-offset-1 @endif col-md-3 prod-service-filter">
 						  
 							<div class="form-group">
 							  <label class="product_sorting_filter">{{ __('lang.sort_by_order')}} : </label>

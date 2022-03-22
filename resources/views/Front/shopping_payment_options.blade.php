@@ -493,8 +493,9 @@ $( ".pay_through_btn" ).click(function() {
         }
     });
 
-    if(!check){      
+    if(check==false){      
       $('#select_payment_option_err').text(select_payment_option);
+       error = 1;
     } else {
       $('#select_payment_option_err').text('');
     } 

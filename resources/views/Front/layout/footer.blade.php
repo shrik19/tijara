@@ -11,7 +11,7 @@
     </div> -->
     <div class="ft_middle_container container-fluid">
       <div class="container-inner-section">
-        <div class="row" style="padding-left:1px;">
+        <div class="row" style="padding-left:8px;">
         <div class="col-md-3">
           
           @if(!empty($siteDetails->footer_logo))
@@ -141,7 +141,7 @@
     </div>
     <div class="ft_payment_container container-fluid">
         <div class="container-inner-section">
-          <img class="img-fluid" src="{{url('/')}}/assets/front/img/tijara_front/footer_payment_option.png">
+          <img class="img-fluid" src="{{url('/')}}/assets/front/img/tijara_front/footer_payment_option.png" style="padding-left: 10px;">
         </div>
     </div>
     <div class="clearfix"></div>

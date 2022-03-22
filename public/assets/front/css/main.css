@@ -901,7 +901,7 @@ select.list-dt:focus {
 }
 #progressbar li span{    position: absolute;
   top: 5px;
-  left: 49%;
+  left: 48%;
   color: #fff;}
 #progressbar #account:before {
     font-family: FontAwesome;

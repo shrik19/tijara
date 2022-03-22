@@ -25,7 +25,7 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
       }
       ?>
       @if($product->image)
-          <img src="{{url('/')}}/uploads/ProductImages/resized/{{$featureProductImage}}" >
+          <img gfgfg src="{{url('/')}}/uploads/ProductImages/resized/{{$featureProductImage}}" >
       @else
           <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" >
       @endif

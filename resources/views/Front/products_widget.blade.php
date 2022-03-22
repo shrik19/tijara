@@ -16,14 +16,9 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
   <div class="product_data product_link_js" product_link="@if(!empty($product_link)){{$product_link}}@else{{$order_product_link}}@endif" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
     <div class="product_img" style="display:inline-block;background-color: white;">
       <?php
-     $searchForValue = ',';
-     
-      if( strpos( $searchForValue , $product->image) !== false ) {
-        echo "in";exit;
+  
+      if( $product->image !='') {
            $featureProductImage = explode(',', $product->image)[0];
-      }else{
-        echo "out";exit;
-          $featureProductImage = $product->image;
       }
       ?>
       @if($product->image)

@@ -19,8 +19,10 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
      
 
       if( strpos(',', $product->image) !== false ) {
+        echo "in";exit;
            $featureProductImage = explode(',', $product->image)[0];
       }else{
+        echo "out";exit;
           $featureProductImage = $product->image;
       }
       ?>

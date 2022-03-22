@@ -104,23 +104,28 @@
        type:'post',
     },
   });
-
+	$('#productTable_filter').parent('div').attr('class','col-sm-12 col-md-5');
+  $('#productTable_filter').find('label').removeClass('pull-right');
+  
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
   '<option value="">{{ __("lang.status_label")}}</option>'+
   '<option value="active">{{ __("lang.active_label")}}</option>'+
   '<option value="block">{{ __("lang.block_label")}}</option>'+
   '</select></div>').appendTo("#productTable_filter");
   
-  $('<div class="form-group col-md-4" style="float:right;margin-left: 9px;"><select class="form-control" id="selectsubcategory" name="subcategory">'+
-  
-  '<?php echo $subCategoriesHtml; ?>'+
-  '</select></div>').appendTo("#productTable_length");
-  
-  $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="selectcategory" name="category">'+
+  $('#productTable_length').find('label').attr('style','float: left;');
+  $('#productTable_length').parent('div').attr('class','col-sm-12 col-md-7');
+  $('<div class="form-group col-md-4" style="margin-right: 7%;"><select class="form-control" id="selectcategory" name="category">'+
   
   '<?php echo $categoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");
   
+  
+  
+  $('<div class="form-group col-md-4" style=""><select class="form-control" id="selectsubcategory" name="subcategory">'+
+  
+  '<?php echo $subCategoriesHtml; ?>'+
+  '</select></div>').appendTo("#productTable_length");
   
   
   

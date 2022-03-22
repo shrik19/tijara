@@ -283,8 +283,8 @@
                                      <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
                                      </div>  
                                   </div>
-                               
-                                  
+                              <!--  <div class=" col-md-12"><a href="javascript:void(0);" variant_id="" class="btn btn-danger btn-xs remove_variant_btn" title="Remove Variant"><i class="fas fa-trash"></i></a></div>
+                               -->
                                   <!-- <div class="selected_images col-md-12"></div> -->
                                   <div class="remove_variant_div"></div>
                                   <div class="loader"></div>
@@ -294,7 +294,7 @@
                               @php $i++; @endphp
                             @endforeach  
                           @endif
-
+  
                           <div class="col-md-12 text-right add-varinat-btn" style="margin-bottom: 10px;">
                               <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn"><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
                           </div>

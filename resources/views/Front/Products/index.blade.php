@@ -111,7 +111,7 @@
   '<option value="block">{{ __("lang.block_label")}}</option>'+
   '</select></div>').appendTo("#productTable_filter");
   
-  $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="selectsubcategory" name="subcategory">'+
+  $('<div class="form-group col-md-4" style="float:right;margin-left: 9px;"><select class="form-control" id="selectsubcategory" name="subcategory">'+
   
   '<?php echo $subCategoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");

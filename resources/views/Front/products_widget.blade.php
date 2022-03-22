@@ -17,7 +17,7 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
     <div class="product_img" style="display:inline-block;background-color: white;">
       <?php
      
-
+echo $product->image;exit;
       if( strpos(',', $product->image) !== false ) {
         echo "in";exit;
            $featureProductImage = explode(',', $product->image)[0];

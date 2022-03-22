@@ -222,7 +222,7 @@
         <div>
             <div class="best_seller_container" style="margin-top:60px;margin-bottom:25px;">
               <!--<div class="col-md-12"  style="margin-left: -33px;"> - commented alvisa 21-march -->
-              <div class="row" >
+              <div class="row" style="margin-right: 0%;">
               <div class="col-md-6">
               <h2  class="review_title"  id="show-all-review">{{ __('users.review_title')}}</h2>
               <hr class="hr_product_details">

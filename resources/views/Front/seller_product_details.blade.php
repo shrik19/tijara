@@ -214,7 +214,9 @@
   <div class="container-inner-section">
     <div>
       <div class="best_seller_container"  style="margin-top:60px;margin-bottom:25px;">
+
       <div class="row" style="margin-right: 0%;">
+
       <div class="col-md-6"  id="show-all-review">
       <h2 class="review_title">{{ __('users.review_title')}}</h2>
       <hr class="hr_product_details">

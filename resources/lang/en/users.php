@@ -57,7 +57,7 @@
      'contact_email_label'=>'Contact Email',
      'contact_phone_number_label'=>'Contact Phone Number',
      'add_more_btn'=>'Add More',
-     'remove_btn'=>'Remove',
+     'remove_btn'=>'Remove cards',
      'edit_seller_details_title'=>'Edit Seller Details',
      'yes'=>'Yes',
      'no'=>'No',

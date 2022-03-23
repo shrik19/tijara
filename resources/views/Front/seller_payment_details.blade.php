@@ -17,6 +17,7 @@
     </div>
 
     <div class="col-md-10 tijara-content">
+       @include ('Front.alert_messages')
       <div class="seller_info">
 
       <div class="card">
@@ -24,7 +25,7 @@
           <h2>{{ __('users.payment_btn')}} </h2>
         </div> <!--  seller_header -->
          <div class="seller_mid_cont"  style="margin-top: 40px;">
-          @include ('Front.alert_messages')
+         
           <div class="col-md-6">
             <h3>{{ __('users.payment_method_head')}}</h3>
              <form method="POST" action="{{route('frontStorePaymentDetails')}}" class="needs-validation seller-payment-form" novalidate="">

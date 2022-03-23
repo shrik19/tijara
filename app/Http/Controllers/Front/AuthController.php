@@ -2211,7 +2211,7 @@ class AuthController extends Controller
             $date_diff = round($diff / 86400);
         }
 
-        if($is_subscriber[0]->is_trial == 1){
+        if(@$is_subscriber[0]->is_trial == 1){
             $data['trial_package_msg'] = trans('messages.trial_package_active');
         }
 
@@ -2258,7 +2258,7 @@ class AuthController extends Controller
         $data['subscribedPackage'] = $is_subscriber;
         $data['ramainingDays']     = $date_diff;
         $data['expiryDate']        = $ExpiredDate;
-        $data['is_trial']          = $is_subscriber[0]->is_trial;
+        $data['is_trial']          = @$is_subscriber[0]->is_trial;
 
         return view('Front/Packages/index', $data);
         

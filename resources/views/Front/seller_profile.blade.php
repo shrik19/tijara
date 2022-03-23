@@ -44,6 +44,8 @@
             <h2 class="col-md-12 contact-info seller_profile_subheader">{{ __('users.contact_person')}}</h2>
             @if($noActivePackage == 1)
               <input type="hidden" name="is_disabled" id="disable_side_menu" value="1">
+            @else
+              <input type="hidden" name="is_disabled" id="disable_side_menu" value="0">
             @endif
             @if($noTrialPackageActive == 1)
               <input type="hidden" name="noTrialPackageActive" id="noTrialPackageActive" value="1">
@@ -279,7 +281,8 @@ $(function() {
 
   
     var noTrialPackageActive =$("#noTrialPackageActive").val();
-    if(noTrialPackageActive !=1){
+    var noActivePackage = $("#disable_side_menu").val();
+    if(noTrialPackageActive ==1 || noActivePackage ==1){
       if (!$form.data('cc-on-file') && $('.card-number').is(":visible")) {
 
         e.preventDefault();
@@ -370,7 +373,7 @@ $(function() {
              $('.saveCardDetailsDiv').show();
              $('.cardAddedDiv').remove();
               $.ajax({
-              url:siteUrl+"/delete_card_details",
+              url:siteUrl+"/delete-card-details",
               headers: {
                 'X-CSRF-Token': $('meta[name="_token"]').attr('content')
               },

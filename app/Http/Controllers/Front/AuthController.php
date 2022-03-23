@@ -280,7 +280,8 @@ class AuthController extends Controller
         $rules = [
             //'email'      => 'required|email',
            // 'email'      => 'required|email|unique:users,email,is_deleted,0',  
-            'email'      => 'required|email|unique:users,email',  
+            'email'        => "required|email|unique:users,email,NULL,id,is_deleted,0",
+            //'email'      => 'required|email|unique:users,email',  
             'password'   =>  'required|confirmed|min:6',
             'password_confirmation'   =>  'required',
         ];

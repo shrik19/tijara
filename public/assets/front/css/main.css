@@ -1713,6 +1713,7 @@ overflow: hidden;margin-top: 155px;}
  /*height: 100%; */
  position: relative;
 }
+.ov-hi{overflow: hidden;}
 .mt-2{
   margin-top:2px
 }

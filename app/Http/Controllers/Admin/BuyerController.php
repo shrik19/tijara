@@ -96,6 +96,7 @@ use File;
     * @return [JSON]           [buyer list in json format]
     */
     public function getRecords(Request $request) {
+  
         $customerDetails = UserMain::select('users.*')->where('role_id','=',1)->where('is_deleted','!=',1);
 
         if(!empty($request['search']['value']))
@@ -160,8 +161,9 @@ use File;
                 }
 
                 $action = '<a href="'.route('adminBuyersEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
+               // $action .= '<a href="'.route('adminBuyersEdit', base64_encode($id)).'" title="'.__('users.edit_title').'" class="btn btn-icon btn-success"><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';
 
-                $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminBuyersDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
+                $action .= '<a href="javascript:void(0)" onclick="return ConfirmDeleteFunction(\''.route('adminBuyersDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
                 $arr[] = [$fname, $lname, $email, $whereFindUs, $status, $action];
             }

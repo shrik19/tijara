@@ -196,13 +196,13 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::get('/edit/{id}','BuyerController@edit')->name('adminBuyersEdit');
 		Route::post('/updateBuyer/{id}','BuyerController@update')->name('adminBuyersUpdate');
 		Route::get('/changeStatus/{id}/{status}','BuyerController@changeStatus')->name('adminBuyersChangeStatus');
-		Route::get('/delete/{id}','BuyerController@delete')->name('adminBuyersDelete');
+		Route::any('/delete/{id}','BuyerController@delete')->name('adminBuyersDelete');
 		Route::get('/exportdata','BuyerController@exportdata')->name('adminBuyerexportdata');
 
 		Route::get('/buyer-Ads','BuyerController@buyerAds')->name('adminBuyersAd');
 		Route::any('/getBuyerAds','BuyerController@getBuyerAds')->name('adminBuyerGetAds');
 		Route::get('/changeAdsStatus/{id}/{status}','BuyerController@changeAdsStatus')->name('adminBuyersAdsChangeStatus');
-		Route::get('/delete/{id}','BuyerController@deleteBuyersAd')->name('adminBuyersAdsDelete');
+		Route::get('/deleteAds/{id}','BuyerController@deleteBuyersAd')->name('adminBuyersAdsDelete');
 	});
 
 	/* City */

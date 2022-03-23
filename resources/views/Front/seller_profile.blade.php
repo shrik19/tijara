@@ -370,8 +370,6 @@ $(function() {
       icon: 'fas fa-exclamation-triangle',
       buttons: {
           ok: function () {
-             $('.saveCardDetailsDiv').show();
-             $('.cardAddedDiv').remove();
               $.ajax({
               url:siteUrl+"/delete-card-details",
               headers: {
@@ -385,12 +383,15 @@ $(function() {
                 
                  if(data.success)
                 {
-                    showSuccessMessageReview(data.success,'reload');
+                   // showSuccessMessageReview(data.success,'reload');
+
+                   $('.saveCardDetailsDiv').show();
+                   $('.cardAddedDiv').remove();
                 }
-                else
+               /* else
                 {
                     showErrorMessage(data.error,'/front-login/buyer');
-                }
+                }*/
         
               }
             });

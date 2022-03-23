@@ -901,7 +901,7 @@ class AuthController extends Controller
                 'card_security_code' => '',  
             ];
         UserMain::where('id','=',$user_id)->update($arrUpdate);
-        return response()->json(['success'=>'removed card details']);
+        return response()->json(['success'=>trans('users.remove_btn')]);
 
     }
       /*

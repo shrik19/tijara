@@ -13,7 +13,7 @@
     <div class="container-fluid">
     <div class="container-inner-section">
       <!-- Example row of columns -->
-      <div class="row" style="margin-top:40px;">
+      <div style="margin-top:40px;">
        <!--  @include('Front.category_breadcrumb') -->
         <div class="col-md-3">
           <div>
@@ -52,7 +52,7 @@
 
             @include('Front.services_sidebar')
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 p-0">
            <div>
 
       <form id="productServicePage" method="post">
@@ -64,7 +64,7 @@
 			</div>
     </form>
             <!-- contact shop -->
-			<div class="col-md-3">
+			<div class="col-md-3 pr-0">
 				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right contact-btn" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
         <input type="hidden" name="is_login" id="is_login" value="{{Auth::guard('user')->id()}}">
 			</div>
@@ -79,8 +79,8 @@
                   <div>
                     <div class="col-md-9">
 					@if(!empty($store_information))
-						<h2 class="butik_info_heading pl-10">{{ __('lang.butik_info_heading')}} </h2>
-						<p class="store_info pl-10">{!! $store_information !!}</p>
+						<h2 class="butik_info_heading pl-40">{{ __('lang.butik_info_heading')}} </h2>
+						<p class="store_info pl-40">{!! $store_information !!}</p>
 					@endif
                     </div>
                      @if(@$_GET['frompage']==1)
@@ -102,7 +102,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3 pr-0">
 						<div class="form-group">
 							<label>{{ __('lang.sort_by_order')}} : </label>
 							<select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listService()">
@@ -113,8 +113,10 @@
 						</div>
 					</div>	                  
                 </div>
+                <div class="row product_container product_container-list-4 service_page">
                 <span class="service_listings"><div class="col-md-12" style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
-            </div>
+</div>
+              </div>
         </div>
 
         <div class="col-md-12" id="show-all-review">

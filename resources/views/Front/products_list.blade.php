@@ -1,6 +1,14 @@
 
 @if(is_object($Products))
-<ul class="product_details product_service_list">
+@php 
+$cssVariable = '';
+if(strpos(@$path, 'annonser') !== false)
+{
+ 	$cssVariable ="padding-left:53px";
+}
+
+@endphp
+<ul class="product_details product_service_list" style="{{$cssVariable}}">
     @foreach($Products as $product)
       @include('Front.products_widget')
     @endforeach

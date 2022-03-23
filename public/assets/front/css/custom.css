@@ -284,10 +284,10 @@ a.activemaincategory, .activesubcategory,.activeservicemaincategory, .activeserv
   background-color: #ffffff!important;
   padding: 0px;
   float: left;
-  width: 292px!important;
+  width: 290px!important;
   display: flex;
   border-radius: 30px;
-  height: 292px!important;
+  height: 290px!important;
 
 }
 .buy_now_hover_details li {

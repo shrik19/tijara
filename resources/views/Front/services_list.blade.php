@@ -1,6 +1,14 @@
 
 @if(is_object($Services))
-<ul class="product_details service_list">
+@php 
+$cssVariable = '';
+if(strpos(@$path, 'services') !== false)
+{
+ 	$cssVariable ="padding-left:38px";
+}
+
+@endphp
+<ul class="product_details service_list" style="{{$cssVariable}}">
     @foreach($Services as $service)
       @include('Front.services_widget')
     @endforeach

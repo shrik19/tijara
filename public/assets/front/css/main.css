@@ -62,7 +62,7 @@ h2.instagram_heading {
   border-radius: 20px;
   margin-bottom: 8px;
 font-size: 12px!important;
-margin-right: 6px;
+margin-right: 2px;
   border-radius: 20px;
 }
 .swish_payment_ad_img{
@@ -1704,7 +1704,7 @@ overflow: hidden;margin-top: 155px;}
 .category_list li a.active{color: #fff;background: #03989e;}
 .category_list li a{font-size: 18px; color: #717171; font-weight: 300;display: block;}
 .product_details{list-style: none;}
-.service_list{padding-left: 37px;}
+.service_list{padding-left:53px;}
 .product_service_list{padding-left: 53px;}
 .product_details li{
  float: left; 
@@ -1717,7 +1717,8 @@ overflow: hidden;margin-top: 155px;}
 .mt-2{
   margin-top:2px
 }
-.pl-10{padding-left: 15px;}
+.pl-10{padding-left: 50px;}
+.pl-40{padding-left: 37px;}
 .ml-0{margin-left: 0px!important;}
 .mt-20{margin: 0; margin-top: 20px;}
 /* .wishlisticon{font-size: 17px;} */

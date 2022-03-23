@@ -58,7 +58,7 @@
             <!-- <h3 style="line-height: 45px; text-decoration: none; font-size: 22px;margin: 5px;float: left;">{{ __('lang.all_category')}}</h3> -->
             @include('Front.products_sidebar')
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 p-0">
           <div>
 		<!-- 	<div class="col-md-1"></div> -->
 

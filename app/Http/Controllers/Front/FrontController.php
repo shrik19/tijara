@@ -285,7 +285,7 @@ class FrontController extends Controller
 
 	public function getAnnonserCategorySubcategoryList($seller_id='',$category_slug='', $subcategory_slug='') {
 		//DB::enableQueryLog();
-		$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+		/*$Categories 		= Categories::join('subcategories', 'categories.id', '=', 'subcategories.category_id')
 								->select('categories.id','categories.category_name','categories.category_slug','subcategories.subcategory_name','subcategories.subcategory_slug')
 								->where('subcategories.status','=','active')
 								->where('categories.status','=','active')
@@ -293,7 +293,7 @@ class FrontController extends Controller
 								->orderBy('subcategories.sequence_no')
 								//->groupBy('categories.id')
 								->get()
-								->toArray();
+								->toArray();*/
 		$Categories 		= AnnonserCategories::join('annonserSubcategories', 'annonsercategories.id', '=', 'annonserSubcategories.category_id')
 								->select('annonsercategories.id','annonsercategories.category_name','annonsercategories.category_slug','annonserSubcategories.subcategory_name','annonserSubcategories.subcategory_slug')
 								->where('annonserSubcategories.status','=','active')
@@ -1015,7 +1015,7 @@ public function getCatSubList(Request $request) {
 
 		//$data['ProductsTotal'] = $Products->count();
 
-		$Products 			= $Products->paginate(config('constants.Front_Products_limits'));
+		$Products 			= $Products->paginate(config('constants.middle_pages_limit'));
 		//print_r(DB::getQueryLog());exit;
 		//echo "<pre>";print_r(count($Products));exit;
 		//$data['show_products'] =$Products[0]->role_id;
@@ -2004,7 +2004,7 @@ public function getCatSubList(Request $request) {
 
 		//$data['ServicesTotal'] = $Services->count();
 
-		$Services 			= $Services->paginate(config('constants.Services_limits'));
+		$Services 			= $Services->paginate(config('constants.middle_pages_limit'));
 		//dd($Services);
 		 // print_r(DB::getQueryLog());
 		 // exit;

@@ -25,4 +25,5 @@ return [
  'Front_Services_limits'=>'10',
  'Popular_Product_limits'=>'10',
  'similar_product_limits' => '5',
+ 'middle_pages_limit' => '12',
 ];

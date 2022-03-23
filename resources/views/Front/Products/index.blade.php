@@ -115,7 +115,7 @@
   
   $('#productTable_length').find('label').attr('style','float: left;');
   $('#productTable_length').parent('div').attr('class','col-sm-12 col-md-7');
-  $('<div class="form-group col-md-4" style="margin-right: 7%;"><select class="form-control" id="selectcategory" name="category">'+
+  $('<div class="form-group col-md-4" style="margin-right: 6%;"><select class="form-control" id="selectcategory" name="category">'+
   
   '<?php echo $categoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");

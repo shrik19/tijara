@@ -30,7 +30,7 @@
 
 		<div class="card-body seller_mid_cont">
     <div class="mb-10 pro-top-btn">
-		  <a href="{{route('frontServiceCreate')}}" title="{{ __('servicelang.add_service')}}" class="btn btn-black btn-sm debg_color login_btn a_btn" ><span>{{ __('servicelang.add_service')}}</span> </a>
+		  <a href="{{route('frontServiceCreate')}}" title="{{ __('servicelang.add_service')}}" class="btn btn-black btn-sm debg_color login_btn a_btn" style="margin-right: -14px;"><span>{{ __('servicelang.add_service')}}</span> </a>
 			</div>
       <div class="clearfix"></div>
 		  <form id="" action="" method="post">

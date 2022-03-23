@@ -36,7 +36,7 @@
                     @endif
                   </div>
 
-                  <div class="col-md-3 prod-service-filter pr-w-0" >
+                  <div style="margin-top: -1%;" class="col-md-3 prod-service-filter pr-w-0" >
 
 
                     <div class="form-group">
@@ -48,7 +48,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-3 prod-service-filter pr-w-0">
+                  <div style="margin-top: -1%;" class="col-md-3 prod-service-filter pr-w-0">
                     <div class="form-group">
                       <label>{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="listServices()">

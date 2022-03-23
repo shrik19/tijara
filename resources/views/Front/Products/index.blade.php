@@ -29,7 +29,7 @@
 
 		<div class="card-body seller_mid_cont">
     <div class="mb-10 pro-top-btn">
-		  <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" ><span>{{ __('lang.add_product')}}</span> </a>
+		  <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn" style="margin-right: -14px;"><span>{{ __('lang.add_product')}}</span> </a>
 			</div>
 		  <form id="" action="" method="post">
 			@csrf

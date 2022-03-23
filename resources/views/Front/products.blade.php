@@ -27,7 +27,7 @@
 				</div>
 			  @endif
 			
-			<div class="col-md-9 products-page">
+			<div class="col-md-9 products-page p-0">
 			
 				<div class="row">
 				   @if(Request::segment(1) =='annonser')
@@ -45,10 +45,10 @@
     					   </div>				 
 					     @endif
 				   @endif
-				 <div class="col-md-12 pr-0"> 
+				 <div class="col-md-12"> 
 				  @if( Request::segment(1) !='annonser')
          
-					  <div class="col-md-3 pr-0" style="padding-left: 30px;">
+					  <div class="col-md-3 pr-0" style="padding-left:45px;">
 						<label class="checkbox toggle candy label_width" onclick="" >
 						  <input id="view" type="checkbox" />
 						  <p>

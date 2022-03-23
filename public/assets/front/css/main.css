@@ -1704,7 +1704,8 @@ overflow: hidden;margin-top: 155px;}
 .category_list li a.active{color: #fff;background: #03989e;}
 .category_list li a{font-size: 18px; color: #717171; font-weight: 300;display: block;}
 .product_details{list-style: none;}
-.service_list{padding-left: 23px;}
+.service_list{padding-left: 37px;}
+.product_service_list{padding-left: 53px;}
 .product_details li{
  float: left; 
  display: block; 
@@ -1875,7 +1876,7 @@ padding-left: 0px!important;
 	 margin-left: 40px;
   }
   .service_page{
-    margin-left: 18px!important;
+    margin-left: 3px!important;
   }
   .product_container-list-4 .product_details li:nth-child(1),
   .product_container-list-4 .product_details li:nth-child(9),

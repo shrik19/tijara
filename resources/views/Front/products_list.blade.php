@@ -1,6 +1,6 @@
 
 @if(is_object($Products))
-<ul class="product_details service_list">
+<ul class="product_details product_service_list">
     @foreach($Products as $product)
       @include('Front.products_widget')
     @endforeach

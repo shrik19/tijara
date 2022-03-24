@@ -1683,6 +1683,11 @@ public function getCatSubList(Request $request) {
 									->where('users.is_shop_closed','=','0')
 									->where('users.is_deleted','=','0')
 									->where('variant_product.quantity','>','0')
+									->where(function($q) use ($currentDate) {
+
+									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+								      })
+
 									->where('orders_details.product_id','!=',$p_id)->whereIn('orders_details.order_id', function($query)use ($p_id){
 
 									$query->select('orders_details.order_id')

@@ -22,8 +22,8 @@
              <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp; </div>@endif
            
              <div class="seller_info border-none seller_details">
-              <h2>{{ $store_name }}</h2>
-              <p>@if(!empty($city_name) && !empty($country_name)){{ $city_name }}, {{$country_name}} @endif</p>
+              <h2 style="font-size: 24px;">{{ $store_name }}</h2>
+              <p style="font-size: 15px;">@if(!empty($city_name) && !empty($country_name)){{ $city_name }}, {{$country_name}} @endif</p>
               <div class="star-rating">
                 <select class='rating service_rating' data-rating="{{$totalRating}}" style="font-size: 18px;margin-top: 3px;">
                   <option value="1" >1</option>
@@ -123,7 +123,7 @@
           <hr>
 
           <div class="col-md-3">
-            <h2  class="review_title">{{ __('users.review_title')}}</h2>
+            <h2  class="review_title" style="margin-left:-12px;">{{ __('users.review_title')}}</h2>
           </div>
 
           <div class="col-md-9">

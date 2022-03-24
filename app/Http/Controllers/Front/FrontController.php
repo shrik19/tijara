@@ -644,6 +644,7 @@ public function getCatSubList(Request $request) {
 							  	->where('subcategories.status','=','active')
 								->where('users.status','=','active')
                 			    ->where('users.is_shop_closed','=','0')
+								->where('variant_product.quantity','>','0')
 								->where('users.is_deleted','=','0')								
 							    ->whereNotIn('products.id',$product_id)
 								->where(function($q) use ($currentDate) {
@@ -1619,7 +1620,7 @@ public function getCatSubList(Request $request) {
 		$Product = $Products[0]; 
 		/*$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();*/
 		//$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>',0)->orderBy('id','ASC')->get();
-		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();
+		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>','0')->orderBy('id','ASC')->get();
 			//echo "<pre>";print_r($ProductVariants);exit;
 		foreach($ProductVariants as $variant)
 		{
@@ -1681,11 +1682,17 @@ public function getCatSubList(Request $request) {
 									->where('users.status','=','active')
 									->where('users.is_shop_closed','=','0')
 									->where('users.is_deleted','=','0')
+									->where('variant_product.quantity','>','0')
+									->where(function($q) use ($currentDate) {
+
+									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate],['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+								      })
+
 									->where('orders_details.product_id','!=',$p_id)->whereIn('orders_details.order_id', function($query)use ($p_id){
 
 									$query->select('orders_details.order_id')
 									->from('orders_details')
-									->where('orders_details.product_id','=',$p_id);  
+									->where('orders_details.product_id','!=',$p_id);  
 									//->where('orders_details.product_id','=',$p_id);
 									})->groupBy('products.id')
 									->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
@@ -1711,7 +1718,8 @@ public function getCatSubList(Request $request) {
 											$data['PopularProducts']=$PopularProducts;
 										}
 										
-									}else{										
+									}else{		
+									
 										$data['PopularProducts']	= $this->getPopularProducts(5);
 									}
 									//echo "<pre>";print_r($Product);exit;

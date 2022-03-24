@@ -57,7 +57,7 @@
      'contact_email_label'=>'Kontakta e-post',
      'contact_phone_number_label'=>'kontaktnummer',
      'add_more_btn'=>'Lägga till mer',
-     'remove_btn'=>'Avlägsna',
+     'remove_btn'=>'Ta bort kort',
      'edit_seller_details_title'=>'Redigera säljarinformation',
      'yes'=>'Ja',
      'no'=>'Nej',

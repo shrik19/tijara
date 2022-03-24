@@ -149,6 +149,7 @@
 @if(Auth::guard('user')->id())
 <!-- <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a> -->
   @if(Auth::guard('user')->getUser()->role_id == 1)
+
    <div class="pull-right">
                 @if(Auth::guard('user')->id())
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28" /></h3></a>
@@ -327,7 +328,7 @@
         */
         ?>
                 @if(!empty($Categories[$CategoryId]['subcategory']))
-				<?php $current_path = explode("/",request()->path()); ?>
+        <?php $current_path = explode("/",request()->path()); ?>
                 <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="">{{$Category['category_name']}}</a>
                   <?php /*
                 <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >

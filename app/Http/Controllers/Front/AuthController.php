@@ -125,7 +125,7 @@ class AuthController extends Controller
         else
         {
 
-            if(Auth::guard('user')->attempt(['email' => $request->input('email'),'password' => $request->input('password')]))
+            if(Auth::guard('user')->attempt(['email' => $request->input('email'),'password' => $request->input('password'),'is_deleted' => 0]))
             {
                // echo "<pre>";print_r($is_subscriber);exit;
          
@@ -280,7 +280,8 @@ class AuthController extends Controller
         $rules = [
             //'email'      => 'required|email',
            // 'email'      => 'required|email|unique:users,email,is_deleted,0',  
-            'email'      => 'required|email|unique:users,email',  
+            'email'        => "required|email|unique:users,email,NULL,id,is_deleted,0",
+            //'email'      => 'required|email|unique:users,email',  
             'password'   =>  'required|confirmed|min:6',
             'password_confirmation'   =>  'required',
         ];
@@ -901,7 +902,7 @@ class AuthController extends Controller
                 'card_security_code' => '',  
             ];
         UserMain::where('id','=',$user_id)->update($arrUpdate);
-        return response()->json(['success'=>'removed card details']);
+        return response()->json(['success'=>trans('users.remove_btn')]);
 
     }
       /*
@@ -2211,7 +2212,7 @@ class AuthController extends Controller
             $date_diff = round($diff / 86400);
         }
 
-        if($is_subscriber[0]->is_trial == 1){
+        if(@$is_subscriber[0]->is_trial == 1){
             $data['trial_package_msg'] = trans('messages.trial_package_active');
         }
 
@@ -2258,7 +2259,7 @@ class AuthController extends Controller
         $data['subscribedPackage'] = $is_subscriber;
         $data['ramainingDays']     = $date_diff;
         $data['expiryDate']        = $ExpiredDate;
-        $data['is_trial']          = $is_subscriber[0]->is_trial;
+        $data['is_trial']          = @$is_subscriber[0]->is_trial;
 
         return view('Front/Packages/index', $data);
         

@@ -40,7 +40,7 @@
 
 
                     <div class="form-group">
-                      <label>{{ __('lang.sort_by_order')}} : </label>
+                      <label class="product_sorting_filter">{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="listServices()">
                           <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                           <option selected value="asc">{{ __('lang.sort_by_asc')}}</option>
@@ -50,7 +50,7 @@
                   </div>
                   <div style="margin-top: -1%;" class="col-md-3 prod-service-filter pr-w-0">
                     <div class="form-group">
-                      <label>{{ __('lang.sort_by')}} : </label>
+                      <label class="product_sorting_filter">{{ __('lang.sort_by')}} : </label>
                       <select class="form-control" name="sort_by" id="sort_by" onchange="listServices()">
                          <!--  <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
                          <!--  <option value="name">{{ __('lang.sort_by_name')}}</option> -->

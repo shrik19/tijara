@@ -20,8 +20,8 @@
              <div class="seller_logo seller_details_img">
              <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif
              <div class="seller_info border-none seller_details">
-              <h2>{{ $store_name }}</h2>
-              <p>@if(!empty($city_name) && !empty($country_name)){{ $city_name }}, {{$country_name}} @endif</p>
+              <h2 style="font-size: 24px;">{{ $store_name }}</h2>
+              <p style="font-size: 15px;">@if(!empty($city_name) && !empty($country_name)){{ $city_name }}, {{$country_name}} @endif</p>
               <div class="star-rating">
                 <select class='rating product_rating' data-rating="{{$totalRating}}" style="font-size: 18px;margin-top: 3px;">
                   <option value="1" >1</option>

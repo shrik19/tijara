@@ -88,7 +88,7 @@
                     @endforeach
 
                     @else
-                    <div style="text-align: center;margin-top: 50px;">{{__('lang.datatables.sEmptyTable')}}</div>
+                    <div style="text-align: center;margin-top: 50px;margin-bottom: 50px;">{{__('lang.datatables.sEmptyTable')}}</div>
                     @endif
                     </div>
                     </div>

@@ -177,7 +177,7 @@
 					    <input type="hidden" id="validity_days" name="validity_days" value="{{$data['validity_days']}}">
 					    <tr>
 					  		<td>{{ __('users.description_label')}}</td>
-					  		<td>{{ strip_tags($row->description)}}</td>
+					  		<td>{{ strip_tags(@$row->description)}}</td>
 					    </tr>
 					    <tr>
 					  		<td>{{ __('users.amount_label')}}</td>

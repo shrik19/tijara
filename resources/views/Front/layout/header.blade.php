@@ -148,81 +148,62 @@
 <div>
 @if(Auth::guard('user')->id())
 <!-- <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a> -->
-  @if(Auth::guard('user')->getUser()->role_id == 1)
-   <div class="pull-right">
-                @if(Auth::guard('user')->id())
-                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28" /></h3></a>
-                <ul class="dropdown-menu">
-
-                  <li style="width:100%"><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
-
-                  <li  style="width:100%"><a href="{{route('frontAllBuyerOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
-
-                  <li style="width:100%"><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
-
-                  <li style="width:100%"><a href="{{route('manageFrontProducts')}}">{{ __('users.buyer_product_list_title')}}</a></li>
-
-                  <!-- <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li> -->
-                 
-                  <li style="width:100%"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
-                  <li style="width:100%"><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
-                </ul>
-
-                @else
-                <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
-                @endif
-
-              </div>
-  @else
- <!--  <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28" /></h3></a>  -->
-
-   <?php /* <div class="pull-right">
-      @if(Auth::guard('user')->id())
-      <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><!-- <img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" /> --><i class="fas fa-bell"><span class='badge badge-pill'>
-          @php
-            $getTotalOrders = getNewOrders(Auth::guard('user')->id());
-            $getTotalBookings = getNewBookings(Auth::guard('user')->id());
-            $totalNotifications = $getTotalOrders + $getTotalBookings;
-        @endphp
-
-      {{$totalNotifications}}</span></i></h3></a>
-
-      <ul class="dropdown-menu">
-        <li style="width:100%"><a href="{{route('frontAllbookingRequest')}}">{{ __('users.my_booking_title')}} <span class='badge badge-pill'>{{ $getTotalBookings}}</span></a></li>
-
-        <li  style="width:100%"><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} <span class='badge badge-pill'>{{ $getTotalOrders}}</span></a></li>
-      </ul>
-      @endif
-    </div>
-*/?>
- <div class="cart_details">
-         @php
-            $getTotalOrders = getNewOrders(Auth::guard('user')->id());
-            $getTotalBookings = getNewBookings(Auth::guard('user')->id());
-            $totalNotifications = $getTotalOrders + $getTotalBookings;
-
-        @endphp
-                     <a class="top_icon_css"  href="/profile">
-
-                    <img class="m-7" src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" />
-                      </a>
-              
-                      @if($totalNotifications > 0)
-                      <div class="cart_count notification_count">
-                         
-                        <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" style="cursor: pointer">{{$totalNotifications}}</span>
+@if(Auth::guard('user')->getUser()->role_id == 1)
+ <?php echo "in if";?>
+<div class="pull-right">
+           <!-- y -->
+            <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28" /></h3></a>
             <ul class="dropdown-menu">
-        <li style="width:100%"><a href="{{route('frontAllbookingRequest')}}">{{ __('users.my_booking_title')}} <p class='badge badge-pill debg_color' id="allSellerBookings">{{ $getTotalBookings}}</p></a></li>
 
-        <li  style="width:100%"><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} <p class='badge badge-pill debg_color' id="allSellerOrders">{{ $getTotalOrders}}</p></a></li>
-      </ul>
-                      </div>
-            
-                      @endif
+              <li style="width:100%"><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
+
+              <li  style="width:100%"><a href="{{route('frontAllBuyerOrders')}}">{{__('lang.manage_orders_menu')}} </a></li>
+
+              <li style="width:100%"><a href="{{route('frontAllServiceRequest')}}">{{ __('users.my_booking_title')}}</a></li>
+
+              <li style="width:100%"><a href="{{route('manageFrontProducts')}}">{{ __('users.buyer_product_list_title')}}</a></li>
+
+              <!-- <li><a href="{{route('frontProductAttributes')}}">{{ __('lang.manage_attributes_menu')}}</a></li> -->
+             
+              <li style="width:100%"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
+              <li style="width:100%"><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
+            </ul>
+
+          <!--   @else
+            <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"> {{ __('users.login_label')}} <i class="fas fa-user-check de_col"></i></a></h3>
+            @endif -->
+
+          </div>
+@else
+  <?php echo "in else here";?>
+<div class="cart_details">
+     @php
+        $getTotalOrders = getNewOrders(Auth::guard('user')->id());
+        $getTotalBookings = getNewBookings(Auth::guard('user')->id());
+        $totalNotifications = $getTotalOrders + $getTotalBookings;
+
+    @endphp
+                 <a class="top_icon_css"  href="/profile">
+
+                <img class="m-7" src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" />
+                  </a>
+          
+                  @if($totalNotifications > 0)
+                  <div class="cart_count notification_count">
+                     
+                    <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" style="cursor: pointer">{{$totalNotifications}}</span>
+        <ul class="dropdown-menu">
+    <li style="width:100%"><a href="{{route('frontAllbookingRequest')}}">{{ __('users.my_booking_title')}} <p class='badge badge-pill debg_color' id="allSellerBookings">{{ $getTotalBookings}}</p></a></li>
+
+    <li  style="width:100%"><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} <p class='badge badge-pill debg_color' id="allSellerOrders">{{ $getTotalOrders}}</p></a></li>
+  </ul>
                   </div>
+        
+                  @endif
+              </div>
 <!--   <a href="/profile"   type="button" ><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" /></h3></a>  -->
 
-  @endif              
+@endif              
 @else
 
 <h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28"/></a></h3>
@@ -233,6 +214,7 @@
 </li>
                     <li>
                     <div class="cart_details">
+                      <?php echo "here";exit;?>
                    <!--  <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> -->
                      <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{ route('frontLogin')}}" @else href="{{ route('frontLogin') }}" @endif>
 

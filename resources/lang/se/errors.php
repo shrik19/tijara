@@ -33,7 +33,7 @@
 ',
      'sequence_number_err'=>'Fyll i sekvensnummer',
      'enter_diff_cat_err'=>'Vänligen ange en annan kategori, den har redan tagits.',
-     'unique_email_err'=>'Ange ett annat e-postmeddelande, det har redan tagits.',
+     'unique_email_err'=>'E-postadressen är redan registrerad. Pröva med en annan.',
      'valid_email_err'=>'Ange giltig e-post.',
      'unique_paypal_email_err'=>'Vänligen ange ett annat Paypal-e-postmeddelande, det har redan tagits.',
      'max_char_err'=>'Maximalt 500 tecken tillåtna',

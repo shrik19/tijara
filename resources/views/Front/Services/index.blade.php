@@ -12,10 +12,11 @@
       </div>
       <div class="col-md-10 tijara-content">
          @include('Front.alert_messages')
+         @if($subscribedError)
+        <div class="alert alert-danger">{{$subscribedError}}</div>
+        @endif
       <div class="seller_info">
-		@if($subscribedError)
-	    <div class="alert alert-danger">{{$subscribedError}}</div>
-	    @endif
+		
 	 
 	   
 	  <div class="card">

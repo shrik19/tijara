@@ -38,13 +38,14 @@ width:100% !important;
       <div class="row">
 
           <!-- Example row of columns -->
-          @if($subscribedError)
-          <div class="alert alert-danger">{{$subscribedError}}</div>
-          @endif
+          
 
           <div class="col-md-12">
               <div class="tijara-content">
               @include ('Front.alert_messages')
+              @if($subscribedError)
+            <div class="alert alert-danger update-alert-css">{{$subscribedError}}</div>
+            @endif
            <!--      <div class="col-md-12"> -->
             <!--  <div class="col-md-10"> -->
              <div class="seller_info border-none">

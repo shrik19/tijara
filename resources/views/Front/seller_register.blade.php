@@ -248,7 +248,9 @@
 							              </div>
 
 							              <div class="payment_explanation_text">
-							              	{{ __('messages.swish_number_step_description')}}	
+							              	<!-- {{ __('messages.swish_number_step_description')}}	
+							              	 -->
+							              	 <div class="payment_explanation_text">{{ __('messages.swish_description_step_1')}}</br>{{ __('messages.swish_description_step_2')}}</br>{{ __('messages.swish_description_step_3')}}</div> 
 							            </div>
 							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
 							            <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">

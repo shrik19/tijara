@@ -32,7 +32,7 @@
      'input_aphanum_dash_err'=>'Please input lowercase letters, numbers and dash only',
      'sequence_number_err'=>'Please fill in Sequence Number',
      'enter_diff_cat_err'=>'Please enter different Category, its already taken.',
-     'unique_email_err'=>'Please enter different email , its already taken',
+     'unique_email_err'=>'The email address is already registered. Try another.',
      'valid_email_err'=>'Please enter Valid Email.',
      'unique_paypal_email_err'=>'Please enter different Paypal email , its already taken.',
      'max_char_err'=>'Maximum 500 characters allowed',

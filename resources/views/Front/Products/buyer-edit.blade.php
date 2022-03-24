@@ -38,10 +38,13 @@ width:100% !important;
        <div class="col-md-12"> 
      
         <!-- Example row of columns -->
-        @if($subscribedError)
-          <div class="alert alert-danger">{{$subscribedError}}</div>
-        @endif
+        
         <div class="tijara-content">
+           @include ('Front.alert_messages')
+
+           @if($subscribedError)
+          <div class="alert alert-danger update-alert-css">{{$subscribedError}}</div>
+          @endif
          <div class="seller_info border-none">
           <div class="card">
           <div class="card-header  ml-0 row">
@@ -67,7 +70,7 @@ width:100% !important;
 
         
 
-          @include ('Front.alert_messages')
+         
           <div class="col-md-12 p-0">
 
           <div class="login_box">

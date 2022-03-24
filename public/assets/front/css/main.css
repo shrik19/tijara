@@ -33,7 +33,9 @@ header{
 .mid-section {
     min-height: 600px;
 }
-
+.update-alert-css{
+  margin-top: 20px !important;
+}
 .product_heading{
   margin-top: 60px !important;
   margin-bottom: 25px !important;
@@ -1725,7 +1727,7 @@ overflow: hidden;margin-top: 155px;}
 .seller_logo{    width: 100%;
     height: auto;
     display: flex;
-    margin-right: 10px;
+   /* margin-right: 10px;*/
     float: left;
   }
 

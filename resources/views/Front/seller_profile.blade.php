@@ -24,6 +24,7 @@
       @include ('Front.layout.sidebar_menu')
     </div>
     <div class="col-md-10 tijara-content ">
+      @include ('Front.alert_messages')
       @if(!empty($package_exp_msg))
           <div class="alert alert-danger" role="alert">
             <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>
@@ -32,7 +33,7 @@
     <form id="seller-profile-form" action="{{route('frontSellerProfileUpdate')}}" method="post"
      enctype="multipart/form-data"  cc-on-file="false" stripe-publishable-key="{{$strip_api_key}}">
             @csrf
-      @include ('Front.alert_messages')
+      
       <div class="col-md-12">
         <div class="seller_info">
       <div class="card-header row seller_header">

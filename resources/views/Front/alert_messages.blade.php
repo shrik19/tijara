@@ -1,6 +1,6 @@
 <!-- Common Alert Messages  -->
 @if(Session::has('success'))
-<div class="col-md-12">
+<div class="col-md-12 update-alert-css">
 <div class="alert alert-success alert-dismissible show ">
    <div class="alert-body">
    <button class="close" data-dismiss="alert">
@@ -12,7 +12,7 @@
 </div>
 @endif
 @if(Session::has('error'))
-<div class="col-md-12">
+<div class="col-md-12 update-alert-css">
 <div class="alert alert-danger alert-dismissible show ">
    <div class="alert-body">
    <button class="close" data-dismiss="alert">
@@ -24,7 +24,7 @@
 </div>
 @endif
 @if(Session::has('warning'))
-<div class="col-md-12">
+<div class="col-md-12 update-alert-css">
 <div class="alert alert-warning alert-dismissible show ">
    <div class="alert-body">
    <button class="close" data-dismiss="alert">

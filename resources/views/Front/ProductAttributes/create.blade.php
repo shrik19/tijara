@@ -16,7 +16,7 @@
         @include ('Front.layout.sidebar_menu')
       </div>
         @if($subscribedError)
-	    <div class="alert alert-danger">{{$subscribedError}}</div>
+	    <div class="alert alert-danger update-alert-css">{{$subscribedError}}</div>
 	    @endif
         <div class="col-md-10 tijara-content">
           <div class="seller_info">

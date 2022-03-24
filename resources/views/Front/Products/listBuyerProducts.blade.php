@@ -10,10 +10,11 @@
         <div class="col-md-12">
 
           <div class="tijara-content">
+             @include('Front.alert_messages')
             @if($subscribedError)
-              <div class="alert alert-danger">{{$subscribedError}}</div>
+              <div class="alert alert-danger update-alert-css">{{$subscribedError}}</div>
             @endif
-            @include('Front.alert_messages')
+           
             <div class="seller_info border-none">
             <div class="card">
             <div class="card-header ml-0 row">

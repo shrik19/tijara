@@ -110,9 +110,9 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
 	'strip_description_step_2' => '2. Gå till Utvecklare i det högra hörnet och välj sedan API-nycklar till
 vänster i listan.',
 	'strip_description_step_3' => '3). klistra in hemlig nyckel i första inmatningsrutan och publicerbar nyckel i andra rutan',
-	'swish_description_step_1' => '1).Logga in på swish adyne-kontot',
-	'swish_description_step_2' => '2). Gå till Utvecklare > API-uppgifter och välj användarnamnet för din integration, till exempel ws@company.techbee.',
-	'swish_description_step_3' => '3).Autentisering, välj Generera Ny API-nyckel',
+	'swish_description_step_1' => '1).Fyll i ditt swishnummer',
+	'swish_description_step_2' => '2).Tänk på att alla ordrar som kommer in med swish kontrolleras manuellt av dig som admin',
+	'swish_description_step_3' => '3).Efter kontroll av inkommen summa, skicka produkten. Se bilden swish',
 	'klarna_description_step_1' => '1. Logga in på Klarna Merchant Portal.',
 	'klarna_description_step_2' => '2. Klicka på inställningar och Klarna API-nycklar.',
 	'klarna_description_step_3' => '3. Klicka sedan på Generera nya Klarna API-nycklar.',

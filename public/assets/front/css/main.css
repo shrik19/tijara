@@ -3181,7 +3181,7 @@ h1.checkoutHeading {
   border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
-  .footer-pa{padding-left: 15px;}
+  .footer-pa{padding:0 15px;}
 
 .m-m-t-15{margin-top: 15px;}
   .tijara_quantity select {

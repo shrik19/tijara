@@ -145,7 +145,7 @@
                   <ul class="right-icons">
                   <li>
 
-<div><?php echo Auth::guard('user')->id()."sjhgjhdf";exit;?>
+<div>
 @if(Auth::guard('user')->id())
 <!-- <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a> -->
   @if(Auth::guard('user')->getUser()->role_id == 1)

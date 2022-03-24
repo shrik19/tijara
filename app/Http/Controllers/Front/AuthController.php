@@ -157,7 +157,7 @@ class AuthController extends Controller
                         $user_id = Auth::guard('user')->id();
                         /*get role id*/
                         $getRoleId = DB::table('users')
-                            ->where('id', $user_id)->first();
+                            ->where('id', $user_id)->where('is_deleted','!=',1)->first();
 
 /*echo "<pre>";print_r($getRoleId);exit;
 

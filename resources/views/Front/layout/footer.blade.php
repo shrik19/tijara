@@ -10,7 +10,7 @@
       </div>
     </div> -->
     <div class="ft_middle_container container-fluid">
-      <div class="container-inner-section">
+      <div class="container-inner-section ">
         <div class="row">
 
         <div class="col-md-3">
@@ -37,7 +37,7 @@
         //  echo "<pre>";print_r($getHowToSellPage);exit;
         @endphp
 		<div class="col-md-2">
-			<div class="ft_page_links">
+			<div class="ft_page_links footer-pa">
 				<h3>{{ __('users.footer_sell_label')}}</h3>
 				<ul>
            @if(!empty($getHowToSellPage))
@@ -64,7 +64,7 @@
 			</div>
 		</div>
         <div class="col-md-2">
-          <div class="ft_page_links">
+          <div class="ft_page_links footer-pa">
           <h3>{{ __('lang.about_tijara_label')}}</h3>
           @if(!empty($allPages))
           <ul>
@@ -94,7 +94,7 @@
         </div>
       </div>
       <div class="col-md-2">
-        <div class="ft_page_links">
+        <div class="ft_page_links footer-pa">
         <h3>{{ __('lang.customer_service_label')}}</h3>
         <ul>
          <!--  <li><a href="{{route('frontUserProfile')}}">{{ __('lang.my_account_title')}}</a></li> 
@@ -124,7 +124,7 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div class="ft_page_links">
+      <div class="ft_page_links footer-pa">
         <h3>{{ __('lang.join_our_newsletter_now_label')}}</h3>
         <p>{{ __('lang.get_e-mail_updates_label')}}</p>
           <div class="sub_box">

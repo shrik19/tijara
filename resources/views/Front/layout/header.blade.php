@@ -145,11 +145,11 @@
                   <ul class="right-icons">
                   <li>
 
-<div>
+<div><?php echo Auth::guard('user')->id()."sjhgjhdf";exit;?>
 @if(Auth::guard('user')->id())
 <!-- <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a> -->
   @if(Auth::guard('user')->getUser()->role_id == 1)
-  <?php echo "sjhgjhdf";exit;?>
+
    <div class="pull-right">
                 @if(Auth::guard('user')->id())
                 <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28" /></h3></a>

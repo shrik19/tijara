@@ -125,7 +125,7 @@ class AuthController extends Controller
         else
         {
 
-            if(Auth::guard('user')->attempt(['email' => $request->input('email'),'password' => $request->input('password')]))
+            if(Auth::guard('user')->attempt(['email' => $request->input('email'),'password' => $request->input('password'),'is_deleted' => 0]))
             {
                // echo "<pre>";print_r($is_subscriber);exit;
          
@@ -157,7 +157,7 @@ class AuthController extends Controller
                         $user_id = Auth::guard('user')->id();
                         /*get role id*/
                         $getRoleId = DB::table('users')
-                            ->where('id', $user_id)->where('is_deleted','!=',1)->first();
+                            ->where('id', $user_id)->first();
 
 /*echo "<pre>";print_r($getRoleId);exit;
 

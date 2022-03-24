@@ -1620,7 +1620,7 @@ public function getCatSubList(Request $request) {
 		$Product = $Products[0]; 
 		/*$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();*/
 		//$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>',0)->orderBy('id','ASC')->get();
-		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();
+		$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>','0')->orderBy('id','ASC')->get();
 			//echo "<pre>";print_r($ProductVariants);exit;
 		foreach($ProductVariants as $variant)
 		{

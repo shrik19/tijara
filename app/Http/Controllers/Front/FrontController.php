@@ -1687,7 +1687,7 @@ public function getCatSubList(Request $request) {
 
 									$query->select('orders_details.order_id')
 									->from('orders_details')
-									->where('orders_details.product_id','=',$p_id);  
+									->where('orders_details.product_id','!=',$p_id);  
 									//->where('orders_details.product_id','=',$p_id);
 									})->groupBy('products.id')
 									->offset(0)->limit(config('constants.Popular_Product_limits'))->get();

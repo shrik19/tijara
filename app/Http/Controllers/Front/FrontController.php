@@ -644,7 +644,7 @@ public function getCatSubList(Request $request) {
 							  	->where('subcategories.status','=','active')
 								->where('users.status','=','active')
                 			    ->where('users.is_shop_closed','=','0')
-								->where('products.is_sold','=','0')
+								->where('variant_product.quantity','>','0')
 								->where('users.is_deleted','=','0')								
 							    ->whereNotIn('products.id',$product_id)
 								->where(function($q) use ($currentDate) {
@@ -1682,7 +1682,7 @@ public function getCatSubList(Request $request) {
 									->where('users.status','=','active')
 									->where('users.is_shop_closed','=','0')
 									->where('users.is_deleted','=','0')
-									->where('products.is_sold','=','0')
+									->where('variant_product.quantity','>','0')
 									->where('orders_details.product_id','!=',$p_id)->whereIn('orders_details.order_id', function($query)use ($p_id){
 
 									$query->select('orders_details.order_id')

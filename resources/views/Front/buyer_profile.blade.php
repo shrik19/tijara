@@ -116,7 +116,7 @@
                 echo '<div><img src="'.url('/').'/uploads/Buyer/resized/'.$buyerDetails[0]->profile.'" class="buyer_profile_update_img"><a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>';
               
             }else{
-                  echo '<div>><img src="'.url('/').'/uploads/Buyer/no_image_circle.png" class="buyer_profile_update_img"></div>';
+                  echo '<div><img src="'.url('/').'/uploads/Buyer/no_image_circle.png" class="buyer_profile_update_img"></div>';
             }             
             @endphp 
           </div>

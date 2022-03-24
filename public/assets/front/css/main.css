@@ -3182,7 +3182,9 @@ h1.checkoutHeading {
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
   .footer-pa{padding:0 20px;}
-
+  .product_service_list{
+    padding: 0!important;
+  }
 .m-m-t-15{margin-top: 15px;}
   .tijara_quantity select {
     padding: 6px 4px;
@@ -3291,7 +3293,7 @@ h1.checkoutHeading {
   padding: 0 15px;
 }
 .service_list {
-  padding-left: 0px;
+  padding-left: 0px!important;
 }
 .product_data_img {
   height: 305px;

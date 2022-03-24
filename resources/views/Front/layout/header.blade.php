@@ -149,7 +149,7 @@
 @if(Auth::guard('user')->id())
 <!-- <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a> -->
 @if(Auth::guard('user')->getUser()->role_id == 1)
- <?php echo "in if";?>
+  <?php echo "here";exit;?>
 <div class="pull-right">
            <!-- y -->
             <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28" /></h3></a>
@@ -175,7 +175,7 @@
 
           </div>
 @else
-  <?php echo "in else here";?>
+
 <div class="cart_details">
      @php
         $getTotalOrders = getNewOrders(Auth::guard('user')->id());
@@ -214,7 +214,7 @@
 </li>
                     <li>
                     <div class="cart_details">
-                      <?php echo "here";exit;?>
+
                    <!--  <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> -->
                      <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{ route('frontLogin')}}" @else href="{{ route('frontLogin') }}" @endif>
 

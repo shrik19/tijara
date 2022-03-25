@@ -130,5 +130,6 @@
      'please_select_one_payment_method' => 'Välj minst en betalningsmetod.',
      'select_shopping_method_err' => 'Välj fraktmetod',
      'enter_all_fields_err' => 'Ange alla fält.',
+     'store_name_characters_len_err' => 'Endast 20 tecken är tillåtna för butiksnamn.',
  ]
 ?>

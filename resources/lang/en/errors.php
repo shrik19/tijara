@@ -132,5 +132,6 @@
      'please_select_one_payment_method' => 'Please select atleast one payment method.',
      'select_shopping_method_err' => 'Please Select shipping Method',
      'enter_all_fields_err' => 'Enter all fields.',
+     'store_name_characters_len_err' => 'Only 20 characters are allowed for store name.',
  ]
 ?>

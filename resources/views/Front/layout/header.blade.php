@@ -90,9 +90,7 @@
     var expired_card_err =  "{{ __('lang.expired_card_err')}}";    
     var invalid_cvc_err =  "{{ __('lang.invalid_cvc_err')}}";
     var enter_all_fields_err =  "{{ __('errors.enter_all_fields_err')}}";
-
-
-
+    var store_name_characters_len_err ="{{ __('errors.store_name_characters_len_err')}}";
 
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)

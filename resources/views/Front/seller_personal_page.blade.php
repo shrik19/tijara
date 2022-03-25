@@ -103,9 +103,10 @@
               <label>{{ __('lang.store_name')}} <span class="de_col"></span></label>
               <input type="text" class="form-control store_name butik_profile_store_name" id="store_name" name="store_name" 
               placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif"/>
-         <input type="button" name="check-store-unique" class="btn debg_color verify-store"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 1px;" />  
-        <!--     <span class="invalid-feedback" id="err_fname">@if($errors->has('store_name')) {{ $errors->first('store_name') }}@endif </span> -->
+            <input type="button" name="check-store-unique" class="btn debg_color verify-store" onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 1px;" />  
+            
             </div>
+            <span class="invalid-feedback" id="err_store_name" style="position: relative;"> </span>
             <div class="loader"></div>
             <div class="form-group increment cloned">
               <label>{{ __('users.seller_header_img_label')}}</label>
@@ -169,7 +170,7 @@
         
         <div class="col-md-9 pull-right">
 
-          <button class="btn btn-black debg_color login_btn">{{ __('lang.update_btn')}}</button>
+          <button class="btn btn-black debg_color login_btn" id="update_seller_info">{{ __('lang.update_btn')}}</button>
           <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
                 
         </div>
@@ -181,6 +182,84 @@
             </div>
 </div> <!-- /container -->
 <script type="text/javascript">
+
+  /*function to check unique store name
+* @param : store name
+*/
+function checkStoreName(){
+
+    var store_name= $("#store_name").val();
+    var seller_id = $("#seller_id").val();
+    if(store_name!=''){
+        $.ajax({
+          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
+          type: 'get',
+          data: {},
+          success: function(output){
+            if(output !=''){
+             showErrorMessage(output);
+            }else{
+                //alert(store_name_is_verified);
+                showSuccessMessageReview(store_name_is_verified);
+            }
+            }
+        });
+    }else{
+      showErrorMessage(please_enter_store_name);
+    }
+}
+
+  $('#update_seller_info').click(function(e) {  
+    
+    e.preventDefault();
+    let store_name       = $("#store_name").val();
+    var maxLength = 21;
+    let err = 0;
+    var seller_id = $("#seller_id").val();
+    if(store_name!=''){
+        $.ajax({
+          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
+          type: 'get',
+          async:false,
+          data: {},
+          success: function(output){
+            if(output !=''){
+             showErrorMessage(output,);
+             err=1;
+            }else{
+               err=0;
+               // showSuccessMessageReview(store_name_is_verified,);
+            }
+            }
+        });
+    }else{
+      showErrorMessage(please_enter_store_name,);
+      err=1;
+    }
+
+    if(store_name==''){
+        $("#err_store_name").html(please_enter_store_name).show();
+       // $("#err_store_name").parent().addClass('jt-error');
+         err = 1; 
+      // showErrorMessage(please_enter_store_name)
+    } else if(store_name.length>=maxLength){
+    $("#err_store_name").html(store_name_characters_len_err).show();
+       err = 1; 
+    } else  {
+      $("#err_store_name").html('');
+    }
+
+    if(err == 1)
+    {
+      return false;
+    }
+    else
+    {
+      $('#seller-personal-form').submit();
+      return true;
+    }
+
+  });
 function createCookie(name,value,minutes) {
     if (minutes) {
         var date = new Date();
@@ -212,33 +291,6 @@ logoInp.onchange = evt => {
   }
 }
 
-/*function to check unique store name
-* @param : store name
-*/
-function checkStoreName(){
-
-    var store_name= $("#store_name").val();
-    var seller_id = $("#seller_id").val();
-    if(store_name!=''){
-        $.ajax({
-          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
-          type: 'get',
-          data: {},
-          success: function(output){
-            if(output !=''){
-             showErrorMessage(output);
-            }else{
-                //alert(store_name_is_verified);
-                showSuccessMessageReview(store_name_is_verified);
-            }
-            }
-        });
-    }else{
-
-     
-      showErrorMessage(please_enter_store_name);
-    }
-}
 $('body').on('click', '.remove_banner_image', function () {
     var path = $('#previewBanner').attr('src');
     var Filename= path.split('/').pop();

@@ -3180,8 +3180,12 @@ h1.checkoutHeading {
 .pick_input{
   border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;
 }
+.new_add{padding-right: 0px;}
+.new_add_heading{margin-bottom: 60px;}
+.pt-4{padding-top: 22px;}
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
   .footer-pa{padding:0 20px;}
+  .pt-4{padding-top: 10px;}
   .product_service_list{
     padding: 0!important;
   }
@@ -3428,8 +3432,8 @@ h1.checkoutHeading {
   font-weight: 700;
 }
 }
-.new_add{padding-right: 0px;}
-.new_add_heading{margin-bottom: 60px;}
+
+
 @media only screen and (min-device-width: 650px) and (max-device-width: 770px){  
 
 	.pr-w-0 {

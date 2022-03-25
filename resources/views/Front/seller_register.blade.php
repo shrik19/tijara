@@ -311,8 +311,9 @@
 										<span class="invalid-feedback" id="err_country_name"></span>
 
 										<div class="form-group increment cloned">
-											<div class="col-md-4 seller_banner_upload" style="margin-top: 20px;"></div>
-											<label class="placeholder" style="margin-left: -144px;">{{ __('users.seller_header_img_label')}}</label>
+											<label class="placeholder">{{ __('users.seller_header_img_label')}}</label>
+											<div class="seller_banner_upload" style="margin-top: 20px;"></div>
+											
                                             
 											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
 											
@@ -323,8 +324,9 @@
 										</div>
 
 										<div class="form-group increment cloned">
-											<div class="col-md-4 seller_logo_upload" style="margin-top: 20px;"></div>
-											<label class="placeholder" style="margin-left: -144px;">{{ __('users.seller_logo_label')}}</label>
+											<label class="placeholder">{{ __('users.seller_logo_label')}}</label>
+											<div class="seller_logo_upload" style="margin-top: 20px;"></div>
+											
 											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
 											
 											<span class="invalid-feedback" id="err_seller_logo_img"></span>	
@@ -365,6 +367,7 @@
     var fill_in_city_err    = "{{ __('errors.fill_in_city_err')}}";
     var fill_in_country_err = "{{ __('errors.fill_in_country_err')}}";
     var invalid_files_err="{{ __('errors.invalid_files_err')}}";
+    var store_name_characters_len_err ="{{ __('errors.store_name_characters_len_err')}}";
 	/* second step */
     function subscribe_package(i,val){
     	$(".packages-subscribe").each(function() {
@@ -893,15 +896,18 @@ $('#last-step').click(function(e) {
     let verify_btn_click = $("#verify_btn_click").val();
     var city_name        =  $("#city_name").val();
     var country_name     = $("#country_name").val();
-
+    var maxLength = 21;
     let last_step_err = 0;
-
+ 
     if(store_name==''){
         $("#err_store_name").html(please_enter_store_name).show();
        // $("#err_store_name").parent().addClass('jt-error');
          last_step_err = 1; 
       // showErrorMessage(please_enter_store_name)
-    }  else  {
+    } else if(store_name.length>=maxLength){
+		$("#err_store_name").html(store_name_characters_len_err).show();
+		last_step_err = 1; 
+    } else  {
            // $("#err_store_name").parent().removeClass('jt-error');
             $("#err_store_name").html('');
     }

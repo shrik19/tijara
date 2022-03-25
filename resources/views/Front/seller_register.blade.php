@@ -898,7 +898,28 @@ $('#last-step').click(function(e) {
     var country_name     = $("#country_name").val();
     var maxLength = 21;
     let last_step_err = 0;
- 
+ 	var is_verfied = $("#verify_btn_click").val();
+ 	if(is_verfied==1){
+	 	if(store_name!=''){
+	        $.ajax({
+	          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name,
+	          type: 'get',
+	          data: { },
+	          success: function(output){
+	            if(output !=''){
+	             showErrorMessage(output);
+	             last_step_err=1;
+	            }else{
+	                showSuccessMessage(store_name_is_verified);
+	            }
+	            }
+	        });
+	    }else{
+	     showErrorMessage(please_enter_store_name);
+	     last_step_err=1;
+	    }
+ 	}
+    
     if(store_name==''){
         $("#err_store_name").html(please_enter_store_name).show();
        // $("#err_store_name").parent().addClass('jt-error');

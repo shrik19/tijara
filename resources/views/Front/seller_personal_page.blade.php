@@ -182,13 +182,61 @@
             </div>
 </div> <!-- /container -->
 <script type="text/javascript">
-  $('#update_seller_info').click(function(e) {  
 
+  /*function to check unique store name
+* @param : store name
+*/
+function checkStoreName(){
+
+    var store_name= $("#store_name").val();
+    var seller_id = $("#seller_id").val();
+    if(store_name!=''){
+        $.ajax({
+          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
+          type: 'get',
+          data: {},
+          success: function(output){
+            if(output !=''){
+             showErrorMessage(output);
+            }else{
+                //alert(store_name_is_verified);
+                showSuccessMessageReview(store_name_is_verified);
+            }
+            }
+        });
+    }else{
+      showErrorMessage(please_enter_store_name);
+    }
+}
+
+  $('#update_seller_info').click(function(e) {  
+    
     e.preventDefault();
     let store_name       = $("#store_name").val();
     var maxLength = 21;
     let err = 0;
- 
+    var seller_id = $("#seller_id").val();
+    if(store_name!=''){
+        $.ajax({
+          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
+          type: 'get',
+          async:false,
+          data: {},
+          success: function(output){
+            if(output !=''){
+             showErrorMessage(output);
+             err=1;
+            }else{
+                //alert(store_name_is_verified);
+                showSuccessMessageReview(store_name_is_verified);
+            }
+            }
+        });
+    }else{
+      showErrorMessage(please_enter_store_name);
+      err=1;
+    }
+
     if(store_name==''){
         $("#err_store_name").html(please_enter_store_name).show();
        // $("#err_store_name").parent().addClass('jt-error');
@@ -243,33 +291,6 @@ logoInp.onchange = evt => {
   }
 }
 
-/*function to check unique store name
-* @param : store name
-*/
-function checkStoreName(){
-
-    var store_name= $("#store_name").val();
-    var seller_id = $("#seller_id").val();
-    if(store_name!=''){
-        $.ajax({
-          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
-          type: 'get',
-          data: {},
-          success: function(output){
-            if(output !=''){
-             showErrorMessage(output);
-            }else{
-                //alert(store_name_is_verified);
-                showSuccessMessageReview(store_name_is_verified);
-            }
-            }
-        });
-    }else{
-
-     
-      showErrorMessage(please_enter_store_name);
-    }
-}
 $('body').on('click', '.remove_banner_image', function () {
     var path = $('#previewBanner').attr('src');
     var Filename= path.split('/').pop();

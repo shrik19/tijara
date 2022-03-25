@@ -323,6 +323,7 @@
                           <label class="col-md-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
                           <div class="col-md-8">
                           <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $product->shipping_charges}}">
+                          <span class="invalid-feedback col-md-8"  id="err_shipping_charges"> </span>
                         </div>
                         </div>
                         <div class="col-md-12">

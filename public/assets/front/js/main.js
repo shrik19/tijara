@@ -160,7 +160,7 @@ $(".add_new_variant_btn").click(function(){
     if($trNew.find('.add_attribute_group_td').find('.remove_variant_btn').length<=0)
     $trNew.find('.remove_variant_div').html("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>");
 
-	$trNew.find('.select_attribute_value').each(function() { 
+  $trNew.find('.select_attribute_value').each(function() { 
          $(this).attr('name','attribute_value['+variant_id+']['+$(this).attr('attribute_id')+']');
      });
 
@@ -459,6 +459,7 @@ $(".saveproduct").click(function(e){
   let hidden_images       = $(".hidden_images").val();
   let pick_up_address     = $("#store_pick_address").val();
   let shipping_method_ddl = $("#shipping_method_ddl").val();
+  var shipping_charges    = $("#shipping_charges").val();
   let error               = 0;
 
   if(title == '')
@@ -575,6 +576,19 @@ $(".saveproduct").click(function(e){
     }
   }
   
+  if(shipping_method_ddl !=''){
+    if(shipping_charges==''){
+
+      $("#err_shipping_charges").html(required_field_error).show();
+      $("#err_shipping_charges").parent().addClass('jt-error');
+      error = 1;
+    }
+    else
+    {
+      $("#err_shipping_charges").html('').show();
+
+    }
+  }
 
   if($("#is_pick_from_store").is(':checked')){
     if(pick_up_address==''){
@@ -1978,54 +1992,54 @@ $('body').on('change', '.service_image', function () {
   }
   
   var reader = new FileReader();
-	//Read the contents of Image File.
-	reader.readAsDataURL(fileUpload.files[0]);
-	reader.onload = function (e) {
-		//Initiate the JavaScript Image object.
-		var image = new Image();
+  //Read the contents of Image File.
+  reader.readAsDataURL(fileUpload.files[0]);
+  reader.onload = function (e) {
+    //Initiate the JavaScript Image object.
+    var image = new Image();
 
-		//Set the Base64 string return from FileReader as source.
-		image.src = e.target.result;
-			   
-		//Validate the File Height and Width.
-		image.onload = function () {
-			var height = this.height;
-			var width = this.width;
-			if (height < minwidth || width < minheight) {
+    //Set the Base64 string return from FileReader as source.
+    image.src = e.target.result;
+         
+    //Validate the File Height and Width.
+    image.onload = function () {
+      var height = this.height;
+      var width = this.width;
+      if (height < minwidth || width < minheight) {
 
-			   //show width and height to user
-				showErrorMessage(image_upload_height_width);
-				$(this).val('');
-				return false;
+         //show width and height to user
+        showErrorMessage(image_upload_height_width);
+        $(this).val('');
+        return false;
 
-			}
-			var formData = new FormData();
+      }
+      var formData = new FormData();
 
-			if (fileUpload.files.length > 0) {
+      if (fileUpload.files.length > 0) {
 
-				formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
-				$(".loader").show();
-				$.ajax({
-					headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
-					url: siteUrl+'/manage-services/upload-image',
-					type: 'POST',
-					data: formData,
-					processData: false,
-					contentType: false,
+        formData.append("fileUpload", fileUpload.files[0], fileUpload.files[0].name);
+        $(".loader").show();
+        $.ajax({
+          headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+          url: siteUrl+'/manage-services/upload-image',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
 
-					success: function(data) {
-						$(".loader").hide();   
-						  
-						elm.prev('div.images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
-						'<img src="'+siteUrl+'/uploads/ServiceImages/resized/'+data+'" width="78" height="80">'+
-										  '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
-					}
-				});
-			}
+          success: function(data) {
+            $(".loader").hide();   
+              
+            elm.prev('div.images').append('<div><input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="hidden_images[]">'+
+            '<img src="'+siteUrl+'/uploads/ServiceImages/resized/'+data+'" width="78" height="80">'+
+                      '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>');     
+          }
+        });
+      }
 
-		};
+    };
  
-	}
+  }
 
 });
 

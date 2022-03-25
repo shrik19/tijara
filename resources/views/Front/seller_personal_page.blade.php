@@ -224,16 +224,16 @@ function checkStoreName(){
           data: {},
           success: function(output){
             if(output !=''){
-             showErrorMessage(output);
+             showErrorMessage(output,);
              err=1;
             }else{
-                //alert(store_name_is_verified);
-                showSuccessMessageReview(store_name_is_verified);
+               err=0;
+               // showSuccessMessageReview(store_name_is_verified,);
             }
             }
         });
     }else{
-      showErrorMessage(please_enter_store_name);
+      showErrorMessage(please_enter_store_name,);
       err=1;
     }
 

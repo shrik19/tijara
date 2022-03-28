@@ -2218,9 +2218,10 @@ public function getCatSubList(Request $request) {
 		
 		$Service = $Services[0];
 
+	    $s_id =$Services[0]['id'];
 		$data['Categories'] = $this->getCategorySubcategoryList()	;
 
-		$data['PopularServices']	= $this->getPopularServices();
+		$data['PopularServices']	= $this->getPopularServices('','',$s_id);
 		$data['Service']			= $Service;
 		//echo "<pre>";print_r($Service);exit;
 		$tmpSellerData = UserMain::where('id',$Service['user_id'])->first()->toArray();
@@ -2263,7 +2264,8 @@ public function getCatSubList(Request $request) {
     }
 	
 	//get popular services
-	function getPopularServices($category_slug='',$subcategory_slug='') {
+	function getPopularServices($category_slug='',$subcategory_slug='',$s_id='') {
+		//echo $s_id;exit;
 		$currentDate = date('Y-m-d H:i:s');
 		$current_uri = request()->segments();
 		if(!empty($current_uri[0]) && @$current_uri[0]=='services'){
@@ -2286,6 +2288,7 @@ public function getCatSubList(Request $request) {
 								->where('users.status','=','active')
 								->where('users.is_deleted','=','0')
                 			    ->where('users.is_shop_closed','=','0')
+                			    ->where('services.id','!=',$s_id)
                 			    ->where(function($q) use ($currentDate) {
 
 								$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])

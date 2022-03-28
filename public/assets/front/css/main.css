@@ -150,6 +150,13 @@ margin-top: 15px;
   font-size: 14px;
   margin-top: 2px;
 }
+
+.store_name_size{
+  font-size: 21px !important;
+}
+.store_city_name_size{
+  font-size: 15px !important;
+}
 .bookingRequestCalender .fc-center h2{
   font-size: 17px !important
 }

@@ -270,8 +270,7 @@
                                 </div>
                               </div>                                   
                            </div>
-                         
-
+               
                            <div class="pick_input"> 
                                 <div class="row">
                                     <div class="col-md-6">                           
@@ -279,12 +278,35 @@
                                          <!-- <p style="margin-left:24px;">{{ __('users.to_delivery_address')}}</p> -->
                                     </div>
                                     <div class="col-md-6 mt-8 m-m-t-15">
-                                       @php
+                                    
+                                      @php
+                                      if($orderDetails[$orderId]['shippingTotal']==0 && $orderDetails[$orderId]['details'][0]['product']->shipping_charges==''){
+                                         $shipping_total_tbl = "0,00";
+                                         $shipping_total=0;
+                                      }else{
+                                        if($orderDetails[$orderId]['shippingTotal']==0){
+                                          if($orderDetails[$orderId]['details'][0]['product']->shipping_charges==''){
+                                           $shipping_total = $shipping_total_tbl=$shipping_total_amt=0;
+                                          }else{
+                                             $shipping_total = $orderDetails[$orderId]['details'][0]['product']->shipping_charges;
+                                          $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['details'][0]['product']->shipping_charges), 3);
+                                          }
+                                        
+                                        }else{
+                                     
+                                         $shipping_total = $orderDetails[$orderId]['shippingTotal'];
                                           $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3);
-                                          $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
-                                          $shipping_total_tbl = $shipping_total_tbl.",00";
+                                        }
+                                        /* $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3); */
+
+                                          $shipping_total_amt = strrev(implode(" ", $shipping_total_tbl));
+                                          $shipping_total_tbl = $shipping_total_amt.",00";
+                                      }
+                                        
                                       @endphp
-                                        <span>@if(!empty($shipping_total_tbl)) {{$shipping_total_tbl}} kr @endif</span> 
+                                        <span id="product_shipping_charges">@if(!empty($shipping_total_tbl)) {{$shipping_total_tbl}} kr @endif</span> 
+                                        
+                                        <input type="hidden" name="hid_product_shipp_charges" class="hid_product_shipp_charges" value="{{@$shipping_total}}">
                                       </div>
                                 </div>
                            </div>
@@ -382,14 +404,16 @@
                 
                 <div class="col-md-12">
                   <div class="checkoutAmountBorder">
-                    @php
+                    @php 
+                        $sub_total = $orderDetails[$orderId]['subTotal'];
                         $sub_total_tbl = str_split(strrev($orderDetails[$orderId]['subTotal']), 3);
-                        $sub_total_tbl = strrev(implode(" ", $sub_total_tbl));
-                        $sub_total_tbl = $sub_total_tbl.",00";
+                        $sub_total_amt = strrev(implode(" ", $sub_total_tbl));
+                        $sub_total_tbl = $sub_total_amt.",00";
                     @endphp
                     <span>{{ __('lang.shopping_cart_subtotal')}}:</span>
                    
                     <span style="float: right;" class="get_subtotal">{{@$sub_total_tbl}} kr</span>
+                    <input type="hidden" name="hid_get_subtotal" class="hid_get_subtotal" value="{{@$sub_total}}">
                   </div>
                   <div class="checkoutAmountBorder">
                     @php 
@@ -525,11 +549,23 @@ $(".show_cart").click(function(){
 });
 
 $('.radio-button-shipping').click(function() {
+
   if($('.radio-button-shipping').is(':checked')) 
   { 
-     var is_free_shipping = $(this).val();      
-     var free_ship ="0,00 kr";
-     var subtotal= $(".get_subtotal").text();
+    var is_free_shipping = $(this).val();      
+    var product_shipping_charges = $("#product_shipping_charges").text();
+    
+    var free_ship ="0,00 kr";
+    var hid_get_subtotal = $(".hid_get_subtotal").val();
+    var hid_product_shipp_charges = $(".hid_product_shipp_charges").val();
+    var subtotal= $(".get_subtotal").text();
+    if(product_shipping_charges != free_ship){
+      $(".decide_shipping").text(product_shipping_charges);
+      var newSubtotal = parseInt(hid_get_subtotal)+parseInt(hid_product_shipp_charges);
+      var text = newSubtotal.toLocaleString("sv-SE", {style:"currency", currency:"SEK"});
+      $(".decide_total").text(text);
+    }
+         
       if(is_free_shipping==0){
           //  alert("sdh")
             $(".decide_shipping").text(free_ship);

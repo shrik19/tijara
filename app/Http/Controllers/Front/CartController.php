@@ -891,16 +891,18 @@ class CartController extends Controller
                   $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges','users.is_pick_from_store')->where('users.id','=',$details['product_user'])->first()->toArray();
                    //echo "<pre>";print_r($SellerShippingData);exit;
                    if(!empty($details['shipping_method']) && !empty($details['shipping_charges'])){
+
                       if($details['shipping_method'] ==  "Platta fraktkostnader")
                       {
                         $product_shipping_type = 'flat';
                         $product_shipping_amount = $details['shipping_charges'];
                       }
                       else if($details['shipping_method'] ==  'Andel fraktkostnader')
-                      {
+                      { 
                   
                         $product_shipping_type = 'percentage';
                         $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
+
                       }
                   
                     }else if(empty($SellerShippingData['free_shipping']))
@@ -999,7 +1001,10 @@ class CartController extends Controller
                     foreach($TrendingProducts as $Product)
                     {
                       $productCategories = $this->getProductCategories($Product->id);
-                      //dd($productCategories);
+                     // dd($Product);
+                      if($Product->shipping_method=="Andel fraktkostnader"){ 
+                        $Product->shipping_charges = ((float)$Product->price * $Product->shipping_charges )/100;
+                      }
 
                       $product_link = url('/').'/product';
 

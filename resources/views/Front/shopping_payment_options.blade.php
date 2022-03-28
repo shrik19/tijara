@@ -289,13 +289,13 @@
                                            $shipping_total = $shipping_total_tbl=$shipping_total_amt=0;
                                           }else{
                                              $shipping_total = $orderDetails[$orderId]['details'][0]['product']->shipping_charges;
-                                          $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['details'][0]['product']->shipping_charges), 3);
+                                          $shipping_total_tbl = str_split(strrev(round($orderDetails[$orderId]['details'][0]['product']->shipping_charges)), 3);
                                           }
                                         
                                         }else{
                                      
                                          $shipping_total = $orderDetails[$orderId]['shippingTotal'];
-                                          $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3);
+                                          $shipping_total_tbl = str_split(strrev(round($orderDetails[$orderId]['shippingTotal'])), 3);
                                         }
                                         /* $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3); */
 
@@ -417,7 +417,7 @@
                   </div>
                   <div class="checkoutAmountBorder">
                     @php 
-                        $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3);
+                        $shipping_total_tbl = str_split(strrev(round($orderDetails[$orderId]['shippingTotal'])), 3);
                         $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
                         $shipping_total_tbl = $shipping_total_tbl.",00";
                     @endphp

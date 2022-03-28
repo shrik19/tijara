@@ -238,13 +238,17 @@
                     <img class="m-7 mt-2" src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png"height="28" />
                       </a>
                       @php
+                      $wishlist_css='';
                         $productWishlistCnt = getWishlistProducts(Auth::guard('user')->id());
+                        if($productWishlistCnt == 0){
+                          $wishlist_css="display:none";
+                        }
                       @endphp
-                      @if($productWishlistCnt > 0)
-                      <div class="cart_count count_wishlist">
-                        <span class="wishlist_count">{{$productWishlistCnt}}</span>
+                     
+                      <div class="cart_count count_wishlist" style="{{$wishlist_css}}">
+                        <span class="wishlist_count" >{{$productWishlistCnt}}</span>
                       </div>
-                      @endif
+                   
                   </div>
                     </li>
 

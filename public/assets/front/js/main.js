@@ -1637,7 +1637,13 @@ function addToWishlist(product_variant)
       if(responseObj.status == 1)
       {
         var currentValue = $(".wishlist_count").text();
-        var newValue = parseInt(parseFloat(currentValue)) + 1;
+        
+        if(currentValue==0){
+          $(".count_wishlist").css("display","block");
+        }
+          var newValue = parseInt(parseFloat(currentValue)) + 1;
+        
+        
         $(".wishlist_count").text(newValue);
       }
       else
@@ -1674,9 +1680,11 @@ function addToWishlistServices(service_id)
       if(responseObj.status == 1)
       {
         var currentValue = $(".wishlist_count").text();
+        if(currentValue==0){
+          $(".count_wishlist").css("display","block");
+        }
         var newValue = parseInt(parseFloat(currentValue)) + 1;
         $(".wishlist_count").text(newValue);
-        //showSuccessMessage(service_fav_succ,'reload');
       }
       else
       {

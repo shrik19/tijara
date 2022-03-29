@@ -893,11 +893,12 @@ public function getCatSubList(Request $request) {
 							  ->where('annonserSubcategories.status','=','active')
 							  ->where('users.status','=','active')
 							  ->where('users.is_deleted','=','0')
-							  ->where('users.role_id','=',$request->role_id)
+							  //->where('users.role_id','=',$request->role_id)
+							   ->where('variant_product.quantity','>',0)
 
 							  ->where(function($q) use ($currentDate) {
 
-								$q->where([['variant_product.quantity', '>', 0]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+								$q->Where([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
 			}else{
 				
@@ -1110,8 +1111,8 @@ public function getCatSubList(Request $request) {
     /* function to display products page*/
 	public function buyerProductListing($category_slug='',$subcategory_slug='',Request $request)
     {
-
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
+
 		$data['current_role_id']	=	'1';
 		$cities = DB::table('users')
 			->where('is_deleted','=',0)

@@ -325,9 +325,9 @@ class AuthController extends Controller
            // if(!empty($user_id)){
 
                 $email = trim($request->input('email'));
-                //echo "-->".$email;exit;
-                $name   =   'Buyer';
-               // $url = url('/').'/front-login/verify';
+               
+               // $name   =   'Buyer';
+                $name   =   '';
                 $url =url('user/verify', $verification_token);
                 $GetEmailContents = getEmailContents('Buyer Register');
                 $subject = $GetEmailContents['subject'];
@@ -695,7 +695,8 @@ class AuthController extends Controller
         }
 /*get authorization token for customer token*/
          
-        $name   =   'Seller';
+        //$name   =   'Seller';
+        $name   =   '';
         $url =url('user/verify', $verification_token);
         $GetEmailContents = getEmailContents('Buyer Register');
         $subject = $GetEmailContents['subject'];
@@ -1680,27 +1681,27 @@ class AuthController extends Controller
 
         $user_id = Auth::guard('user')->id();
         $rules = [
-            'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
-            'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
+            //'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
+            //'lname'         => 'required|regex:/^[\pL\s\-]+$/u',
             'email'         => 'required|regex:/(.*)\.([a-zA-z]+)/i|unique:users,email,'.$user_id,
-            'address'       => 'required',
-            'postcode'      => 'required',
-            'city'          => 'required',
+           // 'address'       => 'required',
+            //'postcode'      => 'required',
+           // 'city'          => 'required',
             
         ];
 
         $messages = [
-            'fname.required'         => trans('errors.fill_in_first_name_err'),
+            /*'fname.required'         => trans('errors.fill_in_first_name_err'),
             'fname.regex'            => trans('errors.input_alphabet_err'),
             'lname.required'         => trans('errors.fill_in_last_name_err'),
-            'lname.regex'            => trans('errors.input_alphabet_err'),
+            'lname.regex'            => trans('errors.input_alphabet_err'),*/
             'email.required'         => trans('errors.fill_in_email_err'),
             'email.unique'           => trans('errors.unique_email_err'),
             'email.regex'            => trans('errors.valid_email_err'),
-            'address.required'       => trans('errors.fill_in_address_err'),
+          /*  'address.required'       => trans('errors.fill_in_address_err'),
             'postcode.regex'         => trans('errors.fill_in_postal_code_err'),
             'city.required'          => trans('errors.fill_in_city_err'),
-            'profile.required'       => trans('errors.upload_buyer_profile'),
+            'profile.required'       => trans('errors.upload_buyer_profile'),*/
         ];
 
         $fileName ='';

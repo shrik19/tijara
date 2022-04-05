@@ -335,8 +335,11 @@ class AuthController extends Controller
                 $siteDetails          = Settings::first();
       
                 $siteLogo = url('/')."/uploads/Images/".$siteDetails->header_logo;
-                $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##LINK##','##DEVELOPER_MAIL##'],
-                [$name,$email,url('/'),$siteLogo,$url,env('FROM_MAIL')],$contents);
+                $fb_link      = env('FACEBOOK_LINK');
+                $insta_link   = env('INSTAGRAM_LINK');
+                $linkdin_link = env('LINKDIN_LINK');
+                $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##','##DEVELOPER_MAIL##'],
+                [$name,$email,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$url,env('FROM_MAIL')],$contents);
 
                 $arrMailData = ['email_body' => $contents];
                 Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {

@@ -2482,14 +2482,18 @@ public function getCatSubList(Request $request) {
 		
 
 		$GetEmailContents = getEmailContents('Service Request');
-        $subject = $GetEmailContents['subject'];
-        $contents = $GetEmailContents['contents'];
-        
+        $subject      = $GetEmailContents['subject'];
+        $contents     = $GetEmailContents['contents'];
+        $siteDetails  = Settings::first();
+        $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+        $fb_link      = env('FACEBOOK_LINK');
+        $insta_link   = env('INSTAGRAM_LINK');
+        $linkdin_link = env('LINKDIN_LINK');
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
-		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##',
+		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
 			'##CUSTOMERADDRESS##','##SELLER##'],
 		[$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
-		$request->input('service_price'),url('/'),$customeraddress,$sellername],$contents);
+		$request->input('service_price'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername],$contents);
 
         $arrMailData = ['email_body' => $contents];
 
@@ -2938,8 +2942,12 @@ public function getCatSubList(Request $request) {
         $GetEmailContents = getEmailContents('Contact Seller');
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
-
-        $contents = str_replace(['##SELLER_NAME##','##NAME##','##EMAIL##','##MESSAGE##','##SITE_URL##'],[$seller_name,$name,$from_email,$user_message,url('/')],$contents);
+		$siteDetails          = Settings::first();
+		$siteLogo = url('/')."/uploads/Images/".$siteDetails->header_logo;
+		$fb_link      = env('FACEBOOK_LINK');
+		$insta_link   = env('INSTAGRAM_LINK');
+		$linkdin_link = env('LINKDIN_LINK');
+        $contents = str_replace(['##SELLER_NAME##','##NAME##','##EMAIL##','##MESSAGE##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##'],[$seller_name,$name,$from_email,$user_message,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link],$contents);
 
         $arrMailData = ['email_body' => $contents];
 
@@ -2999,10 +3007,14 @@ public function getCatSubList(Request $request) {
         $admin_name  = env('ADMIN_NAME');
         
         $GetEmailContents = getEmailContents('Buyer Product Report');
-        $subject = $GetEmailContents['subject'];
-        $contents = $GetEmailContents['contents'];
-
-        $contents = str_replace(['##PRODUCT_NO##','##EMAIL##','##PRODUCT_LINK##','##MESSAGE##','##SITE_URL##'],[$product_id,$user_email,$product_link,$user_message,url('/')],$contents);
+        $subject      = $GetEmailContents['subject'];
+        $contents 	  = $GetEmailContents['contents'];
+        $siteDetails  = Settings::first();
+        $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+        $fb_link      = env('FACEBOOK_LINK');
+      	$insta_link   = env('INSTAGRAM_LINK');
+        $linkdin_link = env('LINKDIN_LINK');
+        $contents = str_replace(['##PRODUCT_NO##','##EMAIL##','##PRODUCT_LINK##','##MESSAGE##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##'],[$product_id,$user_email,$product_link,$user_message,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link],$contents);
 
         $arrMailData = ['email_body' => $contents];
 
@@ -3055,10 +3067,15 @@ public function getCatSubList(Request $request) {
         $admin_name  = env('ADMIN_NAME');
         
         $GetEmailContents = getEmailContents('Buyer Service Report');
-        $subject = $GetEmailContents['subject'];
-        $contents = $GetEmailContents['contents'];
+        $subject      = $GetEmailContents['subject'];
+        $contents     = $GetEmailContents['contents'];
+        $siteDetails  = Settings::first();
+		$siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+		$fb_link      = env('FACEBOOK_LINK');
+		$insta_link   = env('INSTAGRAM_LINK');
+		$linkdin_link = env('LINKDIN_LINK');
 
-        $contents = str_replace(['##SERVICE_NO##','##EMAIL##','##SERVICE_LINK##','##MESSAGE##','##SITE_URL##'],[$service_id,$user_email,$service_link,$user_message,url('/')],$contents);
+        $contents = str_replace(['##SERVICE_NO##','##EMAIL##','##SERVICE_LINK##','##MESSAGE##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##'],[$service_id,$user_email,$service_link,$user_message,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

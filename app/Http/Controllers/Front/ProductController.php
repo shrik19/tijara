@@ -25,6 +25,7 @@ use App\Models\BuyerProducts;
 use App\Models\AnnonserCategories;
 use App\Models\AnnonserSubcategories;
 use App\Models\TmpOrdersDetails;
+use App\Models\Settings;
 
 use App\CommonLibrary;
 
@@ -1321,8 +1322,13 @@ class ProductController extends Controller
             $GetEmailContents = getEmailContents('Buyer product');
             $subject = $GetEmailContents['subject'];
             $contents = $GetEmailContents['contents'];
+            $siteDetails          = Settings::first();
+            $siteLogo = url('/')."/uploads/Images/".$siteDetails->header_logo;
+            $fb_link      = env('FACEBOOK_LINK');
+            $insta_link   = env('INSTAGRAM_LINK');
+            $linkdin_link = env('LINKDIN_LINK');
             
-            $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$name,$email,url('/'),$product_link],$contents);
+            $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##'],[$name,$email,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$product_link],$contents);
 
             $arrMailData = ['email_body' => $contents];
 
@@ -1338,8 +1344,13 @@ class ProductController extends Controller
             $GetEmailContents = getEmailContents('Product Published Admin');
             $subject = $GetEmailContents['subject'];
             $contents = $GetEmailContents['contents'];
+            $siteDetails  = Settings::first();
+            $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+            $fb_link      = env('FACEBOOK_LINK');
+            $insta_link   = env('INSTAGRAM_LINK');
+            $linkdin_link = env('LINKDIN_LINK');
                 
-            $contents = str_replace(['##SITE_URL##','##LINK##'],[url('/'),$product_link],$contents);
+            $contents = str_replace(['##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##'],[url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$product_link],$contents);
 
             $arrMailData = ['email_body' => $contents];
 
@@ -2275,8 +2286,13 @@ public function findCurrency($type){
         $GetEmailContents = getEmailContents('Product Published');
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
+        $siteDetails          = Settings::first();
+        $siteLogo = url('/')."/uploads/Images/".$siteDetails->header_logo;
+        $fb_link      = env('FACEBOOK_LINK');
+        $insta_link   = env('INSTAGRAM_LINK');
+        $linkdin_link = env('LINKDIN_LINK');
         
-        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$name,$email,url('/'),$product_link],$contents);
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##'],[$name,$email,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$product_link],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

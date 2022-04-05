@@ -2490,10 +2490,15 @@ DATA;
         $GetEmailContents = getEmailContents('Order Success');
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
+        $siteDetails  = Settings::first();
+        $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+        $fb_link      = env('FACEBOOK_LINK');
+        $insta_link   = env('INSTAGRAM_LINK');
+        $linkdin_link = env('LINKDIN_LINK');
         $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
-        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##',
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##','##ORDER_DETAILS##',
         '##ORDER_TOTAL##','##OVERVIEW##','##SHIPPING_ADDRESS##'],
-        [$name,$email,url('/'),$url,$mail_order_details,$checkExisting['total'],$overview,$shippingAdd
+        [$name,$email,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$url,$mail_order_details,$checkExisting['total'],$overview,$shippingAdd
       ],$contents);
 
         $arrMailData = ['email_body' => $contents];
@@ -2518,10 +2523,15 @@ DATA;
         $GetEmailContents = getEmailContents('Seller Order Success');
         $subject = $GetEmailContents['subject'];
         $contents = $GetEmailContents['contents'];
+        $siteDetails  = Settings::first();
+        $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+        $fb_link      = env('FACEBOOK_LINK');
+        $insta_link   = env('INSTAGRAM_LINK');
+        $linkdin_link = env('LINKDIN_LINK');
         $url = url('/').'/order-details/'.base64_encode($GetOrder[0]['id']);
-        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##ORDER_DETAILS##',
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##','##ORDER_DETAILS##',
         '##TOTAL##','##OVERVIEW##','##SHIPPING_ADDRESS##'],
-        [$nameSeller,$emailSeller,url('/'),$url,$mail_order_details,$checkExisting['total'],$overview,$shippingAdd],$contents);
+        [$nameSeller,$emailSeller,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$url,$mail_order_details,$checkExisting['total'],$overview,$shippingAdd],$contents);
 
         $arrMailData = ['email_body' => $contents];
 
@@ -2692,8 +2702,13 @@ DATA;
       $GetEmailContents = getEmailContents('Seller Order Success');
       $subject = $GetEmailContents['subject'];
       $contents = $GetEmailContents['contents'];
+      $siteDetails          = Settings::first();
+      $siteLogo = url('/')."/uploads/Images/".$siteDetails->header_logo;
+      $fb_link      = env('FACEBOOK_LINK');
+      $insta_link   = env('INSTAGRAM_LINK');
+      $linkdin_link = env('LINKDIN_LINK');
       $url = url('/').'/order-details/'.base64_encode($NewOrderId);
-      $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##'],[$nameSeller,$emailSeller,url('/'),$url],$contents);
+      $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##'],[$nameSeller,$emailSeller,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$url],$contents);
 
       $arrMailData = ['email_body' => $contents];
 

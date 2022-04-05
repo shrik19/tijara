@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\SellerImages;
 use App\Models\UserPackages;
 use App\Models\Package;
+use App\Models\Settings;
 
 /*Uses*/
 use Auth;
@@ -526,9 +527,14 @@ class SellerController extends Controller
                 $GetEmailContents = getEmailContents('Seller Register Confirm');
                 $subject = $GetEmailContents['subject'];
                 $contents = $GetEmailContents['contents'];
+                $siteDetails  = Settings::first();
+                $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+                $fb_link      = env('FACEBOOK_LINK');
+                $insta_link   = env('INSTAGRAM_LINK');
+                $linkdin_link = env('LINKDIN_LINK');
 
                 
-                $contents = str_replace(['##NAME##','##LINK##','##SITE_URL##'],[$name,route('frontLogin'),url('/')],$contents);
+                $contents = str_replace(['##NAME##','##LINK##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##'],[$name,route('frontLogin'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link],$contents);
 
                 $arrMailData = ['email_body' => $contents];
                 

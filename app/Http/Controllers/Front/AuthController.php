@@ -332,9 +332,11 @@ class AuthController extends Controller
                 $GetEmailContents = getEmailContents('Buyer Register');
                 $subject = $GetEmailContents['subject'];
                 $contents = $GetEmailContents['contents'];
-
-                $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##LINK##','##DEVELOPER_MAIL##'],
-                [$name,$email,url('/'),$url,env('FROM_MAIL')],$contents);
+                $siteDetails          = Settings::first();
+      
+                $siteLogo = url('/')."/uploads/Images/".$siteDetails->header_logo;
+                $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##LINK##','##DEVELOPER_MAIL##'],
+                [$name,$email,url('/'),$siteLogo,$url,env('FROM_MAIL')],$contents);
 
                 $arrMailData = ['email_body' => $contents];
                 Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {

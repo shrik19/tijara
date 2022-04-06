@@ -218,6 +218,7 @@ Route::post('/update-service-review', 'Front\FrontController@updateServiceReview
 Route::post('/delete-service-review','Front\FrontController@deleteServiceReview')->name('frontDeleteServiceReview');
 
 Route::any('/paymentoptions/{id}','Front\CartController@showPaymentOptions')->name('frontShowPaymentOptions');
+Route::post('/update-shipping-charges','Front\CartController@updateShippingCharges')->name('frontupdateShippingCharges');
 Route::any('/checkout/{id}/{paymentoption}','Front\CartController@showCheckout')->name('frontShowCheckout');
 Route::any('/checkout_callback', 'Front\CartController@checkoutCallback')->name('frontCheckoutCallback');
 Route::any('/checkout_complete/{id}', 'Front\CartController@showCheckoutSuccess')->name('frontCheckoutSuccess');

@@ -1097,7 +1097,18 @@ class CartController extends Controller
       }
     }
     
-
+	public function updateShippingCharges(Request $request) {
+		$user_id = Auth::guard('user')->id();
+		$arrOrderUpdate = [
+                    
+                    'shipping_total'      => $request->shipping_charges,
+                    'total'               => $request->total_amount,
+                    
+                ];
+      
+                TmpOrders::where('id',$request->orderId)->update($arrOrderUpdate);
+				echo'ok';
+	}
     public function showCheckout($orderId,$paymetOption,Request $request)
     {
       $data = [];
@@ -1246,12 +1257,13 @@ class CartController extends Controller
                     $shippingTotal += $product_shipping_amount;
                 }
 
-                $total = $subTotal+$shippingTotal;
+				$tempOrderData = TmpOrders::where('id','=',$orderId)->get()->toArray();
+                $total = $subTotal+$shippingTotal+$tempOrderData[0]['shipping_total'];
 
                 $arrOrderUpdate = [
                     'user_id'             => $user_id,
                     'sub_total'           => $subTotal,
-                    'shipping_total'      => $shippingTotal,
+                    'shipping_total'      => $shippingTotal+$tempOrderData[0]['shipping_total'],
                     'total'               => $total,
                     'payment_details'     => NULL,
                     'payment_status'      => NULL,

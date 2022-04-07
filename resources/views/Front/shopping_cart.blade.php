@@ -8,11 +8,11 @@
 </style>
 
 
-<div class="mid-section p_155" style="background: #dddddd;">
+<div class="mid-section p_155" style="background: #dddddd;    margin-bottom: 0px;">
 <div class="container-fluid">
 <div class="container-inner-section-1">
-<div class="row">
-<div class="col-md-12"> 
+<div class="">
+<div class="row"> 
 <div class="seller_info shopping_cart_page border-none">
     <div class="card">
         <div class="card-header row">

@@ -190,14 +190,7 @@
               						<div class="info payment_info_card">{{ __('users.payment_method_info')}}</div>
           							</div>
 									<form method="POST" action="{{route('frontThirdStepSellerRegister')}}" class="needs-validation" novalidate="" id="third-step-form">
-										                 
-										<!-- <input type="text" name="fname" id="fname" class="form-control" value="{{ old('fname')}}" placeholder="{{ __('users.first_name_label')}} *">
-										<span class="invalid-feedback" id="err_fname" style="margin-top: -28px;margin-left: 10px;"></span>
-
-										<input type="text" name="lname" id="lname" class="form-control" value="{{ old('lname')}}"  placeholder="{{ __('users.last_name_label')}} *">
-										<span class="invalid-feedback" id="err_lname" style="margin-top: -27px;margin-left: 10px;"></span>
-										<textarea  id="address" class="form-control" name="address" placeholder="{{ __('users.address_label')}} " rows="5" cols="30"  tabindex="5"></textarea>
-										<input type="text" name="postcode" id="postcode" class="form-control" placeholder="{{ __('users.postal_code_label')}}" value=""> -->
+										
 
 										<p class="payment_method_title">{{ __('users.klarna_pament_label')}}</p>
 							            <div class="login_box payment_detail_box klarna_payment" style="margin-top: 20px;">
@@ -226,34 +219,19 @@
 							                <div class="payment-lock-icon lock_swish_number"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
 
 							              <!--  <div class="payment-lock-icon unlock_swish_number"><input type="checkbox"name="is_swish_number" id="is_swish_number" class=" payment_lock is_swish_number" value=""></div> -->
-							            <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" class="register_swish_logo"></p>
-							              <?php /*
-							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="{{ Session::get('new_seller_swish_api_key')}}">
-								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('swish_api_key')) {{ $errors->first('swish_api_key') }}@endif</span>
-							              </div>
-
-							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_merchant_account" id="swish_merchant_account" placeholder="{{ __('users.swish_merchant_account_label')}}" value="{{ Session::get('new_seller_swish_merchant_account')}}">
-								              <span class="invalid-feedback">@if($errors->has('swish_merchant_account')) {{ $errors->first('swish_merchant_account') }}@endif</span>
-							              </div>
-
-							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="{{ Session::get('new_seller_swish_client_key')}}">
-								              <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
-							              </div>
-							              */?>
-							              <div class="form-group" style="display: flex;">
-							            <!--    <input type="checkbox" name="is_swish_number" class="is_swish_number" id="is_swish_number" value="1" style="margin-top: 30px;">  -->
-							               <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="Swish-nummer" value="{{Session::get('new_seller_swish_number')}}">
-							              </div>
+											<p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" class="register_swish_logo"></p>
+											  
+											  <div class="form-group" style="display: flex;">
+											<!--    <input type="checkbox" name="is_swish_number" class="is_swish_number" id="is_swish_number" value="1" style="margin-top: 30px;">  -->
+											   <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="Swish-nummer" value="{{Session::get('new_seller_swish_number')}}">
+											  </div>
 
 							              <div class="payment_explanation_text">
 							              	<!-- {{ __('messages.swish_number_step_description')}}	
 							              	 -->
 							              	 <div class="payment_explanation_text"> {{ __('messages.swish_description_step_1')}}</br> {{ __('messages.swish_description_step_2')}}</div> 
-							            </div>
-							        </div>
+											</div>
+										</div>
 							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
 							            <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">
 							               <!--  <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div> -->

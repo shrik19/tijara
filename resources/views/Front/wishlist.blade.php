@@ -19,8 +19,8 @@
     </div>
     <section class="product_details_section-1">
     <div class="loader"></div>
-    <div class="container">
-        <div class="row">
+    <div class="container-fluid">
+        <div>
             <div class="col-sm-12 col-md-12">
             <div class="row">
            
@@ -93,9 +93,9 @@
     </div>
     <section class="product_details_section-1">
     <div class="loader"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-12">
+    <div class="container-fluid p-0">
+        <div>
+            <div class="col-sm-12 col-md-12 p-0">
             <div class="row">
                 
               </div>

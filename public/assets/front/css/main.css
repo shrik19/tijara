@@ -1308,8 +1308,8 @@ span.remember-text {
 }
 .cart_count span{font-size: 10px;text-align: center; color: #fff;    position: absolute;
     top: 2px;
-    left: 4px;
-    right:4px;
+   
+    right:3px;
   }
     .search_now_input_box{position: relative; float: left;width: 100%;}
     .search_icon_btn{border: none;background-color: transparent;       margin-left: -35px;
@@ -3230,7 +3230,16 @@ line-height: 42px;
 .new_add{padding-right: 0px;}
 .new_add_heading{margin-bottom: 60px;}
 .pt-4{padding-top: 22px;}
+.short-desc{
+  max-height: 159px;
+  overflow: auto;
+  float: left;
+}
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
+  .package-html.package-wrapper {
+    margin-bottom: 65px;
+    margin-left: 0px;
+  }
   .footer-pa{padding:0 20px;}
   .pt-4{padding-top: 10px;}
   .product_service_list{

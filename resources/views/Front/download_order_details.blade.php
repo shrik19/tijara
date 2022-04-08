@@ -14,7 +14,7 @@
                 <div class="col-md-12">
                     <table class="table table-hover">
                         <tr>
-                            <td><img class="logo" src="{{url('/')}}/assets/img/logo.png" height="70"/></td>
+                            <td><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}" height="70"/></td>
                             <td><h2>{{ __('messages.txt_order_details')}} - #{{ $order['id'] }}</h2></td>
                         </tr>
                     </table>        
@@ -36,7 +36,7 @@
                         </td>
                         <td>
                             @if(!empty($shippingAddress))
-                                <h4><strong>{{ __('messages.txt_billing_address')}}</strong></h4>
+                                <h4><strong>{{ __('messages.txt_shipping_address')}}</strong></h4>
                                 <span style="font-size:16px;">{{ $shippingAddress['given_name'] }} {{ $shippingAddress['family_name'] }}<br />
                                 {{ $shippingAddress['email'] }}<br />
                                 {{ $shippingAddress['street_address'] }}<br />

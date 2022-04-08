@@ -128,10 +128,11 @@
      'fill_in_country_err'=>'Please fill in your Country',
      'payment_req_token_not_generated' => 'Looks like seller did not configure payment option properly, Please contact admin for more details.',
      'please_check_swish_checkbox' =>'Please Check Checkbox next to Swish Number.',
-     'complete_buyer_profile' => 'To Book Order First Update All Profile Details. Click here to update buyer profile',
+     'complete_buyer_profile' => 'To book an appointment, first update all your profile information. Click here to update your profile',
      'please_select_one_payment_method' => 'Please select atleast one payment method.',
      'select_shopping_method_err' => 'Please Select shipping Method',
      'enter_all_fields_err' => 'Enter all fields.',
      'store_name_characters_len_err' => 'Only 20 characters are allowed for store name.',
+     'no_active_package' => 'There is no active package. please fill in card details',
  ]
 ?>

@@ -284,6 +284,16 @@ $(function() {
     var noTrialPackageActive =$("#noTrialPackageActive").val();
     var noActivePackage = $("#disable_side_menu").val();
     if(noTrialPackageActive ==1 || noActivePackage ==1){
+       let fname   = $("#fname").val();
+        let lname   = $("#lname").val();
+      /*if(fname != '' && lname != '')
+      {*/
+        $('#header_user_menu').attr('href',siteUrl+"/seller-profile");
+        $('.check_seller_setting').attr( "disabled", "disabled" );
+        $('.check_seller_setting').css( "pointer-events", "none" );
+      //}
+     
+
       if (!$form.data('cc-on-file') && $('.card-number').is(":visible")) {
 
         e.preventDefault();

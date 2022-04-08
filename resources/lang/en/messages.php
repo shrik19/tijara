@@ -108,9 +108,9 @@ on Tojjara ads, you can post the ad again. You can delete at any time the ad its
 	 'strip_description_step_1' => 'Log in to your Stripe account.',
 	 'strip_description_step_2' => '2. Go to Developer in the right corner and then select API keys to
 left in the list.', 
-	 'strip_description_step_3' => '3).paste secret key in first input box and Publishable key in second box',
+	 'strip_description_step_3' => '3).Copy Publish key and Secret key and paste here.',
 	 'swish_description_step_1' => '1).Login to swish adyne account',
-	 'swish_description_step_2' => '2).Go to Developers > API credentials, and select the credential username for your integration, for example ws@company.techbee.',
+	 'swish_description_step_2' => '2).Keep in mind that when you receive orders via Swish payment, you must check that you have received the payment with the correct amount before packing and sending the order to the customer.',
 	 'swish_description_step_3' => '3).Authentication, select Generate New API Key',
 	 'klarna_description_step_1' => '1. Log in to the Klarna Merchant Portal.',
 	 'klarna_description_step_2' => '2. Click on Settings and Clear API keys.',
@@ -134,5 +134,6 @@ https://dashboard.stripe.com/register',
      'add_attribute_info' => 'Change or add new properties to the left under Attributes',
      'seller_product_varint_info' => 'Add other variations of your product, such as color or size, etc.',
      'payment_info_updated' => 'Payment information updated',
+     'thanks_title' => 'Thanks!',
  ]
 ?>

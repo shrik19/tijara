@@ -49,7 +49,7 @@ td.fc-week-number {
 
 <div class="mid-section" style="padding-top: 96px !important;">
   <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1"  style="margin-bottom: 60px;">
   <!-- Example row of columns -->
   @if($subscribedError)
   <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -67,7 +67,7 @@ td.fc-week-number {
   @include ('Front.alert_messages')
   <div class="seller_info">
   <div class="seller_header">
-      <h2 class="" style="margin-left: 11px;">{{ __('servicelang.service_form_label')}}</h2>
+      <h2 class="seller_page_heading">{{ __('servicelang.service_form_label')}}</h2>
    </div>
 
   <div class="col-md-12">
@@ -215,7 +215,7 @@ td.fc-week-number {
   <input type="file" class="col-md-8 login_input image service_image form-control">
   <span class="invalid-feedback col-md-12 productErr" id="err_service_image"></span>  
   <span class="invalid-feedback col-md-12 productErr" id="err_service_hid_image"></span> 
-  <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>
+  <p class="seller-logo-info col-md-12" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>
   </div>
   </div>
 

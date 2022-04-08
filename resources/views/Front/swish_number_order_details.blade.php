@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-12 checkoutHeader">
                   <div class="col-md-3">
-                    <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/assets/img/logo.png"/></a>
+                    <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}"/></a>
                   </div>
                   <div class="col-md-6">
                     <h1 class="checkoutHeading text-center">{{ __('users.checkout_cart_title')}}</h1>  

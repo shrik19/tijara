@@ -322,8 +322,10 @@ class ProductController extends Controller
                     $image  =     url('/').'/uploads/ProductImages/resized/no-image.png';
                 
                 $image      =   '<img src="'.$image.'" width="70" height="70">';
-                
-                $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['updated_at']));
+                date_default_timezone_set('Europe/London');
+                $dated = $recordDetailsVal['updated_at'];
+                $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
+                //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['updated_at']));
                 
                 $categories =   Products::Leftjoin('category_products', 'products.id', '=', 'category_products.product_id')	
                                             ->Leftjoin('subcategories', 'subcategories.id', '=', 'category_products.subcategory_id')	
@@ -471,11 +473,11 @@ class ProductController extends Controller
 
 
 			$VariantProductAttribute    =   VariantProductAttribute::Leftjoin('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
-			                                    ->Leftjoin('variant_product', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+			                                    ->rightjoin('variant_product', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 			                                    ->Leftjoin('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
 			                                    ->select(['attributes.name','attributes_values.attribute_values','variant_product.*','variant_product_attribute.*'])
 			                                    ->where('variant_product.product_id',$product_id)->orderBy('variant_product.id','asc')->orderBy('variant_product_attribute.id','asc')->get();
-			
+			//echo "<pre>";print_r($VariantProductAttribute);exit;
 			$VariantProductAttributeArr  =   array();
 
 			$i                           =   0;
@@ -608,10 +610,10 @@ class ProductController extends Controller
         }
        
 		$producVariant=[];
-		if(!empty($request->input('sku'))) {
+		if(!empty($request->input('price'))) {
             
 		           $order = 0; 
-		    foreach($request->input('sku') as $variant_key=>$variant) {
+		    foreach($request->input('price') as $variant_key=>$variant) {
 
 		        if($variant!='' && $_POST['price'][$variant_key]!='' && $_POST['quantity'][$variant_key]!='') {
                     $producIsSold = array();

@@ -201,7 +201,7 @@
             $totalNotifications = $getTotalOrders + $getTotalBookings;
 
         @endphp
-                     <a class="top_icon_css"  href="/profile">
+                     <a class="top_icon_css" id="header_user_menu"  href="{{route('frontDashboard')}}">
 
                     <img class="m-7" src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" />
                       </a>

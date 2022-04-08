@@ -287,7 +287,7 @@
     'see_show_label' => 'See your shop',
     'intrumentpanel_label'=>'Instrument panel',
     'manage_label'=>'Manage',
-    'please_add_service_time'=>'please add service time',
+    'please_add_service_time'=>'please add booking time',
     'booking_request_label'=>'Bookings',
     'all_orders_menu' => 'Orders',
     'buyer_product_title' => 'Heading',

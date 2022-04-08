@@ -56,7 +56,7 @@ td.fc-week-number {
 
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1" style="margin-bottom: 60px;">
   <!-- Example row of columns -->
    @if($subscribedError)
       <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -72,7 +72,7 @@ td.fc-week-number {
          @include ('Front.alert_messages')
          <div class="seller_info">
           <div class="seller_header">
-            <h2 class="" style="margin-left: 11px;">{{ __('servicelang.service_form_label')}}</h2>
+            <h2 class="seller_page_heading">{{ __('servicelang.service_form_label')}}</h2>
           </div>
       
         <div class="col-md-12">
@@ -193,7 +193,7 @@ td.fc-week-number {
                 <input type="file" class="col-md-8 login_input image service_image form-control" >                
                   <span class="invalid-feedback col-md-8" id="err_service_image"></span>  
                   <span class="invalid-feedback col-md-12" id="err_service_hid_image"></span>  
-                  <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
+                  <p class="seller-logo-info col-md-12" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
                 </div>
               </div>
               <div class="loader"></div>
@@ -255,10 +255,10 @@ td.fc-week-number {
               </div>
 
               <div class="col-md-1 text-center" style="margin-top: 65px !important;">
-                <label class="col-md-12 product_table_heading">Action</label>
+                <label class="col-md-12 product_table_heading">{{ __('lang.action_label')}}</label>
              <!--    <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_btn')}}</a> -->
                 <select name="del_start_time" id="del_start_time" class="form-control" style="margin-top: 25px;width: 100px;">
-                  <option value="" >{{ __('lang.select_label')}}</option>
+                  <!-- <option value="" >{{ __('lang.select_label')}}</option> -->
                   <option value="insert">{{ __('lang.save_btn')}}</option>
                     <option value="delete">{{ __('lang.delete_title')}}</option>
                 </select>

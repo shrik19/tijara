@@ -88,6 +88,7 @@
      'change_password_menu'=>'Ändra lösenord',
      'logout_label'=>'Logga ut',
      'buy_now_btn'=>'Köp nu',
+     'continue_shopping_btn'=>'Fortsätt handla',
      'browse_now_btn'=>'Klicka här!',
      'search_placeholder'=>'Sök',
      /*footer*/
@@ -141,7 +142,7 @@
     'service_time_required'=>'Lägg till servicetid korrekt',
     'select_future_date'=>'Välj endast framtida formulärdatum',
     'select_future_to_date' => 'Välj framtida Endast hittills',
-    'areYouSureToDeleteServiceTime'   =>  'Är du säker på att ta bort den här servicetiden',
+    'areYouSureToDeleteServiceTime'   =>  'Är du säker på att ta bort den här bokningstiden',
     'book_service'=>'Boka',
     'book_service_title'=>'Boka nu',
     'service_title'=>'Välj tjänst',

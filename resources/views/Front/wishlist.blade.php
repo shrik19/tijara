@@ -11,8 +11,7 @@
 <div class="container-fluid">
 <div class="container-inner-section-1">
 <div class="row">
-<div class="col-md-12"> 
-<div class="">
+<!-- <div class=""> -->
     <div class="card">
         <div class="card-header row ">
             <h2 class="page_heading service_wishlist_h2">{{ __('users.your_favourite_title')}}</h2>       
@@ -163,6 +162,6 @@
 </div>
 </div>
 </div>
-</div>
-</div>
+<!-- </div>
+</div> -->
 @endsection

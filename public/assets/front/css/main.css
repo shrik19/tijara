@@ -909,9 +909,14 @@ select.list-dt:focus {
     position: relative; text-align: center; font-weight: 500;;
 }
 #progressbar li span{    position: absolute;
-  top: 5px;
+  top: 4px;
   left: 48%;
   color: #fff;}
+
+  #progressbar li span.step_1{
+    top: 4px;
+    left: 49%;
+  }
 #progressbar #account:before {
     font-family: FontAwesome;
     content: "\f023"
@@ -1224,7 +1229,11 @@ font-size: 14px!important;
 span.remember-text {
     margin-left: 10px;
 }
-.sidebar_menu{width: 100%; margin-top: 20px;}
+.sidebar_menu{
+  width: 100%; 
+  margin-top: 20px;
+  margin-left: -14px;
+}
  /* .buyer-prod-msg{
     background-color: #efefef;
     padding: 30px;
@@ -1484,8 +1493,8 @@ span.remember-text {
 	#sign-up-form .remember-section span.remember-text, 
 	#seller-personal-form .remember-section span.remember-text {
 		margin-left: 6px;
-		font-weight: 600;
-        font-size: 14px;
+		font-weight: 500;
+    font-size: 12px;
 	}
 	
 	.seller_register_container {
@@ -1507,12 +1516,28 @@ span.remember-text {
 	}
 
 	.selectedActivePackage{
-    border: 2px solid #03989e !important;
+    border: 3px solid #03989e !important;
     padding: 1px;
     border-radius: 16px;
 
   }	
+  .seller_register_second{
+    margin-top:105px;
+    opacity: 1 !important;
+  }
 
+  .seller_register_first{
+    opacity: 1 !important;
+  }
+
+  .package-html.package-wrapper {
+    margin-bottom: 65px;
+    margin-left: 150px;
+  }
+  .seller_register_third{
+    opacity: 1 !important;
+  }
+  
 	.seller_register_container .seller_register_second .packages-heading {
 		border-radius: 10px;
 		text-align: center;
@@ -1564,18 +1589,18 @@ span.remember-text {
 	
 	.seller_register_container .seller_register_second input[type=button]:nth-child(odd) {
 		float: right;
-		margin-right: 22%;
+		margin-right: 36%;
 	}
 
   .register_second_btn {
     float: right!important;
     display: flex;
-    margin-right: 80px
+    margin-right: 80px;
   }
 
 	.seller_register_container .seller_register_second input[type=button]:nth-child(even) {
 		float: left;
-    margin-left: 40%;
+    margin-left: 33%;
 	}
 	
 .heading{font-weight: 600; font-size: 42px; margin-left: 10px;}
@@ -2556,6 +2581,9 @@ span.pro-text {
     }
     .seller_page_heading{
       font-size: 26px !important;
+      padding: 4px !important;
+      color: #222222 !important;
+      font-weight: 600 !important;
     }
 
     .sellers_top_padding{
@@ -2743,8 +2771,10 @@ text-align: right;
 
 .seller-dashboard-form .buyer-prod-msg {
     position: absolute;
-    top: 50px;
-    left: 12px;
+    /*top: 50px;
+    left: 12px;*/
+    top: 92px;
+    left: -10px;
     bottom: 0;
     right: 12px;
     text-align: center;
@@ -2900,7 +2930,7 @@ text-align: right;
 }
 .checkoutProductImg{width: 100%;height: 85px; object-fit: cover;}
 .checkoutProducts{padding: 15px 0;}
-.checkout_billing_info h4{font-size: 18px; font-weight: 300; }
+.checkout_billing_info h4{font-size: 18px;/* font-weight: 300;*/ }
 .remember-text-checkout{font-size: 13px; margin: 10px 0;}
 .p-15{padding-top: 15px;}
 .hr_line{width: 100%;border-top: 2px solid #ddd;}
@@ -3142,7 +3172,17 @@ h1.checkoutHeading {
     width: 179px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    line-height: 34px;
+    /*line-height: 34px;*/
+    margin-left:24px;
+    font-size: 12px;
+    color: #999;
+}
+span.checkout-shipping-charges {
+line-height: 42px;
+}
+.shopping_pay_option{
+  line-height: 38px;
+  margin-left:10px;
 }
 .checkoutContainer .arrow {
     border: solid black;

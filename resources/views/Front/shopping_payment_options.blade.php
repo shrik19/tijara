@@ -236,10 +236,13 @@
                                 <div class="row">
                                     <div class="col-md-6">                           
                                         <input type="radio" name="shipping_amount" class="radio-button-shipping" value="0"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
-                                         <p style="margin-left:24px;">{{ __('users.to_delivery_address')}}</p>
+                                       <!--   <p style="margin-left:24px;font-size: 12px;
+    color: #999;">{{ __('users.to_delivery_address')}} --</p> -->
+    <span class="store_address store-pickup" title="{{@$store_pick_address}}">{{ @$store_pick_address}} </span> 
                                     </div>
                                     <div class="col-md-6">                                       
-                                        <span class="store_address" title="{{@$store_pick_address}}">{{ @$store_pick_address}} </span> 
+                                       <!--  <span class="store_address" title="{{@$store_pick_address}}">0.00 kr </span> -->
+                                          <span id="product_shipping_charges" class="checkout-shipping-charges">0.00 kr</span>  
                                       </div>
                                 </div>
                              </div>
@@ -250,8 +253,7 @@
                            <div class="pick_up_fromt_store">   
                               <div class="row">
                                 <div class="col-md-5">
-                                  <input type="radio" name="pick_from_store" value="1"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
-                                  <?php 
+                                   <?php 
                                     if($orderDetails[$orderId]['details'][0]['product']->is_pick_from_store==1){
                                       if(!empty($orderDetails[$orderId]['details'][0]['product']->store_pick_address)){
                                         $store_pick_address = $orderDetails[$orderId]['details'][0]['product']->store_pick_address;
@@ -263,6 +265,8 @@
                                       $store_pick_address ='';
                                     }
                                   ?>
+                                  <input type="radio" name="pick_from_store" value="1"> <span style="margin-left:10px;font-size: 12px;color: #999;">{{$store_pick_address}}<!-- {{ __('users.pick_from_store')}} --></span>
+                                 
                                   <p  style="margin-left:26px;">{{ @$store_pick_address}} </p>
                                 </div>
                                 <div class="col-md-5" style="margin-top: 8px;">
@@ -275,7 +279,7 @@
                                 <div class="row">
                                     <div class="col-md-6">                           
                                         <input type="radio" name="shipping_amount" class="radio-button-shipping" value="1"> <span style="margin-left:10px;margin-top: 8px;">{{ __('users.shipping_btn')}}</span>
-                                         <!-- <p style="margin-left:24px;">{{ __('users.to_delivery_address')}}</p> -->
+                                         <p style="margin-left:24px;font-size: 12px;color: #999;">{{ __('users.to_delivery_address')}}</p>
                                     </div>
                                     <div class="col-md-6 mt-8 m-m-t-15">
                                     
@@ -304,7 +308,7 @@
                                       }
                                         
                                       @endphp
-                                        <span id="product_shipping_charges">@if(!empty($shipping_total_tbl)) {{$shipping_total_tbl}} kr @endif</span> 
+                                        <span id="product_shipping_charges d">@if(!empty($shipping_total_tbl)) {{$shipping_total_tbl}} kr @endif</span> 
                                         
                                         <input type="hidden" name="hid_product_shipp_charges" class="hid_product_shipp_charges" value="{{@$shipping_total}}">
                                       </div>
@@ -336,7 +340,7 @@
                               <img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="100" height="70" class="stripe_checkout_logo">
                             @endif
                           
-                             <input type="radio" name="payment_method" class="{{$p}} payment_radio" value="{{$p}}"> <span style="margin-left:10px;">@if($p == 'swish_number') Swish @else {{ucfirst(@$p)}} @endif</span>
+                             <input type="radio" name="payment_method" class="{{$p}} payment_radio" value="{{$p}}"> <span class="shopping_pay_option">@if($p == 'swish_number') Swish @else {{ucfirst(@$p)}} @endif</span>
                            
                            </div>
                               @endif

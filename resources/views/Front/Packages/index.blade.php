@@ -1,6 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+  .sidebar_menu {
+    margin-left: -29px !important;
+  }
+</style>
 <div class="mid-section sellers_top_padding">
 <div class="containerfluid">
 <div class="container-inner-section-1">
@@ -31,7 +35,7 @@
 				@endphp
 		@if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
 		<div class="seller_header">
-      	    <h2>{{ __('users.your_active_package')}}</h2>
+      	    <h2 class="seller_page_heading">{{ __('users.your_active_package')}}</h2>
         	<!-- <hr class="heading_line"/> -->
 		</div>
 		<div class="col-md-12 package_history_btn"><a href="{{route('frontPackage', base64_encode($user_id))}}" class="btn btn-black btn-sm debg_color a_btn login_btn pull-right">{{ __('users.history_button')}}</a></div>

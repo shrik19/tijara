@@ -274,8 +274,10 @@ class ServiceController extends Controller
                
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
 
-                
-                $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
+                date_default_timezone_set('Europe/London');
+                $dated = $recordDetailsVal['created_at'];
+                $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
+                //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
                 
                 $categories =   Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id') 
                                             ->Leftjoin('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')  

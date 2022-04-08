@@ -838,8 +838,8 @@ $('#third-step').click(function(e) {
 							//show next step
 							var current_fs, next_fs, previous_fs; //fieldsets
 							var opacity;
-							current_fs = $('#third-step').parent().parent();
-							next_fs = $('#third-step').parent().parent().next();
+							current_fs = $('#third-step').parent();
+							next_fs = $('#third-step').parent().next();
 
 							//Add Class Active
 							$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");

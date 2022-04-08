@@ -41,7 +41,7 @@
               <p><img src="{{url('/')}}/uploads/Images/klarna-payment-logo.png" width="90" height="80"></p>
               <div class="form-group">
               <input type="hidden" name="selected_package" id="selected_package" value="{{$selected_package}}">
-              <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : $sellerDetails[0]->klarna_username}}">
+              <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : @$sellerDetails[0]->klarna_username}}">
               <span class="invalid-feedback" style="position: relative;">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
                 </div>
 

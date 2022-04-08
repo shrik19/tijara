@@ -48,7 +48,7 @@
           @include ('Front.alert_messages')
       <div class="seller_info">
       <div class="seller_header">
-                    <h2 class="" style="margin-left: 11px;">{{ __('lang.product_form_label')}}</h2>
+                    <h2 class="seller_page_heading">{{ __('lang.product_form_label')}}</h2>
                     <!-- <hr class="heading_line"/> -->
                 </div>
          <!-- Example row of columns -->
@@ -188,7 +188,7 @@
                                 
                                   <input type="hidden" class="variant_id form-control ge_input variant_field" value="{{$variant_key1}}" name="variant_id[{{$i}}]" >
                                   <div class="form-group">
-                                    <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col">*</span></label>
+                                    <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col"></span></label>
                                     <div class="col-md-8">
                                     <input type="text" class="col-md-8 ge_input sku variant_field" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value="{{$variant['sku']}}" tabindex="7">
                                     <span class="invalid-feedback col-md-8" id="err_sku" ></span>
@@ -281,7 +281,7 @@
                                     
                                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="margin-top:40px;"></span>  
                                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="margin-top:40px;"></span>
-                                     <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
+                                     <p class="seller-logo-info col-md-12" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
                                      </div>  
                                   </div>
                               <!--  <div class=" col-md-12"><a href="javascript:void(0);" variant_id="" class="btn btn-danger btn-xs remove_variant_btn" title="Remove Variant"><i class="fas fa-trash"></i></a></div>

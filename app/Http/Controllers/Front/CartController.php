@@ -1114,6 +1114,8 @@ class CartController extends Controller
       $data = [];
       
       $user_id = Auth::guard('user')->id();
+      $site_details          = Settings::first();
+      $data['siteDetails']   = $site_details;
       if($user_id && Auth::guard('user')->getUser()->role_id == 1)
       {
         $orderId = base64_decode($orderId);
@@ -1366,7 +1368,7 @@ class CartController extends Controller
             return view('Front/payment_error',$responseFromFun); 
           }
           else
-          return view('Front/checkout_klarna', $responseFromFun);
+        return view('Front/checkout_klarna', $responseFromFun);
         }
         if($paymetOption=='swish') {
           $responseFromFun=  $this->showCheckoutSwish($seller_id,$checkExisting);         
@@ -1379,8 +1381,6 @@ class CartController extends Controller
           $data['strip_api_key']= $strip_api_key;
           $data['order_id']= $OrderId;
           $data['Total']  = $param['Total'];
-          $site_details          = Settings::first();
-          $data['siteDetails']   = $site_details;
           return view('Front/checkout_strip', $data);
         }
         if($paymetOption=='swish_number') {
@@ -2443,11 +2443,14 @@ DATA;
                     }
                 }
             }
+
+        
+
             foreach($mailOrderDetails as $orderProduct) {
               $mail_order_details  .= '<tr>
                       <td style="width: 40%; text-align: left;">
                           <h4 style="margin:5px 0;">'.$orderProduct['product']->title.'</h4>
-                          <br/>'.$orderProduct['variant_attribute_id'].'
+                          <br/>'.str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']).'
                       </td>
                       <td  style="width: 15%; text-align: right;">
                         <h4 style="margin:5px 0;"> '.$orderProduct['quantity'].'</h4>
@@ -2483,7 +2486,7 @@ DATA;
         
         $mail_order_details .=  '<tr>                     
                 <td colspan="5" style="text-align: right; padding-top: 20px;">
-                    <h4 style="margin:5px 0; font-weight: 600; font-size: 20px;">TotalSumma</h4>
+                    <h4 style="margin:5px 0; font-weight: 600; font-size: 20px;">Totalsumma</h4>
                     <h4 style="margin:5px 0; font-weight: 300; font-size: 18px;">'.$checkExisting['total'].' kr</h4>
                 </td>
               </tr>
@@ -2492,11 +2495,14 @@ DATA;
         $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
 
               $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name','users.seller_swish_number')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
-
+              date_default_timezone_set('Europe/London');
+              $created_date = $checkExisting['created_at'];
+              $created_date = date('Y-m-d H:i:s',strtotime("$created_date UTC"));
+           
         $overview  = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; 
         ">Butik: '.$GetSeller['store_name'].'</p>
         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Ordernummer: #'.$checkExisting['id'].' </p>
-        <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$checkExisting['created_at'].' </p>
+        <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatunm: '.$created_date.' </p>
          <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Swishnumer: '.$GetSeller['seller_swish_number'].' </p>';
 
         $GetEmailContents = getEmailContents('Order Success');
@@ -3272,6 +3278,8 @@ DATA;
           
           $data['billingAddress'] = json_decode($address['billing'],true);
           $data['shippingAddress'] = json_decode($address['shipping'],true);
+          $site_details          = Settings::first();
+          $data['siteDetails']   = $site_details;
           //return view('Front/download_order_details', $data);
           $pdf = PDF::loadView('Front/download_order_details',$data);
           return $pdf->download('order-#'.$OrderId.'.pdf');
@@ -3563,7 +3571,11 @@ DATA;
                   $total = (!empty($recordDetailsVal['total'])) ? number_format($recordDetailsVal['total'],2) : '-';
                   $payment_status = (!empty($recordDetailsVal['payment_status'])) ? $recordDetailsVal['payment_status'] : '-';
                   $order_status = (!empty($recordDetailsVal['order_status'])) ? $recordDetailsVal['order_status'] : '-';
-                  $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
+                  //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
+
+                  date_default_timezone_set('Europe/London');
+                  $dated = $recordDetailsVal['created_at'];
+                  $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
                   /* $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i style="color:#2EA8AB;" class="fas fa-eye open_order_details"></i> </a>&nbsp;&nbsp;
                   <a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i style="color:gray;" class="fas fa-file-download"></i> </a>';*/
                  if($order_status=='PENDING'){

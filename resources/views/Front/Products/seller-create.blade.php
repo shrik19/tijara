@@ -32,6 +32,10 @@
     bottom: 0px;
     left: 3px;
 }
+
+.sidebar_menu {
+    margin-left: -27px !important;
+}
 </style>
 
 <div class="mid-section sellers_top_padding">
@@ -48,7 +52,7 @@
       <div class="seller_info">
       <div class="seller_header">
 
-<h2 class="" style="margin-left: 11px;">{{ __('lang.product_form_label')}}</h2>
+<h2 class="seller_page_heading">{{ __('lang.product_form_label')}}</h2>
 <!-- <hr class="heading_line"/> -->
 </div>
   @if($is_seller)    
@@ -177,9 +181,9 @@
                 <div class="variant_tr" id="variant_tr" variant_id="<?php echo $i;?>">
                  
                   <div class="form-group" >
-                    <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col">*</span></label>
+                    <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col"></span></label>
                     <div class="col-md-8">
-                    <input type="text" class="col-md-8 ge_input sku variant_field" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value='{{ old("sku.$i")}}' tabindex="7">
+                    <input type="text" class="col-md-8 ge_input sku" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value='{{ old("sku.$i")}}' tabindex="7">
                     <span class="invalid-feedback  col-md-8"  id="err_sku" ></span>
                    </div>
                   </div>
@@ -247,7 +251,7 @@
                       <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                       <span class="invalid-feedback col-md-8" id="err_variant_image" style="margin-left:-1px;"></span>  
                       <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span> 
-                      <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
+                      <p class="seller-logo-info col-md-12" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
                     </div>
                     
                                   

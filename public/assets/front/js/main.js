@@ -588,7 +588,7 @@ $(".saveproduct").click(function(e){
     }
   }
   
-  if(shipping_method_ddl !=''){
+  if( shipping_method_ddl !=''){
     if(shipping_charges==''){
 
       $("#err_shipping_charges").html(required_field_error).show();
@@ -1865,7 +1865,7 @@ function removeWishlistProduct(OrderDetailsId)
                 var responseObj = $.parseJSON(data);
                 if(responseObj.status == 1)
                 {
-                    showSuccessMessage(responseObj.wishlist_remove,'reload');
+                    showSuccessMessageReview(responseObj.wishlist_remove,'reload');
                 }
                 else
                 {

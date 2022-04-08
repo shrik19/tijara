@@ -22,7 +22,7 @@
     @include ('Front.alert_messages')
     <div class="seller_info">
 		<div class="card-header row seller_header">
-			  <h2>{{ __('users.seller_personal_page_menu')}} </h2>
+			  <h2 class="seller_page_heading">{{ __('users.seller_personal_page_menu')}} </h2>
 			  <!-- <hr class="heading_line"> -->
 		</div>
     <div class="store_eye_icon">

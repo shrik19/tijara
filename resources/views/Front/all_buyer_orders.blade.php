@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="p_155">
+<div class="p_155" style="min-height: 600px;">
   <div class="container-fluid">
     <div class="container-inner-section-1">
       <div class="row">
@@ -26,7 +26,7 @@
               <div class="clearfix"></div>
                 <div class="card-body">
                     <div class="card">
-                    <div class="card-body"  style="margin-top: 20px;">
+                    <div class="card-body"  style="margin-top: 20px;margin-bottom: 60px;">
                     <div class="row">
                     @if(!empty($ordersDetails) && count($ordersDetails) > 0)
 

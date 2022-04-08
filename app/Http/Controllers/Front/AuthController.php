@@ -136,11 +136,16 @@ class AuthController extends Controller
                             ->join('packages', 'packages.id', '=', 'user_packages.package_id')
                             ->where('packages.is_deleted','!=',1)
                             ->where('user_packages.end_date','>=',$currentDate)
+                             ->where(function($q) use ($currentDate) {
+                                $q->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+                                ->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);
+                            })
                             ->where('user_id','=',$checkUser[0]['id'])
                             ->select('packages.id','packages.title','packages.description','packages.amount','packages.validity_days','packages.recurring_payment','packages.is_deleted','user_packages.id','user_packages.user_id','user_packages.is_trial','user_packages.package_id','user_packages.start_date','user_packages.end_date','user_packages.trial_start_date','user_packages.trial_end_date','user_packages.status','user_packages.payment_status')
                             ->orderByRaw('user_packages.id ASC')
                             ->get();
-                     //echo "<pre>";print_r($is_subscriber[0]);exit;  
+                     //echo "<pre>";print_r($is_subscriber[0]);exit; 
+                        
                     if(Auth::guard('user')->loginUsingId($checkUser[0]['id'])){
 
                         //Session::flash('success', 'Login successfull.');
@@ -173,12 +178,23 @@ class AuthController extends Controller
                             if(empty($getRoleId->fname) || empty($getRoleId->lname) || empty($getRoleId->email) || empty($getRoleId->country) || empty($getRoleId->city)){
                                 return redirect(route('frontSellerProfile'));
                             }
-                            if(@$is_subscriber[0]->payment_status=='checkout_incomplete' || @$is_subscriber[0]->payment_status==''){
+
+                          //  echo "shdja".$is_subscriber[0]->is_trial;exit;
+                            if(@$is_subscriber[0]->is_trial=='1' && @$is_subscriber[0]->trial_end_date>=$currentDate ){
+                                 return redirect(route('frontDashboard'));
+                            }else{
+                                if(@$is_subscriber[0]->payment_status=='checkout_incomplete' || @$is_subscriber[0]->payment_status==''){
+                                    return redirect(route('frontSellerProfile'));
+                                }else{
+                                    return redirect(route('frontDashboard'));
+                                }
+                            }
+                           /* if(($is_subscriber[0]->is_trial=='0' && $is_subscriber[0]->trial_end_date<=$currentDate ) || (@$is_subscriber[0]->payment_status=='checkout_incomplete' || @$is_subscriber[0]->payment_status=='')){
                                 return redirect(route('frontSellerProfile'));
                             }else{
                                  return redirect(route('frontDashboard'));
                             }
-                           
+                           */
                         }else{
                             return redirect(route('frontHome'));
                         }
@@ -746,9 +762,13 @@ class AuthController extends Controller
     /*function to check seller fname lname fill or not*/
      public function  checkSellerSetting(){
         $user_id = Auth::guard('user')->id();
+        $currentDate = date('Y-m-d H:i:s');
         $successMsg = $errorMsg = '';
-        $userdetails =  User::where('id', $user_id)->first();
-             
+        $userdetails =  User::where('users.id', $user_id)
+              ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id') 
+              ->orderByRaw('user_packages.id DESC')
+              ->first();
+
         if(empty($userdetails->fname) && empty($userdetails->lname)){
             $errorMsg = trans('errors.fill_in_flname_err');
         }
@@ -756,9 +776,16 @@ class AuthController extends Controller
             $errorMsg = trans('errors.fill_in_first_name_err');
         } else if(empty($userdetails->lname)){
             $errorMsg = trans('errors.fill_in_last_name_err');
-        }else{
+        } else if(($userdetails->is_trial=='0' && $userdetails->trial_end_date<=$currentDate && $userdetails->trial_end_date != '0000-00-00 00:00:00')||( $userdetails->end_date<=$currentDate && $userdetails->payment_status 
+            !='CAPTURED') ){
+
+            $errorMsg = trans('errors.no_active_package');
+        }
+        else{
             $successMsg = 'fname and lname are filled';
         }
+
+              
         return response()->json(['success'=>$successMsg,'error'=>$errorMsg]);
      }
     /**
@@ -825,9 +852,9 @@ class AuthController extends Controller
                     ->get();
 //echo "<pre>";print_r($show_exp_message[0]);exit;
          if($show_exp_message[0]->is_trial==1 && $show_exp_message[0]->trial_end_date >= $currentDate){
-            $data['noTrialPackageActive']=1;
-        }else{
             $data['noTrialPackageActive']=0;
+        }else{
+            $data['noTrialPackageActive']=1;
         }
 
         if($show_exp_message[0]->is_trial==0 && $show_exp_message[0]->end_date <= $currentDate){ 

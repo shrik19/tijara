@@ -5,6 +5,9 @@
     font-weight: 300 !important;
     color: #999 !important;
   }
+  .sidebar_menu {
+    margin-left: -27px !important;
+  }
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
@@ -22,7 +25,7 @@
 
       <div class="card">
         <div class="card-header row seller_header">
-          <h2>{{ __('users.payment_btn')}} </h2>
+          <h2 class="seller_page_heading">{{ __('users.payment_btn')}} </h2>
         </div> <!--  seller_header -->
          <div class="seller_mid_cont"  style="margin-top: 40px;">
          
@@ -48,7 +51,7 @@
               <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
                 </div>
 
-				<div class="payment_explanation_text">{{ __('messages.klarna_description_step_1')}}</br>{{ __('messages.klarna_description_step_2')}}</br>{{ __('messages.klarna_description_step_3')}}</br>{{ __('messages.klarna_description_step_4')}}</div>
+				<div class="payment_explanation_text">{{ __('messages.klarna_description_step_1')}} <a target="_blank" href="https://auth.eu.portal.klarna.com/auth/realms/merchants/protocol/openid-connect/auth?client_id=merchant-portal&redirect_uri=https%3A%2F%2Fportal.klarna.com%2F%3F_ga%3D2.246934660.126610679.1646642154-1734669118.1646642154&state=a4c4cce6-9787-49a3-9131-ca7362164c5c&response_mode=fragment&response_type=code&scope=openid&nonce=f23358b1-1fb6-4f06-87e3-3ca8281be740&code_challenge=HCL30L02B40414ZxJeU5kOw8XqhetiyzuAgBZeqnaX0&code_challenge_method=S256">Här</a></br>{{ __('messages.klarna_description_step_2')}}</br>{{ __('messages.klarna_description_step_3')}}</br>{{ __('messages.klarna_description_step_4')}}<br><br>{{__('messages.contact_klarna_support_description')}}</div>
             </div>
             <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.easy_peyment_title')}}</p>
             <div class="login_box payment_detail_box swish_payment" style="margin-top: 20px;">
@@ -85,9 +88,10 @@
                <input type="phone_number" class="form-control login_input " name="swish_number" id="seller_swish_number" placeholder="swish number" value="{{ (old('seller_swish_number')) ? old('seller_swish_number') : $sellerDetails[0]->seller_swish_number}}" style="margin-left: 10px;">
               </div>
 			         
-               <div class="payment_explanation_text">{{ __('messages.swish_description_step_1')}}</br>{{ __('messages.swish_description_step_2')}}</br>{{ __('messages.swish_description_step_3')}}</div> 
+               <div class="payment_explanation_text">{{ __('messages.swish_description_step_1')}}</br>{{ __('messages.swish_description_step_2')}}</div> 
 
             </div>
+
             <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
             <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">
                 <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div>
@@ -103,7 +107,7 @@
               <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
               </div>
 
-              <div class="payment_explanation_text">{{ __('messages.strip_description_step_1')}}</br>{{ __('messages.strip_description_step_2')}}</br>{{ __('messages.strip_description_step_3')}}</div>  
+              <div class="payment_explanation_text">{{ __('messages.strip_description_step_1')}}<a target="_blank" href=" https://dashboard.stripe.com/login">Här</a></br>{{ __('messages.strip_description_step_2')}}</br>{{ __('messages.strip_description_step_3')}}</br></br>{{ __('messages.register_stripe_description')}}</div>  
              
             </div>
              <div style="margin-top: 30px;">

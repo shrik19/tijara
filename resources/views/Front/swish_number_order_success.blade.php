@@ -7,7 +7,8 @@
     <div class="col-md-12 text-center" style="padding: 50px;">
       <div class="card">
         <div class="card-body">
-          @if(isset($swish_message1))
+            <h2>{{ __('messages.thanks_title')}}</h2>
+          @if(isset($swish_message))
             <div class="login_box">
               <div class="alert alert-success">{{$swish_message}} </div>
             </div>

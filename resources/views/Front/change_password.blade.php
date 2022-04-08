@@ -15,8 +15,7 @@
 			<!-- Example row of columns -->
 			<div class="row">
 				<div class="col-md-12">
-					
-
+					<input type="hidden" name="is_seller" class="is_seller" value="{{$is_seller}}">
 					@if($is_seller==1)
 						<div class="col-md-2 tijara-sidebar">
 							@include ('Front.layout.sidebar_menu')
@@ -98,37 +97,40 @@
 <script type="text/javascript">
 
  $("#changePasswordBtn").click(function(){
- 	var old_password = $("#old_password").val();
+ 	var is_seller = $(".is_seller").val(); 	
  	var password = $("#password").val();
  	var password_confirmation = $("#password_confirmation").val();
  	var error = 0; 	 
+	if(is_seller==1){
+ 		var old_password = $("#old_password").val();
+ 	
+	 	if(old_password==''){
+	 		$("#err_old_password").html(required_field_error).show();
+		    $("#err_old_password").parent().addClass('jt-error');
+		    error = 1;
+	 	}else{
+	 		$("#err_old_password").html('');
+	 		 //checkPassword(old_password)
+		  
+	 	}
 
- 	if(old_password==''){
- 		$("#err_old_password").html(required_field_error).show();
-	    $("#err_old_password").parent().addClass('jt-error');
-	    error = 1;
- 	}else{
- 		$("#err_old_password").html('');
- 		 //checkPassword(old_password)
-	  
- 	}
-
- 	if(old_password !=''){
- 		 $.ajax({
-	    url: siteUrl+'/check-old-password',
-	    type: 'get',
-	    async:false,
-	    data: { old_password:old_password},
-	    success: function(output){
-	      if(output.error !=''){
-	        showErrorMessage(output.error);
-	        error = 1;
-	      }
-	    }
-	  });
- 
- 	}
-
+	 	if(old_password !=''){
+	 		 $.ajax({
+		    url: siteUrl+'/check-old-password',
+		    type: 'get',
+		    async:false,
+		    data: { old_password:old_password},
+		    success: function(output){
+		      if(output.error !=''){
+		        showErrorMessage(output.error);
+		        error = 1;
+		      }
+		    }
+		  });
+	 
+	 	}
+	}
+	
 	if(password == '')
 	{
 		$("#err_password").html(required_field_error).show();

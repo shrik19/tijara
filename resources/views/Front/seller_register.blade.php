@@ -81,7 +81,7 @@
 							<div class="loader-seller" style="display:none;"></div>
 							<!-- progressbar -->
 							<ul id="progressbar">
-								<li class="active" id="account"><span>1</span></spa>{{ __('users.step_one_head')}}</li>
+								<li class="active" id="account"><span class="step_1">1</span></spa>{{ __('users.step_one_head')}}</li>
 								<li id="personal"><span>2</span>{{ __('users.step_two_head')}}</li>
 								<li id="payment"><span>3</span>{{ __('users.step_three_head')}}</li>
 								<li id="confirm"><span>4</span>{{ __('users.step_four_head')}}</li>
@@ -127,7 +127,7 @@
 							</fieldset>
 					  
 						 
-							<fieldset class="seller_register_second">
+							<fieldset class="seller_register_second" style="">
 								<div class="form-card">
 									@include ('Front.alert_messages')   
                                     @if(!empty($packageDetails))           
@@ -215,7 +215,7 @@
 								              <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
 							              </div>
 
-											<div class="payment_explanation_text">{{ __('messages.klarna_description_step_1')}} <a target="_blank" href="https://auth.eu.portal.klarna.com/auth/realms/merchants/protocol/openid-connect/auth?client_id=merchant-portal&redirect_uri=https%3A%2F%2Fportal.klarna.com%2F%3F_ga%3D2.246934660.126610679.1646642154-1734669118.1646642154&state=a4c4cce6-9787-49a3-9131-ca7362164c5c&response_mode=fragment&response_type=code&scope=openid&nonce=f23358b1-1fb6-4f06-87e3-3ca8281be740&code_challenge=HCL30L02B40414ZxJeU5kOw8XqhetiyzuAgBZeqnaX0&code_challenge_method=S256">här</a></br>{{ __('messages.klarna_description_step_2')}}</br>{{ __('messages.klarna_description_step_3')}}</br>{{ __('messages.klarna_description_step_4')}}</br></br>
+											<div class="payment_explanation_text">{{ __('messages.klarna_description_step_1')}} <a target="_blank" href="https://auth.eu.portal.klarna.com/auth/realms/merchants/protocol/openid-connect/auth?client_id=merchant-portal&redirect_uri=https%3A%2F%2Fportal.klarna.com%2F%3F_ga%3D2.246934660.126610679.1646642154-1734669118.1646642154&state=a4c4cce6-9787-49a3-9131-ca7362164c5c&response_mode=fragment&response_type=code&scope=openid&nonce=f23358b1-1fb6-4f06-87e3-3ca8281be740&code_challenge=HCL30L02B40414ZxJeU5kOw8XqhetiyzuAgBZeqnaX0&code_challenge_method=S256">Här</a></br>{{ __('messages.klarna_description_step_2')}}</br>{{ __('messages.klarna_description_step_3')}}</br>{{ __('messages.klarna_description_step_4')}}</br></br>
 											{{__('messages.contact_klarna_support_description')}}
 											</div>
 							            </div>
@@ -250,8 +250,9 @@
 							              <div class="payment_explanation_text">
 							              	<!-- {{ __('messages.swish_number_step_description')}}	
 							              	 -->
-							              	 <div class="payment_explanation_text">{{ __('messages.swish_description_step_1')}}</br>{{ __('messages.swish_description_step_2')}}</br>{{ __('messages.swish_description_step_3')}}</div> 
+							              	 <div class="payment_explanation_text"> {{ __('messages.swish_description_step_1')}}</br> {{ __('messages.swish_description_step_2')}}</div> 
 							            </div>
+							        </div>
 							            <p class="payment_method_title" style="margin-top: 20px;">{{ __('users.stripe_pament_label')}}</p>
 							            <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">
 							               <!--  <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div> -->
@@ -274,7 +275,7 @@
 								              <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
 							              </div>
 
-							              <div class="payment_explanation_text">{{ __('messages.strip_description_step_1')}} <a target="_blank" href=" https://dashboard.stripe.com/login">här</a></br>{{ __('messages.strip_description_step_2')}}</br>{{ __('messages.strip_description_step_3')}}</br></br>{{ __('messages.register_stripe_description')}}</div>  
+							              <div class="payment_explanation_text">{{ __('messages.strip_description_step_1')}} <a target="_blank" href=" https://dashboard.stripe.com/login">Här</a></br>{{ __('messages.strip_description_step_2')}}</br>{{ __('messages.strip_description_step_3')}}</br></br>{{ __('messages.register_stripe_description')}}</div>  
 							             
 							            </div>
 							             
@@ -709,7 +710,7 @@ if($('#current_step_button').val() != 1){
             step: function(now) {
             	//console.log("next-->"+now)
                 // for making fielset appear animation
-                opacity = 0.6 - now;
+                opacity = 0.5 - now;
 
                 current_fs.css({
                     'display': 'none',

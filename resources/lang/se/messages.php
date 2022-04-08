@@ -70,7 +70,7 @@
       'wishlist_product_remove' => 'Är du säker på att du vill ta bort från Dina favoriter?',
       'wishlist_product_remove_success' => 'Produkten har tagits bort från Dina favoriter.',
       'wishlist_service_remove' => 'Är du säker på att du vill ta bort tjänsten från Önskelistan?',
-      'wishlist_service_remove_success' => 'Tjänsten har tagits bort från önskelistan.',
+      'wishlist_service_remove_success' => 'Tjänsten har tagits bort från Dina favoriter.',
       
       'txt_order_details' => 'Orderdetaljer',
       'txt_order_details_print' => 'Skriva ut',
@@ -78,7 +78,7 @@
      'txt_shipping_address' => 'Leveransadress',
      'txt_seller' => 'Säljare',
      'txt_payment_status' => 'Betalningsstatus',
-     'txt_order_status' => 'Beställa status',
+     'txt_order_status' => 'Orderstatus',
 
      'email_save_success'=>'E-postuppgifterna har sparats.',
      'email_update_success'=>'E-postuppgifterna har uppdaterats.',
@@ -109,9 +109,9 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
 	'strip_description_step_1' => '1. Logga in på ditt Stripe-konto.',
 	'strip_description_step_2' => '2. Gå till Utvecklare i det högra hörnet och välj sedan API-nycklar till
 vänster i listan.',
-	'strip_description_step_3' => '3). klistra in hemlig nyckel i första inmatningsrutan och publicerbar nyckel i andra rutan',
-	'swish_description_step_1' => '1).Fyll i ditt swishnummer',
-	'swish_description_step_2' => '2).Tänk på att alla ordrar som kommer in med swish kontrolleras manuellt av dig som admin',
+	'strip_description_step_3' => '3). Kopiera Publicerbar nyckel och Hemlig nyckel och klistra in här.',
+	'swish_description_step_1' => '1).Fill in your swish number',
+	'swish_description_step_2' => '2).Tänk på att när man får beställningar via Swish betalning måste man själv kontrollera att man har mottagit betalningen med rätt belopp innan man packar och skickar iväg beställningen till kunden. ',
 	'swish_description_step_3' => '3).Efter kontroll av inkommen summa, skicka produkten. Se bilden swish',
 	'klarna_description_step_1' => '1. Logga in på Klarna Merchant Portal.',
 	'klarna_description_step_2' => '2. Klicka på inställningar och Klarna API-nycklar.',
@@ -130,11 +130,12 @@ att skapa ett.',
     'swish_number_step_description' => 'Det är viktigt att komma ihåg att när man får beställningar via Swish betalning att man själv kontrollera att man har mottagit betalningen med rätt belopp innan man packar och skickar iväg beställningen till kunden.',
      'register_stripe_description' => 'Saknar du ett Stripe-konto, registrera dig på
 https://dashboard.stripe.com/register',
-    'ad_save_success' => 'Tack! Din annons kommer att publiceras inom kort',
+    'ad_save_success' => 'Din annons kommer att publiceras inom kort. Du kan se dina annonser under Mina annonser',
     'del_variant_confirm_box' => 'Är du säker på att du vill ta bort Variant?',
     'add_attribute_info' => 'Ändra eller lägg till nya egenskaper till vänster under Attribut',
-    'product_img_upload_info' => 'Lägg till en bild i storlek (1800x1800px). För flera bilder, lägg till en i taget.',
+    'product_img_upload_info' => 'Lägg till en bild i storlek (1080x1080px). För flera bilder, lägg till en i taget.',
      'seller_product_varint_info' => 'Lägg till andra varianter av din produkt, så som färg eller storlek etc.',
      'payment_info_updated' => 'Betalningsinformation uppdaterad',
+     'thanks_title' => 'Tack!',
  ]
 ?>

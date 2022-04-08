@@ -1,7 +1,7 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
-<div class="container containerfluid p_155" style="min-height: 500px;">
+<div class="container containerfluid p_155" style="min-height: 650px;">
   <!-- Example row of columns -->
   <div class="row register-success-page">
     <div class="">

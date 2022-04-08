@@ -21,7 +21,7 @@
         $showProductMenu  = 0;
       @endphp
 
-      <li class="{{$activeClass }} make_disabled check_seller_setting"><a href="{{route('frontDashboard')}}">{{ __('lang.summary_menu')}}</a></li>
+      <li class="{{$activeClass }} make_disabled check_seller_setting"><a href="{{route('frontDashboard')}}" style="margin-bottom: 15px;">{{ __('lang.summary_menu')}}</a></li>
     @endif
 
     <li><h2>{{ __('users.manage_label')}}</h2></li>
@@ -125,6 +125,7 @@
 </div>
 <script type="text/javascript">
 $( document ).ready(function() {
+
      $.ajax({
     url: siteUrl+'/check-seller-setting',
     type: 'get',
@@ -135,6 +136,7 @@ $( document ).ready(function() {
       if(response.error!=''){
         $('.check_seller_setting').attr( "disabled", "disabled" );
         $('.check_seller_setting').css( "pointer-events", "none" );
+        $('#header_user_menu').attr('href',siteUrl+"/seller-profile");
         showErrorMessage(response.error);
       }
     }

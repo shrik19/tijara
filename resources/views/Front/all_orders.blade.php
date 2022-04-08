@@ -22,7 +22,7 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-      <h2 style="margin-left: 16px;">{{ __('users.my_order_title')}}</h2>
+      <h2 class="seller_page_heading">{{ __('users.my_order_title')}}</h2>
       <!-- <hr class="heading_line"/> -->
       </div>
     </div>
@@ -268,7 +268,7 @@ function change_order_status(order_id) {
                   var responseObj = $.parseJSON(data);
                   if(responseObj.status == 1)
                   {
-                      showSuccessMessage(responseObj.msg,'reload');
+                      showSuccessMessageReview(responseObj.msg,'reload');
                   }
                   else
                   {

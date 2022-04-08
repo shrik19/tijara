@@ -180,8 +180,8 @@
 					    <input type="hidden" name="selected_package_id" id="selected_package_id" class="selected_package_id" value="{{$data['id']}}">
 					    <input type="hidden" id="validity_days" name="validity_days" value="{{$data['validity_days']}}">
 					    <tr>
-					  		<td>{{ __('users.description_label')}}</td>
-					  		<td>{{ strip_tags(@$row->description)}}</td>
+					  		<td cf>{{ __('users.description_label')}}</td>
+					  		<td>{{ strip_tags(@$data['description'])}}</td>
 					    </tr>
 					    <tr>
 					  		<td>{{ __('users.amount_label')}}</td>

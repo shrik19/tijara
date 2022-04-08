@@ -19,7 +19,7 @@
 	  <div class="card">
 		<div class="card-header row seller_header">
 		<div class="col-md-10">
-		  <h2>{{ __('lang.manage_attributes_menu')}} </h2>
+		  <h2 class="seller_page_heading">{{ __('lang.manage_attributes_menu')}} </h2>
 		  <!-- <hr class="heading_line"/> -->
 		  </div>
 		 
@@ -40,7 +40,7 @@
                   <tr>
                     <th class="product_table_heading" data-orderable="false">&nbsp;</th>
                     <th class="product_table_heading" >{{ __('lang.attribute_label')}}</th>
-                    <th data-orderable="false">{{ __('lang.action_label')}}</th>
+                    <th class="product_table_heading"  data-orderable="false">{{ __('lang.action_label')}}</th>
                   </tr>
                 </thead>
                 <tbody id="result">

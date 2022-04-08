@@ -8,6 +8,9 @@
    .invalid-feedback {
     position: relative;
   }
+  .sidebar_menu {
+    margin-left: -29px !important;
+  }
 </style>
 <div class="mid-section sellers_top_padding">
 	<div class="container-fluid">
@@ -24,7 +27,7 @@
 							@include ('Front.alert_messages')
 							<div class="seller_info">
 								<div class="card-header row seller_header">
-									<h2>{{ __('users.change_password_title')}}</h2>					  
+									<h2 @if($is_seller==1) class="seller_page_heading" @endif>{{ __('users.change_password_title')}}</h2>					  
 								</div>
 
 					@else

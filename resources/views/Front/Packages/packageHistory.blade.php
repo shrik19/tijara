@@ -14,7 +14,7 @@
 
 		<div class="seller_info">
 		<div class="seller_header">
-      	    <h2>{{ __('users.your_package_history')}}</h2>
+      	    <h2 class="seller_page_heading">{{ __('users.your_package_history')}}</h2>
         	<!-- <hr class="heading_line"/> -->
 		</div>
 		<div class="col-md-12">

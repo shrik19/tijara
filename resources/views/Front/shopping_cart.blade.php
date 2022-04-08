@@ -16,7 +16,7 @@
 <div class="seller_info shopping_cart_page border-none">
     <div class="card">
         <div class="card-header row">
-            <div class="col-md-6 p-m-0">
+            <div class="col-md-6 p-m-0 pl-0">
             <h2 class="page_heading m-l-12">{{ __('lang.shopping_cart')}}</h2> 
             </div> 
             <div class="col-md-6 text-right">
@@ -31,7 +31,7 @@
 <div class="loader"></div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12 col-md-12 p-m-0">
+        <div class="col-sm-12 col-md-12 p-m-0 pl-0">
         <div class="row">
             <!-- <div class="col-md-6">
               <h2>{{ __('lang.shopping_cart')}}</h2>

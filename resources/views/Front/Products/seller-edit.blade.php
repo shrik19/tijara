@@ -287,7 +287,7 @@
                               <!--  <div class=" col-md-12"><a href="javascript:void(0);" variant_id="" class="btn btn-danger btn-xs remove_variant_btn" title="Remove Variant"><i class="fas fa-trash"></i></a></div>
                                -->
                                   <!-- <div class="selected_images col-md-12"></div> -->
-                                  <div class="remove_variant_div"></div>
+                                  <div class="remove_variant_div col-md-12"><a href='javascript:void(0);' variant_id='<?php echo $i; ?>' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a></div>
                                   <div class="loader"></div>
                                  
                                 </div>

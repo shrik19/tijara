@@ -163,7 +163,9 @@ $(".add_new_variant_btn").click(function(){
   $trNew.find('.select_attribute_value').each(function() { 
          $(this).attr('name','attribute_value['+variant_id+']['+$(this).attr('attribute_id')+']');
      });
-
+	$trNew.find('span.invalid-feedback').each(function() { 
+         $(this).html('');
+     });
 
     //$trNew.find('.variant_attribute_id').attr('name','variant_attribute_id['+variant_id+'][0]');
     //$trNew.find('.select_attribute').removeClass('preselected_attribute').attr('id','0').attr('name','attribute['+variant_id+'][0]');
@@ -461,7 +463,7 @@ $(".saveproduct").click(function(e){
   let shipping_method_ddl = $("#shipping_method_ddl").val();
   var shipping_charges    = $("#shipping_charges").val();
   let error               = 0;
-
+	$('span.invalid-feedback').html('');
   if(title == '')
   {
     $("#err_title").html(required_field_error).show();
@@ -545,14 +547,13 @@ $(".saveproduct").click(function(e){
 
   
 
-  $( ".variant_field:visible" ).each(function() {
+  $( ".variant_field" ).each(function() {
 
       if($(this).val()=='') {
           $(this).next('.invalid-feedback').html(required_field_error);
           error = 1;
       }
-      else
-      $(this).next('.invalid-feedback').html('');
+      
   });
   $( ".add_attribute_group_td" ).each(function() {
   
@@ -562,9 +563,20 @@ $(".saveproduct").click(function(e){
     }
   });
   if($("#free_shipping_chk").is(':checked')){
-    error = 0;
-  }else{
-    if(shipping_method_ddl == '')
+    //error = 0;
+  }
+  else{
+	  
+	if($("#is_pick_from_store").is(':checked')){
+		if(pick_up_address==''){
+		  $("#err_pick_up_address").html(required_field_error).show();
+		  $("#err_pick_up_address").parent().addClass('jt-error');
+		  error = 1;
+		} else {
+		  $("#err_pick_up_address").html('').show();
+		}
+	}
+    else if(shipping_method_ddl == '')
     {
       $("#err_shipping_method_ddl").html(required_field_error).show();
       $("#err_shipping_method_ddl").parent().addClass('jt-error');
@@ -590,15 +602,7 @@ $(".saveproduct").click(function(e){
     }
   }
 
-  if($("#is_pick_from_store").is(':checked')){
-    if(pick_up_address==''){
-      $("#err_pick_up_address").html(required_field_error).show();
-      $("#err_pick_up_address").parent().addClass('jt-error');
-      error = 1;
-    } else {
-      $("#err_pick_up_address").html('').show();
-    }
-  }
+  
 
   if(error == 1)
   {

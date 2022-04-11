@@ -34,6 +34,8 @@
           <li class="nav-item dropdown">
           <a href="{{route('adminService')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.manage_services_menu')}}</span></a></li> 
 
+          <li class="nav-item dropdown">
+          <a href="{{route('adminProductAttributes')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.manage_attributes_menu')}}</span></a></li> 
 
         <li class="nav-item dropdown">
           <a href="{{route('adminBuyersAd')}}" class="nav-link"><i class="fas fa-id-card-alt"></i> <span>{{ __('lang.buyer_ad_title')}} </span></a>

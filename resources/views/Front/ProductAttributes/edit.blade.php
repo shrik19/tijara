@@ -5,6 +5,9 @@
     font-weight: 300 !important;
     color: #999 !important;
   }
+  .sidebar_menu {
+    margin-left: -29px !important;
+  }
 </style>
 <div class="mid-section sellers_top_padding">
   <div class="container-fluid">
@@ -23,7 +26,7 @@
             <div class="seller_info">
               <div class="card">
             <div class="card-header row seller_header">
-               <h2>{{ __('lang.attribute_form_label')}}</h2>
+               <h2 class="seller_page_heading">{{ __('lang.attribute_form_label')}}</h2>
             </div>
 
             <div class="col-md-12 text-right" style="margin-top:30px;">

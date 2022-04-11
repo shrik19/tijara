@@ -110,7 +110,7 @@ annonser så får du lägga upp annonsen igen. Du kan när som helst ta bort ann
 	'strip_description_step_2' => '2. Gå till Utvecklare i det högra hörnet och välj sedan API-nycklar till
 vänster i listan.',
 	'strip_description_step_3' => '3). Kopiera Publicerbar nyckel och Hemlig nyckel och klistra in här.',
-	'swish_description_step_1' => '1).Fill in your swish number',
+	'swish_description_step_1' => '1).Fyll i ditt swishnummer',
 	'swish_description_step_2' => '2).Tänk på att när man får beställningar via Swish betalning måste man själv kontrollera att man har mottagit betalningen med rätt belopp innan man packar och skickar iväg beställningen till kunden. ',
 	'swish_description_step_3' => '3).Efter kontroll av inkommen summa, skicka produkten. Se bilden swish',
 	'klarna_description_step_1' => '1. Logga in på Klarna Merchant Portal.',

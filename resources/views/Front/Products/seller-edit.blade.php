@@ -190,7 +190,7 @@
                                   <div class="form-group">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col"></span></label>
                                     <div class="col-md-8">
-                                    <input type="text" class="col-md-8 ge_input sku variant_field" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value="{{$variant['sku']}}" tabindex="7">
+                                    <input type="text" class="col-md-8 ge_input sku" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value="{{$variant['sku']}}" tabindex="7">
                                     <span class="invalid-feedback col-md-8" id="err_sku" ></span>
                                    </div>
                                   </div>
@@ -277,11 +277,12 @@
                                         @endforeach
                                     @endif
                                   </div>
-                                    <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image " name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
+                                    <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                                     
-                                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="margin-top:40px;"></span>  
-                                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="margin-top:40px;"></span>
+                                    <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="float: right;"></span>  
+                                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="float: right;"></span>
                                      <p class="seller-logo-info col-md-12" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
+
                                      </div>  
                                   </div>
                               <!--  <div class=" col-md-12"><a href="javascript:void(0);" variant_id="" class="btn btn-danger btn-xs remove_variant_btn" title="Remove Variant"><i class="fas fa-trash"></i></a></div>

@@ -37,7 +37,7 @@
       <div class="col-md-12">
         <div class="seller_info">
       <div class="card-header row seller_header">
-        <h2>{{ __('users.profile_update_title')}}</h2>
+        <h2 class="seller_page_heading">{{ __('users.profile_update_title')}}</h2>
         <!-- <hr class="heading_line"> -->
      </div>  
         <div class="login_box seller_profile_content">
@@ -48,10 +48,9 @@
             @else
               <input type="hidden" name="is_disabled" id="disable_side_menu" value="0">
             @endif
-            @if($noTrialPackageActive == 1)
+            @if(@$noTrialPackageActive == 1)
               <input type="hidden" name="noTrialPackageActive" id="noTrialPackageActive" value="1">
-            @else
-            <input type="hidden" name="noTrialPackageActive" id="noTrialPackageActive" value="0">
+           
             @endif
             <input type="hidden" name="role_id" value="{{$role_id}}">
             <p class="contact_person_head">Kontaktperson:</p>
@@ -289,6 +288,7 @@ $(function() {
       /*if(fname != '' && lname != '')
       {*/
         $('#header_user_menu').attr('href',siteUrl+"/seller-profile");
+
         $('.check_seller_setting').attr( "disabled", "disabled" );
         $('.check_seller_setting').css( "pointer-events", "none" );
       //}
@@ -462,6 +462,7 @@ $(function() {
 
   if(is_disabled==1 && ( $("#card_name").text() =="" || $("#seller_card_number").text() =="" || $("#seller_card_expiry").text() =="")){
      showErrorMessage(seller_account_freeze);
+     $('#header_user_menu').attr('href',siteUrl+"/seller-profile");
     $('.check_seller_setting').attr( "disabled", "disabled" );
     // Handler for .ready() called.
     $('html, body').animate({

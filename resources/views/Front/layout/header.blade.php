@@ -199,13 +199,28 @@
             $getTotalOrders = getNewOrders(Auth::guard('user')->id());
             $getTotalBookings = getNewBookings(Auth::guard('user')->id());
             $totalNotifications = $getTotalOrders + $getTotalBookings;
+            $toggleClass = '';
+            $href ="/seller-dashboard";
+            $data_toggle ='';
+            if($totalNotifications > 0){
+              $toggleClass = 'dropdown-toggle';
+              $href = "javascript:void(0)";
+              $data_toggle ='dropdown';
+            }
 
         @endphp
-                     <a class="top_icon_css" id="header_user_menu"  href="{{route('frontDashboard')}}">
+                     <a class="top_icon_css {{$toggleClass}}" id="header_user_menu"  href=" {{$href}}" data-toggle="{{$data_toggle}}">
 
                     <img class="m-7" src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" />
-                      </a>
+                      </a>   
+                       @if($totalNotifications > 0)
+                      <ul class="dropdown-menu">
+                      <li style="width:100%"><a href="{{route('frontAllbookingRequest')}}">{{ __('users.my_booking_title')}} <p class='badge badge-pill debg_color' id="allSellerBookings">{{ $getTotalBookings}}</p></a></li>
+
+                      <li  style="width:100%"><a href="{{route('frontAllOrders')}}">{{__('lang.manage_orders_menu')}} <p class='badge badge-pill debg_color' id="allSellerOrders">{{ $getTotalOrders}}</p></a></li>
+                    </ul>
               
+                      @endif
                       @if($totalNotifications > 0)
                       <div class="cart_count notification_count">
                          

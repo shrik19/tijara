@@ -166,7 +166,7 @@ $(".add_new_variant_btn").click(function(){
 	$trNew.find('span.invalid-feedback').each(function() { 
          $(this).html('');
      });
-
+$trNew.find('.variant_image').addClass('variant_field');
     //$trNew.find('.variant_attribute_id').attr('name','variant_attribute_id['+variant_id+'][0]');
     //$trNew.find('.select_attribute').removeClass('preselected_attribute').attr('id','0').attr('name','attribute['+variant_id+'][0]');
     //$trNew.find('.select_attribute_value').removeClass('preselected_attribute').attr('name','attribute_value['+variant_id+'][0]');
@@ -518,15 +518,14 @@ $(".saveproduct").click(function(e){
     $("#err_variant_hid_image").html(wait_while_upload).show();
     $("#err_variant_hid_image").parent().addClass('jt-error');
     error = 1;
-  }else if(hidden_images =='' && variant_image == ''){
+  }/*else if(hidden_images =='' && variant_image == ''){
 
      $("#err_variant_image").html(required_field_error).show();
     $("#err_variant_image").parent().addClass('jt-error');
     error = 1;
-  }
+  }*/
   else
   {
-
     $("#err_variant_hid_image").html('').show();
   }
 
@@ -590,7 +589,6 @@ $(".saveproduct").click(function(e){
   
   if( shipping_method_ddl !=''){
     if(shipping_charges==''){
-
       $("#err_shipping_charges").html(required_field_error).show();
       $("#err_shipping_charges").parent().addClass('jt-error');
       error = 1;

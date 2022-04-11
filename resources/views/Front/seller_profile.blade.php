@@ -63,7 +63,7 @@
             <div class="form-group  col-md-6">
               <!-- <label>{{ __('users.phone_number_label')}}</label> -->
               <!-- <span style="margin-top: 10px;" class="col-md-2">+46</span> -->
-              <input type="text" class="form-control ge_input" name="phone_number" id="phone_number" placeholder="{{ __('users.phone_number_label')}}" value="{{ (old('phone_number')) ? old('phone_number') : $sellerDetails[0]->phone_number}}">
+              <input type="text" class="form-control ge_input" name="phone_number" id="phone_number1" placeholder="{{ __('users.phone_number_label')}}" value="{{ (old('phone_number')) ? old('phone_number') : $sellerDetails[0]->phone_number}}">
               <span class="invalid-feedback" id="err_phone_number">@if($errors->has('phone_number')) {{ $errors->first('phone_number') }}@endif</span>
             </div>
 
@@ -473,11 +473,6 @@ $(function() {
       event.preventDefault();
     });
   }
-
-  $(document).ready(function () {
-    $('#phone_number').mask('00 000 00000');
-  });
-
 
 </script>
 

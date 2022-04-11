@@ -167,10 +167,10 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 
 	    Route::get('/','ProductAttributesController@index')->name('adminProductAttributes');
 	    Route::get('/create','ProductAttributesController@create')->name('adminAttributeCreate');
-	    Route::post('/store','ProductAttributesController@store')->name('adminAttributeStore');
+	    Route::any('/store','ProductAttributesController@store')->name('adminAttributeStore');
 	    Route::any('/getRecords','ProductAttributesController@getRecords')->name('adminAttributeGetRecords');
 	    Route::get('/edit/{id}','ProductAttributesController@edit')->name('adminAttributeEdit');
-	    Route::post('/updateAttribute/{id}','ProductAttributesController@update')->name('adminAttributeUpdate');
+	    Route::any('/updateAttribute/{id}','ProductAttributesController@update')->name('adminAttributeUpdate');
 	    Route::get('/delete/{id}','ProductAttributesController@delete')->name('adminAttributeDelete');
 	    Route::post('/deleteAttributeValue','ProductAttributesController@deleteAttributeValue')->name('admindeleteAttributeValue');
 	});

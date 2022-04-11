@@ -186,7 +186,7 @@
                                 <?php $attribute  = $variant['attributes'][0]; ?>
                                 <div class="variant_tr" id="variant_tr" variant_id="<?php echo $i;?>">
                                 
-                                  <input type="hidden" class="variant_id form-control ge_input variant_field" value="{{$variant_key1}}" name="variant_id[{{$i}}]" >
+                                  <input type="hidden" class="variant_id form-control ge_input" value="{{$variant_key1}}" name="variant_id[{{$i}}]" >
                                   <div class="form-group">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col"></span></label>
                                     <div class="col-md-8">
@@ -277,7 +277,7 @@
                                         @endforeach
                                     @endif
                                   </div>
-                                    <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
+                                    <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                                     
                                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="float: right;"></span>  
                                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="float: right;"></span>

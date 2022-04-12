@@ -150,7 +150,15 @@ if (@$_GET['print'])
                         <td> 
                         <span style="font-size:16px;">
                             {{ __('messages.txt_seller')}} : <a href="{{$seller_link}}">{{ $seller_name }}</a><br />
-                            {{ __('messages.txt_payment_status')}} : {{ $order['payment_status'] }} <br />
+                            <?php //echo $order['payment_status'];exit;
+                            $payment_status = "";
+                            if($order['payment_status']="Pending"){
+                                 $payment_status =trans("users.pending_order_status");
+                            }else{
+                                $payment_status=$order['payment_status'];
+                            }
+                            ?>
+                            {{ __('messages.txt_payment_status')}} :{{$payment_status}} <br />
                             {{ __('messages.txt_order_status')}} : 
                             @if($is_seller || $is_buyer_order) 
                             <select name="order_status" id="order_status" onchange="change_order_status(<?php echo $order['id']; ?>)" order_id="{{$order['id']}}" class="form-control" style="width: 50%;display: inline-block;">

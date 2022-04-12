@@ -398,8 +398,10 @@ class ProductController extends Controller
         }
         $currentDate = date('Y-m-d H:i:s');
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
+        $data['users_details']=$User;
         if($User->role_id==2) 
         {
+
             $is_seller = 1;
             $currentDate = date('Y-m-d H:i:s');
             $isSubscribed = DB::table('user_packages')

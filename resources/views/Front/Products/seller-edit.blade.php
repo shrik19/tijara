@@ -307,7 +307,7 @@
                     
                         </div>
                         <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;">{{ __('lang.product_form_step3')}}</h2>
-
+                    @if($users_details->free_shipping !="free_shipping")
                         <div class="form-group col-md-12" id="shipping_method_ddl_div">
                           <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
                           <div class="col-md-8">
@@ -327,6 +327,7 @@
                           <span class="invalid-feedback col-md-8"  id="err_shipping_charges"> </span>
                         </div>
                         </div>
+                    @endif
                         <div class="col-md-12">
                          <label class="col-md-3 product_table_heading"> {{ __('users.free_shipping_label')}}</label>
                           <div class="col-md-8">

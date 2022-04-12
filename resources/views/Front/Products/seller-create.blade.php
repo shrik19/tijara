@@ -274,14 +274,13 @@
             </div>
 
             <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;">{{ __('lang.product_form_step3')}}</h2>
-
             <div class="form-group col-md-12" id="shipping_method_ddl_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
               <div class="col-md-8">
-              <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
+              <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl" disabled>
                 <option value="">{{ __('users.select_shipping_method')}}</option>
-                <option value="Platta fraktkostnader">{{ __('users.flat_shipping_charges')}}</option>
-                <option value="Andel fraktkostnader">{{ __('users.prcentage_shipping_charges')}}</option>
+                <option value="Platta fraktkostnader" @if(@$users_details->shipping_method=="Platta fraktkostnader (ex 50 kr)") selected="selected" @endif>{{ __('users.flat_shipping_charges')}}</option>
+                <option value="Andel fraktkostnader"  @if(@$users_details->shipping_method=="Andel fraktkostnader (ex 10%)") selected="selected" @endif>{{ __('users.prcentage_shipping_charges')}}</option>
               </select>
                <span class="invalid-feedback col-md-8"  id="err_shipping_method_ddl"> </span>
               </div>
@@ -290,7 +289,7 @@
             <div class="form-group col-md-12" id="shipping_charges_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
               <div class="col-md-8">
-              <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) }}">
+              <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="@if(@$users_details->shipping_charges!=''){{ $users_details->shipping_charges }}@endif" readonly="readonly">
               <span class="invalid-feedback col-md-8"  id="err_shipping_charges"></span>
             </div>
             </div>
@@ -298,7 +297,7 @@
             <div class="form-group col-md-12">
             <label class="col-md-3 product_table_heading">
              {{ __('users.free_shipping_label')}}</label>
-            <div class="col-md-8">  <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()"></div>
+            <div class="col-md-8">  <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" @if(@$users_details->free_shipping=='free_shipping') checked="checked" @endif></div>
             
             </div>
             <div class="form-group col-md-12">
@@ -306,10 +305,10 @@
               <div class="col-md-8">
                 <div class="row">
                 <div class="col-md-1"  class="is_pick_from_store">
-                 <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;">
+                 <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>
                </div>
                <div class="col-md-8">
-                  <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="">
+                  <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif" readonly="readonly">
                   <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
                </div>
                 </div>

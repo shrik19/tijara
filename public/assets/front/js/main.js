@@ -923,7 +923,9 @@ $(".seller-profile-update").click(function(e){
   let country   = $("#country").val();
   let email     = $("#email").val();
   let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
-  let pick_up_address = $("#store_pick_address").val();
+  let pick_up_address     = $("#store_pick_address").val();
+  let shipping_method_ddl = $("#shipping_method_ddl").val();
+  var shipping_charges    = $("#shipping_charges").val();
   let error = 0;
 
   if(fname == '')
@@ -987,7 +989,7 @@ $(".seller-profile-update").click(function(e){
     $("#err_country").html('');
   }
 
-    if($("#is_pick_from_store").is(':checked')){
+    /*if($("#is_pick_from_store").is(':checked')){
       if(pick_up_address==''){
         $("#err_pick_up_address").html(required_field_error).show();
         $("#err_pick_up_address").parent().addClass('jt-error');
@@ -995,7 +997,48 @@ $(".seller-profile-update").click(function(e){
       } else {
         $("#err_pick_up_address").html('').show();
       }
+    }*/
+
+      if($("#free_shipping_chk").is(':checked')){
+    //error = 0;
+  }
+  else{
+    
+  if($("#is_pick_from_store").is(':checked')){
+    if(pick_up_address==''){
+      $("#err_pick_up_address").html(required_field_error).show();
+      $("#err_pick_up_address").parent().addClass('jt-error');
+      error = 1;
+    } else {
+      $("#err_pick_up_address").html('').show();
     }
+  }
+    else if(shipping_method_ddl == '')
+    {
+      showErrorMessage(select_one_shipping_option);
+      // $("#err_shipping_method_ddl").html(required_field_error).show();
+      // $("#err_shipping_method_ddl").parent().addClass('jt-error');
+      error = 1;
+    }
+    else
+    {
+      $("#err_shipping_method_ddl").html('').show();
+    }
+  }
+  
+  if( shipping_method_ddl !=''){
+    if(shipping_charges==''){
+      $("#err_shipping_charges").html(required_field_error).show();
+      $("#err_shipping_charges").parent().addClass('jt-error');
+      error = 1;
+    }
+    else
+    {
+      $("#err_shipping_charges").html('').show();
+
+    }
+  }
+
 
   if(fname=='' || lname=='' || email == '' || city == '' || country == ''){
     showErrorMessage(enter_all_fields_err);

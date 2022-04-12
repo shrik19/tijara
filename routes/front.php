@@ -180,6 +180,7 @@ Route::group(['middleware'=>['front-login']],function()
 	Route::get('/delete-image/{id}','Front\AuthController@deleteImage')->name('SellerImageDelete');
 	Route::get('/buyer-profile/{edit?}', 'Front\AuthController@buyerProfile')->name('frontBuyerProfile');
 	Route::post('/buyer-profile-update', 'Front\AuthController@buyerProfileUpdate')->name('frontBuyerProfileUpdate');
+  Route::any('/remove-buyer-profile','Front\AuthController@removeBuyerProfile')->name('removeBannerImage');
 	/*Route::get('/seller-packages', 'Front\AuthController@sellerPackages')->name('frontSellerPackages');*/
 	Route::get('/profile', 'Front\AuthController@userProfile')->name('frontUserProfile');
  

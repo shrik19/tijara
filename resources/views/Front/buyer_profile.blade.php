@@ -113,7 +113,7 @@
              @php
             if(!empty($buyerDetails[0]->profile))
             {
-                echo '<div><img src="'.url('/').'/uploads/Buyer/resized/'.$buyerDetails[0]->profile.'" class="buyer_profile_update_img"><a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>';
+                echo '<div><img src="'.url('/').'/uploads/Buyer/resized/'.$buyerDetails[0]->profile.'" class="buyer_profile_update_img" id="buyer_profile_update_img"><a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a></div>';
               
             }else{
                   echo '<div><img src="'.url('/').'/uploads/Buyer/no_image_circle.png" class="buyer_profile_update_img"></div>';
@@ -161,11 +161,39 @@
   });
 
 $('body').on('click', '.remove_image', function () {
-    $(this).prev('img').prev('input').parent("div").remove();
-    $(this).prev('img').prev('input').remove();
-    $(this).prev('img').remove();
-    $(this).remove();
+    var path = $('#buyer_profile_update_img').attr('src');
+    var Filename= path.split('/').pop();
+    $(".loader").css("display","block");
+
+    $.ajax({
+          headers : {'X-CSRF-Token': $('input[name="_token"]').val()},
+            url: "{{url('/')}}"+'/remove-buyer-profile?image_path='+Filename,
+            type: 'post',
+            data: {},
+          success: function(output){
+              $(".loader").css("display","none");             
+              if(output.message==0){
+                $(this).prev('img').prev('input').parent("div").remove();
+                $(this).prev('img').prev('input').remove();
+                $(this).prev('img').remove();
+                $(this).remove();
+                $(".showNoImage").show();
+                 $(".existing-images").replaceWith('<div class="col-md-4 existing-images"><div>'+
+                          '<img src="'+siteUrl+'/uploads/Buyer/no_image_circle.png" class="buyer_profile_update_img">'+
+                                            '</div></div>');
+
+                
+              }
+             
+          }
+    });
 });
+// $('body').on('click', '.remove_image', function () {
+//     $(this).prev('img').prev('input').parent("div").remove();
+//     $(this).prev('img').prev('input').remove();
+//     $(this).prev('img').remove();
+//     $(this).remove();
+// });
 
 </script>
 @endsection

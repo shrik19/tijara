@@ -248,7 +248,7 @@ margin-top: 15px;
     font-weight: 500;
 }
 .package-body{
-  min-height: auto;overflow: auto;padding: 25px;
+  min-height: auto;overflow: auto;padding: 25px 1px;
 }
 .package_history_btn{
   margin-top: 15px;
@@ -260,7 +260,9 @@ margin-top: 15px;
   font-size: 16px;
   font-weight: 500;
 }
- 
+ .dropdown-menu>li>a>p.badge{
+   padding: 5px!important; height: 20px; width: 20px; font-size: 11px;
+ }
 .jconfirm .jconfirm-box.jconfirm-type-green {
     border-top: solid 7px #03989e;
     -webkit-animation-name: type cyan;
@@ -1284,7 +1286,7 @@ span.remember-text {
     right: 0;
     top: 260px;}
 
-.cart_details{    padding: 0 16px 0 12px; position: relative;}
+.cart_details{    padding: 0 16px 0 8px; position: relative;}
 .header_left_container{width: 100%;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}

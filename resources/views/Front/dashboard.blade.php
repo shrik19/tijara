@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="row"><div class="col-md-12">&nbsp;</div></div>
-    <div class="row text-center sel_cat_list">
+    <div class="text-center sel_cat_list">
       <div class="col-md-15" >
       
         <div class="card buyer-prod-card">

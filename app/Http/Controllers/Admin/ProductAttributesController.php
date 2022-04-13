@@ -109,21 +109,7 @@ class ProductAttributesController extends Controller
     public function create()
     {
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
-        $data['subscribedError']   =    '';
-        if($User->role_id==2) {
-            $currentDate = date('Y-m-d H:i:s');
-            $isSubscribed = DB::table('user_packages')
-                        ->join('packages', 'packages.id', '=', 'user_packages.package_id')
-                        ->where('packages.is_deleted','!=',1)
-                        ->where('user_packages.end_date','>=',$currentDate)
-                        ->where('user_id','=',Auth::guard('user')->id())
-                        ->select('packages.id')
-                        ->get();
-                        
-            if(count($isSubscribed)<=0) {
-               $data['subscribedError']   =    trans('messages.subscribe_package_to_manage_prod_attri');
-            }
-        }
+        
         $data['pageTitle']              = 'Add Attributes';
         $data['current_module_name']    = 'Add';
         $data['module_name']            = 'Attributes';

@@ -3573,7 +3573,7 @@ DATA;
                   $order_status = (!empty($recordDetailsVal['order_status'])) ? $recordDetailsVal['order_status'] : '-';
                   //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
 
-                  date_default_timezone_set('Europe/London');
+                  date_default_timezone_set('Europe/Stockholm');
                   $dated = $recordDetailsVal['created_at'];
                   $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
                   /* $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i style="color:#2EA8AB;" class="fas fa-eye open_order_details"></i> </a>&nbsp;&nbsp;

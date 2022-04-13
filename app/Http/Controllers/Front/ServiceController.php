@@ -274,7 +274,7 @@ class ServiceController extends Controller
                
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
 
-                date_default_timezone_set('Europe/London');
+                date_default_timezone_set('Europe/Stockholm');
                 $dated = $recordDetailsVal['created_at'];
                 $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
                 //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));

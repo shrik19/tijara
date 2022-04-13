@@ -890,22 +890,8 @@ class CartController extends Controller
                   //Get Seller Shipping Informations
                   $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges','users.is_pick_from_store')->where('users.id','=',$details['product_user'])->first()->toArray();
                    //echo "<pre>";print_r($SellerShippingData);exit;
-                   if(!empty($details['shipping_method']) && !empty($details['shipping_charges'])){
 
-                      if($details['shipping_method'] ==  "Platta fraktkostnader")
-                      {
-                        $product_shipping_type = 'flat';
-                        $product_shipping_amount = $details['shipping_charges'];
-                      }
-                      else if($details['shipping_method'] ==  'Andel fraktkostnader')
-                      { 
-                  
-                        $product_shipping_type = 'percentage';
-                        $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
-
-                      }
-                  
-                    }else if(empty($SellerShippingData['free_shipping']))
+                   if(empty($SellerShippingData['free_shipping']))
                     { 
                         if(!empty($SellerShippingData['shipping_method']) && !empty($SellerShippingData['shipping_charges']))
                         {
@@ -926,14 +912,41 @@ class CartController extends Controller
                             }
                         }else{
                           $product_shipping_type='free';
+                           $product_shipping_amount = 0;
                         }
 
-                    } else
+                    } elseif(!empty($SellerShippingData['is_pick_from_store']) && ($SellerShippingData['is_pick_from_store'] ==1))
                     {
-                      $product_shipping_type = 'free';
+                      $product_shipping_amount=0;
+                      $product_shipping_type='free';
                     }
 
-                    if((!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1)) || (!empty($details['free_shipping']) && ($details['free_shipping'] =="free_shipping")))
+                   if(!empty($details['shipping_method']) && !empty($details['shipping_charges'])){
+
+                      if($details['shipping_method'] ==  "Platta fraktkostnader")
+                      {
+                        $product_shipping_type = 'flat';
+                        $product_shipping_amount = $details['shipping_charges'];
+                      }
+                      else if($details['shipping_method'] ==  'Andel fraktkostnader')
+                      { 
+                  
+                        $product_shipping_type = 'percentage';
+                        $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
+
+                      }
+                  
+                    }else if((!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1)) || (!empty($details['free_shipping']) && ($details['free_shipping'] =="free_shipping")))
+                    {
+                      $product_shipping_amount = 0;
+                      $product_shipping_type='free';
+                    }/*else
+                    {
+                      $product_shipping_type = 'free';
+                      $product_shipping_amount = 0;
+                    }*/
+
+                  /*  if((!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1)) || (!empty($details['free_shipping']) && ($details['free_shipping'] =="free_shipping")))
                     {
                       $product_shipping_amount = 0;
                       $product_shipping_type='free';
@@ -941,7 +954,7 @@ class CartController extends Controller
                     {
                       $product_shipping_amount=0;
                       $product_shipping_type='free';
-                    }
+                    }*/
 
 
 

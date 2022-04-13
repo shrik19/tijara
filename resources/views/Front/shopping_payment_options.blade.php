@@ -568,21 +568,21 @@ $('.radio-button-shipping').click(function() {
       var newSubtotal = parseInt(hid_get_subtotal)+parseInt(hid_product_shipp_charges);
       var text = newSubtotal.toLocaleString("sv-SE", {style:"currency", currency:"SEK"});
       //$(".decide_total").text(text);
-	  shipping_charges	=	hid_product_shipp_charges;
-	  shipping_charges_to_show	=	product_shipping_charges;
-	  total_amount		=	newSubtotal;
-	  total_amount_to_show=	text;
+    shipping_charges  = hid_product_shipp_charges;
+    shipping_charges_to_show  = product_shipping_charges;
+    total_amount    = newSubtotal;
+    total_amount_to_show= text;
     }
          
     if(is_free_shipping==0){
           //  alert("sdh")
             
-			shipping_charges	=	0;
-			shipping_charges_to_show	=	free_ship;
-			total_amount		=	hid_get_subtotal;
-			total_amount_to_show=	subtotal;
+      shipping_charges  = 0;
+      shipping_charges_to_show  = free_ship;
+      total_amount    = hid_get_subtotal;
+      total_amount_to_show= subtotal;
     }
-	
+  
     $.ajax({
       headers: {
       'X-CSRF-Token': $('input[name="_token"]').val()
@@ -592,7 +592,7 @@ $('.radio-button-shipping').click(function() {
       // async: false,
       data:{shipping_charges:shipping_charges,total_amount:total_amount,orderId:<?php echo $orderId ?>},
       success: function(data){
-			$(".decide_shipping").text(shipping_charges_to_show);
+      $(".decide_shipping").text(shipping_charges_to_show);
             $(".decide_total").text(total_amount_to_show);
       }
     });

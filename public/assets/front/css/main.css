@@ -1296,12 +1296,12 @@ span.remember-text {
     margin: 4px;}
 .cart_count{
     background-color: #03989e;  height: 16px; width: 16px;border-radius: 50%; color: #fff;position: absolute;
-    top: -6px;
-    right: 4px;
+    top: -4px;
+    right: 0px;
 }
 
 .cart_count.count_wishlist{
-  top: -6px;
+  top: -4px;
     right: 10px;
 }
 .service_wishlist_h2{

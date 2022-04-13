@@ -912,6 +912,7 @@ $('#last-step').click(function(e) {
 	             last_step_err=1;
 	            }else{
 	                showSuccessMessage(store_name_is_verified);
+	                $("#verify_btn_click").val("1");
 	            }
 	            }
 	        });

@@ -110,9 +110,9 @@ class ProductAttributesController extends Controller
     {
         $User   =   UserMain::where('id',Auth::guard('user')->id())->first();
         
-        $data['pageTitle']              = 'Add Attributes';
-        $data['current_module_name']    = 'Add';
-        $data['module_name']            = 'Attributes';
+        $data['pageTitle']              = trans('lang.manage_attributes_menu');
+        $data['current_module_name']    = trans('users.add_title');
+        $data['module_name']            = trans('lang.manage_attributes_menu');
         $data['module_url']             = route('adminProductAttributes');
         return view('Admin/ProductAttributes/create', $data);
     }

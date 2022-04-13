@@ -115,8 +115,8 @@
               <label  class="product_table_heading">{{ __('users.shipping_method_label')}}</label>
              <select class="form-control ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
-               <option  <?php if($sellerDetails[0]->shipping_method ==  __('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
-               <option <?php if($sellerDetails[0]->shipping_method ==  __('users.prcentage_shipping_charges')){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
+               <option  value="Platta fraktkostnader" <?php if($sellerDetails[0]->shipping_method == "Platta fraktkostnader"){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
+               <option  value="Andel fraktkostnader" <?php if($sellerDetails[0]->shipping_method ==  "Andel fraktkostnader"){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
              </select>
              <span class="invalid-feedback col-md-8"  id="err_shipping_method_ddl"> </span>
             </div>

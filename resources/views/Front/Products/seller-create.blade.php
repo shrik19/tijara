@@ -279,8 +279,8 @@
               <div class="col-md-8">
               <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl" disabled>
                 <option value="">{{ __('users.select_shipping_method')}}</option>
-                <option value="Platta fraktkostnader" @if(@$users_details->shipping_method=="Platta fraktkostnader (ex 50 kr)") selected="selected" @endif>{{ __('users.flat_shipping_charges')}}</option>
-                <option value="Andel fraktkostnader"  @if(@$users_details->shipping_method=="Andel fraktkostnader (ex 10%)") selected="selected" @endif>{{ __('users.prcentage_shipping_charges')}}</option>
+                <option value="Platta fraktkostnader" @if(@$users_details->shipping_method=="Platta fraktkostnader") selected="selected" @endif>{{ __('users.flat_shipping_charges')}}</option>
+                <option value="Andel fraktkostnader"  @if(@$users_details->shipping_method=="Andel fraktkostnader") selected="selected" @endif>{{ __('users.prcentage_shipping_charges')}}</option>
               </select>
                <span class="invalid-feedback col-md-8"  id="err_shipping_method_ddl"> </span>
               </div>

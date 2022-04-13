@@ -1301,7 +1301,7 @@ span.remember-text {
     right: 10px;
 }
 .service_wishlist_h2{
-  margin-left: 60px !important;
+  margin-left: 6px !important;
 }
 .cart_total_css{
   font-size: 14px;
@@ -3885,18 +3885,17 @@ ul.breadcrumb-category {
 
   img.register_klarna_logo{
     width: 130px;
-    filter: contrast(5.5);
-    height: 95px;
+   /* filter: contrast(5.5);*/
   }
 
   img.register_swish_logo{
-    filter: contrast(5.5);
+    /*filter: contrast(5.5);*/
     width: 130px;
-    height: 105px;
+    /*height: 105px;*/
   }
 
   img.register_stripe_logo{
-    filter: contrast(1.5);
+    /*filter: contrast(1.5);*/
   }
 
   span.register_credentials_ex{

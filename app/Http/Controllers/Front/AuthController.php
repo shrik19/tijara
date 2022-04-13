@@ -1705,7 +1705,6 @@ class AuthController extends Controller
      */
     public function buyerProfileUpdate(Request $request)
     {
-
         $user_id = Auth::guard('user')->id();
         $rules = [
             //'fname'         => 'required|regex:/^[\pL\s\-]+$/u',
@@ -1730,7 +1729,7 @@ class AuthController extends Controller
             'city.required'          => trans('errors.fill_in_city_err'),
             'profile.required'       => trans('errors.upload_buyer_profile'),*/
         ];
-
+//echo $request->hasfile('profile');exit;
         $fileName ='';
         $validator = validator::make($request->all(), $rules, $messages);
         if($validator->fails())
@@ -3176,6 +3175,34 @@ DATA;
         }
         echo $message;
       
+    }
+
+     /*function to remove buyer profile image*/
+    public function removeBuyerProfile(Request $request){
+      
+        if(!empty($request->image_path)){
+            $Filename = $request->image_path;
+            $return_text = 0;
+
+            if (!empty($Filename)) {
+                User::where('profile','like',$Filename.'%')->update(['profile' => null]);
+                $image_path = public_path("/uploads/Buyer/".$Filename);
+                $resized_image_path = public_path("/uploads/Buyer/resized".$Filename);
+                $buyerIcon = public_path("/uploads/Buyer/buyerIcons".$Filename);
+                        if (File::exists($image_path)) {                    
+                            File::delete($image_path);
+                        }
+                        if (File::exists($resized_image_path)) {
+                            File::delete($resized_image_path);
+                        }
+                        if (File::exists($buyerIcon)) {
+                            File::delete($buyerIcon);
+                        }
+            }else{
+                $return_text =1;
+            }
+            return response()->json(['message'=>$return_text]);
+        }
     }
 
      /*cron to check is trial package*/

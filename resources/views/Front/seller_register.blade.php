@@ -900,7 +900,7 @@ $('#last-step').click(function(e) {
     var maxLength = 21;
     let last_step_err = 0;
  	var is_verfied = $("#verify_btn_click").val();
- 	if(is_verfied==1){
+ 	if(is_verfied!=1){
 	 	if(store_name!=''){
 	        $.ajax({
 	          url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name,
@@ -912,6 +912,7 @@ $('#last-step').click(function(e) {
 	             last_step_err=1;
 	            }else{
 	                showSuccessMessage(store_name_is_verified);
+	                $("#verify_btn_click").val("1");
 	            }
 	            }
 	        });
@@ -949,7 +950,7 @@ $('#last-step').click(function(e) {
     }
 
     if(verify_btn_click==''){
-      showErrorMessage(verify_store)
+      //showErrorMessage(verify_store)
        last_step_err = 1;
     }
     else if(!$("#chk_privacy_policy").is(':checked')){
@@ -1210,7 +1211,7 @@ $(".submit").click(function(){
 * @param : store name
 */
 function checkStoreName(){
-    var is_verfied = $("#verify_btn_click").val('1');
+  
     var store_name= $("#store_name").val();
     if(store_name!=''){
         $.ajax({
@@ -1221,6 +1222,7 @@ function checkStoreName(){
             if(output !=''){
              showErrorMessage(output);
             }else{
+            	$("#verify_btn_click").val('1');
                 showSuccessMessage(store_name_is_verified);
             }
             }

@@ -91,6 +91,7 @@
     var invalid_cvc_err =  "{{ __('lang.invalid_cvc_err')}}";
     var enter_all_fields_err =  "{{ __('errors.enter_all_fields_err')}}";
     var store_name_characters_len_err ="{{ __('errors.store_name_characters_len_err')}}";
+    var select_one_shipping_option ="{{ __('errors.select_one_shipping_option')}}";
 
     var is_login = 0;
     @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1)
@@ -224,7 +225,7 @@
                       @if($totalNotifications > 0)
                       <div class="cart_count notification_count">
                          
-                        <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" style="cursor: pointer">{{$totalNotifications}}</span>
+                        <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" style="cursor: pointer;right: 7px;">{{$totalNotifications}}</span>
             <ul class="dropdown-menu">
         <li style="width:100%"><a href="{{route('frontAllbookingRequest')}}">{{ __('users.my_booking_title')}} <p class='badge badge-pill debg_color' id="allSellerBookings">{{ $getTotalBookings}}</p></a></li>
 

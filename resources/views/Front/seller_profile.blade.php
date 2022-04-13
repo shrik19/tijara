@@ -115,14 +115,16 @@
               <label  class="product_table_heading">{{ __('users.shipping_method_label')}}</label>
              <select class="form-control ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
-               <option  <?php if($sellerDetails[0]->shipping_method ==  __('users.flat_shipping_charges')){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
-               <option <?php if($sellerDetails[0]->shipping_method ==  __('users.prcentage_shipping_charges')){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
+               <option  value="Platta fraktkostnader" <?php if($sellerDetails[0]->shipping_method == "Platta fraktkostnader"){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
+               <option  value="Andel fraktkostnader" <?php if($sellerDetails[0]->shipping_method ==  "Andel fraktkostnader"){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>
              </select>
+             <span class="invalid-feedback col-md-8"  id="err_shipping_method_ddl"> </span>
             </div>
 
             <div class="form-group col-md-6" id="shipping_charges_div">
               <label  class="product_table_heading">{{ __('users.shipping_charges_label')}}</label>
               <input type="text" class="form-control ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $sellerDetails[0]->shipping_charges}}">
+               <span class="invalid-feedback col-md-8"  id="err_shipping_charges"></span>
             </div>
 
             <div class="form-group col-md-6">

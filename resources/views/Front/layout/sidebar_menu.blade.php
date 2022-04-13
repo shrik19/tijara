@@ -134,7 +134,6 @@ $( document ).ready(function() {
     success: function(response){
       console.log(response.error)
       if(response.error!=''){
-        alert(siteUrl+"/seller-profile")
         $('.check_seller_setting').attr( "disabled", "disabled" );
         $('.check_seller_setting').css( "pointer-events", "none" );
         $('#header_user_menu').attr('href',siteUrl+"/seller-profile");

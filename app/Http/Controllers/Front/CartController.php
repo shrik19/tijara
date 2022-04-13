@@ -935,7 +935,6 @@ class CartController extends Controller
 
                     if((!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1)) || (!empty($details['free_shipping']) && ($details['free_shipping'] =="free_shipping")))
                     {
-                      echo "here";exit;
                       $product_shipping_amount = 0;
                       $product_shipping_type='free';
                     }elseif(!empty($SellerShippingData['is_pick_from_store']) && ($SellerShippingData['is_pick_from_store'] ==1))
@@ -1074,7 +1073,7 @@ class CartController extends Controller
               }
             }//foreach end
           } 
-
+echo "<pre>";print_r($orderDetails);exit;
           $site_details          = Settings::first();
           $data['siteDetails']   = $site_details;
           $data['orderId']=$order_id;

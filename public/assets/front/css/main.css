@@ -1315,7 +1315,7 @@ span.remember-text {
 .cart_count span{font-size: 10px;text-align: center; color: #fff;    position: absolute;
     top: 2px;
    
-    right:3px;
+    right:5px;
   }
     .search_now_input_box{position: relative; float: left;width: 100%;}
     .search_icon_btn{border: none;background-color: transparent;       margin-left: -35px;

@@ -1286,7 +1286,8 @@ span.remember-text {
     right: 0;
     top: 260px;}
 
-.cart_details{    padding: 0 16px 0 8px; position: relative;}
+.cart_details{    padding: 0 18px 0 0px; position: relative;}
+.cart_details a img{height: 30px; width: 30px; display: block;}
 .header_left_container{width: 100%;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}
@@ -1325,8 +1326,8 @@ span.remember-text {
 }
 /* .containerfluid{margin-top: 71px;} */
 .right-icons{list-style-type: none;float:right;width:max-content; }
-.right-icons li{float: left; width: auto;padding: 0 3px;}
-.right-icons li i{font-size: 23px;}
+.right-icons li{float: left; width: auto;padding: 0;}
+.right-icons li i{font-size: 23px; height: 30px;width: 30px;}
 /*
 ** Login and registration page
 */

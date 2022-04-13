@@ -949,7 +949,7 @@ $('#last-step').click(function(e) {
     }
 
     if(verify_btn_click==''){
-      showErrorMessage(verify_store)
+      //showErrorMessage(verify_store)
        last_step_err = 1;
     }
     else if(!$("#chk_privacy_policy").is(':checked')){

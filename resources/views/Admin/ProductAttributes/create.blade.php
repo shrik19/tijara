@@ -2,7 +2,7 @@
 @section('middlecontent')
 <div class="section-body">
    <h2 class="section-title">{{$pageTitle}}</h2>
-   <p class="section-lead">{{ __('users.add_banner_details_title')}}</p>
+   <p class="section-lead">{{ __('lang.add_attribute')}}</p>
    <form method="POST" action="{{route('adminAttributeStore')}}" class="needs-validation"    enctype="multipart/form-data" novalidate="">
    @csrf
 

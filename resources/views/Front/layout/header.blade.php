@@ -144,7 +144,7 @@
                   <ul class="right-icons">
                   <li>
 
-<div>
+<div class="cart_details">
 @if(Auth::guard('user')->id())
 <!-- <a href="/profile"   type="button" ><h3 class="de_col"><i class="fa fa-user"></i><span class="pro-text">{{ __('lang.my_account_title')}}</span></h3></a> -->
   @if(Auth::guard('user')->getUser()->role_id == 1)
@@ -240,7 +240,7 @@
   @endif              
 @else
 
-<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"/></a></h3>
+<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" /></a></h3>
 
 @endif
 

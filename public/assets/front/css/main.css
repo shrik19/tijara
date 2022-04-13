@@ -1288,6 +1288,9 @@ span.remember-text {
 
 .cart_details{    padding: 0 18px 0 0px; position: relative;}
 .cart_details a img{height: 30px; width: 30px; display: block;}
+.cart_details>.cart_details{
+  padding: 0!important;
+}
 .header_left_container{width: 100%;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}

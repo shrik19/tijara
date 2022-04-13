@@ -1286,18 +1286,22 @@ span.remember-text {
     right: 0;
     top: 260px;}
 
-.cart_details{    padding: 0 16px 0 8px; position: relative;}
+.cart_details{    padding: 0 18px 0 0px; position: relative;}
+.cart_details a img{height: 30px; width: 30px; display: block;}
+.cart_details>.cart_details{
+  padding: 0!important;
+}
 .header_left_container{width: 100%;}
 .cart_icon{    font-size: 19px;
     margin: 4px;}
 .cart_count{
     background-color: #03989e;  height: 16px; width: 16px;border-radius: 50%; color: #fff;position: absolute;
-    top: -6px;
-    right: 4px;
+    top: -4px;
+    right: 0px;
 }
 
 .cart_count.count_wishlist{
-  top: -6px;
+  top: -4px;
     right: 10px;
 }
 .service_wishlist_h2{
@@ -1325,8 +1329,8 @@ span.remember-text {
 }
 /* .containerfluid{margin-top: 71px;} */
 .right-icons{list-style-type: none;float:right;width:max-content; }
-.right-icons li{float: left; width: auto;padding: 0 3px;}
-.right-icons li i{font-size: 23px;}
+.right-icons li{float: left; width: auto;padding: 0;}
+.right-icons li i{font-size: 23px; height: 30px;width: 30px;}
 /*
 ** Login and registration page
 */

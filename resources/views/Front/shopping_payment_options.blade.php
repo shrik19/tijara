@@ -328,16 +328,16 @@
                              @if($p != 'swish')
                            <div class="pick_input">
                             @if($p == 'klarna')
-                            <img class="pick-img" src="{{url('/')}}/uploads/Images/klarna_logo_pink.png" width="90" height="70" style="">
+                            <img class="pick-img" src="{{url('/')}}/uploads/Images/klarna_logo_pink.png" width="90"  style="">
                             @endif
                             @if($p != 'swish')
                              <?php /*  <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70" style="float: right; margin-top: -2px;border-radius: 5px;height: 41px;"> */?>
                             @endif
                             @if($p == 'swish_number')
-                              <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="70"  class="swish_checkout_logo">
+                              <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90"  class="swish_checkout_logo">
                             @endif
                             @if($p == 'Kortbetalning')
-                              <img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="100" height="70" class="stripe_checkout_logo">
+                              <img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="100"  class="stripe_checkout_logo">
                             @endif
                           
                              <input type="radio" name="payment_method" class="{{$p}} payment_radio" value="{{$p}}"> <span class="shopping_pay_option">@if($p == 'swish_number') Swish @else {{ucfirst(@$p)}} @endif</span>

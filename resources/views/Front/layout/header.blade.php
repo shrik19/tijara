@@ -151,7 +151,7 @@
 
    <div class="pull-right">
                 @if(Auth::guard('user')->id())
-                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28" /></h3></a>
+                <a href="javascript:void(0)"  class="dropdown-toggle"  type="button" data-toggle="dropdown"><h3 class="de_col"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png" /></h3></a>
                 <ul class="dropdown-menu">
 
                   <li style="width:100%"><a href="{{route('frontUserProfile')}}">{{ __('users.buyer_profile_update_title')}}</a></li>
@@ -212,7 +212,7 @@
         @endphp
                      <a class="top_icon_css {{$toggleClass}}" id="header_user_menu"  href=" {{$href}}" data-toggle="{{$data_toggle}}">
 
-                    <img class="m-7" src="{{url('/')}}/assets/img/imgpsh_fullsize.png" height="30" />
+                    <img  src="{{url('/')}}/assets/img/imgpsh_fullsize.png"  />
                       </a>   
                        @if($totalNotifications > 0)
                       <ul class="dropdown-menu">
@@ -240,7 +240,7 @@
   @endif              
 @else
 
-<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"height="28"/></a></h3>
+<h3 class="de_col"><a  href="{{route('frontLogin')}}"  title="{{ __('users.login_label')}}"><img src="{{url('/')}}/assets/img/imgpsh_fullsize.png"/></a></h3>
 
 @endif
 
@@ -251,7 +251,7 @@
                    <!--  <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif> -->
                      <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowWishlist')}}" @elseif(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==2) href="{{ route('frontLogin')}}" @else href="{{ route('frontLogin') }}" @endif>
 
-                    <img class="m-7 mt-2" src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png"height="28" />
+                    <img src="{{url('/')}}/assets/img/imgpsh_fullsize_wishlist.png" />
                       </a>
                       @php
                       $wishlist_css='';
@@ -272,7 +272,7 @@
                     <div class="cart_details"  style="padding-left:0px;padding-right:0">
                     <a class="top_icon_css" @if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1) href="{{route('frontShowCart')}}" @else href="{{ route('frontLogin') }}" @endif>
 
-                    <img class="mt-2" src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" height="28" />
+                    <img class="mt-2" src="{{url('/')}}/assets/img/imgpsh_fullsize_cart.png" />
 
                     </a>
 

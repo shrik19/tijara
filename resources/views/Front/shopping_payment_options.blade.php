@@ -242,7 +242,7 @@
                                     </div>
                                     <div class="col-md-6">                                       
                                        <!--  <span class="store_address" title="{{@$store_pick_address}}">0.00 kr </span> -->
-                                          <span id="product_shipping_charges" class="checkout-shipping-charges">0.00 kr</span>  
+                                          <span class="product_shipping_charges1" class="checkout-shipping-charges">0.00 kr</span>  
                                       </div>
                                 </div>
                              </div>
@@ -308,7 +308,7 @@
                                       }
                                         
                                       @endphp
-                                        <span id="product_shipping_charges d">@if(!empty($shipping_total_tbl)) {{$shipping_total_tbl}} kr @endif</span> 
+                                        <span class="product_shipping_charges">@if(!empty($shipping_total_tbl)) {{$shipping_total_tbl}} kr @endif</span> 
                                         
                                         <input type="hidden" name="hid_product_shipp_charges" class="hid_product_shipp_charges" value="{{@$shipping_total}}">
                                       </div>
@@ -557,7 +557,7 @@ $('.radio-button-shipping').click(function() {
   if($('.radio-button-shipping').is(':checked')) 
   { 
     var is_free_shipping = $(this).val();      
-    var product_shipping_charges = $("#product_shipping_charges").text();
+    var product_shipping_charges = $(".product_shipping_charges").text();
     
     var free_ship ="0,00 kr";
     var hid_get_subtotal = $(".hid_get_subtotal").val();

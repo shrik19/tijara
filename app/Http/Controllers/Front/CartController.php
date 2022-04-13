@@ -935,11 +935,11 @@ class CartController extends Controller
 
                     if((!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1) || (!empty($details['free_shipping']) && ($details['free_shipping'] =="free_shipping"))
                     {
-                      $product_shipping_amount = 0;
+                      $product_shipping_amount = '0';
                       $product_shipping_type='free';
                     }elseif(!empty($SellerShippingData['is_pick_from_store']) && ($SellerShippingData['is_pick_from_store'] ==1))
                     {
-                      $product_shipping_amount=0;
+                      $product_shipping_amount='0';
                       $product_shipping_type='free';
                     }
 

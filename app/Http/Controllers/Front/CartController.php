@@ -1073,7 +1073,7 @@ class CartController extends Controller
               }
             }//foreach end
           } 
-echo "<pre>";print_r($orderDetails);exit;
+//echo "<pre>";print_r($orderDetails);exit;
           $site_details          = Settings::first();
           $data['siteDetails']   = $site_details;
           $data['orderId']=$order_id;
@@ -2497,7 +2497,7 @@ DATA;
         $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
 
               $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name','users.seller_swish_number')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
-              date_default_timezone_set('Europe/London');
+              date_default_timezone_set('Europe/Stockholm');
               $created_date = $checkExisting['created_at'];
               $created_date = date('Y-m-d H:i:s',strtotime("$created_date UTC"));
            

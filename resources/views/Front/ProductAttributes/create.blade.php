@@ -49,9 +49,9 @@
               <label class="product_table_heading">{{ __('lang.attribute_value_label')}} <span class="de_col">*</span></label>
               <select class="form-control login_input" id="type" name="type">
                 <option disabled="disabled">{{ __('lang.select_label')}} </option>
-                <option value="radio">{{ __('lang.radio_label')}}</option>  
+              <!--   <option value="radio">{{ __('lang.radio_label')}}</option>  --> 
                 <option value="dropdown">{{ __('lang.dropdown_label')}}</option>
-                <option value="textbox">{{ __('lang.textbox_label')}}</option>
+                <!-- <option value="textbox">{{ __('lang.textbox_label')}}</option> -->
               </select>
               <span class="invalid-feedback" id="err_fname">@if($errors->has('type')) {{ $errors->first('type') }}@endif </span>
        

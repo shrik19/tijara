@@ -225,7 +225,7 @@
                       @if($totalNotifications > 0)
                       <div class="cart_count notification_count">
                          
-                        <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" style="cursor: pointer;right: 7px;">{{$totalNotifications}}</span>
+                        <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" style="cursor: pointer;right: 6px;top:1px;">{{$totalNotifications}}</span>
             <ul class="dropdown-menu">
         <li style="width:100%"><a href="{{route('frontAllbookingRequest')}}">{{ __('users.my_booking_title')}} <p class='badge badge-pill debg_color' id="allSellerBookings">{{ $getTotalBookings}}</p></a></li>
 

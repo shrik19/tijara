@@ -322,7 +322,8 @@ class ProductController extends Controller
                     $image  =     url('/').'/uploads/ProductImages/resized/no-image.png';
                 
                 $image      =   '<img src="'.$image.'" width="70" height="70">';
-                date_default_timezone_set('Europe/London');
+               // date_default_timezone_set('Europe/London');
+                date_default_timezone_set("Europe/Stockholm");  
                 $dated = $recordDetailsVal['updated_at'];
                 $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
                 //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['updated_at']));

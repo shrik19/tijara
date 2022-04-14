@@ -18,7 +18,7 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-		<div class="col-md-10">
+		<div class="col-md-10 pl-0">
 		  <h2 class="seller_page_heading">{{ __('lang.manage_attributes_menu')}} </h2>
 		  <!-- <hr class="heading_line"/> -->
 		  </div>

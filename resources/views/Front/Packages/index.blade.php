@@ -43,12 +43,12 @@
 	      	@foreach($subscribedPackage as $row)
 	      		@if($is_trial == 1) 
 			 <div class="col-md-6 ">
-			  <br/><br/>
+			 
 				<div class="panel panel-default subscribe-packages package_width">
 				<div class="panel-heading bold package_heading {{ $active }}">Tijara Trial</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
-					  <tbody class="package-body">
+					  <tbody class="">
 					  	 <tr>
 					  		<td>{{ __('users.amount_label')}}</td>
 					  		<td> Free </td>
@@ -92,7 +92,7 @@
 				</div></div>
 		@endif
 	      	 <div class="col-md-6 ">
-				   <br/><br/>
+				  
 				   <?php 
 				   $class=$inactive;
 				   	if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){
@@ -107,7 +107,7 @@
 				<div class="panel-heading bold package_heading {{$class}}">{{$row->title}}</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
-					  <tbody class="package-body">
+					  <tbody class="">
 					  	<?php /* <tr>
 					  		<td class="bold">{{ __('users.description_label')}}</td>
 					  		<td><?php echo $row->description; ?></td>
@@ -172,7 +172,7 @@
 						
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
-					  <tbody class="package-body">
+					  <tbody class="">
 					  	<?php /* <tr>
 					  		<td class="bold">{{ __('users.description_label')}}</td>
 					  		<td><?php echo $row->description; ?></td>

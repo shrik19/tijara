@@ -220,6 +220,7 @@ class ProductAttributesController extends Controller
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
+    
         if($validator->fails()) 
         {
            // echo "f";exit;

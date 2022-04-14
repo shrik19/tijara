@@ -18,11 +18,7 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-		<div class="col-md-10">
 		  <h2 class="seller_page_heading">{{ __('lang.manage_attributes_menu')}} </h2>
-		  <!-- <hr class="heading_line"/> -->
-		  </div>
-		 
 		</div>
 <div class="clearfix"></div>
 <div class="mb-10 pro-top-btn">

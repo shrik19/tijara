@@ -21,12 +21,7 @@
 	   
 	  <div class="card">
 		<div class="card-header row seller_header">
-		<div class="col-md-10">
-		    
-		  <h2  class="seller_page_heading">{{ __('lang.your_products_label')}}</h2>
-		  <!-- <hr class="heading_line"/> -->
-		  </div>
-		  
+		  <h2  class="seller_page_heading">{{ __('lang.your_products_label')}}</h2>		  
 		</div>
 
 		<div class="card-body seller_mid_cont">

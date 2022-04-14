@@ -36,10 +36,7 @@
     <div class="seller_info">
     <div class="card">
       <div class="card-header row seller_header" style="margin-bottom: 60px;">
-        <div class="col-md-11">
         <h2 class="seller_page_heading">{{ __('users.booking_request_label')}}</h2>
-        <!-- <hr class="heading_line"/> -->
-        </div>
       </div>
 
       <div class="card-body bookingRequestCalender">

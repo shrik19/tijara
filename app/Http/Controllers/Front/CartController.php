@@ -890,22 +890,8 @@ class CartController extends Controller
                   //Get Seller Shipping Informations
                   $SellerShippingData = UserMain::select('users.id','users.free_shipping','users.shipping_method','users.shipping_charges','users.is_pick_from_store')->where('users.id','=',$details['product_user'])->first()->toArray();
                    //echo "<pre>";print_r($SellerShippingData);exit;
-                   if(!empty($details['shipping_method']) && !empty($details['shipping_charges'])){
 
-                      if($details['shipping_method'] ==  "Platta fraktkostnader")
-                      {
-                        $product_shipping_type = 'flat';
-                        $product_shipping_amount = $details['shipping_charges'];
-                      }
-                      else if($details['shipping_method'] ==  'Andel fraktkostnader')
-                      { 
-                  
-                        $product_shipping_type = 'percentage';
-                        $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
-
-                      }
-                  
-                    }else if(empty($SellerShippingData['free_shipping']))
+                   if(empty($SellerShippingData['free_shipping']))
                     { 
                         if(!empty($SellerShippingData['shipping_method']) && !empty($SellerShippingData['shipping_charges']))
                         {
@@ -926,14 +912,41 @@ class CartController extends Controller
                             }
                         }else{
                           $product_shipping_type='free';
+                           $product_shipping_amount = 0;
                         }
 
-                    } else
+                    } elseif(!empty($SellerShippingData['is_pick_from_store']) && ($SellerShippingData['is_pick_from_store'] ==1))
                     {
-                      $product_shipping_type = 'free';
+                      $product_shipping_amount=0;
+                      $product_shipping_type='free';
                     }
 
-                    if(!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1))
+                   if(!empty($details['shipping_method']) && !empty($details['shipping_charges'])){
+
+                      if($details['shipping_method'] ==  "Platta fraktkostnader")
+                      {
+                        $product_shipping_type = 'flat';
+                        $product_shipping_amount = $details['shipping_charges'];
+                      }
+                      else if($details['shipping_method'] ==  'Andel fraktkostnader')
+                      { 
+                  
+                        $product_shipping_type = 'percentage';
+                        $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
+
+                      }
+                  
+                    }else if((!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1)) || (!empty($details['free_shipping']) && ($details['free_shipping'] =="free_shipping")))
+                    {
+                      $product_shipping_amount = 0;
+                      $product_shipping_type='free';
+                    }/*else
+                    {
+                      $product_shipping_type = 'free';
+                      $product_shipping_amount = 0;
+                    }*/
+
+                  /*  if((!empty($details['is_pick_from_store']) && ($details['is_pick_from_store'] ==1)) || (!empty($details['free_shipping']) && ($details['free_shipping'] =="free_shipping")))
                     {
                       $product_shipping_amount = 0;
                       $product_shipping_type='free';
@@ -941,7 +954,9 @@ class CartController extends Controller
                     {
                       $product_shipping_amount=0;
                       $product_shipping_type='free';
-                    }
+                    }*/
+
+
 
                     $arrOrderDetailsUpdate = [
                       'price'                => $discount_price,
@@ -1071,7 +1086,7 @@ class CartController extends Controller
               }
             }//foreach end
           } 
-
+//echo "<pre>";print_r($orderDetails);exit;
           $site_details          = Settings::first();
           $data['siteDetails']   = $site_details;
           $data['orderId']=$order_id;
@@ -2495,7 +2510,7 @@ DATA;
         $OrderProducts = OrdersDetails::join('products','products.id', '=', 'orders_details.product_id')->select('products.user_id as product_user','orders_details.*')->where('order_id','=',$GetOrder[0]['id'])->offset(0)->limit(1)->get()->toArray();
 
               $GetSeller = UserMain::select('users.fname','users.lname','users.email','users.store_name','users.seller_swish_number')->where('id','=',$OrderProducts[0]['product_user'])->first()->toArray();
-              date_default_timezone_set('Europe/London');
+              date_default_timezone_set('Europe/Stockholm');
               $created_date = $checkExisting['created_at'];
               $created_date = date('Y-m-d H:i:s',strtotime("$created_date UTC"));
            
@@ -3573,7 +3588,7 @@ DATA;
                   $order_status = (!empty($recordDetailsVal['order_status'])) ? $recordDetailsVal['order_status'] : '-';
                   //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
 
-                  date_default_timezone_set('Europe/London');
+                  date_default_timezone_set('Europe/Stockholm');
                   $dated = $recordDetailsVal['created_at'];
                   $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
                   /* $action = '<a href="'.route('frontShowOrderDetails', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i style="color:#2EA8AB;" class="fas fa-eye open_order_details"></i> </a>&nbsp;&nbsp;

@@ -277,7 +277,7 @@
             <div class="form-group col-md-12" id="shipping_method_ddl_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
               <div class="col-md-8">
-              <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl" disabled>
+              <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl" >
                 <option value="">{{ __('users.select_shipping_method')}}</option>
                 <option value="Platta fraktkostnader" @if(@$users_details->shipping_method=="Platta fraktkostnader") selected="selected" @endif>{{ __('users.flat_shipping_charges')}}</option>
                 <option value="Andel fraktkostnader"  @if(@$users_details->shipping_method=="Andel fraktkostnader") selected="selected" @endif>{{ __('users.prcentage_shipping_charges')}}</option>
@@ -289,7 +289,7 @@
             <div class="form-group col-md-12" id="shipping_charges_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
               <div class="col-md-8">
-              <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="@if(@$users_details->shipping_charges!=''){{ $users_details->shipping_charges }}@endif" readonly="readonly">
+              <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="@if(@$users_details->shipping_charges!=''){{ $users_details->shipping_charges }}@endif" >
               <span class="invalid-feedback col-md-8"  id="err_shipping_charges"></span>
             </div>
             </div>
@@ -308,7 +308,7 @@
                  <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>
                </div>
                <div class="col-md-8">
-                  <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif" readonly="readonly">
+                  <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif">
                   <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
                </div>
                 </div>

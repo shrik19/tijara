@@ -19,7 +19,7 @@
                 @endphp
               @endif
 
-          <input type="hidden" name="product_quantity_{{$first['attributes'][0]->variant_id}}" id="product_quantity_{{$first['attributes'][0]->variant_id}}" value="1">
+          <input type="hidden" name="product_quantity_{{@$first['attributes'][0]->variant_id}}" id="product_quantity_{{@$first['attributes'][0]->variant_id}}" value="1">
  <!-- Secondary carousel image thumbnail gallery -->
               <div class="small-img">
                 <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
@@ -47,7 +47,7 @@
                 <ul>
                     
                     <li><a @if(Auth::guard('user')->id()) 
-                          onclick="addToWishlist('{{$first['attributes'][0]->variant_id}}');event.stopPropagation();" 
+                          onclick="addToWishlist('{{@$first['attributes'][0]->variant_id}}');event.stopPropagation();" 
                           @else href="{{ route('frontLogin') }}" @endif>
                           <i class="far fa-heart"></i>
                         </a>

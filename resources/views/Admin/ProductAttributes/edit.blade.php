@@ -54,7 +54,9 @@
                       <label>Attribute Values <span class="de_col">*</span></label>
                       <div class="field_wrapper">
                       <input type="text" class="form-control" name="attribute_values[]" id="attribute_values" required  value="" style="float:left;width:80%">
+                      <div class="text-danger" id="err_fname">@if($errors->has('attribute_values')) {{ $errors->first('attribute_values') }}@endif </div>
                       </div>
+                           
                     </div> 
                     <button type="button" class="btn btn-success add_button" title="Add field"  style="float:right;margin-top: 20px;margin-left: 20px;font-size: 20px;">+</button>
                   @endif

@@ -242,7 +242,7 @@
                                     </div>
                                     <div class="col-md-6">                                       
                                        <!--  <span class="store_address" title="{{@$store_pick_address}}">0.00 kr </span> -->
-                                          <span id="product_shipping_charges" class="checkout-shipping-charges">0.00 kr</span>  
+                                          <span class="product_shipping_charges1" class="checkout-shipping-charges">0.00 kr</span>  
                                       </div>
                                 </div>
                              </div>
@@ -308,7 +308,7 @@
                                       }
                                         
                                       @endphp
-                                        <span id="product_shipping_charges d">@if(!empty($shipping_total_tbl)) {{$shipping_total_tbl}} kr @endif</span> 
+                                        <span class="product_shipping_charges">@if(!empty($shipping_total_tbl)) {{$shipping_total_tbl}} kr @endif</span> 
                                         
                                         <input type="hidden" name="hid_product_shipp_charges" class="hid_product_shipp_charges" value="{{@$shipping_total}}">
                                       </div>
@@ -557,7 +557,7 @@ $('.radio-button-shipping').click(function() {
   if($('.radio-button-shipping').is(':checked')) 
   { 
     var is_free_shipping = $(this).val();      
-    var product_shipping_charges = $("#product_shipping_charges").text();
+    var product_shipping_charges = $(".product_shipping_charges").text();
     
     var free_ship ="0,00 kr";
     var hid_get_subtotal = $(".hid_get_subtotal").val();
@@ -568,21 +568,21 @@ $('.radio-button-shipping').click(function() {
       var newSubtotal = parseInt(hid_get_subtotal)+parseInt(hid_product_shipp_charges);
       var text = newSubtotal.toLocaleString("sv-SE", {style:"currency", currency:"SEK"});
       //$(".decide_total").text(text);
-	  shipping_charges	=	hid_product_shipp_charges;
-	  shipping_charges_to_show	=	product_shipping_charges;
-	  total_amount		=	newSubtotal;
-	  total_amount_to_show=	text;
+    shipping_charges  = hid_product_shipp_charges;
+    shipping_charges_to_show  = product_shipping_charges;
+    total_amount    = newSubtotal;
+    total_amount_to_show= text;
     }
          
     if(is_free_shipping==0){
           //  alert("sdh")
             
-			shipping_charges	=	0;
-			shipping_charges_to_show	=	free_ship;
-			total_amount		=	hid_get_subtotal;
-			total_amount_to_show=	subtotal;
+      shipping_charges  = 0;
+      shipping_charges_to_show  = free_ship;
+      total_amount    = hid_get_subtotal;
+      total_amount_to_show= subtotal;
     }
-	
+  
     $.ajax({
       headers: {
       'X-CSRF-Token': $('input[name="_token"]').val()
@@ -592,7 +592,7 @@ $('.radio-button-shipping').click(function() {
       // async: false,
       data:{shipping_charges:shipping_charges,total_amount:total_amount,orderId:<?php echo $orderId ?>},
       success: function(data){
-			$(".decide_shipping").text(shipping_charges_to_show);
+      $(".decide_shipping").text(shipping_charges_to_show);
             $(".decide_total").text(total_amount_to_show);
       }
     });

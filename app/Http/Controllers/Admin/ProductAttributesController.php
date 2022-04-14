@@ -222,10 +222,11 @@ class ProductAttributesController extends Controller
         $validator = validator::make($request->all(), $rules, $messages);
         if($validator->fails()) 
         {
+           // echo "f";exit;
             $messages = $validator->messages();
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
-     
+
         $arrUpdateAttributes = [
                             'name' => trim($request->input('name')),
                             'type' => trim($request->input('type')),

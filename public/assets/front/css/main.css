@@ -734,6 +734,11 @@ html {
   /*margin-bottom: 50px;
   margin-top: 30px;*/
 }
+span.breadcrumb_category_span {
+  color: #222222!important;
+    font-size: 13px;
+    font-weight: 300;
+}
 ul.breadcrumb-category li {
   display: inline;
   font-size: 18px;

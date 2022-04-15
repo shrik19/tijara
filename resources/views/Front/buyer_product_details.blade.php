@@ -64,8 +64,8 @@
                       <div class="clearfix"></div>
                       <div class="row prduct_det" style="position:absolute; bottom:-80px">  
                         <div class="col-md-12" >                    
-                        <h3 class="ad_contact_details"> <img src="{{url('/')}}/assets/img/8.png" width="40" /> {{@$buyer_product_details->user_phone_no}}</h3>
-                        <h3 class="ad_contact_details"><img src="{{url('/')}}/assets/img/9.png" width="40" /> {{@$buyer_product_details->user_email}}</h3>
+                        <h3 class="ad_contact_details"><a href="tel: {{@$buyer_product_details->user_phone_no}}"> <img src="{{url('/')}}/assets/img/8.png" width="40" /></a> {{@$buyer_product_details->user_phone_no}}</h3>
+                        <h3 class="ad_contact_details"><a href="mailto:{{@$buyer_product_details->user_email}}"><img src="{{url('/')}}/assets/img/9.png" width="40" /></a>{{@$buyer_product_details->user_email}}</h3>
 
                         </div>       
                       </div>

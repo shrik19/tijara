@@ -179,7 +179,7 @@
                         <td class="table_blank">   </td>
                         <td class="table_blank" >   </td>
                         <td class="table_blank">   </td>
-                        <td class="bg-white"><h5 class="product_sorting_filter_option dddddd">{{ __('lang.shopping_cart_shipping')}}</h5></td>
+                        <td class="bg-white"><h5 class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</h5></td>
                         <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
 
                              @php  

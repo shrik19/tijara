@@ -62,8 +62,7 @@
   @endif
             @csrf
   <div class="row">
-
-
+  
 
 		  <div class="col-md-12 text-right" style="margin-top:30px;">
 		  <a href="{{route('manageFrontProducts')}}" title="{{ __('lang.back_to_list_label')}}" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>

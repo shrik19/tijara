@@ -63,7 +63,7 @@
                 @csrf
               <div class="row">
                   <div class="col-md-10">
-                
+              
                   </div>
                   <div class="col-md-2 text-right" style="margin-top:30px;">
                     <a href="{{route('manageFrontProducts')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
@@ -405,8 +405,14 @@ function get_attribute_values(select_attribute, element, selected_attr_id) {
 		   type: 'get',
 		   success: function(output) {
 						//console.log(output);
-						element.html(output);
-						element.val(selected_attr_id).change();
+            element.html(output);
+            if(selected_attr_id !=0){    
+        
+						  element.val(selected_attr_id).change();
+            }else{
+              
+              element.prop("selectedIndex", 0).val();
+            }
 						//elm.parent('div').find('.select_attribute_value').html(output);
 					}
 	});

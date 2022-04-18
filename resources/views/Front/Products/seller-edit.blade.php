@@ -38,7 +38,7 @@
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
-    
+      <div class="row">
     <div class="col-md-2 tijara-sidebar">
 
         @include ('Front.layout.sidebar_menu')
@@ -61,7 +61,7 @@
             <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
            
                 @csrf
-              <div class="row">
+            
                   <div class="col-md-10">
               
                   </div>
@@ -364,7 +364,7 @@
 
 
                   </div>
-              </div>
+             
             </form>
           
       </div> <!-- /col-10 -->
@@ -372,6 +372,7 @@
 </div>
 </div>
 </div>
+ </div>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">

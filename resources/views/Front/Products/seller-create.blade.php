@@ -33,14 +33,12 @@
     left: 3px;
 }
 
-.sidebar_menu {
-    margin-left: -27px !important;
-}
 </style>
 
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
+    <div class="row">
   <!-- Example row of columns -->
    @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -61,7 +59,7 @@
   <form id="product-form" class="tijara-form" action="{{route('frontProductShowCheckout')}}" method="post" enctype="multipart/form-data">
   @endif
             @csrf
-  <div class="row">
+
   
 
 		  <div class="col-md-12 text-right" style="margin-top:30px;">
@@ -316,7 +314,7 @@
         </div>
       </div>
       
-  </div>
+
   <div class="row  tijara-content">  
     <div class="col-md-12">&nbsp;</div>
     <div class="col-md-12 text-center">
@@ -327,6 +325,7 @@
 
   </form>
             </div>
+              </div>
 </div>
 </div> <!-- /container -->
 </div>

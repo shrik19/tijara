@@ -5,15 +5,12 @@
     font-weight: 300 !important;
     color: #999 !important;
   }
-  .sidebar_menu {
-    margin-left: -29px !important;
-  }
+  
 </style>
 <div class="mid-section sellers_top_padding">
   <div class="container-fluid">
     <div class="container-inner-section-1">
-      <div class="row">
-        <div class="col-md-12"> 
+      <div class="row"> 
           <div class="col-md-2 tijara-sidebar">
             @include ('Front.layout.sidebar_menu')
           </div>
@@ -100,7 +97,6 @@
           </div>
         </div>
           </div>
-        </div><!-- col 12 end -->
         <div class="col-md-12 text-center attribute-btn" style="margin:30px;">
           <button class="btn btn-black debg_color login_btn save_att_val">{{ __('lang.save_btn')}}</button>
                 <a href="{{route('frontProductAttributes')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>

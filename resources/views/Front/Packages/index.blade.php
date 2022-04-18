@@ -1,15 +1,11 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-<style type="text/css">
-  .sidebar_menu {
-    margin-left: -29px !important;
-  }
-</style>
+
 <div class="mid-section sellers_top_padding">
 <div class="containerfluid">
 <div class="container-inner-section-1">
   <div class="row">
-	  <div class="col-md-12">
+	  <!-- <div class="col-md-12"> -->
       @include ('Front.alert_messages')
       <!-- html for seller subscribe packages -->
     	<div class="col-md-2 tijara-sidebar">
@@ -211,7 +207,7 @@
 			
 			</div>
 			</div>
-</div>
+<!-- </div> -->
 </div> <!-- /container -->
 </div>
 </div>

@@ -248,7 +248,7 @@ margin-top: 15px;
     font-weight: 500;
 }
 .package-body{
-  min-height: auto;overflow: auto;padding: 25px 1px;
+ height: 275px;overflow: auto;padding: 25px 1px;
 }
 .package_history_btn{
   margin-top: 15px;
@@ -289,7 +289,7 @@ margin-top: 15px;
     margin-top: 12px!important;
     margin-left: -6px!important;
 }
-.package_width{width: 70%; margin: 0 15%;}
+.package_width{width: 73%; margin: 20px 15%;}
 #instafeed img.img-fluid {
   width: 100%;
   height: 230px !important;
@@ -730,7 +730,8 @@ html {
 /*category pages breadcrumb*/
   ul.breadcrumb-category {
   padding: 10px 7px 7px 2px;
-  list-style: none;
+  list-style: none;    width: 100%;
+  float: left;
   /*margin-bottom: 50px;
   margin-top: 30px;*/
 }
@@ -741,7 +742,7 @@ span.breadcrumb_category_span {
 }
 ul.breadcrumb-category li {
   display: inline;
-  font-size: 18px;
+  font-size: 15px;
 }
 ul.breadcrumb li+li:before {
   padding: 8px;
@@ -755,7 +756,15 @@ ul.breadcrumb-category li a {
   font-weight: 300;
   text-decoration: underline !important;
   margin-left: 5px;
+  position: relative;    float: left;
 }
+ul.breadcrumb-category li span{
+  padding: 0px 4px;
+  float: left;
+}
+/* ul.breadcrumb-category li:nth-child(3) a{
+  text-decoration: none !important;
+} */
 ul.breadcrumb-category li a:hover {
   color: #01447e;
   text-decoration: underline;
@@ -3067,7 +3076,7 @@ text-align: right;
                     @media only screen and (min-device-width: 1024px) and (max-device-width: 1400px){
                    
                    
-                    .package_width{width: 90%; margin: 0 5%;}
+                    .package_width{width: 90%; margin: 15px 5%;}
                     }
 
 
@@ -3242,8 +3251,7 @@ line-height: 42px;
 .new_add_heading{margin-bottom: 60px;}
 .pt-4{padding-top: 22px;}
 .short-desc{
-  max-height: 159px;
-  overflow: auto;
+
   float: left;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 

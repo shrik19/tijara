@@ -59,7 +59,7 @@
 		<div class="seller_register_container">
 			<div class="col-md-4 left-section">
                 @if(!empty($banner->image))
-				<div class="register_banner" style="background-image: url({{url('/')}}/uploads/Banner/{{$banner->image}});">
+				<div class="register_banner" style="background-image: url({{url('/')}}/uploads/Banner/resized/{{$banner->image}});">
 					<div class="register_banner-header">
 						<h1>Sveriges första kulturella marknadsplats</h1>
 					</div>

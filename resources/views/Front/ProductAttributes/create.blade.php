@@ -9,16 +9,12 @@
   .invalid-feedback {
     position: relative;
   }
-  .sidebar_menu {
-    margin-left: -29px !important;
-  }
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
-      <div class="col-md-12">
   <div class="col-md-2 tijara-sidebar">
         @include ('Front.layout.sidebar_menu')
       </div>
@@ -67,7 +63,7 @@
 </div></div></div>
     </div>
 </div>
-</div>
+
   </div></div></div>
 </div> <!-- /container -->
 

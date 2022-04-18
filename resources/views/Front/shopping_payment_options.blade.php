@@ -215,21 +215,35 @@
                          <div class="form-group col-md-10">
                          
                            <h4>{{ __('messages.delivery_label')}}</h4>
-                            <?php for($i=0;$i<count($orderDetails[$orderId]['details']);$i++){ 
-                              if($orderDetails[$orderId]['details'][$i]['product']->is_pick_from_store==1){
+                            <?php
+//echo "<pre>";print_r($orderDetails[$orderId]['details']);exit;
+                            $store_pick_address ='';
+                             for($i=0;$i<count($orderDetails[$orderId]['details']);$i++){ 
+                             /* if($orderDetails[$orderId]['details'][$i]['product']->is_pick_from_store==1){
                                       if(!empty($orderDetails[$orderId]['details'][$i]['product']->store_pick_address)){
                                         $store_pick_address = $orderDetails[$orderId]['details'][$i]['product']->store_pick_address;
                                       }
-                                    }elseif(!empty($seller_data['store_pick_address']) && $seller_data['is_pick_from_store'] == 1){
+                                    }else*/
+                                    if(!empty($seller_data['store_pick_address']) && $seller_data['is_pick_from_store'] == 1){
                                         $store_pick_address = $seller_data['store_pick_address']; 
                                       
-                                    }else{
-                                      $store_pick_address ='';
+                                    }else if($orderDetails[$orderId]['details'][$i]['product']->is_pick_from_store==1){
+                                      if($store_pick_address==''){
+                                        if(!empty($orderDetails[$orderId]['details'][$i]['product']->store_pick_address)){
+                                          $store_pick_address = $orderDetails[$orderId]['details'][$i]['product']->store_pick_address;
+                                        }
+                                      }
                                     }
+
+                                   /* else{
+                                      $store_pick_address ='';
+                                    }*/
 
                                    
 
-                            }?>
+                            }
+//echo "in2". $store_pick_address;exit;
+                            ?>
 
                             @if(!empty(@$store_pick_address) && @$store_pick_address!='')
                               <div class="pick_input" > 
@@ -253,7 +267,7 @@
                            <div class="pick_up_fromt_store">   
                               <div class="row">
                                 <div class="col-md-5">
-                                   <?php 
+                                   <?php  
                                     if($orderDetails[$orderId]['details'][0]['product']->is_pick_from_store==1){
                                       if(!empty($orderDetails[$orderId]['details'][0]['product']->store_pick_address)){
                                         $store_pick_address = $orderDetails[$orderId]['details'][0]['product']->store_pick_address;
@@ -284,11 +298,13 @@
                                     <div class="col-md-6 mt-8 m-m-t-15">
                                     
                                       @php
+
                                       if($orderDetails[$orderId]['shippingTotal']==0 && $orderDetails[$orderId]['details'][0]['product']->shipping_charges==''){
                                          $shipping_total_tbl = "0,00";
                                          $shipping_total=0;
                                       }else{
                                         if($orderDetails[$orderId]['shippingTotal']==0){
+                                        echo "out";exit;
                                           if($orderDetails[$orderId]['details'][0]['product']->shipping_charges==''){
                                            $shipping_total = $shipping_total_tbl=$shipping_total_amt=0;
                                           }else{
@@ -300,6 +316,7 @@
                                      
                                          $shipping_total = $orderDetails[$orderId]['shippingTotal'];
                                           $shipping_total_tbl = str_split(strrev(round($orderDetails[$orderId]['shippingTotal'])), 3);
+
                                         }
                                         /* $shipping_total_tbl = str_split(strrev($orderDetails[$orderId]['shippingTotal']), 3); */
 

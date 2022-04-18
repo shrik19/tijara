@@ -24,10 +24,10 @@
               </p>
             </article> -->
             <ul class="social_icon">
-              <li><a href="{{env('FACEBOOK_LINK')}}"><img src="{{url('/')}}/assets/img/facebook_1.png"/></a></li>
+              <li><a target="_blank" href="{{env('FACEBOOK_LINK')}}"><img src="{{url('/')}}/assets/img/facebook_1.png"/></a></li>
               <!-- <li><a href="#"><img src="{{url('/')}}/assets/front/img/tw_icon.png"/></a></li> -->
-              <li><a href="{{env('INSTAGRAM_LINK')}}"><img src="{{url('/')}}/assets/img/instagram_1.png"/></a></li>
-              <li><a href="{{env('LINKDIN_LINK')}}"><img src="{{url('/')}}/assets/img/link_1.png"/></a></li>
+              <li><a target="_blank" href="{{env('INSTAGRAM_LINK')}}"><img src="{{url('/')}}/assets/img/instagram_1.png"/></a></li>
+              <li><a target="_blank" href="{{env('LINKDIN_LINK')}}"><img src="{{url('/')}}/assets/img/link_1.png"/></a></li>
             </ul>
         </div>
         @php

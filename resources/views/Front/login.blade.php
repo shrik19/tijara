@@ -81,7 +81,7 @@
 					</div>
 				@endif
 				@if(Request::segment(2)=='seller')
-					<div class="login_banner" style="background-image: url({{url('/')}}/uploads/Banner/{{$banner->image}});">
+					<div class="login_banner" style="background-image: url({{url('/')}}/uploads/Banner/resized/{{$banner->image}});">
 						<div class="login_banner-header">
 							<h1>Sveriges första kulturella marknadsplats</h1>
 						</div>

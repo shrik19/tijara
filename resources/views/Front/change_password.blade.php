@@ -8,16 +8,12 @@
    .invalid-feedback {
     position: relative;
   }
-  .sidebar_menu {
-    margin-left: -29px !important;
-  }
 </style>
 <div class="mid-section sellers_top_padding">
 	<div class="container-fluid">
 		<div class="container-inner-section-1">
 			<!-- Example row of columns -->
 			<div class="row">
-				<div class="col-md-12">
 					<input type="hidden" name="is_seller" class="is_seller" value="{{$is_seller}}">
 					@if($is_seller==1)
 						<div class="col-md-2 tijara-sidebar">
@@ -94,7 +90,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+
 </div> <!-- /container -->
 
 <script type="text/javascript">

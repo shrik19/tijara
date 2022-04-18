@@ -346,6 +346,7 @@ class CartController extends Controller
         {
           $subTotal       = 0;
           $shippingTotal  = 0;
+          $shippingTotalAmount  = array();
           $total          = 0;
           $product_shipping_type = '';
           $product_shipping_amount = 0;
@@ -364,7 +365,7 @@ class CartController extends Controller
             join('products', 'temp_orders_details.product_id', '=', 'products.id')->join("variant_product",function($join){
             $join->on("variant_product.product_id","=","products.id")
                 ->on("variant_product.id","=","temp_orders_details.variant_id");
-            })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
+            })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.free_shipping','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();
 
 
            // print_r(DB::getQueryLog());exit;
@@ -373,6 +374,7 @@ class CartController extends Controller
             {
                 $subTotal       = 0;
                 $shippingTotal  = 0;
+                $shippingTotalAmount  = array();
                 $total          = 0;
 
                 foreach($checkExistingOrderProduct as $details)
@@ -413,7 +415,7 @@ class CartController extends Controller
                     
                         $product_shipping_type = 'percentage';
                         $product_shipping_amount = ((float)$discount_price * $details['shipping_charges']) / 100;
-                      }
+                      } 
                   
                     }
                     else if(empty($SellerShippingData['free_shipping']))
@@ -454,9 +456,13 @@ class CartController extends Controller
                     {
                       $product_shipping_amount=0;
                       $product_shipping_type='free';
+                    }else if($details['free_shipping'] ==  'free_shipping')
+                    {
+                    
+                        $product_shipping_type = 'free';
+                        $product_shipping_amount = 0;
                     }
                  
-
                     $arrOrderDetailsUpdate = [
                       'price'                => $discount_price,
                       'shipping_type'        => $product_shipping_type,
@@ -466,9 +472,12 @@ class CartController extends Controller
                     TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                     $subTotal += $discount_price * $details['quantity'];
-                    $shippingTotal += $product_shipping_amount;
+                   // $shippingTotal += $product_shipping_amount;
+                    $shippingTotalAmount [] = $product_shipping_amount;
+                    $shippingTotal  = max($shippingTotalAmount);
+                    //
                 }
-
+              //  $shippingTotal  = max($shippingTotalAmount);
                 $total = $subTotal+$shippingTotal;
 
                 $arrOrderUpdate = [
@@ -852,6 +861,10 @@ class CartController extends Controller
             { 
 
             //  $OrderId = $tmpOrder['id'];
+//DB::enableQueryLog();
+
+// and then you can get query log
+
 
                $checkExistingOrderProduct = TmpOrdersDetails::
               join('products', 'temp_orders_details.product_id', '=', 'products.id')
@@ -859,12 +872,14 @@ class CartController extends Controller
               ->join("variant_product",function($join){
               $join->on("variant_product.product_id","=","products.id")
                   ->on("variant_product.id","=","temp_orders_details.variant_id");
-              })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*','variant_product.image','products.title','temp_orders.sub_total','temp_orders.shipping_total','temp_orders.total'])->where('order_id','=',$order_id)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->orderBy('temp_orders_details.id','ASC')->groupBy('temp_orders_details.variant_id')->get()->toArray();
-
+              })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.free_shipping','products.discount','variant_product.price as product_price','temp_orders_details.*','variant_product.image','products.title','temp_orders.sub_total','temp_orders.shipping_total','temp_orders.total'])->where('order_id','=',$order_id)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->orderBy('temp_orders_details.id','ASC')->groupBy('temp_orders_details.variant_id')->get()->toArray();
+              //print_r(DB::getQueryLog());exit;
+            // echo "<pre>";print_r($checkExistingOrder);exit;
               if(!empty($checkExistingOrderProduct))
               {
                 $subTotal       = 0;
                 $shippingTotal  = 0;
+                $shippingTotalAmount  = array();
                 $total          = 0; 
                 foreach($checkExistingOrderProduct as $details)
                 { 
@@ -940,7 +955,15 @@ class CartController extends Controller
                     {
                       $product_shipping_amount = 0;
                       $product_shipping_type='free';
-                    }/*else
+                    }else if($details['free_shipping'] ==  'free_shipping')
+                    {
+                    
+                        $product_shipping_type = 'free';
+                        $product_shipping_amount = 0;
+                    }
+
+
+                    /*else
                     {
                       $product_shipping_type = 'free';
                       $product_shipping_amount = 0;
@@ -967,9 +990,12 @@ class CartController extends Controller
                     TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                     $subTotal += $discount_price * $details['quantity'];
-                    $shippingTotal += $product_shipping_amount;
+                   // echo $product_shipping_amount."<br>";
+                     $shippingTotalAmount []= $product_shipping_amount;
+                   // $shippingTotal += $product_shipping_amount;
                 }//foreach end
 
+                $shippingTotal = max($shippingTotalAmount);
                 $total = $subTotal+$shippingTotal;
 
                 $arrOrderUpdate = [

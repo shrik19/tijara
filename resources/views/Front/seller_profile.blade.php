@@ -34,7 +34,6 @@
      enctype="multipart/form-data"  cc-on-file="false" stripe-publishable-key="{{$strip_api_key}}">
             @csrf
       
-      <div class="col-md-12">
         <div class="seller_info">
       <div class="card-header row seller_header">
         <h2 class="seller_page_heading">{{ __('users.profile_update_title')}}</h2>
@@ -227,7 +226,6 @@
         <div style="text-align: center">
           <button class="btn btn-black debg_color seller-profile-update login_btn">{{ __('lang.update_btn')}}</button>
           <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn check_seller_setting" tabindex="16">{{ __('lang.cancel_btn')}}</a>
-        </div>
         </div>
       </form>
     </div>

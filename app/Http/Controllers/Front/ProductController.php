@@ -472,7 +472,7 @@ class ProductController extends Controller
 			$data['selectedCategories']	=	$selectedCategoriesArray;
 			
 		//	$data['VariantProduct']     =   VariantProduct::where('product_id',$product_id)->orderBy('id','asc')->get();
-			//DB::enableQueryLog();
+			DB::enableQueryLog();
 
 
 			$VariantProductAttribute    =   VariantProductAttribute::Leftjoin('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
@@ -480,11 +480,12 @@ class ProductController extends Controller
 			                                    ->Leftjoin('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
 			                                    ->select(['attributes.name','attributes_values.attribute_values','variant_product.*','variant_product_attribute.*'])
 			                                    ->where('variant_product.product_id',$product_id)->orderBy('variant_product.id','asc')->orderBy('variant_product_attribute.id','asc')->get();
-			//echo "<pre>";print_r($VariantProductAttribute);exit;
+			//print_r(DB::getQueryLog());exit;
+            
 			$VariantProductAttributeArr  =   array();
 
 			$i                           =   0;
-			foreach($VariantProductAttribute as $variant) {
+			foreach($VariantProductAttribute as $variant) {//echo "<pre>";print_r($variant->variant_id);//exit;
 			    $VariantProductAttributeArr[$variant->variant_id]['variant_id']           =   $variant->variant_id;
 			    $VariantProductAttributeArr[$variant->variant_id]['sku']                  =   $variant->sku;
 			    $VariantProductAttributeArr[$variant->variant_id]['price']                =   $variant->price;
@@ -495,8 +496,8 @@ class ProductController extends Controller
 			                                                                    'name'=>$variant->name,'attribute_values'=>$variant->attribute_values,
 			                                                                    'attribute_value_id'=>$variant->attribute_value_id);
 			    $i++;
-			}
-           // echo'<pre>';print_r($VariantProductAttributeArr);exit;
+			}//exit;
+          // echo'<pre>';print_r($VariantProductAttributeArr);exit;
 			$data['VariantProductAttributeArr']         =   $VariantProductAttributeArr;
             if($User->role_id==2) 
 			    return view('Front/Products/seller-edit', $data);
@@ -657,22 +658,26 @@ class ProductController extends Controller
                     else{
 		              $variant_id=VariantProduct::create($producVariant)->id;
                     }
-					
+                   // echo "in<pre>";print_r($productVariantAttr);
+					//echo $_POST['is_update'];exit;
 		            foreach($_POST['attribute_value'][$variant_key] as $attr_key=>$attribute) {
-		                if($_POST['attribute_value'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
+		               // if($_POST['attribute_value'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
 		                {
+                           // echo "in";
 		                    $productVariantAttr['product_id']   =   $id;
     		                $productVariantAttr['variant_id']   =   $variant_id;
     		                $productVariantAttr['attribute_id'] =   $attr_key;
     		                $productVariantAttr['attribute_value_id'] =   $_POST['attribute_value'][$variant_key][$attr_key];
+                          
                             if(isset($_POST['variant_attribute_id'][$variant_key][$attr_key])) {
                                 $checkRecordExist   =   VariantProductAttribute::where('id', $_POST['variant_attribute_id'][$variant_key][$attr_key])->first();
 
-                            if(!empty($checkRecordExist)) {
-                                VariantProductAttribute::where('id', $checkRecordExist->id)->update($productVariantAttr);
-                            }
-                            else
-                              VariantProductAttribute::create($productVariantAttr);
+                                if(!empty($checkRecordExist)) {
+                                    VariantProductAttribute::where('id', $checkRecordExist->id)->update($productVariantAttr);
+                                }
+                                else{
+                                   VariantProductAttribute::create($productVariantAttr);
+                                }
                             } 
                              else{
                                 VariantProductAttribute::create($productVariantAttr);

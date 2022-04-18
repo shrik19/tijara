@@ -730,13 +730,14 @@ html {
 /*category pages breadcrumb*/
   ul.breadcrumb-category {
   padding: 10px 7px 7px 2px;
-  list-style: none;
+  list-style: none;    width: 100%;
+  float: left;
   /*margin-bottom: 50px;
   margin-top: 30px;*/
 }
 ul.breadcrumb-category li {
   display: inline;
-  font-size: 18px;
+  font-size: 15px;
 }
 ul.breadcrumb li+li:before {
   padding: 8px;
@@ -750,6 +751,11 @@ ul.breadcrumb-category li a {
   font-weight: 300;
   text-decoration: underline !important;
   margin-left: 5px;
+  position: relative;    float: left;
+}
+ul.breadcrumb-category li span{
+  padding: 0px 4px;
+  float: left;
 }
 /* ul.breadcrumb-category li:nth-child(3) a{
   text-decoration: none !important;

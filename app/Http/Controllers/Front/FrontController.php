@@ -1781,7 +1781,7 @@ public function getCatSubList(Request $request) {
 									->where('products.id','!=',$Product->id)
 									->where(function($q) use ($currentDate) {
 
-										$q->where([["users.role_id",'=',"1"],['is_sold','=','0']])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+										$q->where([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 									})
 									->orderBy('variant_product.id', 'DESC')
 									->groupBy('products.id')

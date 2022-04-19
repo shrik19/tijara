@@ -1607,7 +1607,7 @@ public function getCatSubList(Request $request) {
 		$Products			=	$Products->get();// ->groupBy('products.id')
 
 		if(count($Products)<=0){
-			  return redirect(route('frontHome'));
+			  return redirect(route('404Error'));
 		}		
 	    //print_r(DB::getQueryLog());exit;
 		if(isset($product_slug) && count($Products)<=0) {
@@ -2209,7 +2209,9 @@ public function getCatSubList(Request $request) {
 		}
 		$Services			=	$Services->get();// ->groupBy('services.id')
 		
-
+		if(count($Services)<=0){
+			  return redirect(route('404Error'));
+		}
 		if(isset($service_slug) && count($Services)<=0) {
 			$service_parts	=	explode('-S-',$service_slug);
 			$Services		=	Services::where('services.status','=','active');
@@ -3242,4 +3244,11 @@ public function getCatSubList(Request $request) {
 		curl_close($curl);
 		echo $response;
 	}
+
+	/* function to display Error page*/
+    public function Error404() {       
+        $data['pageTitle'] 		= '404 Error';
+        return view('Front/404Error', $data);
+    }
+
 }

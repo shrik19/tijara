@@ -287,3 +287,4 @@ Route::any('/update-booking-notification', 'Front\ServiceController@ServiceReque
 Route::any('/update-orders-notification', 'Front\CartController@ordersView')->name('frontOrdersView');
 Route::any('/check-seller-setting', 'Front\AuthController@checkSellerSetting')->name('frontCheckSellerSetting');
 Route::any('refresh-instagram-token','Front\FrontController@refreshInstagramToken')->name('refreshInstagramToken');
+Route::any('404-error','Front\FrontController@Error404')->name('404Error');

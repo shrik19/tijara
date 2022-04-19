@@ -1605,10 +1605,10 @@ public function getCatSubList(Request $request) {
 			$Products		=	$Products->where('products.product_slug','=',$product_parts[0])->where('products.product_code','=',$product_parts[1]);
 		}
 		$Products			=	$Products->get();// ->groupBy('products.id')
-		echo "<pre>";print_r($Products);exit;
-			if(empty($Products) || count($Products)<0){
+
+		if(empty($Products) || count($Products)<0){
 			  return redirect(route('/'));
-			}		
+		}		
 	    //print_r(DB::getQueryLog());exit;
 		if(isset($product_slug) && count($Products)<=0) {
 			$product_parts	=	explode('-P-',$product_slug);

@@ -361,6 +361,7 @@
     'incorrect_cvc_err' => 'Kortets säkerhetskod är felaktig.',
     'expired_card_err' => 'Kortet har gått ut.',
     'invalid_cvc_err' => 'Kortets säkerhetskod är ogiltig.',
-    'err_404_msg' => 'Hoppsan det verkar som att varan du försöker söka inte längre är tillgänglig, du kan prova att söka i produkten och marknaden',
+    'err_404_msg' => 'Hoppsan det verkar som att varan du försöker söka inte längre är tillgänglig, du kan prova att söka i',
+    'market_label' => 'marknaden',
  ]
 ?>

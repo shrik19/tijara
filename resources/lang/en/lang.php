@@ -366,6 +366,7 @@
     'incorrect_cvc_err' => "The card's security code is incorrect.",
     'expired_card_err' => 'The card has expired.',
     'invalid_cvc_err' => "The card's security code is invalid.",
-    'err_404_msg' => 'Oops looks like the item you are trying to search is no more available, you can try searching in the product and market',
+    'err_404_msg' => 'Oops looks like the item you are trying to search is no more available, you can try searching in the',
+    'market_label' => 'market',
  ]  
 ?>

@@ -46,7 +46,7 @@ body{
           <div id="main">
             <div class="fof">
                 <h1>Error 404</h1>
-                <p>{{ __('lang.err_404_msg')}} <a href="{{route('AllproductListing')}}">Här</a></p>
+                <p>{{ __('lang.err_404_msg')}} <a href="{{route('AllproductListing')}}">{{ __('lang.product_label')}}</a> och <a href="{{route('AllbuyerProductListing')}}">{{ __('lang.market_label')}}</a> </p>
             </div>
           </div>        
       </div>

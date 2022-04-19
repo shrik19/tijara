@@ -1522,6 +1522,7 @@ public function getCatSubList(Request $request) {
 	{	
 		//echo "here".$_GET['annonser'];exit;
 	 $current_uri = request()->segments();
+	 $currentDate = date('Y-m-d H:i:s');
     // DB::enableQueryLog();
       if(@$_GET['annonser'] ==1){
       	$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
@@ -1531,7 +1532,11 @@ public function getCatSubList(Request $request) {
 										->where('products.status','=','active')
 										->where('products.is_deleted','=','0')
 										->where('annonsercategories.status','=','active')
-										->where('annonserSubcategories.status','=','active');
+										->where('annonserSubcategories.status','=','active')
+										->where(function($q) use ($currentDate) {
+
+										$q->where([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
+									});
 										
       }else{
       	$Products 			=  Products::join('category_products', 'products.id', '=', 'category_products.product_id')
@@ -1666,7 +1671,6 @@ public function getCatSubList(Request $request) {
 
 	$p_id =$Products[0]['id'];
 
-	$currentDate = date('Y-m-d H:i:s');
 		$PopularProducts	= OrdersDetails::join('products', 'products.id', '=', 'orders_details.product_id')
 									->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 									->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')

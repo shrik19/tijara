@@ -1606,7 +1606,7 @@ public function getCatSubList(Request $request) {
 		}
 		$Products			=	$Products->get();// ->groupBy('products.id')
 
-		if(!isset($Products) || count($Products)<0){
+		if(count($Products)<=0){
 			  return redirect(route('frontHome'));
 		}		
 	    //print_r(DB::getQueryLog());exit;

@@ -286,3 +286,4 @@ Route::group(['prefix'=>'package'], function() {
 Route::any('/update-booking-notification', 'Front\ServiceController@ServiceRequestView')->name('frontServiceRequestView');
 Route::any('/update-orders-notification', 'Front\CartController@ordersView')->name('frontOrdersView');
 Route::any('/check-seller-setting', 'Front\AuthController@checkSellerSetting')->name('frontCheckSellerSetting');
+Route::any('refresh-instagram-token','Front\FrontController@refreshInstagramToken')->name('refreshInstagramToken');

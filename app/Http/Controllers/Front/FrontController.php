@@ -3207,4 +3207,30 @@ public function getCatSubList(Request $request) {
 		}
 		echo $output;
 	}
+
+	/*function to refresh instagram access token
+	@param:grant_type,access_token
+	*/
+	public function refreshInstagramToken(){
+
+  		$url = env('REFRESH_INSTA_TOKEN_URL')."?grant_type=ig_refresh_token&access_token=".env('INSTA_ACCESS_TOKEN');
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => $url,
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'GET',
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		echo $response;
+	}
 }

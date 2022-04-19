@@ -1792,6 +1792,7 @@ public function getCatSubList(Request $request) {
 									->groupBy('products.id')
 									->offset(0)->limit(config('constants.similar_product_limits'))
 									->get();
+									echo "<pre>";print_r($variantData);exit;
 			if(empty($variantData) || count($variantData)<0){
 			  return redirect(route('/'));
 			}		

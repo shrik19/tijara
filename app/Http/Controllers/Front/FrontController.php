@@ -1623,9 +1623,7 @@ public function getCatSubList(Request $request) {
 		}
 
 		$variantData		=	$ProductImages	=	$ProductAttributes	=	array();
-		if(empty($variantData) || count($variantData)<0){
-			return redirect(route('/'));
-		}
+
 		$Product = $Products[0]; 
 		/*$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->orderBy('id','ASC')->get();*/
 		//$ProductVariants = VariantProduct::where('product_id','=',$Product->id)->where('quantity','>',0)->orderBy('id','ASC')->get();
@@ -1794,7 +1792,9 @@ public function getCatSubList(Request $request) {
 									->groupBy('products.id')
 									->offset(0)->limit(config('constants.similar_product_limits'))
 									->get();
-											
+			if(empty($variantData) || count($variantData)<0){
+			  return redirect(route('/'));
+			}		
 			$product_sold_data = BuyerProducts::where('product_id',$Product->id)->first();
 			$data['product_location'] = @$product_sold_data['location'];
 			$data['product_seller_name'] = $product_sold_data['user_name'];

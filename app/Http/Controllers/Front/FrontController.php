@@ -1529,6 +1529,7 @@ public function getCatSubList(Request $request) {
 										->join('annonsercategories', 'annonsercategories.id', '=', 'category_products.category_id')
 										->join('annonserSubcategories', 'annonsercategories.id', '=', 'annonserSubcategories.category_id')
 										->select(['products.*','products.id as product_id','annonsercategories.id as catId'])
+										->join('users', 'products.user_id', '=', 'users.id')
 										->where('products.status','=','active')
 										->where('products.is_deleted','=','0')
 										->where('annonsercategories.status','=','active')
@@ -1669,7 +1670,7 @@ public function getCatSubList(Request $request) {
 		
 		
 
-	$p_id =$Products[0]['id'];
+		$p_id =$Products[0]['id'];
 
 		$PopularProducts	= OrdersDetails::join('products', 'products.id', '=', 'orders_details.product_id')
 									->join('variant_product', 'products.id', '=', 'variant_product.product_id')

@@ -1550,6 +1550,10 @@ span.remember-text {
     opacity: 1 !important;
   }
 
+  fieldset.seller_register_fourth {
+    opacity: 1 !important;
+  }
+
   .package-html.package-wrapper {
     margin-bottom: 65px;
     margin-left: 150px;

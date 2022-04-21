@@ -813,10 +813,10 @@ $('#third-step').click(function(e) {
     }else
     {
        third_step_err = 1;
-	 	
+       showErrorMessage(please_add_payment_details);
     }
     	
-	
+	//alert(third_step_err);return
 	if(third_step_err == 0){
 	
 	    $(".loader-seller").css("display","block");
@@ -875,8 +875,8 @@ $('#third-step').click(function(e) {
 
 	    
 	  }
-	else { 
-	showErrorMessage(please_add_payment_details);
+	else  { 
+	
 	setTimeout(function(){
 		$('#progressbar .confirm').removeClass('active');
 		$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');

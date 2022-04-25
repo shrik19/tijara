@@ -12,7 +12,6 @@
         <div class="row container-inner-section">
             <div class="col-md-6">
               <!-- Primary carousel image -->
-
               @if(!empty($variantData))
                 @php
                 $first = reset($variantData);
@@ -99,8 +98,36 @@
                         <?php echo strip_tags($Product->description); ?>
                       </p>
                      
-                     
+        
+                     @if(empty($ProductAttributes))
+                      <div class="col-md-6 p-0">
+                        <div class="quantity_box" style="margin-bottom:0px !important;">
+                          <div>
+                            <h3>{{ __('lang.price_label')}}  : </h3> &nbsp;&nbsp;
+                            <div class="clearfix"></div>
+                            <select id="" class=" form-control " style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" onchange="showAvailableOptionsPrice(this.value)">
+                                @foreach($variantData as $key=>$val)
+                                  @php
+                                    $selected = '';
+                                    if(!empty($first['price']) && $first['price'] == $val['price'])
+                                    {
+                                      $selected = 'selected="selected"';
+                                    }
+                                  @endphp 
+                                        <option value="{{$val['price']}}" {{$selected}}> {{ number_format($val['price'],2) }} kr </option>
+                                @endforeach
+
+                              
+                            </select>
+
+                          </div>
+                        </div>
+                      </div>
+                     @endif
+                     <?php $attribute_counter = 0;?>
+                   
                          @foreach($ProductAttributes as $attribute_id => $attribute)
+                         
                          <div class="col-md-6 p-0">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                              
@@ -124,7 +151,13 @@
                                       @endforeach
                                     
                                     @elseif($attribute['attribute_type']=='dropdown')
-                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" onchange="showAvailableOptions('{{$attribute_id}}', this.value)">
+                                    <?php 
+                                    if($attribute_counter==0){
+                                      $className = "attribute_name";
+                                    }else{
+                                      $className = "attribute_value";
+                                    }?>
+                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown {{$className}}" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" onchange="showAvailableOptions('{{$attribute_id}}', this.value)">
                                     @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
                                       @php
                                           $selected = '';
@@ -146,7 +179,7 @@
                                 </div>
                                 </div>
                                 </div>
-                            
+                              <?php $attribute_counter++;?>
                         @endforeach
                       
                       
@@ -646,6 +679,18 @@ function showAvailableOptions(attribute_id,attribute_value)
     success:function(data)
     {
       var responseObj = $.parseJSON(data);
+      
+        $('.attribute_value option').each(function(){
+         var data_variant  = $(this).attr("data-variant");
+          if(responseObj.current_variant.variant_id==data_variant){
+             $(this).attr('disabled', false);
+             $(this).attr('selected', 'selected');
+          }else{
+             $(this).attr('disabled', true);
+          }
+        });
+
+//$("#select_product_variant option").val(responseObj.current_variant.id).attr('disabled',true);
       var images = responseObj.current_variant.image.split(',');
       $(images).each(function(key,image){
           $(".show-custom").attr('href',siteUrl+'/uploads/ProductImages/productDetails/'+image);
@@ -689,6 +734,7 @@ function showAvailableOptions(attribute_id,attribute_value)
       
       
       var optionLength = responseObj.other_option.length;
+     // alert(optionLength)
       $(responseObj.other_option).each(function(key,option)
       {
         if(option.attribute_type == 'dropdown')
@@ -921,6 +967,94 @@ if(searchParams.has('page')==true){
      $('html, body').animate({
           scrollTop: $('#show-all-review').offset().top
       }, 'slow');
+}
+
+
+function showAvailableOptionsPrice(price)
+{
+  $("#reset_option").show();
+  $(".loader").show();
+  $.ajax({
+    url:siteUrl+"/get-product-options-price",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'price': price, 'product_id' : '{{$Product->id}}'},
+    success:function(data)
+    {
+      var responseObj = $.parseJSON(data);
+      //console.log(responseObj.current_variant.variant_id);
+//$("#select_product_variant option").val(responseObj.current_variant.id).attr('disabled',true);
+      var images = responseObj.current_variant.image.split(',');
+      $(images).each(function(key,image){
+          $(".show-custom").attr('href',siteUrl+'/uploads/ProductImages/productDetails/'+image);
+          $(".show-custom").find('img').attr('src',siteUrl+'/uploads/ProductImages/productDetails/'+image);
+          return false;
+      });
+      var allImages = '';
+      $(images).each(function(key,image){
+        allImages+='<img src="'+siteUrl+'/uploads/ProductImages/productIcons/'+image+'" class="show-small-img" alt="">';
+      });
+      $("#small-img-roll").html(allImages);
+      //$('.show-custom').find('div').remove();
+      //$('.show-custom').zoomImage();
+      $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding': '2px'});
+      $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');
+      $('.show-small-img').click(function () {
+        $('#show-img').attr('src', $(this).attr('src'))
+        $('#big-img').attr('src', $(this).attr('src'))
+        $(this).attr('alt', 'now').siblings().removeAttr('alt')
+        $(this).css({'border': 'solid 1px #951b25', 'padding': '2px'}).siblings().css({'border': 'none', 'padding': '0'})
+        if ($('#small-img-roll').children().length > 4) {
+          if ($(this).index() >= 3 && $(this).index() < $('#small-img-roll').children().length - 1){
+            $('#small-img-roll').css('left', -($(this).index() - 2) * 76 + 'px')
+          } else if ($(this).index() == $('#small-img-roll').children().length - 1) {
+            $('#small-img-roll').css('left', -($('#small-img-roll').children().length - 4) * 76 + 'px')
+          } else {
+            $('#small-img-roll').css('left', '0')
+          }
+        }
+      });
+      $(".show-custom").find('div').not(':first').css('z-index','999');
+      $("#product_variant_id").val(responseObj.current_variant.id);
+      if(responseObj.current_variant.discount_price)
+      {
+    $("#product_variant_price").html('<span style="margin-left: -12px;"> &nbsp;&nbsp;'+ number_format(responseObj.current_variant.discount_price,2)+' kr </span><span style=" text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; ">'+number_format(responseObj.current_variant.price,2)+' kr</span>');
+      }
+      else
+      {
+        $("#product_variant_price").html('<span style="margin-left: -12px;"></span><span style=" margin-left: 10px; ">'+number_format(responseObj.current_variant.price,2)+' kr</span>');
+      }
+      
+      
+     
+      $(".loader").hide();
+    }
+  });
+   function number_format (number, decimals, dec_point, thousands_sep) {
+    // Strip all characters but numerical ones.
+    number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+    var n = !isFinite(+number) ? 0 : +number,
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        s = '',
+        toFixedFix = function (n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + Math.round(n * k) / k;
+        };
+    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+    if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');
+    }
+    return s.join(dec);
+}
 }
 </script>
 @endsection

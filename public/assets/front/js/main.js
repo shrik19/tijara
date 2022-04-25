@@ -124,7 +124,22 @@ $(".add_new_variant_btn").click(function(){
     $trNew = $trLast.clone();
     $trNew.attr('variant_id',variant_id);
     var divCount = $('.var_img_div').length
+    $('.select_attribute').each(function(){
+      var attrName = $(this).val();
+      if(attrName!=''){
+       $trNew.find(".select_attribute option").attr('disabled', true);
+      }
+   
+    });
+  
+   
+    $('.select_attribute').each(function(){
+      var attrName = $(this).val();
+      $trNew.find(".select_attribute option[value='"+ attrName + "']").attr('disabled', false);
+    });
+  
 
+  
     /*code to remove variant images from second variant
     while (divCount >0) 
     {
@@ -140,7 +155,7 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.variant_name').attr('name','variant_name['+variant_id+']');
     $trNew.find('.variant_id').attr('name','variant_id['+variant_id+']');
     $trNew.find('.sku').attr('name','sku['+variant_id+']');
-    $trNew.find('.weight').attr('name','weight['+variant_id+']');
+   // $trNew.find('.weight').attr('name','weight['+variant_id+']');
     $trNew.find('.price').attr('name','price['+variant_id+']');
     $trNew.find('.quantity').attr('name','quantity['+variant_id+']');
     $trNew.find('.image').attr('name','image['+variant_id+']');
@@ -151,8 +166,10 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.added_attributes').html('');
     $trNew.find('.selected_images').html('');
     $trNew.find('.select_attribute').attr('variant_id',variant_id);
+     $trNew.find('.select_attribute').attr('name','attribute['+variant_id+'][]');
     $trNew.find('.clone_tr').remove();
     $trNew.find('.select_attribute').val('');
+    $trNew.find('.variant_attribute_id').attr('name','variant_attribute_id['+variant_id+'][]').val('');
     //$trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
     $trNew.find('tr.attribute_tr:gt(0)').remove();
     $trNew.find('img').remove();
@@ -161,7 +178,8 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.remove_variant_div').html("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>");
 
   $trNew.find('.select_attribute_value').each(function() { 
-         $(this).attr('name','attribute_value['+variant_id+']['+$(this).attr('attribute_id')+']');
+         //$(this).attr('name','attribute_value['+variant_id+']['+$(this).attr('attribute_id')+']');
+         $(this).attr('name','attribute_value['+variant_id+'][]');
      });
 	$trNew.find('span.invalid-feedback').each(function() { 
          $(this).html('');
@@ -348,6 +366,18 @@ $('body').on('click', '.remove_image', function () {
                data: {attribute_id: select_attribute},
                type: 'get',
                success: function(output) {
+               // alert("dchj"+variant_id)
+               /* var variant_id =$('.select_attribute_value').attr('variant_id');
+                 alert("dchj"+variant_id)
+                 attribute_id*/
+                          /*new code for attribute 21 april*/
+                         /*  var variant_id =$('.select_attribute').attr('variant_id');
+                           alert(variant_id)
+                          elm.parent('div').find('.select_attribute_value').attr('attribute_id',select_attribute)
+                         
+                              elm.parent('div').find('.select_attribute_value').attr('name','attribute_value['+variant_id+']['+select_attribute+']');
+                         */
+                                     /*end*/
                             elm.parent('div').find('.select_attribute_value').html(output);
                         }
         });
@@ -364,7 +394,7 @@ $( ".preselected_attribute" ).each(function() {
              data: {attribute_id: select_attribute},
              type: 'get',
              success: function(output) {
-
+                if(id !=''){
                           $('.select_attribute_value.'+id).html(output);
 
                           if($('.select_attribute_value.'+id).hasClass('buyer-product')) {
@@ -374,6 +404,7 @@ $( ".preselected_attribute" ).each(function() {
                           $('.select_attribute_value.'+id).val($('.select_attribute_value.'+id).attr('selected_attribute_value'));
                            //alert( $('.select_attribute_value.'+id).attr('selected_attribute_value'));
 
+                }
              }
             });
 

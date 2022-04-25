@@ -184,6 +184,7 @@
                     <span class="invalid-feedback  col-md-8"  id="err_sku" ></span>
                    </div>
                   </div>
+                  <?php /*
                   <div class="form-group producterrDiv" >
                     <label class="col-md-3 product_table_heading">{{ __('lang.weight_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
@@ -191,6 +192,7 @@
                     <span class="invalid-feedback  col-md-8"  id="err_sku" ></span>
                     </div>
                   </div>
+                  */?>
                   <div class="form-group producterrDiv" >
                     <label class="col-md-3 product_table_heading">{{ __('lang.price_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
@@ -205,10 +207,15 @@
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                   </div>
                   </div>
-                  <!-- <div class="form-group  col-md-12 producterrDiv" >
-                    <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col">*</span></label>
+                  <div class="form-group producterrDiv" >
+                    <?php for($ii=0;$ii<2;$ii++){
+                      if($ii==0){?>
+                    <label class="col-md-3 product_table_heading">{{ __('lang.select_attribute_label')}} <span class="de_col"></span></label>
+                  <?php }else{?>
+                    <div class="col-md-3"></div>
+                 <?php }?>
                     <div class="col-md-8">
-                    <select style="width: 32%;" class="col-md-4 ge_input select_attribute variant_field" name="attribute[<?php //echo $i;?>][<?php //echo $i;?>]" variant_id="<?php //echo $i;?>" >
+                    <select style="width: 32%;" class="col-md-4 ge_input select_attribute" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
                       <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
                         @foreach ($attributesToSelect as $attr)
@@ -217,15 +224,41 @@
                     </select>
                     
                     <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
-                    class=" variant_field  col-md-4 ge_input select_attribute_value variant_field" name="attribute_value[<?php //echo $i;?>][<?php //echo $i;?>]">
+                    class="col-md-4 ge_input select_attribute_value" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
+                      <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
+
+                    </select>
+                    <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
+                    <?php  if($ii!=0){?>
+                    <p class="seller-logo-info col-md-8" style="font-size: 13px;">Ändra eller lägg till nya egenskaper till vänster under Attribut</p>
+                  <?php } ?>
+                  </div>
+                <?php } ?>
+<?php /*?>
+                  <!-- new start -->
+                   <!-- <div class="col-md-3"></div>
+                   <div class="col-md-8">
+                    <select style="width: 32%;" class="col-md-4 ge_input select_attribute variant_field" name="attribute[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>" >
+                      <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
+
+                        @foreach ($attributesToSelect as $attr)
+                          <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
+                        @endforeach
+                    </select>
+                    
+                    <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
+                    class=" variant_field  col-md-4 ge_input select_attribute_value variant_field" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]" variant_id="<?php echo $i;?>">
                       <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
 
                     </select>
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                     <p class="seller-logo-info col-md-8" style="font-size: 13px;">Ändra eller lägg till nya egenskaper till vänster under Attribut</p>
                   </div>
-                  </div> -->
-				  
+ */?>
+                  <!-- new end -->
+
+                  </div>
+				  <?php /*
 				  <div class="form-group producterrDiv" >
 					<label class="col-md-3 product_table_heading">{{ __('lang.select_attribute_label')}} </label>
 					<div class="col-md-8" >
@@ -240,6 +273,7 @@
            <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.add_attribute_info')}}</p>
 					</div>
 				  </div>
+          */?>
                   
                   <div class="form-group producterrDiv var_img_div" >
                     <label class="col-md-3 product_table_heading">{{ __('lang.image_label')}} <span class="de_col">*</span></label>

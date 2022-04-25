@@ -866,7 +866,7 @@ public function getCatSubList(Request $request) {
 	public function getProductsByParameter(Request $request) {
 
 		DB::enableQueryLog();
-		//print_r($request->path);exit;
+		
 		$currentDate = date('Y-m-d H:i:s');
 		$data = [];
 		
@@ -906,7 +906,7 @@ public function getCatSubList(Request $request) {
 							  ->leftJoin('categories', 'categories.id', '=', 'category_products.category_id')
 							  ->leftJoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
 							  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-							  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+							  ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 							  ->join('users', 'products.user_id', '=', 'users.id')
 							  ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id')
 							  ->leftJoin('orders_details', 'variant_product.id', '=', 'orders_details.variant_id')
@@ -1906,8 +1906,7 @@ public function getCatSubList(Request $request) {
 	$otherAttributeDetails = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
 	->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
 	->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();	
-
-				
+			
 	if(!empty($otherAttributeDetails))
 	{
 		$getOtherAvailableOptions = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
@@ -3250,5 +3249,53 @@ public function getCatSubList(Request $request) {
         $data['pageTitle'] 		= '404 Error';
         return view('Front/404Error', $data);
     }
+
+
+  function getProductOptionsPrice(Request $request)
+  {
+	/*$attribute_id = $request->attribute_id;
+	$attribute_value = $request->attribute_value;*/
+	$price = $request->price;
+	$product_id = $request->product_id;
+
+	$attributeDetails = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
+											->select('variant_product.*','products.discount')
+											->where([['variant_product.price','=',$price],['variant_product.product_id','=',$product_id]])->get()->toArray();
+
+										//	echo "<pre>";print_r($attributeDetails);exit;
+	if(!empty($attributeDetails[0]['discount']))
+	{
+		$discount = number_format((($attributeDetails[0]['price'] * $attributeDetails[0]['discount']) / 100),2,'.','');
+		$discount_price = $attributeDetails[0]['price'] - $discount;
+	}
+	else
+	{
+		$discount_price = 0;
+	}		
+	
+	$attributeDetails[0]['discount_price'] = $discount_price;
+	
+/*	$otherAttributeDetails = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+	->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
+	->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();	
+*/
+				
+	/*if(!empty($otherAttributeDetails))
+	{
+		$getOtherAvailableOptions = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+		->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
+		->where([['variant_product_attribute.variant_id','<>',$attributeDetails[0]['variant_id']],['variant_product_attribute.attribute_id','=',$otherAttributeDetails[0]['attribute_id']],
+		['variant_product_attribute.attribute_value_id','=',$otherAttributeDetails[0]['attribute_value_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
+	}
+	else if(empty($getOtherAvailableOptions))
+	{
+		$getOtherAvailableOptions = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
+		->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
+		->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
+	}
+*/
+	echo json_encode(['current_variant' => $attributeDetails[0]]);
+	exit;
+  }
 
 }

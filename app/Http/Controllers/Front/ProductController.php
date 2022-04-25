@@ -472,32 +472,33 @@ class ProductController extends Controller
 			$data['selectedCategories']	=	$selectedCategoriesArray;
 			
 		//	$data['VariantProduct']     =   VariantProduct::where('product_id',$product_id)->orderBy('id','asc')->get();
-			DB::enableQueryLog();
+			//DB::enableQueryLog();
 
 
-			$VariantProductAttribute    =   VariantProductAttribute::Leftjoin('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
+			$VariantProductAttribute    =   VariantProductAttribute::leftjoin('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 			                                    ->rightjoin('variant_product', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
 			                                    ->Leftjoin('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
-			                                    ->select(['attributes.name','attributes_values.attribute_values','variant_product.*','variant_product_attribute.*'])
+			                                    ->select(['attributes.name','attributes_values.attribute_values','variant_product.*','variant_product.id as var_id','variant_product_attribute.*'])
 			                                    ->where('variant_product.product_id',$product_id)->orderBy('variant_product.id','asc')->orderBy('variant_product_attribute.id','asc')->get();
 			//print_r(DB::getQueryLog());exit;
-            
+            //echo "<pre>";print_r($VariantProductAttribute);exit;
 			$VariantProductAttributeArr  =   array();
 
 			$i                           =   0;
-			foreach($VariantProductAttribute as $variant) {//echo "<pre>";print_r($variant->variant_id);//exit;
-			    $VariantProductAttributeArr[$variant->variant_id]['variant_id']           =   $variant->variant_id;
-			    $VariantProductAttributeArr[$variant->variant_id]['sku']                  =   $variant->sku;
-			    $VariantProductAttributeArr[$variant->variant_id]['price']                =   $variant->price;
-			    $VariantProductAttributeArr[$variant->variant_id]['quantity']             =   $variant->quantity;
-			    $VariantProductAttributeArr[$variant->variant_id]['weight']               =   $variant->weight;
-			    $VariantProductAttributeArr[$variant->variant_id]['image']                =   $variant->image;
-			    $VariantProductAttributeArr[$variant->variant_id]['attributes'][]           =   array('id'=>$variant->id,'attribute_id'=>$variant->attribute_id,
+			foreach($VariantProductAttribute as $variant) {
+                //echo'<pre>';print_r($variant);exit;
+			    $VariantProductAttributeArr[$variant->var_id]['variant_id']           =   $variant->var_id;
+			    $VariantProductAttributeArr[$variant->var_id]['sku']                  =   $variant->sku;
+			    $VariantProductAttributeArr[$variant->var_id]['price']                =   $variant->price;
+			    $VariantProductAttributeArr[$variant->var_id]['quantity']             =   $variant->quantity;
+			    /*$VariantProductAttributeArr[$variant->variant_id]['weight']               =   $variant->weight;*/
+			    $VariantProductAttributeArr[$variant->var_id]['image']                =   $variant->image;
+			    $VariantProductAttributeArr[$variant->var_id]['attributes'][]           =   array('id'=>$variant->id,'attribute_id'=>$variant->attribute_id,
 			                                                                    'name'=>$variant->name,'attribute_values'=>$variant->attribute_values,
 			                                                                    'attribute_value_id'=>$variant->attribute_value_id);
 			    $i++;
 			}//exit;
-          // echo'<pre>';print_r($VariantProductAttributeArr);exit;
+         // echo'<pre>';print_r($VariantProductAttributeArr);exit;
 			$data['VariantProductAttributeArr']         =   $VariantProductAttributeArr;
             if($User->role_id==2) 
 			    return view('Front/Products/seller-edit', $data);
@@ -632,7 +633,7 @@ class ProductController extends Controller
 		            $producVariant['product_id']=   $id;
 		            $producVariant['price']     =   $_POST['price'][$variant_key];
 		            $producVariant['sku']       =   $_POST['sku'][$variant_key];
-		            $producVariant['weight']    =   $_POST['weight'][$variant_key];
+		            /*$producVariant['weight']    =   $_POST['weight'][$variant_key];*/
 		            $producVariant['quantity']  =   $_POST['quantity'][$variant_key]; 
 		            
                     $producVariant['image']     =   '';
@@ -658,12 +659,33 @@ class ProductController extends Controller
                     else{
 		              $variant_id=VariantProduct::create($producVariant)->id;
                     }
-                   // echo "in<pre>";print_r($productVariantAttr);
-					//echo $_POST['is_update'];exit;
-		            foreach($_POST['attribute_value'][$variant_key] as $attr_key=>$attribute) {
-		               // if($_POST['attribute_value'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
-		                {
-                           // echo "in";
+                   //echo "in<pre>--";print_r($_POST['attribute_value'][$variant_key]);exit;
+                   foreach($_POST['attribute'][$variant_key] as $attr_key=>$attribute) {
+                        if($_POST['attribute'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
+                        {
+                            $productVariantAttr['product_id']   =   $id;
+                            $productVariantAttr['variant_id']   =   $variant_id;
+                            $productVariantAttr['attribute_id'] =   $_POST['attribute'][$variant_key][$attr_key];
+                            $productVariantAttr['attribute_value_id'] =   $_POST['attribute_value'][$variant_key][$attr_key];
+                             if(isset($_POST['variant_attribute_id'][$variant_key][$attr_key])) {
+                                $checkRecordExist   =   VariantProductAttribute::where('id', $_POST['variant_attribute_id'][$variant_key][$attr_key])->first();
+
+                                if(!empty($checkRecordExist)) {
+                                    VariantProductAttribute::where('id', $checkRecordExist->id)->update($productVariantAttr);
+                                }
+                                else{
+                                   VariantProductAttribute::create($productVariantAttr);
+                                }
+                            } 
+                             else{
+                                VariantProductAttribute::create($productVariantAttr);
+                             }
+                        }
+                        
+                    }
+		         /*   foreach($_POST['attribute_value'][$variant_key] as $attr_key=>$attribute) {
+                        
+		               
 		                    $productVariantAttr['product_id']   =   $id;
     		                $productVariantAttr['variant_id']   =   $variant_id;
     		                $productVariantAttr['attribute_id'] =   $attr_key;
@@ -683,9 +705,11 @@ class ProductController extends Controller
                                 VariantProductAttribute::create($productVariantAttr);
                              }
                               
-		                }
 		                
-		            }
+		                
+		            }*/
+
+
 
 		        }
 		    }
@@ -1223,7 +1247,7 @@ class ProductController extends Controller
                         $producVariant['product_id']=   $id;
                         $producVariant['price']     =   $ProductData['price'][$variant_key];
                         $producVariant['sku']       =   $ProductData['sku'][$variant_key];
-                        $producVariant['weight']    =   $ProductData['weight'][$variant_key];
+                        /*$producVariant['weight']    =   $ProductData['weight'][$variant_key];*/
                         $producVariant['quantity']  =   $ProductData['quantity'][$variant_key]; 
                         
                         if(isset($ProductData['hidden_images'][$variant_key]) && !empty($ProductData['hidden_images'][$variant_key]) ) {
@@ -1625,7 +1649,7 @@ public function swishIpnCallback(){
                             $producVariant['product_id']=   $id;
                             $producVariant['price']     =   $ProductData['price'][$variant_key];
                             $producVariant['sku']       =   $ProductData['sku'][$variant_key];
-                            $producVariant['weight']    =   $ProductData['weight'][$variant_key];
+                            /*$producVariant['weight']    =   $ProductData['weight'][$variant_key];*/
                             $producVariant['quantity']  =   $ProductData['quantity'][$variant_key]; 
                             
                         if(isset($ProductData['hidden_images'][$variant_key]) && !empty($ProductData['hidden_images'][$variant_key]) ) {
@@ -2187,7 +2211,7 @@ public function findCurrency($type){
 		            $producVariant['product_id']=   $id;
 		            $producVariant['price']     =   $ProductData['price'][$variant_key];
 		            $producVariant['sku']       =   $ProductData['sku'][$variant_key];
-		            $producVariant['weight']    =   $ProductData['weight'][$variant_key];
+		            /*$producVariant['weight']    =   $ProductData['weight'][$variant_key];*/
 		            $producVariant['quantity']  =   $ProductData['quantity'][$variant_key]; 
 		            
                    if(isset($ProductData['hidden_images'][$variant_key]) && !empty($ProductData['hidden_images'][$variant_key]) ) {

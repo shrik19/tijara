@@ -194,6 +194,7 @@
                                     <span class="invalid-feedback col-md-8" id="err_sku" ></span>
                                    </div>
                                   </div>
+                                  <?php /*
                                   <div class="form-group">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.weight_label')}} <span class="de_col">*</span></label>
                                     <div class="col-md-8">
@@ -201,6 +202,7 @@
                                     <span class="invalid-feedback col-md-8"  id="err_sku" ></span>
                                   </div>
                                   </div>
+                                  */?>
                                   <div class="form-group">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.price_label')}} <span class="de_col">*</span></label>
                                     <div class="col-md-8">
@@ -214,32 +216,57 @@
                                     <input type="tel" class="col-md-8 ge_input quantity number variant_field" name="quantity[<?php echo $i;?>]"  placeholder="{{ __('lang.qty_label')}}" value="{{$variant['quantity']}}" tabindex="7">
                                     <span class="invalid-feedback col-md-8" id="err_sku" ></span>
                                   </div>
-                                  </div>
-                                  <!-- <div class="form-group  col-md-12" >
-                                    <label class="col-md-3">{{ __('lang.select_attribute_label')}} <span class="de_col">*</span></label>
+                                  </div> 
+                                  <div class="form-group" >
+                              <?php //echo "<pre>";print_r(count($variant['attributes']));exit;
+                                  if(count($variant['attributes'])==1){
+                                     $variant['attributes'][1]=$variant['attributes'][0];
+                                  }
+                                   
+                              ?>
+                                       @foreach($variant['attributes'] as $key=>$value)
+
+
+                                    <?php
+
+                                       if($key==0){ ?>
+
+                                    <label class="col-md-3 product_table_heading">{{ __('lang.select_attribute_label')}} <span class="de_col"></span></label>
+                                  <?php }else{?>
+                                    <div class="col-md-3"></div>
+                                 <?php }?>
+                                 <input type="hidden" name="variant_attribute_id[<?php echo $i;?>][]" value="{{$value['id']}}" class="variant_attribute_id">
                                     <div class="col-md-8">
-                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 variant_field ge_input select_attribute preselected_attribute" name="attribute[<?php //echo $i;?>][<?php //echo $i;?>]" variant_id="<?php //echo $i;?>" >
+                             
+                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute preselected_attribute" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                         @foreach ($attributesToSelect as $attr)
-                                          @if($attribute['attribute_id']==$attr->id)
-                                            <option selected="selected" value="{{ $attr->id }}"  >{{ $attr->name }}</option>
+                                          @if($value['attribute_id']==$attr->id)
+                                          <?php $disabled_attr[] = $attr->id;?>
+                                            <option selected="selected" value="{{ $attr->id }}">{{ $attr->name }}</option>
                                           @else
                                           
                                           <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
                                           @endif
                                         @endforeach
                                     </select>
-                                    <select style="margin-left: 10px; width: 32%;" selected_attribute_value="{{$attribute['attribute_value_id']}}" class="variant_field {{$attribute['id']}} col-md-4 ge_input select_attribute_value" name="attribute_value[<?php //echo $i;?>][<?php //echo $i;?>]">
+
+
+                                    <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value" name="attribute_value[<?php echo $i;?>][]">
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
 
                                     </select>
                                     <span class="invalid-feedback col-md-8"  id="err_sku" ></span>
-
+                                    <?php  if($key!=0){?>
+                                      <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.add_attribute_info')}}t</p>
+                                    <?php } ?>
+                                      </div>
+                                     
+                                         @endforeach
                                   </div>
-                                  </div> -->
-								  
-								  <div class="form-group producterrDiv" >
+								  <?php /*?>
+				 			  <div class="form-group producterrDiv" >
 									<label class="col-md-3 product_table_heading">{{ __('lang.select_attribute_label')}} </label>
 									<div class="col-md-8" >
 									@foreach ($attributesToSelect as $attr)
@@ -259,8 +286,8 @@
 									@endforeach
                   <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.add_attribute_info')}}</p>
 									</div>
-								  </div>
-                                  
+								  </div> 
+                 */?>      
                                   <div class="form-group">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
                                     <div class="col-md-8">
@@ -389,12 +416,28 @@ $( document ).ready(function() {
   $('.select_attribute_value').each(function(){
 	var attr_id = $(this).attr('attribute_id');
 	var selected_attr_id = $(this).attr('selected_attribute_value');
-	get_attribute_values(attr_id, $(this), selected_attr_id);
-	
-	
+	get_attribute_values(attr_id, $(this), selected_attr_id);	
   });
-  
-  
+
+    /*code to select maximum two attributes*/
+    $('.select_attribute').each(function(){
+      var attrName = $(this).val();
+      if(attrName!=''){
+       $(".select_attribute option").attr('disabled', true);
+      }   
+    });
+
+    var data = "<?php echo json_encode(@$disabled_attr);?>";
+    //console.log(data);
+    if( data !== 'null'){ 
+      var attr_array = JSON.parse(data);
+
+      attr_array.forEach(entry => {
+       $(".select_attribute option[value='"+ entry + "']").attr('disabled', false);
+      });
+    }
+    
+
   
 });
 
@@ -407,11 +450,10 @@ function get_attribute_values(select_attribute, element, selected_attr_id) {
 		   success: function(output) {
 						//console.log(output);
             element.html(output);
-            if(selected_attr_id !=0){    
-        
+            if(selected_attr_id !=0){ 
+
 						  element.val(selected_attr_id).change();
             }else{
-              
               element.prop("selectedIndex", 0).val();
             }
 						//elm.parent('div').find('.select_attribute_value').html(output);

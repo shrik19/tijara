@@ -690,6 +690,17 @@ function showAvailableOptions(attribute_id,attribute_value)
           }
         });
 
+
+        $('.attribute_name option').each(function(){
+         var data_variant  = $(this).attr("data-variant");
+          if(responseObj.current_variant.variant_id==data_variant){
+             $(this).attr('disabled', false);
+             $(this).attr('selected', 'selected');
+          }else{
+             $(this).attr('disabled', true);
+          }
+        });
+
 //$("#select_product_variant option").val(responseObj.current_variant.id).attr('disabled',true);
       var images = responseObj.current_variant.image.split(',');
       $(images).each(function(key,image){

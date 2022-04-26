@@ -1,10 +1,10 @@
-@extends('Front.layout.template')
-@section('middlecontent')
-<!-- <script src="{{url('/')}}/assets/front/js/zoom-image.js"></script> -->
-<link rel="stylesheet" href="{{url('/')}}/assets/front/css/icheck-bootstrap.min.css">
 
-<link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
-<script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
+<?php $__env->startSection('middlecontent'); ?>
+<!-- <script src="<?php echo e(url('/')); ?>/assets/front/js/zoom-image.js"></script> -->
+<link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/icheck-bootstrap.min.css">
+
+<link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/fontawesome-stars.css">
+<script src="<?php echo e(url('/')); ?>/assets/front/js/jquery.barrating.min.js"></script>
 
 <section class="product_details_section p_155">
     <div class="loader"></div>
@@ -12,42 +12,42 @@
         <div class="row container-inner-section">
             <div class="col-md-6">
               <!-- Primary carousel image -->
-              @if(!empty($variantData))
-                @php
+              <?php if(!empty($variantData)): ?>
+                <?php
                 $first = reset($variantData);
-				@endphp
-			  @endif
+				?>
+			  <?php endif; ?>
 
-          <input type="hidden" name="product_quantity_{{@$first['attributes'][0]->variant_id}}" id="product_quantity_{{@$first['attributes'][0]->variant_id}}" value="1">
+          <input type="hidden" name="product_quantity_<?php echo e(@$first['attributes'][0]->variant_id); ?>" id="product_quantity_<?php echo e(@$first['attributes'][0]->variant_id); ?>" value="1">
  <!-- Secondary carousel image thumbnail gallery -->
               <div class="small-img">
-                <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
+                <!-- <img src="<?php echo e(url('/')); ?>/assets/front/img/next-icon.png" class="icon-left" alt="" id="prev-img"> -->
                 <div class="small-container">
                   <div id="small-img-roll">
-                   @if(isset($first['images'][0]) && !empty($first['images'][0]))
+                   <?php if(isset($first['images'][0]) && !empty($first['images'][0])): ?>
                    
-                    @foreach($first['images'] as $image)
-                      <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$image}}" class="show-small-img" alt="">
-                    @endforeach
-                  @else
-                      <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
-                  @endif
+                    <?php $__currentLoopData = $first['images']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                      <img src="<?php echo e(url('/')); ?>/uploads/ProductImages/productIcons/<?php echo e($image); ?>" class="show-small-img" alt="">
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php else: ?>
+                      <img src="<?php echo e(url('/')); ?>/uploads/ProductImages/resized/no-image.png" class="show-small-img">
+                  <?php endif; ?>
                   </div>
                 </div>
-                <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
+                <!-- <img src="<?php echo e(url('/')); ?>/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
               </div>
-              <div class="show-custom product_custom_img" href="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}">
-              @if(isset($first['images'][0]) && !empty($first['images'][0]))
-                <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
-               @else
-                  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
-              @endif
+              <div class="show-custom product_custom_img" href="<?php echo e(url('/')); ?>/uploads/ProductImages/productDetails/<?php echo e($first['images'][0]); ?>">
+              <?php if(isset($first['images'][0]) && !empty($first['images'][0])): ?>
+                <img src="<?php echo e(url('/')); ?>/uploads/ProductImages/productDetails/<?php echo e($first['images'][0]); ?>" id="show-img">
+               <?php else: ?>
+                  <img src="<?php echo e(url('/')); ?>/uploads/ProductImages/resized/no-image.png" class="show-small-img">
+              <?php endif; ?>
                <div class="buy_now_hover_details product_wish_icon">
                 <ul>
                     
-                    <li><a @if(Auth::guard('user')->id()) 
-                          onclick="addToWishlist('{{@$first['attributes'][0]->variant_id}}');event.stopPropagation();" 
-                          @else href="{{ route('frontLogin') }}" @endif>
+                    <li><a <?php if(Auth::guard('user')->id()): ?> 
+                          onclick="addToWishlist('<?php echo e(@$first['attributes'][0]->variant_id); ?>');event.stopPropagation();" 
+                          <?php else: ?> href="<?php echo e(route('frontLogin')); ?>" <?php endif; ?>>
                           <i class="far fa-heart"></i>
                         </a>
                     </li>
@@ -57,20 +57,20 @@
              
       
               <div class="report_product_div" >
-                <a href="javascript:void(0);" class="report_product" title="{{ __('users.report_product_btn')}}" user_email="{{$loginUserEmail}}" product_link="{{$product_link}}" seller_name="{{$seller_name}}" product_id="{{$product_id}}">{{ __('users.report_product_btn')}} </a>
+                <a href="javascript:void(0);" class="report_product" title="<?php echo e(__('users.report_product_btn')); ?>" user_email="<?php echo e($loginUserEmail); ?>" product_link="<?php echo e($product_link); ?>" seller_name="<?php echo e($seller_name); ?>" product_id="<?php echo e($product_id); ?>"><?php echo e(__('users.report_product_btn')); ?> </a>
               </div>
               </div>
              
             <div class="col-md-offset-1 col-md-5 cleardiv">
                 <div class="product_details_info">
-                    <h2 class="product_title_details">{{$Product->title}}</h2>
+                    <h2 class="product_title_details"><?php echo e($Product->title); ?></h2>
 
-                    <!-- <h4 class="product_price" style="color:#03989e;"><a href="{{$seller_link}}">{{ $seller_name }}</a></h4> -->
+                    <!-- <h4 class="product_price" style="color:#03989e;"><a href="<?php echo e($seller_link); ?>"><?php echo e($seller_name); ?></a></h4> -->
                     <div class="row">
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
-                          <h4 class="service_store_name"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>             
-                            <span class="product_original_price" id="product_variant_price"><span style="margin-left: -12px;">@if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span><span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @else margin-left: 10px; @endif">{{ number_format($first['price'],2) }} kr</span>
+                          <h4 class="service_store_name"><a href="<?php echo e($seller_link); ?>"><?php if(!empty($store_name)): ?><?php echo e($store_name); ?><?php endif; ?></a></h4>             
+                            <span class="product_original_price" id="product_variant_price"><span style="margin-left: -12px;"><?php if(!empty($first['discount_price'])): ?> &nbsp;&nbsp;<?php echo e(number_format($first['discount_price'],2)); ?> kr <?php endif; ?></span><span style="<?php if(!empty($first['discount_price'])): ?> text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; <?php else: ?> margin-left: 10px; <?php endif; ?>"><?php echo e(number_format($first['price'],2)); ?> kr</span>
                             
 
                           <?php /*   <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span> */?>
@@ -82,7 +82,7 @@
                         </div>
                     
                     <div class="star-rating start_rating_details">
-                    <select class='rating product_rating' id='rating_{{$Product->id}}' data-id='rating_{{$Product->id}}' data-rating='{{$Product->rating}}'>
+                    <select class='rating product_rating' id='rating_<?php echo e($Product->id); ?>' data-id='rating_<?php echo e($Product->id); ?>' data-rating='<?php echo e($Product->rating); ?>'>
                       <option value="1" >1</option>
                       <option value="2" >2</option>
                       <option value="3" >3</option>
@@ -92,30 +92,30 @@
                       
                       </div>
                       <div style='clear: both;'></div>
-                   <!--    <div>{{ __('lang.txt_average_rating')}} : <span id='avgrating_{{$Product->id}}'>{{$Product->rating}}</span></div> -->
+                   <!--    <div><?php echo e(__('lang.txt_average_rating')); ?> : <span id='avgrating_<?php echo e($Product->id); ?>'><?php echo e($Product->rating); ?></span></div> -->
 
                       <p>
                         <?php echo strip_tags($Product->description); ?>
                       </p>
                      
         
-                     @if(empty($ProductAttributes))
+                     <?php if(empty($ProductAttributes)): ?>
                       <div class="col-md-6 p-0">
                         <div class="quantity_box" style="margin-bottom:0px !important;">
                           <div>
-                            <h3>{{ __('lang.price_label')}}  : </h3> &nbsp;&nbsp;
+                            <h3><?php echo e(__('lang.price_label')); ?>  : </h3> &nbsp;&nbsp;
                             <div class="clearfix"></div>
                             <select id="" class=" form-control " style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" onchange="showAvailableOptionsPrice(this.value)">
-                                @foreach($variantData as $key=>$val)
-                                  @php
+                                <?php $__currentLoopData = $variantData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                  <?php
                                     $selected = '';
                                     if(!empty($first['price']) && $first['price'] == $val['price'])
                                     {
                                       $selected = 'selected="selected"';
                                     }
-                                  @endphp 
-                                        <option value="{{$val['price']}}" {{$selected}}> {{ number_format($val['price'],2) }} kr </option>
-                                @endforeach
+                                  ?> 
+                                        <option value="<?php echo e($val['price']); ?>" <?php echo e($selected); ?>> <?php echo e(number_format($val['price'],2)); ?> kr </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                               
                             </select>
@@ -123,86 +123,87 @@
                           </div>
                         </div>
                       </div>
-                     @endif
+                     <?php endif; ?>
                      <?php $attribute_counter = 0;?>
-						@php $j=1; $firstId = 0; $firstAttr = ''; $allVariants = []; @endphp	
+						<?php $j=1; $firstId = 0; $firstAttr = ''; $allVariants = []; ?>	
 						
-                         @foreach($ProductAttributes as $attribute_id => $attribute)
-                         @if($j == 1)
-							@php
+                         <?php $__currentLoopData = $ProductAttributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute_id => $attribute): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                         <?php if($j == 1): ?>
+							<?php
 								$firstId = 	$attribute_id;
 								$firstAttr = $first['attr'][$attribute['attribute_name']];
 								if(!empty($ProductAttributes[$firstId]['variant_available_values']))
 								{
 								$allVariants = $ProductAttributes[$firstId]['variant_available_values'];
 								}
-							@endphp
-						 @endif
+							?>
+						 <?php endif; ?>
                          <div class="col-md-6 p-0">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                              
                                 <div>
-                              <h3>{{ucwords($attribute['attribute_name'])}} : </h3> &nbsp;&nbsp;
+                              <h3><?php echo e(ucwords($attribute['attribute_name'])); ?> : </h3> &nbsp;&nbsp;
                               <div class="clearfix"></div>
-                                    <input type="hidden" id="variant_type" name="variant_type" value="{{$attribute['attribute_type']}}">
-                                    @if($attribute['attribute_type']=='radio')
-                                      @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
-                                        @php
+                                    <input type="hidden" id="variant_type" name="variant_type" value="<?php echo e($attribute['attribute_type']); ?>">
+                                    <?php if($attribute['attribute_type']=='radio'): ?>
+                                      <?php $__currentLoopData = $attribute['attribute_values']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute_value_id=>$attribute_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php
                                           $checked = '';
                                           if(!empty($first['attr'][$attribute['attribute_name']]) && $first['attr'][$attribute['attribute_name']] == $attribute_value)
                                           {
                                             $checked = 'checked="checked"';
                                           }
-                                        @endphp
+                                        ?>
                                         <div class="radio icheck-success icheck-inline" style="margin-top:10px !important;">
-                                            <input type="radio" name="optionsRadios_{{$attribute['attribute_name']}}" product_id="{{$Product->id}}" id="{{$attribute_value_id}}" value="other" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" {{$checked}} onclick="showAvailableOptions('{{$attribute_id}}','{{$attribute_value_id}}')" class="variant_radio_{{$attribute_id}}" />
-                                            <label for="{{$attribute_value_id}}">{{$attribute_value}}</label>
+                                            <input type="radio" name="optionsRadios_<?php echo e($attribute['attribute_name']); ?>" product_id="<?php echo e($Product->id); ?>" id="<?php echo e($attribute_value_id); ?>" value="other" data-variant="<?php echo e($attribute['variant_values'][$attribute_value_id]); ?>" <?php echo e($checked); ?> onclick="showAvailableOptions('<?php echo e($attribute_id); ?>','<?php echo e($attribute_value_id); ?>')" class="variant_radio_<?php echo e($attribute_id); ?>" />
+                                            <label for="<?php echo e($attribute_value_id); ?>"><?php echo e($attribute_value); ?></label>
                                         </div>
-                                      @endforeach
+                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     
-                                    @elseif($attribute['attribute_type']=='dropdown')
+                                    <?php elseif($attribute['attribute_type']=='dropdown'): ?>
                                     <?php 
                                     if($attribute_counter==0){
                                       $className = "attribute_name";
                                     }else{
                                       $className = "attribute_value";
                                     }?>
-                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown {{$className}}" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" @if($j > 1) onchange="showAvailableOptions('{{$attribute_id}}', this.value, 1)" @else onchange="showAvailableOptions('{{$attribute_id}}', this.value, 0)" @endif>
-									@foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
-									  @php
+                                    <select id="select_product_variant" class="<?php echo e($attribute_id); ?> form-control variant_dropdown <?php echo e($className); ?>" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" <?php if($j > 1): ?> onchange="showAvailableOptions('<?php echo e($attribute_id); ?>', this.value, 1)" <?php else: ?> onchange="showAvailableOptions('<?php echo e($attribute_id); ?>', this.value, 0)" <?php endif; ?>>
+									<?php $__currentLoopData = $attribute['attribute_values']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute_value_id=>$attribute_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+									  <?php
                                           $selected = '';
 										  $disabled = '';
                                           if(!empty($first['attr'][$attribute['attribute_name']]) && $first['attr'][$attribute['attribute_name']] == $attribute_value)
                                           {
                                             $selected = 'selected="selected"';
                                           }
-                                        @endphp
-										@if($j > 1)
-											@php
+                                        ?>
+										<?php if($j > 1): ?>
+											<?php
 												
 												if(!array_search($attribute_value, $ProductAttributes[$firstId]['variant_available_values'][$firstAttr]))
 												{
 													$disabled = 'disabled="disabled"';
 												}	
-											@endphp
-										@endif											
-										<option value="{{$attribute_value_id}}" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}" {{$selected}} {{ $disabled }}> {{$attribute_value}} </option>
+											?>
+										<?php endif; ?>											
+										<option value="<?php echo e($attribute_value_id); ?>" data-variant="<?php echo e($attribute['variant_values'][$attribute_value_id]); ?>" <?php echo e($selected); ?> <?php echo e($disabled); ?>> <?php echo e($attribute_value); ?> </option>
 										
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
-                                    @elseif($attribute['attribute_type']=='textbox')
-                                    <div class="inputattributes {{$attribute_id}}">
-                                    @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
-                                        <input class="form-control" type="text" value="{{$attribute_value_id}}" data-variant="{{$attribute['variant_values'][$attribute_value_id]}}"> {{$attribute_value}}
-                                        @endforeach
+                                    <?php elseif($attribute['attribute_type']=='textbox'): ?>
+                                    <div class="inputattributes <?php echo e($attribute_id); ?>">
+                                    <?php $__currentLoopData = $attribute['attribute_values']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute_value_id=>$attribute_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <input class="form-control" type="text" value="<?php echo e($attribute_value_id); ?>" data-variant="<?php echo e($attribute['variant_values'][$attribute_value_id]); ?>"> <?php echo e($attribute_value); ?>
+
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                                 </div>
                                 </div>
                               <?php $attribute_counter++;?>
-							  @php $j++; @endphp
-                        @endforeach
+							  <?php $j++; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                       
                       
                      
@@ -210,7 +211,7 @@
                      
                         <div class="col-xs-6 col-md-6 p-0" style="display: none;">
                               <div class="quantity_box">
-                                <h3>{{ __('lang.shopping_cart_quantity') }}:</h3>&nbsp;&nbsp;
+                                <h3><?php echo e(__('lang.shopping_cart_quantity')); ?>:</h3>&nbsp;&nbsp;
                                 <div class="clearfix"></div>
                                   <input class="drop_down_select " list="quantities" id="product_quantity" style="float:none;" >
                                     <datalist id="quantities">
@@ -230,12 +231,12 @@
                                           
                         
                       </div>
-                    <!--   <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option">{{ __('lang.reset_options')}}</a></div> -->
+                    <!--   <div class="col-md-12 text-right" style="padding-right: 70px; padding-top: 12px;"><a href="javascript:void(0);" onclick="location.reload();" style="display:none;color:#ff0000;" id="reset_option"><?php echo e(__('lang.reset_options')); ?></a></div> -->
                         
                       <!-- <div class="row">
                           <div class="col-xs-12 col-md-6">    
                           <div class="quantity_box">              
-                            <h3>{{ __('lang.shopping_cart_price')}} : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="@if(!empty($first['discount_price'])) text-decoration: line-through; @endif">{{ number_format($first['price'],2) }} kr</span> @if(!empty($first['discount_price'])) &nbsp;&nbsp;{{ number_format($first['discount_price'],2) }} kr @endif</span> 
+                            <h3><?php echo e(__('lang.shopping_cart_price')); ?> : </h3>&nbsp;&nbsp;<span style="padding-top:6px;position:absolute;font-size:20px;" id="product_variant_price"><span style="<?php if(!empty($first['discount_price'])): ?> text-decoration: line-through; <?php endif; ?>"><?php echo e(number_format($first['price'],2)); ?> kr</span> <?php if(!empty($first['discount_price'])): ?> &nbsp;&nbsp;<?php echo e(number_format($first['discount_price'],2)); ?> kr <?php endif; ?></span> 
                           </div>
                           </div>
                         </div> -->
@@ -250,11 +251,11 @@
 
                    ?>
                   <div class="quantity_box">
-                     <input type="hidden" name="product_variant_id" value="{{$first['id']}}" id="product_variant_id" >          
+                     <input type="hidden" name="product_variant_id" value="<?php echo e($first['id']); ?>" id="product_variant_id" >          
                      <?php /*<button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif {{$btn_disabled}}>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>  */?>
-                     <a class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else href="{{ route('frontLogin') }}" @endif {{$btn_disabled}}> {{ __('lang.add_to_cart')}}<i class="glyphicon glyphicon-shopping-cart cart_icon"></i></a>
+                     <a class="btn add_to_cart_btn" <?php if(Auth::guard('user')->id()): ?> onclick="addtoCartFromProduct();" <?php else: ?> href="<?php echo e(route('frontLogin')); ?>" <?php endif; ?> <?php echo e($btn_disabled); ?>> <?php echo e(__('lang.add_to_cart')); ?><i class="glyphicon glyphicon-shopping-cart cart_icon"></i></a>
                   </div>
-                  <p class="productStockOut" style="{{$outOfStock}}">{{ __('messages.product_out_stock') }}</p> 
+                  <p class="productStockOut" style="<?php echo e($outOfStock); ?>"><?php echo e(__('messages.product_out_stock')); ?></p> 
                 </div>
 
             </div>
@@ -273,22 +274,22 @@
       <div class="row" style="margin-right: 0%;">
 
       <div class="col-md-6"  id="show-all-review">
-      <h2 class="review_title">{{ __('users.review_title')}}</h2>
+      <h2 class="review_title"><?php echo e(__('users.review_title')); ?></h2>
       <hr class="hr_product_details">
      <!--  <div class="col-md-9"> -->
-      @if(!empty($productReviews))
+      <?php if(!empty($productReviews)): ?>
       <?php $i = 1; ?>
       <div class="seller_loader review_loader" style="display: :none"></div>
-      @foreach($productReviews as $review)
+      <?php $__currentLoopData = $productReviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $review): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
       <div class="row reviews-container"> 
         <div class="col-md-1">
        
-          @if(!empty($review['profile']))
-          <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
-          @else 
-          <img src="{{url('/')}}/uploads/Buyer/buyerIcons/no-image.png" class="ratingUserIcon">
-          @endif
+          <?php if(!empty($review['profile'])): ?>
+          <img src="<?php echo e(url('/')); ?>/uploads/Buyer/buyerIcons/<?php echo e($review['profile']); ?>" class="ratingUserIcon">
+          <?php else: ?> 
+          <img src="<?php echo e(url('/')); ?>/uploads/Buyer/buyerIcons/no-image.png" class="ratingUserIcon">
+          <?php endif; ?>
         </div>
 
         <div class="col-md-5" style="margin-left: 30px;">
@@ -305,7 +306,7 @@
 
           
            <div class="star-rating" style="font-size:15px;pointer-events: none">
-            <select class='rating product_rating' id='rating_{{$Product->id}}_{{$i}}' data-id='rating_{{$Product->id}}_{{$i}}' data-rating="{{$review['product_rating']}}">
+            <select class='rating product_rating' id='rating_<?php echo e($Product->id); ?>_<?php echo e($i); ?>' data-id='rating_<?php echo e($Product->id); ?>_<?php echo e($i); ?>' data-rating="<?php echo e($review['product_rating']); ?>">
               <option value="1" >1</option>
               <option value="2" >2</option>
               <option value="3" >3</option>
@@ -313,53 +314,54 @@
               <option value="5" >5</option>
             </select>
           </div>
-          <p class="ratingComment">{{$review['comments']}}</p>
+          <p class="ratingComment"><?php echo e($review['comments']); ?></p>
           <!-- pagination for comments -->
              
         </div>
         <div class="col-md-6"></div>
-        @if(Auth::guard('user')->id()==$review['user_id'])
-          <a href="javascript:void(0)" title="{{trans('lang.edit_label')}}" style="color:#06999F;" class="edit_product_review" product_id="{{$review['product_id']}}" review_comment="{{$review['comments']}}" user_rating_hid="{{$review['product_rating']}}" rating_id="{{$review['rating_id']}}"><i class="fas fa-edit"></i> </a>
+        <?php if(Auth::guard('user')->id()==$review['user_id']): ?>
+          <a href="javascript:void(0)" title="<?php echo e(trans('lang.edit_label')); ?>" style="color:#06999F;" class="edit_product_review" product_id="<?php echo e($review['product_id']); ?>" review_comment="<?php echo e($review['comments']); ?>" user_rating_hid="<?php echo e($review['product_rating']); ?>" rating_id="<?php echo e($review['rating_id']); ?>"><i class="fas fa-edit"></i> </a>
 
-          <a href="javascript:void(0)" style="color:#06999F;" onclick="deleteProductReview('<?php echo base64_encode($review['rating_id']); ?>')"  title="{{trans('lang.delete_title')}}" class=""><i class="fas fa-trash"></i></a>
-        @endif
+          <a href="javascript:void(0)" style="color:#06999F;" onclick="deleteProductReview('<?php echo base64_encode($review['rating_id']); ?>')"  title="<?php echo e(trans('lang.delete_title')); ?>" class=""><i class="fas fa-trash"></i></a>
+        <?php endif; ?>
         </div>
 
         <hr>
         <?php $i++; ?>
-        @endforeach
-          {!! $productReviews->links() !!}
-        @endif
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          <?php echo $productReviews->links(); ?>
+
+        <?php endif; ?>
         </div>
         <div class="col-md-offset-1 col-md-5">
-           <h2  class="review_title">{{ __('users.store_terms')}}</h2>
+           <h2  class="review_title"><?php echo e(__('users.store_terms')); ?></h2>
             <hr class="hr_product_details">
-            <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
-            <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
-            <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>
-           <!--  <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')">{{ __('users.booking_btn')}}</button> -->
+            <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style=""><?php echo e(__('users.payment_btn')); ?></button>
+            <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')"><?php echo e(__('users.shipping_btn')); ?></button>
+            <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')"><?php echo e(__('users.return_btn')); ?></button>
+           <!--  <button class="tablink" onclick="openPage('BookingPolicy', this, 'white')"><?php echo e(__('users.booking_btn')); ?></button> -->
 
 
-            @if(!empty($getTerms))
+            <?php if(!empty($getTerms)): ?>
             <div id="PaymentPolicy" class="tabcontent">
-          <!--   <h3>{{ __('users.store_policy_label')}}</h3> -->
-            <p class="policies ratingComment">{{@$getTerms->payment_policy}}</p>
+          <!--   <h3><?php echo e(__('users.store_policy_label')); ?></h3> -->
+            <p class="policies ratingComment"><?php echo e(@$getTerms->payment_policy); ?></p>
             </div>
 
             <div id="ShippingPolicy" class="tabcontent">
-            <!-- <h3>{{ __('users.shipping_policy_label')}}</h3> -->
-            <p class="policies ratingComment">{{@$getTerms->shipping_policy}}</p>
+            <!-- <h3><?php echo e(__('users.shipping_policy_label')); ?></h3> -->
+            <p class="policies ratingComment"><?php echo e(@$getTerms->shipping_policy); ?></p>
             </div>
 
             <div id="ReturnPolicy" class="tabcontent">
-           <!--  <h3>{{ __('users.return_policy_label')}}</h3> -->
-            <p class="policies ratingComment">{{@$getTerms->return_policy}}</p> 
+           <!--  <h3><?php echo e(__('users.return_policy_label')); ?></h3> -->
+            <p class="policies ratingComment"><?php echo e(@$getTerms->return_policy); ?></p> 
             </div>
 
             <!-- <div id="BookingPolicy" class="tabcontent">
-            <p class="policies">{{@$getTerms->booking_policy}}</p>
+            <p class="policies"><?php echo e(@$getTerms->booking_policy); ?></p>
             </div> -->
-          @endif
+          <?php endif; ?>
 
         </div>
        <!--  </div> -->
@@ -374,13 +376,13 @@
     <div class="container-inner-section">
         <div class="row">
             <div class="best_seller_container col-md-12 product_container-list-5">
-                <h2  class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
+                <h2  class="other_watched_products"><?php echo e(__('users.other_watched_product')); ?></h2>
                 <ul class="product_details best_seller pl-0">
 
-      					@foreach($PopularProducts as $key=>$product)
-                 @php if($key>4){continue;}@endphp
-                          @include('Front.products_widget')
-      					@endforeach
+      					<?php $__currentLoopData = $PopularProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                 <?php if($key>4){continue;}?>
+                          <?php echo $__env->make('Front.products_widget', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+      					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       				 </ul>
             </div>
           </div>
@@ -394,28 +396,28 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">{{ __('users.report_product_btn')}}</h4>
+          <h4 class="modal-title"><?php echo e(__('users.report_product_btn')); ?></h4>
           <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
         </div>
         <div class="loader-seller report-loader" style="display: none;"></div>
         <div class="modal-body">
             <div class="container">
-            <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
-              @csrf
+            <form action="<?php echo e(route('FrontContactStore')); ?>"  enctype="multipart/form-data" method="post" class="storeContactform">
+              <?php echo csrf_field(); ?>
                   <input type="hidden" name="seller_name" class="seller_name" id="seller_name" value="">
                   <input type="hidden" name="product_link" class="product_link" id="product_link" value="">
                   <input type="hidden" name="product_id" class="product_id" id="product_id" value="">
 
                 <div class="form-group">
-                  <label>{{ __('users.email_label')}} <span class="text-danger">*</span></label>
+                  <label><?php echo e(__('users.email_label')); ?> <span class="text-danger">*</span></label>
                 
-                  <input type="text" name="user_email" class="form-control user_email" id="user_email" placeholder="{{ __('users.email_label')}}" value="" style="width: 500px;">
+                  <input type="text" name="user_email" class="form-control user_email" id="user_email" placeholder="<?php echo e(__('users.email_label')); ?>" value="" style="width: 500px;">
                    <span class="invalid-feedback col-md-12"  id="err_email" ></span>
                 </div>
 
                 <div class="form-group">
-                  <label style="margin-top:10px;">{{ __('users.your_message_label')}} <span class="text-danger">*</span></label>
-                  <textarea class="user_message form-control contact-store-message" name="user_message" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}"  placeholder="{{ __('users.subcategory_name_label')}}" id="user_message"required></textarea>
+                  <label style="margin-top:10px;"><?php echo e(__('users.your_message_label')); ?> <span class="text-danger">*</span></label>
+                  <textarea class="user_message form-control contact-store-message" name="user_message" rows="3" cols="20" placeholder="<?php echo e(__('lang.txt_comments')); ?>"  placeholder="<?php echo e(__('users.subcategory_name_label')); ?>" id="user_message"required></textarea>
                
                 </div>
             </form>
@@ -423,8 +425,8 @@
         </div>
         
        <div class="modal-footer">
-        <button type="submit" class="send_report_product btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
-        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal">{{ __('lang.close_btn')}}</button>
+        <button type="submit" class="send_report_product btn btn-black debg_color login_btn"><?php echo e(__('lang.save_btn')); ?></button>
+        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal"><?php echo e(__('lang.close_btn')); ?></button>
         </div>        
       </div>
     </div>
@@ -438,20 +440,20 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">{{ __('lang.txt_your_review')}}</h4>
+          <h4 class="modal-title"><?php echo e(__('lang.txt_your_review')); ?></h4>
           <button type="button" class="close modal-cross-sign" data-dismiss="modal">&times;</button>
         </div>
         <div class="loader-seller loader-review" style="display: none;"></div>
         <div class="modal-body">
             <div class="container">
-            <form action="{{route('FrontContactStore')}}"  enctype="multipart/form-data" method="post" class="storeContactform">
-              @csrf
+            <form action="<?php echo e(route('FrontContactStore')); ?>"  enctype="multipart/form-data" method="post" class="storeContactform">
+              <?php echo csrf_field(); ?>
                 <input type="hidden" name="rating_id" class="rating_id" id="rating_id" value="">
                 <input type="hidden" name="product_id" class="product_id" id="product_id" value="">
                 <input type="hidden" name="user_rating_hid" class="user_rating_hid" id="user_rating_hid" value="">
 
                 <div class="form-group">
-                  <label>{{ __('lang.sort_by_rating')}} <span class="text-danger">*</span></label>
+                  <label><?php echo e(__('lang.sort_by_rating')); ?> <span class="text-danger">*</span></label>
                     <div class="star-rating" style="font-size:15px;">
                       <select class='rating user_rating' id='' data-id='' data-rating="">
                         <option value="1" >1</option>
@@ -464,8 +466,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label style="margin-top:10px;">{{ __('lang.txt_comments')}} <span class="text-danger">*</span></label>
-                  <textarea class="user_review form-control contact-store-message review_comment" name="user_review" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}" id="user_review" required></textarea>
+                  <label style="margin-top:10px;"><?php echo e(__('lang.txt_comments')); ?> <span class="text-danger">*</span></label>
+                  <textarea class="user_review form-control contact-store-message review_comment" name="user_review" rows="3" cols="20" placeholder="<?php echo e(__('lang.txt_comments')); ?>" id="user_review" required></textarea>
 
                
                 </div>
@@ -474,8 +476,8 @@
         </div>
         
        <div class="modal-footer">
-        <button type="submit" class="update_product_review btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
-        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal">{{ __('lang.close_btn')}}</button>
+        <button type="submit" class="update_product_review btn btn-black debg_color login_btn"><?php echo e(__('lang.save_btn')); ?></button>
+        <button type="button" class="btn btn-black gray_color login_btn" data-dismiss="modal"><?php echo e(__('lang.close_btn')); ?></button>
         </div>        
       </div>
     </div>
@@ -509,12 +511,12 @@ $(".product_rating").each(function(){
    if (typeof(event) !== 'undefined') {
  
      $.confirm({
-        title: '{{ __('lang.txt_your_review')}}',
+        title: '<?php echo e(__('lang.txt_your_review')); ?>',
         content: '' +
         '<form action="" class="formName">' +
         '<div class="form-group">' +
-        '<label>{{ __('lang.txt_comments')}}</label>' +
-        '<textarea class="name form-control" rows="3" cols="20" placeholder="{{ __('lang.txt_comments')}}" required></textarea>' +
+        '<label><?php echo e(__('lang.txt_comments')); ?></label>' +
+        '<textarea class="name form-control" rows="3" cols="20" placeholder="<?php echo e(__('lang.txt_comments')); ?>" required></textarea>' +
         '</div>' +
         '</form>',
         buttons: {
@@ -524,7 +526,7 @@ $(".product_rating").each(function(){
                 action: function () {
                     var comments = this.$content.find('.name').val();
                     if(!comments){
-                      showErrorMessage('{{ __('lang.txt_comments_err')}}');
+                      showErrorMessage('<?php echo e(__('lang.txt_comments_err')); ?>');
                       return false;
                     }
                     $(".loader").show();
@@ -534,7 +536,7 @@ $(".product_rating").each(function(){
                       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
                     },
                     type: 'post',
-                    data : {'rating': value, 'product_id' : '{{$Product->id}}', 'comments' : comments},
+                    data : {'rating': value, 'product_id' : '<?php echo e($Product->id); ?>', 'comments' : comments},
                     success:function(data)
                     {
                       $(".loader").hide();
@@ -738,7 +740,7 @@ function showAvailableOptions(attribute_id,attribute_value, valcheck)
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'attribute_id': attribute_id, 'attribute_value' : attribute_value, 'product_id' : '{{$Product->id}}'},
+    data : {'attribute_id': attribute_id, 'attribute_value' : attribute_value, 'product_id' : '<?php echo e($Product->id); ?>'},
     success:function(data)
     {
       var responseObj = $.parseJSON(data);
@@ -904,7 +906,7 @@ $(document).on("click",".send_report_product",function(event) {
        $(".report-loader").show();
         setTimeout(function(){
     $.ajax({
-          url:"{{ route('FrontReportProduct') }}",
+          url:"<?php echo e(route('FrontReportProduct')); ?>",
           headers: {
             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
           },
@@ -958,7 +960,7 @@ $(document).on("click",".update_product_review",function(event) {
        $(".loader-review").show();
         setTimeout(function(){
     $.ajax({
-          url:"{{ route('FrontUpdateProductReview') }}",
+          url:"<?php echo e(route('FrontUpdateProductReview')); ?>",
           headers: {
             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
           },
@@ -1005,7 +1007,7 @@ $.confirm({
           ok: function () {
             $(".review_loader").show();
             $.ajax({
-          url:"{{ route('frontDeleteProductReview') }}",
+          url:"<?php echo e(route('frontDeleteProductReview')); ?>",
           headers: {
             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
           },
@@ -1055,7 +1057,7 @@ function showAvailableOptionsPrice(price)
       'X-CSRF-Token': $('meta[name="_token"]').attr('content')
     },
     type: 'post',
-    data : {'price': price, 'product_id' : '{{$Product->id}}'},
+    data : {'price': price, 'product_id' : '<?php echo e($Product->id); ?>'},
     success:function(data)
     {
       var responseObj = $.parseJSON(data);
@@ -1132,4 +1134,5 @@ function showAvailableOptionsPrice(price)
 }
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('Front.layout.template', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\tijara\resources\views/Front/seller_product_details.blade.php ENDPATH**/ ?>

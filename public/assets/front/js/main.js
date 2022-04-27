@@ -597,16 +597,8 @@ $(".saveproduct").click(function(e){
   }
   else{
 	  
-	if($("#is_pick_from_store").is(':checked')){
-		if(pick_up_address==''){
-		  $("#err_pick_up_address").html(required_field_error).show();
-		  $("#err_pick_up_address").parent().addClass('jt-error');
-		  error = 1;
-		} else {
-		  $("#err_pick_up_address").html('').show();
-		}
-	}
-    else if(shipping_method_ddl == '')
+	
+   if(shipping_method_ddl == '')
     {
       $("#err_shipping_method_ddl").html(required_field_error).show();
       $("#err_shipping_method_ddl").parent().addClass('jt-error');
@@ -631,6 +623,22 @@ $(".saveproduct").click(function(e){
     }
   }
 
+if($("#is_pick_from_store").is(':checked')){
+
+    if(pick_up_address==''){
+      $("#err_pick_up_address").html(required_field_error).show();
+      $("#err_pick_up_address").parent().addClass('jt-error');
+      error = 1;
+    } else {
+      $("#err_pick_up_address").html('').show();
+    }
+  }else if(pick_up_address!='' && !$("#is_pick_from_store").is(':checked')){
+    $("#err_pick_up_address").html(required_field_error).show();
+      $("#err_pick_up_address").parent().addClass('jt-error');
+      error = 1;
+  }else {
+      $("#err_pick_up_address").html('').show();
+  }
   
 
   if(error == 1)
@@ -643,6 +651,12 @@ $(".saveproduct").click(function(e){
     return true;
   }
 
+});
+
+$('.store_pick_address').on('input',function(e){
+  if( !$("#is_pick_from_store").is(':checked')){
+    showErrorMessage(check_checkbox_first_err);
+  }
 });
 
 $(".saveBuyerProduct").click(function(e){
@@ -1797,7 +1811,7 @@ function addToCartWishlist(product_variant)
       var responseObj = $.parseJSON(data);
       if(responseObj.status == 1)
       {
-          showSuccessMessage(product_add_success,'reload');
+          showSuccessMessageReview(product_add_success,'reload');
       }
       else
       {
@@ -1836,22 +1850,11 @@ $('input.product_checkbox_attribute').on('change', function() {
   });
   }
 });
-$( document ).ready(function() {
-    hideShippingMethod();
-});
+// $( document ).ready(function() {
+//     hideShippingMethod();
+// });
 /*seller profile free shipping checkbox selected then hide payment method option*/
-function hideShippingMethod(){
-  if($('#free_shipping_chk').is(":checked"))  {
-    $("#shipping_method_ddl_div").hide();
-    $("#shipping_charges_div").hide();
-    $("#shipping_method_ddl").val('');
-    $("#shipping_charges").val('');
-  } 
-  else{
-    $("#shipping_method_ddl_div").show();
-    $("#shipping_charges_div").show();
-  }
-}
+
 
 $('#shipping_charges').on('input',function(e){
   if($("#shipping_method_ddl").val() == ''){

@@ -218,7 +218,7 @@
                                   </div>
                                   </div> 
                                   <div class="form-group" >
-                              <?php //echo "<pre>";print_r(count($variant['attributes']));exit;
+                              <?php //echo "<pre>--";print_r($variant['attributes']);exit;
                                   if(count($variant['attributes'])==1){
                                      $variant['attributes'][1]=$variant['attributes'][0];
                                   }
@@ -334,7 +334,7 @@
                     
                         </div>
                         <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;">{{ __('lang.product_form_step3')}}</h2>
-                    @if($users_details->free_shipping !="free_shipping")
+                 
                         <div class="form-group col-md-12" id="shipping_method_ddl_div">
                           <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
                           <div class="col-md-8">
@@ -354,7 +354,6 @@
                           <span class="invalid-feedback col-md-8"  id="err_shipping_charges"> </span>
                         </div>
                         </div>
-                    @endif
                         <div class="col-md-12">
                          <label class="col-md-3 product_table_heading"> {{ __('users.free_shipping_label')}}</label>
                           <div class="col-md-8">
@@ -403,6 +402,42 @@
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">
+  if($('#free_shipping_chk').is(":checked"))  {
+  if($("#free_shipping_chk").val()=="free_shipping"){
+    $("#shipping_method_ddl_div").hide();
+    $("#shipping_charges_div").hide();
+    $("#shipping_method_ddl").val('');
+    $("#shipping_charges").val('');
+  }
+}
+
+function hideShippingMethod(){
+  if($('#free_shipping_chk').is(":checked"))  {
+    $("#shipping_method_ddl_div").hide();
+    $("#shipping_charges_div").hide();
+    $("#shipping_method_ddl").val('');
+    $("#shipping_charges").val('');
+  } 
+  else{
+    $("#shipping_method_ddl_div").show();
+    $("#shipping_charges_div").show();
+  }
+}
+
+  $("input:checkbox#free_shipping_chk").click(function() {
+        if(!$(this).is(":checked")){
+           $("#shipping_method_ddl_div").show();
+         $("#shipping_charges_div").show();
+        }
+        
+    }); 
+ /* $(" input:checkbox").change(function() {
+    alert("jhhghg");
+    var ischecked= $(this).is(':checked');
+    if(!ischecked)
+    alert('uncheckd ' + $(this).val());
+}); */
+
    $('body').on('click', '.remove_image', function () {
     $(this).prev('img').prev('input').parent("div").remove();
     $(this).prev('img').prev('input').remove();

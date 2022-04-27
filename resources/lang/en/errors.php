@@ -135,5 +135,6 @@
      'store_name_characters_len_err' => 'Only 20 characters are allowed for store name.',
      'no_active_package' => 'There is no active package. please fill in card details',
      'select_one_shipping_option' => 'Please select at least one shipping method',
+     'check_checkbox_first_err' => 'Please Select pick up from store checkbox first',
  ]
 ?>

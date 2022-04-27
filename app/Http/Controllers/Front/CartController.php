@@ -2795,7 +2795,7 @@ DATA;
         if(!empty($getWishlist))
         {
           foreach($getWishlist as $details)
-          {
+          {  //DB::enableQueryLog();
               $wishlistProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
                           ->join('categories', 'categories.id', '=', 'category_products.category_id')
                           ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
@@ -2813,7 +2813,7 @@ DATA;
                           ->orderBy('variant_product.id', 'ASC')
                           ->groupBy('products.id')
                           ->get();
-                          //dd(DB::getQueryLog());
+                          //print_r(DB::getQueryLog());exit;
 
                           //dd(count($TrendingProducts));
               if(count($wishlistProducts)>0) 
@@ -2888,7 +2888,7 @@ DATA;
                           }
           }
         }
-
+   
         $data['details'] = $wishlistDetails;
         $data['detailsService'] = $wishlistServiceDetails;
         
@@ -2936,6 +2936,7 @@ DATA;
                   $variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
                          ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
                          ->where([['variant_id','=',$productVariant],['product_id','=',$Product[0]['id']]])->get();
+                         //echo "<pre>";print_r($variantAttrs);exit;
                   
                   $attrIds = '';  
                   foreach($variantAttrs as $variantAttr)
@@ -2947,12 +2948,11 @@ DATA;
                     }
                     else
                     {
-                       if(strpos($attrIds, $attrIds) === false){
+                       //if(strpos($attrIds, $attrIds) == false){
                         $attrIds .= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
-                       }
+                       //}
                     }
                   }   
-
 
                   $created_at = date('Y-m-d H:i:s');
                   $arrOrderInsert = [

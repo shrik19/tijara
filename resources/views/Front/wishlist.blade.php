@@ -28,8 +28,8 @@
                 <table class="table table-hover wishlist-table" style="margin-bottom:60px;">
                     <thead>
                         <tr>
-                            <th>{{ __('lang.products_title')}}</th>
-                            <th class="text-right">{{ __('lang.shopping_cart_price')}}</th>
+                            <th class="product_table_heading">{{ __('lang.products_title')}}</th>
+                            <th class="text-right product_table_heading">{{ __('lang.shopping_cart_price')}}</th>
                             <th> </th>
                         </tr>
                     </thead>
@@ -102,8 +102,8 @@
                 <table class="table table-hover wishlist-table" style="margin-bottom:60px;">
                     <thead>
                         <tr>
-                            <th>{{ __('lang.service_label')}}</th>
-                            <th class="text-right">{{ __('lang.shopping_cart_price')}}</th>
+                            <th class="product_table_heading">{{ __('lang.service_label')}}</th>
+                            <th class="text-right product_table_heading">{{ __('lang.shopping_cart_price')}}</th>
                             <th> </th>
                         </tr>
                     </thead>

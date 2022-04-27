@@ -331,7 +331,7 @@
                                       </div>
                                 </div>
                            </div>
-                           <span class="invalid-feedback" id="select_shipping"></span>
+                           <span class="invalid-feedback col-md-10" id="select_shipping" style="    margin-left: -12px;"></span>
                           </div>
                            
                         </div>

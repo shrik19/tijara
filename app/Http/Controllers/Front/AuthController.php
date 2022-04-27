@@ -57,7 +57,11 @@ class AuthController extends Controller
         $data['tijara_front_login'] =   '';
         $data['tijara_front_password']= '';
         $data['tijara_remember_me'] =   '';
-        if(isset($_COOKIE['tijara_front_login'])) {
+      
+        $tijara_front_login  =(string)($_COOKIE['tijara_front_login'] ?? 'no');
+    
+        if(isset($_COOKIE['tijara_front_login']) && $tijara_front_login === 'yes') {
+            
             $data['tijara_front_login']=$_COOKIE['tijara_front_login'];
             $data['tijara_front_password']=$_COOKIE['tijara_front_password'];
             $data['tijara_remember_me']=$_COOKIE['tijara_remember_me'];

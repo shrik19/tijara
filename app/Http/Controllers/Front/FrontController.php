@@ -1906,7 +1906,8 @@ public function getCatSubList(Request $request) {
 	$otherAttributeDetails = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
 	->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
 	->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();	
-			
+
+				
 	if(!empty($otherAttributeDetails))
 	{
 		$getOtherAvailableOptions = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
@@ -1921,7 +1922,7 @@ public function getCatSubList(Request $request) {
 		->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
 	}
 
-	echo json_encode(['other_option' => $getOtherAvailableOptions, 'current_variant' => $attributeDetails[0]]);
+	echo json_encode(['other_option' => $getOtherAvailableOptions, 'current_variant' => $attributeDetails[0],'attributes_details' => $attributeDetails]);
 	exit;
   }
 

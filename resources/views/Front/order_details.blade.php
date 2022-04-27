@@ -157,6 +157,18 @@ if (@$_GET['print'])
                             }else{
                                 $payment_status=$order['payment_status'];
                             }
+
+
+                            if($order['order_status']="PENDING"){
+                                 $order_status =trans("users.pending_order_status");
+                            }else if($order['order_status']="SHIPPED"){
+                                 $order_status = trans("users.pending_order_status");
+                            }else if($order['order_status']="CANCELLED"){
+                                 $order_status = trans("users.cancelled_order_status");
+                            }else{
+                                 $order_status = $order['order_status'];
+                            }
+
                             ?>
                             {{ __('messages.txt_payment_status')}} :{{$payment_status}} <br />
                             {{ __('messages.txt_order_status')}} : 
@@ -168,7 +180,7 @@ if (@$_GET['print'])
 
                             </select> 
                             @else 
-                                {{ $order['order_status'] }} 
+                                {{ $order_status }}
                             @endif
                         </span> 
                         </td>

@@ -133,5 +133,8 @@
      'store_name_characters_len_err' => 'Endast 20 tecken är tillåtna för butiksnamn.',
      'no_active_package' => 'Det finns inget aktivt paket. vänligen fyll i kortuppgifter',
      'select_one_shipping_option' => 'Välj minst en leveransmetod',
+     'check_checkbox_first_err' => 'Vänligen välj kryssrutan hämta i butik först',
+ 
  ]
 ?>
+

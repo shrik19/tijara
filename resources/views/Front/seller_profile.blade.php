@@ -237,6 +237,22 @@
  
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
+  function hideShippingMethod(){
+  if($('#free_shipping_chk').is(":checked"))  {
+    $("#shipping_method_ddl_div").hide();
+    $("#shipping_charges_div").hide();
+    $("#shipping_method_ddl").val('');
+    $("#shipping_charges").val('');
+  } 
+  else{
+    $("#shipping_method_ddl_div").show();
+    $("#shipping_charges_div").show();
+  }
+}
+
+$( document ).ready(function() {
+    hideShippingMethod();
+});
 /*$( ".removeCard" ).click(function() {
     $('.saveCardDetailsDiv').show();
     $('.cardAddedDiv').remove();

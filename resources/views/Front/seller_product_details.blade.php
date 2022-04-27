@@ -124,10 +124,12 @@
                         </div>
                       </div>
                      @endif
-                     <?php $attribute_counter = 0;?>
-                   
+                     <?php $attribute_counter = 0;
+//  echo "<pre>";print_r($ProductAttributes);exit;
+                      //echo "<pre>";print_r($first);exit;
+                     ?>
                          @foreach($ProductAttributes as $attribute_id => $attribute)
-                         
+                       
                          <div class="col-md-6 p-0">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                              
@@ -156,8 +158,11 @@
                                       $className = "attribute_name";
                                     }else{
                                       $className = "attribute_value";
-                                    }?>
+                                    }
+
+                                    ?>
                                     <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown {{$className}}" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" onchange="showAvailableOptions('{{$attribute_id}}', this.value)">
+
                                     @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
                                       @php
                                           $selected = '';
@@ -183,7 +188,6 @@
                         @endforeach
                       
                       
-                     
                         
                      
                         <div class="col-xs-6 col-md-6 p-0" style="display: none;">
@@ -679,15 +683,53 @@ function showAvailableOptions(attribute_id,attribute_value)
     success:function(data)
     {
       var responseObj = $.parseJSON(data);
+   // console.log(responseObj);
+    var opn=[];
+      $.each( responseObj.attributes_details, function( key, option ) {
       
+        opn.push(option.variant_id);
+      });
+   
+$('.attribute_value option').each(function(){
+          console.log(opn)
+        
+          var data_variant  = $(this).attr("data-variant");
+          //for(var i=0;i<opn.length;i++ ){
+console.log(opn.includes(data_variant))
+            // if(opn.includes(data_variant)==true) {
+            //     console.log("is in array");
+            // } else {
+            //     console.log("is NOT in array");
+            // } 
+           /* if(jQuery.inArray(data_variant, opn) == -1){
+              alert("in")
+    //  if(responseObj.attributes_details.variant_id==data_variant){
+            $(this).attr('disabled', false);
+             $(this).attr('selected', 'selected');
+            
+          }else{
+              $(this).attr('disabled', true);
+          }*/
+        //  }
+         
+         
+      });
+    /* console.log(opn);return
+
+     // return
         $('.attribute_value option').each(function(){
-         var data_variant  = $(this).attr("data-variant");
-          if(responseObj.current_variant.variant_id==data_variant){
+          console.log(opn)
+          var data_variant  = $(this).attr("data-variant");
+          for(var i=0;i<opn.length;i++ ){
+      if(responseObj.attributes_details.variant_id==data_variant){
              $(this).attr('disabled', false);
              $(this).attr('selected', 'selected');
           }else{
              $(this).attr('disabled', true);
           }
+          }
+         
+         
         });
 
 
@@ -700,7 +742,8 @@ function showAvailableOptions(attribute_id,attribute_value)
              $(this).attr('disabled', true);
           }
         });
-
+*/
+//if(jQuery.inArray("test", myarray) !== -1)
 //$("#select_product_variant option").val(responseObj.current_variant.id).attr('disabled',true);
       var images = responseObj.current_variant.image.split(',');
       $(images).each(function(key,image){

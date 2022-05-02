@@ -672,7 +672,7 @@ if($("#is_pick_from_store").is(':checked')){
 
 });
 
-$('.store_pick_address').on('input',function(e){
+$('#store_pick_address').on('input',function(e){
   if( !$("#is_pick_from_store").is(':checked')){
     showErrorMessage(check_checkbox_first_err);
   }
@@ -1053,15 +1053,26 @@ $(".seller-profile-update").click(function(e){
     $("#err_country").html('');
   }
 
-  
+  if($("#is_pick_from_store").is(':checked')){
+
+    if(pick_up_address==''){
+      $("#err_pick_up_address").html(required_field_error).show();
+      $("#err_pick_up_address").parent().addClass('jt-error');
+      error = 1;
+    } else {
+      $("#err_pick_up_address").html('').show();
+    }
+  }
 //validation to check atlease on shipping methi=od
-   /*   if($("#free_shipping_chk").is(':checked')){
+ /* if($("#free_shipping_chk").is(':checked')){
  
   }
   else{
     
   if($("#is_pick_from_store").is(':checked')){
+
     if(pick_up_address==''){
+      alert("sdh");
       $("#err_pick_up_address").html(required_field_error).show();
       $("#err_pick_up_address").parent().addClass('jt-error');
       error = 1;

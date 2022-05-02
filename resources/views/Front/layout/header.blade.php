@@ -365,8 +365,8 @@
             @endforeach
 
         </ul>
-        <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn_top pull-right">{{ __('users.go_to_announse_page')}}</a>
-
+ <!--        <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn_top pull-right">{{ __('users.go_to_announse_page')}}</a>
+ -->
       </div>
 
       </div>

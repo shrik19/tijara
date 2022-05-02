@@ -1211,6 +1211,7 @@ class CartController extends Controller
             $total          = 0;
             $product_shipping_type = '';
             $product_shipping_amount = 0;
+            $shippingTotalAmount=array();
 
             $OrderId = $checkExisting[0]['id'];
 
@@ -1297,10 +1298,12 @@ class CartController extends Controller
                     TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                     $subTotal += $discount_price * $details['quantity'];
-                    $shippingTotal += $product_shipping_amount;
+                    //$shippingTotal += $product_shipping_amount;
+                    $shippingTotalAmount [] = $product_shipping_amount;
+                    
                 }
-
-				$tempOrderData = TmpOrders::where('id','=',$orderId)->get()->toArray();
+                $shippingTotal  = max($shippingTotalAmount);
+				        $tempOrderData = TmpOrders::where('id','=',$orderId)->get()->toArray();
                 $total = $subTotal+$shippingTotal+$tempOrderData[0]['shipping_total'];
 
                 $arrOrderUpdate = [
@@ -1538,7 +1541,7 @@ class CartController extends Controller
               $arrOrderUpdate = [
               'user_id'             => $user_id,
               'sub_total'           => $subTotal,
-              'shipping_total'      => $shippingTotal,
+              //'shipping_total'      => $shippingTotal,
               'total'               => $total,
               'payment_details'     => NULL,
               'payment_status'      => NULL,
@@ -1692,7 +1695,8 @@ class CartController extends Controller
                 "source" => $request->stripeToken,
                 "description" => "Tijara payment for order #".$orderRef ,
                 
-        ]); echo'<pre>';print_r($response);exit;
+        ]);
+        // echo'<pre>';print_r($response);exit;
         $arrOrderUpdate = [
           
           'klarna_order_reference'  => $response->id,
@@ -3420,9 +3424,9 @@ DATA;
         {
           $is_seller = 1;
         }
- $currentYear = date('Y');
-  $currentMonth = date('m');
- $currentDate = $currentMonth.'-'.$currentYear;
+       $currentYear = date('Y');
+        $currentMonth = date('m');
+       $currentDate = $currentMonth.'-'.$currentYear;
         /*month year filter*/
         $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
         $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
@@ -3613,7 +3617,25 @@ DATA;
                   $payment_status = (!empty($recordDetailsVal['payment_status'])) ? $recordDetailsVal['payment_status'] : '-';
                   $order_status = (!empty($recordDetailsVal['order_status'])) ? $recordDetailsVal['order_status'] : '-';
                   //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
+                  if($order_status=="PENDING"){
+                       $translated_order_status =trans("users.pending_order_status");
+                  }else if($order_status=="SHIPPED"){
+                       $translated_order_status = trans("users.shipped_order_status");
+                  }else if($order_status=="CANCELLED"){
+                       $translated_order_status = trans("users.cancelled_order_status");
+                  }else{
+                       $translated_order_status = $order_status;
+                  }
 
+                   if($payment_status=="Pending"){
+                       $translated_payment_status =trans("users.pending_order_status");
+                  }else if($payment_status=="PAID"){
+                       $translated_payment_status = trans("users.paid_payment_status");
+                  }else if($payment_status=="CANCELLED"){
+                       $translated_payment_status = trans("users.cancelled_order_status");
+                  }else{
+                       $translated_payment_status = $payment_status;
+                  }
                   date_default_timezone_set('Europe/Stockholm');
                   $dated = $recordDetailsVal['created_at'];
                   $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
@@ -3631,11 +3653,11 @@ DATA;
 
                   if(!empty($request['is_seller']) && $request['is_seller'] == '1') 
                   {
-                    $arr[] = [ '#'.$id, $user, $subtotal.' kr', $shipping_total.' kr',$total.' kr',  $payment_status, $order_status, $dated, $action];
+                    $arr[] = [ '#'.$id, $user, $subtotal.' kr', $shipping_total.' kr',$total.' kr',  $translated_payment_status, $translated_order_status, $dated, $action];
                   }
                   else
                   {
-                    $arr[] = [ '#'.$id, $subtotal.' kr', $shipping_total.' kr',$total.' kr',  $payment_status, $order_status, $dated, $action];
+                    $arr[] = [ '#'.$id, $subtotal.' kr', $shipping_total.' kr',$total.' kr',  $translated_payment_status, $translated_order_status, $dated, $action];
                   }
                     
 

@@ -232,17 +232,19 @@ class ServiceController extends Controller
         }
         $ServicesDetails = $ServicesDetails->groupBy('services.id');
         if(isset($request['order'][0])){
-
             $postedorder=$request['order'][0];
            
-            if($postedorder['column']==0) $orderby='services.title';
-            
-            if($postedorder['column']==2) $orderby='services.sort_order';
-            
-            if($postedorder['column']==3) $orderby='services.created_at';
+            if($postedorder['column']==0) $orderby='services.id';
+            if($postedorder['column']==1) $orderby='services.title';
+            if($postedorder['column']==3) $orderby='services.service_price';
+            if($postedorder['column']==4) $orderby='services.sort_order'; 
+            if($postedorder['column']==5) $orderby='services.created_at';
 
-            $orderorder=$postedorder['dir'];
-
+            if($postedorder['column']==0){
+                $orderorder="DESC";
+            }else{
+                $orderorder=$postedorder['dir'];
+            }
             $ServicesDetails = $ServicesDetails->orderby($orderby, $orderorder);
 
         }
@@ -273,7 +275,16 @@ class ServiceController extends Controller
 
                
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
-
+                if(!empty($recordDetailsVal['images'])) {
+                    $imagesParts    =   explode(',',$recordDetailsVal['images']);
+                    
+                    $image  =   url('/').'/uploads/ServiceImages/resized/'.$imagesParts[0];
+                }
+                else{
+                    $image  =     url('/').'/uploads/ServiceImages/resized/no-image.png';
+                }
+                
+                $image      =   '<img src="'.$image.'" width="70" height="70">';
                 date_default_timezone_set('Europe/Stockholm');
                 $dated = $recordDetailsVal['created_at'];
                 $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
@@ -302,7 +313,7 @@ class ServiceController extends Controller
 
             
 
-                $arr[] = [ $title, $categoriesData,  $sort_order, $dated, $action];
+                $arr[] = [ $image, $title, $categoriesData,'Kr'.$recordDetailsVal['service_price'], $sort_order, $dated, $action];
 
             }
 
@@ -310,7 +321,7 @@ class ServiceController extends Controller
 
         else {
 
-            $arr[] = [ '',trans('lang.datatables.sEmptyTable'), '', '',''];
+            $arr[] = [ '','',trans('lang.datatables.sEmptyTable'), '', '',''];
 
         }
 

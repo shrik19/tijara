@@ -706,32 +706,34 @@ public function getCatSubList(Request $request) {
 								$PopularProducts = $PopularProducts->merge($TrendingProducts);
 
 		}
+
 		if(count($PopularProducts)>0) {
 			foreach($PopularProducts as $Product) {
-        $productCategories = $this->getProductCategories($Product->id);
+				
+        		$productCategories = $this->getProductCategories($Product->id);
 
 				$product_link	=	url('/').'/product';
 				if($category_slug!='')
-        {
-				      $product_link	.=	'/'.$category_slug;
-        }
-        else {
-          $product_link	.=	'/'.@$productCategories[0]['category_slug'];
-        }
+		        {
+					$product_link	.=	'/'.$category_slug;
+		        }
+		       /* else {
+		          $product_link	.=	'/'.@$productCategories[0]['category_slug'];
+		        }*/
 				if($subcategory_slug!='')
-        {
-				      $product_link	.=	'/'.$subcategory_slug;
-        }
-        else {
-          $product_link	.=	'/'.@$productCategories[0]['subcategory_slug'];
-        }
+        		{
+			      $product_link	.=	'/'.$subcategory_slug;
+        		}
+		       /* else {
+		          $product_link	.=	'/'.@$productCategories[0]['subcategory_slug'];
+		        }*/
 
-				$product_link	.=	$Product->product_slug.'-P-'.$Product->product_code;
+				$product_link	.=	'/'.$Product->product_slug.'-P-'.$Product->product_code;
 
         $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Product->user_id)->where('users.is_deleted','=','0')->first()->toArray();
         $Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
         $Product->store_name	=	$SellerData['store_name'];
-
+//echo "<pre>";print_r($product_link);exit;
 		$Product->product_link	=	$product_link;
 
 				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();

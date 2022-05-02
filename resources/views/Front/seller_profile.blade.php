@@ -15,6 +15,9 @@
 .form-group {
     margin-bottom: 26px;
 }
+.seller_profile_content{
+  margin-left: 10px;
+}
 </style>
 <div class="container-fluid">
   <div class="container-inner-section-1">
@@ -298,7 +301,12 @@ $(function() {
   
     var noTrialPackageActive =$("#noTrialPackageActive").val();
     var noActivePackage = $("#disable_side_menu").val();
-    if(noTrialPackageActive ==1 || noActivePackage ==1){
+    var card_lname = $("#card_lname").val();
+    var card_number = $("#card_number").val();
+    var card_security_code = $("#card_security_code").val();
+    var card_exp_month = $("#card_exp_month").val();
+    var card_exp_year = $("#card_exp_year").val();
+    if(noTrialPackageActive ==1 || noActivePackage ==1 || card_lname !='' || card_number !='' || card_security_code !='' || card_exp_month !='' || card_exp_year !=''){
        let fname   = $("#fname").val();
         let lname   = $("#lname").val();
       /*if(fname != '' && lname != '')

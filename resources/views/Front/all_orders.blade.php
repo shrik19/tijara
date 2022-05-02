@@ -35,7 +35,7 @@
       </div>
     </div> -->
 
-		<div class="col-md-12" style="margin-top: 20px;">
+		<div class="col-md-12" style="margin-top: 20px;margin-left: 5px;">
 		    
 		  
 		<div class="card-body">

@@ -26,7 +26,7 @@
         </div> <!--  seller_header -->
 
         <div style="margin-top: 40px;">
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-left: 10px;">
           <h3>{{ __('users.payment_method_head')}}</h3>
           <form method="POST" action="{{route('frontStorePaymentDetails')}}" class="needs-validation seller-payment-form" novalidate="">
           @csrf

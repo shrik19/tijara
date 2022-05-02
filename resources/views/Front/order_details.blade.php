@@ -159,11 +159,11 @@ if (@$_GET['print'])
                             }
 
 
-                            if($order['order_status']="PENDING"){
+                            if($order['order_status']=="PENDING"){
                                  $order_status =trans("users.pending_order_status");
-                            }else if($order['order_status']="SHIPPED"){
-                                 $order_status = trans("users.pending_order_status");
-                            }else if($order['order_status']="CANCELLED"){
+                            }else if($order['order_status']=="SHIPPED"){
+                                 $order_status = trans("users.shipped_order_status");
+                            }else if($order['order_status']=="CANCELLED"){
                                  $order_status = trans("users.cancelled_order_status");
                             }else{
                                  $order_status = $order['order_status'];

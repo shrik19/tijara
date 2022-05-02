@@ -12,7 +12,7 @@
 <div class="container-fluid">
 <div class="container-inner-section-1">
 <div class="">
-<div class="row"> 
+<div class="row" style="margin-left: -7px;"> 
 <div class="seller_info shopping_cart_page border-none">
     <div class="card">
         <div class="card-header row">

@@ -486,6 +486,8 @@
 <script src="{{url('/')}}/assets/front/js/jquery-confirm.min.js"></script>
 <script>
 var oops_heading = "{{ __('users.oops_heading')}}";
+var required_field_error="{{ __('lang.required_field_error')}}";
+
   $('#same_as_billing').change(function() {
         if(this.checked) {
             $('#shipping_given_name').val($('#billing_given_name').val());
@@ -503,6 +505,34 @@ $('input[type=radio][name=payment_method]').on('change', function() {
   var payment_id = $('.pay_through_btn').attr('id',$(this).val());
 });
 
+
+
+function showErrorMessage(strContent,redirect_url = '')
+{ 
+  $.alert({
+      title: oops_heading,
+      content: strContent,
+      type: 'red',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-times-circle",
+      buttons: {
+        Ok: function () {
+            if(redirect_url != '')
+            {
+              if(redirect_url == 'reload')
+              {
+                location.reload(true);
+              }
+              else
+              {
+                window.location.href = redirect_url;
+              }
+            }
+        },
+      }
+    });
+}
 
 
 $( ".pay_through_btn" ).click(function() {
@@ -544,7 +574,9 @@ $( ".pay_through_btn" ).click(function() {
       $('#select_payment_option_err').text('');
     } 
         
-
+    if(error==1){
+        showErrorMessage(required_field_error);
+    }
     if(error==0) { 
 
       if(btnid=='klarna')

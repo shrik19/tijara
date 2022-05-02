@@ -10,7 +10,7 @@
 <div class="mid-section p_155">
 <div class="container-fluid">
 <div class="container-inner-section-1">
-<div class="row">
+<div>
 <!-- <div class=""> -->
     <div class="card">
         <div class="card-header row ">
@@ -19,7 +19,7 @@
     </div>
     <section class="product_details_section-1">
     <div class="loader"></div>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
         <div>
             <div class="col-sm-12 col-md-12">
             <div class="row">
@@ -93,7 +93,7 @@
     </div>
     <section class="product_details_section-1">
     <div class="loader"></div>
-    <div class="container-fluid p-0">
+    <div class="container-fluid">
         <div>
             <div class="col-sm-12 col-md-12 p-0">
             <div class="row">

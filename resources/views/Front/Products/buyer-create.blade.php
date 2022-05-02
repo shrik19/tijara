@@ -52,7 +52,7 @@ width:100% !important;
             <div class="card">
 
               <div class="card-header  row ">
-                <div class="col-md-10 p-0">
+                <div class="col-md-10 p-5">
                   <h2 class="page_heading" >{{ __('users.buyer_product_form_label')}}</h2>
 
                   <!-- <hr class="heading_line"/> -->

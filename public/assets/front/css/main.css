@@ -18,7 +18,9 @@
 body{
     /* font-family: 'Roboto', sans-serif; */
     /* font-family: 'Open Sans', sans-serif; */
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 header{
     float: left;
@@ -30,9 +32,9 @@ header{
     color: #222222 !important;
   }
 
-.mid-section {
+/* .mid-section {
     min-height: 600px;
-}
+} */
 .update-alert-css{
   margin-top: 20px !important;
 }
@@ -916,7 +918,7 @@ select.list-dt:focus {
 #progressbar .active {
     color: #000000
 }
-
+.container-fluid{margin-left: 0; margin-right: 0;}
 #progressbar li {
     list-style-type: none;
     font-size: 16px;
@@ -926,17 +928,15 @@ select.list-dt:focus {
 }
 #progressbar li span{    position: absolute;
   top: 4px;
-  left: 48%;
+  left: 48.6%;
   color: #fff;}
 
-#progressbar li span.step_1{
-  top: 4px;
-  left: 49%;
-}
+.p-5{padding-left: 5px;}
+  #progressbar li span.step_1{
+    top: 4px;
+    left: 49%;
+  }
 
-/*#progressbar li span.step_2{
-  left: 159px;
-}*/
 #progressbar #account:before {
     font-family: FontAwesome;
     content: "\f023"
@@ -1675,7 +1675,7 @@ input.previous.btn.gray_color.action-button-previous.step-third-previous {
 .ft_top_container{width: 100%; float: left; background-color: #303030; padding: 10px 0;}
 .client_logos, .social_icon, .ft_page_links{list-style: none; padding: 0;}
 .client_logos li{ float: left; margin: 5px 16px;}
-.ft_middle_container{float: left;width: 100%; background-color: #191919;padding: 35px 0 15px 0; }
+.ft_middle_container{float: left;width: 100%; background-color: #191919;padding: 35px 0 15px 0;     margin-top: auto;}
 .address_container p{color: #828282; font-size: 16px; line-height: 30px;}
 .address_container p strong {color: #828282; font-size: 18px;}
 .social_icon{padding-top: 25px;}
@@ -1697,7 +1697,7 @@ input.previous.btn.gray_color.action-button-previous.step-third-previous {
     }
 
 .ft_payment_container{
-  background-color: #191919;
+  background-color: #191919;width: 100%;
 }
 .slider_cotnainer_section{ width: 100%;  background-size: 100%;
 overflow: hidden;margin-top: 155px;}
@@ -2153,11 +2153,11 @@ padding-left: 0px!important;
   left:47%;
   margin-left: -30px;
 }
-.mid-section{margin: 40px 0;}
+/* .mid-section{margin: 40px 0;} */
 .product_img:hover  .buy_now_hover_details{ opacity: 1;}
 .packages-description{    max-height: 385px;
     overflow: auto;}
-.card-header{margin: 8px 2px 6px 10px;;}
+.card-header{margin: 8px 2px 6px 0px;}
 .a_btn, .login_btn {    text-decoration: none;
     font-size: 16px;
     color: #fff;
@@ -2764,7 +2764,7 @@ text-align: right;
 /*********************18-10-2021*********************/
 
 .shopping_cart_page.seller_info {
-    background: #dddddd;
+    background: #dddddd;padding: 0 5px;
 }
 .shopping_cart_page .shopping_cart tbody tr:hover {
     background-color: transparent;
@@ -2962,16 +2962,15 @@ text-align: right;
     min-height: 100%;
 }
 .swish_checkout_logo{
-  float: right; 
-  margin-top: -25px;
+  float: right;
+  margin-top: -12px;
   border-radius: 5px;
-  height: 90px;
 }
 .stripe_checkout_logo{
   float: right;
   margin-top: -2px;
   border-radius: 5px;
-  height:41px;
+
   margin-right: -92px;
   width: 150px;
 }
@@ -3272,7 +3271,7 @@ line-height: 42px;
   border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;display: none
 }
 .pick-img{
-  float: right; margin-top: -2px;border-radius: 5px;height: 41px;
+  float: right; margin-top: -2px;border-radius: 5px;    width: 64px;
 }
 .pick_input{
   border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;
@@ -3312,21 +3311,21 @@ line-height: 42px;
 }
 .swish_checkout_logo {
   float: right;
-  margin-top: -25px;
+  margin-top: -12px;
   border-radius: 5px;
-  height: 78px;
+ 
 }
 .pick_input span{
   font-size: 12px;
 }
 .pick-img{
-  height: 32px;
+  width: 64px;
 }
 .stripe_checkout_logo {
   float: right;
   margin-top: -2px;
   border-radius: 5px;
-  height: 30px;
+ 
   margin-right: -92px;
   width: 114px;
 }
@@ -3953,7 +3952,7 @@ ul.breadcrumb-category {
 
 }
 .m-l-12{margin-left: 12px;}
-.m-30{margin-top: 30px;}
+.m-30{margin-top: 62px;}
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
   .card-header {
 margin: 0;

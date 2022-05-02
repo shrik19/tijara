@@ -67,7 +67,7 @@
       </div>
 
          @include ('Front.alert_messages')
-      <div class="col-md-12">
+      <div class="col-md-12" style="margin-left: -18px;">
 
         <div class="login_box">
 

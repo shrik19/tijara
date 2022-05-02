@@ -172,7 +172,7 @@ margin-top: 15px;
     margin-top: -6px;
 }
 .service_date_validation{
-  text-align: center;margin-top: 140px;margin-left: 15px;
+  text-align: center;margin-top: 140px;margin-left: 185px;
 }
 .btn:hover{color: #fff}
 
@@ -930,11 +930,13 @@ select.list-dt:focus {
   top: 4px;
   left: 48.6%;
   color: #fff;}
+
 .p-5{padding-left: 5px;}
   #progressbar li span.step_1{
     top: 4px;
     left: 49%;
   }
+
 #progressbar #account:before {
     font-family: FontAwesome;
     content: "\f023"
@@ -1474,6 +1476,16 @@ span.remember-text {
 		padding: 10px 40px;
 		font-size: 18px;
 	}
+
+input.previous.btn.gray_color.action-button-previous.step-third-previous {
+     float: left; 
+     margin-left: 32%; 
+}
+#third-step {
+    float: right;
+    margin-right: 32%;
+}
+
 	
 	.seller_register_container .seller_register_second input[type=button] {
 		color: #FFFFFF;
@@ -1484,9 +1496,19 @@ span.remember-text {
 	
 
 
-   .seller_register_container .seller_register_fourth input[type=submit],
+/*   .seller_register_container .seller_register_fourth input[type=submit],
     .seller_register_container .seller_register_fourth input[type=button]{
     margin-top: 0%;
+}*/
+ .seller_register_container .seller_register_fourth input[type=submit]{
+  float: right;
+  margin-right: 35%;
+  margin-top: 5%;
+}
+  .seller_register_container .seller_register_fourth input[type=button] {
+    float: left;
+    margin-left: 33%;
+    margin-top: 5%;
 }
 	
 	.seller-link-section {
@@ -2797,15 +2819,17 @@ text-align: right;
 
 .seller-dashboard-form .buyer-prod-msg {
     position: absolute;
-    /*top: 50px;
+    /*top: 92px;
     left: 12px;*/
-    top: 92px;
+    top: 55px;
     left: -10px;
     bottom: 0;
     right: 12px;
     text-align: center;
 }
-
+.seller-dashboard-form .buyer-prod-content-h2{
+    margin-top: 22px;
+}
 .seller-dashboard-form .buyer-prod-msg-bottom {
     background-color: #efefef;
     padding: 30px;
@@ -3912,7 +3936,7 @@ ul.breadcrumb-category {
 
   img.register_swish_logo{
     /*filter: contrast(5.5);*/
-    width: 130px;
+    width: 165px;
     /*height: 105px;*/
   }
 
@@ -3928,7 +3952,7 @@ ul.breadcrumb-category {
 
 }
 .m-l-12{margin-left: 12px;}
-.m-30{margin-top: 30px;}
+.m-30{margin-top: 62px;}
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px){
   .card-header {
 margin: 0;
@@ -4009,6 +4033,7 @@ padding: 0!important;
     margin-left: 60%;
     margin-bottom: 23px;
 }
+
 .instagram_imgs li:before {
   position: absolute;
   height: 50px;

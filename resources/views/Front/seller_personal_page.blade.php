@@ -9,6 +9,10 @@
     color: #222222 !important;
     font-weight: 300 !important;
 }
+i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
+    color: #ffcc00!important;
+}
+
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">

@@ -1,6 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+  label{
+    margin-left: 20px;
+  }
+</style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
@@ -18,7 +22,7 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-		  <h2 class="seller_page_heading">{{ __('lang.manage_attributes_menu')}} </h2>
+		  <h2 class="seller_page_heading">{{ __('lang.add_attribute')}} </h2>
 		</div>
 <div class="clearfix"></div>
 <div class="mb-10 pro-top-btn">

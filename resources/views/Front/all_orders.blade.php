@@ -1,6 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+  label{
+      margin-left: 6px;
+  }
+</style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
@@ -35,7 +39,7 @@
       </div>
     </div> -->
 
-		<div class="col-md-12" style="margin-top: 20px;">
+		<div class="col-md-12" style="margin-top: 20px;margin-left: 5px;">
 		    
 		  
 		<div class="card-body">

@@ -264,14 +264,14 @@ class ProductController extends Controller
 			}
 			
 		}
-		$ProductsDetails = $ProductsDetails->groupBy('products.id')->orderby('products.id', 'DESC');
+		$ProductsDetails = $ProductsDetails->groupBy('products.id');
         $recordsTotal = $ProductsDetails->get()->count();
         if(isset($request['order'][0])){
 
             $postedorder=$request['order'][0];
 
-           
-			if($postedorder['column']<=1) $orderby='products.title';
+            if($postedorder['column']==0) $orderby='products.id';
+			if($postedorder['column']==1) $orderby='products.title';
 
 			if($postedorder['column']==2) $orderby='variant_product.sku';
 			
@@ -281,8 +281,12 @@ class ProductController extends Controller
             
             if($postedorder['column']==6) $orderby='products.created_at';
 
-            $orderorder=$postedorder['dir'];
-
+            if($postedorder['column']==0){
+                $orderorder="DESC";
+            }else{
+                $orderorder=$postedorder['dir'];
+            }
+            
             $ProductsDetails = $ProductsDetails->orderby($orderby, $orderorder);
 
         }
@@ -291,7 +295,6 @@ class ProductController extends Controller
        
        // $recordsTotal = 14;
         $recordDetails = $ProductsDetails->offset($request->input('start'))->limit($request->input('length'))->get();
-
         $arr = [];
 
         if (count($recordDetails) > 0) {
@@ -318,13 +321,14 @@ class ProductController extends Controller
                     
                     $image  =   url('/').'/uploads/ProductImages/resized/'.$imagesParts[0];
                 }
-                else
+                else{
                     $image  =     url('/').'/uploads/ProductImages/resized/no-image.png';
+                }
                 
                 $image      =   '<img src="'.$image.'" width="70" height="70">';
                // date_default_timezone_set('Europe/London');
                 date_default_timezone_set("Europe/Stockholm");  
-                $dated = $recordDetailsVal['updated_at'];
+                $dated = $recordDetailsVal['created_at'];
                 $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
                 //$dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['updated_at']));
                 

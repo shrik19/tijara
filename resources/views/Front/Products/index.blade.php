@@ -1,6 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+ label{
+  margin-left: 8px;
+}
+</style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
@@ -112,14 +116,14 @@
   
   $('#productTable_length').find('label').attr('style','float: left;');
   $('#productTable_length').parent('div').attr('class','col-sm-12 col-md-7');
-  $('<div class="form-group col-md-4" style="margin-right: 6%;"><select class="form-control" id="selectcategory" name="category">'+
+  $('<div class="form-group col-md-3" style="margin-right: 6%;"><select class="form-control" id="selectcategory" name="category">'+
   
   '<?php echo $categoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");
   
   
   
-  $('<div class="form-group col-md-4" style=""><select class="form-control" id="selectsubcategory" name="subcategory">'+
+  $('<div class="form-group col-md-3" style=""><select class="form-control" id="selectsubcategory" name="subcategory">'+
   
   '<?php echo $subCategoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");

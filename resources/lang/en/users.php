@@ -399,5 +399,6 @@ cancellation of service works.',
     'cancelled_order_status' => 'Cancelled',
     'complete_order_status' => 'Complete',
     'order_table_action' => 'Action',
+    'paid_payment_status' => 'PAID',
  ]
 ?>

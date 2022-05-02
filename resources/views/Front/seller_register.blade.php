@@ -83,9 +83,9 @@
 							<!-- progressbar -->
 							<ul id="progressbar">
 								<li class="active" id="account"><span class="step_1">1</span></spa>{{ __('users.step_one_head')}}</li>
-								<li id="personal"><span>2</span>{{ __('users.step_two_head')}}</li>
-								<li id="payment"><span>3</span>{{ __('users.step_three_head')}}</li>
-								<li id="confirm"><span>4</span>{{ __('users.step_four_head')}}</li>
+								<li id="personal"><span class="step_2">2</span>{{ __('users.step_two_head')}}</li>
+								<li id="payment"><span class="step_2">3</span>{{ __('users.step_three_head')}}</li>
+								<li id="confirm"><span class="step_2">4</span>{{ __('users.step_four_head')}}</li>
 							</ul> 
 							<?php
 								$email = $password= $role_id = $cpassword ='';
@@ -266,13 +266,13 @@
 							              <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" class="register_stripe_logo"></p>
 							              <div class="form-group">
 								              <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="{{Session::get('new_seller_strip_api_key')}}">
-								               <span class="register_credentials_ex">Publicerbar nyckel</span>
+								              <span class="register_credentials_ex">Hemlig nyckel</span>								               
 								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('strip_api_key')) {{ $errors->first('strip_api_key') }}@endif</span>
 							              </div>
 
 							              <div class="form-group">
 								              <input type="text" class="form-control" name="strip_secret" id="strip_secret" placeholder="{{ __('users.stripe_secret_label')}}" value="{{Session::get('new_seller_strip_secret')}}">
-								               <span class="register_credentials_ex">Hemlig nyckel</span>
+								               <span class="register_credentials_ex">Publicerbar nyckel</span>
 								              <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
 							              </div>
 
@@ -1137,14 +1137,16 @@ $('body').on('change', '#seller_logo_img', function () {
 /*function for previous button click*/
 $(".previous").click(function(){
 
-	if($(this).hasClass('step-third-previous')) {
+	/*if($(this).hasClass('step-third-previous')) {
 		current_fs = $(this).parent().parent();
 		previous_fs = $(this).parent().parent().prev();
 	}
 	else {
 		current_fs = $(this).parent();
 		previous_fs = $(this).parent().prev();
-	}
+	}*/
+	current_fs = $(this).parent();
+	previous_fs = $(this).parent().prev();
 	//Remove class active
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 

@@ -328,8 +328,26 @@ $('body').on('click', '.remove_image', function () {
 
  $('#variant_table').on('click', '.remove_variant_btn', function () {
      //if (!confirm('Are you sure you want to remove Variant?')) return false;
-      showSuccessMessage(del_variant_confirm_box);
-     $(this).parent('div').parent('div').remove();
+     var redirect_url='';
+     var rem =$(this);
+      $.alert({
+      title: "Klart!",
+      content: del_variant_confirm_box,
+      type: '#03989e',
+      typeAnimated: true,
+      columnClass: 'medium',
+      icon : "fas fa-check-circle",
+      buttons: {
+        ok: function () {
+          if(redirect_url == '')
+          {
+            rem.parent('div').parent('div').remove();
+          }
+        },
+      }
+    });
+      //showSuccessMessage(del_variant_confirm_box);
+    // $(this).parent('div').parent('div').remove();
  });
 //$( ".select_attribute" ).each(function() {
     $('#variant_table').on('change', '.select_attribute', function () {
@@ -643,6 +661,7 @@ if($("#is_pick_from_store").is(':checked')){
 
   if(error == 1)
   {
+    showErrorMessage(required_field_error);
     return false;
   }
   else
@@ -653,7 +672,7 @@ if($("#is_pick_from_store").is(':checked')){
 
 });
 
-$('.store_pick_address').on('input',function(e){
+$('#store_pick_address').on('input',function(e){
   if( !$("#is_pick_from_store").is(':checked')){
     showErrorMessage(check_checkbox_first_err);
   }
@@ -1034,23 +1053,26 @@ $(".seller-profile-update").click(function(e){
     $("#err_country").html('');
   }
 
-    /*if($("#is_pick_from_store").is(':checked')){
-      if(pick_up_address==''){
-        $("#err_pick_up_address").html(required_field_error).show();
-        $("#err_pick_up_address").parent().addClass('jt-error');
-        error = 1;
-      } else {
-        $("#err_pick_up_address").html('').show();
-      }
-    }*/
+  if($("#is_pick_from_store").is(':checked')){
 
-      if($("#free_shipping_chk").is(':checked')){
-    //error = 0;
+    if(pick_up_address==''){
+      $("#err_pick_up_address").html(required_field_error).show();
+      $("#err_pick_up_address").parent().addClass('jt-error');
+      error = 1;
+    } else {
+      $("#err_pick_up_address").html('').show();
+    }
+  }
+//validation to check atlease on shipping methi=od
+ /* if($("#free_shipping_chk").is(':checked')){
+ 
   }
   else{
     
   if($("#is_pick_from_store").is(':checked')){
+
     if(pick_up_address==''){
+      alert("sdh");
       $("#err_pick_up_address").html(required_field_error).show();
       $("#err_pick_up_address").parent().addClass('jt-error');
       error = 1;
@@ -1061,15 +1083,13 @@ $(".seller-profile-update").click(function(e){
     else if(shipping_method_ddl == '')
     {
       showErrorMessage(select_one_shipping_option);
-      // $("#err_shipping_method_ddl").html(required_field_error).show();
-      // $("#err_shipping_method_ddl").parent().addClass('jt-error');
       error = 1;
     }
     else
     {
       $("#err_shipping_method_ddl").html('').show();
     }
-  }
+  }*/
   
   if( shipping_method_ddl !=''){
     if(shipping_charges==''){

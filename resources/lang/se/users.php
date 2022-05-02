@@ -399,5 +399,6 @@ avbokning av tjänst fungerar.',
     'cancelled_order_status' => 'Avbruten',
     'complete_order_status' => 'Komplett',
     'order_table_action' => 'Hantera',
+    'paid_payment_status' => 'Betalad',
  ]
 ?>

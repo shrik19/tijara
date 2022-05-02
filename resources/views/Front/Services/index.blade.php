@@ -1,6 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+ label{
+  margin-left: 8px;
+}
+</style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
@@ -35,9 +39,10 @@
 			  <table class="table table-striped" id="serviceTable">
 				<thead>
 				  <tr>
+          <th class="product_table_heading" data-orderable="false">{{ __('lang.image_label')}}</th>
 				  <th class="product_table_heading">{{ __('servicelang.service_label')}}</th>
-				  
 				  <th class="product_table_heading" data-orderable="false">{{ __('lang.category_label')}}</th> 
+          <th class="product_table_heading" >{{ __('lang.price_label')}}</th>
 				  <th class="product_table_heading">{{ __('lang.sort_order_label')}}</th>
 				  <th class="product_table_heading">{{ __('lang.dated_label')}}</th>
 				  <th class="product_table_heading" data-orderable="false">{{ __('lang.action_label')}}</th>
@@ -88,7 +93,7 @@
         },
     columnDefs: [
           {
-              targets: [1,2],
+              targets: [2,3],
               className: "text-center",
           }
         ],

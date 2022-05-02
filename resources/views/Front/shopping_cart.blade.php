@@ -11,6 +11,7 @@
 <div class="mid-section p_155" style="background: #dddddd;    margin-bottom: 0px;">
 <div class="container-fluid">
 <div class="container-inner-section-1">
+
 <div>
 <div> 
 <div class="seller_info shopping_cart_page border-none">

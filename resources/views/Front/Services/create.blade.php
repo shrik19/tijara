@@ -106,7 +106,7 @@ td.fc-week-number {
                 <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
                 placeholder="{{ __('servicelang.session_time_placeholder')}} " value="{{old('session_time')}}" 
                 tabindex="1" >
-                <span class="invalid-feedback col-md-8 session_time-err" id="session_time" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
+                <span class="invalid-feedback col-md-8 session_time-err" id="session_time_err" >@if($errors->has('session_time')) {{ $errors->first('session_time') }}@endif </span>
                 </div>
               </div>
 
@@ -116,7 +116,7 @@ td.fc-week-number {
                 <input type="text" class="col-md-8 login_input address form-control" name="address" id="address" 
                 placeholder="{{ __('users.service_address_placeholder')}} " value="{{old('address')}}" 
                 tabindex="1" >
-                <span class="invalid-feedback col-md-8 session_time-err" id="address" >@if($errors->has('address')) {{ $errors->first('address') }}@endif </span>
+                <span class="invalid-feedback col-md-8" id="address_err" >@if($errors->has('address')) {{ $errors->first('address') }}@endif </span>
                 </div>
               </div>
 
@@ -126,7 +126,7 @@ td.fc-week-number {
                 <input type="text" class="col-md-8 login_input telephone_number form-control" name="telephone_number" id="telephone_number" 
                 placeholder="{{ __('lang.product_buyer_phone_no')}}" value="{{old('telephone_number')}}" 
                 tabindex="1" >
-                <span class="invalid-feedback col-md-8 session_time-err" id="telephone_number" >@if($errors->has('telephone_number')) {{ $errors->first('telephone_number') }}@endif </span>
+                <span class="invalid-feedback col-md-8 session_time-err" id="telephone_number_err" >@if($errors->has('telephone_number')) {{ $errors->first('telephone_number') }}@endif </span>
                 </div>
               </div>
 
@@ -134,7 +134,7 @@ td.fc-week-number {
               <label class="col-md-3 product_table_heading">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
                   
               <div class="col-md-8">
-                  <textarea class="col-md-12 login_input form-control" name="description" rows="5" cols="5" placeholder="{{ __('users.service_description_placeholder')}}" value="" tabindex="2">{{old('description')}}</textarea>
+                  <textarea class="col-md-12 login_input form-control description" name="description" rows="5" cols="5" placeholder="{{ __('users.service_description_placeholder')}}" value="" tabindex="2">{{old('description')}}</textarea>
                   <span class="invalid-feedback col-md-8" id="err_description">@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
               </div>
               </div>
@@ -153,7 +153,7 @@ td.fc-week-number {
                   </optgroup>
                   @endforeach
                 </select>
-                <span class="invalid-feedback col-md-8" id="err_find_us">@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
+                <span class="invalid-feedback col-md-8" id="err_categories">@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
                 </div>
               </div>
 
@@ -182,7 +182,7 @@ td.fc-week-number {
                   <label class="col-md-3 product_table_heading">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
                   <div class="col-md-8">
                   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price" placeholder="{{ __('users.service_price_placeholder')}}" value="{{(old('service_price')) ?  old('service_price') :''}}" tabindex="7">
-                  <span class="invalid-feedback col-md-8 service_validation_err" id="service_price">@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
+                  <span class="invalid-feedback col-md-8 service_validation_err" id="err_service_price">@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
                 </div>
               </div>
 
@@ -255,13 +255,13 @@ td.fc-week-number {
               </div>
 
               <div class="col-md-1 text-center" style="margin-top: 65px !important;">
-                <label class="col-md-12 product_table_heading">{{ __('lang.action_label')}}</label>
-             <!--    <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_btn')}}</a> -->
-                <select name="del_start_time" id="del_start_time" class="form-control" style="margin-top: 25px;width: 100px;">
-                  <!-- <option value="" >{{ __('lang.select_label')}}</option> -->
+                 <input type="hidden"  name="del_start_time" id="del_start_time">
+                <!-- <label class="col-md-12 product_table_heading">{{ __('lang.action_label')}}</label> 
+            <select name="del_start_time" id="del_start_time" class="form-control" style="margin-top: 25px;width: 100px;">
+                  <option value="" >{{ __('lang.select_label')}}</option>
                   <option value="insert">{{ __('lang.save_btn')}}</option>
                     <option value="delete">{{ __('lang.delete_title')}}</option>
-                </select>
+                </select> -->
                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('del_start_time')) {{ $errors->first('del_start_time') }}@endif </span>
               </div>
             </div>
@@ -320,8 +320,10 @@ td.fc-week-number {
           <div class="col-md-12">
             <div class="col-md-6"></div>
             <div class="col-md-6">
-              <div class="col-md-3" style="margin-left: 200px !important;">
-              <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-black debg_color login_btn " tabindex="9">{{ __('lang.save_service_date_btn')}}</a>
+              <div class="col-md-3" style="margin-left: 200px !important;display:flex;"> 
+                <a href="javascript:void(0);" name="remove_service_date" id="remove_service_date" class="btn btn-danger login_btn save_service_date" tabindex="9" val="delete">{{ __('lang.remove_title')}}</a>
+&nbsp;&nbsp;
+              <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
               <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
             </div>
             <div class="col-md-3"></div>
@@ -428,14 +430,105 @@ $(document).ready(function() {
 
 $('#saveservicebtn').click(function(){
 
-  let is_clicked = $(".is_clicked").val();
-  let service_image = $(".service_image").val();
-  let hidden_images = $(".hidden_images").val();
+  let is_clicked       = $(".is_clicked").val();
+  let title            = $("#title").val();
+  let session_time     = $("#session_time").val();
+  let address          = $("#address").val();
+  let telephone_number = $("#telephone_number").val();
+  let description      = $(".description").val();
+  let categories       = $("#categories").val();
+  let service_price    = $("#service_price").val();
+  let service_image    = $(".service_image").val();
+  let hidden_images    = $(".hidden_images").val();
   let error = 0;
+
+
+  
   if(is_clicked == '')
   {
     showErrorMessage(please_add_service_time);
     error = 1;
+  }else if(title=='' || session_time=='' || address == '' || telephone_number == '' || description == ''  || categories == null || service_price==''){
+    showErrorMessage(enter_all_fields_err);
+    error = 1;
+  }
+
+
+  if(title == '')
+  {
+    $("#err_title").html(required_field_error).show();
+    $("#err_title").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#err_title").html('').show();
+
+  }
+
+  if(session_time == '')
+  {
+    $("#session_time_err").html(required_field_error).show();
+    $("#session_time_err").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#session_time_err").html('').show();
+
+  }
+
+  if(address == '')
+  {
+    $("#address_err").html(required_field_error).show();
+    $("#address_err").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#address_err").html('').show();
+
+  }
+
+  if(telephone_number == '')
+  {
+    $("#telephone_number_err").html(required_field_error).show();
+    $("#telephone_number_err").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#telephone_number_err").html('').show();
+
+  }
+
+  if(description == '')
+  {
+    $("#err_description").html(required_field_error).show();
+    $("#err_description").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#err_description").html('').show();
+
+  }
+
+  if(categories == null)
+  {
+    $("#err_categories").html(required_field_error).show();
+    $("#err_categories").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#err_categories").html('').show();
+
+  }
+
+  if(service_price == '')
+  {
+    $("#err_service_price").html(required_field_error).show();
+    $("#err_service_price").parent().addClass('jt-error');
+    error = 1;
+  } else
+  {
+    $("#err_service_price").html('').show();
+
   }
 
   if(service_image == '')
@@ -542,8 +635,12 @@ $('#saveservicebtn').click(function(){
   });
 });
 var service_time_counter  = 10000;
-  $('#save_service_date').click(function(){
+
+
+  $('.save_service_date').click(function(){
     $('#is_clicked').val('1');
+    var button = $(this).attr('val');
+    $('#del_start_time').val(button);
     service_time_counter  = service_time_counter+1;
     if($('#service_month').val()=='' || $('#service_year').val()=='' || $('#service_date').val()=='' || $('#to_service_month').val()=='' || $('#to_service_year').val()=='' || $('#to_service_date').val()==''
     || $('#start_time').val()=='00:00' || $('#start_time').val()=='') {

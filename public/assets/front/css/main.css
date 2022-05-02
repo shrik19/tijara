@@ -1476,6 +1476,16 @@ span.remember-text {
 		padding: 10px 40px;
 		font-size: 18px;
 	}
+
+input.previous.btn.gray_color.action-button-previous.step-third-previous {
+     float: left; 
+     margin-left: 32%; 
+}
+#third-step {
+    float: right;
+    margin-right: 32%;
+}
+
 	
 	.seller_register_container .seller_register_second input[type=button] {
 		color: #FFFFFF;
@@ -1497,7 +1507,7 @@ span.remember-text {
 }
   .seller_register_container .seller_register_fourth input[type=button] {
     float: left;
-    margin-left: 36%;
+    margin-left: 33%;
     margin-top: 5%;
 }
 	

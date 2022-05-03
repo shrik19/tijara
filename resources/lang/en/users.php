@@ -400,5 +400,6 @@ cancellation of service works.',
     'complete_order_status' => 'Complete',
     'order_table_action' => 'Action',
     'paid_payment_status' => 'PAID',
+    'tijara_announser_label'=>'Tijaras annonser',
  ]
 ?>

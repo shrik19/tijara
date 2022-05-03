@@ -46,7 +46,7 @@ body{
           <div id="main">
             <div class="fof">
                 <h1>Error 404</h1>
-                <p>{{ __('lang.err_404_msg')}} <a href="{{route('AllproductListing')}}">{{ __('lang.product_label')}}</a> och <a href="{{route('AllbuyerProductListing')}}">{{ __('lang.market_label')}}</a> </p>
+                <p>{{ __('lang.err_404_msg')}} <a href="{{route('AllproductListing')}}">{{ __('lang.market_label')}}</a> eller bland <a href="{{route('AllbuyerProductListing')}}">{{ __('users.tijara_announser_label')}}</a>   </p>
             </div>
           </div>        
       </div>
@@ -55,3 +55,4 @@ body{
 </div> <!-- /container -->
 
 @endsection
+

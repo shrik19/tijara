@@ -29,7 +29,10 @@
         <h5>{{$product['category_name']}}</h5></a> -->
         <a href="{{$product->product_link}}" title="{{$product->title}}"><h4>@php echo substr($product->title, 0, 50) @endphp</h4></a>
         @if(!empty($product->price))
-        <h6 class="product_price">{{$product->price}} kr</h6>
+        @php   
+          $price_tbl = swedishCurrencyFormat($product->price);
+        @endphp
+        <h6 class="product_price">{{$price_tbl}} kr</h6>
         @endif
         <h6 >{{$product->seller}}</h6>
     </div>

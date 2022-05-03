@@ -155,11 +155,7 @@ width:100% !important;
                 <input type="text" class="form-control login_input sku variant_field" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value="{{$variant['sku']}}" tabindex="7">
                 <span class="invalid-feedback col-md-12" style="text-align: left;"  id="err_sku" ></span>
                 </div>
-                <div style="display:none;" class="form-group  col-md-6 ptb-15" >
-                <label class="col-md-12 p-0">{{ __('lang.weight_label')}} <span class="de_col"></span></label>
-                <input type="text" class="form-control login_input weight variant_field" name="weight[<?php echo $i;?>]"  placeholder="{{ __('lang.weight_placeholder')}}" value="{{$variant['weight']}}" tabindex="7">
-                <span class="invalid-feedback col-md-12" style="text-align: left;"  id="err_sku" ></span>
-                </div>
+               
                 <div class="form-group" style="margin-top: 50px;">
                 <label class="col-md-12 p-0">{{ __('lang.price_label')}} <span class="de_col">*</span></label>
                 <input type="tel" class="form-control login_input price number variant_field" id="price" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value="{{$variant['price']}}" tabindex="7">

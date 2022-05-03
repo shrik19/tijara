@@ -1322,8 +1322,11 @@ span.remember-text {
   top: -4px;
     right: 10px;
 }
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+  padding: 8px 4px 8px;
+}
 .service_wishlist_h2{
-  margin-left: 6px !important;
+  /* margin-left: 6px !important; */
 }
 .cart_total_css{
   font-size: 14px;
@@ -2740,7 +2743,7 @@ text-align: right;
   
     text-overflow: ellipsis;}
   .product_table_heading{
-      font-weight: 500;
+      font-weight: 500;    padding: 9px 4px 8px;
     }
 .buyer_prduct_header{font-size: 36px!important;}
 .seller_search {

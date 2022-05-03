@@ -67,9 +67,17 @@
             <p class="card-text buyer-product-title">{{$title}}</p>
             <p class="card-text" style="margin-bottom: 20px;">  
             <span class="buyer-price buyer-product-price" id="product_variant_price">
-            <span style="@if(!empty($discount_price)) text-decoration: line-through; @endif">{{ number_format($value['price'],2) }} kr
+            <span style="@if(!empty($discount_price)) text-decoration: line-through; @endif">
+                @php                                 
+                    $price_tbl = swedishCurrencyFormat($value['price']);
+                @endphp
+                {{ @$price_tbl }} kr
             </span>
-            @if(!empty($discount_price)) &nbsp;&nbsp;{{ number_format($discount_price,2) }} kr @endif 
+            @if(!empty($discount_price))
+            @php                                 
+                $discount_price_tbl = swedishCurrencyFormat($discount_price);
+            @endphp
+                 &nbsp;&nbsp;{{ @$discount_price_tbl }} kr @endif 
             &nbsp;&nbsp;
             @if(!empty($value->discount))
             <?php echo "(".$value->discount."% off)";?> @endif</span> 

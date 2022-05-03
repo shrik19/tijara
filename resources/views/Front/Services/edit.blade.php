@@ -535,7 +535,7 @@ $('#saveservicebtn').click(function(){
   }
 
 
-  if(service_image == '')
+ /* if(service_image == '')
   {
     $("#err_service_image").html(please_uplaod_service_image).show();
     $("#err_service_image").parent().addClass('jt-error');
@@ -544,23 +544,26 @@ $('#saveservicebtn').click(function(){
   {
     $("#err_service_image").html('').show();
 
-  }
+  }*/
 
-  if(hidden_images == '')
+  if(hidden_images == '' || typeof hidden_images === "undefined")
   {
-    $("#err_service_hid_image").html(wait_while_upload).show();
-    $("#err_service_hid_image").parent().addClass('jt-error');
+    // $("#err_service_hid_image").html(wait_while_upload).show();
+    // $("#err_service_hid_image").parent().addClass('jt-error');
+    $("#err_service_image").html(please_uplaod_service_image).show();
+    $("#err_service_image").parent().addClass('jt-error');
     error = 1;
   }
   else
   {
-    $("#err_service_hid_image").html('').show();
+    $("#err_service_image").html('').show();
 
   }
 
    
   if(error == 1)
   {
+    showErrorMessage(enter_all_fields_err);
     return false;
   }
   else

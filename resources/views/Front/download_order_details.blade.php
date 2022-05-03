@@ -81,9 +81,9 @@
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                         {{ $orderProduct['quantity'] }}
                         </td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($orderProduct['price'],2) }} kr</strong></td>
-                        <td class="col-sm-1 col-md-1 text-right"><strong>{{ number_format($orderProduct['shipping_amount'],2)}} kr</strong></td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(str_ireplace('.','.',$orderProduct['price']), 2, ',',' ') }} kr</strong></td>
+                        <td class="col-sm-1 col-md-1 text-right"><strong>{{ number_format(str_ireplace('.','.',$orderProduct['shipping_amount']),2 , ',',' ')}} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(str_ireplace('.','.',$orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']),2 , ',',' ')}} kr</strong></td>
                     </tr>
                   @endforeach
                     <tr>
@@ -92,7 +92,7 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h5>{{ __('lang.shopping_cart_subtotal')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($subTotal,2)}} kr</strong></h5></td>
+                        <td class="text-right"><h5><strong>{{number_format(str_ireplace('.','.',$subTotal),2 , ',',' ')}} kr</strong></h5></td>
                     </tr>
                     <tr>
                     <td>   </td>
@@ -100,7 +100,7 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h5>{{ __('lang.shopping_cart_shipping')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($shippingTotal,2)}} kr</strong></h5></td>
+                        <td class="text-right"><h5><strong>{{number_format(str_ireplace('.','.',$shippingTotal),2, ',',' ')}} kr</strong></h5></td>
                     </tr>
                     <tr>
                         <td colspan="2"> 
@@ -139,7 +139,7 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h3>{{ __('lang.shopping_cart_total')}}</h3></td>
-                        <td class="text-right"><h5><strong>{{number_format($Total,2)}} kr</strong></h5></td>
+                        <td class="text-right"><h5><strong>{{number_format(str_ireplace('.','.',$Total),2, ',',' ')}} kr</strong></h5></td>
                     </tr>
                 @endif  
                 </tbody>

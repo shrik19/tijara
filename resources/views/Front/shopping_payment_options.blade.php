@@ -407,10 +407,13 @@
                             <h4>{{$orderProduct['product']['title']}}</h4>
                             <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['product']['variant_attribute_id']);?> </h5>
                             <p>{{ __('lang.shopping_cart_quantity')}}:  {{$orderProduct['product']['quantity']}}</p>
-                                 @php 
+                            <?php /* 
                                       $price_array_tbl = str_split(strrev($orderProduct['price']), 3);
                                       $price_tbl = strrev(implode(" ", $price_array_tbl));
                                       $price_tbl = $price_tbl.",00";
+                                      */?>
+                                 @php 
+                                      $price_tbl = swedishCurrencyFormat($orderProduct['price']);
                                   @endphp
                             <p>{{ __('lang.shopping_cart_price')}}: @if(!empty($price_tbl)) {{@$price_tbl}} kr @endif </p>
                           </div>
@@ -425,11 +428,14 @@
                 
                 <div class="col-md-12">
                   <div class="checkoutAmountBorder">
+                    <?php /* 
+                      $sub_total_tbl = str_split(strrev($orderDetails[$orderId]['subTotal']), 3);
+                      $sub_total_amt = strrev(implode(" ", $sub_total_tbl));
+                      $sub_total_tbl = $sub_total_amt.",00";
+                    */?>
                     @php 
                         $sub_total = $orderDetails[$orderId]['subTotal'];
-                        $sub_total_tbl = str_split(strrev($orderDetails[$orderId]['subTotal']), 3);
-                        $sub_total_amt = strrev(implode(" ", $sub_total_tbl));
-                        $sub_total_tbl = $sub_total_amt.",00";
+                        $sub_total_tbl = swedishCurrencyFormat($sub_total);
                     @endphp
                     <span>{{ __('lang.shopping_cart_subtotal')}}:</span>
                    
@@ -437,18 +443,22 @@
                     <input type="hidden" name="hid_get_subtotal" class="hid_get_subtotal" value="{{@$sub_total}}">
                   </div>
                   <div class="checkoutAmountBorder">
-                    @php 
-                        $shipping_total_tbl = str_split(strrev(round($orderDetails[$orderId]['shippingTotal'])), 3);
+
+                     <?php /*   $shipping_total_tbl = str_split(strrev(round($orderDetails[$orderId]['shippingTotal'])), 3);
                         $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
-                        $shipping_total_tbl = $shipping_total_tbl.",00";
+                        $shipping_total_tbl = $shipping_total_tbl.",00"; */?>
+                    @php 
+                    $sub_total_tbl = swedishCurrencyFormat($orderDetails[$orderId]['shippingTotal']);
                     @endphp
                   <span>{{ __('lang.shopping_cart_shipping')}}:</span><span style="float: right;" class="decide_shipping">{{@$shipping_total_tbl}} kr</span>
                 </div>
                 <div class="checkoutAmountBorder">
-                  @php 
-                    $total_tbl = str_split(strrev($orderDetails[$orderId]['Total']), 3);
+                  <?php /*
+                  $total_tbl = str_split(strrev($orderDetails[$orderId]['Total']), 3);
                     $total_tbl = strrev(implode(" ", $total_tbl));
-                    $total_tbl = $total_tbl.",00";
+                    $total_tbl = $total_tbl.",00"; */?>
+                  @php 
+                    $total_tbl = swedishCurrencyFormat($orderDetails[$orderId]['Total']);
                   @endphp
                   <span>{{ __('lang.shopping_cart_total')}}:</span><span style="float: right;" class="decide_total">{{@$total_tbl}} kr</span>
                 </div>
@@ -461,7 +471,7 @@
               </div>
               
               
-              <!-- <div class="col-md-12">
+              <?php /* <div class="col-md-12">
                   <div class="col-md-2"></div>
                 @foreach($payment_options as $p)
                   <div class="col-md-3 text-center">
@@ -471,7 +481,7 @@
                     </button>
                   </div>
                   @endforeach
-              </div> -->
+              </div> */?>
               </form>
           </div>
         </div>

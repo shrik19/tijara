@@ -249,3 +249,14 @@ function getNewBookings($userId)
 
   return count($allBookings);
 }
+
+/*
+function to convert amount into swedish number format
+@param:$amount
+@return:swedish currency format
+*/
+function swedishCurrencyFormat($amount){
+
+ $number = number_format(str_ireplace('.','.',$amount), 2, ',',' ');
+ return $number;
+}

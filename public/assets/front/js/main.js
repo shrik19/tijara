@@ -562,20 +562,15 @@ $(".saveproduct").click(function(e){
 
   }*/
 
-  if(hidden_images == '')
+  if(hidden_images == '' || typeof hidden_images === "undefined")
   {
-    $("#err_variant_hid_image").html(wait_while_upload).show();
-    $("#err_variant_hid_image").parent().addClass('jt-error');
-    error = 1;
-  }/*else if(hidden_images =='' && variant_image == ''){
-
-     $("#err_variant_image").html(required_field_error).show();
+    $("#err_variant_image").html(required_field_error).show();
     $("#err_variant_image").parent().addClass('jt-error');
     error = 1;
-  }*/
+  }
   else
   {
-    $("#err_variant_hid_image").html('').show();
+    $("#err_variant_image").html('').show();
   }
 
 

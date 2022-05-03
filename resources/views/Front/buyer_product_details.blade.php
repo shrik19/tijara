@@ -55,7 +55,11 @@
                    <!--  <h4 class="product_price" id="product_variant_price" style="color:#03989e;"><span>{{ __('lang.price_label')}} :</span>{{ number_format($first['price'],2) }} kr  {{ number_format($first['discount_price'],2) }} kr</h4> -->
 
                     <div class="quantity_box">              
-                               <span  style="margin-top: -10px;"  class="product_original_price" id="product_variant_price">{{ number_format($first['price'],2) }} kr</span> 
+                               <span  style="margin-top: -10px;"  class="product_original_price" id="product_variant_price">
+                                @php   
+                                  $price_tbl = swedishCurrencyFormat($first['price']);
+                                @endphp
+                               {{ $price_tbl }} kr</span> 
                       <div style="margin-top: 30px;"> 
                         <span class="service_time_css">{{ __('users.sold_by_title')}} : @if(!empty($product_seller_name)){{$product_seller_name}}@endif </span>
                          <span style="padding-left:13%" class="service_time_css"> <img src="{{url('/')}}/assets/img/7.png" width="40" />

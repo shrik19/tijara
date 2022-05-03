@@ -27,19 +27,19 @@
 								</div>
 
 					@else
-						<div class="tijara-content m-30">
+						<div class="tijara-content">
 							@include ('Front.alert_messages')
 							<div class="seller_info border-none">
 								<div class="card">
 									<div class="card-header row">
 										<!-- <div class="col-md-3"></div>
 										<div class="col-md-5"> -->
-										<h2 class="page_heading" style="font-size:24px !important;">{{ __('users.change_password_title')}} </h2>
+										<h2 class="page_heading" style="font-size:28px !important; font-weight:600; padding-left:18px">{{ __('users.change_password_title')}} </h2>
 									</div>
 								</div>
 							@endif
 								<div class="col-md-12">
-									<div class="row">
+									<div>
 										<!--   <div class="col-md-2"></div> -->
 										<div class="col-md-5">
 											@if($is_seller==1)

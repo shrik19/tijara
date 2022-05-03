@@ -82,14 +82,10 @@ if (@$_GET['print'])
                         </td>
                         <td class="col-sm-2 col-md-2 text-right">
                             <p class="product_sorting_filter_option">
-                        <?php/* 
-                                    $order_product_amount = str_split(strrev($orderProduct['price']), 3);
-                                    $order_product_amount_tbl = strrev(implode(" ", $order_product_amount));
-                                    $order_product_amount_tbl = $order_product_amount_tbl.",00";
-                                    */
-                                                    
-                        $order_product_amount_tbl = swedishCurrencyFormat($orderProduct['price']);
-                        ?>
+   
+                        @php                          
+                         $order_product_amount_tbl = swedishCurrencyFormat($orderProduct['price']);
+                        @endphp
                                 {{$order_product_amount_tbl}} kr
                             
                             </p>

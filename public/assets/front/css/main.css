@@ -1732,7 +1732,7 @@ overflow: hidden;margin-top: 155px;}
 }
 .seller_register_container .register_banner {
     /* min-height: 900px; */
-    height: 100vh;
+    height: 100vh;    padding: 0.7% 3% 10% 1.8%;
 }
 #sliderImages{        height: auto;
     float: left;

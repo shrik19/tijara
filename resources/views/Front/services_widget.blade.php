@@ -73,7 +73,7 @@ if(strpos(@$path, 'services') != false){
           @php             
             $service_price_tbl = swedishCurrencyFormat($service->service_price);
           @endphp
-          <h6>{{$service_price_tbl}} kr</h6>
+          <h6>{{@$service_price_tbl}} kr</h6>
         @endif
           <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
 
@@ -99,7 +99,7 @@ if(strpos(@$path, 'services') != false){
            @php             
             $service_price_tbl_new = swedishCurrencyFormat($service->service_price);
           @endphp
-          <h6 class="product_price" style="margin-top: 6px;">{{$service_price_tbl_new}} kr</h6>
+          <h6 class="product_price" style="margin-top: 6px;">{{@$service_price_tbl_new}} kr</h6>
         @endif
 
         <!-- below code is for seller name  -->

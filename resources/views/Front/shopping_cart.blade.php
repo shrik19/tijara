@@ -124,7 +124,7 @@
                         </select>
                         </td>
                         <td class="col-sm-2 col-md-2 text-right bg-white"><p class="product_sorting_filter_option">
-                             @php                                 
+                            @php                                 
                                 $price_tbl = swedishCurrencyFormat($orderProduct['price']);
                             @endphp
                                {{ $price_tbl }} kr

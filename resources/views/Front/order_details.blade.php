@@ -82,32 +82,39 @@ if (@$_GET['print'])
                         </td>
                         <td class="col-sm-2 col-md-2 text-right">
                             <p class="product_sorting_filter_option">
-                                 @php 
-                                    $order_product_amount = str_split(strrev($orderProduct['price']), 3);
-                                    $order_product_amount_tbl = strrev(implode(" ", $order_product_amount));
-                                    $order_product_amount_tbl = $order_product_amount_tbl.",00";
-                                @endphp
+   
+                        @php                          
+                         $order_product_amount_tbl = swedishCurrencyFormat($orderProduct['price']);
+                        @endphp
                                 {{$order_product_amount_tbl}} kr
                             
                             </p>
                         </td>
                         <td class="col-sm-1 col-md-1 text-right">
                             <p class="product_sorting_filter_option">
-                                @php 
+                        <?php /* 
                                     $shipping_amount = str_split(strrev($orderProduct['shipping_amount']), 3);
                                     $shipping_tbl = strrev(implode(" ", $shipping_amount));
                                     $shipping_tbl = $shipping_tbl.",00";
-                                @endphp
+                             
+                                  */
+                                                        
+                        $shipping_tbl = swedishCurrencyFormat($orderProduct['shipping_amount']);
+                        ?>
                                 {{$shipping_tbl}} kr
                             </p>
                         </td>
                         <td class="col-sm-2 col-md-2 text-right">
                             <p class="product_sorting_filter_option">
-                                 @php 
+                                <?php /*
                                     $total_product_amount = str_split(strrev(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']), 3);
                                     $total_product_amount_tbl = strrev(implode(" ", $total_product_amount));
                                     $total_product_amount_tbl = $total_product_amount_tbl.",00";
-                                @endphp
+                                */
+    
+                                   $total_product_amount = ($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'];                             
+                                  $total_product_amount_tbl = swedishCurrencyFormat($total_product_amount);
+                               ?>
                                 {{$total_product_amount_tbl}} kr
                                 
                             </p>
@@ -121,11 +128,14 @@ if (@$_GET['print'])
                         <td><p class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</p></td>
                         <td class="text-right">
                             <p class="product_sorting_filter_option">
-                                @php 
+                            <?php /*
                                     $subTotal_amount = str_split(strrev($subTotal), 3);
                                     $subTotal_tbl = strrev(implode(" ", $subTotal_amount));
                                     $subTotal_tbl = $subTotal_tbl.",00";
-                                @endphp
+                                */
+                              
+                                  $subTotal_tbl = swedishCurrencyFormat($subTotal);
+                               ?>
                                 {{$subTotal_tbl}} kr
                             </p>
                     </td>
@@ -137,11 +147,13 @@ if (@$_GET['print'])
                         <td><p class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</p></td>
                         <td class="text-right">
                             <p class="product_sorting_filter_option">
-                                @php 
+                                <?php /*
                                     $shippingTotal_amount = str_split(strrev($shippingTotal), 3);
                                     $shippingTotal_tbl = strrev(implode(" ", $shippingTotal_amount));
                                     $shippingTotal_tbl = $shippingTotal_tbl.",00";
-                                @endphp
+                                */                               
+                                  $shippingTotal_tbl = swedishCurrencyFormat($shippingTotal);
+                                ?>
                                 {{$shippingTotal_tbl}} kr
                             </p>
                         </td>

@@ -77,7 +77,10 @@
                     <a class="buyer-product-img" href="javascript:void(0)" order_id="{{base64_encode($value->order_id)}}" title="{{ __('lang.txt_view')}}" style="color: #000 !important;">{{$productName}}</a></p>
                     <p class="card-text order-product-price">  
                     <span class="buyer-price" id="product_variant_price">
-                    {{number_format($product_price,2) }} kr
+                      @php                                 
+                        $product_price = swedishCurrencyFormat($product_price);
+                      @endphp
+                    {{$product_price}} kr
                     </span> 
                     </p>
                     <p class="card-text order-product-store-title"> <a href="{{$seller_link}}" style="color: #000 !important">{{$storeName}}</a></p>

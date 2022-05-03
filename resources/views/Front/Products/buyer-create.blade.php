@@ -274,7 +274,7 @@ width:100% !important;
       <!--     </div> -->
           <div class="row">
             <div class="col-md-12">&nbsp;</div>
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center" style="margin-bottom: 60px;">
             <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" 
             class="btn btn-black debg_color login_btn saveBuyerProduct" tabindex="9">{{ __('lang.continue_to_swish')}}</button>
 

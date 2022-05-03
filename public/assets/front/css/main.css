@@ -1394,10 +1394,12 @@ span.remember-text {
 		font-weight: bold;line-height: 55px;
 	}
 
-  .login_banner-header h1{
+ .login_banner-header h1{
     margin-left: 30px;
   }
-	
+	.register_banner-header h1{
+    margin-left: 10px;
+  }
 	.login_banner-footer,
 	.register_banner-footer{
 		bottom: 50px;

@@ -73,10 +73,11 @@
                             <span class="product_original_price" id="product_variant_price"><span style="margin-left: -12px;">@if(!empty($first['discount_price'])) &nbsp;&nbsp;
                           @php 
                             $discount_price_tbl = swedishCurrencyFormat($first['discount_price']); 
-                            $price_tbl = swedishCurrencyFormat($first['price']);
                           @endphp
                             {{ $discount_price_tbl }} kr @endif</span><span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @else margin-left: 10px; @endif">
-                              
+                            @php 
+                             $price_tbl = swedishCurrencyFormat($first['price']);
+                            @endphp
                             {{ $price_tbl }} kr</span>
                             
 

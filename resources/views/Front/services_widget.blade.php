@@ -70,7 +70,10 @@ if(strpos(@$path, 'services') != false){
         </div> 
 
         @if(!empty($service->service_price))
-          <h6>{{$service->service_price}} kr</h6>
+          @php             
+            $service_price_tbl = swedishCurrencyFormat($service->service_price);
+          @endphp
+          <h6>{{$service_price_tbl}} kr</h6>
         @endif
           <a href="{{$seller_link}}"><h5>{{$service->store_name}}</h5></a>
 

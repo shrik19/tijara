@@ -96,7 +96,15 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
         </div>
 
         @if(!empty($product->price))
-      <h6 class="product_price" style="margin-top: 6px;"> @if(!empty($product->discount_price)) {{$product->discount_price}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>{{$product->price}} kr </span></h6>
+      <h6 class="product_price cd" style="margin-top: 6px;"> @if(!empty($product->discount_price))
+                      @php                                 
+                        $discount_price_tbl = swedishCurrencyFormat($product->discount_price);
+                      @endphp
+       {{$discount_price_tbl}} kr @endif <span @if(!empty($product->discount_price)) class="dic_price" @endif>
+                        @php   
+                         $price_tbl = swedishCurrencyFormat($product->price);
+                        @endphp
+        {{$price_tbl}} kr </span></h6>
 
         @endif
            <a href="{{$seller_link}}" style="margin-top: 3px"><h5>{{$product->store_name}}</h5></a>

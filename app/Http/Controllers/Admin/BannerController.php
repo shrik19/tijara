@@ -171,8 +171,8 @@ class BannerController extends Controller
                     $old_x = imageSX($src_img);
                     $old_y = imageSY($src_img);
 
-                    $newWidth = 300;
-                    $newHeight = 300;
+                    $newWidth = 500;
+                    $newHeight = 500;
 
                     if($old_x > $old_y)
                     {
@@ -329,8 +329,8 @@ class BannerController extends Controller
                     $old_x = imageSX($src_img);
                     $old_y = imageSY($src_img);
 
-                    $newWidth = 300;
-                    $newHeight = 300;
+                    $newWidth = 500;
+                    $newHeight = 500;
 
                     if($old_x > $old_y)
                     {

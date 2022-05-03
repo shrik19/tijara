@@ -308,7 +308,7 @@
                                     
                                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="float: right;"></span>  
                                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="float: right;"></span>
-                                     <p class="seller-logo-info col-md-12" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
+                                     <p class="seller-logo-info col-md-12" style="font-size: 12px;margin-top:20px;">{{ __('messages.product_img_upload_info')}}</p>  
 
                                      </div>  
                                   </div>
@@ -382,7 +382,7 @@
 
                   
                         <div class="col-md-12">&nbsp;</div>
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 text-center" style="margin-bottom : 60px;">
                           <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn saveproduct" tabindex="9">{{ __('lang.save_btn')}}</button>
 
                           <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>

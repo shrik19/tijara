@@ -124,13 +124,13 @@
                         </select>
                         </td>
                         <td class="col-sm-2 col-md-2 text-right bg-white"><p class="product_sorting_filter_option">
-                             @php 
-                                $price_array_tbl = str_split(strrev($orderProduct['price']), 3);
-                                $price_tbl = strrev(implode(" ", $price_array_tbl));
-                                $price_tbl = $price_tbl.",00";
+                             @php                                 
+                                $price_tbl = swedishCurrencyFormat($orderProduct['price']);
                             @endphp
                                {{ $price_tbl }} kr
-                        <?php /*{{ number_format($orderProduct['price'],2) }} kr */ ?></p></td>
+                        <?php /*$price_tbl = strrev(implode(" ", $price_array_tbl));
+                                $price_tbl = $price_tbl.",00";
+                                {{ number_format($orderProduct['price'],2) }} kr */ ?></p></td>
                         <td class="col-sm-1 col-md-1 text-right bg-white"><p  class="product_sorting_filter_option">
                             @php 
                                 $shipping_array_tbl = str_split(strrev($orderProduct['shipping_amount']), 3);
@@ -142,14 +142,16 @@
                         <td class="col-sm-2 col-md-2 text-right bg-white">
                             <p  class="product_sorting_filter_option">
                                 @php 
-                                    $amt_total =(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']);
-                                    $total_tbl = str_split(strrev($amt_total), 3);
-                                    $total_price_tbl = strrev(implode(" ", $total_tbl));
-                                    $total_price_tbl = $total_price_tbl.",00";
+                                    $amt_total =(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']); $total_price_tbl = swedishCurrencyFormat($amt_total);
+
                                 @endphp
                                {{ $total_price_tbl }} kr
                                
-                                <?php /*{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr */ ?>
+                                <?php /*
+                                  //$total_tbl = str_split(strrev($amt_total), 3);
+                                    //$total_price_tbl = strrev(implode(" ", $total_tbl));
+                                   // $total_price_tbl = $total_price_tbl.",00";
+                                {{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr */ ?>
                             </p>
                         </td>
                         <td class="col-sm-1 col-md-1 text-right bg-white">
@@ -169,12 +171,13 @@
                         <td class="bg-white bbvbvb"><h5  class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
                         <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
                             @php 
-                                $price_subTotal_array = str_split(strrev($tmpOrderProduct['subTotal']), 3);
-                                $subTotal = strrev(implode(" ", $price_subTotal_array));
-                                $subTotal = $subTotal.",00";
+                                $subTotal = swedishCurrencyFormat($tmpOrderProduct['subTotal']);
                             @endphp
                             {{ $subTotal }} kr
-                        <?php /* {{number_format($tmpOrderProduct['subTotal'],2)}} kr */?></h5></td>
+                        <?php /* $price_subTotal_array = str_split(strrev($tmpOrderProduct['subTotal']), 3);
+                                $subTotal = strrev(implode(" ", $price_subTotal_array));
+                                $subTotal = $subTotal.",00";
+                                {{number_format($tmpOrderProduct['subTotal'],2)}} kr */?></h5></td>
 						<td class="bg-white">   </td>
                     </tr>
                     <tr>
@@ -202,12 +205,13 @@
                         <td class="bg-white"><h4 class="cart_total_css">{{ __('lang.shopping_cart_total')}}</h4></td>
                         <td class="text-right bg-white"><h4 class="cart_total_css">
                             @php 
-                                $price_array = str_split(strrev($tmpOrderProduct['Total']), 3);
-                                $price_nice = strrev(implode(" ", $price_array));
-                                $price_nice = $price_nice.",00";
+                                $price_nice = swedishCurrencyFormat($tmpOrderProduct['Total']);
                             @endphp
                         {{ $price_nice }} kr</h4></td>
-                        <?php /*{{number_format($tmpOrderProduct['Total'],2)}} kr */?>
+                        <?php /*$price_array = str_split(strrev($tmpOrderProduct['Total']), 3);
+                                $price_nice = strrev(implode(" ", $price_array));
+                                $price_nice = $price_nice.",00";
+                                {{number_format($tmpOrderProduct['Total'],2)}} kr */?>
 						<td class="bg-white">   </td>
                     </tr>
                     <tr>

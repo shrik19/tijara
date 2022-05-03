@@ -351,7 +351,7 @@
 
   <div class="row  tijara-content">  
     <div class="col-md-12">&nbsp;</div>
-    <div class="col-md-12 text-center">
+    <div class="col-md-12 text-center"  style="margin-bottom : 60px;">
       <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn saveproduct" tabindex="9">{{ __('lang.save_btn')}}</button>
       <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
     </div>

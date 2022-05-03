@@ -542,7 +542,7 @@ $('#saveservicebtn').click(function(){
 
   }
 
-  if(hidden_images == '')
+  if(hidden_images == ''  || typeof hidden_images === "undefined")
   {
     $("#err_service_hid_image").html(wait_while_upload).show();
     $("#err_service_hid_image").parent().addClass('jt-error');

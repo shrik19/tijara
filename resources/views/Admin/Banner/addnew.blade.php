@@ -13,14 +13,14 @@
                   <label>{{ __('users.select_page_ddl')}}  <span class="text-danger">*</span></label>
                   <select class="form-control" id="display_on_page" name="display_on_page" tabindex="1" >
                      <option value="">{{ __('users.select_page_ddl')}}</option>
-                     <option value="Home">{{ __('users.home_page')}}</option>
+                     <!-- <option value="Home">{{ __('users.home_page')}}</option> -->
                      <option value="Login">{{ __('lang.login_btn')}}</option>
                      <option value="Register">{{ __('lang.register_btn')}}</option>
-                     <option value="My Account">{{ __('lang.my_account_title')}}</option>
+                     <!-- <option value="My Account">{{ __('lang.my_account_title')}}</option>
                      <option value="Product List">{{ __('users.product_list_page')}}</option>
                      <option value="Shopping Cart">{{ __('users.shopping_cart_page')}}</option>
                      <option value="About Us"> {{ __('users.about_us_page')}}</option>
-                     <option value="Contact Us">{{ __('users.contact_us_page')}}</option>
+                     <option value="Contact Us">{{ __('users.contact_us_page')}}</option> -->
                   </select>
                <div class="invalid-feedback">
                   {{ __('errors.select_page_err')}}
@@ -48,7 +48,7 @@
                <div class="form-group">
                   <label>{{ __('users.image_thead')}}  <span class="text-danger">*</span></label>
                    <input type="file" name="image" class="form-control" tabindex="4" value="{{ old('image')}}" >
-                  <p>{{ __('users.image_upload_info')}}</p>
+                  <p>{{ __('users.image_upload_info')}}  <br> {{ __('users.image_upload_info_banner')}}</p>
                   <div class="invalid-feedback">
                     {{ __('errors.upload_banner_image_err')}}
                   </div>

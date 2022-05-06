@@ -122,7 +122,7 @@ Route::get('/buyer-products','Front\ProductController@listBuyerProduct')->name('
 
 
 Route::any('/checkout-swish-number/{type}','Front\ProductController@showCheckoutSwishNumber')->name('frontProductShowCheckoutNumber');
-
+  Route::any('/delete-product-variant', 'Front\ProductController@deleteProductVariant')->name('frontDeleteProductVariant');
 });	/*end Product Management  */
 
 /* product Attributes */

@@ -175,16 +175,17 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('img').remove();
     $trNew.find('.remove_image').remove();
     if($trNew.find('.add_attribute_group_td').find('.remove_variant_btn').length<=0)
-    $trNew.find('.remove_variant_div').html("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>");
+    $trNew.find('.remove_variant_div').html("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>").show();
+//$trNew.find('.remove_variant_div').html("<a href='javascript:void(0);' variant_id='"+variant_id+"' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a>").show();
 
-  $trNew.find('.select_attribute_value').each(function() { 
+    $trNew.find('.select_attribute_value').each(function() { 
          //$(this).attr('name','attribute_value['+variant_id+']['+$(this).attr('attribute_id')+']');
          $(this).attr('name','attribute_value['+variant_id+'][]');
      });
 	$trNew.find('span.invalid-feedback').each(function() { 
          $(this).html('');
      });
-$trNew.find('.variant_image').addClass('variant_field');
+  $trNew.find('.variant_image').addClass('variant_field');
     //$trNew.find('.variant_attribute_id').attr('name','variant_attribute_id['+variant_id+'][0]');
     //$trNew.find('.select_attribute').removeClass('preselected_attribute').attr('id','0').attr('name','attribute['+variant_id+'][0]');
     //$trNew.find('.select_attribute_value').removeClass('preselected_attribute').attr('name','attribute_value['+variant_id+'][0]');
@@ -330,6 +331,8 @@ $('body').on('click', '.remove_image', function () {
      //if (!confirm('Are you sure you want to remove Variant?')) return false;
      var redirect_url='';
      var rem =$(this);
+     var variant_id = rem.attr("remove_variant_id");
+
       $.alert({
       title: "Klart!",
       content: del_variant_confirm_box,
@@ -339,15 +342,31 @@ $('body').on('click', '.remove_image', function () {
       icon : "fas fa-check-circle",
       buttons: {
         ok: function () {
-          if(redirect_url == '')
-          {
-            rem.parent('div').parent('div').remove();
-          }
+
+             $.ajax({
+              url: siteUrl+'/manage-products/delete-product-variant',
+              data: {variant_id: variant_id},
+              headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+              },
+              type: 'post',
+              success:function(data)
+              {
+                $(".loader").hide();
+                if(data.status == 'success')
+                {
+                  rem.parent('div').parent('div').remove();
+                }
+                else
+                {
+                    showErrorMessage(data.error,'reload');
+                }
+               
+              }
+            });
         },
       }
     });
-      //showSuccessMessage(del_variant_confirm_box);
-    // $(this).parent('div').parent('div').remove();
  });
 //$( ".select_attribute" ).each(function() {
     $('#variant_table').on('change', '.select_attribute', function () {

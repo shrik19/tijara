@@ -2344,7 +2344,7 @@ public function findCurrency($type){
 
 
         //START : Send success email to Admin.
-        $admin_email = 'shrik.techbee@gmail.com';
+        $admin_email = env('ADMIN_EMAIL');
         $admin_name  = 'Tijara Admin';
         
         // $arrMailData = ['product_details_link' => $product_link];
@@ -2780,6 +2780,30 @@ public function findCurrency($type){
         */
         return view('Front/Products/listBuyerProducts', $data);
 
+    }
+
+
+     /**
+
+     * Delete Record
+
+     * @param  $id = Id
+
+     */
+
+    public function deleteProductVariant(Request $request) {
+        $variant_id = $request->variant_id;
+        $successMsg = $errorMsg = '';
+        if(!empty($variant_id)) {
+            VariantProduct::where('id', $variant_id)->delete();
+            VariantProductAttribute::where('variant_id', $variant_id)->delete();
+            $successMsg = trans('lang.record_delete');
+            $status = 'success';
+        }else{
+            $errorMsg = trans('errors.something_went_wrong');
+            $status = 'error';
+        }
+        return response()->json(['success'=>$successMsg,'error'=>$errorMsg, 'status'=>$status]);
     }
 
 

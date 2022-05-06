@@ -274,20 +274,23 @@ class ProductController extends Controller
 
             $postedorder=$request['order'][0];
             if($postedorder['column']==0) $orderby='products.id';
-            if($postedorder['column']==1) $orderby='users.fname';
+            if($postedorder['column']==1) $orderby='products.title';
 
-			if($postedorder['column']==2) $orderby='products.title';
-
-            if($postedorder['column']==3) $orderby='variant_product.sku';
-
-            if($postedorder['column']==4) $orderby='variant_product.price';
-
-            if($postedorder['column']==6) $orderby='products.sort_order';
-
-			if($postedorder['column']==7) $orderby='products.created_at';
+            if($postedorder['column']==2) $orderby='variant_product.sku';
+            
+            if($postedorder['column']==3) $orderby='variant_product.price';
+            
+            if($postedorder['column']==5) $orderby='products.sort_order';
+            
+            if($postedorder['column']==6) $orderby='products.created_at';
 
 
-            $orderorder=$postedorder['dir'];
+            if($postedorder['column']==0){
+                $orderorder="DESC";
+            }else{
+                $orderorder=$postedorder['dir'];
+            }
+            
 
             $ProductsDetails = $ProductsDetails->orderby($orderby, $orderorder);
 
@@ -315,19 +318,27 @@ class ProductController extends Controller
                 if(!empty($recordDetailsVal['image'])) {
                     $imagesParts    =   explode(',',$recordDetailsVal['image']);
                     
-                    $image  =   url('/').'/uploads/ProductImages/productIcons/'.$imagesParts[0];
+                   $image_path  =   url('/').'/uploads/ProductImages/productIcons/'.$imagesParts[0];
+                    $image  =  '/uploads/ProductImages/productIcons/'.$imagesParts[0];
                 }
-                else
-                    $image  =     url('/').'/uploads/ProductImages/productIcons/no-image.png';
+               
+                if(file_exists(public_path($image))){
+                    $image      =   '<img src="'.$image_path.'" width="70" height="70">';
+                }else{
+                    $no_image =  url('/').'/uploads/ProductImages/productIcons/no-image.png';
+                    $image      =   '<img src="'.$no_image.'" width="70" height="70">';
+                }
                 
-                $image      =   '<img src="'.$image.'" width="70" height="70">';
 
                 $uname = (!empty($recordDetailsVal['fname'])) ? $recordDetailsVal['fname'].' '.$recordDetailsVal['lname'] : '-';
 
 				$title = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
                 $sku   = (!empty($recordDetailsVal['sku'])) ? $recordDetailsVal['sku'] : '-';
                 $price = (!empty($recordDetailsVal['price'])) ? $recordDetailsVal['price']." kr" : '-';
-                $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['updated_at']));
+              
+                date_default_timezone_set("Europe/Stockholm");  
+                $dated = $recordDetailsVal['created_at'];
+                $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
 
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
 

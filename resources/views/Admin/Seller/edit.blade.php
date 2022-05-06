@@ -166,7 +166,7 @@
             <div class="text-danger cloned-danger">{{$errors->first('sellerimages')}}</div>
 
          
-
+            <?php /*
             <div class="form-group">
               <label>{{ __('users.is_verified_thead')}}</label>
               <select class="form-control" id="is_verified" name="is_verified">
@@ -179,6 +179,8 @@
               </div>
               <div class="text-danger">{{$errors->first('is_verified')}}</div>
             </div>
+              */
+            ?>
 
             <div class="form-group">
             <label>

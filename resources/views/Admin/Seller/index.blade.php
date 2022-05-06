@@ -25,7 +25,7 @@
                   <th>{{ __('users.city_label')}}</th>
                   <th>{{ __('users.where_find_us_thead')}}</th>
                   <th data-orderable="false">{{ __('users.show_ackages_thead')}}</th>
-                  <th data-orderable="false">{{ __('users.is_verified_thead')}}</th>
+                  <!-- <th data-orderable="false">{{ __('users.is_verified_thead')}}</th> -->
                   <th data-orderable="false">{{ __('lang.status_thead')}}</th>
                   <th data-orderable="false">{{ __('lang.action_thead')}}</th>
                   </tr>

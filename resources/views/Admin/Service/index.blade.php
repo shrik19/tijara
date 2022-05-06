@@ -18,8 +18,10 @@
               <table class="table table-striped" id="serviceTable">
                 <thead>
                   <tr>
+                  <th data-orderable="false">{{ __('lang.image_label')}}</th>
                   <th>{{ __('servicelang.service_label')}}</th>
                   <th>{{ __('users.sellers_title')}}</th>
+                  <th>{{ __('lang.price_label')}}</th>
 				          <th  data-orderable="false">{{ __('lang.category_label')}}</th>
                   <th>{{ __('lang.dated_label')}}</th>
                   

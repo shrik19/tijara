@@ -131,7 +131,7 @@ att skapa ett.',
      'register_stripe_description' => 'Saknar du ett Stripe-konto, registrera dig på
 https://dashboard.stripe.com/register',
     'ad_save_success' => 'Din annons kommer att publiceras inom kort. Du kan se dina annonser under Mina annonser',
-    'del_variant_confirm_box' => 'Är du säker på att du vill ta bort variant?',
+    'del_variant_confirm_box' => 'Varianten är nu borttagen.',
     'add_attribute_info' => 'Ändra eller lägg till nya egenskaper till vänster under Attribut',
     'product_img_upload_info' => 'Lägg till en bild i storlek (1080x1080px). För flera bilder, lägg till en i taget.',
      'seller_product_varint_info' => 'Lägg till andra varianter av din produkt, så som färg eller storlek etc.',

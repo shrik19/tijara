@@ -21,7 +21,7 @@
             <div class="form-group">
               <label>{{ __('users.image_thead')}} <span class="text-danger">*</span></label>
               <input type="file" id="slider_image" name="slider_image" value="{{ old('slider_image')}}" tabindex="2"/><!-- style="color: #424a50;" -->
-              <p class="slider-note" style="color:#000;font-size: 12px;">({{ __('users.image_upload_info')}})</p>
+              <p class="slider-note" style="color:#000;font-size: 12px;">{{ __('users.image_upload_info')}} <br> {{ __('users.image_upload_info2')}}</p>
               <div class="text-danger">{{ ($errors->has('slider_image')) ? $errors->first('slider_image') : '' }}</div>
             </div>
 

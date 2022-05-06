@@ -13,14 +13,10 @@
                    <label>{{ __('users.select_page_ddl')}}  <span class="text-danger">*</span></label>
                   <select class="form-control" id="display_on_page" name="display_on_page" tabindex="1">
                      <option value="" >{{ __('users.select_page_ddl')}}</option>
-                     <option value="Home" <?php if($sliderData[0]->display_on_page=="Home"){ echo "selected"; } ?>>{{ __('users.home_page')}}</option>
+                     
                      <option value="Login" <?php if($sliderData[0]->display_on_page=="Login"){ echo "selected"; } ?>>{{ __('lang.login_btn')}}</option>
                      <option value="Register" <?php if($sliderData[0]->display_on_page=="Register"){ echo "selected"; } ?>>{{ __('lang.register_btn')}}</option>
-                     <option value="My Account" <?php if($sliderData[0]->display_on_page=="My Account"){ echo "selected"; } ?>>{{ __('lang.my_account_title')}}</option>
-                     <option value="Product List" <?php if($sliderData[0]->display_on_page=="Product List"){ echo "selected"; } ?>>{{ __('users.product_list_page')}}</option>
-                     <option value="Shopping Cart" <?php if($sliderData[0]->display_on_page=="Shopping Cart"){ echo "selected"; } ?>>{{ __('users.shopping_cart_page')}}</option>
-                     <option value="About Us" <?php if($sliderData[0]->display_on_page=="About Us"){ echo "selected"; } ?>>{{ __('users.about_us_page')}}</option>
-                     <option value="Contact Us" <?php if($sliderData[0]->display_on_page=="Contact Us"){ echo "selected"; } ?>>{{ __('users.contact_us_page')}}</option>
+
                   </select>
                   <div class="invalid-feedback">
                   {{ __('errors.select_page_err')}}
@@ -58,7 +54,7 @@
                   @endphp
                  
                   <input type="file" name="image" class="form-control" tabindex="4">
-                   <p>({{ __('users.image_upload_info')}})</p>
+                   <p>{{ __('users.image_upload_info')}} <br> {{ __('users.image_upload_info_banner')}}</p>
                   <div class="input-group-btn text-right"> 
                   </div>
                </div>

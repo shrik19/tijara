@@ -193,15 +193,39 @@ class ServiceController extends Controller
 
                 $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
                 $uname = (!empty($recordDetailsVal['fname'])) ? $recordDetailsVal['fname'].' '.$recordDetailsVal['lname'] : '-';
+               /* if(!empty($recordDetailsVal['images'])) {
+                    $imagesParts    =   explode(',',$recordDetailsVal['images']);
+                    
+                    $image  =   url('/').'/uploads/ServiceImages/resized/'.$imagesParts[0];
+                }
+                else{
+                    $image  =     url('/').'/uploads/ServiceImages/resized/no-image.png';
+                }
                 
+                $image      =   '<img src="'.$image.'" width="70" height="70">';*/
+                 if(!empty($recordDetailsVal['images'])) {
+                   $imagesParts    =   explode(',',$recordDetailsVal['images']);
+                    
+                   $image_path  =   url('/').'/uploads/ServiceImages/serviceIcons/'.$imagesParts[0];
+                   $image  =  '/uploads/ServiceImages/serviceIcons/'.$imagesParts[0];
+                }
+               
+                if(file_exists(public_path($image))){
+                    $image      =   '<img src="'.$image_path.'" width="70" height="70">';
+                }else{
+                    $no_image =  url('/').'/uploads/ServiceImages/serviceIcons/no-image.png';
+                    $image      =   '<img src="'.$no_image.'" width="70" height="70">';
+                }
+
                 $title = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
 
                
                 $sort_order = (!empty($recordDetailsVal['sort_order'])) ? $recordDetailsVal['sort_order'] : '-';
 
-                
-                $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
-                
+                date_default_timezone_set('Europe/Stockholm');
+                $dated = $recordDetailsVal['created_at'];
+                $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
+             
                 $categories =   Services::Leftjoin('category_services', 'services.id', '=', 'category_services.service_id') 
                                             ->Leftjoin('serviceSubcategories', 'serviceSubcategories.id', '=', 'category_services.subcategory_id')  
                                             ->select(['serviceSubcategories.subcategory_name'])
@@ -216,17 +240,15 @@ class ServiceController extends Controller
                 }
                 $categoriesData =   rtrim($categoriesData,', ');
                 
-              /*  $action = '<a href="'.route('frontServiceEdit', base64_encode($id)).'" 
-                title="'.trans('lang.edit_label').'" style="color:#06999F;" class=""><i class="fas fa-edit"></i> </a>&nbsp;&nbsp;';*/
 
 
-                 $action = '<a href="'.route('adminReviews' ,['service',base64_encode($id)]).'" title="'.trans('users.review_title').'" class="btn btn-icon btn-success"><i class="fas fa-comments"></i></a>&nbsp;&nbsp;';
+                $action = '<a href="'.route('adminReviews' ,['service',base64_encode($id)]).'" title="'.trans('users.review_title').'" class="btn btn-icon btn-success"><i class="fas fa-comments"></i></a>&nbsp;&nbsp;';
 
                 $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminServiceDelete', base64_encode($id)).'\');"  title="'.trans('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
 
             
 
-                $arr[] = [ $title,$uname,$categoriesData, $dated, $action];
+                $arr[] = [ $image, $title,$uname,'Kr'.$recordDetailsVal['service_price'],$categoriesData, $dated, $action];
 
             }
 
@@ -234,7 +256,7 @@ class ServiceController extends Controller
 
         else {
 
-            $arr[] = [ '','',trans('lang.datatables.sEmptyTable'), '',''];
+            $arr[] = ['', '','',trans('lang.datatables.sEmptyTable'),'', '',''];
 
         }
 

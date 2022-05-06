@@ -521,7 +521,11 @@ use File;
 
                 $id         = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
                 $title      = (!empty($recordDetailsVal['title'])) ? $recordDetailsVal['title'] : '-';
-                $created_at = (!empty($recordDetailsVal['created_at'])) ? date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at'])) : '-';
+                date_default_timezone_set('Europe/Stockholm');
+                $dated = $recordDetailsVal['created_at'];
+                $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
+             
+                $created_at = (!empty($dated)) ? $dated : '-';
 
                if(!empty($recordDetailsVal['image'])) {
                     $imagesParts    =   explode(',',$recordDetailsVal['image']);

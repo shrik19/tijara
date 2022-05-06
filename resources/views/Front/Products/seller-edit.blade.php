@@ -315,7 +315,12 @@
                               <!--  <div class=" col-md-12"><a href="javascript:void(0);" variant_id="" class="btn btn-danger btn-xs remove_variant_btn" title="Remove Variant"><i class="fas fa-trash"></i></a></div>
                                -->
                                   <!-- <div class="selected_images col-md-12"></div> -->
-                                  <div class="remove_variant_div col-md-12"><a href='javascript:void(0);' variant_id='<?php echo $i; ?>' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a></div>
+                                  <?php $css="";
+                                  if($i == 0) { 
+                                    $css="display:none";
+                                  }?>
+                                  <div class="remove_variant_div col-md-12" style="{{$css}}"><a href='javascript:void(0);' variant_id='<?php echo $i; ?>' class='btn btn-danger btn-xs remove_variant_btn' remove_variant_id="{{$variant_key1}}" title='Remove Variant'><i class='fas fa-trash'></i></a></div>
+                            
                                   <div class="loader"></div>
                                  
                                 </div>
@@ -483,7 +488,7 @@ function get_attribute_values(select_attribute, element, selected_attr_id) {
 		   data: {attribute_id: select_attribute},
 		   type: 'get',
 		   success: function(output) {
-						//console.log(output);
+						console.log(selected_attr_id);
             element.html(output);
             if(selected_attr_id !=0){ 
 

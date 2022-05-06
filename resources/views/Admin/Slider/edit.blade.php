@@ -22,7 +22,8 @@
                <div class="form-group">
                  <label>{{ __('users.image_thead')}} </label>
                  <input type="file" id="slider_image" name="slider_image" value="" />
-                 <p class="slider-note">({{ __('users.image_upload_info')}})</p>
+                 
+                 <p class="slider-note" style="color:#000;font-size: 12px;">{{ __('users.image_upload_info')}} <br> {{ __('users.image_upload_info2')}}</p>
                  @php
                  if(!empty($sliderDetails['sliderImage'])){
                      echo '<div class="col-md-4 existing-images"><img src="'.url('/').'/uploads/Slider/'.$sliderDetails['sliderImage'].'" style="width: 180px;height: 150px;padding-top: 20px;"></div>';

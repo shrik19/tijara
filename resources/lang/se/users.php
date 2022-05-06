@@ -137,6 +137,9 @@
      'shopping_cart_page'=>'Kundvagn',
      'product_list_page'=>'Produkt lista',
      'image_upload_info'=>'Vänligen ladda upp bilden mindre än 2 MB och endast jpeg, png, jpg, gif, svg filtyper tillåtna.',
+    'image_upload_info2'=>'Lägg till en bild i storlek (1600x500px). För flera bilder, lägg till en i taget.',
+    'image_upload_info_banner'=>'Lägg till en bild i storlek (1000x1000). För flera bilder, lägg till en i taget.',
+    
     /* package */
      'Package_title'=>'Paket',
      'amount_thead'=>'Belopp',

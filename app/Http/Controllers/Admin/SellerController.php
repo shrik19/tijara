@@ -157,11 +157,11 @@ class SellerController extends Controller
                 $showPackges =  '<a href="'.route('adminSellerShowPackages', base64_encode($id)).'" title="'.__('users.show_ackages_thead').'" class="btn btn-icon btn-info"><i class="fas fa-history"></i> </a>&nbsp;&nbsp;'; 
 
 
-                if ($recordDetailsVal['is_verified'] == 1) {
+                /*if ($recordDetailsVal['is_verified'] == 1) {
                     $is_verified = '<a href="javascript:void(0)" class="btn btn-icon btn-success" title="'.__('users.verified_seller_title').'"><i class="fas fa-circle"></i> </a>';
                  } else { 
                     $is_verified = '<a href="javascript:void(0)"  class="btn btn-icon btn-danger" title="'.__('users.pending_seller_title').'"><i class="fas fa-circle"></i> </a>';
-                }
+                }*/
 
                 if ($recordDetailsVal['status'] == 'active') {
                     $status = '<a href="javascript:void(0)" onclick=" return ConfirmStatusFunction(\''.route('adminSellerChangeStatus', [base64_encode($recordDetailsVal['id']), 'block']).'\');" class="btn btn-icon btn-success" title="'.__('lang.block_label').'"><i class="fa fa-unlock"></i> </a>';
@@ -173,11 +173,11 @@ class SellerController extends Controller
 
                 $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSellerDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
             
-                $arr[] = [$fname, $lname, $store_name, $city, $whereFindUs, $showPackges, $is_verified, $status, $action];
+                $arr[] = [$fname, $lname, $store_name, $city, $whereFindUs, $showPackges, $status, $action];
             }
         } 
         else {
-            $arr[] = ['',  '', '', trans('lang.datatables.sEmptyTable'), '', '', '', '',''];
+            $arr[] = ['',  '', '', trans('lang.datatables.sEmptyTable'), '', '', '',''];
         }
 
         $json_arr = [

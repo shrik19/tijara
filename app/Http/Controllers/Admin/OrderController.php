@@ -128,9 +128,14 @@ class OrderController extends Controller
                   $total = (!empty($recordDetailsVal['total'])) ? number_format($recordDetailsVal['total'],2) : '-';
                   $payment_status = (!empty($recordDetailsVal['payment_status'])) ? $recordDetailsVal['payment_status'] : '-';
                   $order_status = (!empty($recordDetailsVal['order_status'])) ? $recordDetailsVal['order_status'] : '-';
-                  $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
+
+                date_default_timezone_set("Europe/Stockholm");  
+                $dated = $recordDetailsVal['created_at'];
+                $dated = date('Y-m-d g:i a',strtotime("$dated UTC"));
+
+                 // $dated      =   date('Y-m-d g:i a',strtotime($recordDetailsVal['created_at']));
                   
-                  $action = '<a href="'.route('adminOrderView', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i class="fas fa-eye"></i> </a>&nbsp;&nbsp;<a href="'.route('frontDownloadOrderDetails', base64_encode($id)).'" title="Download"><i class="fas fa-file-download"></i> </a>';
+                  $action = '<a href="'.route('adminOrderView', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i class="fas fa-eye"></i> </a>&nbsp;&nbsp;<a href="'.route('adminDownloadOrderDetails', base64_encode($id)).'" title="Download"><i class="fas fa-file-download"></i> </a>';
 
                   $arr[] = [ '#'.$id, $user, $subtotal.' kr', $shipping_total.' kr',$total.' kr',  $payment_status, $order_status, $dated, $action];
                     
@@ -298,5 +303,153 @@ class OrderController extends Controller
                            ->get()->toArray();
       }
       return $productCategories;
+    }
+
+    function downloadOrderDetails($id)
+    {
+      $user_id = Auth::guard('user')->id();
+      $is_seller = 0;
+      $is_buyer_order = 0;
+      $orderDetails = [];
+      if($user_id)
+      {
+        $userRole = Auth::guard('user')->getUser()->role_id;
+        if($userRole == 2)
+        {
+          $is_seller = 1;
+        }
+        
+        $OrderId = base64_decode($id);
+        $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
+        $checkExistingOrderProduct = OrdersDetails::join('products','products.id','=','orders_details.product_id')->select('products.user_id as product_user')->where('order_id','=',$OrderId)->limit(1)->get()->toArray();
+        if(!empty($checkExistingOrderProduct))
+        {
+            foreach($checkExistingOrderProduct as $details)
+            {
+              if($details['product_user'] == $user_id)
+              {
+                $is_buyer_order = 1;
+              }
+            }
+        }
+
+        if(!empty($checkOrder))
+        {
+          $data['subTotal'] = $checkOrder['sub_total'];
+          $data['Total'] = $checkOrder['total'];
+          $data['shippingTotal'] = $checkOrder['shipping_total'];
+
+          if($is_seller == 0 && $checkOrder['user_id'] != $user_id && $is_buyer_order == 0) 
+          {
+            Session::flash('error', trans('errors.not_authorize_order'));
+            return redirect(route('frontHome'));
+          }
+          else
+          {
+              $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
+              if(!empty($checkExistingOrderProduct))
+              {
+                  foreach($checkExistingOrderProduct as $details)
+                  {
+                      $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
+                                  ->join('categories', 'categories.id', '=', 'category_products.category_id')
+                                  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                                  ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
+                                  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                                  //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
+                                  ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
+                                  ->where('products.status','=','active')
+                                  ->where('categories.status','=','active')
+                                  ->where('subcategories.status','=','active')
+                                  ->where('products.id','=',$details['product_id'])
+                                  ->where('variant_product.id','=',$details['variant_id'])
+                                  ->orderBy('products.id', 'DESC')
+                                  ->orderBy('variant_product.id', 'ASC')
+                                  ->groupBy('products.id')
+                                  ->get();
+                        
+                      if(count($TrendingProducts)>0) 
+                      {
+                        foreach($TrendingProducts as $Product)
+                        {
+                          if($is_seller == 1 && $Product->user_id != $user_id) 
+                          {
+                            Session::flash('error', trans('errors.not_authorize_order'));
+                            return redirect(route('frontHome'));
+                            exit;
+                          }
+
+                          $productCategories = $this->getProductCategories($Product->id);
+                          //dd($productCategories);
+
+                          $product_link = url('/').'/product';
+
+                          $product_link .=  '/'.$productCategories[0]['category_slug'];
+                          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+
+                          $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
+
+                          $Product->product_link  = $product_link;
+
+                          $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Product->user_id)->first()->toArray();
+                          //$Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
+                          $Product->seller  = $SellerData['store_name'];
+                          
+                          $data['seller_name'] = $Product->seller;
+                          $seller_name = str_replace( array( '\'', '"', 
+                          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '',$Product->seller);
+                          $seller_name = str_replace(" ", '-', $seller_name);
+                          $seller_name = strtolower($seller_name);
+
+                          $sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
+                          $data['seller_link'] = $sellerLink;
+                          
+                          $Product->quantity = $details['quantity'];
+                          $Product->image    = explode(',',$Product->image)[0];
+                          $details['product'] = $Product;
+                          $orderDetails[] = $details;
+
+                          if($is_buyer_order == 1)
+                          {
+                            $CheckIfAlreadyMarked = Products::where('id',$Product->id)->first();
+                            if(!empty($CheckIfAlreadyMarked))
+                            {
+                              $CheckIfAlreadyMarked = $CheckIfAlreadyMarked->toArray();
+                              if($CheckIfAlreadyMarked['is_sold'] == '0' && $is_seller == 0)
+                              { 
+                                $arrUpdateProduct = ['is_sold' => '1', 'sold_date' => date('Y-m-d H:i:s')];
+                                Products::where('id',$Product->id)->update($arrUpdateProduct);
+                              }
+                              
+                            }
+                            
+                          }
+                        }
+                      }
+                  }
+              }
+              
+          }
+
+          $data['details'] = $orderDetails;
+          $data['order'] = $checkOrder;
+          $data['is_seller'] = $is_seller;
+          $data['is_buyer_order'] = $is_buyer_order;
+          $address = json_decode($checkOrder['address'],true);
+          
+          $data['billingAddress'] = json_decode($address['billing'],true);
+          $data['shippingAddress'] = json_decode($address['shipping'],true);
+          $site_details          = Settings::first();
+          $data['siteDetails']   = $site_details;
+          //return view('Front/download_order_details', $data);
+          $pdf = PDF::loadView('Front/download_order_details',$data);
+          return $pdf->download('order-#'.$OrderId.'.pdf');
+        }
+      }
+      else 
+      {
+          Session::flash('error', trans('errors.login_buyer_required'));
+          return redirect(route('frontLogin'));
+      }
     }
 }

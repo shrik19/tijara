@@ -274,7 +274,7 @@ Route::group(['prefix'=>'admin','middleware'=>['general','prevent-back-history']
 		Route::get('/','OrderController@index')->name('adminOrder');
 		Route::any('/getRecords','OrderController@getRecords')->name('adminOrderGetRecords');
 		Route::get('/view/{id}','OrderController@view')->name('adminOrderView');
-	    Route::any('/download-order-details/{id}', 'Front\OrderController@downloadOrderDetails')->name('adminDownloadOrderDetails');
+	    Route::any('/download-order-details/{id}', 'OrderController@downloadOrderDetails')->name('adminDownloadOrderDetails');
 	});
 
 	/*Emails*/

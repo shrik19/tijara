@@ -188,7 +188,7 @@
                     @if($j > 1)
                       @php
                         
-                        if(!array_search(@$attribute_value, @$ProductAttributes[@$firstId]['variant_available_values'][@$firstAttr]))
+                        if(!empty($ProductAttributes[@$firstId]['variant_available_values'][@$firstAttr]) && !empty(@$attribute_value) && !array_search(@$attribute_value, @$ProductAttributes[@$firstId]['variant_available_values'][@$firstAttr]))
                         {
                           $disabled = 'disabled="disabled"';
                         } 

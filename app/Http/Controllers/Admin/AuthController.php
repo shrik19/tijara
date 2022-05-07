@@ -193,8 +193,11 @@ class AuthController extends Controller
         }
 
         $data['filterDate'] = $filterData;
-    
-        if($request->input('filter_date') != null)
+        if($request->input('filter_date') == 'all_month')
+        {
+            $currentMonth=$currentYear='';
+        }
+        if($request->input('filter_date') != null && ($request->input('filter_date') != 'all_month'))
         {
             $tempDate = explode('-',$request->input('filter_date'));
             $currentMonth = $tempDate[0];

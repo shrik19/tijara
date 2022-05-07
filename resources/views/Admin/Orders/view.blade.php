@@ -112,19 +112,35 @@
                         <td> 
                         <span style="font-size:16px;">
                             {{ __('messages.txt_seller')}} : <a href="{{$seller_link}}">{{ $seller_name }}</a><br />
-                            {{ __('messages.txt_payment_status')}} : {{ $order['payment_status'] }} <br />
-                            {{ __('messages.txt_order_status')}} : 
-                            @if($is_seller) 
-                            <select name="order_status" id="order_status" class="form-control" style="width: 50%;display: inline-block;">
-                                <option value="PENDING" @if($order['order_status'] == 'PENDING') selected="selected" @endif>PENDING</option>
-                                <option value="SHIPPED" @if($order['order_status'] == 'SHIPPED') selected="selected" @endif>SHIPPED</option>
-                                <option value="COMPLETE" @if($order['order_status'] == 'COMPLETE') selected="selected" @endif>COMPLETE</option>
-                                <option value="CANCELLED" @if($order['order_status'] == 'CANCELLED') selected="selected" @endif>CANCELLED</option>
+                         
+                            <?php 
+                            $payment_status = "";
+                            if($order['payment_status']=="Pending"){
+                                 $payment_status =trans("users.pending_order_status");
+                            } else if($payment_status=="PAID"){
+                                $payment_status = trans("users.paid_payment_status");
+                            }else if($payment_status=="CANCELLED"){
+                                $payment_status = trans("users.cancelled_order_status");
+                            }else{
+                                $payment_status = $order['payment_status'];
+                            }
 
-                            </select> 
-                            @else 
-                                {{ $order['order_status'] }} 
-                            @endif
+               
+
+
+                            if($order['order_status']=="PENDING"){
+                                 $order_status =trans("users.pending_order_status");
+                            }else if($order['order_status']=="SHIPPED"){
+                                 $order_status = trans("users.shipped_order_status");
+                            }else if($order['order_status']=="CANCELLED"){
+                                 $order_status = trans("users.cancelled_order_status");
+                            }else{
+                                 $order_status = $order['order_status'];
+                            }
+
+                            ?>
+                            {{ __('messages.txt_payment_status')}} : {{ $payment_status }} <br />
+                            {{ __('messages.txt_order_status')}} : {{ $order_status }} 
                         </span> 
                         </td>
                         <td>   </td>

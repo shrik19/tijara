@@ -149,7 +149,7 @@ class ServiceCatController extends Controller
 
         $rules = [
             'name'          => 'required|unique:servicecategories,category_name',
-            'sequence_no'   => 'required',
+            'sequence_no'   => 'required|unique:servicecategories,sequence_no',
             'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:servicecategories,category_slug',
         ];
 
@@ -224,7 +224,7 @@ class ServiceCatController extends Controller
 
         $rules = [
             'name' => 'required|unique:servicecategories,category_name,'.$id,
-            'sequence_no'   => 'required',
+            'sequence_no'   => 'required|unique:servicecategories,sequence_no,'.$id,
             'category_slug' => 'required|regex:/^[\pL0-9a-z-]+$/u|unique:servicecategories,category_slug,'.$id,
         ];
         $messages = [

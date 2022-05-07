@@ -9,6 +9,7 @@ use App\Models\OrdersDetails;
 use App\Models\UserMain;
 use App\Models\Products;
 use App\Models\ProductCategory;
+use App\Models\Settings;
 
 /*Uses*/
 use Auth;
@@ -16,6 +17,8 @@ use Session;
 use flash;
 use Validator;
 use DB;
+use PDF;
+use File;
 
 class OrderController extends Controller
 {
@@ -213,7 +216,7 @@ class OrderController extends Controller
         if(!empty($checkOrder))
         {
           $data['subTotal'] = $checkOrder['sub_total'];
-          $data['Total'] = $checkOrder['total'];
+          $data['Total'] = $checkOrder['sub_total'] +  $checkOrder['shipping_total'];//$checkOrder['total'];
           $data['shippingTotal'] = $checkOrder['shipping_total'];
 
               $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
@@ -320,6 +323,7 @@ class OrderController extends Controller
         }
         
         $OrderId = base64_decode($id);
+
         $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
         $checkExistingOrderProduct = OrdersDetails::join('products','products.id','=','orders_details.product_id')->select('products.user_id as product_user')->where('order_id','=',$OrderId)->limit(1)->get()->toArray();
         if(!empty($checkExistingOrderProduct))
@@ -336,7 +340,7 @@ class OrderController extends Controller
         if(!empty($checkOrder))
         {
           $data['subTotal'] = $checkOrder['sub_total'];
-          $data['Total'] = $checkOrder['total'];
+          $data['Total'] = $checkOrder['sub_total'] +  $checkOrder['shipping_total'];//$checkOrder['total'];
           $data['shippingTotal'] = $checkOrder['shipping_total'];
 
           if($is_seller == 0 && $checkOrder['user_id'] != $user_id && $is_buyer_order == 0) 
@@ -441,8 +445,8 @@ class OrderController extends Controller
           $data['shippingAddress'] = json_decode($address['shipping'],true);
           $site_details          = Settings::first();
           $data['siteDetails']   = $site_details;
-          //return view('Front/download_order_details', $data);
-          $pdf = PDF::loadView('Front/download_order_details',$data);
+         // return view('Admin/Orders/download_order_details', $data);
+          $pdf = PDF::loadView('Admin/Orders/download_order_details',$data);
           return $pdf->download('order-#'.$OrderId.'.pdf');
         }
       }

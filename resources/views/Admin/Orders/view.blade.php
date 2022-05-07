@@ -59,16 +59,31 @@
                             </a>
                             <div class="media-body" style="padding-left:10px;padding-top:10px;">
                                 <h4 class="media-heading"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
-                                <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5>
-                                <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
+                              
+                                <h5> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']);?></h5>
                             </div>
                         </div></td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                         <span id="quantity_{{ $orderProduct['id'] }}" > {{ $orderProduct['quantity'] }} </span>
                         </td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format($orderProduct['product']->price,2) }} kr</strong></td>
-                        <td class="col-sm-1 col-md-1 text-right"><strong>{{ number_format($orderProduct['shipping_amount'],2)}} kr</strong></td>
-                        <td class="col-sm-2 col-md-2 text-right"><strong>{{ number_format(($orderProduct['product']->price * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right"><strong>
+                            @php
+                            $product_price = swedishCurrencyFormat($orderProduct['product']->price);
+                            @endphp
+                        {{ $product_price }} kr</strong></td>
+                        <td class="col-sm-1 col-md-1 text-right"><strong>
+                             @php
+                            $shipping_amount = swedishCurrencyFormat($orderProduct['shipping_amount']);
+                            @endphp
+                        {{ $shipping_amount }} kr</strong></td>
+                        <td class="col-sm-2 col-md-2 text-right"><strong>
+                             @php
+                            $total_amount = ($orderProduct['product']->price * $orderProduct['quantity']) + $orderProduct['shipping_amount'];
+
+                             $total_amount_tbl = swedishCurrencyFormat($total_amount);
+                        @endphp
+
+                            {{ $total_amount_tbl}} kr</strong></td>
                     </tr>
                   @endforeach
                     <tr>
@@ -76,14 +91,22 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h5>{{ __('lang.shopping_cart_subtotal')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($subTotal,2)}} kr</strong></h5></td>
+                        <td class="text-right"><h5><strong>
+                            @php
+                            $subTotal = swedishCurrencyFormat($subTotal);
+                            @endphp
+                        {{$subTotal}} kr</strong></h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td><h5>{{ __('lang.shopping_cart_shipping')}}</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($shippingTotal,2)}} kr</strong></h5></td>
+                        <td class="text-right"><h5><strong>
+                            @php
+                            $shippingTotal = swedishCurrencyFormat($shippingTotal);
+                            @endphp
+                        {{$shippingTotal}} kr</strong></h5></td>
                     </tr>
                     <tr>
                         <td> 
@@ -107,7 +130,12 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h3>{{ __('lang.shopping_cart_total')}}</h3></td>
-                        <td class="text-right"><h4><strong>{{number_format($Total,2)}} kr</strong></h4></td>
+                        <td class="text-right"><h4><strong>
+                        @php
+                            $Total = swedishCurrencyFormat($Total);
+                        @endphp
+
+                        {{$Total}} kr</strong></h4></td>
                     </tr>
                     @else
                     <tr>

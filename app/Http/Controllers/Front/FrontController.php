@@ -2537,19 +2537,25 @@ public function getCatSubList(Request $request) {
        
 		$user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
 		$customername = $user->fname;
+		$email		=	$user->email;
 		$customeraddress	=	$user->address.' '.$user->city.' '.$user->postcode;
 		$sellername 	=$service_request->fname;
 
 		$service	=	$service_request->title;
-		$email		=	$service_request->email;
+		//$email	=	$service_request->email;
+		$seller_phone_number =$service_request->phone_number; 
 		$servicemessage	=	$request->input('message');
 		$service_date=	$request->input('service_date');
 		$service_time=	$request->input('service_time');
-		//$service_time	=	date('Y-m-d H:i:s',strtotime($service_time));
+		$service_date_time	= $service_date.' '.$service_time;
+		date_default_timezone_set("Europe/Stockholm");  
+        $service_date_time_swedish = date('Y-m-d g:i a',strtotime("$service_date_time UTC"));
+
+		
 		$seller	=	$service_request->fname;
 		
 
-		$GetEmailContents = getEmailContents('Service Request');
+		$GetEmailContents = getEmailContents('Buyer - Service Request');
         $subject      = $GetEmailContents['subject'];
         $contents     = $GetEmailContents['contents'];
         $siteDetails  = Settings::first();
@@ -2559,9 +2565,9 @@ public function getCatSubList(Request $request) {
         $linkdin_link = env('LINKDIN_LINK');
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
 		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
-			'##CUSTOMERADDRESS##','##SELLER##'],
-		[$customername,$seller,$service,$service_time,$service_date,$request->input('location'),
-		$request->input('service_price'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername],$contents);
+			'##CUSTOMERADDRESS##','##SELLER##','##SWEDISHDATETIME##','##PHONE##'],
+		[$customername,$customername,$service,$service_time,$service_date,$request->input('location'),
+		$request->input('service_price'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername, $service_date_time_swedish,$seller_phone_number],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

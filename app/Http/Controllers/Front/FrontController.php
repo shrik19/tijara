@@ -2563,11 +2563,13 @@ public function getCatSubList(Request $request) {
         $fb_link      = env('FACEBOOK_LINK');
         $insta_link   = env('INSTAGRAM_LINK');
         $linkdin_link = env('LINKDIN_LINK');
+        $service_price =$request->input('service_price');
+        $service_price = swedishCurrencyFormat($service_price);
+
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
 		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
 			'##CUSTOMERADDRESS##','##SELLER##','##SWEDISHDATETIME##','##PHONE##'],
-		[$customername,$customername,$service,$service_time,$service_date,$request->input('location'),
-		$request->input('service_price'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername, $service_date_time_swedish,$seller_phone_number],$contents);
+		[$customername,$customername,$service,$service_time,$service_date,$request->input('location'),$service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername, $service_date_time_swedish,$seller_phone_number],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

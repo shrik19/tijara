@@ -2539,10 +2539,10 @@ public function getCatSubList(Request $request) {
 		$customername = $user->fname;
 		$email		=	$user->email;
 		$customeraddress	=	$user->address.' '.$user->city.' '.$user->postcode;
-		$sellername 	=$service_request->fname;
+		$sellername 	= $service_request->fname;
 
 		$service	=	$service_request->title;
-		//$email	=	$service_request->email;
+		$sellerEmail	=	$service_request->email;
 		$seller_phone_number =$service_request->phone_number; 
 		$servicemessage	=	$request->input('message');
 		$service_date=	$request->input('service_date');
@@ -2573,6 +2573,30 @@ public function getCatSubList(Request $request) {
 
         Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$seller,$subject) {
             $message->to($email, $seller)->subject
+                ($subject);
+            $message->from( env('FROM_MAIL'),'Tijara');
+        });
+
+
+        /* send mail to seller */
+        $GetEmailContents = getEmailContents('Service Request');
+        $subject      = $GetEmailContents['subject'];
+        $contents     = $GetEmailContents['contents'];
+        $siteDetails  = Settings::first();
+        $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+        $fb_link      = env('FACEBOOK_LINK');
+        $insta_link   = env('INSTAGRAM_LINK');
+        $linkdin_link = env('LINKDIN_LINK');
+        $url = url('front-login/seller');
+
+		$sellerEmail	=	$service_request->email;
+        $contents = str_replace(['##NAME##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##'],
+		[$sellername,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$url],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($sellerEmail,$seller,$subject) {
+            $message->to($sellerEmail, $seller)->subject
                 ($subject);
             $message->from( env('FROM_MAIL'),'Tijara');
         });

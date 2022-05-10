@@ -1172,7 +1172,7 @@ class ServiceController extends Controller
         $customername = $user->fname;
         $customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;
         $sellername     =$service_request->fname;
-
+        $seller_phone_number =$service_request->phone_number; 
         $service    =   $service_request->title;
         $email      =   $service_request->email;
         //$servicemessage =   $request->input('message');
@@ -1191,9 +1191,9 @@ class ServiceController extends Controller
         $linkdin_link = env('LINKDIN_LINK');
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
         ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
-            '##CUSTOMERADDRESS##','##SELLER##'],
+            '##CUSTOMERADDRESS##','##SELLER##','##PHONE##'],
         [$customername,$seller,$service,$service_time,$service_date,$service_request->location,
-        $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername],$contents);
+        $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername,$seller_phone_number],$contents);
 
         $arrMailData = ['email_body' => $contents];
 
@@ -1208,9 +1208,9 @@ class ServiceController extends Controller
         $contents_buyer = $GetEmailContents['contents'];
         $contents_buyer = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
         ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
-            '##CUSTOMERADDRESS##','##SELLER##'],
+            '##CUSTOMERADDRESS##','##SELLER##','##PHONE##'],
         [$customername,$customername,$service,$service_time,$service_date,$service_request->location,
-        $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername],$contents_buyer);
+        $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername,$seller_phone_number],$contents_buyer);
 
         $arrMailDataBuyer = ['email_body' => $contents_buyer];
         Mail::send('emails/dynamic_email_template', $arrMailDataBuyer, function($message) use ($buyer_email,$customername,$subject) {

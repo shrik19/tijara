@@ -736,6 +736,28 @@ class AuthController extends Controller
             $message->from( env('FROM_MAIL'),'Tijara');
         });
            
+        /*seller register Admin*/
+
+        $GetEmailContents = getEmailContents('Seller Register Admin');
+        $subject = $GetEmailContents['subject'];
+        $contents = $GetEmailContents['contents'];
+        $siteDetails  = Settings::first();
+        $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+        $fb_link      = env('FACEBOOK_LINK');
+        $insta_link   = env('INSTAGRAM_LINK');
+        $linkdin_link = env('LINKDIN_LINK');
+        $admin_email = env('ADMIN_EMAIL');
+        $admin_name  = 'Tijara Admin';
+        $name =$request->input('store_name');
+        $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SELLER_ADMIN_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##','##DEVELOPER_MAIL##'],
+        [$name,$email,url('/'),route('adminSellerEdit', base64_encode($user_id)),$siteLogo,$fb_link,$insta_link,$linkdin_link,$url,env('FROM_MAIL')],$contents);
+
+        $arrMailData = ['email_body' => $contents];
+        Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$name,$subject) {
+            $message->to($admin_email, $name)->subject
+                ($subject);
+            $message->from( env('FROM_MAIL'),'Tijara');
+        });
 
         Session::forget('new_seller_email');
         Session::forget('new_seller_password');

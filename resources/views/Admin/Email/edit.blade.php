@@ -19,6 +19,12 @@
             </div>
 
             <div class="form-group">
+              <label>{{ __('users.who_received_email')}} <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="to_email" id="to_email" required tabindex="1" value="{{ (old('to_email')) ?  old('to_email') : $PageDetails['to_email']}}" >
+              <div class="text-danger">{{$errors->first('to_email')}}</div>
+            </div>
+
+            <div class="form-group">
               <label>{{ __('users.email_subject')}}<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="subject" id="subject" required tabindex="1" value="{{ (old('subject')) ?  old('subject') : $PageDetails['subject']}}">
               <div class="invalid-feedback">

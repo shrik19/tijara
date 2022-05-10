@@ -134,6 +134,7 @@
      'no_active_package' => 'Det finns inget aktivt paket. vänligen fyll i kortuppgifter',
      'select_one_shipping_option' => 'Välj minst en leveransmetod',
      'check_checkbox_first_err' => 'Vänligen välj kryssrutan hämta i butik först',
+     'fill_in_to_email' => "Vänligen fyll i vem som kommer att få dessa mejl.",
  
  ]
 ?>

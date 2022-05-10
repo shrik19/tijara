@@ -136,5 +136,6 @@
      'no_active_package' => 'There is no active package. please fill in card details',
      'select_one_shipping_option' => 'Please select at least one shipping method',
      'check_checkbox_first_err' => 'Please Select pick up from store checkbox first',
+     'fill_in_to_email' => "Please fill in who will receive these email.",
  ]
 ?>

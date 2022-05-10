@@ -18,6 +18,12 @@
             </div>
             <div class="text-danger">{{$errors->first('title')}}</div>
           </div>
+           <div class="form-group">
+            <label>{{ __('users.who_received_email')}}<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="to_email" id="to_email" required tabindex="1" value="">
+            
+            <div class="text-danger">{{$errors->first('to_email')}}</div>
+          </div>
 
           <div class="form-group">
             <label>{{ __('users.email_subject')}}<span class="text-danger">*</span></label>

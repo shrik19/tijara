@@ -1387,8 +1387,8 @@ class ProductController extends Controller
             $fb_link      = env('FACEBOOK_LINK');
             $insta_link   = env('INSTAGRAM_LINK');
             $linkdin_link = env('LINKDIN_LINK');
-                
-            $contents = str_replace(['##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##'],[url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$product_link],$contents);
+            $url =url('/admin');   
+            $contents = str_replace(['##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##','##URL##'],[url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$product_link,$url],$contents);
 
             $arrMailData = ['email_body' => $contents];
 

@@ -403,5 +403,6 @@ cancellation of service works.',
     'order_table_action' => 'Action',
     'paid_payment_status' => 'PAID',
     'tijara_announser_label'=>'Tijaras annonser',
+    'who_received_email' => "To Email",
  ]
 ?>

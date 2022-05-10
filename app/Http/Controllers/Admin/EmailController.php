@@ -136,6 +136,7 @@ class EmailController extends Controller
       
         $rules = [
         'title'             => 'required',
+        'to_email'          => 'required',
         'subject'           => 'required',
         'contents'          => 'required',
         'subject_en'        => 'required',
@@ -143,9 +144,10 @@ class EmailController extends Controller
         ];
         $messages = [
             'title.required'              => trans('errors.fill_in_title'),
-            'subject.required'              => trans('errors.fill_in_subject'),
-            'contents.required'        => trans('errors.fill_in_email_content'),
-            'subject_en.required'              => trans('errors.fill_in_subject_en'),
+            'to_email.required'           => trans('errors.fill_in_to_email'),
+            'subject.required'            => trans('errors.fill_in_subject'),
+            'contents.required'           => trans('errors.fill_in_email_content'),
+            'subject_en.required'         => trans('errors.fill_in_subject_en'),
             'contents_en.required'        => trans('errors.fill_in_email_content_en'),
         ];
 
@@ -159,7 +161,8 @@ class EmailController extends Controller
         $userId = Auth::guard('admin')->id();
 
         $arrPackageInsert = [
-            'title'             => trim($request->input('title')),
+            'title'             => trim($request->input('title')),            
+            'to_email'           => trim($request->input('to_email')),
             'subject'           => trim($request->input('subject')),
             'contents'          => trim($request->input('contents')),
             'subject_en'        => trim($request->input('subject_en')),
@@ -219,6 +222,7 @@ class EmailController extends Controller
 
         $rules = [
             'title'             => 'required',
+            'to_email'          => 'required',
             'subject'           => 'required',
             'contents'          => 'required',
             'subject_en'        => 'required',
@@ -226,6 +230,7 @@ class EmailController extends Controller
             ];
             $messages = [
                 'title.required'              => trans('errors.fill_in_title'),
+                'to_email.required'           => trans('errors.fill_in_to_email'),
                 'subject.required'              => trans('errors.fill_in_subject'),
                 'contents.required'        => trans('errors.fill_in_email_content'),
                 'subject_en.required'              => trans('errors.fill_in_subject_en'),
@@ -243,6 +248,7 @@ class EmailController extends Controller
             $userId = Auth::guard('admin')->id();
             $arrPackageUpdate = [
                 'title'              => trim($request->input('title')),
+                'to_email'           => trim($request->input('to_email')),
                 'subject'           => trim($request->input('subject')),
                 'contents'           => trim($request->input('contents')),
                 'subject_en'           => trim($request->input('subject_en')),

@@ -404,5 +404,6 @@ avbokning av tjänst fungerar.',
     'order_table_action' => 'Hantera',
     'paid_payment_status' => 'Betalad',
     'tijara_announser_label'=>'Tijaras annonser',
+    'who_received_email' => "Att mejla",
  ]
 ?>

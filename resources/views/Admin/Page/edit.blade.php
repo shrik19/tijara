@@ -15,9 +15,13 @@
               <div class="invalid-feedback">
                {{ __('errors.fill_in_title')}}
               </div>
+
               <div class="text-danger">{{$errors->first('title')}}</div>
             </div>
-
+            <input type="hidden" name="faq" id="faq" value="vanliga-fragor">
+           
+      
+      
             <div class="form-group">
               <label>{{ __('users.description_label')}}</label>
            <!--    <textarea class="form-control" id="description" name="description" rows="2" cols="30" style="height:auto" tabindex="2" required><?php if(!empty($PageDetails['description'])){ echo $PageDetails['description']; }?></textarea> -->
@@ -84,8 +88,9 @@
 </div>
 <script src="{{url('/')}}/assets/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-	
-	CKEDITOR.replace('description', {
+  
+	if($("#faq").val()!="vanliga-fragor"){
+    CKEDITOR.replace('description', {
         filebrowserUploadUrl: '{{ route('adminCkupload') }}',
         filebrowserUploadMethod: 'form',
         allowedContent : true,
@@ -93,8 +98,8 @@
 
 
     });
-	
-	CKEDITOR.replace('description_en', {
+
+    CKEDITOR.replace('description_en', {
         filebrowserUploadUrl: '{{ route('adminCkupload') }}',
         filebrowserUploadMethod: 'form',
         allowedContent : true,
@@ -102,6 +107,13 @@
 
 
     });
+  }else{
+    $("#description").css("height","400");
+    $("#description_en").css("height","400");
+  }
+	
+	
+	
 </script>
 @endsection('middlecontent')
 

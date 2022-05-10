@@ -19,7 +19,29 @@
 			<h2>{{ $details['title'] }}</h2>
 			<hr class="heading_line"/>
 			<div>
+				
+				@if($details['slug']=="vanliga-fragor")
+					@foreach(explode("###", $details['contents']) as $line)
+					<?php 
+					$displayQueAns = explode('||', $line);
+
+					 ?>
+						<main>
+						   <summary class="accordion-faq">
+							   {{$displayQueAns[0]}}
+						   </summary>						    	
+					    	<div class="panel-faq">
+					    		<div>
+							   		{{$displayQueAns[1]}}
+							    </div>
+							</div>
+						</main>
+
+					@endforeach 
+		
+				@else
 				  {!! $details['contents'] !!}
+				@endif
 			 
 			</div>
 	 

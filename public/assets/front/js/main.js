@@ -189,7 +189,7 @@ $(".add_new_variant_btn").click(function(){
      });
      $trNew.find('.select_attribute_value').val('').attr('disabled','disabled');
 
-     if(firstAttribute)
+    if(firstAttribute)
     {
       $trNew.find('.select_attribute:eq(0)').removeAttr('disabled').val(firstAttribute);
 
@@ -217,7 +217,7 @@ $(".add_new_variant_btn").click(function(){
     {
       $trNew.find('.select_attribute:eq(1)').removeAttr('disabled').val(secondAttribute);
       $trNew.find('.select_attribute:eq(1)').find('option').each(function(){
-        if($(this).val() != firstAttribute)
+        if($(this).val() != secondAttribute)
         {
            $(this).attr('disabled','disabled');
         }

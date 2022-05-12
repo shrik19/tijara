@@ -2952,9 +2952,9 @@ DATA;
                     }
                     else
                     {
-                       if(strpos($attrIds, $attrIds) == false){
+                       //if(strpos($attrIds, $attrIds) == false){
                         $attrIds .= ', '.$variantAttr->name.' : '.$variantAttr->attribute_values;
-                       }
+                       //}
                     }
                   }   
 

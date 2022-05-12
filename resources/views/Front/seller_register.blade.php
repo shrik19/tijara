@@ -815,9 +815,10 @@ $('#third-step').click(function(e) {
     {
        third_step_err = 1;
        showErrorMessage(please_add_payment_details);
+       return false;
     }
     	
-	//alert(third_step_err);return
+//	alert(third_step_err);return
 	if(third_step_err == 0){
 	
 	    $(".loader-seller").css("display","block");

@@ -1,6 +1,10 @@
 @extends('Front.layout.template')
 @section('middlecontent')
-
+<style type="text/css">
+  .tijara-content {
+      margin-bottom: 60px;
+    }
+</style>
 <div class="p_155" style="min-height: 600px;">
   <div class="container-fluid">
     <div class="container-inner-section-1">

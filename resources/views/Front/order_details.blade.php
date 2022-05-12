@@ -164,12 +164,22 @@ if (@$_GET['print'])
                             {{ __('messages.txt_seller')}} : <a href="{{$seller_link}}">{{ $seller_name }}</a><br />
                             <?php //echo $order['payment_status'];exit;
                             $payment_status = "";
-                            if($order['payment_status']="Pending"){
+                            if($order['payment_status']=="Pending"){
                                  $payment_status =trans("users.pending_order_status");
                             }else{
                                 $payment_status=$order['payment_status'];
                             }
 
+
+                              if($order['payment_status']=="Pending"){
+                                   $payment_status =trans("users.pending_order_status");
+                              }else if($order['payment_status']=="PAID" || $payment_status=="CAPTURED"){
+                                   $payment_status = trans("users.paid_payment_status");
+                              }else if($order['payment_status']=="CANCELLED"){
+                                   $payment_status = trans("users.cancelled_order_status");
+                              }else{
+                                   $payment_status = $order['payment_status'];
+                              }
 
                             if($order['order_status']=="PENDING"){
                                  $order_status =trans("users.pending_order_status");

@@ -1223,7 +1223,15 @@ $(".seller-profile-update").click(function(e){
       $("#err_pick_up_address").html('').show();
     }
   }
-//validation to check atlease on shipping methi=od
+
+  if(pick_up_address!=''){
+    if(!$("#is_pick_from_store").is(':checked')){
+      $("#err_pick_up_address").html(required_field_error).show();
+      $("#err_pick_up_address").parent().addClass('jt-error');
+      error = 1;
+    }
+  }
+//validation to check atlease on shipping method
  /* if($("#free_shipping_chk").is(':checked')){
  
   }

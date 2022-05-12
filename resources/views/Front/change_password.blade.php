@@ -8,6 +8,9 @@
    .invalid-feedback {
     position: relative;
   }
+  .seller_info{
+  	margin-bottom: 60px;
+  }
 </style>
 <div class="mid-section sellers_top_padding">
 	<div class="container-fluid">

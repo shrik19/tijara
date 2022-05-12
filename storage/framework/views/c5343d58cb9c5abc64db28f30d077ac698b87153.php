@@ -92,6 +92,7 @@
     var enter_all_fields_err =  "<?php echo e(__('errors.enter_all_fields_err')); ?>";
     var store_name_characters_len_err ="<?php echo e(__('errors.store_name_characters_len_err')); ?>";
     var select_one_shipping_option ="<?php echo e(__('errors.select_one_shipping_option')); ?>";
+     var check_checkbox_first_err ="<?php echo e(__('errors.check_checkbox_first_err')); ?>";
 
     var is_login = 0;
     <?php if(Auth::guard('user')->id() && Auth::guard('user')->getUser()->role_id==1): ?>

@@ -116,6 +116,10 @@ if (defaultOpen) {
   }
 });*/
 $(".add_new_variant_btn").click(function(){
+  var firstVariant = $("#variant_table").find('.variant_tr:eq(0)');
+  var firstAttribute = firstVariant.find('.select_attribute:eq(0)').val();
+  var secondAttribute = firstVariant.find('.select_attribute:eq(1)').val();
+
   $(".remove_variant_div").addClass("col-md-12");
     $trLast = $("div.variant_tr:last");
     variant_id=$trLast.attr('variant_id');
@@ -124,7 +128,8 @@ $(".add_new_variant_btn").click(function(){
     $trNew = $trLast.clone();
     $trNew.attr('variant_id',variant_id);
     var divCount = $('.var_img_div').length
-    $('.select_attribute').each(function(){
+    
+    /*$('.select_attribute').each(function(){
       var attrName = $(this).val();
       if(attrName!=''){
        $trNew.find(".select_attribute option").attr('disabled', true);
@@ -136,7 +141,7 @@ $(".add_new_variant_btn").click(function(){
     $('.select_attribute').each(function(){
       var attrName = $(this).val();
       $trNew.find(".select_attribute option[value='"+ attrName + "']").attr('disabled', false);
-    });
+    });*/
   
 
   
@@ -168,7 +173,7 @@ $(".add_new_variant_btn").click(function(){
     $trNew.find('.select_attribute').attr('variant_id',variant_id);
      $trNew.find('.select_attribute').attr('name','attribute['+variant_id+'][]');
     $trNew.find('.clone_tr').remove();
-    $trNew.find('.select_attribute').val('');
+    $trNew.find('.select_attribute').val('').attr('disabled','disabled');
     $trNew.find('.variant_attribute_id').attr('name','variant_attribute_id['+variant_id+'][]').val('');
     //$trNew.find('.select_attribute_value').html('<option value="">'+select_attribute_value+'</option>');
     $trNew.find('tr.attribute_tr:gt(0)').remove();
@@ -182,6 +187,55 @@ $(".add_new_variant_btn").click(function(){
          //$(this).attr('name','attribute_value['+variant_id+']['+$(this).attr('attribute_id')+']');
          $(this).attr('name','attribute_value['+variant_id+'][]');
      });
+     $trNew.find('.select_attribute_value').val('').attr('disabled','disabled');
+
+     if(firstAttribute)
+    {
+      $trNew.find('.select_attribute:eq(0)').removeAttr('disabled').val(firstAttribute);
+
+      $trNew.find('.select_attribute:eq(0)').find('option').each(function(){
+        if($(this).val() != firstAttribute)
+        {
+           $(this).attr('disabled','disabled');
+        }
+        else
+        {
+          $(this).removeAttr('disabled','disabled'); 
+        }
+      });
+      $.ajax({
+              url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+               data: {attribute_id: firstAttribute},
+               type: 'get',
+               success: function(output) {
+                  $trNew.find('.select_attribute:eq(0)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
+              }
+            });
+    }
+    
+    if(secondAttribute)
+    {
+      $trNew.find('.select_attribute:eq(1)').removeAttr('disabled').val(secondAttribute);
+      $trNew.find('.select_attribute:eq(1)').find('option').each(function(){
+        if($(this).val() != firstAttribute)
+        {
+           $(this).attr('disabled','disabled');
+        }
+        else
+        {
+          $(this).removeAttr('disabled','disabled'); 
+        }
+      });
+      $.ajax({
+              url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+               data: {attribute_id: secondAttribute},
+               type: 'get',
+               success: function(output) {
+                  $trNew.find('.select_attribute:eq(1)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
+              }
+            });
+    }
+
 	$trNew.find('span.invalid-feedback').each(function() { 
          $(this).html('');
      });
@@ -332,6 +386,7 @@ $('body').on('click', '.remove_image', function () {
      var redirect_url='';
      var rem =$(this);
      var variant_id = rem.attr("remove_variant_id");
+     var product_id = $("#product_id").val();
 
       $.alert({
       title: "Klart!",
@@ -345,7 +400,7 @@ $('body').on('click', '.remove_image', function () {
 
              $.ajax({
               url: siteUrl+'/manage-products/delete-product-variant',
-              data: {variant_id: variant_id},
+              data: {variant_id: variant_id, product_id : product_id},
               headers: {
                 'X-CSRF-Token': $('meta[name="_token"]').attr('content')
               },
@@ -359,7 +414,7 @@ $('body').on('click', '.remove_image', function () {
                 }
                 else
                 {
-                    showErrorMessage(data.error,'reload');
+                  showErrorMessage(data.error,'reload');
                 }
                
               }
@@ -370,10 +425,64 @@ $('body').on('click', '.remove_image', function () {
  });
 //$( ".select_attribute" ).each(function() {
     $('#variant_table').on('change', '.select_attribute', function () {
+
         select_attribute =$(this).val();
         elm              =$(this);
-        var val = $(this).val();
+        //Start - Check with Attribute values are different under one variant.
+          var main = elm.parent().parent().parent();
+          
+          var firstAttribute = main.find('.select_attribute:eq(0)').val();
+          var secondAttribute = main.find('.select_attribute:eq(1)').val();
 
+          var isFirstOrSecond = '';
+          if(elm.parent().prev('label').hasClass('product_table_heading'))
+          {
+            isFirstOrSecond = 'first';
+          }
+          else
+          {
+            isFirstOrSecond = 'second'; 
+          }
+          
+          if(firstAttribute == secondAttribute)
+          {
+              elm.val('');
+              elm.parent('div').find('.select_attribute_value').find('option').not(':first').remove();
+
+              console.log(isFirstOrSecond);
+              
+              $("#variant_table").find('.variant_tr').not(':first').each(function(){
+                  if(isFirstOrSecond == 'first')
+                  {
+                      $(this).find('.select_attribute:eq(0)').attr('disabled','disabled').val('');
+                      $(this).find('.select_attribute_value:eq(0)').attr('disabled','disabled').val('').find('option').not(':first').remove();
+                  }
+                  else if(isFirstOrSecond == 'second')
+                  {
+                      $(this).find('.select_attribute:eq(1)').attr('disabled','disabled').val('');
+                      $(this).find('.select_attribute_value:eq(1)').attr('disabled','disabled').val('').find('option').not(':first').remove();
+                  }
+              });  
+
+              $.alert({
+                title: oops_heading,
+                content: 'Attributes must not be same under Variant.',
+                type: 'red',
+                typeAnimated: true,
+                columnClass: 'medium',
+                icon : "fas fa-times-circle",
+                buttons: {
+                  Ok: function () {
+                  },
+                }
+              });
+
+              return false;
+          }
+        //End - Check with Attribute values are different under one variant.
+
+        var val = $(this).val();
+        
         var thisSelect  = $(this);
         $( ".select_attribute" ).each(function() {
           $(this).removeClass('active');
@@ -416,6 +525,43 @@ $('body').on('click', '.remove_image', function () {
                          */
                                      /*end*/
                             elm.parent('div').find('.select_attribute_value').html(output);
+                            //Start - Check with All Attribute values are Same as the First Variant.
+                                                      
+                            $('#variant_table').find('.variant_tr').not(':first').each(function(){
+                                if(isFirstOrSecond == 'first')
+                                {
+                                    $(this).find('.select_attribute:eq(0)').removeAttr('disabled').val(val);
+                                    $(this).find('.select_attribute:eq(0)').find('option').each(function(){
+                                      if($(this).val() != val)
+                                      {
+                                         $(this).attr('disabled','disabled');
+                                      }
+                                      else
+                                      {
+                                        $(this).removeAttr('disabled','disabled'); 
+                                      }
+                                    });
+
+                                    $(this).find('.select_attribute:eq(0)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
+                                }
+                                else if(isFirstOrSecond == 'second')
+                                {
+                                    $(this).find('.select_attribute:eq(1)').removeAttr('disabled').val(val);
+                                    $(this).find('.select_attribute:eq(1)').find('option').each(function(){
+                                      if($(this).val() != val)
+                                      {
+                                         $(this).attr('disabled','disabled');
+                                      }
+                                      else
+                                      {
+                                        $(this).removeAttr('disabled','disabled'); 
+                                      }
+                                    });
+                                    $(this).find('.select_attribute:eq(1)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
+                                }
+                            });
+                          //End - Check with All Attribute values are Same as the First Variant.
+
                         }
         });
       }

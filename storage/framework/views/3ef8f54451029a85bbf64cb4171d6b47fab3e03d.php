@@ -96,7 +96,15 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
         </div>
 
         <?php if(!empty($product->price)): ?>
-      <h6 class="product_price" style="margin-top: 6px;"> <?php if(!empty($product->discount_price)): ?> <?php echo e($product->discount_price); ?> kr <?php endif; ?> <span <?php if(!empty($product->discount_price)): ?> class="dic_price" <?php endif; ?>><?php echo e($product->price); ?> kr </span></h6>
+      <h6 class="product_price cd" style="margin-top: 6px;"> <?php if(!empty($product->discount_price)): ?>
+                      <?php                                 
+                        $discount_price_tbl = swedishCurrencyFormat($product->discount_price);
+                      ?>
+       <?php echo e(@$discount_price_tbl); ?> kr <?php endif; ?> <span <?php if(!empty($product->discount_price)): ?> class="dic_price" <?php endif; ?>>
+                        <?php   
+                         $price_tbl = swedishCurrencyFormat($product->price);
+                        ?>
+        <?php echo e(@$price_tbl); ?> kr </span></h6>
 
         <?php endif; ?>
            <a href="<?php echo e($seller_link); ?>" style="margin-top: 3px"><h5><?php echo e($product->store_name); ?></h5></a>
@@ -114,7 +122,15 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
           </select>
         </div>  
         <?php if(!empty($product->price)): ?>
-              <h6 class="product_price" style="margin-top: 6px;"> <?php if(!empty($product->discount_price)): ?> <?php echo e($product->discount_price); ?> kr <?php endif; ?> <span <?php if(!empty($product->discount_price)): ?> class="dic_price" <?php endif; ?>><?php echo e($product->price); ?> kr </span></h6>          
+              <h6 class="product_price" style="margin-top: 6px;"> <?php if(!empty($product->discount_price)): ?> 
+                <?php   
+                         $price_tbl_popular = swedishCurrencyFormat($product->discount_price);
+                ?>
+                <?php echo e(@$price_tbl_popular); ?> kr <?php endif; ?> <span <?php if(!empty($product->discount_price)): ?> class="dic_price" <?php endif; ?>>
+                  <?php   
+                         $price_tbl_popular_new = swedishCurrencyFormat($product->price);
+                ?>
+                  <?php echo e(@$price_tbl_popular_new); ?> kr </span></h6>          
         <?php endif; ?>
         <a href="<?php echo e($seller_link); ?>" style="margin-top: 3px"><h5><?php echo e($product->store_name); ?></h5></a>
 

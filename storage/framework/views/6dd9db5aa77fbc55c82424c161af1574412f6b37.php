@@ -70,7 +70,10 @@ if(strpos(@$path, 'services') != false){
         </div> 
 
         <?php if(!empty($service->service_price)): ?>
-          <h6><?php echo e($service->service_price); ?> kr</h6>
+          <?php             
+            $service_price_tbl = swedishCurrencyFormat($service->service_price);
+          ?>
+          <h6><?php echo e(@$service_price_tbl); ?> kr</h6>
         <?php endif; ?>
           <a href="<?php echo e($seller_link); ?>"><h5><?php echo e($service->store_name); ?></h5></a>
 
@@ -93,7 +96,10 @@ if(strpos(@$path, 'services') != false){
 
 
         <?php if(!empty($service->service_price)): ?>
-          <h6 class="product_price" style="margin-top: 6px;"><?php echo e($service->service_price); ?> kr</h6>
+           <?php             
+            $service_price_tbl_new = swedishCurrencyFormat($service->service_price);
+          ?>
+          <h6 class="product_price" style="margin-top: 6px;"><?php echo e(@$service_price_tbl_new); ?> kr</h6>
         <?php endif; ?>
 
         <!-- below code is for seller name  -->

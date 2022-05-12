@@ -72,7 +72,7 @@
         <div class="login_box">
 
             <h2 class="col-md-12 product_add_h2 steps_no_css" style="margin-left: -12px;">{{ __('lang.product_form_step1')}}</h2>
-            <input type="hidden" name="product_id" value="{{$product_id}}">
+            <input type="hidden" id="product_id" name="product_id" value="{{$product_id}}">
 
             <div class="form-group col-md-12">
               <label class="col-md-3 product_table_heading">{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>

@@ -70,12 +70,12 @@
                   </div>
 
                   
-                  <div class="col-md-12">
+                  <div class="col-md-12" style="margin-left: -18px;">
 
                     <div class="login_box">
 
                         <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;"><?php echo e(__('lang.product_form_step1')); ?></h2>
-                        <input type="hidden" name="product_id" value="<?php echo e($product_id); ?>">
+                        <input type="hidden" id="product_id" name="product_id" value="<?php echo e($product_id); ?>">
 
                         <div class="form-group col-md-12">
                           <label class="col-md-3 product_table_heading"><?php echo e(__('lang.product_title_label')); ?> <span class="de_col">*</span></label>
@@ -218,7 +218,7 @@
                                   </div>
                                   </div> 
                                   <div class="form-group" >
-                              <?php //echo "<pre>";print_r(count($variant['attributes']));exit;
+                              <?php //echo "<pre>--";print_r($variant['attributes']);exit;
                                   if(count($variant['attributes'])==1){
                                      $variant['attributes'][1]=$variant['attributes'][0];
                                   }
@@ -226,7 +226,7 @@
                               ?>
                                        <?php $__currentLoopData = $variant['attributes']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-
+                                        <input type="hidden" name="variant_attribute_id[<?php echo $i;?>][]" value="<?php echo e($value['id']); ?>" class="variant_attribute_id">
                                     <?php
 
                                        if($key==0){ ?>
@@ -235,7 +235,7 @@
                                   <?php }else{?>
                                     <div class="col-md-3"></div>
                                  <?php }?>
-                                 <input type="hidden" name="variant_attribute_id[<?php echo $i;?>][]" value="<?php echo e($value['id']); ?>" class="variant_attribute_id">
+                                
                                     <div class="col-md-8">
                              
                                     <select id="<?php echo e($attribute['id']); ?>" style="  width: 34%;"  class="col-md-4 ge_input select_attribute preselected_attribute" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
@@ -308,14 +308,19 @@
                                     
                                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="float: right;"></span>  
                                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="float: right;"></span>
-                                     <p class="seller-logo-info col-md-12" style="font-size: 12px;"><?php echo e(__('messages.product_img_upload_info')); ?></p>  
+                                     <p class="seller-logo-info col-md-12" style="font-size: 12px;margin-top:20px;"><?php echo e(__('messages.product_img_upload_info')); ?></p>  
 
                                      </div>  
                                   </div>
                               <!--  <div class=" col-md-12"><a href="javascript:void(0);" variant_id="" class="btn btn-danger btn-xs remove_variant_btn" title="Remove Variant"><i class="fas fa-trash"></i></a></div>
                                -->
                                   <!-- <div class="selected_images col-md-12"></div> -->
-                                  <div class="remove_variant_div col-md-12"><a href='javascript:void(0);' variant_id='<?php echo $i; ?>' class='btn btn-danger btn-xs remove_variant_btn' title='Remove Variant'><i class='fas fa-trash'></i></a></div>
+                                  <?php $css="";
+                                  if($i == 0) { 
+                                    $css="display:none";
+                                  }?>
+                                  <div class="remove_variant_div col-md-12" style="<?php echo e($css); ?>"><a href='javascript:void(0);' variant_id='<?php echo $i; ?>' class='btn btn-danger btn-xs remove_variant_btn' remove_variant_id="<?php echo e($variant_key1); ?>" title='Remove Variant'><i class='fas fa-trash'></i></a></div>
+                            
                                   <div class="loader"></div>
                                  
                                 </div>
@@ -335,7 +340,7 @@
                     
                         </div>
                         <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;"><?php echo e(__('lang.product_form_step3')); ?></h2>
-                    <?php if($users_details->free_shipping !="free_shipping"): ?>
+                 
                         <div class="form-group col-md-12" id="shipping_method_ddl_div">
                           <label class="col-md-3 product_table_heading"><?php echo e(__('users.shipping_method_label')); ?></label>
                           <div class="col-md-8">
@@ -355,7 +360,6 @@
                           <span class="invalid-feedback col-md-8"  id="err_shipping_charges"> </span>
                         </div>
                         </div>
-                    <?php endif; ?>
                         <div class="col-md-12">
                          <label class="col-md-3 product_table_heading"> <?php echo e(__('users.free_shipping_label')); ?></label>
                           <div class="col-md-8">
@@ -384,7 +388,7 @@
 
                   
                         <div class="col-md-12">&nbsp;</div>
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 text-center" style="margin-bottom : 60px;">
                           <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn saveproduct" tabindex="9"><?php echo e(__('lang.save_btn')); ?></button>
 
                           <a href="<?php echo e($module_url); ?>" class="btn btn-black gray_color login_btn" tabindex="10"> <?php echo e(__('lang.cancel_btn')); ?></a>
@@ -404,6 +408,42 @@
 </div> <!-- /container -->
 <script>var siteUrl="<?php echo e(url('/')); ?>";</script>
 <script type="text/javascript">
+  if($('#free_shipping_chk').is(":checked"))  {
+  if($("#free_shipping_chk").val()=="free_shipping"){
+    $("#shipping_method_ddl_div").hide();
+    $("#shipping_charges_div").hide();
+    $("#shipping_method_ddl").val('');
+    $("#shipping_charges").val('');
+  }
+}
+
+function hideShippingMethod(){
+  if($('#free_shipping_chk').is(":checked"))  {
+    $("#shipping_method_ddl_div").hide();
+    $("#shipping_charges_div").hide();
+    $("#shipping_method_ddl").val('');
+    $("#shipping_charges").val('');
+  } 
+  else{
+    $("#shipping_method_ddl_div").show();
+    $("#shipping_charges_div").show();
+  }
+}
+
+  $("input:checkbox#free_shipping_chk").click(function() {
+        if(!$(this).is(":checked")){
+           $("#shipping_method_ddl_div").show();
+         $("#shipping_charges_div").show();
+        }
+        
+    }); 
+ /* $(" input:checkbox").change(function() {
+    alert("jhhghg");
+    var ischecked= $(this).is(':checked');
+    if(!ischecked)
+    alert('uncheckd ' + $(this).val());
+}); */
+
    $('body').on('click', '.remove_image', function () {
     $(this).prev('img').prev('input').parent("div").remove();
     $(this).prev('img').prev('input').remove();
@@ -421,24 +461,49 @@ $( document ).ready(function() {
   });
 
     /*code to select maximum two attributes*/
-    $('.select_attribute').each(function(){
-      var attrName = $(this).val();
-      if(attrName!=''){
-       $(".select_attribute option").attr('disabled', true);
-      }   
+    // $('.select_attribute').each(function(){
+    //   var attrName = $(this).val();
+    //   if(attrName!=''){
+    //    $(".select_attribute option").attr('disabled', true);
+    //   }   
+    // });
+
+    // var data = "<?php echo json_encode(@$disabled_attr);?>";
+    // //console.log(data);
+    // if( data !== 'null'){ 
+    //   var attr_array = JSON.parse(data);
+
+    //   attr_array.forEach(entry => {
+    //    $(".select_attribute option[value='"+ entry + "']").attr('disabled', false);
+    //   });
+    // }
+      
+      var firstAttribute = $("#variant_table").find('.variant_tr:first').find('.select_attribute:eq(0)').val();
+      var secondAttribute = $("#variant_table").find('.variant_tr:first').find('.select_attribute:eq(1)').val();
+
+     $("#variant_table").find('.variant_tr').not(':first').each(function(){
+        $(this).find('.select_attribute:eq(0)').find('option').each(function(){
+          if($(this).val() != firstAttribute)
+          {
+             $(this).attr('disabled','disabled');
+          }
+          else
+          {
+            $(this).removeAttr('disabled','disabled'); 
+          }
+        });
+
+        $(this).find('.select_attribute:eq(1)').find('option').each(function(){
+          if($(this).val() != secondAttribute)
+          {
+             $(this).attr('disabled','disabled');
+          }
+          else
+          {
+            $(this).removeAttr('disabled','disabled'); 
+          }
+        });
     });
-
-    var data = "<?php echo json_encode(@$disabled_attr);?>";
-    //console.log(data);
-    if( data !== 'null'){ 
-      var attr_array = JSON.parse(data);
-
-      attr_array.forEach(entry => {
-       $(".select_attribute option[value='"+ entry + "']").attr('disabled', false);
-      });
-    }
-    
-
   
 });
 
@@ -449,7 +514,7 @@ function get_attribute_values(select_attribute, element, selected_attr_id) {
 		   data: {attribute_id: select_attribute},
 		   type: 'get',
 		   success: function(output) {
-						//console.log(output);
+						console.log(selected_attr_id);
             element.html(output);
             if(selected_attr_id !=0){ 
 

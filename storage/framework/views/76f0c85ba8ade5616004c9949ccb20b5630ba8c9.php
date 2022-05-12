@@ -18,11 +18,11 @@
       </div>
     </div>
   
-      <div class="seller_mid_cont">
+      <div class="seller_mid_cont" style="margin-left: 20px;">
   <form method="POST" name="filterForm" id="filterForm" class="seller-dashboard-form" action="<?php echo e(route('frontDashboard')); ?>">
     <?php echo csrf_field(); ?>
     <div class="row">
-      <div class="summary_page sel_cat_list">
+      <div class="summary_page sel_cat_list" >
      <h3 class="pull-left" style="margin-left: 10px;"><?php echo e(__('lang.dashboard_statistics_period')); ?> : </h3>
      
      
@@ -36,14 +36,15 @@
       </div>
     </div>
     <div class="row"><div class="col-md-12">&nbsp;</div></div>
-    <div class="text-center sel_cat_list">
+    <div class="text-center sel_cat_list" style="margin-left: -4px;">
       <div class="col-md-15" >
       
         <div class="card buyer-prod-card">
+
           <div class="buyer-prod-msg">
-            <h2 class="buyer-prod-head"><?php echo e(__('lang.dashboard_orders')); ?></h2>
+          <h2 class="buyer-prod-head"><?php echo e(__('lang.dashboard_orders')); ?></h2>
             <br />
-            <h2><?php echo e($orderCount); ?></h2>
+            <h2 class="buyer-prod-content-h2"><?php echo e($orderCount); ?></h2>
           </div>
         </div>
       </div>  
@@ -53,7 +54,7 @@
           <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head"><?php echo e(__('lang.dashboard_service_requests')); ?></h2>
             <br />
-            <h2><?php echo e($serviceRequestCount); ?></h2>
+            <h2 class="buyer-prod-content-h2"><?php echo e($serviceRequestCount); ?></h2>
           </div>
         </div>
       </div>
@@ -64,7 +65,7 @@
           <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head"><?php echo e(__('lang.dashboard_listed_products')); ?></h2>
             <br />
-            <h2><?php echo e($productCount); ?></h2>
+            <h2 class="buyer-prod-content-h2"><?php echo e($productCount); ?></h2>
           </div>
         </div>
 
@@ -76,7 +77,7 @@
           <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head"><?php echo e(__('lang.dashboard_listed_services')); ?></h2>
             <br />
-            <h2><?php echo e($servicesCount); ?></h2>
+            <h2 class="buyer-prod-content-h2"><?php echo e($servicesCount); ?></h2>
           </div>
         </div>
       </div>
@@ -86,7 +87,7 @@
           <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head"><?php echo e(__('lang.dashboard_total_sales')); ?></h2>
             <br />
-            <h2>
+            <h2 class="buyer-prod-content-h2">
               <?php
               if(!empty($totalAmount)){
                 $order_total_tbl = str_split(strrev($totalAmount), 3);

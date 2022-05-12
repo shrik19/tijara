@@ -75,7 +75,7 @@
                     <div class="login_box">
 
                         <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;">{{ __('lang.product_form_step1')}}</h2>
-                        <input type="hidden" name="product_id" value="{{$product_id}}">
+                        <input type="hidden" id="product_id" name="product_id" value="{{$product_id}}">
 
                         <div class="form-group col-md-12">
                           <label class="col-md-3 product_table_heading">{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
@@ -226,7 +226,7 @@
                               ?>
                                        @foreach($variant['attributes'] as $key=>$value)
 
-
+                                        <input type="hidden" name="variant_attribute_id[<?php echo $i;?>][]" value="{{$value['id']}}" class="variant_attribute_id">
                                     <?php
 
                                        if($key==0){ ?>
@@ -235,7 +235,7 @@
                                   <?php }else{?>
                                     <div class="col-md-3"></div>
                                  <?php }?>
-                                 <input type="hidden" name="variant_attribute_id[<?php echo $i;?>][]" value="{{$value['id']}}" class="variant_attribute_id">
+                                
                                     <div class="col-md-8">
                              
                                     <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute preselected_attribute" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
@@ -460,24 +460,49 @@ $( document ).ready(function() {
   });
 
     /*code to select maximum two attributes*/
-    $('.select_attribute').each(function(){
-      var attrName = $(this).val();
-      if(attrName!=''){
-       $(".select_attribute option").attr('disabled', true);
-      }   
+    // $('.select_attribute').each(function(){
+    //   var attrName = $(this).val();
+    //   if(attrName!=''){
+    //    $(".select_attribute option").attr('disabled', true);
+    //   }   
+    // });
+
+    // var data = "<?php echo json_encode(@$disabled_attr);?>";
+    // //console.log(data);
+    // if( data !== 'null'){ 
+    //   var attr_array = JSON.parse(data);
+
+    //   attr_array.forEach(entry => {
+    //    $(".select_attribute option[value='"+ entry + "']").attr('disabled', false);
+    //   });
+    // }
+      
+      var firstAttribute = $("#variant_table").find('.variant_tr:first').find('.select_attribute:eq(0)').val();
+      var secondAttribute = $("#variant_table").find('.variant_tr:first').find('.select_attribute:eq(1)').val();
+
+     $("#variant_table").find('.variant_tr').not(':first').each(function(){
+        $(this).find('.select_attribute:eq(0)').find('option').each(function(){
+          if($(this).val() != firstAttribute)
+          {
+             $(this).attr('disabled','disabled');
+          }
+          else
+          {
+            $(this).removeAttr('disabled','disabled'); 
+          }
+        });
+
+        $(this).find('.select_attribute:eq(1)').find('option').each(function(){
+          if($(this).val() != secondAttribute)
+          {
+             $(this).attr('disabled','disabled');
+          }
+          else
+          {
+            $(this).removeAttr('disabled','disabled'); 
+          }
+        });
     });
-
-    var data = "<?php echo json_encode(@$disabled_attr);?>";
-    //console.log(data);
-    if( data !== 'null'){ 
-      var attr_array = JSON.parse(data);
-
-      attr_array.forEach(entry => {
-       $(".select_attribute option[value='"+ entry + "']").attr('disabled', false);
-      });
-    }
-    
-
   
 });
 

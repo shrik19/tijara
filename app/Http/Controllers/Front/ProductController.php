@@ -2793,15 +2793,24 @@ public function findCurrency($type){
 
     public function deleteProductVariant(Request $request) {
         $variant_id = $request->variant_id;
+        $product_id = $request->product_id;
         $successMsg = $errorMsg = '';
-        if(!empty($variant_id)) {
-            VariantProduct::where('id', $variant_id)->delete();
-            VariantProductAttribute::where('variant_id', $variant_id)->delete();
+        if(!empty($product_id))
+        {
+            if(!empty($variant_id)) {
+                VariantProduct::where('id', $variant_id)->delete();
+                VariantProductAttribute::where('variant_id', $variant_id)->delete();
+                $successMsg = trans('lang.record_delete');
+                $status = 'success';
+            }else{
+                $errorMsg = trans('errors.something_went_wrong');
+                $status = 'error';
+            }
+        }
+        else
+        {
             $successMsg = trans('lang.record_delete');
             $status = 'success';
-        }else{
-            $errorMsg = trans('errors.something_went_wrong');
-            $status = 'error';
         }
         return response()->json(['success'=>$successMsg,'error'=>$errorMsg, 'status'=>$status]);
     }

@@ -29,7 +29,10 @@
         <h5><?php echo e($product['category_name']); ?></h5></a> -->
         <a href="<?php echo e($product->product_link); ?>" title="<?php echo e($product->title); ?>"><h4><?php echo substr($product->title, 0, 50) ?></h4></a>
         <?php if(!empty($product->price)): ?>
-        <h6 class="product_price"><?php echo e($product->price); ?> kr</h6>
+        <?php   
+          $price_tbl = swedishCurrencyFormat($product->price);
+        ?>
+        <h6 class="product_price"><?php echo e($price_tbl); ?> kr</h6>
         <?php endif; ?>
         <h6 ><?php echo e($product->seller); ?></h6>
     </div>

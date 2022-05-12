@@ -67,12 +67,12 @@
       </div>
 
          <?php echo $__env->make('Front.alert_messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-      <div class="col-md-12">
+      <div class="col-md-12" style="margin-left: -18px;">
 
         <div class="login_box">
 
             <h2 class="col-md-12 product_add_h2 steps_no_css" style="margin-left: -12px;"><?php echo e(__('lang.product_form_step1')); ?></h2>
-            <input type="hidden" name="product_id" value="<?php echo e($product_id); ?>">
+            <input type="hidden" id="product_id" name="product_id" value="<?php echo e($product_id); ?>">
 
             <div class="form-group col-md-12">
               <label class="col-md-3 product_table_heading"><?php echo e(__('lang.product_title_label')); ?> <span class="de_col">*</span></label>
@@ -351,7 +351,7 @@
 
   <div class="row  tijara-content">  
     <div class="col-md-12">&nbsp;</div>
-    <div class="col-md-12 text-center">
+    <div class="col-md-12 text-center"  style="margin-bottom : 60px;">
       <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn saveproduct" tabindex="9"><?php echo e(__('lang.save_btn')); ?></button>
       <a href="<?php echo e($module_url); ?>" class="btn btn-black gray_color login_btn" tabindex="10"> <?php echo e(__('lang.cancel_btn')); ?></a>
     </div>
@@ -367,7 +367,9 @@
 
 
 <script>var siteUrl="<?php echo e(url('/')); ?>";</script>
+
 <script type="text/javascript">
+
   $('body').on('click', '.remove_image', function () {
     $(this).prev('img').prev('input').parent("div").remove();
     $(this).prev('img').prev('input').remove();

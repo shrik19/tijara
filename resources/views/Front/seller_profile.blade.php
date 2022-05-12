@@ -226,7 +226,7 @@
 
       </div>
       
-        <div style="text-align: center">
+        <div style="text-align: center;margin-bottom: 60px;">
           <button class="btn btn-black debg_color seller-profile-update login_btn">{{ __('lang.update_btn')}}</button>
           <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn check_seller_setting" tabindex="16">{{ __('lang.cancel_btn')}}</a>
         </div>

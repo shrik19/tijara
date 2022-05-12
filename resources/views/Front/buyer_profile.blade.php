@@ -2,9 +2,12 @@
 @section('middlecontent')
 
 <style type="text/css">
-  .invalid-feedback {
+.invalid-feedback {
     position: relative !important;
     color: red;
+}
+.seller_info{
+  margin-bottom: 60px;
 }
 </style>
 <div class="mid-section p_155">

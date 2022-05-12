@@ -466,7 +466,7 @@ $('body').on('click', '.remove_image', function () {
 
               $.alert({
                 title: oops_heading,
-                content: 'Attributes must not be same under Variant.',
+                content: 'Attributen får inte vara samma under Variant.',
                 type: 'red',
                 typeAnimated: true,
                 columnClass: 'medium',

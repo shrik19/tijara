@@ -663,9 +663,9 @@ class ProductController extends Controller
                     else{
 		              $variant_id=VariantProduct::create($producVariant)->id;
                     }
-                   //echo "in<pre>--";print_r($_POST['attribute_value'][$variant_key]);exit;
+                  // echo "in<pre>--";print_r($_POST['attribute_value'][$variant_key]);exit;
                    foreach($_POST['attribute'][$variant_key] as $attr_key=>$attribute) {
-                        if($_POST['attribute'][$variant_key][$attr_key]!='' && $_POST['attribute_value'][$variant_key][$attr_key])
+                        if($_POST['attribute'][$variant_key][$attr_key]!='' && isset($_POST['attribute_value'][$variant_key][$attr_key] ))
                         {
                             $productVariantAttr['product_id']   =   $id;
                             $productVariantAttr['variant_id']   =   $variant_id;

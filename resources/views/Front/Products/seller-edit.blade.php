@@ -74,7 +74,7 @@
 
                     <div class="login_box">
 
-                        <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;">{{ __('lang.product_form_step1')}}</h2>
+                        <h2 class="col-md-12 product_add_h2" style="margin-left: -22px;">{{ __('lang.product_form_step1')}}</h2>
                         <input type="hidden" id="product_id" name="product_id" value="{{$product_id}}">
 
                         <div class="form-group col-md-12">
@@ -175,7 +175,7 @@
                         </div>
         
 
-                        <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;">{{ __('lang.product_form_step2')}}</h2>
+                        <h2 class="col-md-12 product_add_h2" style="margin-left: -22px;">{{ __('lang.product_form_step2')}}</h2>
                         <div  class="col-md-12" id="variant_table">
                           @php $v=0; $i=0; @endphp
                           @if(count($VariantProductAttributeArr)>0)
@@ -338,7 +338,7 @@
                             </div>
                     
                         </div>
-                        <h2 class="col-md-12 product_add_h2" style="margin-left: -12px;">{{ __('lang.product_form_step3')}}</h2>
+                        <h2 class="col-md-12 product_add_h2" style="margin-left: -22px;">{{ __('lang.product_form_step3')}}</h2>
                  
                         <div class="form-group col-md-12" id="shipping_method_ddl_div">
                           <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>

@@ -372,7 +372,6 @@ $(function() {
             // token contains id, last4, and card type
             $('.carderror') .hide()    ;
             var token = response['id'];
-console.log(token)
             // insert the token into the form so it gets submitted to the server
 
             $form.find('input[type=text]').empty();

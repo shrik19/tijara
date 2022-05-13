@@ -295,7 +295,7 @@
                                             <!-- <label>{{ __('users.store_name_label')}}<span class="de_col">*</span></label> -->
                                             
                                             <input type="hidden" class="form-control login_input" name="verify_btn_click" id="verify_btn_click" value="">
-											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
+											<input type="text" class="form-control login_input alpha-only" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
 											<input type="button" name="check-store-unique" class="btn debg_color register_store_verify"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> 
 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
@@ -521,6 +521,13 @@
     }
 
 $(document).ready(function(){
+
+$(".alpha-only").on("input", function(){
+  var regexp = /[^a-zA-Z]/g;
+  if($(this).val().match(regexp)){
+    $(this).val( $(this).val().replace(regexp,'') );
+  }
+});
 	/*$( ".packages-subscribe" ).hasClass(session_package_name)
 	var session_package_name =$('#session_package_name').val();
 	if(session_package_name !=''){
@@ -936,6 +943,7 @@ $('#last-step').click(function(e) {
            // $("#err_store_name").parent().removeClass('jt-error');
             $("#err_store_name").html('');
     }
+
 
     if(city_name==''){
         $("#err_city_name").html(fill_in_city_err).show();

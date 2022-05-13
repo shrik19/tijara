@@ -117,9 +117,9 @@
                             $payment_status = "";
                             if($order['payment_status']=="Pending"){
                                  $payment_status =trans("users.pending_order_status");
-                            } else if($payment_status=="PAID"){
+                            } else if($order['payment_status']=="PAID" || $order['payment_status']=="CAPTURED" || $order['payment_status']=="checkout_complete"){
                                 $payment_status = trans("users.paid_payment_status");
-                            }else if($payment_status=="CANCELLED"){
+                            }else if($order['payment_status']=="CANCELLED"){
                                 $payment_status = trans("users.cancelled_order_status");
                             }else{
                                 $payment_status = $order['payment_status'];

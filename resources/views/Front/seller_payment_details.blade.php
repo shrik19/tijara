@@ -89,7 +89,7 @@
 
             </div>
 
-              <div style="margin-top: 30px;">
+              <div style="margin-top: 30px;margin-bottom: 60px;">
                 <button type="submit" name="btnCountryCreate" id="btnSaveDetails" class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
                 <a href="{{url()->previous()}}" class="btn btn-black gray_color login_btn"> {{ __('lang.cancel_btn')}}</a>
               </div>

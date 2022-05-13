@@ -343,6 +343,7 @@ $(function() {
   });
 
   function stripeResponseHandler(status, response) {
+    console.log(response);return
     alert(response.error.code)
     alert(response.error.message)
       var errorMessages = {

@@ -343,9 +343,6 @@ $(function() {
   });
 
   function stripeResponseHandler(status, response) {
-    console.log(response);return
-    alert(response.error.code)
-    alert(response.error.message)
       var errorMessages = {
             missing_payment_information:not_found_payment_info,
             incorrect_number: incorrect_card_number_err,
@@ -375,7 +372,7 @@ $(function() {
             // token contains id, last4, and card type
             $('.carderror') .hide()    ;
             var token = response['id'];
-
+console.log(token)
             // insert the token into the form so it gets submitted to the server
 
             $form.find('input[type=text]').empty();

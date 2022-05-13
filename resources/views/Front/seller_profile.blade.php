@@ -343,6 +343,8 @@ $(function() {
   });
 
   function stripeResponseHandler(status, response) {
+    alert(response.error.code)
+    alert(response.error.message)
       var errorMessages = {
             missing_payment_information:not_found_payment_info,
             incorrect_number: incorrect_card_number_err,

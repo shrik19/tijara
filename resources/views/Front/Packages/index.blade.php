@@ -177,7 +177,7 @@
 					    <input type="hidden" id="validity_days" name="validity_days" value="{{$data['validity_days']}}">
 					    <tr>
 					  		<td cf>{{ __('users.description_label')}}</td>
-					  		<td class="short-desc">{{ preg_replace('#<[^>]+>#', ' ', @$data['description'])}}</td>
+					  		<td class="short-desc">{{ str_replace("&nbsp;", "",preg_replace('#<[^>]+>#', ' ', @$data['description']))}}</td>
 					    </tr>
 					    <tr>
 					  		<td>{{ __('users.amount_label')}}</td>

@@ -126,11 +126,31 @@ class OrderController extends Controller
                   $action = $status = $image = '-';
                   $id = (!empty($recordDetailsVal['id'])) ? $recordDetailsVal['id'] : '-';
                   $user = (!empty($recordDetailsVal['fname'])) ? $recordDetailsVal['fname'].' '.$recordDetailsVal['lname'] : '-';
-                  $subtotal = (!empty($recordDetailsVal['sub_total'])) ? number_format($recordDetailsVal['sub_total'],2) : '-';
-                  $shipping_total = (!empty($recordDetailsVal['shipping_total'])) ? number_format($recordDetailsVal['shipping_total'],2) : '-';
+                  $subtotal = (!empty($recordDetailsVal['sub_total'])) ? swedishCurrencyFormat($recordDetailsVal['sub_total']) : '-';
+                  $shipping_total = (!empty($recordDetailsVal['shipping_total'])) ? swedishCurrencyFormat($recordDetailsVal['shipping_total']).' kr' : '-';
                   $total = (!empty($recordDetailsVal['total'])) ? number_format($recordDetailsVal['total'],2) : '-';
                   $payment_status = (!empty($recordDetailsVal['payment_status'])) ? $recordDetailsVal['payment_status'] : '-';
                   $order_status = (!empty($recordDetailsVal['order_status'])) ? $recordDetailsVal['order_status'] : '-';
+
+                 if($order_status=="PENDING"){
+                       $order_status =trans("users.pending_order_status");
+                  }else if($order_status=="SHIPPED"){
+                       $order_status = trans("users.shipped_order_status");
+                  }else if($order_status=="CANCELLED"){
+                       $order_status = trans("users.cancelled_order_status");
+                  }else{
+                       $order_status = $order_status;
+                  }
+
+                   if($payment_status=="Pending"){
+                       $payment_status =trans("users.pending_order_status");
+                  }else if($payment_status=="PAID" || $payment_status=="CAPTURED"){
+                       $payment_status = trans("users.paid_payment_status");
+                  }else if($payment_status=="CANCELLED"){
+                       $payment_status = trans("users.cancelled_order_status");
+                  }else{
+                       $payment_status = $payment_status;
+                  }
 
                 date_default_timezone_set("Europe/Stockholm");  
                 $dated = $recordDetailsVal['created_at'];
@@ -140,7 +160,7 @@ class OrderController extends Controller
                   
                   $action = '<a href="'.route('adminOrderView', base64_encode($id)).'" title="'. trans('lang.txt_view').'"><i class="fas fa-eye"></i> </a>&nbsp;&nbsp;<a href="'.route('adminDownloadOrderDetails', base64_encode($id)).'" title="Download"><i class="fas fa-file-download"></i> </a>';
 
-                  $arr[] = [ '#'.$id, $user, $subtotal.' kr', $shipping_total.' kr',$total.' kr',  $payment_status, $order_status, $dated, $action];
+                  $arr[] = [ '#'.$id, $user, $subtotal.' kr', $shipping_total,$total.' kr',  $payment_status, $order_status, $dated, $action];
                     
 
               }

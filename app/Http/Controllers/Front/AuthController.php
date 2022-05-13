@@ -1183,9 +1183,9 @@ class AuthController extends Controller
                 //'klarna_username'  => trim($request->input('klarna_username')),
                 //'klarna_password' => base64_encode(trim($request->input('klarna_password'))),
             ];
-
+           /*before here is STRIPE_SECRET_KEY*/
 			if($request->input('stripeToken')) {
-                Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+                Stripe\Stripe::setApiKey(env('STRIPE_API_KEY'));
         
                 $customer = \Stripe\Customer::create(array(
                     "email" => trim($request->input('email')),

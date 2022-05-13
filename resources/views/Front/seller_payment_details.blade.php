@@ -8,6 +8,11 @@
   .sidebar_menu {
     margin-left: -14px !important;
   }
+
+  .update-alert-css {
+    margin-top: -22px !important;
+    margin-bottom: 33px;
+}
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
@@ -19,12 +24,12 @@
     </div>
 
     <div class="col-md-10 tijara-content">
-    @include ('Front.alert_messages')
+    
       <div class="seller_info">
         <div class="card-header row seller_header">
           <h2 class="seller_page_heading">{{ __('users.payment_btn')}} </h2>
         </div> <!--  seller_header -->
-
+        @include ('Front.alert_messages')
         <div style="margin-top: 40px;">
         <div class="col-md-6" style="margin-left: 10px;">
           <h3>{{ __('users.payment_method_head')}}</h3>

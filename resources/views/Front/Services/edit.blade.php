@@ -51,7 +51,7 @@ td.fc-week-number {
 }
 </style>
 
-<div class="mid-section" style="padding-top: 96px !important;">
+<div class="mid-section" style="padding-top: 136px !important;">
   <div>
   <div class="container-inner-section-1"  style="margin-bottom: 60px;">
   <!-- Example row of columns -->

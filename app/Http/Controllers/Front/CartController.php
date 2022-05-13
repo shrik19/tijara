@@ -3629,7 +3629,7 @@ DATA;
 
                    if($payment_status=="Pending"){
                        $translated_payment_status =trans("users.pending_order_status");
-                  }else if($payment_status=="PAID" || $payment_status=="CAPTURED"){
+                  }else if($payment_status=="PAID" || $payment_status=="CAPTURED" || $payment_status=="checkout_complete"){
                        $translated_payment_status = trans("users.paid_payment_status");
                   }else if($payment_status=="CANCELLED"){
                        $translated_payment_status = trans("users.cancelled_order_status");

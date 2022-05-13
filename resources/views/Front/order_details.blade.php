@@ -173,7 +173,7 @@ if (@$_GET['print'])
 
                               if($order['payment_status']=="Pending"){
                                    $payment_status =trans("users.pending_order_status");
-                              }else if($order['payment_status']=="PAID" || $payment_status=="CAPTURED"){
+                              }else if($order['payment_status']=="PAID" || $payment_status=="CAPTURED" || $order['payment_status']=="checkout_complete"){
                                    $payment_status = trans("users.paid_payment_status");
                               }else if($order['payment_status']=="CANCELLED"){
                                    $payment_status = trans("users.cancelled_order_status");

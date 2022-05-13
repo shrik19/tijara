@@ -1056,7 +1056,7 @@ class AuthController extends Controller
                 
                  if($httpcode==401) {
                      $error=1;
-                     $messages  =   array("Sätt klarna detaljer ordentligt");
+                     $messages  =   array("Klarna nyckel ogiltig");
                      Session::flash('error', $messages[0]);
                      return redirect()->back()->withInput($request->all())->withErrors($messages);
                  }
@@ -1084,7 +1084,7 @@ class AuthController extends Controller
             
             if(isset($response['error'])) {
                 $$error=1;
-                $messages   =   array("Stripe key ogiltig");
+                $messages   =   array("Stripe nyckel ogiltig");
                 Session::flash('error', $messages[0]);
                 return redirect()->back()->withInput($request->all())->withErrors($messages);
             }

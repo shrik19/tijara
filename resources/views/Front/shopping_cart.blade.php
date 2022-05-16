@@ -140,7 +140,7 @@
                             {{$shipping_tbl}} kr
                        <?php /*  {{ number_format($orderProduct['shipping_amount'],2)}} kr */ ?></p></td>
                         <td class="col-sm-2 col-md-2 text-right bg-white">
-                            <p  class="product_sorting_filter_option">
+                            <p  class="product_sorting_filter_option p-l-8">
                                 @php 
                                     $amt_total =(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']); $total_price_tbl = swedishCurrencyFormat($amt_total);
 
@@ -168,7 +168,7 @@
                         <td class="table_blank">   </td>
                         <td class="table_blank">   </td>
                         <td class="table_blank">   </td>
-                        <td class="bg-white bbvbvb"><h5  class="product_sorting_filter_option">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
+                        <td class="bg-white bbvbvb"><h5  class="product_sorting_filter_option p-l-8">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
                         <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
                             @php 
                                 $subTotal = swedishCurrencyFormat($tmpOrderProduct['subTotal']);
@@ -185,7 +185,7 @@
                         <td class="table_blank">   </td>
                         <td class="table_blank" >   </td>
                         <td class="table_blank">   </td>
-                        <td class="bg-white"><h5 class="product_sorting_filter_option">{{ __('lang.shopping_cart_shipping')}}</h5></td>
+                        <td class="bg-white"><h5 class="product_sorting_filter_option p-l-8">{{ __('lang.shopping_cart_shipping')}}</h5></td>
                         <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
 
                              @php  
@@ -202,8 +202,8 @@
                         <td class="table_blank">   </td>
                         <td class="table_blank">   </td>
                         <td class="table_blank">   </td>
-                        <td class="bg-white"><h4 class="cart_total_css">{{ __('lang.shopping_cart_total')}}</h4></td>
-                        <td class="text-right bg-white"><h4 class="cart_total_css">
+                        <td class="bg-white"><h4 class="cart_total_css p-l-8">{{ __('lang.shopping_cart_total')}}</h4></td>
+                        <td class="text-right bg-white"><h4 class="cart_total_css ">
                             @php 
                                 $price_nice = swedishCurrencyFormat($tmpOrderProduct['Total']);
                             @endphp

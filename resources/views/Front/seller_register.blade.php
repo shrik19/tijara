@@ -314,7 +314,7 @@
 
 										<div class="form-group increment cloned">
 											<label class="placeholder">{{ __('users.seller_header_img_label')}}</label>
-											<div class="seller_banner_upload" style="margin-top: 20px;"></div>
+											<div class="seller_banner_upload"></div>
 											
                                             
 											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
@@ -327,7 +327,7 @@
 
 										<div class="form-group increment cloned">
 											<label class="placeholder">{{ __('users.seller_logo_label')}}</label>
-											<div class="seller_logo_upload" style="margin-top: 20px;"></div>
+											<div class="seller_logo_upload"></div>
 											
 											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
 											

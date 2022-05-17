@@ -105,6 +105,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
           
              <div class="form-group butik_profile_store_div">
               <label>{{ __('lang.store_name')}} <span class="de_col"></span></label>
+              <br>
               <input type="text" class="form-control store_name butik_profile_store_name" id="store_name" name="store_name" 
               placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif"/>
             <input type="button" name="check-store-unique" class="btn debg_color verify-store" onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 1px;" />  

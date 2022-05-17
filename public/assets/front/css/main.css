@@ -1092,7 +1092,7 @@ p.seller-logo-banner-info{
 }
 
 .butik_profile_store_div{
-  display: flex;margin-top: 19px;
+ margin-top: 19px;
 }
 /*end seller store page css*/
 /*css for subheader menus*/
@@ -1437,9 +1437,10 @@ span.remember-text {
 	}
 	#seller-personal-form input.form-control{
     margin: 0!important;
-    width: 53%;
-    margin-left: 10px!important;
+    width: 63%;
+
     float: left;
+    clear: both;
   }
 	/*#third-step-form input.form-control{
 		margin-bottom: 25px;
@@ -2447,9 +2448,12 @@ input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
     cursor: pointer; 
 }
 input[type='file']{
-  opacity: 0;
+ 
   cursor: pointer;
  
+}
+#bannerInp,#logoInp{
+  width: 100%!important;
 }
   .summary_page{    margin: 15px 0;
     float: left;

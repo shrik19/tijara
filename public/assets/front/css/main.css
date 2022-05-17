@@ -1490,10 +1490,12 @@ span.remember-text {
 input.previous.btn.gray_color.action-button-previous.step-third-previous {
      float: left; 
      margin-left: 32%; 
+      margin-top:55px;
 }
 #third-step {
     float: right;
     margin-right: 32%;
+    margin-top:55px;
 }
 
 	

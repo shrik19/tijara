@@ -278,6 +278,7 @@ margin-top: 15px;
   font-size: 14px !important;
   color: #777 !important;
   font-weight: 300 !important;
+  padding-top: 15px;
 }
 
 .hand-icon{
@@ -288,7 +289,7 @@ margin-top: 15px;
   margin-top: 11px;font-weight: 500;
   height: 50px;
     padding: 1px 32px!important;
-    margin-top: 12px!important;
+    margin-top: -2px!important;
     margin-left: -6px!important;
 }
 .package_width{width: 73%; margin: 20px 15%;}
@@ -1333,10 +1334,12 @@ span.remember-text {
   color: #222222;
   font-weight: 300;
 }
-.cart_count span{font-size: 10px;text-align: center; color: #fff;    position: absolute;
-    top: 2px;
-   
-    right:5px;
+.cart_count span{font-size: 10px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  top: -3px;
+  text-align: center;
   }
     .search_now_input_box{position: relative; float: left;width: 100%;}
     .search_icon_btn{border: none;background-color: transparent;       margin-left: -35px;
@@ -1433,7 +1436,9 @@ span.remember-text {
     margin: 15px 0 0 0;
     color: #222222;
 	}
-	
+	#seller-personal-form input.form-control{
+    margin: 0!important;
+  }
 	/*#third-step-form input.form-control{
 		margin-bottom: 25px;
 	}*/
@@ -1474,7 +1479,7 @@ span.remember-text {
 	.seller_register_container .seller_register_third input[type=button],
 	.seller_register_container .seller_register_fourth input[type=button],
 	.seller_register_container .seller_register_fourth input[type=submit]{
-		margin: 10% 5% 2% 0;
+		margin: 0% 5% 0% 0;
 		color: #FFFFFF;
 		float: right;
 		font-weight: bold;
@@ -2782,13 +2787,13 @@ text-align: right;
 .shopping_cart_page .shopping_cart tbody tr.ttl-sec {
     border-top: 10px solid #dddddd;
 }
-
+.p-l-8{padding-left: 8px;padding-right: 8px;}
 .shopping_cart_page .shopping_cart tbody tr td {
-  border: none;  padding: 8p 8px 0 8px;
+  border: none;  
 }
 
 .shopping_cart_page .shopping_cart .bg-white {
-  background: #ffffff;
+  background: #ffffff; padding: 8px 5px;
 }
 
 .shopping_cart_page .shopping_cart .media.cart-store-sec {
@@ -3275,11 +3280,13 @@ line-height: 42px;
   border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;display: none
 }
 .pick-img{
-  float: right; margin-top: -2px;border-radius: 5px;    width: 64px;
+  float: right; margin-top: -2px;border-radius: 5px;    width: 70px;
+  height: auto;
 }
 .pick_input{
   border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;
 }
+#seller-personal-form>.form-group{margin-bottom: 0!important;}
 .new_add{padding-right: 0px;}
 .new_add_heading{margin-bottom: 60px;}
 .pt-4{padding-top: 22px;}
@@ -3324,7 +3331,8 @@ line-height: 42px;
   font-size: 12px;
 }
 .pick-img{
-  width: 64px;
+  width: 60px;
+  height: auto;
 }
 .stripe_checkout_logo {
   float: right;

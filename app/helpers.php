@@ -65,7 +65,7 @@ function getWishlistProducts($userId)
 
   $allWishlistProducts = Wishlist::join('products', 'wishlist.product_id', '=', 'products.id')->where('products.is_deleted','=',0)->where('products.is_buyer_product','=',0)->where('products.status','=',"active")->where('wishlist.user_id','=',$userId)->get()->toArray();
 //echo "<pre>";print_r($allWishlistProducts);exit;
-print_r(DB::getQueryLog());exit;
+//print_r(DB::getQueryLog());exit;
   if(!empty($allWishlistProducts))
   {
     foreach($allWishlistProducts as $key => $details)

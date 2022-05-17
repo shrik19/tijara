@@ -74,7 +74,9 @@ function getWishlistProducts($userId)
         if(empty($checkVariant))
         {
           $tmpWishlistDetails = Wishlist::find($details['id']);
-          $tmpWishlistDetails->delete();
+          if(!empty($tmpWishlistDetails)){
+            $tmpWishlistDetails->delete();
+          }
 
           unset($allWishlistProducts[$key]);
         }

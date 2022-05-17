@@ -18,6 +18,10 @@
 .seller_profile_content{
   margin-left: 10px;
 }
+.update-alert-css {
+    margin-top: -46px !important;
+    margin-bottom: 20px;
+}
 </style>
 <div class="container-fluid">
   <div class="container-inner-section-1">
@@ -27,7 +31,7 @@
       @include ('Front.layout.sidebar_menu')
     </div>
     <div class="col-md-10 tijara-content ">
-      @include ('Front.alert_messages')
+   
       @if(!empty($package_exp_msg))
           <div class="alert alert-danger" role="alert">
             <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>
@@ -43,7 +47,7 @@
         <!-- <hr class="heading_line"> -->
      </div>  
         <div class="login_box seller_profile_content">
-          
+             @include ('Front.alert_messages')
             <h2 class="col-md-12 contact-info seller_profile_subheader">{{ __('users.contact_person')}}</h2>
             @if($noActivePackage == 1)
               <input type="hidden" name="is_disabled" id="disable_side_menu" value="1">

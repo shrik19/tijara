@@ -126,8 +126,8 @@
         </div>
             <!-- <input type="file" name="profile" class="form-control" value="{{old('profile')}}"> -->
             <div class="upload-btn-wrapper">
-            <button class="uploadbtn buyer_profile_update_btn"><i class="fa fa-upload" aria-hidden="true" style=""></i> {{ __('users.upload_file_input')}}
-            <input type="file" name="profile" class="form-control input_box_css" id="buyer_profile_image" value="{{old('profile')}}"   style="cursor: pointer;" /></button>
+            <button class="uploadbtn buyer_profile_update_btn"><i class="fa fa-upload" aria-hidden="true" style=""></i> <span>{{ __('users.upload_file_input')}}</span>
+            <input type="file" name="profile" class="form-control " id="buyer_profile_image" value="{{old('profile')}}"   style="cursor: pointer;" /></button>
             </div>
             
             <div class="text-danger">{{$errors->first('filename')}}</div>

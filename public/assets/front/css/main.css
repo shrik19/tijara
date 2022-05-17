@@ -374,7 +374,6 @@ margin-top: 15px;
 }
 .verify-store{
   margin-left: 385px;
-  margin-top: 26px;
   padding: 9px 16px !important;
 }
 .store_eye_icon{
@@ -1438,6 +1437,9 @@ span.remember-text {
 	}
 	#seller-personal-form input.form-control{
     margin: 0!important;
+    width: 53%;
+    margin-left: 10px!important;
+    float: left;
   }
 	/*#third-step-form input.form-control{
 		margin-bottom: 25px;
@@ -2426,17 +2428,27 @@ padding-left: 0px!important;
     padding: 9px 19px;
     border-radius: 8px;
     font-size: 14px !important;
-    font-weight: 400 !important;
+    font-weight: 400 !important;cursor: pointer!important;
   }
+  .uploadbtn:hover{cursor: pointer!important;}
 
   .upload-btn-wrapper input[type=file] {
     font-size: 100px;
     position: absolute;
     left: 0;
     top: 0;
-    opacity: 0;
+    opacity: 0;cursor: pointer!important;
 
   }
+  input[type=file], /* FF, IE7+, chrome (except button) */
+input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
+    cursor: pointer; 
+}
+input[type='file']{
+  opacity: 0;
+  cursor: pointer;
+ 
+}
   .summary_page{    margin: 15px 0;
     float: left;
     width: 100%;}

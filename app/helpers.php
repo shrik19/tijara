@@ -63,7 +63,7 @@ function getOrderProducts($userId)
 function getWishlistProducts($userId)
 {
 
-  $allWishlistProducts = Wishlist::where('user_id','=',$userId)->get()->toArray();
+  $allWishlistProducts = Wishlist::join('products', 'products.id', '=', 'wishlist.product_id')->where('wishlist.user_id','=',$userId)->where('products.is_deleted','!=',1)->where('products.is_buyer_product','!=',1)->get()->toArray();
 
   if(!empty($allWishlistProducts))
   {

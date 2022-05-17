@@ -501,6 +501,7 @@ class AuthController extends Controller
         Session::put('next_step',4);
         Session::put('StepsHeadingTitle',trans('users.sell_with_tijara_head'));*/
       // echo "<pre>";print_r($_POST);exit;
+        $httpcode=200;
             $klarna_username        = trim($request->input('klarna_username'));
             $klarna_password        = base64_encode(trim($request->input('klarna_password')));
             $swish_api_key          = trim($request->input('swish_api_key'));
@@ -588,7 +589,7 @@ class AuthController extends Controller
 
             Session::forget('next_step');
             Session::put('next_step', 4);
-        return response()->json(['success'=>'third step success']);exit;
+        return response()->json(['success'=>'third step success','code'=>$httpcode]);exit;
     }
 
 

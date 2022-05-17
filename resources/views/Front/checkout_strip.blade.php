@@ -34,6 +34,7 @@
                     <div class="loader"></div>
                     <div class="row">
                           <div class="col-md-10 col-md-offset-1">
+                             @include ('Front.alert_messages')
                             <div id="payment-page">
                               <div class="container container-fluid p_155">
                               <div class="row">
@@ -289,7 +290,9 @@ $(function() {
             card_declined: card_declined_err,
             missing: missing_err,
             processing_error: processing_error,
-            rate_limit:  rate_limit_err
+            rate_limit:  rate_limit_err,
+            call_issuer:"The card was declined for an unknown reason.",
+            card_not_supported:'The card does not support this type of purchase.'
           };
            /*if (response.error) {
      
@@ -304,6 +307,8 @@ $(function() {
                 response.error.code = 'invalid_expiry_month';
               }else if(response.error.code=='invalid_number' && response.error.message.indexOf("exp_year") !=-1){
                 response.error.code ='invalid_expiry_year';
+              }else{
+                 response.error.code =response.error.message;
               }
             $('.error').removeClass('hide').find('.alert').text(errorMessages[response.error.code]);
 

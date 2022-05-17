@@ -713,9 +713,26 @@ var service_time_counter  = 10000;
           //tip: 'Sup dog.'
         };
         events_array.push(temp);
+
+      if($('#del_start_time').val()=="insert"){
+        events_array_new.push(temp);console.log(events_array_new)
+        $('#calendar').fullCalendar('addEventSource', events_array_new);
+      }else if($('#del_start_time').val()=="delete"){
+       
+    /*    events_array_new.push(temp.start); 
+       existingEvents = $('#calendar').fullCalendar( 'clientEvents');
+             $(existingEvents).each(function (k1, v1) { 
+              if(convert(temp.start)===convert(v1.start)){
+                $('#calendar').fullCalendar( 'removeEvents',v1.id)
+                
+              }
+             });*/
+     
+        
+      }
   });
   
-    $('#calendar').fullCalendar('addEventSource', events_array);
+   // $('#calendar').fullCalendar('addEventSource', events_array);
     $('#service_year').val('');
     $('#service_month').val('');
     $('#service_date').val('');

@@ -19,9 +19,14 @@
             <div class="text-danger">{{$errors->first('title')}}</div>
           </div>
 
-          <div class="form-group">
+         <!--  <div class="form-group">
             <label>{{ __('users.description_label')}}</label>
              <textarea class="form-control description" name="description" id="description" spellcheck="true" ></textarea>
+          </div> -->
+
+          <div class="form-group">
+            <label>{{ __('users.description_label')}}</label>
+             <textarea class="form-control" name="description" id="description" spellcheck="true" style="height: 250px;" ></textarea>
           </div>
 
           <div class="form-group">

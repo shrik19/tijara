@@ -820,12 +820,12 @@ $('#third-step').click(function(e) {
 	 	
     }else
     {
-       third_step_err = 1;
+     
        showErrorMessage(please_add_payment_details);
-       return false;
+       //return false;
+        third_step_err = 1;
     }
-    	
-//	alert(third_step_err);return
+  
 	if(third_step_err == 0){
 	
 	    $(".loader-seller").css("display","block");
@@ -873,6 +873,7 @@ $('#third-step').click(function(e) {
 	                    }else{
 	                       $(".loader-seller").css("display","none");
 	                        showErrorMessage(data.error);
+	                       
 							setTimeout(function(){
 							$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');
 							
@@ -885,7 +886,6 @@ $('#third-step').click(function(e) {
 	    
 	  }
 	else  { 
-	
 	setTimeout(function(){
 		$('#progressbar .confirm').removeClass('active');
 		$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');

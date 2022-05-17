@@ -135,8 +135,13 @@
      'select_one_shipping_option' => 'Välj minst en leveransmetod',
      'check_checkbox_first_err' => 'Vänligen välj kryssrutan hämta i butik först',
      'fill_in_to_email' => "Vänligen fyll i vem som kommer att få dessa mejl.",
-	 'something_went_wrong' => "Något gick fel, försök igen efter ett tag."
- 
+	'something_went_wrong' => "Något gick fel, försök igen efter ett tag.",
+     'card_decline_rate_limit_exceeded'=>'Du har överskridit det maximala antalet avslag på det här kortet under den senaste 24-timmarsperioden. Kontakta oss via https://support.stripe.com/contact om du behöver mer hjälp.',
+     'card_declined'=>'Kortet har avvisats',
+     'amount_too_large'=>'Det angivna beloppet är större än det högsta tillåtna beloppet. Använd en lägre mängd och försök igen.',
+     'amount_too_small'=>'Det angivna beloppet är mindre än det lägsta tillåtna beloppet. Använd en högre mängd och försök igen.',
+       'insufficient_funds'=>'Kundens konto har otillräckliga medel för att täcka denna betalning.',
  ]
+
 ?>
 

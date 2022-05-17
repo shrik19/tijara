@@ -254,7 +254,7 @@
 }
 
 $( document ).ready(function() {
-    hideShippingMethod();
+    hideShippingMethod();  
 });
 /*$( ".removeCard" ).click(function() {
     $('.saveCardDetailsDiv').show();
@@ -388,9 +388,7 @@ $(function() {
 
 });
 
-</script>
 
-<script>
   function ConfirmCancelFunction(url, id = false) {
     var message = close_store_confirm_msg;
 

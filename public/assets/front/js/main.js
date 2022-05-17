@@ -116,9 +116,9 @@ if (defaultOpen) {
   }
 });*/
 $(".add_new_variant_btn").click(function(){
-  var firstVariant = $("#variant_table").find('.variant_tr:eq(0)');
-  var firstAttribute = firstVariant.find('.select_attribute:eq(0)').val();
-  var secondAttribute = firstVariant.find('.select_attribute:eq(1)').val();
+  // var firstVariant = $("#variant_table").find('.variant_tr:eq(0)');
+  // var firstAttribute = firstVariant.find('.select_attribute:eq(0)').val();
+  // var secondAttribute = firstVariant.find('.select_attribute:eq(1)').val();
 
   $(".remove_variant_div").addClass("col-md-12");
     $trLast = $("div.variant_tr:last");
@@ -2038,9 +2038,25 @@ $('input.product_checkbox_attribute').on('change', function() {
   });
   }
 });
-// $( document ).ready(function() {
-//     hideShippingMethod();
-// });
+$( document ).ready(function() {
+    //hideShippingMethod();
+     if(!$("#is_pick_from_store").is(':checked')){
+      $("#store_pick_address").attr("readonly",true) 
+    }else{
+       $("#store_pick_address").removeAttr("readonly",false)
+    }
+
+    $('#is_pick_from_store').change(function() {
+        if(this.checked) {
+            $("#store_pick_address").removeAttr("readonly",false);
+        }else{
+          $("#store_pick_address").val(""); 
+           $("#is_pick_from_store").val(""); 
+           $("#store_pick_address").attr("readonly",true); 
+        }
+              
+    });
+});
 /*seller profile free shipping checkbox selected then hide payment method option*/
 
 

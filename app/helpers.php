@@ -63,7 +63,7 @@ function getOrderProducts($userId)
 function getWishlistProducts($userId)
 {DB::enableQueryLog();
 
-  $allWishlistProducts = Wishlist::join('products', 'products.id', '=', 'wishlist.product_id')->where('wishlist.user_id','=',$userId)->where('products.is_deleted','=',0)->where('products.is_buyer_product','=',0)->where('products.status','=',"active")->get()->toArray();
+  $allWishlistProducts = Wishlist::join('products', 'products.id', '=', 'wishlist.product_id')->where('products.is_deleted','=',0)->where('products.is_buyer_product','=',0)->where('products.status','=',"active")->where('wishlist.user_id','=',$userId)->get()->toArray();
 //echo "<pre>";print_r($allWishlistProducts);exit;
 print_r(DB::getQueryLog());exit;
   if(!empty($allWishlistProducts))

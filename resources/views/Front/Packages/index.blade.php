@@ -167,7 +167,7 @@
 						<div class="panel-heading package_heading package-pro">{{$data['title']}}</div>
 						
 				<div class="panel-body package-body">
-					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
+					<table class="table" style="border: 0px;max-height: 365px;overflow: auto; display: inline-block;white-space: nowrap;">
 					  <tbody class="">
 					  	<?php /* <tr>
 					  		<td class="bold">{{ __('users.description_label')}}</td>
@@ -177,7 +177,7 @@
 					    <input type="hidden" id="validity_days" name="validity_days" value="{{$data['validity_days']}}">
 					    <tr>
 					  		<td cf>{{ __('users.description_label')}}</td>
-					  			<td class="short-desc">{{ str_replace("&nbsp;"," ",preg_replace('#<[^>]+>#', ' ', @$data['description']))}}</td>
+					  			<td class="short-desc"><?php echo ($data['description']);?><!-- {{ str_replace("&nbsp;"," ",preg_replace('#<[^>]+>#', ' ', @$data['description']))}} --></td>
 					    </tr>
 					    <tr>
 					  		<td>{{ __('users.amount_label')}}</td>

@@ -63,7 +63,7 @@ function getOrderProducts($userId)
 function getWishlistProducts($userId)
 {
 
-  $allWishlistProducts = Wishlist::where('user_id','=',$userId)->get()->toArray();
+  $allWishlistProducts = Wishlist::join('products', 'wishlist.product_id', '=', 'products.id')->where('products.is_deleted','=',0)->where('products.is_buyer_product','=','0')->where('products.status','=',"active")->where('wishlist.user_id','=',$userId)->get()->toArray();
 
   if(!empty($allWishlistProducts))
   {
@@ -74,7 +74,9 @@ function getWishlistProducts($userId)
         if(empty($checkVariant))
         {
           $tmpWishlistDetails = Wishlist::find($details['id']);
-          $tmpWishlistDetails->delete();
+          if(!empty($tmpWishlistDetails)){
+            $tmpWishlistDetails->delete();
+          }
 
           unset($allWishlistProducts[$key]);
         }

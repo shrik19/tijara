@@ -282,7 +282,7 @@
 							             
 									</form>                          
 								</div> 
-								<input type="button" name="next" class="next btn debg_color action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>	
+								<input type="button" name="next" class="next1 btn debg_color action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>	
 								<input type="button" name="previous" class="previous btn gray_color action-button-previous step-third-previous" value="{{ __('users.prev_step_btn')}}" /> 								 
 								
 							</fieldset>
@@ -820,12 +820,12 @@ $('#third-step').click(function(e) {
 	 	
     }else
     {
-       third_step_err = 1;
+     
        showErrorMessage(please_add_payment_details);
-       return false;
+       //return false;
+        third_step_err = 1;
     }
-    	
-//	alert(third_step_err);return
+  
 	if(third_step_err == 0){
 	
 	    $(".loader-seller").css("display","block");
@@ -839,6 +839,7 @@ $('#third-step').click(function(e) {
 	                data:{klarna_username:klarna_username, klarna_password:klarna_password,strip_api_key:strip_api_key,strip_secret:strip_secret,swish_number:swish_number},
 	                success: function(data){
 	                    if(data.success=="third step success"){
+	                    	console.log(data.code);
 	                        $(".loader-seller").css("display","none");
 							createCookie("tijara_register_current_step", 'seller_register_fourth', 20);
 	                        console.log(data.success);
@@ -873,6 +874,7 @@ $('#third-step').click(function(e) {
 	                    }else{
 	                       $(".loader-seller").css("display","none");
 	                        showErrorMessage(data.error);
+	                       
 							setTimeout(function(){
 							$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');
 							
@@ -885,7 +887,6 @@ $('#third-step').click(function(e) {
 	    
 	  }
 	else  { 
-	
 	setTimeout(function(){
 		$('#progressbar .confirm').removeClass('active');
 		$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');

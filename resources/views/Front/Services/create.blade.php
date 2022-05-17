@@ -321,8 +321,7 @@ td.fc-week-number {
             <div class="col-md-6"></div>
             <div class="col-md-6">
               <div class="col-md-3" style="margin-left: 200px !important;display:flex;"> 
-                <a href="javascript:void(0);" name="remove_service_date" id="remove_service_date" class="btn btn-danger login_btn save_service_date" tabindex="9" val="delete">{{ __('lang.remove_title')}}</a>
-&nbsp;&nbsp;
+               <!--  <a href="javascript:void(0);" name="remove_service_date" id="remove_service_date" class="btn btn-danger login_btn save_service_date" tabindex="9" val="delete">{{ __('lang.remove_title')}}</a> -->
               <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
               <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
             </div>
@@ -713,6 +712,7 @@ var service_time_counter  = 10000;
           //tip: 'Sup dog.'
         };
         events_array.push(temp);
+
   });
   
     $('#calendar').fullCalendar('addEventSource', events_array);

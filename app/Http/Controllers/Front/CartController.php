@@ -1687,7 +1687,9 @@ class CartController extends Controller
       $checkExisting = TmpOrders::where('id','=',$orderRef)->first()->toArray();
       $orderTotal = (int)ceil($checkExisting['total']) * 100;
       Stripe\Stripe::setApiKey($UserData['strip_api_key']);
-      
+      $stripeErrMsg='';
+      try {
+        // Use Stripe's library to make requests...
         $response = Stripe\Charge::create ([
                 "amount" => $orderTotal,
                 "currency" => "SEK",
@@ -1696,7 +1698,31 @@ class CartController extends Controller
                 "description" => "Tijara payment for order #".$orderRef ,
                 
         ]);
-        // echo'<pre>';print_r($response);exit;
+      } catch(\Stripe\Exception\CardException $e) {
+           $stripeErrMsg = $e->getError()->message;
+
+      }
+      if(!empty($stripeErrMsg)){
+          $code=$e->getError()->code;
+
+          $errMsg='';
+          if($code == "card_decline_rate_limit_exceeded"){
+            $errMsg = trans('errors.card_decline_rate_limit_exceeded');
+          }else if($code =='card_declined'){
+            $errMsg = trans('errors.card_declined');
+          }else if($code =='amount_too_large'){
+            $errMsg = trans('errors.amount_too_large');          
+          }else if($code=="amount_too_small"){
+            $errMsg = trans('errors.amount_too_small');
+          }else if($code=="insufficient_funds"){
+            $errMsg = trans('errors.insufficient_funds');           
+          }else{
+            $errMsg =$stripeErrMsg;
+          }
+          Session::flash('error', $errMsg);
+          return redirect()->back();
+        //$this->showCheckout(base64_encode($orderRef),"Kortbetalning",Request $request);
+      }else{
         $arrOrderUpdate = [
           
           'klarna_order_reference'  => $response->id,
@@ -1711,6 +1737,37 @@ class CartController extends Controller
       
         $this->sendMailAboutOrder($newOrderDetails);
         return redirect(route('frontCheckoutSuccess',['id'=>base64_encode($NewOrderId)]));
+      }
+          /*Since it's a decline, \Stripe\Exception\CardException will be caught
+          //echo 'Status is:' . $e->getHttpStatus() . '\n';
+          //echo 'Type is:' . $e->getError()->type . '\n';
+          //echo 'Code is:' . $e->getError()->code . '\n';
+          // param is '' in this case
+          //echo 'Param is:' . $e->getError()->param . '\n';
+       
+                * catch (\Stripe\Exception\RateLimitException $e) {
+          // Too many requests made to the API too quickly
+           echo 'Status is:---Too many requests made to the API too quickly'; 
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
+          // Invalid parameters were supplied to Stripe's API
+           echo 'Invalid parameters were supplied to Stripes API'; 
+        } catch (\Stripe\Exception\AuthenticationException $e) {
+          // Authentication with Stripe's API failed
+          // (maybe you changed API keys recently)
+          echo 'Authentication with Stripes API failed'; 
+        } catch (\Stripe\Exception\ApiConnectionException $e) {
+          // Network communication with Stripe failed
+          echo "Network communication with Stripe failed";
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+          // Display a very generic error to the user, and maybe send
+          // yourself an email
+          echo "Display a very generic error to the user, and maybe send";
+        } catch (Exception $e) {
+          // Something else happened, completely unrelated to Stripe
+          echo "Something else happened, completely unrelated to Stripe";
+        }*/
+
+        
     }
     function showCheckoutSwish($seller_id,$checkExisting) {
 

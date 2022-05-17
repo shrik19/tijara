@@ -137,6 +137,11 @@
      'select_one_shipping_option' => 'Please select at least one shipping method',
      'check_checkbox_first_err' => 'Please Select pick up from store checkbox first',
      'fill_in_to_email' => "Please fill in who will receive these email.",
-	 'something_went_wrong' => "Something went wrong, try again after some time."
+	'something_went_wrong' => "Something went wrong, try again after some time."
+     'card_decline_rate_limit_exceeded'=>'You have exceeded the maximum number of declines on this card in the last 24 hour period. Please contact us via https://support.stripe.com/contact if you need further assistance.',
+     'card_declined'=>'The card has been declined',
+     'amount_too_large'=>'The specified amount is greater than the maximum amount allowed. Use a lower amount and try again.',
+     'amount_too_small'=>'The specified amount is less than the minimum amount allowed. Use a higher amount and try again.',
+     'insufficient_funds'=>'The customer’s account has insufficient funds to cover this payment.',
  ]
 ?>

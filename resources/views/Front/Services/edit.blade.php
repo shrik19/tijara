@@ -432,7 +432,14 @@ hourFormat: "24"
 <script src="{{url('/')}}/assets/front/js/fullcalendar.min.js"></script>
 
 <script type="text/javascript">//<![CDATA[
-
+function convert(str) {
+  var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [date.getFullYear(), mnth, day].join("-");
+}
+var events_array = [];
+var cal;
   $(document).ready(function() {
 
     //check click on add time button or not
@@ -574,10 +581,10 @@ $('#saveservicebtn').click(function(){
      
 });
 
-    var events_array = [];
+    
 
     if($('.service_availability').length>0) {
-    var events_array=[];
+    //var events_array=[];
     $( ".service_availability" ).each(function() {
 
     var service_time  = $(this).val().split(" "); //alert(new Date(service_time[0]));
@@ -587,12 +594,13 @@ $('#saveservicebtn').click(function(){
     id: $(this).attr('id'),
 
     });
+
     });
     //console.log(events_array);
     // $('#calendar').fullCalendar('addEventSource', events_array);
 
     }
-    $('#calendar').fullCalendar({
+    cal = $('#calendar').fullCalendar({
     monthNames: ['Januari','Februari','Mars','April','Maj','Juni','Juli','Augusti','September','Oktober'
     ,'November','December'],
     monthNamesShort: ['Januari','Februari','Mars','April','Maj','Juni','Juli','Augusti','September','Oktober'
@@ -628,6 +636,7 @@ $('#saveservicebtn').click(function(){
     var i = 0;
     var viewStart = $('#calendar').fullCalendar('getView').intervalStart;
     $("#calendar").find('.fc-content-skeleton thead td:not(:nth-child(1))').empty().each( function(){
+
     $(this).append(moment(viewStart).add(i, 'days').format("D"));
     i = i + 1;
     });
@@ -655,8 +664,8 @@ $('#saveservicebtn').click(function(){
     //alert(info.salonoragent_id);
     },
     });
-  });
-
+ 
+//console.log(events_array);return
   var service_time_counter  = 10000;
 
   $('.save_service_date').click(function(){
@@ -707,18 +716,35 @@ $('#saveservicebtn').click(function(){
     loop = new Date(newDate);
     }
 
-    var events_array = [];  
+    var events_array_new = [];  
     $(allDates).each(function (k, v) {
+   
     var temp = {
     id: service_time_counter,
     title: $('#start_time').val(),
     start: v,
     //tip: 'Sup dog.'
     };
-    events_array.push(temp);
+      if($('#del_start_time').val()=="insert"){
+        events_array_new.push(temp);console.log(events_array_new)
+        $('#calendar').fullCalendar('addEventSource', events_array_new);
+      }else if($('#del_start_time').val()=="delete"){
+       
+        events_array_new.push(temp.start); 
+       existingEvents = $('#calendar').fullCalendar( 'clientEvents');
+             $(existingEvents).each(function (k1, v1) { 
+              if(convert(temp.start)===convert(v1.start)){
+                $('#calendar').fullCalendar( 'removeEvents',v1.id)
+                
+              }
+             });
+     
+        
+      }
+    
     });
 
-    $('#calendar').fullCalendar('addEventSource', events_array);
+    
     $('#service_year').val('');
     $('#service_month').val('');
     $('#service_date').val('');
@@ -751,7 +777,7 @@ function ConfirmDeleteTime(msg,cal_id)
   });
 
 }
-
+ });
 </script>
 <script type="text/javascript">
   $('body').on('click', '.remove_image', function () {

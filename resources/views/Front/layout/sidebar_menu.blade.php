@@ -114,7 +114,7 @@
 
     @endif -->
     <li class="{{ request()->is('change-password') ? 'leftsideactivemainmenu' : ''}} make_disabled check_seller_setting"><a href="{{route('frontChangePassword')}}">{{ __('lang.change_password_menu')}}</a></li>
-    <li class="{{ request()->is('front-logout') ? 'leftsideactivemainmenu' : ''}}" ><a href="{{route('frontLogout')}}">{{ __('lang.logout_label')}}</a></li>
+    <li class="{{ request()->is('front-logout') ? 'leftsideactivemainmenu' : ''}}" ><a href="{{route('frontLogout')}}" style="padding-bottom: 60px;">{{ __('lang.logout_label')}}</a></li>
   </ul>
 
   @else

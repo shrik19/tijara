@@ -12,7 +12,7 @@
   	margin-bottom: 60px;
   }
 </style>
-<div class="mid-section sellers_top_padding">
+<div class="mid-section @if($is_seller==1) sellers_top_padding  @else p_155 @endif">
 	<div class="container-fluid">
 		<div class="container-inner-section-1">
 			<!-- Example row of columns -->
@@ -30,21 +30,23 @@
 								</div>
 
 					@else
-						<div class="tijara-content">
+						<div class="col-md-12 tijara-content">
 							@include ('Front.alert_messages')
 							<div class="seller_info border-none">
 								<div class="card">
-									<div class="card-header row">
+									<div class="card-header ml-0 row">
+											<div class="col-md-9 pl-0">
 										<!-- <div class="col-md-3"></div>
 										<div class="col-md-5"> -->
-										<h2 class="page_heading" style="font-size:28px !important; font-weight:600; padding-left:18px">{{ __('users.change_password_title')}} </h2>
+										<h2 class="page_heading">{{ __('users.change_password_title')}} </h2>
+									</div>
 									</div>
 								</div>
 							@endif
-								<div class="col-md-12">
+					<!-- 			<div class="col-md-12"> -->
 									<div>
 										<!--   <div class="col-md-2"></div> -->
-										<div class="col-md-5">
+										<div class="col-md-5 @if($is_seller!=1) pl-0 @endif" >
 											@if($is_seller==1)
 												<div class="login_box seller_mid_cont" style="margin-top: 20px;">
 											@else
@@ -88,7 +90,7 @@
 										@endif									
 									</div>
 								</div>
-							</div>
+					<!-- 		</div> -->
 						</div>
 				</div>
 			</div>

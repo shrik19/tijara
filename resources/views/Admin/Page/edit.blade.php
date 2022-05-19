@@ -112,8 +112,6 @@
     $("#description_en").css("height","400");
   }
 	
-	
-	
 </script>
 @endsection('middlecontent')
 

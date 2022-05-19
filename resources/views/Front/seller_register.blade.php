@@ -314,7 +314,7 @@
 
 										<div class="form-group increment cloned">
 											<label class="placeholder">{{ __('users.seller_header_img_label')}}</label>
-											<div class="seller_banner_upload"></div>
+											<div class="seller_banner_upload"  style="margin-top: 20px;"></div>
 											
                                             
 											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
@@ -327,7 +327,7 @@
 
 										<div class="form-group increment cloned">
 											<label class="placeholder">{{ __('users.seller_logo_label')}}</label>
-											<div class="seller_logo_upload"></div>
+											<div class="seller_logo_upload"  style="margin-top: 20px;"></div>
 											
 											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
 											
@@ -1096,7 +1096,7 @@ $('body').on('change', '#seller_banner_img', function () {
                       success: function(data) {
                        $('.seller_banner_upload').html('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="banner_image" id="banner_image">'+
                           '<img src="'+siteUrl+'/uploads/Seller/resized/'+data+'" style="width:200px;height:200px;">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>'); 
+                                            '<a href="javascript:void(0);" class="remove_banner_image"><i class="fas fa-trash"></i></a>'); 
                       }
                 });
         }
@@ -1134,7 +1134,7 @@ $('body').on('change', '#seller_logo_img', function () {
                       success: function(data) {
                        $('.seller_logo_upload').html('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="logo_image" id="logo_image">'+
                           '<img src="'+siteUrl+'/uploads/Seller/resized/'+data+'" style="width:200px;height:200px;">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>'); 
+                                            '<a href="javascript:void(0);" class="remove_logo_image"><i class="fas fa-trash"></i></a>'); 
                                         
                       }
 
@@ -1310,7 +1310,19 @@ function showSuccessMessage(strContent,redirect_url = '')
     });
 }
 
- 
+$('body').on('click', '.remove_banner_image', function () {
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
+
+$('body').on('click', '.remove_logo_image', function () {
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
 
 </script>
 </body>

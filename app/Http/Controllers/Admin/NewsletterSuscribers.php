@@ -85,7 +85,7 @@ class NewsletterSuscribers extends Controller
        // $path = url('/').'/public/NewsLetterSubscriber/'.$filename;
         $path = '/public/NewsLetterSubscriber/'.$filename;
         $handle = fopen(base_path() .$path,'w+');
-
+        fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
         //$handle = fopen($path, 'w+');
         fputcsv($handle, array(trans('users.email_title'),trans('users.is_subscrier_title'),trans('users.page_created_title')));
    

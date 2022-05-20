@@ -80,6 +80,7 @@ class SellerController extends Controller
         $filename = "SellerFromTijara.csv";
        
         $handle = fopen(public_path('SellerDetails/'.$filename), 'w+');
+        fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
         fputcsv($handle, array(trans('users.first_name_label'),trans('users.last_name_label'),trans('users.store_name_label'),trans('users.city_label'),trans('users.where_find_us_thead'),trans('lang.status_thead')));
    
         foreach($recordDetails as $row) {

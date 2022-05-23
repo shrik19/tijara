@@ -273,7 +273,8 @@ function createCookie(name,value,minutes) {
     } else {
         var expires = "";
     }
-    document.cookie = name+"="+value+expires+"; path=/";
+    document.cookie = name+"="+value+expires+";domain=.tijara.se; path=/";
+    //document.cookie = name+"="+value+expires+"; path=/";
 }
 
 bannerInp.onchange = evt => {

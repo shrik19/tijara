@@ -84,7 +84,7 @@ td.fc-week-number {
 
               <input type="hidden" name="service_id" value="{{$service_id}}">
 
-              <div class="form-group row">
+              <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('servicelang.service_title_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input form-control" name="title" id="title" placeholder="{{ __('servicelang.service_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="checkServiceUniqueSlugName();">
@@ -92,7 +92,7 @@ td.fc-week-number {
                 </div>
               </div>
 
-              <div class="form-group row" style="display:none;">
+              <div class="form-group" style="display:none;">
                 <label class="col-md-3 product_table_heading">{{ __('servicelang.service_slug_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input slug-name form-control" name="service_slug" id="service_slug" placeholder="{{ __('servicelang.service_slug_label')}} " value="{{old('service_slug')}}" tabindex="1" readonly="readonly">
@@ -100,7 +100,7 @@ td.fc-week-number {
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('servicelang.session_time_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input maxlength="3" type="text" class="col-md-8 login_input session_time number form-control" name="session_time" id="session_time" 
@@ -110,7 +110,7 @@ td.fc-week-number {
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('users.address_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input address form-control" name="address" id="address" 
@@ -120,7 +120,7 @@ td.fc-week-number {
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('lang.product_buyer_phone_no')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <input type="text" class="col-md-8 login_input telephone_number form-control" name="telephone_number" id="telephone_number" 
@@ -130,7 +130,7 @@ td.fc-week-number {
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="form-group">
               <label class="col-md-3 product_table_heading">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
                   
               <div class="col-md-8">
@@ -139,7 +139,7 @@ td.fc-week-number {
               </div>
               </div>
 
-              <div class="form-group row">
+              <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('lang.category_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
@@ -166,7 +166,7 @@ td.fc-week-number {
                   </div>
               </div>
 
-              <div class="form-group row">
+              <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span> </label>
                 <div class="col-md-8">
                 <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8">
@@ -178,7 +178,7 @@ td.fc-week-number {
               </div>
 
             
-              <div class="form-group row">
+              <div class="form-group">
                   <label class="col-md-3 product_table_heading">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
                   <div class="col-md-8">
                   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price" placeholder="{{ __('users.service_price_placeholder')}}" value="{{(old('service_price')) ?  old('service_price') :''}}" tabindex="7">
@@ -186,7 +186,7 @@ td.fc-week-number {
                 </div>
               </div>
 
-              <div class="form-group row">
+              <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('lang.images')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
                 <div class="images col-md-12"></div>

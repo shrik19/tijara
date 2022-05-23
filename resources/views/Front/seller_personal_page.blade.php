@@ -33,7 +33,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
        @php 
        $seller_link = $seller_link.''.'?frompage=1';
        @endphp
-        <a href="{{$seller_link}}"><span class="visa_img"><i class="fa fa-eye" aria-hidden="true"></i></span> &nbsp;{{ __('users.see_show_label')}} </a>
+        <a href="{{$seller_link}}" target="_blank"><span class="visa_img"><i class="fa fa-eye" aria-hidden="true"></i></span> &nbsp;{{ __('users.see_show_label')}} </a>
        
     </div>
         <form id="seller-personal-form" action="{{route('frontSellerPersonalPage')}}" method="post"  enctype="multipart/form-data">

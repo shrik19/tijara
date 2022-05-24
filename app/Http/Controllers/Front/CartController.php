@@ -3202,7 +3202,7 @@ DATA;
                          // $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
                  
                           $Product->seller  = $SellerData['store_name'];
-                            /
+                            
                           $data['seller_name'] = $Product->seller;
                           $seller_name = str_replace( array( '\'', '"', 
                           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '',$Product->seller);

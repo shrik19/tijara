@@ -3207,9 +3207,9 @@ DATA;
                           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '',$Product->seller);
                           $seller_name = str_replace(" ", '-', $seller_name);
                           $seller_name = strtolower($seller_name);
-
+   echo $seller_name;exit;
                           $sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
-                          echo $sellerLink;exit;
+                       
                           $data['seller_link'] = $sellerLink;
                         
                           $Product->quantity = $details['quantity'];

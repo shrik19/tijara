@@ -3151,8 +3151,8 @@ DATA;
                   foreach($checkExistingOrderProduct as $details)
                   {
                       $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-                                  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-                                  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                                  ->leftjoin('categories', 'categories.id', '=', 'category_products.category_id')
+                                  ->letfjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
                                   ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
                                   ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                                   //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')

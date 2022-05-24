@@ -1701,7 +1701,38 @@ class CartController extends Controller
       } catch(\Stripe\Exception\CardException $e) {
            $stripeErrMsg = $e->getError()->message;
 
+      }catch (\Stripe\Exception\InvalidRequestException $e) {
+         $stripeErrMsg = $e->getError()->message;
       }
+      catch (Stripe\Exception\APIException $e) {
+         $stripeErrMsg = $e->getError()->message;
+      }catch (\Stripe\Exception\RateLimitException $e) {
+          // Too many requests made to the API too quickly
+           $stripeErrMsg = 'Too many requests made to the API too quickly'; 
+      }
+      catch (\Stripe\Exception\AuthenticationException $e) {
+          // Authentication with Stripe's API failed
+          // (maybe you changed API keys recently)
+         $stripeErrMsg ='Authentication with Stripes API failed'; 
+      } catch (\Stripe\Exception\ApiConnectionException $e) {
+          // Network communication with Stripe failed
+         $stripeErrMsg= "Network communication with Stripe failed";
+      } catch (\Stripe\Exception\ApiErrorException $e) {
+          // Display a very generic error to the user, and maybe send
+          // yourself an email
+         $stripeErrMsg= "Display a very generic error to the user, and maybe send";
+      } catch (Exception $e) {
+          // Something else happened, completely unrelated to Stripe
+         $stripeErrMsg= "Something else happened, completely unrelated to Stripe";
+      }
+
+
+
+    
+
+
+   
+
       if(!empty($stripeErrMsg)){
           $code=$e->getError()->code;
 

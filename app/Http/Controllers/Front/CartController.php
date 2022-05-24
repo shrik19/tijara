@@ -3200,9 +3200,9 @@ DATA;
 
                           $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Product->user_id)->first()->toArray();
                          // $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
-                          echo "<pre>";print_r($SellerData);
+                 
                           $Product->seller  = $SellerData['store_name'];
-                             echo "<br>".$Product->seller ;exit;
+                            /
                           $data['seller_name'] = $Product->seller;
                           $seller_name = str_replace( array( '\'', '"', 
                           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '',$Product->seller);

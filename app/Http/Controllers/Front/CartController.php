@@ -3117,6 +3117,7 @@ DATA;
         }
         
         $OrderId = base64_decode($id);
+
         $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
         $checkExistingOrderProduct = OrdersDetails::join('products','products.id','=','orders_details.product_id')->select('products.user_id as product_user')->where('order_id','=',$OrderId)->limit(1)->get()->toArray();
         if(!empty($checkExistingOrderProduct))
@@ -3144,6 +3145,7 @@ DATA;
           else
           {
               $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
+
               if(!empty($checkExistingOrderProduct))
               {
                   foreach($checkExistingOrderProduct as $details)
@@ -3155,16 +3157,16 @@ DATA;
                                   ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                                   //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                                   ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
-                                  ->where('products.status','=','active')
-                                  ->where('categories.status','=','active')
-                                  ->where('subcategories.status','=','active')
+                                 // ->where('products.status','=','active')
+                                 // ->where('categories.status','=','active')
+                                 // ->where('subcategories.status','=','active')
                                   ->where('products.id','=',$details['product_id'])
                                   ->where('variant_product.id','=',$details['variant_id'])
                                   ->orderBy('products.id', 'DESC')
                                   ->orderBy('variant_product.id', 'ASC')
                                   ->groupBy('products.id')
                                   ->get();
-                        
+
                       if(count($TrendingProducts)>0) 
                       {
                         foreach($TrendingProducts as $Product)

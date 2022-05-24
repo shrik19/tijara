@@ -97,7 +97,7 @@
           </div>
         </div>
           </div>
-        <div class="col-md-12 text-center attribute-btn" style="margin:30px;">
+        <div class="col-md-12 text-center attribute-btn margin_bottom_class">
           <button class="btn btn-black debg_color login_btn save_att_val">{{ __('lang.save_btn')}}</button>
                 <a href="{{route('frontProductAttributes')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
 

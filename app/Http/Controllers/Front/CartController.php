@@ -3203,8 +3203,8 @@ DATA;
                           $seller_name = str_replace(" ", '-', $seller_name);
                           $seller_name = strtolower($seller_name);
 
-                         // $sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
-                          //$data['seller_link'] = $sellerLink;
+                          $sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
+                          $data['seller_link'] = $sellerLink;
                         
                           $Product->quantity = $details['quantity'];
                           $Product->image    = explode(',',$Product->image)[0];

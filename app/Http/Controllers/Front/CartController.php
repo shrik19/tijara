@@ -3183,8 +3183,8 @@ DATA;
 
                           $product_link = url('/').'/product';
 
-                          $product_link .=  '/'.$productCategories[0]['category_slug'];
-                          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+                          $product_link .=  '/'.@$productCategories[0]['category_slug'];
+                          $product_link .=  '/'.@$productCategories[0]['subcategory_slug'];
 
                           $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 

@@ -116,9 +116,9 @@ if (defaultOpen) {
   }
 });*/
 $(".add_new_variant_btn").click(function(){
-  // var firstVariant = $("#variant_table").find('.variant_tr:eq(0)');
-  // var firstAttribute = firstVariant.find('.select_attribute:eq(0)').val();
-  // var secondAttribute = firstVariant.find('.select_attribute:eq(1)').val();
+  var firstVariant = $("#variant_table").find('.variant_tr:eq(0)');
+   var firstAttribute = firstVariant.find('.select_attribute:eq(0)').val();
+  var secondAttribute = firstVariant.find('.select_attribute:eq(1)').val();
 
   $(".remove_variant_div").addClass("col-md-12");
     $trLast = $("div.variant_tr:last");

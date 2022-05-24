@@ -1468,6 +1468,7 @@ class CartController extends Controller
             {
               $subTotal       = 0;
               $shippingTotal  = 0;
+              $shippingTotalAmount = array();
               $total          = 0; 
               foreach($checkExistingOrderProduct as $details) { 
                 $product_shipping_amount = 0;
@@ -1533,7 +1534,10 @@ class CartController extends Controller
                 TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                 $subTotal += $discount_price * $details['quantity'];
-                $shippingTotal += $product_shipping_amount;
+               // $shippingTotal += $product_shipping_amount;
+
+                $shippingTotalAmount [] = $product_shipping_amount;
+                $shippingTotal  = max($shippingTotalAmount);
               }//foreach end
 
               $total = $subTotal+$shippingTotal;

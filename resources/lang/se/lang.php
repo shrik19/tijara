@@ -332,7 +332,7 @@
     'expiration_year'=>'Utgångsår (ÅÅ)',
     'strip_payment_details'=>'Betalinformation ',
     'pay_now'   =>  'Betala nu',
-    'strip_error_message'=>'Korrigera felen och försök igen.',
+    'strip_error_message'=>'Säljaren lade till slitna kortuppgifter för kontot.',
     'pay_through'   =>  'Betala igenom',
     'about_tijara_label' => 'Om Tijara',
     'customer_service_label' => 'Kundservice',

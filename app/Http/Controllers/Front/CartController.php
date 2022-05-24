@@ -3182,11 +3182,11 @@ DATA;
                           //dd($productCategories);
 
                           $product_link = url('/').'/product';
-if(!empty($productCategories[0]['category_slug'])){
-                          $product_link .=  '/'.@$productCategories[0]['category_slug'];}
-if(!empty($productCategories[0]['subcategory_slug'])){
-   $product_link .=  '/'.@$productCategories[0]['subcategory_slug'];
-}
+                          if(!empty($productCategories[0]['category_slug'])){
+                                                    $product_link .=  '/'.@$productCategories[0]['category_slug'];}
+                          if(!empty($productCategories[0]['subcategory_slug'])){
+                             $product_link .=  '/'.@$productCategories[0]['subcategory_slug'];
+                          }
                          
 
                           $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
@@ -3203,8 +3203,8 @@ if(!empty($productCategories[0]['subcategory_slug'])){
                           $seller_name = str_replace(" ", '-', $seller_name);
                           $seller_name = strtolower($seller_name);
 
-                          $sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name],['category_slug' => ''],['subcategory_slug' => '']);
-                          $data['seller_link'] = $sellerLink;
+                         // $sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
+                          //$data['seller_link'] = $sellerLink;
                         
                           $Product->quantity = $details['quantity'];
                           $Product->image    = explode(',',$Product->image)[0];

@@ -3183,9 +3183,14 @@ DATA;
 
                           $product_link = url('/').'/product';
                           if(!empty($productCategories[0]['category_slug'])){
-                                                    $product_link .=  '/'.@$productCategories[0]['category_slug'];}
+                                    $product_link .=  '/'.@$productCategories[0]['category_slug'];
+                                  }else{
+                                    $category_slug='';
+                                  }
                           if(!empty($productCategories[0]['subcategory_slug'])){
                              $product_link .=  '/'.@$productCategories[0]['subcategory_slug'];
+                          }else{
+                            $subcategory_slug ='';
                           }
                          
 

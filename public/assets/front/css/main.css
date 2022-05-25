@@ -3314,8 +3314,9 @@ line-height: 42px;
 .pt-4{padding-top: 22px;}
 .short-desc{
   float: left;
-  /* height: 150px; */
-  overflow: auto;
+  height: 160px;
+  overflow: hidden;
+  font-size: 13px;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 
   .package-html.package-wrapper {

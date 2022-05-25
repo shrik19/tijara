@@ -72,7 +72,7 @@ class CartController extends Controller
           if(!empty($productVariant))
           { 
               $Products = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
-                        ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                        ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                         ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product.quantity','variant_product_attribute.id as variant_attribute_id'])
                         ->where('variant_product.id','=', $productVariant)
                         ->where('products.status','=','active')
@@ -369,7 +369,7 @@ class CartController extends Controller
 
 
            // print_r(DB::getQueryLog());exit;
-            //  echo "<pre>";print_r($checkExistingOrderProduct);exit;
+            //echo "<pre>";print_r($checkExistingOrderProduct);exit;
             if(!empty($checkExistingOrderProduct))
             {
                 $subTotal       = 0;
@@ -504,6 +504,7 @@ class CartController extends Controller
 
           //$OrderId = $checkExisting[0]['id'];
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
+        
           if(!empty($checkExistingOrderProduct))
           {
               foreach($checkExistingOrderProduct as $details)
@@ -515,7 +516,7 @@ class CartController extends Controller
                               ->join('categories', 'categories.id', '=', 'category_products.category_id')
                               ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                               ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                              ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                              ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                               //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                               ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
                               ->where('products.status','=','active')
@@ -591,7 +592,7 @@ class CartController extends Controller
                   
                       $details['product'] = $Product;
                       $orderDetails[$OrderId]['details'][] = $details;
-                      
+                        //echo "<pre>";print_r($details);exit;
                     }
                   }
               }

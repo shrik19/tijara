@@ -58,7 +58,6 @@
                 </thead>
                 <tbody>
                   @if(!empty($details))
-                  
                   @foreach($details as $orderId => $tmpOrderProduct)
                   @if(!empty($tmpOrderProduct))
                    @php   $inc=1; @endphp

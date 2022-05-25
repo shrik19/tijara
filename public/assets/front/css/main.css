@@ -2441,7 +2441,7 @@ padding-left: 0px!important;
     position: absolute;
     left: 0;
     top: 0;
-    opacity: 0;cursor: pointer!important;
+    opacity: 0;cursor: pointer!important; height: 40px!important;
 
   }
   input[type=file], /* FF, IE7+, chrome (except button) */
@@ -3299,7 +3299,7 @@ line-height: 42px;
   border: solid #ddd 2px;padding: 5px;border-radius: 5px;height: 50px;margin-top: 6px;display: none
 }
 .pick-img{
-  float: right; margin-top: -2px;border-radius: 5px;    width: 70px;
+  float: right; margin-top: -2px;border-radius: 5px;    width: 80px;
   height: auto;
 }
 .pick_input{
@@ -3311,7 +3311,7 @@ line-height: 42px;
 .pt-4{padding-top: 22px;}
 .short-desc{
   float: left;
-  height: 150px;
+  /* height: 150px; */
   overflow: auto;
 }
 @media only screen and (min-device-width: 320px) and (max-device-width: 640px) { 

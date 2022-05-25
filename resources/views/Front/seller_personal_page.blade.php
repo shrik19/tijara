@@ -173,7 +173,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
           </div>
         </div>
         
-        <div class="col-md-9 pull-right">
+        <div class="col-md-9 pull-right margin_bottom_class">
 
           <button class="btn btn-black debg_color login_btn" id="update_seller_info">{{ __('lang.update_btn')}}</button>
           <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>

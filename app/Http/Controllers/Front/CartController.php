@@ -72,7 +72,7 @@ class CartController extends Controller
           if(!empty($productVariant))
           { 
               $Products = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
-                        ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                        ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                         ->select(['products.*','variant_product.price','variant_product.id as variant_id','variant_product.quantity','variant_product_attribute.id as variant_attribute_id'])
                         ->where('variant_product.id','=', $productVariant)
                         ->where('products.status','=','active')
@@ -369,7 +369,7 @@ class CartController extends Controller
 
 
            // print_r(DB::getQueryLog());exit;
-            //  echo "<pre>";print_r($checkExistingOrderProduct);exit;
+            //echo "<pre>";print_r($checkExistingOrderProduct);exit;
             if(!empty($checkExistingOrderProduct))
             {
                 $subTotal       = 0;
@@ -504,6 +504,7 @@ class CartController extends Controller
 
           //$OrderId = $checkExisting[0]['id'];
           $checkExistingOrderProduct = TmpOrdersDetails::where('order_id','=',$OrderId)->where('user_id','=',$user_id)->get()->toArray();
+        
           if(!empty($checkExistingOrderProduct))
           {
               foreach($checkExistingOrderProduct as $details)
@@ -515,7 +516,7 @@ class CartController extends Controller
                               ->join('categories', 'categories.id', '=', 'category_products.category_id')
                               ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                               ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                              ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                              ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                               //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                               ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
                               ->where('products.status','=','active')
@@ -591,7 +592,7 @@ class CartController extends Controller
                   
                       $details['product'] = $Product;
                       $orderDetails[$OrderId]['details'][] = $details;
-                      
+                        //echo "<pre>";print_r($details);exit;
                     }
                   }
               }
@@ -1468,6 +1469,7 @@ class CartController extends Controller
             {
               $subTotal       = 0;
               $shippingTotal  = 0;
+              $shippingTotalAmount = array();
               $total          = 0; 
               foreach($checkExistingOrderProduct as $details) { 
                 $product_shipping_amount = 0;
@@ -1533,7 +1535,10 @@ class CartController extends Controller
                 TmpOrdersDetails::where('id',$details['id'])->update($arrOrderDetailsUpdate);
 
                 $subTotal += $discount_price * $details['quantity'];
-                $shippingTotal += $product_shipping_amount;
+               // $shippingTotal += $product_shipping_amount;
+
+                $shippingTotalAmount [] = $product_shipping_amount;
+                $shippingTotal  = max($shippingTotalAmount);
               }//foreach end
 
               $total = $subTotal+$shippingTotal;
@@ -1701,7 +1706,38 @@ class CartController extends Controller
       } catch(\Stripe\Exception\CardException $e) {
            $stripeErrMsg = $e->getError()->message;
 
+      }catch (\Stripe\Exception\InvalidRequestException $e) {
+         $stripeErrMsg = $e->getError()->message;
       }
+      catch (Stripe\Exception\APIException $e) {
+         $stripeErrMsg = $e->getError()->message;
+      }catch (\Stripe\Exception\RateLimitException $e) {
+          // Too many requests made to the API too quickly
+           $stripeErrMsg = 'Too many requests made to the API too quickly'; 
+      }
+      catch (\Stripe\Exception\AuthenticationException $e) {
+          // Authentication with Stripe's API failed
+          // (maybe you changed API keys recently)
+         $stripeErrMsg ='Authentication with Stripes API failed'; 
+      } catch (\Stripe\Exception\ApiConnectionException $e) {
+          // Network communication with Stripe failed
+         $stripeErrMsg= "Network communication with Stripe failed";
+      } catch (\Stripe\Exception\ApiErrorException $e) {
+          // Display a very generic error to the user, and maybe send
+          // yourself an email
+         $stripeErrMsg= "Display a very generic error to the user, and maybe send";
+      } catch (Exception $e) {
+          // Something else happened, completely unrelated to Stripe
+         $stripeErrMsg= "Something else happened, completely unrelated to Stripe";
+      }
+
+
+
+    
+
+
+   
+
       if(!empty($stripeErrMsg)){
           $code=$e->getError()->code;
 
@@ -3117,6 +3153,7 @@ DATA;
         }
         
         $OrderId = base64_decode($id);
+
         $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
         $checkExistingOrderProduct = OrdersDetails::join('products','products.id','=','orders_details.product_id')->select('products.user_id as product_user')->where('order_id','=',$OrderId)->limit(1)->get()->toArray();
         if(!empty($checkExistingOrderProduct))
@@ -3144,27 +3181,28 @@ DATA;
           else
           {
               $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
+
               if(!empty($checkExistingOrderProduct))
               {
                   foreach($checkExistingOrderProduct as $details)
                   {
                       $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-                                  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-                                  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                                  ->leftjoin('categories', 'categories.id', '=', 'category_products.category_id')
+                                  ->leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
                                   ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
                                   ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                                   //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                                   ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
-                                  ->where('products.status','=','active')
-                                  ->where('categories.status','=','active')
-                                  ->where('subcategories.status','=','active')
+                                 // ->where('products.status','=','active')
+                                 // ->where('categories.status','=','active')
+                                 // ->where('subcategories.status','=','active')
                                   ->where('products.id','=',$details['product_id'])
                                   ->where('variant_product.id','=',$details['variant_id'])
                                   ->orderBy('products.id', 'DESC')
                                   ->orderBy('variant_product.id', 'ASC')
                                   ->groupBy('products.id')
                                   ->get();
-                        
+
                       if(count($TrendingProducts)>0) 
                       {
                         foreach($TrendingProducts as $Product)
@@ -3180,9 +3218,17 @@ DATA;
                           //dd($productCategories);
 
                           $product_link = url('/').'/product';
-
-                          $product_link .=  '/'.$productCategories[0]['category_slug'];
-                          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+                          if(!empty($productCategories[0]['category_slug'])){
+                                    $product_link .=  '/'.@$productCategories[0]['category_slug'];
+                                  }else{
+                                    $category_slug='';
+                                  }
+                          if(!empty($productCategories[0]['subcategory_slug'])){
+                             $product_link .=  '/'.@$productCategories[0]['subcategory_slug'];
+                          }else{
+                            $subcategory_slug ='';
+                          }
+                         
 
                           $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
@@ -3190,8 +3236,9 @@ DATA;
 
                           $SellerData = UserMain::select('users.id','users.fname','users.lname','users.email','users.store_name')->where('users.id','=',$Product->user_id)->first()->toArray();
                          // $Product->seller  = $SellerData['fname'].' '.$SellerData['lname'];
+                 
                           $Product->seller  = $SellerData['store_name'];
-                          
+                            
                           $data['seller_name'] = $Product->seller;
                           $seller_name = str_replace( array( '\'', '"', 
                           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '',$Product->seller);
@@ -3199,6 +3246,7 @@ DATA;
                           $seller_name = strtolower($seller_name);
 
                           $sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
+                       
                           $data['seller_link'] = $sellerLink;
                         
                           $Product->quantity = $details['quantity'];

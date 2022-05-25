@@ -21,7 +21,7 @@
             <div class="form-group">
               <label>{{ __('users.description_label')}}</label>
          
-               <textarea class="form-control" name="description" id="description" spellcheck="true" style="height: 250px;"><?php if(!empty($PackageDetails['description'])){ echo $PackageDetails['description']; }?></textarea>
+               <textarea class="form-control description" name="description" id="description" spellcheck="true" style="height: 250px;"><?php if(!empty($PackageDetails['description'])){ echo $PackageDetails['description']; }?></textarea>
             </div>
 
             <div class="form-group">

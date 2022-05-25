@@ -337,7 +337,7 @@
     'expiration_year'=>'Expiration year (AA)',
     'strip_payment_details'=>'Stripe payment details',
     'pay_now'   =>  'Pay now',
-    'strip_error_message'=>'Please correct the errors and try again.',
+    'strip_error_message'=>'Seller added worng card details for there account.',
     'pay_through'   =>  'Pay through',
     'about_tijara_label' => 'About Tijara',
     'customer_service_label' => 'Customer service',

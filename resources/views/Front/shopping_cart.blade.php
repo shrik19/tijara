@@ -8,7 +8,7 @@
 </style>
 
 
-<div class="mid-section p_155" style="background: #dddddd;    margin-bottom: 0px;">
+<div class="mid-section p_155" style="background: #dddddd;min-height:62vh;   margin-bottom: 0px;">
 <div class="container-fluid">
 <div class="container-inner-section-1">
 

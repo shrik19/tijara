@@ -47,6 +47,7 @@
         @include ('Front.layout.sidebar_menu')
       </div>
       <div class="col-md-10">
+           @include ('Front.alert_messages')
       <div class="seller_info">
       <div class="seller_header">
 
@@ -66,7 +67,7 @@
 		  <a href="{{route('manageFrontProducts')}}" title="{{ __('lang.back_to_list_label')}}" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
       </div>
 
-         @include ('Front.alert_messages')
+      
       <div class="col-md-12" style="margin-left: -18px;">
 
         <div class="login_box">

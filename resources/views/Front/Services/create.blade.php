@@ -68,7 +68,7 @@ td.fc-week-number {
     <div class="col-md-2 tijara-sidebar">
       @include ('Front.layout.sidebar_menu')
     </div> 
-    <div class="col-md-10 tijara-content">
+    <div class="col-md-10 tijara-content">      
          @include ('Front.alert_messages')
          <div class="seller_info">
           <div class="seller_header">

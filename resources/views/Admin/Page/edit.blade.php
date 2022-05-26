@@ -18,10 +18,8 @@
 
               <div class="text-danger">{{$errors->first('title')}}</div>
             </div>
-            <input type="hidden" name="faq" id="faq" value="vanliga-fragor">
-           
-      
-      
+            <input type="hidden" name="faq" id="faq" value="{{$PageDetails['slug']}}">
+          
             <div class="form-group">
               <label>{{ __('users.description_label')}}</label>
            <!--    <textarea class="form-control" id="description" name="description" rows="2" cols="30" style="height:auto" tabindex="2" required><?php if(!empty($PageDetails['description'])){ echo $PageDetails['description']; }?></textarea> -->

@@ -83,12 +83,39 @@
     </div>
   </form>
 </div>
-<link rel="stylesheet" href="{{url('/')}}/assets/front/css/richtext.min.css">
+<!-- <link rel="stylesheet" href="{{url('/')}}/assets/front/css/richtext.min.css">
 <script src="{{url('/')}}/assets/front/js/jquery.richtext.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $('.description').richText();
       $('.description_en').richText();
   });
+</script> -->
+<script src="{{url('/')}}/assets/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+  
+  if($("#faq").val()!="vanliga-fragor"){
+    CKEDITOR.replace('description', {
+        filebrowserUploadUrl: '{{ route('adminCkupload') }}',
+        filebrowserUploadMethod: 'form',
+        allowedContent : true,
+        extraAllowedContent: 'main; summary;' 
+
+
+    });
+
+    CKEDITOR.replace('description_en', {
+        filebrowserUploadUrl: '{{ route('adminCkupload') }}',
+        filebrowserUploadMethod: 'form',
+        allowedContent : true,
+        extraAllowedContent: 'main; summary;' 
+
+
+    });
+  }else{
+    $("#description").css("height","400");
+    $("#description_en").css("height","400");
+  }
+  
 </script>
 @endsection('middlecontent')

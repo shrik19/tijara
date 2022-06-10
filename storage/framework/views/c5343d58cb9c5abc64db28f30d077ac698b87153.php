@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/main.css">
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/jquery-confirm.min.css">
+  
+  <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/css/jquery-eu-cookie-law-popup.css">
   <!-- added custom css for custom chnages -->
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/custom.css">
   <style>
@@ -37,6 +39,28 @@
     opacity: 0.4;
     filter: alpha(opacity=40);
     display:none;
+}
+
+.eupopup-container
+{
+	width: 380px !important;
+	border: 1px solid #cccccc !important;	
+}
+.eupopup-body
+{
+	font-size:14px !important;
+	line-height: 18px !important;	
+}
+.eupopup-button_1
+{
+	color: #ffffff !important;
+	background-color: #03989e !important;
+    margin-top: 8px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    font-size: 12px!important;
+    border-radius: 20px;
+	padding: 6px 12px;
 }
 
 </style>
@@ -105,6 +129,7 @@
   <script src="<?php echo e(url('/')); ?>/assets/front/js/vendor/jquery-1.11.2.min.js"></script>
   <script src="<?php echo e(url('/')); ?>/assets/front/js/vendor/bootstrap.min.js"></script>
   <script src="<?php echo e(url('/')); ?>/assets/front/js/jquery-confirm.min.js"></script>
+  <script src="<?php echo e(url('/')); ?>/assets/js/jquery-eu-cookie-law-popup.js"></script>
 
 </head>
 <body>
@@ -226,7 +251,7 @@
                       <?php if($totalNotifications > 0): ?>
                       <div class="cart_count notification_count">
                          
-                        <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" style="cursor: pointer;right: 6px;top:1px;"><?php echo e($totalNotifications); ?></span>
+                        <span class="notification_count dropdown-toggle"  type="button" data-toggle="dropdown" id="notification_count" ><?php echo e($totalNotifications); ?></span>
             <ul class="dropdown-menu">
         <li style="width:100%"><a href="<?php echo e(route('frontAllbookingRequest')); ?>"><?php echo e(__('users.my_booking_title')); ?> <p class='badge badge-pill debg_color' id="allSellerBookings"><?php echo e($getTotalBookings); ?></p></a></li>
 
@@ -385,9 +410,25 @@
 */?>
 <?php endif; ?> 
     </nav>
+
   </header>
 
   <script type="text/javascript">
+		$(document).euCookieLawPopup().init({
+		  cookiePolicyUrl : '<?php echo e(url("/")); ?>/page/villkor',
+		  popupPosition : 'bottomleft',
+		  colorStyle : 'inverse',
+		  compactStyle : false,
+		  popupTitle : '',
+		  popupText : 'Vi använder cookies för att förbättra upplevelsen av vår webbplats. Genom att använda webbplatsen accepterar du detta.',
+		  buttonContinueTitle : 'Godkänn',
+		  buttonLearnmoreTitle : 'Läs Mer',
+		  buttonLearnmoreOpenInNewWindow : true,
+		  agreementExpiresInDays : 30,
+		  autoAcceptCookiePolicy : false,
+		  htmlMarkup : null
+		});
+		$(".eupopup-button_1").addClass('btn');
      function saveValue(e){
             var id = e.id;  // get the sender's id to save it . 
             var val = e.value; // get the value. 

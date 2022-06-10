@@ -414,7 +414,7 @@
   </header>
 
   <script type="text/javascript">
-		$(document).euCookieLawPopup().init({
+	 $(document).euCookieLawPopup().init({
 		  cookiePolicyUrl : '{{url("/")}}/page/villkor',
 		  popupPosition : 'bottomleft',
 		  colorStyle : 'inverse',

@@ -136,7 +136,7 @@
      'product_list_page'=>'Product List',
      'image_upload_info'=>'Please uplaod Image less than 2mb and Only jpeg,png,jpg,gif,svg file types allowed.',
      'image_upload_info2'=>'Add a picture in size (1800x1800px). For multiple images, add one at a time.',
-     'image_upload_info_banner'=>'Add a picture in size (1000x1000px). For multiple images, add one at a time.',
+     'image_upload_info_banner'=>'Add a picture in size (600x1000). For multiple images, add one at a time.',
       /*Package */
      'Package_title'=>'Package',
      'amount_thead'=>'Amount',

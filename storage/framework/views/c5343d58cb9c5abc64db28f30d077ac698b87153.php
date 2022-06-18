@@ -43,7 +43,7 @@
 
 .eupopup-container
 {
-	width: 380px !important;
+	/*width: 380px !important;*/
 	border: 1px solid #cccccc !important;	
 }
 .eupopup-body
@@ -416,9 +416,9 @@
   <script type="text/javascript">
 		$(document).euCookieLawPopup().init({
 		  cookiePolicyUrl : '<?php echo e(url("/")); ?>/page/villkor',
-		  popupPosition : 'bottomleft',
+		  popupPosition : 'bottom',
 		  colorStyle : 'inverse',
-		  compactStyle : false,
+		  compactStyle : true,
 		  popupTitle : '',
 		  popupText : 'Vi använder cookies för att förbättra upplevelsen av vår webbplats. Genom att använda webbplatsen accepterar du detta.',
 		  buttonContinueTitle : 'Godkänn',

@@ -7,7 +7,7 @@
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
 <section class="product_section" style="padding-top: 156px!important;">
     @if(!empty($header_image))
-      <img class="seller_banner" src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
+      <img class="seller_banner" src="{{$header_image}}"  style="width:100%;"/>
     @endif
     <div class="container-fluid">
     <div class="container-inner-section">
@@ -18,7 +18,7 @@
             <div>            
              @if(!empty($logo)) 
              <div class="seller_logo seller_details_img">
-             <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif
+             <img class="seller_logo" src="{{$logo}}" />&nbsp;&nbsp;</div>@endif
              <div class="seller_info border-none seller_details">
               <h2 class="store_name_size">{{ $store_name }}</h2>
               <p class="store_city_name_size">@if(!empty($city_name) && !empty($country_name)){{ $city_name }}, {{$country_name}} @endif</p>
@@ -62,7 +62,7 @@
           <div>
 		<!-- 	<div class="col-md-1"></div> -->
 
-    <form id="productServicePage" method="post">
+    <form id="productServicePage" method="post" action="{{$seller_link}}">
           @csrf
 			<div class="col-md-9 text-center">
 				<a href="javascript:void(0);" title="{{ __('lang.products_title')}}" page="products" class="border_left_link @if($hidden_type =='products' || $hidden_type =='') store-active-btn  @else store-inactive-btn @endif productSelect" >{{ __('lang.products_title')}} </a><a href="javascript:void(0);" title="{{ __('lang.service_label')}} " page="services" class="@if($hidden_type =='services') store-active-btn  @else store-inactive-btn @endif serviceSelect">{{ __('lang.category_service_title')}}  </a>

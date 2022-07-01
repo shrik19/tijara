@@ -67,7 +67,7 @@
                         <td class="col-sm-4 col-md-4 p-m-0">
                             @if($inc==1)
                         <div class="media cart-store-sec bg-white">
-                            <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
+                            <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->seller_link}}"> 
                             @if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo']))
                               <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object seller-show-icon">
                             @else

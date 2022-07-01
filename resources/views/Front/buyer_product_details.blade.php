@@ -147,7 +147,7 @@
 </section>
 */?>
 <section>
-  @if(!empty($similarProducts))
+  @if(isset($similarProducts[0]))
     <div class="container-fluid">
     <div class="container-inner-section">
         <div class="row">

@@ -27,7 +27,14 @@
                    @if(isset($first['images'][0]) && !empty($first['images'][0]))
                    
                     @foreach($first['images'] as $image)
-                      <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$image}}" class="show-small-img" alt="">
+					@php if(file_exists(url('/').'/uploads/ProductImages/productIcons/'.$image)){
+						echo'<img src="'.url('/').'/uploads/ProductImages/productIcons/'.$image.'" class="show-small-img" alt="">	';
+						}
+						else {
+							echo'<img src="'.url('/').'/uploads/ProductImages/resized/'.$image.'" class="show-small-img" alt="">	';
+						}
+					@endphp
+                      
                     @endforeach
                   @else
                       <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="show-small-img">
@@ -262,7 +269,8 @@
                      <?php /*<button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif {{$btn_disabled}}>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>  */?>
                      <a class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else href="{{ route('frontLogin') }}" @endif {{$btn_disabled}}> {{ __('lang.add_to_cart')}}<i class="glyphicon glyphicon-shopping-cart cart_icon"></i></a>
                   </div>
-                  <p class="productStockOut" style="{{$outOfStock}}">{{ __('messages.product_out_stock') }}</p> 
+                  <!--<p class="productStockOut" style="{{$outOfStock}}">{{ __('messages.product_out_stock') }}</p> commented to make out of stock mes same -priyanka 01-july-->
+				  <p class="productStockOut" style="{{$outOfStock}}">@php echo trans('errors.quantity_err').$first['quantity'].')'; @endphp</p>
                 </div>
 
             </div>

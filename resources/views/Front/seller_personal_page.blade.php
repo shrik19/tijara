@@ -106,12 +106,12 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
              <div class="form-group butik_profile_store_div">
               <label>{{ __('lang.store_name')}} <span class="de_col"></span></label>
               <br>
-              <input type="text" class="form-control store_name butik_profile_store_name" id="store_name" name="store_name" 
+              <input maxLength="20" type="text" class="alpha-only form-control store_name butik_profile_store_name" id="store_name" name="store_name" 
               placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" style="width: 70%;" />
-            <input type="button" name="check-store-unique" class="btn debg_color verify-store" onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 0px;" />  
-            
+				<input type="button" name="check-store-unique" class="btn debg_color verify-store" onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 0px;" />  
+				<span class="invalid-feedback" id="err_store_name" style="position: relative;"> </span>
             </div>
-            <span class="invalid-feedback" id="err_store_name" style="position: relative;"> </span>
+            
             <div class="loader"></div>
             <div class="form-group increment cloned">
               <label>{{ __('users.seller_header_img_label')}}</label>
@@ -195,6 +195,10 @@ function checkStoreName(){
 
     var store_name= $("#store_name").val();
     var seller_id = $("#seller_id").val();
+	if(store_name.length>=21){
+		$("#err_store_name").html(store_name_characters_len_err).show();
+		return false;
+	}
     if(store_name!=''){
         $.ajax({
           url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
@@ -340,7 +344,12 @@ $('body').on('click', '.remove_logo_image', function () {
           }
     });
 });
-
+$(".alpha-only").on("input", function(e){
+  var regexp = /[^a-zA-Z0-9]/g;
+  if($(this).val().match(regexp)){
+    $(this).val( $(this).val().replace(regexp,'') );
+  }
+});
 </script>
 
 @endsection

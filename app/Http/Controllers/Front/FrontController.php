@@ -736,7 +736,7 @@ public function getCatSubList(Request $request) {
 //echo "<pre>";print_r($product_link);exit;
 		$Product->product_link	=	$product_link;
 
-				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->orderBy('variant_id', 'ASC')->limit(1)->get();//->where('id','=', $Product->variant_id)
 				foreach($variantProduct as $vp)
 				{
 					$Product->image = explode(",",$vp->image)[0];
@@ -1021,7 +1021,7 @@ public function getCatSubList(Request $request) {
 
 		$Products 			= $Products->paginate(config('constants.middle_pages_limit'));
 		//print_r(DB::getQueryLog());exit;
-		//echo "<pre>";print_r(count($Products));exit;
+		//echo "<pre>";print_r(($Products));exit;
 		//$data['show_products'] =$Products[0]->role_id;
 		//print_r(DB::getQueryLog());exit;
 		if(count($Products)>0) {
@@ -1040,7 +1040,7 @@ public function getCatSubList(Request $request) {
 				$Product->seller	=	$SellerData['fname'].' '.$SellerData['lname'];
 				$Product->store_name	=	$SellerData['store_name'];
 
-				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->where('id','=', $Product->variant_id)->orderBy('variant_id', 'ASC')->limit(1)->get();
+				$variantProduct  =	VariantProduct::select('image','price','variant_product.id as variant_id')->where('product_id',$Product->id)->orderBy('variant_id', 'ASC')->limit(1)->get(); // ->where('id','=', $Product->variant_id) - commented this to get same image on product list and details - priyanka 01-july-22
 				foreach($variantProduct as $vp)
 				{
 					$Product->image = explode(",",$vp->image)[0];
@@ -1104,7 +1104,9 @@ public function getCatSubList(Request $request) {
 			$sellerData .= '</ul>';
 		}
 		$data['path'] = @$request->path;
-
+		if(strpos(@$request->path, 'annonser') !== false){
+			$data['annonser']=1;
+		}
 		$productListing = view('Front/products_list', $data)->render();
 			echo json_encode(array('products'=>$productListing,'sellers'=>$sellerData));
 		exit;
@@ -1176,7 +1178,7 @@ public function getCatSubList(Request $request) {
     	$data['subcategory_slug']	=	'';
         $data['seller_id']		=	'';
         $data['search_string']		=	'';
-
+		
     		if($category_slug!='')
     			$data['category_slug']	= $category_slug;
 
@@ -1237,7 +1239,7 @@ public function getCatSubList(Request $request) {
 			$data['hidden_type'] = $request->hidden_type;
 	    	$data['path'] = @$request->path;
 	        $data['pageTitle'] 	= 'Sellers Products';
-
+			
 			if($request->segment(4)=='products'){
 				$data['Categories'] = $this->getCategorySubcategoryList($seller_id,$category_slug, $subcategory_slug);
 			}else{
@@ -1245,6 +1247,7 @@ public function getCatSubList(Request $request) {
 			}
 			$subcategory_slug = $request->subcategory_slug;
 			$data['PopularProducts']	= $this->getPopularProducts(config('constants.Products_limits'),$category_slug,$subcategory_slug);
+			
 			$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
 	    	$data['category_slug']		=	'';
 			$data['subcategory_slug']	=	'';
@@ -1358,13 +1361,24 @@ public function getCatSubList(Request $request) {
 			$data['is_seller'] 			= 1;
 			$data['totalRating']  		= $totalRating;
 			$data['getTerms']  			= $getTerms;
+			$seller_name = str_replace( array( '\'', '"', 
+		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+			$seller_name = str_replace(" ", '-', $seller_name);
+			$seller_name = strtolower($seller_name);
+			$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
+			$data['seller_link'] = $sellerLink;
 	        return view('Front/seller-products', $data);
     	}else if($request->hidden_type == "services"){
 
     		$store_name = str_replace('-', " ", $store_name);		
 			$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
 			$seller_id = base64_encode($seller_user['id']);
-			
+			$seller_name = str_replace( array( '\'', '"', 
+		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+			$seller_name = str_replace(" ", '-', $seller_name);
+			$seller_name = strtolower($seller_name);
+			$sellerLink = route('sellerProductListingByCategory',['seller_name' => $seller_name]);
+			$data['seller_link'] = $sellerLink;
 			$data['hidden_type'] = $request->hidden_type;
 			$data['pageTitle'] 	= 'Sellers Services';
 	        $data['path'] = @$request->path;
@@ -1789,7 +1803,12 @@ public function getCatSubList(Request $request) {
 										$data['PopularProducts']	= $this->getPopularProducts(5);
 									}
 									//echo "<pre>";print_r($Product);exit;
-												
+									
+		//skip variant array key if attr is not exist for it - priyanka 01-july
+		foreach($variantData as $variant_id => $eachVariant){
+			if(!isset($eachVariant['attr']))
+				unset($variantData[$variant_id]);
+		}
 		$data['Product']			= $Product;
 		$data['variantData']		= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;

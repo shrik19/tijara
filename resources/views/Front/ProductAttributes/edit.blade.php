@@ -44,7 +44,7 @@
 
                 <div class="form-group">
                   <label class="product_table_heading">{{ __('lang.type_label')}} <span class="de_col">*</span></label>
-                  <select class="form-control login_input" id="type" name="type">
+                  <select required class="form-control login_input attr_type" id="type" name="type">
                     <option value="">{{ __('lang.select_label')}}</option>
                     <?php /*<option value="radio"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='radio')) {{ 'selected' }} @endif>{{ __('lang.radio_label')}}</option>  */?>
                     <option value="dropdown"  @if(isset( $attributesDetails['type']) && ( $attributesDetails['type']=='dropdown')) {{ 'selected' }} @endif>{{ __('lang.dropdown_label')}}</option>
@@ -58,6 +58,7 @@
                 <div class="form-group">
                   <label class="product_table_heading">{{ __('lang.type_label')}} <span class="de_col">*</span></label>
                   <div class="field_wrapper">
+				  
                   @if(!empty($attributesValues) && count($attributesValues) !=0)
                   @foreach ($attributesValues as $key=>$values)
                   <div>
@@ -154,18 +155,21 @@
   });
 
  $(".save_att_val").click(function(e){
+	 e.preventDefault();
     var error = 0;
      
+	 if($('.attr_type').val()=='') {
+		 
+		 $('.attr_type').next('.invalid-feedback').html(required_field_error);
+          error = 1;
+	 }
     
     $( ".attribute_values:visible" ).each(function() {
       if($(this).val()=='') {
           $(this).next('.invalid-feedback').html(required_field_error);
           error = 1;
       }
-      else{
-        $(this).next('.invalid-feedback').html('');
-        error = 0;
-      }
+      
       
   });
  /* $( ".add_attribute_group_td" ).each(function() {
@@ -181,9 +185,9 @@
   }
   else
   {
-     return true;
-   // $('#product_attribute_form').submit();
-   
+     
+    $('#product_attribute_form').submit();
+   return true;
   }
 
   });

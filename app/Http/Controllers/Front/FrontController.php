@@ -902,7 +902,8 @@ public function getCatSubList(Request $request) {
 
 								$q->Where([["users.role_id",'=',"1"],['is_sold','=','0'],[DB::raw("DATEDIFF('".$currentDate."', products.created_at)"),'<=', 30]])->orWhere([["users.role_id",'=',"1"],['is_sold','=','1'],[DB::raw("DATEDIFF('".$currentDate."',products.sold_date)"),'<=',7]]);
 								});
-			}else{
+			}
+			else{
 				
 				$Products 			= Products::leftjoin('category_products', 'products.id', '=', 'category_products.product_id')
 							  ->leftJoin('categories', 'categories.id', '=', 'category_products.category_id')
@@ -1064,6 +1065,8 @@ public function getCatSubList(Request $request) {
 		}
 		else {
 		$data['Products']	= 'Inga produkter tillgängliga.';
+		if(strpos(@$request->path, 'annonser') !== false)
+			$data['Products']	= 'Inga annonser tillgängliga.';
 		}
 
 

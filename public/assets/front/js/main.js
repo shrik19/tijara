@@ -770,6 +770,16 @@ $(".saveproduct").click(function(e){
         error = 1;
     }
   });
+  var selectedAttrs	=	[];
+  $( ".select_attribute:visible" ).each(function() {
+		selectedAttrs.push($(this).val());
+    
+  });
+  for(var i = 0; i < selectedAttrs.length - 1; i++) {
+        if(selectedAttrs[i] !== selectedAttrs[i+2]) {
+            //error = 1;
+        }
+    }
   if($("#free_shipping_chk").is(':checked')){
     //error = 0;
   }

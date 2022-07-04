@@ -553,6 +553,16 @@ class ProductController extends Controller
            // echo "<pre>";print_r( $messages );exit;
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
+		$attributesError	=	0;
+		if(isset($_POST['attribute_value'])) { //restricted to save product when attributes not selected
+			if(isset($_POST['attribute_value'][0]) && ($_POST['attribute_value'][0][0]=='' || $_POST['attribute_value'][0][1]=='' )) {
+				$attributesError		=	1;
+			}
+		}
+		if($attributesError==1) {
+			//$messages = array('error');
+			//return redirect()->back()->withInput($request->all())->withErrors($messages);
+		}
         $arrProducts = array();
 
         $arrProducts = [
@@ -664,6 +674,9 @@ class ProductController extends Controller
 		              $variant_id=VariantProduct::create($producVariant)->id;
                     }
                   // echo "in<pre>--";print_r($_POST['attribute_value'][$variant_key]);exit;
+				  VariantProductAttribute::where('variant_id', $variant_id)->delete();
+				  if(isset($_POST['attribute'][$variant_key])) {
+					  
                    foreach($_POST['attribute'][$variant_key] as $attr_key=>$attribute) {
                         if($_POST['attribute'][$variant_key][$attr_key]!='' && isset($_POST['attribute_value'][$variant_key][$attr_key] ))
                         {
@@ -687,6 +700,7 @@ class ProductController extends Controller
                         }
                         
                     }
+				}
 		         /*   foreach($_POST['attribute_value'][$variant_key] as $attr_key=>$attribute) {
                         
 		               

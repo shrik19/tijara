@@ -12,8 +12,10 @@
         <div class="row container-inner-section">
             <div class="col-md-6">
               <!-- Primary carousel image -->
+			 
               @if(!empty($variantData))
                 @php
+			
                 $first = reset($variantData);
         @endphp
         @endif
@@ -145,6 +147,7 @@
                          @foreach($ProductAttributes as $attribute_id => $attribute)
                          @if($j == 1)
               @php
+		  //echo'<pre>';print_r($ProductAttributes);exit;
                 $firstId =  $attribute_id;
                 $firstAttr = $first['attr'][$attribute['attribute_name']];
                 if(!empty($ProductAttributes[$firstId]['variant_available_values']))

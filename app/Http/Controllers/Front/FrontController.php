@@ -1805,17 +1805,17 @@ public function getCatSubList(Request $request) {
 									
 										$data['PopularProducts']	= $this->getPopularProducts(5);
 									}
-									//echo "<pre>";print_r($Product);exit;
+									//echo "<pre>";print_r($variantData);exit;
 									
 		//skip variant array key if attr is not exist for it - priyanka 01-july
-		foreach($variantData as $variant_id => $eachVariant){
+		/*foreach($variantData as $variant_id => $eachVariant){
 			if(!isset($eachVariant['attr']))
 				unset($variantData[$variant_id]);
-		}
+		}*/
 		$data['Product']			= $Product;
 		$data['variantData']		= $variantData;
 		$data['ProductAttributes']	= $ProductAttributes;
-
+		//echo "<pre>";print_r($variantData);exit;
 		$tmpSellerData = UserMain::where('id',$Product['user_id'])->first()->toArray();
 		$seller_name = $tmpSellerData['store_name'];
 		$data['seller_name'] = $seller_name;

@@ -404,5 +404,6 @@ cancellation of service works.',
     'paid_payment_status' => 'PAID',
     'tijara_announser_label'=>'Tijaras annonser',
     'who_received_email' => "To Email",
+    'created_at' => 'Registered At',
  ]
 ?>

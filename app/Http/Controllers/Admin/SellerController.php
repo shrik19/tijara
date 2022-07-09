@@ -135,7 +135,7 @@ class SellerController extends Controller
             if($postedorder['column']==1) $orderby='users.lname';
             if($postedorder['column']==2) $orderby='users.store_name';
             if($postedorder['column']==3) $orderby='users.city';
-            if($postedorder['column']==4) $orderby='users.where_find_us';
+            if($postedorder['column']==4) $orderby='users.created_at';
             
             $orderorder=$postedorder['dir'];
             $SellerDetails = $SellerDetails->orderby($orderby, $orderorder);
@@ -154,7 +154,8 @@ class SellerController extends Controller
                 $lname = (!empty($recordDetailsVal['lname'])) ? $recordDetailsVal['lname'] : '-';
                 $store_name = (!empty($recordDetailsVal['store_name'])) ? $recordDetailsVal['store_name'] : '-';
                 $city = (!empty($recordDetailsVal['city'])) ? $recordDetailsVal['city'] : '-';
-                $whereFindUs = (!empty($recordDetailsVal['where_find_us'])) ? $recordDetailsVal['where_find_us'] : '-';
+                //$whereFindUs = (!empty($recordDetailsVal['where_find_us'])) ? $recordDetailsVal['where_find_us'] : '-';
+                $created_at = (!empty($recordDetailsVal['created_at'])) ? date('Y-m-d H:i:s', strtotime($recordDetailsVal['created_at'])) : '-';
                 $showPackges =  '<a href="'.route('adminSellerShowPackages', base64_encode($id)).'" title="'.__('users.show_ackages_thead').'" class="btn btn-icon btn-info"><i class="fas fa-history"></i> </a>&nbsp;&nbsp;'; 
 
 
@@ -174,7 +175,7 @@ class SellerController extends Controller
 
                 $action .= '<a href="javascript:void(0)" onclick=" return ConfirmDeleteFunction(\''.route('adminSellerDelete', base64_encode($id)).'\');"  title="'.__('lang.delete_title').'" class="btn btn-icon btn-danger"><i class="fas fa-trash"></i></a>';
             
-                $arr[] = [$fname, $lname, $store_name, $city, $whereFindUs, $showPackges, $status, $action];
+                $arr[] = [$fname, $lname, $store_name, $city, $created_at, $showPackges, $status, $action];
             }
         } 
         else {

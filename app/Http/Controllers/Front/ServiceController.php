@@ -1169,9 +1169,10 @@ class ServiceController extends Controller
 
         $user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
         $buyer_email =$user->email;
-        $customername = $user->fname;
-        $customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;
-        $sellername     =$service_request->fname;
+        $customername = $user->fname.' '.$user->lname;
+        #$customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;
+        $customeraddress    =   $user->address;
+        $sellername     =$service_request->store_name;
         $seller_phone_number =$service_request->phone_number; 
         $service    =   $service_request->title;
         $email      =   $service_request->email;

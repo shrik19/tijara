@@ -2559,9 +2559,11 @@ public function getCatSubList(Request $request) {
        
 		$user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
 		$customername = $user->fname;
+		$customername1 = $user->fname.' '.$user->lname;
 		$email		=	$user->email;
-		$customeraddress	=	$user->address.' '.$user->city.' '.$user->postcode;
-		$sellername 	= $service_request->fname;
+		#$customeraddress	=	$user->address.' '.$user->city.' '.$user->postcode;
+		$customeraddress	=	$user->address;
+		$sellername 	= $service_request->store_name;
 
 		$service	=	$service_request->title;
 		$sellerEmail	=	$service_request->email;
@@ -2588,7 +2590,7 @@ public function getCatSubList(Request $request) {
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
 		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
 			'##CUSTOMERADDRESS##','##SELLER##','##SWEDISHDATETIME##','##PHONE##'],
-		[$customername,$customername,$service,$service_time,$service_date,$request->input('location'),
+		[$customername1,$customername,$service,$service_time,$service_date,$request->input('location'),
 		$request->input('service_price'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername, $service_date_time_swedish,$seller_phone_number],$contents);
 
         $arrMailData = ['email_body' => $contents];

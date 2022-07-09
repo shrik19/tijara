@@ -405,5 +405,6 @@ avbokning av tjänst fungerar.',
     'paid_payment_status' => 'Betalad',
     'tijara_announser_label'=>'Tijaras annonser',
     'who_received_email' => "Att mejla",
+    'created_at' => 'Registrerad hos',
  ]
 ?>

@@ -3,42 +3,43 @@
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
+
  <!-- Carousel Default -->
-<section class="product_section">
-    <div class="container-fluid-1 p_155">
+<section class="product_section p_155">
+    <div class="container-fluid">
       <!-- Example row of columns -->
-      <div class="row container-inner-section">
-      <div class="">
+      <div class="row">
+        <div class="container-inner-section">
         
-       @if(Request::segment(1) =='services' || Request::segment(1) =='products')
+        @if(Request::segment(1) =='services' || Request::segment(1) =='products')
           @include('Front.category_breadcrumb')
         @endif
-        <div class="col-md-3 p-0">
+        <div class="col-md-3 col-products-sidebar desktop-view" id="tjfilter">
+          <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
             @include('Front.services_sidebar')
         </div>
 
         <div class="col-md-9 services-page">
-			<div class="row">
+			     <div class="row tj-filter-sec">
                   <div class="col-md-6">
-                    <!-- <h2>{{ __('lang.trending_service_head')}}</h2>
-                    <hr class="heading_line"/> -->
                     @if( Request::segment(1) !='annonser')
-                      <div class="col-md-3">
-                        <label class="checkbox toggle candy label_width" onclick="">
-                          <input id="view" type="checkbox" />
-                          <p>
-                            <span class="product_sorting_filter" id="productSearchFilter"  product_link="{{route('AllproductListing')}}" style="margin-left: 14px;cursor: pointer;">{{ __('lang.category_product_title')}}</span>
-                            <span class="product_sorting_filter" id="serviceSearchFilter" service_link="{{route('AllserviceListing')}}" style="margin-left: 14px;cursor: pointer;">{{ __('lang.category_service_title')}}</span>
-                          </p>                  
-                          <a class="slide-button"></a>                  
-                         </label>                   
-                      </div>
+
+                    <div class="col-md-3">
+                      <label class="checkbox toggle candy label_width" onclick="">
+                        <input id="view" type="checkbox" />
+                        <p>
+                          <span class="product_sorting_filter" id="productSearchFilter"  product_link="{{route('AllproductListing')}}" style="margin-left: 14px;cursor: pointer;">{{ __('lang.category_product_title')}}</span>
+                          <span class="product_sorting_filter" id="serviceSearchFilter" service_link="{{route('AllserviceListing')}}" style="margin-left: 14px;cursor: pointer;">{{ __('lang.category_service_title')}}</span>
+                        </p>                  
+                        <a class="slide-button"></a>                  
+                       </label>                   
+                    </div>
                     @endif
                   </div>
 
-                  <div style="margin-top: -1%;" class="col-md-3 prod-service-filter pr-w-0" >
+                  <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="{{url('/')}}/assets/img/tjfilter.png"></button>
 
-
+                  <div style="margin-top: -1%;" class="col-md-3 prod-service-filter">
                     <div class="form-group">
                       <label class="product_sorting_filter">{{ __('lang.sort_by_order')}} : </label>
                       <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="listServices()">

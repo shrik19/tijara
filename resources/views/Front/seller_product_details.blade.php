@@ -117,7 +117,7 @@
                      
         
                      @if(empty($ProductAttributes))
-                      <div class="col-md-6 p-0">
+                      <div class="col-xs-6 p-0">
                         <div class="quantity_box" style="margin-bottom:0px !important;">
                           <div>
                             <h3>{{ __('lang.price_label')}}  : </h3> &nbsp;&nbsp;
@@ -156,7 +156,7 @@
                 }
               @endphp
              @endif
-                         <div class="col-md-6 p-0">
+                         <div class="col-xs-6 p-0 tj-qunbox">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                              
                                 <div>
@@ -258,7 +258,7 @@
                           </div>
                         </div> -->
                 </div>
-                <div class="col-xs-6 col-md-12 p-0">
+                <div class="col-md-12 p-0">
                   <?php
                   $btn_disabled = $outOfStock = '';
                     if($first['quantity']==0){

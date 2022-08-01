@@ -9,27 +9,26 @@
     <div class="container-fluid">
       <!-- Example row of columns -->
       <div class="row">
-  <div class="container-inner-section">
+        <div class="container-inner-section">
  
         @if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser')
-          @include('Front.category_breadcrumb')
-         
+          @include('Front.category_breadcrumb')         
         @endif
-
         <div class="cat-details">
 			  @if(Request::segment(1) =='annonser')
-				<div class="col-md-3 col-annonser-sidebar  desktop-view pl-0">
+				<div class="col-md-3 col-annonser-sidebar desktop-view pl-0">
 					@include('Front.annonser_sidebar')
 				</div>
 			  @else
-				<div class="col-md-3 col-products-sidebar desktop-view">
+				<div class="col-md-3 col-products-sidebar desktop-view" id="tjfilter">
+          <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
 					@include('Front.products_sidebar')
 				</div>
 			  @endif
 			
 			<div class="col-md-9 products-page p-0">
 			
-				<div class="row">
+				<div class="row tj-filter-sec">
 				   @if(Request::segment(1) =='annonser')
 					<div class="col-md-1"></div>
 					<div class="col-md-6">
@@ -45,10 +44,10 @@
     					   </div>				 
 					     @endif
 				   @endif
-				 <div class="col-md-12"> 
+
 				  @if( Request::segment(1) !='annonser')
          
-					  <div class="col-md-3 pr-0" style="padding-left:45px;">
+					  <div class="col-md-3 pr-0 tj-prpduct-tab">
 						<label class="checkbox toggle candy label_width" onclick="" >
 						  <input id="view" type="checkbox" />
 						  <p>
@@ -58,11 +57,12 @@
 						  <a class="slide-button"></a>                  
 						 </label>                   
 					  </div>
-            <div>&nbsp;</div>
+            <div class="tj-bldv">&nbsp;</div>
 					@else
 						<div class="col-md-4"></div>
 					@endif
 						  <div class="col-md-2"></div>
+              <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="{{url('/')}}/assets/img/tjfilter.png"></button>
 						  <div style="margin-top: -3%;" class="@if(Request::segment(1) !='annonser') col-md-offset-1 @endif col-md-3 prod-service-filter" >
 						  
 							<div class="form-group">
@@ -87,7 +87,6 @@
 							  </select>
 							</div>
 						  </div>
-						</div>
 						</div>
 
 				<span class="current_category" style="display:none;">{{$category_slug}}</span>

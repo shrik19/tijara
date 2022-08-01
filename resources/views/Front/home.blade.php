@@ -4,52 +4,48 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/azcustom.css">
 <hr class="categoryGrayLine">
  <!-- Carousel Default -->
 <div class="slider_cotnainer_section">
-    <div class="container-fluid">
-        <div class="row">
-            <section class="carousel-default slider_cotnainer">
-                <div id="carousel-default" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators slider_indicators">
-                        @foreach($SliderDetails as $key=>$data)
-                            @if($key == 0)
-                                <li data-target="#carousel-default" data-slide-to="{{$key}}" class="active"></li>
-                            @else
-                                <li data-target="#carousel-default" data-slide-to="{{$key}}" class=""></li>
-                            @endif  
-                        @endforeach  
-                    </ol>
-
-                    <div class="carousel-inner home-slider" role="listbox">
-                        <!-- NOTE: Bootstrap v4 changes class name to carousel-item -->
-                        @foreach($SliderDetails as $key=>$data)
-                        @if($key == 0)
-                        <div class="item active slider_item">
-                        @else
-                        <div class="item slider_item">
-                        @endif
-                        <div >
-                            <img class="img-fluid" src="{{url('/')}}/uploads/Slider/<?php echo $data['sliderImage']; ?>" 
-                            id="sliderImages" alt="First slide">
-							<div class="product_view">
-								<div class="slider_content">
-									<?php /* <h3>{{$data['title']}}</h3>*/?>
-									<?php echo $data['description']; ?>
-									<button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >{{ __('lang.browse_now_btn')}}</button>  
-								</div>
-							</div>
-                        </div>
-                        </div>
-                        @endforeach
-                        </div>
-                    </div>
+  <div class="container-fluid">
+    <div class="row">
+      <section class="carousel-default slider_cotnainer">
+        <div id="carousel-default" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators slider_indicators">
+            @foreach($SliderDetails as $key=>$data)
+                @if($key == 0)
+                    <li data-target="#carousel-default" data-slide-to="{{$key}}" class="active"></li>
+                @else
+                    <li data-target="#carousel-default" data-slide-to="{{$key}}" class=""></li>
+                @endif  
+            @endforeach  
+          </ol>
+          <div class="carousel-inner home-slider" role="listbox">
+            <!-- NOTE: Bootstrap v4 changes class name to carousel-item -->
+            @foreach($SliderDetails as $key=>$data)
+            @if($key == 0)
+            <div class="item active slider_item">
+              @else
+              <div class="item slider_item">
+                @endif
+                <img class="img-fluid" src="{{url('/')}}/uploads/Slider/<?php echo $data['sliderImage']; ?>" id="sliderImages" alt="First slide">
+                <div class="product_view">
+                  <div class="slider_content">
+                    <?php /* <h3>{{$data['title']}}</h3>*/?>
+                    <?php echo $data['description']; ?>
+                    <button type="submit" class=" btn slider_buy_btn debg_color" onclick="document.location='{{$data['link']}}'" >{{ __('lang.browse_now_btn')}}</button>
+                  </div>
                 </div>
-            </section>
+              </div>
+              @endforeach
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
-    </div>
+  </div>
+</div>
  <!-- end slider section -->
 
 <section class="pt-0">
@@ -61,13 +57,13 @@
             @include('Front.products_sidebar')
         </div>-->
         <div class="product_view">
-        <div class="col-md-12 pl-w-0 pr-w-0">             
+        <div class="col-md-12">             
                 <div class="product_container product_container-list-5">
                 <div class="loader"></div>
                     <!-- <h4>{{ __('lang.popular_items_in_market_head')}}</h4> -->
              
                      <div>
-                        <h2 class="heading product_heading">{{ __('lang.popular_product_head')}}</h2> 
+                        <h2 class="product_heading">{{ __('lang.popular_product_head')}}</h2> 
                             <!-- <a href="{{url('/')}}/products" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_products')}}</a> -->
                     </div>
                     <!-- <hr class="heading_line"/> -->
@@ -92,7 +88,7 @@
         <h2 class="heading product_heading">{{ __('lang.featured_seller_head')}}</h2>
     </div>
 </div>
-    <div class="featured-banner" style="margin-left: 10px;">
+    <div class="featured-banner">
     <div class="featured_seller_container ">
     <div class="container-fluid">
         <div class="row logo-slider">               
@@ -137,11 +133,11 @@
 
       <div class="row">
        <div class="product_view">
-        <div class="col-md-12 pl-w-0 pr-w-0">             
+        <div class="col-md-12">             
                 <div class="product_container product_container-list-5">
                 <div class="loader"></div>
                     <div >
-                    <h2 class="heading product_heading">{{ __('lang.popular_services_head')}}</h2>     
+                    <h2 class="product_heading">{{ __('lang.popular_services_head')}}</h2>     
                     <!-- <a href="{{url('/')}}/services" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_services')}}</a> -->
                 </div>
                     <!-- <hr class="heading_line"/> -->
@@ -168,11 +164,11 @@
       <!-- Example row of columns -->
     <div class="row">
     <div class="product_view">
-    <div class="col-md-12 pl-w-0 pr-w-0">             
+    <div class="col-md-12">             
         <div class="product_container product_container-list-5">
         <div class="loader"></div>
-            <div style="display: flex;">
-            <h2 class="heading product_heading">{{ __('lang.feature_product_head')}}</h2>
+          <div class="tj-prodhead-block">
+            <h2 class="product_heading">{{ __('lang.feature_product_head')}}</h2>
             <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a>
           </div>
             <!-- <hr class="heading_line"/> -->
@@ -267,8 +263,7 @@
             <div class="col-md-12 pl-w-0 pr-w-0">
 				<div class="best_seller_container">
 					<!--<h3>{{ __('lang.follow_us_on_head')}}</h3>-->
-					<h2 class="product_heading instagram_heading" style="
-    margin-left: 25px !important;">{{ __('lang.instagram_label')}}</h2>
+					<h2 class="product_heading instagram_heading">{{ __('lang.instagram_label')}}</h2>
 					<div class="social_img_section insta_social_images">
 						<ul class="instagram_imgs" id="instafeed">
 
@@ -563,18 +558,20 @@ $(".service_rating").each(function(){
     //         nextArrow:"<button type='button' class='slick-next pull-right'>Right</button>",
     responsive: [
         {
-          breakpoint: 1024,
+          breakpoint: 1100,
           settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
+            slidesToShow: 3,
+            slidesToScroll: 1,
             adaptiveHeight: true,
+            arrows: false,
           },
         },
         {
-          breakpoint: 600,
+          breakpoint: 800,
           settings: {
-            slidesToShow: 1,
+            slidesToShow: 2,
             slidesToScroll: 1,
+            arrows: false,
           },
         },
       ],

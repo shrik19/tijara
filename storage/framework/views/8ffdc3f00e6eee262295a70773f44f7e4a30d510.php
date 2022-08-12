@@ -1,0 +1,232 @@
+
+<?php $__env->startSection('middlecontent'); ?>
+
+<link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/fontawesome-stars.css">
+<script src="<?php echo e(url('/')); ?>/assets/front/js/jquery.barrating.min.js"></script>
+
+ <!-- Carousel Default -->
+<section class="product_section p_155">
+    <div class="container-fluid">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="container-inner-section">
+        
+        <?php if(Request::segment(1) =='services' || Request::segment(1) =='products'): ?>
+          <?php echo $__env->make('Front.category_breadcrumb', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php endif; ?>
+        <div class="col-md-3 col-products-sidebar desktop-view" id="tjfilter">
+          <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
+            <?php echo $__env->make('Front.services_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        </div>
+
+        <div class="col-md-9 services-page">
+			     <div class="row tj-filter-sec">
+                  <div class="col-md-6">
+                    <?php if( Request::segment(1) !='annonser'): ?>
+
+                    <div class="col-md-3">
+                      <label class="checkbox toggle candy label_width" onclick="">
+                        <input id="view" type="checkbox" />
+                        <p>
+                          <span class="product_sorting_filter" id="productSearchFilter"  product_link="<?php echo e(route('AllproductListing')); ?>" style="margin-left: 14px;cursor: pointer;"><?php echo e(__('lang.category_product_title')); ?></span>
+                          <span class="product_sorting_filter" id="serviceSearchFilter" service_link="<?php echo e(route('AllserviceListing')); ?>" style="margin-left: 14px;cursor: pointer;"><?php echo e(__('lang.category_service_title')); ?></span>
+                        </p>                  
+                        <a class="slide-button"></a>                  
+                       </label>                   
+                    </div>
+                    <?php endif; ?>
+                  </div>
+
+                  <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="<?php echo e(url('/')); ?>/assets/img/tjfilter.png"></button>
+
+                  <div style="margin-top: -1%;" class="col-md-3 prod-service-filter">
+                    <div class="form-group">
+                      <label class="product_sorting_filter"><?php echo e(__('lang.sort_by_order')); ?> : </label>
+                      <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="listServices()">
+                          <option value="">---- <?php echo e(__('lang.sort_by_option')); ?> ----</option>
+                          <option selected value="asc"><?php echo e(__('lang.sort_by_asc')); ?></option>
+                          <option value="desc"><?php echo e(__('lang.sort_by_desc')); ?></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div style="margin-top: -1%;" class="col-md-3 prod-service-filter pr-w-0">
+                    <div class="form-group">
+                      <label class="product_sorting_filter"><?php echo e(__('lang.sort_by')); ?> : </label>
+                      <select class="form-control" name="sort_by" id="sort_by" onchange="listServices()">
+                         <!--  <option value="">---- <?php echo e(__('lang.sort_by_option')); ?> ----</option> -->
+                         <!--  <option value="name"><?php echo e(__('lang.sort_by_name')); ?></option> -->
+
+                           <option value="popular" class="product_sorting_filter_option"><?php echo e(__('lang.sort_by_popular_product')); ?></option>
+                          <option value="price" class="product_sorting_filter_option"><?php echo e(__('lang.sort_by_price')); ?></option>
+                          <option value="discount" class="product_sorting_filter_option"><?php echo e(__('lang.sort_by_discount')); ?></option>
+                          <option value="name" class="product_sorting_filter_option"><?php echo e(__('lang.sort_by_name')); ?></option>
+                          <option value="rating" class="product_sorting_filter_option"><?php echo e(__('lang.sort_by_rating')); ?></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+            <span class="current_category" style="display:none;"><?php echo e($category_slug); ?></span>
+            <span class="current_subcategory" style="display:none;"><?php echo e($subcategory_slug); ?></span>
+            <span class="current_sellers" style="display:none;"><?php echo e($seller_id); ?></span>
+            <span class="current_search_string" style="display:none;"><?php echo e($search_string); ?></span>
+            <div class="row product_container product_container-list-4 service_page">
+                
+                <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="<?php echo e(url('/')); ?>/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+             <!--    <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="<?php echo e(url('/')); ?>/assets/front/img/ajax-loader.gif" alt="loading"></div></span> -->
+            </div>
+        </div>
+    </div>
+
+</div>
+    </div> <!-- /container -->
+</section>
+
+<section>
+    <div class="container-fluid">
+    <div class="container-inner-section">
+        <div class="row">
+            <div class="best_seller_container col-md-12 product_container-list-5">
+                <!-- <h3><?php echo e(__('lang.popular_items_in_market_head')); ?></h3> -->
+                <!-- <h2><?php echo e(__('lang.best_seller_head')); ?></h2> -->
+                <h2 class="other_watched_products"><?php echo e(__('users.other_watched_product')); ?></h2>
+                <ul class="product_details best_seller pl-0">
+                  <?php $__currentLoopData = $PopularServices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php echo $__env->make('Front.services_widget', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+				 </ul>
+   
+        </div>
+
+
+</div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+  $("#serviceSearchFilter").addClass("filterActive");
+  $("#productSearchFilter").addClass("inactiveFilter");
+ // $("#serviceSearchFilter").addClass("inactiveFilter");
+});
+  
+$("#productSearchFilter").click(function(){
+  $("#product_service_search_type").val('products');
+  $('#product_service_search_from').attr('action',siteUrl+"/products");
+  $('#product_service_search_from').attr('onSubmit','');
+  $('#product_service_search_from').submit();
+
+});
+
+  $("#serviceSearchFilter").click(function(){
+  $("#product_service_search_type").val('products');
+    $('#product_service_search_from').attr('action',siteUrl+"/services");
+    $('#product_service_search_from').attr('onSubmit','');
+    $('#product_service_search_from').submit();
+
+});
+function listServices(){
+
+  var sort_by_order = $("#sort_by_order").val();
+  var sort_by = $("#sort_by").val();
+  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
+}
+
+$("#city_name").on("input", function() {
+   get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
+});
+/*
+function getListing()
+{
+  var category_slug = $('.current_category').text();
+  var subcategory_slug = $('.current_subcategory').text();
+  var sellers = $('.current_sellers').text();
+  var sort_by_order = $("#sort_by_order").val();
+  var sort_by = $("#sort_by").val();
+  var search_string = $(".current_search_string").text();
+  var city_filter = $('#service_city').val();
+
+  $.ajax({
+    url:siteUrl+"/get_service_listing",
+    headers: {
+      'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+    },
+    type: 'post',
+    data : {'page': 1, 'category_slug' : category_slug, 'subcategory_slug' : subcategory_slug, 'sellers' : sellers,  'sort_order' : sort_by_order, 'sort_by' : sort_by, 'search_string' : search_string, 'city_filter':city_filter },
+    success:function(data)
+    {
+      //$('.product_listings').html(data);
+      var responseObj = $.parseJSON(data);
+      $('.service_listings').html(responseObj.services);
+      $('.seller_list_content').html(responseObj.sellers);
+    }
+   });
+}*/
+var price_filter = $("#price_filter").slider({});
+price_filter.on('slideStop',function(){
+     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
+});
+
+function selectSellers()
+{
+    var Sellers = '';
+    $(".sellerList").each(function(){
+      if($(this).prop('checked'))
+      {
+        if(Sellers == '')
+        {
+            Sellers = $(this).val();
+        }
+        else {
+          Sellers += ','+$(this).val();
+
+        }
+      }
+    });
+    $(".current_sellers").html(Sellers);
+     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
+
+}
+
+$(document).ready(function(){
+  /*search by city */
+ $('#service_city').keyup(function(){ 
+        var query = $(this).val();
+       
+        if(query != '')
+        {
+         var _token = $('input[name="_token"]').val();
+         $.ajax({
+          url:"<?php echo e(route('getCity')); ?>",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+           $('#cityList').fadeIn();  
+                    $('#cityList').html(data);
+          }
+         });
+        }
+    });
+
+
+   $(document).on('click', '.city_autocomplete', function(){  
+        $('#service_city').val($(this).text());  
+        $('#cityList').fadeOut();  
+    }); 
+
+   $("#service_city").on("input", function() { 
+       get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+    $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
+    }); 
+
+});
+
+</script>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Front.layout.template', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\wamp64\www\tijara\resources\views/Front/services.blade.php ENDPATH**/ ?>

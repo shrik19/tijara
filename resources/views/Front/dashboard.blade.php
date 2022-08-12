@@ -6,14 +6,16 @@
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-2 tijara-sidebar">
+    <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
       @include ('Front.layout.sidebar_menu')
     </div>
     <div class="col-md-10 tijara-content ">
     <div class="seller_info">
     <div class="card">
 		  <div class="card-header row seller_header">
-        <h2 class="page_heading seller_page_heading">{{ __('lang.summary_menu')}}</h2>
+        <h2 class="page_heading seller_page_heading">
+              <button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.summary_menu')}}</h2>
         <!-- <hr class="heading_line"/> -->
       </div>
     </div>

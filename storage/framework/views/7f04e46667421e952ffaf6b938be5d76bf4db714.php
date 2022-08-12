@@ -11,21 +11,24 @@
   <!-- Example row of columns -->
   
   <div class="row">
-  <div class="col-md-2 tijara-sidebar">
+  <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
         <?php echo $__env->make('Front.layout.sidebar_menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
       </div>
-      <div class="col-md-10 tijara-content">
-            <?php echo $__env->make('Front.alert_messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+      <div class="col-md-10 tijara-content margin_bottom_class">
+           
             <?php if($subscribedError): ?>
               <div class="alert alert-danger update-alert-css"><?php echo e($subscribedError); ?></div>
             <?php endif; ?>
+
+             <?php echo $__env->make('Front.alert_messages', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
       <div class="seller_info">
 		
 
 	   
 	  <div class="card">
 		<div class="card-header row seller_header">
-		  <h2  class="seller_page_heading"><?php echo e(__('lang.your_products_label')); ?></h2>		  
+		  <h2  class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button><?php echo e(__('lang.your_products_label')); ?></h2>		  
 		</div>
 
 		<div class="card-body seller_mid_cont">

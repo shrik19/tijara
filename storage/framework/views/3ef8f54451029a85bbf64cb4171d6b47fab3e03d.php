@@ -142,6 +142,11 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
     </div>
   </div>
 </li>
+<style>
+.hideRatings .star-rating {
+	display:none;
+}
+</style>
 <script type="text/javascript">
   $(".product_link_js").click(function(){
   var attr_val = $(this).attr('product_link');

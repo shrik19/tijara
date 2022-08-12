@@ -1,14 +1,15 @@
 
 <?php if(is_object($Products)): ?>
 <?php 
-$cssVariable = '';
+$cssVariable = '';$annonserClass='';
 if(strpos(@$path, 'annonser') !== false)
 {
  	$cssVariable ="padding-left:53px";
+	$annonserClass	=	'hideRatings';
 }
 
 ?>
-<ul class="product_details product_service_list" style="<?php echo e($cssVariable); ?>">
+<ul class="product_details product_service_list <?php echo e($annonserClass); ?>" style="<?php echo e($cssVariable); ?>">
     <?php $__currentLoopData = $Products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <?php echo $__env->make('Front.products_widget', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

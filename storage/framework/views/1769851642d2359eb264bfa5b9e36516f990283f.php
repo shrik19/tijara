@@ -9,30 +9,29 @@
     <div class="container-fluid">
       <!-- Example row of columns -->
       <div class="row">
-  <div class="container-inner-section">
+        <div class="container-inner-section">
  
         <?php if(Request::segment(1) =='services' || Request::segment(1) =='products' || Request::segment(1) =='annonser'): ?>
-          <?php echo $__env->make('Front.category_breadcrumb', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-         
+          <?php echo $__env->make('Front.category_breadcrumb', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>         
         <?php endif; ?>
-
         <div class="cat-details">
 			  <?php if(Request::segment(1) =='annonser'): ?>
-				<div class="col-md-3 col-annonser-sidebar  desktop-view pl-0">
+				<div class="col-md-3 col-annonser-sidebar desktop-view pl-0" id="tjfilter">
+          <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
 					<?php echo $__env->make('Front.annonser_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 				</div>
 			  <?php else: ?>
-				<div class="col-md-3 col-products-sidebar desktop-view">
+				<div class="col-md-3 col-products-sidebar desktop-view" id="tjfilter">
+          <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
 					<?php echo $__env->make('Front.products_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 				</div>
 			  <?php endif; ?>
 			
 			<div class="col-md-9 products-page p-0">
 			
-				<div class="row">
+				<div class="row tj-filter-sec">
 				   <?php if(Request::segment(1) =='annonser'): ?>
-					<div class="col-md-1"></div>
-					<div class="col-md-6">
+					<div class="col-md-6 text-center">
 					  <div class="annonser-image" style="text-align:center; width:100%;">
 						<img src="<?php echo e(url('/')); ?>/assets/img/tijara_ann.jpeg" style="width:100%;">
             
@@ -40,15 +39,15 @@
 					</div>
 			   
               <?php if($role_id =='1' || $user_id == ''): ?>
-    					   <div class="col-md-5 ">
+    					   <div class="col-md-6 tj-annon-btn">
     					     <a href="<?php echo e(route('frontProductCreate')); ?>" title="<?php echo e(__('lang.add_product')); ?>" class="btn btn-black btn-sm debg_color a_btn login_btn add_ads_btn" style="margin-bottom: 10px;"><span>+ <?php echo e(__('users.add_ads_btn')); ?></span> </a>
     					   </div>				 
 					     <?php endif; ?>
 				   <?php endif; ?>
-				 <div class="col-md-12"> 
+
 				  <?php if( Request::segment(1) !='annonser'): ?>
          
-					  <div class="col-md-3 pr-0" style="padding-left:45px;">
+					  <div class="col-md-3 pr-0 tj-prpduct-tab">
 						<label class="checkbox toggle candy label_width" onclick="" >
 						  <input id="view" type="checkbox" />
 						  <p>
@@ -58,11 +57,12 @@
 						  <a class="slide-button"></a>                  
 						 </label>                   
 					  </div>
-            <div>&nbsp;</div>
+            <div class="tj-bldv">&nbsp;</div>
 					<?php else: ?>
 						<div class="col-md-4"></div>
 					<?php endif; ?>
 						  <div class="col-md-2"></div>
+              <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="<?php echo e(url('/')); ?>/assets/img/tjfilter.png"></button>
 						  <div style="margin-top: -3%;" class="<?php if(Request::segment(1) !='annonser'): ?> col-md-offset-1 <?php endif; ?> col-md-3 prod-service-filter" >
 						  
 							<div class="form-group">
@@ -87,7 +87,6 @@
 							  </select>
 							</div>
 						  </div>
-						</div>
 						</div>
 
 				<span class="current_category" style="display:none;"><?php echo e($category_slug); ?></span>
@@ -114,6 +113,7 @@
           <div class="row">
             <div class="best_seller_container col-md-12 product_container-list-5">
                 <!-- <h3><?php echo e(__('lang.popular_items_in_market_head')); ?></h3> -->
+				
                 <h2 class="other_watched_products"><?php echo e(__('users.other_watched_product')); ?></h2>
                 <ul class="product_details best_seller pl-0" id="other_watched_products">
         					<?php $__currentLoopData = $PopularProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

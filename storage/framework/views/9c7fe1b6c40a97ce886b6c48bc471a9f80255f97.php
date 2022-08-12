@@ -10,7 +10,7 @@
       </div>
     </div> -->
     <div class="ft_middle_container container-fluid">
-      <div class="container-inner-section ">
+      <div class="container container-inner-section ">
         <div class="row">
 
         <div class="col-md-3">

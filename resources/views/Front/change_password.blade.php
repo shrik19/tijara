@@ -46,7 +46,7 @@
 					<!-- 			<div class="col-md-12"> -->
 									<div>
 										<!--   <div class="col-md-2"></div> -->
-										<div class="col-md-5 @if($is_seller!=1) pl-0 @endif" >
+										<div class="col-md-5 @if($is_seller!=1) pl-0 tjsp0 @endif" >
 											@if($is_seller==1)
 												<div class="login_box seller_mid_cont" style="margin-top: 20px;">
 											@else
@@ -75,7 +75,7 @@
 													</div>
 
 													@if($is_seller !=1) 
-														<div style="margin-top: 30px;margin-bottom: 30px;">
+														<div class="tj-change-password">
 													@else
 														<div style="margin-top: 30px;">
 													@endif

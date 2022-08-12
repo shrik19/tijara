@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/jquery-confirm.min.css">
   <!-- added custom css for custom chnages -->
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/custom.css">
+  <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/azcustom.css">
  <style type="text/css">
  	.invalid-feedback {
    	 position: relative;
@@ -179,8 +180,10 @@
 								</div> 
 									
 								<!-- <div class="pull-right register_second_btn">	 -->
-								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous second-step-previous" value="<?php echo e(__('users.prev_step_btn')); ?>" /> 
-								<input type="button" name="next" class="next btn debg_color action-button 3 package-html" value="<?php echo e(__('users.next_step_btn')); ?>" id="second-step" />
+									<div class="tj-progress-action-button">
+										<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous second-step-previous" value="<?php echo e(__('users.prev_step_btn')); ?>" /> 
+										<input type="button" name="next" class="next btn debg_color action-button 3 package-html" value="<?php echo e(__('users.next_step_btn')); ?>" id="second-step" />
+									</div>
 								<!-- </div> -->
 							</fieldset> 
 										
@@ -191,14 +194,7 @@
               						<div class="info payment_info_card"><?php echo e(__('users.payment_method_info')); ?></div>
           							</div>
 									<form method="POST" action="<?php echo e(route('frontThirdStepSellerRegister')); ?>" class="needs-validation" novalidate="" id="third-step-form">
-										                 
-										<!-- <input type="text" name="fname" id="fname" class="form-control" value="<?php echo e(old('fname')); ?>" placeholder="<?php echo e(__('users.first_name_label')); ?> *">
-										<span class="invalid-feedback" id="err_fname" style="margin-top: -28px;margin-left: 10px;"></span>
-
-										<input type="text" name="lname" id="lname" class="form-control" value="<?php echo e(old('lname')); ?>"  placeholder="<?php echo e(__('users.last_name_label')); ?> *">
-										<span class="invalid-feedback" id="err_lname" style="margin-top: -27px;margin-left: 10px;"></span>
-										<textarea  id="address" class="form-control" name="address" placeholder="<?php echo e(__('users.address_label')); ?> " rows="5" cols="30"  tabindex="5"></textarea>
-										<input type="text" name="postcode" id="postcode" class="form-control" placeholder="<?php echo e(__('users.postal_code_label')); ?>" value=""> -->
+										
 
 										<p class="payment_method_title"><?php echo e(__('users.klarna_pament_label')); ?></p>
 							            <div class="login_box payment_detail_box klarna_payment" style="margin-top: 20px;">
@@ -228,34 +224,19 @@
 							                <div class="payment-lock-icon lock_swish_number"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
 
 							              <!--  <div class="payment-lock-icon unlock_swish_number"><input type="checkbox"name="is_swish_number" id="is_swish_number" class=" payment_lock is_swish_number" value=""></div> -->
-							            <p><img src="<?php echo e(url('/')); ?>/uploads/Images/swish-payment-logo.png" class="register_swish_logo"></p>
-							              <?php /*
-							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_api_key" id="swish_api_key" placeholder="{{ __('users.swish_api_key_label')}}" value="{{ Session::get('new_seller_swish_api_key')}}">
-								              <span class="invalid-feedback" style="position: relative;">@if($errors->has('swish_api_key')) {{ $errors->first('swish_api_key') }}@endif</span>
-							              </div>
-
-							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_merchant_account" id="swish_merchant_account" placeholder="{{ __('users.swish_merchant_account_label')}}" value="{{ Session::get('new_seller_swish_merchant_account')}}">
-								              <span class="invalid-feedback">@if($errors->has('swish_merchant_account')) {{ $errors->first('swish_merchant_account') }}@endif</span>
-							              </div>
-
-							              <div class="form-group">
-								              <input type="text" class="form-control" name="swish_client_key" id="swish_client_key" placeholder="{{ __('users.swish_client_key_label')}}" value="{{ Session::get('new_seller_swish_client_key')}}">
-								              <span class="invalid-feedback">@if($errors->has('swish_client_key')) {{ $errors->first('swish_client_key') }}@endif</span>
-							              </div>
-							              */?>
-							              <div class="form-group" style="display: flex;">
-							            <!--    <input type="checkbox" name="is_swish_number" class="is_swish_number" id="is_swish_number" value="1" style="margin-top: 30px;">  -->
-							               <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="Swish-nummer" value="<?php echo e(Session::get('new_seller_swish_number')); ?>">
-							              </div>
+											<p><img src="<?php echo e(url('/')); ?>/uploads/Images/swish-payment-logo.png" class="register_swish_logo"></p>
+											  
+											  <div class="form-group" style="display: flex;">
+											<!--    <input type="checkbox" name="is_swish_number" class="is_swish_number" id="is_swish_number" value="1" style="margin-top: 30px;">  -->
+											   <input type="phone_number" class="form-control login_input" name="swish_number" id="swish_number" placeholder="Swish-nummer" value="<?php echo e(Session::get('new_seller_swish_number')); ?>">
+											  </div>
 
 							              <div class="payment_explanation_text">
 							              	<!-- <?php echo e(__('messages.swish_number_step_description')); ?>	
 							              	 -->
 							              	 <div class="payment_explanation_text"> <?php echo e(__('messages.swish_description_step_1')); ?></br> <?php echo e(__('messages.swish_description_step_2')); ?></div> 
-							            </div>
-							        </div>
+											</div>
+										</div>
 							            <p class="payment_method_title" style="margin-top: 20px;"><?php echo e(__('users.stripe_pament_label')); ?></p>
 							            <div class="login_box payment_detail_box stripe_payment" style="margin-top: 20px;">
 							               <!--  <div class="payment-lock-icon"><i class="fa fa-lock payment_lock stripe_payment_lock" aria-hidden="true"></i></div> -->
@@ -284,8 +265,11 @@
 							             
 									</form>                          
 								</div> 
-								<input type="button" name="next" class="next btn debg_color action-button 4" value="<?php echo e(__('users.next_step_btn')); ?>" id="third-step"/>	
+								<div class="tj-progress-action-button" style="margin-top: 15px;">
+									
 								<input type="button" name="previous" class="previous btn gray_color action-button-previous step-third-previous" value="<?php echo e(__('users.prev_step_btn')); ?>" /> 								 
+								<input type="button" name="next" class="next1 btn debg_color action-button 4" value="<?php echo e(__('users.next_step_btn')); ?>" id="third-step"/>	
+								</div>
 								
 							</fieldset>
 
@@ -297,7 +281,7 @@
                                             <!-- <label><?php echo e(__('users.store_name_label')); ?><span class="de_col">*</span></label> -->
                                             
                                             <input type="hidden" class="form-control login_input" name="verify_btn_click" id="verify_btn_click" value="">
-											<input type="text" class="form-control login_input" name="store_name" id="store_name" placeholder="<?php echo e(__('users.store_name_label')); ?> *">
+											<input type="text" class="form-control login_input alpha-only" name="store_name" id="store_name" placeholder="<?php echo e(__('users.store_name_label')); ?> *">
 											<input type="button" name="check-store-unique" class="btn debg_color register_store_verify"onclick="checkStoreName()" value="<?php echo e(__('users.verify_btn')); ?>" /> 
 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
@@ -316,7 +300,7 @@
 
 										<div class="form-group increment cloned">
 											<label class="placeholder"><?php echo e(__('users.seller_header_img_label')); ?></label>
-											<div class="seller_banner_upload" style="margin-top: 20px;"></div>
+											<div class="seller_banner_upload"  style="margin-top: 20px;"></div>
 											
                                             
 											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
@@ -329,7 +313,7 @@
 
 										<div class="form-group increment cloned">
 											<label class="placeholder"><?php echo e(__('users.seller_logo_label')); ?></label>
-											<div class="seller_logo_upload" style="margin-top: 20px;"></div>
+											<div class="seller_logo_upload"  style="margin-top: 20px;"></div>
 											
 											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
 											
@@ -343,8 +327,10 @@
 									</form>
 									</div>
 									<!-- <div class="pull-right" style="display: flex;"> -->
-									<input type="submit" name="next" class="next btn debg_color action-button 5" value="<?php echo e(__('users.finish_btn')); ?>" id="last-step"/>
-									<input type="button" name="previous" class="previous btn gray_color action-button-previous forth-step-previous" value="<?php echo e(__('users.prev_step_btn')); ?>" /> 
+										<div class="tj-progress-action-button" style="margin-top: 20px;">
+											<input type="submit" name="next" class="next btn debg_color action-button 5" value="<?php echo e(__('users.finish_btn')); ?>" id="last-step"/>
+											<input type="button" name="previous" class="previous btn gray_color action-button-previous forth-step-previous" value="<?php echo e(__('users.prev_step_btn')); ?>" /> 
+										</div>
 									
 							<!-- 	</div> -->
 								
@@ -523,6 +509,13 @@
     }
 
 $(document).ready(function(){
+
+$(".alpha-only").on("input", function(){
+  var regexp = /[^a-zA-Z0-9]/g;
+  if($(this).val().match(regexp)){
+    $(this).val( $(this).val().replace(regexp,'') );
+  }
+});
 	/*$( ".packages-subscribe" ).hasClass(session_package_name)
 	var session_package_name =$('#session_package_name').val();
 	if(session_package_name !=''){
@@ -815,11 +808,12 @@ $('#third-step').click(function(e) {
 	 	
     }else
     {
-       third_step_err = 1;
+     
        showErrorMessage(please_add_payment_details);
+       //return false;
+        third_step_err = 1;
     }
-    	
-	//alert(third_step_err);return
+  
 	if(third_step_err == 0){
 	
 	    $(".loader-seller").css("display","block");
@@ -833,6 +827,7 @@ $('#third-step').click(function(e) {
 	                data:{klarna_username:klarna_username, klarna_password:klarna_password,strip_api_key:strip_api_key,strip_secret:strip_secret,swish_number:swish_number},
 	                success: function(data){
 	                    if(data.success=="third step success"){
+	                    	console.log(data.code);
 	                        $(".loader-seller").css("display","none");
 							createCookie("tijara_register_current_step", 'seller_register_fourth', 20);
 	                        console.log(data.success);
@@ -867,6 +862,7 @@ $('#third-step').click(function(e) {
 	                    }else{
 	                       $(".loader-seller").css("display","none");
 	                        showErrorMessage(data.error);
+	                       
 							setTimeout(function(){
 							$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');
 							
@@ -879,7 +875,6 @@ $('#third-step').click(function(e) {
 	    
 	  }
 	else  { 
-	
 	setTimeout(function(){
 		$('#progressbar .confirm').removeClass('active');
 		$('.seller_register_third .form-card').attr('style','display: block;position: relative;opacity: 1;');
@@ -937,6 +932,7 @@ $('#last-step').click(function(e) {
            // $("#err_store_name").parent().removeClass('jt-error');
             $("#err_store_name").html('');
     }
+
 
     if(city_name==''){
         $("#err_city_name").html(fill_in_city_err).show();
@@ -1088,7 +1084,7 @@ $('body').on('change', '#seller_banner_img', function () {
                       success: function(data) {
                        $('.seller_banner_upload').html('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="banner_image" id="banner_image">'+
                           '<img src="'+siteUrl+'/uploads/Seller/resized/'+data+'" style="width:200px;height:200px;">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>'); 
+                                            '<a href="javascript:void(0);" class="remove_banner_image"><i class="fas fa-trash"></i></a>'); 
                       }
                 });
         }
@@ -1126,7 +1122,7 @@ $('body').on('change', '#seller_logo_img', function () {
                       success: function(data) {
                        $('.seller_logo_upload').html('<input type="hidden" class="form-control login_input hidden_images" value="'+data+'"  name="logo_image" id="logo_image">'+
                           '<img src="'+siteUrl+'/uploads/Seller/resized/'+data+'" style="width:200px;height:200px;">'+
-                                            '<a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>'); 
+                                            '<a href="javascript:void(0);" class="remove_logo_image"><i class="fas fa-trash"></i></a>'); 
                                         
                       }
 
@@ -1302,7 +1298,19 @@ function showSuccessMessage(strContent,redirect_url = '')
     });
 }
 
- 
+$('body').on('click', '.remove_banner_image', function () {
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
+
+$('body').on('click', '.remove_logo_image', function () {
+    $(this).prev('img').prev('input').parent("div").remove();
+    $(this).prev('img').prev('input').remove();
+    $(this).prev('img').remove();
+    $(this).remove();
+});
 
 </script>
 </body>

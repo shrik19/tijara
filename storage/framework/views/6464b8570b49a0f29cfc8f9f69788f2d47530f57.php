@@ -114,7 +114,7 @@
 
     <?php endif; ?> -->
     <li class="<?php echo e(request()->is('change-password') ? 'leftsideactivemainmenu' : ''); ?> make_disabled check_seller_setting"><a href="<?php echo e(route('frontChangePassword')); ?>"><?php echo e(__('lang.change_password_menu')); ?></a></li>
-    <li class="<?php echo e(request()->is('front-logout') ? 'leftsideactivemainmenu' : ''); ?>" ><a href="<?php echo e(route('frontLogout')); ?>"><?php echo e(__('lang.logout_label')); ?></a></li>
+    <li class="<?php echo e(request()->is('front-logout') ? 'leftsideactivemainmenu' : ''); ?>" ><a href="<?php echo e(route('frontLogout')); ?>" style="padding-bottom: 60px;"><?php echo e(__('lang.logout_label')); ?></a></li>
   </ul>
 
   <?php else: ?>

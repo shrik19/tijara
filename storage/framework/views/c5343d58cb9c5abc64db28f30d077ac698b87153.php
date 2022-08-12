@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/css/jquery-eu-cookie-law-popup.css">
   <!-- added custom css for custom chnages -->
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/custom.css">
+  <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/azcustom.css">
   <style>
    .loader{
     position: absolute;
@@ -166,7 +167,7 @@
                   <button class="search_icon_btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
                 </div>
-                <div class="col-md-2 p-0">
+                <div class="col-md-2 tj-topicons">
                   <ul class="right-icons">
                   <li>
 
@@ -349,60 +350,48 @@
 <div class="clearfix"></div>
 
 <nav class="navbar sticky-top navbar-expand-lg bg-dark product_view mo_view_menu">
-    <div class="container-fluid">    
-      <div class="row">
-        <div >
-        <div class="product_view">
-      <div class="">
-      <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-   <i class="fas fa-bars"></i>
-  </button>
-
+  <div class="container-fluid">    
+    <div class="product_view">
+      <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav mainMenu pull-left"> 
-    <!-- <span>( <?php count($Categories) ?>)</span> -->
-        <?php $i=0; ?>
-        <?php $__currentLoopData = $Categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $CategoryId=>$Category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <?php $i++;
-       /* $cls='';
-        if($category_slug==$Category['category_slug'])
-        $cls  =       'activemainmenu';
-        else if($category_slug=='' && $i==1) $cls  =       'activemainmenu';
-        <a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="<?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>">{{$Category['category_name']}}</a>
-        */
-        ?>
-                <?php if(!empty($Categories[$CategoryId]['subcategory'])): ?>
-        <?php $current_path = explode("/",request()->path()); ?>
-                <li class="main-menu-item-<?php echo $i; ?> "><a href="<?php echo e(url('/')); ?>/products/<?php echo e($Category['category_slug']); ?>" class=""><?php echo e($Category['category_name']); ?></a>
-                  <?php /*
-                <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
-                  @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
-                  <li class="<?php if(in_array($subcategory['subcategory_slug'], $current_path)) echo'activesubmenu';?>" ><a @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
-                  @endforeach
-                </ul> */?>
-                 <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
-                  <?php $__currentLoopData = $Categories[$CategoryId]['subcategory']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <li class="<?php if(in_array($subcategory['subcategory_slug'], $current_path)) echo'activesubmenu';?>" ><a  href="<?php echo e(url('/')); ?>/products/<?php echo e($Category['category_slug']); ?>/<?php echo e($subcategory['subcategory_slug']); ?>"><?php echo e($subcategory['subcategory_name']); ?></a></li>
-                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </ul> 
-                </li>
-                <?php endif; ?>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
+        <ul class="nav mainMenu pull-left"> 
+          <!-- <span>( <?php count($Categories) ?>)</span> -->
+          <?php $i=0; ?>
+          <?php $__currentLoopData = $Categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $CategoryId=>$Category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <?php $i++;
+           /* $cls='';
+            if($category_slug==$Category['category_slug'])
+            $cls  =       'activemainmenu';
+            else if($category_slug=='' && $i==1) $cls  =       'activemainmenu';
+            <a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="<?php if(in_array($Category['category_slug'], $current_path)) echo'activemainmenu';?>">{{$Category['category_name']}}</a>
+            */
+            ?>
+            <?php if(!empty($Categories[$CategoryId]['subcategory'])): ?>
+            <?php $current_path = explode("/",request()->path()); ?>
+            <li class="main-menu-item-<?php echo $i; ?> "><a href="<?php echo e(url('/')); ?>/products/<?php echo e($Category['category_slug']); ?>" class=""><?php echo e($Category['category_name']); ?></a>
+              <?php /*
+              <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
+                @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
+                <li class="<?php if(in_array($subcategory['subcategory_slug'], $current_path)) echo'activesubmenu';?>" ><a @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
+                @endforeach
+              </ul> */?>
+               <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
+                <?php $__currentLoopData = $Categories[$CategoryId]['subcategory']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li class="<?php if(in_array($subcategory['subcategory_slug'], $current_path)) echo'activesubmenu';?>" ><a  href="<?php echo e(url('/')); ?>/products/<?php echo e($Category['category_slug']); ?>/<?php echo e($subcategory['subcategory_slug']); ?>"><?php echo e($subcategory['subcategory_name']); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </ul> 
+            </li>
+            <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
         <a href="<?php echo e(url('/')); ?>/annonser" title="<?php echo e(__('users.go_to_announse_page')); ?>" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn_top pull-right"><?php echo e(__('users.go_to_announse_page')); ?></a>
-
-      </div>
-
       </div>
     </div>
+    <!-- <div class="col-md-2">
+      <a href="<?php echo e(url('/')); ?>/annonser" title="<?php echo e(__('users.go_to_announse_page')); ?>" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn"><?php echo e(__('users.go_to_announse_page')); ?></a>
+    </div> -->
   </div>
-</div>
-  <!-- <div class="col-md-2">
-    <a href="<?php echo e(url('/')); ?>/annonser" title="<?php echo e(__('users.go_to_announse_page')); ?>" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn"><?php echo e(__('users.go_to_announse_page')); ?></a>
-  </div> -->
-</div>
-  </nav>
+</nav>
   <hr class="categoryGrayLine">
   <?php /* @if(Request::segment(1) =='products' || Request::segment(1) =='services' || Request::segment(1) =='annonser' || Request::segment(1) =='product')
   <hr class="categoryGrayLine">

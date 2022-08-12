@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/jquery-confirm.min.css">
   <!-- added custom css for custom chnages -->
   <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/custom.css">
+  <link rel="stylesheet" href="<?php echo e(url('/')); ?>/assets/front/css/azcustom.css">
   <style>
    .loader{
     position: absolute;

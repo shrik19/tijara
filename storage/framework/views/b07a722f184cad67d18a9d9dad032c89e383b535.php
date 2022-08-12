@@ -12,11 +12,13 @@
         <div class="row container-inner-section">
             <div class="col-md-6">
               <!-- Primary carousel image -->
+			 
               <?php if(!empty($variantData)): ?>
                 <?php
+			
                 $first = reset($variantData);
-				?>
-			  <?php endif; ?>
+        ?>
+        <?php endif; ?>
 
           <input type="hidden" name="product_quantity_<?php echo e(@$first['attributes'][0]->variant_id); ?>" id="product_quantity_<?php echo e(@$first['attributes'][0]->variant_id); ?>" value="1">
  <!-- Secondary carousel image thumbnail gallery -->
@@ -27,7 +29,14 @@
                    <?php if(isset($first['images'][0]) && !empty($first['images'][0])): ?>
                    
                     <?php $__currentLoopData = $first['images']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                      <img src="<?php echo e(url('/')); ?>/uploads/ProductImages/productIcons/<?php echo e($image); ?>" class="show-small-img" alt="">
+					<?php if(file_exists(url('/').'/uploads/ProductImages/productIcons/'.$image)){
+						echo'<img src="'.url('/').'/uploads/ProductImages/productIcons/'.$image.'" class="show-small-img" alt="">	';
+						}
+						else {
+							echo'<img src="'.url('/').'/uploads/ProductImages/resized/'.$image.'" class="show-small-img" alt="">	';
+						}
+					?>
+                      
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php else: ?>
                       <img src="<?php echo e(url('/')); ?>/uploads/ProductImages/resized/no-image.png" class="show-small-img">
@@ -70,7 +79,15 @@
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
                           <h4 class="service_store_name"><a href="<?php echo e($seller_link); ?>"><?php if(!empty($store_name)): ?><?php echo e($store_name); ?><?php endif; ?></a></h4>             
-                            <span class="product_original_price" id="product_variant_price"><span style="margin-left: -12px;"><?php if(!empty($first['discount_price'])): ?> &nbsp;&nbsp;<?php echo e(number_format($first['discount_price'],2)); ?> kr <?php endif; ?></span><span style="<?php if(!empty($first['discount_price'])): ?> text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; <?php else: ?> margin-left: 10px; <?php endif; ?>"><?php echo e(number_format($first['price'],2)); ?> kr</span>
+                            <span class="product_original_price" id="product_variant_price"><span style="margin-left: -12px;"><?php if(!empty($first['discount_price'])): ?> &nbsp;&nbsp;
+                          <?php 
+                            $discount_price_tbl = swedishCurrencyFormat($first['discount_price']); 
+                          ?>
+                            <?php echo e($discount_price_tbl); ?> kr <?php endif; ?></span><span style="<?php if(!empty($first['discount_price'])): ?> text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; <?php else: ?> margin-left: 10px; <?php endif; ?>">
+                            <?php 
+                             $price_tbl = swedishCurrencyFormat($first['price']);
+                            ?>
+                            <?php echo e($price_tbl); ?> kr</span>
                             
 
                           <?php /*   <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span> */?>
@@ -100,7 +117,7 @@
                      
         
                      <?php if(empty($ProductAttributes)): ?>
-                      <div class="col-md-6 p-0">
+                      <div class="col-xs-6 p-0">
                         <div class="quantity_box" style="margin-bottom:0px !important;">
                           <div>
                             <h3><?php echo e(__('lang.price_label')); ?>  : </h3> &nbsp;&nbsp;
@@ -125,20 +142,21 @@
                       </div>
                      <?php endif; ?>
                      <?php $attribute_counter = 0;?>
-						<?php $j=1; $firstId = 0; $firstAttr = ''; $allVariants = []; ?>	
-						
+            <?php $j=1; $firstId = 0; $firstAttr = ''; $allVariants = []; ?>  
+            
                          <?php $__currentLoopData = $ProductAttributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute_id => $attribute): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                          <?php if($j == 1): ?>
-							<?php
-								$firstId = 	$attribute_id;
-								$firstAttr = $first['attr'][$attribute['attribute_name']];
-								if(!empty($ProductAttributes[$firstId]['variant_available_values']))
-								{
-								$allVariants = $ProductAttributes[$firstId]['variant_available_values'];
-								}
-							?>
-						 <?php endif; ?>
-                         <div class="col-md-6 p-0">
+              <?php
+		  //echo'<pre>';print_r($ProductAttributes);exit;
+                $firstId =  $attribute_id;
+                $firstAttr = $first['attr'][$attribute['attribute_name']];
+                if(!empty($ProductAttributes[$firstId]['variant_available_values']))
+                {
+                $allVariants = $ProductAttributes[$firstId]['variant_available_values'];
+                }
+              ?>
+             <?php endif; ?>
+                         <div class="col-xs-6 p-0 tj-qunbox">
                             <div class="quantity_box" style="margin-bottom:0px !important;">
                              
                                 <div>
@@ -168,26 +186,26 @@
                                       $className = "attribute_value";
                                     }?>
                                     <select id="select_product_variant" class="<?php echo e($attribute_id); ?> form-control variant_dropdown <?php echo e($className); ?>" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" <?php if($j > 1): ?> onchange="showAvailableOptions('<?php echo e($attribute_id); ?>', this.value, 1)" <?php else: ?> onchange="showAvailableOptions('<?php echo e($attribute_id); ?>', this.value, 0)" <?php endif; ?>>
-									<?php $__currentLoopData = $attribute['attribute_values']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute_value_id=>$attribute_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-									  <?php
+                  <?php $__currentLoopData = $attribute['attribute_values']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute_value_id=>$attribute_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
                                           $selected = '';
-										  $disabled = '';
+                      $disabled = '';
                                           if(!empty($first['attr'][$attribute['attribute_name']]) && $first['attr'][$attribute['attribute_name']] == $attribute_value)
                                           {
                                             $selected = 'selected="selected"';
                                           }
                                         ?>
-										<?php if($j > 1): ?>
-											<?php
-												
-												if(!array_search($attribute_value, $ProductAttributes[$firstId]['variant_available_values'][$firstAttr]))
-												{
-													$disabled = 'disabled="disabled"';
-												}	
-											?>
-										<?php endif; ?>											
-										<option value="<?php echo e($attribute_value_id); ?>" data-variant="<?php echo e($attribute['variant_values'][$attribute_value_id]); ?>" <?php echo e($selected); ?> <?php echo e($disabled); ?>> <?php echo e($attribute_value); ?> </option>
-										
+                    <?php if($j > 1): ?>
+                      <?php
+                        
+                        if(!empty($ProductAttributes[@$firstId]['variant_available_values'][@$firstAttr]) && !empty(@$attribute_value) && !array_search(@$attribute_value, @$ProductAttributes[@$firstId]['variant_available_values'][@$firstAttr]))
+                        {
+                          $disabled = 'disabled="disabled"';
+                        } 
+                      ?>
+                    <?php endif; ?>                      
+                    <option value="<?php echo e($attribute_value_id); ?>" data-variant="<?php echo e($attribute['variant_values'][$attribute_value_id]); ?>" <?php echo e($selected); ?> <?php echo e($disabled); ?>> <?php echo e($attribute_value); ?> </option>
+                    
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                     <?php elseif($attribute['attribute_type']=='textbox'): ?>
@@ -202,7 +220,7 @@
                                 </div>
                                 </div>
                               <?php $attribute_counter++;?>
-							  <?php $j++; ?>
+                <?php $j++; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                       
                       
@@ -241,7 +259,7 @@
                           </div>
                         </div> -->
                 </div>
-                <div class="col-xs-6 col-md-12 p-0">
+                <div class="col-md-12 p-0">
                   <?php
                   $btn_disabled = $outOfStock = '';
                     if($first['quantity']==0){
@@ -255,7 +273,8 @@
                      <?php /*<button type="button" class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else onclick="showErrorMessage('{{trans('errors.login_buyer_required')}}','{{ route('frontLogin') }}');" @endif {{$btn_disabled}}>{{ __('lang.add_to_cart')}}   <i class="glyphicon glyphicon-shopping-cart cart_icon"></i></button>  */?>
                      <a class="btn add_to_cart_btn" <?php if(Auth::guard('user')->id()): ?> onclick="addtoCartFromProduct();" <?php else: ?> href="<?php echo e(route('frontLogin')); ?>" <?php endif; ?> <?php echo e($btn_disabled); ?>> <?php echo e(__('lang.add_to_cart')); ?><i class="glyphicon glyphicon-shopping-cart cart_icon"></i></a>
                   </div>
-                  <p class="productStockOut" style="<?php echo e($outOfStock); ?>"><?php echo e(__('messages.product_out_stock')); ?></p> 
+                  <!--<p class="productStockOut" style="<?php echo e($outOfStock); ?>"><?php echo e(__('messages.product_out_stock')); ?></p> commented to make out of stock mes same -priyanka 01-july-->
+				  <p class="productStockOut" style="<?php echo e($outOfStock); ?>"><?php echo trans('errors.quantity_err').$first['quantity'].')'; ?></p>
                 </div>
 
             </div>
@@ -379,11 +398,11 @@
                 <h2  class="other_watched_products"><?php echo e(__('users.other_watched_product')); ?></h2>
                 <ul class="product_details best_seller pl-0">
 
-      					<?php $__currentLoopData = $PopularProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = $PopularProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                  <?php if($key>4){continue;}?>
                           <?php echo $__env->make('Front.products_widget', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-      					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-      				 </ul>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+               </ul>
             </div>
           </div>
         </div>
@@ -693,45 +712,45 @@ var allVariants = '<?php echo json_encode($allVariants); ?>';
 
 function disableOptions()
 {
-	var current = $.trim($(".attribute_name option:selected").text());
-	var variants = $.parseJSON(allVariants);
-	$.each(variants, function(key, val)
-	{
-		if(key == current)
-		{
-			$('.attribute_value option').each(function(){
-			 $(this).removeAttr("disabled");
-			 var currentText = $.trim($(this).text());
-			 var isFound = 0;
-			  $.each(val, function(keyid, valid)
-				{
-					if(currentText == valid)
-					{
-						isFound = 1;
-						return false;
-					}
-				});
-				
-			if(isFound == 0)
-			{
-				$(this).attr("disabled","disabled");
-			}				
-			});
-			
-			
-		}
-		
-	});
+  var current = $.trim($(".attribute_name option:selected").text());
+  var variants = $.parseJSON(allVariants);
+  $.each(variants, function(key, val)
+  {
+    if(key == current)
+    {
+      $('.attribute_value option').each(function(){
+       $(this).removeAttr("disabled");
+       var currentText = $.trim($(this).text());
+       var isFound = 0;
+        $.each(val, function(keyid, valid)
+        {
+          if(currentText == valid)
+          {
+            isFound = 1;
+            return false;
+          }
+        });
+        
+      if(isFound == 0)
+      {
+        $(this).attr("disabled","disabled");
+      }       
+      });
+      
+      
+    }
+    
+  });
 }
 function showAvailableOptions(attribute_id,attribute_value, valcheck)
 {
-	
+  
   disableOptions();
   if(valcheck == 0)
-  {	
-		$('.attribute_value').children('option:enabled').eq(0).prop('selected',true);
+  { 
+    $('.attribute_value').children('option:enabled').eq(0).prop('selected',true);
   }
-	
+  
   $("#reset_option").show();
   $(".loader").show();
   $.ajax({
@@ -744,11 +763,11 @@ function showAvailableOptions(attribute_id,attribute_value, valcheck)
     success:function(data)
     {
       var responseObj = $.parseJSON(data);
-		
-		$("#product_variant_id").val(responseObj.current_variant.id);
+    
+    $("#product_variant_id").val(responseObj.current_variant.id);
       if(responseObj.current_variant.discount_price)
       {
-		$("#product_variant_price").html('<span style="margin-left: -12px;"> &nbsp;&nbsp;'+ number_format(responseObj.current_variant.discount_price,2)+' kr </span><span style=" text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; ">'+number_format(responseObj.current_variant.price,2)+' kr</span>');
+    $("#product_variant_price").html('<span style="margin-left: -12px;"> &nbsp;&nbsp;'+ number_format(responseObj.current_variant.discount_price,2)+' kr </span><span style=" text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; ">'+number_format(responseObj.current_variant.price,2)+' kr</span>');
       }
       else
       {

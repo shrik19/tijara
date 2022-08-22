@@ -11,7 +11,8 @@
   <!-- Example row of columns -->
   
   <div class="row">
-  <div class="col-md-2 tijara-sidebar">
+  <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
         @include ('Front.layout.sidebar_menu')
       </div>
       <div class="col-md-10 tijara-content margin_bottom_class">
@@ -22,10 +23,10 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-		  <h2 class="seller_page_heading">{{ __('lang.add_attribute')}} </h2>
+		  <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.add_attribute')}} </h2>
 		</div>
 <div class="clearfix"></div>
-<div class="mb-10 pro-top-btn">
+<div class="mb-10 pro-top-btn package_history_btn">
 		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
 			</div>
       <br/><br/>
@@ -94,6 +95,8 @@
           type:'post',
         }
   });
+  $('#attributeTable_filter').parent('div').attr('class','col-xs-5');
+  $('#attributeTable_length').parent('div').attr('class','col-xs-7');
 
 </script>
 

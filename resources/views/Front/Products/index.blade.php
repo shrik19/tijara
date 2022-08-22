@@ -108,7 +108,7 @@
        type:'post',
     },
   });
-	$('#productTable_filter').parent('div').attr('class','col-sm-12 col-md-5');
+	$('#productTable_filter').parent('div').attr('class','col-xs-5');
   $('#productTable_filter').find('label').removeClass('pull-right');
   
   $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
@@ -118,8 +118,8 @@
   '</select></div>').appendTo("#productTable_filter");
   
   $('#productTable_length').find('label').attr('style','float: left;');
-  $('#productTable_length').parent('div').attr('class','col-sm-12 col-md-7');
-  $('<div class="form-group col-md-3" style="margin-right: 6%;"><select class="form-control" id="selectcategory" name="category">'+
+  $('#productTable_length').parent('div').attr('class','col-xs-7');
+  $('<div class="form-group col-xs-3" style="margin-right: 6%;"><select class="form-control" id="selectcategory" name="category">'+
   
   '<?php echo $categoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");

@@ -15,7 +15,8 @@
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
-  <div class="col-md-2 tijara-sidebar">
+  <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
         @include ('Front.layout.sidebar_menu')
       </div>
         @if($subscribedError)
@@ -25,7 +26,7 @@
           <div class="seller_info">
             <div class="card">
         <div class="card-header row seller_header">
-           <h2 class="seller_page_heading">{{ __('lang.attribute_form_label')}}</h2>
+           <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.attribute_form_label')}}</h2>
         </div>
          <div class="seller_mid_cont">
     
@@ -52,7 +53,7 @@
               <span class="invalid-feedback" id="err_fname">@if($errors->has('type')) {{ $errors->first('type') }}@endif </span>
        
             </div>
-            <div style="margin-top: 30px;">
+            <div style="margin-top: 30px; margin-bottom: 40px;" class="tijara-content tj-personal-action">
             <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn">{{ __('lang.save_btn')}}</button>
            
             <a href="{{$module_url}}" class="btn btn-black gray_color login_btn"> {{ __('lang.cancel_btn')}}</a>

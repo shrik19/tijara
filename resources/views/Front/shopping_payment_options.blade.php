@@ -19,12 +19,13 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/azcustom.css">
 <script type="text/javascript">
     var select_payment_option="{{ __('users.select_payment_option')}}";
 </script>
-  <div class="checkoutContainer">
+<div class="checkoutContainer">
   <div class="container-inner-section container">
-  <div class="">       
+    <div class="">       
       <div class="">
         <div class="card">
           <div class="card-header row">
@@ -33,143 +34,107 @@
           <div class="card-body">
             <form method="POST" action="" class="needs-validation tijara-form" novalidate="">
               @csrf
-              <div >
-        <div class="col-md-12 checkout-back">
-          <span class="arrow-border"><i class="arrow left show_cart"></i></span><a href="{{route('frontShowCart')}}">&nbsp;{{ __('users.back_to_the_cart_btn')}} </a> 
-        </div>
-        <div class="col-md-12 checkoutHeader">
-          <div class="col-md-3">
-            <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}"/></a>
-          </div>
-          <div class="col-md-6">
-            <h1 class="checkoutHeading text-center">{{ __('users.checkout_cart_title')}}</h1>  
-          </div>  
-          <div class="col-md-3"></div>
-        </div>        
+              <div>
+                <div class="col-md-12 checkout-back">
+                  <span class="arrow-border"><i class="arrow left show_cart"></i></span><a href="{{route('frontShowCart')}}">&nbsp;{{ __('users.back_to_the_cart_btn')}} </a> 
+                </div>
+                <div class="col-md-12 checkoutHeader">
+                  <div class="col-md-3">
+                    <a class="navbar-brand tj-logo" href="{{url('/')}}"><img class="logo" src="{{url('/')}}/uploads/Images/{{$siteDetails->header_logo}}"/></a>
+                  </div>
+                  <div class="col-md-6">
+                    <h1 class="checkoutHeading text-center">{{ __('users.checkout_cart_title')}}</h1>
+                  </div>
+                  <div class="col-md-3"></div>
+                </div> 
               </div>
               <div class="rowlogin_box">
                 <div class="col-md-7" >
-                <div class="checkoutPageBox">
-                  <div class="col-md-12 checkout_billing_info">
-
-                    <div class="col-md-5">
-                      <h4>{{ __('messages.txt_billing_address')}}</h4>
+                  <div class="checkoutPageBox">
+                    <div class="checkout_billing_info">
+                      <div class="col-md-6">
+                        <h4>{{ __('messages.txt_billing_address')}}</h4>
+                        <div class="form-group">
+                          <input type="text" class="form-control login_input " name="billing_given_name" id="billing_given_name" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('billing_given_name')) ?  old('billing_given_name') : $details->fname}}">
+                          <span class="invalid-feedback" id="err_billing_given_name"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <h4>&nbsp;</h4>
+                        <div class="form-group">
+                          <input type="text" class="form-control login_input " name="billing_family_name" id="billing_family_name" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('billing_family_name')) ?  old('billing_family_name') : $details->lname}}">
+                          <span class="invalid-feedback" id="err_billing_family_name"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
                       <div class="form-group">
-                        <input type="text" class="form-control login_input " name="billing_given_name" id="billing_given_name" 
-                        placeholder="{{ __('users.first_name_label')}}" 
-                        value="{{ (old('billing_given_name')) ?  old('billing_given_name') : $details->fname}}">
-                        <span class="invalid-feedback" id="err_billing_given_name"></span>
+                        <input type="email" class="form-control login_input " name="billing_email" id="billing_email" placeholder="{{ __('users.email_label')}}" value="{{ (old('billing_email')) ?  old('billing_email') : $details->email}}">
+                        <span class="invalid-feedback" id="err_billing_email"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="address" class="form-control login_input " name="billing_address" id="billing_address" placeholder="{{ __('users.address_label')}}" value="{{ (old('billing_address')) ?  old('billing_address') : $details->address}}">
+                        <span class="invalid-feedback" id="err_billing_address"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                       <input type="city" class="form-control login_input " name="billing_city" id="billing_city" placeholder="{{ __('users.city_label')}}" value="{{ (old('billing_city')) ?  old('billing_city') : $details->city}}">
+                        <span class="invalid-feedback" id="err_billing_city"></span>
                       </div>
                     </div>
 
-                    <div class="col-md-5">
-                      <h4>&nbsp;</h4>
+                    <div class="col-md-6">
                       <div class="form-group">
-                       <input type="text" class="form-control login_input " name="billing_family_name" id="billing_family_name"
-                        placeholder="{{ __('users.last_name_label')}}" 
-                        value="{{ (old('billing_family_name')) ?  old('billing_family_name') : $details->lname}}">
-                        <span class="invalid-feedback" id="err_billing_family_name"></span>
+                        <input type="postcode" class="form-control login_input " name="billing_postcode" id="billing_postcode" placeholder="{{ __('users.postal_code_label')}}" value="{{ (old('billing_postcode')) ?  old('billing_postcode') : $details->postcode}}">
+                        <span class="invalid-feedback" id="err_billing_postcode"></span>
                       </div>
                     </div>
-                   
-                  </div>
-
-                  <div class="col-md-12">
-                   <div class="form-group col-md-10">
-                    <input type="email" class="form-control login_input " name="billing_email" id="billing_email"
-                    placeholder="{{ __('users.email_label')}}" 
-                    value="{{ (old('billing_email')) ?  old('billing_email') : $details->email}}">
-                    <span class="invalid-feedback" id="err_billing_email"></span>
-                   </div>
-                   
-                  </div>
-
-                  <div class="col-md-12">
-                    <div class="form-group col-md-10">
-                      <input type="address" class="form-control login_input " name="billing_address" id="billing_address"
-                    placeholder="{{ __('users.address_label')}}" 
-                    value="{{ (old('billing_address')) ?  old('billing_address') : $details->address}}">
-                      <span class="invalid-feedback" id="err_billing_address"></span>
-                    </div>
-                  
-                  </div>
 
                     <div class="col-md-12">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                         <input type="city" class="form-control login_input " name="billing_city" id="billing_city"
-                          placeholder="{{ __('users.city_label')}}" 
-                          value="{{ (old('billing_city')) ?  old('billing_city') : $details->city}}">
-                          <span class="invalid-feedback" id="err_billing_city"></span>
+                      <div class="form-group">
+                        <input type="phone_number" class="form-control login_input " name="billing_phone_number" id="billing_phone_number" placeholder="{{ __('users.phone_number_label')}}" value="{{ (old('billing_phone_number')) ?  old('billing_phone_number') : $details->phone_number}}">
+                        <span class="invalid-feedback" id="err_billing_phone_number"></span>
+                      </div> 
+                    </div>
+                  </div>
+
+                  <!-- le -->
+                  <div class="checkoutPageBox m-50">
+                    <div class="checkout_billing_info">
+                      <div class="col-md-6">
+                        <h4>{{ __('messages.txt_shipping_address')}}
+                          <div class="rememberContainer p-15">
+                            <input type="checkbox" name="same_as_billing" id="same_as_billing" value="">
+                            <span class="remember-text-checkout">Samma som fakturering</span>
+                          </div>
+                        </h4>
+                        <div class="form-group ">
+                          <input type="text" class="form-control login_input " name="shipping_given_name" id="shipping_given_name" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('shipping_given_name')) ?  old('shipping_given_name') : $details->fname}}">
+                          <span class="invalid-feedback" id="err_shipping_given_name"></span>
                         </div>
                       </div>
 
-                      <div class="col-md-5">
-                        <div class="form-group">
-                         <input type="postcode" class="form-control login_input " name="billing_postcode" id="billing_postcode"
-                        placeholder="{{ __('users.postal_code_label')}}" 
-                        value="{{ (old('billing_postcode')) ?  old('billing_postcode') : $details->postcode}}">
-                        <span class="invalid-feedback" id="err_billing_postcode"></span>
+                      <div class="col-md-6">
+                        <h4>&nbsp;<div>&nbsp;&nbsp;</div></h4>
+                        <div class="form-group p-15">
+                          <input type="text" class="form-control login_input " name="shipping_family_name" id="shipping_family_name" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('shipping_family_name')) ?  old('shipping_family_name') : $details->lname}}">
+                          <span class="invalid-feedback" id="err_shipping_family_name"></span>
+                        </div>
                       </div>
-                      </div>
-                      <div class="col-md-2"></div>
                     </div>
 
                     <div class="col-md-12">
-                     <div class="form-group col-md-10">
-                        <input type="phone_number" class="form-control login_input " name="billing_phone_number" id="billing_phone_number"
-                        placeholder="{{ __('users.phone_number_label')}}" 
-                        value="{{ (old('billing_phone_number')) ?  old('billing_phone_number') : $details->phone_number}}">
-                        <span class="invalid-feedback" id="err_billing_phone_number"></span>
-                      </div> 
-                      
-                     </div>
-                     </div>
-
-                     <!-- le -->
-                     <div class="checkoutPageBox m-50">
-                     <div class="col-md-12 checkout_billing_info">
-                    <div class="col-md-5">
-                      <h4>{{ __('messages.txt_shipping_address')}}
-                      <div class="rememberContainer p-15">
-                          <input type="checkbox" name="same_as_billing" 
-                          id="same_as_billing" value=""><span class="remember-text-checkout">
-                          Samma som fakturering
-                          </span>  
-                      </div>
-                      </h4>
-                       <div class="form-group ">
-                        <input type="text" class="form-control login_input " name="shipping_given_name" id="shipping_given_name" 
-                        placeholder="{{ __('users.first_name_label')}}" 
-                        value="{{ (old('shipping_given_name')) ?  old('shipping_given_name') : $details->fname}}">
-                        <span class="invalid-feedback" id="err_shipping_given_name"></span>
+                      <div class="form-group">
+                        <input type="email" class="form-control login_input " name="shipping_email" id="shipping_email" placeholder="{{ __('users.email_label')}}" value="{{ (old('shipping_email')) ?  old('shipping_email') : $details->email}}">
+                        <span class="invalid-feedback" id="err_shipping_email"></span>
                       </div>
                     </div>
-
-                    <div class="col-md-5">
-                      <h4>&nbsp;<div>&nbsp;&nbsp;</div></h4>
-                      <div class="form-group p-15">
-                        <input type="text" class="form-control login_input " name="shipping_family_name" id="shipping_family_name"
-                        placeholder="{{ __('users.last_name_label')}}" 
-                        value="{{ (old('shipping_family_name')) ?  old('shipping_family_name') : $details->lname}}">
-                        <span class="invalid-feedback" id="err_shipping_family_name"></span>
-                      </div>
-                    </div>
-                    
-                  </div>
 
                   <div class="col-md-12">
-                   <div class="form-group col-md-10">
-                      <input type="email" class="form-control login_input " name="shipping_email" id="shipping_email"
-                      placeholder="{{ __('users.email_label')}}" 
-                      value="{{ (old('shipping_email')) ?  old('shipping_email') : $details->email}}">
-                      <span class="invalid-feedback" id="err_shipping_email"></span>
-                    </div>
-                  
-                  </div>
-
-                  <div class="col-md-12">
-                    <div class="form-group col-md-10">
+                    <div class="form-group">
                       <input type="address" class="form-control login_input " name="shipping_address" id="shipping_address"
                       placeholder="{{ __('users.address_label')}}" 
                       value="{{ (old('shipping_address')) ?  old('shipping_address') : $details->address}}">
@@ -178,8 +143,7 @@
                  
                   </div>
 
-                    <div class="col-md-12">
-                      <div class="col-md-5">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <input type="city" class="form-control login_input " name="shipping_city" id="shipping_city"
                           placeholder="{{ __('users.city_label')}}" 
@@ -188,7 +152,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-5">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <input type="postcode" class="form-control login_input " name="shipping_postcode" id="shipping_postcode"
                           placeholder="{{ __('users.postal_code_label')}}" 
@@ -196,11 +160,9 @@
                           <span class="invalid-feedback" id="err_shipping_postcode"></span>
                         </div>
                       </div>
-                     
-                    </div>
 
                     <div class="col-md-12">
-                     <div class="form-group col-md-10">
+                     <div class="form-group">
                       <input type="phone_number" class="form-control login_input " name="shipping_phone_number" id="shipping_phone_number"
                       placeholder="{{ __('users.phone_number_label')}}" 
                       value="{{ (old('shipping_phone_number')) ?  old('shipping_phone_number') : $details->phone_number}}">
@@ -212,7 +174,7 @@
                       <!-- 3rd -->
                       <div class="checkoutPageBox m-50">
                       <div class="col-md-12">
-                         <div class="form-group col-md-10">
+                         <div class="form-group">
                          
                            <h4>{{ __('messages.delivery_label')}}</h4>
                             <?php
@@ -266,7 +228,7 @@
 
                            <div class="pick_up_fromt_store">   
                               <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                    <?php  
                                     if($orderDetails[$orderId]['details'][0]['product']->is_pick_from_store==1){
                                       if(!empty($orderDetails[$orderId]['details'][0]['product']->store_pick_address)){
@@ -283,7 +245,7 @@
                                  
                                   <p  style="margin-left:26px;">{{ @$store_pick_address}} </p>
                                 </div>
-                                <div class="col-md-5" style="margin-top: 8px;">
+                                <div class="col-md-6" style="margin-top: 8px;">
                                   <span>0.00kr</span> 
                                 </div>
                               </div>                                   
@@ -339,7 +301,7 @@
                      <!-- 4rd -->
                        <div class="checkoutPageBox m-50">
                       <div class="col-md-12 checkout_billing_info">
-                         <div class="form-group col-md-10">
+                         <div class="form-group">
                            <h4>{{ __('users.payment_btn')}}</h4>  
                            @foreach($payment_options as $p)
                              @if($p != 'swish')
@@ -395,15 +357,15 @@
                         @endif
                         </div>
 
-                          <div class="col-md-12 checkoutProducts">
-                          <div class="col-md-3">
+                          <div class="col-xs-12 checkoutProducts">
+                          <div class="col-xs-3">
                             @if(!empty($orderProduct['product']['image']))
                                <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object checkoutProductImg">
                             @else
                               <img src="{{url('/')}}/uploads/ProductImages/productIcons/no-image.png" class="media-object" style="width: 72px; height: 72px;">
                             @endif
                           </div>
-                          <div class="col-md-9 checkoutProductDetails">
+                          <div class="col-xs-9 checkoutProductDetails">
                             <h4>{{$orderProduct['product']['title']}}</h4>
                             <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['product']['variant_attribute_id']);?> </h5>
                             <p>{{ __('lang.shopping_cart_quantity')}}:  {{$orderProduct['product']['quantity']}}</p>

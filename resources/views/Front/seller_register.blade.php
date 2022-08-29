@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
   <!-- added custom css for custom chnages -->
   <link rel="stylesheet" href="{{url('/')}}/assets/front/css/custom.css">
+  <link rel="stylesheet" href="{{url('/')}}/assets/front/css/azcustom.css">
  <style type="text/css">
  	.invalid-feedback {
    	 position: relative;
@@ -178,8 +179,10 @@
 								</div> 
 									
 								<!-- <div class="pull-right register_second_btn">	 -->
-								<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous second-step-previous" value="{{ __('users.prev_step_btn')}}" /> 
-								<input type="button" name="next" class="next btn debg_color action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
+									<div class="tj-progress-action-button">
+										<input type="button" name="previous" class="previous btn gray_color action-button-previous package-previous second-step-previous" value="{{ __('users.prev_step_btn')}}" /> 
+										<input type="button" name="next" class="next btn debg_color action-button 3 package-html" value="{{ __('users.next_step_btn')}}" id="second-step" />
+									</div>
 								<!-- </div> -->
 							</fieldset> 
 										
@@ -260,8 +263,11 @@
 							             
 									</form>                          
 								</div> 
-								<input type="button" name="next" class="next1 btn debg_color action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>	
+								<div class="tj-progress-action-button" style="margin-top: 15px;">
+									
 								<input type="button" name="previous" class="previous btn gray_color action-button-previous step-third-previous" value="{{ __('users.prev_step_btn')}}" /> 								 
+								<input type="button" name="next" class="next1 btn debg_color action-button 4" value="{{ __('users.next_step_btn')}}" id="third-step"/>	
+								</div>
 								
 							</fieldset>
 
@@ -319,8 +325,10 @@
 									</form>
 									</div>
 									<!-- <div class="pull-right" style="display: flex;"> -->
-									<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
-									<input type="button" name="previous" class="previous btn gray_color action-button-previous forth-step-previous" value="{{ __('users.prev_step_btn')}}" /> 
+										<div class="tj-progress-action-button" style="margin-top: 20px;">
+											<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
+											<input type="button" name="previous" class="previous btn gray_color action-button-previous forth-step-previous" value="{{ __('users.prev_step_btn')}}" /> 
+										</div>
 									
 							<!-- 	</div> -->
 								

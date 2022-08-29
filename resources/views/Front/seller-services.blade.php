@@ -1,29 +1,27 @@
 @extends('Front.layout.template')
 @section('middlecontent')
 
+ <!-- Carousel Default -->
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
- <!-- Carousel Default -->
 <section class="product_section" style="padding-top: 156px!important;">
 
-  @if(!empty($header_image))
+    @if(!empty($header_image))
       <img class="seller_banner" src="{{$header_image}}" alt="Header Image" style="width:100%;"/>
     @endif
     <div class="container-fluid">
-    <div class="container-inner-section">
+    <div class="container-inner-section tj-store-container">
       <!-- Example row of columns -->
-      <div style="margin-top:40px;">
-       <!--  @include('Front.category_breadcrumb') -->
-        <div class="col-md-3">
+      <div class="row tijara-content tjpa" style="margin-top:40px;">
+        <div class="col-sm-3 col-xs-12">
           <div>
              @if(!empty($logo)) 
              <div class="seller_logo seller_details_img">
-             <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp; </div>@endif
-           
+             <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif           
              <div class="seller_info border-none seller_details">
               <h2 class="store_name_size">{{ $store_name }}</h2>
-              <p class="store_city_name_size"> @if(!empty($city_name) && !empty($country_name)){{ $city_name }}, {{$country_name}} @endif</p>
+              <p class="store_city_name_size">@if(!empty($city_name) && !empty($country_name)){{ $city_name }}, {{$country_name}} @endif</p>
               <div class="star-rating">
                 <select class='rating service_rating' data-rating="{{$totalRating}}" style="font-size: 18px;margin-top: 3px;">
                   <option value="1" >1</option>
@@ -33,104 +31,105 @@
                   <option value="5" >5</option>
                 </select>
               </div>
-          </div>
             </div>
-            <div class="clearfix"></div>
-             <!-- <h2> {{ __('users.butiks_info_title')}}</h2> -->
-             <div class="clearfix"></div>
-              <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
+          </div>
+        </div>
 
-            <div class=" form-group search_now_input_box seller_search">
+        <div class="col-sm-9 col-xs-12 tjps">
+          <div class="row tj-store-top">
+            <div class="col-sm-9">
+              <form id="productServicePage" method="post">
+                @csrf
+                <div class="col-sm-9 text-center">
+                  <a href="javascript:void(0);" title="{{ __('lang.products_title')}}" class=" @if($hidden_type == 'products' || $hidden_type =='') store-active-btn  @else store-inactive-btn @endif productSelect" >{{ __('lang.products_title')}} </a>
+                  <a href="javascript:void(0);" title="{{ __('lang.service_label')}} " class=" border_right_link @if($hidden_type =='services') store-active-btn  @else store-inactive-btn @endif serviceSelect">{{ __('lang.category_service_title')}}  </a>
+                  <input type="hidden" name="hidden_type" class="hidden_type" id="hidden_type">
+                </div>
+              </form>
+            </div>
+            <div class="col-sm-3 tjps">
+              <a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right contact-btn" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+              <input type="hidden" name="is_login" id="is_login" value="{{Auth::guard('user')->id()}}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-9">
+              @if(!empty($store_information))
+                <h2 class="butik_info_heading pl-40">{{ __('lang.butik_info_heading')}} </h2>
+                <p class="store_info pl-40">{!! $store_information !!}</p>
+              @endif
+            </div>
+            @if(@$_GET['frompage']==1)
+            <div class="col-sm-3 text-right">
+              <a href="{{route('frontSellerPersonalPage')}}" title="{{ __('users.back_to_butik_setting')}}" class="de_col"><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>
+            </div>
+            @endif
+          </div>
+        </div>
+      </div>
+
+      <div class="row tijara-content tjpa" style="margin-top:40px;">
+        <div class="col-sm-3" id="tjfilter">
+
+          <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
+          <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
+          <div class=" form-group search_now_input_box seller_search">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
             <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
-            </div>
-            <ul class="seller_cat_list">
-                <li>
-                  <a href="javascript:void(0);" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
-                </li>
-              </ul>
-
-            @include('Front.services_sidebar')
-        </div>
-        <div class="col-md-9 p-0">
-           <div>
-
-      <form id="productServicePage" method="post">
-         @csrf
-		   <div class="col-md-9 text-center">
-       <a href="javascript:void(0);" title="{{ __('lang.products_title')}}" class=" @if($hidden_type == 'products' || $hidden_type =='') store-active-btn  @else store-inactive-btn @endif productSelect" >{{ __('lang.products_title')}} </a>
-				<a href="javascript:void(0);" title="{{ __('lang.service_label')}} " class=" border_right_link @if($hidden_type =='services') store-active-btn  @else store-inactive-btn @endif serviceSelect">{{ __('lang.category_service_title')}}  </a>
-        <input type="hidden" name="hidden_type" class="hidden_type" id="hidden_type">
-			</div>
-    </form>
-            <!-- contact shop -->
-			<div class="col-md-3 pr-0">
-				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right contact-btn" title="{{ __('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
-        <input type="hidden" name="is_login" id="is_login" value="{{Auth::guard('user')->id()}}">
-			</div>
           </div>
-            <span class="current_category" style="display:none;">{{$category_slug}}</span>
-            <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
-            <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
-            
-            <div class="product_container">
-				<div>               
-                  <div><div class="col-md-12">&nbsp;</div></div>                  
-                  <div>
-                    <div class="col-md-9">
-					@if(!empty($store_information))
-						<h2 class="butik_info_heading pl-40">{{ __('lang.butik_info_heading')}} </h2>
-						<p class="store_info pl-40">{!! $store_information !!}</p>
-					@endif
-                    </div>
-                     @if(@$_GET['frompage']==1)
-                   <div class="col-md-3 text-right">
-                    <a href="{{route('frontSellerPersonalPage')}}" title="{{ __('users.back_to_butik_setting')}}" class="de_col"><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>
-                  </div>
-                  @endif
-                  </div>                  
+          <ul class="seller_cat_list">
+            <li>
+              <a href="javascript:void(0);" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
+            </li>
+          </ul>
+          @include('Front.services_sidebar')
+        </div>
+        <div class="col-sm-9">
+          <span class="current_category" style="display:none;">{{$category_slug}}</span>
+          <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
+          <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
+          <div class="product_container">
+            <div class="tj-filter-sec">
+              <div class="col-sm-6"></div>
+              <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="http://localhost:8000/assets/img/tjfilter.png"></button>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>{{ __('lang.sort_by')}} : </label>
+                  <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listService()">
+                    <!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
+                    <option value="name">{{ __('lang.sort_by_name')}}</option>
+                  </select>
                 </div>
-                <div><div class="col-md-12">&nbsp;</div></div>
-                <div>
-					<div class="col-md-6"></div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label>{{ __('lang.sort_by')}} : </label>
-							<select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listService()">
-                        <!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
-								<option value="name">{{ __('lang.sort_by_name')}}</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-3 pr-0">
-						<div class="form-group">
-							<label>{{ __('lang.sort_by_order')}} : </label>
-							<select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listService()">
-								<option value="">---- {{ __('lang.sort_by_option')}} ----</option>
-								<option value="asc">{{ __('lang.sort_by_asc')}}</option>
-								<option value="desc">{{ __('lang.sort_by_desc')}}</option>
-							</select>
-						</div>
-					</div>	                  
-                </div>
-                <div class="row product_container product_container-list-4 service_page">
-                <span class="service_listings"><div class="col-md-12" style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
-</div>
               </div>
+              <div class="col-sm-3 pr-0">
+                <div class="form-group">
+                  <label>{{ __('lang.sort_by_order')}} : </label>
+    							<select class="form-control" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listService()">
+    								<option value="">---- {{ __('lang.sort_by_option')}} ----</option>
+    								<option value="asc">{{ __('lang.sort_by_asc')}}</option>
+    								<option value="desc">{{ __('lang.sort_by_desc')}}</option>
+    							</select>
+                </div>
+              </div>
+            </div>
+            <div class="row product_container product_container-list-4 service_page">
+              <span class="service_listings"><div class="col-sm-12" style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+            </div>
+          </div>
         </div>
 
-        <div class="col-md-12" id="show-all-review">
+        <div class="col-sm-12" id="show-all-review">
           <hr>
 
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <h2  class="review_title" style="margin-left:-12px;">{{ __('users.review_title')}}</h2>
           </div>
 
-          <div class="col-md-9">
+          <div class="col-sm-9">
             @if(!empty($serviceReviews))
               @foreach($serviceReviews as $review)
               <div class="row " style="margin-left:10px">
-                <div class="col-md-1">
+                <div class="col-sm-1">
                   @if(!empty($review['profile']))
                     <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
                   @else 
@@ -138,7 +137,7 @@
                   @endif                   
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-sm-5">
                   <p class="ratingUname"><?php 
                   if(!empty($review['fname']) && !empty($review['lname'])){
                     $review_name = $review['fname']." ".$review['lname'];
@@ -160,7 +159,7 @@
                   
                   <p class="ratingComment">{{$review['comments']}}</p>
                 </div>
-              <div class="col-md-6">
+              <div class="col-sm-6">
                 @if(Auth::guard('user')->id()==$review['user_id'])
                   <a href="javascript:void(0)" title="{{trans('lang.edit_label')}}" style="color:#06999F;" class="edit_service_review" review_comment="{{$review['comments']}}" user_rating_hid="{{$review['service_rating']}}" rating_id="{{$review['rating_id']}}" service_id="{{$review['service_id']}}"><i class="fas fa-edit"></i> </a>
 
@@ -174,7 +173,7 @@
             @endif
           </div>
         </div>
-        <!-- <div class="col-md-12">
+        <!-- <div class="col-sm-12">
           <div class="mtb-20">
           <h2>{{ __('users.store_terms_title')}}</h2>
           @if(!empty($getTerms))
@@ -193,11 +192,11 @@
           @endif
         </div>
         </div> -->
-         <div class="col-md-12" style="margin-bottom: 50px;"> <hr>
-          <div class="col-md-2">
+         <div class="col-sm-12" style="margin-bottom: 50px;"> <hr>
+          <div class="col-sm-2">
             <h2  class="review_title" style="margin-left:-12px;">{{ __('users.store_terms')}}</h2>
           </div>
-        <div class="col-md-9 store_term_div">
+        <div class="col-sm-9 store_term_div">
           <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>

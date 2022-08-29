@@ -19,14 +19,15 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
-  <div class="col-md-2 tijara-sidebar">
+  <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
       @include ('Front.layout.sidebar_menu')
     </div>
     <div class="col-md-10 tijara-content">
     @include ('Front.alert_messages')
     <div class="seller_info">
 		<div class="card-header row seller_header">
-			  <h2 class="seller_page_heading">{{ __('users.seller_personal_page_menu')}} </h2>
+			  <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.seller_personal_page_menu')}} </h2>
 			  <!-- <hr class="heading_line"> -->
 		</div>
     <div class="store_eye_icon">
@@ -40,7 +41,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
             @csrf
 
     
-       <div class="col-md-6">
+       <div class="col-sm-6 order-sm2">
        
         <br>
 
@@ -99,7 +100,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
            
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6 order-sm1">
         
           <div class="login_box">
           
@@ -166,15 +167,15 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
               </div>
             </div>
 
-            <div class="close_store">
-              <a href="javascript:void(0)" onclick="ConfirmCloseStoreFunction('{{ route('frontShopClose',base64_encode($details->user_id)) }}');" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('users.close_store_btn')}}</a>
-            </div>          
+                     
               
           </div>
         </div>
         
-        <div class="col-md-9 pull-right margin_bottom_class">
-
+        <div class="col-md-9 pull-right margin_bottom_class tj-personal-action">
+          <div class="close_store">
+            <a href="javascript:void(0)" onclick="ConfirmCloseStoreFunction('{{ route('frontShopClose',base64_encode($details->user_id)) }}');" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('users.close_store_btn')}}</a>
+          </div> 
           <button class="btn btn-black debg_color login_btn" id="update_seller_info">{{ __('lang.update_btn')}}</button>
           <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
                 

@@ -31,6 +31,94 @@
 <section class="product_details_section-1">
 <div class="loader"></div>
 <div class="container-fluid p-0">
+
+    <div class="tj-cart">
+        <div class="tj-cart-left">
+            <span class="tj-colhead">Butik</span> 
+            <div class="cart-store-sec bg-white">
+                <a class="thumbnail pull-left custom_thumbnail" href="http://localhost:8000/seller/art-and-craft">
+                    <img src="http://localhost:8000/uploads/Seller/resized/logo_20211215052159.jpg" class="media-object seller-show-icon">
+                </a>
+                <div class="media-body" style="padding-left:10px;padding-top:10px;">
+                    <h4 class="media-heading product_sorting_filter_option"><a href="http://localhost:8000/seller/art-and-craft">Art and craft</a></h4>
+                </div>
+            </div>
+        </div>
+        <div class="tj-cart-right">
+            <div class="tj-cart-row tj-cart-row-head">
+                <div class="tj-cart-product"><span class="tj-colhead">Produkt</span></div>
+                <div class="tj-cart-qty"><span class="tj-colhead">Antal</span></div>
+                <div class="tj-cart-pris text-right"><span class="tj-colhead">Pris</span></div>
+                <div class="tj-cart-frakt text-right"><span class="tj-colhead">Frakt</span></div>
+                <div class="tj-cart-total text-right"><span class="tj-colhead">Total</span></div>
+                <div class="tj-cart-action text-right"></div>
+            </div>
+            <div class="tj-cart-row">
+                <div class="tj-cart-product">
+                    <div class="media">
+                        <a class="thumbnail pull-left custom_thumbnail" href="http://localhost:8000/product/konst-hantverk/home-furnishing/sej-by-nisha-gupta-P-HQEM31">
+                            <img src="http://localhost:8000/uploads/ProductImages/resized/product-20210913093513.jpg" class="media-object show-cart-product">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading product_sorting_filter_option"><a href="http://localhost:8000/product/konst-hantverk/home-furnishing/sej-by-nisha-gupta-P-HQEM31">SEJ by Nisha Gupta</a></h4>
+                            <h5 class="media-heading product_attribute_css"> Färg : Rosa </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="tj-cart-qty">
+                    <select name="quantity_435" id="quantity_435" class="form-control" onchange="updateCart('435')">
+                        <option value="1" selected="selected">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <div class="tj-cart-pris text-right">
+                    <p class="product_sorting_filter_option">2 000,00 kr</p>
+                </div>
+                <div class="tj-cart-frakt text-right">
+                    <p class="product_sorting_filter_option">0,00 kr</p>
+                </div>
+                <div class="tj-cart-total text-right">
+                    <p class="product_sorting_filter_option p-l-8">2 000,00 kr</p>
+                </div>
+                <div class="tj-cart-action text-right">
+                    <a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('435')" title="Remove"><i class="fas fa-trash"></i>
+                        <!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('435')">
+                            <span class="glyphicon glyphicon-remove"></span> Remove
+                        </button> -->
+                      </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tj-cart-total-section">
+        <div class="tj-cart-total-row">
+            <span class="tj-cart-total-caption">Delsumma</span>
+            <span class="tj-cart-total-value">11 000,00 kr</span>
+        </div>
+        <div class="tj-cart-total-row">
+            <span class="tj-cart-total-caption">Frakt</span>
+            <span class="tj-cart-total-value">0,00 kr</span>
+        </div>
+        <div class="tj-cart-total-row">
+            <span class="tj-cart-total-caption">Total</span>
+            <span class="tj-cart-total-value">11 000,00 kr</span>
+        </div>
+    </div>
+
+    <div class="tj-cart-button">
+        <button type="button" class="buy_now_btn" onclick="location.href='http://localhost:8000/paymentoptions/MzU2'">Till kassan <span class="glyphicon glyphicon-play"></span></button>
+    </div>
+
+
     <div class="row">
         <div class="col-sm-12 col-md-12 p-m-0 pl-0">
         <div class="row">

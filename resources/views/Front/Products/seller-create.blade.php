@@ -43,15 +43,16 @@
    @if($subscribedError)
 	    <div class="alert alert-danger">{{$subscribedError}}</div>
 	    @endif
-      <div class="col-md-2 tijara-sidebar">
+      <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
         @include ('Front.layout.sidebar_menu')
       </div>
-      <div class="col-md-10">
+      <div class="col-md-10 tijara-content margin_bottom_class">
            @include ('Front.alert_messages')
       <div class="seller_info">
       <div class="seller_header">
 
-<h2 class="seller_page_heading">{{ __('lang.product_form_label')}}</h2>
+<h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.product_form_label')}}</h2>
 <!-- <hr class="heading_line"/> -->
 </div>
   @if($is_seller)    
@@ -68,69 +69,70 @@
       </div>
 
       
-      <div class="col-md-12" style="margin-left: -18px;">
+      <div class="row tj-nodpad">
+      <div class="col-md-12">
 
         <div class="login_box">
 
-            <h2 class="col-md-12 product_add_h2 steps_no_css" style="margin-left: -22px;">{{ __('lang.product_form_step1')}}</h2>
+            <h2 class="col-md-12 product_add_h2 steps_no_css tj-savepr-head">{{ __('lang.product_form_step1')}}</h2>
             <input type="hidden" id="product_id" name="product_id" value="{{$product_id}}">
 
-            <div class="form-group col-md-12">
+            <div class="form-group ">
               <label class="col-md-3 product_table_heading">{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
               <div class="col-md-8">
-              <input type="text" class="col-md-8 ge_input " name="title" id="title" placeholder="{{ __('lang.product_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
-              <span class="invalid-feedback col-md-8"  id="err_title">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
-            </div>
+                <input type="text" class="col-md-8 ge_input " name="title" id="title" placeholder="{{ __('lang.product_title_label')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
+                <span class="invalid-feedback col-md-8"  id="err_title">@if($errors->has('title')) {{ $errors->first('title') }}@endif </span>
+              </div>
             </div>
 
-            <div class="form-group col-md-12">
-            <label class="col-md-3 product_table_heading">{{ __('lang.product_description_label')}} <span class="de_col">*</span></label>
-            <div class="col-md-8">
-      			<div class="form-group  producterrDiv col-md-8 p-0">
-              <textarea class="ge_input product_description col-md-8 " style="width:100%; height: 175px;" name="description"  placeholder="{{ __('users.service_description_placeholder')}}" value="" tabindex="2">{{old('description')}}</textarea>
-              <span class="invalid-feedback  col-md-8"  id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+            <div class="form-group ">
+              <label class="col-md-3 product_table_heading">{{ __('lang.product_description_label')}} <span class="de_col">*</span></label>
+              <div class="col-md-8">
+          			<div class="form-group  producterrDiv col-md-8 p-0">
+                  <textarea class="ge_input product_description col-md-8 " style="width:100%; height: 175px;" name="description"  placeholder="{{ __('users.service_description_placeholder')}}" value="" tabindex="2">{{old('description')}}</textarea>
+                  <span class="invalid-feedback  col-md-8"  id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
             
-            <div class="form-group col-md-12 producterrDiv">
+            <div class="form-group  producterrDiv">
               <label class="col-md-3 product_table_heading" >{{ __('lang.category_label')}} <span class="de_col">*</span></label>
               <div class="col-md-8">
-              <select class="select2 col-md-8 ge_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
-                <option>{{ __('lang.select_label')}}</option>
-                @foreach($categories as $cat_id=>$category)
-                <optgroup label="{{$category['maincategory']}}">
-                <!--<option value="{{$cat_id}}">{{$category['maincategory']}}</option>-->
-                @foreach($category['subcategories'] as $subcat_id=>$subcategory)
-                  <option value="{{$subcat_id}}">{{$subcategory}}</option>
-                @endforeach
-                </optgroup>
-                @endforeach
-              </select>
-              <span class="invalid-feedback  col-md-8" id="err_category" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
-            </div>
+                <select class="select2 col-md-8 ge_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
+                  <option>{{ __('lang.select_label')}}</option>
+                  @foreach($categories as $cat_id=>$category)
+                  <optgroup label="{{$category['maincategory']}}">
+                  <!--<option value="{{$cat_id}}">{{$category['maincategory']}}</option>-->
+                  @foreach($category['subcategories'] as $subcat_id=>$subcategory)
+                    <option value="{{$subcat_id}}">{{$subcategory}}</option>
+                  @endforeach
+                  </optgroup>
+                  @endforeach
+                </select>
+                <span class="invalid-feedback  col-md-8" id="err_category" >@if($errors->has('categories')) {{ $errors->first('categories') }}@endif</span>
+              </div>
             </div>
 
-            <div class="form-group  col-md-12 producterrDiv">
+            <div class="form-group  producterrDiv">
               <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span></label>
               <div class="col-md-8">
-              <select class="select2 col-md-8 ge_input" name="status" id="status"  placeholder="" tabindex="8" >
-                <option value="active">{{ __('lang.active_label')}}</option>
-                <option value="block">{{ __('lang.block_label')}}</option>
-                </select>
-              <span class="invalid-feedback col-md-12"  id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+                <select class="select2 col-md-8 ge_input" name="status" id="status"  placeholder="" tabindex="8" >
+                  <option value="active">{{ __('lang.active_label')}}</option>
+                  <option value="block">{{ __('lang.block_label')}}</option>
+                  </select>
+                <span class="invalid-feedback col-md-12"  id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+              </div>
             </div>
-            </div>
-            <div class="form-group col-md-12" style="display:none;">
+            <div class="form-group " style="display:none;">
               <label class="col-md-6 product_table_heading">{{ __('lang.product_slug_label')}} <span class="de_col">*</span></label>
               <div class="col-md-8">
-              <p style="color:#000;font-size: 12px;">(This is the part of a URL which identifies a product on a website in an easy to read form)</p>
-              <input type="text" class="col-md-6 form-control ge_input slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}} " value="{{old('product_slug')}}" tabindex="1" readonly="readonly">
-              <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
-            </div>
+                <p style="color:#000;font-size: 12px;">(This is the part of a URL which identifies a product on a website in an easy to read form)</p>
+                <input type="text" class="col-md-6 form-control ge_input slug-name" name="product_slug" id="product_slug" placeholder="{{ __('lang.product_slug_label')}} " value="{{old('product_slug')}}" tabindex="1" readonly="readonly">
+                <span class="invalid-feedback slug-name-err" id="err_title" >@if($errors->has('product_slug')) {{ $errors->first('product_slug') }}@endif </span>
+              </div>
             </div>
 
-            <div class="form-group col-md-12" style="display:none;">
+            <div class="form-group " style="display:none;">
               <label class="col-md-3 product_table_heading">{{ __('lang.meta_title_label')}} <span class="de_col"></span></label>
               <p class="meta-data col-md-8">( {{ __('users.meta_title_info')}} )</p>
                <div class="col-md-3"></div>
@@ -138,7 +140,7 @@
               <span class="invalid-feedback col-md-8"  id="err_meta_title" >@if($errors->has('meta_title')) {{ $errors->first('meta_title') }}@endif </span>
             </div>
 
-            <div class="form-group col-md-12" style="display:none;">
+            <div class="form-group " style="display:none;">
               <label class="col-md-3 product_table_heading">{{ __('lang.meta_desc_label')}} <span class="de_col"></span></label>
               <p class="meta-data col-md-8">( {{ __('users.meta_desciption_info')}} )</p>
               <div class="col-md-3"></div>
@@ -146,7 +148,7 @@
               <span class="invalid-feedback col-md-12"  id="err_meta_description" >@if($errors->has('meta_description')) {{ $errors->first('meta_description') }}@endif </span>
             </div>
 
-            <div class="form-group col-md-12" style="display:none;">
+            <div class="form-group " style="display:none;">
               <label class="col-md-3 product_table_heading">{{ __('lang.meta_keyword_label')}}  <span class="de_col"></span></label>
               <p class="meta-data col-md-8">( {{ __('users.meta_keyword_info')}} )</p>
               <div class="col-md-3"></div>
@@ -155,7 +157,7 @@
             </div>
             
 
-            <div class="form-group col-md-12">
+            <div class="form-group ">
               <label class="col-md-3 product_table_heading">{{ __('lang.product_discount_label')}}</label>
               <div class="col-md-8">
               <input type="text" class="col-md-8 ge_input number" name="discount" id="discount" placeholder="{{ __('lang.product_discount_label')}} " value="{{old('discount')}}" tabindex="1">
@@ -169,7 +171,7 @@
             </div>
           
 
-            <h2 class="col-md-12 product_add_h2 steps_no_css" style="margin-left: -22px;">{{ __('lang.product_form_step2')}}</h2>
+            <h2 class="col-md-12 product_add_h2 steps_no_css tj-savepr-head">{{ __('lang.product_form_step2')}}</h2>
             <div  class="col-md-12" id="variant_table">
               <?php
 
@@ -178,7 +180,7 @@
             
                 <div class="variant_tr" id="variant_tr" variant_id="<?php echo $i;?>">
                  
-                  <div class="form-group" >
+                  <div class="form-group row" >
                     <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col"></span></label>
                     <div class="col-md-8">
                     <input type="text" class="col-md-8 ge_input sku" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value='{{ old("sku.$i")}}' tabindex="7">
@@ -194,28 +196,28 @@
                     </div>
                   </div>
                   */?>
-                  <div class="form-group producterrDiv" >
+                  <div class="form-group producterrDiv row" >
                     <label class="col-md-3 product_table_heading">{{ __('lang.price_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                     <input type="tel" class="col-md-8 ge_input price number variant_field" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value='{{ old("price.$i")}}' tabindex="7">
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                     </div>
                   </div>
-                  <div class="form-group producterrDiv" >
+                  <div class="form-group producterrDiv row" >
                     <label class="col-md-3 product_table_heading">{{ __('lang.qty_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                     <input type="tel" class="col-md-8 ge_input quantity number variant_field" name="quantity[<?php echo $i;?>]"  placeholder="{{ __('lang.qty_label')}}" value='{{ old("quantity.$i")}}' tabindex="7">
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                   </div>
                   </div>
-                  <div class="form-group producterrDiv" >
+                  <div class="form-group producterrDiv row" >
                     <?php for($ii=0;$ii<2;$ii++){
                       if($ii==0){?>
                     <label class="col-md-3 product_table_heading">{{ __('lang.select_attribute_label')}} <span class="de_col"></span></label>
                   <?php }else{?>
                     <div class="col-md-3"></div>
                  <?php }?>
-                    <div class="col-md-8">
+                    <div class="col-md-8 tj-svselect">
                     <select style="width: 32%;" class="col-md-4 ge_input select_attribute" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
                       <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
@@ -276,7 +278,7 @@
 				  </div>
           */?>
                   
-                  <div class="form-group producterrDiv var_img_div" >
+                  <div class="form-group producterrDiv var_img_div row" >
                     <label class="col-md-3 product_table_heading">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
                     <div class="col-md-8">
                       <div class="selected_images col-md-12"></div>
@@ -295,7 +297,7 @@
                 </div>
               
 
-               <div class="col-md-12 text-right add-varinat-btn" style="margin-bottom: 10px;">
+               <div class="text-right add-varinat-btn" style="margin-bottom: 10px;">
                   <a title="{{ __('lang.add_variant_btn')}}" class="btn btn-black btn-sm debg_color login_btn add_new_variant_btn" ><span><i class="fa fa-plus"></i>{{ __('lang.add_variant_btn')}}</span> </a>
                </div>
                
@@ -305,8 +307,8 @@
                <span class="solid-horizontal-line"></span>
             </div>
 
-            <h2 class="col-md-12 product_add_h2" style="margin-left: -22px;">{{ __('lang.product_form_step3')}}</h2>
-            <div class="form-group col-md-12" id="shipping_method_ddl_div">
+            <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('lang.product_form_step3')}}</h2>
+            <div class="form-group " id="shipping_method_ddl_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
               <div class="col-md-8">
               <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl" >
@@ -318,7 +320,7 @@
               </div>
             </div>
 
-            <div class="form-group col-md-12" id="shipping_charges_div">
+            <div class="form-group " id="shipping_charges_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
               <div class="col-md-8">
               <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="@if(@$users_details->shipping_charges!=''){{ $users_details->shipping_charges }}@endif" >
@@ -326,31 +328,33 @@
             </div>
             </div>
 
-            <div class="form-group col-md-12">
-            <label class="col-md-3 product_table_heading">
+            <div class="form-group tj-svcheck">
+            <label class="col-sm-3 col-xs-6 product_table_heading">
              {{ __('users.free_shipping_label')}}</label>
-            <div class="col-md-8">  <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" @if(@$users_details->free_shipping=='free_shipping') checked="checked" @endif></div>
+            <div class="col-sm-8 col-xs-6">  <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" @if(@$users_details->free_shipping=='free_shipping') checked="checked" @endif></div>
             
             </div>
-            <div class="form-group col-md-12">
-              <label  class="col-md-3 product_table_heading" style="margin-top: 15px;"> {{ __('users.pick_from_store')}} </label>
-              <div class="col-md-8">
+            <div class="form-group tj-svcheck">
+              <label  class="col-sm-3 col-xs-6 product_table_heading" style="margin-top: 15px;"> {{ __('users.pick_from_store')}} </label>
+              <div class="col-sm-2 col-xs-6">
                 <div class="row">
-                <div class="col-md-1"  class="is_pick_from_store">
-                 <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>
-               </div>
-               <div class="col-md-8">
-                  <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif">
-                  <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
-               </div>
+                  <div class="col-sm-1"  class="is_pick_from_store">
+                   <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>
+                  </div>
+                  
                 </div>
-              </div>              
+              </div> 
+              <div class="col-sm-7">
+                    <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif">
+                    <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
+              </div>             
             </div>
         </div>
       </div>
+      </div>
       
 
-  <div class="row  tijara-content">  
+  <div class="row  tijara-content tj-personal-action">  
     <div class="col-md-12">&nbsp;</div>
     <div class="col-md-12 text-center"  style="margin-bottom : 60px;">
       <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" class="btn btn-black debg_color login_btn saveproduct" tabindex="9">{{ __('lang.save_btn')}}</button>
@@ -379,6 +383,8 @@
 });
 
 $( document ).ready(function() {
+
+  
   $('.select2-search__field').attr("placeholder", select_placeholder);
 
 /*  var var_id = $(".variant_image").attr('variant_id');

@@ -10,12 +10,11 @@
       <img class="seller_banner" src="{{$header_image}}"  style="width:100%;"/>
     @endif
     <div class="container-fluid">
-    <div class="container-inner-section">
+    <div class="container-inner-section tj-store-container">
       <!-- Example row of columns -->
-      <div class="row tijara-content" style="margin-top:40px;">
-       <!--  @include('Front.category_breadcrumb') -->
-        <div class="col-md-3">
-            <div>            
+      <div class="row tijara-content tjpa" style="margin-top:40px;">
+        <div class="col-sm-3 col-xs-12">
+          <div>            
              @if(!empty($logo)) 
              <div class="seller_logo seller_details_img">
              <img class="seller_logo" src="{{$logo}}" />&nbsp;&nbsp;</div>@endif
@@ -32,115 +31,113 @@
                 </select>
               </div>
             </div>
-</div>
-<div class="clearfix"></div>
-             <!-- <h2> {{ __('users.butiks_info_title')}}</h2> -->
+          </div>
+        </div>
+        <div class="col-sm-9 col-xs-12 tjps">
+          <div class="row tj-store-top">
+            <div class="col-sm-9">
+              <form id="productServicePage" method="post" action="{{$seller_link}}">
+                @csrf
+                <div class="col-sm-9 text-center">
+                  <a href="javascript:void(0);" title="{{ __('lang.products_title')}}" page="products" class="border_left_link @if($hidden_type =='products' || $hidden_type =='') store-active-btn  @else store-inactive-btn @endif productSelect" >{{ __('lang.products_title')}} </a><a href="javascript:void(0);" title="{{ __('lang.service_label')}} " page="services" class="@if($hidden_type =='services') store-active-btn  @else store-inactive-btn @endif serviceSelect">{{ __('lang.category_service_title')}}  </a>
+                  <input type="hidden" name="hidden_type" class="hidden_type" id="hidden_type">
+                </div>
+              </form>
+            </div>
+            <div class="col-sm-3 tjps">
+              <a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{__('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
+              <input type="hidden" name="is_login" id="is_login" value="{{Auth::guard('user')->id()}}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-9">
+              @if(!empty($store_information))
+                <h2 class="butik_info_heading pl-10">{{ __('lang.butik_info_heading')}} </h2>
+                <p class="store_info pl-10"><?php echo $store_information; ?></p>
+              @endif
+            </div>
+            @if(@$_GET['frompage']==1)
+            <div class="col-sm-3 text-right">
+              <a href="{{route('frontSellerPersonalPage')}}" title="{{ __('users.back_to_butik_setting')}}" class="de_col"><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>
+            </div>
+            @endif
+          </div>
+        </div>
+        
+      </div>
 
-            <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
-            <div class=" form-group search_now_input_box seller_search">
+
+      <div class="row tijara-content tjpa" style="margin-top:10px;">
+       <!--  @include('Front.category_breadcrumb') -->
+        <div class="col-sm-3" id="tjfilter">
+
+          <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
+          <!-- <h2> {{ __('users.butiks_info_title')}}</h2> -->
+          <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
+          <div class=" form-group search_now_input_box seller_search">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
             <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
-            </div>
-            <?php 
+          </div>
+          <?php 
 
-            $seller_name_link = str_replace( array( '\'', '"', 
-            ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
-            $seller_name_link = str_replace(" ", '-', $seller_name_link);
-            $seller_name_link = strtolower($seller_name_link);
-            ?>
-            <ul class="seller_cat_list">
+          $seller_name_link = str_replace( array( '\'', '"', 
+          ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
+          $seller_name_link = str_replace(" ", '-', $seller_name_link);
+          $seller_name_link = strtolower($seller_name_link);
+          ?>
+          <ul class="seller_cat_list">
             <li>
 
               <a href="{{route('sellerProductListingByCategory',['seller_name' => $seller_name_link])}}" title="{{ __('lang.all_category')}}"  class="all_category_bold">{{ __('lang.all_category')}}</a>
             </li>
           </ul>
-            <div class="current_role_id" style="display: none">{{$role_id}}</div>
-            <!-- <h3 style="line-height: 45px; text-decoration: none; font-size: 22px;margin: 5px;float: left;">{{ __('lang.all_category')}}</h3> -->
-            @include('Front.products_sidebar')
+          <div class="current_role_id" style="display: none">{{$role_id}}</div>
+          <!-- <h3 style="line-height: 45px; text-decoration: none; font-size: 22px;margin: 5px;float: left;">{{ __('lang.all_category')}}</h3> -->
+          @include('Front.products_sidebar')
         </div>
-        <div class="col-md-9 p-0">
-          <div>
-		<!-- 	<div class="col-md-1"></div> -->
-
-    <form id="productServicePage" method="post" action="{{$seller_link}}">
-          @csrf
-			<div class="col-md-9 text-center">
-				<a href="javascript:void(0);" title="{{ __('lang.products_title')}}" page="products" class="border_left_link @if($hidden_type =='products' || $hidden_type =='') store-active-btn  @else store-inactive-btn @endif productSelect" >{{ __('lang.products_title')}} </a><a href="javascript:void(0);" title="{{ __('lang.service_label')}} " page="services" class="@if($hidden_type =='services') store-active-btn  @else store-inactive-btn @endif serviceSelect">{{ __('lang.category_service_title')}}  </a>
-        <input type="hidden" name="hidden_type" class="hidden_type" id="hidden_type">
-			</div>
-    </form>
-            <!-- contact shop -->
-			<div class="col-md-3">
-				<a href="javascript:void(0);"  class="btn btn-black debg_color login_btn contact-store pull-right" title="{{__('users.contact_store')}}" id="{{$seller_id}}" seller_email="{{$seller_email}}" seller_name="{{$seller_name}}">{{ __('users.contact_store')}} </a>
-        <input type="hidden" name="is_login" id="is_login" value="{{Auth::guard('user')->id()}}">
-			</div>
-            
-          </div>
-
-            <span class="current_category" style="display:none;">{{$category_slug}}</span>
-            <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
-            <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
-            
-            <div class="product_container">
-                <div>          
-
-                  <div><div class="col-md-12">&nbsp;</div></div>
-                     
-                  
-                  <div>
-                    <div class="col-md-9">
-					@if(!empty($store_information))
-						<h2 class="butik_info_heading pl-10">{{ __('lang.butik_info_heading')}} </h2>
-						<p class="store_info pl-10"><?php echo $store_information; ?></p>
-					@endif
-                    </div>
-                    @if(@$_GET['frompage']==1)
-                    <div class="col-md-3 text-right">
-          						<a href="{{route('frontSellerPersonalPage')}}" title="{{ __('users.back_to_butik_setting')}}" class="de_col"><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('users.back_to_butik_setting')}}</span> </a>
-          					</div>
-                    @endif
-                  </div>
-                  
-                </div>
-                <div><div class="col-md-12">&nbsp;</div></div>
-                <div>
-				<div class="col-md-6"></div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                      <label>{{ __('lang.sort_by')}} : </label>
-                      <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listProducts()">
-                         <!--  <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
-                          <option value="name">{{ __('lang.sort_by_name')}}</option>
-                          <option value="price">{{ __('lang.sort_by_price')}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label>{{ __('lang.sort_by_order')}} : </label>
-                      <select class="form-control seller" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listProducts()">
-                          <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
-                          <option value="asc">{{ __('lang.sort_by_asc')}}</option>
-                          <option value="desc">{{ __('lang.sort_by_desc')}}</option>
-                      </select>
-                    </div>
-                  </div>
-                
-                </div>
-                <span class="product_listings"><div class="col-md-12" style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+        <div class="col-sm-9">
+          <span class="current_category" style="display:none;">{{$category_slug}}</span>
+          <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
+          <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
+          <div class="row tj-filter-sec">            
+		        <div class="col-sm-6"></div>
+            <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="http://localhost:8000/assets/img/tjfilter.png"></button>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>{{ __('lang.sort_by')}} : </label>
+                <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listProducts()">
+                   <!--  <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
+                    <option value="name">{{ __('lang.sort_by_name')}}</option>
+                    <option value="price">{{ __('lang.sort_by_price')}}</option>
+                </select>
+              </div>
             </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>{{ __('lang.sort_by_order')}} : </label>
+                <select class="form-control seller" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listProducts()">
+                    <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
+                    <option value="asc">{{ __('lang.sort_by_asc')}}</option>
+                    <option value="desc">{{ __('lang.sort_by_desc')}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <span class="product_listings"><div class="col-sm-12" style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+          </div>
         </div>
+      </div>
         
-        <div class="col-md-12" id="show-all-review">
+        <div class="col-sm-12" id="show-all-review">
           <hr>
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <h2 class="review_title" style="margin-left:-12px;">{{ __('users.review_title')}}</h2>
           </div>
-          <div class="col-md-9">
+          <div class="col-sm-9">
           @if(!empty($productReviews))
             @foreach($productReviews as $review)
              <div class="row" style="margin-left:10px">
-              <div class="col-md-1">
+              <div class="col-sm-1">
                 @if(!empty($review['profile']))
                   <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
                 @else 
@@ -148,7 +145,7 @@
                 @endif
                
               </div>
-              <div class="col-md-5">
+              <div class="col-sm-5">
                 <p class="ratingUname"><?php 
                 if(!empty($review['fname']) && !empty($review['lname'])){
                   $review_name = $review['fname']." ".$review['lname'];
@@ -167,7 +164,7 @@
                 </div>
               <p class="ratingComment">{{$review['comments']}}</p>
             </div>
-             <div class="col-md-6">
+             <div class="col-sm-6">
                @if(Auth::guard('user')->id()==$review['user_id'])
                 <a href="javascript:void(0)" title="{{trans('lang.edit_label')}}" style="color:#06999F;" class="edit_product_review" product_id="{{$review['product_id']}}" review_comment="{{$review['comments']}}" user_rating_hid="{{$review['product_rating']}}" rating_id="{{$review['rating_id']}}"><i class="fas fa-edit"></i> </a>
 

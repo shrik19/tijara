@@ -2,19 +2,20 @@
 @section('middlecontent')
 
 <div class="mid-section sellers_top_padding">
-<div class="containerfluid">
+<div class="container-fluid">
 <div class="container-inner-section-1">
   <div class="row">
       @include ('Front.alert_messages')
       <!-- html for seller subscribe packages -->
-    	<div class="col-md-2 tijara-sidebar">
+    	<div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
         @include ('Front.layout.sidebar_menu')
       </div>
       	<div class="col-md-10 tijara-content" style="margin-bottom: 30px;">
 
 		<div class="seller_info">
 		<div class="seller_header">
-      	    <h2 class="seller_page_heading">{{ __('users.your_package_history')}}</h2>
+      	    <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.your_package_history')}}</h2>
         	<!-- <hr class="heading_line"/> -->
 		</div>
 		<div class="col-md-12">

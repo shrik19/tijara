@@ -19,7 +19,8 @@
 			<div class="row">
 					<input type="hidden" name="is_seller" class="is_seller" value="{{$is_seller}}">
 					@if($is_seller==1)
-						<div class="col-md-2 tijara-sidebar">
+						<div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
 							@include ('Front.layout.sidebar_menu')
 						</div>
 						<div class="col-md-10 tijara-content">
@@ -38,7 +39,7 @@
 											<div class="col-md-9 pl-0">
 										<!-- <div class="col-md-3"></div>
 										<div class="col-md-5"> -->
-										<h2 class="page_heading">{{ __('users.change_password_title')}} </h2>
+										<h2 class="page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.change_password_title')}} </h2>
 									</div>
 									</div>
 								</div>
@@ -46,7 +47,7 @@
 					<!-- 			<div class="col-md-12"> -->
 									<div>
 										<!--   <div class="col-md-2"></div> -->
-										<div class="col-md-5 @if($is_seller!=1) pl-0 @endif" >
+										<div class="col-md-5 @if($is_seller!=1) pl-0 tjsp0 @endif" >
 											@if($is_seller==1)
 												<div class="login_box seller_mid_cont" style="margin-top: 20px;">
 											@else
@@ -75,7 +76,7 @@
 													</div>
 
 													@if($is_seller !=1) 
-														<div style="margin-top: 30px;margin-bottom: 30px;">
+														<div class="tj-change-password">
 													@else
 														<div style="margin-top: 30px;">
 													@endif

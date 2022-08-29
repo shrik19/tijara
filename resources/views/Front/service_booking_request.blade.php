@@ -24,7 +24,8 @@
 <div class="row">
   <input type="hidden" name="user_id" id="user_id" value="{{$user_id}}">
   @if($is_seller==1)
-  <div class="col-md-2 tijara-sidebar" style="margin-bottom: 60px;">
+  <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
     @include ('Front.layout.sidebar_menu')
   </div>
   <div class="col-md-10 tijara-content">
@@ -36,7 +37,7 @@
     <div class="seller_info">
     <div class="card">
       <div class="card-header row seller_header" style="margin-bottom: 60px;">
-        <h2 class="seller_page_heading">{{ __('users.booking_request_label')}}</h2>
+        <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.booking_request_label')}}</h2>
       </div>
 
       <div class="card-body bookingRequestCalender">

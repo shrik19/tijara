@@ -16,7 +16,8 @@
         @endif
         <div class="cat-details">
 			  @if(Request::segment(1) =='annonser')
-				<div class="col-md-3 col-annonser-sidebar desktop-view pl-0">
+				<div class="col-md-3 col-annonser-sidebar desktop-view pl-0" id="tjfilter">
+          <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
 					@include('Front.annonser_sidebar')
 				</div>
 			  @else
@@ -30,8 +31,7 @@
 			
 				<div class="row tj-filter-sec">
 				   @if(Request::segment(1) =='annonser')
-					<div class="col-md-1"></div>
-					<div class="col-md-6">
+					<div class="col-md-6 text-center">
 					  <div class="annonser-image" style="text-align:center; width:100%;">
 						<img src="{{url('/')}}/assets/img/tijara_ann.jpeg" style="width:100%;">
             
@@ -39,7 +39,7 @@
 					</div>
 			   
               @if($role_id =='1' || $user_id == '')
-    					   <div class="col-md-5 ">
+    					   <div class="col-md-6 tj-annon-btn">
     					     <a href="{{route('frontProductCreate')}}" title="{{ __('lang.add_product')}}" class="btn btn-black btn-sm debg_color a_btn login_btn add_ads_btn" style="margin-bottom: 10px;"><span>+ {{ __('users.add_ads_btn')}}</span> </a>
     					   </div>				 
 					     @endif

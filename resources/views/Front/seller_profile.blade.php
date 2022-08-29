@@ -15,16 +15,14 @@
 .form-group {
     margin-bottom: 26px;
 }
-.seller_profile_content{
-  margin-left: 10px;
-}
 
 </style>
 <div class="container-fluid">
   <div class="container-inner-section-1">
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-md-2 tijara-sidebar ">
+    <div class="col-md-2 tijara-sidebar " id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
       @include ('Front.layout.sidebar_menu')
     </div>
     <div class="col-md-10 tijara-content ">
@@ -34,17 +32,17 @@
             <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>
           </div>
       @endif
-    <form id="seller-profile-form" action="{{route('frontSellerProfileUpdate')}}" method="post"
-     enctype="multipart/form-data"  cc-on-file="false" stripe-publishable-key="{{$strip_api_key}}">
-            @csrf
+    
       
         <div class="seller_info">
       <div class="card-header row seller_header">
-        <h2 class="seller_page_heading">{{ __('users.profile_update_title')}}</h2>
+        <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.profile_update_title')}}</h2>
         <!-- <hr class="heading_line"> -->
      </div>  
         <div class="login_box seller_profile_content">
-          
+          <form id="seller-profile-form" action="{{route('frontSellerProfileUpdate')}}" method="post"
+     enctype="multipart/form-data"  cc-on-file="false" stripe-publishable-key="{{$strip_api_key}}">
+            @csrf
             <h2 class="col-md-12 contact-info seller_profile_subheader">{{ __('users.contact_person')}}</h2>
             @if($noActivePackage == 1)
               <input type="hidden" name="is_disabled" id="disable_side_menu" value="1">
@@ -130,7 +128,7 @@
                <span class="invalid-feedback col-md-8"  id="err_shipping_charges"></span>
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 tj-nomar">
             <label  class="product_table_heading">{{ __('users.free_shipping_label')}} </label>
               <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($sellerDetails[0]->free_shipping ==  "free_shipping"){ echo "checked"; } ?> style="margin-left: 15px;">
            
@@ -138,14 +136,11 @@
 
             <div class="form-group col-md-6">
               <label  class="product_table_heading" > {{ __('users.pick_from_store')}}  </label>
-              <div class="row">
-                <div class="col-md-1" class="is_pick_from_store">
-                 <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($sellerDetails[0]->is_pick_from_store ==  "1"){ echo "checked"; } ?> style="margin-top: 15px;">
-               </div>
-               <div class="col-md-11">
+              <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($sellerDetails[0]->is_pick_from_store ==  "1"){ echo "checked"; } ?> style="margin-top: 15px; margin-left: 15px;">
+              
+              <div>
                 <input type="text" class="form-control ge_input" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="{{ (old('store_pick_address')) ? old('store_pick_address') : $sellerDetails[0]->store_pick_address}}">
                  <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
-              </div>
               </div>              
             </div>
             
@@ -169,6 +164,7 @@
             <!-- <hr class="row solid-horizontal-line"> -->
              <h2 class="col-md-12"  id="scroll_to_payment_details" style="margin-top: 40px;margin-bottom: 20px;">{{ __('users.payment_setting')}}</h2>
              <div class="col-md-12">
+              <div class="row">
               <div class="col-md-6">
 
                
@@ -220,18 +216,19 @@
                 </div>
                 
               </div>
+              </div>
              </div>
              
 
+      </form>
         </div>
 
       </div>
       
-        <div style="text-align: center;margin-bottom: 60px;">
+        <div class="tijara-content tj-personal-action" style="margin-bottom: 50px;">
           <button class="btn btn-black debg_color seller-profile-update login_btn">{{ __('lang.update_btn')}}</button>
           <a href="{{route('frontHome')}}" class="btn btn-black gray_color login_btn check_seller_setting" tabindex="16">{{ __('lang.cancel_btn')}}</a>
         </div>
-      </form>
     </div>
   </div>
 </div>

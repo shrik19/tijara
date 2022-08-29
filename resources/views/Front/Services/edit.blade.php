@@ -58,8 +58,7 @@ td.fc-week-number {
   @if($subscribedError)
   <div class="alert alert-danger">{{$subscribedError}}</div>
   @endif
-  <form id="service-form service-add-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
-  @csrf
+  
   <div class="row">
 
   <div class="col-md-2 tijara-sidebar">
@@ -71,6 +70,8 @@ td.fc-week-number {
   <div class="seller_header">
       <h2 class="seller_page_heading">{{ __('servicelang.service_form_label')}}</h2>
    </div>
+    <form id="service-form service-add-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
+  @csrf
 
   <div class="col-md-12">
       <div class="col-md-12 text-right" style="margin-top:30px;">
@@ -373,8 +374,8 @@ td.fc-week-number {
   <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
   </div>
   
-  </div>
   </form>
+  </div>
   </div>
   </div>
 </div>

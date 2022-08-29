@@ -2,16 +2,17 @@
 @section('middlecontent')
 
 <div class="mid-section sellers_top_padding">
-<div class="containerfluid">
+<div class="container-fluid">
 <div class="container-inner-section-1">
   <div class="row">
 	  <!-- <div class="col-md-12"> -->
       @include ('Front.alert_messages')
       <!-- html for seller subscribe packages -->
-    	<div class="col-md-2 tijara-sidebar">
+    	<div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
         @include ('Front.layout.sidebar_menu')
       </div>
-      	<div class="col-md-10" style="margin-bottom: 30px;">
+      	<div class="col-md-10 tijara-content" style="margin-bottom: 30px;">
   		@if(!empty($package_exp_msg))
   		<div class="alert alert-danger" role="alert">
 		  {{$package_exp_msg}}
@@ -31,10 +32,10 @@
 				@endphp
 		@if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
 		<div class="seller_header">
-      	    <h2 class="seller_page_heading">{{ __('users.your_active_package')}}</h2>
+      	    <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.your_active_package')}}</h2>
         	<!-- <hr class="heading_line"/> -->
 		</div>
-		<div class="col-md-12 package_history_btn"><a href="{{route('frontPackage', base64_encode($user_id))}}" class="btn btn-black btn-sm debg_color a_btn login_btn pull-right">{{ __('users.history_button')}}</a></div>
+		<div class="col-md-12 package_history_btn text-right"><a href="{{route('frontPackage', base64_encode($user_id))}}" class="btn btn-black btn-sm debg_color a_btn login_btn">{{ __('users.history_button')}}</a></div>
 	
 	      	@foreach($subscribedPackage as $row)
 	      		@if($is_trial == 1) 

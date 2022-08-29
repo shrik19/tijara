@@ -49,9 +49,7 @@ td.fc-week-number {
     padding: 30px;
 }
 
-.product_add_h2{
-    padding: 40px 0px !important;
-}
+
 </style>
 
 <div class="mid-section sellers_top_padding">
@@ -61,26 +59,30 @@ td.fc-week-number {
    @if($subscribedError)
       <div class="alert alert-danger">{{$subscribedError}}</div>
       @endif
-  <form id="service-form" class="tijara-form service-add-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
-            @csrf
+  
   <div class="row">
 
-    <div class="col-md-2 tijara-sidebar">
+    <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
       @include ('Front.layout.sidebar_menu')
     </div> 
-    <div class="col-md-10 tijara-content">      
+    <div class="col-md-10 tijara-content">    
          @include ('Front.alert_messages')
          <div class="seller_info">
           <div class="seller_header">
-            <h2 class="seller_page_heading">{{ __('servicelang.service_form_label')}}</h2>
+            <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('servicelang.service_form_label')}}</h2>
           </div>
       
-        <div class="col-md-12">
+    <form id="service-form" class="tijara-form service-add-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
+            @csrf  
           <div class="col-md-12 text-right" style="margin-top:30px;">
             <a href="{{route('manageFrontServices')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
          </div>
+         <div class="row tj-nodpad">
+           <div class="col-md-12">
+             
           <div class="login_box">
-              <h2 class="col-md-12 product_add_h2">{{ __('servicelang.step_1')}}</h2>
+              <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('servicelang.step_1')}}</h2>
 
               <input type="hidden" name="service_id" value="{{$service_id}}">
 
@@ -131,12 +133,11 @@ td.fc-week-number {
               </div>
 
               <div class="form-group">
-              <label class="col-md-3 product_table_heading">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
-                  
-              <div class="col-md-8">
+                <label class="col-md-3 product_table_heading">{{ __('servicelang.service_description_label')}}  <span class="de_col">*</span></label>
+                <div class="col-md-8">
                   <textarea class="col-md-12 login_input form-control description" name="description" rows="5" cols="5" placeholder="{{ __('users.service_description_placeholder')}}" value="" tabindex="2">{{old('description')}}</textarea>
                   <span class="invalid-feedback col-md-8" id="err_description">@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
-              </div>
+                </div>
               </div>
 
               <div class="form-group">
@@ -169,18 +170,18 @@ td.fc-week-number {
               <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span> </label>
                 <div class="col-md-8">
-                <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8">
-                  <option value="active">{{ __('lang.active_label')}}</option>
-                  <option value="block">{{ __('lang.block_label')}}</option>
-                  </select>
-                <span class="invalid-feedback col-md-8" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
-              </div>
+                  <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8">
+                    <option value="active">{{ __('lang.active_label')}}</option>
+                    <option value="block">{{ __('lang.block_label')}}</option>
+                    </select>
+                  <span class="invalid-feedback col-md-8" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
+                </div>
               </div>
 
             
               <div class="form-group">
-                  <label class="col-md-3 product_table_heading">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
-                  <div class="col-md-8">
+                <label class="col-md-3 product_table_heading">{{ __('lang.service_price')}} <span class="de_col">*</span></label>
+                <div class="col-md-8">
                   <input type="tel" class="number col-md-8 service_price form-control" name="service_price" id="service_price" placeholder="{{ __('users.service_price_placeholder')}}" value="{{(old('service_price')) ?  old('service_price') :''}}" tabindex="7">
                   <span class="invalid-feedback col-md-8 service_validation_err" id="err_service_price">@if($errors->has('service_price')) {{ $errors->first('service_price') }}@endif </span>
                 </div>
@@ -189,89 +190,90 @@ td.fc-week-number {
               <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('lang.images')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
-                <div class="images col-md-12"></div>
-                <input type="file" class="col-md-8 login_input image service_image form-control" >                
+                  <div class="images col-md-12"></div>
+                  <input type="file" class="col-md-8 login_input image service_image form-control" >                
                   <span class="invalid-feedback col-md-8" id="err_service_image"></span>  
-                  <span class="invalid-feedback col-md-12" id="err_service_hid_image"></span>  
-                  <p class="seller-logo-info col-md-12" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
+                  <span class="invalid-feedback" id="err_service_hid_image"></span>  
+                  <p class="seller-logo-info" style="font-size: 12px;">{{ __('messages.product_img_upload_info')}}</p>  
                 </div>
               </div>
               <div class="loader"></div>
 
              
-              <h2  class="col-md-12 product_add_h2">{{ __('servicelang.step_2')}}</h2>
-               <div  class="col-md-12" style="margin-left: -32px;margin-bottom: -85px;">
-                 <div class="col-md-9">
-              <div class="form-group col-md-3">
-                    <label class="col-md-12 product_table_heading">{{ __('lang.from_service_year')}}<!-- <span class="de_col">*</span> --></label>
-                    
-                    <select class="col-md-12 service_year form-control" name="service_year" id="service_year" >
-                      <option value="">{{ __('lang.select_label')}}</option>
-                      <?php
-                        for($i=date('Y'); $i<'2050';$i++) {
-                          ?>
-                          <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+              <h2  class="col-md-12 product_add_h2 tj-savepr-head">{{ __('servicelang.step_2')}}</h2>
+              <div  class="form-group tj-spad">
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="row">                      
+                      <div class="form-group col-md-4">
+                        <label class="col-md-12 product_table_heading">{{ __('lang.from_service_year')}}<!-- <span class="de_col">*</span> --></label>
+                        <select class="col-md-12 service_year form-control" name="service_year" id="service_year" >
+                          <option value="">{{ __('lang.select_label')}}</option>
                           <?php
-                        }
-                      ?>
-                    </select>
-                    <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
-              </div>
-              <div class="form-group col-md-3">
-                    <label class="col-md-12 product_table_heading">{{ __('lang.from_service_month')}}<!-- <span class="de_col">*</span> --></label>
-                    <select class="col-md-12 service_month form-control" name="service_month" id="service_month" >
-                      <option value="">{{ __('lang.select_label')}}</option>
-                      <?php
-                        for ($i = 1; $i <= 12; $i++) {
-                          $timestamp = date('01-'.$i.'-'.date('Y'));
+                            for($i=date('Y'); $i<'2050';$i++) {
+                              ?>
+                              <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                              <?php
+                            }
                           ?>
-                          <option value="<?php echo date('m', strtotime($timestamp)); ?>"><?php echo date('F', strtotime($timestamp)); ?></option>
+                        </select>
+                        <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label class="col-md-12 product_table_heading">{{ __('lang.from_service_month')}}<!-- <span class="de_col">*</span> --></label>
+                        <select class="col-md-12 service_month form-control" name="service_month" id="service_month" >
+                          <option value="">{{ __('lang.select_label')}}</option>
                           <?php
-                        }
-                      ?>
-                    </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
+                            for ($i = 1; $i <= 12; $i++) {
+                              $timestamp = date('01-'.$i.'-'.date('Y'));
+                              ?>
+                              <option value="<?php echo date('m', strtotime($timestamp)); ?>"><?php echo date('F', strtotime($timestamp)); ?></option>
+                              <?php
+                            }
+                          ?>
+                        </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label class="col-md-12 product_table_heading">{{ __('lang.from_service_date')}}<!-- <span class="de_col">*</span> --></label>
+                        <select class="col-md-12 service_date form-control" name="service_date" id="service_date" >
+                          <option value="">{{ __('lang.select_label')}}</option>
+                          <?php
+                            for ($i = 1; $i <=31; $i++) {
+                              
+                              ?>
+                              <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                              <?php
+                            }
+                          ?>
+                        </select>
+                        <span class="invalid-feedback col-md-12 service_date_validation" id="service_date" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
+                      <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7" >
+                      <!--     <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span> -->
+                    </div>
+                    <div class="col-md-1 text-center">
+                      <input type="hidden"  name="del_start_time" id="del_start_time">
+                      <!-- <label class="col-md-12 product_table_heading">{{ __('lang.action_label')}}</label>
+                      <select name="del_start_time" id="del_start_time" class="form-control" style="margin-top: 25px;width: 100px;">
+                        <option value="" >{{ __('lang.select_label')}}</option>
+                        <option value="insert">{{ __('lang.save_btn')}}</option>
+                        <option value="delete">{{ __('lang.delete_title')}}</option>
+                      </select> -->
+                      <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('del_start_time')) {{ $errors->first('del_start_time') }}@endif </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-group col-md-3">
-                  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_date')}}<!-- <span class="de_col">*</span> --></label>
-                  <select class="col-md-12 service_date form-control" name="service_date" id="service_date" >
-                    <option value="">{{ __('lang.select_label')}}</option>
-                    <?php
-                      for ($i = 1; $i <=31; $i++) {
-                        
-                        ?>
-                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                        <?php
-                      }
-                    ?>
-                  </select>
-                  <span class="invalid-feedback col-md-12 service_date_validation" id="service_date" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span>
-              </div>
-            </div>
-            <div class="col-md-3" style="display: flex;">
-              <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 65px;">
-                <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
-                <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7" >
-            <!--     <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span> -->
-              </div>
-
-              <div class="col-md-1 text-center" style="margin-top: 65px !important;">
-                 <input type="hidden"  name="del_start_time" id="del_start_time">
-                <!-- <label class="col-md-12 product_table_heading">{{ __('lang.action_label')}}</label> 
-            <select name="del_start_time" id="del_start_time" class="form-control" style="margin-top: 25px;width: 100px;">
-                  <option value="" >{{ __('lang.select_label')}}</option>
-                  <option value="insert">{{ __('lang.save_btn')}}</option>
-                    <option value="delete">{{ __('lang.delete_title')}}</option>
-                </select> -->
-                 <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('del_start_time')) {{ $errors->first('del_start_time') }}@endif </span>
-              </div>
-            </div>
-          </div>
-          <!-- to date block start -->
-            <div class="col-md-12" style="margin-left: -32px;">
-                 <div class="col-md-9">
-              <div class="form-group col-md-3">
+              <!-- to date block start -->
+              <div class="col-md-12" style="margin-left: -32px;">
+                <div class="col-md-9">
+                  <div class="form-group col-md-3">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
-                    
                     <select class="col-md-12 to_service_year form-control" name="to_service_year" id="to_service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
@@ -283,8 +285,8 @@ td.fc-week-number {
                       ?>
                     </select>
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
-              </div>
-              <div class="form-group col-md-3">
+                  </div>
+                  <div class="form-group col-md-3">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_month')}}<!-- <span class="de_col">*</span> --></label>
                     <select class="col-md-12 to_service_month form-control" name="to_service_month" id="to_service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -297,54 +299,46 @@ td.fc-week-number {
                         }
                       ?>
                     </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
-              </div>
-              <div class="form-group col-md-3">
-                  <label class="col-md-12 product_table_heading">{{ __('lang.to_service_date')}}<!-- <span class="de_col">*</span> --></label>
-                  <select class="col-md-12 to_service_date form-control" name="to_service_date" id="to_service_date" >
-                    <option value="">{{ __('lang.select_label')}}</option>
-                    <?php
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label class="col-md-12 product_table_heading">{{ __('lang.to_service_date')}}<!-- <span class="de_col">*</span> --></label>
+                    <select class="col-md-12 to_service_date form-control" name="to_service_date" id="to_service_date" >
+                      <option value="">{{ __('lang.select_label')}}</option>
+                      <?php
                       for ($i = 1; $i <=31; $i++) {
-                        
-                        ?>
-                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                      ?>
+                      <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                         <?php
                       }
-                    ?>
-                  </select>
-                  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
-              </div>
-            </div>
-        
-          </div>
-          <!-- to date block end -->
-          <div class="col-md-12">
-            <div class="col-md-6"></div>
-            <div class="col-md-6">
-              <div class="col-md-3" style="margin-left: 200px !important;display:flex;"> 
-               <!--  <a href="javascript:void(0);" name="remove_service_date" id="remove_service_date" class="btn btn-danger login_btn save_service_date" tabindex="9" val="delete">{{ __('lang.remove_title')}}</a> -->
-              <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
-              <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
-            </div>
-            <div class="col-md-3"></div>
-            </div>
-          </div>
-              <div class="added_service_times" style="display:none;"></div>
-              <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;    margin-left: -12px;"></div>
-          </div>
-        </div>
-          <div class="col-md-12 text-center">&nbsp;</div>
-          <div class="col-md-12 text-center">
-            <button type="submit" name="btnCountryCreate"class="btn btn-black debg_color login_btn saveservice" id="saveservicebtn" tabindex="9">{{ __('lang.save_btn')}}</button>
-
-            <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
-          </div>
-  <!--       </div> -->
-      </div>
-  </form>
-                    </div>
-                    </div>
+                      ?>
+                    </select>
+                    <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
                   </div>
                 </div>
+              </div>
+              <!-- to date block end -->
+              <div class="col-md-12 text-right">
+                  <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
+                    <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
+              </div>
+              <div class="added_service_times" style="display:none;"></div>
+              <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;    margin-left: -12px;"></div>
+            </div>
+
+           </div>
+         </div>
+            <div class="col-md-12 text-center">&nbsp;</div>
+            <div class="row tijara-content tj-personal-action">
+              <button type="submit" name="btnCountryCreate"class="btn btn-black debg_color login_btn saveservice" id="saveservicebtn" tabindex="9">{{ __('lang.save_btn')}}</button>
+              <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
+            </div>
+        </form>
+            <!-- </div> -->
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div> <!-- /container -->
 <script>var siteUrl="{{url('/')}}";</script>
 <script type="text/javascript">

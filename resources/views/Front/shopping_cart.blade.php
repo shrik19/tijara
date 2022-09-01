@@ -31,298 +31,150 @@
 <section class="product_details_section-1">
 <div class="loader"></div>
 <div class="container-fluid p-0">
-
-    <div class="tj-cart">
-        <div class="tj-cart-left">
-            <span class="tj-colhead">Butik</span> 
-            <div class="cart-store-sec bg-white">
-                <a class="thumbnail pull-left custom_thumbnail" href="http://localhost:8000/seller/art-and-craft">
-                    <img src="http://localhost:8000/uploads/Seller/resized/logo_20211215052159.jpg" class="media-object seller-show-icon">
-                </a>
-                <div class="media-body" style="padding-left:10px;padding-top:10px;">
-                    <h4 class="media-heading product_sorting_filter_option"><a href="http://localhost:8000/seller/art-and-craft">Art and craft</a></h4>
-                </div>
-            </div>
-        </div>
-        <div class="tj-cart-right">
-            <div class="tj-cart-row tj-cart-row-head">
-                <div class="tj-cart-product"><span class="tj-colhead">Produkt</span></div>
-                <div class="tj-cart-qty"><span class="tj-colhead">Antal</span></div>
-                <div class="tj-cart-pris text-right"><span class="tj-colhead">Pris</span></div>
-                <div class="tj-cart-frakt text-right"><span class="tj-colhead">Frakt</span></div>
-                <div class="tj-cart-total text-right"><span class="tj-colhead">Total</span></div>
-                <div class="tj-cart-action text-right"></div>
-            </div>
-            <div class="tj-cart-row">
-                <div class="tj-cart-product">
-                    <div class="media">
-                        <a class="thumbnail pull-left custom_thumbnail" href="http://localhost:8000/product/konst-hantverk/home-furnishing/sej-by-nisha-gupta-P-HQEM31">
-                            <img src="http://localhost:8000/uploads/ProductImages/resized/product-20210913093513.jpg" class="media-object show-cart-product">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading product_sorting_filter_option"><a href="http://localhost:8000/product/konst-hantverk/home-furnishing/sej-by-nisha-gupta-P-HQEM31">SEJ by Nisha Gupta</a></h4>
-                            <h5 class="media-heading product_attribute_css"> Färg : Rosa </h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="tj-cart-qty">
-                    <select name="quantity_435" id="quantity_435" class="form-control" onchange="updateCart('435')">
-                        <option value="1" selected="selected">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                </div>
-                <div class="tj-cart-pris text-right">
-                    <p class="product_sorting_filter_option">2 000,00 kr</p>
-                </div>
-                <div class="tj-cart-frakt text-right">
-                    <p class="product_sorting_filter_option">0,00 kr</p>
-                </div>
-                <div class="tj-cart-total text-right">
-                    <p class="product_sorting_filter_option p-l-8">2 000,00 kr</p>
-                </div>
-                <div class="tj-cart-action text-right">
-                    <a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('435')" title="Remove"><i class="fas fa-trash"></i>
-                        <!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('435')">
-                            <span class="glyphicon glyphicon-remove"></span> Remove
-                        </button> -->
-                      </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="tj-cart-total-section">
-        <div class="tj-cart-total-row">
-            <span class="tj-cart-total-caption">Delsumma</span>
-            <span class="tj-cart-total-value">11 000,00 kr</span>
-        </div>
-        <div class="tj-cart-total-row">
-            <span class="tj-cart-total-caption">Frakt</span>
-            <span class="tj-cart-total-value">0,00 kr</span>
-        </div>
-        <div class="tj-cart-total-row">
-            <span class="tj-cart-total-caption">Total</span>
-            <span class="tj-cart-total-value">11 000,00 kr</span>
-        </div>
-    </div>
-
-    <div class="tj-cart-button">
-        <button type="button" class="buy_now_btn" onclick="location.href='http://localhost:8000/paymentoptions/MzU2'">Till kassan <span class="glyphicon glyphicon-play"></span></button>
-    </div>
-
-
     <div class="row">
         <div class="col-sm-12 col-md-12 p-m-0 pl-0">
-        <div class="row">
-            <!-- <div class="col-md-6">
-              <h2>{{ __('lang.shopping_cart')}}</h2>
-              <hr class="heading_line"/>
-            </div> -->
-            <!-- <div class="col-md-6 text-right">
-           <button type="button" class="btn buy_now_btn debg_color" onclick="location.href='{{route('frontHome')}}';">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> {{ __('lang.shopping_cart_continue')}}
-                        </button>
-            </div> -->
-          </div>
-            <table class="table table-hover shopping_cart" style="margin-bottom:60px;">
-                <thead>
-                    <tr>
-                         <th>{{ __('users.butik_btn')}}</th>
-                        <th>{{ __('lang.shopping_cart_product')}}</th>
-                        <th>{{ __('lang.shopping_cart_quantity')}}</th>
-                        <th class="text-right">{{ __('lang.shopping_cart_price')}}</th>
-                        <th class="text-right">{{ __('lang.shopping_cart_shipping')}}</th>
-                        <th class="text-right">{{ __('lang.shopping_cart_total')}}</th>
-                        <th class="table_blank"> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                  @if(!empty($details))
+			 @if(!empty($details))
                   @foreach($details as $orderId => $tmpOrderProduct)
                   @if(!empty($tmpOrderProduct))
                    @php   $inc=1; @endphp
                     @foreach($tmpOrderProduct['details'] as $orderProduct)
-               
-                    <tr>
-                        <td class="col-sm-4 col-md-4 p-m-0">
-                            @if($inc==1)
-                        <div class="media cart-store-sec bg-white">
-                            <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->seller_link}}"> 
-                            @if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo']))
-                              <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object seller-show-icon">
-                            @else
-                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object seller-show-icon">
-                            @endif
-                                                      
-                            </a>
-                             
-                            <div class="media-body" style="padding-left:10px;padding-top:10px;">
+						<div class="tj-cart">
+							@if($inc==1)
+							<div class="tj-cart-left">
+								<span class="tj-colhead">{{ __('users.butik_btn')}}</span> 
+								<div class="cart-store-sec bg-white">
+									<a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->seller_link}}">
+										@if(isset($orderProduct['sellerLogo']) && !empty($orderProduct['sellerLogo']))
+										  <img src="{{url('/')}}/uploads/Seller/resized/{{$orderProduct['sellerLogo']}}" class="media-object seller-show-icon">
+										@else
+										  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object seller-show-icon">
+										@endif
+									</a>
+									<div class="media-body" style="padding-left:10px;padding-top:10px;">
+										<h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->store_name }}</a></h4>
+									</div>
+								</div>
+							</div>
+							@endif
+							<div class="tj-cart-right">
+								<div class="tj-cart-row tj-cart-row-head">
+									<div class="tj-cart-product"><span class="tj-colhead">{{ __('lang.shopping_cart_product')}}</span></div>
+									<div class="tj-cart-qty"><span class="tj-colhead">{{ __('lang.shopping_cart_quantity')}}</span></div>
+									<div class="tj-cart-pris text-right"><span class="tj-colhead">{{ __('lang.shopping_cart_price')}}</span></div>
+									<div class="tj-cart-frakt text-right"><span class="tj-colhead">{{ __('lang.shopping_cart_shipping')}}</span></div>
+									<div class="tj-cart-total text-right"><span class="tj-colhead">{{ __('lang.shopping_cart_total')}}</span></div>
+									<div class="tj-cart-action text-right"></div>
+								</div>
+								<div class="tj-cart-row">
+									<div class="tj-cart-product">
+										<div class="media">
+											<a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
+												@if($orderProduct['product']['image'])
+												  <img src="{{url('/')}}/uploads/ProductImages/resized/{{$orderProduct['product']->image}}" class="media-object show-cart-product" >
+												@else
+												  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object show-cart-product" >
+												@endif
+																		  
+											</a>
+											<div class="media-body">
+												<h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
+												 <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']);?> </h5>
+											</div>
+										</div>									
+									</div>
+									<div class="tj-cart-qty">
+										<select name="quantity_{{ $orderProduct['id'] }}" id="quantity_{{ $orderProduct['id'] }}" class="form-control" onchange="updateCart('{{ $orderProduct['id'] }}')">
+											<option value="1" @if($orderProduct['quantity'] == 1) selected="selected" @endif>1</option>
+											<option value="2" @if($orderProduct['quantity'] == 2) selected="selected" @endif>2</option>
+											<option value="3" @if($orderProduct['quantity'] == 3) selected="selected" @endif>3</option>
+											<option value="4" @if($orderProduct['quantity'] == 4) selected="selected" @endif>4</option>
+											<option value="5" @if($orderProduct['quantity'] == 5) selected="selected" @endif>5</option>
+											<option value="6" @if($orderProduct['quantity'] == 6) selected="selected" @endif>6</option>
+											<option value="7" @if($orderProduct['quantity'] == 7) selected="selected" @endif>7</option>
+											<option value="8" @if($orderProduct['quantity'] == 8) selected="selected" @endif>8</option>
+											<option value="9" @if($orderProduct['quantity'] == 9) selected="selected" @endif>9</option>
+											<option value="10" @if($orderProduct['quantity'] == 10) selected="selected" @endif>10</option>
+										</select>
+									</div>
+									<div class="tj-cart-pris text-right">
+										<p class="product_sorting_filter_option"> @php                                 
+											$price_tbl = swedishCurrencyFormat($orderProduct['price']);
+											@endphp {{ $price_tbl }} kr
+										</p>
+									</div>
+									<div class="tj-cart-frakt text-right">
+										<p class="product_sorting_filter_option"> @php 
+											$shipping_array_tbl = str_split(strrev($orderProduct['shipping_amount']), 3);
+											$shipping_tbl = strrev(implode(" ", $shipping_array_tbl));
+											$shipping_tbl = $shipping_tbl.",00";
+										@endphp
+										{{$shipping_tbl}} kr</p>
+									</div>
+									<div class="tj-cart-total text-right">
+										<p  class="product_sorting_filter_option p-l-8">
+										@php 
+											$amt_total =(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']); $total_price_tbl = swedishCurrencyFormat($amt_total);
 
-                                <h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->store_name }}</a></h4>
-                                <!-- <h5 class="media-heading"> {{$orderProduct['variant_attribute_id']}} </h5> -->
-                                <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
-                            </div>
-                            
-                        </div>@endif</td>
-                        <span>
-                        <td class="col-sm-4 col-md-4 bg-white">
-                        <div class="media">
-                            <a class="thumbnail pull-left custom_thumbnail" href="{{$orderProduct['product']->product_link}}"> 
-                            @if($orderProduct['product']['image'])
-                              <img src="{{url('/')}}/uploads/ProductImages/resized/{{$orderProduct['product']->image}}" class="media-object show-cart-product" style="width: 72px; height: 72px;padding: 1px;">
-                            @else
-                              <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object show-cart-product" style="width: 72px; height: 72px;padding: 1px;">
-                            @endif
-                              
-                            </a>
-                            <div class="media-body" style="padding-left:10px;padding-top:10px;">
-                                <h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
-                                <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']);?> </h5>
-                                <?php /*
-                                @if($orderProduct['product']->is_pick_from_store ==1)
-                                <h4  class="media-heading product_sorting_filter_option"> 
-                                    {{ __('users.pick_up_address')}} : {{@$orderProduct['product']->store_pick_address}}
-                                </h4>
-                                @endif
-                                */?>
-                                <!-- <span>Status: </span><span class="text-success"><strong>In Stock</strong></span> -->
-                            </div>
-                        </div></td>
-                        <td class="col-sm-1 col-md-1 bg-white tijara_quantity" style="text-align: center">
-                        <select name="quantity_{{ $orderProduct['id'] }}" id="quantity_{{ $orderProduct['id'] }}" class="form-control" onchange="updateCart('{{ $orderProduct['id'] }}')">
-                            <option value="1" @if($orderProduct['quantity'] == 1) selected="selected" @endif>1</option>
-                            <option value="2" @if($orderProduct['quantity'] == 2) selected="selected" @endif>2</option>
-                            <option value="3" @if($orderProduct['quantity'] == 3) selected="selected" @endif>3</option>
-                            <option value="4" @if($orderProduct['quantity'] == 4) selected="selected" @endif>4</option>
-                            <option value="5" @if($orderProduct['quantity'] == 5) selected="selected" @endif>5</option>
-                            <option value="6" @if($orderProduct['quantity'] == 6) selected="selected" @endif>6</option>
-                            <option value="7" @if($orderProduct['quantity'] == 7) selected="selected" @endif>7</option>
-                            <option value="8" @if($orderProduct['quantity'] == 8) selected="selected" @endif>8</option>
-                            <option value="9" @if($orderProduct['quantity'] == 9) selected="selected" @endif>9</option>
-                            <option value="10" @if($orderProduct['quantity'] == 10) selected="selected" @endif>10</option>
-                        </select>
-                        </td>
-                        <td class="col-sm-2 col-md-2 text-right bg-white"><p class="product_sorting_filter_option">
-                            @php                                 
-                                $price_tbl = swedishCurrencyFormat($orderProduct['price']);
-                            @endphp
-                               {{ $price_tbl }} kr
-                        <?php /*$price_tbl = strrev(implode(" ", $price_array_tbl));
-                                $price_tbl = $price_tbl.",00";
-                                {{ number_format($orderProduct['price'],2) }} kr */ ?></p></td>
-                        <td class="col-sm-1 col-md-1 text-right bg-white"><p  class="product_sorting_filter_option">
-                            @php 
-                                $shipping_array_tbl = str_split(strrev($orderProduct['shipping_amount']), 3);
-                                $shipping_tbl = strrev(implode(" ", $shipping_array_tbl));
-                                $shipping_tbl = $shipping_tbl.",00";
-                            @endphp
-                            {{$shipping_tbl}} kr
-                       <?php /*  {{ number_format($orderProduct['shipping_amount'],2)}} kr */ ?></p></td>
-                        <td class="col-sm-2 col-md-2 text-right bg-white">
-                            <p  class="product_sorting_filter_option p-l-8">
-                                @php 
-                                    $amt_total =(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount']); $total_price_tbl = swedishCurrencyFormat($amt_total);
-
-                                @endphp
-                               {{ $total_price_tbl }} kr
-                               
-                                <?php /*
-                                  //$total_tbl = str_split(strrev($amt_total), 3);
-                                    //$total_price_tbl = strrev(implode(" ", $total_tbl));
-                                   // $total_price_tbl = $total_price_tbl.",00";
-                                {{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr */ ?>
-                            </p>
-                        </td>
-                        <td class="col-sm-1 col-md-1 text-right bg-white">
-                        <a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i></button>
-                        <!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('{{ $orderProduct['id'] }}')">
-                            <span class="glyphicon glyphicon-remove"></span> Remove
-                        </button> -->
-                      </td>
-                    </tr>
-                    @php $inc++; @endphp
+										@endphp
+									   {{ $total_price_tbl }} kr
+									   
+										<?php /*
+										  //$total_tbl = str_split(strrev($amt_total), 3);
+											//$total_price_tbl = strrev(implode(" ", $total_tbl));
+										   // $total_price_tbl = $total_price_tbl.",00";
+										{{ number_format(($orderProduct['price'] * $orderProduct['quantity']) + $orderProduct['shipping_amount'],2)}} kr */ ?>
+									</p>
+									</div>
+									<div class="tj-cart-action text-right">
+										<a href="javascript:void(0);" style="color:red;" onclick="removeCartProduct('{{ $orderProduct['id'] }}')" title="Remove"><i class="fas fa-trash"></i>
+											<!-- <button type="button" class="btn btn-danger" onclick="removeCartProduct('435')">
+												<span class="glyphicon glyphicon-remove"></span> Remove
+											</button> -->
+										  </a>
+									</div>
+								</div>
+							</div>
+						</div>
+						@php $inc++; @endphp
                   @endforeach
-                    <tr class="ttl-sec">
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="bg-white bbvbvb"><h5  class="product_sorting_filter_option p-l-8">{{ __('lang.shopping_cart_subtotal')}}</h5></td>
-                        <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
-                            @php 
+		
+				 <div class="tj-cart-total-section">
+					<div class="tj-cart-total-row">
+						<span class="tj-cart-total-caption">{{ __('lang.shopping_cart_subtotal')}}</span>
+						<span class="tj-cart-total-value"> @php 
                                 $subTotal = swedishCurrencyFormat($tmpOrderProduct['subTotal']);
                             @endphp
-                            {{ $subTotal }} kr
-                        <?php /* $price_subTotal_array = str_split(strrev($tmpOrderProduct['subTotal']), 3);
-                                $subTotal = strrev(implode(" ", $price_subTotal_array));
-                                $subTotal = $subTotal.",00";
-                                {{number_format($tmpOrderProduct['subTotal'],2)}} kr */?></h5></td>
-						<td class="bg-white">   </td>
-                    </tr>
-                    <tr>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank" >   </td>
-                        <td class="table_blank">   </td>
-                        <td class="bg-white"><h5 class="product_sorting_filter_option p-l-8">{{ __('lang.shopping_cart_shipping')}}</h5></td>
-                        <td class="text-right bg-white"><h5 class="product_sorting_filter_option">
-
-                             @php  
+                            {{ $subTotal }} kr</span>
+					</div>
+					<div class="tj-cart-total-row">
+						<span class="tj-cart-total-caption">{{ __('lang.shopping_cart_shipping')}}</span>
+						<span class="tj-cart-total-value"> @php  
                                 $price_shipping_array = str_split(strrev($tmpOrderProduct['shippingTotal']), 3);
                                 $shippingTotal = strrev(implode(" ", $price_shipping_array));
                                 $shippingTotal = $shippingTotal.",00";
                             @endphp
-                            {{$shippingTotal}} kr
-                            <?php /* {{number_format($tmpOrderProduct['shippingTotal'],2)}} kr */?></h5></td>
-						<td class="bg-white">   </td>
-                    </tr>
-                    <tr>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="bg-white"><h4 class="cart_total_css p-l-8">{{ __('lang.shopping_cart_total')}}</h4></td>
-                        <td class="text-right bg-white"><h4 class="cart_total_css ">
-                            @php 
+                            {{$shippingTotal}} kr</span>
+					</div>
+					<div class="tj-cart-total-row">
+						<span class="tj-cart-total-caption">{{ __('lang.shopping_cart_total')}}</span>
+						<span class="tj-cart-total-value">@php 
                                 $price_nice = swedishCurrencyFormat($tmpOrderProduct['Total']);
                             @endphp
-                        {{ $price_nice }} kr</h4></td>
-                        <?php /*$price_array = str_split(strrev($tmpOrderProduct['Total']), 3);
-                                $price_nice = strrev(implode(" ", $price_array));
-                                $price_nice = $price_nice.",00";
-                                {{number_format($tmpOrderProduct['Total'],2)}} kr */?>
-						<td class="bg-white">   </td>
-                    </tr>
-                    <tr>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td class="table_blank">   </td>
-                        <td>
-                        <button type="button" class="btn buy_now_btn debg_color" style="font-size:18px;" @if($tmpOrderProduct['is_buyer_product']) onclick="location.href='{{route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])}}'" @else  onclick="location.href='{{route('frontShowPaymentOptions', ['id' => base64_encode($orderId)])}}'" @endif>
-                        {{ __('lang.shopping_cart_checkout')}} <span class="glyphicon glyphicon-play"></span>
-                        </button></td>
-						<td>   </td>
-                    </tr>
-                    <tr><td colspan="6" style="border:none;line-height:60px;">&nbsp;</td></tr>
-                    @endif
+                        {{ $price_nice }} kr</span>
+					</div>
+				</div>
+
+				<div class="tj-cart-button">
+					<button type="button" class="buy_now_btn" @if($tmpOrderProduct['is_buyer_product']) onclick="location.href='{{route('frontShowBuyerCheckout' , ['id' => base64_encode($orderId)])}}'" @else  onclick="location.href='{{route('frontShowPaymentOptions', ['id' => base64_encode($orderId)])}}'" @endif>{{ __('lang.shopping_cart_checkout')}} <span class="glyphicon glyphicon-play"></span></button>
+				</div>
+				 @endif
                     @endforeach
                     @else
-                    <tr>
-                        <td colspan="6">{{ __('lang.shopping_cart_no_records')}} <a href="{{route('frontHome')}}">{{ __('lang.shopping_cart_continue')}}</a></td>
-                    </tr>
-                    @endif
-                </tbody>
-            </table>
+						{{ __('lang.shopping_cart_no_records')}} <a href="{{route('frontHome')}}">{{ __('lang.shopping_cart_continue')}}</a>
+					
+					 @endif
+                
+            
         </div>
     </div>
 </div>

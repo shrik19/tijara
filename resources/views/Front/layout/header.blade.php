@@ -368,7 +368,7 @@
             ?>
             @if(!empty($Categories[$CategoryId]['subcategory']))
             <?php $current_path = explode("/",request()->path()); ?>
-            <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="">{{$Category['category_name']}}</a>
+            <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="">{{$Category['category_name']}}</a><a href="#" class="tj-menuicon"><i class="fas fa-arrow-down"></i></a>
               <?php /*
               <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
                 @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
@@ -423,6 +423,11 @@
             var val = e.value; // get the value. 
             localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override . 
         }
+
+    $('.tj-menuicon').on('click', function(){    
+      $(this).next('ul').toggleClass('active');
+      return false
+    });
   </script>
 
  

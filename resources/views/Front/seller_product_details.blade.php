@@ -83,11 +83,9 @@
                           <div class="quantity_box"> 
                           <h4 class="service_store_name"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>             
                             @if(!empty($first['discount_price']))<span class="product_original_price" id="product_variant_price"><span > @php $discount_price_tbl = swedishCurrencyFormat($first['discount_price']); @endphp {{ $discount_price_tbl }} kr </span>@endif
-							<span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @else margin-left: 10px; @endif">
-                            @php 
+							<span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @else margin-left: 10px; @endif">@php 
                              $price_tbl = swedishCurrencyFormat($first['price']);
-                            @endphp
-                            {{ $price_tbl }} kr</span>
+                            @endphp {{ $price_tbl }} kr</span>
                             
 
                           <?php /*   <span>@if(!empty($Product->discount)) &nbsp;&nbsp;<?php echo "(".$Product->discount."% off)"; ?> @endif</span> */?>

@@ -136,10 +136,11 @@
 										  </a>
 									</div>
 								</div>
-							</div>
+							
 						
 						@php $inc++; @endphp
                   @endforeach
+				  </div>
 		</div>
 				 <div class="tj-cart-total-section">
 					<div class="tj-cart-total-row">

@@ -13,7 +13,6 @@ if(strpos(@$path, 'services') != false){
             $iconSize = 'font-size: 13px !important';
           }
 @endphp
-
 <li class="{{$class}}">
 
   <div class="product_data services-data" service_link="{{$service->service_link}}" >
@@ -109,7 +108,6 @@ if(strpos(@$path, 'services') != false){
       @endif
     </div>
   </div>
-</li>
 <script type="text/javascript">
   $(".services-data").click(function(){
     var attr_val = $(this).attr('service_link');
@@ -118,3 +116,4 @@ if(strpos(@$path, 'services') != false){
     }
   });
 </script>
+</li>

@@ -11,7 +11,7 @@ if(strpos(@$path, 'annonser') !== false){
 $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product->product_code;
 @endphp
 
-<li class="{{$class}}">
+  <li class="{{$class}}">
 
   <div class="product_data product_link_js" product_link="@if(!empty($product_link)){{$product_link}}@else{{$order_product_link}}@endif" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
     <div class="product_img" style="display:inline-block;background-color: white;">
@@ -33,8 +33,8 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $seller_name);
           $seller_name = str_replace(" ", '-', $seller_name);
           $seller_name = strtolower($seller_name);
-		  
-		  $store_name = $product->store_name;
+      
+      $store_name = $product->store_name;
           $store_name = str_replace( array( '\'', '"', 
           ',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
           $store_name = str_replace(" ", '-', $store_name);
@@ -141,10 +141,9 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
         <!-- <a href="javascript:void(0);" onclick="addToCart('{{$product->variant_id}}');"><i class="glyphicon glyphicon-shopping-cart"></i></a> -->
     </div>
   </div>
-</li>
 <style>
 .hideRatings .star-rating {
-	display:none;
+  display:none;
 }
 </style>
 <script type="text/javascript">
@@ -155,3 +154,4 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
   }
 });
 </script>
+</li>

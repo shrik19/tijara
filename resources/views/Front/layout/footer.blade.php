@@ -14,6 +14,7 @@
         <div class="row">
 
         <div class="col-md-3">
+          <div class="tj-footer-logo">
           
           @if(!empty($siteDetails->footer_logo))
             <img class="footer_logo"  src="{{url('/')}}/uploads/Images/{{$siteDetails->footer_logo}}"     height="50px" />
@@ -29,6 +30,7 @@
               <li><a target="_blank" href="{{env('INSTAGRAM_LINK')}}"><img src="{{url('/')}}/assets/img/instagram_1.png"/></a></li>
               <li><a target="_blank" href="{{env('LINKDIN_LINK')}}"><img src="{{url('/')}}/assets/img/link_1.png"/></a></li>
             </ul>
+            </div>
         </div>
         @php
           $allPages   = getCustomPages();
@@ -36,7 +38,7 @@
           $getHowToSellPage = getHowToSellPage();
         //  echo "<pre>";print_r($getHowToSellPage);exit;
         @endphp
-		<div class="col-md-2">
+		<div class="col-md-2 col-xs-6">
 			<div class="ft_page_links footer-pa">
 				<h3>{{ __('users.footer_sell_label')}}</h3>
 				<ul>
@@ -63,7 +65,7 @@
 				</ul>
 			</div>
 		</div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-xs-6">
           <div class="ft_page_links footer-pa">
           <h3>{{ __('lang.about_tijara_label')}}</h3>
           @if(!empty($allPages))
@@ -93,7 +95,7 @@
           @endif
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 col-xs-6">
         <div class="ft_page_links footer-pa">
         <h3>{{ __('lang.customer_service_label')}}</h3>
         <ul>
@@ -123,7 +125,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 col-xs-12">
       <div class="ft_page_links footer-pa">
         <h3>{{ __('lang.join_our_newsletter_now_label')}}</h3>
         <p>{{ __('lang.get_e-mail_updates_label')}}</p>

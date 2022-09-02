@@ -227,7 +227,13 @@
 .tj-store-top {
     margin-bottom: 20px;
 }
+.nav > li > a.tj-menuicon {
+	display: none; 
+}
 @media(min-width:992px){
+	.service_page .product_details li {
+	    width: 22.5% !important;
+	}
   .col-md-2.tijara-sidebar {
       width: 20%;
   }
@@ -239,6 +245,9 @@
     margin-right: 0;
     padding: 0 15px;
   }
+  .tjbestseller.product_details.best_seller li {
+    width: 18% !important;
+	}
 }
 @media(max-width:1199px){
   .nav > li{
@@ -830,6 +839,12 @@
   .tj-personal-action .btn {
     display: inline-block;
   }
+  	.product_details li:nth-of-type(5n) {
+    	margin-right: 1.25%;
+	}
+  	.product_details li:nth-of-type(3n) {
+    	margin-right: 0%;
+	}
 }
 
 @media(max-width:767px){
@@ -1635,4 +1650,80 @@
   .row.tijara-content.tjpa #tjfilter {
     top: 0;
   }
+  .form-group.search_now_input_box {
+    z-index: 1111;
+  }
+  	.tj-footer-logo {
+    	text-align: center;
+	}
+	.tj-footer-logo .social_icon li {
+	    float: none;
+	    display: inline-block;
+	}
+	.tj-footer-logo .social_icon {
+	    padding-top: 10px;
+	}
+	.tj-detail-imgs {
+	    display: flex;
+	    flex-direction: column;
+	}
+	.tj-detail-imgs .small-img {
+	    order: 3;
+	    width: 100%;
+	}
+	.tj-detail-imgs .show-custom.product_custom_img {
+	    order: 2;
+	    padding-bottom: 0;
+	}
+	.tj-detail-imgs .small-img .small-container {
+	    position: static;
+	    width: 100%;
+	    margin-top:10px;
+	}
+	.tj-detail-imgs .small-img .small-container div {
+	    width: 100%;
+	    height: auto;
+	}
+	.tj-detail-imgs .small-img .small-container div img {
+	    display: inline-block;
+	}
+	.tj-detail-imgs .show-custom.product_custom_img img#show-img {
+	    position: static;
+	}
+	.product_wish_icon {
+	    height: auto;
+	}
+	.product_details.best_seller  .slick-slide li {
+	    width: 100% !important;
+	    margin: 0;
+	}
+	.tjbestseller .slick-slide {
+	    margin: 0 3px;
+	}
+	.nav > li > a.tj-menuicon {
+	    position: absolute;
+	    display: block;
+	    right: 0;
+	    top: 7px;
+	    background: white;
+	    width: 34px;
+	    height: 34px;
+	    line-height: 34px;
+	    color: #03989e;
+	    text-align: center;
+	    padding: 0;
+	    border-radius: 0;
+	}
+	.nav ul {
+	    position: static;
+	    max-height: 0;
+	    overflow: hidden;
+	    transition: all 0.3s ease-in-out;
+	}
+	.nav ul.active {
+	    max-height: 1000px;
+	}
+	.product_details li:nth-of-type(3n) {
+	    margin-right: 1%;
+	}
 }

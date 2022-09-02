@@ -4,13 +4,16 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/icheck-bootstrap.min.css">
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/slick.min.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/slick-theme.min.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
+<script src="{{url('/')}}/assets/front/js/slick.min.js"></script>
 
 <section class="product_details_section p_155">
     <div class="loader"></div>
     <div class="container-fluid">
         <div class="row container-inner-section">
-            <div class="col-md-6">
+            <div class="col-md-6 tj-detail-imgs">
               <!-- Primary carousel image -->
 			 
               @if(!empty($variantData))
@@ -394,7 +397,7 @@
         <div class="row">
             <div class="best_seller_container col-md-12 product_container-list-5">
                 <h2  class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
-                <ul class="product_details best_seller pl-0">
+                <ul class="product_details best_seller pl-0 tjbestseller">
 
                 @foreach($PopularProducts as $key=>$product)
                  @php if($key>4){continue;}@endphp
@@ -1149,6 +1152,18 @@ function showAvailableOptionsPrice(price)
     }
     return s.join(dec);
 }
+}
+if($(window).width() < 767){
+  if(jQuery('.tjbestseller').length){
+    jQuery('.tjbestseller').slick({
+      speed: 250,
+      arrows: false,
+      autoplay: false,
+      slidesToShow: 2,
+      slidesToScroll: 1,
+      dots: false
+    });
+  }
 }
 </script>
 @endsection

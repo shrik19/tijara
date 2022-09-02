@@ -3,6 +3,9 @@
 
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/fontawesome-stars.css">
 <script src="{{url('/')}}/assets/front/js/jquery.barrating.min.js"></script>
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/slick.min.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/slick-theme.min.css">
+<script src="{{url('/')}}/assets/front/js/slick.min.js"></script>
 
  <!-- Carousel Default -->
 <section class="product_section p_155">
@@ -115,13 +118,13 @@
                 <!-- <h3>{{ __('lang.popular_items_in_market_head')}}</h3> -->
 				
                 <h2 class="other_watched_products">{{ __('users.other_watched_product')}}</h2>
-                <ul class="product_details best_seller pl-0" id="other_watched_products">
+                <ul class="product_details best_seller pl-0 tjbestseller" id="other_watched_products">
         					@foreach($PopularProducts as $product)
                             @include('Front.products_widget')
         					@endforeach
         				 </ul>
 
-                 <ul class="product_details best_seller pl-0" id="other_watched_services" style="margin-left:4px;display: none;">                 
+                 <ul class="product_details best_seller pl-0 tjbestseller" id="other_watched_services" style="margin-left:4px;display: none;">                 
                   @foreach($PopularServices as $service)
                     @include('Front.services_widget')
                   @endforeach
@@ -324,6 +327,17 @@ function selectSellers()
     getListing();
 
 }
-
+if($(window).width() < 767){
+  if(jQuery('.tjbestseller').length){
+    jQuery('.tjbestseller').slick({
+      speed: 250,
+      arrows: false,
+      autoplay: false,
+      slidesToShow: 2,
+      slidesToScroll: 1,
+      dots: false
+    });
+  }
+}
 </script>
 @endsection

@@ -276,7 +276,7 @@
                      <a class="btn add_to_cart_btn" @if(Auth::guard('user')->id()) onclick="addtoCartFromProduct();" @else href="{{ route('frontLogin') }}" @endif {{$btn_disabled}}> {{ __('lang.add_to_cart')}}<i class="glyphicon glyphicon-shopping-cart cart_icon"></i></a>
                   </div>
                   <!--<p class="productStockOut" style="{{$outOfStock}}">{{ __('messages.product_out_stock') }}</p> commented to make out of stock mes same -priyanka 01-july-->
-				  <p class="productStockOut" style="{{$outOfStock}}">@php echo trans('errors.quantity_err').$first['quantity'].')'; @endphp</p>
+				  <p class="productStockOut" style="{{$outOfStock}}">@php echo trans('errors.quantity_err'); @endphp</p>
                 </div>
 
             </div>

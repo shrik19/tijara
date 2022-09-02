@@ -301,7 +301,7 @@
     'buyer_profile_update_title' =>'Min profil',
     'location_label' => 'Ort',
     'select_profile_picture' =>'Välj profilbild',
-    'my_order_title' => 'beställningar',
+    'my_order_title' => 'Beställningar',
     'my_booking_title' => 'Mina bokningar',
     'verify_store' => 'Kontrollera Store',
     'cancel_service' => 'Avboka',

@@ -29,7 +29,7 @@
      'required_field_error'=>'Detta fält krävs',
      'max_1000_char'=>'Maximalt 1000 tecken är tillåtna',
      /*product*/
-     'your_products_label'=>'produkter',
+     'your_products_label'=>'Produkter',
      'add_product'=>'Lägg till produkt',
      'manage_services_menu'=>'Tjänster',
      'attribute_saved'=>'Attributgruppen har sparats',

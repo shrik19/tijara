@@ -33,7 +33,7 @@
 <div class="container-fluid p-0">
     <div class="row">
         <div class="col-sm-12 col-md-12 p-m-0 pl-0">
-		<div class="tj-cart">
+		
 			 @if(!empty($details))
                   @foreach($details as $orderId => $tmpOrderProduct)
                   @if(!empty($tmpOrderProduct))
@@ -41,6 +41,7 @@
                     @foreach($tmpOrderProduct['details'] as $orderProduct)
 						
 							@if($inc==1)
+							<div class="tj-cart">
 							<div class="tj-cart-left">
 								<span class="tj-colhead">{{ __('users.butik_btn')}}</span> 
 								<div class="cart-store-sec bg-white">

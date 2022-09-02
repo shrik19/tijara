@@ -70,7 +70,7 @@
      'attribute_saved_success'=>'Attributet har sparats',
      'attribute_value_label'=>'Värde',
      'variant'=>'variant',
-     'add_attribute'=>'Lägg till ny attribut',
+     'add_attribute'=>'Attribut',
      'product_variant_title'=>'Variant Produktinformation',
      'product_required_error'=>'Vänligen ange produkttitel',
      'product_saved_success'=>'Produkten har sparats!',

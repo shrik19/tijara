@@ -55,7 +55,7 @@
 									</div>
 								</div>
 							</div>
-							@endif
+							
 							<div class="tj-cart-right">
 								<div class="tj-cart-row tj-cart-row-head">
 									<div class="tj-cart-product"><span class="tj-colhead">{{ __('lang.shopping_cart_product')}}</span></div>
@@ -65,6 +65,7 @@
 									<div class="tj-cart-total text-right"><span class="tj-colhead">{{ __('lang.shopping_cart_total')}}</span></div>
 									<div class="tj-cart-action text-right"></div>
 								</div>
+								@endif
 								<div class="tj-cart-row">
 									<div class="tj-cart-product">
 										<div class="media">

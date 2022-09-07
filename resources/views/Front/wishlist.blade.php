@@ -65,10 +65,10 @@
                                 @endphp
                                {{ $total_price_tbl }} kr
                             </td></h4></td>
-                            <td class="col-sm-1 col-md-1 text-right">
+                            <td class="col-sm-1 col-md-1 text-right tj-wishlist-icons">
                             <a href="javascript:void(0);" class="" style="color:#05999F;" 
                             onclick="addToCartWishlist('{{ $orderProduct['variant_id'] }}')"
-                             title="Add"><i class="glyphicon glyphicon-shopping-cart"></i></a>&nbsp;&nbsp;
+                             title="Add"><i class="glyphicon glyphicon-shopping-cart"></i></a>
                             <a href="javascript:void(0);" class="" style="color:red;" 
                             onclick="removeWishlistProduct('{{ $orderProduct['id'] }}')" 
                             title="Remove"><i class="fas fa-trash"></i></a>

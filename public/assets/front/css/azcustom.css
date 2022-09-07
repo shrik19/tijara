@@ -524,7 +524,10 @@
     width: 100%;
   }
 }
-@media(max-width:991px){  
+@media(max-width:991px){ 
+	.nav>li>a:hover, .nav>li>a:focus{
+		background: transparent !important;
+	} 
   .row.tj-filter-sec {
     padding: 0;
     margin: 0;
@@ -553,23 +556,27 @@
   }
   #tjfilter{
     padding:20px;
+    overflow: scroll;
+    height: 80vh;
   }
-
+  body.sidebarActive {
+    overflow: hidden;
+	}
   .tj-filter-toggle-btn {
     display: block;
   }
   #tjfilter {
-    display:none;
     position: absolute;
     width: 85%;
     background: white;
     z-index: 111;
-    left: 0;
+    left: -100%;
     padding: 20px;
     top: 155px;
+    transition: all 0.3s ease-in-out;
   }
   #tjfilter.collapse.in{
-    display: block;
+    	left: 0%;
   }
 
   .tj-filter-toggle-btn img {
@@ -855,8 +862,8 @@
 	    flex-wrap: wrap;
 	}
 	.instagram_imgs li {
-	    width: 31%;
-	    margin: 10px 1% 10px !important;
+	    width: 49.4%;
+   		margin: 10px 0.3% 10px !important;
 	    height: auto;
 	    padding: 0;
 	    display: flex;
@@ -875,6 +882,27 @@
 	    width: 35px !important;
 	    height: 35px !important;
 	    text-align: center;
+	}
+	.buy_now_hover_details {
+	    display: block;
+	    opacity: 1;
+	    height: auto;
+	    width: auto;
+	    right: 0;
+	    top: 0;
+	    left: auto;
+	    background: transparent;
+	}
+	.buy_now_hover_details li {
+	    float: none !important;
+	    position: static !important;
+	    width: 40px !important;
+	    height: 40px !important;
+	    background: transparent;
+	}
+	.buy_now_hover_details ul {
+	    width: 100%;
+	    position: static !important;
 	}
 }
 
@@ -971,6 +999,7 @@
   }
   .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
     max-height: 80vh;
+    padding-bottom: 60px;
   }
   .go_to_tijara_ads_btn_top {
     display: block;
@@ -1245,7 +1274,7 @@
   .report_product_div {
     text-align: right;
     position: absolute;
-    right: 0;
+    right: 15px;
     bottom: 0;
   }
   .product_details_info h2 {
@@ -1736,11 +1765,11 @@
 	    display: block;
 	    right: 0;
         top: 10px;
-	    background: white;
+	    background: transparent;
 	    width: 26px;
 	    height: 26px;
 	    line-height: 26px;
-	    color: #03989e;
+	    color: #fff;
 	    text-align: center;
 	    padding: 0;
 	    border-radius: 0;
@@ -1756,5 +1785,84 @@
 	}
 	.product_details li:nth-of-type(3n) {
 	    margin-right: 1%;
+	}
+	.tj-topicons ul.dropdown-menu {
+	    z-index: 1111;
+	    top: 35px;
+	}
+	.navbar-toggler:not(.collapsed) i.fas.fa-bars:before, .navbar-toggler:not(.collapsed) i.fas.fa-bars:after {
+	    content: '';
+	    width: 100%;
+	    display: block;
+	    height: 4px;
+	    background: #03989e;
+	    border-radius: 6px;
+	    transform: rotate(45deg);
+	    -webkit-transform: rotate(45deg);
+	    -moz-transform: rotate(45deg);
+	    position: absolute;
+	    top: 60%;
+	    left: 0;
+	}
+	.navbar-toggler:not(.collapsed) i.fas.fa-bars {
+	    display: block;
+	    width: 40px;
+	    height: 40px;
+	    position: relative;
+	}
+	.navbar-toggler:not(.collapsed) i.fas.fa-bars:after {
+	    transform: rotate(-45deg);
+	    -webkit-transform: rotate(-45deg);
+	    -moz-transform: rotate(-45deg);
+	}
+	.wishlist-table .product_sorting_filter_option{
+		font-size: 12px;
+	}
+	.wishlist-table .cart_total_css{
+		font-size: 12px;
+	}
+	.tj-wishlist-icons a {
+	    display: block;
+	    clear: right;
+	    width: 20px;
+	    margin: 0 0 5px 5px;
+	}
+	.nav a {
+	    display: block;
+	    background: transparent;
+	    font-size: 14px;
+	    color:white;
+	    padding: 3px 8px 15px;
+	}
+	.nav > li:hover > ul {
+	    left: auto;
+	    margin-top: 0;
+	}
+	.col-md-3.col-annonser-sidebar {
+	    margin-top: 0;
+	}
+	ul.product_details:before, ul.product_details:after {
+	    content: '';
+	    display: table;
+	    width: 100%;
+	}
+	.product_details li {
+	    display: none;
+	}
+	.product_details li:nth-of-type(1), .product_details li:nth-of-type(2), .product_details li:nth-of-type(3), .product_details li:nth-of-type(4){
+	    display:block;
+	}
+	.btn.sub_btn.tj-loadmore {
+	    margin: 0;
+	    display: inline-block !important;
+	}
+	.tijara_front_box .slick-list{padding:0 20% 0 0 !important;}
+	.tijara_front_read_more {
+        margin-top: 10px;
+	}
+	.go_to_tijara_ads_btn_top {
+	    position: absolute;
+	    bottom: 0;
+	    width: 100%;
 	}
 }

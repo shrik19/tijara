@@ -68,10 +68,12 @@
                     </div>
                     <!-- <hr class="heading_line"/> -->
                     <ul class="product_details pl-0">
-					@foreach($PopularProducts as $product)
-                        @include('Front.products_widget')
-						@endforeach
-                       </ul>
+                      @foreach($PopularProducts as $product)
+                      @include('Front.products_widget')
+                      @endforeach
+                    </ul>
+
+                    <div class="text-center"><a href="{{url('/')}}/products" class="btn sub_btn tj-loadmore login_btn visible-xs">{{ __('users.see_all_products')}}</a></div>
                 </div>
         </div>
     </div>
@@ -146,6 +148,11 @@
                         @include('Front.services_widget')
                     @endforeach
                     </ul>
+
+
+                    <div class="text-center">
+                      <a href="{{url('/')}}/services" class="btn sub_btn tj-loadmore login_btn visible-xs">{{ __('users.see_all_services')}}</a>
+                    </div>
                 </div>
         </div>
         </div>
@@ -169,7 +176,7 @@
         <div class="loader"></div>
           <div class="tj-prodhead-block">
             <h2 class="product_heading">{{ __('lang.feature_product_head')}}</h2>
-            <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a>
+            <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn hidden-xs">{{ __('users.go_to_announse_page')}}</a>
           </div>
             <!-- <hr class="heading_line"/> -->
             <ul class="product_details pl-0">
@@ -177,6 +184,8 @@
                 @include('Front.featured_product')
             @endforeach
             </ul>
+            <div class="text-center visible-xs"><a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm login_btn go_to_tijara_ads_btn">{{ __('users.go_to_announse_page')}}</a></div>
+            
         </div>
 </div>
     </div>
@@ -547,35 +556,47 @@ $(".service_rating").each(function(){
     feed.run();
 
     $('.logo-slider').slick({
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    dots: false,
-    arrows: true,
-    autoplay: false,
-    autoplaySpeed: 2000,
-    infinite: true,
-    // prevArrow:"<button type='button' class='slick-prev pull-left'>left</button>",
-    //         nextArrow:"<button type='button' class='slick-next pull-right'>Right</button>",
-    responsive: [
-        {
-          breakpoint: 1100,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            adaptiveHeight: true,
-            arrows: false,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      dots: false,
+      arrows: true,
+      autoplay: false,
+      autoplaySpeed: 2000,
+      infinite: true,
+      // prevArrow:"<button type='button' class='slick-prev pull-left'>left</button>",
+      //         nextArrow:"<button type='button' class='slick-next pull-right'>Right</button>",
+      responsive: [
+          {
+            breakpoint: 1100,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              adaptiveHeight: true,
+              arrows: false,
+            },
           },
-        },
-        {
-          breakpoint: 800,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            arrows: false,
+          {
+            breakpoint: 800,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              arrows: false,
+            },
           },
-        },
-      ],
-  });
+        ],
+    });
+
+    if($(window).width() < 767){
+      $('.tijara_front_box').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: false,
+        arrows: false,
+        autoplay: false,
+        autoplaySpeed: 2000,
+        infinite: true
+      });      
+    }
 
   $('.left').click(function(){
   $('.slider').slick('slickPrev');
@@ -584,5 +605,39 @@ $(".service_rating").each(function(){
 $('.right').click(function(){
   $('.slider').slick('slickNext');
 })
+var winhigh = $(window).height();
+var tophigh = $('.tj-navbar').height();
+var colHigh = winhigh - tophigh;
+$('.navbar-toggler').on('click', function(){
+   $('.navbar-collapse').css('min-height', colHigh + 8); 
+});
+$('.navbar-toggler').on('click',function(){
+  $('body').toggleClass('sidebarActive');
+});
+
+var isMobile = {
+  Android: function() {
+      return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function() {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+  }
+};
+
+$('#carousel-default').carousel ({
+    interval: isMobile.any() ? false : 5000
+});
 </script>
 @endsection

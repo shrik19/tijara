@@ -352,7 +352,7 @@
 <nav class="navbar sticky-top navbar-expand-lg bg-dark product_view mo_view_menu">
   <div class="container-fluid">    
     <div class="product_view">
-      <button class="navbar-toggler toggle_btn navbar-fixed-top" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+      <button class="navbar-toggler toggle_btn navbar-fixed-top collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav mainMenu pull-left"> 
           <!-- <span>( @php count($Categories) @endphp)</span> -->
@@ -368,7 +368,7 @@
             ?>
             @if(!empty($Categories[$CategoryId]['subcategory']))
             <?php $current_path = explode("/",request()->path()); ?>
-            <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="">{{$Category['category_name']}}</a><a href="#" class="tj-menuicon"><i class="fas fa-arrow-down"></i></a>
+            <li class="main-menu-item-<?php echo $i; ?> "><a href="{{url('/')}}/products/{{ $Category['category_slug'] }}" class="">{{$Category['category_name']}}</a><a href="#" class="tj-menuicon"><i class="fas fa-plus"></i></a>
               <?php /*
               <ul id="menu-<?php echo $i; ?>-sub-item" class="submenu_list" >
                 @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)

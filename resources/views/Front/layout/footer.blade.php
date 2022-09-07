@@ -163,6 +163,17 @@
 <script>
   var siteUrl = "{{url('/')}}";
   $(document).ready(function() {
+    $('.tj-filter-toggle-btn').on('click',function(){
+      $('body').addClass('sidebarActive');
+    });
+    $('.tj-closebutton').on('click',function(){
+      $('body').removeClass('sidebarActive');
+    });
+    $('.seller_cat_list li a').on('click',function(){
+      $('body').removeClass('sidebarActive');
+      $('#tjfilter').removeClass('in');
+    });
+
     if($('#description').length>0)
     $('#description').richText();
   });

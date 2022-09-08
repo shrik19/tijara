@@ -600,19 +600,6 @@ $(".service_rating").each(function(){
 
   $('.left').click(function(){
   $('.slider').slick('slickPrev');
-})
-
-$('.right').click(function(){
-  $('.slider').slick('slickNext');
-})
-var winhigh = $(window).height();
-var tophigh = $('.tj-navbar').height();
-var colHigh = winhigh - tophigh;
-$('.navbar-toggler').on('click', function(){
-   $('.navbar-collapse').css('min-height', colHigh + 8); 
-});
-$('.navbar-toggler').on('click',function(){
-  $('body').toggleClass('sidebarActive');
 });
 
 var isMobile = {

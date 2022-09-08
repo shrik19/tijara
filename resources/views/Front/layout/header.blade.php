@@ -428,6 +428,18 @@
       $(this).next('ul').toggleClass('active');
       return false
     });
+
+
+
+  var winhigh = $(window).height();
+  var tophigh = $('.tj-navbar').height();
+  var colHigh = winhigh - tophigh;
+  $('.navbar-toggler').on('click', function(){
+     $('.navbar-collapse').css('min-height', colHigh - 55); 
+  });
+  $('.navbar-toggler').on('click',function(){
+    $('body').toggleClass('sidebarActive');
+  });
   </script>
 
  

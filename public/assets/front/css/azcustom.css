@@ -242,6 +242,9 @@
   .col-md-2.tijara-sidebar {
       width: 20%;
   }
+  .col-md-2.tijara-sidebar + .col-md-10 {
+    width: 80%;
+	}
   .col-md-10.tijara-content {
       width: 80%;
   }
@@ -662,7 +665,7 @@
     padding-bottom: 100%;
   }
   .product_service_list {
-    padding-left: 0;
+    padding-left: 0 !important;
   }
   .product_img_wrapper{
     width: 31% !important;
@@ -1068,7 +1071,10 @@
       height: 250px;
   }
   #sliderImages {
-      height: 250px;
+     height: 250px;
+    transform: translateX(10%);
+    -webkit-transform: translateX(10%);
+    -moz-transform: translateX(10%);
   }
   .slider_content h2 {
       margin: 0 0 8px;
@@ -1553,7 +1559,7 @@
 
   .tj-cart-product {
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: 0px;
   }
 
   .tj-cart-row.tj-cart-row-head {
@@ -1864,5 +1870,31 @@
 	    position: absolute;
 	    bottom: 0;
 	    width: 100%;
+	}
+	.tj-filter-sec .candy{
+		background: transparent !important;
+    	box-shadow: none;
+	}
+	.tj-filter-sec .candy .slide-button {
+	    display: none !important;
+	}
+	.jconfirm-content-pane h1 {
+	    font-size: 24px;
+	}
+	.productServicePopup .jconfirm-buttons button.btn.btn-default {
+	    font-size: 18px !important;
+	    margin: 10px 10px !important;
+	    width: 120px;
+	    height: 120px;
+	}
+	#instafeed img.img-fluid {
+	    height: 205px !important;
+	    object-fit: fill;
+	}
+	.slider_indicators{
+		display: none;
+	}
+	.tj-cart-qty select {
+	    width: 70px;
 	}
 }

@@ -82,6 +82,10 @@
 											<div class="media-body">
 												<h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->product_link}}">{{ $orderProduct['product']->title }}</a></h4>
 												 <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']);?> </h5>
+												 <p class="product_sorting_filter_option visible-xs"> @php                                 
+													$price_tbl = swedishCurrencyFormat($orderProduct['price']);
+													@endphp {{ $price_tbl }} kr
+												</p>
 											</div>
 										</div>									
 									</div>
@@ -99,13 +103,13 @@
 											<option value="10" @if($orderProduct['quantity'] == 10) selected="selected" @endif>10</option>
 										</select>
 									</div>
-									<div class="tj-cart-pris text-right">
+									<div class="tj-cart-pris text-right hidden-xs">
 										<p class="product_sorting_filter_option"> @php                                 
 											$price_tbl = swedishCurrencyFormat($orderProduct['price']);
 											@endphp {{ $price_tbl }} kr
 										</p>
 									</div>
-									<div class="tj-cart-frakt text-right">
+									<div class="tj-cart-frakt text-right hidden-xs">
 										<p class="product_sorting_filter_option"> @php 
 											$shipping_array_tbl = str_split(strrev($orderProduct['shipping_amount']), 3);
 											$shipping_tbl = strrev(implode(" ", $shipping_array_tbl));

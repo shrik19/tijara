@@ -62,7 +62,7 @@
                   @if(!empty($attributesValues) && count($attributesValues) !=0)
                   @foreach ($attributesValues as $key=>$values)
                   <div>
-                  <input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values_{{$values->id}}" required  value="{{ (old('attribute_values')) ?  old('attribute_values') : $values->attribute_values}}" style="width:80%;margin-top:25px;">
+                  <input type="text" placeholder="{{ __('lang.type_placeholder')}}" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values_{{$values->id}}" required  value="{{ (old('attribute_values')) ?  old('attribute_values') : $values->attribute_values}}" style="width:80%;margin-top:25px;">
                   <span class="invalid-feedback" id="err_fname" style="float:left;margin-left: 15px;margin-top:10px;"></span>
                   </div>
                   <input type="hidden" name="attribute_id[]" id="attribute_id_{{$key+1}}" value="{{ (old('id')) ?  old('id') : $values->id}}">
@@ -85,7 +85,7 @@
                 <div class="form-group">
                   <label class="product_table_heading">Attribute Values <span class="de_col">*</span></label>
                   <div class="field_wrapper">
-                  <input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:25px;">
+                  <input type="text"  placeholder="{{ __('lang.type_placeholder')}}" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:25px;">
                   <span class="invalid-feedback" id="err_fname" style="float:left;margin-left: 15px;margin-top:10px;"></span>
                   </div>
                 </div> 
@@ -113,13 +113,13 @@
 <script type="text/javascript">
   var addButton = $('.add_button'); //Add button selector
   var wrapper = $('.field_wrapper'); //Input field wrapper
-  var valueHTML = '<div class="form-group"><input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:25px;"><span class="invalid-feedback" id="err_fname" style="float:left;margin-left: 15px;margin-top:10px;"></span><a href="javascript:void(0);" class="btn btn-black gray_color login_btn remove_button" title="Remove Values"  style="float:right;margin-top:-35px;">X</a></div>'; //New input field html 
+  var valueHTML = '<div class="form-group"><input type="text" placeholder="Värde (ex Röd)" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:25px;"><span class="invalid-feedback" id="err_fname" style="float:left;margin-left: 15px;margin-top:10px;"></span><a href="javascript:void(0);" class="btn btn-black gray_color login_btn remove_button" title="Remove Values"  style="float:right;margin-top:-35px;">X</a></div>'; //New input field html 
 
   var x = 1; //Initial field counter is 1
   //Once add button is clicked
   $(document).on("click", ".add_button", function () {
   // $(addButton).click(function(){
-  var valueHTML = '<div><input type="text" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:37px;"><span class="invalid-feedback" id="err_att_val" style="float:left;margin-left: 15px;margin-top:10px;"></span><a href="javascript:void(0);" class="btn btn-black gray_color login_btn remove_button" title="Remove Values"  style="float:right;margin-top:-35px;"><span style="color:#fff;">X</span></a></div>'; //New input field html 
+  var valueHTML = '<div><input type="text" placeholder="Värde (ex Röd)" class="form-control login_input attribute_values" name="attribute_values[]" id="attribute_values" required  value="" style="width:80%;margin-top:37px;"><span class="invalid-feedback" id="err_att_val" style="float:left;margin-left: 15px;margin-top:10px;"></span><a href="javascript:void(0);" class="btn btn-black gray_color login_btn remove_button" title="Remove Values"  style="float:right;margin-top:-35px;"><span style="color:#fff;">X</span></a></div>'; //New input field html 
   x++; //Increment field counter
   $(wrapper).append(valueHTML); //Add field html
 

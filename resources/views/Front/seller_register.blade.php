@@ -279,7 +279,7 @@
                                             <!-- <label>{{ __('users.store_name_label')}}<span class="de_col">*</span></label> -->
                                             
                                             <input type="hidden" class="form-control login_input" name="verify_btn_click" id="verify_btn_click" value="">
-											<input type="text" class="form-control login_input alpha-only" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
+											<input type="text" maxlength="20" class="form-control login_input alpha-only" name="store_name" id="store_name" placeholder="{{ __('users.store_name_label')}} *">
 											<input type="button" name="check-store-unique" class="btn debg_color register_store_verify"onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" /> 
 
 										</div> <span class="invalid-feedback" id="err_store_name"></span>
@@ -750,8 +750,8 @@ $('#second-step').click(function(e) {
              //show next step
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
+            current_fs = $(this).parent().parent();
+            next_fs = $(this).parent().parent().next();
 			createCookie("tijara_register_current_step", 'seller_register_third', 20);
             //Add Class Active
             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -834,8 +834,8 @@ $('#third-step').click(function(e) {
 							//show next step
 							var current_fs, next_fs, previous_fs; //fieldsets
 							var opacity;
-							current_fs = $('#third-step').parent();
-							next_fs = $('#third-step').parent().next();
+							current_fs = $('#third-step').parent().parent();
+							next_fs = $('#third-step').parent().parent().next();
 
 							//Add Class Active
 							$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -1141,8 +1141,8 @@ $(".previous").click(function(){
 		current_fs = $(this).parent();
 		previous_fs = $(this).parent().prev();
 	}*/
-	current_fs = $(this).parent();
-	previous_fs = $(this).parent().prev();
+	current_fs = $(this).parent().parent();
+	previous_fs = $(this).parent().parent().prev();
 	//Remove class active
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 

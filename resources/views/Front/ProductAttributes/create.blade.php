@@ -38,7 +38,7 @@
             <div class="form-group col-md-12">
 
               <label class="product_table_heading">{{ __('lang.attribute_label')}} <span class="de_col">*</span></label>
-              <input type="text" class="form-control login_input" id="name" name="name" placeholder="{{ __('lang.attribute_label')}} " value="{{ old('name') }}" />
+              <input type="text" class="form-control login_input" id="name" name="name" placeholder="{{ __('lang.attribute_placeholder')}} " value="{{ old('name') }}" />
               <span class="invalid-feedback" id="err_fname">@if($errors->has('name')) {{ $errors->first('name') }}@endif </span>
             </div>
 

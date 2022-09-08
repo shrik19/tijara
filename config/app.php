@@ -236,6 +236,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+		'Carbon' => Illuminate\Support\Carbon::class,
         //'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ],
 

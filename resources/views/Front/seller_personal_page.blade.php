@@ -289,6 +289,7 @@ bannerInp.onchange = evt => {
     $('.banner_existing-images').css('display','block');
     previewBanner.src = URL.createObjectURL(file)
     createCookie("seller_banner_preview", URL.createObjectURL(file), 15);
+	console.log('seller_banner_preview');
   }
 }
 
@@ -299,6 +300,7 @@ logoInp.onchange = evt => {
     $('.existing-images').css('display','block');
     previewLogo.src = URL.createObjectURL(file)
     createCookie("seller_logo_preview", URL.createObjectURL(file), 15);
+	console.log('seller_logo_preview');
   }
 }
 

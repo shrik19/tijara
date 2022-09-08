@@ -1,6 +1,27 @@
 @extends('Front.layout.template')
 @section('middlecontent')
+<?php
+$days['Monday']	=	'måndag';
+$days['Tuesday']	=	'tisdag';
+$days['Wednesday']	=	'onsdag';
+$days['Thursday']	=	'torsdag';
+$days['Friday']	=	'fredag';
+$days['Saturday']	=	'lördag';
+$days['Sunday']	=	'söndag';
 
+$month['January']	=	'januari';
+$month['February']	=	'februari';
+$month['March']	=	'mars';
+$month['April']	=	'april';
+$month['May']	=	'maj';
+$month['June']	=	'juni';
+$month['July']	=	'juli';
+$month['August']	=	'augusti';
+$month['September']	=	'september';
+$month['October']	=	'oktober';
+$month['November']	=	'november';
+$month['December']	=	'december';
+?>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
 <div class="container-inner-section-1">
@@ -42,30 +63,54 @@
 			 <div class="col-md-6 ">
 			 
 				<div class="panel panel-default subscribe-packages package_width">
-				<div class="panel-heading bold package_heading {{ $active }}">Tijara Trial</div>
+				<div class="panel-heading bold package_heading {{ $active }}">Tijara rättegång</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="">
 					  	 <tr>
 					  		<td>{{ __('users.amount_label')}}</td>
-					  		<td> Free </td>
+					  		<td> Fri </td>
 					    </tr>
 					    <tr>
 					  		<td>{{ __('users.validity_label')}}</td>
-					  		<td>30 Days.</td>
+					  		<td>30 dagar.</td>
 					    </tr>
 				        <tr>
 					  		<td >{{ __('users.purchased_date_label')}}</td>
 					  		@if($row->trial_start_date >= date('Y-m-d H:i:s'))
-					  			<td>{{date('l, d F Y',strtotime($row->trial_start_date))}}</td>
+					  			<td>
+								<?php
+								$dt	=	date('l, d F Y',strtotime($row->trial_start_date));
+								$dateParts=explode(',',$dt);
+								$formattedDt=$days[$dateParts[0]].', '.$dateParts[1];
+								$dateParts=explode(' ',$formattedDt);
+								$formattedDt=$dateParts[0].' '.$dateParts[2].' '.$month[$dateParts[3]].' '.$dateParts[4];
+								echo $formattedDt;
+								?>
+								
+								</td>
 					  			
 					  		@else
-					  			<td>{{date('l, d F Y',strtotime($row->trial_start_date))}}</td>
+					  			<td><?php
+								$dt	=	date('l, d F Y',strtotime($row->trial_start_date));
+								$dateParts=explode(',',$dt);
+								$formattedDt=$days[$dateParts[0]].', '.$dateParts[1];
+								$dateParts=explode(' ',$formattedDt);
+								$formattedDt=$dateParts[0].' '.$dateParts[2].' '.$month[$dateParts[3]].' '.$dateParts[4];
+								echo $formattedDt;
+								?></td>
 					  		@endif
 					    </tr>
 					     <tr>
 					  		<td >{{ __('users.expiry_date_label')}}</td>
-					  		<td>{{date('l, d F Y',strtotime($row->trial_end_date))}}</td>
+					  		<td><?php
+								$dt	=	date('l, d F Y',strtotime($row->trial_end_date));
+								$dateParts=explode(',',$dt);
+								$formattedDt=$days[$dateParts[0]].', '.$dateParts[1];
+								$dateParts=explode(' ',$formattedDt);
+								$formattedDt=$dateParts[0].' '.$dateParts[2].' '.$month[$dateParts[3]].' '.$dateParts[4];
+								echo $formattedDt;
+								?></td>
 					    </tr>
 					  <!--   <tr>
 					    		<td><a href="javascript:void(0)" class="btn btn-success tj-btn-sucess"> {{ __('users.activated')}} </a></td>
@@ -105,6 +150,7 @@
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="">
+					  
 					  	<?php /* <tr>
 					  		<td class="bold">{{ __('users.description_label')}}</td>
 					  		<td><?php echo $row->description; ?></td>
@@ -116,20 +162,43 @@
 					    </tr>
 					    <tr>
 					  		<td>{{ __('users.validity_label')}}</td>
-					  		<td>{{$row->validity_days}} Days.</td>
+					  		<td>{{$row->validity_days}} dagar.</td>
 					    </tr>
 					    <tr>
 					  		<td >{{ __('users.purchased_date_label')}}</td>
 					  		@if($row->start_date >= date('Y-m-d H:i:s'))
-					  			<td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
+					  			<td><?php
+								$dt	=	date('l, d F Y',strtotime($row->start_date));
+								$dateParts=explode(',',$dt);
+								$formattedDt=$days[$dateParts[0]].', '.$dateParts[1]; 
+								$dateParts=explode(' ',$formattedDt);
+								$formattedDt=$dateParts[0].' '.$dateParts[2].' '.$month[$dateParts[3]].' '.$dateParts[4];
+								echo $formattedDt;
+								?>
+							
+							</td>
 					  			
 					  		@else
-					  			<td>{{date('l, d F Y',strtotime($row->start_date))}}</td>
+					  			<td><?php
+								$dt	=	date('l, d F Y',strtotime($row->start_date));
+								$dateParts=explode(',',$dt);
+								$formattedDt=$days[$dateParts[0]].', '.$dateParts[1];
+								$dateParts=explode(' ',$formattedDt);
+								$formattedDt=$dateParts[0].' '.$dateParts[2].' '.$month[$dateParts[3]].' '.$dateParts[4];
+								echo $formattedDt;
+								?></td>
 					  		@endif
 					    </tr>
 					    <tr>
 					  		<td >{{ __('users.expiry_date_label')}}</td>
-					  		<td>{{date('l, d F Y',strtotime($row->end_date))}}</td>
+					  		<td><?php
+								$dt	=	date('l, d F Y',strtotime($row->end_date));
+								$dateParts=explode(',',$dt);
+								$formattedDt=$days[$dateParts[0]].', '.$dateParts[1];
+								$dateParts=explode(' ',$formattedDt);
+								$formattedDt=$dateParts[0].' '.$dateParts[2].' '.$month[$dateParts[3]].' '.$dateParts[4];
+								echo $formattedDt;
+								?></td>
 					    </tr>
 					    <tr>
 					    	<td >{{ __('lang.status_label')}}</td>
@@ -186,7 +255,7 @@
 					    </tr>
 					    <tr>
 					  		<td>{{ __('users.validity_label')}}</td>
-					  		<td>{{$data['validity_days']}} Days.</td>
+					  		<td>{{$data['validity_days']}} dagar.</td>
 					    </tr>
 					  
 					    <tr>

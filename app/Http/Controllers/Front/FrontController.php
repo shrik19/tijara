@@ -1279,14 +1279,18 @@ public function getCatSubList(Request $request) {
 				
 				if(isset($_COOKIE['seller_banner_preview']) && $_COOKIE['seller_banner_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
 					$data['header_image']       = $_COOKIE['seller_banner_preview'];
+					
+					setcookie('seller_banner_preview', null, -1, '/'); 
 				}
 				else if(!empty($sellerImages['header_img']))
 				{
 					$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
+					
 				}
 
 				if(isset($_COOKIE['seller_logo_preview']) && $_COOKIE['seller_logo_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
 					$data['logo']       = $_COOKIE['seller_logo_preview'];
+					setcookie('seller_logo_preview', null, -1, '/'); 
 				}
 				else if(!empty($sellerImages['logo']))
 				{
@@ -1660,18 +1664,19 @@ public function getCatSubList(Request $request) {
 			
 		$tmpVariantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
-											 ->where([['product_id','=',$Product->id]])->get();	
+											 ->where([['product_id','=',$Product->id]])->orderBy('variant_product_attribute.id','ASC')->get();	
 		$arrProductallAtributes = [];
 		//dd($tmpVariantAttrs);
 		if(!empty($tmpVariantAttrs))
 		{
 			foreach($tmpVariantAttrs as $tmpattr)
 			{
+				//echo $tmpattr->attribute_value_id.'<br>';
 				$arrProductallAtributes[$tmpattr->attribute_id][$tmpattr->attribute_values][] = $tmpattr->variant_id.'|||'.$tmpattr->attribute_value_id;
 				
 			}
-		}	
-		//dd($arrProductallAtributes);
+		}//exit;	
+		///dd($arrProductallAtributes);
 		$tmpProductAttributes = [];
 		if(!empty($arrProductallAtributes))
 		{
@@ -1688,7 +1693,7 @@ public function getCatSubList(Request $request) {
 					{	$tmp = explode('|||',$data1);
 						$variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 													 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
-													 ->where([['variant_product_attribute.attribute_id','<>',$attr_id],['product_id','=',$Product->id],['variant_id','=',$tmp[0]]])->get();
+													 ->where([['variant_product_attribute.attribute_id','<>',$attr_id],['product_id','=',$Product->id],['variant_id','=',$tmp[0]]])->orderBy('variant_product_attribute.id','ASC')->get();
 						if(!empty($variantAttrs))
 						{
 							foreach($variantAttrs as $tmpattr)
@@ -1702,7 +1707,7 @@ public function getCatSubList(Request $request) {
 				$i++;
 			}
 		}	
-		
+		//dd($tmpProductAttributes);
 		foreach($ProductVariants as $variant)
 		{
 			$variantData[$variant->id]['id']			=	$variant->id;
@@ -1722,7 +1727,7 @@ public function getCatSubList(Request $request) {
 
 			$variantAttrs = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')
 											 ->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
-											 ->where([['variant_id','=',$variant->id],['product_id','=',$Product->id]])->get();
+											 ->where([['variant_id','=',$variant->id],['product_id','=',$Product->id]])->orderBy('variant_product_attribute.id','ASC')->get();
 			//dd($variantAttrs);								 
 			foreach($variantAttrs as $variantAttr)
 			{
@@ -2009,7 +2014,7 @@ public function getCatSubList(Request $request) {
 
   //function to get services list by provided parameters
 	public function getServicesByParameter(Request $request) {
-	
+	//DB::connection()->enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$Services 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
 							  ->join('servicecategories', 'servicecategories.id', '=', 'category_services.category_id')
@@ -2052,6 +2057,7 @@ public function getCatSubList(Request $request) {
 			if($request->search_string != '')
 			{
 				$Services	=	$Services->where('services.title', 'like', '%' . $request->search_string . '%');
+				
 			}
 
 			if($request->city_filter != '')
@@ -2103,8 +2109,8 @@ public function getCatSubList(Request $request) {
 
 		$Services 			= $Services->paginate(config('constants.middle_pages_limit'));
 		//dd($Services);
-		 // print_r(DB::getQueryLog());
-		 // exit;
+		  //print_r(DB::getQueryLog());
+		//  exit;
 		if(count($Services)>0) {
 			foreach($Services as $Service) {
 				$service_link	=	url('/').'/service';

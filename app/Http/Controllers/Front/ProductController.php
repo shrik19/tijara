@@ -100,6 +100,8 @@ class ProductController extends Controller
                 $data['subscribedError'] = trans('messages.products_with_active_subscription');
                 //return redirect(route('frontSellerPackages'));
             }
+			
+			
         }
         else {
             
@@ -420,6 +422,16 @@ class ProductController extends Controller
             if(count($isSubscribed)<=0) {
                 $data['subscribedError']   =    trans('messages.subscribe_package_to_manage_prod_attri');
             }
+			else {
+				if($isSubscribed[0]->id==1) {
+					$getProductsOfSeller   =   Products::where('user_id',Auth::guard('user')->id())->get();
+					$addedProducts = $getProductsOfSeller->count();
+					if($addedProducts >=50) {
+						Session::flash('error', "Endast 50 produkter är tillåtna");
+						return redirect(route('manageFrontProducts')); 
+					}
+				}
+			}
         }
         else
         {
@@ -567,7 +579,7 @@ class ProductController extends Controller
 
         $arrProducts = [
 
-                'title'        		=> trim(ucfirst($request->input('title'))),
+                'title'        		=> preg_replace('!\s+!', ' ', trim(ucfirst($request->input('title')))),//trim(ucfirst($request->input('title'))),
 
                 'product_slug'      => trim(strtolower($slug)),
 
@@ -2086,7 +2098,7 @@ public function findCurrency($type){
             {
                 "captured_amount" : $Total
             }
-        DATA;
+DATA;
  
       $curl = curl_init();
       curl_setopt($curl, CURLOPT_URL,$capture_url);

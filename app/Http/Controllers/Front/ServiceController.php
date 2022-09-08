@@ -624,7 +624,7 @@ class ServiceController extends Controller
 
         $arrServices = [
 
-                'title'             => trim(ucfirst($request->input('title'))),
+                'title'             => preg_replace('!\s+!', ' ', trim(ucfirst($request->input('title')))),//trim(ucfirst($request->input('title'))),
 
                 'service_slug'      => trim($slug),
 

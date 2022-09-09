@@ -282,6 +282,7 @@ function createCookie(name,value,minutes) {
     //document.cookie = name+"="+value+expires+"; path=/";
 }
 
+
 bannerInp.onchange = evt => {
   const [file] = bannerInp.files
   if (file) {
@@ -290,6 +291,7 @@ bannerInp.onchange = evt => {
     previewBanner.src = URL.createObjectURL(file)
     createCookie("seller_banner_preview", URL.createObjectURL(file), 15);
 	console.log('seller_banner_preview');
+	
   }
 }
 
@@ -303,8 +305,12 @@ logoInp.onchange = evt => {
 	console.log('seller_logo_preview');
   }
 }
-
+function deleteCookie(name) {
+    document.cookie = name+'=null;-1; path=/';
+}
 $('body').on('click', '.remove_banner_image', function () {
+	deleteCookie("seller_banner_preview");
+
     var path = $('#previewBanner').attr('src');
     var Filename= path.split('/').pop();
     $(".loader").css("display","block");
@@ -327,6 +333,7 @@ $('body').on('click', '.remove_banner_image', function () {
 });
 
 $('body').on('click', '.remove_logo_image', function () {
+	deleteCookie("seller_logo_preview");
     var path = $('#previewLogo').attr('src');
     var Filename= path.split('/').pop();
     $(".loader").css("display","block");

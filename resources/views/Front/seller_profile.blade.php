@@ -238,11 +238,6 @@
  
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
-function deleteCookie(name) {
-    document.cookie = name+'="";-1; path=/';
-}
-deleteCookie("seller_banner_preview");
-deleteCookie("seller_logo_preview");
 
   function hideShippingMethod(){
   if($('#free_shipping_chk').is(":checked"))  {

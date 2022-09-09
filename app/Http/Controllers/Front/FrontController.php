@@ -1277,7 +1277,7 @@ public function getCatSubList(Request $request) {
 			{
 				$sellerImages = $sellerImages->toArray();
 				
-				if(isset($_COOKIE['seller_banner_preview']) && $_COOKIE['seller_banner_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
+				if(isset($_COOKIE['seller_banner_preview']) && $_COOKIE['seller_banner_preview']!='' && $_COOKIE['seller_banner_preview']!='null' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
 					$data['header_image']       = $_COOKIE['seller_banner_preview'];
 					
 					setcookie('seller_banner_preview', null, -1, '/'); 
@@ -1288,7 +1288,7 @@ public function getCatSubList(Request $request) {
 					
 				}
 
-				if(isset($_COOKIE['seller_logo_preview']) && $_COOKIE['seller_logo_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
+				if(isset($_COOKIE['seller_logo_preview']) && $_COOKIE['seller_logo_preview']!='' && $_COOKIE['seller_logo_preview']!='null' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
 					$data['logo']       = $_COOKIE['seller_logo_preview'];
 					setcookie('seller_logo_preview', null, -1, '/'); 
 				}
@@ -1426,7 +1426,7 @@ public function getCatSubList(Request $request) {
 			{
 				$sellerImages = $sellerImages->toArray();
 
-				if(isset($_COOKIE['seller_banner_preview']) && $_COOKIE['seller_banner_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
+				if(isset($_COOKIE['seller_banner_preview']) && $_COOKIE['seller_banner_preview']!='' && $_COOKIE['seller_banner_preview']!='null' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
 					$data['header_image']       = $_COOKIE['seller_banner_preview'];
 				}
 				else if(!empty($sellerImages['header_img']))
@@ -1434,7 +1434,7 @@ public function getCatSubList(Request $request) {
 					$data['header_image']       = url('/').'/uploads/Seller/'.$sellerImages['header_img'];
 				}
 
-				if(isset($_COOKIE['seller_logo_preview']) && $_COOKIE['seller_logo_preview']!='' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
+				if(isset($_COOKIE['seller_logo_preview']) && $_COOKIE['seller_logo_preview']!='' && $_COOKIE['seller_logo_preview']!='null' && Auth::guard('user')->id() && Auth::guard('user')->id()==$id) {
 					$data['logo']       = $_COOKIE['seller_logo_preview'];
 				}
 				else if(!empty($sellerImages['logo']))

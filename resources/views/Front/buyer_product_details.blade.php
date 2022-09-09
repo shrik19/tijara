@@ -14,7 +14,7 @@
     <div class="container-fluid">
 
         <div class="row container-inner-section">
-            <div class="col-md-6 ">
+            <div class="col-md-6 tj-detail-imgs">
               <!-- Primary carousel image -->
               @if(!empty($variantData))
                 @php
@@ -36,7 +36,7 @@
                 </div>
                 <!-- <img src="{{url('/')}}/assets/front/img/next-icon.png" class="icon-right" alt="" id="next-img"> -->
               </div>
-              <div class="show-custom" href="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}">
+              <div class="show-custom product_custom_img" href="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}">
                 @if(isset($first['images'][0]) && !empty($first['images'][0]))
                 <img src="{{url('/')}}/uploads/ProductImages/productDetails/{{$first['images'][0]}}" id="show-img">
                 @else

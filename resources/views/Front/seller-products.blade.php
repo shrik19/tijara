@@ -337,6 +337,7 @@
 <script type="text/javascript">
 function deleteCookie(name) {
     document.cookie = name+'=null;-1; path=/';
+	console.log('deleted='+name);
 }
 setTimeout(function() { 
 deleteCookie("seller_banner_preview");

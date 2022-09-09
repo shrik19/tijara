@@ -230,10 +230,25 @@
 .nav > li > a.tj-menuicon {
 	display: none; 
 }
+.tj-filter-sec .toggle {
+    margin-left: 123px;
+}
+#progressbar li span {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    color: #fff;
+}
 @media(max-width:1599px){
 	#sliderImages {
 	    height: 500px;
 	}
+  .tj-filter-sec .toggle {
+    margin-left: 123px;
+  }
 }
 @media(min-width:992px){
 	.service_page .product_details li {
@@ -525,6 +540,9 @@
   }
   .checkoutPageBox{
     width: 100%;
+  }
+  .tj-filter-sec .toggle {
+    margin-left: 118px;
   }
 }
 @media(max-width:991px){ 

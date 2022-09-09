@@ -1166,14 +1166,17 @@ class ServiceController extends Controller
                             ->join('service_requests', 'services.id', '=', 'service_requests.service_id')
                             ->where('service_requests.id', '=', $id)
                             ->where('service_requests.user_id', '=', Auth::guard('user')->id())->first();
-
+		
+		$sellerInfo = Services::join('users', 'users.id', '=', 'services.user_id')							
+							->where('services.id', '=', $service_request->service_id)->first();
+		
         $user = DB::table('users')->where('id', '=', Auth::guard('user')->id())->first();
         $buyer_email =$user->email;
         $customername = $user->fname.' '.$user->lname;
         #$customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;
         $customeraddress    =   $user->address;
         $sellername     =$service_request->store_name;
-        $seller_phone_number =$service_request->phone_number; 
+        $seller_phone_number =$sellerInfo->phone_number; 
         $service    =   $service_request->title;
         $email      =   $service_request->email;
         //$servicemessage =   $request->input('message');

@@ -336,13 +336,25 @@
   
 <script type="text/javascript">
 function deleteCookie(name) {
-    document.cookie = name+'=null;-1; path=/';
+	console.log('getCookie='+getCookie(name));
+	var expires = "; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    document.cookie = name+"=null"+expires+";domain=.tijara.se; path=/";
 	console.log('deleted='+name);
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
 }
 setTimeout(function() { 
 deleteCookie("seller_banner_preview");
 deleteCookie("seller_logo_preview");
-}, 10000);
+}, 5000);
   function showContactSuccessMessage(strContent,redirect_url = '')
 {
     

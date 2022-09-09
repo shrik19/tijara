@@ -2586,9 +2586,9 @@ DATA;
 
             foreach($mailOrderDetails as $orderProduct) {
               $mail_order_details  .= '<tr>
-                      <td style="width: 40%; text-align: left;">
-                          <h4 style="margin:5px 0;">'.$orderProduct['product']->title.'</h4>
-                          <br/>'.str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']).'
+                      <td style="    padding-top: 10px;width: 40%; text-align: left;">
+                          <h4 style="margin:5px 0">'.$orderProduct['product']->title.'</h4>
+                          '.str_replace(array( '[', ']' ), '', @$orderProduct['variant_attribute_id']).'
                       </td>
                       <td  style="width: 15%; text-align: right;">
                         <h4 style="margin:5px 0;"> '.$orderProduct['quantity'].'</h4>
@@ -2617,7 +2617,7 @@ DATA;
         $shippingAddress  = json_decode($checkExisting['address'],true);
         $shippingAddress           = json_decode($shippingAddress['shipping'],true);
         $shippingAdd = '<p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['given_name'].' '.$shippingAddress['family_name'].'</p>
-        <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['email'].' </p>
+        
         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['street_address'].' </p>
         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['city'].', '.$shippingAddress['postal_code'].' </p>
         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">'.$shippingAddress['phone'].' </p>';
@@ -2659,7 +2659,7 @@ DATA;
       ],$contents);
 
         $arrMailData = ['email_body' => $contents];
-
+		
         Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
             $message->to($email, $name)->subject
                 ($subject);

@@ -337,11 +337,12 @@
 <script type="text/javascript">
 function deleteCookie(name) {
     document.cookie = name+'=null;-1; path=/';
+	console.log('deleted='+name);
 }
 setTimeout(function() { 
 deleteCookie("seller_banner_preview");
 deleteCookie("seller_logo_preview");
-}, 2000);
+}, 10000);
   function showContactSuccessMessage(strContent,redirect_url = '')
 {
     

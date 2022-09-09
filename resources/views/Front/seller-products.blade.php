@@ -341,7 +341,7 @@ function deleteCookie(name) {
 setTimeout(function() { 
 deleteCookie("seller_banner_preview");
 deleteCookie("seller_logo_preview");
-}, 2000);
+}, 10000);
   function showContactSuccessMessage(strContent,redirect_url = '')
 {
     

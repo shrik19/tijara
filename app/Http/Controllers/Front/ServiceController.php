@@ -1174,7 +1174,7 @@ class ServiceController extends Controller
         $buyer_email =$user->email;
         $customername = $user->fname.' '.$user->lname;
         #$customeraddress    =   $user->address.' '.$user->city.' '.$user->postcode;
-        $customeraddress    =   $user->address.',<br/> '.$user->city.', '.$user->country.', '.$user->phone_number;
+        $customeraddress    =   $user->address.',<br/> '.$user->city.', '.$user->country.', '.$user->postcode.', '.$user->phone_number;
         $sellername     =$service_request->store_name;
         $seller_phone_number =$sellerInfo->phone_number; 
         $service    =   $service_request->title;

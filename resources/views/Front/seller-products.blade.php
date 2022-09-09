@@ -337,7 +337,8 @@
 <script type="text/javascript">
 function deleteCookie(name) {
 	console.log('getCookie='+getCookie(name));
-    document.cookie = name+'=null;-1; path=/';
+	var expires = "; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+    document.cookie = name+"=null"+expires+";domain=.tijara.se; path=/";
 	console.log('deleted='+name);
 }
 function getCookie(name) {

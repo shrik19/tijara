@@ -1904,6 +1904,9 @@
     margin: 0 !important;
   }
   .product_details_info{
-    min-height: 100px;
+    min-height: 100px !important;
+  }
+  .row.prduct_det {
+    position: static !important;
   }
 }

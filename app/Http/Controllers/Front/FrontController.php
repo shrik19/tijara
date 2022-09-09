@@ -2568,7 +2568,8 @@ public function getCatSubList(Request $request) {
 		$customername1 = $user->fname.' '.$user->lname;
 		$email		=	$user->email;
 		#$customeraddress	=	$user->address.' '.$user->city.' '.$user->postcode;
-		$customeraddress	=	$user->address;
+		$customeraddress	=   $user->address.',<br/> '.$user->city.', '.$user->country.', '.$user->phone_number;
+        
 		$sellername 	= $service_request->store_name;
 
 		$service	=	$service_request->title;

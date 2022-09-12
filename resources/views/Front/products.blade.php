@@ -188,6 +188,8 @@ function getListing()
     success:function(data)
     {
      //$('.product_listings').html(data);
+	 if($('.tj-closebutton').is(":visible"))
+	 $('.tj-closebutton').trigger('click');
      var responseObj = $.parseJSON(data);
      $('.product_listings').html(responseObj.products);
      $('.seller_list_content').html(responseObj.sellers);

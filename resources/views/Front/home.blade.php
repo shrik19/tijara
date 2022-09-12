@@ -67,7 +67,7 @@
                             <!-- <a href="{{url('/')}}/products" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_products')}}</a> -->
                     </div>
                     <!-- <hr class="heading_line"/> -->
-                    <ul class="product_details pl-0">
+                    <ul class="product_details limit pl-0">
                       @foreach($PopularProducts as $product)
                       @include('Front.products_widget')
                       @endforeach
@@ -143,7 +143,7 @@
                     <!-- <a href="{{url('/')}}/services" class="btn see-all-service-btn debg_color login_btn">{{ __('users.see_all_services')}}</a> -->
                 </div>
                     <!-- <hr class="heading_line"/> -->
-                    <ul class="product_details pl-0">
+                    <ul class="product_details limit pl-0">
                     @foreach($PopularServices as $service)
                         @include('Front.services_widget')
                     @endforeach
@@ -179,7 +179,7 @@
             <a href="{{url('/')}}/annonser" title="{{ __('users.go_to_announse_page')}}" class="btn btn-black btn-sm  login_btn go_to_tijara_ads_btn hidden-xs">{{ __('users.go_to_announse_page')}}</a>
           </div>
             <!-- <hr class="heading_line"/> -->
-            <ul class="product_details pl-0">
+            <ul class="product_details limit pl-0">
             @foreach($FeaturedProducts as $product)
                 @include('Front.featured_product')
             @endforeach

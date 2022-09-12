@@ -86,13 +86,9 @@
                      
                 </div>
             </div> 
-            <div class="row">
-                          <div class="col-xs-12 col-md-12">    
-                                       
-                               <a href="{{route('AllbuyerProductListing')}}"  class="annonser_btn">{{ __('lang.back_to_ads')}}</a>
-                           
-                          </div>
-                      </div>
+            <div class="tj-announcer-action">
+              <a href="{{route('AllbuyerProductListing')}}"  class="annonser_btn">{{ __('lang.back_to_ads')}}</a>
+            </div>
         </div>
     </div> <!-- /container -->
 </section>

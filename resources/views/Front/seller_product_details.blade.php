@@ -183,7 +183,7 @@
                                     }else{
                                       $className = "attribute_value";
                                     }?>
-                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown {{$className}}" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" @if($j > 1) onchange="showAvailableOptions('{{$attribute_id}}', this.value, 1)" @else onchange="showAvailableOptions('{{$attribute_id}}', this.value, 0)" @endif>
+                                    <select id="select_product_variant" class="{{$attribute_id}} form-control variant_dropdown tjselect {{$className}}" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" @if($j > 1) onchange="showAvailableOptions('{{$attribute_id}}', this.value, 1)" @else onchange="showAvailableOptions('{{$attribute_id}}', this.value, 0)" @endif>
                   @foreach($attribute['attribute_values'] as $attribute_value_id=>$attribute_value)
                     @php
                                           $selected = '';

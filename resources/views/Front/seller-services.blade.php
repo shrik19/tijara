@@ -68,7 +68,7 @@
         </div>
       </div>
 
-      <div class="row tijara-content tjpa" style="margin-top:40px;">
+      <div class="row tijara-content tjps" style="margin-top:40px;">
         <div class="col-sm-3" id="tjfilter">
 
           <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>

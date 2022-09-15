@@ -177,11 +177,14 @@
     if($('#description').length>0)
     $('#description').richText();
   });
-if($('#categories').length>0) {
-  $('#categories').select2({
-		placeholder:"select"
-		});
-}
+  if($('#categories').length>0) {
+    $('#categories').select2({
+  		placeholder:"select"
+  	});
+  }
+  if($('.tjselect').length>0) {
+    $('.tjselect').select2();
+  }
 
 var select_attribute_value="{{ __('lang.select_label')}}  {{ __('lang.attribute_value_label')}}";
 var required_field_error="{{ __('lang.required_field_error')}}";

@@ -67,7 +67,7 @@
       </div>
 
 
-      <div class="row tijara-content tjpa" style="margin-top:10px;">
+      <div class="row tijara-content tjps" style="margin-top:10px;">
        <!--  @include('Front.category_breadcrumb') -->
         <div class="col-sm-3" id="tjfilter">
 

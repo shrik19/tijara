@@ -70,7 +70,7 @@
 						  
 							<div class="form-group">
 							  <label class="product_sorting_filter">{{ __('lang.sort_by_order')}} : </label>
-							  <select class="form-control" name="sort_by_order" id="sort_by_order" onchange="getListing()">
+							  <select class="form-control tjselect" name="sort_by_order" id="sort_by_order" onchange="getListing()">
 								  <option value=""  class="product_sorting_filter_option">---- {{ __('lang.sort_by_option')}} ----</option>
 								  <option selected value="asc" class="product_sorting_filter_option">{{ __('lang.sort_by_asc')}}</option>
 								  <option value="desc" class="product_sorting_filter_option">{{ __('lang.sort_by_desc')}}</option>
@@ -80,7 +80,7 @@
 						  <div style="margin-top: -3%;" class=" col-md-3 prod-service-filter pr-w-0">
 							<div class="form-group">
 							  <label class="product_sorting_filter">{{ __('lang.sort_by')}} : </label>
-							  <select class="form-control" name="sort_by" id="sort_by" onchange="getListing()">
+							  <select class="form-control tjselect" name="sort_by" id="sort_by" onchange="getListing()">
 								<!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
 								<option value="popular" class="product_sorting_filter_option">{{ __('lang.sort_by_popular_product')}}</option>
 								<option value="price" class="product_sorting_filter_option">{{ __('lang.sort_by_price')}}</option>

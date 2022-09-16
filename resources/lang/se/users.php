@@ -254,7 +254,7 @@
     'search_item_placeholder' => 'Sök objekt',
     'enter_city_placeholder' => 'Ange stadens namn',
     'noPackagesFound'=>'Paketet hittades inte',
-    'see_all_services' => "Se Alla tjänster",
+    'see_all_services' => "Se alla tjänster",
     'subcribed_title' => 'Användare prenumererar',
     'is_subscrier_title' => 'Är prenumerant',
     'all_subscribed_users_list' => 'Nyhetsbrev Prenumerantlista',

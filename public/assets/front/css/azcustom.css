@@ -2004,7 +2004,7 @@
   }
   .prod-service-filter .select2-selection.select2-selection--single{
     height: 28px;
-    padding: 4px 8px;
+    padding: 5px 8px;
     border: solid 1px #737373;
     border-radius: 0;
   }
@@ -2017,5 +2017,18 @@
   }
   .start_rating_details{
     padding-top: 10px;
+  }
+  .prod-service-filter .select2-container--default .select2-selection--single .select2-selection__rendered{
+    font-size:13px;
+  }
+  .instagram_imgs{
+    padding: 0 15px;
+  }
+  .best_seller_container h2.instagram_heading {
+    margin-left: 15px !important;
+  }
+  .instagram_imgs li {
+    width: 48%;
+    margin: 10px 2% 10px 0 !important;
   }
 }

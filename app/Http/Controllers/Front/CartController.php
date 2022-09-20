@@ -350,7 +350,7 @@ class CartController extends Controller
           $total          = 0;
           $product_shipping_type = '';
           $product_shipping_amount = 0;
-
+			
           foreach($checkExisting as $tmpOrder)
           { 
 
@@ -358,7 +358,10 @@ class CartController extends Controller
            // DB::enableQueryLog();
             //Update Order Totals
 
-            /* $checkExistingOrderProduct = TmpOrdersDetails::
+            /* 
+			
+			
+			$checkExistingOrderProduct = TmpOrdersDetails::
             join('products', 'temp_orders_details.product_id', '=', 'products.id')->join('variant_product', 'variant_product.product_id', '=', 'products.id')->select(['products.user_id as product_user','products.shipping_method','products.shipping_charges','products.discount','variant_product.price as product_price','temp_orders_details.*'])->where('order_id','=',$OrderId)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->groupBy('temp_orders_details.variant_id')->get()->toArray();*/
 
              $checkExistingOrderProduct = TmpOrdersDetails::
@@ -376,10 +379,24 @@ class CartController extends Controller
                 $shippingTotal  = 0;
                 $shippingTotalAmount  = array();
                 $total          = 0;
-
+//echo'<pre>';print_r($Products);exit;
                 foreach($checkExistingOrderProduct as $details)
                 {
                   
+				  $Products = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
+                      ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                      ->select(['products.*','variant_product.price','variant_product.quantity','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
+                      ->where('variant_product.id','=', $details['variant_id'])
+                      ->where('products.status','=','active')
+                      ->get()->toArray();
+			
+            if($details['quantity'] > $Products[0]['quantity'])
+            {
+					$tmpOrderDetails = TmpOrdersDetails::find($details['id']);
+                      $tmpOrderDetails->delete();
+                      continue;
+            } 
+			
                     $product_shipping_amount = 0;
                     $discount_price = 0;
                     $checkVariant = VariantProduct::where('id','=',$details['variant_id'])->get()->toArray();

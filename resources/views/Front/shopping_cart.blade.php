@@ -90,7 +90,7 @@
 										</div>									
 									</div>
 									<div class="tj-cart-qty">
-										<select name="quantity_{{ $orderProduct['id'] }}" id="quantity_{{ $orderProduct['id'] }}" class="form-control" onchange="updateCart('{{ $orderProduct['id'] }}')">
+										<select name="quantity_{{ $orderProduct['id'] }}" id="quantity_{{ $orderProduct['id'] }}" class="form-control tjselect" onchange="updateCart('{{ $orderProduct['id'] }}')">
 											<option value="1" @if($orderProduct['quantity'] == 1) selected="selected" @endif>1</option>
 											<option value="2" @if($orderProduct['quantity'] == 2) selected="selected" @endif>2</option>
 											<option value="3" @if($orderProduct['quantity'] == 3) selected="selected" @endif>3</option>

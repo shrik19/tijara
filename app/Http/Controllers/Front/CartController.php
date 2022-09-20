@@ -720,18 +720,18 @@ class CartController extends Controller
           $OrderDetailsId = $request->OrderDetailsId;
           $Quantity = $request->quantity;
           $ExistingOrder = TmpOrdersDetails::where('id',$OrderDetailsId)->get()->toArray();
-
+//echo'<pre>';print_r($ExistingOrder);exit;
           foreach($ExistingOrder as $orderDetails)
           {
             $created_at = date('Y-m-d H:i:s');
             $OrderId = $orderDetails['order_id'];
             $Products = VariantProduct::join('products', 'variant_product.product_id', '=', 'products.id')
-                      ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                      ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                       ->select(['products.*','variant_product.price','variant_product.quantity','variant_product.id as variant_id','variant_product_attribute.id as variant_attribute_id'])
                       ->where('variant_product.id','=', $orderDetails['variant_id'])
                       ->where('products.status','=','active')
                       ->get()->toArray();
-
+			
             if($Quantity > $Products[0]['quantity'])
             {
               $is_updated = 0;

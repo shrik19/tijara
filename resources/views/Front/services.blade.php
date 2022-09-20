@@ -132,7 +132,7 @@ function listServices(){
 
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
-  if($('.tj-closebutton').is(":visible"))
+  if($('.col-products-sidebar').hasClass("collapse"))
 	 $('.tj-closebutton').trigger('click');
   get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());

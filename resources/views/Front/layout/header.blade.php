@@ -434,6 +434,9 @@
   var winhigh = $(window).height();
   var tophigh = $('.tj-navbar').height();
   var colHigh = winhigh - tophigh;
+  // $(window).on('resize', function(){
+  //    $('.navbar-collapse').css('min-height', $(window).height() - $('.tj-navbar').height()); 
+  // });
   $('.navbar-toggler').on('click', function(){
      $('.navbar-collapse').css('min-height', colHigh - 55); 
   });

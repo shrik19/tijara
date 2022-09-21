@@ -299,7 +299,7 @@
       @foreach($productReviews as $review)
 
       <div class="row reviews-container"> 
-        <div class="col-md-1">
+        <div class="col-md-1 col-xs-3">
        
           @if(!empty($review['profile']))
           <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
@@ -308,7 +308,7 @@
           @endif
         </div>
 
-        <div class="col-md-5" style="margin-left: 30px;">
+        <div class="col-md-5 col-xs-9" style="margin-left: 30px;">
           
           <p class="ratingUname">
             <?php 

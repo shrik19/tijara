@@ -240,14 +240,14 @@
                   @foreach($serviceReviews as $review)
 
                   <div class="row reviews-container"> 
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-xs-3">
                       @if(!empty($review['profile']))
                       <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
                     @else 
                       <img src="{{url('/')}}/uploads/Buyer/buyerIcons/no-image.png" class="ratingUserIcon">
                     @endif
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-5 col-xs-9">
                        <p class="ratingUname"><?php 
                        if(!empty($review['fname']) && !empty($review['lname'])){
                         $review_name = $review['fname']." ".$review['lname'];

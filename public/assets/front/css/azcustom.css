@@ -2084,4 +2084,7 @@
     max-width:100%;
     height:auto;
   }
+  .contact-store-message {
+    max-width: 100%;
+  }
 }

@@ -2077,4 +2077,14 @@
     padding:0 !important;
     margin-left: 0 !important;
   }
+  .cmspageDiv {
+    padding: 0 15px;
+  }
+  .cmspageDiv img{
+    max-width:100%;
+    height:auto;
+  }
+  .contact-store-message {
+    max-width: 100%;
+  }
 }

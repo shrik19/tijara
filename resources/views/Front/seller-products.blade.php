@@ -101,7 +101,7 @@
           <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
           <div class="row tj-filter-sec">            
 		        <div class="col-sm-6"></div>
-            <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="http://localhost:8000/assets/img/tjfilter.png"></button>
+            <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="/assets/img/tjfilter.png"></button>
             <div class="col-sm-3">
               <div class="form-group">
                 <label>{{ __('lang.sort_by')}} : </label>

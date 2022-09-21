@@ -1075,7 +1075,7 @@
   }
   .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
     max-height: 80vh;
-    padding-bottom: 60px;
+    padding-bottom: 90px;
   }
   .go_to_tijara_ads_btn_top {
     display: block;
@@ -1945,7 +1945,7 @@
         margin-top: 10px;
 	}
 	.go_to_tijara_ads_btn_top {
-	    position: absolute;
+	    position: fixed;
 	    bottom: 0;
 	    width: 100%;
 	}

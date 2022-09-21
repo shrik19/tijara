@@ -115,12 +115,12 @@
                      
         
                      @if(empty($ProductAttributes))
-                      <div class="col-xs-6 p-0">
+                      <div class="col-xs-6 p-0 tj-qunbox">
                         <div class="quantity_box" style="margin-bottom:0px !important;">
                           <div>
                             <h3>{{ __('lang.price_label')}}  : </h3> &nbsp;&nbsp;
                             <div class="clearfix"></div>
-                            <select id="" class=" form-control " style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" onchange="showAvailableOptionsPrice(this.value)">
+                            <select id="" class="form-control tjselect" style="width: 80%;display: inline-block;margin-top: 5px; border-radius: 22px;    border: 1px solid #03989e; height:40px" onchange="showAvailableOptionsPrice(this.value)">
                                 @foreach($variantData as $key=>$val)
                                   @php
                                     $selected = '';

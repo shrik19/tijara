@@ -434,15 +434,17 @@
   var winhigh = $(window).height();
   var tophigh = $('.tj-navbar').height();
   var colHigh = winhigh - tophigh;
-  // $(window).on('resize', function(){
-  //    $('.navbar-collapse').css('min-height', $(window).height() - $('.tj-navbar').height()); 
-  // });
   $('.navbar-toggler').on('click', function(){
-     $('.navbar-collapse').css('min-height', colHigh - 55); 
+      $('.navbar-collapse').height($(window).height() - 55);
   });
+  $(window).resize(function() {
+      $('.navbar-collapse').height($(window).height() - 55);
+  });
+
+  $(window).trigger('resize');
+
   $('.navbar-toggler').on('click',function(){
     $('body').toggleClass('sidebarActive');
   });
   </script>
 
- 

@@ -63,7 +63,7 @@
   <div>&nbsp;</div>
   <div style="margin-left: 4px;margin-bottom: 60px;"> 
     <label class="price_label">{{ __('users.place_label')}}</label>
-    <select class="form-control" name="city_name" id="city_name">
+    <select class="form-control tjselect" name="city_name" id="city_name">
       <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
       @if(!empty($allCities))
       @foreach($allCities as $city)

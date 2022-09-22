@@ -1075,8 +1075,11 @@
     background:transparent;
   }
   .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
-    max-height: 80vh;
+    max-height: 100vh;
     padding-bottom: 90px;
+  }
+  .sidebarActive .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+    height: calc(100vh - 150px);
   }
   .go_to_tijara_ads_btn_top {
     display: block;
@@ -1426,7 +1429,7 @@
   }
   #tjfilter{
     padding-left: 20px !important;
-    padding-bottom: 50px !important;
+    padding-bottom: 80px !important;
   }
   .login_banner {
     display: none;
@@ -1623,6 +1626,7 @@
   }
   .tj-cart {
     display: block;
+    padding-left:15px;
   }
 
   .tj-cart-left {
@@ -1689,6 +1693,7 @@
   .tj-cart-total-section {
       width: 100%;
       max-width: none;
+      padding-left: 15px;
   }
 
   .tj-cart-button button {
@@ -2080,6 +2085,7 @@
   }
   .cmspageDiv {
     padding: 0 15px;
+    padding: 0 15px;
   }
   .cmspageDiv img{
     max-width:100%;
@@ -2087,5 +2093,30 @@
   }
   .contact-store-message {
     max-width: 100%;
+  }
+  .shopping_cart_page.seller_info{
+    padding: 0;
+  }
+  .shopping_cart_page.seller_info h2 {
+    padding-left: 0 !important;
+  }
+  .shopping_cart_page.seller_info .card-header > [class*="col"] {
+      padding: 0;
+  }
+  .tj-cart-button{
+    margin-right: -10px;
+    margin-left: 5px;
+    margin-bottom: 30px;
+  }
+  #bookServiceModal .select2-container {
+    display: block;
+    width: 100% !important;
+  }
+  #bookServiceModal .select2-container--default .select2-selection--single .select2-selection__rendered {
+    height: 34px;
+    line-height: 34px;
+  }
+  #bookServiceModal .select2-container .select2-selection--single {
+    height: 34px;
   }
 }

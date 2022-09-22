@@ -140,9 +140,10 @@
                                 </div> -->
 
 
+                                <div class="row">
                                 <div class="form-group col-md-6">
                                   <label>{{ __('lang.service_date')}}</label>
-                                  <select  class="service_date form-control">
+                                  <select  class="service_date form-control tjselect">
                                     <option value="">{{ __('lang.select_label')}}</option>
                                     @php $usedDates = array(); @endphp
                                     @if(!empty($serviceAvailability))
@@ -160,7 +161,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                   <label>{{ __('lang.service_time')}}</label>
-                                  <select  class="service_time form-control">
+                                  <select  class="service_time form-control tjselect">
                                     <option value="">{{ __('lang.select_label')}}</option>
                                     @if(!empty($serviceAvailability))
                                       @foreach($serviceAvailability as $availability) 
@@ -177,6 +178,7 @@
 
                                     @endif
                                   </select>
+                                </div>
                                 </div>
                                 <!-- <div class="form-group">
                                   <label>{{ __('lang.personal_number')}}</label>

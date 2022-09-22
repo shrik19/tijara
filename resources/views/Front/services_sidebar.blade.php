@@ -85,7 +85,7 @@
    @if(Request::segment(1) != 'seller')
    <div style="margin-left: 4px;"> 
   <label class="filter_lable">{{ __('users.place_label')}}</label>
-  <select class="form-control" name="city_name" id="service_city">
+  <select class="form-control tjselect" name="city_name" id="service_city">
       <option value=""  class="product_sorting_filter_option"> {{ __('lang.whole_sweden_option')}} </option>
       @if(!empty($allCities))
         @foreach($allCities as $city)

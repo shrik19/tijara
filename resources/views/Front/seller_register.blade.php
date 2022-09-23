@@ -478,8 +478,8 @@
 	            var opacity;
 
 	            $(".next").click(function(){
-	            current_fs = $(this).parent();
-	            next_fs = $(this).parent().next();
+	            current_fs = $(this).parent().parent();
+	            next_fs = $(this).parent().parent().next();
 
 	            //Add Class Active
 	            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
@@ -1156,7 +1156,8 @@ $(".previous").click(function(){
 	}
 	$("#progressbar li").each(function() {
 		   $(this).removeClass("active");
-		 });
+		 }); 
+		 //alert(previous_fs.attr('class'));
 		 if(previous_fs.attr('class')=='seller_register_first') 
 			 $("#account").addClass('active');
 		 if(previous_fs.attr('class')=='seller_register_second')  {

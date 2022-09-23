@@ -887,7 +887,7 @@ class CartController extends Controller
                $checkExistingOrderProduct = TmpOrdersDetails::
               join('products', 'temp_orders_details.product_id', '=', 'products.id')
               ->join('temp_orders', 'temp_orders.id', '=', 'temp_orders_details.order_id')
-              ->join("variant_product",function($join){
+              ->leftjoin("variant_product",function($join){
               $join->on("variant_product.product_id","=","products.id")
                   ->on("variant_product.id","=","temp_orders_details.variant_id");
               })->select(['products.user_id as product_user','products.shipping_method','products.is_pick_from_store','products.store_pick_address','products.shipping_charges','products.free_shipping','products.discount','variant_product.price as product_price','temp_orders_details.*','variant_product.image','products.title','temp_orders.sub_total','temp_orders.shipping_total','temp_orders.total'])->where('order_id','=',$order_id)->where('temp_orders_details.user_id','=',$user_id)->where('variant_product.quantity','>',0)->orderBy('temp_orders_details.id','ASC')->groupBy('temp_orders_details.variant_id')->get()->toArray();
@@ -1042,7 +1042,7 @@ class CartController extends Controller
                               ->join('categories', 'categories.id', '=', 'category_products.category_id')
                               ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                               ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                              ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                              ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                               //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                               ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
                               ->where('products.status','=','active')
@@ -1360,7 +1360,7 @@ class CartController extends Controller
                           ->join('categories', 'categories.id', '=', 'category_products.category_id')
                           ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                           ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                          ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                          ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                           ->join('users', 'users.id', '=', 'products.user_id')
                           //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                           ->select(['products.*','categories.category_name', 'variant_product.image',
@@ -1582,7 +1582,7 @@ class CartController extends Controller
                 ->join('categories', 'categories.id', '=', 'category_products.category_id')
                 ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
                 ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                 //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                 ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
                 ->where('products.status','=','active')

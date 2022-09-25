@@ -1076,7 +1076,7 @@
   }
   .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
     max-height: 100vh;
-    padding-bottom: 90px;
+    padding-bottom: 170px;
   }
   .sidebarActive .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
     height: calc(100vh - 150px);
@@ -1839,6 +1839,7 @@
 	}
 	.tj-detail-imgs .show-custom.product_custom_img img#show-img {
 	    /*position: static;*/
+      object-fit: cover;
 	}
 	.product_wish_icon {
 	    height: auto;

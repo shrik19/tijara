@@ -132,14 +132,14 @@ function listServices(){
 
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
-  if($('.col-products-sidebar').hasClass("collapse"))
+  if($('.col-products-sidebar').hasClass("in"))
 	 $('.tj-closebutton').trigger('click');
   get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
 }
 
 $("#city_name").on("input", function() {
-	if($('.tj-closebutton').is(":visible"))
+	if($('.col-products-sidebar').hasClass("in"))
 	 $('.tj-closebutton').trigger('click');
    get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
@@ -173,7 +173,7 @@ function getListing()
 }*/
 var price_filter = $("#price_filter").slider({});
 price_filter.on('slideStop',function(){
-	if($('.tj-closebutton').is(":visible"))
+	if($('.col-products-sidebar').hasClass("in"))
 	 $('.tj-closebutton').trigger('click');
      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),$(".current_search_string").text(),$("#seller_product_filter").val());
@@ -196,7 +196,7 @@ function selectSellers()
       }
     });
     $(".current_sellers").html(Sellers);
-	if($('.tj-closebutton').is(":visible"))
+	if($('.col-products-sidebar').hasClass("in"))
 	 $('.tj-closebutton').trigger('click');
      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());
@@ -229,8 +229,8 @@ $(document).ready(function(){
         $('#cityList').fadeOut();  
     }); 
 
-   $("#service_city").on("input", function() {
-if($('.tj-closebutton').is(":visible"))
+   $("#service_city").on("change", function() {
+	if($('.col-products-sidebar').hasClass("in"))
 	 $('.tj-closebutton').trigger('click');	   
        get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),$('#service_city').val(),'','',$(".current_search_string").text(),$("#seller_product_filter").val());

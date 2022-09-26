@@ -188,7 +188,7 @@ function getListing()
     success:function(data)
     {
      //$('.product_listings').html(data);
-	 if($('.col-products-sidebar').hasClass("in"))
+	 if($('.col-annonser-sidebar').hasClass("in"))
 	 $('.tj-closebutton').trigger('click');
      var responseObj = $.parseJSON(data);
      $('.product_listings').html(responseObj.products);

@@ -285,6 +285,14 @@
   max-width: 100%;
   max-height: 100%;
 }
+.tj-progress-action-button {
+    text-align: center;
+}
+.tj-progress-action-button input.btn {
+    float: none !important;
+    display: inline-block;
+    margin: 5% 5px 0 !important;
+}
 @media(max-width:1599px){
 	#sliderImages {
 	    height: 500px;
@@ -2119,5 +2127,8 @@
   }
   #bookServiceModal .select2-container .select2-selection--single {
     height: 34px;
+  }
+  #sign-up-form .invalid-feedback {
+    position: static;
   }
 }

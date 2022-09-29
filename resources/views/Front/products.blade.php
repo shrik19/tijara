@@ -188,8 +188,14 @@ function getListing()
     success:function(data)
     {
      //$('.product_listings').html(data);
-	 if($('.col-annonser-sidebar').hasClass("in"))
-	 $('.tj-closebutton').trigger('click');
+	 if($('.col-annonser-sidebar').length>0) {
+		 if($('.col-annonser-sidebar').hasClass("in"))
+		 $('.tj-closebutton').trigger('click');
+	 }
+	 if($('.col-products-sidebar').length>0) {
+		 if($('.col-products-sidebar').hasClass("in"))
+		 $('.tj-closebutton').trigger('click');
+	 }
      var responseObj = $.parseJSON(data);
      $('.product_listings').html(responseObj.products);
      $('.seller_list_content').html(responseObj.sellers);

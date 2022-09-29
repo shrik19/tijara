@@ -80,7 +80,7 @@ class FrontController extends Controller
 
     /*Function to get treding seller*/
     function getFeaturedSellers(){
-		DB::enableQueryLog();
+		//DB::enableQueryLog();
     	$today          = date('Y-m-d H:i:s');
     	$featuredSellers 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
     							->join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
@@ -90,14 +90,14 @@ class FrontController extends Controller
 								->where('users.is_verified','=','1')
 								->where('users.status','=','active')
 								->where('users.is_deleted','=','0')
-                			    ->where('users.is_shop_closed','=',"'0'")
+                			    ->where('users.is_shop_closed','=',"0")
 								->where('user_packages.status','=','active')
 								->where('user_packages.start_date','<=', $today)
 								->where('user_packages.end_date','>=', $today)
 								->orderBy('users.id', 'DESC')
 								//->limit(4)
 								->get();
-		print_r(DB::getQueryLog());
+		//print_r(DB::getQueryLog());
 		return $featuredSellers;			
     }
 

@@ -80,7 +80,7 @@ class FrontController extends Controller
 
     /*Function to get treding seller*/
     function getFeaturedSellers(){
-		//DB::enableQueryLog();
+		DB::enableQueryLog();
     	$today          = date('Y-m-d H:i:s');
     	$featuredSellers 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
     							->join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
@@ -97,7 +97,7 @@ class FrontController extends Controller
 								->orderBy('users.id', 'DESC')
 								//->limit(4)
 								->get();
-		//print_r(DB::getQueryLog());exit;	
+		print_r(DB::getQueryLog());
 		return $featuredSellers;			
     }
 

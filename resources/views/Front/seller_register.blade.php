@@ -326,8 +326,8 @@
 									</div>
 									<!-- <div class="pull-right" style="display: flex;"> -->
 										<div class="tj-progress-action-button" style="margin-top: 20px;">
-											<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
 											<input type="button" name="previous" class="previous btn gray_color action-button-previous forth-step-previous" value="{{ __('users.prev_step_btn')}}" /> 
+											<input type="submit" name="next" class="next btn debg_color action-button 5" value="{{ __('users.finish_btn')}}" id="last-step"/>
 										</div>
 									
 							<!-- 	</div> -->

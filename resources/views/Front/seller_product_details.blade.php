@@ -22,7 +22,7 @@
                 $first = reset($variantData);
         @endphp
         @endif
-
+		
           <input type="hidden" name="product_quantity_{{@$first['attributes'][0]->variant_id}}" id="product_quantity_{{@$first['attributes'][0]->variant_id}}" value="1">
  <!-- Secondary carousel image thumbnail gallery -->
               <div class="small-img">
@@ -56,9 +56,9 @@
               @endif
                <div class="buy_now_hover_details product_wish_icon">
                 <ul>
-                    
+                    <?php //echo'<pre>';print_r($first);exit; ?>
                     <li><a @if(Auth::guard('user')->id()) 
-                          onclick="addToWishlist('{{@$first['attributes'][0]->variant_id}}');event.stopPropagation();" 
+                          onclick="addToWishlist('{{@$first['id']}}');event.stopPropagation();" 
                           @else href="{{ route('frontLogin') }}" @endif>
                           <i class="far fa-heart"></i>
                         </a>

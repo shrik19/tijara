@@ -27,7 +27,7 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-      <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.my_order_title')}}</h2>
+      <h2 class="seller_page_heading pl-0"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.my_order_title')}}</h2>
       <!-- <hr class="heading_line"/> -->
       </div>
     </div>
@@ -40,7 +40,7 @@
       </div>
     </div> -->
 
-		<div class="col-md-12" style="margin-top: 20px;margin-left: 5px;">
+		<div class="col-md-12 tj-mobnopad" style="margin-top: 20px;margin-left: 5px;">
 		    
 		  
 		<div class="card-body">

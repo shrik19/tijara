@@ -14,7 +14,7 @@
     <div class="seller_info">
     <div class="card">
 		  <div class="card-header row seller_header">
-        <h2 class="page_heading seller_page_heading">
+        <h2 class="page_heading seller_page_heading pl-0">
               <button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.summary_menu')}}</h2>
         <!-- <hr class="heading_line"/> -->
       </div>
@@ -84,7 +84,7 @@
         </div>
       </div>
 
-      <div class="col-md-15">
+      <div class="col-md-15 full">
         <div class="card buyer-prod-card">
           <div class="buyer-prod-msg">
             <h2 class="buyer-prod-head">{{ __('lang.dashboard_total_sales')}}</h2>

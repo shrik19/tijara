@@ -27,7 +27,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
     @include ('Front.alert_messages')
     <div class="seller_info">
 		<div class="card-header row seller_header">
-			  <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.seller_personal_page_menu')}} </h2>
+			  <h2 class="seller_page_heading pl-0"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.seller_personal_page_menu')}} </h2>
 			  <!-- <hr class="heading_line"> -->
 		</div>
     <div class="store_eye_icon">

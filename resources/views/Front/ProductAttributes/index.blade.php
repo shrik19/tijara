@@ -23,7 +23,7 @@
     <div class="seller_info">
 	  <div class="card">
 		<div class="card-header row seller_header">
-		  <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.add_attribute')}} </h2>
+		  <h2 class="seller_page_heading pl-0"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.add_attribute')}} </h2>
 		</div>
 <div class="clearfix"></div>
 <div class="mb-10 pro-top-btn package_history_btn">

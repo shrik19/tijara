@@ -26,7 +26,7 @@
 	   
 	  <div class="card">
 		<div class="card-header row seller_header">
-		  <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.service_label')}}</h2>		 
+		  <h2 class="seller_page_heading pl-0"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.service_label')}}</h2>		 
 		</div>
 
 		<div class="card-body seller_mid_cont">

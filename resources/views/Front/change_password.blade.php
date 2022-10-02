@@ -27,7 +27,7 @@
 							@include ('Front.alert_messages')
 							<div class="seller_info">
 								<div class="card-header row seller_header">
-									<h2 @if($is_seller==1) class="seller_page_heading" @endif>{{ __('users.change_password_title')}}</h2>					  
+									<h2 @if($is_seller==1) class="seller_page_heading" @endif><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.change_password_title')}}</h2>					  
 								</div>
 
 					@else
@@ -39,7 +39,7 @@
 											<div class="col-md-9 pl-0">
 										<!-- <div class="col-md-3"></div>
 										<div class="col-md-5"> -->
-										<h2 class="page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.change_password_title')}} </h2>
+										<h2 class="page_heading pl-0">{{ __('users.change_password_title')}} </h2>
 									</div>
 									</div>
 								</div>

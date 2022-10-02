@@ -127,56 +127,59 @@
           </div>
         </div>
       </div>
-        
-        <div class="col-sm-12" id="show-all-review">
-          <hr>
-          <div class="col-sm-3">
-            <h2 class="review_title" style="margin-left:-12px;">{{ __('users.review_title')}}</h2>
-          </div>
-          <div class="col-sm-9">
-          @if(!empty($productReviews))
-            @foreach($productReviews as $review)
-             <div class="row" style="margin-left:10px">
-              <div class="col-sm-1">
-                @if(!empty($review['profile']))
-                  <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
-                @else 
-                  <img src="{{url('/')}}/uploads/Buyer/buyerIcons/no-image.png" class="ratingUserIcon">
-                @endif
-               
-              </div>
-              <div class="col-sm-5">
-                <p class="ratingUname"><?php 
-                if(!empty($review['fname']) && !empty($review['lname'])){
-                  $review_name = $review['fname']." ".$review['lname'];
-                }else{
-                  $review_name = 'Anonymous';
-                }
-                echo $review_name.", ".date('d F, Y',strtotime($review['updated_at']));?></p>
-              <div class="star-rating" style="font-size:unset;pointer-events: none;">
-                  <select class='rating product_rating' data-rating="{{$review['product_rating']}}">
-                    <option value="1" >1</option>
-                    <option value="2" >2</option>
-                    <option value="3" >3</option>
-                    <option value="4" >4</option>
-                    <option value="5" >5</option>
-                  </select>
-                </div>
-              <p class="ratingComment">{{$review['comments']}}</p>
-            </div>
-             <div class="col-sm-6">
-               @if(Auth::guard('user')->id()==$review['user_id'])
-                <a href="javascript:void(0)" title="{{trans('lang.edit_label')}}" style="color:#06999F;" class="edit_product_review" product_id="{{$review['product_id']}}" review_comment="{{$review['comments']}}" user_rating_hid="{{$review['product_rating']}}" rating_id="{{$review['rating_id']}}"><i class="fas fa-edit"></i> </a>
-
-                <a href="javascript:void(0)" style="color:#06999F;" onclick="deleteProductReview('<?php echo base64_encode($review['rating_id']); ?>')"  title="{{trans('lang.delete_title')}}" class=""><i class="fas fa-trash"></i></a>
-              @endif
-             </div>
-            </div>
+        <div class="row">
+          <div class="col-sm-12" id="show-all-review">
             <hr>
-            @endforeach
-            <?php //echo "<pre>";print_r($productReviews->links());exit;?>
-              {!! $productReviews->links() !!}
-          @endif
+        <div class="row">
+            <div class="col-sm-3">
+              <h2 class="review_title">{{ __('users.review_title')}}</h2>
+            </div>
+            <div class="col-sm-9">
+            @if(!empty($productReviews))
+              @foreach($productReviews as $review)
+               <div class="row">
+                <div class="col-sm-1">
+                  @if(!empty($review['profile']))
+                    <img src="{{url('/')}}/uploads/Buyer/buyerIcons/{{$review['profile']}}" class="ratingUserIcon">
+                  @else 
+                    <img src="{{url('/')}}/uploads/Buyer/buyerIcons/no-image.png" class="ratingUserIcon">
+                  @endif
+                 
+                </div>
+                <div class="col-sm-5">
+                  <p class="ratingUname"><?php 
+                  if(!empty($review['fname']) && !empty($review['lname'])){
+                    $review_name = $review['fname']." ".$review['lname'];
+                  }else{
+                    $review_name = 'Anonymous';
+                  }
+                  echo $review_name.", ".date('d F, Y',strtotime($review['updated_at']));?></p>
+                <div class="star-rating" style="font-size:unset;pointer-events: none;">
+                    <select class='rating product_rating' data-rating="{{$review['product_rating']}}">
+                      <option value="1" >1</option>
+                      <option value="2" >2</option>
+                      <option value="3" >3</option>
+                      <option value="4" >4</option>
+                      <option value="5" >5</option>
+                    </select>
+                  </div>
+                <p class="ratingComment">{{$review['comments']}}</p>
+              </div>
+               <div class="col-sm-6">
+                 @if(Auth::guard('user')->id()==$review['user_id'])
+                  <a href="javascript:void(0)" title="{{trans('lang.edit_label')}}" style="color:#06999F;" class="edit_product_review" product_id="{{$review['product_id']}}" review_comment="{{$review['comments']}}" user_rating_hid="{{$review['product_rating']}}" rating_id="{{$review['rating_id']}}"><i class="fas fa-edit"></i> </a>
+
+                  <a href="javascript:void(0)" style="color:#06999F;" onclick="deleteProductReview('<?php echo base64_encode($review['rating_id']); ?>')"  title="{{trans('lang.delete_title')}}" class=""><i class="fas fa-trash"></i></a>
+                @endif
+               </div>
+              </div>
+              <hr>
+              @endforeach
+              <?php //echo "<pre>";print_r($productReviews->links());exit;?>
+                {!! $productReviews->links() !!}
+            @endif
+            </div>
+            </div>
           </div>
         </div>
 
@@ -200,10 +203,11 @@
           @endif
         </div> -->
         <!-- dummy tabs -->
-
+        <div class="row">
         <div class="col-md-12" style="margin-bottom: 50px;"> <hr>
+        <div class="row">
           <div class="col-md-2">
-            <h2  class="review_title" style="margin-left:-12px;">{{ __('users.store_terms')}}</h2>
+            <h2  class="review_title">{{ __('users.store_terms')}}</h2>
           </div>
         <div class="col-md-9 store_term_div">
 
@@ -236,6 +240,8 @@
       
    
         </div>
+        </div>
+      </div>
       </div>
         <!-- end -->
 

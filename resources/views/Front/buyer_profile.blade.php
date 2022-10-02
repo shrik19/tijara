@@ -22,7 +22,7 @@
         <div class="card">
 		<div class="card-header ml-0 row">							
 			<div class="col-md-9 pl-0">
-				<h2 class="page_heading">{{ __('users.buyer_profile_update_title')}}</h2>
+				<h2 class="page_heading pl-0">{{ __('users.buyer_profile_update_title')}}</h2>
 				<!-- <hr class="heading_line"/> -->
 			</div>
           </div>

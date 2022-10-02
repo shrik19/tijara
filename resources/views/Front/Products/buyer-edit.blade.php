@@ -50,7 +50,7 @@ width:100% !important;
           <div class="card-header  ml-0 row">
           <!-- <h2 class="page_heading">{{ __('users.my_order_title')}}</h2> -->
             <div class="col-md-10  p-0">
-               <h2 class="page_heading">{{ __('users.buyer_product_form_label')}}</h2>
+               <h2 class="page_heading pl-0">{{ __('users.buyer_product_form_label')}}</h2>
 
         
                </div>

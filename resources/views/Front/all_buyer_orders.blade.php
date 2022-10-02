@@ -15,7 +15,7 @@
             <div class="card">
 			     	<div class="card-header ml-0 row">							
 							<div class="col-md-9 pl-0">
-								<h2 class="page_heading">{{ __('users.my_order_title')}}</h2>
+								<h2 class="page_heading pl-0">{{ __('users.my_order_title')}}</h2>
 								<!-- <hr class="heading_line"/> -->
 							</div>
 							<div  class="col-md-3 new_add text-right p-m-0 pt-4">
@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <div class="card">
                     <div class="card-body"  style="margin-top: 20px;margin-bottom: 60px;">
-                    <div class="row">
+                    <div class="row buyer-row tj-order-product">
                     @if(!empty($ordersDetails) && count($ordersDetails) > 0)
 
                     @foreach($ordersDetails as $key => $value)

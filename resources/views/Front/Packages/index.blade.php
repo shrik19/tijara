@@ -53,14 +53,14 @@ $month['December']	=	'december';
 				@endphp
 		@if(count($subscribedPackage) != 0 && !empty($subscribedPackage))
 		<div class="seller_header">
-      	    <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.your_active_package')}}</h2>
+      	    <h2 class="seller_page_heading pl-0"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.your_active_package')}}</h2>
         	<!-- <hr class="heading_line"/> -->
 		</div>
-		<div class="col-md-12 package_history_btn text-right"><a href="{{route('frontPackage', base64_encode($user_id))}}" class="btn btn-black btn-sm debg_color a_btn login_btn">{{ __('users.history_button')}}</a></div>
+		<div class="col-md-12 package_history_btn text-right tj-mobnopad"><a href="{{route('frontPackage', base64_encode($user_id))}}" class="btn btn-black btn-sm debg_color a_btn login_btn">{{ __('users.history_button')}}</a></div>
 	
 	      	@foreach($subscribedPackage as $row)
 	      		@if($is_trial == 1) 
-			 <div class="col-md-6 ">
+			 <div class="col-md-6 tj-mobnopad ">
 			 
 				<div class="panel panel-default subscribe-packages package_width">
 				<div class="panel-heading bold package_heading {{ $active }}">Tijara rättegång</div>
@@ -133,7 +133,7 @@ $month['December']	=	'december';
 					<div class="panel-heading bold package_footer  	@if($row->start_date >= date('Y-m-d H:i:s') && $row->payment_status=='CAPTURED' ){{$inactive}} 	@elseif($row->status=='active') {{ $active }}@endif"></div>
 				</div></div>
 		@endif
-	      	 <div class="col-md-6 ">
+	      	 <div class="col-md-6 tj-mobnopad ">
 				  
 				   <?php 
 				   $class=$inactive;

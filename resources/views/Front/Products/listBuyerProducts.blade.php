@@ -20,7 +20,7 @@
             <div class="card-header ml-0 row">
             <div class="col-md-9 pl-0">
 
-            <h2 class="page_heading new_add_heading" >{{ __('users.buyer_product_list_title')}}</h2>
+            <h2 class="page_heading new_add_heading pl-0" >{{ __('users.buyer_product_list_title')}}</h2>
             <!-- <hr class="heading_line"/> -->
             </div>
             <div class="col-md-3 new_add text-right">
@@ -34,7 +34,7 @@
 
 
             <div class="card-body">
-            <div class="row">
+            <div class="row tj-order-product">
             @if(!empty($buyerProducts) && count($buyerProducts) > 0)
 
             @foreach($buyerProducts as $key => $value)

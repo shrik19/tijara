@@ -22,7 +22,7 @@
                         <div class="card-header ml-0 row">
 							
 							<div class="col-md-9 pl-0">
-								<h2 class="page_heading">{{ __('users.my_booking_title')}}</h2>
+								<h2 class="page_heading pl-0">{{ __('users.my_booking_title')}}</h2>
 								<!-- <hr class="heading_line"/> -->
 							</div>
 							<div  class="col-md-3 new_add text-right">
@@ -47,7 +47,7 @@
                         </div> -->
                         <div class="card">
                             <div class="card-body"  style="margin-top: 20px;">
-                                <div class="row">
+                                <div class="row tj-orderlist tj-order-product">
                                     @if(!empty($buyerBookingRequest) && count($buyerBookingRequest) > 0)
 
                                     @foreach($buyerBookingRequest as $key => $value)
@@ -138,7 +138,7 @@
                                     @endforeach
 
                                     @else
-                                    <div style="text-align: center;margin-top: 50px;">{{__('lang.datatables.sEmptyTable')}}</div>
+                                    <div style="text-align: center;margin-top: 50px;margin-bottom: 50px;height: 23vh;">{{__('lang.datatables.sEmptyTable')}}</div>
                                     @endif
                                 </div>
                             </div>

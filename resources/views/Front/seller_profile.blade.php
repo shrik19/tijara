@@ -36,7 +36,7 @@
       
         <div class="seller_info">
       <div class="card-header row seller_header">
-        <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.profile_update_title')}}</h2>
+        <h2 class="seller_page_heading pl-0"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.profile_update_title')}}</h2>
         <!-- <hr class="heading_line"> -->
      </div>  
         <div class="login_box seller_profile_content">

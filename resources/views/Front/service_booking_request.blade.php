@@ -37,11 +37,11 @@
     <div class="seller_info">
     <div class="card">
       <div class="card-header row seller_header" style="margin-bottom: 60px;">
-        <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.booking_request_label')}}</h2>
+        <h2 class="seller_page_heading pl-0"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.booking_request_label')}}</h2>
       </div>
 
       <div class="card-body bookingRequestCalender">
-        <div  class="col-md-12" id="calendar" style="padding: 20px;"></div>
+        <div  class="col-md-12 tj-mobnopad" id="calendar" style="padding: 20px;"></div>
         <div class="added_service_times" style="display:none;">
           <div class="added_service_times">         
             @if(!empty($bookingRequest))

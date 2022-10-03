@@ -125,7 +125,9 @@
 									<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('users.password_confirmation_label')}} *" value="{{$cpassword}}" style="margin-top:10px;" />
 									<span class="invalid-feedback" id="err_cpassword"></span>
 								</form>
-								<input type="button" name="next" class="next btn debg_color action-button 2" value="{{ __('users.next_step_btn')}}" id="first-step"  />
+								<div class="tj-progress-action-button">
+									<input type="button" name="next" class="next btn debg_color action-button 2" value="{{ __('users.next_step_btn')}}" id="first-step"  />
+								</div>
 							</fieldset>
 					  
 						 

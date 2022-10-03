@@ -2216,4 +2216,8 @@
   .tj-nofloat{
     float:none;
   }
+  .checkoutPageRightBox {
+    margin-top: 50px;
+    padding: 10px 15px 40px;
+  }
 }

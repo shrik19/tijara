@@ -51,16 +51,15 @@
               <div class="rowlogin_box">
                 <div class="col-md-7" >
                   <div class="checkoutPageBox">
+                    <div class="col-md-12"><h4>{{ __('messages.txt_billing_address')}}</h4></div>
                     <div class="checkout_billing_info">
                       <div class="col-md-6">
-                        <h4>{{ __('messages.txt_billing_address')}}</h4>
                         <div class="form-group">
                           <input type="text" class="form-control login_input " name="billing_given_name" id="billing_given_name" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('billing_given_name')) ?  old('billing_given_name') : $details->fname}}">
                           <span class="invalid-feedback" id="err_billing_given_name"></span>
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <h4>&nbsp;</h4>
                         <div class="form-group">
                           <input type="text" class="form-control login_input " name="billing_family_name" id="billing_family_name" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('billing_family_name')) ?  old('billing_family_name') : $details->lname}}">
                           <span class="invalid-feedback" id="err_billing_family_name"></span>
@@ -103,14 +102,16 @@
 
                   <!-- le -->
                   <div class="checkoutPageBox m-50">
+                    <div class="col-md-12">
+                      <h4>{{ __('messages.txt_shipping_address')}}
+                        <div class="rememberContainer p-15">
+                          <input type="checkbox" name="same_as_billing" id="same_as_billing" value="">
+                          <span class="remember-text-checkout">Samma som fakturering</span>
+                        </div>
+                      </h4>
+                    </div>
                     <div class="checkout_billing_info">
                       <div class="col-md-6">
-                        <h4>{{ __('messages.txt_shipping_address')}}
-                          <div class="rememberContainer p-15">
-                            <input type="checkbox" name="same_as_billing" id="same_as_billing" value="">
-                            <span class="remember-text-checkout">Samma som fakturering</span>
-                          </div>
-                        </h4>
                         <div class="form-group ">
                           <input type="text" class="form-control login_input " name="shipping_given_name" id="shipping_given_name" placeholder="{{ __('users.first_name_label')}}" value="{{ (old('shipping_given_name')) ?  old('shipping_given_name') : $details->fname}}">
                           <span class="invalid-feedback" id="err_shipping_given_name"></span>
@@ -118,8 +119,7 @@
                       </div>
 
                       <div class="col-md-6">
-                        <h4>&nbsp;<div>&nbsp;&nbsp;</div></h4>
-                        <div class="form-group p-15">
+                        <div class="form-group">
                           <input type="text" class="form-control login_input " name="shipping_family_name" id="shipping_family_name" placeholder="{{ __('users.last_name_label')}}" value="{{ (old('shipping_family_name')) ?  old('shipping_family_name') : $details->lname}}">
                           <span class="invalid-feedback" id="err_shipping_family_name"></span>
                         </div>
@@ -210,13 +210,13 @@
                             @if(!empty(@$store_pick_address) && @$store_pick_address!='')
                               <div class="pick_input" > 
                                 <div class="row">
-                                    <div class="col-md-6">                           
+                                    <div class="col-md-6 col-xs-8">                           
                                         <input type="radio" name="shipping_amount" class="radio-button-shipping" value="0"> <span style="margin-left:10px;">{{ __('users.pick_from_store')}}</span>
                                        <!--   <p style="margin-left:24px;font-size: 12px;
     color: #999;">{{ __('users.to_delivery_address')}} --</p> -->
     <span class="store_address store-pickup" title="{{@$store_pick_address}}">{{ @$store_pick_address}} </span> 
                                     </div>
-                                    <div class="col-md-6">                                       
+                                    <div class="col-md-6 col-xs-4">                                       
                                        <!--  <span class="store_address" title="{{@$store_pick_address}}">0.00 kr </span> -->
                                           <span class="product_shipping_charges1" class="checkout-shipping-charges">0.00 kr</span>  
                                       </div>
@@ -253,11 +253,11 @@
                
                            <div class="pick_input"> 
                                 <div class="row">
-                                    <div class="col-md-6">                           
+                                    <div class="col-md-6 col-xs-8">                           
                                         <input type="radio" name="shipping_amount" class="radio-button-shipping" value="1"> <span style="margin-left:10px;margin-top: 8px;">{{ __('users.shipping_btn')}}</span>
                                          <p style="margin-left:24px;font-size: 12px;color: #999;">{{ __('users.to_delivery_address')}}</p>
                                     </div>
-                                    <div class="col-md-6 mt-8 m-m-t-15">
+                                    <div class="col-md-6 col-xs-4 mt-8 m-m-t-15 text-right">
                                     
                                       @php
 

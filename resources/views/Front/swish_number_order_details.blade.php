@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/azcustom.css">
 <script type="text/javascript">
     var select_payment_option="{{ __('users.select_payment_option')}}";
 </script>

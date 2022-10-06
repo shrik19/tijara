@@ -2220,4 +2220,13 @@
     margin-top: 50px;
     padding: 10px 15px 40px;
   }
+  .tj-swishbox .checkoutProducts .col-xs-3 {
+    padding-right: 0;
+  }
+  .tj-swishbox .checkoutProducts .col-xs-3 img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      object-position: center;
+  }
 }

@@ -53,7 +53,7 @@
               <div class="rowlogin_box">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                <div class="checkoutPageRightBox">
+                <div class="checkoutPageRightBox tj-swishbox">
                   @if(!empty($orderDetails))
                   <div class="checkoutPageRightBoxHeader">
                     <input type="hidden" name="order_id" id="order_id" value="{{$orderId}}">
@@ -75,26 +75,26 @@
                         @endif
                         </div>
 
-                          <div class="col-md-12 checkoutProducts">
-                          <div class="col-md-3">
-                            @if(!empty($orderProduct['product']['image']))
-                               <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object checkoutProductImg">
-                            @else
-                              <img src="{{url('/')}}/uploads/ProductImages/productIcons/no-image.png" class="media-object" style="width: 72px; height: 72px;">
-                            @endif
-                          </div>
-                          <div class="col-md-9 checkoutProductDetails">
-                            <h4>{{$orderProduct['product']['title']}}</h4>
-                            <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['product']['variant_attribute_id']);?> </h5>
-                            <p>{{ __('lang.shopping_cart_quantity')}}:  {{$orderProduct['product']['quantity']}}</p>
-                                 @php 
-                                      $price_array_tbl = str_split(strrev($orderProduct['price']), 3);
-                                      $price_tbl = strrev(implode(" ", $price_array_tbl));
-                                      $price_tbl = $price_tbl.",00";
-                                  @endphp
-                            <p>{{ __('lang.shopping_cart_price')}}: @if(!empty($price_tbl)) {{@$price_tbl}} kr @endif </p>
-                            <p>{{ __('messages.make_payment_on_swish_number')}}:<span style="font-weight: bold;">{{$seller_swish_number}}</span></p>
-                          </div>
+                          <div class="row checkoutProducts">
+                            <div class="col-md-3">
+                              @if(!empty($orderProduct['product']['image']))
+                                 <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object checkoutProductImg">
+                              @else
+                                <img src="{{url('/')}}/uploads/ProductImages/productIcons/no-image.png" class="media-object" style="width: 72px; height: 72px;">
+                              @endif
+                            </div>
+                            <div class="col-md-9 checkoutProductDetails">
+                              <h4>{{$orderProduct['product']['title']}}</h4>
+                              <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['product']['variant_attribute_id']);?> </h5>
+                              <p>{{ __('lang.shopping_cart_quantity')}}:  {{$orderProduct['product']['quantity']}}</p>
+                                   @php 
+                                        $price_array_tbl = str_split(strrev($orderProduct['price']), 3);
+                                        $price_tbl = strrev(implode(" ", $price_array_tbl));
+                                        $price_tbl = $price_tbl.",00";
+                                    @endphp
+                              <p>{{ __('lang.shopping_cart_price')}}: @if(!empty($price_tbl)) {{@$price_tbl}} kr @endif </p>
+                              <p>{{ __('messages.make_payment_on_swish_number')}}:<span style="font-weight: bold;">{{$seller_swish_number}}</span></p>
+                            </div>
                           </div>
                         @endforeach
                       @endif

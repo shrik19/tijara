@@ -105,7 +105,7 @@
             <div class="col-sm-3">
               <div class="form-group">
                 <label>{{ __('lang.sort_by')}} : </label>
-                <select class="form-control" name="sort_by" id="sort_by" class="sort_by_name" onchange="listProducts()">
+                <select class="form-control tjselect" name="sort_by" id="sort_by" class="sort_by_name" onchange="listProducts()">
                    <!--  <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
                     <option value="name">{{ __('lang.sort_by_name')}}</option>
                     <option value="price">{{ __('lang.sort_by_price')}}</option>
@@ -115,7 +115,7 @@
             <div class="col-sm-3">
               <div class="form-group">
                 <label>{{ __('lang.sort_by_order')}} : </label>
-                <select class="form-control seller" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listProducts()">
+                <select class="form-control seller tjselect" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listProducts()">
                     <option value="">---- {{ __('lang.sort_by_option')}} ----</option>
                     <option value="asc">{{ __('lang.sort_by_asc')}}</option>
                     <option value="desc">{{ __('lang.sort_by_desc')}}</option>

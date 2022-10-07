@@ -1894,7 +1894,7 @@
 	    margin-right: 1%;
 	}
 	.tj-topicons ul.dropdown-menu {
-	    z-index: 1111;
+	    z-index: 11111;
 	    top: 35px;
       right: -90px;
       left: auto;
@@ -2228,5 +2228,16 @@
       height: 60px;
       object-fit: cover;
       object-position: center;
+  }
+  .tj-store-container .select2-selection.select2-selection--single {
+    height: 28px;
+    padding: 5px 8px;
+    border: solid 1px #737373;
+    border-radius: 0;
+  }
+  .tj-store-container .select2-container--default .select2-selection--single .select2-selection__rendered {
+    font-size: 13px;
+    line-height: 1.2;
+    padding: 0;
   }
 }

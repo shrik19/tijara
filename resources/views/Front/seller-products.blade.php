@@ -483,7 +483,7 @@ $(document).ready(function() {
         if(v.product_count == 0){
             $("#productCount_"+k).parent().css('display','none');
         }else{
-          
+          $("#productCount_"+k).parent().show();
            $("#productCount_"+k).text(v.product_count);
         }
         i++;

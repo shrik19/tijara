@@ -1510,7 +1510,9 @@ function showProductsServices()
 
 $(".search_icon_btn").click(function(){
   var serach_val = $("#search_string").val();
-  if(serach_val==''){
+  if ($(this).hasClass("sellerSearchBtn")) {
+  }
+  else if(serach_val==''){
     $("#product_service_search_type").val('products');
     $('#product_service_search_from').attr('action',siteUrl+"/products");
     $('#product_service_search_from').attr('onSubmit','');

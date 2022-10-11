@@ -75,7 +75,7 @@
           <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
           <div class=" form-group search_now_input_box seller_search">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
-            <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
+            <button class="search_icon_btn seller_serch_icon sellerSearchBtn" type="submit"><i class="fa fa-search"></i></button>
           </div>
           <ul class="seller_cat_list">
             <li>
@@ -431,6 +431,12 @@ function get_service_count(){
     }
    });
 }
+$(".sellerSearchBtn").click(function(e){
+		e.preventDefault();
+		get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+			$('.current_sellers').text(),$('#price_filter').val(),'',$(".current_search_string").text(),$("#seller_product_filter").val(),window.location.pathname) ;
+			 get_service_count();
+	});
 $( "#seller_product_filter" ).keyup(function() {
 
      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),

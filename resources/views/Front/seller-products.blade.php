@@ -76,7 +76,7 @@
           <h4 class="seller_store_cat_head">{{ __('lang.categories_head')}}</h4>
           <div class=" form-group search_now_input_box seller_search">
             <input type="text" name="seller_product_filter" id="seller_product_filter" class="form-control input-lg" placeholder="{{ __('users.search_item_placeholder')}}" />
-            <button class="search_icon_btn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
+            <button class="search_icon_btn sellerSearchBtn seller_serch_icon" type="submit"><i class="fa fa-search"></i></button>
           </div>
           <?php 
 
@@ -433,9 +433,7 @@ $(".cat_subcat_redirect").click(function(){
 });
 
 $(document).ready(function() {
-
-
-
+	
   var read_more_btn = "{{ __('users.read_more_btn')}}";
   var read_less_btn = "{{ __('users.read_less_btn')}}";
 	get_product_count();
@@ -491,7 +489,12 @@ $(document).ready(function() {
     }
    });
   }
-
+$(".sellerSearchBtn").click(function(e){
+		e.preventDefault();
+		get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+		$('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text(),window.location.pathname);
+		get_product_count();
+	});
 $( "#seller_product_filter" ).keyup(function() {
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text(),window.location.pathname);

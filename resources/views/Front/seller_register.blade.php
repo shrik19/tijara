@@ -680,6 +680,32 @@ if($('#current_step_button').val() != 1){
                         console.log(data.success);
                         console.log("first step complete");    
 						createCookie("tijara_register_current_step", 'seller_register_second', 20);
+						var current_fs, next_fs, previous_fs; //fieldsets
+						var opacity;
+						current_fs = $('#first-step').parent().parent();
+						next_fs = $('#first-step').parent().parent().next();
+
+						//Add Class Active
+						$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+						//show the next fieldset
+						next_fs.show();
+
+						//hide the current fieldset with style
+						current_fs.animate({opacity: 0}, {
+						step: function(now) {
+							//console.log("next-->"+now)
+							// for making fielset appear animation
+							opacity = 0.5 - now;
+
+							current_fs.css({
+								'display': 'none',
+								'position': 'relative'
+							});
+								next_fs.css({'opacity': opacity});
+							},
+							duration: 600
+						});
                     }else{
                         showErrorMessage(data.error_msg.email);
                         error=1;
@@ -690,32 +716,7 @@ if($('#current_step_button').val() != 1){
 
         //show next step
         if(error==0){
-            var current_fs, next_fs, previous_fs; //fieldsets
-            var opacity;
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-
-            //Add Class Active
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-            //show the next fieldset
-            next_fs.show();
-
-            //hide the current fieldset with style
-            current_fs.animate({opacity: 0}, {
-            step: function(now) {
-            	//console.log("next-->"+now)
-                // for making fielset appear animation
-                opacity = 0.5 - now;
-
-                current_fs.css({
-                    'display': 'none',
-                    'position': 'relative'
-                });
-                    next_fs.css({'opacity': opacity});
-                },
-                duration: 600
-            }); 
+             
         } 
 });
 

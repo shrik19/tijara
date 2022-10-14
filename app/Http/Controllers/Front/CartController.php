@@ -3208,7 +3208,7 @@ DATA;
                                   ->leftjoin('categories', 'categories.id', '=', 'category_products.category_id')
                                   ->leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
                                   ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                                  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                                  ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                                   //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                                   ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
                                  // ->where('products.status','=','active')

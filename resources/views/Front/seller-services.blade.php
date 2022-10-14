@@ -436,6 +436,10 @@ $(".sellerSearchBtn").click(function(e){
 		get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
 			$('.current_sellers').text(),$('#price_filter').val(),'',$(".current_search_string").text(),$("#seller_product_filter").val(),window.location.pathname) ;
 			 get_service_count();
+			 if($('#tjfilter').length>0) {
+				 if($('#tjfilter').hasClass("in"))
+				 $('.tj-closebutton').trigger('click');
+			 }
 	});
 $( "#seller_product_filter" ).keyup(function() {
 

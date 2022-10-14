@@ -494,6 +494,10 @@ $(".sellerSearchBtn").click(function(e){
 		get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
 		$('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text(),window.location.pathname);
 		get_product_count();
+		if($('#tjfilter').length>0) {
+		 if($('#tjfilter').hasClass("in"))
+		 $('.tj-closebutton').trigger('click');
+	 }
 	});
 $( "#seller_product_filter" ).keyup(function() {
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),

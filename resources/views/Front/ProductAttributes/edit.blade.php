@@ -43,7 +43,7 @@
                   <span class="invalid-feedback" id="err_fname">@if($errors->has('name')) {{ $errors->first('name') }}@endif </span>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="display:none;">
                   <label class="product_table_heading">{{ __('lang.type_label')}} <span class="de_col">*</span></label>
                   <select required class="form-control login_input attr_type" id="type" name="type">
                     <option value="">{{ __('lang.select_label')}}</option>

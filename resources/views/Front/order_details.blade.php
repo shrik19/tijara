@@ -216,6 +216,7 @@ if (@$_GET['print'])
                                     $Total_tbl = strrev(implode(" ", $Total_amount));
                                     $Total_tbl = $Total_tbl.",00";
                                 @endphp
+								<?php $Total_tbl = swedishCurrencyFormat($Total); ?>
                                 {{$Total_tbl}} kr
                             </p>
                         </td>

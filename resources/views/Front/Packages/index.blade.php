@@ -63,13 +63,13 @@ $month['December']	=	'december';
 			 <div class="col-md-6 tj-mobnopad ">
 			 
 				<div class="panel panel-default subscribe-packages package_width">
-				<div class="panel-heading bold package_heading {{ $active }}">Tijara rättegång</div>
+				<div class="panel-heading bold package_heading {{ $active }}">Tijara trial</div>
 				<div class="panel-body package-body">
 					<table class="table" style="border: 0px;max-height: 365px;overflow: auto;">
 					  <tbody class="">
 					  	 <tr>
 					  		<td>{{ __('users.amount_label')}}</td>
-					  		<td> Fri </td>
+					  		<td> Kostnadsfritt </td>
 					    </tr>
 					    <tr>
 					  		<td>{{ __('users.validity_label')}}</td>

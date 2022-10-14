@@ -181,7 +181,7 @@ width:100% !important;
                 @endforeach
                 </select>
                 <select style="margin-left: 10px;" selected_attribute_value="{{$attribute['attribute_value_id']}}" class="variant_field {{$attribute['id']}} col-md-4 login_input select_attribute_value" name="attribute_value[<?php echo $i;?>][<?php echo $i;?>]">
-                <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
+                <option value=""> {{ __('lang.attribute_value_label_placeholder')}}</option>
 
                 </select>
                 <span class="invalid-feedback col-md-12" style="text-align: left;"  id="err_sku" ></span>
@@ -277,7 +277,7 @@ width:100% !important;
                 </div>
 
                  <div class="form-group"  style="margin-top: 78px;">
-                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="javascript:void(0)"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a>  {{ __('users.and_label')}}  &nbsp;<a href="javascript:void(0)">{{ __('users.privacy_policy')}}</a> <a href="javascript:void(0)">{{ __('users.store_terms')}}</a></span>  
+                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a>  {{ __('users.and_label')}}  &nbsp;<a href="{{url('/')}}/page/villkor">{{ __('users.privacy_policy')}}</a> <!--<a href="javascript:void(0)">{{ __('users.store_terms')}}</a>--></span>  
                </div>
 
                </div>

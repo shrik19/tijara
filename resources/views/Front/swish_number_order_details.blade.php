@@ -106,13 +106,15 @@
                 
                 <div class="col-md-12">
                   <div class="checkoutAmountBorder">
-                    @php
-                        $sub_total_tbl = str_split(strrev($orderDetails[$orderId]['subTotal']), 3);
+                    <?php
+                       /* $sub_total_tbl = str_split(strrev($orderDetails[$orderId]['subTotal']), 3);
                         $sub_total_tbl = strrev(implode(" ", $sub_total_tbl));
-                        $sub_total_tbl = $sub_total_tbl.",00";
-                    @endphp
+                        $sub_total_tbl = $sub_total_tbl.",00";*/
+						$sub_total = $orderDetails[$orderId]['subTotal'];
+                        $sub_total_tbl = swedishCurrencyFormat($sub_total);
+                    ?>
                     <span>{{ __('lang.shopping_cart_subtotal')}}:</span>
-                    <span style="float: right;">{{@$sub_total_tbl}} kr</span>
+                    <span style="float: right;"><?php echo $sub_total_tbl; ?> kr</span>
                   </div>
                   <div class="checkoutAmountBorder">
                     @php 
@@ -120,15 +122,16 @@
                         $shipping_total_tbl = strrev(implode(" ", $shipping_total_tbl));
                         $shipping_total_tbl = $shipping_total_tbl.",00";
                     @endphp
-                  <span>{{ __('lang.shopping_cart_shipping')}}:</span><span style="float: right;">{{@$shipping_total_tbl}} kr</span>
+                  <span>{{ __('lang.shopping_cart_shipping')}}:</span><span style="float: right;"><?php echo $shipping_total_tbl; ?> kr</span>
                 </div>
                 <div class="checkoutAmountBorder">
                   @php 
                     $total_tbl = str_split(strrev($orderDetails[$orderId]['Total']), 3);
                     $total_tbl = strrev(implode(" ", $total_tbl));
                     $total_tbl = $total_tbl.",00";
+					$total_tbl = swedishCurrencyFormat($orderDetails[$orderId]['Total']);
                   @endphp
-                  <span>{{ __('lang.shopping_cart_total')}}:</span><span style="float: right;">{{@$total_tbl}} kr</span>
+                  <span>{{ __('lang.shopping_cart_total')}}:</span><span style="float: right;"><?php echo $total_tbl; ?> kr</span>
                 </div>
                 </div>
                 <div class="col-md-12 text-center" style="margin-top: 30px;">

@@ -586,8 +586,8 @@ $('.radio-button-shipping').click(function() {
     var subtotal= $(".get_subtotal").text();
     if(product_shipping_charges != free_ship){
       //$(".decide_shipping").text(product_shipping_charges);
-      var newSubtotal = parseInt(hid_get_subtotal)+parseInt(hid_product_shipp_charges);
-      var text = newSubtotal.toLocaleString("sv-SE", {style:"currency", currency:"SEK"});
+      var newSubtotal = (hid_get_subtotal)+(hid_product_shipp_charges);
+      var text = newSubtotal.replaceAll('.', ',').toLocaleString("sv-SE", {style:"currency", currency:"SEK"})+' kr';
       //$(".decide_total").text(text);
     shipping_charges  = hid_product_shipp_charges;
     shipping_charges_to_show  = product_shipping_charges;

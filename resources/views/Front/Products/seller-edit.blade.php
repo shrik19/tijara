@@ -254,12 +254,12 @@
 
 
                                     <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value" name="attribute_value[<?php echo $i;?>][]">
-                                      <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
+                                      <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}  (ex röd)</option>
 
                                     </select>
                                     <span class="invalid-feedback col-md-8"  id="err_sku" ></span>
                                     <?php  if($key!=0){?>
-                                      <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.add_attribute_info')}}t</p>
+                                      <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.add_attribute_info')}}</p>
                                     <?php } ?>
                                       </div>
                                      

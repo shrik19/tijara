@@ -42,7 +42,7 @@
               <span class="invalid-feedback" id="err_fname">@if($errors->has('name')) {{ $errors->first('name') }}@endif </span>
             </div>
 
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" style="display:none;">
               <label class="product_table_heading">{{ __('lang.attribute_value_label')}} <span class="de_col">*</span></label>
               <select class="form-control login_input" id="type" name="type">
                 <option disabled="disabled">{{ __('lang.select_label')}} </option>

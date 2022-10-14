@@ -351,7 +351,7 @@ class ProductAttributesController extends Controller
         $attribute_id = $request->input('attribute_id');
        
         $attributeValue = AttributesValues::where('attribute_id',$attribute_id)->get();
-        $html   =   '<option value="">'.trans("lang.attribute_value_label").'</option>';
+        $html   =   '<option value="">'.trans("lang.attribute_value_label_placeholder").'</option>';
         if (!empty($attributeValue)) 
         {
             

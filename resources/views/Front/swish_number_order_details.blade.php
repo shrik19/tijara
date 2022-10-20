@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/azcustom.css">
 <script type="text/javascript">
     var select_payment_option="{{ __('users.select_payment_option')}}";
 </script>
@@ -75,14 +76,16 @@
                         </div>
 
                           <div class="row checkoutProducts">
-                            <div class="col-md-3">
-                              @if(!empty($orderProduct['product']['image']))
-                                 <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object checkoutProductImg">
-                              @else
-                                <img src="{{url('/')}}/uploads/ProductImages/productIcons/no-image.png" class="media-object" style="width: 72px; height: 72px;">
-                              @endif
+                            <div class="col-xs-3">
+                              <div class="tj-cart2-thumbnail">
+                                @if(!empty($orderProduct['product']['image']))
+                                   <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object checkoutProductImg">
+                                @else
+                                  <img src="{{url('/')}}/uploads/ProductImages/productIcons/no-image.png" class="media-object" style="width: 72px; height: 72px;">
+                                @endif
+                              </div>
                             </div>
-                            <div class="col-md-9 checkoutProductDetails">
+                            <div class="col-xs-9 checkoutProductDetails">
                               <h4>{{$orderProduct['product']['title']}}</h4>
                               <h5 class="media-heading product_attribute_css"> <?php echo str_replace(array( '[', ']' ), '', @$orderProduct['product']['variant_attribute_id']);?> </h5>
                               <p>{{ __('lang.shopping_cart_quantity')}}:  {{$orderProduct['product']['quantity']}}</p>

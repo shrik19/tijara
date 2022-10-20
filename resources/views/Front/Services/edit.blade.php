@@ -176,7 +176,7 @@ td.fc-week-number {
   <div class="form-group">
   <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}}<span class="de_col">*</span> </label>
   <div class="col-md-8">
-  <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8" >
+  <select class="select2 col-md-8 login_input form-control tjselect" name="status" id="status"  placeholder="Select" tabindex="8" >
   <option @if($service->status=='active') selected="selected" @endif value="active">Active</option>
   <option @if($service->status=='block') selected="selected" @endif value="block">Block</option>
   </select>

@@ -116,7 +116,7 @@
             <div class="form-group  producterrDiv">
               <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span></label>
               <div class="col-md-8">
-                <select class="select2 col-md-8 ge_input" name="status" id="status"  placeholder="" tabindex="8" >
+                <select class="select2 col-md-8 ge_input tjselect" name="status" id="status"  placeholder="" tabindex="8" >
                   <option value="active">{{ __('lang.active_label')}}</option>
                   <option value="block">{{ __('lang.block_label')}}</option>
                   </select>
@@ -178,7 +178,7 @@
               $i  = 0; ?>
 
             
-                <div class="variant_tr" id="variant_tr" variant_id="<?php echo $i;?>">
+                <div class="variant_tr tjsellercol2" id="variant_tr" variant_id="<?php echo $i;?>">
                  
                   <div class="form-group row" >
                     <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col"></span></label>
@@ -217,8 +217,8 @@
                   <?php }else{?>
                     <div class="col-md-3"></div>
                  <?php }?>
-                    <div class="col-md-8 tj-svselect">
-                    <select style="width: 32%;" class="col-md-4 ge_input select_attribute" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                    <div class="col-md-8 tj-svselect tj-newslect">
+                    <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
                       <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
                         @foreach ($attributesToSelect as $attr)
@@ -227,7 +227,7 @@
                     </select>
                     
                     <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
-                    class="col-md-4 ge_input select_attribute_value" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
+                    class="col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
                       <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
 
                     </select>
@@ -308,10 +308,10 @@
             </div>
 
             <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('lang.product_form_step3')}}</h2>
-            <div class="form-group " id="shipping_method_ddl_div">
+            <div class="form-group producterrDiv" id="shipping_method_ddl_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
               <div class="col-md-8">
-              <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl" >
+              <select class="col-md-8 ge_input tjselect" name="shipping_method_ddl" id="shipping_method_ddl" >
                 <option value="">{{ __('users.select_shipping_method')}}</option>
                 <option value="Platta fraktkostnader" @if(@$users_details->shipping_method=="Platta fraktkostnader") selected="selected" @endif>{{ __('users.flat_shipping_charges')}}</option>
                 <option value="Andel fraktkostnader"  @if(@$users_details->shipping_method=="Andel fraktkostnader") selected="selected" @endif>{{ __('users.prcentage_shipping_charges')}}</option>

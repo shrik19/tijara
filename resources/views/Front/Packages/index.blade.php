@@ -228,12 +228,13 @@ $month['December']	=	'december';
 		@endif
 		
 		@if(count($packageDetails) != 0 && !empty($packageDetails))
-			  <div class="col-md-12">
+			  <div class="col-md-12 tj-mobnopad ">
 				<h2 class="page_heading" style="margin: 60px 0px 30px 0px;">{{ __('users.subscribe_package_label')}} </h2>
 			
+					<div class="row">
 					@foreach($packageDetails as $data)
 					 <div class="col-md-6">
-						<div class="panel panel-default subscribe-packages">
+						<div class="panel panel-default subscribe-packages package_width">
 						<div class="panel-heading package_heading package-pro">{{$data['title']}}</div>
 						
 				<div class="panel-body package-body">
@@ -272,6 +273,7 @@ $month['December']	=	'december';
 					</div>
 				
 					@endforeach
+					</div>
 			   </div>
 			   @endif
 			

@@ -26,7 +26,11 @@
           <h2 class="seller_page_heading pl-0"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('users.payment_btn')}} </h2>
         </div> <!--  seller_header -->
         
-        <div style="margin-top: 40px;">
+        <div class="tj-paymentrow" style="margin-top: 40px;">
+          
+        <div class="col-md-4 tj-mobnopad">
+          <div class="info" style="background-color: #e6f2ff;padding: 20px;margin-bottom: 10px;">{{ __('users.payment_method_info_seller_backend')}}</div>
+        </div>
         <div class="col-md-6 tj-mobnopad">
           <h3>{{ __('users.payment_method_head')}}</h3>
           <form method="POST" action="{{route('frontStorePaymentDetails')}}" class="needs-validation seller-payment-form" novalidate="">
@@ -92,9 +96,6 @@
         </form>
         </div>
 
-        <div class="col-md-4 tj-mobnopad">
-          <div class="info" style="background-color: #e6f2ff;padding: 20px;margin-bottom: 10px;">{{ __('users.payment_method_info_seller_backend')}}</div>
-        </div>
         <div class="col-md-2"></div>
       </div>
       </div><!--/seller_info -->

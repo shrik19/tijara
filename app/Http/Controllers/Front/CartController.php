@@ -3450,7 +3450,7 @@ DATA;
       if($user_id)
       {
            
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff !important;margin-top: -28px;'><option value=''>".trans('lang.select_label')."</option>";
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color tjselect' style='color:#fff !important;margin-top: -28px;'><option value=''>".trans('lang.select_label')."</option>";
         
           
         $monthYearSql = Orders::select(DB::raw('count(id) as `orders`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))->where('user_id','=',$user_id)->groupby('year','month')
@@ -3536,7 +3536,7 @@ DATA;
         /*month year filter*/
         $month = !empty( $_GET['month'] ) ? $_GET['month'] : 0;
         $year = !empty( $_GET['year'] ) ? $_GET['year'] : 0;
-        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff !important;margin-top: -2px;'><option value='all_month' >".trans('users.all_months_option')."</option>";
+        $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color tjselect' style='color:#fff !important;margin-top: -2px;'><option value='all_month' >".trans('users.all_months_option')."</option>";
         //$monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";
 
       

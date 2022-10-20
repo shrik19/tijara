@@ -357,13 +357,15 @@
                         @endif
                         </div>
 
-                          <div class="col-xs-12 checkoutProducts">
+                          <div class="row checkoutProducts">
                           <div class="col-xs-3">
-                            @if(!empty($orderProduct['product']['image']))
-                               <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object checkoutProductImg">
-                            @else
-                              <img src="{{url('/')}}/uploads/ProductImages/productIcons/no-image.png" class="media-object" style="width: 72px; height: 72px;">
-                            @endif
+                            <div class="tj-cart2-thumbnail">
+                              @if(!empty($orderProduct['product']['image']))
+                                 <img src="{{url('/')}}/uploads/ProductImages/productIcons/{{$orderProduct['product']['image']}}" class="media-object checkoutProductImg">
+                              @else
+                                <img src="{{url('/')}}/uploads/ProductImages/productIcons/no-image.png" class="media-object" style="width: 72px; height: 72px;">
+                              @endif
+                            </div>
                           </div>
                           <div class="col-xs-9 checkoutProductDetails">
                             <h4>{{$orderProduct['product']['title']}}</h4>

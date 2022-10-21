@@ -296,6 +296,51 @@
 .tj-profile-action .btn {
     display: inline-block !important;
 }
+#filter-buyer-order .select2-container--default .select2-selection--single .select2-selection__rendered {
+    background-color: #03989e;
+    text-align: left;
+    color: white;
+    line-height: 34px;
+}
+#filter-buyer-order .select2-container .select2-selection--single {
+    height: 34px;
+}
+#filter-buyer-order .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #fff transparent transparent transparent;
+}
+#filter-buyer-order .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 34px;
+    right: 5px;
+}
+
+#filterForm .select2-container--default .select2-selection--single .select2-selection__rendered {
+  background: #ffbd59;
+  line-height: 34px;
+}
+#filterForm .select2-container--default .select2-selection--single{
+    height: 34px;
+    border: none;
+    border-radius: 0;
+}
+#filterForm .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 34px;
+}
+#filterForm .select2-container {
+    margin-left: 15px;
+}
+
+.tj-paymentrow .col-md-6.tj-mobnopad {
+  order: 1;
+}
+.tj-paymentrow {
+  display: flex;
+}
+.tj-paymentrow .col-md-4.tj-mobnopad {
+  order: 2;
+}
+.tj-paymentrow .col-md-2 {
+  order: 3;
+}
 @media(max-width:1599px){
 	#sliderImages {
 	    height: 500px;
@@ -636,6 +681,7 @@
     padding:20px;
     overflow: scroll;
     height: 80vh;
+    min-height:calc(100vh - 150px);
   }
   body.sidebarActive {
     overflow: hidden;
@@ -1531,6 +1577,10 @@
   }
   .tijara-content .btn{
     display: block;
+    min-width: 10px;
+  }
+  .buyer-ht {
+    height: auto !important;
   }
   .seller_info h2 {
     margin-bottom: 20px;
@@ -2180,8 +2230,8 @@
     width: 30px;
   }
   .tj-order-product .col-md-15 {
-    width: 48% !important;
-    margin: 0 1.5% 15px 0;
+    width: 49% !important;
+    margin: 0 2% 15px 0;
     float: left;
   }
   .tj-order-product .col-md-15:nth-of-type(2n) {
@@ -2239,5 +2289,123 @@
     font-size: 13px;
     line-height: 1.2;
     padding: 0;
+  }
+  .tj-cart2-thumbnail {
+    max-width: 65px;
+    width: 65px;
+    height: 65px;
+    margin-right: 10px;
+  }
+  .tj-cart2-thumbnail img {width: 100%;height: 100%;}
+  span.invalid-feedback {
+    clear: both;
+    display: block;
+  }
+  .container-inner-section{
+    max-width:100%;
+  }
+  .buyer-row.tj-order-product .product_data_img .product_img_prd {
+    width: 200px;
+    height: 200px;
+  }
+  .seller_mid_cont > .col-sm-12.col-md-6 {
+    padding: 0;
+    text-align: left;
+  }
+  #order_details_box table.table.table-hover.shopping_cart {
+    min-width: 500px;
+  }
+  #order_details_box .col-md-12.tijara-content.printdiv {
+    overflow: scroll;
+  }
+
+  #order_details_box .col-md-12.tijara-content.printdiv .seller_mid_cont h4 {
+    font-size: 16px !important;
+  }
+
+  #order_details_box .col-md-12.tijara-content.printdiv .seller_mid_cont h4 + span {
+    font-size: 14px !important;
+  }
+  #order_details_box .col-md-12.tijara-content.printdiv h2 {
+    font-size: 24px;
+  }
+  #product-form .invalid-feedback{
+    padding:0 !important;
+  }
+  #variant_table .form-group {
+    margin: 0 !important;
+  }
+  #variant_table .login_input.form-control.image.variant_image {
+      margin-top: 0 !important;
+  }
+  .tijara-form textarea.form-control, .tijara-form .richText{
+    margin-bottom: 0px !important;
+  }
+  .tj-aaprvecheck {
+    margin-top: 10px !important;
+  }
+  .sellers_top_padding {
+    padding-top: 157px !important;
+  }
+  .seller_info{
+    float: none;
+  }
+  .producterrDiv .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 40px;
+    border-radius: 3px;
+  }
+  .producterrDiv .select2-container--default .select2-selection--single {
+    height: 40px;
+    border: none;
+  }
+  .producterrDiv .select2-container {
+    height: 42px !important;
+  }
+  .producterrDiv .select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 38px !important;
+  }
+  #variant_table .tjsellercol2 .form-group.row {
+    margin-right: -15px !important;
+    margin-left: -15px !important;
+  }
+  .tjsellercol2 .tj-svselect select {
+      width: 48% !important;
+  }
+  .producterrDiv .tj-newslect .select2-container {
+    width: 49% !important;
+  }
+  .tj-orderstable #productTable_wrapper > .row:first-child{
+    display: flex;
+  }
+  .bookingRequestCalender .fc-right button.fc-next-button, .bookingRequestCalender .fc-right button.fc-prev-button {
+    position: relative;
+    z-index: 1111;
+    padding: 0;
+  }
+  .bookingRequestCalender .fc-day-header {
+      padding: 6px !important;
+      font-size: 12px !important;
+  }
+  .bookingRequestCalender .fc-basic-view th span {
+      font-size: 14px;
+      line-height: 30px !important;
+  }
+  .bookingRequestCalender .fc-view.fc-sevenDays-view.fc-basic-view {
+      max-width: 80%;
+      margin: 0 auto;
+  }
+
+  .tj-paymentrow .col-md-6.tj-mobnopad {
+    order: 2;
+  }
+  .tj-paymentrow {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .tj-paymentrow .col-md-4.tj-mobnopad {
+    order: 1;
+  }
+  .tj-paymentrow .col-md-2 {
+    order: 3;
   }
 }

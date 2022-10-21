@@ -167,10 +167,10 @@ td.fc-week-number {
                   </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group producterrDiv">
                 <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span> </label>
                 <div class="col-md-8">
-                  <select class="select2 col-md-8 login_input form-control" name="status" id="status"  placeholder="Select" tabindex="8">
+                  <select class="select2 col-md-8 login_input form-control tjselect" name="status" id="status"  placeholder="Select" tabindex="8">
                     <option value="active">{{ __('lang.active_label')}}</option>
                     <option value="block">{{ __('lang.block_label')}}</option>
                     </select>
@@ -205,9 +205,9 @@ td.fc-week-number {
                 <div class="row">
                   <div class="col-md-9">
                     <div class="row">                      
-                      <div class="form-group col-md-4">
+                      <div class="form-group producterrDiv col-md-4">
                         <label class="col-md-12 product_table_heading">{{ __('lang.from_service_year')}}<!-- <span class="de_col">*</span> --></label>
-                        <select class="col-md-12 service_year form-control" name="service_year" id="service_year" >
+                        <select class="col-md-12 service_year form-control tjselect" name="service_year" id="service_year" >
                           <option value="">{{ __('lang.select_label')}}</option>
                           <?php
                             for($i=date('Y'); $i<'2050';$i++) {
@@ -219,9 +219,9 @@ td.fc-week-number {
                         </select>
                         <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
                       </div>
-                      <div class="form-group col-md-4">
+                      <div class="form-group producterrDiv col-md-4">
                         <label class="col-md-12 product_table_heading">{{ __('lang.from_service_month')}}<!-- <span class="de_col">*</span> --></label>
-                        <select class="col-md-12 service_month form-control" name="service_month" id="service_month" >
+                        <select class="col-md-12 service_month form-control tjselect" name="service_month" id="service_month" >
                           <option value="">{{ __('lang.select_label')}}</option>
                           <?php
                             for ($i = 1; $i <= 12; $i++) {
@@ -233,9 +233,9 @@ td.fc-week-number {
                           ?>
                         </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
                       </div>
-                      <div class="form-group col-md-4">
+                      <div class="form-group producterrDiv col-md-4">
                         <label class="col-md-12 product_table_heading">{{ __('lang.from_service_date')}}<!-- <span class="de_col">*</span> --></label>
-                        <select class="col-md-12 service_date form-control" name="service_date" id="service_date" >
+                        <select class="col-md-12 service_date form-control tjselect" name="service_date" id="service_date" >
                           <option value="">{{ __('lang.select_label')}}</option>
                           <?php
                             for ($i = 1; $i <=31; $i++) {
@@ -272,9 +272,9 @@ td.fc-week-number {
               <!-- to date block start -->
               <div class="col-md-12" style="margin-left: -32px;">
                 <div class="col-md-9">
-                  <div class="form-group col-md-3">
+                  <div class="form-group producterrDiv col-md-3">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
-                    <select class="col-md-12 to_service_year form-control" name="to_service_year" id="to_service_year" >
+                    <select class="col-md-12 to_service_year form-control tjselect" name="to_service_year" id="to_service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
                         for($i=date('Y'); $i<'2050';$i++) {
@@ -286,9 +286,9 @@ td.fc-week-number {
                     </select>
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
                   </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group producterrDiv col-md-3">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_month')}}<!-- <span class="de_col">*</span> --></label>
-                    <select class="col-md-12 to_service_month form-control" name="to_service_month" id="to_service_month" >
+                    <select class="col-md-12 to_service_month form-control tjselect" name="to_service_month" id="to_service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
                         for ($i = 1; $i <= 12; $i++) {
@@ -300,9 +300,9 @@ td.fc-week-number {
                       ?>
                     </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
                   </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group producterrDiv col-md-3">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_date')}}<!-- <span class="de_col">*</span> --></label>
-                    <select class="col-md-12 to_service_date form-control" name="to_service_date" id="to_service_date" >
+                    <select class="col-md-12 to_service_date form-control tjselect" name="to_service_date" id="to_service_date" >
                       <option value="">{{ __('lang.select_label')}}</option>
                       <?php
                       for ($i = 1; $i <=31; $i++) {

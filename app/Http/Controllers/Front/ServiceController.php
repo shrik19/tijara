@@ -903,7 +903,7 @@ class ServiceController extends Controller
 
      
         
-          $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color' style='color:#fff !important;margin-top: -2px;'>";
+          $monthYearDropdown    = "<select name='monthYear' id='monthYear' class='form-control debg_color tjselect' style='color:#fff !important;margin-top: -2px;'>";
           $monthYearSql = ServiceRequest::select(DB::raw('count(id) as `service_requests`'), DB::raw("DATE_FORMAT(service_date, '%m-%Y') new_date"),  DB::raw('YEAR(service_date) year, MONTH(service_date) month'));
             if($userRole == 1){
                 $monthYearSql = $monthYearSql->where('user_id','=',$user_id);

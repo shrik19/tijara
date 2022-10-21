@@ -40,7 +40,7 @@
       </div>
     </div> -->
 
-		<div class="col-md-12 tj-mobnopad" style="margin-top: 20px;margin-left: 5px;">
+		<div class="col-md-12 tj-mobnopad tj-orderstable" style="margin-top: 20px;margin-left: 5px;">
 		    
 		  
 		<div class="card-body">

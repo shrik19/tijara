@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/jquery-confirm.min.css">
 <link rel="stylesheet" href="{{url('/')}}/assets/front/css/main.css">
+<link rel="stylesheet" href="{{url('/')}}/assets/front/css/azcustom.css">
 <style type="text/css">
     label{
       max-width: 500px;

@@ -276,8 +276,10 @@ width:100% !important;
                 <span class="invalid-feedback col-md-12" style="text-align: left;"  id="err_meta_keyword" >@if($errors->has('sort_order')) {{ $errors->first('sort_order') }}@endif </span>
                 </div>
 
-                 <div class="form-group"  style="margin-top: 78px;">
+
+                 <div class="form-group tj-aaprvecheck"  style="margin-top: 78px;">
                    <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a>  {{ __('users.and_label')}}  &nbsp;<a href="{{url('/')}}/page/villkor">{{ __('users.privacy_policy')}}</a> <!--<a href="javascript:void(0)">{{ __('users.store_terms')}}</a>--></span>  
+
                </div>
 
                </div>

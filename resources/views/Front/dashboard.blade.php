@@ -28,7 +28,7 @@
      <h3 class="pull-left" style="margin-left: 10px;">{{ __('lang.dashboard_statistics_period')}} : </h3>
      
      
-      <select name="filter_date" id="filter_date" class="form-control" onchange="jQuery('#filterForm').submit();">
+      <select name="filter_date" id="filter_date" class="form-control tjselect" onchange="jQuery('#filterForm').submit();">
         <option value="all_month" >{{ __('users.all_months_option')}} </option>
           @foreach($filterDate as $key => $data)
           <option value="{{$key}}" @if($currentDate == $key) selected="selected" @endif >{{$data}}</option>

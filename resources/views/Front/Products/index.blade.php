@@ -4,6 +4,11 @@
  label{
   margin-left: 8px;
 }
+@media(max-width:767px){
+  #selectcategory {
+    max-width: 140%;
+  }
+}
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
@@ -126,7 +131,7 @@
   
   
   
-  $('<div class="form-group col-md-3" style=""><select class="form-control" id="selectsubcategory" name="subcategory">'+
+  $('<div class="form-group col-xs-3" style=""><select class="form-control" id="selectsubcategory" name="subcategory">'+
   
   '<?php echo $subCategoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");

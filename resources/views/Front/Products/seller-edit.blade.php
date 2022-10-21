@@ -33,13 +33,56 @@
     bottom: 0px;
     left: 3px;
 }
+.tj-selectbox-cotnainer.full .select2-container{
+    width:67% !important;
+}
+@media(max-width:767px){
+  .mbnml0{
+    margin-left:0 !important;
+  }
+  .seller_info h2:not(.pl-0) {
+    padding-left: 0px !important;
+  }
+  .login_box {
+    margin-left: -15px;
+    margin-right: -15px;
+    width: auto !important;
+  }
+  #product-form {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .seller_info .login_box h2:not(.pl-0) {
+    padding: 10px 15px !important;
+    margin-left: 0 !important;
+  }
+  .mbnml0 .login_box > .form-group, .mbnml0 .login_box > .col-md-12 {
+      padding: 0;
+  }
+  .tijara-content .btn{
+    display: inline-block;
+  }
+  .row.tijara-content{
+    margin:0;
+  }
+  .product_description{
+    width: 100% !important;
+  }
+  .store_pick_address{
+    width: 100% !important;
+  }
+  .tj-selectbox-cotnainer.full .select2-container{
+    width:100% !important;
+  }
+}
 </style>
 
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
   <div class="container-inner-section-1">
       <div class="row">
-    <div class="col-md-2 tijara-sidebar">
+    <div class="col-md-2 tijara-sidebar" id="tjfilter">
+      <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
 
         @include ('Front.layout.sidebar_menu')
     </div>
@@ -48,7 +91,7 @@
           @include ('Front.alert_messages')
       <div class="seller_info">
       <div class="seller_header">
-                    <h2 class="seller_page_heading">{{ __('lang.product_form_label')}}</h2>
+                    <h2 class="seller_page_heading"><button class="tj-filter-toggle-btn menu" data-toggle="collapse" data-target="#tjfilter"><i class="fas fa-bars"></i></button>{{ __('lang.product_form_label')}}</h2>
                     <!-- <hr class="heading_line"/> -->
                 </div>
          <!-- Example row of columns -->
@@ -70,11 +113,11 @@
                   </div>
 
                   
-                  <div class="col-md-12" style="margin-left: -18px;">
+                  <div class="col-md-12 mbnml0" style="margin-left: -18px;">
 
                     <div class="login_box">
 
-                        <h2 class="col-md-12 product_add_h2" style="margin-left: -22px;">{{ __('lang.product_form_step1')}}</h2>
+                        <h2 class="col-md-12 product_add_h2 mbnml0" style="margin-left: -22px;">{{ __('lang.product_form_step1')}}</h2>
                         <input type="hidden" id="product_id" name="product_id" value="{{$product_id}}">
 
                         <div class="form-group col-md-12">
@@ -96,8 +139,8 @@
                       </div>
                         <div class="form-group  col-md-12">
                           <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span></label>
-                          <div class="col-md-8">
-                          <select class="select2 col-md-8 ge_input" name="status" id="status"  placeholder="" tabindex="8" >
+                          <div class="col-md-8 tj-selectbox-cotnainer full">
+                          <select class="select2 col-md-8 ge_input tjselect" name="status" id="status"  placeholder="" tabindex="8" >
                             <option @if($product->status=='active') selected="selected" @endif value="active">{{ __('lang.active_label')}}</option>
                             <option @if($product->status=='block') selected="selected" @endif value="block">{{ __('lang.block_label')}}</option>
                           </select>
@@ -107,8 +150,8 @@
 
                         <div class="form-group col-md-12">
                           <label class="col-md-3 product_table_heading" >{{ __('lang.category_label')}}<span class="de_col">*</span></label>
-                          <div class="col-md-8">
-                          <select class="select2 col-md-8 ge_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
+                          <div class="col-md-8 tj-selectbox-cotnainer full">
+                          <select class="select2 col-md-8 ge_input tjselect" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
                           <option></option>
                             @foreach($categories as $cat_id=>$category)
                               <optgroup label="{{$category['maincategory']}}">
@@ -236,9 +279,9 @@
                                     <div class="col-md-3"></div>
                                  <?php }?>
                                 
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 tj-selectbox-cotnainer">
                              
-                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute preselected_attribute" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute preselected_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                         @foreach ($attributesToSelect as $attr)
@@ -253,7 +296,7 @@
                                     </select>
 
 
-                                    <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value" name="attribute_value[<?php echo $i;?>][]">
+                                    <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]">
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}</option>
 
                                     </select>

@@ -128,13 +128,13 @@
                <span class="invalid-feedback col-md-8"  id="err_shipping_charges"></span>
             </div>
 
-            <div class="form-group col-md-6 tj-nomar">
+            <div class="form-group col-md-6 tj-nomar tjchekcalign">
             <label  class="product_table_heading">{{ __('users.free_shipping_label')}} </label>
               <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($sellerDetails[0]->free_shipping ==  "free_shipping"){ echo "checked"; } ?> style="margin-left: 15px;">
            
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 tjchekcalign">
               <label  class="product_table_heading" > {{ __('users.pick_from_store')}}  </label>
               <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  <?php if($sellerDetails[0]->is_pick_from_store ==  "1"){ echo "checked"; } ?> style="margin-top: 15px; margin-left: 15px;">
               

@@ -37,7 +37,7 @@
                           <div class="col-md-10 col-md-offset-1">
                              @include ('Front.alert_messages')
                             <div id="payment-page">
-                              <div class="container container-fluid p_155">
+                              <div class="container container-fluid p_155 mbp0">
                               <div class="row">
 
                                 <div class="col-md-6 col-md-offset-2">

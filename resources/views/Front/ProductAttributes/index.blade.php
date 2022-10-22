@@ -4,6 +4,21 @@
   label{
     margin-left: 20px;
   }
+  @media(max-width:767px){
+    #attributeTable_length {
+      text-align: left;
+    }
+    div#attributeTable_filter {
+        text-align: left;
+    }
+    label {
+        margin-left: 0;
+    }
+    div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:first-child {
+        padding-left: 15px !important;
+            padding-top: 10px !important;
+    }
+  }
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
@@ -95,8 +110,8 @@
           type:'post',
         }
   });
-  $('#attributeTable_filter').parent('div').attr('class','col-xs-5');
-  $('#attributeTable_length').parent('div').attr('class','col-xs-7');
+  $('#attributeTable_filter').parent('div').attr('class','col-sm-5');
+  $('#attributeTable_length').parent('div').attr('class','col-sm-7');
 
 </script>
 

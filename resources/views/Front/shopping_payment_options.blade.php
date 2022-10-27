@@ -228,7 +228,7 @@
 
                            <div class="pick_up_fromt_store">   
                               <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-xs-8">
                                    <?php  
                                     if($orderDetails[$orderId]['details'][0]['product']->is_pick_from_store==1){
                                       if(!empty($orderDetails[$orderId]['details'][0]['product']->store_pick_address)){
@@ -245,7 +245,7 @@
                                  
                                   <p  style="margin-left:26px;">{{ @$store_pick_address}} </p>
                                 </div>
-                                <div class="col-md-6" style="margin-top: 8px;">
+                                <div class="col-md-6 col-xs-4 mt-8 m-m-t-15 text-right">
                                   <span>0.00kr</span> 
                                 </div>
                               </div>                                   

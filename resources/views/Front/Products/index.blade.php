@@ -116,7 +116,7 @@
 	$('#productTable_filter').parent('div').attr('class','col-xs-5');
   $('#productTable_filter').find('label').removeClass('pull-right');
   
-  $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
+  $('<div class="form-group col-md-4" style="float:right;"><select class="form-control tjselect" id="status" name="status">'+
   '<option value="">{{ __("lang.status_label")}}</option>'+
   '<option value="active">{{ __("lang.active_label")}}</option>'+
   '<option value="block">{{ __("lang.block_label")}}</option>'+
@@ -124,14 +124,14 @@
   
   $('#productTable_length').find('label').attr('style','float: left;');
   $('#productTable_length').parent('div').attr('class','col-xs-7');
-  $('<div class="form-group col-xs-3" style="margin-right: 6%;"><select class="form-control" id="selectcategory" name="category">'+
+  $('<div class="form-group col-xs-3" style="margin-right: 6%;"><select class="form-control tjselect" id="selectcategory" name="category">'+
   
   '<?php echo $categoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");
   
   
   
-  $('<div class="form-group col-xs-3" style=""><select class="form-control" id="selectsubcategory" name="subcategory">'+
+  $('<div class="form-group col-xs-3" style=""><select class="form-control tjselect" id="selectsubcategory" name="subcategory">'+
   
   '<?php echo $subCategoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");

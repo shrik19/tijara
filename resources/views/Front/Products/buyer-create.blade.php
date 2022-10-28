@@ -41,7 +41,7 @@ width:100% !important;
           
 
           <div class="col-md-12">
-              <div class="tijara-content">
+              <div class="tijara-content tj-contentcreate">
               @include ('Front.alert_messages')
               @if($subscribedError)
             <div class="alert alert-danger update-alert-css">{{$subscribedError}}</div>
@@ -51,7 +51,7 @@ width:100% !important;
              <div class="seller_info border-none">
             <div class="card">
 
-              <div class="card-header  row ">
+              <div class="card-header row">
                 <div class="col-md-10 p-5">
                   <h2 class="page_heading" >{{ __('users.buyer_product_form_label')}}</h2>
 

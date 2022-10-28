@@ -195,7 +195,7 @@ if (@$_GET['print'])
                             {{ __('messages.txt_payment_status')}} :{{$payment_status}} <br />
                             {{ __('messages.txt_order_status')}} : 
                             @if($is_seller || $is_buyer_order) 
-                            <select name="order_status" id="order_status" onchange="change_order_status(<?php echo $order['id']; ?>)" order_id="{{$order['id']}}" class="form-control" style="width: 50%;display: inline-block;">
+                            <select name="order_status" id="order_status" onchange="change_order_status(<?php echo $order['id']; ?>)" order_id="{{$order['id']}}" class="form-control tjselect" style="width: 50%;display: inline-block;">
                                 <option value="PENDING" @if($order['order_status'] == 'PENDING') selected="selected" @endif style="background-color: red;">{{ __("users.pending_order_status")}}</option>
                                 <option value="SHIPPED" @if($order['order_status'] == 'SHIPPED') selected="selected" @endif style="background-color: green;">{{ __("users.shipped_order_status")}}</option>
                                 <option value="CANCELLED" @if($order['order_status'] == 'CANCELLED') selected="selected" @endif style="background-color: green;">{{ __("users.cancelled_order_status")}}</option>

@@ -176,7 +176,7 @@
     dataTable.draw();
     
   });
-  $('<div class="form-group col-md-4" style="float:right;"><select class="form-control" id="status" name="status">'+
+  $('<div class="form-group col-md-4" style="float:right;"><select class="form-control tjselect" id="status" name="status">'+
   '<option value="">{{ __("lang.status_label")}}</option>'+
   '<option value="PENDING">{{ __("users.pending_order_status")}}</option>'+
   '<option value="SHIPPED">SHIPPED</option>'+

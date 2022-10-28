@@ -47,7 +47,7 @@
       <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
         @include ('Front.layout.sidebar_menu')
       </div>
-      <div class="col-md-10 tijara-content margin_bottom_class">
+      <div class="col-md-10 tijara-content margin_bottom_class tj-alignment">
            @include ('Front.alert_messages')
       <div class="seller_info">
       <div class="seller_header">

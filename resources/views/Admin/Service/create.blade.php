@@ -29,6 +29,16 @@
     bottom: 0px;
     left: 3px;
 }
+@media(max-width:767px){
+  button.fc-button {
+    font-size: 10px !important;
+  }
+
+  button.fc-button span.fc-icon:after {
+      font-size: 20px !important;
+      top: 0 !important;
+  }
+}
 </style>
   <h2 class="section-title">{{$pageTitle}}</h2>
   <p class="section-lead">Save Product Details</p>

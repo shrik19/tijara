@@ -15,27 +15,38 @@
 .invalid-feedback {
     position: relative !important;
 }
-
- .images {
-   background-image: url(../../uploads/Images/multiple_no_images.png);
-    background-repeat: no-repeat;
-    height: 85px;
-    padding-left: 0;
-    margin-bottom: 10px;
+.images {
+  background-image: url(../../uploads/Images/multiple_no_images.png);
+  background-repeat: no-repeat;
+  min-height: 85px;
+  padding-left: 0;
+  margin-bottom: 10px;
+  background-size: contain;
+  padding-right: 0;
 }
-
 .images>div {
-     float: left;
+  float: left;
   border: 2px solid #ccc;
   margin: 0 !important;
+  position: relative;
 }
-
-
 .images a.remove_image {
-    position: absolute;
-    bottom: 3px;
-    margin-left: -75px;
+  position: absolute;
+  bottom: 0px;
+  left: 3px;
 }
+.images > div {
+    max-width: 20%;
+    height: 100%;
+}
+.images > div img {
+    max-width: 100%;
+    height: auto;
+}
+.form-group.tj-spad {
+    padding: 0;
+}
+
 
 th.fc-week-number.fc-widget-header {
     display: none;
@@ -48,7 +59,32 @@ td.fc-week-number {
     text-align: center;
     padding: 30px;
 }
+.form-group.tj-spad {
+    padding: 0;
+}
+.form-group.tj-spad .select2-container, .tj-mobpadno .select2-container {
+    width: 100% !important;
+}
+.tj-mobpadno{
+    margin-left:0 !important;
+    padding:0;
+}
+.tj-mobpadno [class*="col"] {
+    padding: 0;
+}
+.tj-mobpadno label.product_table_heading {
+    display: block;
+}
+@media(max-width:767px){
+  button.fc-button {
+    font-size: 10px !important;
+  }
 
+  button.fc-button span.fc-icon:after {
+      font-size: 20px !important;
+      top: 0 !important;
+  }
+}
 
 </style>
 
@@ -66,7 +102,7 @@ td.fc-week-number {
       <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
       @include ('Front.layout.sidebar_menu')
     </div> 
-    <div class="col-md-10 tijara-content">    
+    <div class="col-md-10 tijara-content tj-alignment">    
          @include ('Front.alert_messages')
          <div class="seller_info">
           <div class="seller_header">
@@ -270,7 +306,7 @@ td.fc-week-number {
                 </div>
               </div>
               <!-- to date block start -->
-              <div class="col-md-12" style="margin-left: -32px;">
+              <div class="col-md-12 tj-mobpadno" style="margin-left: -32px;">
                 <div class="col-md-9">
                   <div class="form-group producterrDiv col-md-3">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>

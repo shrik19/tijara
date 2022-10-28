@@ -29,6 +29,13 @@ width:100% !important;
 .invalid-feedback {
     position: relative !important;
 }
+@media(max-width:767px){
+  .selected_images a.remove_image {
+    position: absolute;
+    bottom: 20px;
+    margin-left: -15px;
+  }
+}
 </style>
 
 <div class="mid-section p_155">
@@ -126,7 +133,7 @@ width:100% !important;
 
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 tj-mobnopad">
               <div class="form-group">
               <label class="col-md-12 p-0">{{ __('users.buyer_product_title')}} <span class="de_col">*</span></label>
               <input type="text" class="form-control login_input" name="title" id="title" placeholder="{{ __('users.buyer_product_title')}} *" value="{{ (old('title')) ?  old('title') : $product->title}}" tabindex="1" onblur="convertToSlug(this)">

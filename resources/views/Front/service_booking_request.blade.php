@@ -14,6 +14,12 @@
       text-align: center;
       padding: 30px;
   }
+  @media(max-width:767px){
+    .card-body.bookingRequestCalender h2 {
+      margin-left: -50px !important;
+      padding: 0 !important;
+    }
+  }
 
 </style>
 <div class="mid-section sellers_top_padding">

@@ -18,6 +18,21 @@
         padding-left: 15px !important;
             padding-top: 10px !important;
     }
+    @media(max-width:767px){
+      #attributeTable_length select {
+          display: block;
+      }
+
+      #attributeTable_filter input.form-control {
+          display: block;
+          margin-left: 0 !important;
+      }
+
+      #attributeTable_filter label {
+          padding-left: 15px !important;
+          padding-top: 10px !important;
+      }
+    }
   }
 </style>
 <div class="mid-section sellers_top_padding">
@@ -110,8 +125,8 @@
           type:'post',
         }
   });
-  $('#attributeTable_filter').parent('div').attr('class','col-sm-5');
-  $('#attributeTable_length').parent('div').attr('class','col-sm-7');
+  $('#attributeTable_filter').parent('div').attr('class','col-sm-5 col-xs-8');
+  $('#attributeTable_length').parent('div').attr('class','col-sm-7 col-xs-4');
 
 </script>
 

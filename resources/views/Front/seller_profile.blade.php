@@ -15,6 +15,23 @@
 .form-group {
     margin-bottom: 26px;
 }
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    height: 40px;
+    line-height: 40px;
+}
+.select2-container .select2-selection--single {
+    height: 40px;
+    border: 1px solid #dadada;
+    line-height: 40px;
+    border-radius: 3px;
+    height: 40px;
+    font-weight: 300 !important;
+    color: #222222 !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 38px;
+    right: 5px;
+}
 
 </style>
 <div class="container-fluid">
@@ -114,7 +131,7 @@
             <h2 class="col-md-12" style="margin-top: 40px;margin-bottom: 20px;">{{ __('users.shipping_setting')}}</h2>
             <div class="form-group col-md-6" id="shipping_method_ddl_div">
               <label  class="product_table_heading">{{ __('users.shipping_method_label')}}</label>
-             <select class="form-control ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
+             <select class="form-control ge_input tjselect" name="shipping_method_ddl" id="shipping_method_ddl">
                <option value="">{{ __('users.select_shipping_method')}}</option>
                <option  value="Platta fraktkostnader" <?php if($sellerDetails[0]->shipping_method == "Platta fraktkostnader"){ echo "selected"; } ?>>{{ __('users.flat_shipping_charges')}}</option>
                <option  value="Andel fraktkostnader" <?php if($sellerDetails[0]->shipping_method ==  "Andel fraktkostnader"){ echo "selected"; } ?>>{{ __('users.prcentage_shipping_charges')}}</option>

@@ -295,8 +295,6 @@
                                         @endforeach
                                     </select>
 
-
-<<<<<<< HEAD
                                     <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]">
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}  (ex röd)</option>
 

@@ -58,7 +58,7 @@
                 @if(!empty($segment) && $segment=='edit')
                 <div class="form-group">
                   <label class="product_table_heading">{{ __('lang.type_label')}} <span class="de_col">*</span></label>
-                  <div class="field_wrapper">
+                  <div class="field_wrapper" style="margin-top:-30px;">
 				  
                   @if(!empty($attributesValues) && count($attributesValues) !=0)
                   @foreach ($attributesValues as $key=>$values)

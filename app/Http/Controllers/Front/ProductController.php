@@ -566,10 +566,15 @@ class ProductController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($messages);
         }
 		$attributesError	=	0;
+
+        //echo "<pre>";
+        //print_r($_POST['attribute_value']);
+       // exit;
 		if(isset($_POST['attribute_value'])) { //restricted to save product when attributes not selected
-			if(isset($_POST['attribute_value'][0]) && ($_POST['attribute_value'][0][0]=='' || $_POST['attribute_value'][0][1]=='' )) {
+            $attributesError		=	1;
+			/*if((isset($_POST['attribute_value'][0]) && ($_POST['attribute_value'][0][0]=='') || $_POST['attribute_value'][0][1]=='' )) {
 				$attributesError		=	1;
-			}
+			}*/
 		}
 		if($attributesError==1) {
 			//$messages = array('error');

@@ -14,7 +14,7 @@
 </style>
 <div class="mid-section @if($is_seller==1) sellers_top_padding  @else p_155 @endif">
 	<div class="container-fluid">
-		<div class="container-inner-section-1">
+		<div class="container-inner-section-1 tjd-sellcontainer">
 			<!-- Example row of columns -->
 			<div class="row">
 					<input type="hidden" name="is_seller" class="is_seller" value="{{$is_seller}}">

@@ -37,7 +37,7 @@
 
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
     <div class="row">
   <!-- Example row of columns -->
    @if($subscribedError)
@@ -69,7 +69,7 @@
       </div>
 
       
-      <div class="row tj-nodpad">
+      <div class="row tj-nodpad tjd-pad6">
       <div class="col-md-12">
 
         <div class="login_box">
@@ -97,7 +97,7 @@
             
             <div class="form-group  producterrDiv">
               <label class="col-md-3 product_table_heading" >{{ __('lang.category_label')}} <span class="de_col">*</span></label>
-              <div class="col-md-8">
+              <div class="col-md-8 tjd-slectlimit  tjd-slectlimitcat">
                 <select class="select2 col-md-8 ge_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
                   <option>{{ __('lang.select_label')}}</option>
                   @foreach($categories as $cat_id=>$category)
@@ -115,7 +115,7 @@
 
             <div class="form-group  producterrDiv">
               <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span></label>
-              <div class="col-md-8">
+              <div class="col-md-8 tjd-slectlimit">
                 <select class="select2 col-md-8 ge_input tjselect" name="status" id="status"  placeholder="" tabindex="8" >
                   <option value="active">{{ __('lang.active_label')}}</option>
                   <option value="block">{{ __('lang.block_label')}}</option>

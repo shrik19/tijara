@@ -300,7 +300,7 @@
 
 										<div class="form-group increment cloned">
 											<label class="placeholder">{{ __('users.seller_header_img_label')}}</label>
-											<div class="seller_banner_upload"  style="margin-top: 20px;"></div>
+											<div class="seller_banner_upload"></div>
 											
                                             
 											<input type="file" name="header_img" id="seller_banner_img" class="form-control seller_banner_img" value="">
@@ -313,7 +313,7 @@
 
 										<div class="form-group increment cloned">
 											<label class="placeholder">{{ __('users.seller_logo_label')}}</label>
-											<div class="seller_logo_upload"  style="margin-top: 20px;"></div>
+											<div class="seller_logo_upload"></div>
 											
 											<input type="file" name="logo" id="seller_logo_img" class="form-control" value="">
 											
@@ -322,7 +322,7 @@
 											</div>
 									   </div>
 										<div class="remember-section row">
-											<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="product_table_heading " style=" font-size: 12px !important;">&nbsp;{{ __('users.terms_of_use')}} </a> <a href="{{url('/')}}/page/villkor" class="product_table_heading " style=" font-size: 12px !important;">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="{{url('/')}}/page/villkor" class="product_table_heading " style=" font-size: 12px !important;">{{ __('users.store_terms')}}</a></span>	
+											<input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class=" " style=" font-size: 12px !important;">&nbsp;{{ __('users.terms_of_use')}} </a> <a href="{{url('/')}}/page/villkor" class=" " style=" font-size: 12px !important;">{{ __('users.privacy_policy')}}</a> {{ __('users.and_chk')}} <a href="{{url('/')}}/page/villkor" class=" " style=" font-size: 12px !important;">{{ __('users.store_terms')}}</a></span>	
 										</div>
 									</form>
 									</div>

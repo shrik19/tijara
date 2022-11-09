@@ -9,7 +9,7 @@
 </style>
 <div class="mid-section sellers_top_padding">
   <div class="container-fluid">
-    <div class="container-inner-section-1">
+    <div class="container-inner-section-1 tjd-sellcontainer">
       <div class="row"> 
           <div class="col-md-2 tijara-sidebar" id="tjfilter">
       <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>

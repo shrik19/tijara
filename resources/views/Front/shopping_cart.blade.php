@@ -32,7 +32,7 @@
 <div class="loader"></div>
 <div class="container-fluid p-0">
     <div class="row">
-        <div class="col-sm-12 col-md-12 p-m-0 pl-0">
+        <div class="col-sm-12 col-md-12 p-m-0 pl-0 tjplauto">
 		
 			 @if(!empty($details))
                   @foreach($details as $orderId => $tmpOrderProduct)

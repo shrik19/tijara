@@ -3,7 +3,7 @@
 
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
   <!-- Example row of columns -->
   <div class="row">
     <div class="col-md-2 tijara-sidebar" id="tjfilter">
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="row"><div class="col-md-12">&nbsp;</div></div>
-    <div class="text-center sel_cat_list" style="margin-left: -4px;">
+    <div class="text-center sel_cat_list tjd-dashboardgrid" style="margin-left: -4px;">
       <div class="col-md-15" >
       
         <div class="card buyer-prod-card">

@@ -16,7 +16,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
   <!-- Example row of columns -->
   <div class="row">
   <div class="col-md-2 tijara-sidebar" id="tjfilter">

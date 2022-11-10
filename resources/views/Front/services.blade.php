@@ -17,12 +17,13 @@
         @if(Request::segment(1) =='services' || Request::segment(1) =='products')
           @include('Front.category_breadcrumb')
         @endif
+        <div class="cat-details">
         <div class="col-md-3 col-products-sidebar desktop-view" id="tjfilter">
           <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
             @include('Front.services_sidebar')
         </div>
 
-        <div class="col-md-9 services-page">
+        <div class="col-md-9 services-page p-0">
 			     <div class="row tj-filter-sec">
                   <div class="col-md-6">
                     @if( Request::segment(1) !='annonser')
@@ -77,6 +78,7 @@
                 <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
              <!--    <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span> -->
             </div>
+        </div>
         </div>
     </div>
 

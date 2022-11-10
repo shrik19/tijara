@@ -95,7 +95,7 @@ td.fc-week-number {
 
 <div class="mid-section" style="padding-top: 136px !important;">
   <div class="container-fluid">
-  <div class="container-inner-section-1"  style="margin-bottom: 60px;">
+  <div class="container-inner-section-1 tjd-sellcontainer"  style="margin-bottom: 60px;">
   <!-- Example row of columns -->
   @if($subscribedError)
   <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -116,7 +116,7 @@ td.fc-week-number {
     <form id="service-form service-add-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
   @csrf
 
-  <div class="col-md-12">
+  <div class="col-md-12 tjd-serviceform">
       <div class="col-md-12 text-right" style="margin-top:30px;">
             <a href="{{route('manageFrontServices')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
          </div>
@@ -338,7 +338,7 @@ td.fc-week-number {
 
   <!-- to date block start -->
   <div class="col-md-12 tjnomor" style="margin-left: -32px;margin-top: -85px;">
-  <div class="col-md-9">
+  <div class="col-md-9 tj-mobnopad1">
   <div class="form-group col-md-3 producterrDiv">
   <label class="col-md-12 product_table_heading">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
 

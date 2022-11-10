@@ -217,7 +217,7 @@
 </section>  */?>
 <!-- end banner section -->
 
-<section>
+<section class="tjd-frontcontainer">
     <div class="container-fluid">
     <div class="container-inner-section">
         <div class="row">

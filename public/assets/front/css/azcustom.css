@@ -2717,8 +2717,8 @@
   h2.butik_info_heading.pl-10 {
     padding-left: 57px;
   }
-  .product_listings .product_details li:nth-child(4n+1) {margin-left: 0;margin-right: 0.520625%;}
-  .product_listings .product_details li:nth-child(4n) {
+  .product_listings .product_details li:nth-child(4n+1), .service_listings .product_details li:nth-child(4n+1) {margin-left: 0;margin-right: 0.520625%;}
+  .product_listings .product_details li:nth-child(4n), .service_listings .product_details li:nth-child(4n) {
       margin-right: 0;
   }
   .row.tj-filter-sec {
@@ -2811,5 +2811,33 @@
   }
   .tjd-fordeskpad.tj-mobpadno .producterrDiv.col-md-4 {
     padding: 0 15px;
+  }
+  .card-body.tjd-orderscont {
+    padding: 0 15px;
+  }
+  .card-body.tjd-orderscont .col-md-15 {
+    width: 19.167%;
+    margin: 0 0.520625% 20px;
+  }
+  .card-body.tjd-orderscont .col-md-15:nth-of-type(5n+1) {
+    padding-left: 0px!important;
+    margin-left: 0px!important;
+  }
+  .card-body.tjd-orderscont .col-md-15:nth-of-type(5n) {
+      margin-right: 0%;
+  }
+  .card-body.tjd-orderscont .col-md-15 .product_data_img {
+    width: 100% !important;
+    margin-left: 0;
+    height: auto !important;
+  }
+  .card-body.tjd-orderscont .col-md-15 .product_img_prd {
+      width: 100%;
+  }
+  .card-body.tjd-orderscont .row.buyer-row.tj-order-product {
+      margin: 0;
+  }
+  .seller_info.border-none.tjd-chngpass {
+    padding-left: 0;
   }
 }

@@ -28,7 +28,7 @@
               </div>
             </div>
               <div class="clearfix"></div>
-                <div class="card-body">
+                <div class="card-body tjd-orderscont">
                     <div class="card">
                     <div class="card-body"  style="margin-top: 20px;margin-bottom: 60px;">
                     <div class="row buyer-row tj-order-product">

@@ -33,7 +33,7 @@
 					@else
 						<div class="col-md-12 tijara-content">
 							@include ('Front.alert_messages')
-							<div class="seller_info border-none">
+							<div class="seller_info border-none tjd-chngpass">
 								<div class="card">
 									<div class="card-header ml-0 row">
 											<div class="col-md-9 pl-0">

@@ -187,7 +187,7 @@ function getListing()
        , 'role_id' : current_role_id,'path':window.location.pathname },
     success:function(data)
     {
-		$('html, body').animate({scrollTop:0},'50');
+		
      //$('.product_listings').html(data);
 	 if($('.col-annonser-sidebar').length>0) {
 		 if($('.col-annonser-sidebar').hasClass("in"))
@@ -200,7 +200,7 @@ function getListing()
      var responseObj = $.parseJSON(data);
      $('.product_listings').html(responseObj.products);
      $('.seller_list_content').html(responseObj.sellers);
-
+	$('html, body').animate({scrollTop:0},'50');
      $(".product_rating").each(function(){
         var currentRating = $(this).data('rating');
         

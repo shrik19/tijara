@@ -259,7 +259,7 @@ width:100% !important;
            
 
               <div class="form-group tj-aaprvecheck" style="margin-top: 78px;">
-                  <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="de_col">&nbsp;{{ __('users.terms_of_use')}} </a> {{ __('users.and_label')}} <a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a></span>  
+                  <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text" style="font-weight: 500;font-size: 12px;">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="de_col">&nbsp;{{ __('users.terms_of_use')}} </a> {{ __('users.and_label')}} <a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a></span>  
               </div>
               
               <div class="form-group swish_payment_ad_img">

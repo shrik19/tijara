@@ -362,6 +362,9 @@ $(".alpha-only").on("input", function(e){
     $(this).val( $(this).val().replace(regexp,'') );
   }
 });
+
+deleteCookie("seller_logo_preview");
+deleteCookie("seller_banner_preview");
 </script>
 
 @endsection

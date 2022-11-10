@@ -73,7 +73,7 @@
 	 'attribute_value_label_placeholder'=>'Värde (ex Röd)',
 	 'type_placeholder'=>'Värde (ex Röd)',
      'variant'=>'variant',
-     'add_attribute'=>'Lägg till ny attribut',
+     'add_attribute'=>'Attribut',
      'product_variant_title'=>'Variant Produktinformation',
      'product_required_error'=>'Vänligen ange produkttitel',
      'product_saved_success'=>'Produkten har sparats!',

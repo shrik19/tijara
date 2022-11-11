@@ -134,7 +134,7 @@
             <div class="col-sm-3">
               <h2 class="review_title">{{ __('users.review_title')}}</h2>
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-9 tjd-reviewscont">
             @if(!empty($productReviews))
               @foreach($productReviews as $review)
                <div class="row">
@@ -206,10 +206,10 @@
         <div class="row">
         <div class="col-md-12" style="margin-bottom: 50px;"> <hr>
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <h2  class="review_title">{{ __('users.store_terms')}}</h2>
           </div>
-        <div class="col-md-9 store_term_div">
+        <div class="col-md-9 store_term_div tjd-reviewscont">
 
           <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>

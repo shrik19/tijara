@@ -91,6 +91,12 @@ td.fc-week-number {
       top: 0 !important;
   }
 }
+@media(min-width:1200px){
+  #save_service_date {
+    background: #03989e !important;
+    border: 1px solid transparent;
+  }
+}
 </style>
 
 <div class="mid-section" style="padding-top: 136px !important;">

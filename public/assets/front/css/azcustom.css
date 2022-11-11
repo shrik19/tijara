@@ -2840,4 +2840,10 @@
   .seller_info.border-none.tjd-chngpass {
     padding-left: 0;
   }
+  .tjd-reviewscont {
+    padding-left: 68px;
+  }
+  .store_term_div.tjd-reviewscont {
+      margin-left: -20px;
+  }
 }

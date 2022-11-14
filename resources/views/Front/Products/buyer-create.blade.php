@@ -85,7 +85,7 @@ width:100% !important;
            <!--  </div> -->
 <!--               <div class="seller_mid_cont"> -->
           <div class="col-md-12 p-0">
-            <div class="login_box">
+            <div class="login_box tjd-anleftmar">
                <div class="col-md-6">
                 <input type="hidden" name="product_id" value="{{$product_id}}">
                   <div class="form-group">
@@ -166,7 +166,7 @@ width:100% !important;
                     <input type="text" class="login_input form-control weight variant_field" name="weight[<?php echo $i;?>]"  placeholder="{{ __('lang.weight_placeholder')}}" value='10' tabindex="7">
                     <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_sku" ></span>
                     </div>
-                    <div class="form-group" style="margin-top: 50px;">
+                    <div class="form-group tjd-nmt" style="margin-top: 50px;">
                     <label class="col-md-12 label_css p-0" >{{ __('lang.price_label')}} <span class="de_col"></span>*</label>
                     <input type="tel" class="login_input form-control price number variant_field" id="price" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value='{{ old("price.$i")}}' tabindex="7">
                     <span class="invalid-feedback col-md-12"  id="err_price" ></span>
@@ -258,7 +258,7 @@ width:100% !important;
 
            
 
-              <div class="form-group tj-aaprvecheck" style="margin-top: 78px;">
+              <div class="form-group tj-aaprvecheck tjd-nmt" style="margin-top: 78px;">
                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text" style="font-weight: 500;font-size: 12px;">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="de_col">&nbsp;{{ __('users.terms_of_use')}} </a> {{ __('users.and_label')}} <a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a></span>  
               </div>
               

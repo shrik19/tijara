@@ -2661,7 +2661,10 @@
   }
   .tjbestseller.product_details.best_seller li {
     width: 19.167% !important;
-    margin: 0 0.520625%;
+    margin: 0 0.460625%;
+  }
+  .tjbestseller.product_details.best_seller li:nth-of-type(5n) {
+    margin-right: 0% !important;
   }
   .product_details .buy_now_hover_details li {
     width: 100% !important;
@@ -2845,5 +2848,24 @@
   }
   .store_term_div.tjd-reviewscont {
       margin-left: -20px;
+  }
+  .col-md-4.tbjclear {
+    clear: left;
+  }
+  .tjd-notmar{
+    margin-top:0 !important;
+  }
+  .row.tj-orderlist.tj-order-product .col-md-15.buyer-ht {
+    width: 19.167%;
+    margin: 0 0.290625% 20px;
+  }
+  .row.tj-orderlist.tj-order-product .col-md-15.buyer-ht .product_data_img {
+      width: 100% !important;
+  }
+  .tjd-nmt {
+    margin-top: 0 !important;
+  }
+  .login_box.tjd-anleftmar {
+    margin-left: -10px;
   }
 }

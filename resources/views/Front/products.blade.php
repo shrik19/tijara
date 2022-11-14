@@ -62,7 +62,7 @@
 					  </div>
             <div class="tj-bldv">&nbsp;</div>
 					@else
-						<div class="col-md-4"></div>
+						<div class="col-md-4 tbjclear"></div>
 					@endif
 						  <div class="col-md-2"></div>
               <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="{{url('/')}}/assets/img/tjfilter.png"></button>

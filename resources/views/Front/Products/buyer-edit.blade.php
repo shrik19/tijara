@@ -163,7 +163,7 @@ width:100% !important;
                 <span class="invalid-feedback col-md-12" style="text-align: left;"  id="err_sku" ></span>
                 </div>
                
-                <div class="form-group" style="margin-top: 50px;">
+                <div class="form-group tjd-nmt" style="margin-top: 50px;">
                 <label class="col-md-12 p-0">{{ __('lang.price_label')}} <span class="de_col">*</span></label>
                 <input type="tel" class="form-control login_input price number variant_field" id="price" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value="{{$variant['price']}}" tabindex="7">
                 <span class="invalid-feedback col-md-12" style="text-align: left;"  id="err_price" ></span>
@@ -284,7 +284,7 @@ width:100% !important;
                 </div>
 
 
-                 <div class="form-group tj-aaprvecheck"  style="margin-top: 78px;">
+                 <div class="form-group tj-aaprvecheck tjd-nmt"  style="margin-top: 78px;">
                    <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a>  {{ __('users.and_label')}}  &nbsp;<a href="{{url('/')}}/page/villkor">{{ __('users.privacy_policy')}}</a> <!--<a href="javascript:void(0)">{{ __('users.store_terms')}}</a>--></span>  
 
                </div>

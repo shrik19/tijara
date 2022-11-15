@@ -105,10 +105,10 @@
            
                 @csrf
             
-                  <div class="col-md-10">
+                  <div class="col-md-8">
               
                   </div>
-                  <div class="col-md-2 text-right" style="margin-top:30px;">
+                  <div class="col-md-4 text-right" style="margin-top:30px;">
                     <a href="{{route('manageFrontProducts')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
                   </div>
 

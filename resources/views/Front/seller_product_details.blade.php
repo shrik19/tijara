@@ -285,7 +285,7 @@
 <div class="container-fluid">
   <div class="container-inner-section">
     <div>
-      <div class="best_seller_container"  style="margin-top:60px;margin-bottom:25px;">
+      <div class="best_seller_container tjd-detleftmar"  style="margin-top:60px;margin-bottom:25px;">
 
       <div class="row" style="margin-right: 0%;">
 

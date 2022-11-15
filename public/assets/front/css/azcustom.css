@@ -2661,7 +2661,7 @@
   }
   .tjbestseller.product_details.best_seller li {
     width: 19.167% !important;
-    margin: 0 0.460625%;
+    margin: 0 0.460625% !important;
   }
   .tjbestseller.product_details.best_seller li:nth-of-type(5n) {
     margin-right: 0% !important;
@@ -2866,6 +2866,47 @@
     margin-top: 0 !important;
   }
   .login_box.tjd-anleftmar {
-    margin-left: -10px;
+    margin-left: -15px;
+    margin-right: -15px;
+    width: auto !important;
+  }
+  .best_seller_container.tjd-detleftmar {
+    padding: 0 15px;
+  }
+  .col-md-3.col-annonser-sidebar {
+    margin-top: 66px;
+  }
+  .row.buyer-row.tj-order-product.tjd-angrid .col-md-15.buyer-ht {
+    width: 19.167%;
+    margin: 0 0.290625% 20px;
+  }
+  .tj-contentcreate .seller_info h2:not(.pl-0) {
+    padding-left: 0 !important;
+  }
+  .tj-contentcreate .seller_info .col-md-10.p-5 {
+    padding-left: 0;
+  }
+  .tj-contentcreate .seller_info .col-md-2.text-right {
+    padding: 0 !important;
+  }
+  .tj-contentcreate .seller_info .login_box > .col-md-6 {
+    padding: 0 !important;
+  }
+  .tj-contentcreate .seller_info .login_box .select2-container{
+    width:100% !important;
+  }
+  .seller_header {
+    margin-left: -15px;
+    padding: 20px 20px 20px 30px;
+  }
+  .instagram_imgs {
+    margin: 0 -15px 0 -30px;
+  }
+  .instagram_imgs li {
+      width: 19.167%;
+      margin: 0 0.520625%;
+  }
+  .best_seller_container h2.instagram_heading {
+      margin-left: -15px !important;
   }
 }

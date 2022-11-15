@@ -229,7 +229,7 @@
     <div class="container-fluid">
     <div class="container-inner-section">
         <div>
-            <div class="best_seller_container" style="margin-top:60px;margin-bottom:25px;">
+            <div class="best_seller_container tjd-detleftmar" style="margin-top:60px;margin-bottom:25px;">
               <!--<div class="col-md-12"  style="margin-left: -33px;"> - commented alvisa 21-march -->
               <div class="row" style="margin-right: 0%;">
               <div class="col-md-6">

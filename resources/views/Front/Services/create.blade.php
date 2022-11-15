@@ -90,6 +90,9 @@ td.fc-week-number {
     background: #03989e !important;
     border: 1px solid transparent;
   }
+  p.seller-logo-info {
+    clear: both;
+  }
 }
 
 </style>
@@ -121,7 +124,7 @@ td.fc-week-number {
             <a href="{{route('manageFrontServices')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
          </div>
          <div class="row tj-nodpad">
-           <div class="col-md-12">
+           <div class="col-md-12 tjd-serviceform">
              
           <div class="login_box">
               <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('servicelang.step_1')}}</h2>

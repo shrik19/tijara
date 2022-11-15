@@ -34,7 +34,7 @@
 
 
             <div class="card-body">
-            <div class="row buyer-row tj-order-product">
+            <div class="row buyer-row tj-order-product tjd-angrid">
             @if(!empty($buyerProducts) && count($buyerProducts) > 0)
 
             @foreach($buyerProducts as $key => $value)

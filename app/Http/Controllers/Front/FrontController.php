@@ -629,7 +629,7 @@ public function getCatSubList(Request $request) {
 	function getPopularProducts($limit,$category_slug='',$subcategory_slug='',$product_id=array()) {
 	
 		$currentDate = date('Y-m-d H:i:s');
-		//DB::enableQueryLog();
+		DB::enableQueryLog();
 		$PopularProducts 	= Products::join('orders_details', 'products.id', '=', 'orders_details.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
@@ -657,7 +657,9 @@ public function getCatSubList(Request $request) {
 								->orderBy('variant_product.id', 'ASC')
 								->groupBy('products.id')
 								->offset(0)->limit($limit)->get();
-		//echo "<pre>";print_r($PopularProducts);	exit;
+		//echo "<pre> HEER";print_r($PopularProducts);
+		 //print_r(DB::getQueryLog());exit;
+		 
 		/*$current_uri = request()->segments();
         
         if(!empty($current_uri[0]) && @$current_uri[0]=='products'){
@@ -666,8 +668,10 @@ public function getCatSubList(Request $request) {
 			$PopularProducts->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
 		}*/
 //echo count($PopularProducts);exit;
-		if(count($PopularProducts)<10 && $limit ==10){
-			$number =10-count($PopularProducts);
+		//if(count($PopularProducts)<10 && $limit ==10){
+		if(count($PopularProducts)<$limit){
+			//$number =10-count($PopularProducts);
+			$number =$limit-count($PopularProducts);
 			//DB::enableQueryLog();
 			$currentDate = date('Y-m-d H:i:s');
 			$roleId = 2;
@@ -756,7 +760,7 @@ public function getCatSubList(Request $request) {
 			}
 		}
 
-		echo "<pre>";print_r($PopularProducts);exit;
+		//echo "<pre>";print_r($PopularProducts);exit;
 		return $PopularProducts;
 		
 		
@@ -1785,7 +1789,7 @@ public function getCatSubList(Request $request) {
 									//->where('orders_details.product_id','=',$p_id);
 									})->groupBy('products.id')
 									->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
-					//echo "<pre>";print_r($PopularProducts);	exit;
+									
 									if(count($PopularProducts)>0){
 									
 										if(count($PopularProducts)<6){
@@ -1796,6 +1800,8 @@ public function getCatSubList(Request $request) {
 												$popularProductIDS [] = $value['id'];
 											}
 											$popularProductIDS [] =$p_id;
+											//print_r($popularProductIDS);
+											//die;
 
 											$getPopular = $this->getPopularProducts($popularLimit,'','',$popularProductIDS);		
 

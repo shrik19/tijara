@@ -395,7 +395,7 @@
                 <ul class="product_details best_seller pl-0 tjbestseller">
 
                 @foreach($PopularProducts as $key=>$product)
-                 @php if($key>5){continue;}@endphp
+                 @php if($key>4){continue;}@endphp
                           @include('Front.products_widget')
                 @endforeach
                </ul>

@@ -756,7 +756,7 @@ public function getCatSubList(Request $request) {
 			}
 		}
 
-		//echo "<pre>";print_r($PopularProducts);exit;
+		echo "<pre>";print_r($PopularProducts);exit;
 		return $PopularProducts;
 		
 		

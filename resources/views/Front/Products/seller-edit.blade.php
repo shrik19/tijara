@@ -104,11 +104,7 @@
             <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
            
                 @csrf
-            
-                  <div class="col-md-8">
-              
-                  </div>
-                  <div class="col-md-4 text-right" style="margin-top:30px;">
+                  <div class="col-md-12 text-right" style="margin-top:30px;">
                     <a href="{{route('manageFrontProducts')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
                   </div>
 

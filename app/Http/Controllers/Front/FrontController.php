@@ -87,7 +87,7 @@ class FrontController extends Controller
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id','users.store_name','users.description','seller_personal_page.logo')
 								->where('users.role_id','=','2')
 								->where('users.is_featured','=','1')
-								->where('users.is_verified','=','1')
+								//->where('users.is_verified','=','1')
 								->where('users.status','=','active')
 								->where('users.is_deleted','=','0')
                 			    ->where('users.is_shop_closed','=',"0")

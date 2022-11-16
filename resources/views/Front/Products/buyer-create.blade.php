@@ -41,7 +41,7 @@ width:100% !important;
           
 
           <div class="col-md-12">
-              <div class="tijara-content tj-contentcreate">
+              <div class="tijara-content ">
               @include ('Front.alert_messages')
               @if($subscribedError)
             <div class="alert alert-danger update-alert-css">{{$subscribedError}}</div>
@@ -85,8 +85,8 @@ width:100% !important;
            <!--  </div> -->
 <!--               <div class="seller_mid_cont"> -->
           <div class="col-md-12 p-0">
-            <div class="login_box tjd-anleftmar">
-               <div class="col-md-6">
+            <div class="login_box ">
+               <div class="col-md-6 p-0">
                 <input type="hidden" name="product_id" value="{{$product_id}}">
                   <div class="form-group">
                   <label class="col-md-12 label_css p-0" >{{ __('users.sellers_title')}} <span class="de_col">*</span></label>
@@ -136,7 +136,7 @@ width:100% !important;
 
 
                </div>
-               <div class="col-md-6">
+               <div class="col-md-6 tj-mobnopad">
                    <div class="form-group">
                     <label class="col-md-12 label_css p-0" >{{ __('users.buyer_product_title')}} <span class="de_col">*</span></label>
                     <input type="text" class="login_input form-control" name="title" id="title" placeholder="{{ __('users.buyer_product_title')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">

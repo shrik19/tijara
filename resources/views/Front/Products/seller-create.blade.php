@@ -308,10 +308,11 @@
             </div>
 
             <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('lang.product_form_step3')}}</h2>
+			
             <div class="form-group producterrDiv" id="shipping_method_ddl_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
               <div class="col-md-8">
-              <select class="col-md-8 ge_input tjselect" name="shipping_method_ddl" id="shipping_method_ddl" >
+              <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl" >
                 <option value="">{{ __('users.select_shipping_method')}}</option>
                 <option value="Platta fraktkostnader" @if(@$users_details->shipping_method=="Platta fraktkostnader") selected="selected" @endif>{{ __('users.flat_shipping_charges')}}</option>
                 <option value="Andel fraktkostnader"  @if(@$users_details->shipping_method=="Andel fraktkostnader") selected="selected" @endif>{{ __('users.prcentage_shipping_charges')}}</option>

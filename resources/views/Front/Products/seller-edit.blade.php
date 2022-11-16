@@ -237,9 +237,9 @@
                                     <div class="col-md-3"></div>
                                  <?php }?>
                                 
-                                    <div class="col-md-8 tj-selectbox-cotnainer">
+                                    <div class="col-md-8 tj-svselect tj-newslect">
                              
-                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute preselected_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
                                       <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                         @foreach ($attributesToSelect as $attr)

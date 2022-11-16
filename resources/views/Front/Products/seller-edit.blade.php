@@ -114,7 +114,7 @@
 
                     <div class="login_box">
 
-                        <h2 class="col-md-12 product_add_h2 mbnml0" style="margin-left: -22px;">{{ __('lang.product_form_step1')}}</h2>
+                        <h2 class="col-md-12 product_add_h2 steps_no_css tj-savepr-head">{{ __('lang.product_form_step1')}}</h2>
                         <input type="hidden" id="product_id" name="product_id" value="{{$product_id}}">
 
                         <div class="form-group ">
@@ -226,10 +226,10 @@
                               @php $v++; @endphp
 
                                 <?php $attribute  = $variant['attributes'][0]; ?>
-                                <div class="variant_tr" id="variant_tr" variant_id="<?php echo $i;?>">
+                                <div class="variant_tr tjsellercol2" id="variant_tr" variant_id="<?php echo $i;?>">
                                 
                                   <input type="hidden" class="variant_id form-control ge_input" value="{{$variant_key1}}" name="variant_id[{{$i}}]" >
-                                  <div class="form-group">
+                                  <div class="form-group row">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.sku_label')}} <span class="de_col"></span></label>
                                     <div class="col-md-8">
                                     <input type="text" class="col-md-8 ge_input sku" name="sku[<?php echo $i;?>]"  placeholder="{{ __('lang.sku_placeholder')}}" value="{{$variant['sku']}}" tabindex="7">
@@ -245,21 +245,21 @@
                                   </div>
                                   </div>
                                   */?>
-                                  <div class="form-group">
+                                  <div class="form-group producterrDiv row">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.price_label')}} <span class="de_col">*</span></label>
                                     <div class="col-md-8">
                                     <input type="tel" class="col-md-8 ge_input price number variant_field" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value="{{$variant['price']}}" tabindex="7">
                                     <span class="invalid-feedback col-md-8" id="err_sku" ></span>
                                     </div>
                                   </div>
-                                  <div class="form-group">
+                                  <div class="form-group producterrDiv row">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.qty_label')}} <span class="de_col">*</span></label>
                                     <div class="col-md-8">
                                     <input type="tel" class="col-md-8 ge_input quantity number variant_field" name="quantity[<?php echo $i;?>]"  placeholder="{{ __('lang.qty_label')}}" value="{{$variant['quantity']}}" tabindex="7">
                                     <span class="invalid-feedback col-md-8" id="err_sku" ></span>
                                   </div>
                                   </div> 
-                                  <div class="form-group" >
+                                  <div class="form-group producterrDiv row" >
                               <?php //echo "<pre>--";print_r($variant['attributes']);exit;
                                   if(count($variant['attributes'])==1){
                                      $variant['attributes'][1]=$variant['attributes'][0];
@@ -307,7 +307,7 @@
                                          @endforeach
                                   </div>
 								    
-                                  <div class="form-group">
+                                  <div class="form-group producterrDiv row">
                                     <label class="col-md-3 product_table_heading">{{ __('lang.image_label')}} <span class="de_col">*</span></label>
                                     <div class="col-md-8">
                                     <div class="selected_images col-md-12">
@@ -357,9 +357,9 @@
                             </div>
                     
                         </div>
-                        <h2 class="col-md-12 product_add_h2" style="margin-left: -22px;">{{ __('lang.product_form_step3')}}</h2>
+                        <h2 class="col-md-12 product_add_h2 tj-savepr-head" >{{ __('lang.product_form_step3')}}</h2>
                  
-                        <div class="form-group col-md-12" id="shipping_method_ddl_div">
+                        <div class="form-group producterrDiv" id="shipping_method_ddl_div">
                           <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
                           <div class="col-md-8">
                           <select class="col-md-8 ge_input" name="shipping_method_ddl" id="shipping_method_ddl">
@@ -371,22 +371,22 @@
                         </div>
                         </div>
 
-                        <div class="form-group col-md-12" id="shipping_charges_div">
+                        <div class="form-group " id="shipping_charges_div">
                           <label class="col-md-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
                           <div class="col-md-8">
                           <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="{{ (old('shipping_charges')) ? old('shipping_charges') : $product->shipping_charges}}">
                           <span class="invalid-feedback col-md-8"  id="err_shipping_charges"> </span>
                         </div>
                         </div>
-                        <div class="col-md-12">
-                         <label class="col-md-3 product_table_heading"> {{ __('users.free_shipping_label')}}</label>
-                          <div class="col-md-8">
-                            <input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping == "free_shipping"){ echo "checked"; } ?>>
-                          </div>
-                          </div>
+                        <div class="form-group tj-svcheck">
+							 <label class="col-md-3 product_table_heading"> {{ __('users.free_shipping_label')}}</label>
+							  <div class="col-md-8">
+								<input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping == "free_shipping"){ echo "checked"; } ?>>
+							  </div>
+                         </div>
 
 
-                      <div class="form-group col-md-12">
+                      <div class="form-group tj-svcheck">
                       <label  class="col-md-3 product_table_heading" style="margin-top: 15px;"> {{ __('users.pick_from_store')}} </label>
                       <div class="col-md-8">
                         <div class="row">

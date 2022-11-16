@@ -278,68 +278,63 @@ td.fc-week-number {
   <div class="col-md-9 tj-mobnopad">
 
   <div class="form-group col-md-3 producterrDiv">
-  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_year')}}</label>
+	  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_year')}}</label>
 
-  <select class="col-md-12 service_year form-control tjselect" name="service_year" id="service_year" >
-  <option value="">{{ __('lang.select_label')}}</option>
-  <?php
-  for($i=date('Y'); $i<'2050';$i++) {
-  ?>
-  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-  <?php
-  }
-  ?>
-  </select>
-  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
+	  <select class="col-md-12 service_year form-control tjselect" name="service_year" id="service_year" >
+		  <option value="">{{ __('lang.select_label')}}</option>
+		  <?php
+		  for($i=date('Y'); $i<'2050';$i++) {
+		  ?>
+		  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+		  <?php
+		  }
+		  ?>
+	  </select>
+	  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
+  </div>
+  
+  <div class="form-group col-md-3 producterrDiv">
+	  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_month')}} </label>
+	  <select class="col-md-12 service_month form-control tjselect" name="service_month" id="service_month" >
+		  <option value="">{{ __('lang.select_label')}}</option>
+		  <?php
+		  for ($i = 1; $i <= 12; $i++) {
+		  $timestamp = date('01-'.$i.'-'.date('Y'));
+		  ?>
+		  <option value="<?php echo date('m', strtotime($timestamp)); ?>"><?php echo date('F', strtotime($timestamp)); ?></option>
+		  <?php
+		  }
+		  ?>
+	  </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
   </div>
   <div class="form-group col-md-3 producterrDiv">
-  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_month')}} </label>
-  <select class="col-md-12 service_month form-control tjselect" name="service_month" id="service_month" >
-  <option value="">{{ __('lang.select_label')}}</option>
-  <?php
-  for ($i = 1; $i <= 12; $i++) {
-  $timestamp = date('01-'.$i.'-'.date('Y'));
-  ?>
-  <option value="<?php echo date('m', strtotime($timestamp)); ?>"><?php echo date('F', strtotime($timestamp)); ?></option>
-  <?php
-  }
-  ?>
-  </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
-  </div>
-  <div class="form-group col-md-3 producterrDiv">
-  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_date')}} </label>
-  <select class="col-md-12 service_date form-control tjselect" name="service_date" id="service_date" >
-  <option value="">{{ __('lang.select_label')}}</option>
-  <?php
-  for ($i = 1; $i <=31; $i++) {
+	  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_date')}} </label>
+	  <select class="col-md-12 service_date form-control tjselect" name="service_date" id="service_date" >
+	  <option value="">{{ __('lang.select_label')}}</option>
+	  <?php
+	  for ($i = 1; $i <=31; $i++) {
 
-  ?>
-  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-  <?php
-  }
-  ?>
-  </select>
-  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
+	  ?>
+	  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+	  <?php
+	  }
+	  ?>
+	  </select>
+	  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
   </div>
+   <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 65px;">
+	  <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}} </label>
+	  <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
+	  <span style="margin-top: 75px;margin-left: 20px;" class="invalid-feedback col-md-12" id="start_time" >
+	  @if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
+	  <input type="hidden" name="del_start_time" id="del_start_time">
   </div>
+  
+  
+  
   </div>
-  <div class="col-md-3 tj-mobnopad startid" style="display: flex;">
-  <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 65px;">
-  <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}} </label>
-  <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
-  <span style="margin-top: 75px;margin-left: 20px;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
   </div>
 
-  <div class="col-md-2 text-center tjnomor" style="margin-top: 65px;">
-  <label class="col-md-12 product_table_heading"></label>
-  <input type="hidden" name="del_start_time" id="del_start_time">
- <!-- <select name="del_start_time" id="del_start_time" style="margin-top: 25px;width: 100px" class="form-control">
-  <option value="" >{{ __('lang.select_label')}}</option>
-  <option value="insert">{{ __('lang.save_btn')}}</option>
-  <option value="delete">{{ __('lang.delete_title')}}</option>
-  </select> -->
-  </div>
-  </div>
   </div>
 
   <!-- to date block start -->

@@ -33,48 +33,7 @@
     bottom: 0px;
     left: 3px;
 }
-.tj-selectbox-cotnainer.full .select2-container{
-    width:67% !important;
-}
-@media(max-width:767px){
-  .mbnml0{
-    margin-left:0 !important;
-  }
-  .seller_info h2:not(.pl-0) {
-    padding-left: 0px !important;
-  }
-  .login_box {
-    margin-left: -15px;
-    margin-right: -15px;
-    width: auto !important;
-  }
-  #product-form {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  .seller_info .login_box h2:not(.pl-0) {
-    padding: 10px 15px !important;
-    margin-left: 0 !important;
-  }
-  .mbnml0 .login_box > .form-group, .mbnml0 .login_box > .col-md-12 {
-      padding: 0;
-  }
-  .tijara-content .btn{
-    display: inline-block;
-  }
-  .row.tijara-content{
-    margin:0;
-  }
-  .product_description{
-    width: 100% !important;
-  }
-  .store_pick_address{
-    width: 100% !important;
-  }
-  .tj-selectbox-cotnainer.full .select2-container{
-    width:100% !important;
-  }
-}
+
 </style>
 
 <div class="mid-section sellers_top_padding">
@@ -110,7 +69,7 @@
 
                   
                   <div class="row tj-nodpad tjd-pad6">
-					<div class="col-md-12">
+					<div class="col-md-12 tjd-serviceform">
 
                     <div class="login_box">
 

@@ -120,11 +120,12 @@ td.fc-week-number {
       
     <form id="service-form" class="tijara-form service-add-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
             @csrf  
+         <div class="row tj-nodpad">
+
           <div class="col-md-12 text-right" style="margin-top:30px;">
             <a href="{{route('manageFrontServices')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
          </div>
-         <div class="row tj-nodpad">
-           <div class="col-md-12 tjd-serviceform">
+           <div class="tjd-serviceform">
              
           <div class="login_box">
               <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('servicelang.step_1')}}</h2>

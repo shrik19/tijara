@@ -46,7 +46,7 @@
         @include ('Front.layout.sidebar_menu')
     </div>
     
-      <div class="col-md-10">
+      <div class="col-md-10 tijara-content margin_bottom_class tj-alignment">
           @include ('Front.alert_messages')
       <div class="seller_info">
       <div class="seller_header">
@@ -89,7 +89,7 @@
 								<label class="col-md-3 product_table_heading">{{ __('lang.product_description_label')}}  <span class="de_col">*</span></label>
 							  
 								<div class="col-md-8">
-								  <textarea class="ge_input product_description col-md-8 " style="width: 67%; height: 175px;"
+								  <textarea class="ge_input product_description col-md-8 " style="width: 100%; height: 175px;"
 								   name="description" id="" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{ (old('description')) ?  old('description') : $product->description}}</textarea>
 								  <span class="invalid-feedback col-md-8" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
 								</div>
@@ -97,7 +97,7 @@
 						  
                         <div class="form-group">
                           <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span></label>
-                          <div class="col-md-8 tj-selectbox-cotnainer full">
+                          <div class="col-md-8 tjd-slectlimit">
 							  <select class="select2 col-md-8 ge_input tjselect" name="status" id="status"  placeholder="" tabindex="8" >
 								<option @if($product->status=='active') selected="selected" @endif value="active">{{ __('lang.active_label')}}</option>
 								<option @if($product->status=='block') selected="selected" @endif value="block">{{ __('lang.block_label')}}</option>
@@ -108,7 +108,7 @@
 
                         <div class="form-group">
 							  <label class="col-md-3 product_table_heading" >{{ __('lang.category_label')}}<span class="de_col">*</span></label>
-							  <div class="col-md-8 tj-selectbox-cotnainer full">
+							  <div class="col-md-8 tjd-slectlimit  tjd-slectlimitcat">
 							  <select class="select2 col-md-8 ge_input tjselect" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
 							  <option></option>
 								@foreach($categories as $cat_id=>$category)

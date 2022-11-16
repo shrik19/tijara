@@ -70,7 +70,7 @@
 
       
       <div class="row tj-nodpad tjd-pad6">
-      <div class="col-md-12">
+      <div class="col-md-12 tjd-serviceform">
 
         <div class="login_box">
 

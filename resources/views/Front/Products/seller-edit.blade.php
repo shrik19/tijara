@@ -89,9 +89,11 @@
 								<label class="col-md-3 product_table_heading">{{ __('lang.product_description_label')}}  <span class="de_col">*</span></label>
 							  
 								<div class="col-md-8">
+								<div class="form-group  producterrDiv col-md-8 p-0">
 								  <textarea class="ge_input product_description col-md-8 " style="width: 100%; height: 175px;"
 								   name="description" id="" placeholder="{{ __('lang.product_description_label')}}" value="" tabindex="2">{{ (old('description')) ?  old('description') : $product->description}}</textarea>
 								  <span class="invalid-feedback col-md-8" id="err_description" >@if($errors->has('description')) {{ $errors->first('description') }}@endif </span>
+								</div>
 								</div>
 						  </div>
 						  

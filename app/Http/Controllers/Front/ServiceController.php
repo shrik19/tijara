@@ -951,7 +951,7 @@ class ServiceController extends Controller
         }
         
           $serviceRequest = $serviceRequest->groupBy('service_requests.id')->orderby('service_requests.id', 'DESC');
-          $serviceRequest       = $serviceRequest->paginate(12);
+          $serviceRequest       = $serviceRequest->paginate(15);
 
  
         //print_r(DB::getQueryLog());exit;

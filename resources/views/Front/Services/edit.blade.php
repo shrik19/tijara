@@ -322,7 +322,7 @@ td.fc-week-number {
 	  </select>
 	  <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
   </div>
-   <div class="form-group col-md-2" style="width: 150px;margin-left: -180px;margin-top: 65px;">
+   <div class="form-group col-md-2 producterrDiv" >
 	  <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}} </label>
 	  <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
 	  <span style="margin-top: 75px;margin-left: 20px;" class="invalid-feedback col-md-12" id="start_time" >

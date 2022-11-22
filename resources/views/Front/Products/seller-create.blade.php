@@ -321,8 +321,8 @@
             </div>
 
             <div class="form-group " id="shipping_charges_div">
-              <label class="col-md-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
-              <div class="col-md-8">
+              <label class="col-sm-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
+              <div class="col-sm-8">
               <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="@if(@$users_details->shipping_charges!=''){{ $users_details->shipping_charges }}@endif" >
               <span class="invalid-feedback col-md-8"  id="err_shipping_charges"></span>
             </div>
@@ -336,18 +336,22 @@
             </div>
             <div class="form-group tj-svcheck">
               <label  class="col-sm-3 col-xs-6 product_table_heading" style="margin-top: 15px;"> {{ __('users.pick_from_store')}} </label>
-              <div class="col-sm-2 col-xs-6">
+              <div class="col-sm-8">
                 <div class="row">
-                  <div class="col-sm-1"  class="is_pick_from_store">
-                   <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>
+                  <div class="col-sm-1 col-xs-6">
+                    <div class="row">
+                      <div class="col-sm-1"  class="is_pick_from_store">
+                       <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>
+                      </div>
+                      
+                    </div>
+                  </div> 
+                  <div class="col-sm-7">
+                        <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif">
+                        <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
                   </div>
-                  
                 </div>
-              </div> 
-              <div class="col-sm-7">
-                    <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif">
-                    <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
-              </div>             
+              </div>      
             </div>
         </div>
       </div>

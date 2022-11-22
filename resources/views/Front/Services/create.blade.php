@@ -189,7 +189,7 @@ td.fc-week-number {
               <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('lang.category_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
-                <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
+                <select class="select2 col-md-8 login_input form-control tjselect" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
                   <option></option>
                   @foreach($categories as $cat_id=>$category)
                   <optgroup label="{{$category['maincategory']}}">

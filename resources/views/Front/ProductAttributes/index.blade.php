@@ -18,20 +18,20 @@
         padding-left: 15px !important;
             padding-top: 10px !important;
     }
-    @media(max-width:767px){
-      #attributeTable_length select {
-          display: block;
-      }
+    #attributeTable_length select {
+        display: block;
+    }
 
-      #attributeTable_filter input.form-control {
-          display: block;
-          margin-left: 0 !important;
-      }
+    #attributeTable_filter input.form-control {
+        display: block;
+        margin-left: 0 !important;
+    }
 
-      #attributeTable_filter label {
-          padding-left: 15px !important;
-          padding-top: 10px !important;
-      }
+    #attributeTable_filter label {
+        padding-top: 10px !important;
+    }
+    div#attributeTable_wrapper table.dataTable {
+      width: 300px !important;
     }
   }
 </style>

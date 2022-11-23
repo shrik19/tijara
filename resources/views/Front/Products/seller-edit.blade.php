@@ -340,21 +340,25 @@
                         </div>
                         </div>
                         <div class="form-group tj-svcheck">
-							 <label class="col-md-3 product_table_heading"> {{ __('users.free_shipping_label')}}</label>
-							  <div class="col-md-8">
+							 <label class="col-sm-3 col-xs-6 product_table_heading"> {{ __('users.free_shipping_label')}}</label>
+							  <div class="col-sm-8 col-xs-6">
 								<input type="checkbox" name="free_shipping" id="free_shipping_chk" value="free_shipping" onchange="hideShippingMethod()" <?php if($product->free_shipping == "free_shipping"){ echo "checked"; } ?>>
 							  </div>
                          </div>
 
 
                       <div class="form-group tj-svcheck">
-                      <label  class="col-md-3 product_table_heading" style="margin-top: 15px;"> {{ __('users.pick_from_store')}} </label>
-                      <div class="col-md-8">
+                      <label  class="col-sm-3 col-xs-6 product_table_heading" style="margin-top: 15px;"> {{ __('users.pick_from_store')}} </label>
+                      <div class="col-sm-8">
                         <div class="row">
-                        <div class="col-md-1"  class="is_pick_from_store">
-                           <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" <?php if($product->is_pick_from_store ==  "1"){ echo "checked"; } ?>>
+                        <div class="col-sm-1 col-xs-6"  class="is_pick_from_store">
+							 <div class="row">
+								<div class="col-sm-1"  class="is_pick_from_store">
+									<input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" <?php if($product->is_pick_from_store ==  "1"){ echo "checked"; } ?>>
+								</div>
+							</div>
                        </div>
-                       <div class="col-md-8">
+                       <div class="col-sm-7">
                          <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="{{ (old('store_pick_address')) ? old('store_pick_address') : $product->store_pick_address}}">
                           <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
                        </div>

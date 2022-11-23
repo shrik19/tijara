@@ -97,7 +97,7 @@
 								</div>
 						  </div>
 						  
-                        <div class="form-group">
+                        <div class="form-group producterrDiv">
                           <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span></label>
                           <div class="col-md-8 tjd-slectlimit">
 							  <select class="select2 col-md-8 ge_input tjselect" name="status" id="status"  placeholder="" tabindex="8" >

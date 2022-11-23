@@ -368,7 +368,8 @@
                     </div>
                   </div>
 				  </div>
-                  <div class="row tijara-content">
+				  
+                  <div class="row tijara-content tj-personal-action">
 
                   
                         <div class="col-md-12">&nbsp;</div>

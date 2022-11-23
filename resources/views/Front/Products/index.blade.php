@@ -163,7 +163,7 @@
   });
 </script>
 <style>
-.productTable{
+#productTable{
 	width:auto !important;
 }
 </style>

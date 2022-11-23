@@ -57,7 +57,7 @@
 		</div>
 <div class="clearfix"></div>
 <div class="mb-10 pro-top-btn package_history_btn">
-		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
+		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute_lable')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute_lable')}}</span> </a>
 			</div>
       <br/><br/>
       <div class="clearfix"></div>

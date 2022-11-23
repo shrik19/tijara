@@ -162,5 +162,10 @@
 		dataTable.draw();
   });
 </script>
+<style>
+.productTable{
+	width:auto !important;
+}
+</style>
 
 @endsection

@@ -98,7 +98,7 @@
             <div class="form-group  producterrDiv">
               <label class="col-md-3 product_table_heading" >{{ __('lang.category_label')}} <span class="de_col">*</span></label>
               <div class="col-md-8 tjd-slectlimit  tjd-slectlimitcat">
-                <select class="select2 col-md-8 ge_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
+                <select class="select2 col-md-8 ge_input tjselect" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
                   <option>{{ __('lang.select_label')}}</option>
                   @foreach($categories as $cat_id=>$category)
                   <optgroup label="{{$category['maincategory']}}">

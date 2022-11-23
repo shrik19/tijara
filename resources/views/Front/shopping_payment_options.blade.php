@@ -216,7 +216,7 @@
     color: #999;">{{ __('users.to_delivery_address')}} --</p> -->
     <span class="store_address store-pickup" title="{{@$store_pick_address}}">{{ @$store_pick_address}} </span> 
                                     </div>
-                                    <div class="col-md-6 col-xs-4">                                       
+                                    <div class="col-md-6 col-xs-4 mt-8 m-m-t-15 text-right">                                       
                                        <!--  <span class="store_address" title="{{@$store_pick_address}}">0.00 kr </span> -->
                                           <span class="product_shipping_charges1" class="checkout-shipping-charges">0.00 kr</span>  
                                       </div>

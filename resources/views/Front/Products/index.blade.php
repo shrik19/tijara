@@ -43,7 +43,7 @@
 		  <form id="" action="" method="post">
 			@csrf
 			<div class="table-responsive">
-			  <table class="table table-striped" id="productTable">
+			  <table class="table table-striped" id="productTable" style="width:auto !important;">
 				<thead>
 				  <tr>
 				  <th class="product_table_heading" data-orderable="false">{{ __('lang.image_label')}}</th>

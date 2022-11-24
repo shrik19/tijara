@@ -84,6 +84,10 @@ td.fc-week-number {
       font-size: 20px !important;
       top: 0 !important;
   }
+  #save_service_date {
+    background: #03989e;
+    border: none;
+  }
 }
 @media(min-width:1200px){
   #save_service_date {
@@ -120,7 +124,7 @@ td.fc-week-number {
       
     <form id="service-form" class="tijara-form service-add-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
             @csrf  
-         <div class="row tj-nodpad">
+         <div class="row tj-nodpad tjn-mobmarno">
 
           <div class="col-md-12 text-right" style="margin-top:30px;">
             <a href="{{route('manageFrontServices')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>

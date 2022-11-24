@@ -2549,6 +2549,18 @@
     width: 100%;
     height: 160px;
   }
+  .tjn-mobmarno{
+    margin:0;
+  }
+  .tjn-mobmarno {
+    margin: 0;
+  }
+  .col-md-12.tj-mobpadno.tjd-fordeskpad .row {
+    margin: 0;
+  }
+  .tijara-content a.btn.btn-danger.btn-xs.remove_variant_btn {
+    display: inline-block;
+  }
 }
 @media(min-width:768px) and (max-width: 992px){
   .row.buyer-row.tj-order-product.tjd-angrid .col-md-15{

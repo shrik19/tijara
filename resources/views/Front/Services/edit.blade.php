@@ -57,9 +57,6 @@ td.fc-week-number {
     position: relative !important;
 }
 @media(max-width:767px){
-  .product_add_h2{
-      padding: 0px 0px 20px !important;
-  }
   .tj-editaction {
     margin: 0 !important;
   }
@@ -399,7 +396,7 @@ td.fc-week-number {
   <div class="col-md-3 tj-editaction" style="margin-left: 200px;display: flex;">
     <a href="javascript:void(0);" name="remove_service_date" id="remove_service_date" class="btn btn-danger login_btn save_service_date" tabindex="9" val="delete">{{ __('lang.remove_title')}}</a>
 &nbsp;&nbsp;
-  <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
+  <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn debg_color login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
 
   </div>
   <div class="col-md-3"></div>

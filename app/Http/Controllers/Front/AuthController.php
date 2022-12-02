@@ -2062,7 +2062,7 @@ class AuthController extends Controller
 
 
      /** Logout user */
-     public function logout($type='',$msg='',Request $request)
+     public function logout(Request $request, $type='',$msg='')
      {
         if(Auth::guard('user')->id())
         {

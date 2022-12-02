@@ -1121,7 +1121,7 @@ public function getCatSubList(Request $request) {
 		//return view('Front/products_list', $data);
 	}
     /* function to display products page*/
-	public function buyerProductListing($category_slug='',$subcategory_slug='',Request $request)
+	public function buyerProductListing(Request $request,$category_slug='',$subcategory_slug='')
     {
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
 
@@ -1144,7 +1144,7 @@ public function getCatSubList(Request $request) {
 		return view('Front/products', $data);
 	}
 
-	public function productListing($category_slug='',$subcategory_slug='',Request $request)
+	public function productListing( Request $request,$category_slug='',$subcategory_slug='')
     {
 		
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
@@ -1232,7 +1232,7 @@ public function getCatSubList(Request $request) {
 	}
 	
 	/* function to display products page*/
-    public function sellerProductListing($store_name ='', $category_slug = '', $subcategory_slug= '', Request $request)
+    public function sellerProductListing(Request $request, $store_name ='', $category_slug = '', $subcategory_slug= '')
     {
     	//echo "<pre>---".print_r($request->category_slug);exit;
     	$category_slug=$request->category_slug;
@@ -2191,7 +2191,7 @@ public function getCatSubList(Request $request) {
 	}
 
 	 /* function to display services page*/
-	 public function serviceListing($category_slug='',$subcategory_slug='',Request $request)
+	 public function serviceListing(Request $request, $category_slug='',$subcategory_slug='')
 	 {
 
 			$data['pageTitle'] 	= 'Home';
@@ -2437,7 +2437,7 @@ public function getCatSubList(Request $request) {
 								return $PopularServices;
 	}
 	/* function to display services page*/
-    public function sellerServiceListing($store_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
+    public function sellerServiceListing(Request $request, $store_name ='', $category_slug = null, $subcategory_slug= null)
     {
         $store_name = str_replace('-', " ", $store_name);		
 		$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		

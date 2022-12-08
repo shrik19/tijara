@@ -33,6 +33,9 @@
     div#attributeTable_wrapper table.dataTable {
       width: 300px !important;
     }
+    #attributeTable_length .select2-container{
+      display: block;
+    }
   }
 </style>
 <div class="mid-section sellers_top_padding">
@@ -127,6 +130,8 @@
   });
   $('#attributeTable_filter').parent('div').attr('class','col-sm-5 col-xs-8');
   $('#attributeTable_length').parent('div').attr('class','col-sm-7 col-xs-4');
+  $('#attributeTable_length label').find('select').addClass('tjselect');
+
 
 </script>
 

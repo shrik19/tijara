@@ -285,7 +285,7 @@ width:100% !important;
 
 
                  <div class="form-group tj-aaprvecheck tjd-nmt"  style="margin-top: 78px;">
-                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a>  {{ __('users.and_label')}}  &nbsp;<a href="{{url('/')}}/page/villkor">{{ __('users.privacy_policy')}}</a> <!--<a href="javascript:void(0)">{{ __('users.store_terms')}}</a>--></span>  
+                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="de_col"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a>  {{ __('users.and_label')}}  &nbsp;<a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a> <!--<a href="javascript:void(0)">{{ __('users.store_terms')}}</a>--></span>  
 
                </div>
 

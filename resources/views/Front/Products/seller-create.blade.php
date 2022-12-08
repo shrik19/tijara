@@ -338,7 +338,7 @@
               <label  class="col-sm-3 col-xs-6 product_table_heading" style="margin-top: 15px;"> {{ __('users.pick_from_store')}} </label>
               <div class="col-sm-8">
                 <div class="row">
-                  <div class="col-sm-1 col-xs-6">
+                  <div class="col-sm-1 col-xs-6 tj-pl0">
                     <div class="row">
                       <div class="col-sm-1"  class="is_pick_from_store">
                        <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>

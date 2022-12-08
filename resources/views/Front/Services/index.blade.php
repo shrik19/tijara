@@ -133,6 +133,7 @@
   $('#serviceTable_length').parent('div').attr('class','col-xs-7');
   $(".dataTables_filter label").addClass("pull-right");
   $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');
+  $('#serviceTable_length label').find('select').addClass('tjselect');
 
   $('#status').change(function(){
     dataTable.draw();

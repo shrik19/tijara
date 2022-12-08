@@ -170,6 +170,7 @@
 
   $(".dataTables_filter label").addClass("pull-right");
   $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');
+  $('#productTable_length label').find('select').addClass('tjselect');
 
   $('#monthYear').change(function(){
 

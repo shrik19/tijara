@@ -123,6 +123,7 @@
   '</select></div>').appendTo("#productTable_filter");
   
   $('#productTable_length').find('label').attr('style','float: left;');
+  $('#productTable_length label').find('select').addClass('tjselect');
   $('#productTable_length').parent('div').attr('class','col-xs-7');
   $('<div class="form-group col-xs-3 tjd-prodcatdropdown" style="margin-right: 6%;"><select class="form-control tjselect abc" id="selectcategory" name="category">'+
   

@@ -23,7 +23,7 @@
             @include('Front.services_sidebar')
         </div>
 
-        <div class="col-md-9 services-page p-0">
+        <div class="col-md-9 services-page p-0 tj-pmnor">
 			     <div class="row tj-filter-sec">
                   <div class="col-md-6">
                     @if( Request::segment(1) !='annonser')

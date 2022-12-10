@@ -61,7 +61,7 @@
 
             <div class="login_box payment_detail_box swish_payment" style="margin-top: 20px;">
               <div class="payment-lock-icon"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
-              <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90"></p>
+              <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" class="register_swish_logo"></p>
               <div class="form-group" style="display: flex;">
                 <input type="phone_number" class="form-control login_input " name="swish_number" id="seller_swish_number" placeholder="swish number" value="{{ (old('seller_swish_number')) ? old('seller_swish_number') : $sellerDetails[0]->seller_swish_number}}" style="margin-left: 10px;">
               </div>

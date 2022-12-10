@@ -112,7 +112,7 @@
                 </select>
               </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 pr-0">
               <div class="form-group">
                 <label>{{ __('lang.sort_by_order')}} : </label>
                 <select class="form-control seller tjselect" name="sort_by_order" id="sort_by_order" class="sort_by_order" onchange="listProducts()">

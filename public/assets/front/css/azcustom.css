@@ -2967,4 +2967,14 @@
   p.store_city_name_size {
     white-space: nowrap;
   }
+  .product_details .buy_now_hover_details li a i {
+    line-height: 15px;
+  }
+  .tj-store-top .productSelect, .tj-store-top .serviceSelect {
+    padding: 0 10px;
+    margin: 0;
+  }
+  .seller_header{
+    margin-left: 0;
+  }
 }

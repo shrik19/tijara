@@ -55,8 +55,8 @@
           <div class="row">
             <div class="col-sm-9">
               @if(!empty($store_information))
-                <h2 class="butik_info_heading pl-40">{{ __('lang.butik_info_heading')}} </h2>
-                <p class="store_info pl-40">{!! $store_information !!}</p>
+                <h2 class="butik_info_heading pl-10">{{ __('lang.butik_info_heading')}} </h2>
+                <p class="store_info pl-10">{!! $store_information !!}</p>
               @endif
             </div>
             @if(@$_GET['frompage']==1)
@@ -89,7 +89,7 @@
           <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
           <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
           <div class="product_container">
-            <div class="tj-filter-sec">
+            <div class="row tj-filter-sec">
               <div class="col-sm-6"></div>
               <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="/assets/img/tjfilter.png"></button>
               <div class="col-sm-3">

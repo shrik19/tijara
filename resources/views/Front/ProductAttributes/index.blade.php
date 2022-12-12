@@ -31,7 +31,7 @@
         padding-top: 10px !important;
     }
     div#attributeTable_wrapper table.dataTable {
-      width: 300px !important;
+      width: 97% !important;
     }
     #attributeTable_length .select2-container{
       display: block;

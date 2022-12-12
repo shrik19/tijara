@@ -33,7 +33,7 @@
      'register_as_seller_btn'=>'Registrera dig som säljare',
      'profile_label'=>'Inställningar',
      'address_placholder'=>'Ange din adress',
-     'change_password_title'=>'Ändra ditt lösenord',
+     'change_password_title'=>'Ändra lösenord',
      'reset_password_btn_label'=>'Återställ lösenord',
      /*admin seller/buyer*/
      'buyers_title'=>'Köpare',
@@ -301,7 +301,7 @@
     'buyer_profile_update_title' =>'Min profil',
     'location_label' => 'Ort',
     'select_profile_picture' =>'Välj profilbild',
-    'my_order_title' => 'Beställningar',
+    'my_order_title' => 'Mina beställningar',
     'my_booking_title' => 'Mina bokningar',
     'verify_store' => 'Kontrollera Store',
     'cancel_service' => 'Avboka',

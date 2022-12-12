@@ -223,8 +223,8 @@ td.fc-week-number {
   <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}}<span class="de_col">*</span> </label>
   <div class="col-md-8">
   <select class="select2 col-md-8 login_input form-control tjselect" name="status" id="status"  placeholder="Select" tabindex="8" >
-  <option @if($service->status=='active') selected="selected" @endif value="active">Active</option>
-  <option @if($service->status=='block') selected="selected" @endif value="block">Block</option>
+  <option @if($service->status=='active') selected="selected" @endif value="active">{{ __('lang.active_label')}}</option>
+  <option @if($service->status=='block') selected="selected" @endif value="block">{{ __('lang.block_label')}}</option>
   </select>
   <span class="invalid-feedback col-md-8" id="err_find_us" >@if($errors->has('status')) {{ $errors->first('status') }}@endif</span>
   </div>
@@ -322,7 +322,7 @@ td.fc-week-number {
    <div class="form-group col-md-2 producterrDiv" >
 	  <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}} </label>
 	  <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7">
-	  <span style="margin-top: 75px;margin-left: 20px;" class="invalid-feedback col-md-12" id="start_time" >
+	  <span style="" class="invalid-feedback col-md-12" id="start_time" >
 	  @if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
 	  <input type="hidden" name="del_start_time" id="del_start_time">
   </div>

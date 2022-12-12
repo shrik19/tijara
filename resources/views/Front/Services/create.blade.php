@@ -369,10 +369,19 @@ td.fc-week-number {
                 </div>
               </div>
               <!-- to date block end -->
-              <div class="col-md-12 text-right">
+           
+
+              <div class="col-md-12">
+              <div class="col-md-6"></div>
+              <div class="col-md-6">
+              <div class="col-md-3 tj-editaction" style="margin-left: 20%;display: flex;">
                   <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
-                    <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
+                  <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
               </div>
+              <div class="col-md-3"></div>
+              </div>
+              </div>
+
               <div class="added_service_times" style="display:none;"></div>
               <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;    margin-left: -12px;"></div>
             </div>

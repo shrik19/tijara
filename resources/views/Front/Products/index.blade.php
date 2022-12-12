@@ -8,6 +8,10 @@
   #selectcategory {
     max-width: 140%;
   }
+  #productTable_filter label{
+    max-width: 50% !important;
+    margin-right:50px !important;
+  }
 }
 </style>
 <div class="mid-section sellers_top_padding">

@@ -2577,6 +2577,9 @@
   .col-sm-1.col-xs-6.tj-pl0 {
     padding-left: 0;
   }
+  .tj-alignment .login_box .form-group > div.col-sm-8 .col-xs-6{
+    padding:0 !important;
+  }
 }
 @media(min-width:768px) and (max-width: 992px){
   .row.buyer-row.tj-order-product.tjd-angrid .col-md-15{

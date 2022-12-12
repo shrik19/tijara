@@ -8,7 +8,7 @@
   #selectcategory {
     max-width: 140%;
   }
-  #productTable_filter label{
+  #serviceTable_filter label{
     max-width: 50% !important;
     margin-right:50px !important;
   }

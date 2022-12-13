@@ -1531,7 +1531,7 @@ if($('.product_listings').length>0) {
   $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
   $(".current_search_string").text(),'',$(".current_role_id").text());
   
-  $(document).on('click', '.pagination_div a', function(event){
+  $(document).on('click', '.pagination a', function(event){
       event.preventDefault();
       var page = $(this).attr('href').split('page=')[1];
       get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
@@ -1679,7 +1679,7 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
 if($('.service_listings').length>0) {
   var page = 1;
   get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text());
-  $(document).on('click', '.pagination_div a', function(event){
+  $(document).on('click', '.pagination a', function(event){
       event.preventDefault();
       var page = $(this).attr('href').split('page=')[1];
       get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text());

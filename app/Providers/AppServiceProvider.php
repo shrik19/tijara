@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 use DB;
 use View;
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     { 
+        Paginator::useBootstrap();
         $siteDetails = DB::table('settings')->first();		
         View::composer('Front/layout/header', function($view) use($siteDetails) {		
             $view->with('siteDetails',$siteDetails);		});		

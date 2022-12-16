@@ -44,11 +44,13 @@
               <div class="form-group">
                 <input type="hidden" name="selected_package" id="selected_package" value="{{$selected_package}}">
                 <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : @$sellerDetails[0]->klarna_username}}">
+                <span class="register_credentials_ex">T.ex. K1234567_dc0a9aclc532</span
                 <span class="invalid-feedback" style="position: relative;">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
               </div>
 
               <div class="form-group">
                 <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : base64_decode($sellerDetails[0]->klarna_password)}}">
+                <span  class="register_credentials_ex">T.ex. abcDEF123ghij567</span>
                 <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
               </div>
 

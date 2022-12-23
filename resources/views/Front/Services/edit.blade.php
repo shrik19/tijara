@@ -87,6 +87,11 @@ td.fc-week-number {
       font-size: 20px !important;
       top: 0 !important;
   }
+  .images.col-md-12 ~ .productErr {
+    margin-top: 0;
+    margin-left: 0;
+    padding-left: 0;
+  }
 }
 @media(min-width:1200px){
   #save_service_date {
@@ -330,12 +335,6 @@ td.fc-week-number {
   
   
   </div>
-  </div>
-
-  </div>
-
-  <!-- to date block start -->
-  <div class="col-md-12 tjnomor" style="margin-left: -32px;margin-top: -85px;">
   <div class="col-md-9 tj-mobnopad1">
   <div class="form-group col-md-3 producterrDiv">
   <label class="col-md-12 product_table_heading">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
@@ -380,6 +379,7 @@ td.fc-week-number {
   ?>
   </select>
   <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
+  </div>
   </div>
   </div>
 

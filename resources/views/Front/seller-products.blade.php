@@ -14,7 +14,7 @@
       <!-- Example row of columns -->
       <div class="row tijara-content tjpa" style="margin-top:40px;">
         <div class="col-sm-3 col-xs-12">
-          <div>            
+          <div class="tj-sellerlogoflex">            
              @if(!empty($logo)) 
              <div class="seller_logo seller_details_img">
              <img class="seller_logo" src="{{$logo}}" />&nbsp;&nbsp;</div>@endif

@@ -33,6 +33,12 @@
     bottom: 0px;
     left: 3px;
 }
+.tj-wid67{
+  width: 72%;
+}
+.tj-svselect.tj-newslect .tj-wid67 .select2-container{
+  width: 100% !important;
+}
 
 </style>
 
@@ -240,25 +246,33 @@
                                  <?php }?>
                                 
                                     <div class="col-md-8 tj-svselect tj-newslect">
+                                      <div class="row tj-wid67">
+                                        <div class="col-sm-6">
+                                          <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                                            <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
+
+                                              @foreach ($attributesToSelect as $attr)
+                                                @if($value['attribute_id']==$attr->id)
+                                                <?php $disabled_attr[] = $attr->id;?>
+                                                  <option selected="selected" value="{{ $attr->id }}">{{ $attr->name }}</option>
+                                                @else
+                                                
+                                                <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
+                                                @endif
+                                              @endforeach
+                                          </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                          <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]">
+                                            <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}  (ex röd)</option>
+
+                                          </select>
+                                        </div>
+                                      </div>
                              
-                                    <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
-                                      <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
+                                    
 
-                                        @foreach ($attributesToSelect as $attr)
-                                          @if($value['attribute_id']==$attr->id)
-                                          <?php $disabled_attr[] = $attr->id;?>
-                                            <option selected="selected" value="{{ $attr->id }}">{{ $attr->name }}</option>
-                                          @else
-                                          
-                                          <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
-                                          @endif
-                                        @endforeach
-                                    </select>
-
-                                    <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]">
-                                      <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}  (ex röd)</option>
-
-                                    </select>
+                                    
                                     <span class="invalid-feedback col-md-8"  id="err_sku" ></span>
                                     <?php  if($key!=0){?>
                                       <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.add_attribute_info')}}</p>

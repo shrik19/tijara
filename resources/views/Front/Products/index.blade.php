@@ -171,6 +171,11 @@
 #productTable{
 	width:auto !important;
 }
+@media(max-width:767px){
+ #productTable{
+  width:100% !important;
+} 
+}
 </style>
 
 @endsection

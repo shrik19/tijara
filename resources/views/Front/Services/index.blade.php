@@ -4,6 +4,15 @@
  label{
   margin-left: 8px;
 }
+@media(max-width:767px){
+  table.dataTable{
+    width: 100% !important;
+  }
+  #serviceTable_filter label{
+    max-width: 50% !important;
+    margin-right:50px !important;
+  }
+}
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">

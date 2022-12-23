@@ -15,7 +15,7 @@
       <!-- Example row of columns -->
       <div class="row tijara-content tjpa" style="margin-top:40px;">
         <div class="col-sm-3 col-xs-12">
-          <div>
+          <div class="tj-sellerlogoflex">
              @if(!empty($logo)) 
              <div class="seller_logo seller_details_img">
              <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif           
@@ -196,10 +196,10 @@
          <div class="col-sm-12" style="margin-bottom: 50px;"> <hr>
         <div class="row">
           
-          <div class="col-sm-2">
+          <div class="col-sm-3">
             <h2  class="review_title">{{ __('users.store_terms')}}</h2>
           </div>
-        <div class="col-sm-9 store_term_div">
+        <div class="col-md-9 store_term_div tjd-reviewscont">
           <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>

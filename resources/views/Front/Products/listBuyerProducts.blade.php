@@ -3,7 +3,7 @@
 
 <div class="mid-section p_155">
   <div class="container-fluid">
-    <div class="container-inner-section-1">
+    <div class="container-inner-section-1 tjd-sellcontainer">
       <!-- Example row of columns -->
 
       <div class="row">

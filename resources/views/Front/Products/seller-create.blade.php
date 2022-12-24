@@ -32,6 +32,12 @@
     bottom: 0px;
     left: 3px;
 }
+.tj-wid67{
+  width: 72%;
+}
+.tj-svselect.tj-newslect .tj-wid67 .select2-container{
+  width: 100% !important;
+}
 
 </style>
 
@@ -218,19 +224,25 @@
                     <div class="col-md-3"></div>
                  <?php }?>
                     <div class="col-md-8 tj-svselect tj-newslect">
-                    <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
-                      <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
+                      <div class="row tj-wid67">
+                        <div class="col-sm-6">
+                          <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                            <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
-                        @foreach ($attributesToSelect as $attr)
-                          <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
-                        @endforeach
-                    </select>
-                    
-                    <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
-                    class="col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
-                      <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
+                              @foreach ($attributesToSelect as $attr)
+                                <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
+                              @endforeach
+                          </select>
+                          
+                        </div>
+                        <div class="col-sm-6">                    
+                          <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
+                          class="col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
+                            <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
 
-                    </select>
+                          </select>                          
+                        </div>
+                      </div>
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                     <?php  if($ii!=0){?>
                     <p class="seller-logo-info col-md-8" style="font-size: 13px;">Ändra eller lägg till nya egenskaper till vänster under Attribut</p>

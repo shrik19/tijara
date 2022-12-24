@@ -5,8 +5,8 @@
   margin-left: 8px;
 }
 @media(max-width:767px){
-  #selectcategory {
-    max-width: 140%;
+  table.dataTable{
+    width: 100% !important;
   }
   #serviceTable_filter label{
     max-width: 50% !important;

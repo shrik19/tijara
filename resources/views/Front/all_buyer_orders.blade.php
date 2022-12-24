@@ -7,7 +7,7 @@
 </style>
 <div class="p_155" style="min-height: 600px;">
   <div class="container-fluid">
-    <div class="container-inner-section-1">
+    <div class="container-inner-section-1 tjd-sellcontainer">
       <div class="row">
         <div class="col-md-12 tijara-content">
           @include('Front.alert_messages')

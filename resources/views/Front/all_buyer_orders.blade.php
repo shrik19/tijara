@@ -4,6 +4,11 @@
   .tijara-content {
       margin-bottom: 60px;
     }
+    @media(min-width:1200px){
+      .card-body.tjd-orderscont{
+        padding: 0;
+      }
+    }
 </style>
 <div class="p_155" style="min-height: 600px;">
   <div class="container-fluid">

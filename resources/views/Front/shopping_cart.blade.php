@@ -52,7 +52,7 @@
 										  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object seller-show-icon">
 										@endif
 									</a>
-									<div class="media-body" style="padding-left:10px;padding-top:10px;padding-bottom: 8px;">
+									<div class="media-body" style="padding-left:10px;padding-top:7px;padding-bottom: 8px;">
 										<h4 class="media-heading product_sorting_filter_option" style="margin-bottom: 0;"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->store_name }}</a></h4>
 									</div>
 								</div>

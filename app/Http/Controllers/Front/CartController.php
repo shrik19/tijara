@@ -3437,7 +3437,9 @@ DATA;
               }
               
           }
-
+         echo "<pre>";
+         print_r( $orderDetails);
+         die;
           $data['details'] = $orderDetails;
           $data['order'] = $checkOrder;
           $data['is_seller'] = $is_seller;

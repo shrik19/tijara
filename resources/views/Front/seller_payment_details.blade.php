@@ -78,11 +78,13 @@
               <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="200"></p>
               <div class="form-group">
                 <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="{{ (old('strip_api_key')) ? old('strip_api_key') : $sellerDetails[0]->strip_api_key}}">
+                <span class="register_credentials_ex">Hemlig nyckel</span>
                 <span class="invalid-feedback" style="position: relative;">@if($errors->has('strip_api_key')) {{ $errors->first('strip_api_key') }}@endif</span>
               </div>
 
               <div class="form-group">
                 <input type="text" class="form-control" name="strip_secret" id="strip_secret" class="stripe_payment" placeholder="{{ __('users.stripe_secret_label')}}" value="{{ (old('strip_secret')) ? old('strip_secret') : $sellerDetails[0]->strip_secret}}">
+                <span class="register_credentials_ex">Publicerbar nyckel</span>
                 <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
               </div>
 

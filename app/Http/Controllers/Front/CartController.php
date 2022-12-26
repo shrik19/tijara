@@ -3354,6 +3354,9 @@ DATA;
           else
           {
               $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
+              echo "<pre>checkExistingOrderProduct=";
+              print_r($checkExistingOrderProduct);
+              echo "</pre>";
               if(!empty($checkExistingOrderProduct))
               {
                   foreach($checkExistingOrderProduct as $details)
@@ -3374,7 +3377,9 @@ DATA;
                                   ->orderBy('variant_product.id', 'ASC')
                                   ->groupBy('products.id')
                                   ->get();
-                        
+                      echo "<pre> TrendingProducts";
+                      print_r($TrendingProducts);
+                      echo "</pre>";
                       if(count($TrendingProducts)>0) 
                       {
                         foreach($TrendingProducts as $Product)
@@ -3437,9 +3442,9 @@ DATA;
               }
               
           }
-        // echo "<pre>";
-        // print_r( $orderDetails);
-        // die;
+      echo "<pre>orderDetails=";
+         print_r( $orderDetails);
+         die;
           $data['details'] = $orderDetails;
           $data['order'] = $checkOrder;
           $data['is_seller'] = $is_seller;

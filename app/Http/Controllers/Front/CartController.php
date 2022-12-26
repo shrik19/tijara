@@ -3354,18 +3354,15 @@ DATA;
           else
           {
               $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
-              echo "<pre>checkExistingOrderProduct=";
-              print_r($checkExistingOrderProduct);
-              echo "</pre>";
               if(!empty($checkExistingOrderProduct))
               {
                   foreach($checkExistingOrderProduct as $details)
                   {
                       $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-                                  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-                                  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                                  ->leftjoin('categories', 'categories.id', '=', 'category_products.category_id')
+                                  ->leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
                                   ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                                  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                                  ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                                   //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                                   ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
                                  // ->where('products.status','=','active')
@@ -3377,9 +3374,7 @@ DATA;
                                   ->orderBy('variant_product.id', 'ASC')
                                   ->groupBy('products.id')
                                   ->get();
-                      echo "<pre> TrendingProducts";
-                      print_r($TrendingProducts);
-                      echo "</pre>";
+                        
                       if(count($TrendingProducts)>0) 
                       {
                         foreach($TrendingProducts as $Product)
@@ -3396,8 +3391,16 @@ DATA;
 
                           $product_link = url('/').'/product';
 
-                          $product_link .=  '/'.$productCategories[0]['category_slug'];
-                          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+                          if(!empty($productCategories[0]['category_slug'])){
+                            $product_link .=  '/'.@$productCategories[0]['category_slug'];
+                          }else{
+                            $category_slug='';
+                          }
+                          if(!empty($productCategories[0]['subcategory_slug'])){
+                            $product_link .=  '/'.@$productCategories[0]['subcategory_slug'];
+                          }else{
+                            $subcategory_slug ='';
+                          }
 
                           $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
@@ -3442,9 +3445,9 @@ DATA;
               }
               
           }
-      echo "<pre>orderDetails=";
-         print_r( $orderDetails);
-         die;
+        // echo "<pre>";
+        // print_r( $orderDetails);
+        // die;
           $data['details'] = $orderDetails;
           $data['order'] = $checkOrder;
           $data['is_seller'] = $is_seller;

@@ -300,7 +300,7 @@ td.fc-week-number {
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <div class="form-group producterrDiv">
                       <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
                       <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7" >
@@ -372,19 +372,19 @@ td.fc-week-number {
            
 
               <div class="col-md-12">
-              <div class="col-md-6"></div>
-              <div class="col-md-6">
-              <div class="col-md-3 tj-editaction" style="margin-left: 20%;display: flex;">
-                  <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
-                  <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
-              </div>
-              <div class="col-md-3"></div>
-              </div>
-              </div>
+                <div class="row">
+                  <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                    <div class="tj-editaction text-right">
+                        <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
+                        <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
+                    </div>
+                  </div>
 
-              <div class="added_service_times" style="display:none;"></div>
-              <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;    margin-left: -12px;"></div>
-            </div>
+                  <div class="added_service_times" style="display:none;"></div>
+                  <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;    margin-left: -12px;"></div>
+                </div>
+              </div>
 
            </div>
          </div>

@@ -72,9 +72,13 @@ class AuthController extends Controller
                 setcookie('tijara_remember_me', '', time() + (86400 * 30), "/");
         }
         //echo Auth::guard('user')->id();exit;
-        if(Auth::guard('user')->id()) {
+        if(Auth::guard('user')->id() &&  Session::get('trialPeriod') == 0) {
             return redirect(route('frontHome'));
-        }
+        } 
+		else if(Session::get('trialPeriod') != 0)
+		{
+			 return redirect(route('seller-profile'));
+		}	
         return view('Front/login', $data);
     }
 
@@ -788,6 +792,7 @@ class AuthController extends Controller
     }
     /*function to check seller fname lname fill or not*/
      public function  checkSellerSetting(){
+		 
         $user_id = Auth::guard('user')->id();
         $currentDate = date('Y-m-d H:i:s');
         $successMsg = $errorMsg = '';
@@ -795,7 +800,11 @@ class AuthController extends Controller
               ->leftJoin('user_packages', 'user_packages.user_id', '=', 'users.id') 
               ->orderByRaw('user_packages.id DESC')
               ->first();
-
+			  
+	/* 	echo "<pre>";
+		print_r($userdetails);		
+		echo "</pre>"; */
+		
         if(empty($userdetails->fname) && empty($userdetails->lname)){
             $errorMsg = trans('errors.fill_in_flname_err');
         }
@@ -803,9 +812,14 @@ class AuthController extends Controller
             $errorMsg = trans('errors.fill_in_first_name_err');
         } else if(empty($userdetails->lname)){
             $errorMsg = trans('errors.fill_in_last_name_err');
-        } else if(($userdetails->is_trial=='0' && $userdetails->trial_end_date<=$currentDate && $userdetails->trial_end_date != '0000-00-00 00:00:00')||( $userdetails->end_date<=$currentDate && $userdetails->payment_status 
-            !='CAPTURED') ){
-
+        } 
+		/* 
+		prev condn
+		else if(($userdetails->is_trial=='0' && $userdetails->trial_end_date<=$currentDate && $userdetails->trial_end_date != '0000-00-00 00:00:00')||( $userdetails->end_date<=$currentDate && $userdetails->payment_status 
+            !='CAPTURED') ) */
+		else if($userdetails->payment_status !='CAPTURED')	
+		{
+			Session::put('trialPeriod', $userdetails->is_trial);
             $errorMsg = trans('errors.no_active_package');
         }
         else{

@@ -301,7 +301,7 @@
                                     </select>
                                     <span class="invalid-feedback col-md-8"  id="err_sku" ></span>
                                     <?php  if($key!=0){?>
-                                      <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.add_attribute_info')}}</p>
+                                      <span class="seller-logo-info col-md-12" style="font-size: 13px; padding:7px 0px 7px 0px;">{{ __('messages.add_attribute_info')}}</span>
                                     <?php } ?>
                                       </div>
                                      
@@ -350,7 +350,7 @@
                                     
                                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="float: right;"></span>  
                                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="float: right;"></span>
-                                     <p class="seller-logo-info col-md-12" style="font-size: 12px;margin-top:20px;">{{ __('messages.product_img_upload_info')}}</p>  
+                                     <span class="seller-logo-info col-md-12" style="font-size: 13px;padding: 7px 0px 7px 0px">{{ __('messages.product_img_upload_info')}}</span>  
 
                                      </div>  
                                   </div>

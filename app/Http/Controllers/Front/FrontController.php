@@ -80,8 +80,8 @@ class FrontController extends Controller
 
     /*Function to get treding seller*/
     function getFeaturedSellers(){
-		//DB::enableQueryLog();
-    	$today          = date('Y-m-d H:i:s');
+		DB::enableQueryLog();
+    	echo $today          = date('Y-m-d H:i:s');
     	$featuredSellers 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
     							->join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id','users.store_name','users.description','seller_personal_page.logo')
@@ -97,7 +97,7 @@ class FrontController extends Controller
 								->orderBy('users.id', 'DESC')
 								//->limit(4)
 								->get();
-		//print_r(DB::getQueryLog());
+		print_r(DB::getQueryLog());
 		return $featuredSellers;			
     }
 
@@ -1021,7 +1021,8 @@ public function getCatSubList(Request $request) {
 
 		//$data['ProductsTotal'] = $Products->count();
 
-		$Products 			= $Products->paginate(config('constants.middle_pages_limit'));
+		//$Products 			= $Products->paginate(config('constants.middle_pages_limit'));
+		$Products 			= $Products->paginate(5);
 		//print_r(DB::getQueryLog());exit;
 		//echo "<pre>";print_r(($Products));exit;
 		//$data['show_products'] =$Products[0]->role_id;

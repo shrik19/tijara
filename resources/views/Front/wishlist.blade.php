@@ -10,7 +10,7 @@
 <div class="mid-section p_155">
 <div class="container-fluid">
 <div class="container-inner-section-1">
-<div>
+<div class="tj-wishlist-container">
 <!-- <div class=""> -->
     <div class="card">
         <div class="card-header row ">

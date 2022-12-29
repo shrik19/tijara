@@ -7,7 +7,7 @@
 </style>
 <div class="mid-section p_155">
     <div class="container-fluid">
-        <div class="container-inner-section-1">
+        <div class="container-inner-section-1 tjd-sellcontainer">
         <!-- Example row of columns -->
 
         <div class="row">
@@ -112,7 +112,7 @@
                                     ?> 
                                      <div class="col-md-15 buyer-ht">
                                      <div class="card product-card product_data_img product_link_js">
-                                            <img class="card-img-top buyer-product-img ServiceImgCard serviceReqDetails product_img_prd" src="{{$image}}"user_name="'.$user.'" serviceName="{{$serviceName}}" dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}" telephone_number="{{$telephone_number}}">
+                                            <img class="card-img-top buyer-product-img ServiceImgCard serviceReqDetails product_img_prd tj-imgnewsize" src="{{$image}}"user_name="'.$user.'" serviceName="{{$serviceName}}" dated="{{$dated}}" id="{{$id}}" title="{{$serviceName}}" description="{{$description}}" service_time="{{$service_time}}" service_price="{{$service_price}}" location="{{$location}}" telephone_number="{{$telephone_number}}">
 
 
 

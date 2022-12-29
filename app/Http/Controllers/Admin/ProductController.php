@@ -24,11 +24,11 @@ use App\Models\Subcategories;
 
 use App\Models\Attributes;
 
-use App\Models\ AttributesValues;
+use App\Models\AttributesValues;
 
-use App\Models\ VariantProductAttribute;
+use App\Models\VariantProductAttribute;
 
-use App\Models\ VariantProduct;
+use App\Models\VariantProduct;
 
 use App\Models\BuyerProducts;
 

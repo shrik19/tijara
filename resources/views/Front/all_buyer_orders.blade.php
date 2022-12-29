@@ -4,10 +4,15 @@
   .tijara-content {
       margin-bottom: 60px;
     }
+    @media(min-width:1200px){
+      .card-body.tjd-orderscont{
+        padding: 0;
+      }
+    }
 </style>
 <div class="p_155" style="min-height: 600px;">
   <div class="container-fluid">
-    <div class="container-inner-section-1">
+    <div class="container-inner-section-1 tjd-sellcontainer">
       <div class="row">
         <div class="col-md-12 tijara-content">
           @include('Front.alert_messages')
@@ -28,7 +33,7 @@
               </div>
             </div>
               <div class="clearfix"></div>
-                <div class="card-body">
+                <div class="card-body tjd-orderscont">
                     <div class="card">
                     <div class="card-body"  style="margin-top: 20px;margin-bottom: 60px;">
                     <div class="row buyer-row tj-order-product">

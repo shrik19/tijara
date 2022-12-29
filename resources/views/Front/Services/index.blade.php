@@ -4,10 +4,19 @@
  label{
   margin-left: 8px;
 }
+@media(max-width:767px){
+  table.dataTable{
+    width: 100% !important;
+  }
+  #serviceTable_filter label{
+    max-width: 50% !important;
+    margin-right:50px !important;
+  }
+}
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -133,6 +142,7 @@
   $('#serviceTable_length').parent('div').attr('class','col-xs-7');
   $(".dataTables_filter label").addClass("pull-right");
   $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');
+  $('#serviceTable_length label').find('select').addClass('tjselect');
 
   $('#status').change(function(){
     dataTable.draw();

@@ -212,7 +212,7 @@
 
             <div class="form-group" id="shipping_method_ddl_div">
               <label>{{ __('users.shipping_method_label')}}</label>
-              <select class="form-control" name="shipping_method_ddl" id="shipping_method_ddl">
+              <select class="form-control tjselect" name="shipping_method_ddl" id="shipping_method_ddl">
                 <option value="">{{ __('users.select_shipping_method')}}</option>
                 <option value="Platta fraktkostnader">{{ __('users.flat_shipping_charges')}}</option>
                 <option value="Andel fraktkostnader">{{ __('users.prcentage_shipping_charges')}}</option>

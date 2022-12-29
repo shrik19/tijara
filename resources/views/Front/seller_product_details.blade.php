@@ -82,8 +82,8 @@
                           <div class="col-xs-12 col-md-12">    
                           <div class="quantity_box"> 
                           <h4 class="service_store_name"><a href="{{$seller_link}}">@if(!empty($store_name)){{$store_name}}@endif</a></h4>             
-                            @if(!empty($first['discount_price']))<span class="product_original_price" id="product_variant_price"><span > @php $discount_price_tbl = swedishCurrencyFormat($first['discount_price']); @endphp {{ $discount_price_tbl }} kr </span>@endif
-							<span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777; @else @endif">@php 
+                            <span class="product_original_price" id="product_variant_price">@if(!empty($first['discount_price']))<span>@php $discount_price_tbl = swedishCurrencyFormat($first['discount_price']); @endphp {{ $discount_price_tbl }} kr </span>@endif
+							<span style="@if(!empty($first['discount_price'])) text-decoration: line-through;font-size: 16px;font-weight: 300;color: #777;" @else  @endif" >@php 
                              $price_tbl = swedishCurrencyFormat($first['price']);
                             @endphp {{ $price_tbl }} kr</span>
                             
@@ -285,7 +285,7 @@
 <div class="container-fluid">
   <div class="container-inner-section">
     <div>
-      <div class="best_seller_container"  style="margin-top:60px;margin-bottom:25px;">
+      <div class="best_seller_container tjd-detleftmar"  style="margin-top:60px;margin-bottom:25px;">
 
       <div class="row" style="margin-right: 0%;">
 

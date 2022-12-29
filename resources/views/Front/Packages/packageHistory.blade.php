@@ -3,7 +3,7 @@
 
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-<div class="container-inner-section-1">
+<div class="container-inner-section-1 tjd-sellcontainer">
   <div class="row">
       @include ('Front.alert_messages')
       <!-- html for seller subscribe packages -->

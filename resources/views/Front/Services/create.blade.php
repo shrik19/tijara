@@ -84,13 +84,26 @@ td.fc-week-number {
       font-size: 20px !important;
       top: 0 !important;
   }
+  #save_service_date {
+    background: #03989e;
+    border: none;
+  }
+}
+@media(min-width:1200px){
+  #save_service_date {
+    background: #03989e !important;
+    border: 1px solid transparent;
+  }
+  p.seller-logo-info {
+    clear: both;
+  }
 }
 
 </style>
 
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1" style="margin-bottom: 60px;">
+  <div class="container-inner-section-1 tjd-sellcontainer" style="margin-bottom: 60px;">
   <!-- Example row of columns -->
    @if($subscribedError)
       <div class="alert alert-danger">{{$subscribedError}}</div>
@@ -111,11 +124,12 @@ td.fc-week-number {
       
     <form id="service-form" class="tijara-form service-add-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data">
             @csrf  
+         <div class="row tj-nodpad tjn-mobmarno">
+
           <div class="col-md-12 text-right" style="margin-top:30px;">
             <a href="{{route('manageFrontServices')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
          </div>
-         <div class="row tj-nodpad">
-           <div class="col-md-12">
+           <div class="tjd-serviceform">
              
           <div class="login_box">
               <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('servicelang.step_1')}}</h2>
@@ -179,7 +193,7 @@ td.fc-week-number {
               <div class="form-group">
                 <label class="col-md-3 product_table_heading">{{ __('lang.category_label')}} <span class="de_col">*</span></label>
                 <div class="col-md-8">
-                <select class="select2 col-md-8 login_input form-control" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
+                <select class="select2 col-md-8 login_input form-control tjselect" name="categories[]" id="categories" multiple placeholder="{{__('lang.category_label')}}" tabindex="3">
                   <option></option>
                   @foreach($categories as $cat_id=>$category)
                   <optgroup label="{{$category['maincategory']}}">
@@ -286,8 +300,8 @@ td.fc-week-number {
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
+                  <div class="col-md-2">
+                    <div class="form-group producterrDiv">
                       <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
                       <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7" >
                       <!--     <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span> -->
@@ -306,9 +320,10 @@ td.fc-week-number {
                 </div>
               </div>
               <!-- to date block start -->
-              <div class="col-md-12 tj-mobpadno" style="margin-left: -32px;">
+              <div class="col-md-12 tj-mobpadno tjd-fordeskpad" style="margin-left: -32px;">
                 <div class="col-md-9">
-                  <div class="form-group producterrDiv col-md-3">
+                <div class="row">
+                  <div class="form-group producterrDiv col-md-4">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_year')}}<!-- <span class="de_col">*</span> --></label>
                     <select class="col-md-12 to_service_year form-control tjselect" name="to_service_year" id="to_service_year" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -322,7 +337,7 @@ td.fc-week-number {
                     </select>
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_year" >@if($errors->has('service_year')) {{ $errors->first('service_year') }}@endif </span>
                   </div>
-                  <div class="form-group producterrDiv col-md-3">
+                  <div class="form-group producterrDiv col-md-4">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_month')}}<!-- <span class="de_col">*</span> --></label>
                     <select class="col-md-12 to_service_month form-control tjselect" name="to_service_month" id="to_service_month" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -336,7 +351,7 @@ td.fc-week-number {
                       ?>
                     </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
                   </div>
-                  <div class="form-group producterrDiv col-md-3">
+                  <div class="form-group producterrDiv col-md-4">
                     <label class="col-md-12 product_table_heading">{{ __('lang.to_service_date')}}<!-- <span class="de_col">*</span> --></label>
                     <select class="col-md-12 to_service_date form-control tjselect" name="to_service_date" id="to_service_date" >
                       <option value="">{{ __('lang.select_label')}}</option>
@@ -351,15 +366,25 @@ td.fc-week-number {
                     <span style="text-align: center;" class="invalid-feedback col-md-12" id="service_date" >@if($errors->has('service_availability')) {{ $errors->first('service_availability') }}@endif </span>
                   </div>
                 </div>
+                </div>
               </div>
               <!-- to date block end -->
-              <div class="col-md-12 text-right">
-                  <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
-                    <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
+           
+
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-6"></div>
+                  <div class="col-md-6">
+                    <div class="tj-editaction text-right">
+                        <a href="javascript:void(0);" name="save_service_date" id="save_service_date" class="btn btn-success login_btn save_service_date" tabindex="9" val="insert">{{ __('lang.save_service_date_btn')}}</a>
+                        <input type="hidden" name="is_clicked" class="is_clicked" id="is_clicked" value="">
+                    </div>
+                  </div>
+
+                  <div class="added_service_times" style="display:none;"></div>
+                  <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;    margin-left: -12px;"></div>
+                </div>
               </div>
-              <div class="added_service_times" style="display:none;"></div>
-              <div  class="col-md-12 service-add-calender" id="calendar" style="padding: 20px;    margin-left: -12px;"></div>
-            </div>
 
            </div>
          </div>

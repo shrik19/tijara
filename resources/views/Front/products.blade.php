@@ -62,7 +62,7 @@
 					  </div>
             <div class="tj-bldv">&nbsp;</div>
 					@else
-						<div class="col-md-4"></div>
+						<div class="col-md-4 tbjclear"></div>
 					@endif
 						  <div class="col-md-2"></div>
               <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="{{url('/')}}/assets/img/tjfilter.png"></button>
@@ -82,11 +82,20 @@
 							  <label class="product_sorting_filter">{{ __('lang.sort_by')}} : </label>
 							  <select class="form-control tjselect" name="sort_by" id="sort_by" onchange="getListing()">
 								<!--   <option value="">---- {{ __('lang.sort_by_option')}} ----</option> -->
-								<option value="popular" class="product_sorting_filter_option">{{ __('lang.sort_by_popular_product')}}</option>
-								<option value="price" class="product_sorting_filter_option">{{ __('lang.sort_by_price')}}</option>
-								<option value="discount" class="product_sorting_filter_option">{{ __('lang.sort_by_discount')}}</option>
-								<option value="name" class="product_sorting_filter_option">{{ __('lang.sort_by_name')}}</option>
-								<option value="rating" class="product_sorting_filter_option">{{ __('lang.sort_by_rating')}}</option>
+								@if(Request::segment(1) =='annonser')
+									<option value="popular" class="product_sorting_filter_option">{{ __('lang.sort_by_popular_product')}}</option>
+									<option value="price" class="product_sorting_filter_option">{{ __('lang.sort_by_price')}}</option>
+									<option value="name" class="product_sorting_filter_option">{{ __('lang.sort_by_name')}}</option>
+									
+									
+								@else
+									<option value="popular" class="product_sorting_filter_option">{{ __('lang.sort_by_popular_product')}}</option>
+									<option value="price" class="product_sorting_filter_option">{{ __('lang.sort_by_price')}}</option>
+									<option value="discount" class="product_sorting_filter_option">{{ __('lang.sort_by_discount')}}</option>
+									<option value="name" class="product_sorting_filter_option">{{ __('lang.sort_by_name')}}</option>
+									<option value="rating" class="product_sorting_filter_option">{{ __('lang.sort_by_rating')}}</option>
+								@endif
+								
 							  </select>
 							</div>
 						  </div>
@@ -188,6 +197,7 @@ function getListing()
     success:function(data)
     {
      $(window).scrollTop(0);
+
      //$('.product_listings').html(data);
 	 if($('.col-annonser-sidebar').length>0) {
 		 if($('.col-annonser-sidebar').hasClass("in"))
@@ -200,7 +210,7 @@ function getListing()
      var responseObj = $.parseJSON(data);
      $('.product_listings').html(responseObj.products);
      $('.seller_list_content').html(responseObj.sellers);
-
+	$('html, body').animate({scrollTop:0},'50');
      $(".product_rating").each(function(){
         var currentRating = $(this).data('rating');
         
@@ -299,7 +309,7 @@ function getListing()
       });
 
     }
-   });
+   }); 
 }
 var segment = "<?php echo Request::segment(1);?>";
 

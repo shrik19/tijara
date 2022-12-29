@@ -7,7 +7,7 @@
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -170,6 +170,7 @@
 
   $(".dataTables_filter label").addClass("pull-right");
   $(".dataTables_filter label").find('.form-control').removeClass('form-control-sm');
+  $('#productTable_length label').find('select').addClass('tjselect');
 
   $('#monthYear').change(function(){
 

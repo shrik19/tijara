@@ -1654,7 +1654,8 @@ function get_product_listing(page,category_slug='',subcategory_slug='',
       var responseObj = $.parseJSON(data);
       $('.product_listings').html(responseObj.products);
       $('.seller_list_content').html(responseObj.sellers);
-
+		$('html, body').animate({scrollTop:0},'50');
+		
       if($("#search_string").length && search_string != '')
       {
         $("#search_string").val(search_string);
@@ -1844,7 +1845,7 @@ function get_service_listing(page,category_slug='',subcategory_slug='',sellers =
       
       $('.service_listings').html(responseObj.services);
       $('.seller_list_content').html(responseObj.sellers);
-
+	$('html, body').animate({scrollTop:0},'50');
       if($("#search_string").length && search_string != '')
       {
         $("#search_string").val(search_string);

@@ -18,26 +18,29 @@
         padding-left: 15px !important;
             padding-top: 10px !important;
     }
-    @media(max-width:767px){
-      #attributeTable_length select {
-          display: block;
-      }
+    #attributeTable_length select {
+        display: block;
+    }
 
-      #attributeTable_filter input.form-control {
-          display: block;
-          margin-left: 0 !important;
-      }
+    #attributeTable_filter input.form-control {
+        display: block;
+        margin-left: 0 !important;
+    }
 
-      #attributeTable_filter label {
-          padding-left: 15px !important;
-          padding-top: 10px !important;
-      }
+    #attributeTable_filter label {
+        padding-top: 10px !important;
+    }
+    div#attributeTable_wrapper table.dataTable {
+      width: 97% !important;
+    }
+    #attributeTable_length .select2-container{
+      display: block;
     }
   }
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -57,7 +60,7 @@
 		</div>
 <div class="clearfix"></div>
 <div class="mb-10 pro-top-btn package_history_btn">
-		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute')}}</span> </a>
+		  <a href="{{route('frontAttributeCreate')}}" title="{{ __('lang.add_attribute_lable')}}" class="btn btn-black btn-sm debg_color login_btn" ><span>{{ __('lang.add_attribute_lable')}}</span> </a>
 			</div>
       <br/><br/>
       <div class="clearfix"></div>
@@ -127,6 +130,8 @@
   });
   $('#attributeTable_filter').parent('div').attr('class','col-sm-5 col-xs-8');
   $('#attributeTable_length').parent('div').attr('class','col-sm-7 col-xs-4');
+  $('#attributeTable_length label').find('select').addClass('tjselect');
+
 
 </script>
 

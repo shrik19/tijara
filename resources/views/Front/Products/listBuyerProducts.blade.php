@@ -3,7 +3,7 @@
 
 <div class="mid-section p_155">
   <div class="container-fluid">
-    <div class="container-inner-section-1">
+    <div class="container-inner-section-1 tjd-sellcontainer">
       <!-- Example row of columns -->
 
       <div class="row">
@@ -34,7 +34,7 @@
 
 
             <div class="card-body">
-            <div class="row buyer-row tj-order-product">
+            <div class="row buyer-row tj-order-product tjd-angrid">
             @if(!empty($buyerProducts) && count($buyerProducts) > 0)
 
             @foreach($buyerProducts as $key => $value)

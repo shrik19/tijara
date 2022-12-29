@@ -32,12 +32,18 @@
     bottom: 0px;
     left: 3px;
 }
+.tj-wid67{
+  width: 72%;
+}
+.tj-svselect.tj-newslect .tj-wid67 .select2-container{
+  width: 100% !important;
+}
 
 </style>
 
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
     <div class="row">
   <!-- Example row of columns -->
    @if($subscribedError)
@@ -69,8 +75,8 @@
       </div>
 
       
-      <div class="row tj-nodpad">
-      <div class="col-md-12">
+      <div class="row tj-nodpad tjd-pad6">
+      <div class="col-md-12 tjd-serviceform">
 
         <div class="login_box">
 
@@ -97,8 +103,8 @@
             
             <div class="form-group  producterrDiv">
               <label class="col-md-3 product_table_heading" >{{ __('lang.category_label')}} <span class="de_col">*</span></label>
-              <div class="col-md-8">
-                <select class="select2 col-md-8 ge_input" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
+              <div class="col-md-8 tjd-slectlimit  tjd-slectlimitcat">
+                <select class="select2 col-md-8 ge_input tjselect" name="categories[]" id="categories" multiple placeholder="{{ __('lang.category_label')}}" tabindex="3">
                   <option>{{ __('lang.select_label')}}</option>
                   @foreach($categories as $cat_id=>$category)
                   <optgroup label="{{$category['maincategory']}}">
@@ -115,7 +121,7 @@
 
             <div class="form-group  producterrDiv">
               <label class="col-md-3 product_table_heading">{{ __('lang.status_label')}} <span class="de_col">*</span></label>
-              <div class="col-md-8">
+              <div class="col-md-8 tjd-slectlimit">
                 <select class="select2 col-md-8 ge_input tjselect" name="status" id="status"  placeholder="" tabindex="8" >
                   <option value="active">{{ __('lang.active_label')}}</option>
                   <option value="block">{{ __('lang.block_label')}}</option>
@@ -218,19 +224,25 @@
                     <div class="col-md-3"></div>
                  <?php }?>
                     <div class="col-md-8 tj-svselect tj-newslect">
-                    <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
-                      <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
+                      <div class="row tj-wid67">
+                        <div class="col-sm-6">
+                          <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                            <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
-                        @foreach ($attributesToSelect as $attr)
-                          <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
-                        @endforeach
-                    </select>
-                    
-                    <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
-                    class="col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
-                      <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
+                              @foreach ($attributesToSelect as $attr)
+                                <option value="{{ $attr->id }}"  >{{ $attr->name }}</option>
+                              @endforeach
+                          </select>
+                          
+                        </div>
+                        <div class="col-sm-6">                    
+                          <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
+                          class="col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
+                            <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
 
-                    </select>
+                          </select>                          
+                        </div>
+                      </div>
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                     <?php  if($ii!=0){?>
                     <span class="seller-logo-info col-md-10" style="font-size: 13px;padding-left:0px">Ändra eller lägg till nya egenskaper till vänster under Attribut</span>
@@ -285,7 +297,8 @@
                       <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                       <span class="invalid-feedback col-md-8" id="err_variant_image" style="margin-left:-1px;"></span>  
                       <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span> 
-                      <span class="seller-logo-info col-md-12" style="font-size: 13px;padding-left:0px">{{ __('messages.product_img_upload_info')}}</span>  
+
+                      <p class="seller-logo-info col-md-12" style="font-size: 13px;">{{ __('messages.product_img_upload_info')}}</p>  
                     </div>
                     
                                   
@@ -308,9 +321,10 @@
             </div>
 
             <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('lang.product_form_step3')}}</h2>
+			
             <div class="form-group producterrDiv" id="shipping_method_ddl_div">
               <label class="col-md-3 product_table_heading">{{ __('users.shipping_method_label')}}</label>
-              <div class="col-md-8">
+              <div class="col-md-8 tj-svselect tj-newslect">
               <select class="col-md-8 ge_input tjselect" name="shipping_method_ddl" id="shipping_method_ddl" >
                 <option value="">{{ __('users.select_shipping_method')}}</option>
                 <option value="Platta fraktkostnader" @if(@$users_details->shipping_method=="Platta fraktkostnader") selected="selected" @endif>{{ __('users.flat_shipping_charges')}}</option>
@@ -321,8 +335,8 @@
             </div>
 
             <div class="form-group " id="shipping_charges_div">
-              <label class="col-md-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
-              <div class="col-md-8">
+              <label class="col-sm-3 product_table_heading">{{ __('users.shipping_charges_label')}}</label>
+              <div class="col-sm-8">
               <input type="text" class="col-md-8 ge_input" name="shipping_charges" id="shipping_charges" placeholder="{{ __('users.shipping_charges_label')}}" value="@if(@$users_details->shipping_charges!=''){{ $users_details->shipping_charges }}@endif" >
               <span class="invalid-feedback col-md-8"  id="err_shipping_charges"></span>
             </div>
@@ -336,18 +350,22 @@
             </div>
             <div class="form-group tj-svcheck">
               <label  class="col-sm-3 col-xs-6 product_table_heading" style="margin-top: 15px;"> {{ __('users.pick_from_store')}} </label>
-              <div class="col-sm-2 col-xs-6">
+              <div class="col-sm-8">
                 <div class="row">
-                  <div class="col-sm-1"  class="is_pick_from_store">
-                   <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>
+                  <div class="col-sm-1 col-xs-6 tj-pl0">
+                    <div class="row">
+                      <div class="col-sm-1"  class="is_pick_from_store">
+                       <input type="checkbox" name="is_pick_from_store" id="is_pick_from_store" value="1"  style="margin-top: 15px;" @if(@$users_details->is_pick_from_store=='1') checked="checked" @endif>
+                      </div>
+                      
+                    </div>
+                  </div> 
+                  <div class="col-sm-7">
+                        <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif">
+                        <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
                   </div>
-                  
                 </div>
-              </div> 
-              <div class="col-sm-7">
-                    <input type="text" class="form-control store_pick_address" name="store_pick_address" id="store_pick_address" placeholder="{{ __('users.pick_up_address')}}" value="@if(@$users_details->store_pick_address!=''){{ @$users_details->store_pick_address }}@endif">
-                    <span class="invalid-feedback col-md-8"  id="err_pick_up_address"> </span>
-              </div>             
+              </div>      
             </div>
         </div>
       </div>

@@ -15,7 +15,7 @@
       <!-- Example row of columns -->
       <div class="row tijara-content tjpa" style="margin-top:40px;">
         <div class="col-sm-3 col-xs-12">
-          <div>
+          <div class="tj-sellerlogoflex">
              @if(!empty($logo)) 
              <div class="seller_logo seller_details_img">
              <img class="seller_logo" src="{{$logo}}" alt="Logo" />&nbsp;&nbsp;</div>@endif           
@@ -55,8 +55,8 @@
           <div class="row">
             <div class="col-sm-9">
               @if(!empty($store_information))
-                <h2 class="butik_info_heading pl-40">{{ __('lang.butik_info_heading')}} </h2>
-                <p class="store_info pl-40">{!! $store_information !!}</p>
+                <h2 class="butik_info_heading pl-10">{{ __('lang.butik_info_heading')}} </h2>
+                <p class="store_info pl-10">{!! $store_information !!}</p>
               @endif
             </div>
             @if(@$_GET['frompage']==1)
@@ -68,7 +68,7 @@
         </div>
       </div>
 
-      <div class="row tijara-content tjps" style="margin-top:40px;">
+      <div class="row tijara-content tjps" style="margin-top:10px;">
         <div class="col-sm-3" id="tjfilter">
 
           <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
@@ -89,7 +89,7 @@
           <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
           <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
           <div class="product_container">
-            <div class="tj-filter-sec">
+            <div class="row tj-filter-sec">
               <div class="col-sm-6"></div>
               <button class="tj-filter-toggle-btn" data-toggle="collapse" data-target="#tjfilter"><span>Filtrera</span><img src="/assets/img/tjfilter.png"></button>
               <div class="col-sm-3">
@@ -196,10 +196,10 @@
          <div class="col-sm-12" style="margin-bottom: 50px;"> <hr>
         <div class="row">
           
-          <div class="col-sm-2">
+          <div class="col-sm-3">
             <h2  class="review_title">{{ __('users.store_terms')}}</h2>
           </div>
-        <div class="col-sm-9 store_term_div">
+        <div class="col-md-9 store_term_div tjd-reviewscont">
           <button class="tablink product_sorting_filter" onclick="openPage('PaymentPolicy', this, 'red')" id="defaultOpen" style="">{{ __('users.payment_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ShippingPolicy', this, 'blue')">{{ __('users.shipping_btn')}}</button>
           <button class="tablink product_sorting_filter" onclick="openPage('ReturnPolicy', this, 'green')">{{ __('users.return_btn')}}</button>

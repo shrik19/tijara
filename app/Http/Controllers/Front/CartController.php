@@ -3359,15 +3359,15 @@ DATA;
                   foreach($checkExistingOrderProduct as $details)
                   {
                       $TrendingProducts   = Products::join('category_products', 'products.id', '=', 'category_products.product_id')
-                                  ->join('categories', 'categories.id', '=', 'category_products.category_id')
-                                  ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                                  ->leftjoin('categories', 'categories.id', '=', 'category_products.category_id')
+                                  ->leftjoin('subcategories', 'categories.id', '=', 'subcategories.category_id')
                                   ->join('variant_product', 'products.id', '=', 'variant_product.product_id')
-                                  ->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
+                                  ->leftjoin('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
                                   //->join('attributes',  'attributes.id', '=', 'variant_product_attribute.attribute_value_id')
                                   ->select(['products.*','categories.category_name', 'variant_product.image','variant_product.price','variant_product.id as variant_id'])
-                                  ->where('products.status','=','active')
-                                  ->where('categories.status','=','active')
-                                  ->where('subcategories.status','=','active')
+                                 // ->where('products.status','=','active')
+                                 // ->where('categories.status','=','active')
+                                 // ->where('subcategories.status','=','active')
                                   ->where('products.id','=',$details['product_id'])
                                   ->where('variant_product.id','=',$details['variant_id'])
                                   ->orderBy('products.id', 'DESC')
@@ -3391,8 +3391,16 @@ DATA;
 
                           $product_link = url('/').'/product';
 
-                          $product_link .=  '/'.$productCategories[0]['category_slug'];
-                          $product_link .=  '/'.$productCategories[0]['subcategory_slug'];
+                          if(!empty($productCategories[0]['category_slug'])){
+                            $product_link .=  '/'.@$productCategories[0]['category_slug'];
+                          }else{
+                            $category_slug='';
+                          }
+                          if(!empty($productCategories[0]['subcategory_slug'])){
+                            $product_link .=  '/'.@$productCategories[0]['subcategory_slug'];
+                          }else{
+                            $subcategory_slug ='';
+                          }
 
                           $product_link .=  '/'.$Product->product_slug.'-P-'.$Product->product_code;
 
@@ -3437,7 +3445,9 @@ DATA;
               }
               
           }
-
+        // echo "<pre>";
+        // print_r( $orderDetails);
+        // die;
           $data['details'] = $orderDetails;
           $data['order'] = $checkOrder;
           $data['is_seller'] = $is_seller;

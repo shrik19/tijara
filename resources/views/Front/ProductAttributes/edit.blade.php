@@ -9,7 +9,7 @@
 </style>
 <div class="mid-section sellers_top_padding">
   <div class="container-fluid">
-    <div class="container-inner-section-1">
+    <div class="container-inner-section-1 tjd-sellcontainer">
       <div class="row"> 
           <div class="col-md-2 tijara-sidebar" id="tjfilter">
       <button class="tj-closebutton" data-toggle="collapse" data-target="#tjfilter"><i class="fa fa-times"></i></button>
@@ -100,6 +100,7 @@
         </div>
           </div>
         <div class="col-md-12 text-center attribute-btn margin_bottom_class">
+          
           <button class="btn btn-black debg_color login_btn save_att_val">{{ __('lang.save_btn')}}</button>
                 <a href="{{route('frontProductAttributes')}}" class="btn btn-black gray_color login_btn" tabindex="16"> {{ __('lang.cancel_btn')}}</a>
 

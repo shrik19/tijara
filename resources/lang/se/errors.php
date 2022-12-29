@@ -121,7 +121,7 @@
      'old_password_not_match' => 'Ange rätt gammalt lösenord',
      'please_active_your_account' => 'Vänligen verifiera registrerat e-post-ID innan du loggar in',
      'please_add_payment_details' => 'Lägg till minst en betalningsinformation',
-     'seller_account_freeze' => 'ditt konto är låst vänligen ange dina kortuppgifter för att automatiskt prenumerera på paketet',
+     'seller_account_freeze' => 'Ditt konto är låst vänligen ange dina kortuppgifter för att automatiskt prenumerera på paketet',
      'image_upload_height_width' => 'Höjd och bredd måste vara större än 600 pixlar.',
      'fill_in_country_err'=>'Vänligen fyll i ditt land',
      'payment_req_token_not_generated' => 'Det verkar som att säljaren inte har konfigurerat betalningsalternativet korrekt. Kontakta administratören för mer information.',

@@ -41,7 +41,7 @@ width:100% !important;
           
 
           <div class="col-md-12">
-              <div class="tijara-content tj-contentcreate">
+              <div class="tijara-content ">
               @include ('Front.alert_messages')
               @if($subscribedError)
             <div class="alert alert-danger update-alert-css">{{$subscribedError}}</div>
@@ -53,7 +53,7 @@ width:100% !important;
 
               <div class="card-header row">
                 <div class="col-md-10 p-5">
-                  <h2 class="page_heading" >{{ __('users.buyer_product_form_label')}}</h2>
+                  <h2 class="page_heading pl-0" >{{ __('users.buyer_product_form_label')}}</h2>
 
                   <!-- <hr class="heading_line"/> -->
                 </div>
@@ -85,8 +85,8 @@ width:100% !important;
            <!--  </div> -->
 <!--               <div class="seller_mid_cont"> -->
           <div class="col-md-12 p-0">
-            <div class="login_box">
-               <div class="col-md-6">
+            <div class="login_box ">
+               <div class="col-md-6 p-0">
                 <input type="hidden" name="product_id" value="{{$product_id}}">
                   <div class="form-group">
                   <label class="col-md-12 label_css p-0" >{{ __('users.sellers_title')}} <span class="de_col">*</span></label>
@@ -136,7 +136,7 @@ width:100% !important;
 
 
                </div>
-               <div class="col-md-6">
+               <div class="col-md-6 tj-mobnopad">
                    <div class="form-group">
                     <label class="col-md-12 label_css p-0" >{{ __('users.buyer_product_title')}} <span class="de_col">*</span></label>
                     <input type="text" class="login_input form-control" name="title" id="title" placeholder="{{ __('users.buyer_product_title')}} " value="{{old('title')}}" tabindex="1" onblur="convertToSlug(this)">
@@ -166,7 +166,7 @@ width:100% !important;
                     <input type="text" class="login_input form-control weight variant_field" name="weight[<?php echo $i;?>]"  placeholder="{{ __('lang.weight_placeholder')}}" value='10' tabindex="7">
                     <span class="invalid-feedback col-md-12" style="text-align: center;"  id="err_sku" ></span>
                     </div>
-                    <div class="form-group" style="margin-top: 50px;">
+                    <div class="form-group tjd-nmt" style="margin-top: 50px;">
                     <label class="col-md-12 label_css p-0" >{{ __('lang.price_label')}} <span class="de_col"></span>*</label>
                     <input type="tel" class="login_input form-control price number variant_field" id="price" name="price[<?php echo $i;?>]"  placeholder="{{ __('lang.price_placeholder')}}" value='{{ old("price.$i")}}' tabindex="7">
                     <span class="invalid-feedback col-md-12"  id="err_price" ></span>
@@ -258,8 +258,8 @@ width:100% !important;
 
            
 
-              <div class="form-group tj-aaprvecheck" style="margin-top: 78px;">
-                  <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}}<a href="{{url('/')}}/page/villkor" class="de_col">&nbsp;{{ __('users.terms_of_use')}} </a> {{ __('users.and_label')}} <a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a></span>  
+              <div class="form-group tj-aaprvecheck tjd-nmt" style="margin-top: 78px;">
+                  <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}} <a href="{{url('/')}}/page/villkor" class="de_col"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> {{ __('users.and_label')}}  &nbsp;<a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a></span>  
               </div>
               
               <div class="form-group swish_payment_ad_img">

@@ -174,9 +174,9 @@ class MaintenanceController extends Controller
     
     function paymentNotify(Request $request)
     {
-        $email = 'dhirajpsonar@gmail.com';
+        $email = 'shrik@techbeeconsulting.com';
         $name = 'name';
-        $arrMailData = ['first_name' => 'first', 'email' => 'dhirajpsonar@gmail.com', 'last_name' => 'last'];
+        $arrMailData = ['first_name' => 'first', 'email' => 'shrik@techbeeconsulting.com', 'last_name' => 'last'];
         //return view('emails/confirm_sale', $arrMailData);
         Mail::send('emails/contact_us', $arrMailData, function($message) use ($email,$name) {
             $message->to($email, $name)->subject
@@ -187,9 +187,9 @@ class MaintenanceController extends Controller
 
     function paymentResult(Request $request)
     {
-        $email = 'dhirajpsonar@gmail.com';
+        $email = 'shrik@techbeeconsulting.com';
         $name = 'name';
-        $arrMailData = ['first_name' => 'first', 'email' => 'dhirajpsonar@gmail.com', 'last_name' => 'last'];
+        $arrMailData = ['first_name' => 'first', 'email' => 'shrik@techbeeconsulting.com', 'last_name' => 'last'];
         //return view('emails/confirm_sale', $arrMailData);
         Mail::send('emails/contact_us', $arrMailData, function($message) use ($email,$name) {
             $message->to($email, $name)->subject

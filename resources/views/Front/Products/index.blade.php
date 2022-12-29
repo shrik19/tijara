@@ -8,11 +8,15 @@
   #selectcategory {
     max-width: 140%;
   }
+  #productTable_filter label{
+    max-width: 50% !important;
+    margin-right:50px !important;
+  }
 }
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
   <!-- Example row of columns -->
   
   <div class="row">
@@ -123,8 +127,9 @@
   '</select></div>').appendTo("#productTable_filter");
   
   $('#productTable_length').find('label').attr('style','float: left;');
+  $('#productTable_length label').find('select').addClass('tjselect');
   $('#productTable_length').parent('div').attr('class','col-xs-7');
-  $('<div class="form-group col-xs-3" style="margin-right: 6%;"><select class="form-control tjselect" id="selectcategory" name="category">'+
+  $('<div class="form-group col-xs-3 tjd-prodcatdropdown" style="margin-right: 6%;"><select class="form-control tjselect abc" id="selectcategory" name="category">'+
   
   '<?php echo $categoriesHtml; ?>'+
   '</select></div>').appendTo("#productTable_length");
@@ -162,5 +167,15 @@
 		dataTable.draw();
   });
 </script>
+<style>
+#productTable{
+	width:auto !important;
+}
+@media(max-width:767px){
+ #productTable{
+  width:100% !important;
+} 
+}
+</style>
 
 @endsection

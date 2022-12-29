@@ -248,4 +248,14 @@ if (@$_GET['print'])
 	
 </script>
 
-<?php } ?>
+<?php }else{
+
+?>
+<script type="text/javascript">
+	
+	$('#order_status').select2();
+	
+</script>
+<?php
+
+} ?>

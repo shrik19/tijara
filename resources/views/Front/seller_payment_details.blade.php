@@ -11,7 +11,7 @@
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-<div class="container-inner-section-1">
+<div class="container-inner-section-1 tjd-sellcontainer">
   <!-- Example row of columns -->
   <div class="row">
     <div class="col-md-2 tijara-sidebar" id="tjfilter">
@@ -44,11 +44,13 @@
               <div class="form-group">
                 <input type="hidden" name="selected_package" id="selected_package" value="{{$selected_package}}">
                 <input type="text" class="form-control" name="klarna_username" id="klarna_username" placeholder="{{ __('users.klarna_username_label')}}" value="{{ (old('klarna_username')) ? old('klarna_username') : @$sellerDetails[0]->klarna_username}}">
+                <span class="register_credentials_ex">T.ex. K1234567_dc0a9aclc532</span
                 <span class="invalid-feedback" style="position: relative;">@if($errors->has('klarna_username')) {{ $errors->first('klarna_username') }}@endif</span>
               </div>
 
               <div class="form-group">
                 <input type="password" class="form-control" name="klarna_password" id="klarna_password" placeholder="{{ __('users.klarna_password_label')}}" value="{{ (old('klarna_password')) ? old('klarna_password') : base64_decode($sellerDetails[0]->klarna_password)}}">
+                <span  class="register_credentials_ex">T.ex. abcDEF123ghij567</span>
                 <span class="invalid-feedback">@if($errors->has('klarna_password')) {{ $errors->first('klarna_password') }}@endif</span>
               </div>
 
@@ -61,7 +63,7 @@
 
             <div class="login_box payment_detail_box swish_payment" style="margin-top: 20px;">
               <div class="payment-lock-icon"><i class="fa fa-lock payment_lock swish_payment_lock" aria-hidden="true"></i></div>
-              <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90"></p>
+              <p><img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" class="register_swish_logo"></p>
               <div class="form-group" style="display: flex;">
                 <input type="phone_number" class="form-control login_input " name="swish_number" id="seller_swish_number" placeholder="swish number" value="{{ (old('seller_swish_number')) ? old('seller_swish_number') : $sellerDetails[0]->seller_swish_number}}" style="margin-left: 10px;">
               </div>
@@ -76,11 +78,13 @@
               <p><img src="{{url('/')}}/uploads/Images/stripe-payment-logo.png" width="200"></p>
               <div class="form-group">
                 <input type="text" class="form-control" name="strip_api_key" id="strip_api_key" placeholder="{{ __('users.stripe_api_key_label')}}" value="{{ (old('strip_api_key')) ? old('strip_api_key') : $sellerDetails[0]->strip_api_key}}">
+                <span class="register_credentials_ex">Hemlig nyckel</span>
                 <span class="invalid-feedback" style="position: relative;">@if($errors->has('strip_api_key')) {{ $errors->first('strip_api_key') }}@endif</span>
               </div>
 
               <div class="form-group">
                 <input type="text" class="form-control" name="strip_secret" id="strip_secret" class="stripe_payment" placeholder="{{ __('users.stripe_secret_label')}}" value="{{ (old('strip_secret')) ? old('strip_secret') : $sellerDetails[0]->strip_secret}}">
+                <span class="register_credentials_ex">Publicerbar nyckel</span>
                 <span class="invalid-feedback">@if($errors->has('strip_secret')) {{ $errors->first('strip_secret') }}@endif</span>
               </div>
 

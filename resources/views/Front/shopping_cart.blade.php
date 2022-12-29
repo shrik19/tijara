@@ -32,7 +32,7 @@
 <div class="loader"></div>
 <div class="container-fluid p-0">
     <div class="row">
-        <div class="col-sm-12 col-md-12 p-m-0 pl-0">
+        <div class="col-sm-12 col-md-12 p-m-0 pl-0 tjplauto">
 		
 			 @if(!empty($details))
                   @foreach($details as $orderId => $tmpOrderProduct)
@@ -52,8 +52,8 @@
 										  <img src="{{url('/')}}/uploads/ProductImages/resized/no-image.png" class="media-object seller-show-icon">
 										@endif
 									</a>
-									<div class="media-body" style="padding-left:10px;padding-top:10px;">
-										<h4 class="media-heading product_sorting_filter_option"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->store_name }}</a></h4>
+									<div class="media-body" style="padding-left:10px;padding-top:7px;padding-bottom: 8px;">
+										<h4 class="media-heading product_sorting_filter_option" style="margin-bottom: 0;"><a href="{{$orderProduct['product']->seller_link}}">{{ $orderProduct['product']->store_name }}</a></h4>
 									</div>
 								</div>
 							</div>

@@ -95,7 +95,7 @@
                                         $price_tbl = $price_tbl.",00";
                                     @endphp
                               <p>{{ __('lang.shopping_cart_price')}}: @if(!empty($price_tbl)) {{@$price_tbl}} kr @endif </p>
-                              <p>{{ __('messages.make_payment_on_swish_number')}}:<span style="font-weight: bold;">{{$seller_swish_number}}</span></p>
+                              <p>{{ __('messages.make_payment_on_swish_number')}}: <span style="font-weight: bold;">{{$seller_swish_number}}</span></p>
                             </div>
                           </div>
                         @endforeach

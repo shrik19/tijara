@@ -16,7 +16,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
 </style>
 <div class="mid-section sellers_top_padding">
 <div class="container-fluid">
-  <div class="container-inner-section-1">
+  <div class="container-inner-section-1 tjd-sellcontainer">
   <!-- Example row of columns -->
   <div class="row">
   <div class="col-md-2 tijara-sidebar" id="tjfilter">
@@ -108,7 +108,7 @@ i.fas.fa-exclamation-triangle, i.fas.fa-check-circle {
               <label>{{ __('lang.store_name')}} <span class="de_col"></span></label>
               <br>
               <input maxLength="20" type="text" class="alpha-only form-control store_name butik_profile_store_name" id="store_name" name="store_name" 
-              placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" style="width: 70%;" />
+              placeholder="{{ __('lang.store_name')}} " value="@if(!empty($details->store_name)) {{$details->store_name}} @endif" style="width: 67%;" />
 				<input type="button" name="check-store-unique" class="btn debg_color verify-store" onclick="checkStoreName()" value="{{ __('users.verify_btn')}}" style="margin-left: 0px;" />  
 				<span class="invalid-feedback" id="err_store_name" style="position: relative;"> </span>
             </div>
@@ -362,6 +362,9 @@ $(".alpha-only").on("input", function(e){
     $(this).val( $(this).val().replace(regexp,'') );
   }
 });
+
+deleteCookie("seller_logo_preview");
+deleteCookie("seller_banner_preview");
 </script>
 
 @endsection

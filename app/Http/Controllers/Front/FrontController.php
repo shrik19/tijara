@@ -87,7 +87,7 @@ class FrontController extends Controller
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id','users.store_name','users.description','seller_personal_page.logo')
 								->where('users.role_id','=','2')
 								->where('users.is_featured','=','1')
-								->where('users.is_verified','=','1')
+								//->where('users.is_verified','=','1')
 								->where('users.status','=','active')
 								->where('users.is_deleted','=','0')
                 			    ->where('users.is_shop_closed','=',"0")
@@ -629,7 +629,7 @@ public function getCatSubList(Request $request) {
 	function getPopularProducts($limit,$category_slug='',$subcategory_slug='',$product_id=array()) {
 	
 		$currentDate = date('Y-m-d H:i:s');
-		//DB::enableQueryLog();
+		DB::enableQueryLog();
 		$PopularProducts 	= Products::join('orders_details', 'products.id', '=', 'orders_details.product_id')
 								->join('variant_product', 'products.id', '=', 'variant_product.product_id')
 								->join('variant_product_attribute', 'variant_product.id', '=', 'variant_product_attribute.variant_id')
@@ -657,7 +657,9 @@ public function getCatSubList(Request $request) {
 								->orderBy('variant_product.id', 'ASC')
 								->groupBy('products.id')
 								->offset(0)->limit($limit)->get();
-		//echo "<pre>";print_r($PopularProducts);	exit;
+		//echo "<pre> HEER";print_r($PopularProducts);
+		 //print_r(DB::getQueryLog());exit;
+		 
 		/*$current_uri = request()->segments();
         
         if(!empty($current_uri[0]) && @$current_uri[0]=='products'){
@@ -666,8 +668,10 @@ public function getCatSubList(Request $request) {
 			$PopularProducts->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
 		}*/
 //echo count($PopularProducts);exit;
-		if(count($PopularProducts)<10 && $limit ==10){
-			$number =10-count($PopularProducts);
+		//if(count($PopularProducts)<10 && $limit ==10){
+		if(count($PopularProducts)<$limit){
+			//$number =10-count($PopularProducts);
+			$number =$limit-count($PopularProducts);
 			//DB::enableQueryLog();
 			$currentDate = date('Y-m-d H:i:s');
 			$roleId = 2;
@@ -1118,7 +1122,7 @@ public function getCatSubList(Request $request) {
 		//return view('Front/products_list', $data);
 	}
     /* function to display products page*/
-	public function buyerProductListing($category_slug='',$subcategory_slug='',Request $request)
+	public function buyerProductListing(Request $request,$category_slug='',$subcategory_slug='')
     {
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
 
@@ -1141,7 +1145,7 @@ public function getCatSubList(Request $request) {
 		return view('Front/products', $data);
 	}
 
-	public function productListing($category_slug='',$subcategory_slug='',Request $request)
+	public function productListing( Request $request,$category_slug='',$subcategory_slug='')
     {
 		
 		$data	=	$this->productListingFunction($request->all(),$category_slug,$subcategory_slug);
@@ -1229,7 +1233,7 @@ public function getCatSubList(Request $request) {
 	}
 	
 	/* function to display products page*/
-    public function sellerProductListing($store_name ='', $category_slug = '', $subcategory_slug= '', Request $request)
+    public function sellerProductListing(Request $request, $store_name ='', $category_slug = '', $subcategory_slug= '')
     {
     	//echo "<pre>---".print_r($request->category_slug);exit;
     	$category_slug=$request->category_slug;
@@ -1786,7 +1790,7 @@ public function getCatSubList(Request $request) {
 									//->where('orders_details.product_id','=',$p_id);
 									})->groupBy('products.id')
 									->offset(0)->limit(config('constants.Popular_Product_limits'))->get();
-					//echo "<pre>";print_r($PopularProducts);	exit;
+									
 									if(count($PopularProducts)>0){
 									
 										if(count($PopularProducts)<6){
@@ -1797,6 +1801,8 @@ public function getCatSubList(Request $request) {
 												$popularProductIDS [] = $value['id'];
 											}
 											$popularProductIDS [] =$p_id;
+											//print_r($popularProductIDS);
+											//die;
 
 											$getPopular = $this->getPopularProducts($popularLimit,'','',$popularProductIDS);		
 
@@ -2186,7 +2192,7 @@ public function getCatSubList(Request $request) {
 	}
 
 	 /* function to display services page*/
-	 public function serviceListing($category_slug='',$subcategory_slug='',Request $request)
+	 public function serviceListing(Request $request, $category_slug='',$subcategory_slug='')
 	 {
 
 			$data['pageTitle'] 	= 'Home';
@@ -2432,7 +2438,7 @@ public function getCatSubList(Request $request) {
 								return $PopularServices;
 	}
 	/* function to display services page*/
-    public function sellerServiceListing($store_name ='', $category_slug = null, $subcategory_slug= null, Request $request)
+    public function sellerServiceListing(Request $request, $store_name ='', $category_slug = null, $subcategory_slug= null)
     {
         $store_name = str_replace('-', " ", $store_name);		
 		$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		

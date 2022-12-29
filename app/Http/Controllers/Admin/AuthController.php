@@ -268,7 +268,7 @@ class AuthController extends Controller
     /**
      * Function for logout
      */
-    public function logout($type='',$msg='', Request $request) {
+    public function logout( Request $request, $type='',$msg='') {
         Auth::guard('admin')->logout();
         if(!empty($msg)) {
             if($type=='success') {

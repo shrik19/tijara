@@ -423,8 +423,96 @@ $('body').on('click', '.remove_image', function () {
       }
     });
  });
+ 
+ 
+var $selects = $('#variant_table').on('change', '.select_attribute', function () {
+	item = this;
+    if ($selects.find('option[value=' + this.value + ']:selected').length > 1) {
+       // alert('Attributen får inte vara samma under Variant');
+		
+		$.alert({
+                title: oops_heading,
+                content: 'Attributen får inte vara samma under Variant.',
+                type: 'red',
+                typeAnimated: true,
+                columnClass: 'medium',
+                icon : "fas fa-times-circle",
+                buttons: {
+                  Ok: function () {					  
+					  $(item).val('');
+					  $(item).select2();	
+                  },
+                }
+              });
+    } else {
+		 $.ajax({
+              url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+               data: {attribute_id: select_attribute},
+               type: 'get',
+               success: function(output) {
+               // alert("dchj"+variant_id)
+               /* var variant_id =$('.select_attribute_value').attr('variant_id');
+                 alert("dchj"+variant_id)
+                 attribute_id*/
+                          /*new code for attribute 21 april*/
+                         /*  var variant_id =$('.select_attribute').attr('variant_id');
+                           alert(variant_id)
+                          elm.parent('div').find('.select_attribute_value').attr('attribute_id',select_attribute)
+                         
+                              elm.parent('div').find('.select_attribute_value').attr('name','attribute_value['+variant_id+']['+select_attribute+']');
+                         */
+                                     /*end*/
+                            elm.parent('div').find('.select_attribute_value').html(output);
+                            //Start - Check with All Attribute values are Same as the First Variant.
+                                                      
+                            $('#variant_table').find('.variant_tr').not(':first').each(function(){
+                                if(isFirstOrSecond == 'first')
+                                {
+                                    $(this).find('.select_attribute:eq(0)').removeAttr('disabled').val(val);
+                                    $(this).find('.select_attribute:eq(0)').find('option').each(function(){
+                                      if($(this).val() != val)
+                                      {
+                                         $(this).attr('disabled','disabled');
+                                      }
+                                      else
+                                      {
+                                        $(this).removeAttr('disabled','disabled'); 
+                                      }
+                                    });
+
+                                    $(this).find('.select_attribute:eq(0)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
+                                }
+                                else if(isFirstOrSecond == 'second')
+                                {
+                                    $(this).find('.select_attribute:eq(1)').removeAttr('disabled').val(val);
+                                    $(this).find('.select_attribute:eq(1)').find('option').each(function(){
+                                      if($(this).val() != val)
+                                      {
+                                         $(this).attr('disabled','disabled');
+                                      }
+                                      else
+                                      {
+                                        $(this).removeAttr('disabled','disabled'); 
+                                      }
+                                    });
+                                    $(this).find('.select_attribute:eq(1)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
+                                }
+                            });
+                          //End - Check with All Attribute values are Same as the First Variant.
+
+                        }
+        });
+	} 
+	
+});
+	/* if ($selects.find('option[value=' + this.value + ']:selected').length > 1) {
+        alert('option is already selected');
+        this.options[0].selected = true;
+    }   */
+
+
 //$( ".select_attribute" ).each(function() {
-    $('#variant_table').on('change', '.select_attribute', function () {
+    $('#variant_table111').on('change', '.select_attribute', function () {
 
         select_attribute =$(this).val();
         elm              =$(this);
@@ -578,6 +666,7 @@ $( ".preselected_attribute" ).each(function() {
              type: 'get',
              success: function(output) {
                 if(id !=''){
+					
                           $('.select_attribute_value.'+id).html(output);
 
                           if($('.select_attribute_value.'+id).hasClass('buyer-product')) {

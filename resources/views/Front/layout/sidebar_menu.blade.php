@@ -21,13 +21,22 @@
         $showProductMenu  = 0;
       @endphp
 
-      <li class="{{$activeClass }} make_disabled check_seller_setting"><a href="{{route('frontDashboard')}}" style="margin-bottom: 15px;">{{ __('lang.summary_menu')}}</a></li>
+      <li class="{{$activeClass}} make_disabled check_seller_setting"><a href="{{route('frontDashboard')}}" style="margin-bottom: 15px;">{{ __('lang.summary_menu')}}</a></li>
     @endif
 
     <li><h2>{{ __('users.manage_label')}}</h2></li>
 
     @if(Auth::guard('user')->getUser()->role_id==2)
-      <li class="{{ request()->is('seller-personal-page') ? 'leftsideactivemainmenu' : ''}} make_disabled check_seller_setting"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
+		<?php
+	//echo Session::get('trialPeriod');
+		if(Session::get('trialPeriod') == 0 || request()->is('seller-personal-page')){
+		        $activeClass = 'leftsideactivemainmenu';
+        }
+        else{
+        $activeClass = ' make_disabled check_seller_setting';
+        }
+		?>
+      <li class="{{$activeClass}}"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>
     @endif
 
     <?php 
@@ -73,11 +82,21 @@
 
      <li  class="{{ request()->is('seller-payment-details') ? 'leftsideactivemainmenu' : ''}} make_disabled check_seller_setting"><a href="{{route('frontSellerPaymentDetails')}}">@if(Auth::guard('user')->getUser()->role_id==2) {{ __('users.payment_btn')}} @endif</a></li> 
 
-    @if(Auth::guard('user')->getUser()->role_id==2)                   
-    <li class="{{ request()->is('seller-packages') ? 'leftsideactivemainmenu' : ''}} make_disabled check_seller_setting"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
-
+    @if(Auth::guard('user')->getUser()->role_id==2)  
+	<?php 
+	
+    if((Request::segment(1)=='seller-profile') || (Request::segment(1)=='buyer-profile')){
+    $activeClass = 'leftsideactivemainmenu';
+    }
+    else{
+    $activeClass = '';
+    }
+    ?>		
+    <!---- <li class="{{ request()->is('seller-packages') ? 'leftsideactivemainmenu' : ''}} make_disabled check_seller_setting"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li> --->
+	<li  class="{{$activeClass}}"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
     @endif
     <?php 
+	
     if((Request::segment(1)=='seller-profile') || (Request::segment(1)=='buyer-profile')){
     $activeClass = 'leftsideactivemainmenu';
     }

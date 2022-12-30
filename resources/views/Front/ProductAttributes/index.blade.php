@@ -16,7 +16,8 @@
     }
     div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:first-child {
         padding-left: 15px !important;
-            padding-top: 10px !important;
+        padding-right: 15px !important;
+        padding-top: 10px !important;
     }
     #attributeTable_length select {
         display: block;
@@ -31,10 +32,16 @@
         padding-top: 10px !important;
     }
     div#attributeTable_wrapper table.dataTable {
-      width: 97% !important;
+      width: 100% !important;
     }
     #attributeTable_length .select2-container{
       display: block;
+    }
+    #attributeTable_wrapper .col-sm-5.col-xs-8 {
+      padding-right:15px !important;
+    }
+    #attributeTable_wrapper .col-sm-5.col-xs-8 input{
+      width: 100% !important;
     }
   }
 </style>

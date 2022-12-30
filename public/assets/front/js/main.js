@@ -424,11 +424,15 @@ $('body').on('click', '.remove_image', function () {
     });
  });
  
- 
+
+
 var $selects = $('#variant_table').on('change', '.select_attribute', function () {
 	item = this;
+	select_attribute =$(this).val();
+	elm              =$(this);
+	
     if ($selects.find('option[value=' + this.value + ']:selected').length > 1) {
-       // alert('Attributen får inte vara samma under Variant');
+        //alert($selects.find('option[value=' + this.value + ']:selected').length);
 		
 		$.alert({
                 title: oops_heading,
@@ -445,63 +449,21 @@ var $selects = $('#variant_table').on('change', '.select_attribute', function ()
                 }
               });
     } else {
-		 $.ajax({
-              url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
-               data: {attribute_id: select_attribute},
-               type: 'get',
-               success: function(output) {
-               // alert("dchj"+variant_id)
-               /* var variant_id =$('.select_attribute_value').attr('variant_id');
-                 alert("dchj"+variant_id)
-                 attribute_id*/
-                          /*new code for attribute 21 april*/
-                         /*  var variant_id =$('.select_attribute').attr('variant_id');
-                           alert(variant_id)
-                          elm.parent('div').find('.select_attribute_value').attr('attribute_id',select_attribute)
-                         
-                              elm.parent('div').find('.select_attribute_value').attr('name','attribute_value['+variant_id+']['+select_attribute+']');
-                         */
-                                     /*end*/
-                            elm.parent('div').find('.select_attribute_value').html(output);
-                            //Start - Check with All Attribute values are Same as the First Variant.
-                                                      
-                            $('#variant_table').find('.variant_tr').not(':first').each(function(){
-                                if(isFirstOrSecond == 'first')
-                                {
-                                    $(this).find('.select_attribute:eq(0)').removeAttr('disabled').val(val);
-                                    $(this).find('.select_attribute:eq(0)').find('option').each(function(){
-                                      if($(this).val() != val)
-                                      {
-                                         $(this).attr('disabled','disabled');
-                                      }
-                                      else
-                                      {
-                                        $(this).removeAttr('disabled','disabled'); 
-                                      }
-                                    });
-
-                                    $(this).find('.select_attribute:eq(0)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
-                                }
-                                else if(isFirstOrSecond == 'second')
-                                {
-                                    $(this).find('.select_attribute:eq(1)').removeAttr('disabled').val(val);
-                                    $(this).find('.select_attribute:eq(1)').find('option').each(function(){
-                                      if($(this).val() != val)
-                                      {
-                                         $(this).attr('disabled','disabled');
-                                      }
-                                      else
-                                      {
-                                        $(this).removeAttr('disabled','disabled'); 
-                                      }
-                                    });
-                                    $(this).find('.select_attribute:eq(1)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
-                                }
-                            });
-                          //End - Check with All Attribute values are Same as the First Variant.
-
-                        }
-        });
+		
+		$.ajax({
+		url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+		data: {attribute_id: select_attribute},
+		type: 'get',
+		success: function(output) {
+			$("#attribute_value"+item.id).html(output);
+			//alert($selects.attr('id'));
+			//alert(output);
+			alert('#'+item.id);
+		   //$selects.find('#'+item.id).html(output);
+		   //$('#'+item.id).children().siblings().find('.select_attribute_value').css({"color": "blue"});
+		   //$selects.next().find('.select_attribute_value').html(output);
+		}
+		});	   
 	} 
 	
 });

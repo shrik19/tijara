@@ -226,7 +226,7 @@
                     <div class="col-md-8 tj-svselect tj-newslect">
                       <div class="row tj-wid67">
                         <div class="col-sm-6">
-                          <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                          <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]"  variant_id="<?php echo $i;?>" id="<?php echo $ii?>">
                             <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
                               @foreach ($attributesToSelect as $attr)
@@ -237,7 +237,7 @@
                         </div>
                         <div class="col-sm-6">                    
                           <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
-                          class="col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
+                          class="variant2 col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" id="attribute_value<?php echo $ii?>">
                             <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
 
                           </select>                          

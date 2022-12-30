@@ -458,7 +458,7 @@ var $selects = $('#variant_table').on('change', '.select_attribute', function ()
 			$("#attribute_value"+item.id).html(output);
 			//alert($selects.attr('id'));
 			//alert(output);
-			alert('#'+item.id);
+			//alert('#'+item.id);
 		   //$selects.find('#'+item.id).html(output);
 		   //$('#'+item.id).children().siblings().find('.select_attribute_value').css({"color": "blue"});
 		   //$selects.next().find('.select_attribute_value').html(output);

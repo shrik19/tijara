@@ -770,7 +770,7 @@ var service_time_counter  = 10000;
         events_array.push(temp);
 
   });
-  alert(events_array);
+ // alert(events_array);
     $('#calendar').fullCalendar('addEventSource', events_array);
     $('#service_year').val('');
     $('#service_month').val('');

@@ -478,23 +478,22 @@ td.fc-week-number {
 
 $(document).ready(function() {
 
-
 //check click on add time button or not
   
 
 $('#saveservicebtn').click(function(){
 
-  let is_clicked       = $(".is_clicked").val();
-  let title            = $("#title").val();
-  let session_time     = $("#session_time").val();
-  let address          = $("#address").val();
-  let telephone_number = $("#telephone_number").val();
-  let description      = $(".description").val();
-  let categories       = $("#categories").val();
-  let service_price    = $("#service_price").val();
-  let service_image    = $(".service_image").val();
-  let hidden_images    = $(".hidden_images").val();
-  let error = 0;
+  var is_clicked       = $(".is_clicked").val();
+  var title            = $("#title").val();
+  var session_time     = $("#session_time").val();
+  var address          = $("#address").val();
+  var telephone_number = $("#telephone_number").val();
+  var description      = $(".description").val();
+  var categories       = $("#categories").val();
+  var service_price    = $("#service_price").val();
+  var service_image    = $(".service_image").val();
+  var hidden_images    = $(".hidden_images").val();
+  var error = 0;
 
 
   
@@ -651,6 +650,7 @@ $('#saveservicebtn').click(function(){
       left: "",
       right: " prev today next ",//"prevYear prev today next nextYear",
     },
+	selectOverlap: false,
     height: 250,
     timezoneParam: 'local',
     titleFormat: "MMMM YYYY",
@@ -692,6 +692,7 @@ var service_time_counter  = 10000;
 
 
   $('.save_service_date').click(function(){
+	  //alert("aa");
     $('#is_clicked').val('1');
     var button = $(this).attr('val');
     $('#del_start_time').val(button);
@@ -720,11 +721,11 @@ var service_time_counter  = 10000;
       showErrorMessage("{{ __('lang.select_future_to_date')}}");
         return false;
     }
-    var start_date = $('#service_year').val()+'-'+$('#service_month').val()+'-'+$('#service_date').val();
-    var end_date =  $('#to_service_year').val()+'-'+$('#to_service_month').val()+'-'+$('#to_service_date').val()
+    var start_date = $('#service_year').val()+'/'+$('#service_month').val()+'/'+$('#service_date').val();
+    var end_date =  $('#to_service_year').val()+'/'+$('#to_service_month').val()+'/'+$('#to_service_date').val();
     var start = new Date(start_date);
     var end = new Date(end_date);
-
+	//alert(start);
        /*code to add all dates in service_availability*/
       var date = new Date(start_date);
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -769,7 +770,7 @@ var service_time_counter  = 10000;
         events_array.push(temp);
 
   });
-  
+  alert(events_array);
     $('#calendar').fullCalendar('addEventSource', events_array);
     $('#service_year').val('');
     $('#service_month').val('');

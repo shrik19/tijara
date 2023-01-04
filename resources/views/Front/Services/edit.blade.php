@@ -278,7 +278,7 @@ td.fc-week-number {
 
 <!-- 
   <hr class="solid-horizontal-line"> -->
-  <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('servicelang.step_2')}}</h2>
+  <h2 class="col-md-12 product_add_h2 tj-savepr-head"> {{ __('servicelang.step_2')}}</h2>
   <div class="form-group tj-spad">
     <div class="row">
       <div class="col-md-12 tj-mobnopad">
@@ -494,16 +494,16 @@ var cal;
 
 $('#saveservicebtn').click(function(){
 
-  let title            = $("#title").val();
-  let session_time     = $("#session_time").val();
-  let address          = $("#address").val();
-  let telephone_number = $("#telephone_number").val();
-  let description      = $(".description").val();
-  let categories       = $("#categories").val();
-  let service_price    = $("#service_price").val();
-  let service_image = $(".service_image").val();
-  let hidden_images = $(".hidden_images").val();
-  let error = 0;
+  var title            = $("#title").val();
+  var session_time     = $("#session_time").val();
+  var address          = $("#address").val();
+  var telephone_number = $("#telephone_number").val();
+  var description      = $(".description").val();
+  var categories       = $("#categories").val();
+  var service_price    = $("#service_price").val();
+  var service_image = $(".service_image").val();
+  var hidden_images = $(".hidden_images").val();
+  var error = 0;
 
   if(title=='' || session_time=='' || address == '' || telephone_number == '' || description == ''  || categories == null || service_price==''){
     showErrorMessage(enter_all_fields_err);

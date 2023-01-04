@@ -738,8 +738,8 @@ $('#saveservicebtn').click(function(){
     showErrorMessage("{{ __('lang.select_future_to_date')}}");
     return false;
     }
-    var start_date = $('#service_year').val()+'-'+$('#service_month').val()+'-'+$('#service_date').val();
-    var end_date =  $('#to_service_year').val()+'-'+$('#to_service_month').val()+'-'+$('#to_service_date').val()
+    var start_date = $('#service_year').val()+'/'+$('#service_month').val()+'/'+$('#service_date').val();
+    var end_date =  $('#to_service_year').val()+'/'+$('#to_service_month').val()+'/'+$('#to_service_date').val();
     var start = new Date(start_date);
     var end = new Date(end_date);
     var loop = new Date(start);

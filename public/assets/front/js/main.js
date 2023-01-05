@@ -1,5 +1,5 @@
-
-//$.noConflict(); 
+//var $ = $.noConflict(); 
+var $ =jQuery.noConflict();
 
 /*function convertToSlug by its name*/
 function convertToSlug(inputtxt){
@@ -658,13 +658,14 @@ $(".expandCollapseServiceSubcategory").click(function(){
   $(id).toggleClass("activeservicesubcategories");
 });
 //$('.activemaincategory').trigger('click');
-$(".frontloginbtn").click(function(e){
-  e.preventDefault();
-  let email     = $("#email-address").val();
-  let password  = $("#password").val();
 
-  let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
-  let error = 0;
+$(".frontloginbtn").click(function(){
+  //e.preventDefault();
+  var email     = $("#email-address").val();
+  var passwordval  = $("#password").val();
+
+  var email_pattern = "/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i";
+  var error = 0;
 
   if(email == '')
   {
@@ -684,7 +685,7 @@ $(".frontloginbtn").click(function(e){
     $("#err_email").html('').hide();
   }
 
-  if(password == '')
+  if(passwordval == '')
   {
     $("#err_password").html(fill_in_password_err).show();
     $("#err_password").parent().addClass('jt-error');
@@ -718,16 +719,16 @@ $('input#sort_order').keyup(function(e)
 $(".saveproduct").click(function(e){
   e.preventDefault();
 
-  let title               = $("#title").val();
-  let sort_order          = $("#sort_order").val();
-  let description         = $(".product_description").val();
-  let category            = $("#categories").val();
-  let variant_image       = $(".variant_image").val();
-  let hidden_images       = $(".hidden_images").val();
-  let pick_up_address     = $("#store_pick_address").val();
-  let shipping_method_ddl = $("#shipping_method_ddl").val();
+  var title               = $("#title").val();
+  var sort_order          = $("#sort_order").val();
+  var description         = $(".product_description").val();
+  var category            = $("#categories").val();
+  var variant_image       = $(".variant_image").val();
+  var hidden_images       = $(".hidden_images").val();
+  var pick_up_address     = $("#store_pick_address").val();
+  var shipping_method_ddl = $("#shipping_method_ddl").val();
   var shipping_charges    = $("#shipping_charges").val();
-  let error               = 0;
+  var error               = 0;
 	$('span.invalid-feedback').html('');
   if(title == '')
   {
@@ -902,18 +903,18 @@ $('#store_pick_address').on('input',function(e){
 $(".saveBuyerProduct").click(function(e){
 
   e.preventDefault();
-  let title               = $("#title").val();
-  let sort_order          = $("#sort_order").val();
-  let seller_name         = $("#user_name").val();
-  let seller_email        = $("#user_email").val();
-  let seller_phone        = $("#user_phone_no").val();
-  let seller_county       = $("#country").val();
-  let seller_municipality = $("#location").val();
-  let price               = $("#price").val();
-  let variant_image               = $(".variant_image").val();
-  let hidden_images       = $(".hidden_images").val();
-  let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
-  let error               = 0;
+  var title               = $("#title").val();
+  var sort_order          = $("#sort_order").val();
+  var seller_name         = $("#user_name").val();
+  var seller_email        = $("#user_email").val();
+  var seller_phone        = $("#user_phone_no").val();
+  var seller_county       = $("#country").val();
+  var seller_municipality = $("#location").val();
+  var price               = $("#price").val();
+  var variant_image               = $(".variant_image").val();
+  var hidden_images       = $(".hidden_images").val();
+  var email_pattern =    '/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i';
+  var error               = 0;
 
 
   if($("#chk_privacy_policy").is(':checked')){
@@ -1079,17 +1080,17 @@ $(".saveBuyerProduct").click(function(e){
 $(".ResetPasswordBtn").click(function(e){
   e.preventDefault();
 
-  let password  = $("#password").val();
-  let cpassword = $("#password_confirmation").val();
-  let error = 0;
+  var password_val  = $("#password").val();
+  var cpassword = $("#password_confirmation").val();
+  var error = 0;
 
-  if(password == '')
+  if(password_val == '')
   {
     $("#err_password").html(fill_in_password_err).show();
     $("#err_password").parent().addClass('jt-error');
     error = 1;
   }
-  else if((password).length<6)
+  else if((password_val).length<6)
   {
     $("#err_password").html(password_min_6_char).show();
     $("#err_password").parent().addClass('jt-error');
@@ -1100,7 +1101,7 @@ $(".ResetPasswordBtn").click(function(e){
     $("#err_password").parent().removeClass('jt-error');
     $("#err_password").html('').hide();
   }
-  if(password!=cpassword) {
+  if(password_val!=cpassword) {
     $("#err_cpassword").html(password_not_matched).show();
       $("#err_cpassword").parent().addClass('jt-error');
      error = 1;
@@ -1123,14 +1124,14 @@ $(".ResetPasswordBtn").click(function(e){
 /* function to validate buyer profile update*/
 $(".update-buyer-profile").click(function(e){
   e.preventDefault();
-  let fname   = $("#fname").val();
-  let lname   = $("#lname").val();
+  var fname   = $("#fname").val();
+  var lname   = $("#lname").val();
 
-  let email     = $("#email").val();
+  var email     = $("#email").val();
 
-  let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
-  let error = 0;
-  let letters = /^[A-Za-z ]+$/;
+  var email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+  var error = 0;
+  var letters = /^[A-Za-z ]+$/;
 
 /*
   if(fname == '')
@@ -1202,16 +1203,16 @@ $(".update-buyer-profile").click(function(e){
 $(".seller-profile-update").click(function(e){
 
   e.preventDefault();
-  let fname   = $("#fname").val();
-  let lname   = $("#lname").val();
-  let city   = $("#city").val();
-  let country   = $("#country").val();
-  let email     = $("#email").val();
-  let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
-  let pick_up_address     = $("#store_pick_address").val();
-  let shipping_method_ddl = $("#shipping_method_ddl").val();
+  var fname   = $("#fname").val();
+  var lname   = $("#lname").val();
+  var city   = $("#city").val();
+  var country   = $("#country").val();
+  var email     = $("#email").val();
+  var email_pattern = '/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i';
+  var pick_up_address     = $("#store_pick_address").val();
+  var shipping_method_ddl = $("#shipping_method_ddl").val();
   var shipping_charges    = $("#shipping_charges").val();
-  let error = 0;
+  var error = 0;
 
   if(fname == '')
   {
@@ -1398,7 +1399,7 @@ $(".cloned-danger").html('')
 }
 */
 
-function ConfirmDeleteFunction(url, id = false)
+function ConfirmDeleteFunction(url,id)
 {  
   //$.noConflict(); 
   $.confirm({
@@ -1451,7 +1452,7 @@ function ConfirmDeleteFunction(url, id = false)
 
 }
 
-function ConfirmDeleteFunction1(url, id = false) {
+function ConfirmDeleteFunction1(url, id) {
     var message = alert_delete_record_message;
 
   swal({
@@ -1475,7 +1476,7 @@ function ConfirmDeleteFunction1(url, id = false) {
     });
 }
 
-function ConfirmCloseStoreFunction(url, id = false) {
+function ConfirmCloseStoreFunction(url, id) {
     var message = close_store_confirm_msg;
 
   $.confirm({
@@ -1593,8 +1594,7 @@ if($('.product_listings').length>0) {
 
 
 
-function get_product_listing(page,category_slug='',subcategory_slug='',
-  sellers ='',price='',city='', search_string='',search_seller_product='',current_role_id='') {
+function get_product_listing(page,category_slug,subcategory_slug,sellers,price,city, search_string,search_seller_product,current_role_id) {
 
  var city = $('#city_name').val();
 
@@ -1790,7 +1790,7 @@ $(document).on('click', '#serviceSearchFilter', function(event){
 
 
 
-function get_service_listing(page,category_slug='',subcategory_slug='',sellers ='',price='',city='', search_string='',search_seller_product='') {
+function get_service_listing(page,category_slug,subcategory_slug,sellers,price,city, search_string,search_seller_product) {
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
 
@@ -2262,7 +2262,7 @@ function updateCart(OrderDetailsId)
    });
 }
 
-function showErrorMessage(strContent,redirect_url = '')
+function showErrorMessage(strContent,redirect_url)
 { 
   $.alert({
       title: oops_heading,
@@ -2290,7 +2290,7 @@ function showErrorMessage(strContent,redirect_url = '')
 }
 
 
-function showSuccessMessage(strContent,redirect_url = '')
+function showSuccessMessage(strContent,redirect_url)
 {
     
   $.alert({
@@ -2398,7 +2398,7 @@ $('body').on('change', '.service_image', function () {
 
 });
 
-function showSuccessMessageReview(strContent,redirect_url = '')
+function showSuccessMessageReview(strContent,redirect_url)
 {
   $.alert({
       title: "Klart!",
@@ -2483,14 +2483,15 @@ $('#phone_number').keydown(function (e) {
   
 $('.subscribed_users').click(function(){
   var email = $('#usersSubscribed').val();
-  let email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
-  let error = 0;
+  var email_pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+  var error = 0;
 
   if(email == '') {
     $('.subscribe_msg').addClass('subscribe_err');
     $(".subscribe_msg").html(fill_in_email_err).show();
     $(".subscribe_msg").parent().addClass('jt-error');
     error = 1;
+  }else if(!email_pattern.test(email)){
   }else if(!email_pattern.test(email)){
     $('.subscribe_msg').addClass('subscribe_err');
     $(".subscribe_msg").html(valid_email_err).show();

@@ -703,10 +703,10 @@ var service_time_counter  = 10000;
         return false;
     }
 
-    var service_date  = new Date($('#service_year').val()+'-'+$('#service_month').val()+
-    '-'+$('#service_date').val()+' '+$('#start_time').val());
-    var service_date_to_use  = $('#service_year').val()+'-'+$('#service_month').val()+
-    '-'+$('#service_date').val()+' '+$('#start_time').val();
+    var service_date  = new Date($('#service_year').val()+'/'+$('#service_month').val()+
+    '/'+$('#service_date').val()+' '+$('#start_time').val());
+    var service_date_to_use  = $('#service_year').val()+'/'+$('#service_month').val()+
+    '/'+$('#service_date').val()+' '+$('#start_time').val();
 
 
     var to_service_date  = new Date($('#to_service_year').val()+'-'+$('#to_service_month').val()+'-'+$('#to_service_date').val()+' '+$('#start_time').val());

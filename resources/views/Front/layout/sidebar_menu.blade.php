@@ -86,7 +86,7 @@
     @if(Auth::guard('user')->getUser()->role_id==2)  
 	<?php 
 	
-    if((Request::segment(1)=='seller-profile') || (Request::segment(1)=='buyer-profile')){
+    if(Request::segment(1)=='seller-packages'){
     $activeClass = 'leftsideactivemainmenu';
     }
     else{

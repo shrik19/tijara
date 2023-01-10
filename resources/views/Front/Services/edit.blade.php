@@ -281,7 +281,7 @@ td.fc-week-number {
   <h2 class="col-md-12 product_add_h2 tj-savepr-head">{{ __('servicelang.step_2')}}</h2>
   <div class="form-group tj-spad">
     <div class="row">
-      <div class="col-md-12 tj-mobnopad">
+      <div class="col-md-12">
         <div class="row">
         <div class="form-group col-md-3 producterrDiv">
       	  <label class="col-md-12 product_table_heading">{{ __('lang.from_service_year')}}</label>

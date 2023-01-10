@@ -93,7 +93,7 @@
     <div class="featured-banner">
     <div class="featured_seller_container ">
     <div class="container-fluid">
-        <div class="row logo-slider">               
+        <div class="row logo-slider">  
                 @if(!empty($FeaturedSellers))
                     @foreach($FeaturedSellers as $fea_seller)
                     <div class="feature_seller">

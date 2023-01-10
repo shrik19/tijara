@@ -1025,7 +1025,8 @@ public function getCatSubList(Request $request) {
 
 		//$data['ProductsTotal'] = $Products->count();
 
-		$Products 			= $Products->paginate(config('constants.middle_pages_limit'));
+		//$Products 			= $Products->paginate(config('constants.middle_pages_limit'));
+		$Products 			= $Products->paginate(5);
 		//print_r(DB::getQueryLog());exit;
 		//echo "<pre>";print_r(($Products));exit;
 		//$data['show_products'] =$Products[0]->role_id;

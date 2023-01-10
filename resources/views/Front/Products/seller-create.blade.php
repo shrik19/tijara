@@ -226,7 +226,7 @@
                     <div class="col-md-8 tj-svselect tj-newslect">
                       <div class="row tj-wid67">
                         <div class="col-sm-6">
-                          <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                          <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]"  variant_id="<?php echo $i;?>" id="<?php echo $ii?>">
                             <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
                               @foreach ($attributesToSelect as $attr)
@@ -237,7 +237,7 @@
                         </div>
                         <div class="col-sm-6">                    
                           <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
-                          class="col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
+                          class="variant2 col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" id="attribute_value<?php echo $ii?>">
                             <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
 
                           </select>                          
@@ -245,7 +245,7 @@
                       </div>
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
                     <?php  if($ii!=0){?>
-                    <p class="seller-logo-info col-md-8" style="font-size: 13px;">Ändra eller lägg till nya egenskaper till vänster under Attribut</p>
+                    <span class="seller-logo-info col-md-10" style="font-size: 13px;padding-left:0px">Ändra eller lägg till nya egenskaper till vänster under Attribut</span>
                   <?php } ?>
                   </div>
                 <?php } ?>
@@ -267,7 +267,7 @@
 
                     </select>
                     <span class="invalid-feedback  col-md-8" id="err_sku" ></span>
-                    <p class="seller-logo-info col-md-8" style="font-size: 13px;">Ändra eller lägg till nya egenskaper till vänster under Attribut</p>
+                    <span class="seller-logo-info col-md-8" style="font-size: 13px; padding-right:0px">Ändra eller lägg till nya egenskaper till vänster under Attribut</span>
                   </div>
  */?>
                   <!-- new end -->
@@ -297,6 +297,7 @@
                       <input type="file" variant_id="<?php echo $i; ?>" class="col-md-8 ge_input image  variant_image variant_field" name="image[<?php echo $i;?>]"  placeholder="{{ __('lang.image_label')}}" value='{{ old("image.$i")}}' tabindex="7">
                       <span class="invalid-feedback col-md-8" id="err_variant_image" style="margin-left:-1px;"></span>  
                       <span class="invalid-feedback col-md-8" id="err_variant_hid_image"></span> 
+
                       <p class="seller-logo-info col-md-12" style="font-size: 13px;">{{ __('messages.product_img_upload_info')}}</p>  
                     </div>
                     

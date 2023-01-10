@@ -61,13 +61,12 @@
                 </div>
          <!-- Example row of columns -->
           @if($subscribedError)
-              <div class="alert alert-danger">{{$subscribedError}}</div>
-              @endif
+		  <div class="alert alert-danger">{{$subscribedError}}</div>
+		  @endif
       
           
            
-            <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">
-           
+            <form id="product-form" class="tijara-form" action="{{route('frontProductStore')}}" method="post" enctype="multipart/form-data">           
                 @csrf
                   <div class="col-md-12 text-right" style="margin-top:30px;">
                     <a href="{{route('manageFrontProducts')}}" title="" class="de_col" ><span><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;{{ __('lang.back_to_list_label')}}</span> </a>
@@ -76,12 +75,9 @@
                   
                   <div class="row tj-nodpad tjd-pad6">
 					<div class="col-md-12 tjd-serviceform">
-
                     <div class="login_box">
-
                         <h2 class="col-md-12 product_add_h2 steps_no_css tj-savepr-head">{{ __('lang.product_form_step1')}}</h2>
                         <input type="hidden" id="product_id" name="product_id" value="{{$product_id}}">
-
                         <div class="form-group ">
                           <label class="col-md-3 product_table_heading">{{ __('lang.product_title_label')}} <span class="de_col">*</span></label>
                           <div class="col-md-8">
@@ -233,8 +229,9 @@
                                   }
                                    
                               ?>
+									   @php $j=0; @endphp	
                                        @foreach($variant['attributes'] as $key=>$value)
-
+									   @php  $j++; @endphp	
                                         <input type="hidden" name="variant_attribute_id[<?php echo $i;?>][]" value="{{$value['id']}}" class="variant_attribute_id">
                                     <?php
 
@@ -248,7 +245,8 @@
                                     <div class="col-md-8 tj-svselect tj-newslect">
                                       <div class="row tj-wid67">
                                         <div class="col-sm-6">
-                                          <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" >
+                                         <!---- <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>"> --->
+										 <select id="<?php echo $j;?>" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
                                             <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                               @foreach ($attributesToSelect as $attr)
@@ -263,7 +261,7 @@
                                           </select>
                                         </div>
                                         <div class="col-sm-6">
-                                          <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]">
+                                          <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" id="attribute_value<?php echo $j?>">
                                             <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}  (ex röd)</option>
 
                                           </select>
@@ -275,7 +273,7 @@
                                     
                                     <span class="invalid-feedback col-md-8"  id="err_sku" ></span>
                                     <?php  if($key!=0){?>
-                                      <p class="seller-logo-info col-md-8" style="font-size: 12px;">{{ __('messages.add_attribute_info')}}</p>
+                                      <span class="seller-logo-info col-md-12" style="font-size: 13px; padding:7px 0px 7px 0px;">{{ __('messages.add_attribute_info')}}</span>
                                     <?php } ?>
                                       </div>
                                      
@@ -302,7 +300,7 @@
                                     
                                     <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="float: right;"></span>  
                                      <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="float: right;"></span>
-                                     <p class="seller-logo-info col-md-12" style="font-size: 12px;margin-top:20px;">{{ __('messages.product_img_upload_info')}}</p>  
+                                     <span class="seller-logo-info col-md-12" style="font-size: 13px;padding: 7px 0px 7px 0px">{{ __('messages.product_img_upload_info')}}</span>  
 
                                      </div>  
                                   </div>

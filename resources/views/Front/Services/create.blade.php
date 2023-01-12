@@ -69,7 +69,7 @@ td.fc-week-number {
     margin-left:0 !important;
     padding:0;
 }
-.tj-mobpadno [class*="col"] {
+.tj-mobpadno [class*="col"]:not(.product_table_heading) {
     padding: 0;
 }
 .tj-mobpadno label.product_table_heading {

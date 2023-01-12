@@ -8,9 +8,18 @@
   #selectcategory {
     max-width: 140%;
   }
+  #productTable_filter:before, #productTable_filter:after{
+      content: '';
+      display: table;
+      width: 100%;
+  }
   #productTable_filter label{
     max-width: 50% !important;
-    margin-right:50px !important;
+    margin-right:20px !important;
+    display: block;
+  }
+  #productTable_filter label input{
+    max-width: 80%;
   }
 }
 </style>

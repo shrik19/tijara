@@ -29,7 +29,8 @@
     }
 
     #attributeTable_filter label {
-        padding-top: 10px !important;
+      padding-top: 10px !important;
+      display: block;
     }
     div#attributeTable_wrapper table.dataTable {
       width: 100% !important;
@@ -42,6 +43,9 @@
     }
     #attributeTable_wrapper .col-sm-5.col-xs-8 input{
       width: 100% !important;
+    }
+    #attributeTable_wrapper .row:nth-child(2) .col-sm-12 {
+      padding: 0 !important;
     }
   }
 </style>

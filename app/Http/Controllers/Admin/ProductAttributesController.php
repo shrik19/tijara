@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Attributes;
-use App\Models\ AttributesValues;
+use App\Models\AttributesValues;
 use App\Models\UserMain;
 /*Uses*/
 use Auth;

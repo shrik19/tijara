@@ -94,7 +94,7 @@
     }
     ?>		
     <!---- <li class="{{ request()->is('seller-packages') ? 'leftsideactivemainmenu' : ''}} make_disabled check_seller_setting"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li> --->
-	<li  class="{{$activeClass}}"><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
+	<li  class="{{$activeClass}}" <?php if(Session::get('blockAccess') == 1) { echo 'style="pointer-events: none;"'; } ?>><a href="{{route('frontSellerPackages')}}">{{ __('lang.packages_menu')}}</a></li>
     @endif
     <?php 
 	

@@ -429,103 +429,89 @@
        //check click on add time button or not
      
    
-   $('#saveservicebtn').click(function(){
-   
-     var title            = $("#title").val();
-     var session_time     = $("#session_time").val();
-     var address          = $("#address").val();
-     var telephone_number = $("#telephone_number").val();
-     var description      = $(".description").val();
-     var categories       = $("#categories").val();
-     var service_price    = $("#service_price").val();
-     var service_image = $(".service_image").val();
-     var hidden_images = $(".hidden_images").val();
-     var error = 0;
-   
-     if(title=='' || session_time=='' || address == '' || telephone_number == '' || description == ''  || categories == null || service_price==''){
-       showErrorMessage(enter_all_fields_err);
-       error = 1;
-     }
-   
-   
-     if(title == '')
-     {
-       $("#err_title").html(required_field_error).show();
-       $("#err_title").parent().addClass('jt-error');
-       error = 1;
-     } else
-     {
-       $("#err_title").html('').show();
-   
-     }
-   
-     if(session_time == '')
-     {
-       $("#session_time_err").html(required_field_error).show();
-       $("#session_time_err").parent().addClass('jt-error');
-       error = 1;
-     } else
-     {
-       $("#session_time_err").html('').show();
-   
-     }
-   
-     if(address == '')
-     {
-       $("#address_err").html(required_field_error).show();
-       $("#address_err").parent().addClass('jt-error');
-       error = 1;
-     } else
-     {
-       $("#address_err").html('').show();
-   
-     }
-   
-     if(telephone_number == '')
-     {
-       $("#telephone_number_err").html(required_field_error).show();
-       $("#telephone_number_err").parent().addClass('jt-error');
-       error = 1;
-     } else
-     {
-       $("#telephone_number_err").html('').show();
-   
-     }
-   
-     if(description == '')
-     {
-       $("#err_description").html(required_field_error).show();
-       $("#err_description").parent().addClass('jt-error');
-       error = 1;
-     } else
-     {
-       $("#err_description").html('').show();
-   
-     }
-   
-     if(categories == null)
-     {
-       $("#err_categories").html(required_field_error).show();
-       $("#err_categories").parent().addClass('jt-error');
-       error = 1;
-     } else
-     {
-       $("#err_categories").html('').show();
-   
-     }
-   
-     if(service_price == '')
-     {
-       $("#err_service_price").html(required_field_error).show();
-       $("#err_service_price").parent().addClass('jt-error');
-       error = 1;
-     } else
-     {
-       $("#err_service_price").html('').show();
-   
-     }
-   
-   
+$('#saveservicebtn').click(function() {
+
+    var title = $("#title").val();
+    var session_time = $("#session_time").val();
+    var address = $("#address").val();
+    var telephone_number = $("#telephone_number").val();
+    var description = $(".description").val();
+    var categories = $("#categories").val();
+    var service_price = $("#service_price").val();
+    var service_image = $(".service_image").val();
+    var hidden_images = $(".hidden_images").val();
+    var error = 0;
+
+    if (title == '' || session_time == '' || address == '' || telephone_number == '' || description == '' || categories == null || service_price == '') {
+        showErrorMessage(enter_all_fields_err);
+        error = 1;
+    }
+
+
+    if (title == '') {
+        $("#err_title").html(required_field_error).show();
+        $("#err_title").parent().addClass('jt-error');
+        error = 1;
+    } else {
+        $("#err_title").html('').show();
+
+    }
+
+    if (session_time == '') {
+        $("#session_time_err").html(required_field_error).show();
+        $("#session_time_err").parent().addClass('jt-error');
+        error = 1;
+    } else {
+        $("#session_time_err").html('').show();
+
+    }
+
+    if (address == '') {
+        $("#address_err").html(required_field_error).show();
+        $("#address_err").parent().addClass('jt-error');
+        error = 1;
+    } else {
+        $("#address_err").html('').show();
+
+    }
+
+    if (telephone_number == '') {
+        $("#telephone_number_err").html(required_field_error).show();
+        $("#telephone_number_err").parent().addClass('jt-error');
+        error = 1;
+    } else {
+        $("#telephone_number_err").html('').show();
+
+    }
+
+    if (description == '') {
+        $("#err_description").html(required_field_error).show();
+        $("#err_description").parent().addClass('jt-error');
+        error = 1;
+    } else {
+        $("#err_description").html('').show();
+
+    }
+
+    if (categories == null) {
+        $("#err_categories").html(required_field_error).show();
+        $("#err_categories").parent().addClass('jt-error');
+        error = 1;
+    } else {
+        $("#err_categories").html('').show();
+
+    }
+
+    if (service_price == '') {
+        $("#err_service_price").html(required_field_error).show();
+        $("#err_service_price").parent().addClass('jt-error');
+        error = 1;
+    } else {
+        $("#err_service_price").html('').show();
+
+    }
+
+
     /* if(service_image == '')
      {
        $("#err_service_image").html(please_uplaod_service_image).show();
@@ -536,97 +522,89 @@
        $("#err_service_image").html('').show();
    
      }*/
-   
-     if(hidden_images == '' || typeof hidden_images === "undefined")
-     {
-       // $("#err_service_hid_image").html(wait_while_upload).show();
-       // $("#err_service_hid_image").parent().addClass('jt-error');
-       $("#err_service_image").html(please_uplaod_service_image).show();
-       $("#err_service_image").parent().addClass('jt-error');
-       error = 1;
-     }
-     else
-     {
-       $("#err_service_image").html('').show();
-   
-     }
-   
-      
-     if(error == 1)
-     {
-       showErrorMessage(enter_all_fields_err);
-       return false;
-     }
-     else
-     {
-       $('.service-add-form').submit();
-       return true;
-     }
-        
-   });
-   
-       
-   
-       if($('.service_availability').length>0) {
-       //var events_array=[];
-       $( ".service_availability" ).each(function() {
-   
-       var service_time  = $(this).val().split(" "); //alert(new Date(service_time[0]));
-       events_array.push({
-       title: service_time[1],
-       start: $(this).val(),
-   	//start: new Date(service_time[0]),
-       id: $(this).attr('id'),
-   
-       });
-   
-       });
-       //console.log(events_array);
-       // $('#calendar').fullCalendar('addEventSource', events_array);
-   
-       }
-       cal = $('#calendar').fullCalendar({
-       monthNames: ['Januari','Februari','Mars','April','Maj','Juni','Juli','Augusti','September','Oktober'
-       ,'November','December'],
-       monthNamesShort: ['Januari','Februari','Mars','April','Maj','Juni','Juli','Augusti','September','Oktober'
-       ,'November','December'],
-       dayNames: ['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'],
-   
-       dayNamesShort: ['Sön','Mån','Tis','Ons','Tors','Fre','Lör'],
-   
-       columnFormat: 'ddd',
-       views: {
-       sevenDays: {
-       type: 'month',
-       duration: {
-       weeks: 1
-       },
-       fixedWeekCount: false,
-       }
-       },
-       allDayDefault: true,
-       defaultView: 'sevenDays',
-       editable: true,
-       header: {
-       center: "title",
-       left: "",
-       right: " prev today next ",//"prevYear prev today next nextYear",
-       },
-       height: 250,
-       timezoneParam: 'local',
-       titleFormat: "MMMM YYYY",
-       weekNumbers: true,
-       events: events_array,
-       viewRender: function () {
-       var i = 0;
-       var viewStart = $('#calendar').fullCalendar('getView').intervalStart;
-       $("#calendar").find('.fc-content-skeleton thead td:not(:nth-child(1))').empty().each( function(){
-   
-       $(this).append(moment(viewStart).add(i, 'days').format("D"));
-       i = i + 1;
-       });
-   
-       /* window.setTimeout(function(){
+
+    if (hidden_images == '' || typeof hidden_images === "undefined") {
+        // $("#err_service_hid_image").html(wait_while_upload).show();
+        // $("#err_service_hid_image").parent().addClass('jt-error');
+        $("#err_service_image").html(please_uplaod_service_image).show();
+        $("#err_service_image").parent().addClass('jt-error');
+        error = 1;
+    } else {
+        $("#err_service_image").html('').show();
+
+    }
+
+
+    if (error == 1) {
+        showErrorMessage(enter_all_fields_err);
+        return false;
+    } else {
+        $('.service-add-form').submit();
+        return true;
+    }
+
+});
+
+
+
+if ($('.service_availability').length > 0) {
+    //var events_array=[];
+    $(".service_availability").each(function() {
+
+        var service_time = $(this).val().split(" "); //alert(new Date(service_time[0]));
+        events_array.push({
+            title: service_time[1],
+            start: $(this).val(),
+            //start: new Date(service_time[0]),
+            id: $(this).attr('id'),
+
+        });
+
+    });
+    //console.log(events_array);
+    // $('#calendar').fullCalendar('addEventSource', events_array);
+
+}
+cal = $('#calendar').fullCalendar({
+    monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+    monthNamesShort: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+    dayNames: ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'],
+
+    dayNamesShort: ['Sön', 'Mån', 'Tis', 'Ons', 'Tors', 'Fre', 'Lör'],
+
+    columnFormat: 'ddd',
+    views: {
+        sevenDays: {
+            type: 'month',
+            duration: {
+                weeks: 1
+            },
+            fixedWeekCount: false,
+        }
+    },
+    allDayDefault: true,
+    defaultView: 'sevenDays',
+    editable: true,
+    header: {
+        center: "title",
+        left: "",
+        right: " prev today next ", //"prevYear prev today next nextYear",
+    },
+    height: 250,
+    timezoneParam: 'local',
+    titleFormat: "MMMM YYYY",
+    weekNumbers: true,
+    events: events_array,
+    viewRender: function() {
+        var i = 0;
+        var viewStart = $('#calendar').fullCalendar('getView').intervalStart;
+        $("#calendar").find('.fc-content-skeleton thead td:not(:nth-child(1))').empty().each(function() {
+
+            $(this).append(moment(viewStart).add(i, 'days').format("D"));
+            i = i + 1;
+        });
+
+        /* window.setTimeout(function(){
        var viewMth = $('#calendar').fullCalendar('getDate');
    
        $("#calendar").find('.fc-toolbar > div > h2').empty().append(
@@ -634,26 +612,149 @@
        "<span>"+viewMth.format('YYYY')+"</span>"
        );
        },0);*/
-       },
-       eventClick: function(calEvent, jsEvent, view) 
-       {
+    },
+    eventClick: function(calEvent, jsEvent, view) {
+
+        // var dateselect = calEvent.start.format('Y-M-D');
+        var result = ConfirmDeleteTime("{{ __('lang.areYouSureToDeleteServiceTime')}}", calEvent.id);
+        //console.log(result);
+        if (result) {
+            $('.service_availability#' + calEvent.id).remove();
+            $('#calendar').fullCalendar('removeEvents', calEvent.id);
+        }
+        //show_details(calEvent,calEvent.salonoragent_id,dateselect);
+        //alert(info.salonoragent_id);
+    },
+});
+
+//console.log(events_array);return
+var service_time_counter = 10000;
+
+$('.save_service_date').click(function() {
+    //alert("aa");
+    $('#is_clicked').val('1');
+    var button = $(this).attr('val');
+    $('#del_start_time').val(button);
+    service_time_counter = service_time_counter + 1;
+
+    if ($('#service_month').val() == '' || $('#service_year').val() == '' || $('#service_date').val() == '' || $('#to_service_month').val() == '' || $('#to_service_year').val() == '' || $('#to_service_date').val() == '' ||
+        $('#start_time').val() == '00:00' || $('#start_time').val() == '') {
+        showErrorMessage("{{ __('lang.service_time_required')}}");
+        return false;
+    }
+
+    var service_date = new Date($('#service_year').val() + '/' + $('#service_month').val() +
+        '/' + $('#service_date').val() + ' ' + $('#start_time').val());
+    var service_date_to_use = $('#service_year').val() + '/' + $('#service_month').val() +
+        '/' + $('#service_date').val() + ' ' + $('#start_time').val();
+
+
+    var to_service_date = new Date($('#to_service_year').val() + '-' + $('#to_service_month').val() + '-' + $('#to_service_date').val() + ' ' + $('#start_time').val());
+    var to_service_date_to_use = $('#to_service_year').val() + '-' + $('#to_service_month').val() +
+        '-' + $('#to_service_date').val() + ' ' + $('#start_time').val();
+
+    if (service_date < new Date()) {
+        $.alert({
+            title: oops_heading,
+            content: 'Testr',
+            type: 'red',
+            typeAnimated: true,
+            columnClass: 'medium',
+            icon: "fas fa-times-circle",
+            buttons: {
+                Ok: function() {
+                    return false;
+                },
+            }
+        });
+        /* 	alert("aa");
+      showErrorMessage("{{ __('lang.select_future_date')}}"); */
+        //return false;
+    }
+
+    if (to_service_date < new Date()) {
+        showErrorMessage("{{ __('lang.select_future_to_date')}}");
+        //return false;
+    }
+    var start_date = $('#service_year').val() + '/' + $('#service_month').val() + '/' + $('#service_date').val();
+    var end_date = $('#to_service_year').val() + '/' + $('#to_service_month').val() + '/' + $('#to_service_date').val();
+	
+    var start = new Date(start_date);
+    var end = new Date(end_date);
+    //alert(start);
+    /*code to add all dates in service_availability*/
+    var date = new Date(start_date);
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    var fromsendDate = [date.getFullYear(), mnth, day].join("-");
+    var sendFromDate = fromsendDate + ' ' + $('#start_time').val();
+
+    //enddate
+    var endDate = new Date(end);
+    mnthEnd = ("0" + (endDate.getMonth() + 1)).slice(-2),
+        dayEnd = ("0" + endDate.getDate()).slice(-2);
+    var tosendDate = [endDate.getFullYear(), mnthEnd, dayEnd].join("-");
+    var sendToDate = tosendDate + ' ' + $('#start_time').val();
+
+    $('.added_service_times').append('<input type="text" name="start_date_time" class="service_availability" value="' + sendFromDate + '"><input type="text" name="to_date_time" class="service_availability" value="' + sendToDate + '">');
+
+    var loop = new Date(start);
+    var allDates = [];
+    /* while (loop <= end) {
+
+       
+        allDates.push(new Date(loop));
+        var newDate = loop.setDate(loop.getDate() + 1);
+        loop = new Date(newDate);
+    } */
+	
+	while(loop <= end){ 
+	   
+       var date = new Date(loop),
+       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+       day = ("0" + date.getDate()).slice(-2);
+       var tosendDate = [date.getFullYear(), mnth, day].join("-");
+       var sendDate =tosendDate+' '+$('#start_time').val();
+	  // alert(sendDate);
+       if($('#del_start_time').val()=='delete'){
+       // $('input[value="'+sendDate+'"]').remove();
    
-       // var dateselect = calEvent.start.format('Y-M-D');
-       var result = ConfirmDeleteTime("{{ __('lang.areYouSureToDeleteServiceTime')}}",calEvent.id);
-       //console.log(result);
-       if (result) {
-       $('.service_availability#'+calEvent.id).remove();
-       $('#calendar').fullCalendar('removeEvents',calEvent.id);
+       $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="del_service_availability[]" class="service_availability" value="'+sendDate+'">');
+       }else{
+       $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability[]" class="service_availability" value="'+sendDate+'">');
        }
-       //show_details(calEvent,calEvent.salonoragent_id,dateselect);
-       //alert(info.salonoragent_id);
-       },
-       });
-    
-   //console.log(events_array);return
-     var service_time_counter  = 10000;
+		console.log();
+       allDates.push(new Date(loop));
+       var newDate = loop.setDate(loop.getDate() + 1);
+       loop = new Date(newDate);
+       }
+
+
+    var events_array = [];
+    $(allDates).each(function(k, v) {
+        //alert(v);
+        var temp = {
+            id: service_time_counter,
+            title: $('#start_time').val(),
+            start: v,
+            //tip: 'Sup dog.'
+        };
+        events_array.push(temp);
+
+    });
+    // alert(events_array);
+    $('#calendar').fullCalendar('addEventSource', events_array);
+    $('#service_year').val('');
+    $('#service_month').val('');
+    $('#service_date').val('');
+    $('#to_service_year').val('');
+    $('#to_service_month').val('');
+    $('#to_service_date').val('');
+    $('#start_time').val('');
+
+});  
    
-$('.save_service_date').click(function(){
+$('.save_service_date21212').click(function(){
 	
        service_time_counter  = service_time_counter+1;
        var button = $(this).attr('val');
@@ -693,6 +794,7 @@ $('.save_service_date').click(function(){
        var allDates = [];
 	   
        while(loop <= end){ 
+	   
        var date = new Date(loop),
        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
        day = ("0" + date.getDate()).slice(-2);
@@ -706,7 +808,7 @@ $('.save_service_date').click(function(){
        }else{
        $('.added_service_times').append('<input id="'+service_time_counter+'" type="text" name="service_availability[]" class="service_availability" value="'+sendDate+'">');
        }
-		
+		console.log();
        allDates.push(new Date(loop));
        var newDate = loop.setDate(loop.getDate() + 1);
        loop = new Date(newDate);
@@ -722,11 +824,15 @@ $('.save_service_date').click(function(){
        //start: v,
        //tip: 'Sup dog.'
        };
-			if($('#del_start_time').val()=="insert")
+	  
+	   events_array_new.push(temp);
+	    console.log(events_array_new);
+	   $('#calendar').fullCalendar('addEventSource', events_array_new);
+			/* if($('#del_start_time').val()=="insert")
 			{		
 				events_array_new.push(temp);
-				console.log(events_array_new);
-				$('#calendar').fullCalendar('addEventSource', events_array_new);
+				
+				//$('#calendar').fullCalendar('addEventSource', events_array_new);
 			}
 			else if($('#del_start_time').val()=="delete")
 			{
@@ -738,7 +844,7 @@ $('.save_service_date').click(function(){
 				$('#calendar').fullCalendar( 'removeEvents',v1.id);
 				}
 			});
-         }
+         } */
        
        });
    

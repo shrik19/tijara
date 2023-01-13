@@ -334,6 +334,9 @@ class OrderController extends Controller
       $is_seller = 0;
       $is_buyer_order = 0;
       $orderDetails = [];
+	  
+	  
+	  
       if($user_id)
       {
         $userRole = Auth::guard('user')->getUser()->role_id;
@@ -357,6 +360,7 @@ class OrderController extends Controller
             }
         }
 
+	   
         if(!empty($checkOrder))
         {
           $data['subTotal'] = $checkOrder['sub_total'];
@@ -365,11 +369,13 @@ class OrderController extends Controller
 
           if($is_seller == 0 && $checkOrder['user_id'] != $user_id && $is_buyer_order == 0) 
           {
+			 
             Session::flash('error', trans('errors.not_authorize_order'));
             return redirect(route('frontHome'));
           }
           else
           {
+			 
               $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
               if(!empty($checkExistingOrderProduct))
               {
@@ -396,12 +402,14 @@ class OrderController extends Controller
                       {
                         foreach($TrendingProducts as $Product)
                         {
-                          if($is_seller == 1 && $Product->user_id != $user_id) 
+						
+                         /*  if($is_seller == 1 && $Product->user_id != $user_id) 
                           {
+							 
                             Session::flash('error', trans('errors.not_authorize_order'));
                             return redirect(route('frontHome'));
                             exit;
-                          }
+                          } */
 
                           $productCategories = $this->getProductCategories($Product->id);
                           //dd($productCategories);

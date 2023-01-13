@@ -697,10 +697,25 @@ var service_time_counter  = 10000;
     var button = $(this).attr('val');
     $('#del_start_time').val(button);
     service_time_counter  = service_time_counter+1;
+	
     if($('#service_month').val()=='' || $('#service_year').val()=='' || $('#service_date').val()=='' || $('#to_service_month').val()=='' || $('#to_service_year').val()=='' || $('#to_service_date').val()==''
     || $('#start_time').val()=='00:00' || $('#start_time').val()=='') {
-        showErrorMessage("{{ __('lang.service_time_required')}}");
-        return false;
+		msg_time = $.alert({
+            title: oops_heading,
+            content: '{{ __('lang.select_future_to_date')}}',
+            type: 'red',
+            typeAnimated: true,
+            columnClass: 'medium',
+            icon: "fas fa-times-circle",
+            buttons: {
+                Ok: function() {
+                    msg_time.close();
+                },
+            }
+        });	
+		
+        /* showErrorMessage("{{ __('lang.service_time_required')}}");
+        return false; */
     }
 
     var service_date  = new Date($('#service_year').val()+'/'+$('#service_month').val()+
@@ -714,12 +729,40 @@ var service_time_counter  = 10000;
     '-'+$('#to_service_date').val()+' '+$('#start_time').val();
    
     if(service_date < new Date()) {
-      showErrorMessage("{{ __('lang.select_future_date')}}");
-        return false;
+		 a = $.alert({
+            title: oops_heading,
+            content: '{{ __('lang.select_future_date')}}',
+            type: 'red',
+            typeAnimated: true,
+            columnClass: 'medium',
+            icon: "fas fa-times-circle",
+            buttons: {
+                Ok: function() {
+                    a.close();
+                },
+            }
+        });
+	/* 	alert("aa");
+      showErrorMessage("{{ __('lang.select_future_date')}}"); */
+         //return false;
     }
+	
     if(to_service_date < new Date()) {
-      showErrorMessage("{{ __('lang.select_future_to_date')}}");
-        return false;
+		msg = $.alert({
+            title: oops_heading,
+            content: '{{ __('lang.select_future_to_date')}}',
+            type: 'red',
+            typeAnimated: true,
+            columnClass: 'medium',
+            icon: "fas fa-times-circle",
+            buttons: {
+                Ok: function() {
+                    msg.close();
+                },
+            }
+        });
+      //showErrorMessage("{{ __('lang.select_future_to_date')}}");
+        //return false;
     }
     var start_date = $('#service_year').val()+'/'+$('#service_month').val()+'/'+$('#service_date').val();
     var end_date =  $('#to_service_year').val()+'/'+$('#to_service_month').val()+'/'+$('#to_service_date').val();

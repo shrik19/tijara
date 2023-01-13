@@ -13,7 +13,9 @@ $order_product_link = url('/').'/product/'.$product->product_slug.'-P-'.$product
 
   <li class="{{$class}}">
 
-  <div class="product_data product_link_js" product_link="@if(!empty($product_link)){{$product_link}}@else{{$order_product_link}}@endif" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif>
+  <!-- <div class="product_data product_link_js" product_link="@if(!empty($product_link)){{$product_link}}@else{{$order_product_link}}@endif" @if($product->is_sold == '1') style="pointer-events: none;opacity: 0.4;"  @endif> --->
+  
+  <div class="product_data product_link_js" product_link="@if(!empty($product_link)){{$product_link}}@else{{$order_product_link}}@endif">
     <div class="product_img" style="display:inline-block;background-color: white;">
       <?php
   

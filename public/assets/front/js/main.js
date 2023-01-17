@@ -117,7 +117,7 @@ if (defaultOpen) {
 });*/
 $(".add_new_variant_btn").click(function(){
   var firstVariant = $("#variant_table").find('.variant_tr:eq(0)');
-   var firstAttribute = firstVariant.find('.select_attribute:eq(0)').val();
+  var firstAttribute = firstVariant.find('.select_attribute:eq(0)').val();
   var secondAttribute = firstVariant.find('.select_attribute:eq(1)').val();
 
   $(".remove_variant_div").addClass("col-md-12");
@@ -187,7 +187,9 @@ $(".add_new_variant_btn").click(function(){
          //$(this).attr('name','attribute_value['+variant_id+']['+$(this).attr('attribute_id')+']');
          $(this).attr('name','attribute_value['+variant_id+'][]');
      });
-     $trNew.find('.select_attribute_value').val('').attr('disabled','disabled');
+     $trNew.find('.select_attribute_value').val('').select2();
+	  $trNew.find('.select_attribute_value').val('').next().next().hide();
+	 //$trNew.find('.select_attribute_value').next(".select2-container").hide();
 
     if(firstAttribute)
     {
@@ -209,6 +211,7 @@ $(".add_new_variant_btn").click(function(){
                type: 'get',
                success: function(output) {
                   $trNew.find('.select_attribute:eq(0)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
+				  //$('select').select2();
               }
             });
     }
@@ -231,7 +234,13 @@ $(".add_new_variant_btn").click(function(){
                data: {attribute_id: secondAttribute},
                type: 'get',
                success: function(output) {
-                  $trNew.find('.select_attribute:eq(1)').parent('div').find('.select_attribute_value').removeAttr('disabled').html(output);
+				   console.log($trNew.find('.select_attribute:eq(1)').parent('div').find('.select_attribute_value'));
+                 $trNew.find('.select_attribute:eq(1)').parent('div').find('.select_attribute_value').removeAttr('disabled').removeClass("select2-hidden-accessible").html(output);
+				
+				 //$('select').select2("open");
+				//$trNew.find('.select_attribute:eq(1)').parent('div').find('.select_attribute_value').removeAttr('disabled').removeProp('disabled');
+				
+				
               }
             });
     }

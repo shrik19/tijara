@@ -440,6 +440,8 @@ var $selects = $('#variant_table').on('change', '.select_attribute', function ()
 	select_attribute =$(this).val();
 	elm              =$(this);
 	
+	//alert($selects.find('option[value=' + this.value + ']:selected').length);
+	
     if ($selects.find('option[value=' + this.value + ']:selected').length > 1) {
         //alert($selects.find('option[value=' + this.value + ']:selected').length);
 		
@@ -492,6 +494,8 @@ var $selects = $('#variant_table').on('change', '.select_attribute', function ()
           
           var firstAttribute = main.find('.select_attribute:eq(0)').val();
           var secondAttribute = main.find('.select_attribute:eq(1)').val();
+		  
+		  
 
           var isFirstOrSecond = '';
           if(elm.parent().prev('label').hasClass('product_table_heading'))
@@ -508,7 +512,7 @@ var $selects = $('#variant_table').on('change', '.select_attribute', function ()
               elm.val('');
               elm.parent('div').find('.select_attribute_value').find('option').not(':first').remove();
 
-              console.log(isFirstOrSecond);
+              alert(firstAttribute +"=="+ secondAttribute);
               
               $("#variant_table").find('.variant_tr').not(':first').each(function(){
                   if(isFirstOrSecond == 'first')
@@ -2294,8 +2298,9 @@ function showErrorMessage(strContent,redirect_url)
       icon : "fas fa-times-circle",
       buttons: {
         Ok: function () {
-            if(redirect_url != '')
+            if(redirect_url != '' && redirect_url != undefined)
             {
+				alert(redirect_url);
               if(redirect_url == 'reload')
               {
                 location.reload(true);
@@ -2421,6 +2426,7 @@ $('body').on('change', '.service_image', function () {
 
 function showSuccessMessageReview(strContent,redirect_url)
 {
+	alert(redirect_url);
   $.alert({
       title: "Klart!",
       content: strContent,
@@ -2430,7 +2436,7 @@ function showSuccessMessageReview(strContent,redirect_url)
       icon : "fas fa-check-circle",
       buttons: {
         ok: function () {
-          if(redirect_url != '')
+          if(redirect_url != '' && redirect_url != 'undefined')
           {
             if(redirect_url == 'reload')
             {

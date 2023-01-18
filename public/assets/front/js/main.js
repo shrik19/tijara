@@ -892,8 +892,20 @@ if($("#is_pick_from_store").is(':checked')){
 
   if(error == 1)
   {
-    showErrorMessage(required_field_error);
-    return false;
+	   $.alert({
+                title: oops_heading,
+                content: required_field_error,
+                type: 'red',
+                typeAnimated: true,
+                columnClass: 'medium',
+                icon : "fas fa-times-circle",
+                buttons: {
+                  Ok: function () {
+                  },
+                }
+              });
+    //showErrorMessage(required_field_error);
+    //return false;
   }
   else
   {

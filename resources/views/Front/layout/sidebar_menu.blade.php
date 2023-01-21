@@ -32,7 +32,7 @@
 		        $activeClass = 'leftsideactivemainmenu';
         }
         else{
-        $activeClass = ' make_disabled';
+        $activeClass = '';
         }
 		?>
       <li class="{{$activeClass}}"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>

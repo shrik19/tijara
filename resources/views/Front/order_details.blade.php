@@ -253,7 +253,7 @@ if (@$_GET['print'])
 ?>
 <script type="text/javascript">
 	
-	$('#order_status').select2();
+	//$('#order_status').select2();
 	
 </script>
 <?php

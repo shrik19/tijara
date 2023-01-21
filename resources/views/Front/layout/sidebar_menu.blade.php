@@ -28,7 +28,7 @@
     @if(Auth::guard('user')->getUser()->role_id==2)
 		<?php
 	//echo Session::get('trialPeriod');
-		if(Session::get('blockAccess') == 0 || request()->is('seller-personal-page')){
+		if(request()->is('seller-personal-page')){
 		        $activeClass = 'leftsideactivemainmenu';
         }
         else{

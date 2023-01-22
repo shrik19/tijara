@@ -2584,6 +2584,18 @@
   .tj-alignment .login_box .form-group > div.col-sm-8 .col-xs-6{
     padding:0 !important;
   }
+  .tjm-newsermar{
+    margin:0 !important;
+  }
+  .tjm-newsermar > .col-md-12.tj-mobnopad1 {
+    padding: 0;
+  }
+  .tjmn-mar{
+    margin-bottom: 0 !important;
+  }
+  .tjmn-bmar{
+    margin-bottom: 0 !important;
+  }
 }
 @media(min-width:768px) and (max-width: 992px){
   .row.buyer-row.tj-order-product.tjd-angrid .col-md-15{

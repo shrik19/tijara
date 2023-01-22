@@ -2596,6 +2596,13 @@
   .tjmn-bmar{
     margin-bottom: 0 !important;
   }
+  .row.tj-wid67.tjnm-full {
+    width: auto !important;
+  }
+
+  .row.tj-wid67.tjnm-full > .col-sm-6 {
+      margin-bottom: 10px !important;
+  }
 }
 @media(min-width:768px) and (max-width: 992px){
   .row.buyer-row.tj-order-product.tjd-angrid .col-md-15{

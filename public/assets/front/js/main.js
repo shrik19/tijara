@@ -116,6 +116,12 @@ if (defaultOpen) {
   }
 });*/
 $(".add_new_variant_btn").click(function(){
+
+  duplicateVariant();
+  return;
+
+  //NOT USING BELOW CODE ANY MORE;
+
   var firstVariant = $("#variant_table").find('.variant_tr:eq(0)');
   var firstAttribute = firstVariant.find('.select_attribute:eq(0)').val();
   var secondAttribute = firstVariant.find('.select_attribute:eq(1)').val();
@@ -257,6 +263,140 @@ $(".add_new_variant_btn").click(function(){
 
 
 });
+
+function duplicateVariant()
+{
+  $trLast = $("div.variant_tr:last");
+  variant_id=$trLast.attr('variant_id');
+  variant_id++;
+   firstAttributeHtml = $('.select_attribute:eq(0)').html();
+   secondAttributeHtml = $('.select_attribute:eq(1)').html();
+  var firstAttribute = $('.select_attribute:eq(0)').val();
+  var secondAttribute = $('.select_attribute:eq(1)').val();
+  var firstAttValues = '';
+  var secondAttValues = '';
+  if(firstAttribute)
+    {      
+      $.ajax({
+              url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+               data: {attribute_id: firstAttribute},
+               type: 'get',
+               success: function(output) {
+                $('#attribute_value_1_'+variant_id).html(output);	
+                $('#attribute_value_1_'+variant_id).select2();	
+                $('#attribute_1_'+variant_id).select2();	
+                $('#attribute_1_'+variant_id).attr('disabled', true);	  
+              }
+            });
+    }
+    
+    if(secondAttribute)
+    {
+      $.ajax({
+              url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+               data: {attribute_id: secondAttribute},
+               type: 'get',
+               success: function(output) {
+                $('#attribute_value_2_'+variant_id).html(output);
+                $('#attribute_value_2_'+variant_id).select2();
+                $('#attribute_2_'+variant_id).select2();
+                $('#attribute_2_'+variant_id).attr('disabled', true);
+              }
+            });
+    }
+
+
+  var html = `<div class="variant_tr tjsellercol2" id="variant_tr_${variant_id}" variant_id="${variant_id}">
+                                
+  <input type="hidden" class="variant_id form-control ge_input" value="" name="variant_id[${variant_id}]">
+  <div class="form-group row">
+    <label class="col-md-3 product_table_heading">SKU <span class="de_col"></span></label>
+    <div class="col-md-8">
+    <input type="text" class="col-md-8 ge_input sku" name="sku[${variant_id}]" placeholder="Unik kod för varje enskild produkt" value="" tabindex="7">
+    <span class="invalid-feedback col-md-8" id="err_sku"></span>
+   </div>
+  </div>
+  <div class="form-group producterrDiv row">
+    <label class="col-md-3 product_table_heading">Pris <span class="de_col">*</span></label>
+    <div class="col-md-8">
+    <input type="tel" class="col-md-8 ge_input price number variant_field" name="price[${variant_id}]" placeholder="Pris (SEK)" value="" tabindex="7">
+    <span class="invalid-feedback col-md-8" id="err_sku"></span>
+    </div>
+  </div>
+  <div class="form-group producterrDiv row">
+    <label class="col-md-3 product_table_heading">Antal <span class="de_col">*</span></label>
+    <div class="col-md-8">
+    <input type="tel" class="col-md-8 ge_input quantity number variant_field" name="quantity[${variant_id}]" placeholder="Antal" value="" tabindex="7">
+    <span class="invalid-feedback col-md-8" id="err_sku"></span>
+  </div>
+  </div> 
+  <div class="form-group producterrDiv row">
+                     
+                              
+        <input type="hidden" name="variant_attribute_id[${variant_id}][]" value="" class="variant_attribute_id">
+    
+    <label class="col-md-3 product_table_heading">Egenskaper <span class="de_col"></span></label>
+                                  
+    <div class="col-md-8 tj-svselect tj-newslect">
+      <div class="row tj-wid67">
+        <div class="col-sm-6">
+        <select id="attribute_1_${variant_id}" style="  width: 34%;" class="col-md-4 ge_input select_attribute tjselect firstVariant select2-hidden-accessible" name="attribute[${variant_id}][]" variant_id="0" tabindex="-1" aria-hidden="true">
+        ${firstAttributeHtml}
+            </select>
+        </div>
+        <div class="col-sm-6">
+          <select style="margin-left: 10px; width: 32%;" attribute_id="1" selected_attribute_value="2" class="1254 col-md-4 ge_input select_attribute_value tjselect select2-hidden-accessible" name="attribute_value[${variant_id}][]" id="attribute_value_1_${variant_id}" tabindex="-1" aria-hidden="true">          
+          </select>
+        </div>
+      </div>    
+    <span class="invalid-feedback col-md-8" id="err_sku"></span>
+  </div>
+     
+                                
+        <input type="hidden" name="variant_attribute_id[${variant_id}][]" value="" class="variant_attribute_id">
+                                        <div class="col-md-3"></div>
+                                 
+    <div class="col-md-8 tj-svselect tj-newslect">
+      <div class="row tj-wid67">
+        <div class="col-sm-6">
+        <select id="attribute_2_${variant_id}"" style="  width: 34%;" class="col-md-4 ge_input select_attribute tjselect secondVariant select2-hidden-accessible" name="attribute[${variant_id}][]" variant_id="0" tabindex="-1" aria-hidden="true">${secondAttributeHtml}</select>
+                   
+        </div>
+        <div class="col-sm-6">
+          <select style="margin-left: 10px; width: 32%;" attribute_id="2" selected_attribute_value="12" class="1255 col-md-4 ge_input select_attribute_value tjselect select2-hidden-accessible" name="attribute_value[${variant_id}][]" id="attribute_value_2_${variant_id}" tabindex="-1" aria-hidden="true"></select>          
+        </div>
+      </div>    
+    <span class="invalid-feedback col-md-8" id="err_sku"></span>
+                                          <span class="seller-logo-info col-md-12" style="font-size: 13px; padding:7px 0px 7px 0px;">Ändra eller lägg till nya egenskaper till vänster under Attribut</span>
+                                          </div>
+     
+                                           </div>
+
+  <div class="form-group producterrDiv row">
+    <label class="col-md-3 product_table_heading">Bild <span class="de_col">*</span></label>
+    <div class="col-md-8">
+    <div class="selected_images col-md-12">
+                                                                                                                            <div>
+            <input type="hidden" class="form-control ge_input hidden_images" value="" name="hidden_images[${variant_id}][]" placeholder="Bild">
+            <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
+          </div>
+                                                                              </div>
+    <input type="file" variant_id="${variant_id}" class="col-md-8 ge_input image  variant_image" name="image[${variant_id}]" placeholder="Bild" value="" tabindex="7">
+    
+    <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="float: right;"></span>  
+     <span class="invalid-feedback col-md-12 productErr" id="err_variant_hid_image" style="float: right;"></span>
+     <span class="seller-logo-info col-md-12" style="font-size: 13px;padding: 7px 0px 7px 0px">Lägg till en bild i storlek (1080x1080px). För flera bilder, lägg till en i taget.</span>  
+
+     </div>  
+  </div>
+<div class="remove_variant_div col-md-12"><a href="javascript:void(0);" variant_id="${variant_id}" class="btn btn-danger btn-xs remove_variant_btn" title="Remove Variant"><i class="fas fa-trash"></i></a></div>
+  <div class="loader"></div> 
+</div>`;
+
+$trLast.after(html);
+
+}
+
 $( ".number" ).each(function() {
     $(this).keyup(function() {
     var $this = $(this);
@@ -397,6 +537,13 @@ $('body').on('click', '.remove_image', function () {
      var variant_id = rem.attr("remove_variant_id");
      var product_id = $("#product_id").val();
 
+     if(variant_id == undefined)
+     {
+      rem.parent('div').parent('div').remove();
+      return;
+     }
+
+
       $.alert({
       title: "Klart!",
       content: del_variant_confirm_box,
@@ -433,19 +580,18 @@ $('body').on('click', '.remove_image', function () {
     });
  });
  
+ 
 
 
-var $selects = $('#variant_table').on('change', '.select_attribute', function () {
+var $selects = $('#variant_table').on('change', '.select_attribute:eq(0)', function ()
+ {
 	item = this;
-	select_attribute =$(this).val();
-	elm              =$(this);
-	
-	//alert($selects.find('option[value=' + this.value + ']:selected').length);
-	
-    if ($selects.find('option[value=' + this.value + ']:selected').length > 1) {
-        //alert($selects.find('option[value=' + this.value + ']:selected').length);
-		
-		$.alert({
+  select_attribute =$(this).val();
+  elm              =$(this);
+  
+  if ($selects.find('option[value=' + this.value + ']:selected').length > 1) 
+  {
+    $.alert({
                 title: oops_heading,
                 content: 'Attributen får inte vara samma under Variant.',
                 type: 'red',
@@ -454,30 +600,102 @@ var $selects = $('#variant_table').on('change', '.select_attribute', function ()
                 icon : "fas fa-times-circle",
                 buttons: {
                   Ok: function () {					  
-					  $(item).val('');
-					  $(item).select2();	
+                $(item).val('');
+                $(item).select2();	
                   },
                 }
               });
-    } else {
-		
-		$.ajax({
-		url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
-		data: {attribute_id: select_attribute},
-		type: 'get',
-		success: function(output) {
-			$("#attribute_value"+item.id).html(output);
-			//alert($selects.attr('id'));
-			//alert(output);
-			//alert('#'+item.id);
-		   //$selects.find('#'+item.id).html(output);
-		   //$('#'+item.id).children().siblings().find('.select_attribute_value').css({"color": "blue"});
-		   //$selects.next().find('.select_attribute_value').html(output);
-		}
-		});	   
-	} 
-	
-});
+    } else 
+    {
+      
+      $.ajax({
+            url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+            data: {attribute_id: select_attribute},
+            type: 'get',
+        success: function(output) {
+          $("#attribute_value"+item.id).html(output);			
+        }      
+      });	
+    } 
+
+    $('.firstVariant').each(function(index) {
+     
+      if(index > 0)
+      {
+        $(this).val(select_attribute).select2().trigger('change');
+        valueAttr_id = '#attribute_value_'+$(this).attr('id').slice(-3);
+        $.ajax({
+          url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+          data: {attribute_id: select_attribute},
+          type: 'get',
+            success: function(output) {
+              $(valueAttr_id).html(output);			
+            }      
+          });	
+      }        
+    });
+ 
+  }
+);
+   
+
+var $selects = $('#variant_table').on('change', '.select_attribute:eq(1)', function ()
+ {
+	item = this;
+  select_attribute =$(this).val();
+  elm              =$(this);
+  
+  if ($selects.find('option[value=' + this.value + ']:selected').length > 1) 
+  {
+    $.alert({
+                title: oops_heading,
+                content: 'Attributen får inte vara samma under Variant.',
+                type: 'red',
+                typeAnimated: true,
+                columnClass: 'medium',
+                icon : "fas fa-times-circle",
+                buttons: {
+                  Ok: function () {					  
+                $(item).val('');
+                $(item).select2();	
+                  },
+                }
+              });
+    } else 
+    {
+      
+      $.ajax({
+            url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+            data: {attribute_id: select_attribute},
+            type: 'get',
+        success: function(output) {
+          $("#attribute_value"+item.id).html(output);			
+        }      
+      });	
+    } 
+
+    $('.secondVariant').each(function(index) {
+      if(index > 0)
+      {
+        $(this).val(select_attribute).select2().trigger('change');
+        valueAttr_id = '#attribute_value_'+$(this).attr('id').slice(-3);
+        $.ajax({
+          url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+          data: {attribute_id: select_attribute},
+          type: 'get',
+            success: function(output) {
+              $(valueAttr_id).html(output);			
+            }      
+          });	
+      }  
+
+    });
+ 
+  }
+);
+
+
+
 	/* if ($selects.find('option[value=' + this.value + ']:selected').length > 1) {
         alert('option is already selected');
         this.options[0].selected = true;

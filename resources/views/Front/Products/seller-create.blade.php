@@ -224,7 +224,7 @@
                     <div class="col-md-3"></div>
                  <?php }?>
                     <div class="col-md-8 tj-svselect tj-newslect">
-                      <div class="row tj-wid67">
+                      <div class="row tj-wid67 tjnm-full">
                         <div class="col-sm-6">
                           <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]"  variant_id="<?php echo $i;?>" id="<?php echo $ii?>">
                             <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>

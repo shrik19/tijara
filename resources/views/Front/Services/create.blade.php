@@ -88,6 +88,9 @@ td.fc-week-number {
     background: #03989e;
     border: none;
   }
+  .form-group.tj-spad{
+    margin-bottom: 0;
+  }
 }
 @media(min-width:1200px){
   #save_service_date {
@@ -283,7 +286,7 @@ td.fc-week-number {
                           ?>
                         </select><span style="text-align: center;" class="invalid-feedback col-md-12" id="service_month" >@if($errors->has('service_month')) {{ $errors->first('service_month') }}@endif </span>
                       </div>
-                      <div class="form-group producterrDiv col-md-4">
+                      <div class="form-group producterrDiv col-md-4 tjmn-mar">
                         <label class="col-md-12 product_table_heading">{{ __('lang.from_service_date')}}<!-- <span class="de_col">*</span> --></label>
                         <select class="col-md-12 service_date form-control tjselect" name="service_date" id="service_date" >
                           <option value="">{{ __('lang.select_label')}}</option>
@@ -301,7 +304,7 @@ td.fc-week-number {
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <div class="form-group producterrDiv">
+                    <div class="form-group producterrDiv tjmn-bmar">
                       <label class="col-md-12 product_table_heading">{{ __('lang.start_time')}}<!--  <span class="de_col">*</span> --></label>
                       <input type="tel" class="col-md-12 start_time form-control" name="start_time" id="start_time" placeholder="00:00" value="{{(old('start_time')) ?  old('start_time') :''}}" tabindex="7" >
                       <!--     <span style="text-align: center;" class="invalid-feedback col-md-12" id="start_time" >@if($errors->has('start_date_time') || $errors->has('to_date_time')) {{ $errors->first('to_date_time') }}@endif </span> -->

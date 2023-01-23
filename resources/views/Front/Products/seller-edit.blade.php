@@ -253,7 +253,7 @@
                                  <?php }?>
                                 
                                     <div class="col-md-8 tj-svselect tj-newslect">
-                                      <div class="row tj-wid67">
+                                      <div class="row tj-wid67 tjnm-full">
                                         <div class="col-sm-6">
                                          <!---- <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>"> --->
 										 <select id="attribute_<?php echo $attrCounter; ?>_<?php echo $j;?>" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect <?php echo $variantClass; ?>" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">

@@ -275,7 +275,7 @@ function duplicateVariant()
   var secondAttribute = $('.select_attribute:eq(1)').val();
   var firstAttValues = '';
   var secondAttValues = '';
-  if(firstAttribute)
+  if(firstAttribute != '')
     {      
       $.ajax({
               url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
@@ -285,12 +285,13 @@ function duplicateVariant()
                 $('#attribute_value_1_'+variant_id).html(output);	
                 $('#attribute_value_1_'+variant_id).select2();	
                 $('#attribute_1_'+variant_id).select2();	
-                $('#attribute_1_'+variant_id).attr('disabled', true);	  
+                $('#attribute_1_'+variant_id).val(firstAttribute).change();
+                //$('#attribute_1_'+variant_id).attr('disabled', true);	  
               }
             });
     }
     
-    if(secondAttribute)
+    if(secondAttribute != '')
     {
       $.ajax({
               url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
@@ -300,7 +301,8 @@ function duplicateVariant()
                 $('#attribute_value_2_'+variant_id).html(output);
                 $('#attribute_value_2_'+variant_id).select2();
                 $('#attribute_2_'+variant_id).select2();
-                $('#attribute_2_'+variant_id).attr('disabled', true);
+                $('#attribute_2_'+variant_id).val(secondAttribute).change();
+               // $('#attribute_2_'+variant_id).attr('disabled', true);
               }
             });
     }
@@ -376,11 +378,7 @@ function duplicateVariant()
     <label class="col-md-3 product_table_heading">Bild <span class="de_col">*</span></label>
     <div class="col-md-8">
     <div class="selected_images col-md-12">
-                                                                                                                            <div>
-            <input type="hidden" class="form-control ge_input hidden_images" value="" name="hidden_images[${variant_id}][]" placeholder="Bild">
-            <a href="javascript:void(0);" class="remove_image"><i class="fas fa-trash"></i></a>
-          </div>
-                                                                              </div>
+    </div>
     <input type="file" variant_id="${variant_id}" class="col-md-8 ge_input image  variant_image" name="image[${variant_id}]" placeholder="Bild" value="" tabindex="7">
     
     <span class="invalid-feedback col-md-12 productErr" id="err_variant_image" style="float: right;"></span>  
@@ -589,7 +587,7 @@ var $selects = $('#variant_table').on('change', '.select_attribute:eq(0)', funct
   select_attribute =$(this).val();
   elm              =$(this);
   
-  if ($selects.find('option[value=' + this.value + ']:selected').length > 1) 
+  if ($('.select_attribute:eq(1)').val() == select_attribute) 
   {
     $.alert({
                 title: oops_heading,
@@ -613,7 +611,7 @@ var $selects = $('#variant_table').on('change', '.select_attribute:eq(0)', funct
             data: {attribute_id: select_attribute},
             type: 'get',
         success: function(output) {
-          $("#attribute_value"+item.id).html(output);			
+          $("#attribute_value_"+item.id.slice(-3)).html(output);			
         }      
       });	
     } 
@@ -622,7 +620,9 @@ var $selects = $('#variant_table').on('change', '.select_attribute:eq(0)', funct
      
       if(index > 0)
       {
+        $(this).find('option').attr('disabled', false);
         $(this).val(select_attribute).select2().trigger('change');
+        $(this).find('option:not(:selected)').attr('disabled', true);
         valueAttr_id = '#attribute_value_'+$(this).attr('id').slice(-3);
         $.ajax({
           url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
@@ -645,7 +645,7 @@ var $selects = $('#variant_table').on('change', '.select_attribute:eq(1)', funct
   select_attribute =$(this).val();
   elm              =$(this);
   
-  if ($selects.find('option[value=' + this.value + ']:selected').length > 1) 
+  if ($('.select_attribute:eq(0)').val() == select_attribute) 
   {
     $.alert({
                 title: oops_heading,
@@ -669,7 +669,7 @@ var $selects = $('#variant_table').on('change', '.select_attribute:eq(1)', funct
             data: {attribute_id: select_attribute},
             type: 'get',
         success: function(output) {
-          $("#attribute_value"+item.id).html(output);			
+          $("#attribute_value_"+item.id.slice(-3)).html(output);		
         }      
       });	
     } 
@@ -677,7 +677,10 @@ var $selects = $('#variant_table').on('change', '.select_attribute:eq(1)', funct
     $('.secondVariant').each(function(index) {
       if(index > 0)
       {
+        $(this).find('option').attr('disabled', false);
         $(this).val(select_attribute).select2().trigger('change');
+        $(this).find('option:not(:selected)').attr('disabled', true);
+
         valueAttr_id = '#attribute_value_'+$(this).attr('id').slice(-3);
         $.ajax({
           url: siteUrl+'/product-attributes/getattributevaluebyattributeid',

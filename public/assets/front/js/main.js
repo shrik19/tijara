@@ -286,7 +286,7 @@ function duplicateVariant()
                 $('#attribute_value_1_'+variant_id).select2();	
                 $('#attribute_1_'+variant_id).select2();	
                 $('#attribute_1_'+variant_id).val(firstAttribute).change();
-                //$('#attribute_1_'+variant_id).attr('disabled', true);	  
+                $('#attribute_1_'+variant_id).find('option:not(:selected)').attr('disabled', true);
               }
             });
     }
@@ -302,7 +302,7 @@ function duplicateVariant()
                 $('#attribute_value_2_'+variant_id).select2();
                 $('#attribute_2_'+variant_id).select2();
                 $('#attribute_2_'+variant_id).val(secondAttribute).change();
-               // $('#attribute_2_'+variant_id).attr('disabled', true);
+                $('#attribute_2_'+variant_id).find('option:not(:selected)').attr('disabled', true);
               }
             });
     }

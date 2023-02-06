@@ -217,16 +217,21 @@
                   </div>
                   </div>
                   <div class="form-group producterrDiv row" >
-                    <?php for($ii=0;$ii<2;$ii++){
+                    <?php 
+                     $attrCounter = 1;
+                    for($ii=0;$ii<2;$ii++){
+                     
+                       $variantClass = ($ii % 2 ==0)? 'firstVariant': 'secondVariant';
+
                       if($ii==0){?>
                     <label class="col-md-3 product_table_heading">{{ __('lang.select_attribute_label')}} <span class="de_col"></span></label>
                   <?php }else{?>
                     <div class="col-md-3"></div>
                  <?php }?>
                     <div class="col-md-8 tj-svselect tj-newslect">
-                      <div class="row tj-wid67">
+                      <div class="row tj-wid67 tjnm-full">
                         <div class="col-sm-6">
-                          <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]"  variant_id="<?php echo $i;?>" id="<?php echo $ii?>">
+                          <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect <?php echo $variantClass; ?>" name="attribute[<?php echo $i;?>][]"  variant_id="<?php echo $i;?>" id="attribute_<?php echo $attrCounter; ?>_<?php echo $i;?>">
                             <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
                               @foreach ($attributesToSelect as $attr)
@@ -235,9 +240,10 @@
                           </select>
                           
                         </div>
+                        
                         <div class="col-sm-6">                    
                           <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
-                          class="variant2 col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" id="attribute_value<?php echo $ii?>">
+                          class="variant2 col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" id="attribute_value_<?php echo $attrCounter; ?>_<?php echo $i?>">
                             <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>
 
                           </select>                          
@@ -248,7 +254,9 @@
                     <span class="seller-logo-info col-md-10" style="font-size: 13px;padding-left:0px">Ändra eller lägg till nya egenskaper till vänster under Attribut</span>
                   <?php } ?>
                   </div>
-                <?php } ?>
+                <?php 
+                $attrCounter++;
+              } ?>
 <?php /*?>
                   <!-- new start -->
                    <!-- <div class="col-md-3"></div>

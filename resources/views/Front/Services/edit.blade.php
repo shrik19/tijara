@@ -115,7 +115,7 @@
     <div class="seller_header">
       <h2 class="seller_page_heading">{{ __('servicelang.service_form_label')}}</h2>
     </div>
-    <form id="service-form service-add-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data"> @csrf <div class="col-md-12 tjd-serviceform">
+    <form id="service-form service-add-form" class="tijara-form" action="{{route('frontServiceStore')}}" method="post" enctype="multipart/form-data"> @csrf <div class="col-md-12 tjd-serviceform tjm-newserv">
         <div class="col-md-12 text-right" style="margin-top:30px;">
           <a href="{{route('manageFrontServices')}}" title="" class="de_col">
             <span>
@@ -246,7 +246,7 @@
                            <hr class="solid-horizontal-line"> -->
           <h2 class="col-md-12 product_add_h2 tj-savepr-head"> {{ __('servicelang.step_2')}}</h2>
           <div class="form-group tj-spad">
-            <div class="row">
+            <div class="row tjm-newsermar">
               <div class="col-md-12 tj-mobnopad">
                 <div class="row">
                   <div class="form-group col-md-3 producterrDiv">

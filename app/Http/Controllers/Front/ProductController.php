@@ -567,9 +567,10 @@ class ProductController extends Controller
         }
 		$attributesError	=	0;
 
-        //echo "<pre>";
-        //print_r($_POST['attribute_value']);
-       // exit;
+    //     echo "<pre>";
+    //     print_r($_POST['attribute_value']);
+    //     print_r($_POST);
+    //    exit;
 		if(isset($_POST['attribute_value'])) { //restricted to save product when attributes not selected
             $attributesError		=	1;
 			/*if((isset($_POST['attribute_value'][0]) && ($_POST['attribute_value'][0][0]=='') || $_POST['attribute_value'][0][1]=='' )) {

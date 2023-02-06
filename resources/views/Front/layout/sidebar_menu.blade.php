@@ -28,11 +28,11 @@
     @if(Auth::guard('user')->getUser()->role_id==2)
 		<?php
 	//echo Session::get('trialPeriod');
-		if(Session::get('blockAccess') == 0 || request()->is('seller-personal-page')){
+		if(request()->is('seller-personal-page')){
 		        $activeClass = 'leftsideactivemainmenu';
         }
         else{
-        $activeClass = ' make_disabled check_seller_setting';
+        $activeClass = '';
         }
 		?>
       <li class="{{$activeClass}}"><a href="{{route('frontSellerPersonalPage')}}">{{ __('users.seller_personal_page_menu')}}</a></li>

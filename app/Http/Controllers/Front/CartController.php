@@ -3300,8 +3300,8 @@ DATA;
           $data['is_buyer_order'] = $is_buyer_order;
           $address = json_decode($checkOrder['address'],true);
           
-          $data['billingAddress'] = json_decode($address['billing'],true);
-          $data['shippingAddress'] = json_decode($address['shipping'],true);
+          $data['billingAddress'] = json_decode(@$address['billing'],true);
+          $data['shippingAddress'] = json_decode(@$address['shipping'],true);
           return view('Front/order_details', $data);
         }
       }
@@ -3583,10 +3583,10 @@ DATA;
                   $new_date = $value['new_date'];
                   $selected='';
                   if($currentDate == $key){ 
-                    $selected="selected"; 
+                    $selected="selected='selected'"; 
                   }
 
-                  $monthYearDropdown    .=  "<option  value='".$new_date."' selected='".$selected."'>$month $year</option>";
+                  $monthYearDropdown    .=  "<option  value='".$new_date."' ".$selected.">$month $year</option>";
                 }
              }else{
                  $monthYearDropdown    .= "<option value=''>".trans('lang.select_label')."</option>";  

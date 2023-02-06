@@ -334,17 +334,7 @@ class OrderController extends Controller
       $is_seller = 0;
       $is_buyer_order = 0;
       $orderDetails = [];
-	  
-	  
-	  
-      if($user_id)
-      {
-        $userRole = Auth::guard('user')->getUser()->role_id;
-        if($userRole == 2)
-        {
-          $is_seller = 1;
-        }
-        
+	         
         $OrderId = base64_decode($id);
 
         $checkOrder = Orders::where('id','=',$OrderId)->first()->toArray();
@@ -360,23 +350,16 @@ class OrderController extends Controller
             }
         }
 
-	   
         if(!empty($checkOrder))
         {
           $data['subTotal'] = $checkOrder['sub_total'];
           $data['Total'] = $checkOrder['sub_total'] +  $checkOrder['shipping_total'];//$checkOrder['total'];
           $data['shippingTotal'] = $checkOrder['shipping_total'];
 
-          if($is_seller == 0 && $checkOrder['user_id'] != $user_id && $is_buyer_order == 0) 
-          {
-			 
-            Session::flash('error', trans('errors.not_authorize_order'));
-            return redirect(route('frontHome'));
-          }
-          else
-          {
+          
 			 
               $checkExistingOrderProduct = OrdersDetails::where('order_id','=',$OrderId)->get()->toArray();
+              
               if(!empty($checkExistingOrderProduct))
               {
                   foreach($checkExistingOrderProduct as $details)
@@ -460,8 +443,7 @@ class OrderController extends Controller
                       }
                   }
               }
-              
-          }
+          
 
           $data['details'] = $orderDetails;
           $data['order'] = $checkOrder;
@@ -473,15 +455,12 @@ class OrderController extends Controller
           $data['shippingAddress'] = json_decode($address['shipping'],true);
           $site_details          = Settings::first();
           $data['siteDetails']   = $site_details;
+
          // return view('Admin/Orders/download_order_details', $data);
           $pdf = PDF::loadView('Admin/Orders/download_order_details',$data);
+          
           return $pdf->download('order-#'.$OrderId.'.pdf');
-        }
-      }
-      else 
-      {
-          Session::flash('error', trans('errors.login_buyer_required'));
-          return redirect(route('frontLogin'));
-      }
+          exit;
+        }      
     }
 }

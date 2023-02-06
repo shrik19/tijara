@@ -229,9 +229,19 @@
                                   }
                                    
                               ?>
-									   @php $j=0; @endphp	
+									   @php 
+                        $j=0;
+                        $attrCounter = 1;
+                      @endphp	
                                        @foreach($variant['attributes'] as $key=>$value)
-									   @php  $j++; @endphp	
+									   @php  
+                           $variantClass = ($key % 2 ==0)? 'firstVariant': 'secondVariant';
+                          
+                           if($attrCounter == 3)
+                           {
+                            $attrCounter =1;
+                           }
+                     @endphp	
                                         <input type="hidden" name="variant_attribute_id[<?php echo $i;?>][]" value="{{$value['id']}}" class="variant_attribute_id">
                                     <?php
 
@@ -243,10 +253,10 @@
                                  <?php }?>
                                 
                                     <div class="col-md-8 tj-svselect tj-newslect">
-                                      <div class="row tj-wid67">
+                                      <div class="row tj-wid67 tjnm-full">
                                         <div class="col-sm-6">
                                          <!---- <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>"> --->
-										 <select id="<?php echo $j;?>" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
+										 <select id="attribute_<?php echo $attrCounter; ?>_<?php echo $i;?>" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect <?php echo $variantClass; ?>" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
                                             <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
 
                                               @foreach ($attributesToSelect as $attr)
@@ -261,7 +271,7 @@
                                           </select>
                                         </div>
                                         <div class="col-sm-6">
-                                          <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" id="attribute_value<?php echo $j?>">
+                                          <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" id="attribute_value_<?php echo $attrCounter; ?>_<?php echo $i?>">
                                             <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}  (ex röd)</option>
 
                                           </select>
@@ -276,8 +286,16 @@
                                       <span class="seller-logo-info col-md-12" style="font-size: 13px; padding:7px 0px 7px 0px;">{{ __('messages.add_attribute_info')}}</span>
                                     <?php } ?>
                                       </div>
-                                     
+                                       @php
+                                         
+                                          $attrCounter++;
+                                         @endphp
                                          @endforeach
+                                         @php
+                                         
+                                         $j++;
+                                         @endphp
+                                           
                                   </div>
 								    
                                   <div class="form-group producterrDiv row">
@@ -479,27 +497,9 @@ $( document ).ready(function() {
       var secondAttribute = $("#variant_table").find('.variant_tr:first').find('.select_attribute:eq(1)').val();
 
      $("#variant_table").find('.variant_tr').not(':first').each(function(){
-        $(this).find('.select_attribute:eq(0)').find('option').each(function(){
-          if($(this).val() != firstAttribute)
-          {
-             $(this).attr('disabled','disabled');
-          }
-          else
-          {
-            $(this).removeAttr('disabled','disabled'); 
-          }
-        });
-
-        $(this).find('.select_attribute:eq(1)').find('option').each(function(){
-          if($(this).val() != secondAttribute)
-          {
-             $(this).attr('disabled','disabled');
-          }
-          else
-          {
-            $(this).removeAttr('disabled','disabled'); 
-          }
-        });
+        $(this).find('.select_attribute:eq(0) option:not(:selected)').attr('disabled', true);	 
+        $(this).find('.select_attribute:eq(1) option:not(:selected)').attr('disabled', true);	
+       
     });
   
 });

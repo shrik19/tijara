@@ -1589,7 +1589,7 @@ $(".seller-profile-update").click(function(e){
     showErrorMessage(enter_all_fields_err);
     error = 1;
   }
- alert(error);
+ //alert(error);
   if(error == 1)
   {
     return false;

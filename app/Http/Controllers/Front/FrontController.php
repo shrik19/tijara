@@ -1974,6 +1974,7 @@ public function getCatSubList(Request $request) {
 
   function getProductOptions(Request $request)
   {
+	// print_r($request);
 	$attribute_id = $request->attribute_id;
 	$attribute_value = $request->attribute_value;
 	$product_id = $request->product_id;
@@ -1984,6 +1985,7 @@ public function getCatSubList(Request $request) {
 											->join('products', 'variant_product.product_id', '=', 'products.id')
 											->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*','variant_product.*','products.discount')
 											->where([['variant_product_attribute.attribute_id','=',$attribute_id],['attribute_value_id','=',$attribute_value],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
+											
 	if(!empty($attributeDetails[0]['discount']))
 	{
 		$discount = number_format((($attributeDetails[0]['price'] * $attributeDetails[0]['discount']) / 100),2,'.','');
@@ -1996,9 +1998,17 @@ public function getCatSubList(Request $request) {
 	
 	$attributeDetails[0]['discount_price'] = $discount_price;
 	
+	//\DB::enableQueryLog();
+	
 	$otherAttributeDetails = VariantProductAttribute::join('attributes', 'attributes.id', '=', 'variant_product_attribute.attribute_id')->join('attributes_values', 'attributes_values.id', '=', 'variant_product_attribute.attribute_value_id')
 	->select('attributes.name as attribute_name','attributes.type as attribute_type','attributes_values.attribute_values','variant_product_attribute.*')
 	->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();	
+	
+	/* echo '<pre>';
+	print_r($otherAttributeDetails[0]);
+	echo '</pre>'; */
+	
+	//dd(\DB::getQueryLog());
 			
 	if(!empty($otherAttributeDetails))
 	{
@@ -2014,7 +2024,12 @@ public function getCatSubList(Request $request) {
 		->where([['variant_product_attribute.attribute_id','<>',$attribute_id],['variant_product_attribute.variant_id','=',$attributeDetails[0]['variant_id']],['variant_product_attribute.product_id','=',$product_id]])->get()->toArray();
 	}
 
-	echo json_encode(['other_option' => $getOtherAvailableOptions, 'current_variant' => $attributeDetails[0]]);
+	/* echo '<pre>';
+	print_r($getOtherAvailableOptions);
+	echo '</pre>'; */
+
+echo json_encode(['other_option' => $otherAttributeDetails[0], 'current_variant' => $attributeDetails[0]]);
+	//echo json_encode(['other_option' => $getOtherAvailableOptions, 'current_variant' => $attributeDetails[0]]);
 	exit;
   }
 

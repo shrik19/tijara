@@ -769,6 +769,12 @@ function showAvailableOptions(attribute_id,attribute_value, valcheck)
       {
         $("#product_variant_price").html('<span style="margin-left: -12px;"></span><span style=" margin-left: 10px; ">'+number_format(responseObj.current_variant.price,2)+' kr</span>');
       }
+	  
+		
+			  
+	  
+	   
+	
         /*$('.attribute_value option').each(function(){
          var data_variant  = $(this).attr("data-variant");
           if(responseObj.current_variant.variant_id==data_variant){
@@ -825,18 +831,21 @@ function showAvailableOptions(attribute_id,attribute_value, valcheck)
       
       
       
-      /*var optionLength = responseObj.other_option.length;
-     // alert(optionLength)
+      var optionLength = responseObj.other_option;
+      
       $(responseObj.other_option).each(function(key,option)
       {
         if(option.attribute_type == 'dropdown')
         {
-          $("."+option.attribute_id+" option").attr('disabled','disabled');
-          $("."+option.attribute_id+" option[value='"+option.attribute_value_id+"']").removeAttr('disabled');
-          if(optionLength == 1)
+		 // alert($("."+option.attribute_id+" option[value='"+option.attribute_value_id+"']").val());
+		 $('.2').empty().append('<option selected="selected" value='+option.attribute_value_id+'">'+option.attribute_values
++'</option>');
+         // $("."+option.attribute_id+" option").attr('disabled','disabled');
+          //$("."+option.attribute_id+" option[value='"+option.attribute_value_id+"']").removeAttr('disabled');
+         /*  if(optionLength == 1)
           {
             $("."+option.attribute_id+" option[value='"+option.attribute_value_id+"']").attr('selected','selected');
-          }
+          } */
           
         }
         else if(option.attribute_type == 'radio')
@@ -850,7 +859,7 @@ function showAvailableOptions(attribute_id,attribute_value, valcheck)
             $("#"+option.attribute_value_id).prop('checked',true);
           }
         }
-      });*/
+      });
       $(".loader").hide();
     }
   });

@@ -1454,7 +1454,9 @@ $(".seller-profile-update").click(function(e){
   var city   = $("#city").val();
   var country   = $("#country").val();
   var email     = $("#email").val();
-  var email_pattern = '/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i';
+ // var email_pattern = '/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i';
+ 
+  var email_pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
   var pick_up_address     = $("#store_pick_address").val();
   var shipping_method_ddl = $("#shipping_method_ddl").val();
   var shipping_charges    = $("#shipping_charges").val();
@@ -1471,6 +1473,7 @@ $(".seller-profile-update").click(function(e){
     $("#err_fname").html('').show();
 
   }
+
   if(lname == '')
   {
     $("#err_lname").html(fill_in_last_name_err).show();
@@ -1481,13 +1484,14 @@ $(".seller-profile-update").click(function(e){
   {
     $("#err_lname").html('');
   }
+  
   if(email == '')
   {
     $("#err_email").html(fill_in_email_err).show();
     $("#err_email").parent().addClass('jt-error');
     error = 1;
   }
-  else if(!email_pattern.test(email))
+    else if(!email_pattern.test(email))
   {
     $("#err_email").html(fill_in_valid_email_err).show();
     $("#err_email").parent().addClass('jt-error');
@@ -1585,7 +1589,7 @@ $(".seller-profile-update").click(function(e){
     showErrorMessage(enter_all_fields_err);
     error = 1;
   }
-
+ //alert(error);
   if(error == 1)
   {
     return false;

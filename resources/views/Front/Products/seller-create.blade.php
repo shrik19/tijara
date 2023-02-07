@@ -230,7 +230,7 @@
                  <?php }?>
                     <div class="col-md-8 tj-svselect tj-newslect">
                       <div class="row tj-wid67 tjnm-full">
-                        <div class="col-sm-6">
+                        <div class="col-xs-6">
                           <select style="width: 32%;" class="col-md-4 ge_input select_attribute tjselect <?php echo $variantClass; ?>" name="attribute[<?php echo $i;?>][]"  variant_id="<?php echo $i;?>" id="attribute_<?php echo $attrCounter; ?>_<?php echo $i;?>">
                             <option value=""> {{ __('lang.attribute_label')}} (ex färg)</option>
 
@@ -241,7 +241,7 @@
                           
                         </div>
                         
-                        <div class="col-sm-6">                    
+                        <div class="col-xs-6">                    
                           <select style="margin-left: 10px;width: 34%;" selected_attribute_value="" 
                           class="variant2 col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" variant_id="<?php echo $i;?>" id="attribute_value_<?php echo $attrCounter; ?>_<?php echo $i?>">
                             <option value="">{{ __('lang.attribute_value_label')}} (ex röd)</option>

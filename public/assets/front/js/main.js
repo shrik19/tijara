@@ -340,13 +340,13 @@ function duplicateVariant()
     <label class="col-md-3 product_table_heading">Egenskaper <span class="de_col"></span></label>
                                   
     <div class="col-md-8 tj-svselect tj-newslect">
-      <div class="row tj-wid67">
-        <div class="col-sm-6">
+      <div class="row tj-wid67 tjnm-full">
+        <div class="col-xs-6">
         <select id="attribute_1_${variant_id}" style="  width: 34%;" class="col-md-4 ge_input select_attribute tjselect firstVariant select2-hidden-accessible" name="attribute[${variant_id}][]" variant_id="0" tabindex="-1" aria-hidden="true">
         ${firstAttributeHtml}
             </select>
         </div>
-        <div class="col-sm-6">
+        <div class="col-xs-6">
           <select style="margin-left: 10px; width: 32%;" attribute_id="1" selected_attribute_value="2" class="1254 col-md-4 ge_input select_attribute_value tjselect select2-hidden-accessible" name="attribute_value[${variant_id}][]" id="attribute_value_1_${variant_id}" tabindex="-1" aria-hidden="true">          
           </select>
         </div>
@@ -359,12 +359,12 @@ function duplicateVariant()
                                         <div class="col-md-3"></div>
                                  
     <div class="col-md-8 tj-svselect tj-newslect">
-      <div class="row tj-wid67">
-        <div class="col-sm-6">
+      <div class="row tj-wid67 tjnm-full">
+        <div class="col-xs-6">
         <select id="attribute_2_${variant_id}"" style="  width: 34%;" class="col-md-4 ge_input select_attribute tjselect secondVariant select2-hidden-accessible" name="attribute[${variant_id}][]" variant_id="0" tabindex="-1" aria-hidden="true">${secondAttributeHtml}</select>
                    
         </div>
-        <div class="col-sm-6">
+        <div class="col-xs-6">
           <select style="margin-left: 10px; width: 32%;" attribute_id="2" selected_attribute_value="12" class="1255 col-md-4 ge_input select_attribute_value tjselect select2-hidden-accessible" name="attribute_value[${variant_id}][]" id="attribute_value_2_${variant_id}" tabindex="-1" aria-hidden="true"></select>          
         </div>
       </div>    

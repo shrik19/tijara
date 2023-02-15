@@ -201,6 +201,7 @@ function checkStoreName(){
 		return false;
 	}
     if(store_name!=''){
+		
         $.ajax({
           url: "{{url('/')}}"+'/admin/seller/checkstore/?store_name='+store_name+'&id='+seller_id,
           type: 'get',
@@ -208,9 +209,24 @@ function checkStoreName(){
           success: function(output){
             if(output !=''){
              showErrorMessage(output);
+			 alert("if");
             }else{
                 //alert(store_name_is_verified);
-                showSuccessMessageReview(store_name_is_verified);
+                //showSuccessMessageReview(store_name_is_verified);
+				
+				$.alert({
+                title: 'Klart!',
+                content: store_name_is_verified,
+                type: 'orange',
+                typeAnimated: true,
+                columnClass: 'medium',
+                icon : "fas fa-check-circle",
+                buttons: {
+                  Ok: function () {					  
+					$(".alert").alert('close')
+                  },
+                }
+              });
             }
             }
         });
@@ -234,7 +250,7 @@ function checkStoreName(){
           data: {},
           success: function(output){
             if(output !=''){
-             showErrorMessage(output,);
+             showErrorMessage(output);
              err=1;
             }else{
                err=0;

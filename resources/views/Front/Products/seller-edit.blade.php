@@ -254,7 +254,7 @@
                                 
                                     <div class="col-md-8 tj-svselect tj-newslect">
                                       <div class="row tj-wid67 tjnm-full">
-                                        <div class="col-sm-6">
+                                        <div class="col-xs-6">
                                          <!---- <select id="{{$attribute['id']}}" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>"> --->
 										 <select id="attribute_<?php echo $attrCounter; ?>_<?php echo $i;?>" style="  width: 34%;"  class="col-md-4 ge_input select_attribute tjselect <?php echo $variantClass; ?>" name="attribute[<?php echo $i;?>][]" variant_id="<?php echo $i;?>">
                                             <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_label')}}</option>
@@ -270,7 +270,7 @@
                                               @endforeach
                                           </select>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-xs-6">
                                           <select style="margin-left: 10px; width: 32%;" attribute_id="{{ $value['attribute_id'] }}" selected_attribute_value="{{$value['attribute_value_id']}}" class="{{$value['id']}} col-md-4 ge_input select_attribute_value tjselect" name="attribute_value[<?php echo $i;?>][]" id="attribute_value_<?php echo $attrCounter; ?>_<?php echo $i?>">
                                             <option value="">{{ __('lang.select_label')}} {{ __('lang.attribute_value_label')}}  (ex röd)</option>
 

@@ -2651,7 +2651,7 @@ $('body').on('change', '.service_image', function () {
 
 function showSuccessMessageReview(strContent,redirect_url)
 {
-	alert(redirect_url);
+	//alert(redirect_url);
   $.alert({
       title: "Klart!",
       content: strContent,

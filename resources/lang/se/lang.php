@@ -216,6 +216,8 @@
      'sort_by_name'=>'Namn',
      'sort_by_price'=>'Pris',
      'sort_by_rating' => 'Betyg',
+	 'report_lbl' => 'E-Post',
+	 
      'sort_by_option'=>'Välj alternativ',
      'trending_service_head' =>  'Trendiga tjänster',
      'sort_by_order'=>'Sorteringsordning',

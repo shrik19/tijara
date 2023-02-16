@@ -2658,7 +2658,7 @@ DATA;
         ">Butik: '.$GetSeller['store_name'].'</p>
         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Ordernummer: #'.$checkExisting['id'].' </p>
         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Beställningsdatum: '.$created_date.' </p>
-         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Swishnumer: '.$GetSeller['seller_swish_number'].' </p>';
+         <p style="font-size: 20px; font-weight: 400; text-align: left;margin:10px 0; ">Swishnummer: '.$GetSeller['seller_swish_number'].' </p>';
 
         $GetEmailContents = getEmailContents('Order Success');
         $subject = $GetEmailContents['subject'];

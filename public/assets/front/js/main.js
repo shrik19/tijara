@@ -1159,7 +1159,7 @@ $(".saveBuyerProduct").click(function(e){
   var price               = $("#price").val();
   var variant_image               = $(".variant_image").val();
   var hidden_images       = $(".hidden_images").val();
-  var email_pattern =    '/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i';
+  var email_pattern =    /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
   var error               = 0;
 
 

@@ -815,7 +815,7 @@ class AuthController extends Controller
               ->orderByRaw('user_packages.id DESC')
               ->first();
 			  
-	/* 	echo "<pre>";
+		/* echo "<pre>";
 		print_r($userdetails);		
 		echo "</pre>"; */
 		
@@ -830,12 +830,12 @@ class AuthController extends Controller
 		/* 
 		prev condn
 		else if(($userdetails->is_trial=='0' && $userdetails->trial_end_date<=$currentDate && $userdetails->trial_end_date != '0000-00-00 00:00:00')||( $userdetails->end_date<=$currentDate && $userdetails->payment_status 
-            !='CAPTURED') ) 
-		else if($userdetails->payment_status !='CAPTURED' || $userdetails->is_trial!='0')	
+            !='CAPTURED') ) */
+		else if(($userdetails->payment_status !='CAPTURED') || ($userdetails->is_trial!='0') || ($userdetails->end_date<=$currentDate) || ($userdetails->trial_end_date != '0000-00-00 00:00:00'))	
 		{
 			Session::put('trialPeriod', $userdetails->is_trial);
             $errorMsg = trans('errors.no_active_package');
-        }*/
+        }
         else{
             $successMsg = 'fname and lname are filled';
         }

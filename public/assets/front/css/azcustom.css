@@ -12,6 +12,14 @@
     padding-left: 0px!important;
     margin-left: 0px!important;
 }
+@media(min-width:1921px){
+	.product_container-list-5 .product_details li:nth-of-type(5n+1) {
+	    clear:left;
+	}
+	.product_listings .product_details li:nth-child(4n+1), .service_listings .product_details li:nth-child(4n+1){
+	    clear:left;
+	}
+}
 .tj-prodhead-block{
   display: flex;
 }
@@ -916,7 +924,7 @@
   }
   .product_img_wrapper>.product_data>.product_img>img {
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     min-width: 20px;
     min-height: 20px;
     position: absolute;

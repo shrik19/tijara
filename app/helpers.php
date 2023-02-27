@@ -83,7 +83,12 @@ function getWishlistProducts($userId)
       }
     }
   }
-  return count($allWishlistProducts);
+
+  $allWishlistServices = Wishlist::join('services', 'wishlist.service_id', '=', 'services.id')->where('services.is_deleted','=',0)->where('services.status','=',"active")->where('wishlist.user_id','=',$userId)->get()->toArray();
+
+  
+
+  return count($allWishlistProducts) + count($allWishlistServices);
 }
 
 function checkPackageSubscribe($userId)

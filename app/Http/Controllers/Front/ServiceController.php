@@ -1166,7 +1166,7 @@ class ServiceController extends Controller
                             ->join('service_requests', 'services.id', '=', 'service_requests.service_id')
                             ->where('service_requests.id', '=', $id)
                             ->where('service_requests.user_id', '=', Auth::guard('user')->id())->first();
-		
+       
 		$sellerInfo = Services::join('users', 'users.id', '=', 'services.user_id')							
 							->where('services.id', '=', $service_request->service_id)->first();
 		
@@ -1185,7 +1185,7 @@ class ServiceController extends Controller
         //$service_time =   date('Y-m-d H:i:s',strtotime($service_time));
         $seller =   $service_request->fname;
 		
-		$booking_date =   date('Y-m-d',strtotime($created_at));
+		$booking_date =   date('Y-m-d',strtotime($service_request->created_at));
         
         $GetEmailContents = getEmailContents('Delete Service Request');
         $subject      = $GetEmailContents['subject'];

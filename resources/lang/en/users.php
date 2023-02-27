@@ -299,7 +299,7 @@
     'buyer_profile_update_title' =>'My profile',
     'location_label' => 'Location',
     'select_profile_picture' =>'Select profile picture',
-    'my_order_title' => 'My Orders',
+    'my_order_title' => 'Orders',
     'my_booking_title' => 'My Booking',
     'verify_store' => 'Please verify Store',
     'cancel_service' => 'Cancel',

@@ -1184,6 +1184,8 @@ class ServiceController extends Controller
         $service_time=  $service_request->service_time;
         //$service_time =   date('Y-m-d H:i:s',strtotime($service_time));
         $seller =   $service_request->fname;
+		
+		$booking_date =   date('Y-m-d',strtotime($created_at));
         
         $GetEmailContents = getEmailContents('Delete Service Request');
         $subject      = $GetEmailContents['subject'];
@@ -1196,9 +1198,9 @@ class ServiceController extends Controller
         $linkdin_link = env('LINKDIN_LINK');
         $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
         ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
-            '##CUSTOMERADDRESS##','##SELLER##','##PHONE##'],
+            '##CUSTOMERADDRESS##','##SELLER##','##PHONE##','##BOOKINGDATE##'],
         [$customername,$seller,$service,$service_time,$service_date,$service_request->location,
-        $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername,$seller_phone_number],$contents);
+        $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername,$seller_phone_number,$booking_date],$contents);
 
         $arrMailData = ['email_body' => $contents];
 

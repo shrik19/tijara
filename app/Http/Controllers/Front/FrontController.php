@@ -2604,7 +2604,8 @@ echo json_encode(['other_option' => $otherAttributeDetails[0], 'current_variant'
 		date_default_timezone_set("Europe/Stockholm");  
         $service_date_time_swedish = date('Y-m-d g:i a',strtotime("$service_date_time UTC"));
 
-		
+		$booking_date = date('Y-m-d',strtotime($request->input('created_at')));
+
 		$seller	=	$service_request->fname;
 		
 
@@ -2617,11 +2618,18 @@ echo json_encode(['other_option' => $otherAttributeDetails[0], 'current_variant'
         $fb_link      = env('FACEBOOK_LINK');
         $insta_link   = env('INSTAGRAM_LINK');
         $linkdin_link = env('LINKDIN_LINK');
-        $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
+        /* $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
 		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
 			'##CUSTOMERADDRESS##','##SELLER##','##SWEDISHDATETIME##','##PHONE##'],
 		[$customername1,$customername,$service,$service_time,$service_date,$request->input('location'),
-		$request->input('service_price'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername, $service_date_time_swedish,$seller_phone_number],$contents);
+		$request->input('service_price'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername, $service_date_time_swedish,$seller_phone_number],$contents); */
+		
+		 $contents = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
+		,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
+			'##CUSTOMERADDRESS##','##SELLER##','##SWEDISHDATETIME##','##PHONE##','##BOOKINGDATE##'],
+		[$customername1,$customername,$service,$service_time,$service_date,$request->input('location'),
+		$request->input('service_price'),url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername, $service_date_time_swedish,$seller_phone_number,$booking_date],$contents);
+		
 
         $arrMailData = ['email_body' => $contents];
 

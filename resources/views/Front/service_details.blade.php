@@ -360,7 +360,7 @@
                   <input type="hidden" name="service_id" class="service_id" id="service_id" value="">
 
                 <div class="form-group">
-                  <label>{{ __('lang.sort_by_rating')}} <span class="text-danger">*</span></label>
+                  <label>{{ __('lang.report_lbl')}} <span class="text-danger">*</span></label>
                 
                   <input type="text" name="user_email" class="form-control user_email" id="user_email" placeholder="{{ __('users.email_label')}}" value="" style="width: 500px;">
                    <span class="invalid-feedback col-md-12"  id="err_email" ></span>

@@ -209,6 +209,7 @@
      'sort_by_price'=>'Price',
      'sort_by_rating' => 'Ratings',
      'sort_by_option'=>'Select Option',
+	 'report_lbl' => 'E-mail',
 
      'sort_by_order'=>'Sort Order',
      'sort_by_asc'=>'Ascending',

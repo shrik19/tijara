@@ -833,7 +833,7 @@ class AuthController extends Controller
 		//else if(($userdetails->payment_status !='CAPTURED') || ($userdetails->is_trial!='0') || ($userdetails->end_date<=$currentDate) || ($userdetails->trial_end_date != '0000-00-00 00:00:00'))	
 		{
 			Session::put('trialPeriod', $userdetails->is_trial);
-            $errorMsg = trans('errors.errors.seller_account_freeze');
+            $errorMsg = trans('errors.seller_account_freeze');
         }
         else{
             $successMsg = 'fname and lname are filled';

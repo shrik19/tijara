@@ -496,8 +496,8 @@ $(function() {
 
   var seller_account_freeze     = "{{trans('errors.seller_account_freeze')}}";
   var is_disabled = $("#disable_side_menu").val();
-
-  if(is_disabled==1 && ( $("#card_name").text() =="" || $("#seller_card_number").text() =="" || $("#seller_card_expiry").text() =="")){
+//commented by shrik to avoid duplicate error messages
+ /* if(is_disabled==1 && ( $("#card_name").text() =="" || $("#seller_card_number").text() =="" || $("#seller_card_expiry").text() =="")){
      showErrorMessage(seller_account_freeze);
      $('#header_user_menu').attr('href',siteUrl+"/seller-profile");
     $('.check_seller_setting').attr( "disabled", "disabled" );
@@ -509,7 +509,7 @@ $(function() {
     $('.seller_cat_list li.make_disabled').on('click', function(event) {
       event.preventDefault();
     });
-  }
+  }*/
 
 </script>
 

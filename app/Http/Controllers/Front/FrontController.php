@@ -2061,7 +2061,7 @@ echo json_encode(['other_option' => $otherAttributeDetails[0], 'current_variant'
 
 								->where(function($q) use ($currentDate) {
 
-									$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+									$q->where([["users.role_id",'=',"2"],['user_packages.payment_status','=','CAPTURED'],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 									->orwhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);									
 									});
 

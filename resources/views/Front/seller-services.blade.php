@@ -443,9 +443,11 @@ $(".sellerSearchBtn").click(function(e){
 	});
 $( "#seller_product_filter" ).keyup(function() {
 
-     get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
+  if (event.key === "Enter") {
+    get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),'',$(".current_search_string").text(),$("#seller_product_filter").val(),window.location.pathname) ;
      get_service_count();
+  }  
 });
 
 function listService() {

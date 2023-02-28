@@ -500,10 +500,11 @@ $(".sellerSearchBtn").click(function(e){
 	 }
 	});
 $( "#seller_product_filter" ).keyup(function() {
+  if (event.key === "Enter") {
     get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
     $('.current_sellers').text(),$('#price_filter').val(),'',$(".search_now_input").val(),$("#seller_product_filter").val(),$(".current_role_id").text(),window.location.pathname);
     get_product_count();
-  
+  }
 });
 
 function listProducts(){

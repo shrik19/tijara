@@ -827,11 +827,10 @@ class AuthController extends Controller
         } else if(empty($userdetails->lname)){
             $errorMsg = trans('errors.fill_in_last_name_err');
         } 
-		/* 
-		prev condn
-		else if(($userdetails->is_trial=='0' && $userdetails->trial_end_date<=$currentDate && $userdetails->trial_end_date != '0000-00-00 00:00:00')||( $userdetails->end_date<=$currentDate && $userdetails->payment_status 
-            !='CAPTURED') ) */
-		else if(($userdetails->payment_status !='CAPTURED') || ($userdetails->is_trial!='0') || ($userdetails->end_date<=$currentDate) || ($userdetails->trial_end_date != '0000-00-00 00:00:00'))	
+		 
+		//prev condn
+		else if(($userdetails->is_trial=='1' && $userdetails->trial_end_date<=$currentDate && $userdetails->trial_end_date != '0000-00-00 00:00:00')||( $userdetails->end_date<=$currentDate && $userdetails->payment_status !='CAPTURED')) 
+		//else if(($userdetails->payment_status !='CAPTURED') || ($userdetails->is_trial!='0') || ($userdetails->end_date<=$currentDate) || ($userdetails->trial_end_date != '0000-00-00 00:00:00'))	
 		{
 			Session::put('trialPeriod', $userdetails->is_trial);
             $errorMsg = trans('errors.no_active_package');

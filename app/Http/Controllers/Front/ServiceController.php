@@ -1184,9 +1184,9 @@ class ServiceController extends Controller
         $service_time=  $service_request->service_time;
         //$service_time =   date('Y-m-d H:i:s',strtotime($service_time));
         $seller =   $service_request->fname;
-		
-		$booking_date =   date('Y-m-d',strtotime($service_request->created_at));
-        
+	
+		$booking_date =   date('Y-m-d',strtotime($service_request->created_at ." UTC") );
+  
         $GetEmailContents = getEmailContents('Delete Service Request');
         $subject      = $GetEmailContents['subject'];
         $contents     = $GetEmailContents['contents'];

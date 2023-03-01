@@ -2613,8 +2613,9 @@ echo json_encode(['other_option' => $otherAttributeDetails[0], 'current_variant'
 		date_default_timezone_set("Europe/Stockholm");  
         $service_date_time_swedish = date('Y-m-d g:i a',strtotime("$service_date_time UTC"));
 
-		$booking_date = date('Y-m-d',strtotime($request->input('created_at')));
-
+		$booking_date = date('Y-m-d',strtotime($request->input('created_at')." UTC"));
+		//echo $booking_date;
+		//die;
 		$seller	=	$service_request->fname;
 		
 

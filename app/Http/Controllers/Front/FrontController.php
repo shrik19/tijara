@@ -1238,14 +1238,17 @@ public function getCatSubList(Request $request) {
     	//echo "<pre>---".print_r($request->category_slug);exit;
     	$category_slug=$request->category_slug;
     	$subcategory_slug=$request->$subcategory_slug;
+		$is_product_listing = 0;
     	if($request->hidden_type == "products" || empty($request->hidden_type)){
-
+			$is_product_listing = 1;
     		$store_name = str_replace('-', " ", $store_name);		
-			$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
+			$seller_user = $Seller = UserMain::where('store_name',$store_name)->first()->toArray();	
+			
 			$seller_id = base64_encode($seller_user['id']);		
 			
 			$data = [];
 			$data['hidden_type'] = $request->hidden_type;
+			$data['is_product_listing'] = $is_product_listing;
 	    	$data['path'] = @$request->path;
 	        $data['pageTitle'] 	= 'Sellers Products';
 			
@@ -1257,7 +1260,7 @@ public function getCatSubList(Request $request) {
 			$subcategory_slug = $request->subcategory_slug;
 			$data['PopularProducts']	= $this->getPopularProducts(config('constants.Products_limits'),$category_slug,$subcategory_slug);
 			
-			$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
+			//$data['ServiceCategories']	= $this->getServiceCategorySubcategoryList();
 	    	$data['category_slug']		=	'';
 			$data['subcategory_slug']	=	'';
 			$store_name = str_replace( array( '\'', '"', 
@@ -1268,7 +1271,8 @@ public function getCatSubList(Request $request) {
 			$id = base64_decode($seller_id);
 			$data['seller_id']			=	$id;
 			
-			$Seller = UserMain::where('id',$id)->first()->toArray();
+			//$Seller = UserMain::where('id',$id)->first()->toArray();
+			
 			$data['seller_name']		=	$Seller['fname'].' '.$Seller['lname'];
 			$data['store_name']			= 	$Seller['store_name'];
 			$data['description']		= 	$Seller['description'];
@@ -1278,7 +1282,9 @@ public function getCatSubList(Request $request) {
 			$data['seller_name_url']		=	$store_name = str_replace(" ", '-', $store_name);	
 			$data['header_image']       = '';
 			$data['logo']       = '';
-			$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
+			$sellerImages = $getTerms = SellerPersonalPage::where('user_id',$id)->first();
+			
+			
 			if(!empty($sellerImages))
 			{
 				$sellerImages = $sellerImages->toArray();
@@ -1352,8 +1358,8 @@ public function getCatSubList(Request $request) {
 	    	/*get product review*/   	
 			$data['productReviews']= $this->getReviews('products',$id,'');
 
-	    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
-
+	    	//$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+			
 	    	$data['all_cat_link'] = url('/')."/products";
 	    	if(!empty($category_slug)){
 		    	$getCategoryName = Categories::where('category_slug','like', '%' .$category_slug.'%')->first();

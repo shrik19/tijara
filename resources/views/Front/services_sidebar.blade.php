@@ -39,35 +39,6 @@
   </ul>
 </div>
 @endif
-
-<div class="category_list_box show_product_cat_sidebar" style="display: none">
-  <h2 style="display:none;">{{ __('lang.categories_head')}}</h2>
-  <ul class="seller_cat_list">
-    @php $i=0; @endphp
-
-    @foreach($Categories as $CategoryId=>$Category)
-      @php 
-        $i++;
-        $cls='';
-        if($category_slug==$Category['category_slug'])
-        $cls  =       'activemaincategory';
-        
-      @endphp
-<!--else if($category_slug=='' && $i==1) $cls  =       'activemaincategory';-->
-      @if(!empty($Categories[$CategoryId]['subcategory']))
-        <li class="expandCollapseSubcategory <?php echo $cls; ?>"  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug']}}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/products/{{ $Category['category_slug'] }}" @endif aria-expanded="true" aria-controls="collapseOne"><a @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/products/{{ $Category['category_slug'] }}" @endif>{{$Category['category_name']}}<span style="float: right;" id="productCount_{{$i}}">@if(!empty(Request::segment(4))){{count($Categories[$CategoryId]['subcategory'])}}@endif</span></a></li>
-
-        <ul id="subcategories<?php echo $i; ?>" class="subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
-        @foreach($Categories[$CategoryId]['subcategory'] as $subcategory)
-          <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/products/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
-        @endforeach
-        </ul>
-      @endif
-    @endforeach
-  </ul>
-  <div>&nbsp;</div>
-</div>
-
 <div>
 
 <div>&nbsp;</div>

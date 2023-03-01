@@ -64,41 +64,9 @@
   </ul>
 </div>
 
-  <div class="category_list_box show_service_cat_sidebar"  id="accordion" style="display: none">
-  <h2 style="display:none;" class="">{{ __('lang.service_categories_head')}}</h2>
-  <ul class="seller_cat_list">
-
-  @php $j=0; @endphp
-
-  @foreach($ServiceCategories as $CategoryId=>$Category)
-    @php 
-      $j++;
-      $cls='';
-      if($category_slug==$Category['category_slug'])
-        $cls  =       'activeservicemaincategory';
-      
-    @endphp
-<?/*else if( $j==1) $cls  =       'activeservicemaincategory';*/?>
-    @if(!empty($ServiceCategories[$CategoryId]['subcategory']))
-      <li class="expandCollapseServiceSubcategory <?php echo $j; ?> <?php echo $cls; ?>"  href="{{url('/')}}/services/{{ $Category['category_slug'] }}" aria-expanded="true" aria-controls="collapseOne"><a href="{{url('/')}}/services/{{ $Category['category_slug'] }}">{{$Category['category_name']}} <span style="float: right;" id="serviceCount_{{$j}}"></span></a></li>
-
-      <ul id="servicesubcategories<?php echo $j; ?>" class="service_subcategories_list  panel-collapse collapse <?php if($cls!='') echo'in activeservicesubcategories'; ?>"  role="tabpanel" aria-labelledby="headingOne" style="">
-      @foreach($ServiceCategories[$CategoryId]['subcategory'] as $subcategory)
-      <li style="list-style: none;" ><a @if($subcategory_slug==$subcategory['subcategory_slug']) class="activeservicesubcategory" @endif  @if(empty($is_seller)) href="{{url('/')}}/services/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @else href="{{url('/')}}/seller/{{ $link_seller_name }}/services/{{ $Category['category_slug'] }}/{{ $subcategory['subcategory_slug'] }}" @endif>{{ $subcategory['subcategory_name'] }}</a></li>
-      @endforeach
-      </ul>
-    @endif
-  @endforeach
-  </ul>
-  <div>&nbsp;</div>
-
-
   
 
-
-  </div>
-
-<div >
+<div>
 
 <div>&nbsp;</div>
   @if(Request::path() != "/" && Request::segment(3) !='products' && Request::segment(3) !='services')

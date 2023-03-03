@@ -1186,7 +1186,7 @@ class ServiceController extends Controller
         $seller =   $service_request->fname;
 	
 		    $booking_date =   date('Y-m-d',strtotime($service_request->created_at ." UTC") );
-        echo $booking_date;
+        //echo $booking_date;
         $GetEmailContents = getEmailContents('Delete Service Request');
         $subject      = $GetEmailContents['subject'];
         $contents     = $GetEmailContents['contents'];
@@ -1201,8 +1201,8 @@ class ServiceController extends Controller
             '##CUSTOMERADDRESS##','##SELLER##','##PHONE##','##BOOKINGDATE##'],
         [$customername,$seller,$service,$service_time,$service_date,$service_request->location,
         $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername,$seller_phone_number,$booking_date],$contents);
-        echo "<br>".$contents;
-        die;
+       // echo "<br>".$contents;
+        //die;
         $arrMailData = ['email_body' => $contents];
 
         Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$seller,$subject) {
@@ -1216,9 +1216,9 @@ class ServiceController extends Controller
         $contents_buyer = $GetEmailContents['contents'];
         $contents_buyer = str_replace(['##CUSTOMERNAME##', '##NAME##','##SERVICE##','##SERVICETIME##'
         ,'##SERVICEDATE##','##SERVICELOCATION##','##SERVICECOST##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##',
-            '##CUSTOMERADDRESS##','##SELLER##','##PHONE##'],
+            '##CUSTOMERADDRESS##','##SELLER##','##PHONE##','##BOOKINGDATE##'],
         [$customername,$customername,$service,$service_time,$service_date,$service_request->location,
-        $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername,$seller_phone_number],$contents_buyer);
+        $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername,$seller_phone_number,$booking_date],$contents_buyer);
 
         $arrMailDataBuyer = ['email_body' => $contents_buyer];
         Mail::send('emails/dynamic_email_template', $arrMailDataBuyer, function($message) use ($buyer_email,$customername,$subject) {

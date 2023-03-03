@@ -80,7 +80,7 @@ class AuthController extends Controller
 		else if(Session::get('trialPeriod') != 0)
 		{
 			 //return redirect(route('seller-profile'));
-             return redirect(route('frontSellerProfile'));
+            return redirect(route('frontSellerProfile'));
 		}	
         return view('Front/login', $data);
     }

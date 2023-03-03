@@ -50,6 +50,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        return parent::render($request, $exception);
+        if ($exception) {
+            
+            return response()->view('errors.custom');
+        }
+
+       // return parent::render($request, $exception);
     }
 }

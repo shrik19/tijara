@@ -1831,20 +1831,20 @@ if($('.product_listings').length>0) {
   //showProductsServices("sjhdh",'/front-login/buyer');
   get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
   $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
-  $(".current_search_string").text(),'',$(".current_role_id").text());
+  $(".current_search_string").text(),'',$(".current_role_id").text(),false);
   
-  $(document).on('click', '.pagination a', function(event){
+  $(document).on('click', '.product_listings .pagination a', function(event){
       event.preventDefault();
       var page = $(this).attr('href').split('page=')[1];
       get_product_listing(page,$('.current_category').text(),$('.current_subcategory').text(),
       $(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), 
-      $(".current_search_string").text(),'',$(".current_role_id").text());
+      $(".current_search_string").text(),'',$(".current_role_id").text(),true);
    });
 }
 
 
 
-function get_product_listing(page,category_slug,subcategory_slug,sellers,price,city, search_string,search_seller_product,current_role_id) {
+function get_product_listing(page,category_slug,subcategory_slug,sellers,price,city, search_string,search_seller_product,current_role_id,isPaginationClick) {
 
  var city = $('#city_name').val();
 
@@ -1866,7 +1866,13 @@ function get_product_listing(page,category_slug,subcategory_slug,sellers,price,c
       var responseObj = $.parseJSON(data);
       $('.product_listings').html(responseObj.products);
       $('.seller_list_content').html(responseObj.sellers);
-		$('html, body').animate({scrollTop: $("#myDiv").offset().top},'50');
+		  //$('html, body').animate({scrollTop: $("#myDiv").offset().top},'50');
+      
+     
+      if(isPaginationClick){
+
+        $('html, body').animate({scrollTop: $("#tjfilter").offset().top - 150},'50');
+      }
 		
       if($("#search_string").length && search_string != '')
       {
@@ -1979,11 +1985,11 @@ function get_product_listing(page,category_slug,subcategory_slug,sellers,price,c
 
 if($('.service_listings').length>0) {
   var page = 1;
-  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text());
-  $(document).on('click', '.pagination a', function(event){
+  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text(),false);
+  $(document).on('click', '.service_listings .pagination a', function(event){
       event.preventDefault();
       var page = $(this).attr('href').split('page=')[1];
-      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text());
+      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text(),true);
    });
 }
 
@@ -2040,7 +2046,7 @@ $(document).on('click', '#serviceSearchFilter', function(event){
 
 
 
-function get_service_listing(page,category_slug,subcategory_slug,sellers,price,city, search_string,search_seller_product) {
+function get_service_listing(page,category_slug,subcategory_slug,sellers,price,city, search_string,search_seller_product,isPaginationClick) {
   var sort_by_order = $("#sort_by_order").val();
   var sort_by = $("#sort_by").val();
 
@@ -2057,7 +2063,15 @@ function get_service_listing(page,category_slug,subcategory_slug,sellers,price,c
       
       $('.service_listings').html(responseObj.services);
       $('.seller_list_content').html(responseObj.sellers);
-	    $('html, body').animate({scrollTop:0},'50');
+	    //$('html, body').animate({scrollTop:0},'50');
+      
+      if(isPaginationClick){
+
+      $('html, body').animate({scrollTop: $("#tjfilter").offset().top - 150},'50');
+      }
+     
+      
+      
       if($("#search_string").length && search_string != '')
       {
         $("#search_string").val(search_string);

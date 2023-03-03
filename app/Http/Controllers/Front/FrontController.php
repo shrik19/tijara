@@ -1239,10 +1239,13 @@ public function getCatSubList(Request $request) {
     	$category_slug=$request->category_slug;
     	$subcategory_slug=$request->$subcategory_slug;
 		$is_product_listing = 0;
+		$store_name = str_replace('-', " ", $store_name);		
+		$seller_user = $Seller = UserMain::where('store_name',$store_name)->first()->toArray();	
+		
     	if($request->hidden_type == "products" || empty($request->hidden_type)){
 			$is_product_listing = 1;
-    		$store_name = str_replace('-', " ", $store_name);		
-			$seller_user = $Seller = UserMain::where('store_name',$store_name)->first()->toArray();	
+    		//$store_name = str_replace('-', " ", $store_name);		
+			//$seller_user = $Seller = UserMain::where('store_name',$store_name)->first()->toArray();	
 			
 			$seller_id = base64_encode($seller_user['id']);		
 			
@@ -1316,7 +1319,13 @@ public function getCatSubList(Request $request) {
 			}
 
 			$avgProductRating 	 = 0.00;
-			$getAllProductRatings = ProductReview::join('products','product_review.product_id','products.id','')->select(['products.id','product_review.rating as product_rating'])->where('products.user_id','=',$id)->get();
+
+			$combineRating = DB::select('SELECT (((SELECT AVG(product_review.rating) FROM products INNER JOIN product_review ON product_review.product_id=products.ID WHERE products.user_id = ?)+(SELECT AVG(service_review.rating) FROM services INNER JOIN service_review ON service_review.service_id= services.ID WHERE services.user_id=?))/2) AS avg_ratings',[$id,$id]);
+			$ratingSum = $combineRating[0]->avg_ratings;
+			
+
+
+			/*$getAllProductRatings = ProductReview::join('products','product_review.product_id','products.id','')->select(['products.id','product_review.rating as product_rating'])->where('products.user_id','=',$id)->get();
 
 			// and then you can get query log
 		
@@ -1342,9 +1351,10 @@ public function getCatSubList(Request $request) {
 				$avgServiceRating = number_format($avgServiceRating,2);	
 			}
 			$ratingSum = $avgProductRating + $avgServiceRating;
+			*/
 			$totalRating = 0.00;
 			if($ratingSum>0){
-				$totalRating = $ratingSum/2;
+				$totalRating = number_format($ratingSum,2);
 			}
 			
 	    	if($category_slug!='')
@@ -1389,8 +1399,8 @@ public function getCatSubList(Request $request) {
 	        return view('Front/seller-products', $data);
     	}else if($request->hidden_type == "services"){
 
-    		$store_name = str_replace('-', " ", $store_name);		
-			$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
+    		//$store_name = str_replace('-', " ", $store_name);		
+			//$seller_user = UserMain::where('store_name',$store_name)->first()->toArray();		
 			$seller_id = base64_encode($seller_user['id']);
 			$seller_name = str_replace( array( '\'', '"', 
 		',' , ';', '<', '>', '(', ')','$','.','!','@','#','%','^','&','*','+','\\' ), '', $store_name);
@@ -1433,7 +1443,7 @@ public function getCatSubList(Request $request) {
 			
 			$data['header_image']       = '';
 			$data['logo']       = '';
-			$sellerImages = SellerPersonalPage::where('user_id',$id)->first();
+			$sellerImages = $getTerms = SellerPersonalPage::where('user_id',$id)->first();
 			if(!empty($sellerImages))
 			{
 				$sellerImages = $sellerImages->toArray();
@@ -1460,7 +1470,11 @@ public function getCatSubList(Request $request) {
 			}
 			
 			$avgProductRating 	 = 0.00;
-			$getAllProductRratings = Products::where('user_id','=',$id)->get();
+
+			$combineRating = DB::select('SELECT (((SELECT AVG(product_review.rating) FROM products INNER JOIN product_review ON product_review.product_id=products.ID WHERE products.user_id = ?)+(SELECT AVG(service_review.rating) FROM services INNER JOIN service_review ON service_review.service_id= services.ID WHERE services.user_id=?))/2) AS avg_ratings',[$id,$id]);
+			$ratingSum = $combineRating[0]->avg_ratings;
+
+			/*$getAllProductRratings = Products::where('user_id','=',$id)->get();
 			$productsRatingCnt 	 = $getAllProductRratings->count();
 			$totalProductRating = $getAllProductRratings->sum('rating');
 
@@ -1483,7 +1497,13 @@ public function getCatSubList(Request $request) {
 			$avgServiceRating = number_format($avgServiceRating,2);	
 			
 			$data['totalRating'] = ($avgProductRating + $avgServiceRating)/2;
+			*/
 			
+			$totalRating = 0.00;
+			if($ratingSum>0){
+				$totalRating = number_format($ratingSum,2);
+			}
+			$data['totalRating'] = $totalRating;
 
 	    	if($category_slug!='')
 	    		$data['category_slug']	= $category_slug;
@@ -1507,7 +1527,7 @@ public function getCatSubList(Request $request) {
 	        }
 	    	/*get service review*/   
 			$data['serviceReviews']= $this->getReviews('services',$id,'','');
-	    	$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
+	    	//$getTerms =  SellerPersonalPage::where('user_id',$id)->first();
 			$data['is_seller'] = 1;	
 			$data['getTerms']  			= $getTerms;
 			//echo "hg".$store_name;exit;

@@ -109,7 +109,7 @@
 				<div class="row product_container filter_product_list product_container-list-4 service_page">
 				   
 					<span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
-            <span class="service_listings"><div style="text-align:center;margin-top:50px;display: none"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
+            <!--span class="service_listings"><div style="text-align:center;margin-top:50px;display: none"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span-->
 				</div>
 			</div>     
 		</div>

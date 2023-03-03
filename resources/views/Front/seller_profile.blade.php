@@ -45,9 +45,10 @@
     <div class="col-md-10 tijara-content ">
       @include ('Front.alert_messages')
       @if(!empty($package_exp_msg))
-          <div class="alert alert-danger" role="alert">
+      <!-- Commented by shrik as client dont want to see that message-->
+          <!--div class="alert alert-danger" role="alert">
             <a href="{{route('frontSellerPackages')}}" style="color: #a94442">{{$package_exp_msg}}</a>
-          </div>
+          </div-->
       @endif
     
       

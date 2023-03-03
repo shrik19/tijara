@@ -1185,8 +1185,8 @@ class ServiceController extends Controller
         //$service_time =   date('Y-m-d H:i:s',strtotime($service_time));
         $seller =   $service_request->fname;
 	
-		$booking_date =   date('Y-m-d',strtotime($service_request->created_at ." UTC") );
-  
+		    $booking_date =   date('Y-m-d',strtotime($service_request->created_at ." UTC") );
+        echo $booking_date;
         $GetEmailContents = getEmailContents('Delete Service Request');
         $subject      = $GetEmailContents['subject'];
         $contents     = $GetEmailContents['contents'];
@@ -1201,7 +1201,8 @@ class ServiceController extends Controller
             '##CUSTOMERADDRESS##','##SELLER##','##PHONE##','##BOOKINGDATE##'],
         [$customername,$seller,$service,$service_time,$service_date,$service_request->location,
         $service_request->service_price,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$customeraddress,$sellername,$seller_phone_number,$booking_date],$contents);
-
+        echo "<br>".$contents;
+        die;
         $arrMailData = ['email_body' => $contents];
 
         Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$seller,$subject) {

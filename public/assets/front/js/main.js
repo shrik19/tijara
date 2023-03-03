@@ -1985,11 +1985,14 @@ function get_product_listing(page,category_slug,subcategory_slug,sellers,price,c
 
 if($('.service_listings').length>0) {
   var page = 1;
-  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text(),false);
+
+  
+  get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(), $(".current_search_string").text(),'',false);
+
   $(document).on('click', '.service_listings .pagination a', function(event){
       event.preventDefault();
       var page = $(this).attr('href').split('page=')[1];
-      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text(),true);
+      get_service_listing(page,$('.current_category').text(),$('.current_subcategory').text(),$(".current_sellers").text(),$("#price_filter").val(), $("#city_name").val(),$(".current_search_string").text(),'',true);
    });
 }
 

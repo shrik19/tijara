@@ -2062,7 +2062,8 @@ echo json_encode(['other_option' => $otherAttributeDetails[0], 'current_variant'
   //services functions
 
   //function to get services list by provided parameters
-	public function getServicesByParameter(Request $request) {
+public function getServicesByParameter(Request $request) {
+	
 	//DB::connection()->enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$Services 			= Services::join('category_services', 'services.id', '=', 'category_services.service_id')
@@ -2167,7 +2168,7 @@ echo json_encode(['other_option' => $otherAttributeDetails[0], 'current_variant'
 
 		$Services 			= $Services->paginate(config('constants.middle_pages_limit'));
 		//dd($Services);
-		  //print_r(DB::getQueryLog());
+		//  print_r(DB::getQueryLog());
 		//  exit;
 		if(count($Services)>0) {
 			foreach($Services as $Service) {

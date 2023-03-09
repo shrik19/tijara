@@ -3371,6 +3371,7 @@ public function getServicesByParameter(Request $request) {
 					}
 				}
 		}
+		die;
     }
 
     public function sellerAutoSuggest(Request $request)

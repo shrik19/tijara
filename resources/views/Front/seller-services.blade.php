@@ -112,7 +112,7 @@
                 </div>
               </div>
             </div>
-            <div class="row product_container product_container-list-4 service_page">
+            <div class="row product_container product_container-list-4 service_page scrollElement">
               <span class="service_listings"><div class="col-sm-12" style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             </div>
           </div>

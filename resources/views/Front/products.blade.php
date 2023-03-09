@@ -106,7 +106,7 @@
 				<span class="current_sellers" style="display:none;">{{$seller_id}}</span>
 				<span class="current_search_string" style="display:none;">{{$search_string}}</span>
 				<span class="current_role_id" style="display:none;">{{$current_role_id}}</span>
-				<div class="row product_container filter_product_list product_container-list-4 service_page">
+				<div class="row product_container filter_product_list product_container-list-4 service_page scrollElement">
 				   
 					<span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
             <!--span class="service_listings"><div style="text-align:center;margin-top:50px;display: none"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span-->

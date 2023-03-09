@@ -9,7 +9,7 @@ if(strpos(@$path, 'annonser') !== false)
 }
 
 @endphp
-<ul class="product_details product_service_list {{$annonserClass}}" style="{{$cssVariable}}">
+<ul class="product_details product_service_list {{$annonserClass}} scrollElement" style="{{$cssVariable}}">
     @foreach($Products as $product)
       @include('Front.products_widget')
     @endforeach

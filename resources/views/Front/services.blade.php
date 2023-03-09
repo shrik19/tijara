@@ -73,7 +73,7 @@
             <span class="current_subcategory" style="display:none;">{{$subcategory_slug}}</span>
             <span class="current_sellers" style="display:none;">{{$seller_id}}</span>
             <span class="current_search_string" style="display:none;">{{$search_string}}</span>
-            <div class="row product_container product_container-list-4 service_page">
+            <div class="row product_container product_container-list-4 service_page scrollElement">
                 
                 <span class="service_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span>
              <!--    <span class="product_listings"><div style="text-align:center;margin-top:50px;"><img src="{{url('/')}}/assets/front/img/ajax-loader.gif" alt="loading"></div></span> -->

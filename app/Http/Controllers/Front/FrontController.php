@@ -3315,6 +3315,8 @@ public function getServicesByParameter(Request $request) {
 					//echo "<pre>";
 		//print_r(\DB::getQueryLog());
 		//print_r($subscription);
+			\Log::channel('payments')->info("started processing for the ".json_encode($subscription));
+			
 
 					if($subscription->is_trial==1)
 							$currentEndDate	=	$subscription->trial_end_date;

@@ -3312,7 +3312,7 @@ public function getServicesByParameter(Request $request) {
 					'packages.validity_days','packages.recurring_payment',
 					'user_packages.user_id','users.stripe_customer_id')
 					->first();
-					echo "<pre>";
+					//echo "<pre>";
 		//print_r(\DB::getQueryLog());
 		//print_r($subscription);
 
@@ -3323,9 +3323,7 @@ public function getServicesByParameter(Request $request) {
 					if($currentEndDate < date('Y-m-d H:i:s') && $subscription->recurring_payment=='Yes') {
 						Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 						//print_r($response);
-						$package_recurrig = "logs/package_recurring_subscription.log";
-					    $package_recurrig_file = \Storage::path($package_recurrig);
-					    $package_recurrig_file=fopen($package_recurrig_file,'a+');
+						
 
 						try {
 							$response = Stripe\Charge::create ([
@@ -3336,7 +3334,8 @@ public function getServicesByParameter(Request $request) {
 								#".$subscription->user_id.' & package Id #'.$subscription->package_id ,
 								
 							]);
-							fwrite($package_recurrig_file,json_encode($response));
+							
+							\Log::channel('payments')->info(json_encode($response));
 							if($response->id){
 								//$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));
 								$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate));
@@ -3360,18 +3359,16 @@ public function getServicesByParameter(Request $request) {
 							}
 
 						  } catch(\Stripe\Exception\CardException $e) {
-							fwrite($package_recurrig_file,$e->getError()->message);
+							\Log::channel('payments')->info($e->getError()->message);
 						  } catch (\Stripe\Exception\InvalidRequestException $e) {
-							fwrite($package_recurrig_file,"An invalid request occurred.");
+							\Log::channel('payments')->info("An invalid request occurred.");
 						  } catch (Exception $e) {
-							fwrite($package_recurrig_file,"Another problem occurred, maybe unrelated to Stripe");
+							\Log::channel('payments')->info("Another problem occurred, maybe unrelated to Stripe");
 						  }
-					
-						fclose($package_recurrig_file);
 					}
 				}
 		}
-		die;
+		die("HERE");
     }
 
     public function sellerAutoSuggest(Request $request)

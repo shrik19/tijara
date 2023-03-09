@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
     {
         if ($exception) {
             
-       //     return response()->view('errors.custom');
+            return response()->view('errors.custom');
         }
 
         return parent::render($request, $exception);

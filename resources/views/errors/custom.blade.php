@@ -1,20 +1,58 @@
 @extends('Front.layout.template')
 @section('middlecontent')
+<style type="text/css">
+  *{
+    transition: all 0.6s;
+}
 
-<div class="mid-section p_155">
-	<div class="containerfluid">
-	 
-	<!-- <div class="container"> -->
-	  <!-- Example row of columns -->
-	  <div class="product_view ov-hi">
-		<div class="cmspageDiv">
-		 
-			<h2>{{trans('errors.program_error_msg')}}</h2>
-			
-		</div>
-	  </div>
-	</div>
-</div>
-<!-- </div> --> <!-- /container -->
+html {
+    height: 100%;
+}
+
+body{
+    font-family: 'Lato', sans-serif;
+    color: #888;
+    margin: 0;
+}
+
+#main{
+    display: table;
+    width: 100%;
+    text-align: center;
+}
+
+.fof{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.fof h1{
+    font-size: 50px;
+    display: inline-block;
+    padding-right: 12px;
+}
+
+@keyframes type{
+    from{box-shadow: inset -3px 0px 0px #888;}
+    to{box-shadow: inset -3px 0px 0px transparent;}
+}
+</style>
+<div class="container containerfluid p_155" style="min-height: 650px;">
+  <!-- Example row of columns -->
+  <div class="row register-success-page">
+    <div class="">
+      <div class="col-md-3"></div> 
+      <div class="col-md-6">
+          <div id="main">
+            <div class="fof">
+                <h1>Error 404</h1>
+                <p>{{trans('errors.program_error_msg')}}</p>
+            </div>
+          </div>        
+      </div>
+    </div>
+  </div>
+</div> <!-- /container -->
 
 @endsection
+

@@ -3288,7 +3288,7 @@ public function getServicesByParameter(Request $request) {
    }
    
    public function stripePackageSubscription() {
-	//\DB::connection()->enableQueryLog();
+	\DB::connection()->enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$ending_subscriptions = DB::table('user_packages')
 		->join('packages', 'packages.id', '=', 'user_packages.package_id')
@@ -3299,8 +3299,9 @@ public function getServicesByParameter(Request $request) {
 		->selectRaw('max(user_packages.id) as id')
 		->groupBy('users.id')
 		->get();
+		//echo "<pre>";
 		//print_r(\DB::getQueryLog());
-		//echo "<pre>";print_r($ending_subscriptions);exit;
+		//print_r($ending_subscriptions);exit;
 		if(!empty($ending_subscriptions)) {  
 				foreach($ending_subscriptions as $subscriptionId) {
 					$subscription = DB::table('user_packages')
@@ -3311,6 +3312,10 @@ public function getServicesByParameter(Request $request) {
 					'packages.validity_days','packages.recurring_payment',
 					'user_packages.user_id','users.stripe_customer_id')
 					->first();
+					echo "<pre>";
+		print_r(\DB::getQueryLog());
+		print_r($subscription);
+
 					if($subscription->is_trial==1)
 							$currentEndDate	=	$subscription->trial_end_date;
 					else
@@ -3326,6 +3331,8 @@ public function getServicesByParameter(Request $request) {
 							#".$subscription->user_id.' & package Id #'.$subscription->package_id ,
 							
 						]);
+
+						print_r($response);
 						$package_recurrig = "logs/package_recurring_subscription.log";
 					    $package_recurrig_file = Storage::path($package_recurrig);
 					    $package_recurrig_file=fopen($package_recurrig_file,'a+');

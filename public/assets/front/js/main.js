@@ -1871,7 +1871,7 @@ function get_product_listing(page,category_slug,subcategory_slug,sellers,price,c
      
       if(isPaginationClick){
 
-        $('html, body').animate({scrollTop: $("#tjfilter").offset().top - 150},'50');
+        $('html, body').animate({scrollTop: $(".scrollElement").offset().top - 150},'50');
       }
 		
       if($("#search_string").length && search_string != '')
@@ -2070,7 +2070,7 @@ function get_service_listing(page,category_slug,subcategory_slug,sellers,price,c
       
       if(isPaginationClick){
 
-      $('html, body').animate({scrollTop: $("#tjfilter").offset().top - 150},'50');
+      $('html, body').animate({scrollTop: $(".scrollElement").offset().top - 150},'50');
       }
      
       

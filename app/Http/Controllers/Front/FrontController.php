@@ -3322,43 +3322,51 @@ public function getServicesByParameter(Request $request) {
 							$currentEndDate	=	$subscription->end_date;
 					if($currentEndDate < date('Y-m-d H:i:s') && $subscription->recurring_payment=='Yes') {
 						Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-		
-						$response = Stripe\Charge::create ([
-							"amount" => ($subscription->amount*100),
-							"currency" => "SEK",
-							"customer" => $subscription->stripe_customer_id,
-							"description" => "Package Subscription payment for UserId 
-							#".$subscription->user_id.' & package Id #'.$subscription->package_id ,
-							
-						]);
-
 						//print_r($response);
 						$package_recurrig = "logs/package_recurring_subscription.log";
 					    $package_recurrig_file = \Storage::path($package_recurrig);
 					    $package_recurrig_file=fopen($package_recurrig_file,'a+');
-					    fwrite($package_recurrig_file,json_encode($response));
-					   // fclose($package_recurrig_file);
-						if($response->id){
-							//$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));
-							$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate));
-							$ExpiredDate = date('Y-m-d H:i:s', strtotime($startDate.'+'.$subscription->validity_days.' days'));
-							$arrInsertPackage = [
-								//'user_id'    => $subscription->user_id,
-								//'package_id' => $subscription->package_id,
-								'status'     => "active",
-								'start_date' => $startDate,
-								'end_date'   => $ExpiredDate,
-								'order_id'   => $response->id,
-								'is_trial'   => '0',
-								'trial_start_date' => '0000-00-00 00:00:00',
-								'trial_end_date'   =>'0000-00-00 00:00:00',
-								'payment_status'   => 'CAPTURED',
-								'payment_response' =>	json_encode($response)
-							];
-							
-						UserPackages::where('user_packages.id',$subscription->id)->update($arrInsertPackage);
-							
-						}
+
+						try {
+							$response = Stripe\Charge::create ([
+								"amount" => ($subscription->amount*100),
+								"currency" => "SEK",
+								"customer" => $subscription->stripe_customer_id,
+								"description" => "Package Subscription payment for UserId 
+								#".$subscription->user_id.' & package Id #'.$subscription->package_id ,
+								
+							]);
+							fwrite($package_recurrig_file,json_encode($response));
+							if($response->id){
+								//$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));
+								$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate));
+								$ExpiredDate = date('Y-m-d H:i:s', strtotime($startDate.'+'.$subscription->validity_days.' days'));
+								$arrInsertPackage = [
+									//'user_id'    => $subscription->user_id,
+									//'package_id' => $subscription->package_id,
+									'status'     => "active",
+									'start_date' => $startDate,
+									'end_date'   => $ExpiredDate,
+									'order_id'   => $response->id,
+									'is_trial'   => '0',
+									'trial_start_date' => '0000-00-00 00:00:00',
+									'trial_end_date'   =>'0000-00-00 00:00:00',
+									'payment_status'   => 'CAPTURED',
+									'payment_response' =>	json_encode($response)
+								];
+								
+							UserPackages::where('user_packages.id',$subscription->id)->update($arrInsertPackage);
+								
+							}
+
+						  } catch(\Stripe\Exception\CardException $e) {
+							fwrite($package_recurrig_file,$e->getError()->message);
+						  } catch (\Stripe\Exception\InvalidRequestException $e) {
+							fwrite($package_recurrig_file,"An invalid request occurred.");
+						  } catch (Exception $e) {
+							fwrite($package_recurrig_file,"Another problem occurred, maybe unrelated to Stripe");
+						  }
+					
 						fclose($package_recurrig_file);
 					}
 				}

@@ -141,7 +141,7 @@
      'amount_too_large'=>'Det angivna beloppet är större än det högsta tillåtna beloppet. Använd en lägre mängd och försök igen.',
      'amount_too_small'=>'Det angivna beloppet är mindre än det lägsta tillåtna beloppet. Använd en högre mängd och försök igen.',
        'insufficient_funds'=>'Kundens konto har otillräckliga medel för att täcka denna betalning.',
-     'program_error_msg' =>'Fel har uppstått, vänligen kontakta webbplatsens admin på noreply@tijara.se',
+     'program_error_msg' =>'Ett fel har uppstått. Pröva ladda om sidan om ett tag. Skulle felet kvarstå, kontakta support.',
  ]
 
 ?>

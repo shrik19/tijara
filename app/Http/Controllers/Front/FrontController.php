@@ -3288,7 +3288,7 @@ public function getServicesByParameter(Request $request) {
    }
    
    public function stripePackageSubscription() {
-	\DB::connection()->enableQueryLog();
+	//\DB::connection()->enableQueryLog();
 		$currentDate = date('Y-m-d H:i:s');
 		$ending_subscriptions = DB::table('user_packages')
 		->join('packages', 'packages.id', '=', 'user_packages.package_id')
@@ -3313,8 +3313,8 @@ public function getServicesByParameter(Request $request) {
 					'user_packages.user_id','users.stripe_customer_id')
 					->first();
 					echo "<pre>";
-		print_r(\DB::getQueryLog());
-		print_r($subscription);
+		//print_r(\DB::getQueryLog());
+		//print_r($subscription);
 
 					if($subscription->is_trial==1)
 							$currentEndDate	=	$subscription->trial_end_date;
@@ -3332,12 +3332,12 @@ public function getServicesByParameter(Request $request) {
 							
 						]);
 
-						print_r($response);
+						//print_r($response);
 						$package_recurrig = "logs/package_recurring_subscription.log";
-					    $package_recurrig_file = Storage::path($package_recurrig);
+					    $package_recurrig_file = \Storage::path($package_recurrig);
 					    $package_recurrig_file=fopen($package_recurrig_file,'a+');
 					    fwrite($package_recurrig_file,json_encode($response));
-					    fclose($package_recurrig_file);
+					   // fclose($package_recurrig_file);
 						if($response->id){
 							//$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate . ' +1 day'));
 							$startDate 	 =	date('Y-m-d H:i:s', strtotime($currentDate));
@@ -3355,9 +3355,11 @@ public function getServicesByParameter(Request $request) {
 								'payment_status'   => 'CAPTURED',
 								'payment_response' =>	json_encode($response)
 							];
+							
 						UserPackages::where('user_packages.id',$subscription->id)->update($arrInsertPackage);
 							
 						}
+						fclose($package_recurrig_file);
 					}
 				}
 		}

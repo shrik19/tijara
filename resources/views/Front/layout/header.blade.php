@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="_token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="{{url('/')}}/assets/img/favicon.png" type="image/x-icon">
-  <link rel="apple-touch-icon" href="{{url('/')}}/assets/front/apple-touch-icon.png">  
+  <link rel="apple-touch-icon" href="{{url('/')}}/assets/img/favicon.png">  
   <link rel="icon" type="image/vnd.microsoft.icon" href="{{url('/')}}/assets/img/favicon.ico">
   <link rel="icon" type="image/x-icon" href="{{url('/')}}/assets/img/favicon.ico">
   <link rel="icon" href="{{url('/')}}/assets/img/favicon.ico" />

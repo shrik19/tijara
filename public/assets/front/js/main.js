@@ -1869,7 +1869,7 @@ function get_product_listing(page,category_slug,subcategory_slug,sellers,price,c
 		  //$('html, body').animate({scrollTop: $("#myDiv").offset().top},'50');
       
      
-      if(isPaginationClick){
+      if(isPaginationClick == true){
 
         $('html, body').animate({scrollTop: $(".scrollElement").offset().top - 150},'50');
       }

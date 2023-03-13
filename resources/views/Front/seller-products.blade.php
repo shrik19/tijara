@@ -760,14 +760,14 @@ $.confirm({
 
 }
   
-$(document).ready(function () {
+/* $(document).ready(function () {
   let searchParams = new URLSearchParams(window.location.search)
   if(searchParams.has('page')==true){
       $('html, body').animate({
             scrollTop: $('#show-all-review').offset().top
         }, 'slow');
   }
-});
+}); */
 
 
 </script>

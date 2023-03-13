@@ -1868,10 +1868,15 @@ function get_product_listing(page,category_slug,subcategory_slug,sellers,price,c
       $('.seller_list_content').html(responseObj.sellers);
 		  //$('html, body').animate({scrollTop: $("#myDiv").offset().top},'50');
       
-     
+      let searchParams = new URLSearchParams(window.location.search);
       if(isPaginationClick == true){
 
         $('html, body').animate({scrollTop: $(".scrollElement").offset().top - 150},'50');
+      }else if(searchParams.has('page')==true)
+      {
+        $('html, body').animate({
+          scrollTop: $('#show-all-review').offset().top
+         }, 'slow');
       }
 		
       if($("#search_string").length && search_string != '')
@@ -2067,11 +2072,14 @@ function get_service_listing(page,category_slug,subcategory_slug,sellers,price,c
       $('.service_listings').html(responseObj.services);
       $('.seller_list_content').html(responseObj.sellers);
 	    //$('html, body').animate({scrollTop:0},'50');
-      
+      let searchParams = new URLSearchParams(window.location.search)
       if(isPaginationClick){
-
-      $('html, body').animate({scrollTop: $(".scrollElement").offset().top - 150},'50');
-      }
+       $('html, body').animate({scrollTop: $(".scrollElement").offset().top - 150},'50');
+      }else if(searchParams.has('page')==true){
+        $('html, body').animate({
+             scrollTop: $('#show-all-review').offset().top
+        }, 'slow');
+      } 
      
       
       

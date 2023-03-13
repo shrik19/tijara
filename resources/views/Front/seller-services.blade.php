@@ -731,11 +731,11 @@ $.confirm({
 
 }
 
-let searchParams = new URLSearchParams(window.location.search)
+/* let searchParams = new URLSearchParams(window.location.search)
 if(searchParams.has('page')==true){
      $('html, body').animate({
           scrollTop: $('#show-all-review').offset().top
       }, 'slow');
-}
+} */
 </script>
 @endsection

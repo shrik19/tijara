@@ -652,12 +652,7 @@ $(".page-link").click(function(){
   
 });
 
-let searchParams = new URLSearchParams(window.location.search)
-if(searchParams.has('page')==true){
-     $('html, body').animate({
-          scrollTop: $('#show-all-review').offset().top
-      }, 'slow');
-}
+
 
 /*edit review start*/
 $(document).on("click",".edit_product_review",function(event) {
@@ -765,6 +760,16 @@ $.confirm({
 
 }
   
+$(document).ready(function () {
+  let searchParams = new URLSearchParams(window.location.search)
+  if(searchParams.has('page')==true){
+      $('html, body').animate({
+            scrollTop: $('#show-all-review').offset().top
+        }, 'slow');
+  }
+});
+
+
 </script>
 @endsection
 

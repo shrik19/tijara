@@ -10,11 +10,11 @@
   <meta name="description" content=" @if(isset($meta_description)) {{$meta_description}} @endif ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="_token" content="{{ csrf_token() }}">
-  <link rel="shortcut icon" href="{{url('/')}}/assets/img/favicon.png" type="image/x-icon">
-  <link rel="apple-touch-icon" href="{{url('/')}}/assets/img/favicon.png">  
-  <link rel="icon" type="image/vnd.microsoft.icon" href="{{url('/')}}/assets/img/favicon.ico">
-  <link rel="icon" type="image/x-icon" href="{{url('/')}}/assets/img/favicon.ico">
-  <link rel="icon" href="{{url('/')}}/assets/img/favicon.ico" />
+  <link rel="shortcut icon" href="{{url('/')}}/assets/img/Logo_desktop_1920x1920.png" type="image/x-icon">
+  <link rel="apple-touch-icon" href="{{url('/')}}/assets/img/Logo_mobile_180×180.png">  
+  <link rel="icon" type="image/vnd.microsoft.icon" href="{{url('/')}}/assets/img/Logo_desktop_1920x1920.png">
+  <link rel="icon" type="image/x-icon" href="{{url('/')}}/assets/img/Logo_desktop_1920x1920.png">
+  <link rel="icon" href="{{url('/')}}/assets/img/Logo_desktop_1920x1920.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="{{url('/')}}/assets/img/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="{{url('/')}}/assets/img/favicon-32x32.png">
 

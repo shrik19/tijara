@@ -10,13 +10,16 @@
   <meta name="description" content=" @if(isset($meta_description)) {{$meta_description}} @endif ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="_token" content="{{ csrf_token() }}">
-  <link rel="shortcut icon" href="{{url('/')}}/assets/img/Logo_desktop_1920x1920.png" type="image/x-icon">
-  <link rel="apple-touch-icon" href="{{url('/')}}/assets/img/Logo_mobile_180×180.png">  
-  <link rel="icon" type="image/vnd.microsoft.icon" href="{{url('/')}}/assets/img/Logo_desktop_1920x1920.png">
-  <link rel="icon" type="image/x-icon" href="{{url('/')}}/assets/img/Logo_desktop_1920x1920.png">
-  <link rel="icon" href="{{url('/')}}/assets/img/Logo_desktop_1920x1920.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="{{url('/')}}/assets/img/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{url('/')}}/assets/img/favicon-32x32.png">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="{{url('/')}}/assets/icon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{url('/')}}/assets/icon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{url('/')}}/assets/icon/favicon-16x16.png">
+  <link rel="manifest" href="{{url('/')}}/assets/icon/site.webmanifest">
+  <link rel="mask-icon" href="{{url('/')}}/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="{{url('/')}}/assets/icon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="{{url('/')}}/assets/icon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" />

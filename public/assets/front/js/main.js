@@ -275,7 +275,8 @@ function duplicateVariant()
   var secondAttribute = $('.select_attribute:eq(1)').val();
   var firstAttValues = '';
   var secondAttValues = '';
-  if(firstAttribute != '')
+  //if(firstAttribute != '')
+  if(1)
     {      
       $.ajax({
               url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
@@ -291,7 +292,8 @@ function duplicateVariant()
             });
     }
     
-    if(secondAttribute != '')
+    //if(secondAttribute != '')
+    if(1)
     {
       $.ajax({
               url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
@@ -616,7 +618,7 @@ var $selects = $('#variant_table').on('change', '.select_attribute:eq(0)', funct
       });	
     } 
 
-    $('.firstVariant').each(function(index) {
+    $('.firstVariant').each(function(index,element) {
      
       if(index > 0)
       {
@@ -624,20 +626,25 @@ var $selects = $('#variant_table').on('change', '.select_attribute:eq(0)', funct
         $(this).val(select_attribute).select2().trigger('change');
         $(this).find('option:not(:selected)').attr('disabled', true);
         valueAttr_id = '#attribute_value_'+$(this).attr('id').slice(-3);
-        $.ajax({
-          url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
-          data: {attribute_id: select_attribute},
-          type: 'get',
-            success: function(output) {
-              $(valueAttr_id).html(output);			
-            }      
-          });	
+        update_values_for_attributes(select_attribute,valueAttr_id);
+        
       }        
     });
  
   }
 );
-   
+
+function update_values_for_attributes(select_attribute,element_id)
+{
+  $.ajax({
+    url: siteUrl+'/product-attributes/getattributevaluebyattributeid',
+    data: {attribute_id: select_attribute},
+    type: 'get',
+      success: function(output) {
+        $(element_id).html(output);			
+      }      
+    });	
+}
 
 var $selects = $('#variant_table').on('change', '.select_attribute:eq(1)', function ()
  {

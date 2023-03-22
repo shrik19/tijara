@@ -189,7 +189,7 @@ class AuthController extends Controller
         }
         else
         {
-            $filterData[$currentMonth.'-'.$currentYear] = $monthName[$currentMonth].' '.$$currentYear;
+            $filterData[$currentMonth.'-'.$currentYear] = $monthName[$currentMonth].' '.$currentYear;
         }
 
         $data['filterDate'] = $filterData;

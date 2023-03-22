@@ -151,8 +151,12 @@ function get_link_seller_name($SellerId){
 
 function getFirstOrderYear()
 {
-  $tmpOrderData = Orders::select('created_at')->orderBy('id','asc')->take(1)->first()->toArray();
-  return $tmpOrderData;
+  $tmpOrderData = Orders::select('created_at')->orderBy('id','asc')->take(1)->first();
+  if($tmpOrderData)
+  {
+    return $tmpOrderData->toArray();
+  }
+  
 }
 
 function getTotalOrders($filterMonth='', $filterYear='', $sellerId = 0)

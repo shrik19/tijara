@@ -1137,7 +1137,7 @@ class ProductController extends Controller
 
         ];
 
-      // echo "<pre>";print_r($QRData);exit;
+       echo "<pre>";print_r($QRData);exit;
 
         $curl = curl_init();
 

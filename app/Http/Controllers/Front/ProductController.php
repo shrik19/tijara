@@ -1517,7 +1517,7 @@ class ProductController extends Controller
 
   public function createPaymentRequestError($message){
      $blade_data['error_messages']= $message;
-     return view('Front/payment_request_error',$data); 
+     return view('Front/payment_request_error',$blade_data); 
   }
 
     public function showCheckoutSwish(Request $request) {

@@ -1063,7 +1063,7 @@ class ProductController extends Controller
   public function createPaymentRequest($amount, $message,$payeeAlias,$order_id) {
 
     $CAINFO = base_path().'/Getswish_Test_Certificates/Swish_TLS_RootCA.pem';
-    $SSLCERT= base_path().'/Getswish_Test_Certificates/swish_certificate_202201101436.pem';
+    $SSLCERT= base_path().'/Getswish_Test_Certificates/swish_certificate_202303301812.pem';
     $SSLKEY  = base_path().'/Getswish_Test_Certificates/private.key';
     $password ="Sami@2022!";
     $url =  env('SWISH_NUMBER_API');

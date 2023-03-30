@@ -1026,7 +1026,8 @@ class ProductController extends Controller
              $message = "Tijara payment for order".$orderId;
 
             $getQR = $this->createPaymentRequest($amount,$message,$admin_swish_number,$orderId);    
-   
+   print_r($getQR);
+   die;
           
           $data['order_id'] = $getQR['orderId'];
           $data['QRCode'] = $getQR['QRCode'];
@@ -1100,7 +1101,7 @@ class ProductController extends Controller
     if (curl_errno($ch)) {
       $error_msg = curl_error($ch);
       print_r($error_msg);
-      die;
+      //die;
       $err_message = trans('errors.payment_req_token_not_generated')." (".$error_msg.")";
       $this->createPaymentRequestError($err_message);
     }
@@ -1137,8 +1138,7 @@ class ProductController extends Controller
 
         ];
 
-       echo "<pre>";print_r($QRData);exit;
-
+       echo "<pre>";print_r($QRData);
         $curl = curl_init();
 
 
@@ -1155,7 +1155,7 @@ class ProductController extends Controller
                                         curl_setopt($curl, CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_1);////*/
         $QRresult = curl_exec($curl);
         echo "<pre>";print_r($QRresult);
-        die;
+       
 
         if (curl_errno($curl)) {
           //  echo "oin";

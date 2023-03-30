@@ -1099,6 +1099,8 @@ class ProductController extends Controller
     $result = curl_exec($ch);
     if (curl_errno($ch)) {
       $error_msg = curl_error($ch);
+      print_r($error_msg);
+      die;
       $err_message = trans('errors.payment_req_token_not_generated')." (".$error_msg.")";
       $this->createPaymentRequestError($err_message);
     }
@@ -1152,7 +1154,8 @@ class ProductController extends Controller
                                         curl_setopt($curl, CURLOPT_SSLVERSION, 3);////
                                         curl_setopt($curl, CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_1);////*/
         $QRresult = curl_exec($curl);
-        //echo "<pre>";print_r($QRresult);
+        echo "<pre>";print_r($QRresult);
+        die;
 
         if (curl_errno($curl)) {
           //  echo "oin";

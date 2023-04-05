@@ -40,7 +40,7 @@ width:100% !important;
 
 <div class="mid-section p_155">
   <div class="container-fluid">
-    <div class="container-inner-section-1">
+    <div class="container-inner-section-1 tjd-sellcontainer">
       <div class="row">
        <div class="col-md-12"> 
      

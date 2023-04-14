@@ -59,6 +59,7 @@ class SettingController extends Controller
                                 'site_title'  =>trim($request->input('site_title')),          
                                 //'footer_address' =>trim($request->input('footer_address')),  
                                 'copyright_content' =>trim($request->input('copyright_content')),
+                                'announcement_fee' =>trim($request->input('announcement_fee')),
 
                             ];
 

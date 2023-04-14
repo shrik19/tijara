@@ -406,5 +406,6 @@ avbokning av tjänst fungerar.',
     'tijara_announser_label'=>'Tijaras annonser',
     'who_received_email' => "Att mejla",
     'created_at' => 'Registrerad hos',
+    'anouncer_fee_add' => 'Avgifter för annonsen'
  ]
 ?>

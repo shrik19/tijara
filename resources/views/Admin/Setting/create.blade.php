@@ -47,6 +47,12 @@
               <div class="text-danger">{{ ($errors->has('copyright_content')) ? $errors->first('copyright_content') : '' }}</div>
             </div>
 
+            <div class="form-group">
+              <label> {{ __('users.anouncer_fee_add')}} <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="announcement_fee" name="announcement_fee" placeholder=" {{ __('users.anouncer_fee_add')}}" value="{{ (old('announcement_fee')) ?  old('announcement_fee') : $sitedata[0]->announcement_fee}}" />
+              <div class="text-danger">{{ ($errors->has('announcement_fee')) ? $errors->first('announcement_fee') : '' }}</div>
+            </div>
+
             <div class="box-footer">
                <span class="pull-right">
                 <button type="submit" class="btn btn-icon icon-left btn-success" tabindex="15"><i class="fas fa-check"></i>{{ __('lang.save_btn')}}</button>&nbsp;&nbsp;

@@ -1439,7 +1439,8 @@ class ProductController extends Controller
             //END : Send success email to Seller.
             $temp_orders = TmpAdminOrders::find($order_id);
             $temp_orders->delete();
-            $this->orderSuccess();
+            $data['swish_message'] = trans('messages.ad_save_success');
+            return view('Front/swish_number_order_success', $data);
         }
     }
   }

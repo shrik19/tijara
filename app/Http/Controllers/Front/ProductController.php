@@ -1145,7 +1145,7 @@ class ProductController extends Controller
 
         ];
 
-      // echo "<pre>";print_r($QRData);exit;
+       echo "<pre>";print_r($QRData);
 
         $curl = curl_init();
 
@@ -1162,15 +1162,15 @@ class ProductController extends Controller
                                         curl_setopt($curl, CURLOPT_SSLVERSION, 3);////
                                         curl_setopt($curl, CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_1);////*/
         $QRresult = curl_exec($curl);
-        //echo "<pre>";print_r($QRresult);
+        echo "<pre>";print_r($QRresult);
 
         if (curl_errno($curl)) {
           //  echo "oin";
           $err_msg = curl_error($curl);
-          $err_message = trans('errors.payment_req_token_not_generated')." (".$err_msg.")";
+        echo  $err_message = trans('errors.payment_req_token_not_generated')." (".$err_msg.")";
           $this->createPaymentRequestError($err_message);
         }
-        //echo "out";exit;
+        echo "out";exit;
         curl_close($curl);
         $sendData['orderId'] = $order_id;
         $sendData['QRCode'] = base64_encode($QRresult);

@@ -469,7 +469,9 @@ class ProductController extends Controller
 		$data['categories']				=	$categoriesArray;
 	    //$data['attributesToSelect'] =   Attributes::where('user_id',Auth::guard('user')->id())->get(); 
         $data['attributesToSelect'] =   Attributes::select('*')->get(); 
-
+        $siteDetails          = Settings::first();
+        $data['siteDetails'] = $siteDetails;
+        
 		if($id) {
 			$product_id					=	base64_decode($id);
 			$data['product_id']			=	$product_id;

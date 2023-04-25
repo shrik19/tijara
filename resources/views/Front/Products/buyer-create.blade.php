@@ -263,7 +263,7 @@ width:100% !important;
               </div>
               
               <div class="form-group swish_payment_ad_img">
-                <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="65"><span>({{env('PRODUCT_POST_AMOUNT')}} kr)</span>
+                <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="65"><span>({{$siteDetails->announcement_fee}} kr)</span>
               </div>
                     
                </div>

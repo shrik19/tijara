@@ -1038,7 +1038,7 @@ class ProductController extends Controller
                 $data['QRCode'] = $getQR['QRCode'];
                 return view('Front/buyer_checkout_swish_number',$data); 
             }else{
-                $this->addAnouncementWithoutPayment($orderId);
+                return $this->addAnouncementWithoutPayment($orderId);
             }
              
           //  return view('Front/buyer_product_swish', $data);

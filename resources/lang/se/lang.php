@@ -325,7 +325,7 @@
     'popular_product_head'=>'Populära produkter',
     'instagram_label'=>'Instagramflöde',
     'book_service_btn'=>'Slutför bokning',
-    'continue_to_swish'=>'Fortsätt till Swish',
+    'continue_to_swish'=>'Fortsätt',
     'swish_payment_not_proceed'=>'Betalningen går inte vidare. Vänligen försök igen senare',
     'dashboard_total_users' => 'Totalt antal användare',
     'dashboard_total_ads' => 'Totalt antal annonser',

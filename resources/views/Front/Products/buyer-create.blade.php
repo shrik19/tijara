@@ -262,10 +262,11 @@ width:100% !important;
                   <input type="checkbox" name="chk-appoved" id="chk_privacy_policy" value=""><span class="remember-text">{{ __('users.read_and_approve_chk')}} <a href="{{url('/')}}/page/villkor" class="de_col"> &nbsp;{{ __('users.terms_of_use')}} &nbsp;</a> {{ __('users.and_label')}}  &nbsp;<a href="{{url('/')}}/page/villkor" class="de_col">{{ __('users.privacy_policy')}}</a></span>  
               </div>
               
+              @if($siteDetails->announcement_fee > 0 )  
               <div class="form-group swish_payment_ad_img">
                 <img src="{{url('/')}}/uploads/Images/swish-payment-logo.png" width="90" height="65"><span>({{$siteDetails->announcement_fee}} kr)</span>
               </div>
-                    
+              @endif 
                </div>
 
               </div>
@@ -277,8 +278,7 @@ width:100% !important;
             <div class="col-md-12 text-center" style="margin-bottom: 60px;">
             <button type="submit" name="btnCountryCreate" id="btnAttributeCreate" 
             class="btn btn-black debg_color login_btn saveBuyerProduct" tabindex="9">{{ __('lang.continue_to_swish')}}</button>
-
-            <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
+              <a href="{{$module_url}}" class="btn btn-black gray_color login_btn" tabindex="10"> {{ __('lang.cancel_btn')}}</a>
             </div>
           </div>
 

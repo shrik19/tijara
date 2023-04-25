@@ -989,7 +989,7 @@ class ProductController extends Controller
         ];
 
         $validator = validator::make($request->all(), $rules, $messages);
-
+        $siteDetails          = Settings::first();
         if($validator->fails())  {
          
             $messages = $validator->messages();
@@ -1009,28 +1009,38 @@ class ProductController extends Controller
             ];
             $orderId = TmpAdminOrders::create($arrInsertOrder)->id;
             Session::put('current_buyer_order_id', $orderId);
-            $data = array(
-                'type' => $request->type,
-                'clientKey' => env('CLIENT_KEY'),
-                'orderId'=>$orderId,
-                'paymentAmount'=>env('PRODUCT_POST_AMOUNT')*100
-            );
-             $data = array(
-                'type' => $request->type,
-                'clientKey' => env('CLIENT_KEY'),
-                'orderId'=>$orderId,
-                'paymentAmount'=>env('PRODUCT_POST_AMOUNT')
-            );
-             $amount=env('PRODUCT_POST_AMOUNT');
-             $admin_swish_number =env('ADMIN_SWISH_NUMBER');
-             $message = "Tijara payment for order".$orderId;
+           
 
-            $getQR = $this->createPaymentRequest($amount,$message,$admin_swish_number,$orderId);    
-   
-          
-          $data['order_id'] = $getQR['orderId'];
-          $data['QRCode'] = $getQR['QRCode'];
-         return view('Front/buyer_checkout_swish_number',$data); 
+
+            if($siteDetails->announcement_fee > 0)
+            {
+               /* $data = array(
+                    'type' => $request->type,
+                    'clientKey' => env('CLIENT_KEY'),
+                    'orderId'=>$orderId,
+                    'paymentAmount'=>$siteDetails->announcement_fee*100
+                );
+                */
+                $data = array(
+                    'type' => $request->type,
+                    'clientKey' => env('CLIENT_KEY'),
+                    'orderId'=>$orderId,
+                    'paymentAmount'=>$siteDetails->announcement_fee
+                );
+                 $amount=$siteDetails->announcement_fee;
+                 $admin_swish_number =env('ADMIN_SWISH_NUMBER');
+                 $message = "Tijara payment for order".$orderId;
+    
+                $getQR = $this->createPaymentRequest($amount,$message,$admin_swish_number,$orderId);    
+       
+              
+                $data['order_id'] = $getQR['orderId'];
+                $data['QRCode'] = $getQR['QRCode'];
+                return view('Front/buyer_checkout_swish_number',$data); 
+            }else{
+                $this->addAnouncementWithoutPayment($orderId);
+            }
+             
           //  return view('Front/buyer_product_swish', $data);
         }
 
@@ -1172,7 +1182,267 @@ class ProductController extends Controller
 
   }
 
+  public function addAnouncementWithoutPayment($order_id)
+  {
+    /*create file to check push request recieved or not*/
+    $order_status = 'PAID';
+   // $order_id = $request->payeePaymentReference;
+    $currentDate = date('Y-m-d H:i:s');
+    $PaymentRequestToken = 'ABC';
 
+    $paymentDetails = ['id' => '99999', 'payeePaymentReference' =>'ADMIN','paymentReference' => 'ADMIN', 'status' => 'PAID','amount' => 0, 'datePaid' => $currentDate,'currentDate' => $currentDate];
+        
+      $swish_number_order = "logs/buyer_product_add_order.log";
+      $swish_number_order_file = storage_path($swish_number_order);
+      $swish_number_order_file=fopen($swish_number_order_file,'a+');
+      fwrite($swish_number_order_file,json_encode($paymentDetails)."\r\n");
+      fclose($swish_number_order_file);
+
+
+    if($order_status=='PAID') {
+        //$checkOrderExisting = AdminOrders::where('klarna_order_reference','=',$order_id)->first();
+       
+       
+        $checkExisting = TmpAdminOrders::where('id','=',$order_id)->first()->toArray();
+
+        if(!empty($checkExisting)) {
+            $ProductData = json_decode($checkExisting['product_details'],true);
+            $user_id = $checkExisting['user_id'];
+            $currentDate = date('Y-m-d H:i:s');
+            $address = array();
+            $Total = (float)ceil($checkExisting['total']);
+            //$paymentDetails = $_REQUEST;
+            $order_status   =   'PAID';
+            $slug =   CommonLibrary::php_cleanAccents($ProductData['product_slug']);
+
+            $arrOrderInsert = [
+                'user_id'     => $user_id,
+                'address'     => '',
+                'order_lines' => '',
+                'total' => $checkExisting['total'],
+                'payment_details' => '',
+                'payment_status' => '',
+                'order_status' => 'PENDING',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+                'klarna_order_reference' => $order_id,
+                'tmp_order_id' => $order_id
+            ];
+
+            $NewOrderId = AdminOrders::create($arrOrderInsert)->id;
+                //Create Product
+            $arrProducts = [
+                'title'             => trim(ucfirst($ProductData['title'])),
+                'product_slug'      => trim(strtolower($slug)),
+                'meta_title'        => trim($ProductData['meta_title']),       
+                'meta_description'  => trim($ProductData['meta_description']),
+                'shipping_method'   => '',  
+                'shipping_charges'  => '',  
+                'meta_keyword'      => trim($ProductData['meta_keyword']),
+                'description'       => trim($ProductData['description']),
+                'status'            => trim($ProductData['status']),
+                'sort_order'        => trim($ProductData['sort_order']),
+                'user_id'           =>  $user_id,
+                'is_buyer_product'  => '1',
+            ];
+
+            $id = Products::create($arrProducts)->id;
+
+            if(!empty($ProductData['user_name'])) {
+                BuyerProducts::where('product_id',$id)->delete();
+                $buyerProductArray['product_id']=$id;
+                $buyerProductArray['user_id']=$user_id;
+                $buyerProductArray['user_name']=$ProductData['user_name'];
+                $buyerProductArray['user_email']=$ProductData['user_email'];
+                $buyerProductArray['user_phone_no']=$ProductData['user_phone_no'];
+                $buyerProductArray['country']=$ProductData['country'];
+                $buyerProductArray['location']=$ProductData['location'];
+                //$buyerProductArray['price']=$request->input('price');
+                BuyerProducts::create($buyerProductArray);
+            }
+
+            //unique product code
+            $string     =   'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $product_code = substr(str_shuffle($string),0, 4).$id;
+            Products::where('id', $id)->update(['product_code'=>$product_code]);
+
+            //START : Update Order
+            $arrOrderUpdate = [
+                'address'     => json_encode($address),
+                'order_lines' => '',
+                'payment_details' => json_encode($paymentDetails),
+                'payment_status' => $order_status,
+                'order_status' => $order_status,
+                'updated_at' => $currentDate,
+                'product_id' => $id,
+            ];
+            
+            AdminOrders::where('id',$NewOrderId)->update($arrOrderUpdate);
+
+            $producVariant=[];
+            if(!empty($ProductData['sku'])) 
+            {
+                $order = 0; 
+                foreach($ProductData['sku'] as $variant_key=>$variant) 
+                {
+                    if($variant!='' && $ProductData['price'][$variant_key]!='' && $ProductData['quantity'][$variant_key]!='') 
+                    {
+                        $producVariant['product_id']=   $id;
+                        $producVariant['price']     =   $ProductData['price'][$variant_key];
+                        $producVariant['sku']       =   $ProductData['sku'][$variant_key];
+                        /*$producVariant['weight']    =   $ProductData['weight'][$variant_key];*/
+                        $producVariant['quantity']  =   $ProductData['quantity'][$variant_key]; 
+                        
+                        if(isset($ProductData['hidden_images'][$variant_key]) && !empty($ProductData['hidden_images'][$variant_key]) ) {
+                            $producVariant['image'] =   '';
+                            foreach($ProductData['hidden_images'][$variant_key] as $img)
+                                $producVariant['image'].=   $img.',';
+                            $producVariant['image'] =   rtrim($producVariant['image'],',');
+                        }
+
+
+                        if(isset($ProductData['variant_id'][$variant_key])) {
+
+                            $checkVariantExist   =   DB::table('variant_product')->where('id', $ProductData['variant_id'][$variant_key])->first();
+
+                            if(!empty($checkVariantExist)) {
+                                    VariantProduct::where('id', $checkVariantExist->id)->update($producVariant);
+                                    $variant_id=$checkVariantExist->id;
+                            }
+                            else{
+                                $variant_id=VariantProduct::create($producVariant)->id;
+                            }
+                           
+                        }
+                        
+                        else{
+                            $variant_id=VariantProduct::create($producVariant)->id;
+                        }
+                        
+
+                        foreach($ProductData['attribute'][$variant_key] as $attr_key=>$attribute) {
+                        
+                            if($ProductData['attribute'][$variant_key][$attr_key]!='' && $ProductData['attribute_value'][$variant_key][$attr_key])
+                            {
+                                $productVariantAttr['product_id']   =   $id;
+                                $productVariantAttr['variant_id']   =   $variant_id;
+                                $productVariantAttr['attribute_id'] =   $ProductData['attribute'][$variant_key][$attr_key];
+                                $productVariantAttr['attribute_value_id'] =   $ProductData['attribute_value'][$variant_key][$attr_key];
+                                if(isset($ProductData['variant_attribute_id'][$variant_key][$attr_key])) {
+                                    $checkRecordExist   =   VariantProductAttribute::where('id', $ProductData['variant_attribute_id'][$variant_key][$attr_key])->first();
+
+                                    if(!empty($checkRecordExist)) {
+                                        VariantProductAttribute::where('id', $checkRecordExist->id)->update($productVariantAttr);
+                                    }else{
+                                        VariantProductAttribute::create($productVariantAttr);
+                                    }
+                                }
+                               else{
+                                    VariantProductAttribute::create($productVariantAttr);
+                                } 
+                
+                            }
+                            
+                        }
+                    }
+                }
+
+            }
+                
+            ProductCategory::where('product_id', $id)->delete();
+            $categorySlug = '';
+            $subCategorySlug = '';
+            if(empty($ProductData['categories']))  {   
+                
+                $category  =   AnnonserSubcategories::where('subcategory_name','Uncategorized')->first();
+                $ProductData['categories'][]        =  $category->id;
+                $producCategories['product_id']     =   $id;
+                $producCategories['category_id']    =   $category->category_id;
+                $producCategories['subcategory_id'] =   $category->id;
+                $subCategorySlug = $category->subcategory_slug;
+                ProductCategory::create($producCategories);
+
+                $mainCategory = AnnonserCategories::where('id',$category->category_id)->first();
+                $categorySlug = $mainCategory->category_slug;
+
+            } 
+
+            if(!empty($ProductData['categories'])) 
+            {
+                
+                foreach($ProductData['categories'] as $subcategory) {
+                    $category   =   AnnonserSubcategories::where('id',$subcategory)->first();
+                    $producCategories['product_id'] =   $id;
+                    $producCategories['category_id']    =   $category->category_id;
+                    $producCategories['subcategory_id'] =   $category->id;
+                    $subCategorySlug = $category->subcategory_slug;
+                    ProductCategory::create($producCategories);
+                    
+                    $mainCategory = AnnonserCategories::where('id',$category->category_id)->first();
+                    $categorySlug = $mainCategory->category_slug;
+                    
+                }
+            }
+
+            $product_link   =   url('/').'/product';
+           // $product_link   .=  '/'.$categorySlug;
+           // $product_link   .=  '/'.$subCategorySlug;
+            $product_link   .=  '/'.$slug.'-P-'.$product_code.'?annonser=1';
+
+
+            $GetOrder = AdminOrders::join('users', 'users.id', '=', 'admin_orders.user_id')->select('users.fname','users.lname','users.email','admin_orders.*')->where('admin_orders.id','=',$NewOrderId)->get()->toArray();
+
+            //START : Send success email to User.
+            $email = trim($GetOrder[0]['email']);
+            $name  = trim($GetOrder[0]['fname']).' '.trim($GetOrder[0]['lname']);
+
+            $GetEmailContents = getEmailContents('Buyer product');
+            $subject = $GetEmailContents['subject'];
+            $contents = $GetEmailContents['contents'];
+            $siteDetails          = Settings::first();
+            $siteLogo = url('/')."/uploads/Images/".$siteDetails->header_logo;
+            $fb_link      = env('FACEBOOK_LINK');
+            $insta_link   = env('INSTAGRAM_LINK');
+            $linkdin_link = env('LINKDIN_LINK');
+            
+            $contents = str_replace(['##NAME##','##EMAIL##','##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##'],[$name,$email,url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$product_link],$contents);
+
+            $arrMailData = ['email_body' => $contents];
+
+            Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($email,$name,$subject) {
+                $message->to($email, $name)->subject
+                    ($subject);
+                $message->from( env('FROM_MAIL'),'Tijara');
+            });
+
+            $admin_email = env('ADMIN_EMAIL');
+            $admin_name  = 'Tijara Admin';
+                
+            $GetEmailContents = getEmailContents('Product Published Admin');
+            $subject = $GetEmailContents['subject'];
+            $contents = $GetEmailContents['contents'];
+            $siteDetails  = Settings::first();
+            $siteLogo     = url('/')."/uploads/Images/".$siteDetails->header_logo;
+            $fb_link      = env('FACEBOOK_LINK');
+            $insta_link   = env('INSTAGRAM_LINK');
+            $linkdin_link = env('LINKDIN_LINK');
+            $url =url('/admin');   
+            $contents = str_replace(['##SITE_URL##','##SITE_LOGO##','##FACEBOOK_LINK##','##INSTAGRAM_LINK##','##LINKDIN_LINK##','##LINK##','##URL##'],[url('/'),$siteLogo,$fb_link,$insta_link,$linkdin_link,$product_link,$url],$contents);
+
+            $arrMailData = ['email_body' => $contents];
+
+            Mail::send('emails/dynamic_email_template', $arrMailData, function($message) use ($admin_email,$admin_name,$subject) {
+                $message->to($admin_email, $admin_name)->subject
+                    ($subject);
+                $message->from( env('FROM_MAIL'),'Tijara');
+            });
+            //END : Send success email to Seller.
+            $temp_orders = TmpAdminOrders::find($order_id);
+            $temp_orders->delete();
+            $this->orderSuccess();
+        }
+    }
+  }
   /*swish number call back url*/
   public function BuyerSwishNumberCallback(Request $request) {
      /*create file to check push request recieved or not*/

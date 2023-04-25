@@ -1032,7 +1032,7 @@ class ProductController extends Controller
                  $message = "Tijara payment for order".$orderId;
     
                 $getQR = $this->createPaymentRequest($amount,$message,$admin_swish_number,$orderId);    
-       
+                die;
               
                 $data['order_id'] = $getQR['orderId'];
                 $data['QRCode'] = $getQR['QRCode'];

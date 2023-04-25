@@ -1032,7 +1032,7 @@ class ProductController extends Controller
                  $message = "Tijara payment for order".$orderId;
     
                 $getQR = $this->createPaymentRequest($amount,$message,$admin_swish_number,$orderId);    
-                die;
+                //die;
               
                 $data['order_id'] = $getQR['orderId'];
                 $data['QRCode'] = $getQR['QRCode'];
@@ -1091,6 +1091,7 @@ class ProductController extends Controller
       "message"=> $message
     ];
 
+//print_r($data);
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,$url);
     curl_setopt($ch, CURLOPT_POST, true);
@@ -1107,9 +1108,9 @@ class ProductController extends Controller
     curl_setopt($ch, CURLOPT_VERBOSE, true);
 
     $result = curl_exec($ch);
-    echo "HERE";
-    print_r($result);
-    die;
+
+	//echo "<pre>Response from api";
+//	print_r($result);
     if (curl_errno($ch)) {
       $error_msg = curl_error($ch);
       $err_message = trans('errors.payment_req_token_not_generated')." (".$error_msg.")";
@@ -1119,7 +1120,9 @@ class ProductController extends Controller
     $headerSize = curl_getinfo( $ch , CURLINFO_HEADER_SIZE );
     $headerStr = substr( $result , 0 , $headerSize );
     $bodyStr = substr( $result , $headerSize );
-
+	//echo "Header string ";
+//print_r($headerStr);
+//die;
     Session::put('current_checkout_order_id', $order_id);
     // convert headers to array
     $headers = $this->headersToArray( $headerStr );
@@ -1148,7 +1151,7 @@ class ProductController extends Controller
 
         ];
 
-       echo "<pre>";print_r($QRData);
+      // echo "<pre>";print_r($QRData);
 
         $curl = curl_init();
 
@@ -1165,15 +1168,15 @@ class ProductController extends Controller
                                         curl_setopt($curl, CURLOPT_SSLVERSION, 3);////
                                         curl_setopt($curl, CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_1);////*/
         $QRresult = curl_exec($curl);
-        echo "<pre>";print_r($QRresult);
+       // echo "<pre>";print_r($QRresult);
 
         if (curl_errno($curl)) {
           //  echo "oin";
           $err_msg = curl_error($curl);
-        echo  $err_message = trans('errors.payment_req_token_not_generated')." (".$err_msg.")";
+          $err_message = trans('errors.payment_req_token_not_generated')." (".$err_msg.")";
           $this->createPaymentRequestError($err_message);
         }
-        echo "out";exit;
+        //echo "out";exit;
         curl_close($curl);
         $sendData['orderId'] = $order_id;
         $sendData['QRCode'] = base64_encode($QRresult);
@@ -3124,3 +3127,4 @@ DATA;
 
 }
 
+                                                                                                    

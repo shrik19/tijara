@@ -1107,6 +1107,9 @@ class ProductController extends Controller
     curl_setopt($ch, CURLOPT_VERBOSE, true);
 
     $result = curl_exec($ch);
+    echo "HERE";
+    print_r($result);
+    die;
     if (curl_errno($ch)) {
       $error_msg = curl_error($ch);
       $err_message = trans('errors.payment_req_token_not_generated')." (".$error_msg.")";

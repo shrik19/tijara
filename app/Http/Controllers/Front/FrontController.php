@@ -465,7 +465,7 @@ public function getCatSubList(Request $request) {
 							  ->where('users.status','=','active')
 							  ->where('users.is_deleted','=','0')  
 							  ->where('users.is_shop_closed','=','0')
-							  ->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+							  //->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
 			->orderBy('servicecategories.sequence_no')
 			->orderBy('serviceSubcategories.sequence_no');
 			if(!empty($seller_id)){

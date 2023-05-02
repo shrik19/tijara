@@ -275,7 +275,7 @@
     'butik_btn' => 'Butik',
     'shipping_policy_label' => 'Frakt politik',
     'contact_store' => 'Kontakta',
-    'seller_logo_info' => 'Lägg till en logotyp i storlek (120 x 120px).',
+    'seller_logo_info' => 'Lägg till en logotyp i storlek (1080 x 1080px).',
     'seller_banner_info' => 'Lägg till en banner i storlek (1800 x 350px).',
     'please_add_your_message'=>'lägg till ditt meddelande',
     'other_watched_product' => 'Andra har även tittat på',

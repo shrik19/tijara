@@ -355,10 +355,10 @@ public function getCatSubList(Request $request) {
 			  ->where('users.is_shop_closed','=','0')
 			 
 			  ->where('category_products.category_id','=',$category['id'])
-			  ->where(function($q) use ($currentDate) {
+			 /* ->where(function($q) use ($currentDate) {
 
 				$q->where([["users.role_id",'=',"2"],['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]]);
-				})
+				})*/
 			  ->orderBy('categories.sequence_no')
 			  ->orderBy('subcategories.sequence_no');
 			 //->groupBy('categories.id');

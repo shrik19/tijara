@@ -98,7 +98,7 @@ class FrontController extends Controller
 								->where(function($q) use ($currentDate) {
 
 									$q->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
-									->orWhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]])									
+									->orWhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]]);								
 								})
 
 								

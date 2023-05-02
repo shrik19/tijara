@@ -81,7 +81,7 @@ class FrontController extends Controller
     /*Function to get treding seller*/
     function getFeaturedSellers(){
 		//DB::enableQueryLog();
-    	$today          = date('Y-m-d H:i:s');
+    	$currentDate   	    = date('Y-m-d H:i:s');
     	$featuredSellers 	= UserMain::join('user_packages', 'users.id', '=', 'user_packages.user_id')
     							->join('seller_personal_page', 'users.id', '=', 'seller_personal_page.user_id')
 								->select('users.id','users.fname','users.lname','users.email','user_packages.package_id','users.store_name','users.description','seller_personal_page.logo')
@@ -92,8 +92,16 @@ class FrontController extends Controller
 								->where('users.is_deleted','=','0')
                 			    ->where('users.is_shop_closed','=',"0")
 								->where('user_packages.status','=','active')
-								->where('user_packages.start_date','<=', $today)
-								->where('user_packages.end_date','>=', $today)
+								//->where('user_packages.start_date','<=', $today)
+								//->where('user_packages.end_date','>=', $today)
+
+								->where(function($q) use ($currentDate) {
+
+									$q->where([['user_packages.status','=','active'],['start_date','<=',$currentDate],['end_date','>=',$currentDate]])
+									->orWhere([["user_packages.is_trial",'=',"1"],['user_packages.status','=','active'],['trial_start_date','<=',$currentDate],['trial_end_date','>=',$currentDate]])									
+								})
+
+								
 								->orderBy('users.id', 'DESC')
 								//->limit(4)
 								->get();

@@ -564,7 +564,7 @@ class AuthController extends Controller
                      }
                   curl_close($curl);
                 Session::put('new_seller_klarna_username', $klarna_username);
-                Session::put('new_seller_klarna_password', $klarna_password);
+                Session::put('new_seller_klarna_password', trim($request->input('klarna_password')));
             }
 
             if(!empty($swish_api_key) && !empty($swish_merchant_account) && !empty($swish_client_key)){

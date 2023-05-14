@@ -655,7 +655,8 @@ $('.show-small-img:first-of-type').css({'border': 'solid 1px #951b25', 'padding'
 $('.show-small-img:first-of-type').attr('alt', 'now').siblings().removeAttr('alt');
 $('.show-small-img').click(function () { 
   var str =  $(this).attr('src');
-  var customImg = str.replace("productIcons", "productDetails");
+  //var customImg = str.replace("productIcons", "productDetails");
+  var customImg = str.replace("resized", "productDetails");
   $('#show-img').attr('src', customImg);
   $('#big-img').attr('src', customImg);
   $(this).attr('alt', 'now').siblings().removeAttr('alt')
